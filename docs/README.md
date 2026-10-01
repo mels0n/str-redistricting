@@ -1,10 +1,7 @@
 # docs
 
-Diátaxis layout. Only `adr/` exists from day 1; create any other directory together with
-its first document, never as an empty placeholder.
+How the redistricting algorithm and the map viewer work. Documents here describe the system as it is.
 
-- `tutorials/` - Learning-oriented. A guided path for someone new, guaranteed to work start to finish.
-- `how-to/` - Task-oriented. "How do I deploy to staging." Assumes competence, solves one problem.
-- `reference/` - Information-oriented, and GENERATED. Never hand-write here: hand-maintained reference drifts and is discovered only when someone trusts it. Reference never explains.
-- `explanation/` - Understanding-oriented. Why the system is shaped this way, trade-offs, context. Links to reference, never duplicates it.
-- `adr/` - Numbered architecture decision records. Immutable once accepted; superseded rather than edited. Use TEMPLATE.md.
+- `explanation/` explains how the algorithm draws districts and why its rules produce maps nobody can steer.
+- `how-to/` covers running the generator and reproducing a published map.
+- `reference/` is generated from the code and never edited by hand.

@@ -44,7 +44,6 @@ layer above it, and slices inside a layer are reached only through their
 - Configuration is read once, at boot, from a single module.
 - Domain errors are typed and mapped to transport codes in exactly one place.
 
-## Decisions
+## Documentation
 
-Non-obvious choices are recorded in `docs/adr/`. Read the relevant ADR before
-proposing an approach that a past decision may already have rejected.
+`docs/` describes the system as it currently is. Keep it to final explanations of how things work: no decision logs, change history, or future plans. History lives in git.

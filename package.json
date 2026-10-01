@@ -1,0 +1,16 @@
+{
+  "name": "str-redistricting",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Save the Republic's redistricting algorithm: shortest splitline, deterministic, partisan-blind, reproducible by anyone.",
+  "license": "UNLICENSED",
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "depcruise": "depcruise src --config .dependency-cruiser.cjs"
+  },
+  "devDependencies": {
+    "dependency-cruiser": "^18.5.0",
+    "typescript": "^6.0.3"
+  }
+}

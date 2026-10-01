@@ -1,0 +1,13 @@
+# Local-only working files, never published with the project
+CLAUDE.md
+.claude/*
+!.claude/*.json
+.superpowers/
+docs/superpowers/
+scratch/
+memory/
+MEMORY.md
+node_modules/
+dist/
+.env
+data/raw/

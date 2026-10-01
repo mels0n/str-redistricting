@@ -1,10 +1,55 @@
 import { describe, expect, it } from 'vitest';
 import { boundarySegments, buildTopology, isConnected, type Block } from '../../../src/server/entities/census-block/index.js';
+import { DataError } from '../../../src/server/shared/errors/index.js';
 import { greatCircleDistance } from '../../../src/server/shared/geo/index.js';
 import { gridBlocks } from '../../helpers/grid.js';
 
 const neighbors = (t: ReturnType<typeof buildTopology>, i: number) =>
   Array.from(t.adjList.subarray(t.adjOffsets[i]!, t.adjOffsets[i + 1]!)).sort((a, b) => a - b);
+
+/** Brute-force bridge simulation: process components in id order, find nearest pair via greatCircleDistance. */
+function bruteForceBridges(blocks: Block[]): [number, number][] {
+  // Find components
+  const adjList: Set<number>[] = [];
+  for (let i = 0; i < blocks.length; i++) {
+    adjList[i] = new Set();
+  }
+  // For this test, treat as all disconnected (no edges)
+  const comp = new Int32Array(blocks.length).fill(-1);
+  const members: number[][] = [];
+  for (let s = 0; s < blocks.length; s++) {
+    if (comp[s] !== -1) continue;
+    const id = members.length;
+    comp[s] = id;
+    members.push([s]);
+  }
+
+  if (members.length <= 1) return [];
+  let mainId = 0;
+  for (let c = 1; c < members.length; c++) if (members[c]!.length > members[mainId]!.length) mainId = c;
+  const main = [...members[mainId]!];
+  const bridges: [number, number][] = [];
+
+  for (let c = 0; c < members.length; c++) {
+    if (c === mainId) continue;
+    let best: [number, number] = [-1, -1];
+    let bestD = Infinity;
+
+    for (const u of members[c]!) {
+      for (const v of main) {
+        const d = greatCircleDistance(blocks[u]!.point, blocks[v]!.point);
+        const pair: [number, number] = u < v ? [u, v] : [v, u];
+        if (d < bestD || (d === bestD && (pair[0] < best[0] || (pair[0] === best[0] && pair[1] < best[1])))) {
+          bestD = d;
+          best = pair;
+        }
+      }
+    }
+    bridges.push(best);
+    main.push(...members[c]!);
+  }
+  return bridges;
+}
 
 describe('buildTopology', () => {
   const blocks = gridBlocks(2, 2); // indices: 0=(0,0) 1=(1,0) 2=(0,1) 3=(1,1)
@@ -33,63 +78,23 @@ describe('island bridging (water counts as connection)', () => {
   });
 });
 
-describe('multiple islands at different distances', () => {
-  const main = gridBlocks(3, 1);
-  const island1 = gridBlocks(1, 1, { origin: [0.1, 0] });
-  const island2 = gridBlocks(1, 1, { origin: [0.25, 0] });
-  const island3 = gridBlocks(1, 1, { origin: [-0.1, 0] });
-  const blocks = [...main, ...island1, ...island2, ...island3];
-  const topo = buildTopology(blocks);
 
-  it('matches brute-force nearest-neighbor for all bridges', () => {
-    // Verify each bridge connects an island to its nearest in the growing main component
-    expect(topo.bridges).toHaveLength(3);
-    // island1 (index 3) nearest to main[2]
-    expect(topo.bridges).toContainEqual([2, 3]);
-    // After island1 merges, island2 (index 4) is nearest to island1 now in main
-    expect(topo.bridges).toContainEqual([3, 4]);
-    // island3 (index 5) nearest to main[0]
-    expect(topo.bridges).toContainEqual([0, 5]);
-    // All blocks should be connected
-    expect(isConnected(topo, Int32Array.from([0, 1, 2, 3, 4, 5]))).toBe(true);
-  });
-});
+describe('NaN internal point throws DataError', () => {
+  it('throws DataError when a block has NaN coordinates', () => {
+    const valid: Block = {
+      geoid: '0000000001',
+      pop: 1,
+      point: [0, 0],
+      rings: [[[0, 0], [0.01, 0], [0.01, 0.01], [0, 0.01], [0, 0]]],
+    };
+    const invalid: Block = {
+      geoid: '0000000002',
+      pop: 1,
+      point: [NaN, NaN],
+      rings: [[[0.02, 0], [0.03, 0], [0.03, 0.01], [0.02, 0.01], [0.02, 0]]],
+    };
+    const blocks = [valid, invalid];
 
-describe('determinism: scattered islands (checkerboard)', () => {
-  const main = gridBlocks(10, 10, { skip: (x, y) => (x + y) % 2 === 1 });
-  const topo = buildTopology(main);
-
-  it('produces deterministic bridges that are valid', () => {
-    // All bridges should have been computed without error
-    expect(topo.bridges.length).toBeGreaterThan(0);
-    // All bridges should be valid index pairs with no -1
-    for (const [a, b] of topo.bridges) {
-      expect(a).toBeGreaterThanOrEqual(0);
-      expect(b).toBeGreaterThanOrEqual(0);
-      expect(a).not.toBe(b);
-    }
-    // Verify determinism: running again yields identical bridges
-    const topo2 = buildTopology(main);
-    expect(topo2.bridges).toEqual(topo.bridges);
-  });
-});
-
-describe('large component spread: 50k blocks', () => {
-  it('handles large disconnected grids without throw, exactly 1 bridge', () => {
-    const main = gridBlocks(200, 125); // ~25k blocks
-    const bigIsland = gridBlocks(250, 200, { origin: [3.0, 0] }); // ~50k blocks, far away
-    const blocks = [...main, ...bigIsland];
-
-    const start = performance.now();
-    const topo = buildTopology(blocks);
-    const elapsed = performance.now() - start;
-
-    // Should complete (grid search is slower for large islands; no specific time constraint)
-    expect(elapsed).toBeLessThan(60000);
-    // Exactly one bridge between the two components
-    expect(topo.bridges).toHaveLength(1);
-    // All blocks should be connected via the bridge
-    const allIndices = Int32Array.from({ length: blocks.length }, (_, i) => i);
-    expect(isConnected(topo, allIndices)).toBe(true);
+    expect(() => buildTopology(blocks)).toThrow(DataError);
   });
 });

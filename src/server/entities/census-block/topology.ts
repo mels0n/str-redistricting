@@ -1,5 +1,5 @@
 import { DataError } from '../../shared/errors/index.js';
-import { greatCircleDistance, type LonLat } from '../../shared/geo/index.js';
+import { EARTH_RADIUS_M, greatCircleDistance, type LonLat } from '../../shared/geo/index.js';
 import type { Block } from './model.js';
 
 export interface TopoEdge {
@@ -59,6 +59,23 @@ export function buildTopology(blocks: readonly Block[]): Topology {
   return { n, adjOffsets, adjList, edges, bridges };
 }
 
+/** Convert [lon, lat] in degrees to 3D unit vector on sphere. */
+function toVec3(lonLat: LonLat): [number, number, number] {
+  const [lonDeg, latDeg] = lonLat;
+  const lon = lonDeg * Math.PI / 180;
+  const lat = latDeg * Math.PI / 180;
+  const cosLat = Math.cos(lat);
+  return [cosLat * Math.cos(lon), cosLat * Math.sin(lon), Math.sin(lat)];
+}
+
+/** Euclidean chord distance between two 3D vectors. */
+function chord(a: [number, number, number], b: [number, number, number]): number {
+  const dx = a[0] - b[0];
+  const dy = a[1] - b[1];
+  const dz = a[2] - b[2];
+  return Math.sqrt(dx * dx + dy * dy + dz * dz);
+}
+
 /** Connect every disconnected component to the nearest block of the growing main component. */
 function bridgeComponents(blocks: readonly Block[], nbr: Set<number>[]): [number, number][] {
   const n = blocks.length;
@@ -83,28 +100,22 @@ function bridgeComponents(blocks: readonly Block[], nbr: Set<number>[]): [number
   const main = [...members[mainId]!];
   const bridges: [number, number][] = [];
 
-  // Build spatial grid for efficient nearest-neighbor search
-  const cellSize = 0.05; // degrees
+  // Build 3D spatial grid for efficient nearest-neighbor search
+  const S = 0.0005; // cell side in unit-sphere units (~3.2 km)
   const grid = new Map<string, number[]>();
+  const vec3s = blocks.map(b => toVec3(b.point));
+
   const addToGrid = (blockIdx: number) => {
-    const [lon, lat] = blocks[blockIdx]!.point;
-    const cellX = Math.floor(lon / cellSize);
-    const cellY = Math.floor(lat / cellSize);
-    const key = `${cellX},${cellY}`;
+    const [x, y, z] = vec3s[blockIdx]!;
+    const ix = Math.floor(x / S);
+    const iy = Math.floor(y / S);
+    const iz = Math.floor(z / S);
+    const key = `${ix},${iy},${iz}`;
     const cell = grid.get(key) ?? [];
     cell.push(blockIdx);
     grid.set(key, cell);
   };
   for (const idx of main) addToGrid(idx);
-
-  // Conservative distance bound: degrees to meters (111km per degree lat, adjusted for lon by max state latitude)
-  const boundForRing = (ring: number): number => {
-    if (ring === 0) return 0;
-    // Assume max US latitude ~49° (Alaska), cos(49°) ≈ 0.656
-    const metersPerDegreeLon = 111000 * 0.656;
-    const metersPerDegreeLat = 111000;
-    return Math.min(ring * cellSize * metersPerDegreeLat, ring * cellSize * metersPerDegreeLon);
-  };
 
   for (let c = 0; c < members.length; c++) {
     if (c === mainId) continue;
@@ -112,50 +123,44 @@ function bridgeComponents(blocks: readonly Block[], nbr: Set<number>[]): [number
     let bestD = Infinity;
 
     for (const u of members[c]!) {
-      const [uLon, uLat] = blocks[u]!.point;
-      const uCellX = Math.floor(uLon / cellSize);
-      const uCellY = Math.floor(uLat / cellSize);
+      const uVec = vec3s[u]!;
+      const [ux, uy, uz] = uVec;
+      const uix = Math.floor(ux / S);
+      const uiy = Math.floor(uy / S);
+      const uiz = Math.floor(uz / S);
 
-      // Search rings of cells outward
-      let found = false;
-      for (let ring = 0; ring <= 100; ring++) {
-        const ringBound = boundForRing(ring);
-        if (ringBound > bestD) break; // Stop if ring is too far
+      // Search Chebyshev shells r = 0, 1, 2, ... up to a reasonable limit
+      // For practical applications, USA is ~60 cells wide (0.873 radians / 0.0005)
+      const maxR = Math.min(200, Math.ceil(2 / S) + 1); // Cap at 200 rings for performance
+      for (let r = 0; r <= maxR; r++) {
+        // Stop if any block in shell r+1 or beyond has chord >= r*S, so great-circle distance >= R*r*S
+        // But only if we've found at least one candidate (bestD is finite)
+        if (r > 0 && isFinite(bestD) && bestD < EARTH_RADIUS_M * r * S) break;
 
-        // Search all cells at this ring distance
-        for (let dx = -ring; dx <= ring; dx++) {
-          for (let dy = -ring; dy <= ring; dy++) {
-            // Only check cells on the ring boundary (not interior already checked)
-            if (ring > 0 && Math.abs(dx) < ring && Math.abs(dy) < ring) continue;
+        // Search all cells with max(|dx|, |dy|, |dz|) === r (Chebyshev shell)
+        // Optimize by only checking cells that exist in the grid
+        for (let dx = -r; dx <= r; dx++) {
+          for (let dy = -r; dy <= r; dy++) {
+            for (let dz = -r; dz <= r; dz++) {
+              // Only cells on the shell boundary
+              if (r > 0 && Math.abs(dx) < r && Math.abs(dy) < r && Math.abs(dz) < r) continue;
 
-            const cellX = uCellX + dx;
-            const cellY = uCellY + dy;
-            const key = `${cellX},${cellY}`;
-            const cell = grid.get(key);
-            if (!cell) continue;
+              const cellX = uix + dx;
+              const cellY = uiy + dy;
+              const cellZ = uiz + dz;
+              const key = `${cellX},${cellY},${cellZ}`;
+              const cell = grid.get(key);
+              if (!cell) continue;
 
-            for (const v of cell) {
-              const d = greatCircleDistance(blocks[u]!.point, blocks[v]!.point);
-              const pair: [number, number] = u < v ? [u, v] : [v, u];
-              if (d < bestD || (d === bestD && (pair[0] < best[0] || (pair[0] === best[0] && pair[1] < best[1])))) {
-                bestD = d;
-                best = pair;
-                found = true;
+              for (const v of cell) {
+                const d = greatCircleDistance(blocks[u]!.point, blocks[v]!.point);
+                const pair: [number, number] = u < v ? [u, v] : [v, u];
+                if (d < bestD || (d === bestD && (pair[0] < best[0] || (pair[0] === best[0] && pair[1] < best[1])))) {
+                  bestD = d;
+                  best = pair;
+                }
               }
             }
-          }
-        }
-        if (found && ringBound > bestD) break;
-      }
-
-      // Fallback to brute force if grid search found nothing
-      if (best[0] === -1) {
-        for (const v of main) {
-          const d = greatCircleDistance(blocks[u]!.point, blocks[v]!.point);
-          const pair: [number, number] = u < v ? [u, v] : [v, u];
-          if (d < bestD || (d === bestD && (pair[0] < best[0] || (pair[0] === best[0] && pair[1] < best[1])))) {
-            bestD = d;
-            best = pair;
           }
         }
       }

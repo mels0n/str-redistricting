@@ -62,14 +62,11 @@ npm run explore -- --states CO
 
 The state is given by its two-letter abbreviation. A list such as `--states CO,NC` runs several states in turn. The census block file for each state is downloaded from the U.S. Census Bureau the first time it is needed and kept in `data/raw/`.
 
-## The two plans written for each state
+## The plans written for each state
 
-The command writes two plans for each state, each in its own directory:
+The map in `out/<state>/` is the official map. It is the result of the rule above followed by a balancing pass. Each cut places whole blocks so its two sides come as close to equal as whole blocks allow, but small differences can add up across many cuts. The balancing pass moves single blocks across district borders when doing so reduces the differences between district populations. A block moves only if it touches the neighboring district and both districts stay connected. The pass repeats until no such move helps, and it records the number of moves as `balanceMoves`.
 
-- `out/<state>/per-cut/` is the result of the rule above, exactly as described.
-- `out/<state>/balanced/` starts from the per-cut plan and then runs a balancing pass. Each cut places whole blocks so its two sides come as close to equal as whole blocks allow, but small differences can add up across many cuts. The balancing pass moves single blocks across district borders when doing so reduces the differences between district populations. A block moves only if it touches the neighboring district and both districts stay connected. The pass repeats until no such move helps, and it records the number of moves as `balanceMoves`.
-
-Both plans are reported side by side so the effect of the balancing pass can be read directly from the numbers.
+The plan as it stood before the balancing pass is written to `out/<state>/before-balancing/` with the same files, so the effect of the balancing pass can be read directly from the numbers. If one state fails in a multi-state run, the command reports the error in the summary table, continues with the remaining states, and exits with a non-zero code at the end.
 
 ## What the output files contain
 

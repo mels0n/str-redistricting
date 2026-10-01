@@ -10,6 +10,9 @@ describe('parseConfig', () => {
     expect(c.cacheDir).toBe('data/raw');
     expect(c.outDir).toBe('out');
   });
+  it('defaults the angle step to 0.1', () => {
+    expect(parseConfig(['--states', 'CO']).angleStepDeg).toBe(0.1);
+  });
   it('rejects unknown states', () => {
     expect(() => parseConfig(['--states', 'XX'])).toThrow(ConfigError);
   });

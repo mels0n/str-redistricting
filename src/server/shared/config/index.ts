@@ -24,7 +24,7 @@ export function parseConfig(argv: readonly string[]): Config {
     args: [...argv],
     options: {
       states: { type: 'string' },
-      'angle-step': { type: 'string', default: '0.5' },
+      'angle-step': { type: 'string', default: '0.1' },
       'cache-dir': { type: 'string', default: 'data/raw' },
       'out-dir': { type: 'string', default: 'out' },
     },

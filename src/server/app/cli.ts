@@ -11,40 +11,53 @@ import { exitCodeFor } from '../shared/errors/index.js';
 async function main(): Promise<void> {
   const config = parseConfig(process.argv.slice(2));
   const summary: Record<string, unknown>[] = [];
+  let firstError: unknown;
   for (const state of config.states) {
-    const t0 = performance.now();
-    const blocks = await loadStateBlocks(state, config.cacheDir);
-    const topo = buildTopology(blocks);
-    const ctx = createContext(blocks, config.angleStepDeg, topo);
-    const split = splitState(ctx, state.seats);
-    const tSplit = performance.now();
-    const balanced = balance(blocks, topo, split.assignment, state.seats);
-    const tBal = performance.now();
-    const variants = [
-      { name: 'per-cut', assignment: split.assignment, moves: 0, ms: tSplit - t0 },
-      { name: 'balanced', assignment: balanced.assignment, moves: balanced.moves, ms: tBal - t0 },
-    ];
-    for (const v of variants) {
-      const metrics = computeMetrics(blocks, topo, v.assignment, state.seats);
-      const extra = {
-        state: state.abbr, variant: v.name, angleStepDeg: config.angleStepDeg, bridges: topo.bridges.length,
-        cutsSkipped: split.cuts.reduce((s, c) => s + c.skipped, 0), balanceMoves: v.moves, runtimeMs: Math.round(v.ms),
+    try {
+      const t0 = performance.now();
+      const blocks = await loadStateBlocks(state, config.cacheDir);
+      const topo = buildTopology(blocks);
+      const ctx = createContext(blocks, config.angleStepDeg, topo);
+      const split = splitState(ctx, state.seats);
+      const balanced = balance(blocks, topo, split.assignment, state.seats);
+      const runtimeMs = Math.round(performance.now() - t0);
+      const sum = (f: (c: (typeof split.cuts)[number]) => number): number => split.cuts.reduce((s, c) => s + f(c), 0);
+      // Stray counts are net per block, both directions summed over all cuts.
+      const common = {
+        state: state.abbr, angleStepDeg: config.angleStepDeg, bridges: topo.bridges.length,
+        cutsSkipped: sum((c) => c.skipped), crossingRejected: sum((c) => c.crossingRejected),
+        strayBlocksMoved: sum((c) => c.strayBlocksMoved), strayPopMoved: sum((c) => c.strayPopMoved),
       };
-      await writePlan(join(config.outDir, state.abbr, v.name), {
-        'assignment.csv': assignmentCsv(blocks, v.assignment),
-        'metrics.json': JSON.stringify({ ...extra, ...metrics }, null, 2),
-        'borders.geojson': JSON.stringify(bordersGeoJson(topo, v.assignment, state.seats)),
-        'districts.geojson': JSON.stringify(districtsGeoJson(topo, v.assignment, state.seats)),
-        'cuts.geojson': JSON.stringify(cutsGeoJson(split.cuts)),
-      });
+      const before = computeMetrics(blocks, topo, split.assignment, state.seats);
+      const official = computeMetrics(blocks, topo, balanced.assignment, state.seats);
+      const plans = [
+        { dir: join(config.outDir, state.abbr, 'before-balancing'), assignment: split.assignment, metrics: before, moves: 0 },
+        { dir: join(config.outDir, state.abbr), assignment: balanced.assignment, metrics: official, moves: balanced.moves },
+      ];
+      for (const p of plans) {
+        await writePlan(p.dir, {
+          'assignment.csv': assignmentCsv(blocks, p.assignment),
+          'metrics.json': JSON.stringify({ ...common, balanceMoves: p.moves, runtimeMs, ...p.metrics }, null, 2),
+          'borders.geojson': JSON.stringify(bordersGeoJson(topo, p.assignment, state.seats)),
+          'districts.geojson': JSON.stringify(districtsGeoJson(topo, p.assignment, state.seats)),
+          'cuts.geojson': JSON.stringify(cutsGeoJson(split.cuts)),
+        });
+      }
       summary.push({
-        ...extra, blocks: blocks.length, rangePersons: metrics.rangePersons, rangePct: Number(metrics.rangePct.toFixed(4)),
-        contiguous: metrics.allContiguous, countiesSplit: `${metrics.countiesSplit}/${metrics.countiesTotal}`,
-        sha256: metrics.assignmentSha256.slice(0, 12),
+        state: state.abbr, status: 'ok', seats: state.seats, blocks: blocks.length,
+        rangePersons: official.rangePersons, rangePct: Number(official.rangePct.toFixed(4)),
+        beforeBalancingRange: before.rangePersons, contiguous: official.allContiguous,
+        cutsSkipped: common.cutsSkipped, strayPop: common.strayPopMoved, balanceMoves: balanced.moves,
+        countiesSplit: `${official.countiesSplit}/${official.countiesTotal}`, runtimeMs,
+        sha256: official.assignmentSha256.slice(0, 12),
       });
+    } catch (err) {
+      firstError ??= err;
+      summary.push({ state: state.abbr, status: err instanceof Error ? err.message : String(err), seats: state.seats });
     }
   }
   console.table(summary);
+  if (firstError !== undefined) throw firstError;
 }
 
 main().catch((err: unknown) => {

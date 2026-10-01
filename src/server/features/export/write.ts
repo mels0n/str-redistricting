@@ -1,6 +1,7 @@
 import { mkdir, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import type { Topology } from '../../entities/census-block/index.js';
+import { DataError } from '../../shared/errors/index.js';
 import type { LonLat } from '../../shared/geo/index.js';
 
 const round = (p: LonLat) => [Math.round(p[0] * 1e6) / 1e6, Math.round(p[1] * 1e6) / 1e6];
@@ -46,15 +47,35 @@ export function districtsGeoJson(topo: Topology, assignment: Int32Array, seats: 
     features: segsByDistrict.map((segs, d) => ({
       type: 'Feature',
       properties: { district: d + 1 },
-      geometry: { type: 'MultiPolygon', coordinates: nestRings(chainRings(segs)).map((poly) => poly.map((ring) => ring.map(round))) },
+      geometry: { type: 'MultiPolygon', coordinates: nestRings(chainRings(segs, d + 1)).map((poly) => poly.map((ring) => ring.map(round))) },
     })),
   };
 }
 
 const pkey = (p: LonLat) => `${p[0].toFixed(7)},${p[1].toFixed(7)}`;
 
-/** Walk unused segments end to end until each loop closes. */
-function chainRings(segs: [LonLat, LonLat][]): LonLat[][] {
+/** Even-odd fill test of a point against every boundary segment of a district. */
+function filled(segs: [LonLat, LonLat][], p: LonLat): boolean {
+  let inside = false;
+  for (const [a, b] of segs) {
+    if (a[1] > p[1] !== b[1] > p[1] && p[0] < ((b[0] - a[0]) * (p[1] - a[1])) / (b[1] - a[1]) + a[0]) inside = !inside;
+  }
+  return inside;
+}
+
+/** True when the district lies to the left of a segment walked a to b. */
+function leftIsInside(segs: [LonLat, LonLat][], [a, b]: [LonLat, LonLat]): boolean {
+  const len = Math.hypot(b[0] - a[0], b[1] - a[1]);
+  const e = 1e-9;
+  return filled(segs, [(a[0] + b[0]) / 2 - ((b[1] - a[1]) / len) * e, (a[1] + b[1]) / 2 + ((b[0] - a[0]) / len) * e]);
+}
+
+/**
+ * Walk unused segments end to end until each loop closes. At a vertex shared by more than two
+ * boundary edges, the ring takes the sharpest turn toward the district side, so rings touch at
+ * pinch points but never cross or revisit a vertex.
+ */
+export function chainRings(segs: [LonLat, LonLat][], district = 0): LonLat[][] {
   const at = new Map<string, number[]>();
   segs.forEach(([a, b], i) => {
     for (const p of [a, b]) {
@@ -69,11 +90,27 @@ function chainRings(segs: [LonLat, LonLat][]): LonLat[][] {
     if (used[s]) continue;
     used[s] = 1;
     const start = segs[s]![0];
+    const interiorLeft = leftIsInside(segs, segs[s]!);
     const ring: LonLat[] = [start, segs[s]![1]];
     let cur = segs[s]![1];
     while (pkey(cur) !== pkey(start)) {
-      const next = at.get(pkey(cur))!.find((i) => !used[i]);
-      if (next === undefined) break;
+      const prev = ring[ring.length - 2]!;
+      const back = Math.atan2(prev[1] - cur[1], prev[0] - cur[0]);
+      let next = -1;
+      let bestTurn = interiorLeft ? -Infinity : Infinity;
+      for (const i of at.get(pkey(cur))!) {
+        if (used[i]) continue;
+        const [a, b] = segs[i]!;
+        const w = pkey(a) === pkey(cur) ? b : a;
+        let turn = Math.atan2(w[1] - cur[1], w[0] - cur[0]) - back;
+        while (turn <= 0) turn += 2 * Math.PI;
+        while (turn > 2 * Math.PI) turn -= 2 * Math.PI;
+        if (interiorLeft ? turn > bestTurn : turn < bestTurn) {
+          bestTurn = turn;
+          next = i;
+        }
+      }
+      if (next < 0) throw new DataError(`district ${district}: boundary does not close at vertex ${pkey(cur)}`);
       used[next] = 1;
       const [a, b] = segs[next]!;
       cur = pkey(a) === pkey(cur) ? b : a;
@@ -98,6 +135,21 @@ function contains(ring: LonLat[], p: LonLat): boolean {
 /** Rings nested an even number of levels deep are shells; odd ones are holes of the ring directly around them. */
 function nestRings(rings: LonLat[][]): LonLat[][][] {
   const sorted = [...rings].sort((a, b) => Math.abs(area(b)) - Math.abs(area(a)));
+  const box = new Map<LonLat[], [number, number, number, number]>();
+  for (const r of sorted) {
+    let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+    for (const p of r) {
+      if (p[0] < x0) x0 = p[0];
+      if (p[0] > x1) x1 = p[0];
+      if (p[1] < y0) y0 = p[1];
+      if (p[1] > y1) y1 = p[1];
+    }
+    box.set(r, [x0, y0, x1, y1]);
+  }
+  const inBox = (r: LonLat[], p: LonLat) => {
+    const [x0, y0, x1, y1] = box.get(r)!;
+    return p[0] >= x0 && p[0] <= x1 && p[1] >= y0 && p[1] <= y1;
+  };
   const probe = (r: LonLat[]): LonLat => {
     const a = r[0]!, b = r[1]!;
     return [(a[0] + b[0]) / 2 + (b[1] - a[1]) * 1e-9, (a[1] + b[1]) / 2 - (b[0] - a[0]) * 1e-9];
@@ -105,7 +157,8 @@ function nestRings(rings: LonLat[][]): LonLat[][][] {
   const polys: LonLat[][][] = [];
   const shellOf = new Map<LonLat[], LonLat[][]>();
   sorted.forEach((r, i) => {
-    const parents = sorted.slice(0, i).filter((q) => contains(q, probe(r)));
+    const pt = probe(r);
+    const parents = sorted.slice(0, i).filter((q) => inBox(q, pt) && contains(q, pt));
     const direct = parents[parents.length - 1];
     if (parents.length % 2 === 0) {
       const poly = [r];

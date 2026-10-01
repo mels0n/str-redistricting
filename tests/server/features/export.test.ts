@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { buildTopology } from '../../../src/server/entities/census-block/index.js';
-import { bordersGeoJson, districtsGeoJson } from '../../../src/server/features/export/index.js';
+import { DataError } from '../../../src/server/shared/errors/index.js';
+import { bordersGeoJson, chainRings, districtsGeoJson } from '../../../src/server/features/export/index.js';
 import { gridBlocks } from '../../helpers/grid.js';
 
 describe('bordersGeoJson', () => {
@@ -35,5 +36,49 @@ describe('districtsGeoJson', () => {
     const outer = fc.features[0]!.geometry.coordinates;
     expect(outer).toHaveLength(1);
     expect(outer[0]).toHaveLength(2); // shell + one hole
+  });
+});
+
+const noRepeats = (ring: number[][]) => {
+  const keys = ring.slice(0, -1).map((p) => p.join(','));
+  return new Set(keys).size === keys.length;
+};
+
+describe('districtsGeoJson pinch points', () => {
+  it('splits a district touching itself at one corner into two simple polygons', () => {
+    const blocks = gridBlocks(2, 2);
+    const fc = districtsGeoJson(buildTopology(blocks), Int32Array.from([0, 1, 1, 0]), 2) as PolyFC;
+    const polys = fc.features[0]!.geometry.coordinates;
+    expect(polys).toHaveLength(2);
+    for (const poly of polys) {
+      expect(poly).toHaveLength(1);
+      expect(poly[0]).toHaveLength(5);
+      expect(noRepeats(poly[0]!)).toBe(true);
+    }
+  });
+  it('never repeats a vertex inside a ring when a larger shape pinches itself', () => {
+    // 3x3 grid: district 0 = blocks 0,1,4,8; blocks 4 and 8 meet only at a corner.
+    const blocks = gridBlocks(3, 3);
+    const assignment = Int32Array.from(blocks.map((_, i) => ([0, 1, 4, 8].includes(i) ? 0 : 1)));
+    const fc = districtsGeoJson(buildTopology(blocks), assignment, 2) as PolyFC;
+    for (const f of fc.features) {
+      for (const poly of f.geometry.coordinates) {
+        for (const ring of poly) {
+          expect(ring[0]).toEqual(ring[ring.length - 1]);
+          expect(noRepeats(ring)).toBe(true);
+        }
+      }
+    }
+  });
+});
+
+describe('chainRings', () => {
+  it('throws DataError when the boundary does not close', () => {
+    const segs: [[number, number], [number, number]][] = [
+      [[0, 0], [1, 0]],
+      [[1, 0], [1, 1]],
+    ];
+    expect(() => chainRings(segs, 3)).toThrow(DataError);
+    expect(() => chainRings(segs, 3)).toThrow(/district 3/);
   });
 });

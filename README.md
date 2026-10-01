@@ -9,13 +9,17 @@ The repository has two parts:
 2. **The viewer** (`src/client/`) is a web app for browsing the generated maps, built to be embedded in a public website.
 
 ## Run locally
+Requires Node.js 24 (maps are reproducible on the same Node.js major version).
+
 ```bash
 npm install
 npm test
 npm run explore -- --states CO
 ```
 
-Outputs are written to `out/<state>/`. `docs/explanation/how-districts-are-drawn.md` explains the rule and the output files.
+`--states` takes two-letter state abbreviations, comma separated (for example `RI,CT,CO`). A state that fails is reported in the summary table and the run continues with the others. `--angle-step` sets the guide line step in degrees (default 0.1). `--out-dir` sets the output directory (default `out`).
+
+The official map for each state is written to `out/<state>/`. The same files for the plan before the balancing pass are written to `out/<state>/before-balancing/`. `docs/explanation/how-districts-are-drawn.md` explains the rules and every output file.
 
 ## Deploy
 Not deployed.

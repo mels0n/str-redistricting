@@ -75,11 +75,12 @@ export function findCut(ctx: SplitContext, members: Int32Array, seats: number, v
   for (let i = 0; i < m; i++) { pops[i] = ctx.blocks[members[i]!]!.pop; total += pops[i]!; }
 
   const segs = boundarySegments(ctx.topo, members);
-  const sx = new Float64Array(segs.length * 2), sy = new Float64Array(segs.length * 2);
-  segs.forEach((e, i) => {
-    const pa = ctx.proj.forward(e.a), pb = ctx.proj.forward(e.b);
+  const sx = new Float64Array(segs.count * 2), sy = new Float64Array(segs.count * 2);
+  for (let i = 0; i < segs.count; i++) {
+    const pa = ctx.proj.forward([segs.a[2 * i]!, segs.a[2 * i + 1]!]);
+    const pb = ctx.proj.forward([segs.b[2 * i]!, segs.b[2 * i + 1]!]);
     sx[2 * i] = pa[0]; sy[2 * i] = pa[1]; sx[2 * i + 1] = pb[0]; sy[2 * i + 1] = pb[1];
-  });
+  }
 
   const keys = new Float64Array(m);
   const perm = new Int32Array(m);

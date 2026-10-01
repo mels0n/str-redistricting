@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import { boundarySegments, buildTopology, isConnected, type Block } from '../../../src/server/entities/census-block/index.js';
+import { boundarySegments, buildTopology, forEachEdge, isConnected, type Block } from '../../../src/server/entities/census-block/index.js';
 import { DataError } from '../../../src/server/shared/errors/index.js';
-import { greatCircleDistance } from '../../../src/server/shared/geo/index.js';
+import { greatCircleDistance, type LonLat } from '../../../src/server/shared/geo/index.js';
 import { gridBlocks } from '../../helpers/grid.js';
 
 const neighbors = (t: ReturnType<typeof buildTopology>, i: number) =>
@@ -94,7 +94,7 @@ describe('buildTopology', () => {
     expect(neighbors(topo, 3)).toEqual([1, 2]);
   });
   it('finds the outer boundary of the whole grid', () => {
-    expect(boundarySegments(topo, Int32Array.from([0, 1, 2, 3]))).toHaveLength(8);
+    expect(boundarySegments(topo, Int32Array.from([0, 1, 2, 3])).count).toBe(8);
   });
   it('treats corner-only contact as disconnected', () => {
     expect(isConnected(topo, Int32Array.from([0, 3]))).toBe(false);
@@ -202,5 +202,77 @@ describe('NaN internal point throws DataError', () => {
       rings: [[[0.02, 0], [0.03, 0], [0.03, 0.01], [0.02, 0.01], [0.02, 0]]],
     };
     expect(() => buildTopology([valid, invalid])).toThrow(DataError);
+  });
+});
+
+/** Straightforward string-keyed reference: adjacency and summed shared-edge lengths per pair. */
+function referenceAdjacency(blocks: readonly Block[]): { nbr: number[][]; len: Map<string, number> } {
+  const r = (v: number) => v.toFixed(7);
+  const owners = new Map<string, { a: LonLat; b: LonLat; blocks: number[] }>();
+  blocks.forEach((blk, i) => {
+    for (const ring of blk.rings) {
+      for (let k = 0; k + 1 < ring.length; k++) {
+        const p = ring[k]!, q = ring[k + 1]!;
+        const kp = `${r(p[0])},${r(p[1])}`, kq = `${r(q[0])},${r(q[1])}`;
+        if (kp === kq) continue;
+        const key = kp < kq ? `${kp}|${kq}` : `${kq}|${kp}`;
+        const e = owners.get(key) ?? { a: p, b: q, blocks: [] };
+        if (!e.blocks.includes(i)) e.blocks.push(i);
+        owners.set(key, e);
+      }
+    }
+  });
+  const nbr: number[][] = blocks.map(() => []);
+  const len = new Map<string, number>();
+  for (const e of owners.values()) {
+    for (const u of e.blocks) {
+      for (const v of e.blocks) {
+        if (u === v) continue;
+        if (!nbr[u]!.includes(v)) nbr[u]!.push(v);
+        len.set(`${u},${v}`, (len.get(`${u},${v}`) ?? 0) + greatCircleDistance(e.a, e.b));
+      }
+    }
+  }
+  return { nbr: nbr.map((l) => l.sort((a, b) => a - b)), len };
+}
+
+describe('typed-array edge matching', () => {
+  it('equals a string-keyed reference on a ~5,000-block irregular grid', () => {
+    const blocks = gridBlocks(80, 80, { skip: (x, y) => (x * 7 + y * 13 + x * y) % 5 === 0 });
+    expect(blocks.length).toBeGreaterThan(4500);
+    expect(blocks.length).toBeLessThan(5500);
+    const topo = buildTopology(blocks);
+    const ref = referenceAdjacency(blocks);
+    const bridged = new Set(topo.bridges.flatMap(([u, v]) => [`${u},${v}`, `${v},${u}`]));
+    for (let i = 0; i < blocks.length; i++) {
+      const got = neighbors(topo, i);
+      const want = [...ref.nbr[i]!];
+      for (const [u, v] of topo.bridges) {
+        if (u === i) want.push(v);
+        if (v === i) want.push(u);
+      }
+      expect(got).toEqual([...new Set(want)].sort((a, b) => a - b));
+      for (let k = topo.adjOffsets[i]!; k < topo.adjOffsets[i + 1]!; k++) {
+        const j = topo.adjList[k]!;
+        const key = `${i},${j}`;
+        if (bridged.has(key) && !ref.len.has(key)) expect(topo.adjLength[k]).toBe(0);
+        else expect(topo.adjLength[k]).toBeCloseTo(ref.len.get(key)!, 6);
+      }
+    }
+  });
+
+  it('gives a neighbour pair the great-circle length of its shared edge', () => {
+    const topo = buildTopology(gridBlocks(2, 1)); // shared edge (0.01, 0) to (0.01, 0.01)
+    const want = greatCircleDistance([0.01, 0], [0.01, 0.01]);
+    expect(topo.adjLength[topo.adjOffsets[0]!]).toBeCloseTo(want, 2);
+    expect(topo.adjLength[topo.adjOffsets[1]!]).toBeCloseTo(want, 2);
+  });
+
+  it('counts every distinct edge of a grid once, with its owners', () => {
+    const topo = buildTopology(gridBlocks(3, 2));
+    expect(topo.edgeCount).toBe(17);
+    let shared = 0;
+    forEachEdge(topo, (_a, _b, owners) => { if (owners.length === 2) shared++; });
+    expect(shared).toBe(7);
   });
 });

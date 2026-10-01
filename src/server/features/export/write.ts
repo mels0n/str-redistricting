@@ -1,6 +1,6 @@
 import { mkdir, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
-import type { Topology } from '../../entities/census-block/index.js';
+import { forEachEdge, type Topology } from '../../entities/census-block/index.js';
 import { DataError } from '../../shared/errors/index.js';
 import type { LonLat } from '../../shared/geo/index.js';
 
@@ -8,11 +8,11 @@ const round = (p: LonLat) => [Math.round(p[0] * 1e6) / 1e6, Math.round(p[1] * 1e
 
 export function bordersGeoJson(topo: Topology, assignment: Int32Array, seats: number): object {
   const lines: number[][][][] = Array.from({ length: seats }, () => []);
-  for (const e of topo.edges) {
+  forEachEdge(topo, (a, b, blocks) => {
     const counts = new Map<number, number>();
-    for (const b of e.blocks) counts.set(assignment[b]!, (counts.get(assignment[b]!) ?? 0) + 1);
-    for (const [d, c] of counts) if (c === 1) lines[d]!.push([round(e.a), round(e.b)]);
-  }
+    for (const o of blocks) counts.set(assignment[o]!, (counts.get(assignment[o]!) ?? 0) + 1);
+    for (const [d, c] of counts) if (c === 1) lines[d]!.push([round(a), round(b)]);
+  });
   return {
     type: 'FeatureCollection',
     features: lines.map((coordinates, d) => ({
@@ -37,11 +37,11 @@ export function cutsGeoJson(cuts: readonly { depth: number; angleDeg: number; le
 /** Filled district shapes: chain each district's boundary edges into closed rings, then nest rings into shells and holes. */
 export function districtsGeoJson(topo: Topology, assignment: Int32Array, seats: number): object {
   const segsByDistrict: [LonLat, LonLat][][] = Array.from({ length: seats }, () => []);
-  for (const e of topo.edges) {
+  forEachEdge(topo, (a, b, blocks) => {
     const counts = new Map<number, number>();
-    for (const b of e.blocks) counts.set(assignment[b]!, (counts.get(assignment[b]!) ?? 0) + 1);
-    for (const [d, c] of counts) if (c === 1) segsByDistrict[d]!.push([e.a, e.b]);
-  }
+    for (const o of blocks) counts.set(assignment[o]!, (counts.get(assignment[o]!) ?? 0) + 1);
+    for (const [d, c] of counts) if (c === 1) segsByDistrict[d]!.push([a, b]);
+  });
   return {
     type: 'FeatureCollection',
     features: segsByDistrict.map((segs, d) => ({

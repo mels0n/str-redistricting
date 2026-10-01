@@ -2,61 +2,350 @@ import { DataError } from '../../shared/errors/index.js';
 import { EARTH_RADIUS_M, greatCircleDistance, type LonLat } from '../../shared/geo/index.js';
 import type { Block } from './model.js';
 
-export interface TopoEdge {
-  readonly a: LonLat;
-  readonly b: LonLat;
-  readonly blocks: readonly number[];
-}
-
+/**
+ * Block adjacency and shared-edge geometry in typed arrays.
+ * Edge e runs from (edgeA[2e], edgeA[2e+1]) to (edgeB[2e], edgeB[2e+1]) in lon/lat degrees and is
+ * shared by blocks edgeBlockList[edgeBlockOffsets[e] .. edgeBlockOffsets[e+1]). Edges appear in the
+ * order they are first met walking blocks, rings and segments. adjLength[k] is the great-circle length
+ * in meters of the border shared by block u and adjList[k] (0 for bridges).
+ */
 export interface Topology {
   readonly n: number;
   readonly adjOffsets: Int32Array;
   readonly adjList: Int32Array;
-  readonly edges: readonly TopoEdge[];
+  readonly adjLength: Float64Array;
+  readonly edgeCount: number;
+  readonly edgeA: Float64Array;
+  readonly edgeB: Float64Array;
+  readonly edgeBlockOffsets: Int32Array;
+  readonly edgeBlockList: Int32Array;
   readonly bridges: readonly (readonly [number, number])[];
 }
 
-const vkey = (p: LonLat): string => `${p[0].toFixed(7)},${p[1].toFixed(7)}`;
+/** Boundary segments in compact form: segment i runs from (a[2i], a[2i+1]) to (b[2i], b[2i+1]). */
+export interface BoundarySegments {
+  readonly count: number;
+  readonly a: Float64Array;
+  readonly b: Float64Array;
+}
 
-export function buildTopology(blocks: readonly Block[]): Topology {
+const SCALE = 1e7;
+
+/** Growable Int32 buffer. */
+class IntBuf {
+  data: Int32Array;
+  length = 0;
+  constructor(capacity = 1024) { this.data = new Int32Array(capacity); }
+  push(v: number): void {
+    if (this.length === this.data.length) {
+      const next = new Int32Array(this.data.length * 2);
+      next.set(this.data);
+      this.data = next;
+    }
+    this.data[this.length++] = v;
+  }
+}
+
+/** Dense ids for distinct fixed-point vertices, found with an open-addressing table in typed arrays. */
+class VertexTable {
+  private slots = new Int32Array(1 << 16); // vertex id + 1, 0 = empty
+  private mask = (1 << 16) - 1;
+  private xs = new Int32Array(1 << 15);
+  private ys = new Int32Array(1 << 15);
+  size = 0;
+
+  private static hash(x: number, y: number): number {
+    let h = Math.imul(x, 0x9e3779b1) ^ Math.imul(y, 0x85ebca6b);
+    h ^= h >>> 15;
+    h = Math.imul(h, 0x2c1b3c6d);
+    h ^= h >>> 13;
+    return h;
+  }
+
+  id(x: number, y: number): number {
+    let s = VertexTable.hash(x, y) & this.mask;
+    for (;;) {
+      const v = this.slots[s]!;
+      if (v === 0) break;
+      if (this.xs[v - 1] === x && this.ys[v - 1] === y) return v - 1;
+      s = (s + 1) & this.mask;
+    }
+    if (this.size === this.xs.length) {
+      const nx = new Int32Array(this.size * 2);
+      const ny = new Int32Array(this.size * 2);
+      nx.set(this.xs);
+      ny.set(this.ys);
+      this.xs = nx;
+      this.ys = ny;
+    }
+    const id = this.size++;
+    this.xs[id] = x;
+    this.ys[id] = y;
+    this.slots[s] = id + 1;
+    if (this.size * 2 > this.slots.length) this.rehash();
+    return id;
+  }
+
+  private rehash(): void {
+    const slots = new Int32Array(this.slots.length * 2);
+    const mask = slots.length - 1;
+    for (let id = 0; id < this.size; id++) {
+      let s = VertexTable.hash(this.xs[id]!, this.ys[id]!) & mask;
+      while (slots[s] !== 0) s = (s + 1) & mask;
+      slots[s] = id + 1;
+    }
+    this.slots = slots;
+    this.mask = mask;
+  }
+}
+
+/** Unique block edges in first-seen order, as typed arrays. */
+interface EdgeSet {
+  readonly count: number;
+  readonly edgeA: Float64Array;
+  readonly edgeB: Float64Array;
+  readonly offsets: Int32Array;
+  readonly list: Int32Array;
+}
+
+/**
+ * Match segments by sorting: every segment record is bucketed by its lower endpoint id (counting sort),
+ * each small bucket is ordered by its upper endpoint, and runs of equal pairs are one edge.
+ */
+function buildEdges(blocks: readonly Block[]): EdgeSet {
   const n = blocks.length;
-  const edgeMap = new Map<string, { a: LonLat; b: LonLat; blocks: number[] }>();
+  let total = 0;
+  for (let i = 0; i < n; i++) for (const ring of blocks[i]!.rings) if (ring.length > 1) total += ring.length - 1;
+
+  // Pass 1: one record per non-degenerate segment, in walk order.
+  const vt = new VertexTable();
+  const recLo = new Int32Array(total);
+  const recHi = new Int32Array(total);
+  const recBlock = new Int32Array(total);
+  let S = 0;
   for (let i = 0; i < n; i++) {
     for (const ring of blocks[i]!.rings) {
-      for (let k = 0; k + 1 < ring.length; k++) {
-        const p = ring[k]!;
-        const q = ring[k + 1]!;
-        const kp = vkey(p);
-        const kq = vkey(q);
-        if (kp === kq) continue;
-        const forward = kp < kq;
-        const key = forward ? `${kp}|${kq}` : `${kq}|${kp}`;
-        let e = edgeMap.get(key);
-        if (!e) {
-          e = { a: forward ? p : q, b: forward ? q : p, blocks: [] };
-          edgeMap.set(key, e);
+      if (ring.length < 2) continue;
+      let prev = vt.id(Math.round(ring[0]![0] * SCALE), Math.round(ring[0]![1] * SCALE));
+      for (let k = 1; k < ring.length; k++) {
+        const cur = vt.id(Math.round(ring[k]![0] * SCALE), Math.round(ring[k]![1] * SCALE));
+        if (cur !== prev) {
+          recLo[S] = prev < cur ? prev : cur;
+          recHi[S] = prev < cur ? cur : prev;
+          recBlock[S] = i;
+          S++;
         }
-        if (!e.blocks.includes(i)) e.blocks.push(i);
+        prev = cur;
       }
     }
   }
-  const edges = [...edgeMap.values()];
+  const V = vt.size;
 
-  const nbr: Set<number>[] = Array.from({ length: n }, () => new Set<number>());
-  for (const e of edges) {
-    for (const u of e.blocks) for (const v of e.blocks) if (u !== v) nbr[u]!.add(v);
+  // Counting sort of record ids by lower endpoint; ids stay ascending inside a bucket.
+  const bucket = new Int32Array(V + 1);
+  for (let r = 0; r < S; r++) bucket[recLo[r]! + 1]!++;
+  for (let v = 0; v < V; v++) bucket[v + 1] = bucket[v + 1]! + bucket[v]!;
+  const order = new Int32Array(S);
+  {
+    const cursor = bucket.slice(0, V);
+    for (let r = 0; r < S; r++) order[cursor[recLo[r]!]!++] = r;
   }
 
-  const bridges = bridgeComponents(blocks, nbr);
-
-  const adjOffsets = new Int32Array(n + 1);
-  for (let i = 0; i < n; i++) adjOffsets[i + 1] = adjOffsets[i]! + nbr[i]!.size;
-  const adjList = new Int32Array(adjOffsets[n]!);
-  for (let i = 0; i < n; i++) {
-    const sorted = [...nbr[i]!].sort((a, b) => a - b);
-    adjList.set(sorted, adjOffsets[i]!);
+  // Scan buckets: runs of equal upper endpoint are one edge owned by the distinct blocks in the run.
+  const firstRec = new IntBuf(1 << 20);
+  const ownerOff = new IntBuf(1 << 20);
+  const owners = new IntBuf(1 << 21);
+  ownerOff.push(0);
+  for (let v = 0; v < V; v++) {
+    const s = bucket[v]!, e = bucket[v + 1]!;
+    if (e - s > 1) {
+      if (e - s <= 48) {
+        for (let i = s + 1; i < e; i++) {
+          const r = order[i]!, h = recHi[r]!;
+          let j = i - 1;
+          while (j >= s && recHi[order[j]!]! > h) { order[j + 1] = order[j]!; j--; }
+          order[j + 1] = r;
+        }
+      } else {
+        const tmp = Array.from(order.subarray(s, e)).sort((p, q) => recHi[p]! - recHi[q]! || p - q);
+        order.set(tmp, s);
+      }
+    }
+    for (let i = s; i < e; ) {
+      const h = recHi[order[i]!]!;
+      firstRec.push(order[i]!);
+      let lastBlock = -1;
+      let j = i;
+      for (; j < e && recHi[order[j]!] === h; j++) {
+        const b = recBlock[order[j]!]!;
+        if (b !== lastBlock) { owners.push(b); lastBlock = b; }
+      }
+      ownerOff.push(owners.length);
+      i = j;
+    }
   }
-  return { n, adjOffsets, adjList, edges, bridges };
+  const E = firstRec.length;
+
+  // Put edges in first-seen order by scattering them over their first record id.
+  const slotEdge = order; // reuse: bucket order is no longer needed
+  slotEdge.fill(-1);
+  for (let e = 0; e < E; e++) slotEdge[firstRec.data[e]!] = e;
+  const sortedFirst = new Int32Array(E);
+  const offsets = new Int32Array(E + 1);
+  const list = new Int32Array(owners.length);
+  {
+    let ei = 0, w = 0;
+    for (let r = 0; r < S && ei < E; r++) {
+      const e = slotEdge[r]!;
+      if (e < 0) continue;
+      sortedFirst[ei] = r;
+      const from = ownerOff.data[e]!, to = ownerOff.data[e + 1]!;
+      list.set(owners.data.subarray(from, to), w);
+      w += to - from;
+      offsets[++ei] = w;
+    }
+  }
+
+  // Pass 2: original coordinates of each edge's first record, oriented low to high in fixed point.
+  const edgeA = new Float64Array(2 * E);
+  const edgeB = new Float64Array(2 * E);
+  {
+    let rid = 0, ei = 0;
+    for (let i = 0; i < n && ei < E; i++) {
+      for (const ring of blocks[i]!.rings) {
+        for (let k = 0; k + 1 < ring.length && ei < E; k++) {
+          const p = ring[k]!, q = ring[k + 1]!;
+          const px = Math.round(p[0] * SCALE), py = Math.round(p[1] * SCALE);
+          const qx = Math.round(q[0] * SCALE), qy = Math.round(q[1] * SCALE);
+          if (px === qx && py === qy) continue;
+          if (rid++ !== sortedFirst[ei]) continue;
+          const forward = px < qx || (px === qx && py < qy);
+          const a = forward ? p : q, b = forward ? q : p;
+          edgeA[2 * ei] = a[0]; edgeA[2 * ei + 1] = a[1];
+          edgeB[2 * ei] = b[0]; edgeB[2 * ei + 1] = b[1];
+          ei++;
+        }
+      }
+    }
+  }
+  return { count: E, edgeA, edgeB, offsets, list };
+}
+
+interface Adjacency {
+  readonly offsets: Int32Array;
+  readonly list: Int32Array;
+  readonly length: Float64Array;
+}
+
+/** Rook adjacency with the summed length of the borders each pair shares. */
+function buildAdjacency(n: number, edges: EdgeSet): Adjacency {
+  const { count, edgeA, edgeB, offsets: eo, list: el } = edges;
+  const rawOff = new Int32Array(n + 1);
+  for (let e = 0; e < count; e++) {
+    const k = eo[e + 1]! - eo[e]!;
+    if (k < 2) continue;
+    for (let i = eo[e]!; i < eo[e + 1]!; i++) rawOff[el[i]! + 1]! += k - 1;
+  }
+  for (let i = 0; i < n; i++) rawOff[i + 1] = rawOff[i + 1]! + rawOff[i]!;
+  const rawList = new Int32Array(rawOff[n]!);
+  const rawLen = new Float64Array(rawOff[n]!);
+  const cursor = rawOff.slice(0, n);
+  const pa: [number, number] = [0, 0], pb: [number, number] = [0, 0];
+  for (let e = 0; e < count; e++) {
+    const from = eo[e]!, to = eo[e + 1]!;
+    if (to - from < 2) continue;
+    pa[0] = edgeA[2 * e]!; pa[1] = edgeA[2 * e + 1]!;
+    pb[0] = edgeB[2 * e]!; pb[1] = edgeB[2 * e + 1]!;
+    const len = greatCircleDistance(pa, pb);
+    for (let i = from; i < to; i++) {
+      for (let j = from; j < to; j++) {
+        if (i === j) continue;
+        const c = cursor[el[i]!]!++;
+        rawList[c] = el[j]!;
+        rawLen[c] = len;
+      }
+    }
+  }
+
+  // Order each block's neighbours, merging repeats (several shared edges) by summing their lengths.
+  const offsets = new Int32Array(n + 1);
+  let w = 0;
+  for (let u = 0; u < n; u++) {
+    const s = rawOff[u]!, e = rawOff[u + 1]!;
+    if (e - s > 1) {
+      if (e - s <= 48) {
+        for (let i = s + 1; i < e; i++) {
+          const v = rawList[i]!, l = rawLen[i]!;
+          let j = i - 1;
+          while (j >= s && rawList[j]! > v) { rawList[j + 1] = rawList[j]!; rawLen[j + 1] = rawLen[j]!; j--; }
+          rawList[j + 1] = v; rawLen[j + 1] = l;
+        }
+      } else {
+        const idx = Array.from({ length: e - s }, (_, i) => s + i).sort((p, q) => rawList[p]! - rawList[q]! || p - q);
+        const vs = idx.map((i) => rawList[i]!), ls = idx.map((i) => rawLen[i]!);
+        rawList.set(vs, s); rawLen.set(ls, s);
+      }
+    }
+    for (let i = s; i < e; i++) {
+      if (w > offsets[u]! && rawList[w - 1] === rawList[i]) rawLen[w - 1] = rawLen[w - 1]! + rawLen[i]!;
+      else { rawList[w] = rawList[i]!; rawLen[w] = rawLen[i]!; w++; }
+    }
+    offsets[u + 1] = w;
+  }
+  return { offsets, list: rawList.slice(0, w), length: rawLen.slice(0, w) };
+}
+
+/** Add bridge pairs (length 0) to a sorted adjacency. */
+function withBridges(n: number, adj: Adjacency, bridges: readonly (readonly [number, number])[]): Adjacency {
+  if (bridges.length === 0) return adj;
+  const extra = new Map<number, number[]>();
+  const add = (u: number, v: number) => { const l = extra.get(u); if (l) l.push(v); else extra.set(u, [v]); };
+  for (const [u, v] of bridges) { add(u, v); add(v, u); }
+  const offsets = new Int32Array(n + 1);
+  for (let u = 0; u < n; u++) offsets[u + 1] = offsets[u]! + (adj.offsets[u + 1]! - adj.offsets[u]!) + (extra.get(u)?.length ?? 0);
+  const list = new Int32Array(offsets[n]!);
+  const length = new Float64Array(offsets[n]!);
+  for (let u = 0; u < n; u++) {
+    const ex = (extra.get(u) ?? []).sort((a, b) => a - b);
+    let w = offsets[u]!, x = 0;
+    for (let k = adj.offsets[u]!; k < adj.offsets[u + 1]!; k++) {
+      while (x < ex.length && ex[x]! < adj.list[k]!) { list[w] = ex[x++]!; w++; }
+      list[w] = adj.list[k]!; length[w] = adj.length[k]!; w++;
+    }
+    while (x < ex.length) { list[w] = ex[x++]!; w++; }
+  }
+  return { offsets, list, length };
+}
+
+export function buildTopology(blocks: readonly Block[]): Topology {
+  const n = blocks.length;
+  const edges = buildEdges(blocks);
+  const rook = buildAdjacency(n, edges);
+  const bridges = bridgeComponents(blocks, rook.offsets, rook.list);
+  const adj = withBridges(n, rook, bridges);
+  return {
+    n,
+    adjOffsets: adj.offsets,
+    adjList: adj.list,
+    adjLength: adj.length,
+    edgeCount: edges.count,
+    edgeA: edges.edgeA,
+    edgeB: edges.edgeB,
+    edgeBlockOffsets: edges.offsets,
+    edgeBlockList: edges.list,
+    bridges,
+  };
+}
+
+/** Visit every edge in order; `blocks` is a view into the topology and must not be kept or modified. */
+export function forEachEdge(topo: Topology, visit: (a: LonLat, b: LonLat, blocks: Int32Array) => void): void {
+  for (let e = 0; e < topo.edgeCount; e++) {
+    visit(
+      [topo.edgeA[2 * e]!, topo.edgeA[2 * e + 1]!],
+      [topo.edgeB[2 * e]!, topo.edgeB[2 * e + 1]!],
+      topo.edgeBlockList.subarray(topo.edgeBlockOffsets[e]!, topo.edgeBlockOffsets[e + 1]!),
+    );
+  }
 }
 
 /** Convert [lon, lat] in degrees to a 3D unit vector. */
@@ -179,7 +468,7 @@ function nearestToGrid(
 }
 
 /** Connect every disconnected component to the nearest block of the growing main component. */
-function bridgeComponents(blocks: readonly Block[], nbr: Set<number>[]): [number, number][] {
+function bridgeComponents(blocks: readonly Block[], adjOffsets: Int32Array, adjList: Int32Array): [number, number][] {
   const n = blocks.length;
   const comp = new Int32Array(n).fill(-1);
   const members: number[][] = [];
@@ -192,7 +481,10 @@ function bridgeComponents(blocks: readonly Block[], nbr: Set<number>[]): [number
     while (stack.length) {
       const u = stack.pop()!;
       list.push(u);
-      for (const v of nbr[u]!) if (comp[v] === -1) { comp[v] = id; stack.push(v); }
+      for (let k = adjOffsets[u]!; k < adjOffsets[u + 1]!; k++) {
+        const v = adjList[k]!;
+        if (comp[v] === -1) { comp[v] = id; stack.push(v); }
+      }
     }
     members.push(list);
   }
@@ -212,8 +504,6 @@ function bridgeComponents(blocks: readonly Block[], nbr: Set<number>[]): [number
     if (c === mainId) continue;
     const best = nearestToGrid(blocks, vecs, grid, members[c]!);
     if (best[0] === -1) throw new DataError(`component ${c} found no block in the main component`);
-    nbr[best[0]]!.add(best[1]);
-    nbr[best[1]]!.add(best[0]);
     bridges.push(best);
     for (const idx of members[c]!) grid.add(idx, vecs[idx]!);
   }
@@ -239,14 +529,20 @@ export function isConnected(topo: Topology, members: Int32Array): boolean {
   return count === members.length;
 }
 
-export function boundarySegments(topo: Topology, members: Int32Array): TopoEdge[] {
+export function boundarySegments(topo: Topology, members: Int32Array): BoundarySegments {
   const inSet = new Uint8Array(topo.n);
   for (const m of members) inSet[m] = 1;
-  const out: TopoEdge[] = [];
-  for (const e of topo.edges) {
+  const picked = new IntBuf(1024);
+  for (let e = 0; e < topo.edgeCount; e++) {
     let c = 0;
-    for (const b of e.blocks) c += inSet[b]!;
-    if (c === 1) out.push(e);
+    for (let k = topo.edgeBlockOffsets[e]!; k < topo.edgeBlockOffsets[e + 1]!; k++) c += inSet[topo.edgeBlockList[k]!]!;
+    if (c === 1) picked.push(e);
   }
-  return out;
+  const a = new Float64Array(2 * picked.length), b = new Float64Array(2 * picked.length);
+  for (let i = 0; i < picked.length; i++) {
+    const e = picked.data[i]!;
+    a[2 * i] = topo.edgeA[2 * e]!; a[2 * i + 1] = topo.edgeA[2 * e + 1]!;
+    b[2 * i] = topo.edgeB[2 * e]!; b[2 * i + 1] = topo.edgeB[2 * e + 1]!;
+  }
+  return { count: picked.length, a, b };
 }

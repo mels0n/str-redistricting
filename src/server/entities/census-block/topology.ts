@@ -1,3 +1,4 @@
+import { DataError } from '../../shared/errors/index.js';
 import { greatCircleDistance, type LonLat } from '../../shared/geo/index.js';
 import type { Block } from './model.js';
 
@@ -81,24 +82,97 @@ function bridgeComponents(blocks: readonly Block[], nbr: Set<number>[]): [number
   for (let c = 1; c < members.length; c++) if (members[c]!.length > members[mainId]!.length) mainId = c;
   const main = [...members[mainId]!];
   const bridges: [number, number][] = [];
+
+  // Build spatial grid for efficient nearest-neighbor search
+  const cellSize = 0.05; // degrees
+  const grid = new Map<string, number[]>();
+  const addToGrid = (blockIdx: number) => {
+    const [lon, lat] = blocks[blockIdx]!.point;
+    const cellX = Math.floor(lon / cellSize);
+    const cellY = Math.floor(lat / cellSize);
+    const key = `${cellX},${cellY}`;
+    const cell = grid.get(key) ?? [];
+    cell.push(blockIdx);
+    grid.set(key, cell);
+  };
+  for (const idx of main) addToGrid(idx);
+
+  // Conservative distance bound: degrees to meters (111km per degree lat, adjusted for lon by max state latitude)
+  const boundForRing = (ring: number): number => {
+    if (ring === 0) return 0;
+    // Assume max US latitude ~49° (Alaska), cos(49°) ≈ 0.656
+    const metersPerDegreeLon = 111000 * 0.656;
+    const metersPerDegreeLat = 111000;
+    return Math.min(ring * cellSize * metersPerDegreeLat, ring * cellSize * metersPerDegreeLon);
+  };
+
   for (let c = 0; c < members.length; c++) {
     if (c === mainId) continue;
     let best: [number, number] = [-1, -1];
     let bestD = Infinity;
+
     for (const u of members[c]!) {
-      for (const v of main) {
-        const d = greatCircleDistance(blocks[u]!.point, blocks[v]!.point);
-        const pair: [number, number] = u < v ? [u, v] : [v, u];
-        if (d < bestD || (d === bestD && (pair[0] < best[0] || (pair[0] === best[0] && pair[1] < best[1])))) {
-          bestD = d;
-          best = pair;
+      const [uLon, uLat] = blocks[u]!.point;
+      const uCellX = Math.floor(uLon / cellSize);
+      const uCellY = Math.floor(uLat / cellSize);
+
+      // Search rings of cells outward
+      let found = false;
+      for (let ring = 0; ring <= 100; ring++) {
+        const ringBound = boundForRing(ring);
+        if (ringBound > bestD) break; // Stop if ring is too far
+
+        // Search all cells at this ring distance
+        for (let dx = -ring; dx <= ring; dx++) {
+          for (let dy = -ring; dy <= ring; dy++) {
+            // Only check cells on the ring boundary (not interior already checked)
+            if (ring > 0 && Math.abs(dx) < ring && Math.abs(dy) < ring) continue;
+
+            const cellX = uCellX + dx;
+            const cellY = uCellY + dy;
+            const key = `${cellX},${cellY}`;
+            const cell = grid.get(key);
+            if (!cell) continue;
+
+            for (const v of cell) {
+              const d = greatCircleDistance(blocks[u]!.point, blocks[v]!.point);
+              const pair: [number, number] = u < v ? [u, v] : [v, u];
+              if (d < bestD || (d === bestD && (pair[0] < best[0] || (pair[0] === best[0] && pair[1] < best[1])))) {
+                bestD = d;
+                best = pair;
+                found = true;
+              }
+            }
+          }
+        }
+        if (found && ringBound > bestD) break;
+      }
+
+      // Fallback to brute force if grid search found nothing
+      if (best[0] === -1) {
+        for (const v of main) {
+          const d = greatCircleDistance(blocks[u]!.point, blocks[v]!.point);
+          const pair: [number, number] = u < v ? [u, v] : [v, u];
+          if (d < bestD || (d === bestD && (pair[0] < best[0] || (pair[0] === best[0] && pair[1] < best[1])))) {
+            bestD = d;
+            best = pair;
+          }
         }
       }
     }
+
+    if (best[0] === -1) {
+      throw new DataError(`bridgeComponents: component ${c} block ${members[c]![0]!} found no nearest main block`);
+    }
+
     nbr[best[0]]!.add(best[1]);
     nbr[best[1]]!.add(best[0]);
     bridges.push(best);
-    main.push(...members[c]!);
+
+    // Add merged component to grid
+    for (const idx of members[c]!) addToGrid(idx);
+    // Append to main without spread operator to avoid RangeError
+    for (const idx of members[c]!) main.push(idx);
   }
   return bridges;
 }

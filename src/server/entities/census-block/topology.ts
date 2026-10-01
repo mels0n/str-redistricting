@@ -59,21 +59,123 @@ export function buildTopology(blocks: readonly Block[]): Topology {
   return { n, adjOffsets, adjList, edges, bridges };
 }
 
-/** Convert [lon, lat] in degrees to 3D unit vector on sphere. */
+/** Convert [lon, lat] in degrees to a 3D unit vector. */
 function toVec3(lonLat: LonLat): [number, number, number] {
-  const [lonDeg, latDeg] = lonLat;
-  const lon = lonDeg * Math.PI / 180;
-  const lat = latDeg * Math.PI / 180;
+  const lon = (lonLat[0] * Math.PI) / 180;
+  const lat = (lonLat[1] * Math.PI) / 180;
   const cosLat = Math.cos(lat);
   return [cosLat * Math.cos(lon), cosLat * Math.sin(lon), Math.sin(lat)];
 }
 
-/** Euclidean chord distance between two 3D vectors. */
-function chord(a: [number, number, number], b: [number, number, number]): number {
-  const dx = a[0] - b[0];
-  const dy = a[1] - b[1];
-  const dz = a[2] - b[2];
-  return Math.sqrt(dx * dx + dy * dy + dz * dz);
+/** Cell side of the unit-sphere grid; unit coordinates lie in [-1, 1]. */
+const CELL = 0.0005;
+const CELL_OFFSET = Math.ceil(1 / CELL) + 1;
+const CELL_BASE = 2 * CELL_OFFSET + 1;
+/** Slack so floating-point differences between chord and haversine never cut a scan short. */
+const BOUND_SLACK = 1 - 1e-9;
+
+type Vec3 = readonly [number, number, number];
+
+/** Uniform 3D grid over the unit sphere holding block indices, with the occupied cell extent. */
+class SphereGrid {
+  readonly cells = new Map<number, number[]>();
+  readonly lo: [number, number, number] = [Infinity, Infinity, Infinity];
+  readonly hi: [number, number, number] = [-Infinity, -Infinity, -Infinity];
+  /** Exact bounding box of the stored points. */
+  readonly boxLo: [number, number, number] = [Infinity, Infinity, Infinity];
+  readonly boxHi: [number, number, number] = [-Infinity, -Infinity, -Infinity];
+
+  static key(ix: number, iy: number, iz: number): number {
+    return ((ix + CELL_OFFSET) * CELL_BASE + (iy + CELL_OFFSET)) * CELL_BASE + (iz + CELL_OFFSET);
+  }
+
+  static index(v: Vec3): [number, number, number] {
+    return [Math.floor(v[0] / CELL), Math.floor(v[1] / CELL), Math.floor(v[2] / CELL)];
+  }
+
+  add(block: number, v: Vec3): void {
+    const c = SphereGrid.index(v);
+    for (let k = 0; k < 3; k++) {
+      if (c[k]! < this.lo[k]!) this.lo[k] = c[k]!;
+      if (c[k]! > this.hi[k]!) this.hi[k] = c[k]!;
+      if (v[k]! < this.boxLo[k]!) this.boxLo[k] = v[k]!;
+      if (v[k]! > this.boxHi[k]!) this.boxHi[k] = v[k]!;
+    }
+    const key = SphereGrid.key(c[0], c[1], c[2]);
+    const cell = this.cells.get(key);
+    if (cell) cell.push(block);
+    else this.cells.set(key, [block]);
+  }
+}
+
+/**
+ * Exact nearest-pair search from component members to the grid, equal to a brute-force scan:
+ * minimum great-circle distance, ties to the smaller pair[0] then pair[1].
+ */
+function nearestToGrid(
+  blocks: readonly Block[],
+  vecs: readonly Vec3[],
+  grid: SphereGrid,
+  members: readonly number[],
+): [number, number] {
+  let best: [number, number] = [-1, -1];
+  let bestD = Infinity;
+  const consider = (u: number, v: number): void => {
+    const d = greatCircleDistance(blocks[u]!.point, blocks[v]!.point);
+    const lo = u < v ? u : v;
+    const hi = u < v ? v : u;
+    if (d < bestD || (d === bestD && (lo < best[0] || (lo === best[0] && hi < best[1])))) {
+      bestD = d;
+      best = [lo, hi];
+    }
+  };
+  const [loX, loY, loZ] = grid.lo;
+  const [hiX, hiY, hiZ] = grid.hi;
+
+  for (const u of members) {
+    // Every stored point is at least the chord distance to their bounding box away.
+    const p = vecs[u]!;
+    let gap2 = 0;
+    for (let k = 0; k < 3; k++) {
+      const g = Math.max(grid.boxLo[k]! - p[k]!, p[k]! - grid.boxHi[k]!, 0);
+      gap2 += g * g;
+    }
+    if (bestD < EARTH_RADIUS_M * Math.sqrt(gap2) * BOUND_SLACK) continue;
+    const [ux, uy, uz] = SphereGrid.index(p);
+    // Beyond this radius every occupied cell has been visited.
+    const maxR = Math.max(ux - loX, hiX - ux, uy - loY, hiY - uy, uz - loZ, hiZ - uz);
+    for (let r = 0; r <= maxR; r++) {
+      // Unscanned cells (shells >= r) differ by more than (r-1)*CELL in some coordinate.
+      if (bestD < EARTH_RADIUS_M * (r - 1) * CELL * BOUND_SLACK) break;
+      const shellCells = r === 0 ? 1 : (2 * r + 1) ** 3 - (2 * r - 1) ** 3;
+      if (shellCells > grid.cells.size) {
+        // Cheaper to filter every occupied cell than to enumerate empty shell positions.
+        for (const [key, cell] of grid.cells) {
+          const iz = (key % CELL_BASE) - CELL_OFFSET;
+          const iy = (Math.floor(key / CELL_BASE) % CELL_BASE) - CELL_OFFSET;
+          const ix = Math.floor(key / (CELL_BASE * CELL_BASE)) - CELL_OFFSET;
+          if (Math.max(Math.abs(ix - ux), Math.abs(iy - uy), Math.abs(iz - uz)) < r) continue;
+          for (const v of cell) consider(u, v);
+        }
+        break;
+      }
+      const x0 = Math.max(ux - r, loX), x1 = Math.min(ux + r, hiX);
+      const y0 = Math.max(uy - r, loY), y1 = Math.min(uy + r, hiY);
+      const z0 = Math.max(uz - r, loZ), z1 = Math.min(uz + r, hiZ);
+      for (let ix = x0; ix <= x1; ix++) {
+        for (let iy = y0; iy <= y1; iy++) {
+          const full = r === 0 || Math.abs(ix - ux) === r || Math.abs(iy - uy) === r;
+          const step = full ? 1 : 2 * r;
+          for (let iz = full ? z0 : uz - r; iz <= z1; iz += step) {
+            if (iz < z0) continue;
+            const cell = grid.cells.get(SphereGrid.key(ix, iy, iz));
+            if (cell) for (const v of cell) consider(u, v);
+          }
+        }
+      }
+    }
+  }
+  return best;
 }
 
 /** Connect every disconnected component to the nearest block of the growing main component. */
@@ -97,87 +199,23 @@ function bridgeComponents(blocks: readonly Block[], nbr: Set<number>[]): [number
   if (members.length <= 1) return [];
   let mainId = 0;
   for (let c = 1; c < members.length; c++) if (members[c]!.length > members[mainId]!.length) mainId = c;
-  const main = [...members[mainId]!];
+
+  const vecs = blocks.map((b) => toVec3(b.point));
+  for (let i = 0; i < n; i++) {
+    if (!vecs[i]!.every(Number.isFinite)) throw new DataError(`block ${i} has a non-finite internal point`);
+  }
+  const grid = new SphereGrid();
+  for (const idx of members[mainId]!) grid.add(idx, vecs[idx]!);
+
   const bridges: [number, number][] = [];
-
-  // Build 3D spatial grid for efficient nearest-neighbor search
-  const S = 0.0005; // cell side in unit-sphere units (~3.2 km)
-  const grid = new Map<string, number[]>();
-  const vec3s = blocks.map(b => toVec3(b.point));
-
-  const addToGrid = (blockIdx: number) => {
-    const [x, y, z] = vec3s[blockIdx]!;
-    const ix = Math.floor(x / S);
-    const iy = Math.floor(y / S);
-    const iz = Math.floor(z / S);
-    const key = `${ix},${iy},${iz}`;
-    const cell = grid.get(key) ?? [];
-    cell.push(blockIdx);
-    grid.set(key, cell);
-  };
-  for (const idx of main) addToGrid(idx);
-
   for (let c = 0; c < members.length; c++) {
     if (c === mainId) continue;
-    let best: [number, number] = [-1, -1];
-    let bestD = Infinity;
-
-    for (const u of members[c]!) {
-      const uVec = vec3s[u]!;
-      const [ux, uy, uz] = uVec;
-      const uix = Math.floor(ux / S);
-      const uiy = Math.floor(uy / S);
-      const uiz = Math.floor(uz / S);
-
-      // Search Chebyshev shells r = 0, 1, 2, ... up to a reasonable limit
-      // For practical applications, USA is ~60 cells wide (0.873 radians / 0.0005)
-      const maxR = Math.min(200, Math.ceil(2 / S) + 1); // Cap at 200 rings for performance
-      for (let r = 0; r <= maxR; r++) {
-        // Stop if any block in shell r+1 or beyond has chord >= r*S, so great-circle distance >= R*r*S
-        // But only if we've found at least one candidate (bestD is finite)
-        if (r > 0 && isFinite(bestD) && bestD < EARTH_RADIUS_M * r * S) break;
-
-        // Search all cells with max(|dx|, |dy|, |dz|) === r (Chebyshev shell)
-        // Optimize by only checking cells that exist in the grid
-        for (let dx = -r; dx <= r; dx++) {
-          for (let dy = -r; dy <= r; dy++) {
-            for (let dz = -r; dz <= r; dz++) {
-              // Only cells on the shell boundary
-              if (r > 0 && Math.abs(dx) < r && Math.abs(dy) < r && Math.abs(dz) < r) continue;
-
-              const cellX = uix + dx;
-              const cellY = uiy + dy;
-              const cellZ = uiz + dz;
-              const key = `${cellX},${cellY},${cellZ}`;
-              const cell = grid.get(key);
-              if (!cell) continue;
-
-              for (const v of cell) {
-                const d = greatCircleDistance(blocks[u]!.point, blocks[v]!.point);
-                const pair: [number, number] = u < v ? [u, v] : [v, u];
-                if (d < bestD || (d === bestD && (pair[0] < best[0] || (pair[0] === best[0] && pair[1] < best[1])))) {
-                  bestD = d;
-                  best = pair;
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-
-    if (best[0] === -1) {
-      throw new DataError(`bridgeComponents: component ${c} block ${members[c]![0]!} found no nearest main block`);
-    }
-
+    const best = nearestToGrid(blocks, vecs, grid, members[c]!);
+    if (best[0] === -1) throw new DataError(`component ${c} found no block in the main component`);
     nbr[best[0]]!.add(best[1]);
     nbr[best[1]]!.add(best[0]);
     bridges.push(best);
-
-    // Add merged component to grid
-    for (const idx of members[c]!) addToGrid(idx);
-    // Append to main without spread operator to avoid RangeError
-    for (const idx of members[c]!) main.push(idx);
+    for (const idx of members[c]!) grid.add(idx, vecs[idx]!);
   }
   return bridges;
 }

@@ -47,7 +47,7 @@ Two lines whose lengths agree to the nearest centimeter are tied. A tie goes to 
 
 ### Which angles are tested
 
-Lines are tested at every angle in a fixed step across a half turn. The default step is 0.5 degrees, which gives 360 angles. The step must divide 180 degrees exactly and can be changed with `--angle-step`. A different step can produce a different map, so the step is part of the recipe for reproducing a map and is recorded in `metrics.json`.
+Lines are tested at every angle in a fixed step across a half turn. The default step is 0.1 degrees, which gives 1,800 angles. The step must divide 180 degrees exactly and can be changed with `--angle-step`. A different step can produce a different map, so the step is part of the recipe for reproducing a map and is recorded in `metrics.json`.
 
 ## Same data, same map
 

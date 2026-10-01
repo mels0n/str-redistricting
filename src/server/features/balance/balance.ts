@@ -12,7 +12,16 @@ export function balance(blocks: readonly Block[], topo: Topology, input: Int32Ar
   const pop = new Float64Array(seats);
   blocks.forEach((b, i) => { pop[assignment[i]!]! += b.pop; });
   const ideal = pop.reduce((s, x) => s + x, 0) / seats;
-  const members = (d: number) => Int32Array.from([...assignment.keys()].filter((i) => assignment[i] === d));
+  // Member lists are cached per district within one outer iteration and cleared after a move.
+  const memberCache = new Map<number, Int32Array>();
+  const members = (d: number): Int32Array => {
+    let m = memberCache.get(d);
+    if (!m) {
+      m = Int32Array.from([...assignment.keys()].filter((i) => assignment[i] === d));
+      memberCache.set(d, m);
+    }
+    return m;
+  };
 
   let moves = 0;
   const exhausted = new Uint8Array(seats);
@@ -24,7 +33,6 @@ export function balance(blocks: readonly Block[], topo: Topology, input: Int32Ar
     }
     if (d === -1) break;
 
-    const dev = (k: number) => pop[k]! - ideal;
     const seen = new Set<string>();
     const cands: Move[] = [];
     const consider = (block: number, from: number, to: number) => {
@@ -32,8 +40,9 @@ export function balance(blocks: readonly Block[], topo: Topology, input: Int32Ar
       const key = `${block}:${to}`;
       if (p === 0 || seen.has(key)) return;
       seen.add(key);
-      const gain = dev(from) ** 2 + dev(to) ** 2 - ((dev(from) - p) ** 2 + (dev(to) + p) ** 2);
-      if (gain > 1e-9) cands.push({ block, from, to, gain });
+      // Exact decrease in the sum of squared deviations (populations are integers).
+      const gain = 2 * p * (pop[from]! - pop[to]! - p);
+      if (gain > 0) cands.push({ block, from, to, gain });
     };
     // Only the border of district d: its blocks moving out, and neighbouring blocks moving in.
     for (const i of members(d)) {
@@ -55,6 +64,7 @@ export function balance(blocks: readonly Block[], topo: Topology, input: Int32Ar
       pop[c.from]! -= blocks[c.block]!.pop;
       pop[c.to]! += blocks[c.block]!.pop;
       moves++;
+      memberCache.clear();
       moved = true;
       break;
     }

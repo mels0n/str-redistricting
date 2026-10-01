@@ -31,4 +31,35 @@ describe('balance', () => {
     const r = balance(blocks, buildTopology(blocks), Int32Array.from([0, 1]), 2);
     expect(r.moves).toBe(0);
   });
+  it('makes no move whose exact gain is zero at large populations', () => {
+    const pops = [700001, 300, 700001];
+    const blocks = gridBlocks(3, 1, { pop: (x) => pops[x]! });
+    const r = balance(blocks, buildTopology(blocks), Int32Array.from([0, 0, 1]), 2);
+    expect(r.moves).toBe(0);
+    expect(Array.from(r.assignment)).toEqual([0, 0, 1]);
+  });
+  it('rejects a cut-vertex move and takes the best legal one', () => {
+    const pops = [1, 3, 1, 0, 0, 0];
+    const blocks = gridBlocks(3, 2, { pop: (x, y) => pops[y * 3 + x]! });
+    const topo = buildTopology(blocks);
+    const r = balance(blocks, topo, Int32Array.from([0, 0, 0, 1, 1, 1]), 2);
+    expect(r.assignment[1]).toBe(0);
+    expect(Array.from(r.assignment)).toEqual([1, 0, 1, 1, 1, 1]);
+    expect(r.moves).toBe(2);
+    for (const d of [0, 1]) {
+      const members = Int32Array.from([...r.assignment.keys()].filter((i) => r.assignment[i] === d));
+      expect(isConnected(topo, members)).toBe(true);
+    }
+  });
+  it('is deterministic and leaves its input untouched', () => {
+    const blocks = gridBlocks(5, 4, { pop: (x, y) => 1 + ((x * 3 + y * 5) % 4) });
+    const topo = buildTopology(blocks);
+    const start = Int32Array.from(blocks.map((_, i) => (i % 5 < 3 ? 0 : 1)));
+    const copy = Int32Array.from(start);
+    const a = balance(blocks, topo, start, 2);
+    const b = balance(blocks, topo, start, 2);
+    expect(Array.from(a.assignment)).toEqual(Array.from(b.assignment));
+    expect(a.moves).toBe(b.moves);
+    expect(Array.from(start)).toEqual(Array.from(copy));
+  });
 });

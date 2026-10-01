@@ -1,0 +1,48 @@
+name: Code Standards
+
+# Mechanical enforcement of notes/system/code-standards.md sections 2, 3 and 7.
+# These are FAILING gates, not advisory: a rule nobody has seen fail is a rule
+# nobody knows is wired up.
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    types: [opened, synchronize]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  standards:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      # dependency-cruiser needs the TypeScript compiler present or it silently
+      # cruises 0 modules and passes on a completely broken graph.
+      - name: Guard against a false pass
+        run: |
+          node -e "require.resolve('typescript')" 2>/dev/null || {
+            echo "::error::typescript is not installed. dependency-cruiser will report 0 modules and pass on a broken graph. Run: npm i -D typescript"
+            exit 1
+          }
+
+      - name: Layer direction and public-API rules
+        run: npm run depcruise
+
+      - name: Typecheck
+        run: npx tsc --noEmit

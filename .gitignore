@@ -13,3 +13,5 @@ dist/
 data/raw/
 out/
 out-repeat/
+out-step*/
+out-extra/

@@ -9,7 +9,7 @@ restate the code itself.
 - Install: `npm ci`
 - Typecheck: `npx tsc --noEmit`
 - Layer rules: `npm run depcruise`
-- Test: not yet set up
+- Test: `npm test`
 - Lint: not yet set up
 
 ## Layout
@@ -46,4 +46,4 @@ layer above it, and slices inside a layer are reached only through their
 
 ## Documentation
 
-`docs/` describes the system as it currently is. Keep it to final explanations of how things work: no decision logs, change history, or future plans. History lives in git.
+`docs/` describes the system as it currently is. Keep it to final explanations of how things work: no decision logs, change history, or roadmaps. History lives in git.

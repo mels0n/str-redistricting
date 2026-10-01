@@ -11,8 +11,11 @@ The repository has two parts:
 ## Run locally
 ```bash
 npm install
-npm run typecheck
+npm test
+npm run explore -- --states CO
 ```
+
+Outputs are written to `out/<state>/`. `docs/explanation/how-districts-are-drawn.md` explains the rule and the output files.
 
 ## Deploy
 Not deployed.

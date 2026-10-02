@@ -27,7 +27,7 @@ describe('countiesByDistrict', () => {
 });
 
 describe('cuts', () => {
-  const props = { order: 1, depth: 0, seats: 2, lowSeats: 1, highSeats: 1, firstDistrict: 0, angleDeg: 69.4, lengthM: 61953 };
+  const props = { order: 1, depth: 0, seats: 2, lowSeats: 1, highSeats: 1, firstDistrict: 0, angleDeg: 69.4, lengthM: 61953, strayBlocks: 0, strayPop: 0, recounts: 0 };
   it('keeps order, range fields and rounds line coordinates to 5 decimals', () => {
     const raw = { features: [
       { properties: { ...props, order: 2, depth: 1, firstDistrict: 1 }, geometry: { coordinates: [[[-71.1234567, 41.7654321], [-71.2, 41.8]]] } },
@@ -111,7 +111,7 @@ describe('balance.json', () => {
     expect(() => BalanceLogSchema.parse({ before: [1], moves: [{ block: 1, geoid: 'x', from: 1, to: 2, pop: 1, gain: 1 }] })).toThrow();
   });
   it('checks the process numbers a plan reports', () => {
-    const ok = { cuts: 1, angleCount: 1800, directionsPerCut: [1800], candidateLinesEvaluated: 1800, strayCapRejected: 0, strayBlocksMoved: 0, strayPopMoved: 0, balanceMoves: 0, peopleMovedByBalancing: 0, rangeBeforeBalancing: 3, rangeAfterBalancing: 1 };
+    const ok = { cuts: 1, angleCount: 1800, directionsPerCut: [1800], candidateLinesEvaluated: 1800, strayBlocksMoved: 0, strayPopMoved: 0, recounts: 0, recountsMaxPerCut: 0, balanceMoves: 0, peopleMovedByBalancing: 0, rangeBeforeBalancing: 3, rangeAfterBalancing: 1 };
     expect(ProcessNumbersSchema.parse(ok).cuts).toBe(1);
     expect(() => ProcessNumbersSchema.parse({ ...ok, cuts: undefined })).toThrow();
   });

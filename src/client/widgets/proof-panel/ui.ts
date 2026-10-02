@@ -73,9 +73,9 @@ export function createProofPanel(): ProofPanel {
             'strv-proof__row--digest',
           ),
           row(
-            'Run with',
-            `Node.js ${m.nodeVersion}`,
-            `Guide lines every ${m.angleStepDeg} degrees, ${formatInt(steps)} directions for each cut.`,
+            'Guide lines',
+            `Every ${m.angleStepDeg}°`,
+            `${formatInt(steps)} directions tried for each cut.`,
           ),
         ),
         h(
@@ -83,7 +83,7 @@ export function createProofPanel(): ProofPanel {
           { class: 'strv-proof__recipe' },
           h('p', null, 'To reproduce this map, run the generator on the same Census file:'),
           h('pre', { class: 'strv-code', tabindex: 0, role: 'group', 'aria-label': 'Command to run' }, h('code', null, `npm install\nnpm run explore -- --states ${abbr}`)),
-          h('p', null, 'The same data, angle step and Node.js major version give a byte-identical map with the same fingerprint. No random numbers are used.'),
+          h('p', null, 'The same data and the same rule give a byte-identical map with the same fingerprint, on any computer. No random numbers are used.'),
         ),
       );
     },

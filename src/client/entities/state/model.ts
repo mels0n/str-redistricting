@@ -8,7 +8,6 @@ export const PlanSummarySchema = z.object({
   allContiguous: z.boolean(),
   assignmentSha256: z.string().regex(/^[0-9a-f]{64}$/),
   inputSha256: z.string().regex(/^[0-9a-f]{64}$/),
-  nodeVersion: z.string(),
   angleStepDeg: z.number().positive(),
 });
 

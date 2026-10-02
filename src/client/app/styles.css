@@ -3251,6 +3251,15 @@ body:has(> #str-viewer) {
   justify-items: center;
 }
 
+/* Three frames of one sequence sit side by side whenever each keeps 12rem; their drawings are narrower. */
+.strv-how__fig[data-panels='3'] .strv-how__panels {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+}
+
+.strv-how__fig[data-panels='3'] .strv-dg {
+  max-width: 16rem;
+}
+
 .strv-how__fig figcaption {
   margin-top: var(--s-3);
   padding-top: var(--s-2);

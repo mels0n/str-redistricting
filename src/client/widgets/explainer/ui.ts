@@ -25,7 +25,7 @@ export function createExplainer(opts: { seats?: number } = {}): HTMLElement {
       ),
       step(
         'Blocks stay whole.',
-        'The real border follows census block edges, so it is not perfectly straight. Small stray pieces cut off by a line join the side around them. Both sides must be one connected piece, and a line whose stray pieces hold more than 1% of one district’s ideal population is not used.',
+        'The real border follows census block edges, so it is not perfectly straight. Stray pieces cut off from their side join the side around them, and the line slides so the people still split evenly. Both sides must be one connected piece.',
       ),
       step('Repeat until each piece has one seat.', `Each piece is split again until every piece is one district. That takes ${cuts}.`),
       step(

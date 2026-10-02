@@ -3,7 +3,7 @@ import type { Metrics } from '../../entities/plan';
 
 export interface ProcessPanelOptions {
   stateName: string;
-  /** The finished map's numbers; the counts of cuts, lines and strays are the same in both plans. */
+  /** The finished map's numbers; the counts of cuts, lines, strays and re-counts are the same in both plans. */
   metrics: Metrics;
   /** Opens the cut sequence or the balancing replay, playing. */
   onWatch(part: 'cuts' | 'balance'): void;
@@ -48,8 +48,18 @@ export function createProcessPanel(opts: ProcessPanelOptions): HTMLElement {
         formatInt(m.candidateLinesEvaluated),
         `${formatInt(m.angleCount)} directions for each cut${unevenTries > 0 ? ', tried both ways round where a piece’s seats split unevenly' : ''}.`,
       ),
-      row('Ruled out by the stray cap', formatInt(m.strayCapRejected), 'Lines whose stray pieces held more than 1% of one district’s ideal population.'),
-      row('Stray blocks moved', formatInt(m.strayBlocksMoved), `${count(m.strayPopMoved, 'person', 'people')} in small pieces cut off by a line joined the side around them.`),
+      row(
+        'Strays moved',
+        count(m.strayBlocksMoved, 'block', 'blocks'),
+        `${count(m.strayPopMoved, 'person', 'people')} in pieces cut off from their side joined the side around them.`,
+      ),
+      row(
+        'Re-counts',
+        formatInt(m.recounts),
+        m.recounts === 0
+          ? 'No line needed sliding again: the people still split evenly after the strays moved.'
+          : `Times a line slid again so the people still split evenly after strays moved. At most ${count(m.recountsMaxPerCut, 'time', 'times')} for one cut.`,
+      ),
       row('Balancing moves', formatInt(m.balanceMoves), `${count(m.peopleMovedByBalancing, 'person', 'people')} moved, one block at a time.`),
       row(
         'Population range',

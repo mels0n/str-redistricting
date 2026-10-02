@@ -13,10 +13,9 @@ export interface CutRecord {
   /** Guide lines evaluated for this cut: every angle, once per seat orientation. */
   readonly candidateLines: number;
   readonly skipped: number;
-  readonly strayCapRejected: number;
   readonly strayBlocksMoved: number;
   readonly strayPopMoved: number;
-  /** Population splits made for the chosen line: 1, plus one per recount. */
+  /** Population splits made for the chosen line: 1, plus one per re-count. */
   readonly iterations: number;
   readonly offsetShiftM: number;
   readonly candidateStats: readonly CandidateStat[];
@@ -34,7 +33,7 @@ export function splitState(ctx: SplitContext, seats: number, opts: CutOptions = 
   const visit = (members: Int32Array, n: number, first: number, depth: number): void => {
     if (n === 1) { for (const i of members) assignment[i] = first; return; }
     const c = findCut(ctx, members, n, undefined, opts);
-    cuts.push({ depth, seats: n, firstDistrict: first, lowSeats: c.lowSeats, highSeats: c.highSeats, angleDeg: c.angleDeg, lengthM: c.lengthM, candidateLines: c.candidateLines, skipped: c.skipped, strayCapRejected: c.strayCapRejected, strayBlocksMoved: c.strayBlocksMoved, strayPopMoved: c.strayPopMoved, iterations: c.iterations, offsetShiftM: c.offsetShiftM, candidateStats: c.candidateStats, spans: c.spans });
+    cuts.push({ depth, seats: n, firstDistrict: first, lowSeats: c.lowSeats, highSeats: c.highSeats, angleDeg: c.angleDeg, lengthM: c.lengthM, candidateLines: c.candidateLines, skipped: c.skipped, strayBlocksMoved: c.strayBlocksMoved, strayPopMoved: c.strayPopMoved, iterations: c.iterations, offsetShiftM: c.offsetShiftM, candidateStats: c.candidateStats, spans: c.spans });
     visit(c.low, c.lowSeats, first, depth + 1);
     visit(c.high, c.highSeats, first + c.lowSeats, depth + 1);
   };

@@ -6,11 +6,14 @@ import { selectLow } from '../../src/server/features/splitline/cut';
 import {
   BALANCE_EXAMPLE,
   DIRECTION_EXAMPLE,
+  RECOUNT_EXAMPLE,
   SPLIT_EXAMPLE,
+  STRANDED_EXAMPLE,
   applyTrade,
   bestTrade,
   furthest,
   improvement,
+  recountExample,
   sumOfSquares,
   walkSplit,
   type Trade,
@@ -114,6 +117,33 @@ describe('cut worked example', () => {
   });
 });
 
+describe('re-count worked example', () => {
+  it('puts the island past the line, then the re-count hands T back so each side holds 500', () => {
+    const r = recountExample();
+    expect(r.share).toBe(500);
+    expect(r.firstWalk).toBe(500);
+    expect(r.island).toBe(30);
+    expect(r.crossesBack).toBe('T');
+    expect(r.low).toBe(500);
+    expect(r.high).toBe(500);
+  });
+
+  it('re-counts as the generator does: the free blocks are split with the island counted on the first side', () => {
+    const free = RECOUNT_EXAMPLE.blocks.filter((b) => b.name !== RECOUNT_EXAMPLE.island);
+    const pops = Float64Array.from(free.map((b) => b.people));
+    const keys = Float64Array.from(free.map((_, i) => i));
+    const ids = Int32Array.from(free.map((_, i) => i));
+    const r = recountExample();
+    // The first side holds the fixed island, so it may keep no free block; the second keeps at least one.
+    const count = selectLow(keys, ids, pops, new Int32Array(free.length), r.share - r.island, 0, free.length - 1);
+    expect(free.slice(0, count).map((b) => b.name)).toEqual(['West']);
+  });
+
+  it('gives the line that strands a big region the longer border', () => {
+    expect(STRANDED_EXAMPLE.stranded.km).toBeGreaterThan(STRANDED_EXAMPLE.clean.km);
+  });
+});
+
 describe('How it works page', () => {
   afterEach(() => vi.unstubAllGlobals());
 
@@ -127,6 +157,9 @@ describe('How it works page', () => {
     expect(text).toContain('400² + 300² + 100² = 260,000');
     expect(text).toContain('The running total passes 500 at block E');
     expect(text).toContain('the next round starts from District 3');
+    expect(text).toContain('Stray pieces and the re-count');
+    expect(text).toContain('each side still holds 500 people');
+    expect(text).not.toMatch(/cap|1%|Node\.js/);
     expect(text).not.toContain(String.fromCharCode(0x2014));
     const chosen = page.el.querySelector('tr[data-chosen="true"] th')?.textContent ?? '';
     expect(chosen).toContain('B: 300 people to District 1');

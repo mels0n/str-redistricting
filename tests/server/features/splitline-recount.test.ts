@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { isConnected, type Block } from '../../../src/server/entities/census-block/index.js';
 import { createContext, findCut, splitState, type CandidateStat, type CutResult } from '../../../src/server/features/splitline/index.js';
+import { DataError } from '../../../src/server/shared/errors/index.js';
 import { gridBlocks } from '../../helpers/grid.js';
 
 // Angle step 90 gives two directions: k = 0 orders blocks west to east (north-south guide line),
@@ -23,14 +24,14 @@ const nudged = (w: number, h: number, pop: (x: number, y: number) => number, ski
   return { blocks, idx: (x: number, y: number) => at.findIndex(([ax, ay]) => ax === x && ay === y) };
 };
 
-describe('recount stray rule', () => {
-  it('U shape: a stranded arm joins the low side, and the recount gives back exactly what it brought', () => {
+describe('strays and the re-count', () => {
+  it('U shape: a stranded arm joins the low side, and the re-count gives back exactly what it brought', () => {
     // Columns 0 and 1 full height (y 0..4); arms east along y = 0 and y = 4. 16 people, target 8.
     // Whole blocks: low = column 0, (1,0), (1,1) = 9; the bottom arm (2 people) is cut off on the high
     // side and joins low (fixed). Recount over the rest: 2 + column 0 + (1,0) = 8 exactly, and
     // (1,0) keeps the arm attached.
     const { blocks, idx } = nudged(4, 5, (x, y) => (x === 1 && y === 1 ? 3 : 1), (x, y) => x >= 2 && y >= 1 && y <= 3);
-    const r = findCut(createContext(blocks, 90), all(blocks.length), 2, undefined, { rule: 'recount' });
+    const r = findCut(createContext(blocks, 90), all(blocks.length), 2);
     const s = stat(r, 0);
     expect(s.iterations).toBe(2);
     expect(s.strayBlocks).toBe(2);
@@ -47,12 +48,17 @@ describe('recount stray rule', () => {
     expect(isConnected(createContext(blocks, 90).topo, r.high)).toBe(true);
   });
 
-  it('U shape under the cap rule rejects the same line for its strays', () => {
+  it('a line that strands a piece is allowed, and loses to a line with a shorter real border', () => {
+    // The same U. The north-south line strands the bottom arm, which joins the low side and lengthens
+    // the border between the sides; the east-west line strands nothing and has the shorter border.
     const { blocks } = nudged(4, 5, (x, y) => (x === 1 && y === 1 ? 3 : 1), (x, y) => x >= 2 && y >= 1 && y <= 3);
     const r = findCut(createContext(blocks, 90), all(blocks.length), 2);
     expect(stat(r, 0).strayPop).toBe(2);
-    expect(stat(r, 0).iterations).toBe(1);
-    expect(r.strayCapRejected).toBeGreaterThan(0);
+    expect(stat(r, 0).unresolved).toBe(false);
+    expect(stat(r, 1).strayPop).toBe(0);
+    expect(stat(r, 0).lengthM).toBeGreaterThan(stat(r, 1).lengthM);
+    expect(r.angleDeg).toBe(90);
+    expect(r.lengthM).toBe(stat(r, 1).lengthM);
   });
 
   it('U shape that cannot resolve stops with the arm stranded and falls through to a connected line', () => {
@@ -61,7 +67,7 @@ describe('recount stray rule', () => {
     // so the candidate stops unresolved and the search moves on.
     const { blocks } = nudged(4, 5, () => 1, (x, y) => x >= 2 && y >= 1 && y <= 3);
     const ctx = createContext(blocks, 90);
-    const r = findCut(ctx, all(blocks.length), 2, undefined, { rule: 'recount' });
+    const r = findCut(ctx, all(blocks.length), 2);
     const s = stat(r, 0);
     expect(s.unresolved).toBe(true);
     expect(s.iterations).toBe(2);
@@ -89,7 +95,7 @@ describe('recount stray rule', () => {
     ];
     const W = 8, N = 9;
     const ctx = createContext(blocks, 90);
-    const r = findCut(ctx, all(blocks.length), 2, undefined, { rule: 'recount' });
+    const r = findCut(ctx, all(blocks.length), 2);
     const s = stat(r, 0);
     expect(s.iterations).toBe(2);
     expect(s.strayBlocks).toBe(1);
@@ -111,7 +117,7 @@ describe('recount stray rule', () => {
     // which joins high. Recount: columns 0 and 1 of the square plus (2,0), (2,1) = 10.
     const { blocks, idx } = nudged(4, 6, () => 1, (x, y) => (y === 4 && x < 3));
     const ctx = createContext(blocks, 90);
-    const r = findCut(ctx, all(blocks.length), 2, undefined, { rule: 'recount' });
+    const r = findCut(ctx, all(blocks.length), 2);
     const s = stat(r, 0);
     expect(s.iterations).toBe(2);
     expect(s.strayBlocks).toBe(2);
@@ -126,20 +132,52 @@ describe('recount stray rule', () => {
     expect(isConnected(ctx.topo, r.high)).toBe(true);
   });
 
-  it('has no stray cap: a line the cap rule cannot use is accepted', () => {
-    // Strip 0-1-2-3 with internal points placed so both lines strand block 3 (11 people over a cap of 10).
+  it('puts no limit on the size of a stray', () => {
+    // Strip 0-1-2-3 with internal points placed so both lines strand block 3, which holds 11 people.
     const pts = [[0, 0.03], [0.001, 0.02], [0.03, 0], [0.002, 0.025]] as const;
     const blocks = gridBlocks(4, 1, { pop: (x) => [494, 495, 1000, 11][x]! }).map((b, i) => ({ ...b, point: pts[i]! }));
-    expect(() => findCut(createContext(blocks, 90), all(4), 2)).toThrow(/stray cap/);
-    const r = findCut(createContext(blocks, 90), all(4), 2, undefined, { rule: 'recount' });
-    expect(r.strayCapRejected).toBe(0);
-    expect(r.strayPopMoved).toBeGreaterThan(0);
+    const ctx = createContext(blocks, 90);
+    const r = findCut(ctx, all(4), 2);
+    expect(r.strayPopMoved).toBe(11);
+    expect(r.skipped).toBe(0);
+    expect(isConnected(ctx.topo, r.low)).toBe(true);
+    expect(isConnected(ctx.topo, r.high)).toBe(true);
   });
 
-  it('records iterations for every candidate and a whole plan stays connected', () => {
+  it('a stray moves once and stays; if the side it joined strands it, the line is unresolved and cannot be used', () => {
+    // 7x5 grid. The 5x5 square on the left is three nested parts: the centre block C, the ring R1
+    // around it, and the outer ring R2. The 2x5 strip on the right is H. Whole-block assignment puts
+    // C and R2 low, R1 and H high (internal points placed to force it). On the low side C is a stray
+    // and joins the high side, where it is fixed. On the high side R1 + C is not the main body (H holds
+    // the people): R1 joins the low side, but C stays where it was fixed, stranded inside the low side.
+    const w = 7, h = 5;
+    const inSquare = (x: number) => x < 5;
+    const ring = (x: number, y: number) => Math.max(Math.abs(x - 2), Math.abs(y - 2));
+    const isLow = (x: number, y: number) => inSquare(x) && ring(x, y) !== 1;
+    const hPops = [2, 2, 2, 2, 2, 2, 1, 1, 1, 1];
+    let hIdx = 0;
+    const base = gridBlocks(w, h, { pop: (x, y) => (!inSquare(x) ? hPops[hIdx++]! : ring(x, y) === 2 ? 1 : 0) });
+    const blocks = base.map((b, i) => {
+      const x = i % w, y = Math.floor(i / w);
+      return { ...b, point: isLow(x, y) ? ([-0.05, 0.1] as const) : ([0.2, -0.1] as const) };
+    });
+    const ctx = createContext(blocks, 90);
+    const centre = 2 * w + 2;
+    // Accept any sides to look at the first-ranked line as it ended.
+    const r = findCut(ctx, all(blocks.length), 2, () => true);
+    expect(r.high.includes(centre)).toBe(true);
+    expect(r.strayBlocksMoved).toBe(9);
+    expect(r.iterations).toBe(2);
+    expect(r.candidateStats.every((c) => c.unresolved)).toBe(true);
+    expect(isConnected(ctx.topo, r.high)).toBe(false);
+    // Neither line leaves two connected sides, so the search has nothing to use.
+    expect(() => findCut(ctx, all(blocks.length), 2)).toThrow(DataError);
+  });
+
+  it('ends for every candidate within one population split per block, and a whole plan stays connected', () => {
     const blocks = gridBlocks(12, 9, { pop: (x, y) => 1 + ((x * 5 + y * 3) % 7), skip: (x, y) => x > 3 && x < 8 && y > 2 && y < 7 });
     const ctx = createContext(blocks, 1);
-    const plan = splitState(ctx, 5, { rule: 'recount' });
+    const plan = splitState(ctx, 5);
     for (const c of plan.cuts) {
       expect(c.candidateStats).toHaveLength(c.candidateLines);
       for (const s of c.candidateStats) {

@@ -70,7 +70,6 @@ const summary = {
   allContiguous: true,
   assignmentSha256: 'a'.repeat(64),
   inputSha256: 'b'.repeat(64),
-  nodeVersion: 'v24',
   angleStepDeg: 1,
 };
 const index: StateIndex = {

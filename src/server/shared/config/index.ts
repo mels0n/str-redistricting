@@ -11,8 +11,6 @@ export interface Config {
   readonly outDir: string;
   /** Threads for the cut search; 1 searches on the main thread only. */
   readonly threads: number;
-  /** `cap`: strays over 1% of a district rule a guide line out. `recount`: strays stay moved and the split is redone. */
-  readonly strayRule: 'cap' | 'recount';
 }
 
 const Raw = z.object({
@@ -22,7 +20,6 @@ const Raw = z.object({
   cacheDir: z.string().min(1),
   outDir: z.string().min(1),
   threads: z.string().regex(/^\d+$/, 'threads must be a whole number').transform(Number).pipe(z.number().int().min(1, 'threads must be at least 1')),
-  strayRule: z.enum(['cap', 'recount']),
 });
 
 /** Read once at boot from the command line. */
@@ -35,7 +32,6 @@ export function parseConfig(argv: readonly string[]): Config {
       'cache-dir': { type: 'string', default: 'data/raw' },
       'out-dir': { type: 'string', default: 'out' },
       threads: { type: 'string', default: String(Math.max(1, availableParallelism() - 2)) },
-      'stray-rule': { type: 'string', default: 'cap' },
     },
     strict: true,
   });
@@ -45,7 +41,6 @@ export function parseConfig(argv: readonly string[]): Config {
     cacheDir: values['cache-dir'],
     outDir: values['out-dir'],
     threads: values.threads,
-    strayRule: values['stray-rule'],
   });
   if (!parsed.success) throw new ConfigError(parsed.error.issues.map((i) => i.message).join('; '));
   const states = parsed.data.states.split(',').map((s) => s.trim()).filter(Boolean).map((abbr) => {
@@ -53,7 +48,7 @@ export function parseConfig(argv: readonly string[]): Config {
     if (!info) throw new ConfigError(`unknown state: ${abbr}`);
     return info;
   });
-  return { states, angleStepDeg: parsed.data.angleStep, cacheDir: parsed.data.cacheDir, outDir: parsed.data.outDir, threads: parsed.data.threads, strayRule: parsed.data.strayRule };
+  return { states, angleStepDeg: parsed.data.angleStep, cacheDir: parsed.data.cacheDir, outDir: parsed.data.outDir, threads: parsed.data.threads };
 }
 
 export interface PublishConfig {

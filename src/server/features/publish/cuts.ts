@@ -12,6 +12,9 @@ const CutsGeo = z.object({
       firstDistrict: z.number().int().nonnegative(),
       angleDeg: z.number(),
       lengthM: z.number(),
+      strayBlocks: z.number().int().nonnegative(),
+      strayPop: z.number().int().nonnegative(),
+      recounts: z.number().int().nonnegative(),
     }),
     geometry: z.object({ coordinates: z.array(z.array(Coord)) }),
   })),
@@ -26,6 +29,11 @@ export interface PublishedCut {
   readonly firstDistrict: number;
   readonly angleDeg: number;
   readonly lengthM: number;
+  /** Blocks and people that joined the other side as strays on this cut. */
+  readonly strayBlocks: number;
+  readonly strayPop: number;
+  /** Times the guide line was slid again after strays moved. */
+  readonly recounts: number;
   /** Guide-line spans, each a list of [lon, lat] points rounded to 5 decimals. */
   readonly lines: number[][][];
 }

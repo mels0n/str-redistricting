@@ -6,7 +6,7 @@ import type { SplitContext } from './context.js';
 import type { ScanPool } from './pool.js';
 import {
   createScanner, F_BLOCKS, F_ITER, F_LENGTH, F_LOWPOP, F_OFFSET, F_POP, F_SHIFT, F_UNRESOLVED, FIELDS, scanDirections,
-  type Piece, type ScanJob, type StrayRule,
+  type Piece, type ScanJob,
 } from './scan.js';
 
 export { selectLow } from './scan.js';
@@ -23,16 +23,14 @@ export interface CutResult {
   readonly candidateLines: number;
   /** The guide line's portion inside the piece. */
   readonly spans: readonly (readonly [LonLat, LonLat])[];
-  /** Candidates passed over: guide lines over the stray cap, plus sides that failed validation. */
+  /** Candidates passed over because their sides failed validation. */
   readonly skipped: number;
-  /** Guide lines rejected because their strays hold more than 1% of the piece's ideal district population (included in skipped). */
-  readonly strayCapRejected: number;
   /** Blocks whose side changed when stray pieces joined the side around them, and their total population. */
   readonly strayBlocksMoved: number;
   readonly strayPopMoved: number;
-  /** Population splits made for the chosen line: 1, plus one per recount. */
+  /** Population splits made for the chosen line: 1, plus one per re-count. */
   readonly iterations: number;
-  /** How far the recounts moved the chosen guide line, in meters at the projection center (0 under the cap rule). */
+  /** How far the re-counts moved the chosen guide line, in meters at the projection center. */
   readonly offsetShiftM: number;
   /** Every candidate line evaluated, in direction then orientation order. */
   readonly candidateStats: readonly CandidateStat[];
@@ -48,7 +46,7 @@ export interface CandidateStat {
   readonly iterations: number;
   readonly offsetShiftM: number;
   readonly lowPop: number;
-  /** Fixed strays were left stranded (recount); the line's sides are not connected. */
+  /** Fixed strays were left stranded; the line's sides are not connected. */
   readonly unresolved: boolean;
 }
 
@@ -59,8 +57,6 @@ interface Candidate { k: number; lowSeats: number; offset: number; lengthM: numb
 export interface CutOptions {
   /** Evaluate candidate directions on these worker threads; without it, on the calling thread. */
   readonly pool?: ScanPool;
-  /** What to do with strays; default `cap`. */
-  readonly rule?: StrayRule;
 }
 
 export function findCut(ctx: SplitContext, members: Int32Array, seats: number, validate?: SideValidator, opts: CutOptions = {}): CutResult {
@@ -104,8 +100,7 @@ export function findCut(ctx: SplitContext, members: Int32Array, seats: number, v
   const px = new Float64Array(m), py = new Float64Array(m);
   for (let i = 0; i < m; i++) { px[i] = ctx.px[members[i]!]!; py[i] = ctx.py[members[i]!]!; }
   const piece: Piece = { m, ids, pops, total, px, py, lOff, lAdj, lLen };
-  const rule = opts.rule ?? 'cap';
-  const job: ScanJob = { angleCount: ctx.angleCount, seats, orientations, rule };
+  const job: ScanJob = { angleCount: ctx.angleCount, seats, orientations };
   let res: Float64Array;
   if (opts.pool) res = opts.pool.scan(piece, job);
   else {
@@ -116,7 +111,6 @@ export function findCut(ctx: SplitContext, members: Int32Array, seats: number, v
 
   const candidates: Candidate[] = [];
   const candidateStats: CandidateStat[] = [];
-  let strayCapRejected = 0;
   for (let k = 0; k < ctx.angleCount; k++) {
     orientations.forEach((lowSeats, o) => {
       const at = (k * orientations.length + o) * FIELDS;
@@ -125,9 +119,6 @@ export function findCut(ctx: SplitContext, members: Int32Array, seats: number, v
         iterations: res[at + F_ITER]!, offsetShiftM: res[at + F_SHIFT]! * EARTH_RADIUS_M, lowPop: res[at + F_LOWPOP]!,
         unresolved: res[at + F_UNRESOLVED] === 1,
       });
-      // Stray cap: strays may hold at most 1% of the piece's ideal district population (pop / seats).
-      // Populations are integers, so this form of the comparison is exact.
-      if (rule === 'cap' && res[at + F_POP]! * 100 * seats > total) { strayCapRejected++; return; }
       candidates.push({ k, lowSeats, offset: res[at + F_OFFSET]!, lengthM: res[at + F_LENGTH]! });
     });
   }
@@ -140,7 +131,7 @@ export function findCut(ctx: SplitContext, members: Int32Array, seats: number, v
   const check: SideValidator = validate ?? ((lo, hi) => isConnected(topo, lo) && isConnected(topo, hi));
   const side = new Uint8Array(m);
   const scanner = createScanner(piece, job);
-  let skipped = strayCapRejected;
+  let skipped = 0;
   for (const c of candidates) {
     const th = scanner.setDirection(c.k);
     const e = scanner.evaluate(c.lowSeats, side);
@@ -153,16 +144,14 @@ export function findCut(ctx: SplitContext, members: Int32Array, seats: number, v
         low, high, lowSeats: c.lowSeats, highSeats: seats - c.lowSeats,
         angleDeg: (c.k * 180) / ctx.angleCount, lengthM: e.lengthM,
         candidateLines: ctx.angleCount * orientations.length,
-        spans: spanLength(ctx, sx, sy, th, c.offset).spans, skipped, strayCapRejected,
+        spans: spanLength(ctx, sx, sy, th, c.offset).spans, skipped,
         strayBlocksMoved: e.movedBlocks, strayPopMoved: e.movedPop,
         iterations: e.iterations, offsetShiftM: e.offsetShift * EARTH_RADIUS_M, candidateStats,
       };
     }
     skipped++;
   }
-  throw new DataError(rule === 'cap'
-    ? 'no straight line meets the stray cap and produces two connected sides'
-    : 'no straight line produces two connected sides');
+  throw new DataError('no straight line produces two connected sides');
 }
 
 /** Great-circle length of the line {p . n = offset} inside the piece, by even-odd pairing of boundary crossings. */

@@ -1,5 +1,5 @@
 import { formatInt, svg } from '../../shared';
-import { BALANCE_EXAMPLE, DIRECTION_EXAMPLE, applyTrade, bestTrade, improvement, sumOfSquares, type Trade } from './examples';
+import { BALANCE_EXAMPLE, DIRECTION_EXAMPLE, RECOUNT_EXAMPLE, STRANDED_EXAMPLE, applyTrade, bestTrade, improvement, recountExample, sumOfSquares, type Trade } from './examples';
 
 /**
  * Drawings for the How it works page. Each is a small, exact diagram built
@@ -16,10 +16,15 @@ let uid = 0;
 
 /** One panel: a fixed 320-unit-wide drawing that scales to its column. */
 function panel(height: number, title: string, desc: string, ...children: Child[]): SVGSVGElement {
+  return sizedPanel(320, height, title, desc, ...children);
+}
+
+/** A panel of any width, for narrower frames that sit three across. */
+function sizedPanel(width: number, height: number, title: string, desc: string, ...children: Child[]): SVGSVGElement {
   const id = `strv-dg-${++uid}`;
   return svg(
     'svg',
-    { viewBox: `0 0 320 ${height}`, class: 'strv-dg', role: 'img', 'aria-labelledby': `${id}-t ${id}-d`, focusable: 'false' },
+    { viewBox: `0 0 ${width} ${height}`, class: 'strv-dg', role: 'img', 'aria-labelledby': `${id}-t ${id}-d`, focusable: 'false' },
     svg('title', { id: `${id}-t` }, title),
     svg('desc', { id: `${id}-d` }, desc),
     ...children.filter((c): c is SVGElement => c !== null),
@@ -326,48 +331,119 @@ export function balanceChoiceDiagram(): SVGSVGElement {
 }
 
 // ---------------------------------------------------------------------------
-// (c) Stray pieces and the cap
+// (c) Stray pieces and the re-count
 
-export function strayAllowedDiagram(): SVGSVGElement {
+/**
+ * The re-count in three frames, on one small scene: two columns of West blocks, a large block that
+ * straddles the guide line with a small block (the island) inside it, block T above the large block,
+ * and the East blocks. Frame 1 places blocks by their centers; frame 2 shows the island cut off from
+ * its side; frame 3 has the island joined to the side around it and the line slid so T crosses back.
+ * The people come from RECOUNT_EXAMPLE.
+ */
+export function recountDiagrams(): [SVGSVGElement, SVGSVGElement, SVGSVGElement] {
+  const r = recountExample();
+  const t = RECOUNT_EXAMPLE.blocks.find((b) => b.name === 'T')!.people;
   const A = `strv-dg__block ${FILL[0]}`;
   const B = `strv-dg__block ${FILL[1]}`;
-  const parts: SVGElement[] = [];
-  for (const y of [30, 70, 110, 150]) {
-    parts.push(rect(30, y, 40, 40, A), rect(70, y, 50, 40, A), rect(230, y, 30, 40, B), rect(260, y, 30, 40, B));
-  }
-  parts.push(rect(120, 30, 40, 30, A), rect(160, 30, 70, 30, B), rect(120, 170, 40, 20, A), rect(160, 170, 70, 20, B));
-  // A large block with a small one inside it, like a median strip: the large block's internal point is on the first side.
-  parts.push(path('M120,60H230V170H120ZM175,92V138H215V92Z', `${A} strv-dg__evenodd`));
-  parts.push(rect(175, 92, 40, 46, `strv-dg__block ${FILL[1]} strv-dg__stray`));
-  parts.push(dot([140, 118]), dot([195, 104]));
-  return panel(
-    236,
-    'A stray piece that is allowed',
-    'A guide line runs down the middle. A large block straddles it; its internal point is on the left, so it goes left. A small block inside it has its internal point on the right, but it is cut off from the rest of the right side, so it joins the left side around it. It holds 180 people, under the cap of 7,000, so the line can be used.',
-    ...parts,
-    path('M160,30V60H230V170H160V190', 'strv-dg__border'),
-    line([160, 20], [160, 200], 'strv-dg__guide strv-dg__guide--chosen'),
-    text(195, 127, '180', 'strv-dg__n', 'middle'),
-    text(30, 214, 'Cut off: 180 people join the side around them.', 'strv-dg__t strv-dg__t--small'),
-    text(30, 230, 'Under the cap of 7,000: the line can be used.', 'strv-dg__t strv-dg__t--small strv-dg__t--strong'),
+  // The guide line before and after the re-count, and the island's square inside the large block.
+  const x1 = 122;
+  const x3 = 107;
+  const isl = { x: 126, y: 72, w: 20, h: 26 };
+  const island = `M${isl.x},${isl.y}v${isl.h}h${isl.w}v${-isl.h}Z`;
+  const scene = (frame: 1 | 2 | 3): SVGElement[] => {
+    const out: SVGElement[] = [];
+    for (const y of [10, 50, 90, 130]) out.push(rect(10, y, 40, 40, A), rect(50, y, 40, 40, A), rect(150, y, 40, 40, B));
+    out.push(rect(90, 10, 30, 40, frame === 3 ? B : A), rect(120, 10, 30, 40, B));
+    out.push(rect(90, 130, 30, 40, A), rect(120, 130, 30, 40, B));
+    out.push(path(`M90,50H150V130H90Z${island}`, `${A} strv-dg__evenodd`));
+    out.push(rect(isl.x, isl.y, isl.w, isl.h, `${frame === 3 ? A : B}${frame === 2 ? ' strv-dg__stray' : ''}`));
+    return out;
+  };
+  // Block centers: the West columns and East column, then T, the block right of T, the two bottom
+  // blocks, the large block and the island.
+  const centers: Pt[] = [
+    ...[30, 70, 170].flatMap((x) => [30, 70, 110, 150].map((y): Pt => [x, y])),
+    [112, 38], [135, 30], [100, 150], [133, 150], [104, 112], [136, 91],
+  ];
+  const labels = (frame: 1 | 2 | 3): SVGElement[] => [
+    text(98, 25, String(t), 'strv-dg__n', 'middle'),
+    text(isl.x + isl.w / 2, isl.y + 11, String(r.island), 'strv-dg__n', 'middle'),
+    ...(frame === 1 ? centers.map((c) => dot(c, 'strv-dg__dot', 2.25)) : []),
+  ];
+  const foot = (lines: string[], strong: string): SVGElement[] => [
+    text(10, 200, lines, 'strv-dg__t strv-dg__t--small'),
+    text(10, 200 + lines.length * 14.4, strong, 'strv-dg__t strv-dg__t--small strv-dg__t--strong'),
+  ];
+  const H = 250;
+  const one = sizedPanel(
+    200,
+    H,
+    'Frame 1: blocks placed by their centers',
+    `A dashed guide line runs down a small piece. Each block goes, whole, to the side its center dot is on. A large block straddles the line with its center on the left, so it goes left. A small block inside it, holding ${formatInt(r.island)} people, has its center just right of the line, so it goes right. Each side holds ${formatInt(r.firstWalk)} people.`,
+    ...scene(1),
+    line([x1, 4], [x1, 176], 'strv-dg__guide strv-dg__guide--chosen'),
+    ...labels(1),
+    ...foot(['1. Each block goes to the', 'side its center is on.'], `Left ${formatInt(r.firstWalk)}, right ${formatInt(r.low + r.high - r.firstWalk)}`),
   );
+  const two = sizedPanel(
+    200,
+    H,
+    'Frame 2: an island on the wrong side',
+    'The small block is on the right side but surrounded by the large left block, so it is cut off from the rest of the right side: an island. It is outlined in amber.',
+    ...scene(2),
+    path(`M${x1 - 2},10V50H150V130H120V170${island}`, 'strv-dg__border'),
+    ...labels(2),
+    ...foot(['2. The small block is cut off', 'from its side: an island.'], `Island: ${formatInt(r.island)} people`),
+  );
+  const three = sizedPanel(
+    200,
+    H,
+    'Frame 3: the island joins, and the line slides',
+    `The island joins the left side around it and stays there. The people are counted again: the left side now has ${formatInt(r.island)} people too many, so the guide line slides a little to the left and block T, with ${formatInt(t)} people, goes to the right side. Each side again holds ${formatInt(r.low)} people.`,
+    ...scene(3),
+    line([x1, 4], [x1, 176], 'strv-dg__guide'),
+    path('M90,10V50H150V130H120V170', 'strv-dg__border'),
+    line([x3, 4], [x3, 176], 'strv-dg__guide strv-dg__guide--chosen'),
+    arrow([x1, 184], [x3, 184]),
+    ...labels(3),
+    ...foot(['3. The island joins the left,', 'and the line slides so T', 'crosses back.'], `Left ${formatInt(r.low)}, right ${formatInt(r.high)}`),
+  );
+  return [one, two, three];
 }
 
-export function strayRejectedDiagram(): SVGSVGElement {
-  return panel(
+/** Two lines for the same U-shaped piece: one strands a big region and has the longer border; the other wins. */
+export function strandedDiagrams(): [SVGSVGElement, SVGSVGElement] {
+  const { stranded, clean } = STRANDED_EXAMPLE;
+  const U = 'M40,40H110V140H210V40H280V200H40Z';
+  const A = `strv-dg__block ${FILL[0]}`;
+  const B = `strv-dg__block ${FILL[1]}`;
+  const left = panel(
     236,
-    'A stray piece over the cap',
-    'A U-shaped piece of a state. A level guide line crosses both arms of the U. Above the line, the two arm tips are separate. The larger tip, 58,000 people, keeps its side; the smaller, 41,000 people, is cut off. That is over the cap of 7,000, so the line is not used.',
-    path('M40,40H110V140H210V40H280V200H40Z', `strv-dg__block ${FILL[0]}`),
-    rect(210, 40, 70, 60, `strv-dg__block ${FILL[1]}`),
-    rect(40, 40, 70, 60, `strv-dg__block ${FILL[1]} strv-dg__stray`),
-    line([20, 100], [300, 100], 'strv-dg__guide strv-dg__guide--chosen'),
-    text(75, 74, '41,000', 'strv-dg__n', 'middle'),
-    text(245, 74, '58,000', 'strv-dg__n', 'middle'),
+    'A line that strands a big piece',
+    `A U-shaped piece. A level guide line crosses both arms. The tip of the left arm, ${formatInt(stranded.people)} people, is cut off and joins the side around it. That is allowed. The line then slides down the right arm so the people still split evenly. Its real border is ${stranded.km} km.`,
+    path(U, A),
+    rect(210, 40, 70, 88, B),
+    rect(40, 40, 70, 60, `${A} strv-dg__stray`),
+    line([20, 100], [300, 100], 'strv-dg__guide'),
+    line([20, 128], [300, 128], 'strv-dg__guide strv-dg__guide--chosen'),
+    path('M210,128H280', 'strv-dg__border'),
+    text(75, 74, formatInt(stranded.people), 'strv-dg__n', 'middle'),
     text(160, 176, 'Rest of the piece', 'strv-dg__t strv-dg__t--small', 'middle'),
-    text(30, 214, 'Cut off: 41,000 people.', 'strv-dg__t strv-dg__t--small'),
-    text(30, 230, 'Over the cap of 7,000: the line is not used.', 'strv-dg__t strv-dg__t--small strv-dg__t--strong'),
+    text(30, 214, `Cut off: ${formatInt(stranded.people)} people. Allowed.`, 'strv-dg__t strv-dg__t--small'),
+    text(30, 230, `Real border: ${stranded.km} km.`, 'strv-dg__t strv-dg__t--small'),
   );
+  const right = panel(
+    236,
+    'A shorter line that strands nothing',
+    `The same piece split by a north-south line through the bottom of the U. Nothing is cut off. Its real border is ${clean.km} km, shorter than ${stranded.km} km, so this line is used.`,
+    path(U, A),
+    path('M160,140H210V40H280V200H160Z', B),
+    line([160, 20], [160, 220], 'strv-dg__guide strv-dg__guide--chosen'),
+    path('M160,140V200', 'strv-dg__border'),
+    text(30, 214, 'Cut off: nobody.', 'strv-dg__t strv-dg__t--small'),
+    text(30, 230, `Real border: ${clean.km} km. Shorter: used.`, 'strv-dg__t strv-dg__t--small strv-dg__t--strong'),
+  );
+  return [left, right];
 }
 
 // ---------------------------------------------------------------------------
@@ -482,13 +558,11 @@ export function fingerprintDiagram(): SVGSVGElement {
   return panel(
     268,
     'Same inputs, same fingerprint',
-    'Three inputs, the 2020 Census block file, the angle step of the guide lines, and the Node.js major version, go into the generator, which has no random numbers. It writes the assignment file, every block and its district. The SHA-256 hash of that file is the map’s fingerprint, 64 characters long.',
-    ...box(10, 10, 96, 44, ['2020 Census', 'block file']),
-    ...box(112, 10, 96, 44, ['Guide lines', 'every 0.1°']),
-    ...box(214, 10, 96, 44, ['Node.js 24']),
-    arrow([58, 54], [120, 80]),
-    arrow([160, 54], [160, 80]),
-    arrow([262, 54], [200, 80]),
+    'Two inputs, the 2020 Census block file and the angle step of the guide lines, go into the generator, which has no random numbers. It writes the assignment file, every block and its district. The SHA-256 hash of that file is the map’s fingerprint, 64 characters long. Any computer gets the same file.',
+    ...box(30, 10, 120, 44, ['2020 Census', 'block file']),
+    ...box(170, 10, 120, 44, ['Guide lines', 'every 0.1°']),
+    arrow([90, 54], [130, 80]),
+    arrow([230, 54], [190, 80]),
     ...box(40, 82, 240, 40, ['The rule: no random numbers'], true),
     arrow([160, 122], [160, 140]),
     ...box(70, 142, 180, 40, ['assignment.csv:', 'every block, its district']),

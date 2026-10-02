@@ -11,12 +11,12 @@ import { exitCodeFor } from '../shared/errors/index.js';
 
 type Cut = SplitResult['cuts'][number];
 
-/** Per-cut summary of the search, including the spread of recount iterations over every candidate. */
+/** Per-cut summary of the search, including the spread of re-count iterations over every candidate. */
 function cutStats(c: Cut, i: number) {
   const its = c.candidateStats.map((s) => s.iterations);
   return {
     order: i + 1, depth: c.depth, seats: c.seats, firstDistrict: c.firstDistrict, angleDeg: c.angleDeg, lengthM: Math.round(c.lengthM),
-    skipped: c.skipped, strayCapRejected: c.strayCapRejected, strayBlocksMoved: c.strayBlocksMoved, strayPopMoved: c.strayPopMoved,
+    skipped: c.skipped, strayBlocksMoved: c.strayBlocksMoved, strayPopMoved: c.strayPopMoved,
     iterations: c.iterations, offsetShiftM: Math.round(c.offsetShiftM),
     candidateIterationsMax: Math.max(...its), candidateIterationsMean: its.reduce((s, v) => s + v, 0) / its.length,
     unresolvedCandidates: c.candidateStats.filter((s) => s.unresolved).length,
@@ -45,15 +45,17 @@ async function main(): Promise<void> {
       const blocks = await loadStateBlocks(state, config.cacheDir);
       const topo = buildTopology(blocks);
       const ctx = createContext(blocks, config.angleStepDeg, topo);
-      const split = splitState(ctx, state.seats, { pool, rule: config.strayRule });
+      const split = splitState(ctx, state.seats, { pool });
       const balanced = balance(blocks, topo, split.assignment, state.seats);
       const runtimeMs = Math.round(performance.now() - t0);
       const sum = (f: (c: (typeof split.cuts)[number]) => number): number => split.cuts.reduce((s, c) => s + f(c), 0);
       // Stray counts are net per block, both directions summed over all cuts.
       const common = {
         state: state.abbr, angleStepDeg: config.angleStepDeg, bridges: topo.bridges.length, nodeVersion: process.version, inputSha256,
-        cutsSkipped: sum((c) => c.skipped), strayCapRejected: sum((c) => c.strayCapRejected),
+        cutsSkipped: sum((c) => c.skipped),
         strayBlocksMoved: sum((c) => c.strayBlocksMoved), strayPopMoved: sum((c) => c.strayPopMoved),
+        // Re-counts: how many times a chosen line was slid again after strays moved, in total and at most for one cut.
+        recounts: sum((c) => c.iterations - 1), recountsMaxPerCut: Math.max(0, ...split.cuts.map((c) => c.iterations - 1)),
         // Work done: one entry per cut (angles x seat orientations), then their total.
         cuts: split.cuts.length, angleCount: ctx.angleCount, directionsPerCut: split.cuts.map((c) => c.candidateLines), candidateLinesEvaluated: sum((c) => c.candidateLines),
       };
@@ -77,14 +79,14 @@ async function main(): Promise<void> {
       await writePlan(join(config.outDir, state.abbr), {
         'balance.json': JSON.stringify(balanceLog(balanced.moves, before.districts.map((d) => d.pop))),
         // Debug only, not published: what each cut's search saw.
-        'cut-stats.json': JSON.stringify({ strayRule: config.strayRule, threads: config.threads, cuts: split.cuts.map(cutStats) }, null, 1),
-        ...(config.strayRule === 'recount' ? { 'candidates.json': JSON.stringify(candidateRows(split.cuts)) } : {}),
+        'cut-stats.json': JSON.stringify({ threads: config.threads, cuts: split.cuts.map(cutStats) }, null, 1),
+        'candidates.json': JSON.stringify(candidateRows(split.cuts)),
       });
       summary.push({
         state: state.abbr, status: 'ok', seats: state.seats, blocks: blocks.length,
         rangePersons: official.rangePersons, rangePct: Number(official.rangePct.toFixed(4)),
         beforeBalancingRange: before.rangePersons, contiguous: official.allContiguous,
-        cutsSkipped: common.cutsSkipped, strayCapRejected: common.strayCapRejected, strayPop: common.strayPopMoved, balanceMoves: balanced.moves.length,
+        cutsSkipped: common.cutsSkipped, strayPop: common.strayPopMoved, recounts: common.recounts, balanceMoves: balanced.moves.length,
         countiesSplit: `${official.countiesSplit}/${official.countiesTotal}`, runtimeMs,
         sha256: official.assignmentSha256.slice(0, 12),
       });

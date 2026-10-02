@@ -28,9 +28,7 @@ describe('parseConfig', () => {
   it('rejects a thread count that is not a positive whole number', () => {
     for (const t of ['0', '-2', '1.5', 'many']) expect(() => parseConfig(['--states', 'CO', `--threads=${t}`])).toThrow(ConfigError);
   });
-  it('defaults the stray rule to cap and accepts recount', () => {
-    expect(parseConfig(['--states', 'CO']).strayRule).toBe('cap');
-    expect(parseConfig(['--states', 'CO', '--stray-rule', 'recount']).strayRule).toBe('recount');
-    expect(() => parseConfig(['--states', 'CO', '--stray-rule', 'other'])).toThrow(ConfigError);
+  it('has no stray rule option', () => {
+    expect(() => parseConfig(['--states', 'CO', '--stray-rule', 'recount'])).toThrow();
   });
 });

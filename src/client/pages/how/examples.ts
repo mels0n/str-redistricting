@@ -74,6 +74,76 @@ export function walkSplit(people: readonly number[], seats: number, lowSeats: nu
 }
 
 // ---------------------------------------------------------------------------
+// Stray pieces and the re-count
+
+/**
+ * A 2-seat piece in order across the guide line: the West blocks, then T (the
+ * last block whose center is on the first side), then a small block whose
+ * center is just past the line but which sits inside a large West block, then
+ * the East blocks.
+ */
+export const RECOUNT_EXAMPLE = {
+  seats: 2,
+  lowSeats: 1,
+  island: 'Island',
+  blocks: [
+    { name: 'West', people: 470 },
+    { name: 'T', people: 30 },
+    { name: 'Island', people: 30 },
+    { name: 'East', people: 470 },
+  ] as readonly SplitBlock[],
+} as const;
+
+export interface Recount {
+  /** The first side's share of the people. */
+  readonly share: number;
+  /** People on the first side after the walk by centers, before the island moves. */
+  readonly firstWalk: number;
+  /** People in the island. */
+  readonly island: number;
+  /** The block the re-count hands back to the second side, if any. */
+  readonly crossesBack: string | undefined;
+  /** People on each side once the island has joined the first side and the walk is redone. */
+  readonly low: number;
+  readonly high: number;
+}
+
+/**
+ * The re-count for the example: the island joins the first side and stays
+ * there, and the walk is redone over the other blocks with the island's
+ * people already counted on the first side. Same stopping rule as walkSplit.
+ */
+export function recountExample(): Recount {
+  const { blocks, seats, lowSeats, island } = RECOUNT_EXAMPLE;
+  const first = walkSplit(blocks.map((b) => b.people), seats, lowSeats);
+  const firstWalk = first.running[first.count - 1]!;
+  const fixed = blocks.find((b) => b.name === island)!.people;
+  const free = blocks.filter((b) => b.name !== island);
+  const target = first.share - fixed;
+  let cum = 0;
+  let count = free.length - 1;
+  for (let i = 0; i < free.length; i++) {
+    const next = cum + free[i]!.people;
+    if (next >= target) {
+      count = Math.abs(next - target) < Math.abs(cum - target) ? i + 1 : i;
+      break;
+    }
+    cum = next;
+  }
+  // The first side already holds the island, so it may keep no free block; the second side keeps at least one.
+  count = Math.min(free.length - 1, count);
+  const low = fixed + free.slice(0, count).reduce((s, b) => s + b.people, 0);
+  const crossesBack = blocks.findIndex((b) => b.name === island) >= first.count ? free.slice(count).find((b) => blocks.indexOf(b) < first.count)?.name : undefined;
+  return { share: first.share, firstWalk, island: fixed, crossesBack, low, high: first.total - low };
+}
+
+/** Two lines for the same piece: one strands a big region, one strands nothing. Border lengths in km. */
+export const STRANDED_EXAMPLE = {
+  stranded: { people: 41_000, km: 35 },
+  clean: { km: 30 },
+} as const;
+
+// ---------------------------------------------------------------------------
 // One cut: comparing directions
 
 /** Three of the 1,800 directions for one piece, with example border lengths. */

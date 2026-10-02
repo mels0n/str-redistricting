@@ -23,8 +23,8 @@ import {
   inputsDiagram,
   fanDiagram,
   borderDiagram,
-  strayAllowedDiagram,
-  strayRejectedDiagram,
+  recountDiagrams,
+  strandedDiagrams,
   recursionDiagram,
   balanceDiagrams,
   balanceChoiceDiagram,
@@ -33,12 +33,12 @@ import {
   fingerprintDiagram,
   sourcesDiagram,
 } from './diagrams';
-import { BALANCE_EXAMPLE, DIRECTION_EXAMPLE, SPLIT_EXAMPLE, applyTrade, bestTrade, furthest, improvement, sumOfSquares, walkSplit } from './examples';
+import { BALANCE_EXAMPLE, DIRECTION_EXAMPLE, SPLIT_EXAMPLE, STRANDED_EXAMPLE, applyTrade, bestTrade, furthest, improvement, recountExample, sumOfSquares, walkSplit } from './examples';
 
 const TITLES: Record<HowSection, string> = {
   inputs: 'What goes in',
   cut: 'One cut',
-  strays: 'Stray pieces and the 1% cap',
+  strays: 'Stray pieces and the re-count',
   recursion: 'Repeat until every piece has one seat',
   balancing: 'Balancing, and why it is needed',
   fingerprint: 'Same data, same map',
@@ -241,6 +241,7 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
   const exD = furthest(exStart);
   const exBest = bestTrade(exStart, BALANCE_EXAMPLE.trades);
   const exAfter = applyTrade(exStart, exBest);
+  const recount = recountExample();
 
   const toc = h(
     'nav',
@@ -297,17 +298,17 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
       p('A census block is never split. Each block goes, whole, to the side its internal point is on. So the guide line only decides which side each block joins, and the real border follows block edges.'),
       figure('Each block goes, whole, to the side its internal point is on. The real border follows block edges.', borderDiagram()),
       h('h3', { class: 'strv-how__h3' }, 'The shortest border wins'),
-      p('Every guide line becomes a real border, and the generator measures its length. Lines that fail the checks are dropped: each side must be one connected piece, and the stray pieces must stay small (the next stage). Of the lines that remain, the one with the shortest real border is used.'),
+      p('Every guide line becomes a real border, and the generator measures its length. First, any stray pieces join the side around them and the line slides so the people still split evenly (the next stage). Then each side must be one connected piece. Of the lines that pass, the one with the shortest real border is used.'),
       h('h3', { class: 'strv-how__h3' }, 'How the winning line is chosen'),
       h(
         'ol',
         { class: 'strv-how__steps' },
         li(h('strong', null, 'Put the blocks in order.'), ' Take one direction. Line up the piece’s blocks by where their internal points sit across a line in that direction, from one edge of the piece to the other.'),
         li(h('strong', null, 'Walk until the first side has its share.'), ' Go along that order adding up people. Find the block that takes the running total to the first side’s share or past it. Stop just before that block or just after it, whichever leaves the total closer to the share. If both are equally close, stop just before it.'),
+        li(h('strong', null, 'Settle the stray pieces.'), ' Pieces cut off from their side join the side around them, and the line slides so the people still split evenly (the next stage).'),
         li(h('strong', null, 'Repeat for every direction.'), ' Do the same for all 1,800 directions, one every 0.1 degrees.'),
-        li(h('strong', null, 'Throw out lines that break the rules.'), ' A line is out if its stray pieces hold too many people (the next stage), or if either side is not one connected piece.'),
-        li(h('strong', null, 'Measure the real borders.'), ' For each line left, measure the border along block edges that it makes.'),
-        li(h('strong', null, 'The shortest border wins.'), ' If two borders are the same length, the line closer to north-south wins.'),
+        li(h('strong', null, 'Measure the real borders.'), ' For each line, measure the border along block edges that it makes.'),
+        li(h('strong', null, 'The shortest border wins.'), ' The shortest border whose two sides are each one connected piece is used. If two borders are the same length, the line closer to north-south wins.'),
       ),
       h(
         'div',
@@ -320,7 +321,7 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
         `The running total passes ${formatInt(splitWalk.share)} at block ${splitCrossing}. Stopping just before ${splitCrossing} leaves ${formatInt(splitWalk.before)} people, ${formatInt(splitWalk.share - splitWalk.before)} short. Stopping just after it gives ${formatInt(splitWalk.after)}, ${formatInt(splitWalk.after - splitWalk.share)} over. ${formatInt(splitWalk.after - splitWalk.share)} is closer, so the walk stops after ${splitCrossing}: blocks ${splitBlocks[0]!.name} to ${splitCrossing} (${formatInt(splitWalk.after)} people) form one side, and ${splitBlocks[splitWalk.count]!.name} to ${splitBlocks[splitBlocks.length - 1]!.name} (${formatInt(splitWalk.total - splitWalk.after)} people) the other. Had both been equally close, the walk would have stopped just before ${splitCrossing}.`,
       ),
       h('h3', { class: 'strv-how__h3' }, 'Comparing directions'),
-      p('That walk places one line. It is repeated in every direction, and each line that passes the checks gets its real border measured. The drawing shows three of the 1,800.'),
+      p('That walk places one line. It is repeated in every direction, and each line gets its real border measured. The drawing shows three of the 1,800.'),
       figure(`The same piece split in three directions. The border at ${dirShortest.angle}° is the shortest, ${dirShortest.km} km, so that line is used. Example numbers.`, directionsDiagram()),
       exact(
         h(
@@ -332,7 +333,7 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
           li(h('strong', null, 'Measuring the border.'), ' The length is the total of the block edges with one side on each hand, measured along the surface of the Earth. Water inside the state counts as part of the state, so a bay or a lake does not shorten or break a border.'),
           li(h('strong', null, 'The share.'), ' The first side’s share is the piece’s population times the first side’s seats, divided by the piece’s seats. It need not be a whole number: 3 seats split 1 and 2 with 1,000 people make a share of 333⅓.'),
           li(h('strong', null, 'Where the walk stops.'), ' The walk stops at the first block that brings the running total to the share or past it. If the total after that block is strictly closer to the share than the total before it, the block joins the first side; otherwise it starts the second side. Each side always keeps at least one block. The guide line drawn on the map sits halfway between the last block of the first side and the first block of the second.'),
-          li(h('strong', null, 'The order of the checks.'), ' Every direction’s line is first settled for stray pieces and checked against the stray cap: it is out when the people in its stray pieces, times 100, times the piece’s seats, come to more than the piece’s population. That is the same as more than 1% of one district’s ideal population. The lines that pass are sorted by border length, and the shortest whose two sides are each one connected piece is used.'),
+          li(h('strong', null, 'The order of the checks.'), ' Every direction’s line is first settled for stray pieces, with its re-counts (the next stage), and its real border is measured after that. The lines are sorted by border length, and the shortest whose two sides are each one connected piece is used.'),
           li(h('strong', null, 'Ties.'), ' Two borders whose lengths agree to the nearest centimeter are tied. A tie goes to the line closest to north-south, then to the smaller angle, then to the line whose first side has fewer seats. Directions that lean the same amount either side of north-south, such as 0.1° and 179.9°, are equally close to it.'),
         ),
       ),
@@ -340,22 +341,32 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
     section(
       'strays',
       3,
-      p('Because blocks stay whole, a large block that straddles the guide line can leave a few small blocks cut off on the far side, such as a median strip or an on-ramp. These cut-off blocks are called stray pieces, and they join the side around them. That is fine while they are small.'),
-      p('The stray cap keeps them small. If the people in the stray pieces total more than 1% of one district’s ideal population for the piece being cut, the line is not used and the next shortest is considered. A guide line through a bay, or across both arms of a U-shaped piece, would strand a real part of the piece, and the cap rules it out. The ideal population is the piece’s population divided by its number of seats.'),
+      p('Because blocks stay whole, a large block that straddles the guide line can leave a smaller block cut off from the rest of its side, such as a median strip inside a big lot. A block, or a group of blocks, cut off like this is a stray piece.'),
+      p('A stray piece joins the side around it and stays there for the rest of that cut. Then the people are counted again, including the pieces that moved, and the line slides so the two sides still hold their shares. If the slide cuts off a new piece, that piece joins the side around it too, and the count is done again. This repeats until nothing is cut off.'),
       h(
         'div',
         { class: 'strv-how__worked' },
-        h('h3', { class: 'strv-how__h3' }, 'A worked example'),
-        p('Example numbers: a piece with 2 seats and 1,400,000 people. One district’s ideal population is 700,000, so the cap is 1% of that: 7,000 people.'),
+        h('h3', { class: 'strv-how__h3' }, 'A worked example: one re-count'),
+        p(`Example numbers: a piece with 2 seats and ${formatInt(recount.low + recount.high)} people, so each side’s share is ${formatInt(recount.share)}.`),
       ),
-      figure('Left: a small piece cut off inside a large block holds 180 people, under the cap, so the line can be used. Right: a line across both arms of a U cuts off 41,000 people, over the cap, so the line is not used.', strayAllowedDiagram(), strayRejectedDiagram()),
+      figure(
+        `The re-count in three steps: the small block inside the large one ends up cut off, joins the side around it, and the line slides so each side still holds ${formatInt(recount.low)} people. Example numbers.`,
+        ...recountDiagrams(),
+      ),
+      h('h3', { class: 'strv-how__h3' }, 'Big stray pieces are allowed'),
+      p(`There is no limit on how many people a stray piece holds. A line that cuts off a big region still has to win on border length, like every other line, and its border is measured after the strays have joined and the line has slid. Here the line across both arms cuts off ${formatInt(STRANDED_EXAMPLE.stranded.people)} people and is allowed, but its border, ${STRANDED_EXAMPLE.stranded.km} km, is longer than the ${STRANDED_EXAMPLE.clean.km} km of a line that cuts off nobody.`),
+      figure(`Left: a line that cuts off ${formatInt(STRANDED_EXAMPLE.stranded.people)} people; the line slides down the right arm and its real border is ${STRANDED_EXAMPLE.stranded.km} km. Right: a line that cuts off nobody, with a ${STRANDED_EXAMPLE.clean.km} km border. The shorter border is used. Example numbers.`, ...strandedDiagrams()),
       p('A cut is also used only if both of its sides are each one connected piece.'),
       exact(
         h(
           'ul',
           { class: 'strv-how__list' },
-          li(h('strong', null, 'Which group stays.'), ' On each side, every connected group of blocks other than the side’s main body joins the other side, the side around it. The main body is the group with the most people, then the most blocks, then the lowest block position in GEOID order. This repeats until nothing moves.'),
-          li(h('strong', null, 'Crossing the outline.'), ' A line may cross the piece’s outline any number of times, as long as it passes the cap.'),
+          li(h('strong', null, 'Which group stays.'), ' On each side, every connected group of blocks other than the side’s main body joins the other side, the side around it. The main body is the group with the most people, then the most blocks, then the lowest block position in GEOID order. The first side is settled, then the second, and this repeats until nothing moves.'),
+          li(h('strong', null, 'Moved pieces are fixed.'), ' A block that moves is fixed to its new side at once. It never moves again during that cut: not in a later pass, and not after a re-count. A fixed block counts toward its side’s groups like any other block, but fixed blocks and free blocks form separate groups, so free blocks next to a fixed piece can still move.'),
+          li(h('strong', null, 'The re-count.'), ' The walk from stage 2 is done again over the free blocks only, in the same order. The fixed blocks’ people already count on their sides, so the first side’s target is its share minus the people fixed on it. The stopping rule is the same: the closer total, and a tie stops just before the block. A side with no fixed blocks keeps at least one free block. The guide line moves to halfway between the last free block of the first side and the first free block of the second.'),
+          li(h('strong', null, 'When it ends.'), ' Stray pieces are settled and the people re-counted until a pass moves no free block. Every re-count follows at least one newly fixed block, and fixed blocks never become free, so a piece of n blocks needs at most n walks.'),
+          li(h('strong', null, 'A piece that cannot rejoin.'), ' If a pass moves nothing but a fixed piece is still cut off from its side, it cannot move back. That line’s sides are not each one connected piece, so it fails the check that each side is one connected piece, and the next shortest line is considered.'),
+          li(h('strong', null, 'Crossing the outline.'), ' A line may cross the piece’s outline any number of times.'),
           li(h('strong', null, 'Connected.'), ' Two blocks are connected when they share an edge; touching at a single corner does not count.'),
           li(h('strong', null, 'Islands.'), ' Islands and other detached land are joined to the nearest block of the main body, so a state with islands can still be cut.'),
         ),
@@ -374,7 +385,7 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
     section(
       'balancing',
       5,
-      p('U.S. House districts must be as nearly equal in population as practicable. That is the standard the Supreme Court applied to congressional districts in Karcher v. Daggett (1983). Each cut comes as close to equal as whole blocks allow, but the small differences, and the stray pieces, add up across many cuts.'),
+      p('U.S. House districts must be as nearly equal in population as practicable. That is the standard the Supreme Court applied to congressional districts in Karcher v. Daggett (1983). Each cut comes as close to equal as whole blocks allow, but the small differences add up across many cuts.'),
       p('So after the cuts, the districts are close to equal but not exactly. To finish the job, districts trade single blocks along their shared borders, one at a time. A trade is only made if it brings the two districts closer to equal and keeps both in one piece. When no trade helps any more, it stops.'),
       figure('Gap: the difference between the two districts’ populations. A block may move only if that gap gets strictly smaller. Example numbers.', ...balanceDiagrams()),
       h('h3', { class: 'strv-how__h3' }, 'How the next block is chosen'),
@@ -429,7 +440,7 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
       p('The map itself is a file that lists every block and the district it belongs to. Its fingerprint is a 64-character code worked out from that file. The code changes completely if even one block is assigned differently, so two people can compare that one value to confirm they got the same map. Each state’s fingerprint is printed under “Check this map” in its view.'),
       figure('The same inputs always give the same assignment file, and so the same fingerprint.', fingerprintDiagram()),
       exact(
-        p('Blocks are always processed in GEOID order. Given the same census files, the same angle step and the same Node.js major version (the maps here were made with Node.js 24), the generator writes a byte-identical assignment file and identical district shapes. The fingerprint is the SHA-256 hash of that assignment file.'),
+        p('Blocks are always processed in GEOID order. Given the same census files and the same angle step, the generator writes a byte-identical assignment file and identical district shapes on any computer: its arithmetic, including the angles of the guide lines, is done in a way that gives the same result everywhere. The fingerprint is the SHA-256 hash of that assignment file.'),
       ),
       h('h3', { class: 'strv-how__h3' }, 'To reproduce a state’s map'),
       h('pre', { class: 'strv-code', tabindex: 0, role: 'group', 'aria-label': 'Commands to run' }, h('code', null, 'npm install\nnpm run explore -- --states CO')),

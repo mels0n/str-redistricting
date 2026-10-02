@@ -7,3 +7,6 @@ function arrow(d: string): SVGSVGElement {
 
 export const iconArrowLeft = (): SVGSVGElement => arrow('M13 8H3.25M7.5 3.5L3 8l4.5 4.5');
 export const iconArrowDown = (): SVGSVGElement => arrow('M8 3v9.75M3.5 8.5L8 13l4.5-4.5');
+
+/** A disclosure chevron: points down when closed; the page turns it over when open. */
+export const iconChevronDown = (): SVGSVGElement => arrow('M3.5 6l4.5 4.5L12.5 6');

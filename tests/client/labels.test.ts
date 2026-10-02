@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { boxesOverlap, boxInside, firstClearSpot, offsetToClear, type Box } from '../../src/client/shared/lib/labels';
+import { boxesOverlap, boxInside, clusterPoints, firstClearSpot, offsetToClear, placeNumbers, type Box } from '../../src/client/shared/lib/labels';
 import { pointAlongLines } from '../../src/client/shared/lib/geo';
 import { cutRows, type Cut } from '../../src/client/entities/plan';
 
@@ -108,5 +108,48 @@ describe('cut timetable rows', () => {
 
   it('has no rows for no cuts', () => {
     expect(cutRows([])).toEqual([]);
+  });
+});
+
+describe('district numbers at phone size', () => {
+  const phone = { w: 390, h: 300 };
+  const size = { w: 32, h: 28 };
+  const shownBoxes = (pts: { x: number; y: number }[], res: ReturnType<typeof placeNumbers>): Box[] =>
+    pts.flatMap((p, i) => (res[i]!.shown ? [{ x: p.x + res[i]!.dx, y: p.y + res[i]!.dy, ...size }] : []));
+  const noneOverlap = (boxes: Box[]): boolean => boxes.every((a, i) => boxes.every((b, j) => i === j || !boxesOverlap(a, b)));
+
+  it('keeps every shown number clear of the others in a crowded city', () => {
+    // 17 districts packed into a 50 px patch, as in a big city on a phone.
+    const pts = Array.from({ length: 17 }, (_, i) => ({ x: 270 + (i % 4) * 11, y: 160 + Math.floor(i / 4) * 10 }));
+    const order = pts.map((_, i) => i);
+    const res = placeNumbers(pts, order, size, [], phone);
+    expect(noneOverlap(shownBoxes(pts, res))).toBe(true);
+    expect(res.every((r) => r.shown)).toBe(true);
+  });
+
+  it('leaves out what cannot fit instead of overlapping, and gives the chosen district first claim', () => {
+    const pts = Array.from({ length: 60 }, (_, i) => ({ x: 200 + (i % 8) * 4, y: 150 + Math.floor(i / 8) * 4 }));
+    const order = [59, ...pts.map((_, i) => i).filter((i) => i !== 59)];
+    const res = placeNumbers(pts, order, size, [], phone);
+    expect(noneOverlap(shownBoxes(pts, res))).toBe(true);
+    expect(res[59]).toEqual({ dx: 0, dy: 0, shown: true });
+    expect(res.some((r) => !r.shown)).toBe(true);
+  });
+
+  it('keeps numbers out from under fixed boxes such as the zoom buttons', () => {
+    const control: Box = { x: 358, y: 246, w: 48, h: 92 };
+    const pts = [{ x: 350, y: 240 }];
+    const res = placeNumbers(pts, [0], size, [control], phone);
+    expect(boxesOverlap({ x: 350 + res[0]!.dx, y: 240 + res[0]!.dy, ...size }, control)).toBe(false);
+  });
+
+  it('ignores points far outside the frame', () => {
+    const res = placeNumbers([{ x: -300, y: 10 }], [0], size, [], phone);
+    expect(res[0]).toEqual({ dx: 0, dy: 0, shown: true });
+  });
+
+  it('groups crowded points into clusters', () => {
+    const groups = clusterPoints([{ x: 0, y: 0 }, { x: 30, y: 0 }, { x: 60, y: 0 }, { x: 400, y: 0 }], 40);
+    expect(groups.map((g) => g.length).sort()).toEqual([1, 3]);
   });
 });

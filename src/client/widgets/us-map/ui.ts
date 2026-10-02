@@ -63,7 +63,7 @@ function buildUsMap(opts: UsMapOptions, compact: boolean): SVGSVGElement {
     const [cx, cy] = path.centroid(f);
     const href = formatHash(stateRoute(entry.abbr));
     const label = `${entry.name}, ${entry.seats} districts`;
-    const fits = x1 - x0 > (compact ? 84 : 54) && y1 - y0 > (compact ? 84 : 40) && !ALWAYS_CALLOUT.has(entry.abbr);
+    const fits = x1 - x0 > (compact ? 70 : 54) && y1 - y0 > (compact ? 76 : 40) && !ALWAYS_CALLOUT.has(entry.abbr);
     // A label that fits sits inside its state's link, so it can change color with the state's hover and focus fill.
     const inside = fits
       ? svg(

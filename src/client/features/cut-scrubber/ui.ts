@@ -1,4 +1,4 @@
-import { h, clear, formatKm, prefersReducedMotion, config } from '../../shared';
+import { h, clear, formatKm, prefersReducedMotion, config, iconChevronDown } from '../../shared';
 import { cutRows, cutSides, cutStep, stepBy, isLastStep, type Cut, type CutStep } from '../../entities/plan';
 
 export interface CutScrubberOptions {
@@ -155,7 +155,7 @@ export function createCutScrubber(opts: CutScrubberOptions): CutScrubber {
     { class: 'strv-board__scroll' },
     h('table', { class: 'strv-board__table' }, h('caption', { class: 'strv-visually-hidden' }, 'Every cut in order. Choose a cut number to jump to it.'), boardHead, h('tbody', null, boardRows)),
   );
-  const board = h('details', { class: 'strv-board' }, h('summary', { class: 'strv-board__summary' }, `All ${total} ${total === 1 ? 'cut' : 'cuts'}`), boardScroll);
+  const board = h('details', { class: 'strv-board' }, h('summary', { class: 'strv-board__summary' }, iconChevronDown(), h('span', null, `All ${total} ${total === 1 ? 'cut' : 'cuts'}`)), boardScroll);
   // Open where there is room for it beside the map; a phone keeps the map and controls on one screen.
   board.addEventListener('toggle', () => renderBoard());
   board.open = typeof matchMedia === 'function' && matchMedia('(min-width: 64rem) and (min-height: 40rem)').matches;

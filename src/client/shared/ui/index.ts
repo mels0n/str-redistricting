@@ -1,2 +1,2 @@
 export { tokens, districtPalette } from './tokens';
-export { iconArrowLeft, iconArrowDown } from './icons';
+export { iconArrowLeft, iconArrowDown, iconChevronDown } from './icons';

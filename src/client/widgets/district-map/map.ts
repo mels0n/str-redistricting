@@ -12,6 +12,9 @@ import {
   partialLines,
   firstClearSpot,
   offsetToClear,
+  findOffset,
+  placeNumbers,
+  clusterPoints,
   type Box,
   prefersReducedMotion,
   type LonLat,
@@ -147,7 +150,14 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
     });
 
     // Cut numbers: newest first, kept on their line.
+    // The zoom buttons are part of the frame too; nothing is placed under them.
     const placed: Box[] = [];
+    const ctrl = container.querySelector('.maplibregl-ctrl-group');
+    if (ctrl) {
+      const c = ctrl.getBoundingClientRect();
+      const f = container.getBoundingClientRect();
+      placed.push({ x: c.left - f.left + c.width / 2, y: c.top - f.top + c.height / 2, w: c.width + 4, h: c.height + 4 });
+    }
     for (const tag of [...cutTags].reverse()) {
       const tagSize = { w: tag.el.offsetWidth || 24, h: tag.el.offsetHeight || 20 };
       const pts = tag.spots.map((s) => map.project(s as [number, number]));
@@ -163,20 +173,52 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
       placed.push({ x: pts[at]!.x + nudge.dx, y: pts[at]!.y + nudge.dy, ...tagSize });
     }
 
-    // District numbers: stay put when free, else move to the nearest free spot, kept inside the frame.
+    // District numbers: the chosen one first, then the larger districts. A number stays put when free, else moves
+    // to the nearest free spot with a leader. Where a crowd has no room (a big city on a phone), the numbers that
+    // do not fit give way to one "+N" marker that zooms in on tap; those districts stay in the list.
+    const selected = current.selected;
+    const prio = [...order].sort((x, y) => Number(y + 1 === selected) - Number(x + 1 === selected));
+    const pts = labels.map((l) => map.project(l as [number, number]));
+    const result = placeNumbers(pts, prio, size, placed, frame);
     const out: string[] = [];
-    for (const i of order) {
-      const { marker } = districtMarkers[i]!;
-      const pt = map.project(labels[i]! as [number, number]);
-      const { dx, dy } = offsetToClear(pt, size, placed, frame, 0);
-      marker.setOffset([dx, dy]);
-      placed.push({ x: pt.x + dx, y: pt.y + dy, ...size });
-      if (dx || dy) {
-        const len = Math.hypot(dx, dy);
-        const ex = pt.x + dx - (dx / len) * 11;
-        const ey = pt.y + dy - (dy / len) * 9;
-        out.push(`<path d="M${pt.x.toFixed(1)},${pt.y.toFixed(1)}L${ex.toFixed(1)},${ey.toFixed(1)}"/><circle cx="${pt.x.toFixed(1)}" cy="${pt.y.toFixed(1)}" r="2.5"/>`);
-      }
+    const leader = (from: { x: number; y: number }, dx: number, dy: number): void => {
+      const len = Math.hypot(dx, dy);
+      const ex = from.x + dx - (dx / len) * 11;
+      const ey = from.y + dy - (dy / len) * 9;
+      out.push(`<path d="M${from.x.toFixed(1)},${from.y.toFixed(1)}L${ex.toFixed(1)},${ey.toFixed(1)}"/><circle cx="${from.x.toFixed(1)}" cy="${from.y.toFixed(1)}" r="2.5"/>`);
+    };
+    districtMarkers.forEach(({ el }, i) => {
+      el.dataset.crowded = String(order.includes(i) && !result[i]!.shown);
+    });
+    for (const i of prio) {
+      const r = result[i]!;
+      if (!r.shown) continue;
+      districtMarkers[i]!.marker.setOffset([r.dx, r.dy]);
+      placed.push({ x: pts[i]!.x + r.dx, y: pts[i]!.y + r.dy, ...size });
+      if (r.dx || r.dy) leader(pts[i]!, r.dx, r.dy);
+    }
+    const crowded = prio.filter((i) => !result[i]!.shown && pts[i]!.x >= 0 && pts[i]!.y >= 0 && pts[i]!.x <= frame.w && pts[i]!.y <= frame.h);
+    const groups = clusterPoints(crowded.map((i) => pts[i]!), 56).map((g) => g.map((k) => crowded[k]!));
+    const chipSize = { w: 42, h: 26 };
+    chipTargets = [];
+    groups.forEach((g, n) => {
+      const cx = g.reduce((t, i) => t + pts[i]!.x, 0) / g.length;
+      const cy = g.reduce((t, i) => t + pts[i]!.y, 0) / g.length;
+      const off = findOffset({ x: cx, y: cy }, chipSize, placed, frame, 0, [20, 36, 52, 70, 90, 120]);
+      if (!off) return;
+      const chip = chipAt(n);
+      const at = map.unproject([cx, cy]);
+      chip.el.textContent = `+${g.length}`;
+      chip.marker.setLngLat([at.lng, at.lat]).setOffset([off.dx, off.dy]);
+      if (!chip.on) chip.marker.addTo(map);
+      chip.on = true;
+      chipTargets[n] = g;
+      placed.push({ x: cx + off.dx, y: cy + off.dy, ...chipSize });
+      if (off.dx || off.dy) leader({ x: cx, y: cy }, off.dx, off.dy);
+    });
+    for (let n = groups.length; n < chips.length; n++) {
+      if (chips[n]!.on) chips[n]!.marker.remove();
+      chips[n]!.on = false;
     }
     leaders.innerHTML = out.join('');
   }
@@ -184,6 +226,29 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
   let current: MapViewState | null = null;
   let anim: number | null = null;
   let districtMarkers: { marker: Marker; el: HTMLElement }[] = [];
+  // "+N" markers standing in for numbers that do not fit; one is reused per crowd.
+  const chips: { marker: Marker; el: HTMLElement; on: boolean }[] = [];
+  let chipTargets: number[][] = [];
+  function chipAt(n: number): { marker: Marker; el: HTMLElement; on: boolean } {
+    let c = chips[n];
+    if (!c) {
+      const el = document.createElement('div');
+      el.className = 'strv-map-cluster';
+      el.setAttribute('aria-hidden', 'true');
+      el.addEventListener('click', (ev) => {
+        ev.stopPropagation();
+        const g = chipTargets[n];
+        if (!g) return;
+        const lls = g.map((i) => labelsFor(current!.cut !== null ? 'before' : current!.plan)[i]!);
+        const lons = lls.map((l) => l[0]);
+        const lats = lls.map((l) => l[1]);
+        map.fitBounds([[Math.min(...lons), Math.min(...lats)], [Math.max(...lons), Math.max(...lats)]], { padding: 70, maxZoom: Math.min(11, map.getZoom() + 3.5) });
+      });
+      c = { marker: new Marker({ element: el, anchor: 'center' }), el, on: false };
+      chips[n] = c;
+    }
+    return c;
+  }
   let cutTags: { marker: Marker; el: HTMLElement; spots: LonLat[] }[] = [];
   let pin: Marker | null = null;
   let leaders: SVGSVGElement | null = null;

@@ -603,7 +603,7 @@ body:has(> #str-viewer) {
 
 .strv-us--compact .strv-us__seats,
 .strv-us--compact .strv-us__seats-ink {
-  font-size: 40px;
+  font-size: 36px;
 }
 
 .strv-us--compact .strv-us__leader,
@@ -2489,4 +2489,64 @@ body:has(> #str-viewer) {
   .strv-board__go {
     min-height: 2.75rem;
   }
+}
+
+/* The disclosure shows its state: a drawn chevron that turns over when the timetable is open. */
+.strv-board__summary {
+  gap: var(--s-2);
+  list-style: none;
+}
+
+.strv-board__summary::-webkit-details-marker {
+  display: none;
+}
+
+.strv-board__summary .strv-icon {
+  transition: transform 140ms ease-out;
+}
+
+.strv-board[open] > .strv-board__summary .strv-icon {
+  transform: rotate(180deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .strv-board__summary .strv-icon {
+    transition: none;
+  }
+}
+
+/* A phone: the whole row is a 44px target. */
+@media (max-width: 63.99rem), (pointer: coarse) {
+  .strv-board__summary {
+    min-height: 2.75rem;
+  }
+}
+
+/* Where numbers crowd together and cannot all be shown, one marker stands in for them and zooms in when tapped. */
+.strv-map-label[data-crowded='true'] {
+  display: none;
+}
+
+.strv-map-cluster {
+  font-family: var(--font);
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1;
+  min-width: 2.25rem;
+  min-height: 1.75rem;
+  display: grid;
+  place-items: center;
+  padding: 0 0.375rem;
+  color: var(--ink);
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  border-radius: 2px;
+  cursor: zoom-in;
+  font-variant-numeric: tabular-nums;
+}
+
+.strv-map-cluster::after {
+  content: '';
+  position: absolute;
+  inset: -0.375rem;
 }

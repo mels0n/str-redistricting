@@ -496,7 +496,10 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
 
       clear(legend);
       const legendItems: (HTMLElement | null)[] = [
+        h('span', { class: 'strv-legend__title' }, 'Key'),
         h('span', { class: 'strv-legend__item' }, h('span', { class: 'strv-legend__num' }, '3'), 'District number'),
+        h('span', { class: 'strv-legend__item' }, h('span', { class: 'strv-legend__chip' }, '+2'), 'More districts here, press to zoom'),
+        bundle.water ? h('span', { class: 'strv-legend__item' }, h('span', { class: 'strv-legend__water' }), 'Water inside a district (shown pale)') : null,
         cutMode ? h('span', { class: 'strv-legend__item' }, h('span', { class: 'strv-legend__cut' }), 'Newest cut') : null,
         cutMode ? h('span', { class: 'strv-legend__item' }, h('span', { class: 'strv-legend__past' }), 'Earlier cuts') : null,
         balanceMode && (route.move ?? 0) > 0 ? h('span', { class: 'strv-legend__item' }, h('span', { class: 'strv-legend__move' }), 'Block moved') : null,

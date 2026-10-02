@@ -1,4 +1,4 @@
-export { CountyRecord, ENACTED_CANDIDATES, STATES_FILE, COUNTIES_FILE, StateRecord, boundaryUrl, parseCdRecord } from './boundary.js';
+export { CountyRecord, ENACTED_CANDIDATES, LAND_FILE, STATES_FILE, COUNTIES_FILE, StateRecord, boundaryUrl, parseCdRecord } from './boundary.js';
 export type { CdRecord } from './boundary.js';
 export { countiesByDistrict } from './counties.js';
 export type { CountyRef } from './counties.js';
@@ -11,3 +11,4 @@ export { buildStats, planStats } from './stats.js';
 export { buildIndex, PlanMetricsSchema, summarize } from './summary.js';
 export type { IndexEntry, StateSummary } from './summary.js';
 export { districtBudget, simplifyPercent, toTopology, vertexCount } from './topo.js';
+export { buildWater, mergeLand } from './water.js';

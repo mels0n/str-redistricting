@@ -10,6 +10,8 @@ import {
   openingBox,
   crossesAntimeridian,
   labelPoint,
+  landLabelPoint,
+  WATER_VEIL,
   pointAlongLines,
   partialLines,
   firstClearSpot,
@@ -156,12 +158,14 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
   // The canvas is described by the region around it; the list is the full text view.
   map.getCanvas().setAttribute('aria-label', `Map of ${opts.stateName} districts. Arrow keys move the map; plus and minus zoom. To choose a district, use the Districts table.`);
 
+  /** The water mask's polygons: district numbers prefer the land part of a district. */
+  const waterPolys: Position[][][] = (bundle.water?.features ?? []).flatMap((f) => (f.geometry.type === 'Polygon' ? [f.geometry.coordinates] : f.geometry.coordinates));
   const labelCache = new Map<Plan, LonLat[]>();
   const labelsFor = (plan: Plan): LonLat[] => {
     let l = labelCache.get(plan);
     if (!l) {
       const shapes = plan === 'finished' ? bundle.finished : bundle.before;
-      l = shapes.features.map((f) => labelPoint(f.geometry));
+      l = shapes.features.map((f) => (waterPolys.length > 0 ? landLabelPoint(f.geometry, waterPolys) : labelPoint(f.geometry)));
       labelCache.set(plan, l);
     }
     return l;
@@ -285,7 +289,7 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
     }
 
     const shapes = shapesOf(plan).features.map((f) => pixelShape(f.geometry));
-    const placer = new NumberPlacer(shapes, placed, frame);
+    const placer = new NumberPlacer(shapes, placed, frame, 2, waterPolys.map((p) => pixelShape({ type: 'Polygon', coordinates: p })));
     const items: NumberItem[] = shapes.map((shape, i) => ({ anchor: pts[i]!, size, shape }));
     leaderPairs = [];
     const unplaced: number[] = [];
@@ -404,6 +408,7 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
         promoteId: 'district',
       });
     }
+    map.addSource('water', { type: 'geojson', data: bundle.water ?? { type: 'FeatureCollection', features: [] } });
     map.addSource('borders', { type: 'geojson', data: asFeature(EMPTY_LINES) });
     map.addSource('outline', { type: 'geojson', data: asFeature(bundle.finished.outline) });
     map.addSource('enacted', { type: 'geojson', data: asFeature(EMPTY_LINES) });
@@ -459,6 +464,9 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
       layout: { 'line-join': 'round' },
       paint: { 'line-color': tokens.ink, 'line-width': ['interpolate', ['linear'], ['zoom'], 5, 1.5, 10, 2.5] },
     });
+    // Water inside the districts (lakes, bays, coastal water) is washed with the ground color: the district's color stays faintly
+    // visible, land leads, and the borders that run across water are softened with it. Display only: nothing queries this layer.
+    map.addLayer({ id: 'water-veil', type: 'fill', source: 'water', paint: { 'fill-color': tokens.ground, 'fill-opacity': WATER_VEIL } });
     map.addLayer({
       id: 'enacted',
       type: 'line',

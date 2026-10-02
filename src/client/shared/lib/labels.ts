@@ -270,6 +270,8 @@ export class NumberPlacer {
     obstacles: readonly Box[],
     private readonly bounds: Bounds,
     private readonly gap = 2,
+    /** Water inside the districts, in pixels: a number sits on land when it can. */
+    private readonly water: readonly Shape[] = [],
   ) {
     this.boxes = [...obstacles];
   }
@@ -282,11 +284,11 @@ export class NumberPlacer {
    * A spot inside the shape. The label's padding may reach past the edge; its ink (the box less `slack`) must not,
    * so a small district can hold a number whose box is a little larger than the district.
    */
-  private inside(shape: Shape, anchor: Pt, size: { w: number; h: number }, slack = { w: 0, h: 0 }): Pt | null {
+  private inside(shape: Shape, anchor: Pt, size: { w: number; h: number }, slack = { w: 0, h: 0 }, landOnly = false): Pt | null {
     const ink = { w: Math.max(10, size.w - slack.w), h: Math.max(10, size.h - slack.h) };
     const fits = (x: number, y: number): boolean => {
       if (!pointInShape({ x, y }, shape)) return false;
-      return this.free({ x, y, w: size.w, h: size.h }) && boxInsideShape({ x, y, ...ink }, shape);
+      return this.free({ x, y, w: size.w, h: size.h }) && boxInsideShape({ x, y, ...ink }, shape) && (!landOnly || boxOutsideShapes({ x, y, ...ink }, this.water));
     };
     if (fits(anchor.x, anchor.y)) return anchor;
     const reach = Math.min(140, Math.max(shape.bbox[2] - shape.bbox[0], shape.bbox[3] - shape.bbox[1]) / 2 + 6);
@@ -323,7 +325,9 @@ export class NumberPlacer {
 
   /** The number's spot, or null when there is no room under the rule. */
   placeNumber(item: NumberItem, maxLeader = 48): NumberSpot | null {
-    const inside = this.inside(item.shape, item.anchor, item.size, { w: 8, h: 10 });
+    const slack = { w: 8, h: 10 };
+    // On land when there is room for it; failing that, anywhere in the district.
+    const inside = (this.water.length > 0 ? this.inside(item.shape, item.anchor, item.size, slack, true) : null) ?? this.inside(item.shape, item.anchor, item.size, slack);
     if (inside) return this.take('inside', inside, item.size, item.anchor);
     const outside = this.outside(item.anchor, item.size, maxLeader);
     return outside ? this.take('outside', outside, item.size, item.anchor) : null;

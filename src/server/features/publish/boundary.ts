@@ -12,6 +12,11 @@ import { downloadCached } from '../../shared/http/index.js';
 const GENZ = 'https://www2.census.gov/geo/tiger';
 
 export const STATES_FILE = 'cb_2025_us_state_20m';
+/**
+ * State land outlines clipped to the shoreline, at the 2020 vintage of the blocks. The generator's blocks run out to the
+ * legal boundary (lakes, bays, coastal water); this file shows where the land stops. Display only.
+ */
+export const LAND_FILE = 'cb_2020_us_state_500k';
 /** County names must match the 2020 block files the generator reads, so the 2020 vintage is used. */
 export const COUNTIES_FILE = 'cb_2020_us_county_20m';
 /** Newest vintage first; the first one the Census Bureau serves is the enacted source. */
@@ -78,6 +83,11 @@ export async function loadStates(cacheDir: string): Promise<StateOutline[]> {
     const r = StateRecord.parse(f.properties);
     return { abbr: r.STUSPS, name: r.NAME, geometry: f.geometry };
   });
+}
+
+/** Every state's land outline from the shoreline-clipped file, as geometries (neighbouring states included, so land borders leave no gap). */
+export async function loadLand(cacheDir: string): Promise<unknown[]> {
+  return (await fetchBoundary(LAND_FILE, cacheDir)).map((f) => f.geometry);
 }
 
 /** County FIPS (state + county, five digits) to county name. */

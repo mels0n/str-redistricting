@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { MultiPolygon, Polygon, Position } from 'geojson';
-import { bboxOf, labelPoint, lineLabelPoint, partialLines, pointInGeometry, pointInRing } from '../../src/client/shared/lib/geo';
+import { bboxOf, labelPoint, landLabelPoint, lineLabelPoint, partialLines, pointInGeometry, pointInRing } from '../../src/client/shared/lib/geo';
 
 const square: Position[] = [[0, 0], [10, 0], [10, 10], [0, 10], [0, 0]];
 const hole: Position[] = [[4, 4], [6, 4], [6, 6], [4, 6], [4, 4]];
@@ -55,5 +55,22 @@ describe('label points', () => {
     expect(partialLines(lines, 0.25)).toEqual([[[0, 0], [5, 0]]]);
     expect(partialLines(lines, 0.75)).toEqual([[[0, 0], [10, 0]], [[0, 1], [5, 1]]]);
     expect(partialLines(lines, 1)).toEqual(lines);
+  });
+});
+
+describe('landLabelPoint', () => {
+  const district: Polygon = { type: 'Polygon', coordinates: [[[0, 0], [10, 0], [10, 4], [0, 4], [0, 0]]] };
+  // Water covers the eastern 6 of the 10 degrees, so the land is the western strip.
+  const water: Position[][] = [[[4, -1], [11, -1], [11, 5], [4, 5], [4, -1]]];
+
+  it('puts the label on the land part, not in the middle of the district', () => {
+    const at = landLabelPoint(district, [water]);
+    expect(at[0]).toBeLessThan(4);
+    expect(pointInGeometry(at, district)).toBe(true);
+  });
+
+  it('is the plain label point when no water touches the district', () => {
+    const far: Position[][] = [[[50, 50], [51, 50], [51, 51], [50, 51], [50, 50]]];
+    expect(landLabelPoint(district, [far])).toEqual(labelPoint(district));
   });
 });

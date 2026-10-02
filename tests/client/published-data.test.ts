@@ -4,7 +4,7 @@ import { feature } from 'topojson-client';
 import type { Feature, FeatureCollection, MultiPolygon, Polygon } from 'geojson';
 import { describe, expect, it } from 'vitest';
 import { BalanceSchema } from '../../src/client/entities/plan/balance';
-import { CutsSchema, DistrictTopoSchema, EnactedTopoSchema, StatsSchema } from '../../src/client/entities/plan/model';
+import { CutsSchema, DistrictTopoSchema, EnactedTopoSchema, StatsSchema, WaterTopoSchema } from '../../src/client/entities/plan/model';
 import { StateIndexSchema } from '../../src/client/entities/state';
 import { bboxOf, openingBox, pointInGeometry, toStateFrame } from '../../src/client/shared/lib/geo';
 
@@ -33,6 +33,7 @@ describe('the published data covers all 50 states', () => {
       expect(CutsSchema.parse(read(s.abbr, 'cuts.json'))).toHaveLength(s.seats - 1);
       BalanceSchema.parse(read(s.abbr, 'balance.json'));
       EnactedTopoSchema.parse(read(s.abbr, 'enacted.topo.json'));
+      WaterTopoSchema.parse(read(s.abbr, 'water.topo.json'));
       for (const f of ['districts', 'before']) {
         const topo = DistrictTopoSchema.parse(read(s.abbr, `${f}.topo.json`));
         const fc = collection(topo, 'districts');
@@ -43,6 +44,29 @@ describe('the published data covers all 50 states', () => {
       }
     });
   }
+});
+
+describe('the water mask', () => {
+  it('rejects a file that is not a water topology', () => {
+    expect(WaterTopoSchema.safeParse({ type: 'Topology', arcs: [], objects: { districts: { type: 'GeometryCollection', geometries: [] } } }).success).toBe(false);
+    expect(WaterTopoSchema.safeParse({ type: 'Topology', arcs: [], objects: { water: { type: 'GeometryCollection', geometries: [] } } }).success).toBe(true);
+  });
+
+  it('covers the Great Lakes for Michigan and none of Michigan’s Detroit', () => {
+    const water = collection(read('MI', 'water.topo.json'), 'water');
+    const inWater = (pt: [number, number]): boolean => water.features.some((f) => pointInGeometry(pt, f.geometry));
+    expect(inWater([-87.0, 44.0])).toBe(true); // Lake Michigan
+    expect(inWater([-82.5, 44.9])).toBe(true); // Lake Huron
+    expect(inWater([-83.05, 42.33])).toBe(false); // Detroit
+    expect(inWater([-84.55, 42.73])).toBe(false); // Lansing
+  });
+
+  it('is drawn in the same continuous frame as the districts for Alaska', () => {
+    const fc = collection(read('AK', 'water.topo.json'), 'water');
+    const box = bboxOf(fc.features.map((f) => f.geometry))!;
+    expect(box[2]).toBeLessThan(0);
+    expect(box[2] - box[0]).toBeLessThan(70);
+  });
 });
 
 describe('Alaska is drawn in one continuous frame', () => {

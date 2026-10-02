@@ -94,8 +94,8 @@ function segDistSq(px: number, py: number, a: Position, b: Position): number {
   return dx * dx + dy * dy;
 }
 
-/** Signed distance from a point to the polygon outline: positive inside. */
-function signedDist(x: number, y: number, rings: readonly (readonly Position[])[]): number {
+/** Walks rings: flips `inside` for each ray crossing and returns the least squared distance to an edge. */
+function ringsScan(x: number, y: number, rings: readonly (readonly Position[])[]): { inside: boolean; min: number } {
   let inside = false;
   let min = Infinity;
   for (const ring of rings) {
@@ -105,7 +105,18 @@ function signedDist(x: number, y: number, rings: readonly (readonly Position[])[
       min = Math.min(min, segDistSq(x, y, a, b));
     }
   }
-  return (inside ? 1 : -1) * Math.sqrt(min);
+  return { inside, min };
+}
+
+/**
+ * Signed distance from a point to the polygon outline: positive inside. Rings in `water` (even-odd among
+ * themselves) are taken out of the polygon: a point in water is outside, and water edges count as edges.
+ */
+function signedDist(x: number, y: number, rings: readonly (readonly Position[])[], water: readonly (readonly Position[])[] = []): number {
+  const d = ringsScan(x, y, rings);
+  if (water.length === 0) return (d.inside ? 1 : -1) * Math.sqrt(d.min);
+  const w = ringsScan(x, y, water);
+  return (d.inside && !w.inside ? 1 : -1) * Math.sqrt(Math.min(d.min, w.min));
 }
 
 /**
@@ -114,22 +125,27 @@ function signedDist(x: number, y: number, rings: readonly (readonly Position[])[
  * reads best. Longitude is scaled by cos(latitude) so the result is not
  * skewed east-west.
  */
-export function poleOfInaccessibility(rings: readonly (readonly Position[])[], precisionRatio = 0.01): LonLat {
+export function poleOfInaccessibility(rings: readonly (readonly Position[])[], precisionRatio = 0.01, water: readonly (readonly Position[])[] = []): LonLat {
+  return poleWithDistance(rings, precisionRatio, water).at;
+}
+
+function poleWithDistance(rings: readonly (readonly Position[])[], precisionRatio: number, water: readonly (readonly Position[])[]): { at: LonLat; dist: number } {
   const outer = rings[0];
-  if (!outer || outer.length === 0) return [0, 0];
+  if (!outer || outer.length === 0) return { at: [0, 0], dist: 0 };
   const b: BBox = [Infinity, Infinity, -Infinity, -Infinity];
   for (const p of outer) extend(b, p);
   const k = Math.cos((((b[1] + b[3]) / 2) * Math.PI) / 180) || 1;
   const scaled = rings.map((r) => r.map((p) => [p[0]! * k, p[1]!] as Position));
+  const scaledWater = water.map((r) => r.map((p) => [p[0]! * k, p[1]!] as Position));
   const minX = b[0] * k, maxX = b[2] * k, minY = b[1], maxY = b[3];
   const width = maxX - minX, height = maxY - minY;
   const cellSize = Math.min(width, height);
-  if (cellSize === 0) return [outer[0]![0]!, outer[0]![1]!];
+  if (cellSize === 0) return { at: [outer[0]![0]!, outer[0]![1]!], dist: 0 };
   const precision = Math.max(cellSize * precisionRatio, 1e-9);
 
   type Cell = { x: number; y: number; h: number; d: number; max: number };
   const cell = (x: number, y: number, h: number): Cell => {
-    const d = signedDist(x, y, scaled);
+    const d = signedDist(x, y, scaled, scaledWater);
     return { x, y, h, d, max: d + h * Math.SQRT2 };
   };
   const queue: Cell[] = [];
@@ -148,7 +164,34 @@ export function poleOfInaccessibility(rings: readonly (readonly Position[])[], p
     h = c.h / 2;
     queue.push(cell(c.x - h, c.y - h, h), cell(c.x + h, c.y - h, h), cell(c.x - h, c.y + h, h), cell(c.x + h, c.y + h, h));
   }
-  return [best.x / k, best.y];
+  return { at: [best.x / k, best.y], dist: best.d };
+}
+
+type Poly = readonly (readonly Position[])[];
+
+/**
+ * Label point that sits on land. Water polygons (the part of the districts that lies over water) are taken out of
+ * each part of the district; the label goes where the most land surrounds it. A district that touches no water gets
+ * the plain label point.
+ */
+export function landLabelPoint(geom: Polygon | MultiPolygon, water: readonly Poly[]): LonLat {
+  const polys: Poly[] = geom.type === 'Polygon' ? [geom.coordinates] : geom.coordinates;
+  const boxes = water.map((w) => {
+    const b: BBox = [Infinity, Infinity, -Infinity, -Infinity];
+    for (const p of w[0] ?? []) extend(b, p);
+    return b;
+  });
+  let best: { at: LonLat; dist: number } | null = null;
+  let wet = false;
+  for (const poly of polys) {
+    const pb: BBox = [Infinity, Infinity, -Infinity, -Infinity];
+    for (const p of poly[0] ?? []) extend(pb, p);
+    const near = water.filter((_, i) => boxes[i]![0] <= pb[2] && boxes[i]![2] >= pb[0] && boxes[i]![1] <= pb[3] && boxes[i]![3] >= pb[1]).flat();
+    if (near.length > 0) wet = true;
+    const here = poleWithDistance(poly, 0.01, near);
+    if (best === null || here.dist > best.dist) best = here;
+  }
+  return wet && best ? best.at : labelPoint(geom);
 }
 
 /** Label point of a Polygon or MultiPolygon: the pole of its largest part. */

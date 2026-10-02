@@ -88,6 +88,18 @@ export const DistrictTopoSchema = z.looseObject({
   }),
 });
 
+/** The water mask: one GeometryCollection named `water`, the part of the districts that lies over water. Display only. */
+export const WaterTopoSchema = z.looseObject({
+  type: z.literal('Topology'),
+  arcs: z.array(z.unknown()),
+  objects: z.object({
+    water: z.looseObject({
+      type: z.literal('GeometryCollection'),
+      geometries: z.array(z.looseObject({})),
+    }),
+  }),
+});
+
 export const EnactedTopoSchema = z.looseObject({
   type: z.literal('Topology'),
   arcs: z.array(z.unknown()),

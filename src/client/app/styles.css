@@ -1169,9 +1169,51 @@ html:has(> body > #str-viewer) {
   white-space: nowrap;
 }
 
+.strv-legend__title {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.6875rem;
+  align-self: center;
+}
+
+/* Samples drawn like the map's own marks: a plain number with its halo, and the boxed "+N" marker. */
 .strv-legend__num {
   font-weight: 700;
   font-size: 0.8125rem;
+  text-shadow:
+    0 0 2px var(--paper),
+    0 0 3px var(--paper);
+}
+
+.strv-legend__chip {
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.5rem;
+  padding: 0 0.25rem;
+  font-weight: 700;
+  font-size: 0.6875rem;
+  line-height: 1.25rem;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  border-radius: 2px;
+}
+
+/* A district color, strong on the left and washed with the ground color (the same 0.7 the map uses over water) on the right. */
+.strv-legend__water {
+  position: relative;
+  display: inline-block;
+  width: 1.25rem;
+  height: 0.875rem;
+  background: var(--d-sage);
+  border: 1px solid var(--ink);
+}
+
+.strv-legend__water::after {
+  content: '';
+  position: absolute;
+  inset: 0 0 0 50%;
+  background: rgb(243 239 229 / 0.7);
 }
 
 .strv-legend__cut,
@@ -2569,7 +2611,7 @@ html:has(> body > #str-viewer) {
 /* Phones: the key sits in a row under the map so it never covers the state. */
 @media (max-width: 37.5rem) and (min-height: 32.01rem) {
   .strv {
-    --legend-h: 2.25rem;
+    --legend-h: 4.25rem;
   }
 
   /* The frame is a column: the map, then the key row. The frame's height is fixed, so the key wrapping never moves the controls below. */
@@ -2590,8 +2632,9 @@ html:has(> body > #str-viewer) {
     flex: none;
     max-width: none;
     padding: var(--s-1) var(--gutter);
-    min-height: 2.25rem;
+    min-height: 4.25rem;
     align-items: center;
+    align-content: center;
     background: var(--paper);
     border: 0;
     border-top: 1px solid var(--hairline);

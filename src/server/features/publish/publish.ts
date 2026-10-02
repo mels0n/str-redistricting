@@ -7,13 +7,14 @@ import { STATES, type StateInfo } from '../../shared/apportionment/index.js';
 import type { PublishConfig } from '../../shared/config/index.js';
 import { DataError } from '../../shared/errors/index.js';
 import { crossesAntimeridian, unwrapCoordinates, unwrapFeatures } from './antimeridian.js';
-import { loadCountyNames, loadEnacted, loadStates, type EnactedFile } from './boundary.js';
+import { loadCountyNames, loadEnacted, loadLand, loadStates, type EnactedFile } from './boundary.js';
 import { BalanceLogSchema, buildBalance, ProcessNumbersSchema } from './balance.js';
 import { countiesByDistrict } from './counties.js';
 import { buildCuts } from './cuts.js';
 import { buildStats, planStats } from './stats.js';
 import { buildIndex, PlanMetricsSchema, PublishedMetricsSchema, summarize, type PlanMetrics, type StateSummary } from './summary.js';
 import { districtBudget, toTopology } from './topo.js';
+import { buildWater, mergeLand } from './water.js';
 
 const NATIONAL_BUDGET = 12000;
 
@@ -53,6 +54,8 @@ export async function publishedSummaries(publicDir: string, states: readonly Sta
 interface Shared {
   readonly countyNames: ReadonlyMap<string, string>;
   readonly enacted: EnactedFile;
+  /** All states' land merged into one layer (GeoJSON text), for the water masks. */
+  readonly land: string;
 }
 
 async function publishState(state: StateInfo, cfg: PublishConfig, shared: Shared): Promise<void> {
@@ -77,6 +80,10 @@ async function publishState(state: StateInfo, cfg: PublishConfig, shared: Shared
   await write(join(dest, 'districts.topo.json'), await toTopology({ features: display(districts.features) }, 'districts', budget));
   const beforeDistricts = (await readJson(join(srcBefore, 'districts.geojson'))) as Parameters<typeof toTopology>[0];
   await write(join(dest, 'before.topo.json'), await toTopology({ features: display(beforeDistricts.features) }, 'districts', budget));
+
+  // Water is display only: the area the districts cover less the shoreline-clipped land. It gets half the district vertex budget.
+  const water = await buildWater(await readFile(join(src, 'districts.geojson'), 'utf8'), shared.land);
+  await write(join(dest, 'water.topo.json'), await toTopology({ features: display(water.features) }, 'water', Math.round(budget / 2)));
 
   const enacted = shared.enacted.features
     .filter((f) => f.record.stateFp === state.fips)
@@ -108,7 +115,7 @@ export async function publishData(cfg: PublishConfig): Promise<void> {
     await toTopology({ features: outlines.map((o) => ({ type: 'Feature', properties: { abbr: o.abbr, name: o.name }, geometry: o.geometry as { coordinates?: unknown } })) }, 'states', NATIONAL_BUDGET),
   );
 
-  const shared: Shared = { countyNames: await loadCountyNames(cfg.cacheDir), enacted: await loadEnacted(cfg.cacheDir) };
+  const shared: Shared = { countyNames: await loadCountyNames(cfg.cacheDir), enacted: await loadEnacted(cfg.cacheDir), land: await mergeLand(await loadLand(cfg.cacheDir)) };
   for (const s of selected) {
     console.log(`publishing ${s.abbr}`);
     await publishState(s, cfg, shared);

@@ -6,6 +6,7 @@ import {
   CutsSchema,
   DistrictTopoSchema,
   EnactedTopoSchema,
+  WaterTopoSchema,
   StatsSchema,
   type Cut,
   type Stats,
@@ -29,12 +30,17 @@ export interface PlanShapes {
   pieceBorders(piece: readonly number[]): MultiLineString;
 }
 
+/** The part of a state's districts that lies over water (lakes, bays, coastal water), for display only. */
+export type WaterShapes = FeatureCollection<Polygon | MultiPolygon>;
+
 export interface StateBundle {
   abbr: string;
   stats: Stats;
   finished: PlanShapes;
   before: PlanShapes;
   cuts: Cut[];
+  /** The water mask, or null when the state has none (the map is then drawn without it). */
+  water: WaterShapes | null;
   /** Fill color for each district, by district index (district 1 at 0). */
   colors: string[];
 }
@@ -58,6 +64,16 @@ function toShapes(topo: DistrictTopology, url: string, seats: number): PlanShape
   };
 }
 
+/** The water mask for a state. A missing or unreadable file is not an error: the map just has no water wash. */
+function loadWater(abbr: string): Promise<WaterShapes | null> {
+  return fetchJson(dataUrl(`${abbr}/water.topo.json`), WaterTopoSchema)
+    .then((raw) => {
+      const topo = raw as unknown as Topology<{ water: GeometryCollection }>;
+      return feature(topo, topo.objects.water) as unknown as WaterShapes;
+    })
+    .catch(() => null);
+}
+
 /** A state's numbers alone (both plans, every district), without any shapes. */
 export function loadStats(abbr: string): Promise<Stats> {
   return fetchJson(dataUrl(`${abbr}/stats.json`), StatsSchema);
@@ -76,7 +92,8 @@ export function loadStateBundle(abbr: string): Promise<StateBundle> {
       fetchJson(finishedUrl, DistrictTopoSchema),
       fetchJson(beforeUrl, DistrictTopoSchema),
       fetchJson(dataUrl(`${abbr}/cuts.json`), CutsSchema),
-    ]).then(([stats, finishedTopo, beforeTopo, cuts]) => {
+      loadWater(abbr),
+    ]).then(([stats, finishedTopo, beforeTopo, cuts, water]) => {
       const seats = stats.finished.metrics.seats;
       if (cuts.length !== seats - 1) {
         throw new DataShapeError(dataUrl(`${abbr}/cuts.json`), `expected ${seats - 1} cuts, found ${cuts.length}`);
@@ -90,6 +107,7 @@ export function loadStateBundle(abbr: string): Promise<StateBundle> {
         finished,
         before,
         cuts: [...cuts].sort((a, b) => a.order - b.order),
+        water,
         colors: slots.map((s) => districtPalette[s]!.hex),
       };
     });

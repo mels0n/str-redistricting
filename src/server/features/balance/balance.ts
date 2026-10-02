@@ -1,8 +1,20 @@
 import { isConnected, type Block, type Topology } from '../../entities/census-block/index.js';
 
+/** One accepted balancing move: block index, its GEOID, 0-based districts, the block's population and the exact gain. */
+export interface BalanceMove {
+  readonly block: number;
+  readonly geoid: string;
+  readonly from: number;
+  readonly to: number;
+  readonly pop: number;
+  /** Exact decrease in the sum of squared district deviations. */
+  readonly gain: number;
+}
+
 export interface BalanceResult {
   readonly assignment: Int32Array;
-  readonly moves: number;
+  /** Every accepted move, in the order made. */
+  readonly moves: readonly BalanceMove[];
 }
 
 interface Move { block: number; from: number; to: number; gain: number }
@@ -23,7 +35,7 @@ export function balance(blocks: readonly Block[], topo: Topology, input: Int32Ar
     return lo;
   };
 
-  let moves = 0;
+  const moves: BalanceMove[] = [];
   const exhausted = new Uint8Array(seats);
   for (;;) {
     let d = -1;
@@ -63,7 +75,7 @@ export function balance(blocks: readonly Block[], topo: Topology, input: Int32Ar
       assignment[c.block] = c.to;
       pop[c.from]! -= blocks[c.block]!.pop;
       pop[c.to]! += blocks[c.block]!.pop;
-      moves++;
+      moves.push({ block: c.block, geoid: blocks[c.block]!.geoid, from: c.from, to: c.to, pop: blocks[c.block]!.pop, gain: c.gain });
       const fromList = lists[c.from]!, toList = lists[c.to]!;
       fromList.splice(lowerBound(fromList, c.block), 1);
       toList.splice(lowerBound(toList, c.block), 0, c.block);

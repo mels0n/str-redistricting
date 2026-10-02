@@ -1,9 +1,8 @@
 import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
-import { buildTopology } from '../entities/census-block/index.js';
-import { balance } from '../features/balance/index.js';
-import { ensureZip, loadStateBlocks } from '../features/census/index.js';
+import { buildTopology, ensureZip, loadStateBlocks } from '../entities/census-block/index.js';
+import { balance, balanceLog, peopleMoved } from '../features/balance/index.js';
 import { bordersGeoJson, cutsGeoJson, districtsGeoJson, writePlan } from '../features/export/index.js';
 import { assignmentCsv, computeMetrics } from '../features/metrics/index.js';
 import { createContext, splitState } from '../features/splitline/index.js';
@@ -30,27 +29,34 @@ async function main(): Promise<void> {
         state: state.abbr, angleStepDeg: config.angleStepDeg, bridges: topo.bridges.length, nodeVersion: process.version, inputSha256,
         cutsSkipped: sum((c) => c.skipped), strayCapRejected: sum((c) => c.strayCapRejected),
         strayBlocksMoved: sum((c) => c.strayBlocksMoved), strayPopMoved: sum((c) => c.strayPopMoved),
+        // Work done: one entry per cut (angles x seat orientations), then their total.
+        cuts: split.cuts.length, angleCount: ctx.angleCount, directionsPerCut: split.cuts.map((c) => c.candidateLines), candidateLinesEvaluated: sum((c) => c.candidateLines),
       };
       const before = computeMetrics(blocks, topo, split.assignment, state.seats);
       const official = computeMetrics(blocks, topo, balanced.assignment, state.seats);
+      const range = { rangeBeforeBalancing: before.rangePersons, rangeAfterBalancing: official.rangePersons };
+      const moved = peopleMoved(balanced.moves);
       const plans = [
-        { dir: join(config.outDir, state.abbr, 'before-balancing'), assignment: split.assignment, metrics: before, moves: 0 },
-        { dir: join(config.outDir, state.abbr), assignment: balanced.assignment, metrics: official, moves: balanced.moves },
+        { dir: join(config.outDir, state.abbr, 'before-balancing'), assignment: split.assignment, metrics: before, moves: 0, moved: 0 },
+        { dir: join(config.outDir, state.abbr), assignment: balanced.assignment, metrics: official, moves: balanced.moves.length, moved },
       ];
       for (const p of plans) {
         await writePlan(p.dir, {
           'assignment.csv': assignmentCsv(blocks, p.assignment),
-          'metrics.json': JSON.stringify({ ...common, balanceMoves: p.moves, runtimeMs, ...p.metrics }, null, 2),
+          'metrics.json': JSON.stringify({ ...common, balanceMoves: p.moves, peopleMovedByBalancing: p.moved, ...range, runtimeMs, ...p.metrics }, null, 2),
           'borders.geojson': JSON.stringify(bordersGeoJson(topo, p.assignment, state.seats)),
           'districts.geojson': JSON.stringify(districtsGeoJson(topo, p.assignment, state.seats)),
           'cuts.geojson': JSON.stringify(cutsGeoJson(split.cuts)),
         });
       }
+      await writePlan(join(config.outDir, state.abbr), {
+        'balance.json': JSON.stringify(balanceLog(balanced.moves, before.districts.map((d) => d.pop))),
+      });
       summary.push({
         state: state.abbr, status: 'ok', seats: state.seats, blocks: blocks.length,
         rangePersons: official.rangePersons, rangePct: Number(official.rangePct.toFixed(4)),
         beforeBalancingRange: before.rangePersons, contiguous: official.allContiguous,
-        cutsSkipped: common.cutsSkipped, strayCapRejected: common.strayCapRejected, strayPop: common.strayPopMoved, balanceMoves: balanced.moves,
+        cutsSkipped: common.cutsSkipped, strayCapRejected: common.strayCapRejected, strayPop: common.strayPopMoved, balanceMoves: balanced.moves.length,
         countiesSplit: `${official.countiesSplit}/${official.countiesTotal}`, runtimeMs,
         sha256: official.assignmentSha256.slice(0, 12),
       });

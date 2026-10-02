@@ -4,7 +4,7 @@ import { join } from 'node:path';
 import { afterAll, describe, expect, it } from 'vitest';
 import {
   buildCuts, buildIndex, countiesByDistrict, parseCdRecord, planStats, simplifyPercent, toTopology, vertexCount,
-  boundaryUrl, CountyRecord, PlanMetricsSchema, publishedSummaries, summarize,
+  boundaryUrl, CountyRecord, PlanMetricsSchema, publishedSummaries, summarize, buildBalance, BalanceLogSchema, ProcessNumbersSchema,
 } from '../../../src/server/features/publish/index.js';
 import { STATES } from '../../../src/server/shared/apportionment/index.js';
 import { parsePublishConfig } from '../../../src/server/shared/config/index.js';
@@ -64,6 +64,43 @@ describe('index assembly', () => {
     expect(s.metrics).toMatchObject({ balanceMoves: 1, population: 10 });
     expect(s.metrics).not.toHaveProperty('districts');
     expect(s.districts[0]).toMatchObject({ district: 1, pop: 5, counties: [{ fips: '44001', name: 'Bristol County' }] });
+  });
+});
+
+describe('balance.json', () => {
+  const log = BalanceLogSchema.parse({
+    before: [100, 60],
+    moves: [
+      { block: 4, geoid: '440010301001000', from: 1, to: 2, pop: 10, gain: 800 },
+      { block: 9, geoid: '440010301001001', from: 1, to: 2, pop: 3, gain: 200 },
+      { block: 4, geoid: '440010301001000', from: 2, to: 1, pop: 10, gain: 20 },
+    ],
+  });
+  const sq: [number, number][][] = [[[-71.1234567, 41.7654321], [-71.1, 41.7654321], [-71.1, 41.8], [-71.1234567, 41.7654321]]];
+  const polygons = new Map([['440010301001000', [sq]], ['440010301001001', [sq, sq]]]);
+  it('numbers the moves, keeps the starting populations and gives each moved block one polygon rounded to 6 decimals', () => {
+    const b = buildBalance(2, log, polygons);
+    expect(b.before).toEqual([100, 60]);
+    expect(b.moves.map((m) => m.order)).toEqual([1, 2, 3]);
+    expect(b.moves[0]).toEqual({ order: 1, geoid: '440010301001000', from: 1, to: 2, pop: 10, gain: 800 });
+    expect(Object.keys(b.blocks)).toEqual(['440010301001000', '440010301001001']);
+    expect(b.blocks['440010301001000']![0]![0]![0]).toEqual([-71.123457, 41.765432]);
+    expect(b.blocks['440010301001001']).toHaveLength(2);
+  });
+  it('rejects a move to a district that does not exist, to the same district, or of a block with no polygon', () => {
+    const bad = (m: object) => BalanceLogSchema.parse({ before: [1, 1], moves: [{ block: 1, geoid: '440010301001000', from: 1, to: 2, pop: 1, gain: 1, ...m }] });
+    expect(() => buildBalance(2, bad({ to: 3 }), polygons)).toThrow(DataError);
+    expect(() => buildBalance(2, bad({ to: 1 }), polygons)).toThrow(DataError);
+    expect(() => buildBalance(2, bad({}), new Map())).toThrow(DataError);
+    expect(() => buildBalance(3, bad({}), polygons)).toThrow(DataError);
+  });
+  it('rejects a log with a malformed move', () => {
+    expect(() => BalanceLogSchema.parse({ before: [1], moves: [{ block: 1, geoid: 'x', from: 1, to: 2, pop: 1, gain: 1 }] })).toThrow();
+  });
+  it('checks the process numbers a plan reports', () => {
+    const ok = { cuts: 1, angleCount: 1800, directionsPerCut: [1800], candidateLinesEvaluated: 1800, strayCapRejected: 0, strayBlocksMoved: 0, strayPopMoved: 0, balanceMoves: 0, peopleMovedByBalancing: 0, rangeBeforeBalancing: 3, rangeAfterBalancing: 1 };
+    expect(ProcessNumbersSchema.parse(ok).cuts).toBe(1);
+    expect(() => ProcessNumbersSchema.parse({ ...ok, cuts: undefined })).toThrow();
   });
 });
 

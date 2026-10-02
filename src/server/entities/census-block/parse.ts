@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import type { Block } from '../../entities/census-block/index.js';
+import type { Block } from './model.js';
 import { DataError } from '../../shared/errors/index.js';
 import type { LonLat } from '../../shared/geo/index.js';
 
@@ -16,13 +16,21 @@ const Geometry = z.discriminatedUnion('type', [
   z.object({ type: z.literal('MultiPolygon'), coordinates: z.array(z.array(Ring)) }),
 ]);
 
+/** A block's polygons, each a list of rings (outer first), as the shapefile gives them. */
+export type BlockPolygons = readonly (readonly (readonly LonLat[])[])[];
+
+export function parseBlockPolygons(geometry: unknown, geoid: string): BlockPolygons {
+  const g = Geometry.safeParse(geometry);
+  if (!g.success) throw new DataError(`bad geometry for block ${geoid}`);
+  const polys = g.data.type === 'Polygon' ? [g.data.coordinates] : g.data.coordinates;
+  return polys.map((poly) => poly.map((ring) => ring.map((pt) => [pt[0], pt[1]] as LonLat)));
+}
+
 export function parseBlockFeature(props: unknown, geometry: unknown): Block {
   const p = Props.safeParse(props);
   if (!p.success) throw new DataError(`bad block record: ${p.error.issues.map((i) => i.path.join('.') + ' ' + i.message).join('; ')}`);
-  const g = Geometry.safeParse(geometry);
-  if (!g.success) throw new DataError(`bad geometry for block ${p.data.GEOID20}`);
-  const polys = g.data.type === 'Polygon' ? [g.data.coordinates] : g.data.coordinates;
-  const rings = polys.flatMap((poly) => poly.map((ring) => ring.map((pt) => [pt[0], pt[1]] as LonLat)));
+  const polys = parseBlockPolygons(geometry, p.data.GEOID20);
+  const rings = polys.flat();
   const lat = Number.parseFloat(p.data.INTPTLAT20);
   const lon = Number.parseFloat(p.data.INTPTLON20);
   if (!Number.isFinite(lat) || !Number.isFinite(lon)) throw new DataError(`bad internal point for block ${p.data.GEOID20}`);

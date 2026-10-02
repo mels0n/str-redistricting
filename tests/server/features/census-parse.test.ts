@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { parseBlockFeature } from '../../../src/server/features/census/index.js';
+import { parseBlockFeature } from '../../../src/server/entities/census-block/index.js';
 import { DataError } from '../../../src/server/shared/errors/index.js';
 
 const square = { type: 'Polygon', coordinates: [[[0, 0], [1, 0], [1, 1], [0, 1], [0, 0]]] };

@@ -3,7 +3,7 @@ import { mkdtemp, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { loadStateBlocks } from '../../../src/server/features/census/index.js';
+import { loadStateBlocks } from '../../../src/server/entities/census-block/index.js';
 import { DataError } from '../../../src/server/shared/errors/index.js';
 
 const state = { abbr: 'RI', fips: '44', name: 'Rhode Island', seats: 2 };

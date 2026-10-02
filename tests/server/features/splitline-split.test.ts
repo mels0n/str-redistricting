@@ -27,6 +27,13 @@ describe('splitState', () => {
     const r = splitState(createContext(blocks, 1), 3);
     expect(districtPops(r.assignment, [1, 1, 1], 3)).toEqual([1, 1, 1]);
   });
+  it('counts the candidate lines each cut evaluated: every angle, once per orientation', () => {
+    const even = splitState(createContext(gridBlocks(4, 4), 1), 4);
+    expect(even.cuts.map((c) => c.candidateLines)).toEqual([180, 180, 180]);
+    // Three seats split 1 + 2 either way round, so each angle is tried twice.
+    const odd = splitState(createContext(gridBlocks(3, 1), 1), 3);
+    expect(odd.cuts[0]!.candidateLines).toBe(360);
+  });
   it('returns one district without cutting when seats = 1', () => {
     const r = splitState(createContext(gridBlocks(2, 2), 1), 1);
     expect(Array.from(r.assignment)).toEqual([0, 0, 0, 0]);

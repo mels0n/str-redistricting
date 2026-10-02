@@ -11,6 +11,8 @@ export interface CutResult {
   readonly angleDeg: number;
   /** Great-circle length of the block-edge border between the two final sides. */
   readonly lengthM: number;
+  /** Guide lines evaluated: every angle, once per seat orientation. */
+  readonly candidateLines: number;
   /** The guide line's portion inside the piece. */
   readonly spans: readonly (readonly [LonLat, LonLat])[];
   /** Candidates passed over: guide lines over the stray cap, plus sides that failed validation. */
@@ -281,6 +283,7 @@ export function findCut(ctx: SplitContext, members: Int32Array, seats: number, v
       return {
         low, high, lowSeats: c.lowSeats, highSeats: seats - c.lowSeats,
         angleDeg: (c.k * 180) / ctx.angleCount, lengthM: e.lengthM,
+        candidateLines: ctx.angleCount * orientations.length,
         spans: spanLength(ctx, sx, sy, th, c.offset).spans, skipped, strayCapRejected,
         strayBlocksMoved: e.movedBlocks, strayPopMoved: e.movedPop,
       };

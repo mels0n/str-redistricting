@@ -2,10 +2,12 @@ import { z } from 'zod';
 import { existsSync } from 'node:fs';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
+import { loadBlockPolygons } from '../../entities/census-block/index.js';
 import { STATES, type StateInfo } from '../../shared/apportionment/index.js';
 import type { PublishConfig } from '../../shared/config/index.js';
 import { DataError } from '../../shared/errors/index.js';
 import { loadCountyNames, loadEnacted, loadStates, type EnactedFile } from './boundary.js';
+import { BalanceLogSchema, buildBalance, ProcessNumbersSchema } from './balance.js';
 import { countiesByDistrict } from './counties.js';
 import { buildCuts } from './cuts.js';
 import { buildStats, planStats } from './stats.js';
@@ -20,6 +22,8 @@ const write = (path: string, body: string) => writeFile(path, body);
 async function readMetrics(dir: string): Promise<PlanMetrics> {
   const parsed = PlanMetricsSchema.safeParse(await readJson(join(dir, 'metrics.json')));
   if (!parsed.success) throw new DataError(`${dir}/metrics.json: ${parsed.error.issues.map((i) => `${i.path.join('.')} ${i.message}`).join('; ')}`);
+  const extras = ProcessNumbersSchema.safeParse(parsed.data);
+  if (!extras.success) throw new DataError(`${dir}/metrics.json: ${extras.error.issues.map((i) => `${i.path.join('.')} ${i.message}`).join('; ')}`);
   return parsed.data;
 }
 
@@ -78,6 +82,10 @@ async function publishState(state: StateInfo, cfg: PublishConfig, shared: Shared
   await write(join(dest, 'enacted.topo.json'), await toTopology({ features: enacted }, 'enacted', budget));
 
   await write(join(dest, 'cuts.json'), JSON.stringify(buildCuts(await readJson(join(src, 'cuts.geojson')))));
+  const log = BalanceLogSchema.safeParse(await readJson(join(src, 'balance.json')));
+  if (!log.success) throw new DataError(`${src}/balance.json: ${log.error.issues.map((i) => `${i.path.join('.')} ${i.message}`).join('; ')}`);
+  const polygons = await loadBlockPolygons(state, cfg.cacheDir, new Set(log.data.moves.map((m) => m.geoid)));
+  await write(join(dest, 'balance.json'), JSON.stringify(buildBalance(state.seats, log.data, polygons)));
   await write(join(dest, 'stats.json'), JSON.stringify(stats));
 }
 

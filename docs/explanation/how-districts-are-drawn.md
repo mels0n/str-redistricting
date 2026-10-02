@@ -86,7 +86,7 @@ The state is given by its two-letter abbreviation. A list such as `--states CO,N
 
 The official map is in `out/<state>/`. The plan as it stood after the cuts and before the balancing pass is written to `out/<state>/before-balancing/` with the same files, so the effect of the balancing pass can be read directly from the numbers.
 
-Each plan directory holds five files:
+Each plan directory holds five files (the official one also holds `balance.json`, described below):
 
 - `assignment.csv` lists every block with its GEOID and the district number it belongs to. This is the map itself.
 - `metrics.json` holds the following:
@@ -97,13 +97,15 @@ Each plan directory holds five files:
   - `bridges`, the number of joins made to connect detached land.
   - `cutsSkipped`, the number of candidate lines skipped, and `strayCapRejected`, how many of those were skipped because their stray pieces held more people than the stray cap allows. The rest of `cutsSkipped` are lines whose sides were not each one connected piece.
   - `strayBlocksMoved` and `strayPopMoved`, the blocks and people moved by the stray rule, net per block with both directions summed, over all cuts.
-  - `balanceMoves`, the number of blocks the balancing pass moved. It is 0 in `before-balancing/`.
+  - `balanceMoves`, the number of blocks the balancing pass moved, and `peopleMovedByBalancing`, the total population of those blocks. Both are 0 in `before-balancing/`. `rangeBeforeBalancing` and `rangeAfterBalancing` give the gap between the largest and smallest district in people before and after the pass, in both plans.
+  - `cuts`, the number of cuts, `angleCount`, the number of directions tested per cut, `directionsPerCut`, the number of candidate lines each cut evaluated (every angle, once per way of splitting the seats), and `candidateLinesEvaluated`, their total.
   - `angleStepDeg`, the angle step used.
   - `runtimeMs`, the run time of the whole state.
   - `assignmentSha256`, the SHA-256 hash of `assignment.csv`.
   - `nodeVersion`, the Node.js version that ran the generator, and `inputSha256`, the SHA-256 hash of the state's Census zip file. Neither feeds into `assignmentSha256`.
 - `borders.geojson` holds the lines where districts meet, ready to draw on a map.
 - `districts.geojson` holds each district's shape.
+- `balance.json` (official plan only) lists every balancing move in the order it was made, as the block's index and GEOID, the district it left and the one it joined (numbered from 1), its population and its gain, together with the district populations before the first move.
 - `cuts.geojson` holds the straight guide line chosen for each cut, with its angle and the length of the real border it produced, so the recursive splitting can be followed step by step. Each cut also records how many seats it divides (`seats`, `lowSeats`, `highSeats`) and `firstDistrict`, the 0-based number of the first district in its range, so each cut can be tied to the districts it separates.
 
 ## Data for the map viewer
@@ -117,6 +119,7 @@ This reads the plans in `out/` and writes web-ready files to `public/data/`: an 
 - `districts.topo.json` and `before.topo.json`, the official and before-balancing districts as simplified TopoJSON. Simplification runs along shared borders, so neighbouring districts still meet exactly. These shapes are for drawing and are slightly coarser than the block-level `districts.geojson`. The numbers and `assignment.csv` are never simplified.
 - `cuts.json`, the ordered guide lines with their angle, length and seat split.
 - `stats.json`, the metrics for both plans plus, for each district, the counties it touches.
+- `balance.json`, the balancing moves in order, with each moved block's outline taken unsimplified from the Census block file (rounded to six decimals) and the district populations before the first move, so the pass can be replayed move by move.
 - `enacted.topo.json`, the districts of the 119th Congress for the state, for comparison only.
 
 The 119th Congress districts, the state outlines and the county names come from the U.S. Census Bureau's cartographic boundary files, which are downloaded into `data/raw/`. They are used only for display and reporting. The generator never reads them, and they have no effect on any district drawn. `stats.json` records which file the enacted districts came from as `enactedSource`. The file is the one named `cb_2025_us_cd119_500k`, so it shows the maps in use for the 119th Congress. A state that adopted a new map after that file was made is not reflected in it.

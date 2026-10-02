@@ -253,12 +253,16 @@ export function createCutScrubber(opts: CutScrubberOptions): CutScrubber {
   renderPlay();
   update(null);
   // The axis is measured, so a resize (a phone turned, a window dragged) recomputes which labels fit.
-  if (typeof ResizeObserver === 'function') new ResizeObserver(() => active && markCollisions()).observe(ticks);
+  const tickObserver = typeof ResizeObserver === 'function' ? new ResizeObserver(() => active && markCollisions()) : null;
+  tickObserver?.observe(ticks);
 
   return {
     el,
     update,
-    destroy: stopPlaying,
+    destroy() {
+      stopPlaying();
+      tickObserver?.disconnect();
+    },
   };
 }
 

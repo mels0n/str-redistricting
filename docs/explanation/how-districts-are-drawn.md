@@ -65,9 +65,19 @@ Guide lines are tested at every angle in a fixed step across a half turn. The de
 
 ## The balancing pass
 
-Each cut places whole blocks so its two sides come as close to equal as whole blocks allow, but small differences, and the stray moves above, can add up across many cuts. After all the cuts, the balancing pass moves single blocks across district borders to even out the populations. A block moves only if it touches the neighboring district and both districts stay one connected piece, so the pass never breaks a district apart. Blocks with no people are never moved, and a block moves only if the move strictly narrows the population gap between the two districts involved. It repeats until no move helps, so it always stops. The number of moves is reported as `balanceMoves`.
+U.S. House districts must be as nearly equal in population as practicable. That is the standard the Supreme Court applied to congressional districts in Karcher v. Daggett (1983). Each cut places whole blocks so its two sides come as close to equal as whole blocks allow, but small differences, and the stray moves above, can add up across many cuts. After all the cuts, the balancing pass moves single blocks across district borders to even out the populations.
 
-The map in `out/<state>/` is the official map: the cuts above followed by the balancing pass.
+It makes one move at a time:
+
+1. Start with the district whose population is furthest from the ideal.
+2. Look at the blocks along its border: its own blocks that touch a neighboring district, and the neighbors' blocks that touch it. A block may move to the district on the other side only if it has people, if the move strictly narrows the population gap between the two districts involved, and if the district it leaves stays one connected piece. The district it joins stays connected too, because the block touches it, so the pass never breaks a district apart.
+3. Of the moves allowed, make the one that brings the districts closest to equal overall, measured as the sum of the squared differences between each district's population and the ideal. A tie goes to the block that comes first in GEOID order, then to the lower-numbered district it would join.
+4. If the district furthest from the ideal has no allowed move, try the next furthest. After every move, start again from the district now furthest from the ideal.
+5. Stop when no district has a move that helps.
+
+Every move lowers the sum of squared differences, so the pass always stops. The number of moves is reported as `balanceMoves`.
+
+The map in `out/<state>/` is the finished map: the cuts above followed by the balancing pass.
 
 ## Same data, same map
 
@@ -84,9 +94,9 @@ The state is given by its two-letter abbreviation. A list such as `--states CO,N
 
 ## What is written for each state
 
-The official map is in `out/<state>/`. The plan as it stood after the cuts and before the balancing pass is written to `out/<state>/before-balancing/` with the same files, so the effect of the balancing pass can be read directly from the numbers.
+The finished map is in `out/<state>/`. The plan as it stood after the cuts and before the balancing pass is written to `out/<state>/before-balancing/` with the same files, so the effect of the balancing pass can be read directly from the numbers.
 
-Each plan directory holds five files (the official one also holds `balance.json`, described below):
+Each plan directory holds five files (the finished map's directory also holds `balance.json`, described below):
 
 - `assignment.csv` lists every block with its GEOID and the district number it belongs to. This is the map itself.
 - `metrics.json` holds the following:
@@ -105,7 +115,7 @@ Each plan directory holds five files (the official one also holds `balance.json`
   - `nodeVersion`, the Node.js version that ran the generator, and `inputSha256`, the SHA-256 hash of the state's Census zip file. Neither feeds into `assignmentSha256`.
 - `borders.geojson` holds the lines where districts meet, ready to draw on a map.
 - `districts.geojson` holds each district's shape.
-- `balance.json` (official plan only) lists every balancing move in the order it was made, as the block's index and GEOID, the district it left and the one it joined (numbered from 1), its population and its gain, together with the district populations before the first move.
+- `balance.json` (finished map only) lists every balancing move in the order it was made, as the block's index and GEOID, the district it left and the one it joined (numbered from 1), its population and its gain, together with the district populations before the first move.
 - `cuts.geojson` holds the straight guide line chosen for each cut, with its angle and the length of the real border it produced, so the recursive splitting can be followed step by step. Each cut also records how many seats it divides (`seats`, `lowSeats`, `highSeats`) and `firstDistrict`, the 0-based number of the first district in its range, so each cut can be tied to the districts it separates.
 
 ## Data for the map viewer
@@ -116,7 +126,7 @@ npm run publish-data
 
 This reads the plans in `out/` and writes web-ready files to `public/data/`: an `index.json` listing all 50 states with a summary for each state that has a plan, a `states.topo.json` of state outlines, and for each state with a plan:
 
-- `districts.topo.json` and `before.topo.json`, the official and before-balancing districts as simplified TopoJSON. Simplification runs along shared borders, so neighbouring districts still meet exactly. These shapes are for drawing and are slightly coarser than the block-level `districts.geojson`. The numbers and `assignment.csv` are never simplified.
+- `districts.topo.json` and `before.topo.json`, the finished and before-balancing districts as simplified TopoJSON. Simplification runs along shared borders, so neighbouring districts still meet exactly. These shapes are for drawing and are slightly coarser than the block-level `districts.geojson`. The numbers and `assignment.csv` are never simplified.
 - `cuts.json`, the ordered guide lines with their angle, length and seat split.
 - `stats.json`, the metrics for both plans plus, for each district, the counties it touches.
 - `balance.json`, the balancing moves in order, with each moved block's outline taken unsimplified from the Census block file (rounded to six decimals) and the district populations before the first move, so the pass can be replayed move by move.

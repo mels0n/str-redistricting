@@ -12,15 +12,15 @@ export function balance(blocks: readonly Block[], topo: Topology, input: Int32Ar
   const pop = new Float64Array(seats);
   blocks.forEach((b, i) => { pop[assignment[i]!]! += b.pop; });
   const ideal = pop.reduce((s, x) => s + x, 0) / seats;
-  // Member lists are cached per district within one outer iteration and cleared after a move.
-  const memberCache = new Map<number, Int32Array>();
-  const members = (d: number): Int32Array => {
-    let m = memberCache.get(d);
-    if (!m) {
-      m = Int32Array.from([...assignment.keys()].filter((i) => assignment[i] === d));
-      memberCache.set(d, m);
-    }
-    return m;
+  // Ascending member list per district, built once and updated in place on every move.
+  const lists: number[][] = Array.from({ length: seats }, () => []);
+  for (let i = 0; i < assignment.length; i++) lists[assignment[i]!]!.push(i);
+  const members = (d: number): readonly number[] => lists[d]!;
+  /** Position of `block` in an ascending list, or where it would be inserted. */
+  const lowerBound = (list: readonly number[], block: number): number => {
+    let lo = 0, hi = list.length;
+    while (lo < hi) { const mid = (lo + hi) >> 1; if (list[mid]! < block) lo = mid + 1; else hi = mid; }
+    return lo;
   };
 
   let moves = 0;
@@ -33,11 +33,11 @@ export function balance(blocks: readonly Block[], topo: Topology, input: Int32Ar
     }
     if (d === -1) break;
 
-    const seen = new Set<string>();
+    const seen = new Set<number>();
     const cands: Move[] = [];
     const consider = (block: number, from: number, to: number) => {
       const p = blocks[block]!.pop;
-      const key = `${block}:${to}`;
+      const key = block * seats + to;
       if (p === 0 || seen.has(key)) return;
       seen.add(key);
       // Exact decrease in the sum of squared deviations (populations are integers).
@@ -64,7 +64,9 @@ export function balance(blocks: readonly Block[], topo: Topology, input: Int32Ar
       pop[c.from]! -= blocks[c.block]!.pop;
       pop[c.to]! += blocks[c.block]!.pop;
       moves++;
-      memberCache.clear();
+      const fromList = lists[c.from]!, toList = lists[c.to]!;
+      fromList.splice(lowerBound(fromList, c.block), 1);
+      toList.splice(lowerBound(toList, c.block), 0, c.block);
       moved = true;
       break;
     }

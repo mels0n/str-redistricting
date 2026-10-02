@@ -510,20 +510,28 @@ function bridgeComponents(blocks: readonly Block[], adjOffsets: Int32Array, adjL
   return bridges;
 }
 
+/**
+ * Per-topology scratch so a connectivity check costs O(members), not O(n): stamp[v] === mark means
+ * "in the set, not yet seen" and mark + 1 means "seen", for the current call's mark.
+ */
+const stamps = new WeakMap<Topology, { stamp: Int32Array; mark: number }>();
+
 export function isConnected(topo: Topology, members: Int32Array): boolean {
   if (members.length === 0) return false;
-  const inSet = new Uint8Array(topo.n);
-  for (const m of members) inSet[m] = 1;
-  const seen = new Uint8Array(topo.n);
+  let s = stamps.get(topo);
+  if (!s) { s = { stamp: new Int32Array(topo.n), mark: -1 }; stamps.set(topo, s); }
+  if (s.mark > 0x7ffffff0) { s.stamp.fill(0); s.mark = -1; }
+  const inSet = (s.mark += 2), seen = inSet + 1, stamp = s.stamp;
+  for (const m of members) stamp[m] = inSet;
   const stack = [members[0]!];
-  seen[members[0]!] = 1;
+  stamp[members[0]!] = seen;
   let count = 0;
   while (stack.length) {
     const u = stack.pop()!;
     count++;
     for (let k = topo.adjOffsets[u]!; k < topo.adjOffsets[u + 1]!; k++) {
       const v = topo.adjList[k]!;
-      if (inSet[v] && !seen[v]) { seen[v] = 1; stack.push(v); }
+      if (stamp[v] === inSet) { stamp[v] = seen; stack.push(v); }
     }
   }
   return count === members.length;

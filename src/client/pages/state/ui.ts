@@ -17,6 +17,7 @@ import {
   iconArrowDown,
   iconArrowLeft,
   iconChevronDown,
+  createSplitter,
   stateRoute,
   howRoute,
   NATIONAL,
@@ -113,6 +114,53 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
   const stage = h('div', { class: 'strv-state__stage' }, mapFrame, pick);
   const panel = h('div', { class: 'strv-state__panel' }, head, notice);
   const el = h('main', { class: 'strv-state', id: 'strv-main', 'data-cut-mode': 'false' }, panel, stage);
+
+  // Desktop only (the splitters are hidden below 64rem): drag, or use the arrow keys, to give the map more room.
+  const placeColSplit = (): void => {
+    colSplit.el.style.left = `${panel.getBoundingClientRect().right - el.getBoundingClientRect().left - 6}px`;
+  };
+  const colSplit = createSplitter({
+    orientation: 'vertical',
+    label: 'Resize the left column',
+    storageKey: 'strv.split.col',
+    size: () => panel.getBoundingClientRect().width,
+    min: () => 340,
+    max: () => el.clientWidth * 0.5,
+    apply: (px) => (px === null ? el.style.removeProperty('--col-w') : el.style.setProperty('--col-w', `${px}px`)),
+    onChange: placeColSplit,
+  });
+  const rowSplit = createSplitter({
+    orientation: 'horizontal',
+    label: 'Resize the map and the cut controls',
+    storageKey: 'strv.split.frame',
+    size: () => mapFrame.getBoundingClientRect().height,
+    min: () => 240,
+    // The controls under the map never shrink below their top rows.
+    max: () => stage.clientHeight - 232,
+    apply: (px) => {
+      if (px === null) {
+        delete el.dataset.framed;
+        el.style.removeProperty('--frame-h');
+      } else {
+        el.dataset.framed = 'true';
+        el.style.setProperty('--frame-h', `${px}px`);
+      }
+    },
+  });
+  mapFrame.after(rowSplit.el);
+  el.append(colSplit.el);
+  colSplit.restore();
+  rowSplit.restore();
+  const splitWatch =
+    typeof ResizeObserver === 'function'
+      ? new ResizeObserver(() => {
+          placeColSplit();
+          colSplit.refresh();
+          rowSplit.refresh();
+        })
+      : null;
+  splitWatch?.observe(el);
+  splitWatch?.observe(panel);
 
   metaPlaceholder();
   let map: DistrictMapView | null = null;
@@ -584,6 +632,7 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
     destroy() {
       alive = false;
       frameWatch?.disconnect();
+      splitWatch?.disconnect();
       scrubber?.destroy();
       map?.destroy();
     },

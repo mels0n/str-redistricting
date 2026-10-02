@@ -6,3 +6,4 @@ export * from './dom';
 export * from './located';
 export * from './labels';
 export * from './fit';
+export * from './split';

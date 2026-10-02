@@ -1103,8 +1103,9 @@ html:has(> body > #str-viewer) {
   .strv-state {
     display: grid;
     /* The panel gives way before the map does when text is enlarged (the column is measured in rem). */
-    grid-template-columns: min(var(--col), 44%) minmax(0, 1fr);
+    grid-template-columns: var(--col-w, min(var(--col), 44%)) minmax(0, 1fr);
     height: calc(100dvh - var(--mast-h));
+    position: relative;
   }
 
   .strv-state__panel {
@@ -1136,6 +1137,13 @@ html:has(> body > #str-viewer) {
     height: auto;
     /* The map always keeps a usable area, and over half the screen's height: the controls scroll inside the stage before the map shrinks past that. */
     min-height: max(18rem, 56dvh);
+  }
+
+  /* A dragged size replaces the flexible one. */
+  .strv-state[data-framed='true'] .strv-state__frame {
+    flex: none;
+    height: var(--frame-h);
+    min-height: 15rem;
   }
 }
 
@@ -4141,5 +4149,89 @@ html:has(> body > #str-viewer) {
 
   .strv-how__body {
     padding: 0 var(--gutter) var(--s-8);
+  }
+}
+
+/* ---------- Splitters (desktop only) ---------- */
+
+.strv-splitter {
+  display: none;
+}
+
+@media (min-width: 64rem) {
+  .strv-splitter {
+    display: block;
+    position: relative;
+    z-index: 5;
+    touch-action: none;
+  }
+
+  .strv-splitter--v {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 12px;
+    cursor: col-resize;
+  }
+
+  .strv-splitter--h {
+    flex: none;
+    height: 12px;
+    margin: -6px 0;
+    cursor: row-resize;
+  }
+
+  /* A thin line over the existing rule, and a small grip that says the line moves. */
+  .strv-splitter::before,
+  .strv-splitter::after {
+    content: '';
+    position: absolute;
+    background: transparent;
+  }
+
+  .strv-splitter--v::before {
+    inset: 0 5px;
+  }
+
+  .strv-splitter--h::before {
+    inset: 5px 0;
+  }
+
+  .strv-splitter::after {
+    background: var(--rule);
+    border-radius: 2px;
+  }
+
+  .strv-splitter--v::after {
+    left: 4px;
+    top: calc(50% - 1.25rem);
+    width: 4px;
+    height: 2.5rem;
+  }
+
+  .strv-splitter--h::after {
+    top: 4px;
+    left: calc(50% - 1.25rem);
+    height: 4px;
+    width: 2.5rem;
+  }
+
+  .strv-splitter:hover::before,
+  .strv-splitter[data-dragging='true']::before {
+    background: var(--signal);
+  }
+
+  .strv-splitter:hover::after,
+  .strv-splitter[data-dragging='true']::after {
+    background: var(--ink);
+  }
+
+  .strv-splitter:focus-visible {
+    outline: 3px solid var(--signal);
+    outline-offset: -3px;
+  }
+
+  .strv-state[data-cut-mode='false'] .strv-splitter--h {
+    display: none;
   }
 }

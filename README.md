@@ -9,7 +9,7 @@ The repository has two parts:
 2. **The viewer** (`src/client/`) is a web app for browsing the generated maps, built to be embedded in a public website.
 
 ## Run locally
-Requires Node.js 24 (maps are reproducible on the same Node.js major version).
+Requires Node.js 24 to run. The maps do not depend on the Node.js version or the computer: the same census data and the same rule give the same map anywhere.
 
 ```bash
 npm install

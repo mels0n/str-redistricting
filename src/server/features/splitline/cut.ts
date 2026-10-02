@@ -1,4 +1,5 @@
 import { boundarySegments, isConnected } from '../../entities/census-block/index.js';
+import { cos, sin } from '../../shared/detmath/index.js';
 import { DataError } from '../../shared/errors/index.js';
 import { greatCircleDistance, type LonLat } from '../../shared/geo/index.js';
 import type { SplitContext } from './context.js';
@@ -174,7 +175,7 @@ export function findCut(ctx: SplitContext, members: Int32Array, seats: number, v
   const perm = new Int32Array(m);
   const setKeys = (k: number): number => {
     const th = (k * 180 * RAD) / ctx.angleCount;
-    const nx = Math.cos(th), ny = -Math.sin(th);
+    const nx = cos(th), ny = -sin(th);
     for (let i = 0; i < m; i++) keys[i] = ctx.px[members[i]!]! * nx + ctx.py[members[i]!]! * ny;
     return th;
   };
@@ -295,7 +296,7 @@ export function findCut(ctx: SplitContext, members: Int32Array, seats: number, v
 
 /** Great-circle length of the line {p . n = offset} inside the piece, by even-odd pairing of boundary crossings. */
 function spanLength(ctx: SplitContext, sx: Float64Array, sy: Float64Array, th: number, offset: number) {
-  const nx = Math.cos(th), ny = -Math.sin(th), dx = Math.sin(th), dy = Math.cos(th);
+  const nx = cos(th), ny = -sin(th), dx = sin(th), dy = cos(th);
   const ts: number[] = [];
   for (let i = 0; i < sx.length; i += 2) {
     const s1 = sx[i]! * nx + sy[i]! * ny - offset;

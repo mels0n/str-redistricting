@@ -83,7 +83,9 @@ The map in `out/<state>/` is the finished map: the cuts above followed by the ba
 
 ## Same data, same map
 
-The generator has no random numbers and no seed. Blocks are processed in GEOID order. Given the same census files, the same angle step and the same Node.js major version (the maps here were produced on Node.js 24), it produces byte-identical `assignment.csv` and GeoJSON files. `metrics.json` is identical except for `runtimeMs` and the provenance fields `nodeVersion` and `inputSha256`. Each run writes a SHA-256 hash of the final assignment file into `metrics.json`, so two people can compare a single value to confirm they got the same map.
+The generator has no random numbers and no seed. Blocks are processed in GEOID order. Given the same census files and the same angle step, it produces byte-identical `assignment.csv` and GeoJSON files on any computer, whatever its operating system, processor or Node.js version. `metrics.json` is identical except for `runtimeMs` and, when a different Node.js version runs it, `nodeVersion`.
+
+This holds because every number the generator computes comes from operations that give the same result everywhere. The IEEE 754 standard for floating-point arithmetic requires addition, subtraction, multiplication, division and square root to be rounded exactly the same way on every computer, and whole-number operations, comparisons and rounding to whole numbers are exact. The JavaScript language standard, on the other hand, lets each engine approximate sine, cosine, arctangent and similar functions in its own way, so their last digit can differ from one engine or version to the next. The generator therefore never uses the engine's versions of those functions. It computes the sines, cosines, arctangents and arcsines it needs with its own code, built only from the exactly rounded operations above (a port of the long-established fdlibm routines, accurate to within one unit in the last place), and a test fails if any of the engine's approximated functions appears in the generator's code. Each run writes a SHA-256 hash of the final assignment file into `metrics.json`, so two people can compare a single value to confirm they got the same map.
 
 To reproduce a state's map:
 
@@ -114,7 +116,7 @@ Each plan directory holds five files (the finished map's directory also holds `b
   - `angleStepDeg`, the angle step used.
   - `runtimeMs`, the run time of the whole state.
   - `assignmentSha256`, the SHA-256 hash of `assignment.csv`.
-  - `nodeVersion`, the Node.js version that ran the generator, and `inputSha256`, the SHA-256 hash of the state's Census zip file. Neither feeds into `assignmentSha256`.
+  - `nodeVersion`, the Node.js version that ran the generator, recorded for information only: the map does not depend on it. `inputSha256`, the SHA-256 hash of the state's Census zip file, so a reader can confirm they started from the same data. Neither feeds into `assignmentSha256`.
 - `borders.geojson` holds the lines where districts meet, ready to draw on a map.
 - `districts.geojson` holds each district's shape.
 - `balance.json` (finished map only) lists every balancing move in the order it was made, as the block's index and GEOID, the district it left and the one it joined (numbered from 1), its population and its gain, together with the district populations before the first move.

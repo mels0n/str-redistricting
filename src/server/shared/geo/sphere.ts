@@ -1,3 +1,5 @@
+import { asin, atan, atan2, cos, hypot2, sin } from '../detmath/index.js';
+
 export type LonLat = readonly [lon: number, lat: number];
 export type Vec2 = readonly [x: number, y: number];
 
@@ -13,27 +15,28 @@ export interface Gnomonic {
 export function gnomonic(center: LonLat): Gnomonic {
   const lon0 = center[0] * RAD;
   const lat0 = center[1] * RAD;
-  const sinLat0 = Math.sin(lat0);
-  const cosLat0 = Math.cos(lat0);
+  const sinLat0 = sin(lat0);
+  const cosLat0 = cos(lat0);
   return {
     forward([lon, lat]) {
       const l = lon * RAD - lon0;
       const p = lat * RAD;
-      const cosc = sinLat0 * Math.sin(p) + cosLat0 * Math.cos(p) * Math.cos(l);
+      const sinP = sin(p), cosP = cos(p), cosL = cos(l);
+      const cosc = sinLat0 * sinP + cosLat0 * cosP * cosL;
       if (cosc <= 0) throw new RangeError('point is 90 degrees or more from the projection center');
       return [
-        (Math.cos(p) * Math.sin(l)) / cosc,
-        (cosLat0 * Math.sin(p) - sinLat0 * Math.cos(p) * Math.cos(l)) / cosc,
+        (cosP * sin(l)) / cosc,
+        (cosLat0 * sinP - sinLat0 * cosP * cosL) / cosc,
       ];
     },
     inverse([x, y]) {
-      const rho = Math.hypot(x, y);
+      const rho = hypot2(x, y);
       if (rho === 0) return [center[0], center[1]];
-      const c = Math.atan(rho);
-      const sinc = Math.sin(c);
-      const cosc = Math.cos(c);
-      const lat = Math.asin(cosc * sinLat0 + (y * sinc * cosLat0) / rho);
-      const lon = lon0 + Math.atan2(x * sinc, rho * cosLat0 * cosc - y * sinLat0 * sinc);
+      const c = atan(rho);
+      const sinc = sin(c);
+      const cosc = cos(c);
+      const lat = asin(cosc * sinLat0 + (y * sinc * cosLat0) / rho);
+      const lon = lon0 + atan2(x * sinc, rho * cosLat0 * cosc - y * sinLat0 * sinc);
       return [lon / RAD, lat / RAD];
     },
   };
@@ -44,6 +47,7 @@ export function greatCircleDistance(a: LonLat, b: LonLat): number {
   const p2 = b[1] * RAD;
   const dp = p2 - p1;
   const dl = (b[0] - a[0]) * RAD;
-  const h = Math.sin(dp / 2) ** 2 + Math.cos(p1) * Math.cos(p2) * Math.sin(dl / 2) ** 2;
-  return 2 * EARTH_RADIUS_M * Math.asin(Math.min(1, Math.sqrt(h)));
+  const sp = sin(dp / 2), sl = sin(dl / 2);
+  const h = sp * sp + cos(p1) * cos(p2) * (sl * sl);
+  return 2 * EARTH_RADIUS_M * asin(Math.min(1, Math.sqrt(h)));
 }

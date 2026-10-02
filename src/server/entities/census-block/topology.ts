@@ -1,3 +1,4 @@
+import { cos, sin } from '../../shared/detmath/index.js';
 import { DataError } from '../../shared/errors/index.js';
 import { EARTH_RADIUS_M, greatCircleDistance, type LonLat } from '../../shared/geo/index.js';
 import type { Block } from './model.js';
@@ -352,8 +353,8 @@ export function forEachEdge(topo: Topology, visit: (a: LonLat, b: LonLat, blocks
 function toVec3(lonLat: LonLat): [number, number, number] {
   const lon = (lonLat[0] * Math.PI) / 180;
   const lat = (lonLat[1] * Math.PI) / 180;
-  const cosLat = Math.cos(lat);
-  return [cosLat * Math.cos(lon), cosLat * Math.sin(lon), Math.sin(lat)];
+  const cosLat = cos(lat);
+  return [cosLat * cos(lon), cosLat * sin(lon), sin(lat)];
 }
 
 /** Cell side of the unit-sphere grid; unit coordinates lie in [-1, 1]. */
@@ -436,7 +437,7 @@ function nearestToGrid(
     for (let r = 0; r <= maxR; r++) {
       // Unscanned cells (shells >= r) differ by more than (r-1)*CELL in some coordinate.
       if (bestD < EARTH_RADIUS_M * (r - 1) * CELL * BOUND_SLACK) break;
-      const shellCells = r === 0 ? 1 : (2 * r + 1) ** 3 - (2 * r - 1) ** 3;
+      const shellCells = r === 0 ? 1 : (2 * r + 1) * (2 * r + 1) * (2 * r + 1) - (2 * r - 1) * (2 * r - 1) * (2 * r - 1);
       if (shellCells > grid.cells.size) {
         // Cheaper to filter every occupied cell than to enumerate empty shell positions.
         for (const [key, cell] of grid.cells) {

@@ -1,6 +1,7 @@
 import { mkdir, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { forEachEdge, type Topology } from '../../entities/census-block/index.js';
+import { atan2, hypot2 } from '../../shared/detmath/index.js';
 import { DataError } from '../../shared/errors/index.js';
 import type { LonLat } from '../../shared/geo/index.js';
 
@@ -65,7 +66,7 @@ function filled(segs: [LonLat, LonLat][], p: LonLat): boolean {
 
 /** True when the district lies to the left of a segment walked a to b. */
 function leftIsInside(segs: [LonLat, LonLat][], [a, b]: [LonLat, LonLat]): boolean {
-  const len = Math.hypot(b[0] - a[0], b[1] - a[1]);
+  const len = hypot2(b[0] - a[0], b[1] - a[1]);
   const e = 1e-9;
   return filled(segs, [(a[0] + b[0]) / 2 - ((b[1] - a[1]) / len) * e, (a[1] + b[1]) / 2 + ((b[0] - a[0]) / len) * e]);
 }
@@ -95,14 +96,14 @@ export function chainRings(segs: [LonLat, LonLat][], district = 0): LonLat[][] {
     let cur = segs[s]![1];
     while (pkey(cur) !== pkey(start)) {
       const prev = ring[ring.length - 2]!;
-      const back = Math.atan2(prev[1] - cur[1], prev[0] - cur[0]);
+      const back = atan2(prev[1] - cur[1], prev[0] - cur[0]);
       let next = -1;
       let bestTurn = interiorLeft ? -Infinity : Infinity;
       for (const i of at.get(pkey(cur))!) {
         if (used[i]) continue;
         const [a, b] = segs[i]!;
         const w = pkey(a) === pkey(cur) ? b : a;
-        let turn = Math.atan2(w[1] - cur[1], w[0] - cur[0]) - back;
+        let turn = atan2(w[1] - cur[1], w[0] - cur[0]) - back;
         while (turn <= 0) turn += 2 * Math.PI;
         while (turn > 2 * Math.PI) turn -= 2 * Math.PI;
         if (interiorLeft ? turn > bestTurn : turn < bestTurn) {

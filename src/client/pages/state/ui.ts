@@ -116,6 +116,7 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
   const el = h('main', { class: 'strv-state', id: 'strv-main', 'data-cut-mode': 'false' }, panel, stage);
 
   // Desktop only (the splitters are hidden below 64rem): drag, or use the arrow keys, to give the map more room.
+  let controls: HTMLElement | null = null;
   const placeColSplit = (): void => {
     colSplit.el.style.left = `${panel.getBoundingClientRect().right - el.getBoundingClientRect().left - 6}px`;
   };
@@ -134,7 +135,8 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
     label: 'Resize the map and the cut controls',
     storageKey: 'strv.split.frame',
     size: () => mapFrame.getBoundingClientRect().height,
-    min: () => 240,
+    // The panel never grows past its own content: no empty band under it, the map takes the rest.
+    min: () => Math.max(240, stage.clientHeight - (controls?.offsetHeight ?? 0)),
     // The controls under the map never shrink below their top rows.
     max: () => stage.clientHeight - 232,
     apply: (px) => {
@@ -423,6 +425,8 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
     const locatedNote = h('p', { class: 'strv-located', hidden: true });
 
     stage.append(scrubber.el);
+    controls = scrubber.el;
+    splitWatch?.observe(scrubber.el);
     const ticketBox = h('div', { class: 'strv-state__ticket' }, ticket.el, locatedNote);
     let pickKey = '';
     const renderPick = (plan: string, d: { district: number; pop: number } | null, color: string | null): void => {

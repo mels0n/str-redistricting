@@ -4235,3 +4235,30 @@ html:has(> body > #str-viewer) {
     display: none;
   }
 }
+
+/* The left column can be dragged narrow: the summary strip wraps to two by two instead of clipping. */
+@media (min-width: 64rem) {
+  .strv-state__panel {
+    container: strv-col / inline-size;
+  }
+}
+
+@container strv-col (max-width: 28rem) {
+  .strv-state__meta {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 var(--s-2);
+  }
+
+  .strv-state__meta > div,
+  .strv-state__meta > div:last-child {
+    margin-right: 0;
+    padding-right: 0;
+    border-right: 0;
+    padding-bottom: var(--s-1);
+  }
+
+  .strv-state__meta dd {
+    white-space: normal;
+  }
+}

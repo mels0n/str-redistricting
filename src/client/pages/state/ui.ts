@@ -12,6 +12,8 @@ import {
   setLocated,
   peopleNoun,
   prefersReducedMotion,
+  iconArrowDown,
+  iconArrowLeft,
   stateRoute,
   NATIONAL,
   MapUnavailableError,
@@ -47,7 +49,7 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
   let located: { district: number | null; lonLat: LonLat; matchedAddress: string } | null = null;
 
   const h1 = h('h1', { class: 'strv-state__h1', tabindex: -1 }, initial.abbr);
-  const back = h('a', { href: formatHash(NATIONAL), class: 'strv-back' }, h('span', { 'aria-hidden': 'true' }, '← '), 'All states');
+  const back = h('a', { href: formatHash(NATIONAL), class: 'strv-back' }, iconArrowLeft(), 'All states');
   const meta = h('dl', { class: 'strv-state__meta' });
   const head = h('header', { class: 'strv-state__head' }, back, h1, meta);
 
@@ -55,10 +57,10 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
   const notice = h('p', { class: 'strv-notice', hidden: true });
   const mapEl = h('div', { class: 'strv-state__map', role: 'region', 'aria-label': 'District map', 'aria-busy': 'true' });
   const legend = h('div', { class: 'strv-legend', 'aria-hidden': 'true' });
-  const mapFrame = h('div', { class: 'strv-state__frame' }, mapEl, legend);
+  const mapFrame = h('div', { class: 'strv-state__frame' }, mapEl);
   // Phones: the chosen district's headline sits right under the map, so a tap on the map is answered without scrolling.
   const pick = h('div', { class: 'strv-pick' });
-  const stage = h('div', { class: 'strv-state__stage' }, mapFrame, pick);
+  const stage = h('div', { class: 'strv-state__stage' }, mapFrame, legend, pick);
   const panel = h('div', { class: 'strv-state__panel' }, head, notice);
   const el = h('main', { class: 'strv-state', id: 'strv-main', 'data-cut-mode': 'false' }, panel, stage);
 
@@ -309,7 +311,7 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
           },
           h('span', { class: 'strv-pick__swatch', style: `background:${color ?? 'transparent'}`, 'aria-hidden': 'true' }),
           h('span', { class: 'strv-pick__text' }, h('strong', null, `District ${d.district}`), ` ${formatInt(d.pop)} people`),
-          h('span', { class: 'strv-pick__more' }, 'Full ticket', h('span', { 'aria-hidden': 'true' }, ' ↓')),
+          h('span', { class: 'strv-pick__more' }, 'Full ticket', iconArrowDown()),
         ),
       );
     };

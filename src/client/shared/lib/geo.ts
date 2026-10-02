@@ -139,8 +139,8 @@ export function labelPoint(geom: Polygon | MultiPolygon): LonLat {
   return poleOfInaccessibility(largest);
 }
 
-/** Midpoint, by length, of the longest segment run in a cut's lines. */
-export function lineLabelPoint(lines: readonly (readonly Position[])[]): LonLat | null {
+/** The point a fraction `frac` (0 to 1) of the way along the longest of a cut's lines. */
+export function pointAlongLines(lines: readonly (readonly Position[])[], frac: number): LonLat | null {
   let bestLine: readonly Position[] | null = null;
   let bestLen = -1;
   for (const line of lines) {
@@ -149,18 +149,23 @@ export function lineLabelPoint(lines: readonly (readonly Position[])[]): LonLat 
     if (len > bestLen) { bestLen = len; bestLine = line; }
   }
   if (!bestLine || bestLine.length === 0) return null;
-  const half = bestLen / 2;
+  const target = bestLen * Math.max(0, Math.min(1, frac));
   let acc = 0;
   for (let i = 1; i < bestLine.length; i++) {
     const a = bestLine[i - 1]!, b = bestLine[i]!;
     const seg = Math.hypot(b[0]! - a[0]!, b[1]! - a[1]!);
-    if (acc + seg >= half && seg > 0) {
-      const t = (half - acc) / seg;
+    if (acc + seg >= target && seg > 0) {
+      const t = (target - acc) / seg;
       return [a[0]! + (b[0]! - a[0]!) * t, a[1]! + (b[1]! - a[1]!) * t];
     }
     acc += seg;
   }
   return [bestLine[0]![0]!, bestLine[0]![1]!];
+}
+
+/** Midpoint, by length, of the longest segment run in a cut's lines. */
+export function lineLabelPoint(lines: readonly (readonly Position[])[]): LonLat | null {
+  return pointAlongLines(lines, 0.5);
 }
 
 /**

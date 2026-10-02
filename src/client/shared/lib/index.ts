@@ -4,3 +4,4 @@ export * from './geo';
 export * from './route';
 export * from './dom';
 export * from './located';
+export * from './labels';

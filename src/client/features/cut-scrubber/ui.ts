@@ -1,5 +1,5 @@
 import { h, clear, formatKm, prefersReducedMotion, config } from '../../shared';
-import { cutSides, cutStep, stepBy, isLastStep, type Cut, type CutStep } from '../../entities/plan';
+import { cutRows, cutSides, cutStep, stepBy, isLastStep, type Cut, type CutStep } from '../../entities/plan';
 
 export interface CutScrubberOptions {
   cuts: readonly Cut[];
@@ -65,6 +65,11 @@ export function createCutScrubber(opts: CutScrubberOptions): CutScrubber {
     renderPlay();
   };
 
+  const jump = (k: number): void => {
+    stopPlaying();
+    go(k, false);
+  };
+
   const go = (k: number, animate: boolean): void => {
     step = cutStep(k, total);
     opts.onStep(step.k, { animate: animate && !prefersReducedMotion() });
@@ -128,6 +133,33 @@ export function createCutScrubber(opts: CutScrubberOptions): CutScrubber {
 
   const live = h('p', { class: 'strv-visually-hidden', 'aria-live': 'polite' });
 
+  // The timetable: every cut as a row, so the whole sequence can be read at once. A row jumps to its cut.
+  const boardRows = cutRows(opts.cuts).map((r) =>
+    h(
+      'tr',
+      { 'data-k': r.order, onclick: () => jump(r.order) },
+      h('th', { scope: 'row', class: 'strv-board__no' }, h('button', { type: 'button', class: 'strv-board__go', 'aria-label': `Go to cut ${r.order} of ${total}` }, String(r.order))),
+      h('td', null, String(r.seats)),
+      h('td', null, r.split),
+      h('td', { class: 'strv-board__num' }, r.direction),
+      h('td', { class: 'strv-board__num' }, r.border),
+    ),
+  );
+  const boardHead = h(
+    'thead',
+    null,
+    h('tr', null, h('th', { scope: 'col' }, 'Cut'), h('th', { scope: 'col' }, 'Seats'), h('th', { scope: 'col' }, 'Split'), h('th', { scope: 'col', class: 'strv-board__num' }, 'Direction'), h('th', { scope: 'col', class: 'strv-board__num' }, 'Border')),
+  );
+  const boardScroll = h(
+    'div',
+    { class: 'strv-board__scroll' },
+    h('table', { class: 'strv-board__table' }, h('caption', { class: 'strv-visually-hidden' }, 'Every cut in order. Choose a cut number to jump to it.'), boardHead, h('tbody', null, boardRows)),
+  );
+  const board = h('details', { class: 'strv-board' }, h('summary', { class: 'strv-board__summary' }, `All ${total} ${total === 1 ? 'cut' : 'cuts'}`), boardScroll);
+  // Open where there is room for it beside the map; a phone keeps the map and controls on one screen.
+  board.addEventListener('toggle', () => renderBoard());
+  board.open = typeof matchMedia === 'function' && matchMedia('(min-width: 64rem) and (min-height: 40rem)').matches;
+
   const controls = h(
     'div',
     { class: 'strv-scrub__controls' },
@@ -143,7 +175,7 @@ export function createCutScrubber(opts: CutScrubberOptions): CutScrubber {
     start,
   );
 
-  const el = h('section', { class: 'strv-scrub', 'aria-label': 'Cut sequence' }, intro, h('div', { class: 'strv-scrub__body' }, h('div', { class: 'strv-scrub__head' }, count, detail), controls), live);
+  const el = h('section', { class: 'strv-scrub', 'aria-label': 'Cut sequence' }, intro, h('div', { class: 'strv-scrub__body' }, h('div', { class: 'strv-scrub__head' }, count, detail), controls, board), live);
 
   function renderDetail(): void {
     clear(detail);
@@ -163,6 +195,22 @@ export function createCutScrubber(opts: CutScrubberOptions): CutScrubber {
       h('div', null, h('dt', null, 'Direction'), h('dd', null, `${c.angleDeg.toFixed(1)}°`)),
       h('div', null, h('dt', null, 'Border'), h('dd', null, formatKm(c.lengthM))),
     );
+  }
+
+  /** Marks the current cut's row and keeps it in view inside the table's own box (the page does not scroll). */
+  function renderBoard(): void {
+    boardRows.forEach((tr, i) => {
+      const kk = i + 1;
+      tr.dataset.state = kk === step.k ? 'current' : kk < step.k ? 'done' : 'todo';
+      if (kk === step.k) tr.setAttribute('aria-current', 'step');
+      else tr.removeAttribute('aria-current');
+    });
+    const row = boardRows[step.k - 1];
+    if (!row || !board.open) return;
+    const top = row.offsetTop - boardHead.offsetHeight;
+    const bottom = row.offsetTop + row.offsetHeight;
+    if (top < boardScroll.scrollTop) boardScroll.scrollTop = top;
+    else if (bottom > boardScroll.scrollTop + boardScroll.clientHeight) boardScroll.scrollTop = bottom - boardScroll.clientHeight;
   }
 
   function update(k: number | null): void {
@@ -185,6 +233,7 @@ export function createCutScrubber(opts: CutScrubberOptions): CutScrubber {
       (li as HTMLElement).dataset.state = kk === step.k ? 'current' : kk < step.k ? 'done' : 'todo';
     }
     renderDetail();
+    renderBoard();
     // The slider reads its own value text when it has focus; the live region covers Play and the buttons.
     if (document.activeElement !== range) live.textContent = describeStep(step, opts.cuts);
     if (!wasActive) {

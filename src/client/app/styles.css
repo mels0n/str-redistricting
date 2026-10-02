@@ -375,7 +375,13 @@ body:has(> #str-viewer) {
     'search'
     'map'
     'index'
+    'lede'
     'explain';
+}
+
+/* On a phone the side wrapper steps aside so the map and the lede are rows of their own. */
+.strv-national__side {
+  display: contents;
 }
 
 .strv-national__head {
@@ -394,6 +400,8 @@ body:has(> #str-viewer) {
 }
 
 .strv-national__lede {
+  grid-area: lede;
+  padding: var(--s-4) var(--gutter) var(--s-5);
   max-width: 62ch;
   color: var(--ink-2);
   font-size: 1rem;
@@ -432,20 +440,32 @@ body:has(> #str-viewer) {
     --gutter: 1.5rem;
   }
 
+  /* The index runs the full height of the page; the lede and map stay pinned beside it, and the explainer closes the page across both columns. */
   .strv-national {
     grid-template-columns: var(--col) minmax(0, 1fr);
-    grid-template-rows: auto auto auto 1fr;
+    grid-template-rows: auto 1fr auto;
     grid-template-areas:
       'search head'
-      'index head'
-      'index map'
-      'index explain';
+      'index side'
+      'explain explain';
     column-gap: 0;
   }
 
   .strv-national__head {
     grid-area: head;
     padding: var(--s-6) var(--s-6) var(--s-3);
+  }
+
+  .strv-national__side {
+    display: block;
+    grid-area: side;
+    position: sticky;
+    top: 0;
+    align-self: start;
+  }
+
+  .strv-national__lede {
+    padding: 0 var(--s-6) var(--s-3);
   }
 
   .strv-national__search {
@@ -462,14 +482,11 @@ body:has(> #str-viewer) {
   }
 
   .strv-national__map {
-    position: sticky;
-    top: 0;
-    align-self: start;
     padding: 0 var(--s-6) var(--s-4);
   }
 
   .strv-national__explain {
-    padding: var(--s-6) var(--s-6) var(--s-8);
+    padding: var(--s-6) var(--gutter) var(--s-8);
   }
 }
 
@@ -481,6 +498,13 @@ body:has(> #str-viewer) {
   height: auto;
   max-height: calc(100dvh - var(--mast-h) - 9rem);
   overflow: visible;
+}
+
+@media (min-width: 64rem) {
+  /* The lede sits above the map in the pinned column; leave it room. */
+  .strv-us {
+    max-height: calc(100dvh - var(--mast-h) - 17rem);
+  }
 }
 
 .strv-us__quiet path {
@@ -569,6 +593,22 @@ body:has(> #str-viewer) {
 .strv-us__seats-ink {
   font-size: 18px;
   font-weight: 700;
+}
+
+/* Phones: the drawing is scaled down to about 37%, so label sizes are set in larger units (12 px on screen is about 32 units). */
+.strv-us--compact .strv-us__abbr,
+.strv-us--compact .strv-us__abbr-ink {
+  font-size: 34px;
+}
+
+.strv-us--compact .strv-us__seats,
+.strv-us--compact .strv-us__seats-ink {
+  font-size: 40px;
+}
+
+.strv-us--compact .strv-us__leader,
+.strv-us--compact .strv-us__dot {
+  stroke-width: 2;
 }
 
 .strv-us__callout-link:hover .strv-us__callout {
@@ -737,6 +777,7 @@ body:has(> #str-viewer) {
   flex-direction: column;
   /* What the map frame gives up on a phone: the cut controls take room while the sequence is open. */
   --frame-min: 20rem;
+  --legend-h: 0rem;
   --x-cut: 0rem;
 }
 
@@ -756,7 +797,19 @@ body:has(> #str-viewer) {
   gap: var(--s-2);
 }
 
+.strv-icon--stroke {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.75;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+  flex: none;
+}
+
 .strv-back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
   font-size: 0.875rem;
   font-weight: 600;
   justify-self: start;
@@ -810,6 +863,7 @@ body:has(> #str-viewer) {
 
 .strv-state__stage {
   order: 2;
+  position: relative;
   display: flex;
   flex-direction: column;
   border-top: 2px solid var(--ink);
@@ -819,7 +873,7 @@ body:has(> #str-viewer) {
 .strv-state__frame {
   position: relative;
   /* The map takes what the first screen has left after the masthead, title row, the chosen-district strip and the scrubber strip. */
-  height: clamp(var(--frame-min), calc(100svh - var(--mast-h) - 19.5rem - var(--x-cut)), 40rem);
+  height: clamp(var(--frame-min), calc(100svh - var(--mast-h) - 19.5rem - var(--x-cut) - var(--legend-h)), 40rem);
   background: var(--ground);
 }
 
@@ -1507,8 +1561,12 @@ body:has(> #str-viewer) {
 }
 
 .strv-seg:disabled .strv-seg__option {
-  opacity: 0.55;
   cursor: default;
+}
+
+/* While the cut sequence runs the choice is locked: the segment in use stays solid, the other recedes. */
+.strv-seg:disabled .strv-seg__option:not(:has(input:checked)) {
+  opacity: 0.55;
 }
 
 .strv-options__note {
@@ -1797,6 +1855,13 @@ body:has(> #str-viewer) {
   max-height: calc(100dvh - var(--mast-h) - 9rem);
 }
 
+@media (max-width: 63.99rem) {
+  .strv-national__h1 {
+    font-size: 1.5rem;
+    max-width: 26ch;
+  }
+}
+
 .strv-national__index:empty {
   min-height: 24rem;
 }
@@ -2053,6 +2118,9 @@ body:has(> #str-viewer) {
 
 .strv-pick__more {
   flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-1);
   font-size: 0.8125rem;
   font-weight: 600;
   color: var(--ink-2);
@@ -2284,5 +2352,141 @@ body:has(> #str-viewer) {
 @media (min-width: 120rem) {
   .strv {
     --col: 34rem;
+  }
+}
+
+/* Phones: the key sits in a row under the map so it never covers the state. */
+@media (max-width: 37.5rem) and (min-height: 32.01rem) {
+  .strv {
+    --legend-h: 2.25rem;
+  }
+
+  .strv-legend {
+    position: static;
+    max-width: none;
+    padding: var(--s-1) var(--gutter);
+    min-height: 2.25rem;
+    align-items: center;
+    background: var(--paper);
+    border: 0;
+    border-top: 1px solid var(--hairline);
+    border-radius: 0;
+  }
+}
+
+/* A phone on its side keeps the key over the map's left column, clear of the right-hand controls column. */
+@media (orientation: landscape) and (max-height: 32rem) and (max-width: 63.99rem) {
+  .strv-legend {
+    max-width: calc(100% - 22rem - 5rem);
+  }
+}
+
+/* Phones: one instruction, in the strip under the map. The empty ticket box waits for a chosen district. */
+@media (max-width: 63.99rem) {
+  .strv-state__ticket:has(> .strv-ticket[data-empty='true']):has(> .strv-located[hidden]) {
+    display: none;
+  }
+}
+
+/* ---------- Cut timetable ---------- */
+
+.strv-board {
+  border-top: 1px solid var(--hairline);
+  padding-top: var(--s-1);
+}
+
+.strv-board__summary {
+  display: flex;
+  align-items: center;
+  min-height: 2rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.strv-board__summary:focus-visible {
+  outline-offset: 2px;
+}
+
+.strv-board__scroll {
+  position: relative;
+  max-height: 10.5rem;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.strv-board__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8125rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.strv-board__table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding: 0 var(--s-2) var(--s-1) 0;
+  background: var(--paper);
+  border-bottom: 1px solid var(--ink);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--ink-2);
+  text-align: left;
+}
+
+.strv-board__table td,
+.strv-board__table tbody th {
+  padding: 0 var(--s-2) 0 0;
+  border-bottom: 1px solid var(--hairline);
+  font-weight: 400;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.strv-board__table .strv-board__num {
+  text-align: right;
+}
+
+.strv-board__table tbody tr {
+  cursor: pointer;
+}
+
+.strv-board__table tbody tr:hover td,
+.strv-board__table tbody tr:hover th {
+  background: var(--ground-2);
+}
+
+.strv-board__table tr[data-state='current'] th,
+.strv-board__table tr[data-state='current'] td {
+  background: var(--signal-tint);
+  font-weight: 600;
+}
+
+.strv-board__table tr[data-state='todo'] td {
+  color: var(--ink-2);
+}
+
+.strv-board__go {
+  display: block;
+  min-width: 2.5rem;
+  min-height: 1.75rem;
+  padding: 0 var(--s-2);
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  color: var(--ink);
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.strv-board__go:focus-visible {
+  outline-offset: -2px;
+}
+
+@media (pointer: coarse) {
+  .strv-board__go {
+    min-height: 2.75rem;
   }
 }

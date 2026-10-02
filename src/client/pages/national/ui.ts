@@ -1,7 +1,7 @@
 import { h, clear, describeError, setLocated, stateRoute, type Navigate, type Page } from '../../shared';
 import { loadIndex, loadOutlines } from '../../entities/state';
 import { createAddressSearch, describeResolution, resolveAddress } from '../../features/address-search';
-import { createUsMap } from '../../widgets/us-map';
+import { createUsMap, type UsMap } from '../../widgets/us-map';
 import { createStateIndex } from '../../widgets/state-index';
 import { createExplainer } from '../../widgets/explainer';
 
@@ -31,14 +31,16 @@ export function createNationalPage(nav: Navigate): Page {
   const mapSlot = h('div', { class: 'strv-national__map', 'aria-busy': 'true' }, h('p', { class: 'strv-loading' }, 'Loading the map of the states…'));
   const indexSlot = h('div', { class: 'strv-national__index' });
 
+  let usMap: UsMap | null = null;
   let indexCache: Awaited<ReturnType<typeof loadIndex>> | null = null;
 
   const el = h(
     'main',
     { class: 'strv-national', id: 'strv-main' },
-    h('div', { class: 'strv-national__head' }, h1, lede),
+    h('div', { class: 'strv-national__head' }, h1),
     h('div', { class: 'strv-national__search' }, search.el),
-    mapSlot,
+    // On a phone the lede and map are separate rows (address, map, index, then the lede); on a wide screen they stay pinned together beside the index.
+    h('div', { class: 'strv-national__side' }, lede, mapSlot),
     indexSlot,
     h('div', { class: 'strv-national__explain' }, createExplainer()),
   );
@@ -57,7 +59,9 @@ export function createNationalPage(nav: Navigate): Page {
         indexCache = index;
         clear(mapSlot);
         mapSlot.removeAttribute('aria-busy');
-        mapSlot.append(createUsMap({ outlines, index }));
+        usMap?.destroy();
+        usMap = createUsMap({ outlines, index });
+        mapSlot.append(usMap.el);
         clear(indexSlot);
         indexSlot.append(createStateIndex(index));
       })
@@ -78,6 +82,7 @@ export function createNationalPage(nav: Navigate): Page {
     focusTarget: () => h1,
     destroy() {
       alive = false;
+      usMap?.destroy();
     },
   };
 }

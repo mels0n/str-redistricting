@@ -1,3 +1,4 @@
+import { formatKm } from '../../shared/lib/format';
 import type { Cut } from './model';
 
 /**
@@ -59,4 +60,31 @@ export function stepBy(s: CutStep, delta: number): CutStep {
 
 export function isLastStep(s: CutStep): boolean {
   return s.k >= s.total;
+}
+
+/** One cut as a row of the cut timetable: every figure already formatted for display. */
+export interface CutRow {
+  /** The cut's number, 1-based, as drawn on the map. */
+  order: number;
+  /** Seats in the piece this cut splits. */
+  seats: number;
+  /** How the seats divide: "4 + 3". */
+  split: string;
+  /** Guide-line direction: "154.1°". */
+  direction: string;
+  /** Length of the border the cut made: "339.3 km". */
+  border: string;
+}
+
+/** The timetable of all cuts, in the order they are made. */
+export function cutRows(cuts: readonly Cut[]): CutRow[] {
+  return [...cuts]
+    .sort((a, b) => a.order - b.order)
+    .map((c) => ({
+      order: c.order,
+      seats: c.seats,
+      split: `${c.lowSeats} + ${c.highSeats}`,
+      direction: `${c.angleDeg.toFixed(1)}°`,
+      border: formatKm(c.lengthM),
+    }));
 }

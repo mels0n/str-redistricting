@@ -54,7 +54,8 @@ export function createPlanOptions(opts: PlanOptionsOptions): PlanOptions {
     el,
     update({ plan, enacted: on, cutMode, enactedFailed }) {
       for (const input of group.querySelectorAll('input')) {
-        input.checked = input.value === plan;
+        // The cut sequence always shows the plan before balancing; the visitor's own choice comes back when it ends.
+        input.checked = input.value === (cutMode ? 'before' : plan);
         input.disabled = cutMode;
       }
       group.toggleAttribute('disabled', cutMode);

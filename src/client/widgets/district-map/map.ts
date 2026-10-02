@@ -8,8 +8,11 @@ import {
   config,
   bboxOf,
   labelPoint,
-  lineLabelPoint,
+  pointAlongLines,
   partialLines,
+  firstClearSpot,
+  offsetToClear,
+  type Box,
   prefersReducedMotion,
   type LonLat,
   type Plan,
@@ -43,6 +46,9 @@ export interface DistrictMapView {
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
 
+/** Where along a cut line its number may sit, as fractions of the line's length, in order of preference. */
+const CUT_TAG_SPOTS = [0.5, 0.38, 0.62, 0.27, 0.73, 0.16, 0.84, 0.07, 0.93];
+
 const EMPTY_LINES: MultiLineString = { type: 'MultiLineString', coordinates: [] };
 const asFeature = (g: MultiLineString) => ({ type: 'Feature' as const, properties: {}, geometry: g });
 
@@ -57,6 +63,8 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
   const narrow = container.clientWidth < 520 || container.clientHeight < 400;
   // Touch and small screens get larger numbers (see styles.css), so each needs a larger box to stay clear of its neighbours.
   const roomy = coarse || narrow;
+  // Under 600 px the key sits below the map (see styles.css); the map then needs no room at the top for it.
+  const keyBelow = matchMedia('(max-width: 37.5rem) and (min-height: 32.01rem)').matches;
   /** Pixel size of a district number's box, used to keep numbers from overlapping. */
   const LABEL_W = roomy ? 32 : 26;
   const LABEL_H = roomy ? 28 : 22;
@@ -69,7 +77,7 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
       layers: [{ id: 'ground', type: 'background', paint: { 'background-color': tokens.ground } }],
     },
     bounds: bbox,
-    fitBoundsOptions: { padding: narrow ? { top: container.clientWidth < 380 ? 64 : 40, right: 14, bottom: 14, left: 14 } : 32 },
+    fitBoundsOptions: { padding: narrow ? (keyBelow ? 14 : { top: container.clientWidth < 380 ? 64 : 40, right: 14, bottom: 14, left: 14 }) : { top: 52, right: 32, bottom: 32, left: 32 } },
     attributionControl: false,
     dragRotate: false,
     pitchWithRotate: false,
@@ -118,8 +126,10 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
   };
 
   /**
-   * Put every visible number where it does not overlap another. A number that
-   * would collide moves to the nearest free spot and is joined to its district
+   * Lay out every visible label so none covers another. Cut numbers go first:
+   * each slides along its own cut line to the nearest spot clear of the other
+   * cut numbers and of the district numbers. Then a district number that would
+   * still collide moves to the nearest free spot and is joined to its district
    * by a short leader line and a dot.
    */
   function layoutLabels(): void {
@@ -127,38 +137,44 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
     const plan: Plan = current.cut !== null ? 'before' : current.plan;
     const labels = labelsFor(plan);
     const areas = areasFor(plan);
-    const placed: { x: number; y: number }[] = [];
-    const out: string[] = [];
+    const frame = { w: container.clientWidth, h: container.clientHeight };
+    const size = { w: LABEL_W, h: LABEL_H };
+    // Larger districts claim their spot first; small ones move aside.
     const order = districtMarkers.map((_, i) => i).filter((i) => !districtMarkers[i]!.el.hidden).sort((a, b) => areas[b]! - areas[a]!);
-    // A moved number stays inside the frame, clear of the edge, so it is never cut off.
-    const w = container.clientWidth;
-    const hgt = container.clientHeight;
-    const inside = (x: number, y: number): boolean => x >= LABEL_W / 2 + 2 && x <= w - LABEL_W / 2 - 2 && y >= LABEL_H / 2 + 2 && y <= hgt - LABEL_H / 2 - 2;
-    const clear = (x: number, y: number): boolean => placed.every((q) => Math.abs(q.x - x) >= LABEL_W || Math.abs(q.y - y) >= LABEL_H);
-    const free = (x: number, y: number): boolean => inside(x, y) && clear(x, y);
-    const angles = [0, 180, 90, 270, 45, 225, 135, 315, 22, 202, 112, 292];
+    const natural: Box[] = order.map((i) => {
+      const pt = map.project(labels[i]! as [number, number]);
+      return { x: pt.x, y: pt.y, ...size };
+    });
+
+    // Cut numbers: newest first, kept on their line.
+    const placed: Box[] = [];
+    for (const tag of [...cutTags].reverse()) {
+      const tagSize = { w: tag.el.offsetWidth || 24, h: tag.el.offsetHeight || 20 };
+      const pts = tag.spots.map((s) => map.project(s as [number, number]));
+      let at = firstClearSpot(pts, tagSize, [...placed, ...natural], frame) ?? firstClearSpot(pts, tagSize, placed, frame);
+      let nudge = { dx: 0, dy: 0 };
+      if (at === null) {
+        // A short line with no clear spot on it: the number sits as close to the line as the others allow.
+        at = 0;
+        nudge = offsetToClear(pts[0]!, tagSize, placed, frame, 0, [12, 20, 28, 36, 48]);
+      }
+      tag.marker.setLngLat(tag.spots[at]! as [number, number]);
+      tag.marker.setOffset([nudge.dx, nudge.dy]);
+      placed.push({ x: pts[at]!.x + nudge.dx, y: pts[at]!.y + nudge.dy, ...tagSize });
+    }
+
+    // District numbers: stay put when free, else move to the nearest free spot, kept inside the frame.
+    const out: string[] = [];
     for (const i of order) {
       const { marker } = districtMarkers[i]!;
       const pt = map.project(labels[i]! as [number, number]);
-      let best = { dx: 0, dy: 0 };
-      if (!clear(pt.x, pt.y)) {
-        search: for (let r = 30; r <= 110; r += 20) {
-          for (const deg of angles) {
-            const dx = Math.round(Math.cos((deg * Math.PI) / 180) * r);
-            const dy = Math.round(Math.sin((deg * Math.PI) / 180) * r);
-            if (free(pt.x + dx, pt.y + dy)) {
-              best = { dx, dy };
-              break search;
-            }
-          }
-        }
-      }
-      marker.setOffset([best.dx, best.dy]);
-      placed.push({ x: pt.x + best.dx, y: pt.y + best.dy });
-      if (best.dx || best.dy) {
-        const len = Math.hypot(best.dx, best.dy);
-        const ex = pt.x + best.dx - (best.dx / len) * 11;
-        const ey = pt.y + best.dy - (best.dy / len) * 9;
+      const { dx, dy } = offsetToClear(pt, size, placed, frame, 0);
+      marker.setOffset([dx, dy]);
+      placed.push({ x: pt.x + dx, y: pt.y + dy, ...size });
+      if (dx || dy) {
+        const len = Math.hypot(dx, dy);
+        const ex = pt.x + dx - (dx / len) * 11;
+        const ey = pt.y + dy - (dy / len) * 9;
         out.push(`<path d="M${pt.x.toFixed(1)},${pt.y.toFixed(1)}L${ex.toFixed(1)},${ey.toFixed(1)}"/><circle cx="${pt.x.toFixed(1)}" cy="${pt.y.toFixed(1)}" r="2.5"/>`);
       }
     }
@@ -168,7 +184,7 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
   let current: MapViewState | null = null;
   let anim: number | null = null;
   let districtMarkers: { marker: Marker; el: HTMLElement }[] = [];
-  let cutMarkers: Marker[] = [];
+  let cutTags: { marker: Marker; el: HTMLElement; spots: LonLat[] }[] = [];
   let pin: Marker | null = null;
   let leaders: SVGSVGElement | null = null;
   let resizeObs: ResizeObserver | null = null;
@@ -373,12 +389,10 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
       el.dataset.selected = String(next.selected === i + 1);
     });
 
-    layoutLabels();
-
     // Cut lines and their numbers.
     if (!prev || prev.cut !== next.cut) {
-      for (const m of cutMarkers) m.remove();
-      cutMarkers = [];
+      for (const t of cutTags) t.marker.remove();
+      cutTags = [];
       if (cutMode && next.cut! > 0) {
         const done = bundle.cuts.slice(0, next.cut!);
         const newest = done[done.length - 1]!;
@@ -387,14 +401,15 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
         );
         drawNewCut(newest.lines as Position[][], next.animate && prev !== null && prev.cut !== null && next.cut === prev.cut + 1);
         done.forEach((c, i) => {
-          const at = lineLabelPoint(c.lines as Position[][]);
-          if (!at) return;
+          // Spots along the cut line, best first: the middle, then alternating either side.
+          const spots = CUT_TAG_SPOTS.map((f) => pointAlongLines(c.lines as Position[][], f)).filter((p): p is LonLat => p !== null);
+          if (!spots[0]) return;
           const el = document.createElement('div');
           el.className = 'strv-cut-tag';
           el.dataset.newest = String(i === done.length - 1);
           el.textContent = String(c.order);
           el.setAttribute('aria-hidden', 'true');
-          cutMarkers.push(new Marker({ element: el, anchor: 'center' }).setLngLat(at as [number, number]).addTo(map));
+          cutTags.push({ marker: new Marker({ element: el, anchor: 'center' }).setLngLat(spots[0] as [number, number]).addTo(map), el, spots });
         });
       } else {
         stopAnim();
@@ -402,6 +417,8 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
         src('cut-new').setData(asFeature(EMPTY_LINES));
       }
     }
+
+    layoutLabels();
 
     // Today's districts, display only.
     if (next.enacted) {

@@ -1,7 +1,9 @@
+import { createHash } from 'node:crypto';
+import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { buildTopology } from '../entities/census-block/index.js';
 import { balance } from '../features/balance/index.js';
-import { loadStateBlocks } from '../features/census/index.js';
+import { ensureZip, loadStateBlocks } from '../features/census/index.js';
 import { bordersGeoJson, cutsGeoJson, districtsGeoJson, writePlan } from '../features/export/index.js';
 import { assignmentCsv, computeMetrics } from '../features/metrics/index.js';
 import { createContext, splitState } from '../features/splitline/index.js';
@@ -15,6 +17,7 @@ async function main(): Promise<void> {
   for (const state of config.states) {
     try {
       const t0 = performance.now();
+      const inputSha256 = createHash('sha256').update(await readFile(await ensureZip(state, config.cacheDir))).digest('hex');
       const blocks = await loadStateBlocks(state, config.cacheDir);
       const topo = buildTopology(blocks);
       const ctx = createContext(blocks, config.angleStepDeg, topo);
@@ -24,7 +27,7 @@ async function main(): Promise<void> {
       const sum = (f: (c: (typeof split.cuts)[number]) => number): number => split.cuts.reduce((s, c) => s + f(c), 0);
       // Stray counts are net per block, both directions summed over all cuts.
       const common = {
-        state: state.abbr, angleStepDeg: config.angleStepDeg, bridges: topo.bridges.length,
+        state: state.abbr, angleStepDeg: config.angleStepDeg, bridges: topo.bridges.length, nodeVersion: process.version, inputSha256,
         cutsSkipped: sum((c) => c.skipped), strayCapRejected: sum((c) => c.strayCapRejected),
         strayBlocksMoved: sum((c) => c.strayBlocksMoved), strayPopMoved: sum((c) => c.strayPopMoved),
       };

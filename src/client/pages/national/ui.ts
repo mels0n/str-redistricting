@@ -37,11 +37,15 @@ export function createNationalPage(nav: Navigate): Page {
   const el = h(
     'main',
     { class: 'strv-national', id: 'strv-main' },
-    h('div', { class: 'strv-national__head' }, h1),
-    h('div', { class: 'strv-national__search' }, search.el),
-    // On a phone the lede and map are separate rows (address, map, index, then the lede); on a wide screen they stay pinned together beside the index.
-    h('div', { class: 'strv-national__side' }, lede, mapSlot),
-    indexSlot,
+    h(
+      'div',
+      { class: 'strv-national__grid' },
+      h('div', { class: 'strv-national__head' }, h1),
+      h('div', { class: 'strv-national__search' }, search.el),
+      // On a phone the lede and map are separate rows (address, map, index, then the lede); on a wide screen they stay pinned together beside the index.
+      h('div', { class: 'strv-national__side' }, lede, mapSlot),
+      indexSlot,
+    ),
     h('div', { class: 'strv-national__explain' }, createExplainer()),
   );
 

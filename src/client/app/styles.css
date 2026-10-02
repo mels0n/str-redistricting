@@ -367,7 +367,8 @@ body:has(> #str-viewer) {
 
 /* ---------- National index ---------- */
 
-.strv-national {
+/* The explainer sits after the grid, not in it: a sticky item is bounded by its grid container, so the pinned column can never ride down over the explainer. */
+.strv-national__grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   grid-template-areas:
@@ -375,8 +376,7 @@ body:has(> #str-viewer) {
     'search'
     'map'
     'index'
-    'lede'
-    'explain';
+    'lede';
 }
 
 /* On a phone the side wrapper steps aside so the map and the lede are rows of their own. */
@@ -426,7 +426,6 @@ body:has(> #str-viewer) {
 }
 
 .strv-national__explain {
-  grid-area: explain;
   padding: var(--s-5) var(--gutter) var(--s-8);
   border-top: 1px solid var(--ink);
 }
@@ -441,13 +440,12 @@ body:has(> #str-viewer) {
   }
 
   /* The index runs the full height of the page; the lede and map stay pinned beside it, and the explainer closes the page across both columns. */
-  .strv-national {
+  .strv-national__grid {
     grid-template-columns: var(--col) minmax(0, 1fr);
-    grid-template-rows: auto 1fr auto;
+    grid-template-rows: auto 1fr;
     grid-template-areas:
       'search head'
-      'index side'
-      'explain explain';
+      'index side';
     column-gap: 0;
   }
 
@@ -459,8 +457,6 @@ body:has(> #str-viewer) {
   .strv-national__side {
     display: block;
     grid-area: side;
-    position: sticky;
-    top: 0;
     align-self: start;
   }
 
@@ -487,6 +483,14 @@ body:has(> #str-viewer) {
 
   .strv-national__explain {
     padding: var(--s-6) var(--gutter) var(--s-8);
+  }
+}
+
+/* Pin the map column beside the long index only when it fits the window; on a short window it scrolls with the page so its top is never cut off. */
+@media (min-width: 64rem) and (min-height: 34rem) {
+  .strv-national__side {
+    position: sticky;
+    top: 0;
   }
 }
 

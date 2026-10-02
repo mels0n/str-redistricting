@@ -2,11 +2,17 @@
  * Loads a JSONP response. Used only for the U.S. Census Bureau geocoder,
  * which answers browsers through JSONP but sends no CORS headers for plain
  * JSON. The result is untyped and must be validated by the caller.
+ *
+ * Whatever happens (answer, script error, script that loads without calling
+ * back, timeout), the script tag is removed and the temporary global
+ * callback is deleted, so repeated lookups leave nothing behind.
  */
 let counter = 0;
 
+export type JsonpFailure = 'network' | 'timeout' | 'no-callback';
+
 export class JsonpError extends Error {
-  constructor(readonly kind: 'network' | 'timeout') {
+  constructor(readonly kind: JsonpFailure) {
     super(`JSONP ${kind}`);
   }
 }
@@ -22,28 +28,31 @@ export function jsonp(url: string, params: Record<string, string>, timeoutMs: nu
     const script = document.createElement('script');
     const g = globalThis as unknown as Record<string, unknown>;
     let done = false;
-    const cleanup = (): void => {
+    const cleanup = (late = false): void => {
       done = true;
       window.clearTimeout(timer);
+      script.onerror = null;
+      script.onload = null;
       script.remove();
-      // Leave a no-op behind in case a late response still arrives.
-      g[name] = () => undefined;
+      // After a failure a late answer may still arrive; a stub absorbs it and removes itself.
+      if (late) g[name] = () => delete g[name];
+      else delete g[name];
     };
-    const timer = window.setTimeout(() => {
+    const fail = (kind: JsonpFailure): void => {
       if (done) return;
-      cleanup();
-      reject(new JsonpError('timeout'));
-    }, timeoutMs);
+      cleanup(kind === 'timeout');
+      reject(new JsonpError(kind));
+    };
+    const timer = window.setTimeout(() => fail('timeout'), timeoutMs);
     g[name] = (data: unknown) => {
       if (done) return;
       cleanup();
       resolve(data);
     };
-    script.onerror = () => {
-      if (done) return;
-      cleanup();
-      reject(new JsonpError('network'));
-    };
+    script.onerror = () => fail('network');
+    // A script runs before its load event, so reaching this point with the callback
+    // still pending means the answer was not JSONP (for example an error page).
+    script.onload = () => fail('no-callback');
     script.src = target.toString();
     script.async = true;
     script.referrerPolicy = 'no-referrer';

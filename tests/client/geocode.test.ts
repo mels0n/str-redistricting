@@ -30,6 +30,7 @@ describe('geocoder response', () => {
       lonLat: [-104.984403184626, 39.739996725077],
       state: 'CO',
       matchedAddress: '200 E COLFAX AVE, DENVER, CO, 80203',
+      matchCount: 1,
     });
   });
 

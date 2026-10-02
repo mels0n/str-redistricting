@@ -18,7 +18,12 @@ export interface GeocodeResult {
   /** Two-letter state code, as the Census Bureau reports it. */
   state: string;
   matchedAddress: string;
+  /** How many matches the Census Bureau returned; the first is the one used. */
+  matchCount: number;
 }
+
+/** Longest address sent to the geocoder. */
+export const MAX_ADDRESS_LENGTH = 200;
 
 /** Pure parser for a geocoder answer: the first match, or a typed failure. */
 export function parseGeocodeResponse(data: unknown): GeocodeResult {
@@ -30,7 +35,22 @@ export function parseGeocodeResponse(data: unknown): GeocodeResult {
     lonLat: [match.coordinates.x, match.coordinates.y],
     state: match.addressComponents.state.toUpperCase(),
     matchedAddress: match.matchedAddress,
+    matchCount: parsed.data.result.addressMatches.length,
   };
+}
+
+/** Trims, collapses runs of whitespace and caps the length of a typed address. */
+export function normalizeAddress(address: string): string {
+  return address.replace(/\s+/g, ' ').trim().slice(0, MAX_ADDRESS_LENGTH);
+}
+
+/** Maps a failed JSONP call to the typed lookup failure the visitor sees. */
+export function geocodeFailureFrom(cause: unknown): GeocodeError {
+  if (cause instanceof JsonpError) {
+    if (cause.kind === 'timeout') return new GeocodeError('timeout', { cause });
+    if (cause.kind === 'no-callback') return new GeocodeError('bad-response', { cause });
+  }
+  return new GeocodeError('network', { cause });
 }
 
 /**
@@ -39,7 +59,7 @@ export function parseGeocodeResponse(data: unknown): GeocodeResult {
  * browsers through JSONP only, so that is how it is called.
  */
 export async function geocodeAddress(address: string): Promise<GeocodeResult> {
-  const text = address.trim();
+  const text = normalizeAddress(address);
   if (text.length < 4) throw new GeocodeError('empty');
   let data: unknown;
   try {
@@ -49,7 +69,7 @@ export async function geocodeAddress(address: string): Promise<GeocodeResult> {
       config.geocoderTimeoutMs,
     );
   } catch (cause) {
-    throw new GeocodeError(cause instanceof JsonpError && cause.kind === 'timeout' ? 'timeout' : 'network', { cause });
+    throw geocodeFailureFrom(cause);
   }
   return parseGeocodeResponse(data);
 }

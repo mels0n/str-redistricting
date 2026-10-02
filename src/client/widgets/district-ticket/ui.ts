@@ -36,8 +36,8 @@ export function createDistrictTicket(): DistrictTicket {
       return;
     }
     const counties = d.counties.map((c) => c.name);
-    const shown = counties.slice(0, 6);
-    const more = counties.length - shown.length;
+    // Every county is listed; a long list scrolls inside its own box, which keyboard users can reach.
+    const long = counties.length > 8;
     el.append(
       h(
         'div',
@@ -62,7 +62,21 @@ export function createDistrictTicket(): DistrictTicket {
           'div',
           { class: 'strv-ticket__seg strv-ticket__seg--wide' },
           h('dt', null, `${counties.length === 1 ? 'County' : 'Counties'} touched (${counties.length})`),
-          h('dd', { class: 'strv-ticket__counties' }, shown.join(', ') + (more > 0 ? `, and ${more} more` : '')),
+          h(
+            'dd',
+            { class: 'strv-ticket__counties' },
+            h(
+              'div',
+              {
+                class: 'strv-ticket__counties-text',
+                'data-long': String(long),
+                tabindex: long ? 0 : null,
+                role: long ? 'group' : null,
+                'aria-label': long ? 'All ' + counties.length + ' counties in District ' + d.district : null,
+              },
+              counties.join(', '),
+            ),
+          ),
         ),
       ),
       h('p', { class: 'strv-ticket__foot' }, `${d.contiguous ? 'One connected piece.' : 'Not one connected piece.'} ${data.plan === 'official' ? 'Official map.' : 'Before balancing.'}`),

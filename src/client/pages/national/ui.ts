@@ -1,6 +1,6 @@
 import { h, clear, describeError, setLocated, stateRoute, type Navigate, type Page } from '../../shared';
-import { loadIndex, loadOutlines, findState, isGenerated } from '../../entities/state';
-import { createAddressSearch } from '../../features/address-search';
+import { loadIndex, loadOutlines } from '../../entities/state';
+import { createAddressSearch, describeResolution, resolveAddress } from '../../features/address-search';
 import { createUsMap } from '../../widgets/us-map';
 import { createStateIndex } from '../../widgets/state-index';
 import { createExplainer } from '../../widgets/explainer';
@@ -16,13 +16,15 @@ export function createNationalPage(nav: Navigate): Page {
   const search = createAddressSearch({
     id: 'strv-address-national',
     onFound(result) {
-      const index = indexCache;
-      const entry = index ? findState(index, result.state) : undefined;
-      if (!entry) return `${result.matchedAddress} is outside the 50 states covered here.`;
-      if (!isGenerated(entry)) return `${result.matchedAddress} is in ${entry.name}. The map for ${entry.name} has not been generated.`;
-      setLocated({ state: entry.abbr, lonLat: result.lonLat, matchedAddress: result.matchedAddress });
-      nav(stateRoute(entry.abbr));
-      return `Found ${result.matchedAddress}. Opening ${entry.name}.`;
+      // The index has not loaded yet (the data failed or is slow): there is nothing to look the state up in.
+      if (!indexCache) return 'The list of states has not loaded yet. Try again once the map appears.';
+      const where = resolveAddress(indexCache, result, null);
+      if (where.kind === 'here') return undefined;
+      if (where.kind === 'open') {
+        setLocated({ state: where.state.abbr, lonLat: result.lonLat, matchedAddress: result.matchedAddress });
+        nav(stateRoute(where.state.abbr));
+      }
+      return describeResolution(where, result);
     },
   });
 
@@ -42,10 +44,13 @@ export function createNationalPage(nav: Navigate): Page {
   );
 
   let alive = true;
-  const load = (): void => {
+  const load = (retried = false): void => {
     clear(mapSlot);
-    mapSlot.append(h('p', { class: 'strv-loading' }, 'Loading the map of the states…'));
+    const loading = h('p', { class: 'strv-loading', tabindex: -1 }, 'Loading the map of the states…');
+    mapSlot.append(loading);
     mapSlot.setAttribute('aria-busy', 'true');
+    // The Try again button the visitor just used is gone; keep focus on the page.
+    if (retried) loading.focus({ preventScroll: true });
     Promise.all([loadIndex(), loadOutlines()])
       .then(([index, outlines]) => {
         if (!alive) return;
@@ -61,7 +66,7 @@ export function createNationalPage(nav: Navigate): Page {
         clear(mapSlot);
         mapSlot.removeAttribute('aria-busy');
         mapSlot.append(
-          h('div', { class: 'strv-error', role: 'alert' }, h('p', null, describeError(err)), h('button', { type: 'button', class: 'strv-button', onclick: load }, 'Try again')),
+          h('div', { class: 'strv-error', role: 'alert' }, h('p', null, describeError(err)), h('button', { type: 'button', class: 'strv-button', onclick: () => load(true) }, 'Try again')),
         );
       });
   };

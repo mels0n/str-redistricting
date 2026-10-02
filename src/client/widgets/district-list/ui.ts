@@ -36,13 +36,30 @@ export function createDistrictList(opts: DistrictListOptions): DistrictList {
     ),
     body,
   );
-  const el = h('section', { class: 'strv-list-wrap', 'aria-labelledby': 'strv-list-h' }, h('h2', { id: 'strv-list-h', class: 'strv-h2' }, 'Districts'), table);
+  const scroll = h('div', { class: 'strv-list-scroll' }, table);
+  const el = h('section', { class: 'strv-list-wrap', 'aria-labelledby': 'strv-list-h' }, h('h2', { id: 'strv-list-h', class: 'strv-h2' }, 'Districts'), scroll);
+
+  // When enlarged text makes the table wider than its column it scrolls sideways; make that box reachable by keyboard.
+  const fit = (): void => {
+    const wide = scroll.scrollWidth > scroll.clientWidth + 1;
+    if (wide) {
+      scroll.tabIndex = 0;
+      scroll.setAttribute('role', 'group');
+      scroll.setAttribute('aria-label', 'Districts table, scrolls sideways');
+    } else {
+      scroll.removeAttribute('tabindex');
+      scroll.removeAttribute('role');
+      scroll.removeAttribute('aria-label');
+    }
+  };
+  if (typeof ResizeObserver === 'function') new ResizeObserver(fit).observe(scroll);
 
   return {
     el,
     update({ districts, colors, selected, located, caption: cap }) {
       caption.textContent = cap;
       clear(body);
+      window.requestAnimationFrame(fit);
       for (const d of districts) {
         const isSel = d.district === selected;
         const button = h(

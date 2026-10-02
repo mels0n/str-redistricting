@@ -74,6 +74,13 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
     cooperativeGestures: coarse,
     fadeDuration: 0,
   });
+  if (prefersReducedMotion()) {
+    // Zoom buttons and keys jump instead of gliding.
+    const ease = map.easeTo.bind(map);
+    map.easeTo = (o, d) => ease({ ...o, duration: 0 }, d);
+    const fly = map.flyTo.bind(map);
+    map.flyTo = (o, d) => fly({ ...o, duration: 0 }, d);
+  }
   map.touchZoomRotate.disableRotation();
   map.keyboard.disableRotation();
   map.addControl(new NavigationControl({ showCompass: false }), 'top-right');

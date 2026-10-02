@@ -1,7 +1,10 @@
 import {
   h,
   clear,
+  announce,
   describeError,
+  describeRouteIssue,
+  fitRouteToState,
   formatHash,
   formatInt,
   formatPeople,
@@ -10,15 +13,16 @@ import {
   peopleNoun,
   stateRoute,
   NATIONAL,
+  MapUnavailableError,
   UnknownStateError,
   type Navigate,
   type Page,
-  type Route,
+  type StateRoute,
   type LonLat,
 } from '../../shared';
 import { loadIndex, loadOutlines, findState, isGenerated, type GeneratedState } from '../../entities/state';
 import { loadStateBundle, loadEnacted, districtAt, type StateBundle, type EnactedShapes } from '../../entities/plan';
-import { createAddressSearch } from '../../features/address-search';
+import { createAddressSearch, describeResolution, resolveAddress } from '../../features/address-search';
 import { createCutScrubber, type CutScrubber } from '../../features/cut-scrubber';
 import { createPlanOptions, type PlanOptions } from '../../features/plan-options';
 import { createDistrictMap, type DistrictMapView } from '../../widgets/district-map';
@@ -27,14 +31,18 @@ import { createDistrictList } from '../../widgets/district-list';
 import { createProofPanel } from '../../widgets/proof-panel';
 import { createExplainer } from '../../widgets/explainer';
 
-type StateRoute = Extract<Route, { page: 'state' }>;
-
 export function createStatePage(initial: StateRoute, nav: Navigate): Page {
   let route = initial;
   let alive = true;
   let hovered: number | null = null;
   let animateNext = false;
   let enacted: EnactedShapes | null = null;
+  let enactedFailed = false;
+  let enactedLoading = false;
+  let seats: number | null = null;
+  let stateName = initial.abbr;
+  /** The corrected link a notice explains; the notice stays while the route is still that one. */
+  let noticeHash: string | null = null;
   let located: { district: number | null; lonLat: LonLat; matchedAddress: string } | null = null;
 
   const h1 = h('h1', { class: 'strv-state__h1', tabindex: -1 }, initial.abbr);
@@ -42,29 +50,70 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
   const meta = h('dl', { class: 'strv-state__meta' });
   const head = h('header', { class: 'strv-state__head' }, back, h1, meta);
 
+  const notice = h('p', { class: 'strv-notice', role: 'status', hidden: true });
   const mapEl = h('div', { class: 'strv-state__map', role: 'region', 'aria-label': 'District map', 'aria-busy': 'true' });
   const legend = h('div', { class: 'strv-legend', 'aria-hidden': 'true' });
   const mapFrame = h('div', { class: 'strv-state__frame' }, mapEl, legend);
   const stage = h('div', { class: 'strv-state__stage' }, mapFrame);
-  const panel = h('div', { class: 'strv-state__panel' }, head);
+  const panel = h('div', { class: 'strv-state__panel' }, head, notice);
   const el = h('main', { class: 'strv-state', id: 'strv-main', 'data-cut-mode': 'false' }, panel, stage);
 
+  metaPlaceholder();
   let map: DistrictMapView | null = null;
   let scrubber: CutScrubber | null = null;
   let options: PlanOptions | null = null;
   let render: (light?: boolean) => void = () => undefined;
 
-  const go = (patch: Partial<StateRoute>, replace = false): void => nav({ ...route, ...patch }, { replace });
+  const go = (patch: Partial<StateRoute>, replace = false): void => {
+    // Keep our own copy current: replacing navigations are applied a frame later, and the next call must build on this one.
+    route = { ...route, ...patch };
+    nav(route, { replace });
+  };
 
-  function showError(err: unknown, retry?: () => void): void {
+  function setNotice(text: string | null): void {
+    notice.hidden = text === null;
+    notice.textContent = text ?? '';
+    if (text) announce(text);
+  }
+
+  /** Fits the route to this state. A link that asks for something it does not have is corrected and explained. */
+  function fitRoute(next: StateRoute): StateRoute {
+    if (seats === null) return next;
+    const fit = fitRouteToState(next, seats);
+    if (fit.issues.length === 0) return fit.route;
+    setNotice(fit.issues.map((i) => describeRouteIssue(i, stateName)).join(' '));
+    noticeHash = formatHash(fit.route);
+    // Make the address bar match what is shown.
+    nav(fit.route, { replace: true });
+    return fit.route;
+  }
+
+  function showError(err: unknown, opts: { retry?: () => void; link?: boolean } = {}): void {
     clear(mapEl);
     mapEl.removeAttribute('aria-busy');
+    el.dataset.empty = 'true';
     mapEl.append(
       h(
         'div',
         { class: 'strv-error', role: 'alert' },
         h('p', null, describeError(err)),
-        retry ? h('button', { type: 'button', class: 'strv-button', onclick: retry }, 'Try again') : null,
+        opts.retry ? h('button', { type: 'button', class: 'strv-button', onclick: opts.retry }, 'Try again') : null,
+        opts.link ? h('p', null, h('a', { href: formatHash(NATIONAL) }, 'Choose a state')) : null,
+      ),
+    );
+  }
+
+  /** No WebGL, or the map code did not load: the list, tickets and numbers still work without the map. */
+  function showMapUnavailable(err: MapUnavailableError): void {
+    mapEl.removeAttribute('aria-busy');
+    el.dataset.nomap = 'true';
+    clear(mapEl);
+    mapEl.append(
+      h(
+        'div',
+        { class: 'strv-error strv-error--map', role: 'status' },
+        h('p', null, describeError(err)),
+        err.kind === 'load' ? h('button', { type: 'button', class: 'strv-button', onclick: () => location.reload() }, 'Reload the page') : null,
       ),
     );
   }
@@ -85,7 +134,16 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
     );
   }
 
+  /** Empty slots with the same shape as the real row, so the header does not change height when the numbers arrive. */
+  function metaPlaceholder(): void {
+    meta.setAttribute('aria-hidden', 'true');
+    for (const k of ['Districts', 'People', 'Ideal district', 'Range']) {
+      meta.append(h('div', null, h('dt', null, k), h('dd', null, ' ')));
+    }
+  }
+
   function setMeta(state: GeneratedState): void {
+    meta.removeAttribute('aria-hidden');
     clear(meta);
     const s = state.summary;
     const item = (k: string, v: string): HTMLElement => h('div', null, h('dt', null, k), h('dd', null, v));
@@ -97,24 +155,31 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
     );
   }
 
-  async function start(): Promise<void> {
+  async function start(retried = false): Promise<void> {
+    const retry = (): void => void start(true);
     mapEl.setAttribute('aria-busy', 'true');
+    delete el.dataset.empty;
     clear(mapEl);
-    mapEl.append(h('p', { class: 'strv-loading' }, 'Loading the map…'));
+    const loading = h('p', { class: 'strv-loading', tabindex: -1 }, 'Loading the map…');
+    mapEl.append(loading);
+    // The Try again button the visitor just used is gone; keep focus on the page.
+    if (retried) loading.focus({ preventScroll: true });
     let index;
     try {
       index = await loadIndex();
     } catch (err) {
-      if (alive) showError(err, () => void start());
+      if (alive) showError(err, { retry });
       return;
     }
     if (!alive) return;
     const entry = findState(index, route.abbr);
     if (!entry) {
-      h1.textContent = route.abbr;
-      showError(new UnknownStateError(route.abbr));
+      h1.textContent = 'State not found';
+      document.title = 'State not found';
+      showError(new UnknownStateError(route.abbr), { link: true });
       return;
     }
+    stateName = entry.name;
     if (!isGenerated(entry)) {
       showNotGenerated(entry.name);
       return;
@@ -124,18 +189,25 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
     setMeta(entry);
     document.title = `${entry.name}: ${entry.seats} districts drawn by rule`;
     clear(mapEl);
-    mapEl.append(h('p', { class: 'strv-loading' }, `Loading the map of ${entry.name}…`));
+    const loadingState = h('p', { class: 'strv-loading', tabindex: -1 }, `Loading the map of ${entry.name}…`);
+    mapEl.append(loadingState);
+    if (retried) loadingState.focus({ preventScroll: true });
 
     let bundle: StateBundle;
     let outlines;
     try {
       [bundle, outlines] = await Promise.all([loadStateBundle(entry.abbr), loadOutlines()]);
     } catch (err) {
-      if (alive) showError(err, () => void start());
+      if (alive) showError(err, { retry });
       return;
     }
     if (!alive) return;
-    build(entry, bundle, index);
+    try {
+      build(entry, bundle, index);
+    } catch (err) {
+      showError(err, { retry });
+      return;
+    }
     clear(mapEl);
     try {
       map = await createDistrictMap({
@@ -152,7 +224,13 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
         },
       });
     } catch (err) {
-      if (alive) showError(err, () => void start());
+      if (!alive) return;
+      if (err instanceof MapUnavailableError) {
+        showMapUnavailable(err);
+        render();
+      } else {
+        showError(err, { retry });
+      }
       return;
     }
     if (!alive) {
@@ -165,6 +243,8 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
 
   function build(entry: GeneratedState, bundle: StateBundle, index: Awaited<ReturnType<typeof loadIndex>>): void {
     const total = bundle.cuts.length;
+    seats = entry.seats;
+    route = fitRoute(route);
     const ticket = createDistrictTicket();
     const list = createDistrictList({ onSelect: (d) => go({ district: d === route.district ? null : d }) });
     const proof = createProofPanel();
@@ -186,13 +266,13 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
       id: 'strv-address-state',
       label: 'Find a district by address',
       onFound(result) {
-        if (result.state !== entry.abbr) {
-          const other = findState(index, result.state);
-          if (!other) return `${result.matchedAddress} is outside the 50 states covered here.`;
-          if (!isGenerated(other)) return `${result.matchedAddress} is in ${other.name}. The map for ${other.name} has not been generated.`;
-          setLocated({ state: other.abbr, lonLat: result.lonLat, matchedAddress: result.matchedAddress });
-          nav(stateRoute(other.abbr));
-          return `Found ${result.matchedAddress}. Opening ${other.name}.`;
+        const where = resolveAddress(index, result, entry.abbr);
+        if (where.kind !== 'here') {
+          if (where.kind === 'open') {
+            setLocated({ state: where.state.abbr, lonLat: result.lonLat, matchedAddress: result.matchedAddress });
+            nav(stateRoute(where.state.abbr));
+          }
+          return describeResolution(where, result);
         }
         setLocated({ state: entry.abbr, lonLat: result.lonLat, matchedAddress: result.matchedAddress });
         locate(bundle);
@@ -252,7 +332,7 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
         caption: `${entry.name}, ${entry.seats} districts, ${plan === 'official' ? 'official map' : 'before balancing'}. Ideal district: ${formatPeople(planStats.metrics.ideal)} people.`,
       });
       proof.update({ metrics: planStats.metrics, plan, abbr: entry.abbr });
-      options!.update({ plan: route.plan, enacted: route.enacted, cutMode });
+      options!.update({ plan: route.plan, enacted: route.enacted, cutMode, enactedFailed });
       scrubber!.update(route.cut === null ? null : Math.min(route.cut, total));
 
       clear(legend);
@@ -264,14 +344,20 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
       ];
       legend.append(...legendItems.filter((x): x is HTMLElement => x !== null));
 
-      if (route.enacted && !enacted) {
+      if (!route.enacted) enactedFailed = false;
+      else if (!enacted && !enactedFailed && !enactedLoading) {
+        // One attempt at a time; after a failure the visitor unchecks and checks the box to try again.
+        enactedLoading = true;
         loadEnacted(entry.abbr)
           .then((e) => {
             enacted = e;
-            render();
           })
           .catch(() => {
-            options!.el.dataset.error = 'true';
+            enactedFailed = true;
+          })
+          .finally(() => {
+            enactedLoading = false;
+            render();
           });
       }
 
@@ -303,7 +389,9 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
     focusTarget: () => h1,
     update(next) {
       if (next.page !== 'state' || next.abbr !== route.abbr) return false;
-      route = next;
+      route = fitRoute(next);
+      // A notice about a bad link goes away once the visitor moves on.
+      if (formatHash(route) !== noticeHash) setNotice(null);
       hovered = null;
       render();
       return true;

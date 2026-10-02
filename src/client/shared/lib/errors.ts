@@ -9,14 +9,16 @@ export class ViewerError extends Error {
   }
 }
 
-/** A data file could not be fetched (network failure or a non-OK status). */
+/** A data file could not be fetched (network failure, timeout, or a non-OK status). */
 export class DataLoadError extends ViewerError {
+  readonly timedOut: boolean;
   constructor(
     readonly url: string,
     readonly status: number | null,
-    options?: { cause?: unknown },
+    options?: { cause?: unknown; timedOut?: boolean },
   ) {
     super(`Could not load ${url}${status === null ? '' : ` (HTTP ${status})`}`, options);
+    this.timedOut = options?.timedOut ?? false;
   }
 }
 
@@ -31,6 +33,16 @@ export class DataShapeError extends ViewerError {
 }
 
 export type GeocodeFailure = 'empty' | 'no-match' | 'network' | 'timeout' | 'bad-response';
+
+/** The map could not be drawn: the browser has no WebGL, or the map code did not load. */
+export class MapUnavailableError extends ViewerError {
+  constructor(
+    readonly kind: 'webgl' | 'load',
+    options?: { cause?: unknown },
+  ) {
+    super(`The map could not be drawn: ${kind}`, options);
+  }
+}
 
 /** The address lookup failed. */
 export class GeocodeError extends ViewerError {
@@ -68,11 +80,19 @@ export function describeError(error: unknown): string {
   if (error instanceof UnknownStateError) {
     return `There is no state with the code ${error.abbr}.`;
   }
+  if (error instanceof MapUnavailableError) {
+    return error.kind === 'webgl'
+      ? 'This browser cannot draw the map, because WebGL (graphics acceleration) is turned off or missing. Everything else still works: every district is listed in the Districts table with its population and counties, and the cut sequence describes each cut in words.'
+      : 'The part of this page that draws the map could not be loaded. Check your connection and try again.';
+  }
   if (error instanceof DataLoadError) {
-    return 'The map data could not be loaded. Check your connection and try again.';
+    if (error.timedOut) return 'The map data is taking too long to load. Check your connection and try again.';
+    if (error.status === 404) return 'Part of the map data for this page was not found on this site. Try again later.';
+    if (error.status !== null && error.status >= 500) return 'The server that holds the map data had a problem. Try again in a moment.';
+    return 'The map data could not be loaded. Check that you are online, then try again.';
   }
   if (error instanceof DataShapeError) {
-    return 'The map data could not be read. Reload the page to try again.';
+    return 'The map data arrived in a form this page could not read. Try again, and if it keeps happening, the data files on this site may be damaged.';
   }
   return 'Something went wrong. Reload the page to try again.';
 }

@@ -82,7 +82,7 @@ export function createProofPanel(): ProofPanel {
           'div',
           { class: 'strv-proof__recipe' },
           h('p', null, 'To reproduce this map, run the generator on the same Census file:'),
-          h('pre', { class: 'strv-code' }, h('code', null, `npm install\nnpm run explore -- --states ${abbr}`)),
+          h('pre', { class: 'strv-code', tabindex: 0, role: 'group', 'aria-label': 'Command to run' }, h('code', null, `npm install\nnpm run explore -- --states ${abbr}`)),
           h('p', null, 'The same data, angle step and Node.js major version give a byte-identical map with the same fingerprint. No random numbers are used.'),
         ),
       );

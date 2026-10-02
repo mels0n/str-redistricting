@@ -8,7 +8,7 @@ export interface PlanOptionsOptions {
 
 export interface PlanOptions {
   el: HTMLElement;
-  update(state: { plan: Plan; enacted: boolean; cutMode: boolean }): void;
+  update(state: { plan: Plan; enacted: boolean; cutMode: boolean; enactedFailed: boolean }): void;
 }
 
 /** Plain-language name of the Census file the enacted districts come from. */
@@ -47,11 +47,12 @@ export function createPlanOptions(opts: PlanOptionsOptions): PlanOptions {
   );
 
   const cutNote = h('p', { class: 'strv-options__note' }, 'The cut sequence shows the plan before balancing, as the cuts left it.');
-  const el = h('div', { class: 'strv-options' }, group, cutNote, enacted);
+  const enactedError = h('p', { class: 'strv-options__error', role: 'status', hidden: true }, 'Today’s districts could not be loaded. Uncheck the box and check it again to retry.');
+  const el = h('div', { class: 'strv-options' }, group, cutNote, enacted, enactedError);
 
   return {
     el,
-    update({ plan, enacted: on, cutMode }) {
+    update({ plan, enacted: on, cutMode, enactedFailed }) {
       for (const input of group.querySelectorAll('input')) {
         input.checked = input.value === plan;
         input.disabled = cutMode;
@@ -59,6 +60,7 @@ export function createPlanOptions(opts: PlanOptionsOptions): PlanOptions {
       group.toggleAttribute('disabled', cutMode);
       cutNote.hidden = !cutMode;
       enactedBox.checked = on;
+      enactedError.hidden = !(on && enactedFailed);
     },
   };
 }

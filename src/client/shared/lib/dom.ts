@@ -35,6 +35,9 @@ function applyAttrs(el: Element, attrs: Attrs): void {
     if (v === null || v === undefined || v === false) continue;
     if (typeof v === 'function') {
       el.addEventListener(k.slice(2).toLowerCase(), v);
+    } else if (k === 'style') {
+      // Through the style object, not setAttribute, so a Content-Security-Policy without 'unsafe-inline' allows it.
+      (el as HTMLElement).style.cssText = String(v);
     } else {
       el.setAttribute(k, v === true ? '' : String(v));
     }

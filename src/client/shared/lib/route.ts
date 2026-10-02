@@ -24,7 +24,7 @@ export type Route =
 
 export const NATIONAL: Route = { page: 'national' };
 
-export function stateRoute(abbr: string, patch: Partial<Extract<Route, { page: 'state' }>> = {}): Route {
+export function stateRoute(abbr: string, patch: Partial<StateRoute> = {}): StateRoute {
   return { page: 'state', abbr, district: null, cut: null, plan: 'official', enacted: false, ...patch };
 }
 
@@ -85,4 +85,41 @@ export interface Page {
   /** Called with a new route for the same page; return false to be rebuilt instead. */
   update?(route: Route): boolean;
   destroy(): void;
+}
+
+export type StateRoute = Extract<Route, { page: 'state' }>;
+
+/** Something in a link that does not fit the state it names. */
+export type RouteIssue =
+  | { kind: 'district'; district: number; seats: number }
+  | { kind: 'cut'; cut: number; cuts: number };
+
+/**
+ * Brings a state route in line with what the state actually has: a district
+ * past the last one is dropped, a cut past the last one becomes the last.
+ * Returns the corrected route and what was wrong, so the page can say so.
+ */
+export function fitRouteToState(route: StateRoute, seats: number): { route: StateRoute; issues: RouteIssue[] } {
+  const issues: RouteIssue[] = [];
+  const cuts = Math.max(seats - 1, 0);
+  let { district, cut } = route;
+  if (district !== null && district > seats) {
+    issues.push({ kind: 'district', district, seats });
+    district = null;
+  }
+  if (cut !== null && cut > cuts) {
+    issues.push({ kind: 'cut', cut, cuts });
+    cut = cuts;
+  }
+  return { route: issues.length ? { ...route, district, cut } : route, issues };
+}
+
+/** Plain-language sentence for a link problem. */
+export function describeRouteIssue(issue: RouteIssue, stateName: string): string {
+  if (issue.kind === 'district') {
+    return `${stateName} has ${issue.seats} ${issue.seats === 1 ? 'district' : 'districts'}, so there is no District ${issue.district}. Showing the whole state.`;
+  }
+  return issue.cuts === 0
+    ? `${stateName} is a single district, so there are no cuts to show.`
+    : `${stateName} has ${issue.cuts} ${issue.cuts === 1 ? 'cut' : 'cuts'}, so there is no cut ${issue.cut}. Showing the last one.`;
 }

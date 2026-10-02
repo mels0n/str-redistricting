@@ -138,9 +138,9 @@ body:has(> #str-viewer) {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--s-4);
-  height: var(--mast-h);
-  padding: 0 var(--gutter);
+  gap: var(--s-3);
+  min-height: var(--mast-h);
+  padding: var(--s-1) var(--gutter);
   background: var(--ink);
   color: var(--paper);
 }
@@ -150,9 +150,11 @@ body:has(> #str-viewer) {
   font-size: 0.9375rem;
   letter-spacing: -0.01em;
   text-decoration: none;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  line-height: 1.2;
+  /* The title is the link home: it wraps rather than disappearing on a narrow screen or at large text. */
+  flex: 1 1 0;
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .strv .strv-masthead__title:hover {
@@ -162,7 +164,10 @@ body:has(> #str-viewer) {
 .strv-masthead__credit {
   font-size: 0.8125rem;
   color: #c9c3b6;
-  white-space: nowrap;
+  line-height: 1.2;
+  text-align: right;
+  flex: 0 1 auto;
+  max-width: 50%;
 }
 
 .strv-masthead :focus-visible {
@@ -217,6 +222,12 @@ body:has(> #str-viewer) {
   color: var(--rule);
   border-color: var(--hairline);
   cursor: default;
+}
+
+.strv-button--ink[aria-busy='true'] {
+  background: var(--quiet);
+  color: var(--ink-2);
+  cursor: progress;
 }
 
 .strv-button--ink {
@@ -274,6 +285,7 @@ body:has(> #str-viewer) {
 
 .strv-search {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--s-2);
 }
 
@@ -1689,5 +1701,235 @@ body:has(> #str-viewer) {
 
   .strv-state__meta dt {
     font-size: 0.6875rem;
+  }
+}
+
+/* ---------- Failure, empty and long-content states ---------- */
+
+.strv-notice {
+  order: 1;
+  margin: 0;
+  padding: var(--s-2) var(--gutter);
+  background: var(--signal-tint);
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+  font-size: 0.875rem;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+.strv-notice[hidden] {
+  display: none;
+}
+
+.strv-error p,
+.strv-empty p {
+  overflow-wrap: anywhere;
+}
+
+/* No map (WebGL off, or its code did not load): the frame shrinks to the message and the list leads. */
+.strv-state[data-nomap='true'] .strv-state__frame {
+  height: auto;
+  min-height: 0;
+}
+
+.strv .strv-state[data-nomap='true'] .strv-state__map {
+  position: static;
+}
+
+.strv-state[data-nomap='true'] .strv-legend {
+  display: none;
+}
+
+.strv-error--map {
+  height: auto;
+  min-height: 0;
+}
+
+/* Reserve the space a section fills so nothing jumps when its data arrives. */
+.strv-national__map[aria-busy='true'] {
+  aspect-ratio: 960 / 600;
+  max-height: calc(100dvh - var(--mast-h) - 9rem);
+}
+
+.strv-national__index:empty {
+  min-height: 24rem;
+}
+
+.strv-state__h1,
+.strv-national__h1 {
+  overflow-wrap: break-word;
+}
+
+/* A state name never outgrows the header, even at large text. */
+.strv-state__h1 {
+  font-size: min(clamp(2rem, 1.4rem + 2.2vw, 3rem), 15cqw);
+}
+
+/* Every county is listed; a long list scrolls inside its own box. */
+.strv-ticket .strv-ticket__counties {
+  overflow-wrap: anywhere;
+}
+
+.strv-ticket .strv-ticket__counties-text[data-long='true'] {
+  max-height: 6.5rem;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+}
+
+.strv-ticket__counties-text:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.strv-options__error {
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  padding: var(--s-2) var(--s-3);
+  background: var(--signal-tint);
+  border: 1px solid var(--ink);
+}
+
+.strv-options__error[hidden] {
+  display: none;
+}
+
+/*
+ * Layouts that follow the text, not the screen. Container queries measure in
+ * em (the container's own font size), so a visitor who enlarges text, or has
+ * a very narrow screen, gets the compact layout at the width where the full
+ * one stops fitting.
+ */
+.strv-index,
+.strv-state__head {
+  container-type: inline-size;
+}
+
+@container (max-width: 20em) {
+  .strv-index__row > a,
+  .strv-index__row[data-generated='false'] {
+    grid-template-columns: 2.75rem minmax(0, 1fr);
+    grid-template-areas: 'code name' 'code seats' 'code range';
+  }
+
+  .strv-index__row[data-generated='false'] {
+    grid-template-areas: 'code name' 'code seats';
+  }
+
+  .strv-index__n {
+    display: none;
+  }
+
+  .strv-index__seats {
+    text-align: left;
+  }
+
+  .strv-state__meta {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: var(--s-1);
+  }
+
+  .strv-state__meta > div,
+  .strv-state__meta > div:last-child {
+    margin-right: 0;
+    padding-right: var(--s-2);
+  }
+
+  .strv-state__meta > div:nth-child(even) {
+    border-right: 0;
+  }
+
+  .strv-state__meta dd {
+    white-space: normal;
+  }
+}
+
+.strv-check label,
+.strv-seg__option {
+  grid-template-columns: minmax(0, 1fr);
+  overflow-wrap: anywhere;
+}
+
+.strv-seg {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+/* A table wider than its column scrolls inside its own box instead of widening the page. */
+.strv-list-scroll {
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.strv-list-scroll:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.strv-state__ticket {
+  container-type: inline-size;
+}
+
+@container (max-width: 22em) {
+  .strv-ticket {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .strv-ticket__seg--id {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--s-1) var(--s-3);
+    border-right: 0;
+    border-bottom: 1px dashed var(--ink);
+  }
+
+  .strv-ticket__swatch {
+    width: 100%;
+  }
+
+  .strv-ticket__figs {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .strv-ticket__figs > .strv-ticket__seg:nth-child(2) {
+    border-left: 0;
+  }
+}
+
+.strv-proof__rows {
+  container-type: inline-size;
+}
+
+.strv-proof__fig,
+.strv-proof__sub {
+  overflow-wrap: anywhere;
+}
+
+.strv-digest,
+.strv-code {
+  max-width: 100%;
+  min-width: 0;
+}
+
+@container (max-width: 26em) {
+  .strv-proof__row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--s-1);
+  }
+
+  .strv-digest {
+    font-size: min(1rem, 4.2cqw);
+  }
+}
+
+@container (max-width: 12em) {
+  .strv-state__meta {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .strv-state__meta > div {
+    border-right: 0;
   }
 }

@@ -1,5 +1,6 @@
 import { h, describeError, type LonLat } from '../../shared';
-import { geocodeAddress, type GeocodeResult } from './geocode';
+import { geocodeAddress, MAX_ADDRESS_LENGTH, type GeocodeResult } from './geocode';
+import { describeMultipleMatches } from './resolve';
 
 export interface AddressSearchOptions {
   /** Called with the match; return a sentence to show under the field. */
@@ -25,6 +26,7 @@ export function createAddressSearch(opts: AddressSearchOptions): AddressSearch {
     inputmode: 'text',
     autocomplete: 'street-address',
     spellcheck: 'false',
+    maxlength: MAX_ADDRESS_LENGTH,
     placeholder: '200 E Colfax Ave, Denver, CO',
     'aria-describedby': `${opts.id}-note ${opts.id}-status`,
     required: true,
@@ -47,18 +49,21 @@ export function createAddressSearch(opts: AddressSearchOptions): AddressSearch {
         ev.preventDefault();
         if (form.dataset.busy === 'true') return;
         form.dataset.busy = 'true';
-        button.disabled = true;
+        // Not disabled: a disabled button would drop keyboard focus.
+        button.setAttribute('aria-busy', 'true');
+        button.textContent = 'Finding…';
         setMessage('Looking up the address with the Census Bureau…');
         try {
           const result = await geocodeAddress(input.value);
-          const msg = opts.onFound(result);
-          setMessage(msg ?? `Found ${result.matchedAddress}.`);
+          const msg = (opts.onFound(result) ?? `Found ${result.matchedAddress}.`) + describeMultipleMatches(result.matchCount);
+          setMessage(msg);
         } catch (err) {
           setMessage(describeError(err), 'error');
           input.focus();
         } finally {
           form.dataset.busy = 'false';
-          button.disabled = false;
+          button.removeAttribute('aria-busy');
+          button.textContent = 'Find';
         }
       },
     },

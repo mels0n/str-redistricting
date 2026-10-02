@@ -44,8 +44,11 @@ jobs:
       - name: Layer direction and public-API rules
         run: npm run depcruise
 
-      - name: Typecheck
-        run: npx tsc --noEmit
+      - name: Typecheck (server and client)
+        run: npm run typecheck
 
       - name: Test
         run: npm test
+
+      - name: Build the viewer
+        run: npm run build

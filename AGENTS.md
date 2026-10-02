@@ -7,9 +7,13 @@ restate the code itself.
 ## Build, test, lint
 
 - Install: `npm ci`
-- Typecheck: `npx tsc --noEmit`
+- Typecheck (server and client): `npm run typecheck`
 - Layer rules: `npm run depcruise`
 - Test: `npm test`
+- Run the viewer: `npm run dev`
+- Build the viewer into `dist/`: `npm run build`
+- Generate maps: `npm run explore`
+- Publish web-ready data to `public/data/`: `npm run publish-data`
 - Lint: none
 
 ## Layout

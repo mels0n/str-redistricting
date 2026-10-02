@@ -6,6 +6,7 @@ import {
   formatInt,
   howRoute,
   iconArrowLeft,
+  iconChevronDown,
   prefersReducedMotion,
   stateRoute,
   NATIONAL,
@@ -23,7 +24,7 @@ import {
   strayAllowedDiagram,
   strayRejectedDiagram,
   recursionDiagram,
-  balanceDiagram,
+  balanceDiagrams,
   fingerprintDiagram,
   sourcesDiagram,
 } from './diagrams';
@@ -42,6 +43,16 @@ const sectionId = (s: HowSection): string => `strv-how-${s}`;
 
 const p = (...children: (Node | string)[]): HTMLElement => h('p', null, ...children);
 const li = (...children: (Node | string)[]): HTMLElement => h('li', null, ...children);
+/** Exact detail, folded away: the plain summary above it stands on its own. */
+function exact(...body: (Node | string)[]): HTMLElement {
+  return h(
+    'details',
+    { class: 'strv-how__more' },
+    h('summary', { class: 'strv-how__more-summary' }, iconChevronDown(), h('span', null, 'The exact rule')),
+    h('div', { class: 'strv-how__more-body' }, body),
+  );
+}
+
 const code = (t: string): HTMLElement => h('code', { class: 'strv-how__code' }, t);
 
 function figure(caption: string, ...panels: SVGSVGElement[]): HTMLElement {
@@ -159,23 +170,32 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
     section(
       'cut',
       2,
-      p('Start with the whole state. Suppose the piece in hand has some number of seats. It is split into two sides that hold as close to half the seats each as possible: a piece with 7 seats is split 3 and 4, a piece with 2 seats is split 1 and 1.'),
-      p('The generator tries a straight guide line in every direction, one every 0.1 degrees, starting with north-south: 1,800 directions in all. For each direction, the line is placed so that the people on one side match that side’s share of the seats. When the two shares differ (an odd number of seats), each direction is tried twice, once with the smaller share on each side of the line.'),
-      p('A straight line here is a great circle, the path a plane through the center of the Earth traces on its surface, so the lines have no map distortion to argue about. The directions are measured in a flat projection centered on the state, in which every great circle is a straight line.'),
+      p('Each cut splits a piece of the state in two. The line is placed so that each side holds its share of the seats and of the people. Of all the lines that work, the one with the shortest border is used.'),
+      p('Start with the whole state. A piece with some number of seats is split into two sides that hold as close to half the seats each as possible: a piece with 7 seats is split 3 and 4, a piece with 2 seats is split 1 and 1.'),
+      p('To find the line, the generator tries a straight guide line in every direction, one every 0.1 degrees: 1,800 directions in all. Each line is placed so the people on one side match that side’s share of the seats.'),
       figure('Guide lines are tried in every direction. Twelve of the 1,800 are drawn here.', fanDiagram()),
       h('h3', { class: 'strv-how__h3' }, 'Blocks stay whole'),
-      p('A census block is never split. Once a direction is chosen, the blocks are put in order by how far their internal points sit across the line. The generator walks along that order, adding up people, until the first side holds as close to its share as whole blocks allow. Blocks at the same distance are taken in GEOID order, the census block identifier, so the order is always the same.'),
-      p('So the guide line only decides which side each block goes to. The real border follows block edges, because every block belongs entirely to one side.'),
+      p('A census block is never split. Each block goes, whole, to the side its internal point is on. So the guide line only decides which side each block joins, and the real border follows block edges.'),
       figure('Each block goes, whole, to the side its internal point is on. The real border follows block edges.', borderDiagram()),
       h('h3', { class: 'strv-how__h3' }, 'The shortest border wins'),
-      p('Every guide line becomes a real border, and the generator measures it: the total length of the block edges with one side on each hand, measured along the surface of the Earth. Water inside the state counts as part of the state, so a bay or a lake does not shorten or break a border.'),
-      p('Of the lines that pass the checks below (each side in one connected piece, stray pieces within the cap), the one with the shortest real border is used. Two borders whose lengths agree to the nearest centimeter are tied; a tie goes to the line closest to north-south, then to the smaller angle, then to the line whose first side has fewer seats.'),
+      p('Every guide line becomes a real border, and the generator measures its length. Lines that fail the checks are dropped: each side must be one connected piece, and the stray pieces must stay small (the next stage). Of the lines that remain, the one with the shortest real border is used.'),
+      exact(
+        h(
+          'ul',
+          { class: 'strv-how__list' },
+          li(h('strong', null, 'Both ways of splitting the seats.'), ' When the two shares differ (an odd number of seats), each direction is tried twice, once with the smaller share on each side of the line.'),
+          li(h('strong', null, 'Straight on a globe.'), ' A straight line here is a great circle, the path a plane through the center of the Earth traces on its surface, so the lines have no map distortion to argue about. The directions are measured in a flat projection centered on the state, in which every great circle is a straight line.'),
+          li(h('strong', null, 'Putting blocks in order.'), ' The blocks are ordered by how far their internal points sit across the line. The generator walks along that order, adding up people, until the first side holds as close to its share as whole blocks allow. Blocks at the same distance are taken in GEOID order, the census block identifier, so the order is always the same.'),
+          li(h('strong', null, 'Measuring the border.'), ' The length is the total of the block edges with one side on each hand, measured along the surface of the Earth. Water inside the state counts as part of the state, so a bay or a lake does not shorten or break a border.'),
+          li(h('strong', null, 'Ties.'), ' Two borders whose lengths agree to the nearest centimeter are tied. A tie goes to the line closest to north-south, then to the smaller angle, then to the line whose first side has fewer seats.'),
+        ),
+      ),
     ),
     section(
       'strays',
       3,
-      p('Because blocks stay whole, a large block that straddles the guide line can leave a few small blocks cut off on the far side. Examples are a median strip or an on-ramp. On each side, every connected group of blocks other than the side’s main body joins the other side, the side around it. The main body is the group with the most people, then the most blocks, then the lowest block position in GEOID order. This repeats until nothing moves.'),
-      p('Strays exist only because blocks are kept whole, so they should be small. A guide line through a bay, or across both arms of a U-shaped piece, would strand a real part of the piece and move many people. The stray cap rules such a line out: if the people in the stray pieces total more than 1% of one district’s ideal population for the piece being cut, the line is not used and the next shortest is considered. The ideal population is the piece’s population divided by its number of seats.'),
+      p('Because blocks stay whole, a large block that straddles the guide line can leave a few small blocks cut off on the far side, such as a median strip or an on-ramp. These cut-off blocks are called stray pieces, and they join the side around them. That is fine while they are small.'),
+      p('The stray cap keeps them small. If the people in the stray pieces total more than 1% of one district’s ideal population for the piece being cut, the line is not used and the next shortest is considered. A guide line through a bay, or across both arms of a U-shaped piece, would strand a real part of the piece, and the cap rules it out. The ideal population is the piece’s population divided by its number of seats.'),
       h(
         'div',
         { class: 'strv-how__worked' },
@@ -183,7 +203,17 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
         p('Example numbers: a piece with 2 seats and 1,400,000 people. One district’s ideal population is 700,000, so the cap is 1% of that: 7,000 people.'),
       ),
       figure('Left: a small piece cut off inside a large block holds 180 people, under the cap, so the line can be used. Right: a line across both arms of a U cuts off 41,000 people, over the cap, so the line is not used.', strayAllowedDiagram(), strayRejectedDiagram()),
-      p('A line may cross the piece’s outline any number of times, as long as it passes the cap. A cut is also accepted only if both of its sides are each one connected piece. Two blocks are connected when they share an edge; touching at a single corner does not count. Islands and other detached land are joined to the nearest block of the main body, so a state with islands can still be cut.'),
+      p('A cut is also used only if both of its sides are each one connected piece.'),
+      exact(
+        h(
+          'ul',
+          { class: 'strv-how__list' },
+          li(h('strong', null, 'Which group stays.'), ' On each side, every connected group of blocks other than the side’s main body joins the other side, the side around it. The main body is the group with the most people, then the most blocks, then the lowest block position in GEOID order. This repeats until nothing moves.'),
+          li(h('strong', null, 'Crossing the outline.'), ' A line may cross the piece’s outline any number of times, as long as it passes the cap.'),
+          li(h('strong', null, 'Connected.'), ' Two blocks are connected when they share an edge; touching at a single corner does not count.'),
+          li(h('strong', null, 'Islands.'), ' Islands and other detached land are joined to the nearest block of the main body, so a state with islands can still be cut.'),
+        ),
+      ),
     ),
     section(
       'recursion',
@@ -195,17 +225,21 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
     section(
       'balancing',
       5,
-      p('U.S. House districts must be as nearly equal in population as practicable. That is the standard the Supreme Court applied to congressional districts in Karcher v. Daggett (1983). Each cut comes as close to equal as whole blocks allow, but the small differences, and the stray pieces, add up across many cuts. So after the last cut a balancing pass evens out the populations, one block at a time.'),
-      h(
-        'ol',
-        { class: 'strv-how__steps' },
-        li('Start with the district whose population is furthest from the ideal.'),
-        li('Look at the blocks along its border. A block may move to the district on the other side only if it has people, if the move strictly narrows the population gap between the two districts, and if both districts stay one connected piece.'),
-        li('Of the moves allowed, make the one that brings the districts closest to equal overall, measured as the sum of the squared differences between each district’s population and the ideal. A tie goes to the block that comes first in GEOID order, then to the lower-numbered district it would join.'),
-        li('If that district has no allowed move, try the next furthest. After every move, start again from the district now furthest from the ideal.'),
-        li('Stop when no move helps. Every move brings the districts closer to equal overall, so the pass always stops.'),
+      p('U.S. House districts must be as nearly equal in population as practicable. That is the standard the Supreme Court applied to congressional districts in Karcher v. Daggett (1983). Each cut comes as close to equal as whole blocks allow, but the small differences, and the stray pieces, add up across many cuts.'),
+      p('So after the cuts, the districts are close to equal but not exactly. To finish the job, districts trade single blocks along their shared borders, one at a time. A trade is only made if it brings the two districts closer to equal and keeps both in one piece. When no trade helps any more, it stops.'),
+      figure('Gap: the difference between the two districts’ populations. A block may move only if that gap gets strictly smaller. Example numbers.', ...balanceDiagrams()),
+      exact(
+        p('The pass makes one move at a time. The ideal is the state’s population divided by its number of seats.'),
+        h(
+          'ol',
+          { class: 'strv-how__steps' },
+          li('Start with the district whose population is furthest from the ideal.'),
+          li('Look at the blocks along its border: its own blocks that touch a neighboring district, and the neighbors’ blocks that touch it. A block may move to the district on the other side only if it has people, if the move strictly narrows the gap between the two districts, and if the district it leaves stays one connected piece. The district it joins stays connected too, because the block touches it.'),
+          li('Of the moves allowed, make the one that brings the districts closest to equal overall, measured as the sum of the squared differences between each district’s population and the ideal. A tie goes to the block that comes first in GEOID order, then to the lower-numbered district it would join.'),
+          li('If that district has no allowed move, try the next furthest. After every move, start again from the district now furthest from the ideal.'),
+          li('Stop when no move helps. Every move lowers the sum of the squared differences, so the pass always stops.'),
+        ),
       ),
-      figure('A block may move only if the gap between the two districts gets strictly smaller. Example numbers.', balanceDiagram()),
       h('h3', { class: 'strv-how__h3' }, 'In the real states'),
       balanceSentence,
       balanceTable,
@@ -213,9 +247,12 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
     section(
       'fingerprint',
       6,
-      p('There are no random numbers and no seed, and nobody chooses a starting point or a preferred outcome. Blocks are always processed in GEOID order. Given the same census files, the same angle step and the same Node.js major version (the maps here were made with Node.js 24), the generator writes a byte-identical assignment file and identical district shapes.'),
-      p('The map itself is a file that lists every block and the district it belongs to. Its SHA-256 hash is the map’s fingerprint: 64 characters that change completely if even one block is assigned differently. Two people can compare that one value to confirm they got the same map. Each state’s fingerprint is printed under “Check this map” in its view.'),
+      p('Run the generator again on the same data and you get the same map, down to the last block. There are no random numbers and no seed, and nobody chooses a starting point or a preferred outcome.'),
+      p('The map itself is a file that lists every block and the district it belongs to. Its fingerprint is a 64-character code worked out from that file. The code changes completely if even one block is assigned differently, so two people can compare that one value to confirm they got the same map. Each state’s fingerprint is printed under “Check this map” in its view.'),
       figure('The same inputs always give the same assignment file, and so the same fingerprint.', fingerprintDiagram()),
+      exact(
+        p('Blocks are always processed in GEOID order. Given the same census files, the same angle step and the same Node.js major version (the maps here were made with Node.js 24), the generator writes a byte-identical assignment file and identical district shapes. The fingerprint is the SHA-256 hash of that assignment file.'),
+      ),
       h('h3', { class: 'strv-how__h3' }, 'To reproduce a state’s map'),
       h('pre', { class: 'strv-code', tabindex: 0, role: 'group', 'aria-label': 'Commands to run' }, h('code', null, 'npm install\nnpm run explore -- --states CO')),
       p('The state is given by its two-letter abbreviation. The census block file for the state is downloaded from the U.S. Census Bureau the first time it is needed.'),

@@ -67,7 +67,7 @@ Guide lines are tested at every angle in a fixed step across a half turn. The de
 
 U.S. House districts must be as nearly equal in population as practicable. That is the standard the Supreme Court applied to congressional districts in Karcher v. Daggett (1983). Each cut places whole blocks so its two sides come as close to equal as whole blocks allow, but small differences, and the stray moves above, can add up across many cuts. After all the cuts, the balancing pass moves single blocks across district borders to even out the populations.
 
-It makes one move at a time:
+It makes one move at a time. The ideal is the state's population divided by its number of seats, and the gap between two districts is the difference between their populations:
 
 1. Start with the district whose population is furthest from the ideal.
 2. Look at the blocks along its border: its own blocks that touch a neighboring district, and the neighbors' blocks that touch it. A block may move to the district on the other side only if it has people, if the move strictly narrows the population gap between the two districts involved, and if the district it leaves stays one connected piece. The district it joins stays connected too, because the block touches it, so the pass never breaks a district apart.

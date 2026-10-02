@@ -3169,6 +3169,60 @@ body:has(> #str-viewer) {
   font-weight: 700;
 }
 
+/* "The exact rule": folded detail under a plain summary. The row is a full-width target with a chevron that turns over when open. */
+.strv-how__more {
+  max-width: 68ch;
+  margin: var(--s-4) 0 var(--s-3);
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--hairline);
+}
+
+.strv-how__more-summary {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  min-height: 2.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  list-style: none;
+}
+
+.strv-how__more-summary::-webkit-details-marker {
+  display: none;
+}
+
+.strv-how__more-summary:focus-visible {
+  outline-offset: 2px;
+}
+
+.strv-how__more-summary .strv-icon {
+  transition: transform 140ms ease-out;
+}
+
+.strv-how__more[open] > .strv-how__more-summary .strv-icon {
+  transform: rotate(180deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .strv-how__more-summary .strv-icon {
+    transition: none;
+  }
+}
+
+.strv-how__more-body {
+  padding: var(--s-1) 0 var(--s-3);
+}
+
+.strv-how__more-body > p {
+  line-height: 1.6;
+  margin-bottom: var(--s-3);
+}
+
+.strv-how__more-body .strv-how__list,
+.strv-how__more-body .strv-how__steps {
+  margin-bottom: 0;
+}
+
 .strv-how__code {
   font-family: var(--mono);
   font-size: 0.875em;
@@ -3410,11 +3464,6 @@ body:has(> #str-viewer) {
 .strv-dg__move {
   stroke: var(--signal);
   stroke-width: 3;
-}
-
-.strv-dg__nomove {
-  stroke-dasharray: 4 3;
-  stroke-width: 1.5;
 }
 
 .strv-dg__arrow line,

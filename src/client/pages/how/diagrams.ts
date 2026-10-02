@@ -266,32 +266,58 @@ export function recursionDiagram(): SVGSVGElement {
 // ---------------------------------------------------------------------------
 // (e) Balancing
 
-export function balanceDiagram(): SVGSVGElement {
-  const x0 = 30;
-  const y0 = 34;
-  const s = 44;
+interface BalanceCase {
+  readonly moved: string;
+  readonly aAfter: string;
+  readonly bAfter: string;
+  readonly gapAfter: string;
+  readonly verdict: readonly [string, string];
+  readonly spoken: string;
+}
+
+/** One candidate move: the grid with the block and its arrow, then the numbers before and after. */
+function balancePanel(c: BalanceCase): SVGSVGElement {
+  const x0 = 40;
+  const y0 = 46;
+  const s = 40;
   const cells: SVGElement[] = [];
-  for (let r = 0; r < 4; r++) {
+  for (let r = 0; r < 3; r++) {
     for (let q = 0; q < 6; q++) cells.push(rect(x0 + q * s, y0 + r * s, s, s, `strv-dg__block ${q < 3 ? FILL[0] : FILL[1]}`));
   }
-  // The two candidate blocks are drawn last so their outlines sit on top of their neighbors'.
-  cells.push(rect(x0 + 2 * s, y0 + 2 * s, s, s, `strv-dg__block ${FILL[0]} strv-dg__nomove`));
+  // The moved block is drawn last so its outline sits on top of its neighbors'.
   cells.push(rect(x0 + 2 * s, y0 + s, s, s, `strv-dg__block ${FILL[0]} strv-dg__move`));
   const bx = x0 + 3 * s;
+  const row = (y: number, label: string, before: string, after: string, strong = false): SVGElement[] => {
+    const cls = strong ? 'strv-dg__t strv-dg__t--strong' : 'strv-dg__t';
+    return [text(20, y, label, cls), text(224, y, before, cls, 'end'), text(300, y, after, cls, 'end')];
+  };
   return panel(
-    250,
-    'One balancing move',
-    'Two neighboring districts, A on the left with 10,240 people and B on the right with 9,760, a gap of 480. Two blocks on A’s border could move to B. The block of 180 people narrows the gap to 120, so it may move. The block of 600 people would widen it to 720, so it may not.',
-    text(x0 + 1.5 * s, 22, 'District A: 10,240', 'strv-dg__t strv-dg__t--strong', 'middle'),
-    text(x0 + 4.5 * s, 22, 'District B: 9,760', 'strv-dg__t strv-dg__t--strong', 'middle'),
+    312,
+    `Move the ${c.moved}-person block`,
+    `Districts A and B before and after moving a block of ${c.moved} people from A to B. A goes from 10,240 to ${c.aAfter}, B from 9,760 to ${c.bAfter}. The gap between them goes from 480 to ${c.gapAfter}. ${c.spoken}`,
+    text(160, 16, `Move the ${c.moved}-person block`, 'strv-dg__t strv-dg__t--strong', 'middle'),
+    text(x0 + 1.5 * s, 36, 'District A', 'strv-dg__t strv-dg__t--small strv-dg__t--strong', 'middle'),
+    text(x0 + 4.5 * s, 36, 'District B', 'strv-dg__t strv-dg__t--small strv-dg__t--strong', 'middle'),
     ...cells,
-    line([bx, y0], [bx, y0 + 4 * s], 'strv-dg__cut'),
-    text(x0 + 2.5 * s, y0 + 1.5 * s + 5, '180', 'strv-dg__n', 'middle'),
-    text(x0 + 2.5 * s, y0 + 2.5 * s + 5, '600', 'strv-dg__n', 'middle'),
-    arrow([x0 + 2.5 * s + 14, y0 + 1.5 * s - 12], [bx + 30, y0 + 1.5 * s - 12], 'strv-dg__arrow strv-dg__arrow--go'),
-    text(x0, 230, 'Moving 180 people: gap 480 becomes 120. Allowed.', 'strv-dg__t strv-dg__t--small strv-dg__t--strong'),
-    text(x0, 246, 'Moving 600 people: gap 480 becomes 720. Not allowed.', 'strv-dg__t strv-dg__t--small'),
+    line([bx, y0], [bx, y0 + 3 * s], 'strv-dg__cut'),
+    text(x0 + 2.5 * s, y0 + 1.5 * s + 14, c.moved, 'strv-dg__n', 'middle'),
+    arrow([x0 + 2.5 * s - 12, y0 + 1.5 * s - 6], [bx + 38, y0 + 1.5 * s - 6], 'strv-dg__arrow strv-dg__arrow--go'),
+    text(224, 194, 'Before', 'strv-dg__t strv-dg__t--small strv-dg__t--strong', 'end'),
+    text(300, 194, 'After', 'strv-dg__t strv-dg__t--small strv-dg__t--strong', 'end'),
+    ...row(214, 'District A', '10,240', c.aAfter),
+    ...row(234, 'District B', '9,760', c.bAfter),
+    line([20, 244], [300, 244], 'strv-dg__leader'),
+    ...row(264, 'Gap', '480', c.gapAfter, true),
+    text(20, 290, [c.verdict[0], c.verdict[1]], 'strv-dg__t strv-dg__t--strong'),
   );
+}
+
+/** Both candidate moves from the same two districts, side by side. */
+export function balanceDiagrams(): [SVGSVGElement, SVGSVGElement] {
+  return [
+    balancePanel({ moved: '180', aAfter: '10,060', bAfter: '9,940', gapAfter: '120', verdict: ['Gap 480 → 120:', 'closer to equal, allowed'], spoken: 'The gap gets smaller, so the move is allowed.' }),
+    balancePanel({ moved: '600', aAfter: '9,640', bAfter: '10,360', gapAfter: '720', verdict: ['Gap 480 → 720:', 'B is now too big, not allowed'], spoken: 'The gap gets bigger, so the move is not allowed.' }),
+  ];
 }
 
 // ---------------------------------------------------------------------------

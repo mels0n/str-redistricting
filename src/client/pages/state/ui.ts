@@ -225,7 +225,7 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
     h1.textContent = entry.name;
     mapEl.setAttribute('aria-label', `Map of ${entry.name}’s ${districtCount(entry.seats)}. Every district is also listed in the Districts table.`);
     setMeta(entry);
-    document.title = `${entry.name}: ${districtCount(entry.seats)} drawn by rule`;
+    document.title = `${entry.name}: ${districtCount(entry.seats)} | Fair House Maps`;
     clear(mapEl);
     const loadingState = h('p', { class: 'strv-loading', tabindex: -1 }, `Loading the map of ${entry.name}…`);
     mapEl.append(loadingState);

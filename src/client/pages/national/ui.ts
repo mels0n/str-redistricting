@@ -6,11 +6,26 @@ import { createStateIndex } from '../../widgets/state-index';
 import { createExplainer } from '../../widgets/explainer';
 
 export function createNationalPage(nav: Navigate): Page {
-  const h1 = h('h1', { class: 'strv-national__h1', tabindex: -1 }, 'U.S. House districts, each drawn by the same published rule');
+  const h1 = h(
+    'h1',
+    { class: 'strv-national__h1', tabindex: -1 },
+    'Voters should pick their politicians.',
+    ' ',
+    h('span', { class: 'strv-national__h1-line' }, 'Not the other way around.'),
+  );
+  const step = (title: string, text: string): HTMLElement => h('li', null, h('strong', null, title), ' ', text);
   const lede = h(
-    'p',
+    'div',
     { class: 'strv-national__lede' },
-    'Every map here comes from 2020 Census counts and one fixed rule: split the state along the straight line that gives the shortest border, then split each piece the same way until every piece is one district. No party data, no human choices, and the same map every time anyone runs it.',
+    h('p', null, 'In most states, politicians draw the district lines. Here, nobody does. Every map comes from 2020 Census counts and three fixed steps that anyone can check:'),
+    h(
+      'ol',
+      { class: 'strv-national__steps' },
+      step('Cut.', 'Split the state along the shortest line that divides its people evenly between the seats on each side. Repeat until each piece is one district.'),
+      step('Keep blocks whole.', 'Census blocks are never split. A stray piece cut off from its side joins the side around it, and the line slides so the count stays even.'),
+      step('Balance.', 'Single blocks along a border move to the neighboring district only when that narrows the population gap and both stay connected.'),
+    ),
+    h('p', null, 'No party data. No incumbent addresses. The same map every time.'),
   );
 
   const search = createAddressSearch({
@@ -79,7 +94,7 @@ export function createNationalPage(nav: Navigate): Page {
       });
   };
   load();
-  document.title = 'House districts drawn by rule';
+  document.title = 'Fair House Maps: voters pick politicians, not the other way around';
 
   return {
     el,

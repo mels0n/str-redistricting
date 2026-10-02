@@ -1,6 +1,6 @@
 # How districts are drawn
 
-This page explains how the generator turns census counts into a map of U.S. House districts, in plain language. The map depends on the census data and one fixed rule. Nobody chooses a starting point, a seed or a "preferred" outcome.
+This page explains how the generator turns census counts into a map of U.S. House districts, in plain language. The map depends on the census data and a short method of three steps: cut, keep blocks whole, balance. Nobody chooses a starting point, a seed or a "preferred" outcome.
 
 ## What goes in
 
@@ -14,7 +14,7 @@ That is all. It does not read party registration, election results, the addresse
 
 The number of districts for each state is the number of House seats the state received in the 2020 apportionment.
 
-## The rule
+## Step 1: cut, and step 2: keep blocks whole
 
 Start with the whole state.
 
@@ -68,7 +68,7 @@ Two borders whose lengths agree to the nearest centimeter are tied. A tie goes t
 
 Guide lines are tested at every angle in a fixed step across a half turn. The default step is 0.1 degrees, which gives 1,800 directions. The step must divide 180 degrees exactly and can be changed with `--angle-step`. A different step can produce a different map, so the step is part of the recipe for reproducing a map and is recorded in `metrics.json`.
 
-## The balancing pass
+## Step 3: balance
 
 U.S. House districts must be as nearly equal in population as practicable. That is the standard the Supreme Court applied to congressional districts in Karcher v. Daggett (1983). Each cut places whole blocks so its two sides come as close to equal as whole blocks allow, counting the stray pieces that moved, but the small differences add up across many cuts. After all the cuts, the balancing pass moves single blocks across district borders to even out the populations.
 

@@ -54,10 +54,13 @@ export function startRouter(outlet: HTMLElement): void {
 
   /** The masthead's How it works link says when it is the page showing. */
   const markNav = (route: Route): void => {
-    const link = document.querySelector('.strv-masthead [data-nav="how"]');
-    if (!link) return;
-    if (route.page === 'how') link.setAttribute('aria-current', 'page');
-    else link.removeAttribute('aria-current');
+    const mark = (nav: string, on: boolean): void => {
+      const link = document.querySelector(`.strv-masthead [data-nav="${nav}"]`);
+      if (on) link?.setAttribute('aria-current', 'page');
+      else link?.removeAttribute('aria-current');
+    };
+    mark('how', route.page === 'how');
+    mark('states', route.page === 'national');
   };
 
   function show(route: Route): void {

@@ -158,6 +158,15 @@ body:has(> #str-viewer) {
   padding: var(--s-1) var(--gutter);
   background: var(--ink);
   color: var(--paper);
+  /* The strip stays on screen while the page scrolls, so the way home and to How it works is always in reach. */
+  position: sticky;
+  top: 0;
+  z-index: 40;
+}
+
+/* Jumps and keyboard focus land below the sticky strip, never under it (an anchor, a focused field, a heading). */
+html:has(> body > #str-viewer) {
+  scroll-padding-top: calc(4rem + env(safe-area-inset-top, 0px));
 }
 
 .strv .strv-masthead__title {
@@ -417,6 +426,45 @@ body:has(> #str-viewer) {
   font-size: 1rem;
 }
 
+.strv .strv-national__lede > p + ol,
+.strv .strv-national__lede > ol + p {
+  margin-top: var(--s-3);
+}
+
+.strv-national__steps {
+  list-style: none;
+  padding: 0;
+  counter-reset: lede-step;
+  display: grid;
+  border-top: 2px solid var(--ink);
+}
+
+.strv-national__steps li {
+  counter-increment: lede-step;
+  display: grid;
+  grid-template-columns: 2rem minmax(0, 1fr);
+  padding: var(--s-3) 0;
+  border-bottom: 1px solid var(--hairline);
+  font-size: 0.9375rem;
+  line-height: 1.55;
+}
+
+.strv-national__steps li::before {
+  content: counter(lede-step);
+  grid-row: 1 / span 2;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.strv-national__steps strong {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.strv-national__h1-line {
+  display: block;
+}
+
 .strv-national__search {
   grid-area: search;
   padding: var(--s-4) var(--gutter);
@@ -500,7 +548,7 @@ body:has(> #str-viewer) {
 @media (min-width: 64rem) and (min-height: 34rem) {
   .strv-national__side {
     position: sticky;
-    top: 0;
+    top: var(--mast-h);
   }
 }
 
@@ -795,6 +843,19 @@ body:has(> #str-viewer) {
 
 .strv-explain__steps strong {
   font-weight: 700;
+}
+
+/* The inputs before the steps and the closing line after them: unnumbered, ruled like the steps. */
+.strv-explain__note {
+  padding: var(--s-3) 0;
+  border-bottom: 1px solid var(--hairline);
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  max-width: 70ch;
+}
+
+.strv-explain__note--end {
+  border-bottom: 0;
 }
 
 /* ---------- State view ---------- */
@@ -2633,6 +2694,8 @@ body:has(> #str-viewer) {
 
 .strv-masthead__nav {
   flex: none;
+  display: flex;
+  gap: var(--s-1);
 }
 
 .strv .strv-masthead__link {
@@ -2653,19 +2716,10 @@ body:has(> #str-viewer) {
   text-decoration-color: var(--signal);
 }
 
-/* A phone: the title wraps, the link keeps its line, the credit moves to the next line. */
+/* A phone: one compact row; the credit gives way so the strip never grows taller. */
 @media (max-width: 30rem) {
-  .strv-masthead {
-    flex-wrap: wrap;
-    row-gap: 0;
-  }
-
   .strv-masthead__credit {
-    order: 3;
-    flex-basis: 100%;
-    max-width: none;
-    text-align: left;
-    padding-bottom: var(--s-1);
+    display: none;
   }
 }
 
@@ -3441,7 +3495,7 @@ body:has(> #str-viewer) {
   /* The stage list stays beside the text as it scrolls; the sticky box is bounded by the grid, so it never covers what follows. */
   .strv-how__toc-inner {
     position: sticky;
-    top: var(--s-4);
+    top: calc(var(--mast-h) + var(--s-4));
   }
 
   .strv-how__body {

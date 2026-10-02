@@ -84,7 +84,7 @@ export function createProofPanel(): ProofPanel {
           { class: 'strv-proof__recipe' },
           h('p', null, 'To reproduce this map, run the generator on the same Census file:'),
           h('pre', { class: 'strv-code', tabindex: 0, role: 'group', 'aria-label': 'Command to run' }, h('code', null, `npm install\nnpm run explore -- --states ${abbr}`)),
-          h('p', null, 'The same data and the same rule give a byte-identical map with the same fingerprint, on any computer. No random numbers are used.'),
+          h('p', null, 'The same data and the same steps give a byte-identical map with the same fingerprint, on any computer. No random numbers are used.'),
         ),
       );
     },

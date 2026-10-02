@@ -217,7 +217,7 @@ function tradesTable(): HTMLElement {
 }
 
 /**
- * How it works: every stage of the rule in plain language, each with a
+ * How it works: every stage of the method in plain language, each with a
  * drawing. It says what docs/explanation/how-districts-are-drawn.md says and
  * nothing the generator does not do.
  */
@@ -476,7 +476,7 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
       { class: 'strv-how__head' },
       h('a', { href: formatHash(NATIONAL), class: 'strv-back' }, iconArrowLeft(), 'All states'),
       h1,
-      h('p', { class: 'strv-how__lede' }, 'Every map in this viewer comes from 2020 Census counts and one fixed rule. Here is each stage in plain language, with a drawing. Numbers in the drawings are examples unless they name a state.'),
+      h('p', { class: 'strv-how__lede' }, 'Every map in this viewer comes from 2020 Census counts and three fixed steps: cut, keep blocks whole, balance. Here is each stage in plain language, with a drawing. Numbers in the drawings are examples unless they name a state.'),
     ),
     // The wrapper measures the room: the stage list sits beside the text only when the text keeps a readable measure.
     h('div', { class: 'strv-how__room' }, h('div', { class: 'strv-how__grid' }, toc, body)),

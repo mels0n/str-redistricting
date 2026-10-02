@@ -368,12 +368,9 @@ export function createCutScrubber(opts: CutScrubberOptions): CutScrubber {
     if (current && moveBoard.open) keepRowInView(moveScroll, moveHead, current);
   }
 
-  const roomFor = (q: string): boolean => typeof matchMedia === 'function' && matchMedia(q).matches;
   for (const board of [cutBoard, moveBoard]) board.addEventListener('toggle', () => renderBoards());
-  // Open where there is room for it beside the map; a phone keeps the map and controls on one screen.
-  // The balancing readout is taller, so its list opens only on a tall screen.
-  cutBoard.open = roomFor('(min-width: 64rem) and (min-height: 40rem)');
-  moveBoard.open = roomFor('(min-width: 64rem) and (min-height: 60rem)');
+  // Both timetables start closed (the <details> default): the controls stay short, so the map keeps most of the height. One tap opens a list.
+
 
   const top = h('div', { class: 'strv-scrub__top' }, phases, finish);
   // The state range after each balancing move, as a hairline step trace under the ticks. It is measurement: ink and one amber mark.

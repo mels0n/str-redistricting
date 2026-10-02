@@ -353,3 +353,25 @@ export class NumberPlacer {
     return null;
   }
 }
+
+export interface CutTagPlan {
+  order: number;
+  /** What the tag says: "Cut 8". */
+  text: string;
+  newest: boolean;
+}
+
+/** Earlier cuts that keep a number on the map once the sequence is long; the cut table names every cut. */
+export const MAX_EARLIER_CUT_TAGS = 11;
+
+/**
+ * Which cuts get a number on the map. The newest always does and reads "Cut 8", so it cannot be mistaken for a district number.
+ * Earlier cuts are labelled the same way, at reduced weight, except in a small frame, where only the newest is, and in a long
+ * sequence, where only the latest few are: the lines stay, the numbers are in the scrubber and the cut table.
+ */
+export function cutTagPlan(orders: readonly number[], opts: { compact: boolean; maxEarlier?: number }): CutTagPlan[] {
+  if (orders.length === 0) return [];
+  const newest = orders[orders.length - 1]!;
+  const earlier = opts.compact ? [] : orders.slice(0, -1).slice(-(opts.maxEarlier ?? MAX_EARLIER_CUT_TAGS));
+  return [...earlier.map((order) => ({ order, text: `Cut ${order}`, newest: false })), { order: newest, text: `Cut ${newest}`, newest: true }];
+}

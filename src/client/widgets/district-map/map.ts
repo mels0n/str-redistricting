@@ -18,6 +18,8 @@ import {
   offsetToClear,
   clusterPoints,
   boxesOverlap,
+  cutTagPlan,
+  fitPadding,
   makeShape,
   NumberPlacer,
   type Box,
@@ -88,8 +90,6 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
   const planShown = (s: MapViewState): Plan => planOnScreen(s, balanceMoves);
   const bbox = openingBox(bundle.abbr, bboxOf(bundle.finished.features.map((f) => f.geometry))!);
   const coarse = matchMedia('(pointer: coarse)').matches;
-  // A narrow or short frame (a phone, upright or on its side) puts the key across the top and wants bigger numbers.
-  const narrow = container.clientWidth < 520 || container.clientHeight < 400;
   // Under 600 px the key sits below the map (see styles.css); the map then needs no room at the top for it.
   const keyBelow = matchMedia('(max-width: 37.5rem) and (min-height: 32.01rem)').matches;
   // Touch and small screens get larger numbers (see styles.css); the box used for placement matches them.
@@ -98,16 +98,9 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
   const LABEL_W = big ? 30 : 26;
   const LABEL_H = big ? 28 : 24;
 
-  /** Room around the state inside the frame: the key sits at the top unless it is below the map. */
-  function framePadding(): number | { top: number; right: number; bottom: number; left: number } {
-    const isNarrow = container.clientWidth < 520 || container.clientHeight < 400;
-    const base = isNarrow ? (keyBelow ? 14 : { top: container.clientWidth < 380 ? 64 : 40, right: 14, bottom: 14, left: 14 }) : { top: 52, right: 32, bottom: 32, left: 32 };
-    // The key's own height (it grows with enlarged text) is room the state must stay clear of.
-    const key = keyBox();
-    if (!key) return base;
-    const clear = key.y + key.h / 2 + 8;
-    if (typeof base === 'number') return clear > base ? { top: clear, right: base, bottom: base, left: base } : base;
-    return { ...base, top: Math.max(base.top, clear) };
+  /** Room around the state inside the frame: the key at the top (unless it is below the map) and the zoom buttons at their side. */
+  function framePadding(): { top: number; right: number; bottom: number; left: number } {
+    return fitPadding({ frameW: container.clientWidth, frameH: container.clientHeight, keyBelow, key: keyBox(), controls: controlsBox() });
   }
   /** Enlarged text makes numbers, chips and the key bigger; the boxes used for placement grow with it. */
   const textScale = (): number => Math.max(1, (parseFloat(getComputedStyle(document.documentElement).fontSize) || 16) / 16);
@@ -120,6 +113,15 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
     if (k.width === 0 || k.height === 0 || k.bottom > f.bottom - 1 || k.top < f.top - 1) return null;
     const g = 6;
     return { x: k.left - f.left + k.width / 2, y: k.top - f.top + k.height / 2, w: k.width + 2 * g, h: k.height + 2 * g };
+  }
+  /** The zoom buttons' box in the map's own coordinates. */
+  function controlsBox(): Box | null {
+    const ctrl = container.querySelector('.maplibregl-ctrl-group');
+    if (!ctrl) return null;
+    const c = ctrl.getBoundingClientRect();
+    const f = container.getBoundingClientRect();
+    if (c.width === 0 || c.height === 0) return null;
+    return { x: c.left - f.left + c.width / 2, y: c.top - f.top + c.height / 2, w: c.width, h: c.height };
   }
   let fittedPad = '';
   /** True once the visitor has panned or zoomed; until then the whole state stays fitted to the frame as it changes size. */
@@ -558,7 +560,11 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
 
     map.on('move', drawLeaders);
     map.on('moveend', layoutLabels);
-    map.on('resize', layoutLabels);
+    map.on('resize', () => {
+      // Whatever changed the frame's size (the panel under the map, the window), the whole state stays in view until the visitor moves the map.
+      if (!userMoved) map.fitBounds(bbox, { padding: framePadding(), duration: 0 });
+      layoutLabels();
+    });
     map.on('movestart', (e) => {
       if ((e as { originalEvent?: unknown }).originalEvent) userMoved = true;
     });
@@ -568,6 +574,9 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
       if (!userMoved) map.fitBounds(bbox, { padding: framePadding(), duration: 0 });
     });
     resizeObs.observe(container);
+    // The key grows and shrinks (it folds away in a short frame); the state keeps clear of it.
+    const keyEl = container.parentElement?.querySelector('.strv-legend');
+    if (keyEl) resizeObs.observe(keyEl);
   }
 
   function src(id: string): GeoJSONSource {
@@ -647,9 +656,12 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
   function apply(next: MapViewState): void {
     const prev = current;
     current = next;
+    // A replay opening changes the frame a lot (the controls come up under the map): show the whole state again, even if it was zoomed.
+    const replayOpened = prev !== null && ((prev.cut === null && next.cut !== null) || (prev.move === null && next.move !== null));
+    if (replayOpened) userMoved = false;
     // The key may have grown or changed since the last fit (it is filled after the map is made).
     const pad = JSON.stringify(framePadding());
-    if (!userMoved && fittedPad !== '' && pad !== fittedPad) map.fitBounds(bbox, { padding: framePadding(), duration: 0 });
+    if (!userMoved && fittedPad !== '' && (replayOpened || pad !== fittedPad)) map.fitBounds(bbox, { padding: framePadding(), duration: 0 });
     fittedPad = pad;
     const cutMode = next.cut !== null;
     const plan = planShown(next);
@@ -671,7 +683,8 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
       map.setFeatureState({ source: plan, id }, {
         fill: color,
         hover: next.hovered === id && next.hovered !== next.selected,
-        dim: next.selected !== null && next.selected !== id,
+        // In the cut sequence the colors are pieces, not districts, so a chosen district does not wash out the rest.
+        dim: !cutMode && next.selected !== null && next.selected !== id,
       });
     }
 
@@ -700,14 +713,19 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
           asFeature({ type: 'MultiLineString', coordinates: done.slice(0, -1).flatMap((c) => c.lines as Position[][]) }),
         );
         drawNewCut(newest.lines as Position[][], next.animate && prev !== null && prev.cut !== null && next.cut === prev.cut + 1);
-        done.forEach((c, i) => {
+        // The newest cut always carries its number ("Cut 8"); a small frame or a long sequence labels fewer of the earlier ones.
+        const compact = container.clientWidth < 520 || container.clientHeight < 400;
+        const plan = cutTagPlan(done.map((c) => c.order), { compact });
+        done.forEach((c) => {
+          const tagPlan = plan.find((t) => t.order === c.order);
+          if (!tagPlan) return;
           // Spots along the cut line, best first: the middle, then alternating either side.
           const spots = CUT_TAG_SPOTS.map((f) => pointAlongLines(c.lines as Position[][], f)).filter((p): p is LonLat => p !== null);
           if (!spots[0]) return;
           const el = document.createElement('div');
           el.className = 'strv-cut-tag';
-          el.dataset.newest = String(i === done.length - 1);
-          el.textContent = String(c.order);
+          el.dataset.newest = String(tagPlan.newest);
+          el.textContent = tagPlan.text;
           el.setAttribute('aria-hidden', 'true');
           cutTags.push({ marker: new Marker({ element: el, anchor: 'center' }).setLngLat(spots[0] as [number, number]).addTo(map), el, spots });
         });

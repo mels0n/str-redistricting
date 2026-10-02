@@ -16,6 +16,7 @@ import {
   prefersReducedMotion,
   iconArrowDown,
   iconArrowLeft,
+  iconChevronDown,
   stateRoute,
   howRoute,
   NATIONAL,
@@ -87,9 +88,26 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
   // Spoken through announce(); a hidden element cannot be a live region.
   const notice = h('p', { class: 'strv-notice', hidden: true });
   const mapEl = h('div', { class: 'strv-state__map', role: 'region', 'aria-label': 'District map', 'aria-busy': 'true' });
-  const legend = h('div', { class: 'strv-legend', 'aria-hidden': 'true' });
+  // The key is a small block that folds to its title when the map frame is short, so it never takes the state's room.
+  const legendList = h('div', { class: 'strv-legend__list', id: 'strv-legend-list' });
+  const legendToggle = h('button', { type: 'button', class: 'strv-legend__toggle', 'aria-controls': 'strv-legend-list', 'aria-expanded': 'true' }, h('span', { class: 'strv-legend__title' }, 'Key'), iconChevronDown());
+  const legend = h('div', { class: 'strv-legend', 'data-folded': 'false' }, legendToggle, legendList);
+  let keyChosen = false;
+  const foldKey = (folded: boolean): void => {
+    legend.dataset.folded = String(folded);
+    legendToggle.setAttribute('aria-expanded', String(!folded));
+  };
+  legendToggle.addEventListener('click', () => {
+    keyChosen = true;
+    foldKey(legend.dataset.folded !== 'true');
+  });
   // The key lives inside the map frame, so it can never lie across the controls beneath the map.
   const mapFrame = h('div', { class: 'strv-state__frame' }, mapEl, legend);
+  // Until the visitor chooses, the key follows the frame: open when there is room, folded when the frame is short.
+  const frameWatch = typeof ResizeObserver === 'function' ? new ResizeObserver(() => {
+    if (!keyChosen && mapFrame.clientHeight > 0) foldKey(mapFrame.clientHeight < 540);
+  }) : null;
+  frameWatch?.observe(mapFrame);
   // Phones: the chosen district's headline sits right under the map, so a tap on the map is answered without scrolling.
   const pick = h('div', { class: 'strv-pick' });
   const stage = h('div', { class: 'strv-state__stage' }, mapFrame, pick);
@@ -494,18 +512,19 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
       const pos: SeqPos | null = cutMode ? { phase: 'cut', k: Math.min(route.cut!, total) } : balanceMode ? { phase: 'balance', m: route.move! } : null;
       scrubber!.update(pos, { log: balance, canZoom: map !== null });
 
-      clear(legend);
+      clear(legendList);
+      const sample = (cls: string, text?: string): HTMLElement => h('span', { class: cls, 'aria-hidden': 'true' }, text);
       const legendItems: (HTMLElement | null)[] = [
-        h('span', { class: 'strv-legend__title' }, 'Key'),
-        h('span', { class: 'strv-legend__item' }, h('span', { class: 'strv-legend__num' }, '3'), 'District number'),
-        h('span', { class: 'strv-legend__item' }, h('span', { class: 'strv-legend__chip' }, '+2'), 'More districts here, press to zoom'),
-        bundle.water ? h('span', { class: 'strv-legend__item' }, h('span', { class: 'strv-legend__water' }), 'Water inside a district (shown pale)') : null,
-        cutMode ? h('span', { class: 'strv-legend__item' }, h('span', { class: 'strv-legend__cut' }), 'Newest cut') : null,
-        cutMode ? h('span', { class: 'strv-legend__item' }, h('span', { class: 'strv-legend__past' }), 'Earlier cuts') : null,
-        balanceMode && (route.move ?? 0) > 0 ? h('span', { class: 'strv-legend__item' }, h('span', { class: 'strv-legend__move' }), 'Block moved') : null,
-        route.enacted ? h('span', { class: 'strv-legend__item' }, h('span', { class: 'strv-legend__dash' }), '119th Congress districts') : null,
+        h('span', { class: 'strv-legend__item' }, sample('strv-legend__num', '3'), 'District number'),
+        cutMode ? h('span', { class: 'strv-legend__item' }, sample('strv-legend__tag', 'Cut 3'), 'Order of a cut') : null,
+        h('span', { class: 'strv-legend__item' }, sample('strv-legend__chip', '+2'), 'More districts, zoom in'),
+        bundle.water ? h('span', { class: 'strv-legend__item' }, sample('strv-legend__water'), 'Water, shown pale') : null,
+        cutMode ? h('span', { class: 'strv-legend__item' }, sample('strv-legend__cut'), 'Newest cut') : null,
+        cutMode ? h('span', { class: 'strv-legend__item' }, sample('strv-legend__past'), 'Earlier cuts') : null,
+        balanceMode && (route.move ?? 0) > 0 ? h('span', { class: 'strv-legend__item' }, sample('strv-legend__move'), 'Block moved') : null,
+        route.enacted ? h('span', { class: 'strv-legend__item' }, sample('strv-legend__dash'), '119th Congress districts') : null,
       ];
-      legend.append(...legendItems.filter((x): x is HTMLElement => x !== null));
+      legendList.append(...legendItems.filter((x): x is HTMLElement => x !== null));
 
       if (!route.enacted) enactedFailed = false;
       else if (!enacted && !enactedFailed && !enactedLoading) {
@@ -564,6 +583,7 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
     },
     destroy() {
       alive = false;
+      frameWatch?.disconnect();
       scrubber?.destroy();
       map?.destroy();
     },

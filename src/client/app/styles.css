@@ -420,7 +420,7 @@ html:has(> body > #str-viewer) {
 
 .strv-national__lede {
   grid-area: lede;
-  padding: var(--s-4) var(--gutter) var(--s-5);
+  padding: var(--s-4) var(--gutter) var(--s-7);
   max-width: 62ch;
   color: var(--ink-2);
   font-size: 1rem;
@@ -483,15 +483,6 @@ html:has(> body > #str-viewer) {
   padding: var(--s-4) var(--gutter) var(--s-6);
 }
 
-.strv-national__explain {
-  padding: var(--s-5) var(--gutter) var(--s-8);
-  border-top: 1px solid var(--ink);
-}
-
-.strv-national__explain .strv-explain {
-  max-width: 46rem;
-}
-
 @media (min-width: 64rem) {
   .strv {
     --gutter: 1.5rem;
@@ -538,10 +529,6 @@ html:has(> body > #str-viewer) {
   .strv-national__map {
     padding: 0 var(--s-6) var(--s-4);
   }
-
-  .strv-national__explain {
-    padding: var(--s-6) var(--gutter) var(--s-8);
-  }
 }
 
 /* Pin the map column beside the long index only when it fits the window; on a short window it scrolls with the page so its top is never cut off. */
@@ -580,6 +567,99 @@ html:has(> body > #str-viewer) {
 
   .strv-national__steps li::before {
     grid-row: auto;
+  }
+}
+
+/* Wider still: the steps move up beside the headline as a compact stack, so the map sits higher. The side and lede wrappers step aside so their paragraphs, the list and the map join the page grid. */
+@media (min-width: 75rem) {
+  .strv-national__grid {
+    grid-template-columns: var(--col) minmax(0, 3fr) minmax(0, 2fr);
+    grid-template-rows: auto auto minmax(0, 1fr) auto auto;
+    grid-template-areas:
+      'search head steps'
+      'search lede steps'
+      'search closing steps'
+      'search more steps'
+      'index map map';
+  }
+
+  .strv-national__side,
+  .strv-national__lede {
+    display: contents;
+  }
+
+  .strv-national__head {
+    padding-right: var(--s-5);
+  }
+
+  .strv-national__h1 {
+    font-size: clamp(2rem, 0.9rem + 2vw, 2.75rem);
+    max-width: none;
+  }
+
+  .strv-national__lede > p {
+    padding: 0 var(--s-5) 0 var(--s-6);
+    max-width: calc(62ch + var(--s-6) + var(--s-5));
+  }
+
+  .strv-national__lede > p:first-child {
+    grid-area: lede;
+  }
+
+  .strv .strv-national__lede > .strv-national__closing {
+    grid-area: closing;
+    margin-top: var(--s-3);
+  }
+
+  .strv .strv-national__lede > .strv-national__more {
+    grid-area: more;
+    margin-top: var(--s-2);
+    padding-bottom: var(--s-3);
+  }
+
+  .strv .strv-national__lede > ol {
+    margin-top: 0;
+  }
+
+  .strv .strv-national__steps {
+    grid-area: steps;
+    grid-template-columns: minmax(0, 1fr);
+    align-content: start;
+    align-self: start;
+    margin: var(--s-6) var(--s-5) var(--s-3) var(--s-2);
+  }
+
+  .strv-national__steps li {
+    grid-template-columns: 1.5rem minmax(0, 1fr);
+    align-content: normal;
+    padding: var(--s-2) 0;
+    border-bottom: 1px solid var(--hairline);
+    font-size: 0.875rem;
+    line-height: 1.45;
+  }
+
+  .strv-national__steps li:last-child {
+    border-bottom: 0;
+  }
+
+  .strv-national__steps li + li {
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  .strv-national__steps li::before {
+    grid-row: 1 / span 2;
+  }
+
+  .strv-national__map {
+    align-self: start;
+  }
+}
+
+@media (min-width: 75rem) and (min-height: 34rem) {
+  .strv-national__map {
+    position: sticky;
+    top: var(--mast-h);
   }
 }
 

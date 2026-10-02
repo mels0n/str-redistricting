@@ -1,9 +1,8 @@
-import { h, clear, describeError, setLocated, stateRoute, type Navigate, type Page } from '../../shared';
+import { h, clear, describeError, setLocated, stateRoute, formatHash, howRoute, type Navigate, type Page } from '../../shared';
 import { loadIndex, loadOutlines } from '../../entities/state';
 import { createAddressSearch, describeResolution, resolveAddress } from '../../features/address-search';
 import { createUsMap, type UsMap } from '../../widgets/us-map';
 import { createStateIndex } from '../../widgets/state-index';
-import { createExplainer } from '../../widgets/explainer';
 
 export function createNationalPage(nav: Navigate): Page {
   const h1 = h(
@@ -25,7 +24,8 @@ export function createNationalPage(nav: Navigate): Page {
       step('Keep blocks whole.', 'Census blocks are never split. A stray piece cut off from its side joins the side around it, and the line slides so the count stays even.'),
       step('Balance.', 'Single blocks along a border move to the neighboring district only when that narrows the population gap and both stay connected.'),
     ),
-    h('p', null, 'No party data. No incumbent addresses. The same map every time.'),
+    h('p', { class: 'strv-national__closing' }, 'No party data. No incumbent addresses. The same map every time.'),
+    h('p', { class: 'strv-national__more' }, h('a', { href: formatHash(howRoute()) }, 'How it works: every stage, with drawings')),
   );
 
   const search = createAddressSearch({
@@ -61,7 +61,6 @@ export function createNationalPage(nav: Navigate): Page {
       h('div', { class: 'strv-national__side' }, lede, mapSlot),
       indexSlot,
     ),
-    h('div', { class: 'strv-national__explain' }, createExplainer()),
   );
 
   let alive = true;

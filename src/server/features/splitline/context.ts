@@ -1,3 +1,4 @@
+import { DataError } from '../../shared/errors/index.js';
 import { buildTopology, type Block, type Topology } from '../../entities/census-block/index.js';
 import { gnomonic, type Gnomonic } from '../../shared/geo/index.js';
 
@@ -20,6 +21,14 @@ export function createContext(blocks: readonly Block[], angleStepDeg: number, to
   const proj = gnomonic([(minLon + maxLon) / 2, (minLat + maxLat) / 2]);
   const px = new Float64Array(blocks.length);
   const py = new Float64Array(blocks.length);
-  blocks.forEach((b, i) => { const [x, y] = proj.forward(b.point); px[i] = x; py[i] = y; });
+  blocks.forEach((b, i) => {
+    try {
+      const [x, y] = proj.forward(b.point);
+      px[i] = x; py[i] = y;
+    } catch (err) {
+      if (err instanceof RangeError) throw new DataError(`block ${b.geoid}: ${err.message}`);
+      throw err;
+    }
+  });
   return { blocks, topo: topo ?? buildTopology(blocks), proj, px, py, angleCount: Math.round(180 / angleStepDeg) };
 }

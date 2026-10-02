@@ -201,7 +201,7 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
         { class: 'strv-how__steps' },
         li('Start with the district whose population is furthest from the ideal.'),
         li('Look at the blocks along its border. A block may move to the district on the other side only if it has people, if the move strictly narrows the population gap between the two districts, and if both districts stay one connected piece.'),
-        li('Of the moves allowed, make the one that brings the districts closest to equal overall. A tie goes to the block that comes first in GEOID order.'),
+        li('Of the moves allowed, make the one that brings the districts closest to equal overall, measured as the sum of the squared differences between each district’s population and the ideal. A tie goes to the block that comes first in GEOID order, then to the lower-numbered district it would join.'),
         li('If that district has no allowed move, try the next furthest. After every move, start again from the district now furthest from the ideal.'),
         li('Stop when no move helps. Every move brings the districts closer to equal overall, so the pass always stops.'),
       ),
@@ -252,7 +252,8 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
       h1,
       h('p', { class: 'strv-how__lede' }, 'Every map in this viewer comes from 2020 Census counts and one fixed rule. Here is each stage in plain language, with a drawing. Numbers in the drawings are examples unless they name a state.'),
     ),
-    h('div', { class: 'strv-how__grid' }, toc, body),
+    // The wrapper measures the room: the stage list sits beside the text only when the text keeps a readable measure.
+    h('div', { class: 'strv-how__room' }, h('div', { class: 'strv-how__grid' }, toc, body)),
   );
 
   function scrollTo(section: HowSection | null, focus: boolean): void {

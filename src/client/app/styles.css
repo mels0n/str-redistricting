@@ -900,7 +900,7 @@ body:has(> #str-viewer) {
 .strv-state__frame {
   position: relative;
   /* The map takes what the first screen has left after the masthead, title row, the chosen-district strip and the scrubber strip. */
-  height: clamp(var(--frame-min), calc(100svh - var(--mast-h) - 19.5rem - var(--x-cut) - var(--legend-h)), 40rem);
+  height: calc(clamp(var(--frame-min), calc(100svh - var(--mast-h) - 19.5rem - var(--x-cut) - var(--legend-h)), 40rem) + var(--legend-h));
   background: var(--ground);
 }
 
@@ -930,7 +930,8 @@ body:has(> #str-viewer) {
 @media (min-width: 64rem) {
   .strv-state {
     display: grid;
-    grid-template-columns: var(--col) minmax(0, 1fr);
+    /* The panel gives way before the map does when text is enlarged (the column is measured in rem). */
+    grid-template-columns: min(var(--col), 44%) minmax(0, 1fr);
     height: calc(100dvh - var(--mast-h));
   }
 
@@ -954,12 +955,15 @@ body:has(> #str-viewer) {
   .strv-state__stage {
     border: 0;
     min-height: 0;
+    /* If enlarged text leaves no room for both the map and the controls, the stage scrolls; the map never shrinks away. */
+    overflow-y: auto;
   }
 
   .strv-state__frame {
-    flex: 1;
+    flex: 1 0 auto;
     height: auto;
-    min-height: 0;
+    /* The map always keeps a usable area. */
+    min-height: 18rem;
   }
 }
 
@@ -1255,7 +1259,7 @@ body:has(> #str-viewer) {
 
 .strv-scrub__track {
   position: relative;
-  padding-bottom: 1.25rem;
+  padding-bottom: calc(1.25rem + var(--trace-h, 0rem));
 }
 
 .strv-scrub__range {
@@ -1305,7 +1309,7 @@ body:has(> #str-viewer) {
   position: absolute;
   left: 7px;
   right: 7px;
-  bottom: 0;
+  bottom: var(--trace-h, 0rem);
   height: 1.25rem;
   list-style: none;
   padding: 0;
@@ -2287,7 +2291,7 @@ body:has(> #str-viewer) {
 }
 
 /* A phone on its side: the map and the cut controls sit next to each other, under a one-line title. */
-@media (orientation: landscape) and (max-height: 32rem) and (max-width: 63.99rem) {
+@media (orientation: landscape) and (max-width: 63.99rem) and (((pointer: coarse) and (max-height: 32rem)) or (max-height: 18rem)) {
   .strv-state__head {
     display: flex;
     flex-wrap: wrap;
@@ -2363,7 +2367,7 @@ body:has(> #str-viewer) {
   }
 
   .strv-scrub__track {
-    padding-bottom: 1.125rem;
+    padding-bottom: calc(1.125rem + var(--trace-h, 0rem));
   }
 
   .strv-scrub__range {
@@ -2396,8 +2400,22 @@ body:has(> #str-viewer) {
     --legend-h: 2.25rem;
   }
 
+  /* The frame is a column: the map, then the key row. The frame's height is fixed, so the key wrapping never moves the controls below. */
+  .strv-state__frame {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .strv .strv-state__map {
+    position: relative;
+    inset: auto;
+    flex: 1 1 0;
+    min-height: 0;
+  }
+
   .strv-legend {
     position: static;
+    flex: none;
     max-width: none;
     padding: var(--s-1) var(--gutter);
     min-height: 2.25rem;
@@ -2406,13 +2424,6 @@ body:has(> #str-viewer) {
     border: 0;
     border-top: 1px solid var(--hairline);
     border-radius: 0;
-  }
-}
-
-/* A phone on its side keeps the key over the map's left column, clear of the right-hand controls column. */
-@media (orientation: landscape) and (max-height: 32rem) and (max-width: 63.99rem) {
-  .strv-legend {
-    max-width: calc(100% - 22rem - 5rem);
   }
 }
 
@@ -2780,6 +2791,13 @@ body:has(> #str-viewer) {
 
 .strv-scrub__readout[hidden] {
   display: none;
+}
+
+/* Beside the map the bar keeps room for three lines of the readout, so the map never resizes between moves. */
+@media (min-width: 64rem) {
+  .strv-scrub__readout {
+    min-height: calc(3 * 1.45 * 0.9375em + 2 * var(--s-2) + 2px);
+  }
 }
 
 .strv-scrub__readout-text {
@@ -3522,10 +3540,101 @@ body:has(> #str-viewer) {
 }
 
 /* A phone on its side: the step controls come straight after the step number, so they stay on screen; the readout follows. */
-@media (orientation: landscape) and (max-height: 32rem) and (max-width: 63.99rem) {
+@media (orientation: landscape) and (max-width: 63.99rem) and (((pointer: coarse) and (max-height: 32rem)) or (max-height: 18rem)) {
   .strv-scrub__top { order: 1; }
   .strv-scrub__head { order: 2; }
   .strv-scrub__controls { order: 3; }
   .strv-scrub__readout { order: 4; }
   .strv-scrub .strv-board { order: 5; }
+}
+
+/* ---------- Balancing: range trace and the district list's counties basis ---------- */
+
+/* The state range after each move, drawn under the ticks as a hairline: measurement, not decoration. */
+.strv-scrub[data-trace='true'] {
+  --trace-h: 2.75rem;
+}
+
+.strv-scrub__trace {
+  position: absolute;
+  left: 7px;
+  right: 7px;
+  bottom: 0;
+  height: calc(var(--trace-h, 2.75rem) - 0.5rem);
+}
+
+.strv-scrub__trace[hidden] {
+  display: none;
+}
+
+.strv-scrub__trace-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.strv-scrub__trace-svg path {
+  fill: none;
+  stroke: var(--ink-2);
+  stroke-width: 1px;
+  vector-effect: non-scaling-stroke;
+}
+
+.strv-scrub__trace-mark {
+  position: absolute;
+  width: 0.625rem;
+  height: 0.625rem;
+  margin: -0.3125rem 0 0 -0.3125rem;
+  border: 1px solid var(--ink);
+  border-radius: 50%;
+  background: var(--signal);
+  pointer-events: none;
+}
+
+.strv-scrub__trace-label {
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--ink-2);
+  font-variant-numeric: tabular-nums lining-nums;
+  pointer-events: none;
+}
+
+.strv-list__basis {
+  display: block;
+  font-size: 0.6875rem;
+  font-weight: 400;
+  color: var(--ink-2);
+  white-space: normal;
+}
+
+/* ---------- How it works: the stage list collapses above the text when the text would be squeezed ---------- */
+
+.strv-how__room {
+  container: strv-how / inline-size;
+}
+
+/* Beside the text the stage list takes a column; when the text column would fall under about 40 characters (enlarged text), it goes above, as on a phone. */
+@container strv-how (max-width: 56em) {
+  .strv-how__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .strv-how__toc {
+    background: var(--paper);
+    border-bottom: 1px solid var(--ink);
+    border-right: 0;
+  }
+
+  .strv-how__toc-inner {
+    position: static;
+  }
+
+  .strv-how__body {
+    padding: 0 var(--gutter) var(--s-8);
+  }
 }

@@ -1,2 +1,2 @@
-export { createPlanOptions, enactedSourceLabel } from './ui';
-export type { PlanOptions, PlanOptionsOptions } from './ui';
+export { createPlanOptions, enactedSourceLabel, planPressed, describeStep } from './ui';
+export type { PlanOptions, PlanOptionsOptions, ReplayStep } from './ui';

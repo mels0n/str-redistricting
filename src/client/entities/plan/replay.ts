@@ -140,3 +140,37 @@ export function pageAt(page: number, total: number, size: number): ListPage {
   const p = clamp(page, 0, pages - 1);
   return { page: p, pages, start: p * size, end: Math.min(total, (p + 1) * size) };
 }
+
+/**
+ * Which plan the map and the numbers show at balancing position m. The replay
+ * starts from the plan before balancing and is partway between the two plans
+ * until its last move, which is the finished map.
+ */
+export function balancePlanAt(m: number, moves: number): 'before' | 'finished' {
+  return moves > 0 && m >= moves ? 'finished' : 'before';
+}
+
+/** True while the replay is between the two plans: some blocks have moved and the district shapes are not final. */
+export function isPartway(m: number, moves: number): boolean {
+  return m > 0 && m < moves;
+}
+
+/** The gap between the largest and smallest district after each move: index 0 is before the first move, index M after the last. */
+export function rangeTrace(before: readonly number[], moves: readonly BalanceMove[]): number[] {
+  const pop = [...before];
+  const out = [rangeOf(pop)];
+  for (const mv of moves) {
+    pop[mv.from - 1]! -= mv.pop;
+    pop[mv.to - 1]! += mv.pop;
+    out.push(rangeOf(pop));
+  }
+  return out;
+}
+
+/**
+ * True when the balancing plays faster than the normal step pace, which is a
+ * long log. Only then is the replay not read out move by move.
+ */
+export function isFastReplay(moves: number, opts: { baseMs: number; totalMs: number; minMs: number }): boolean {
+  return balancePlayInterval(moves, opts) < opts.baseMs;
+}

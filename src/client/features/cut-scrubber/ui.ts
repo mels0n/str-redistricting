@@ -9,6 +9,8 @@ import {
   populationsAfter,
   rangeOf,
   balancePlayInterval,
+  isFastReplay,
+  rangeTrace,
   pageOf,
   pageAt,
   type Cut,
@@ -72,6 +74,7 @@ function describeMove(m: number, total: number, log: BalanceLog | null, rangeBef
 export function createCutScrubber(opts: CutScrubberOptions): CutScrubber {
   const size: SeqSize = { cuts: opts.cuts.length, moves: opts.moves };
   const total = size.cuts;
+  const replayPace = { baseMs: config.movePlayIntervalMs, totalMs: config.movePlayTotalMs, minMs: config.movePlayMinMs };
   let pos: SeqPos = { phase: 'cut', k: 0 };
   let active = false;
   let timer: number | null = null;
@@ -139,9 +142,15 @@ export function createCutScrubber(opts: CutScrubberOptions): CutScrubber {
   const startBalance = h('button', { type: 'button', class: 'strv-button strv-scrub__start' }, iconPlay(), h('span', null, `Watch the ${plural(size.moves, 'balancing move', 'balancing moves')}`));
 
   const stopPlaying = (): void => {
+    const wasPlaying = timer !== null;
     if (timer !== null) window.clearInterval(timer);
     timer = null;
     renderPlay();
+    // A long log plays quietly; the move it stops on is the one read out, so a screen reader knows where the replay ended.
+    if (wasPlaying && active && pos.phase === 'balance') {
+      const text = describeMove(pos.m, size.moves, log(), opts.rangeBefore);
+      if (live.textContent !== text) live.textContent = text;
+    }
   };
 
   const go = (p: SeqPos, animate: boolean): void => {
@@ -165,7 +174,7 @@ export function createCutScrubber(opts: CutScrubberOptions): CutScrubber {
       else go(pos.phase === 'cut' ? { phase: 'cut', k: 0 } : { phase: 'balance', m: 0 }, false);
     }
     const phase = pos.phase;
-    const interval = phase === 'cut' ? config.cutPlayIntervalMs : balancePlayInterval(size.moves, { baseMs: config.movePlayIntervalMs, totalMs: config.movePlayTotalMs, minMs: config.movePlayMinMs });
+    const interval = phase === 'cut' ? config.cutPlayIntervalMs : balancePlayInterval(size.moves, replayPace);
     const tick = (): void => {
       if (pos.phase !== phase || atPhaseEnd()) {
         stopPlaying();
@@ -352,7 +361,54 @@ export function createCutScrubber(opts: CutScrubberOptions): CutScrubber {
   moveBoard.open = roomFor('(min-width: 64rem) and (min-height: 60rem)');
 
   const top = h('div', { class: 'strv-scrub__top' }, phases, finish);
-  const controls = h('div', { class: 'strv-scrub__controls' }, h('div', { class: 'strv-scrub__buttons' }, prev, play, next), h('div', { class: 'strv-scrub__track' }, range, ticks));
+  // The state range after each balancing move, as a hairline step trace under the ticks. It is measurement: ink and one amber mark.
+  const trace = h('div', { class: 'strv-scrub__trace', hidden: true });
+  const controls = h('div', { class: 'strv-scrub__controls' }, h('div', { class: 'strv-scrub__buttons' }, prev, play, next), h('div', { class: 'strv-scrub__track' }, range, ticks, trace));
+  let tracedLog: BalanceLog | null = null;
+  let traceValues: number[] = [];
+  let traceMax = 1;
+  let traceMark: HTMLElement | null = null;
+
+  /** Builds the trace once the balancing log is here; afterwards only the current-move mark moves. */
+  function renderTrace(): void {
+    const l = log();
+    const show = pos.phase === 'balance' && l !== null && size.moves > 0;
+    trace.hidden = !show;
+    el.dataset.trace = String(show);
+    if (!show || !l) return;
+    if (tracedLog !== l) {
+      tracedLog = l;
+      traceValues = rangeTrace(l.before, l.moves);
+      traceMax = Math.max(...traceValues, 1);
+      clear(trace);
+      const n = size.moves;
+      let d = `M0 ${yPct(traceValues[0]!)}`;
+      for (let i = 1; i <= n; i++) d += `H${((i / n) * 1000).toFixed(1)}V${yPct(traceValues[i]!)}`;
+      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svg.setAttribute('viewBox', '0 0 1000 100');
+      svg.setAttribute('preserveAspectRatio', 'none');
+      svg.setAttribute('class', 'strv-scrub__trace-svg');
+      svg.setAttribute('role', 'img');
+      svg.setAttribute('aria-label', `Range: ${plural(traceValues[0]!, 'person', 'people')} before balancing, ${formatInt(traceValues[n]!)} after.`);
+      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      path.setAttribute('d', d);
+      svg.append(path);
+      traceMark = h('span', { class: 'strv-scrub__trace-mark', 'aria-hidden': 'true' });
+      trace.append(
+        svg,
+        traceMark,
+        // The range only falls, so the top right corner of the trace is always clear.
+        h('span', { class: 'strv-scrub__trace-label', 'aria-hidden': 'true' }, 'Range ', formatInt(traceValues[0]!), arrowTo(), formatInt(traceValues[n]!)),
+      );
+    }
+    const m = pos.phase === 'balance' ? Math.min(pos.m, size.moves) : 0;
+    traceMark!.style.left = `${(m / size.moves) * 100}%`;
+    traceMark!.style.top = `${yPct(traceValues[m]!)}%`;
+  }
+  /** Height of a range on the trace, in percent from the top: the largest range is at the top, zero at the bottom. */
+  function yPct(v: number): string {
+    return (100 - (v / traceMax) * 100).toFixed(2);
+  }
 
   const intro = h(
     'div',
@@ -515,10 +571,12 @@ export function createCutScrubber(opts: CutScrubberOptions): CutScrubber {
     markTicks();
     renderDetail();
     renderBoards();
+    renderTrace();
     renderPlay();
     // The slider reads its own value text when it has focus; the live region covers Play and the buttons.
-    // A long log playing fast is not read move by move; the step it stops on is.
-    if (document.activeElement !== range && !(timer !== null && pos.phase === 'balance')) live.textContent = text;
+    // A long log playing fast is not read move by move (stopPlaying reads the step it stops on).
+    const quiet = timer !== null && pos.phase === 'balance' && isFastReplay(size.moves, replayPace);
+    if (document.activeElement !== range && !quiet) live.textContent = text;
     if (!wasActive) {
       // Keep keyboard users on the control they used to enter the sequence.
       if (document.activeElement === startCuts || document.activeElement === startBalance) range.focus();

@@ -25,7 +25,7 @@ import {
   type LonLat,
   type Plan,
 } from '../../shared';
-import { piecesAfter, pieceSizes, movedBlocksAt, type StateBundle, type PlanShapes, type EnactedShapes, type BalanceLog } from '../../entities/plan';
+import { piecesAfter, pieceSizes, movedBlocksAt, balancePlanAt, type StateBundle, type PlanShapes, type EnactedShapes, type BalanceLog } from '../../entities/plan';
 
 export interface MapViewState {
   plan: Plan;
@@ -65,8 +65,14 @@ const CUT_TAG_SPOTS = [0.5, 0.38, 0.62, 0.27, 0.73, 0.16, 0.84, 0.07, 0.93];
 
 const EMPTY_LINES: MultiLineString = { type: 'MultiLineString', coordinates: [] };
 
-/** The plan drawn underneath: both the cut sequence and the balancing replay start from the plan before balancing. */
-const planOnScreen = (s: MapViewState): Plan => (s.cut !== null || s.move !== null ? 'before' : s.plan);
+/**
+ * The plan drawn underneath: the cut sequence and the balancing replay start from the plan before balancing,
+ * and the replay's last move is the finished map, so the old borders stop showing through the moved blocks.
+ */
+const planOnScreen = (s: MapViewState, moves: number): Plan => {
+  if (s.move !== null) return balancePlanAt(s.move, moves);
+  return s.cut !== null ? 'before' : s.plan;
+};
 const asFeature = (g: MultiLineString) => ({ type: 'Feature' as const, properties: {}, geometry: g });
 
 setWorkerUrl(workerUrl);
@@ -74,6 +80,8 @@ setWorkerUrl(workerUrl);
 export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapView> {
   const { bundle, container } = opts;
   const seats = bundle.stats.finished.metrics.seats;
+  const balanceMoves = bundle.stats.finished.metrics.balanceMoves;
+  const planShown = (s: MapViewState): Plan => planOnScreen(s, balanceMoves);
   const bbox = bboxOf(bundle.finished.features.map((f) => f.geometry))!;
   const coarse = matchMedia('(pointer: coarse)').matches;
   // A narrow or short frame (a phone, upright or on its side) puts the key across the top and wants bigger numbers.
@@ -197,7 +205,7 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
    */
   function layoutLabels(): void {
     if (!current || !leaders) return;
-    const plan = planOnScreen(current);
+    const plan = planShown(current);
     const labels = labelsFor(plan);
     const areas = areasFor(plan);
     const frame = { w: container.clientWidth, h: container.clientHeight };
@@ -330,7 +338,7 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
         ev.stopPropagation();
         const g = chipTargets[n];
         if (!g || !current) return;
-        const labels = labelsFor(planOnScreen(current));
+        const labels = labelsFor(planShown(current));
         const lls = g.map((i) => labels[i]!);
         const lons = lls.map((l) => l[0]);
         const lats = lls.map((l) => l[1]);
@@ -605,7 +613,7 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
     const prev = current;
     current = next;
     const cutMode = next.cut !== null;
-    const plan = planOnScreen(next);
+    const plan = planShown(next);
     const other: Plan = plan === 'finished' ? 'before' : 'finished';
     const shapes = shapesOf(plan);
 
@@ -628,7 +636,7 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
       });
     }
 
-    const bordersChanged = !prev || prev.cut !== next.cut || planOnScreen(prev) !== plan;
+    const bordersChanged = !prev || prev.cut !== next.cut || planShown(prev) !== plan;
     if (bordersChanged) src('borders').setData(asFeature(piece ? shapes.pieceBorders(piece) : shapes.borders));
 
     map.setFilter(`sel-${plan}`, ['==', ['get', 'district'], next.selected ?? -1]);
@@ -673,7 +681,7 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
 
     drawBalance(next);
 
-    if (!prev || prev.cut !== next.cut || planOnScreen(prev) !== plan) layoutLabels();
+    if (!prev || prev.cut !== next.cut || planShown(prev) !== plan) layoutLabels();
 
     // The 119th Congress districts, display only.
     if (next.enacted) {

@@ -31,6 +31,8 @@ import {
   loadBalance,
   districtsAt,
   populationsAfter,
+  balancePlanAt,
+  isPartway,
   type PlanDistricts,
   type StateBundle,
   type EnactedShapes,
@@ -57,8 +59,11 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
   let enactedLoading = false;
   let seats: number | null = null;
   let stateName = initial.abbr;
-  /** The plan on screen: the cut sequence and the balancing replay both start from the plan before balancing. */
-  const shownPlan = (): 'finished' | 'before' => (route.cut !== null || route.move !== null ? 'before' : route.plan);
+  /** The plan on screen: the cut sequence and the balancing replay start from the plan before balancing; the replay's last move is the finished map. */
+  const shownPlan = (): 'finished' | 'before' => {
+    if (route.move !== null) return balancePlanAt(route.move, moveCount ?? 0);
+    return route.cut !== null ? 'before' : route.plan;
+  };
   /** The number of balancing moves, once the state's numbers are in. */
   let moveCount: number | undefined;
   /** The balancing log: fetched only when the replay opens. */
@@ -79,10 +84,11 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
   const notice = h('p', { class: 'strv-notice', hidden: true });
   const mapEl = h('div', { class: 'strv-state__map', role: 'region', 'aria-label': 'District map', 'aria-busy': 'true' });
   const legend = h('div', { class: 'strv-legend', 'aria-hidden': 'true' });
-  const mapFrame = h('div', { class: 'strv-state__frame' }, mapEl);
+  // The key lives inside the map frame, so it can never lie across the controls beneath the map.
+  const mapFrame = h('div', { class: 'strv-state__frame' }, mapEl, legend);
   // Phones: the chosen district's headline sits right under the map, so a tap on the map is answered without scrolling.
   const pick = h('div', { class: 'strv-pick' });
-  const stage = h('div', { class: 'strv-state__stage' }, mapFrame, legend, pick);
+  const stage = h('div', { class: 'strv-state__stage' }, mapFrame, pick);
   const panel = h('div', { class: 'strv-state__panel' }, head, notice);
   const el = h('main', { class: 'strv-state', id: 'strv-main', 'data-cut-mode': 'false' }, panel, stage);
 
@@ -405,7 +411,8 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
 
     /** During the balancing replay the districts' populations are live: the populations before balancing plus the moves so far. */
     const liveDistricts = (base: readonly DistrictStats[]): DistrictStats[] => {
-      if (route.move === null || balance.status !== 'ready') return [...base];
+      // At the last move the plan on screen is the finished map itself, so its own numbers are shown.
+      if (route.move === null || balance.status !== 'ready' || shownPlan() === 'finished') return [...base];
       const log = balance.log;
       const pops = populationsAfter(log.before, log.moves, route.move);
       const ideal = bundle.stats.beforeBalancing.metrics.ideal;
@@ -424,6 +431,7 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
       const plan = shownPlan();
       const planStats = plan === 'finished' ? bundle.stats.finished : bundle.stats.beforeBalancing;
       const districts = liveDistricts(planStats.districts);
+      const partway = route.move !== null && isPartway(route.move, finishedMetrics.balanceMoves);
       const selected = route.district !== null && route.district <= entry.seats ? route.district : null;
       const shown = hovered ?? selected;
       const stats = shown !== null ? (districts.find((d) => d.district === shown) ?? null) : null;
@@ -437,7 +445,8 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
         plan,
         located: locatedDistrict(plan) === shown && shown !== null,
         preview: hovered !== null && hovered !== selected,
-        stage: balanceMode && balance.status === 'ready' ? `After balancing move ${route.move} of ${finishedMetrics.balanceMoves}.` : undefined,
+        stage: partway && balance.status === 'ready' ? `After balancing move ${route.move} of ${finishedMetrics.balanceMoves}.` : undefined,
+        partway,
       });
       const picked = selected !== null ? (districts.find((d) => d.district === selected) ?? null) : null;
       renderPick(plan, picked, picked ? bundle.colors[picked.district - 1]! : null);
@@ -452,8 +461,8 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
           ? `Your address, ${located.matchedAddress}, is in District ${here}. Shapes are simplified for display; close to a border, the block assignment file is the final word.`
           : `Your address, ${located.matchedAddress}, is marked on the map.`;
       }
-      const liveMove = balanceMode && balance.status === 'ready' ? route.move : null;
-      const nextListKey = `${plan}|${selected}|${locatedDistrict(plan) ?? ''}|${liveMove ?? ''}`;
+      const liveMove = partway && balance.status === 'ready' ? route.move : null;
+      const nextListKey = `${plan}|${selected}|${locatedDistrict(plan) ?? ''}|${liveMove ?? ''}|${partway}`;
       if (nextListKey !== listKey) {
         listKey = nextListKey;
         const which = liveMove !== null ? `after balancing move ${liveMove} of ${finishedMetrics.balanceMoves}` : plan === 'finished' ? 'finished map' : 'before balancing';
@@ -462,14 +471,20 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
           colors: bundle.colors,
           selected,
           located: locatedDistrict(plan),
-          caption: `${entry.name}, ${entry.seats} districts, ${which}. Ideal district: ${formatPeople(planStats.metrics.ideal)} people.`,
+          caption: `${entry.name}, ${entry.seats} districts, ${which}. Ideal district: ${formatPeople(planStats.metrics.ideal)} people.${partway ? ' Counties are as before balancing.' : ''}`,
+          partway,
         });
       }
       if (plan !== proofKey) {
         proofKey = plan;
         proof.update({ metrics: planStats.metrics, plan, abbr: entry.abbr });
       }
-      options!.update({ plan: route.plan, enacted: route.enacted, phase: cutMode ? 'cut' : balanceMode ? 'balance' : null, enactedFailed });
+      options!.update({
+        plan: route.plan,
+        enacted: route.enacted,
+        step: cutMode ? { phase: 'cut', k: Math.min(route.cut!, total), total } : balanceMode ? { phase: 'balance', m: route.move!, total: finishedMetrics.balanceMoves } : null,
+        enactedFailed,
+      });
       const pos: SeqPos | null = cutMode ? { phase: 'cut', k: Math.min(route.cut!, total) } : balanceMode ? { phase: 'balance', m: route.move! } : null;
       scrubber!.update(pos, { log: balance, canZoom: map !== null });
 

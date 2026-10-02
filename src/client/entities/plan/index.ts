@@ -20,6 +20,10 @@ export {
   moveDetail,
   movedBlocksAt,
   balancePlayInterval,
+  balancePlanAt,
+  isPartway,
+  rangeTrace,
+  isFastReplay,
   pageOf,
   pageAt,
 } from './replay';

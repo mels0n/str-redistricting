@@ -7,7 +7,7 @@ export interface DistrictListOptions {
 
 export interface DistrictList {
   el: HTMLElement;
-  update(data: { districts: DistrictStats[]; colors: string[]; selected: number | null; located: number | null; caption: string }): void;
+  update(data: { districts: DistrictStats[]; colors: string[]; selected: number | null; located: number | null; caption: string; partway?: boolean }): void;
 }
 
 /**
@@ -16,6 +16,7 @@ export interface DistrictList {
  */
 export function createDistrictList(opts: DistrictListOptions): DistrictList {
   const caption = h('caption', { class: 'strv-list__caption' });
+  const countiesHead = h('th', { scope: 'col', class: 'strv-list__num' }, 'Counties');
   const body = h('tbody');
   const table = h(
     'table',
@@ -31,7 +32,7 @@ export function createDistrictList(opts: DistrictListOptions): DistrictList {
         h('th', { scope: 'col', class: 'strv-list__num' }, 'Population'),
         h('th', { scope: 'col', class: 'strv-list__num' }, 'From ideal'),
         h('th', { scope: 'col', class: 'strv-list__num strv-list__pct' }, '%'),
-        h('th', { scope: 'col', class: 'strv-list__num' }, 'Counties'),
+        countiesHead,
       ),
     ),
     body,
@@ -56,8 +57,11 @@ export function createDistrictList(opts: DistrictListOptions): DistrictList {
 
   return {
     el,
-    update({ districts, colors, selected, located, caption: cap }) {
+    update({ districts, colors, selected, located, caption: cap, partway = false }) {
       caption.textContent = cap;
+      clear(countiesHead);
+      countiesHead.append('Counties');
+      if (partway) countiesHead.append(h('span', { class: 'strv-list__basis' }, 'before balancing'));
       // The rows are rebuilt; a visitor who picked a district by keyboard keeps their place.
       const active = document.activeElement;
       const keepFocus = active instanceof HTMLElement && body.contains(active) ? active.dataset.district : undefined;

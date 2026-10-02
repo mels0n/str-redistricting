@@ -12,6 +12,8 @@ export interface TicketData {
   preview: boolean;
   /** Names the moment shown, when it is not simply a plan (the balancing replay). */
   stage?: string;
+  /** True partway through the balancing replay: counties and contiguity are those of the plan before balancing. */
+  partway?: boolean;
 }
 
 export interface DistrictTicket {
@@ -76,7 +78,7 @@ export function createDistrictTicket(): DistrictTicket {
         h(
           'div',
           { class: 'strv-ticket__seg strv-ticket__seg--wide' },
-          h('dt', null, `${counties.length === 1 ? 'County' : 'Counties'} touched (${counties.length})`),
+          h('dt', null, `${counties.length === 1 ? 'County' : 'Counties'} touched${data.partway ? ' before balancing' : ''} (${counties.length})`),
           h(
             'dd',
             { class: 'strv-ticket__counties' },
@@ -94,7 +96,7 @@ export function createDistrictTicket(): DistrictTicket {
           ),
         ),
       ),
-      h('p', { class: 'strv-ticket__foot' }, `${d.contiguous ? 'One connected piece.' : 'Not one connected piece.'} ${data.stage ?? (data.plan === 'finished' ? 'Finished map.' : 'Before balancing.')}`),
+      h('p', { class: 'strv-ticket__foot' }, `${d.contiguous ? 'One connected piece' : 'Not one connected piece'}${data.partway ? ' before balancing' : ''}. ${data.stage ?? (data.plan === 'finished' ? 'Finished map.' : 'Before balancing.')}`),
     );
   }
 

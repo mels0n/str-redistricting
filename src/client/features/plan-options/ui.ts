@@ -1,4 +1,5 @@
-import { h, ordinal, type Plan } from '../../shared';
+import { h, ordinal, formatInt, type Plan } from '../../shared';
+import { balancePlanAt } from '../../entities/plan';
 
 export interface PlanOptionsOptions {
   enactedSource: string;
@@ -6,9 +7,35 @@ export interface PlanOptionsOptions {
   onEnacted(on: boolean): void;
 }
 
+/** The step of the cut sequence or the balancing replay on screen; null when neither is open. */
+export type ReplayStep = { phase: 'cut'; k: number; total: number } | { phase: 'balance'; m: number; total: number };
+
 export interface PlanOptions {
   el: HTMLElement;
-  update(state: { plan: Plan; enacted: boolean; phase: 'cut' | 'balance' | null; enactedFailed: boolean }): void;
+  update(state: { plan: Plan; enacted: boolean; step: ReplayStep | null; enactedFailed: boolean }): void;
+}
+
+/**
+ * Which plan the control shows as pressed. During the cuts and the balancing replay the replay is its own
+ * state, so neither plan is pressed; the replay's last move is the finished map, and the control says so.
+ */
+export function planPressed(plan: Plan, step: ReplayStep | null): Plan | null {
+  if (step === null) return plan;
+  if (step.phase === 'balance' && balancePlanAt(step.m, step.total) === 'finished') return 'finished';
+  return null;
+}
+
+/** One line naming the step the replay is on. */
+export function describeStep(step: ReplayStep): string {
+  if (step.phase === 'cut') {
+    return step.k === 0
+      ? 'Cut sequence, before the first cut. The cuts draw the plan before balancing.'
+      : `Cut sequence, cut ${formatInt(step.k)} of ${formatInt(step.total)}. The cuts draw the plan before balancing.`;
+  }
+  const at = `move ${formatInt(step.m)} of ${formatInt(step.total)}`;
+  if (step.m === 0) return 'Balancing replay, before the first move. It starts from the plan the cuts left.';
+  if (balancePlanAt(step.m, step.total) === 'finished') return `Balancing replay, ${at}. The last move ends on the finished map.`;
+  return `Balancing replay, ${at}. Partway between the two plans: the blocks moved so far are in their new districts.`;
 }
 
 /** Plain-language name of the Census file the enacted districts come from. */
@@ -52,15 +79,14 @@ export function createPlanOptions(opts: PlanOptionsOptions): PlanOptions {
 
   return {
     el,
-    update({ plan, enacted: on, phase, enactedFailed }) {
-      const cutMode = phase !== null;
-      cutNote.textContent =
-        phase === 'balance'
-          ? 'The balancing starts from the plan before balancing and its last move ends on the finished map.'
-          : 'The cut sequence shows the plan before balancing, as the cuts left it.';
+    update({ plan, enacted: on, step, enactedFailed }) {
+      const cutMode = step !== null;
+      if (step) cutNote.textContent = describeStep(step);
+      const pressed = planPressed(plan, step);
       for (const input of group.querySelectorAll('input')) {
-        // The cut sequence always shows the plan before balancing; the visitor's own choice comes back when it ends.
-        input.checked = input.value === (cutMode ? 'before' : plan);
+        // The replay is its own state: neither plan is pressed until it ends on the finished map.
+        // The visitor's own choice comes back when the replay is closed.
+        input.checked = input.value === pressed;
         input.disabled = cutMode;
       }
       group.toggleAttribute('disabled', cutMode);

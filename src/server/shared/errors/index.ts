@@ -17,6 +17,13 @@ export class DataError extends AppError {
   }
 }
 
+/** A download that did not complete; `status` is the HTTP status when there was a response. */
+export class DownloadError extends DataError {
+  constructor(message: string, readonly status?: number) {
+    super(message);
+  }
+}
+
 /** The one place errors become process exit codes. */
 export function exitCodeFor(err: unknown): number {
   if (err instanceof ConfigError) return 2;

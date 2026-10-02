@@ -44,3 +44,40 @@ export function parseConfig(argv: readonly string[]): Config {
   });
   return { states, angleStepDeg: parsed.data.angleStep, cacheDir: parsed.data.cacheDir, outDir: parsed.data.outDir };
 }
+
+export interface PublishConfig {
+  /** Limit the heavy work to these states; undefined means every state with a generated plan. */
+  readonly states: StateInfo[] | undefined;
+  readonly cacheDir: string;
+  readonly outDir: string;
+  readonly publicDir: string;
+}
+
+const RawPublish = z.object({
+  states: z.string().min(1).optional(),
+  cacheDir: z.string().min(1),
+  outDir: z.string().min(1),
+  publicDir: z.string().min(1),
+});
+
+/** Read once at boot from the command line. */
+export function parsePublishConfig(argv: readonly string[]): PublishConfig {
+  const { values } = parseArgs({
+    args: [...argv],
+    options: {
+      states: { type: 'string' },
+      'cache-dir': { type: 'string', default: 'data/raw' },
+      'out-dir': { type: 'string', default: 'out' },
+      'public-dir': { type: 'string', default: 'public/data' },
+    },
+    strict: true,
+  });
+  const parsed = RawPublish.safeParse({ states: values.states, cacheDir: values['cache-dir'], outDir: values['out-dir'], publicDir: values['public-dir'] });
+  if (!parsed.success) throw new ConfigError(parsed.error.issues.map((i) => i.message).join('; '));
+  const states = parsed.data.states?.split(',').map((s) => s.trim()).filter(Boolean).map((abbr) => {
+    const info = stateByAbbr(abbr);
+    if (!info) throw new ConfigError(`unknown state: ${abbr}`);
+    return info;
+  });
+  return { states, cacheDir: parsed.data.cacheDir, outDir: parsed.data.outDir, publicDir: parsed.data.publicDir };
+}

@@ -1,0 +1,109 @@
+import { join } from 'node:path';
+import AdmZip from 'adm-zip';
+import * as shapefile from 'shapefile';
+import { z } from 'zod';
+import { DataError, DownloadError } from '../../shared/errors/index.js';
+import { downloadCached } from '../../shared/http/index.js';
+
+/**
+ * Census cartographic boundary files. They are drawn for display only (state outlines, county names,
+ * today's enacted districts) and never feed the generator.
+ */
+const GENZ = 'https://www2.census.gov/geo/tiger';
+
+export const STATES_FILE = 'cb_2025_us_state_20m';
+/** County names must match the 2020 block files the generator reads, so the 2020 vintage is used. */
+export const COUNTIES_FILE = 'cb_2020_us_county_20m';
+/** Newest vintage first; the first one the Census Bureau serves is the enacted source. */
+export const ENACTED_CANDIDATES = ['cb_2025_us_cd119_500k', 'cb_2024_us_cd119_500k', 'cb_2023_us_cd118_500k'] as const;
+
+export const boundaryUrl = (file: string): string => `${GENZ}/GENZ${file.slice(3, 7)}/shp/${file}.zip`;
+
+const Fips2 = z.string().length(2);
+
+export const StateRecord = z.object({ STATEFP: Fips2, STUSPS: z.string().length(2), NAME: z.string().min(1) });
+export const CountyRecord = z.object({ STATEFP: Fips2, COUNTYFP: z.string().length(3), NAMELSAD: z.string().min(1) });
+export interface CdRecord {
+  readonly stateFp: string;
+  /** District label as the Census Bureau publishes it, e.g. "Congressional District 3". */
+  readonly label: string;
+  /** Two-digit district code: "00" for an at-large state, "98" for a non-voting delegate. */
+  readonly code: string;
+}
+const CdRaw = z.object({ STATEFP: Fips2, NAMELSAD: z.string().min(1) }).passthrough();
+
+/** The district-code column is named for the Congress (CD119FP, CD118FP, ...), so find it by pattern. */
+export function parseCdRecord(props: unknown): CdRecord {
+  const base = CdRaw.parse(props);
+  const key = Object.keys(base).find((k) => /^CD\d+FP$/.test(k));
+  const code = z.string().length(2).parse(key === undefined ? undefined : base[key]);
+  return { stateFp: base.STATEFP, label: base.NAMELSAD, code };
+}
+
+export interface RawFeature {
+  readonly properties: unknown;
+  readonly geometry: unknown;
+}
+
+export async function readBoundaryZip(zipPath: string, file: string): Promise<RawFeature[]> {
+  const zip = new AdmZip(zipPath);
+  const entry = (ext: string) => {
+    const e = zip.getEntries().find((x) => x.entryName.toLowerCase().endsWith(ext));
+    if (!e) throw new DataError(`${file}: archive has no ${ext} file`);
+    return e.getData();
+  };
+  const source = await shapefile.open(entry('.shp'), entry('.dbf'));
+  const out: RawFeature[] = [];
+  for (;;) {
+    const r = await source.read();
+    if (r.done) break;
+    out.push({ properties: r.value.properties, geometry: r.value.geometry });
+  }
+  return out;
+}
+
+async function fetchBoundary(file: string, cacheDir: string): Promise<RawFeature[]> {
+  const zip = await downloadCached(boundaryUrl(file), join(cacheDir, `${file}.zip`), file);
+  return readBoundaryZip(zip, file);
+}
+
+export interface StateOutline {
+  readonly abbr: string;
+  readonly name: string;
+  readonly geometry: unknown;
+}
+
+export async function loadStates(cacheDir: string): Promise<StateOutline[]> {
+  return (await fetchBoundary(STATES_FILE, cacheDir)).map((f) => {
+    const r = StateRecord.parse(f.properties);
+    return { abbr: r.STUSPS, name: r.NAME, geometry: f.geometry };
+  });
+}
+
+/** County FIPS (state + county, five digits) to county name. */
+export async function loadCountyNames(cacheDir: string): Promise<Map<string, string>> {
+  const names = new Map<string, string>();
+  for (const f of await fetchBoundary(COUNTIES_FILE, cacheDir)) {
+    const c = CountyRecord.parse(f.properties);
+    names.set(c.STATEFP + c.COUNTYFP, c.NAMELSAD);
+  }
+  return names;
+}
+
+export interface EnactedFile {
+  readonly source: string;
+  readonly features: { record: CdRecord; geometry: unknown }[];
+}
+
+/** All enacted districts from the newest Congress file the Census Bureau serves. */
+export async function loadEnacted(cacheDir: string): Promise<EnactedFile> {
+  for (const source of ENACTED_CANDIDATES) {
+    try {
+      const features = (await fetchBoundary(source, cacheDir)).map((f) => ({ record: parseCdRecord(f.properties), geometry: f.geometry }));
+      return { source, features };
+    } catch (err) {
+      if (!(err instanceof DownloadError && err.status === 404)) throw err;
+    }
+  }
+  throw new DataError(`no enacted-district file available (tried ${ENACTED_CANDIDATES.join(', ')})`);
+}

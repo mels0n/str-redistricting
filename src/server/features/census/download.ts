@@ -1,36 +1,18 @@
-import { existsSync } from 'node:fs';
-import { mkdir, readFile, rename, rm, writeFile } from 'node:fs/promises';
+import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import AdmZip from 'adm-zip';
 import * as shapefile from 'shapefile';
 import type { Block } from '../../entities/census-block/index.js';
 import type { StateInfo } from '../../shared/apportionment/index.js';
 import { DataError } from '../../shared/errors/index.js';
+import { downloadCached } from '../../shared/http/index.js';
 import { parseBlockFeature } from './parse.js';
 
 export const blocksUrl = (fips: string): string =>
   `https://www2.census.gov/geo/tiger/TIGER2020/TABBLOCK20/tl_2020_${fips}_tabblock20.zip`;
 
 export async function ensureZip(state: StateInfo, cacheDir: string): Promise<string> {
-  await mkdir(cacheDir, { recursive: true });
-  const path = join(cacheDir, `tl_2020_${state.fips}_tabblock20.zip`);
-  if (existsSync(path)) return path;
-  const part = `${path}.part`;
-  try {
-    const res = await fetch(blocksUrl(state.fips));
-    if (!res.ok) throw new DataError(`download failed for ${state.abbr}: HTTP ${res.status}`);
-    const body = Buffer.from(await res.arrayBuffer());
-    const expected = res.headers.get('content-length');
-    if (expected !== null && Number(expected) !== body.length) {
-      throw new DataError(`download for ${state.abbr} truncated: expected ${expected} bytes, got ${body.length}`);
-    }
-    await writeFile(part, body);
-    await rename(part, path);
-  } catch (err) {
-    await rm(part, { force: true });
-    throw err;
-  }
-  return path;
+  return downloadCached(blocksUrl(state.fips), join(cacheDir, `tl_2020_${state.fips}_tabblock20.zip`), state.abbr);
 }
 
 export async function loadStateBlocks(state: StateInfo, cacheDir: string): Promise<Block[]> {

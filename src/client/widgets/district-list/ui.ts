@@ -58,6 +58,9 @@ export function createDistrictList(opts: DistrictListOptions): DistrictList {
     el,
     update({ districts, colors, selected, located, caption: cap }) {
       caption.textContent = cap;
+      // The rows are rebuilt; a visitor who picked a district by keyboard keeps their place.
+      const active = document.activeElement;
+      const keepFocus = active instanceof HTMLElement && body.contains(active) ? active.dataset.district : undefined;
       clear(body);
       window.requestAnimationFrame(fit);
       for (const d of districts) {
@@ -67,6 +70,7 @@ export function createDistrictList(opts: DistrictListOptions): DistrictList {
           {
             type: 'button',
             class: 'strv-list__pick',
+            'data-district': d.district,
             'aria-pressed': String(isSel),
             'aria-label': `District ${d.district}${located === d.district ? ', your address' : ''}`,
             onclick: () => opts.onSelect(d.district),
@@ -87,6 +91,7 @@ export function createDistrictList(opts: DistrictListOptions): DistrictList {
           ),
         );
       }
+      if (keepFocus !== undefined) body.querySelector<HTMLElement>(`[data-district="${keepFocus}"]`)?.focus({ preventScroll: true });
     },
   };
 }

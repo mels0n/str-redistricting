@@ -162,6 +162,8 @@ export function createCutScrubber(opts: CutScrubberOptions): CutScrubber {
     el.dataset.active = String(active);
     if (!active) {
       stopPlaying();
+      // The sequence controls are about to disappear; a keyboard visitor who was on one lands on the button that reopens it.
+      if (wasActive && controls.contains(document.activeElement)) start.focus({ preventScroll: true });
       return;
     }
     step = cutStep(k!, total);
@@ -174,7 +176,8 @@ export function createCutScrubber(opts: CutScrubberOptions): CutScrubber {
       (li as HTMLElement).dataset.state = kk === step.k ? 'current' : kk < step.k ? 'done' : 'todo';
     }
     renderDetail();
-    live.textContent = describeStep(step, opts.cuts);
+    // The slider reads its own value text when it has focus; the live region covers Play and the buttons.
+    if (document.activeElement !== range) live.textContent = describeStep(step, opts.cuts);
     if (!wasActive) {
       // Keep keyboard users on the control they used to enter the sequence.
       if (document.activeElement === start) range.focus();

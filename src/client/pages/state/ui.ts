@@ -50,7 +50,8 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
   const meta = h('dl', { class: 'strv-state__meta' });
   const head = h('header', { class: 'strv-state__head' }, back, h1, meta);
 
-  const notice = h('p', { class: 'strv-notice', role: 'status', hidden: true });
+  // Spoken through announce(); a hidden element cannot be a live region.
+  const notice = h('p', { class: 'strv-notice', hidden: true });
   const mapEl = h('div', { class: 'strv-state__map', role: 'region', 'aria-label': 'District map', 'aria-busy': 'true' });
   const legend = h('div', { class: 'strv-legend', 'aria-hidden': 'true' });
   const mapFrame = h('div', { class: 'strv-state__frame' }, mapEl, legend);
@@ -296,6 +297,10 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
     locate(bundle);
     if (located?.district && route.district === null) go({ district: located.district }, true);
 
+    // Stepping through the cuts changes neither the list nor the numbers; rebuild them only when their content would change.
+    let listKey = '';
+    let proofKey = '';
+
     render = (light = false) => {
       if (!alive) return;
       const cutMode = route.cut !== null;
@@ -324,14 +329,21 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
           ? `Your address, ${located.matchedAddress}, is in District ${located.district}. Shapes are simplified for display; close to a border, the block assignment file is the final word.`
           : `Your address, ${located.matchedAddress}, is marked on the map.`;
       }
-      list.update({
-        districts: planStats.districts,
-        colors: bundle.colors,
-        selected,
-        located: located?.district ?? null,
-        caption: `${entry.name}, ${entry.seats} districts, ${plan === 'official' ? 'official map' : 'before balancing'}. Ideal district: ${formatPeople(planStats.metrics.ideal)} people.`,
-      });
-      proof.update({ metrics: planStats.metrics, plan, abbr: entry.abbr });
+      const nextListKey = `${plan}|${selected}|${located?.district ?? ''}`;
+      if (nextListKey !== listKey) {
+        listKey = nextListKey;
+        list.update({
+          districts: planStats.districts,
+          colors: bundle.colors,
+          selected,
+          located: located?.district ?? null,
+          caption: `${entry.name}, ${entry.seats} districts, ${plan === 'official' ? 'official map' : 'before balancing'}. Ideal district: ${formatPeople(planStats.metrics.ideal)} people.`,
+        });
+      }
+      if (plan !== proofKey) {
+        proofKey = plan;
+        proof.update({ metrics: planStats.metrics, plan, abbr: entry.abbr });
+      }
       options!.update({ plan: route.plan, enacted: route.enacted, cutMode, enactedFailed });
       scrubber!.update(route.cut === null ? null : Math.min(route.cut, total));
 

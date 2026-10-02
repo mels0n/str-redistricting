@@ -1,4 +1,4 @@
-import { h, clear, formatInt, formatPeople, formatSignedPeople, formatPct, peopleNoun, type Plan } from '../../shared';
+import { h, clear, announce, formatInt, formatPeople, formatSignedPeople, formatPct, peopleNoun, type Plan } from '../../shared';
 import type { DistrictStats } from '../../entities/plan';
 
 export interface TicketData {
@@ -17,16 +17,29 @@ export interface DistrictTicket {
   update(data: TicketData): void;
 }
 
+function describeDistrict(d: DistrictStats, ideal: number): string {
+  const gap = d.dev === 0 ? 'exactly the ideal' : `${formatPeople(Math.abs(d.dev))} ${peopleNoun(d.dev)} ${d.dev > 0 ? 'above' : 'below'} the ideal of ${formatPeople(ideal)}`;
+  return `District ${d.district}. Population ${formatInt(d.pop)}, ${gap}. Touches ${d.counties.length} ${d.counties.length === 1 ? 'county' : 'counties'}.`;
+}
+
 /**
  * The district ticket: one district's numbers as a segmented strip, every
  * figure tabular so tickets line up when compared.
  */
 export function createDistrictTicket(): DistrictTicket {
-  const el = h('section', { class: 'strv-ticket', 'aria-label': 'Selected district', 'aria-live': 'polite' });
+  // Not a live region: the numbers change as the pointer passes over districts. A chosen district is announced once, below.
+  const el = h('section', { class: 'strv-ticket', 'aria-label': 'Selected district' });
+  let announced: string | null | undefined;
 
   function update(data: TicketData): void {
     clear(el);
     const d = data.district;
+    // Say what a visitor chose (not what the pointer passes over). The first render is the page opening, not a choice.
+    const chosen = data.preview || !d ? null : `${d.district}|${data.plan}`;
+    if (!data.preview && chosen !== announced) {
+      if (announced !== undefined && d) announce(describeDistrict(d, data.ideal));
+      announced = chosen;
+    }
     el.dataset.empty = String(!d);
     el.dataset.preview = String(data.preview);
     if (!d) {

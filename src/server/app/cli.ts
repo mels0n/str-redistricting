@@ -5,7 +5,7 @@ import { buildTopology, ensureZip, loadStateBlocks } from '../entities/census-bl
 import { balance, balanceLog, peopleMoved } from '../features/balance/index.js';
 import { bordersGeoJson, cutsGeoJson, districtsGeoJson, writePlan } from '../features/export/index.js';
 import { assignmentCsv, computeMetrics } from '../features/metrics/index.js';
-import { createContext, splitState } from '../features/splitline/index.js';
+import { createContext, ScanPool, splitState } from '../features/splitline/index.js';
 import { parseConfig } from '../shared/config/index.js';
 import { exitCodeFor } from '../shared/errors/index.js';
 
@@ -13,6 +13,7 @@ async function main(): Promise<void> {
   const config = parseConfig(process.argv.slice(2));
   const summary: Record<string, unknown>[] = [];
   let firstError: unknown;
+  const pool = config.threads > 1 ? new ScanPool(config.threads) : undefined;
   for (const state of config.states) {
     try {
       const t0 = performance.now();
@@ -20,7 +21,7 @@ async function main(): Promise<void> {
       const blocks = await loadStateBlocks(state, config.cacheDir);
       const topo = buildTopology(blocks);
       const ctx = createContext(blocks, config.angleStepDeg, topo);
-      const split = splitState(ctx, state.seats);
+      const split = splitState(ctx, state.seats, { pool });
       const balanced = balance(blocks, topo, split.assignment, state.seats);
       const runtimeMs = Math.round(performance.now() - t0);
       const sum = (f: (c: (typeof split.cuts)[number]) => number): number => split.cuts.reduce((s, c) => s + f(c), 0);
@@ -65,6 +66,7 @@ async function main(): Promise<void> {
       summary.push({ state: state.abbr, status: err instanceof Error ? err.message : String(err), seats: state.seats });
     }
   }
+  await pool?.close();
   console.table(summary);
   if (firstError !== undefined) throw firstError;
 }

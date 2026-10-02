@@ -1,3 +1,4 @@
+import { availableParallelism } from 'node:os';
 import { describe, expect, it } from 'vitest';
 import { parseConfig } from '../../../src/server/shared/config/index.js';
 import { ConfigError } from '../../../src/server/shared/errors/index.js';
@@ -18,5 +19,13 @@ describe('parseConfig', () => {
   });
   it('rejects an angle step that does not divide 180', () => {
     expect(() => parseConfig(['--states', 'CO', '--angle-step', '0.7'])).toThrow(ConfigError);
+  });
+  it('defaults threads to the hardware threads minus two, at least one', () => {
+    expect(parseConfig(['--states', 'CO']).threads).toBe(Math.max(1, availableParallelism() - 2));
+    expect(parseConfig(['--states', 'CO', '--threads', '1']).threads).toBe(1);
+    expect(parseConfig(['--states', 'CO', '--threads', '6']).threads).toBe(6);
+  });
+  it('rejects a thread count that is not a positive whole number', () => {
+    for (const t of ['0', '-2', '1.5', 'many']) expect(() => parseConfig(['--states', 'CO', `--threads=${t}`])).toThrow(ConfigError);
   });
 });

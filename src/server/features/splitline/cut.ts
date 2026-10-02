@@ -13,10 +13,10 @@ export interface CutResult {
   readonly lengthM: number;
   /** The guide line's portion inside the piece. */
   readonly spans: readonly (readonly [LonLat, LonLat])[];
-  /** Candidates passed over: guide lines not crossing the piece exactly once, plus sides that failed validation. */
+  /** Candidates passed over: guide lines over the stray cap, plus sides that failed validation. */
   readonly skipped: number;
-  /** Guide lines rejected because they do not cross the piece outline exactly once (included in skipped). */
-  readonly crossingRejected: number;
+  /** Guide lines rejected because their strays hold more than 1% of the piece's ideal district population (included in skipped). */
+  readonly strayCapRejected: number;
   /** Blocks whose side changed when stray pieces joined the side around them, and their total population. */
   readonly strayBlocksMoved: number;
   readonly strayPopMoved: number;
@@ -248,13 +248,16 @@ export function findCut(ctx: SplitContext, members: Int32Array, seats: number, v
   };
 
   const candidates: Candidate[] = [];
-  let crossingRejected = 0;
+  let strayCapRejected = 0;
   for (let k = 0; k < ctx.angleCount; k++) {
-    const th = setKeys(k);
+    setKeys(k);
     for (const lowSeats of orientations) {
       const offset = split(lowSeats);
-      if (crossingCount(sx, sy, th, offset) >> 1 !== 1) { crossingRejected++; continue; }
-      candidates.push({ k, lowSeats, offset, lengthM: evaluate().lengthM });
+      const e = evaluate();
+      // Stray cap: strays may hold at most 1% of the piece's ideal district population (pop / seats).
+      // Populations are integers, so this form of the comparison is exact.
+      if (e.movedPop * 100 * seats > total) { strayCapRejected++; continue; }
+      candidates.push({ k, lowSeats, offset, lengthM: e.lengthM });
     }
   }
 
@@ -265,7 +268,7 @@ export function findCut(ctx: SplitContext, members: Int32Array, seats: number, v
 
   const check: SideValidator = validate ?? ((lo, hi) => isConnected(topo, lo) && isConnected(topo, hi));
   const side = new Uint8Array(m);
-  let skipped = crossingRejected;
+  let skipped = strayCapRejected;
   for (const c of candidates) {
     const th = setKeys(c.k);
     split(c.lowSeats);
@@ -278,25 +281,13 @@ export function findCut(ctx: SplitContext, members: Int32Array, seats: number, v
       return {
         low, high, lowSeats: c.lowSeats, highSeats: seats - c.lowSeats,
         angleDeg: (c.k * 180) / ctx.angleCount, lengthM: e.lengthM,
-        spans: spanLength(ctx, sx, sy, th, c.offset).spans, skipped, crossingRejected,
+        spans: spanLength(ctx, sx, sy, th, c.offset).spans, skipped, strayCapRejected,
         strayBlocksMoved: e.movedBlocks, strayPopMoved: e.movedPop,
       };
     }
     skipped++;
   }
-  throw new DataError('no straight line produces two connected sides');
-}
-
-/** Number of times the line {p . n = offset} crosses the piece outline. */
-function crossingCount(sx: Float64Array, sy: Float64Array, th: number, offset: number): number {
-  const nx = Math.cos(th), ny = -Math.sin(th);
-  let n = 0;
-  for (let i = 0; i < sx.length; i += 2) {
-    const s1 = sx[i]! * nx + sy[i]! * ny - offset;
-    const s2 = sx[i + 1]! * nx + sy[i + 1]! * ny - offset;
-    if (s1 < 0 !== s2 < 0) n++;
-  }
-  return n;
+  throw new DataError('no straight line meets the stray cap and produces two connected sides');
 }
 
 /** Great-circle length of the line {p . n = offset} inside the piece, by even-odd pairing of boundary crossings. */

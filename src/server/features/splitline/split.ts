@@ -9,7 +9,7 @@ export interface CutRecord {
   readonly angleDeg: number;
   readonly lengthM: number;
   readonly skipped: number;
-  readonly crossingRejected: number;
+  readonly strayCapRejected: number;
   readonly strayBlocksMoved: number;
   readonly strayPopMoved: number;
   readonly spans: CutResult['spans'];
@@ -26,7 +26,7 @@ export function splitState(ctx: SplitContext, seats: number): SplitResult {
   const visit = (members: Int32Array, n: number, first: number, depth: number): void => {
     if (n === 1) { for (const i of members) assignment[i] = first; return; }
     const c = findCut(ctx, members, n);
-    cuts.push({ depth, seats: n, lowSeats: c.lowSeats, highSeats: c.highSeats, angleDeg: c.angleDeg, lengthM: c.lengthM, skipped: c.skipped, crossingRejected: c.crossingRejected, strayBlocksMoved: c.strayBlocksMoved, strayPopMoved: c.strayPopMoved, spans: c.spans });
+    cuts.push({ depth, seats: n, lowSeats: c.lowSeats, highSeats: c.highSeats, angleDeg: c.angleDeg, lengthM: c.lengthM, skipped: c.skipped, strayCapRejected: c.strayCapRejected, strayBlocksMoved: c.strayBlocksMoved, strayPopMoved: c.strayPopMoved, spans: c.spans });
     visit(c.low, c.lowSeats, first, depth + 1);
     visit(c.high, c.highSeats, first + c.lowSeats, depth + 1);
   };

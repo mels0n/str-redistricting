@@ -25,7 +25,7 @@ async function main(): Promise<void> {
       // Stray counts are net per block, both directions summed over all cuts.
       const common = {
         state: state.abbr, angleStepDeg: config.angleStepDeg, bridges: topo.bridges.length,
-        cutsSkipped: sum((c) => c.skipped), crossingRejected: sum((c) => c.crossingRejected),
+        cutsSkipped: sum((c) => c.skipped), strayCapRejected: sum((c) => c.strayCapRejected),
         strayBlocksMoved: sum((c) => c.strayBlocksMoved), strayPopMoved: sum((c) => c.strayPopMoved),
       };
       const before = computeMetrics(blocks, topo, split.assignment, state.seats);
@@ -47,7 +47,7 @@ async function main(): Promise<void> {
         state: state.abbr, status: 'ok', seats: state.seats, blocks: blocks.length,
         rangePersons: official.rangePersons, rangePct: Number(official.rangePct.toFixed(4)),
         beforeBalancingRange: before.rangePersons, contiguous: official.allContiguous,
-        cutsSkipped: common.cutsSkipped, strayPop: common.strayPopMoved, balanceMoves: balanced.moves,
+        cutsSkipped: common.cutsSkipped, strayCapRejected: common.strayCapRejected, strayPop: common.strayPopMoved, balanceMoves: balanced.moves,
         countiesSplit: `${official.countiesSplit}/${official.countiesTotal}`, runtimeMs,
         sha256: official.assignmentSha256.slice(0, 12),
       });

@@ -63,21 +63,47 @@ export function offsetToClear(origin: { x: number; y: number }, size: { w: numbe
   return findOffset(origin, size, obstacles, bounds, gap, radii) ?? { dx: 0, dy: 0 };
 }
 
-/** Groups of point indexes that sit within `maxDist` pixels of each other, directly or through a chain. */
-export function clusterPoints(points: readonly { x: number; y: number }[], maxDist: number): number[][] {
-  const parent = points.map((_, i) => i);
-  const find = (i: number): number => (parent[i] === i ? i : (parent[i] = find(parent[i]!)));
-  for (let i = 0; i < points.length; i++) {
-    for (let j = i + 1; j < points.length; j++) {
-      if (Math.hypot(points[i]!.x - points[j]!.x, points[i]!.y - points[j]!.y) <= maxDist) parent[find(i)] = find(j);
+function linkClusters(points: readonly { x: number; y: number }[], idx: readonly number[], maxDist: number): number[][] {
+  const parent = new Map<number, number>(idx.map((i) => [i, i]));
+  const find = (i: number): number => {
+    const q = parent.get(i)!;
+    if (q === i) return i;
+    const root = find(q);
+    parent.set(i, root);
+    return root;
+  };
+  for (let x = 0; x < idx.length; x++) {
+    for (let y = x + 1; y < idx.length; y++) {
+      const i = idx[x]!;
+      const j = idx[y]!;
+      if (Math.hypot(points[i]!.x - points[j]!.x, points[i]!.y - points[j]!.y) <= maxDist) parent.set(find(i), find(j));
     }
   }
   const groups = new Map<number, number[]>();
-  points.forEach((_, i) => {
+  for (const i of idx) {
     const r = find(i);
     groups.set(r, [...(groups.get(r) ?? []), i]);
-  });
+  }
   return [...groups.values()];
+}
+
+/**
+ * Groups of point indexes that sit within `maxDist` pixels of each other, directly or through a chain.
+ * A chain that stretches farther than `maxSpan` across (two cities joined by small districts between them)
+ * is cut apart by tightening the link distance until each group is compact.
+ */
+export function clusterPoints(points: readonly { x: number; y: number }[], maxDist: number, maxSpan = Infinity): number[][] {
+  const span = (g: readonly number[]): number => {
+    let m = 0;
+    for (const i of g) for (const j of g) m = Math.max(m, Math.hypot(points[i]!.x - points[j]!.x, points[i]!.y - points[j]!.y));
+    return m;
+  };
+  const split = (g: number[], dist: number): number[][] => {
+    if (g.length < 2 || span(g) <= maxSpan || dist < 8) return [g];
+    const parts = linkClusters(points, g, dist * 0.75);
+    return parts.flatMap((part) => split(part, dist * 0.75));
+  };
+  return linkClusters(points, points.map((_, i) => i), maxDist).flatMap((g) => split(g, maxDist));
 }
 
 /* ---------- District numbers that stay with their own district ---------- */
@@ -215,6 +241,11 @@ export interface NumberSpot {
   y: number;
 }
 
+/** A crowd marker's spot, with the point inside one of its own districts that its leader starts from. */
+export interface MarkerSpot extends NumberSpot {
+  anchor: Pt;
+}
+
 const SPOT_ANGLES = [0, 180, 90, 270, 45, 225, 135, 315, 22, 202, 112, 292, 67, 247, 157, 337];
 
 /** Directions for spots outside the state: every 11.25 degrees, the coarse ones first. */
@@ -302,14 +333,19 @@ export class NumberPlacer {
    * A spot for the marker that stands in for a crowd of unplaced numbers: inside
    * one of those districts (the biggest that has room), else outside the state.
    */
-  placeMarker(size: { w: number; h: number }, members: readonly NumberItem[], centroid: Pt, reach = 160): NumberSpot | null {
+  placeMarker(size: { w: number; h: number }, members: readonly NumberItem[], centroid: Pt, reach = 160): MarkerSpot | null {
     const area = (s: Shape): number => (s.bbox[2] - s.bbox[0]) * (s.bbox[3] - s.bbox[1]);
-    for (const m of [...members].sort((a, b) => area(b.shape) - area(a.shape))) {
+    for (const m of [...members].sort((x, y) => area(y.shape) - area(x.shape))) {
       const at = this.inside(m.shape, m.anchor, size);
-      if (at) return this.take('inside', at, size, m.anchor);
+      if (at) return { ...this.take('inside', at, size, m.anchor), anchor: m.anchor };
     }
     // A crowd in the middle of the state has no empty ground close by; the marker may sit a little farther out, on a longer leader.
-    const out = this.outside(centroid, size, reach);
-    return out ? this.take('outside', out, size, centroid) : null;
+    // The leader starts inside one of the crowd's own districts (the nearest to the middle of the crowd), never in a district that is not in it.
+    const near = [...members].sort((x, y) => Math.hypot(x.anchor.x - centroid.x, x.anchor.y - centroid.y) - Math.hypot(y.anchor.x - centroid.x, y.anchor.y - centroid.y));
+    for (const m of near.slice(0, 4)) {
+      const out = this.outside(m.anchor, size, reach);
+      if (out) return { ...this.take('outside', out, size, m.anchor), anchor: m.anchor };
+    }
+    return null;
   }
 }

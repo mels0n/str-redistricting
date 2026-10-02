@@ -13,11 +13,12 @@ import {
   firstClearSpot,
   offsetToClear,
   clusterPoints,
+  boxesOverlap,
   makeShape,
   NumberPlacer,
   type Box,
   type NumberItem,
-  type NumberSpot,
+  type MarkerSpot,
   type Pt,
   type Shape,
   prefersReducedMotion,
@@ -200,16 +201,31 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
       const f = container.getBoundingClientRect();
       placed.push({ x: c.left - f.left + c.width / 2, y: c.top - f.top + c.height / 2, w: c.width + 4, h: c.height + 4 });
     }
-    // Cut numbers: newest first, kept on their line.
-    for (const tag of [...cutTags].reverse()) {
+    // Cut numbers: the newest goes first and is never displaced (it takes the best spot on its line that is in view);
+    // the others keep clear of it and of each other where their lines allow, and may overlap when they cannot.
+    const newestFirst = [...cutTags].reverse();
+    let newestBox: Box | null = null;
+    for (const [n, tag] of newestFirst.entries()) {
       const tagSize = { w: tag.el.offsetWidth || 24, h: tag.el.offsetHeight || 20 };
       const spots = tag.spots.map((s) => map.project(s as [number, number]));
+      if (n === 0) {
+        // In view and clear of the zoom buttons when its line allows; otherwise just in view.
+        const at0 = firstClearSpot(spots, tagSize, placed, frame) ?? firstClearSpot(spots, tagSize, [], frame) ?? 0;
+        tag.marker.setLngLat(tag.spots[at0]! as [number, number]);
+        tag.marker.setOffset([0, 0]);
+        newestBox = { x: spots[at0]!.x, y: spots[at0]!.y, ...tagSize };
+        placed.push(newestBox);
+        continue;
+      }
       let at = firstClearSpot(spots, tagSize, [...placed, ...natural], frame) ?? firstClearSpot(spots, tagSize, placed, frame);
       let nudge = { dx: 0, dy: 0 };
       if (at === null) {
         // A short line with no clear spot on it: the number sits as close to the line as the others allow.
-        at = 0;
-        nudge = offsetToClear(spots[0]!, tagSize, placed, frame, 0, [12, 20, 28, 36, 48]);
+        // Failing that, at least never on the newest number.
+        at = (newestBox ? firstClearSpot(spots, tagSize, [newestBox], frame) : null) ?? 0;
+        nudge = offsetToClear(spots[at]!, tagSize, placed, frame, 2, [12, 20, 28, 36, 48]);
+        const moved = { x: spots[at]!.x + nudge.dx, y: spots[at]!.y + nudge.dy, ...tagSize };
+        if (newestBox && boxesOverlap(moved, newestBox, 2)) nudge = offsetToClear(spots[at]!, tagSize, [newestBox], frame, 2, [12, 20, 28, 36, 48, 64, 80]);
       }
       tag.marker.setLngLat(tag.spots[at]! as [number, number]);
       tag.marker.setOffset([nudge.dx, nudge.dy]);
@@ -238,34 +254,28 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
 
     // Crowd markers, one per cluster of numbers that did not fit.
     const inFrame = unplaced.filter((i) => pts[i]!.x >= 0 && pts[i]!.y >= 0 && pts[i]!.x <= frame.w && pts[i]!.y <= frame.h);
-    const groups = clusterPoints(inFrame.map((i) => pts[i]!), 44).map((g) => g.map((k) => inFrame[k]!));
+    const groups = clusterPoints(inFrame.map((i) => pts[i]!), 44, 90).map((g) => g.map((k) => inFrame[k]!));
     const chipSize = { w: 44, h: 28 };
     chipTargets = [];
     const centroidOf = (g: number[]): Pt => ({ x: g.reduce((t, i) => t + pts[i]!.x, 0) / g.length, y: g.reduce((t, i) => t + pts[i]!.y, 0) / g.length });
-    const crowds: { members: number[]; centroid: Pt; spot: NumberSpot }[] = [];
+    const crowds: { members: number[]; spot: MarkerSpot }[] = [];
     const failed: number[][] = [];
     for (const g of groups) {
+      const ms = g.map((i) => items[i]!);
       const centroid = centroidOf(g);
-      const spot = placer.placeMarker(chipSize, g.map((i) => items[i]!), centroid);
-      if (spot) crowds.push({ members: g, centroid, spot });
+      // Each cluster gets its own marker; a farther spot is tried before giving up on one.
+      const spot = [160, 220, 300, 400].reduce<MarkerSpot | null>((found, reach) => found ?? placer.placeMarker(chipSize, ms, centroid, reach), null);
+      if (spot) crowds.push({ members: g, spot });
       else failed.push(g);
     }
-    // A crowd that found no room joins the nearest marker, so no district is left without a way to zoom to it.
+    // Only a crowd that found no room anywhere joins the nearest marker, so no district is left without a way to zoom to it.
     for (const g of failed) {
       const c = centroidOf(g);
-      const near = [...crowds].sort((x, y) => Math.hypot(x.centroid.x - c.x, x.centroid.y - c.y) - Math.hypot(y.centroid.x - c.x, y.centroid.y - c.y))[0];
+      const near = [...crowds].sort((x, y) => Math.hypot(centroidOf(x.members).x - c.x, centroidOf(x.members).y - c.y) - Math.hypot(centroidOf(y.members).x - c.x, centroidOf(y.members).y - c.y))[0];
       if (near) near.members.push(...g);
-      else {
-        const all = failed.flat();
-        // Nothing placed yet: the one marker for everything may sit as far out as it must.
-        const ms = all.map((i) => items[i]!);
-        const spot = placer.placeMarker(chipSize, ms, centroidOf(all), 220) ?? placer.placeMarker(chipSize, ms, centroidOf(all), 400);
-        if (spot) crowds.push({ members: all, centroid: centroidOf(all), spot });
-        break;
-      }
     }
     let used = 0;
-    for (const { members, centroid, spot } of crowds) {
+    for (const { members, spot } of crowds) {
       const chip = chipAt(used);
       const at = map.unproject([spot.x, spot.y]);
       chip.el.textContent = `+${members.length}`;
@@ -275,7 +285,7 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
       chip.on = true;
       chipTargets[used] = members;
       if (spot.kind === 'outside') {
-        const from = map.unproject([centroid.x, centroid.y]);
+        const from = map.unproject([spot.anchor.x, spot.anchor.y]);
         leaderPairs.push({ anchor: [from.lng, from.lat], at: [at.lng, at.lat] });
       }
       used++;

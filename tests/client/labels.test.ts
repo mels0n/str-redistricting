@@ -223,3 +223,46 @@ describe('district numbers stay with their own district', () => {
     expect(groups.map((g) => g.length).sort()).toEqual([1, 3]);
   });
 });
+
+describe('crowd markers keep their leaders inside their own districts', () => {
+  const frame = { w: 390, h: 300 };
+  const rect = (x0: number, y0: number, x1: number, y1: number): Shape => makeShape([[[{ x: x0, y: y0 }, { x: x1, y: y0 }, { x: x1, y: y1 }, { x: x0, y: y1 }]]]);
+  const size = { w: 28, h: 28 };
+  const mid = (s: Shape): Pt => ({ x: (s.bbox[0] + s.bbox[2]) / 2, y: (s.bbox[1] + s.bbox[3]) / 2 });
+  const item = (shape: Shape): NumberItem => ({ anchor: mid(shape), size, shape });
+  const marker = { w: 44, h: 28 };
+
+  it('starts a marker leader from a member district, never from a district outside the crowd', () => {
+    // Two tiny crowd members in the middle of a state; a big non-member district sits between them and the centroid.
+    const a = rect(150, 150, 156, 156);
+    const b = rect(240, 150, 246, 156);
+    const between = rect(157, 100, 239, 200);
+    const outer = rect(100, 100, 300, 200);
+    const shapes = [a, b, between, outer];
+    const placer = new NumberPlacer(shapes, [], frame);
+    const centroid = { x: 198, y: 153 };
+    const spot = placer.placeMarker(marker, [item(a), item(b)], centroid, 400)!;
+    expect(spot).not.toBeNull();
+    const inMember = pointInShape(spot.anchor, a) || pointInShape(spot.anchor, b);
+    expect(inMember).toBe(true);
+    expect(pointInShape(spot.anchor, between)).toBe(false);
+    if (spot.kind === 'outside') expect(boxOutsideShapes({ x: spot.x, y: spot.y, ...marker }, shapes)).toBe(true);
+  });
+
+  it('cuts a chain of small districts between two cities into one cluster per city', () => {
+    // Seven points 30 px apart link into one chain at 44 px; capped at 90 px across, they split into compact groups.
+    const chain = Array.from({ length: 7 }, (_, i) => ({ x: i * 30, y: 0 }));
+    expect(clusterPoints(chain, 44).length).toBe(1);
+    const groups = clusterPoints(chain, 44, 90);
+    expect(groups.length).toBeGreaterThan(1);
+    expect(groups.flat().sort()).toEqual([0, 1, 2, 3, 4, 5, 6]);
+    for (const g of groups) expect(Math.max(...g.map((i) => chain[i]!.x)) - Math.min(...g.map((i) => chain[i]!.x))).toBeLessThanOrEqual(90);
+  });
+
+  it('keeps separate clusters apart so each gets its own marker', () => {
+    const austin = [{ x: 100, y: 200 }, { x: 112, y: 206 }, { x: 120, y: 198 }];
+    const houston = [{ x: 260, y: 220 }, { x: 270, y: 228 }, { x: 255, y: 232 }];
+    const groups = clusterPoints([...austin, ...houston], 44);
+    expect(groups.map((g) => g.sort()).sort()).toEqual([[0, 1, 2], [3, 4, 5]]);
+  });
+});

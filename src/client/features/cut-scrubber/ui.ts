@@ -1,4 +1,5 @@
 import { h, clear, formatKm, prefersReducedMotion, config, iconChevronDown } from '../../shared';
+import { collidingTicks } from './ticks';
 import { cutRows, cutSides, cutStep, stepBy, isLastStep, type Cut, type CutStep } from '../../entities/plan';
 
 export interface CutScrubberOptions {
@@ -213,6 +214,12 @@ export function createCutScrubber(opts: CutScrubberOptions): CutScrubber {
     else if (bottom > boardScroll.scrollTop + boardScroll.clientHeight) boardScroll.scrollTop = bottom - boardScroll.clientHeight;
   }
 
+  /** Hides the fixed tick label that the current-step label would sit on. */
+  function markCollisions(): void {
+    const hide = collidingTicks(total, step.k, ticks.clientWidth || 300);
+    for (const li of ticks.children) (li as HTMLElement).dataset.collide = String(hide.has(Number((li as HTMLElement).dataset.k)));
+  }
+
   function update(k: number | null): void {
     const wasActive = active;
     active = k !== null;
@@ -232,6 +239,7 @@ export function createCutScrubber(opts: CutScrubberOptions): CutScrubber {
       const kk = Number((li as HTMLElement).dataset.k);
       (li as HTMLElement).dataset.state = kk === step.k ? 'current' : kk < step.k ? 'done' : 'todo';
     }
+    markCollisions();
     renderDetail();
     renderBoard();
     // The slider reads its own value text when it has focus; the live region covers Play and the buttons.
@@ -244,6 +252,8 @@ export function createCutScrubber(opts: CutScrubberOptions): CutScrubber {
 
   renderPlay();
   update(null);
+  // The axis is measured, so a resize (a phone turned, a window dragged) recomputes which labels fit.
+  if (typeof ResizeObserver === 'function') new ResizeObserver(() => active && markCollisions()).observe(ticks);
 
   return {
     el,

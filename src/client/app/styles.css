@@ -2564,3 +2564,21 @@ body:has(> #str-viewer) {
   outline: 3px solid var(--ink);
   outline-offset: 2px;
 }
+
+/* A fixed axis label that would run into the current-step label gives way; its tick mark stays. */
+.strv-scrub__ticks li[data-collide='true'] {
+  color: transparent;
+}
+
+/* Stacking: the amber newest-cut number is above every other cut number, label and marker. */
+.strv-cut-tag {
+  z-index: 1;
+}
+
+.strv-map-cluster {
+  z-index: 2;
+}
+
+.strv-cut-tag[data-newest='true'] {
+  z-index: 3;
+}

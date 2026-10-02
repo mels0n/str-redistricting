@@ -134,6 +134,22 @@ module.exports = {
       },
     },
     {
+      name: 'no-client-to-server-import',
+      comment:
+        'The viewer and the generator are separate programs. Nothing under src/client may import from src/server.',
+      severity: 'error',
+      from: { path: '^src/client/' },
+      to: { path: '^src/server/' },
+    },
+    {
+      name: 'no-server-to-client-import',
+      comment:
+        'The viewer and the generator are separate programs. Nothing under src/server may import from src/client.',
+      severity: 'error',
+      from: { path: '^src/server/' },
+      to: { path: '^src/client/' },
+    },
+    {
       name: 'no-circular',
       comment: 'A cycle means the layer boundary has already been crossed somewhere.',
       severity: 'error',

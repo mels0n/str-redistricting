@@ -41,7 +41,8 @@ describe('published data passes the client schemas', () => {
     const index = StateIndexSchema.parse(data('index.json'));
     expect(index.states).toHaveLength(50);
     const generated = index.states.filter(isGenerated);
-    expect(generated.map((s) => s.abbr).sort()).toEqual([...PILOTS].sort());
+    expect(generated).toHaveLength(50);
+    expect(generated.map((s) => s.abbr)).toEqual(expect.arrayContaining(PILOTS));
     for (const s of generated) {
       const stats = StatsSchema.parse(data(`${s.abbr}/stats.json`));
       const cuts = CutsSchema.parse(data(`${s.abbr}/cuts.json`));

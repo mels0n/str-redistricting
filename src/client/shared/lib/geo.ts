@@ -3,6 +3,30 @@ import type { Geometry, MultiPolygon, Polygon, Position } from 'geojson';
 export type LonLat = readonly [number, number];
 export type BBox = [number, number, number, number];
 
+/**
+ * States whose land lies on both sides of the 180th meridian. The published map files draw them in one
+ * continuous frame, with the eastern-hemisphere longitudes continuing past -180 (172 becomes -188).
+ */
+const ACROSS_ANTIMERIDIAN: ReadonlySet<string> = new Set(['AK']);
+
+export const crossesAntimeridian = (abbr: string): boolean => ACROSS_ANTIMERIDIAN.has(abbr);
+
+/** A point from the address search (longitude -180 to 180) in the frame the state's map is drawn in. */
+export function toStateFrame(abbr: string, pt: LonLat): LonLat {
+  return crossesAntimeridian(abbr) && pt[0] > 0 ? [pt[0] - 360, pt[1]] : pt;
+}
+
+/**
+ * Where a state's map first opens, when that is not the box around everything drawn. Hawaii's district
+ * shapes run 1,500 miles up the chain of uninhabited northwestern islands; the map opens on the eight
+ * main islands, and the rest is a pan away.
+ */
+const OPENING_VIEW: Readonly<Record<string, BBox>> = { HI: [-160.6, 18.8, -154.7, 22.3] };
+
+export function openingBox(abbr: string, all: BBox): BBox {
+  return OPENING_VIEW[abbr] ?? all;
+}
+
 /** Even-odd ray casting test of a point against one ring. */
 export function pointInRing(pt: LonLat, ring: readonly Position[]): boolean {
   const [x, y] = pt;

@@ -144,3 +144,7 @@ This reads the plans in `out/` and writes web-ready files to `public/data/`: an 
 - `enacted.topo.json`, the districts of the 119th Congress for the state, for comparison only.
 
 The 119th Congress districts, the state outlines and the county names come from the U.S. Census Bureau's cartographic boundary files, which are downloaded into `data/raw/`. They are used only for display and reporting. The generator never reads them, and they have no effect on any district drawn. `stats.json` records which file the enacted districts came from as `enactedSource`. The file is the one named `cb_2025_us_cd119_500k`, so it shows the maps in use for the 119th Congress. A state that adopted a new map after that file was made is not reflected in it.
+
+Alaska's western Aleutian Islands lie east of the 180th meridian, so the state has longitudes on both sides of it. In the published display files only, those longitudes continue past -180 (172 degrees east is written as -188), so the state is one continuous shape. The same shift is applied to its guide lines, balancing blocks and enacted districts. The files in `out/` are not changed.
+
+A state with one seat (Alaska, Delaware, North Dakota, South Dakota, Vermont and Wyoming) needs no cut and has nothing to balance. Its published files hold the one district, an empty `cuts.json` and a `balance.json` with no moves.

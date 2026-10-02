@@ -6,6 +6,7 @@ import { loadBlockPolygons } from '../../entities/census-block/index.js';
 import { STATES, type StateInfo } from '../../shared/apportionment/index.js';
 import type { PublishConfig } from '../../shared/config/index.js';
 import { DataError } from '../../shared/errors/index.js';
+import { crossesAntimeridian, unwrapCoordinates, unwrapFeatures } from './antimeridian.js';
 import { loadCountyNames, loadEnacted, loadStates, type EnactedFile } from './boundary.js';
 import { BalanceLogSchema, buildBalance, ProcessNumbersSchema } from './balance.js';
 import { countiesByDistrict } from './counties.js';
@@ -69,23 +70,29 @@ async function publishState(state: StateInfo, cfg: PublishConfig, shared: Shared
     shared.enacted.source,
   );
 
+  // The display copies of a state that crosses the antimeridian are drawn in one continuous frame; the generator's files are not touched.
+  const wrapped = crossesAntimeridian(state.abbr);
+  const display = <T extends { readonly geometry: unknown }>(fs: readonly T[]): T[] => (wrapped ? unwrapFeatures(fs) : [...fs]);
   const districts = (await readJson(join(src, 'districts.geojson'))) as Parameters<typeof toTopology>[0];
-  await write(join(dest, 'districts.topo.json'), await toTopology(districts, 'districts', budget));
+  await write(join(dest, 'districts.topo.json'), await toTopology({ features: display(districts.features) }, 'districts', budget));
   const beforeDistricts = (await readJson(join(srcBefore, 'districts.geojson'))) as Parameters<typeof toTopology>[0];
-  await write(join(dest, 'before.topo.json'), await toTopology(beforeDistricts, 'districts', budget));
+  await write(join(dest, 'before.topo.json'), await toTopology({ features: display(beforeDistricts.features) }, 'districts', budget));
 
   const enacted = shared.enacted.features
     .filter((f) => f.record.stateFp === state.fips)
     .sort((a, b) => a.record.code.localeCompare(b.record.code))
     .map((f) => ({ type: 'Feature', properties: { label: f.record.label, code: f.record.code }, geometry: f.geometry as { coordinates?: unknown } }));
   if (enacted.length === 0) throw new DataError(`${state.abbr}: no enacted districts in ${shared.enacted.source}`);
-  await write(join(dest, 'enacted.topo.json'), await toTopology({ features: enacted }, 'enacted', budget));
+  await write(join(dest, 'enacted.topo.json'), await toTopology({ features: display(enacted) }, 'enacted', budget));
 
-  await write(join(dest, 'cuts.json'), JSON.stringify(buildCuts(await readJson(join(src, 'cuts.geojson')))));
+  const cuts = buildCuts(await readJson(join(src, 'cuts.geojson')));
+  await write(join(dest, 'cuts.json'), JSON.stringify(wrapped ? cuts.map((c) => ({ ...c, lines: unwrapCoordinates(c.lines) })) : cuts));
   const log = BalanceLogSchema.safeParse(await readJson(join(src, 'balance.json')));
   if (!log.success) throw new DataError(`${src}/balance.json: ${log.error.issues.map((i) => `${i.path.join('.')} ${i.message}`).join('; ')}`);
   const polygons = await loadBlockPolygons(state, cfg.cacheDir, new Set(log.data.moves.map((m) => m.geoid)));
-  await write(join(dest, 'balance.json'), JSON.stringify(buildBalance(state.seats, log.data, polygons)));
+  const balance = buildBalance(state.seats, log.data, polygons);
+  const blocks = wrapped ? Object.fromEntries(Object.entries(balance.blocks).map(([g, polys]) => [g, unwrapCoordinates(polys)])) : balance.blocks;
+  await write(join(dest, 'balance.json'), JSON.stringify({ ...balance, blocks }));
   await write(join(dest, 'stats.json'), JSON.stringify(stats));
 }
 

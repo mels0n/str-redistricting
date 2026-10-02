@@ -49,6 +49,11 @@ export function formatPct(pct: number, signed = false): string {
 }
 
 /** "1 person", "2 people". */
+/** "1 district", "2 districts". */
+export function districtCount(n: number): string {
+  return `${formatInt(n)} ${n === 1 ? 'district' : 'districts'}`;
+}
+
 export function peopleNoun(n: number): string {
   return Math.abs(n) === 1 ? 'person' : 'people';
 }

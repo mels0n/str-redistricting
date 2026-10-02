@@ -6,7 +6,7 @@ import { h, formatHash, howRoute } from '../../shared';
  */
 export function createExplainer(opts: { seats?: number } = {}): HTMLElement {
   const n = opts.seats;
-  const cuts = n !== undefined ? `${n - 1} ${n - 1 === 1 ? 'cut' : 'cuts'} for ${n} seats` : 'one cut fewer than the number of seats';
+  const cuts = n !== undefined ? `${n - 1} ${n - 1 === 1 ? 'cut' : 'cuts'} for ${n} ${n === 1 ? 'seat' : 'seats'}` : 'one cut fewer than the number of seats';
   const step = (title: string, text: string): HTMLElement => h('li', null, h('strong', null, title), ' ', text);
   return h(
     'section',
@@ -27,7 +27,10 @@ export function createExplainer(opts: { seats?: number } = {}): HTMLElement {
         'Blocks stay whole.',
         'The real border follows census block edges, so it is not perfectly straight. Stray pieces cut off from their side join the side around them, and the line slides so the people still split evenly. Both sides must be one connected piece.',
       ),
-      step('Repeat until each piece has one seat.', `Each piece is split again until every piece is one district. That takes ${cuts}.`),
+      step(
+        'Repeat until each piece has one seat.',
+        n === 1 ? 'This state has one seat, so it needs no cut: the whole state is its one district.' : `Each piece is split again until every piece is one district. That takes ${cuts}.`,
+      ),
       step(
         'Balance.',
         'Single blocks along the borders then move to the neighboring district when that narrows the population gap between the two, and only when both stay connected.',

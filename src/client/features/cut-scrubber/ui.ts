@@ -71,7 +71,22 @@ function describeMove(m: number, total: number, log: BalanceLog | null, rangeBef
   return `Balancing move ${m} of ${total}. Block ${d.move.geoid}, ${plural(d.move.pop, 'person', 'people')}, from District ${d.move.from} to District ${d.move.to}. Gap between them from ${formatInt(d.gapBefore)} to ${plural(d.gapAfter, 'person', 'people')}. State range ${plural(range, 'person', 'people')}.`;
 }
 
+/** What stands in for the scrubber on a one-seat state: there is nothing to step through. */
+function createSingleSeatNote(): CutScrubber {
+  const el = h(
+    'section',
+    { class: 'strv-scrub', 'aria-label': 'Cuts and balancing' },
+    h(
+      'div',
+      { class: 'strv-scrub__intro' },
+      h('p', { class: 'strv-scrub__summary' }, h('strong', null, 'Finished map.'), ' This state has one seat, so there is nothing to cut or balance. The whole state is the one district.'),
+    ),
+  );
+  return { el, update: () => undefined, start: () => undefined, destroy: () => undefined };
+}
+
 export function createCutScrubber(opts: CutScrubberOptions): CutScrubber {
+  if (opts.cuts.length === 0 && opts.moves === 0) return createSingleSeatNote();
   const size: SeqSize = { cuts: opts.cuts.length, moves: opts.moves };
   const total = size.cuts;
   const replayPace = { baseMs: config.movePlayIntervalMs, totalMs: config.movePlayTotalMs, minMs: config.movePlayMinMs };

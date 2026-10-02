@@ -7,6 +7,8 @@ import {
   fitRouteToState,
   formatHash,
   formatInt,
+  districtCount,
+  toStateFrame,
   formatPeople,
   getLocated,
   setLocated,
@@ -221,9 +223,9 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
       return;
     }
     h1.textContent = entry.name;
-    mapEl.setAttribute('aria-label', `Map of ${entry.name}’s ${entry.seats} districts. Every district is also listed in the Districts table.`);
+    mapEl.setAttribute('aria-label', `Map of ${entry.name}’s ${districtCount(entry.seats)}. Every district is also listed in the Districts table.`);
     setMeta(entry);
-    document.title = `${entry.name}: ${entry.seats} districts drawn by rule`;
+    document.title = `${entry.name}: ${districtCount(entry.seats)} drawn by rule`;
     clear(mapEl);
     const loadingState = h('p', { class: 'strv-loading', tabindex: -1 }, `Loading the map of ${entry.name}…`);
     mapEl.append(loadingState);
@@ -475,7 +477,7 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
           colors: bundle.colors,
           selected,
           located: locatedDistrict(plan),
-          caption: `${entry.name}, ${entry.seats} districts, ${which}. ${evenSplitSentence(planStats.metrics.population, entry.seats)}.${partway ? ' Counties are as before balancing.' : ''}`,
+          caption: `${entry.name}, ${districtCount(entry.seats)}, ${which}. ${evenSplitSentence(planStats.metrics.population, entry.seats)}.${partway ? ' Counties are as before balancing.' : ''}`,
           partway,
         });
       }
@@ -539,7 +541,8 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
   function locate(bundle: StateBundle): void {
     const l = getLocated();
     if (!l || l.state !== bundle.abbr) return;
-    located = { districts: districtsAt(bundle, l.lonLat), lonLat: l.lonLat, matchedAddress: l.matchedAddress };
+    const at = toStateFrame(bundle.abbr, l.lonLat);
+    located = { districts: districtsAt(bundle, at), lonLat: at, matchedAddress: l.matchedAddress };
   }
 
   void start();

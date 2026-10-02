@@ -32,8 +32,26 @@ export function createProcessPanel(opts: ProcessPanelOptions): HTMLElement {
   const row = (term: string, fig: Node | string, sub: string): HTMLElement =>
     h('div', { class: 'strv-process__row' }, h('dt', null, term), h('dd', { class: 'strv-process__fig' }, fig), h('dd', { class: 'strv-process__sub' }, sub));
 
+  const single = m.seats === 1;
   const watch = (part: 'cuts' | 'balance', label: string, signal: boolean): HTMLElement =>
     h('button', { type: 'button', class: `strv-button${signal ? ' strv-button--signal' : ''}`, onclick: () => opts.onWatch(part) }, label);
+
+  if (single) {
+    return h(
+      'section',
+      { class: 'strv-process', 'aria-labelledby': 'strv-process-h' },
+      h('h2', { id: 'strv-process-h', class: 'strv-h2' }, 'What happened in this state'),
+      h('p', null, `${opts.stateName} has one seat, so the whole state is the one district. There was nothing to cut and nothing to balance.`),
+      h(
+        'dl',
+        { class: 'strv-process__rows' },
+        row('Cuts', '0', 'A state with one seat needs no cut.'),
+        row('Balancing moves', '0', 'One district has no neighbor to balance against.'),
+        row('Run time', formatRunTime(m.runtimeMs), 'To read the census file and check the district.'),
+      ),
+      h('p', { class: 'strv-process__how' }, h('a', { href: formatHash(howRoute()) }, 'How each stage works')),
+    );
+  }
 
   return h(
     'section',

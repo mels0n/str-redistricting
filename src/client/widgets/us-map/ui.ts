@@ -1,6 +1,6 @@
 import { geoAlbersUsa, geoPath } from 'd3-geo';
 import type { FeatureCollection, MultiPolygon, Polygon } from 'geojson';
-import { svg, formatHash, stateRoute, labelPoint, pointInPolygonRings } from '../../shared';
+import { svg, formatHash, stateRoute, labelPoint, pointInPolygonRings, districtCount } from '../../shared';
 import { isGenerated, type StateIndex } from '../../entities/state';
 
 export interface UsMapOptions {
@@ -105,7 +105,7 @@ function buildUsMap(opts: UsMapOptions, compact: boolean): SVGSVGElement {
     const abbrSize = compact ? abbrUnits : 13;
     const seatsSize = compact ? seatsUnits : 24;
     const href = formatHash(stateRoute(entry.abbr));
-    const label = `${entry.name}, ${entry.seats} districts`;
+    const label = `${entry.name}, ${districtCount(entry.seats)}`;
     const labelW = Math.max(abbrSize * 1.6, String(entry.seats).length * seatsSize * 0.62) + 4;
     // On a phone the labels are large against the drawing: a label may run past a state's edge there (its ink outline keeps it
     // readable on the ground), as long as the middle of it is inside. A long leader across the country would read worse.

@@ -39,6 +39,7 @@ export function createProofPanel(): ProofPanel {
       clear(body);
       const steps = Math.round(180 / m.angleStepDeg);
       const before = plan === 'before';
+      const single = m.seats === 1;
       body.append(
         h(
           'dl',
@@ -51,12 +52,14 @@ export function createProofPanel(): ProofPanel {
           row(
             'Connected districts',
             m.allContiguous ? 'All' : 'Not all',
-            m.allContiguous ? `Each of the ${m.seats} districts is one connected piece.` : 'At least one district is in more than one piece.',
+            m.allContiguous ? (single ? 'The district is one connected piece.' : `Each of the ${m.seats} districts is one connected piece.`) : 'At least one district is in more than one piece.',
           ),
           row(
             'Balancing moves',
             formatInt(m.balanceMoves),
-            before
+            single
+              ? 'None: with one district there is nothing to balance.'
+              : before
               ? 'None: this is the plan as the cuts left it.'
               : `Single census blocks moved between neighboring districts after the cuts, out of ${formatInt(m.blocks)} blocks.`,
           ),
@@ -72,11 +75,9 @@ export function createProofPanel(): ProofPanel {
             'SHA-256 of the 2020 Census block file the map was drawn from.',
             'strv-proof__row--digest',
           ),
-          row(
-            'Guide lines',
-            `Every ${m.angleStepDeg}°`,
-            `${formatInt(steps)} directions tried for each cut.`,
-          ),
+          single
+            ? row('Guide lines', 'None', 'A state with one seat needs no cut, so no guide line is drawn.')
+            : row('Guide lines', `Every ${m.angleStepDeg}°`, `${formatInt(steps)} directions tried for each cut.`),
         ),
         h(
           'div',

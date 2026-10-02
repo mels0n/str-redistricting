@@ -48,7 +48,9 @@ export function createStateIndex(index: StateIndex): HTMLElement {
     h(
       'p',
       { class: 'strv-index__lede' },
-      `Maps have been generated for ${generated.length} states, ${formatInt(totalSeats)} of the 435 House seats. The others are listed without a map.`,
+      generated.length === states.length
+        ? `Maps are available for all ${states.length} states, covering all ${formatInt(totalSeats)} House seats.`
+        : `Maps have been generated for ${generated.length} states, ${formatInt(totalSeats)} of the 435 House seats. The others are listed without a map.`,
     ),
     h('ol', { class: 'strv-index__list' }, rows),
   );

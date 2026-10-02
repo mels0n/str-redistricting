@@ -7,6 +7,8 @@ import {
   tokens,
   config,
   bboxOf,
+  openingBox,
+  crossesAntimeridian,
   labelPoint,
   pointAlongLines,
   partialLines,
@@ -82,7 +84,7 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
   const seats = bundle.stats.finished.metrics.seats;
   const balanceMoves = bundle.stats.finished.metrics.balanceMoves;
   const planShown = (s: MapViewState): Plan => planOnScreen(s, balanceMoves);
-  const bbox = bboxOf(bundle.finished.features.map((f) => f.geometry))!;
+  const bbox = openingBox(bundle.abbr, bboxOf(bundle.finished.features.map((f) => f.geometry))!);
   const coarse = matchMedia('(pointer: coarse)').matches;
   // A narrow or short frame (a phone, upright or on its side) puts the key across the top and wants bigger numbers.
   const narrow = container.clientWidth < 520 || container.clientHeight < 400;
@@ -134,7 +136,8 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
     dragRotate: false,
     pitchWithRotate: false,
     touchPitch: false,
-    renderWorldCopies: false,
+    // Alaska is drawn past -180 (the Aleutians), which a single world copy would clip off.
+    renderWorldCopies: crossesAntimeridian(bundle.abbr),
     cooperativeGestures: coarse,
     fadeDuration: 0,
   });

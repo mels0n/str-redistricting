@@ -15,3 +15,8 @@ out/
 out-repeat/
 out-step*/
 out-extra/
+PRODUCT.md
+DESIGN.md
+DESIGN.*.json
+.impeccable/
+.agents/

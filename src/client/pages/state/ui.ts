@@ -24,7 +24,7 @@ import {
   type LonLat,
 } from '../../shared';
 import { loadIndex, loadOutlines, findState, isGenerated, type GeneratedState } from '../../entities/state';
-import { loadStateBundle, loadEnacted, districtAt, type StateBundle, type EnactedShapes } from '../../entities/plan';
+import { loadStateBundle, loadEnacted, districtsAt, type PlanDistricts, type StateBundle, type EnactedShapes } from '../../entities/plan';
 import { createAddressSearch, describeResolution, resolveAddress } from '../../features/address-search';
 import { createCutScrubber, type CutScrubber } from '../../features/cut-scrubber';
 import { createPlanOptions, type PlanOptions } from '../../features/plan-options';
@@ -44,9 +44,13 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
   let enactedLoading = false;
   let seats: number | null = null;
   let stateName = initial.abbr;
+  /** The plan on screen: the cut sequence always shows the plan before balancing. */
+  const shownPlan = (): 'official' | 'before' => (route.cut !== null ? 'before' : route.plan);
+  /** The district of the located address under the plan on screen. */
+  const locatedDistrict = (plan = shownPlan()): number | null => located?.districts[plan] ?? null;
   /** The corrected link a notice explains; the notice stays while the route is still that one. */
   let noticeHash: string | null = null;
-  let located: { district: number | null; lonLat: LonLat; matchedAddress: string } | null = null;
+  let located: { districts: PlanDistricts; lonLat: LonLat; matchedAddress: string } | null = null;
 
   const h1 = h('h1', { class: 'strv-state__h1', tabindex: -1 }, initial.abbr);
   const back = h('a', { href: formatHash(NATIONAL), class: 'strv-back' }, iconArrowLeft(), 'All states');
@@ -282,9 +286,14 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
         }
         setLocated({ state: entry.abbr, lonLat: result.lonLat, matchedAddress: result.matchedAddress });
         locate(bundle);
-        if (located?.district === null) return `${result.matchedAddress} falls just outside the simplified district shapes. It is in ${entry.name}; check the district list near that spot.`;
-        go({ district: located!.district });
-        return `${result.matchedAddress} is in District ${located!.district}.`;
+        const here = locatedDistrict();
+        if (here === null) {
+          // No district to select, so nothing else redraws: draw the pin and the note now.
+          render();
+          return `${result.matchedAddress} falls just outside the simplified district shapes. It is in ${entry.name}; check the district list near that spot.`;
+        }
+        go({ district: here });
+        return `${result.matchedAddress} is in District ${here}.`;
       },
     });
     const locatedNote = h('p', { class: 'strv-located', hidden: true });
@@ -325,7 +334,8 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
     );
 
     locate(bundle);
-    if (located?.district && route.district === null) go({ district: located.district }, true);
+    const startAt = locatedDistrict();
+    if (startAt && route.district === null) go({ district: startAt }, true);
 
     // Stepping through the cuts changes neither the list nor the numbers; rebuild them only when their content would change.
     let listKey = '';
@@ -346,7 +356,7 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
         color: shown !== null ? bundle.colors[shown - 1]! : null,
         ideal: planStats.metrics.ideal,
         plan,
-        located: located?.district === shown && shown !== null,
+        located: locatedDistrict(plan) === shown && shown !== null,
         preview: hovered !== null && hovered !== selected,
       });
       const picked = selected !== null ? (planStats.districts.find((d) => d.district === selected) ?? null) : null;
@@ -357,18 +367,19 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
       }
       if (located) {
         locatedNote.hidden = false;
-        locatedNote.textContent = located.district
-          ? `Your address, ${located.matchedAddress}, is in District ${located.district}. Shapes are simplified for display; close to a border, the block assignment file is the final word.`
+        const here = locatedDistrict(plan);
+        locatedNote.textContent = here
+          ? `Your address, ${located.matchedAddress}, is in District ${here}. Shapes are simplified for display; close to a border, the block assignment file is the final word.`
           : `Your address, ${located.matchedAddress}, is marked on the map.`;
       }
-      const nextListKey = `${plan}|${selected}|${located?.district ?? ''}`;
+      const nextListKey = `${plan}|${selected}|${locatedDistrict(plan) ?? ''}`;
       if (nextListKey !== listKey) {
         listKey = nextListKey;
         list.update({
           districts: planStats.districts,
           colors: bundle.colors,
           selected,
-          located: located?.district ?? null,
+          located: locatedDistrict(plan),
           caption: `${entry.name}, ${entry.seats} districts, ${plan === 'official' ? 'official map' : 'before balancing'}. Ideal district: ${formatPeople(planStats.metrics.ideal)} people.`,
         });
       }
@@ -384,7 +395,7 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
         h('span', { class: 'strv-legend__item' }, h('span', { class: 'strv-legend__num' }, '3'), 'District number'),
         cutMode ? h('span', { class: 'strv-legend__item' }, h('span', { class: 'strv-legend__cut' }), 'Newest cut') : null,
         cutMode ? h('span', { class: 'strv-legend__item' }, h('span', { class: 'strv-legend__past' }), 'Earlier cuts') : null,
-        route.enacted ? h('span', { class: 'strv-legend__item' }, h('span', { class: 'strv-legend__dash' }), 'Today’s districts') : null,
+        route.enacted ? h('span', { class: 'strv-legend__item' }, h('span', { class: 'strv-legend__dash' }), '119th Congress districts') : null,
       ];
       legend.append(...legendItems.filter((x): x is HTMLElement => x !== null));
 
@@ -423,7 +434,7 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
   function locate(bundle: StateBundle): void {
     const l = getLocated();
     if (!l || l.state !== bundle.abbr) return;
-    located = { district: districtAt(bundle.official.features, l.lonLat), lonLat: l.lonLat, matchedAddress: l.matchedAddress };
+    located = { districts: districtsAt(bundle, l.lonLat), lonLat: l.lonLat, matchedAddress: l.matchedAddress };
   }
 
   void start();

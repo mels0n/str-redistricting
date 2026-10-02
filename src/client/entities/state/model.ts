@@ -10,7 +10,6 @@ export const PlanSummarySchema = z.object({
   inputSha256: z.string().regex(/^[0-9a-f]{64}$/),
   nodeVersion: z.string(),
   angleStepDeg: z.number().positive(),
-  generated: z.string(),
 });
 
 export const StateEntrySchema = z.object({

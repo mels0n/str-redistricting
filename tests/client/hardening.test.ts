@@ -72,7 +72,6 @@ const summary = {
   inputSha256: 'b'.repeat(64),
   nodeVersion: 'v24',
   angleStepDeg: 1,
-  generated: 'x',
 };
 const index: StateIndex = {
   states: [

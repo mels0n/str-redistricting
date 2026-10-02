@@ -11,6 +11,7 @@ import {
   getLocated,
   setLocated,
   peopleNoun,
+  prefersReducedMotion,
   stateRoute,
   NATIONAL,
   MapUnavailableError,
@@ -55,7 +56,9 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
   const mapEl = h('div', { class: 'strv-state__map', role: 'region', 'aria-label': 'District map', 'aria-busy': 'true' });
   const legend = h('div', { class: 'strv-legend', 'aria-hidden': 'true' });
   const mapFrame = h('div', { class: 'strv-state__frame' }, mapEl, legend);
-  const stage = h('div', { class: 'strv-state__stage' }, mapFrame);
+  // Phones: the chosen district's headline sits right under the map, so a tap on the map is answered without scrolling.
+  const pick = h('div', { class: 'strv-pick' });
+  const stage = h('div', { class: 'strv-state__stage' }, mapFrame, pick);
   const panel = h('div', { class: 'strv-state__panel' }, head, notice);
   const el = h('main', { class: 'strv-state', id: 'strv-main', 'data-cut-mode': 'false' }, panel, stage);
 
@@ -285,8 +288,33 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
     const locatedNote = h('p', { class: 'strv-located', hidden: true });
 
     stage.append(scrubber.el);
+    const ticketBox = h('div', { class: 'strv-state__ticket' }, ticket.el, locatedNote);
+    let pickKey = '';
+    const renderPick = (plan: string, d: { district: number; pop: number } | null, color: string | null): void => {
+      const key = `${plan}|${d?.district ?? ''}`;
+      if (key === pickKey) return;
+      pickKey = key;
+      clear(pick);
+      if (!d) {
+        pick.append(h('p', { class: 'strv-pick__hint' }, 'Tap a district on the map to see its numbers.'));
+        return;
+      }
+      pick.append(
+        h(
+          'button',
+          {
+            type: 'button',
+            class: 'strv-pick__btn',
+            onclick: () => ticketBox.scrollIntoView({ block: 'start', behavior: prefersReducedMotion() ? 'auto' : 'smooth' }),
+          },
+          h('span', { class: 'strv-pick__swatch', style: `background:${color ?? 'transparent'}`, 'aria-hidden': 'true' }),
+          h('span', { class: 'strv-pick__text' }, h('strong', null, `District ${d.district}`), ` ${formatInt(d.pop)} people`),
+          h('span', { class: 'strv-pick__more' }, 'Full ticket', h('span', { 'aria-hidden': 'true' }, ' ↓')),
+        ),
+      );
+    };
     panel.append(
-      h('div', { class: 'strv-state__ticket' }, ticket.el, locatedNote),
+      ticketBox,
       h('div', { class: 'strv-state__search' }, search.el),
       h('div', { class: 'strv-state__options' }, options.el),
       h('div', { class: 'strv-state__list' }, list.el),
@@ -319,6 +347,8 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
         located: located?.district === shown && shown !== null,
         preview: hovered !== null && hovered !== selected,
       });
+      const picked = selected !== null ? (planStats.districts.find((d) => d.district === selected) ?? null) : null;
+      renderPick(plan, picked, picked ? bundle.colors[picked.district - 1]! : null);
       if (light) {
         map?.set(mapState(selected, cutMode));
         return;

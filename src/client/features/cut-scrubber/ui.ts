@@ -114,8 +114,17 @@ export function createCutScrubber(opts: CutScrubberOptions): CutScrubber {
       go(0, false);
       startPlaying();
     }
+    keepInView();
   });
   start.append(iconPlay(), h('span', null, `Watch the ${total} ${total === 1 ? 'cut' : 'cuts'}`));
+
+  /** On a short screen the open controls can land below the fold; bring them up so the map and the controls are both on screen. */
+  function keepInView(): void {
+    requestAnimationFrame(() => {
+      const over = el.getBoundingClientRect().bottom - window.innerHeight;
+      if (over > 0) window.scrollBy({ top: over + 8, behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
+    });
+  }
 
   const live = h('p', { class: 'strv-visually-hidden', 'aria-live': 'polite' });
 

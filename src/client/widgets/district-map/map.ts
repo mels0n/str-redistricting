@@ -41,9 +41,6 @@ export interface DistrictMapView {
   destroy(): void;
 }
 
-/** Pixel size of a district number's box, used to keep numbers from overlapping. */
-const LABEL_W = 26;
-const LABEL_H = 22;
 const SVG_NS = 'http://www.w3.org/2000/svg';
 
 const EMPTY_LINES: MultiLineString = { type: 'MultiLineString', coordinates: [] };
@@ -56,6 +53,13 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
   const seats = bundle.stats.official.metrics.seats;
   const bbox = bboxOf(bundle.official.features.map((f) => f.geometry))!;
   const coarse = matchMedia('(pointer: coarse)').matches;
+  // A narrow or short frame (a phone, upright or on its side) puts the key across the top and wants bigger numbers.
+  const narrow = container.clientWidth < 520 || container.clientHeight < 400;
+  // Touch and small screens get larger numbers (see styles.css), so each needs a larger box to stay clear of its neighbours.
+  const roomy = coarse || narrow;
+  /** Pixel size of a district number's box, used to keep numbers from overlapping. */
+  const LABEL_W = roomy ? 32 : 26;
+  const LABEL_H = roomy ? 28 : 22;
 
   const map = new MlMap({
     container,
@@ -65,7 +69,7 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
       layers: [{ id: 'ground', type: 'background', paint: { 'background-color': tokens.ground } }],
     },
     bounds: bbox,
-    fitBoundsOptions: { padding: container.clientWidth < 520 ? 14 : 32 },
+    fitBoundsOptions: { padding: narrow ? { top: container.clientWidth < 380 ? 64 : 40, right: 14, bottom: 14, left: 14 } : 32 },
     attributionControl: false,
     dragRotate: false,
     pitchWithRotate: false,
@@ -83,7 +87,8 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
   }
   map.touchZoomRotate.disableRotation();
   map.keyboard.disableRotation();
-  map.addControl(new NavigationControl({ showCompass: false }), 'top-right');
+  // Zoom buttons sit where a thumb rests on a touch screen.
+  map.addControl(new NavigationControl({ showCompass: false }), coarse ? 'bottom-right' : 'top-right');
   // The canvas is described by the region around it; the list is the full text view.
   map.getCanvas().setAttribute('aria-label', `Map of ${opts.stateName} districts. Arrow keys move the map; plus and minus zoom. To choose a district, use the Districts table.`);
 
@@ -125,13 +130,18 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
     const placed: { x: number; y: number }[] = [];
     const out: string[] = [];
     const order = districtMarkers.map((_, i) => i).filter((i) => !districtMarkers[i]!.el.hidden).sort((a, b) => areas[b]! - areas[a]!);
-    const free = (x: number, y: number): boolean => placed.every((q) => Math.abs(q.x - x) >= LABEL_W || Math.abs(q.y - y) >= LABEL_H);
+    // A moved number stays inside the frame, clear of the edge, so it is never cut off.
+    const w = container.clientWidth;
+    const hgt = container.clientHeight;
+    const inside = (x: number, y: number): boolean => x >= LABEL_W / 2 + 2 && x <= w - LABEL_W / 2 - 2 && y >= LABEL_H / 2 + 2 && y <= hgt - LABEL_H / 2 - 2;
+    const clear = (x: number, y: number): boolean => placed.every((q) => Math.abs(q.x - x) >= LABEL_W || Math.abs(q.y - y) >= LABEL_H);
+    const free = (x: number, y: number): boolean => inside(x, y) && clear(x, y);
     const angles = [0, 180, 90, 270, 45, 225, 135, 315, 22, 202, 112, 292];
     for (const i of order) {
       const { marker } = districtMarkers[i]!;
       const pt = map.project(labels[i]! as [number, number]);
       let best = { dx: 0, dy: 0 };
-      if (!free(pt.x, pt.y)) {
+      if (!clear(pt.x, pt.y)) {
         search: for (let r = 30; r <= 110; r += 20) {
           for (const deg of angles) {
             const dx = Math.round(Math.cos((deg * Math.PI) / 180) * r);

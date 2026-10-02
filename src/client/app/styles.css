@@ -735,6 +735,14 @@ body:has(> #str-viewer) {
 .strv-state {
   display: flex;
   flex-direction: column;
+  /* What the map frame gives up on a phone: the cut controls take room while the sequence is open. */
+  --frame-min: 20rem;
+  --x-cut: 0rem;
+}
+
+.strv-state[data-cut-mode='true'] {
+  --frame-min: 15rem;
+  --x-cut: 10rem;
 }
 
 .strv-state__panel {
@@ -810,8 +818,8 @@ body:has(> #str-viewer) {
 
 .strv-state__frame {
   position: relative;
-  /* The map takes what the first screen has left after the masthead, title row and the scrubber strip. */
-  height: clamp(20rem, calc(100svh - var(--mast-h) - 16.5rem), 40rem);
+  /* The map takes what the first screen has left after the masthead, title row, the chosen-district strip and the scrubber strip. */
+  height: clamp(var(--frame-min), calc(100svh - var(--mast-h) - 19.5rem - var(--x-cut)), 40rem);
   background: var(--ground);
 }
 
@@ -1050,6 +1058,8 @@ body:has(> #str-viewer) {
 /* ---------- Cut scrubber, under the map ---------- */
 
 .strv-scrub {
+  /* The scrubber lays itself out by its own width: it is a full strip under the map, or a narrow column beside it. */
+  container: strv-scrub / inline-size;
   background: var(--paper);
   border-top: 2px solid var(--ink);
   padding: var(--s-3) var(--gutter);
@@ -1253,7 +1263,7 @@ body:has(> #str-viewer) {
   white-space: nowrap;
 }
 
-@media (max-width: 40rem) {
+@container strv-scrub (max-width: 40rem) {
   .strv-scrub__head {
     grid-template-columns: minmax(0, 1fr);
     gap: var(--s-2);
@@ -1966,5 +1976,313 @@ body:has(> #str-viewer) {
 
   .strv-state__meta > div {
     border-right: 0;
+  }
+}
+
+/* ---------- Phones, touch, landscape and large screens ---------- */
+
+/* Notches and rounded corners: the masthead and the page keep clear of them. */
+.strv {
+  --mast-h: calc(3rem + env(safe-area-inset-top, 0px));
+}
+
+.strv-masthead {
+  padding-top: max(var(--s-1), env(safe-area-inset-top, 0px));
+  padding-left: max(var(--gutter), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--gutter), env(safe-area-inset-right, 0px));
+}
+
+.strv-outlet {
+  padding-left: env(safe-area-inset-left, 0px);
+  padding-right: env(safe-area-inset-right, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* The chosen district, one line under the map on screens where the ticket sits below the fold. */
+.strv-pick {
+  min-height: 3rem;
+  display: flex;
+  align-items: stretch;
+  background: var(--paper);
+  border-top: 1px solid var(--ink);
+}
+
+.strv-pick__hint {
+  align-self: center;
+  padding: var(--s-2) var(--gutter);
+  font-size: 0.875rem;
+  color: var(--ink-2);
+}
+
+.strv-pick__btn {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  padding: var(--s-1) var(--gutter);
+  font: inherit;
+  font-size: 0.9375rem;
+  text-align: left;
+  color: var(--ink);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.strv-pick__btn:hover {
+  background: var(--ground-2);
+}
+
+.strv-pick__btn:focus-visible {
+  outline-offset: -4px;
+}
+
+.strv-pick__swatch {
+  flex: none;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 1px solid var(--ink);
+}
+
+.strv-pick__text {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.strv-pick__more {
+  flex: none;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--ink-2);
+}
+
+.strv-state[data-empty='true'] .strv-pick,
+.strv-state[data-nomap='true'] .strv-pick {
+  display: none;
+}
+
+@media (min-width: 64rem) {
+  .strv-pick {
+    display: none;
+  }
+}
+
+/* Cut controls on a phone: the number, the split and the controls fit above the fold together with the map. */
+@container strv-scrub (max-width: 40rem) {
+  .strv-scrub__head {
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: var(--s-3);
+    align-items: center;
+  }
+
+  .strv-scrub__count {
+    border-right: 1px solid var(--ink);
+    padding-right: var(--s-3);
+  }
+
+  .strv-scrub__k {
+    font-size: 2.25rem;
+  }
+
+  .strv-scrub__detail {
+    grid-template-columns: repeat(auto-fit, minmax(5.5rem, 1fr));
+    gap: 0 var(--s-3);
+  }
+
+  .strv-scrub__detail dt {
+    font-size: 0.6875rem;
+  }
+
+  .strv-scrub__detail dd {
+    font-size: 0.8125rem;
+    white-space: normal;
+  }
+}
+
+@container strv-scrub (max-width: 24rem) {
+  .strv-scrub__head {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--s-1);
+  }
+
+  .strv-scrub__count {
+    border-right: 0;
+    padding-right: 0;
+  }
+
+  .strv-scrub__detail {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Touch: bigger targets and a thumb that is easy to grab. */
+@media (pointer: coarse) {
+  .strv-button {
+    min-height: 2.75rem;
+    min-width: 2.75rem;
+  }
+
+  .strv-scrub__range {
+    touch-action: pan-y;
+  }
+
+  .strv-scrub__range::-webkit-slider-thumb {
+    width: 22px;
+    height: 36px;
+    margin-top: -17px;
+  }
+
+  .strv-scrub__range::-moz-range-thumb {
+    width: 18px;
+    height: 32px;
+  }
+
+  .strv-scrub__ticks {
+    left: 11px;
+    right: 11px;
+  }
+
+  .strv .maplibregl-ctrl-group button {
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+
+  .strv-legend {
+    max-width: calc(100% - 1.5rem);
+  }
+}
+
+/* Map numbers stay readable on a phone, and a fingertip has room to land on one. */
+@media (pointer: coarse), (max-width: 40rem) {
+  .strv-map-label {
+    font-size: 1.0625rem;
+    min-width: 1.75rem;
+    min-height: 1.75rem;
+  }
+
+  .strv-map-label::after {
+    content: '';
+    position: absolute;
+    inset: -0.375rem;
+  }
+
+  .strv-cut-tag {
+    font-size: 0.8125rem;
+    padding: 0.25rem 0.375rem;
+  }
+
+  .strv-cut-tag[data-newest='true'] {
+    font-size: 1rem;
+    padding: 0.3125rem 0.4375rem;
+  }
+
+  .strv-legend {
+    font-size: 0.8125rem;
+  }
+}
+
+/* A phone on its side: the map and the cut controls sit next to each other, under a one-line title. */
+@media (orientation: landscape) and (max-height: 32rem) and (max-width: 63.99rem) {
+  .strv-state__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0 var(--s-4);
+    min-height: 3.5rem;
+    padding-top: var(--s-1);
+    padding-bottom: var(--s-1);
+  }
+
+  .strv-state__h1 {
+    font-size: 1.5rem;
+  }
+
+  .strv-state__meta {
+    flex: 1 1 auto;
+    margin: 0;
+    border-top: 0;
+    justify-content: flex-end;
+    max-width: 34rem;
+    margin-left: auto;
+  }
+
+  .strv-state__meta > div {
+    padding-top: 0;
+  }
+
+  .strv-state__stage {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 22rem;
+    grid-template-rows: auto minmax(0, 1fr);
+    height: max(15rem, calc(100svh - var(--mast-h) - 3.5rem));
+  }
+
+  .strv-state .strv-state__frame {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    height: auto;
+    min-height: 0;
+  }
+
+  .strv-pick {
+    display: flex;
+    grid-column: 2;
+    grid-row: 1;
+    border-left: 1px solid var(--ink);
+    border-top: 0;
+  }
+
+  .strv-scrub {
+    grid-column: 2;
+    grid-row: 2;
+    overflow-y: auto;
+    border-left: 1px solid var(--ink);
+    border-top: 1px solid var(--ink);
+  }
+
+  .strv-pick {
+    min-height: 2.5rem;
+  }
+
+  .strv-scrub {
+    padding-top: var(--s-2);
+    padding-bottom: var(--s-2);
+  }
+
+  .strv-scrub__body {
+    gap: var(--s-2);
+  }
+
+  .strv-scrub__k {
+    font-size: 1.75rem;
+  }
+
+  .strv-scrub__track {
+    padding-bottom: 1.125rem;
+  }
+
+  .strv-scrub__range {
+    height: 2.25rem;
+  }
+
+  .strv-state[data-empty='true'] .strv-state__stage,
+  .strv-state[data-nomap='true'] .strv-state__stage {
+    display: block;
+    height: auto;
+  }
+}
+
+/* Large screens: the panel and its table get more room; text lines stay the same length. */
+@media (min-width: 90rem) {
+  .strv {
+    --col: 31rem;
+  }
+}
+
+@media (min-width: 120rem) {
+  .strv {
+    --col: 34rem;
   }
 }

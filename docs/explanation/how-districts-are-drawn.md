@@ -117,6 +117,6 @@ This reads the plans in `out/` and writes web-ready files to `public/data/`: an 
 - `districts.topo.json` and `before.topo.json`, the official and before-balancing districts as simplified TopoJSON. Simplification runs along shared borders, so neighbouring districts still meet exactly. These shapes are for drawing and are slightly coarser than the block-level `districts.geojson`. The numbers and `assignment.csv` are never simplified.
 - `cuts.json`, the ordered guide lines with their angle, length and seat split.
 - `stats.json`, the metrics for both plans plus, for each district, the counties it touches.
-- `enacted.topo.json`, today's congressional districts for the state, for comparison only.
+- `enacted.topo.json`, the districts of the 119th Congress for the state, for comparison only.
 
-Today's enacted districts, the state outlines and the county names come from the U.S. Census Bureau's cartographic boundary files, which are downloaded into `data/raw/`. They are used only for display and reporting. The generator never reads them, and they have no effect on any district drawn. `stats.json` records which file the enacted districts came from as `enactedSource`.
+The 119th Congress districts, the state outlines and the county names come from the U.S. Census Bureau's cartographic boundary files, which are downloaded into `data/raw/`. They are used only for display and reporting. The generator never reads them, and they have no effect on any district drawn. `stats.json` records which file the enacted districts came from as `enactedSource`. The file is the one named `cb_2025_us_cd119_500k`, so it shows the maps in use for the 119th Congress. A state that adopted a new map after that file was made is not reflected in it.

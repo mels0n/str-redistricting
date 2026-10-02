@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { chunkDigest, formatKm, formatPct, formatPeople, formatSignedPeople, peopleNoun } from '../../src/client/shared/lib/format';
+import { chunkDigest, formatKm, formatPct, formatPeople, formatSignedPeople, ordinal, peopleNoun } from '../../src/client/shared/lib/format';
+import { enactedSourceLabel } from '../../src/client/features/plan-options';
 
 describe('format', () => {
   it('keeps small percentages instead of rounding them to zero', () => {
@@ -32,5 +33,26 @@ describe('format', () => {
     expect(lines).toHaveLength(4);
     expect(lines[0]).toEqual(['2582', '9b3f', '4cd1', '299e']);
     expect(lines.flat().join('')).toBe(hex);
+  });
+});
+
+describe('ordinal', () => {
+  it('uses st, nd, rd and th, with 11 to 13 always th', () => {
+    expect(ordinal(119)).toBe('119th');
+    expect(ordinal(121)).toBe('121st');
+    expect(ordinal(122)).toBe('122nd');
+    expect(ordinal(123)).toBe('123rd');
+    expect(ordinal(111)).toBe('111th');
+    expect(ordinal(112)).toBe('112th');
+    expect(ordinal(113)).toBe('113th');
+    expect(ordinal(101)).toBe('101st');
+  });
+});
+
+describe('enactedSourceLabel', () => {
+  it('names the Congress with the right ordinal and keeps the source citation', () => {
+    expect(enactedSourceLabel('cb_2025_us_cd119_500k')).toBe('U.S. Census Bureau cartographic boundary file for the 119th Congress (2025 release, cb_2025_us_cd119_500k)');
+    expect(enactedSourceLabel('cb_2027_us_cd121_500k')).toContain('121st Congress');
+    expect(enactedSourceLabel('weird')).toBe('U.S. Census Bureau boundary file weird');
   });
 });

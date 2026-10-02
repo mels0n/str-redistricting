@@ -41,6 +41,11 @@ export interface DistrictMapView {
   destroy(): void;
 }
 
+/** Pixel size of a district number's box, used to keep numbers from overlapping. */
+const LABEL_W = 26;
+const LABEL_H = 22;
+const SVG_NS = 'http://www.w3.org/2000/svg';
+
 const EMPTY_LINES: MultiLineString = { type: 'MultiLineString', coordinates: [] };
 const asFeature = (g: MultiLineString) => ({ type: 'Feature' as const, properties: {}, geometry: g });
 
@@ -60,7 +65,7 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
       layers: [{ id: 'ground', type: 'background', paint: { 'background-color': tokens.ground } }],
     },
     bounds: bbox,
-    fitBoundsOptions: { padding: 32 },
+    fitBoundsOptions: { padding: container.clientWidth < 520 ? 14 : 32 },
     attributionControl: false,
     dragRotate: false,
     pitchWithRotate: false,
@@ -86,11 +91,69 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
     return l;
   };
 
+  // Larger districts claim their spot first; small ones move aside and get a leader.
+  const areaCache = new Map<Plan, number[]>();
+  const areasFor = (plan: Plan): number[] => {
+    let a = areaCache.get(plan);
+    if (!a) {
+      a = shapesOf(plan).features.map((f) => {
+        const b = bboxOf([f.geometry])!;
+        return (b[2] - b[0]) * (b[3] - b[1]);
+      });
+      areaCache.set(plan, a);
+    }
+    return a;
+  };
+
+  /**
+   * Put every visible number where it does not overlap another. A number that
+   * would collide moves to the nearest free spot and is joined to its district
+   * by a short leader line and a dot.
+   */
+  function layoutLabels(): void {
+    if (!current || !leaders) return;
+    const plan: Plan = current.cut !== null ? 'before' : current.plan;
+    const labels = labelsFor(plan);
+    const areas = areasFor(plan);
+    const placed: { x: number; y: number }[] = [];
+    const out: string[] = [];
+    const order = districtMarkers.map((_, i) => i).filter((i) => !districtMarkers[i]!.el.hidden).sort((a, b) => areas[b]! - areas[a]!);
+    const free = (x: number, y: number): boolean => placed.every((q) => Math.abs(q.x - x) >= LABEL_W || Math.abs(q.y - y) >= LABEL_H);
+    const angles = [0, 180, 90, 270, 45, 225, 135, 315, 22, 202, 112, 292];
+    for (const i of order) {
+      const { marker } = districtMarkers[i]!;
+      const pt = map.project(labels[i]! as [number, number]);
+      let best = { dx: 0, dy: 0 };
+      if (!free(pt.x, pt.y)) {
+        search: for (let r = 30; r <= 110; r += 20) {
+          for (const deg of angles) {
+            const dx = Math.round(Math.cos((deg * Math.PI) / 180) * r);
+            const dy = Math.round(Math.sin((deg * Math.PI) / 180) * r);
+            if (free(pt.x + dx, pt.y + dy)) {
+              best = { dx, dy };
+              break search;
+            }
+          }
+        }
+      }
+      marker.setOffset([best.dx, best.dy]);
+      placed.push({ x: pt.x + best.dx, y: pt.y + best.dy });
+      if (best.dx || best.dy) {
+        const len = Math.hypot(best.dx, best.dy);
+        const ex = pt.x + best.dx - (best.dx / len) * 11;
+        const ey = pt.y + best.dy - (best.dy / len) * 9;
+        out.push(`<path d="M${pt.x.toFixed(1)},${pt.y.toFixed(1)}L${ex.toFixed(1)},${ey.toFixed(1)}"/><circle cx="${pt.x.toFixed(1)}" cy="${pt.y.toFixed(1)}" r="2.5"/>`);
+      }
+    }
+    leaders.innerHTML = out.join('');
+  }
+
   let current: MapViewState | null = null;
   let anim: number | null = null;
   let districtMarkers: { marker: Marker; el: HTMLElement }[] = [];
   let cutMarkers: Marker[] = [];
   let pin: Marker | null = null;
+  let leaders: SVGSVGElement | null = null;
   let resizeObs: ResizeObserver | null = null;
 
   const shapesOf = (plan: Plan): PlanShapes => (plan === 'official' ? bundle.official : bundle.before);
@@ -199,6 +262,11 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
       map.on('mouseout', () => opts.onHover(null));
     }
 
+    leaders = document.createElementNS(SVG_NS, 'svg');
+    leaders.setAttribute('class', 'strv-map-leaders');
+    leaders.setAttribute('aria-hidden', 'true');
+    map.getCanvasContainer().append(leaders);
+
     districtMarkers = Array.from({ length: seats }, (_, i) => {
       const el = document.createElement('div');
       el.className = 'strv-map-label';
@@ -212,6 +280,8 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
       return { marker, el };
     });
 
+    map.on('move', layoutLabels);
+    map.on('resize', layoutLabels);
     resizeObs = new ResizeObserver(() => map.resize());
     resizeObs.observe(container);
   }
@@ -285,6 +355,8 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
       el.hidden = !visible;
       el.dataset.selected = String(next.selected === i + 1);
     });
+
+    layoutLabels();
 
     // Cut lines and their numbers.
     if (!prev || prev.cut !== next.cut) {

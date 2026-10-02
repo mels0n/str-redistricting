@@ -17,7 +17,7 @@ export function createExplainer(opts: { seats?: number } = {}): HTMLElement {
       { class: 'strv-explain__steps' },
       step(
         'Only people and shapes.',
-        'The generator reads each 2020 census block’s population and shape. It never reads party registration, election results, the addresses of officeholders, or race and ethnicity data.',
+        'For each 2020 census block the generator reads the number of people, the block’s shape, and its center point (the internal point the Census Bureau publishes), which it uses only to put blocks in order across a guide line. It never reads party registration, election results, the addresses of officeholders, or race and ethnicity data.',
       ),
       step(
         'Split by the shortest line.',

@@ -11,6 +11,22 @@ export interface UsMapOptions {
 const W = 960;
 const H = 600;
 
+/** Coastal states whose own label would sit on the shoreline get a callout too. */
+const ALWAYS_CALLOUT = new Set(['NC']);
+
+/** The rightmost projected vertex of a state: a point on its eastern edge for a leader to start from. */
+function eastEdge(geometry: Polygon | MultiPolygon, project: (p: [number, number]) => [number, number] | null): [number, number] | null {
+  const polys = geometry.type === 'Polygon' ? [geometry.coordinates] : geometry.coordinates;
+  let best: [number, number] | null = null;
+  for (const poly of polys) {
+    for (const p of poly[0] ?? []) {
+      const q = project(p as [number, number]);
+      if (q && (!best || q[0] > best[0])) best = q;
+    }
+  }
+  return best;
+}
+
 /**
  * The national index map: every state in outline, states with a generated
  * map set in ink with their number of seats. Small states get a label in a
@@ -30,7 +46,7 @@ export function createUsMap(opts: UsMapOptions): SVGSVGElement {
   const quiet = svg('g', { class: 'strv-us__quiet', 'aria-hidden': 'true' });
   const active = svg('g', { class: 'strv-us__active' });
   const labels = svg('g', { class: 'strv-us__labels', 'aria-hidden': 'true' });
-  const callouts: { y: number; x: number; cx: number; cy: number; abbr: string; seats: number }[] = [];
+  const callouts: { y: number; cx: number; cy: number; abbr: string; seats: number }[] = [];
 
   for (const f of opts.outlines.features) {
     const d = path(f);
@@ -45,7 +61,7 @@ export function createUsMap(opts: UsMapOptions): SVGSVGElement {
     const href = formatHash(stateRoute(entry.abbr));
     const label = `${entry.name}, ${entry.seats} districts`;
     active.append(svg('a', { href, 'aria-label': label, class: 'strv-us__state' }, svg('title', null, label), svg('path', { d })));
-    const fits = x1 - x0 > 54 && y1 - y0 > 40;
+    const fits = x1 - x0 > 54 && y1 - y0 > 40 && !ALWAYS_CALLOUT.has(entry.abbr);
     if (fits) {
       labels.append(
         svg(
@@ -56,7 +72,8 @@ export function createUsMap(opts: UsMapOptions): SVGSVGElement {
         ),
       );
     } else {
-      callouts.push({ y: cy, x: x1, cx, cy, abbr: entry.abbr, seats: entry.seats });
+      const [ax, ay] = eastEdge(f.geometry, (p) => projection(p)) ?? [cx, cy];
+      callouts.push({ y: ay, cx: ax, cy: ay, abbr: entry.abbr, seats: entry.seats });
     }
   }
 
@@ -69,6 +86,7 @@ export function createUsMap(opts: UsMapOptions): SVGSVGElement {
     lastY = y;
     labels.append(
       svg('path', { d: `M${c.cx},${c.cy}L${colX - 30},${y}H${colX - 6}`, class: 'strv-us__leader' }),
+      svg('circle', { cx: c.cx, cy: c.cy, r: 2.5, class: 'strv-us__dot' }),
       // A larger click target for small states; the state shape itself is the keyboard stop.
       svg(
         'a',

@@ -1,2 +1,2 @@
 export { createCutScrubber } from './ui';
-export type { CutScrubber, CutScrubberOptions } from './ui';
+export type { CutScrubber, CutScrubberOptions, BalanceLogState } from './ui';

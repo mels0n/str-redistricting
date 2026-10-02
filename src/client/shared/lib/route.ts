@@ -3,66 +3,99 @@
  * works on any static host and inside an embedding page:
  *
  *   #/                          national index
+ *   #/how                       how the maps are drawn
+ *   #/how/balancing             the same page, at one of its sections
  *   #/CO                        Colorado, finished map
  *   #/CO/d/3                    Colorado, district 3 selected
  *   #/CO/cut/4                  Colorado, cut sequence at cut 4
+ *   #/CO/balance/12             Colorado, balancing replay after move 12
  *   #/CO/d/3?plan=before&compare=enacted
+ *
+ * `plan=finished` and the older `plan=official` both open the finished map,
+ * which is also what a link without `plan` shows.
  */
-export type Plan = 'official' | 'before';
+export type Plan = 'finished' | 'before';
+
+/** Sections of the How it works page, in page order. */
+export const HOW_SECTIONS = ['inputs', 'cut', 'strays', 'recursion', 'balancing', 'fingerprint', 'sources'] as const;
+export type HowSection = (typeof HOW_SECTIONS)[number];
 
 export type Route =
   | { page: 'national' }
+  | { page: 'how'; section: HowSection | null }
   | {
       page: 'state';
       abbr: string;
       district: number | null;
-      /** null when the finished map is showing; 0..N-1 in the cut sequence. */
+      /** null unless the cut sequence is open; 0..N-1 in the cut sequence. */
       cut: number | null;
+      /** null unless the balancing replay is open; m = the first m balancing moves made (0..M). */
+      move: number | null;
       plan: Plan;
       enacted: boolean;
     };
 
 export const NATIONAL: Route = { page: 'national' };
 
-export function stateRoute(abbr: string, patch: Partial<StateRoute> = {}): StateRoute {
-  return { page: 'state', abbr, district: null, cut: null, plan: 'official', enacted: false, ...patch };
+export function howRoute(section: HowSection | null = null): Route {
+  return { page: 'how', section };
 }
 
-function positiveInt(s: string | undefined, min: number): number | null {
-  if (s === undefined || !/^\d{1,3}$/.test(s)) return null;
+export function stateRoute(abbr: string, patch: Partial<StateRoute> = {}): StateRoute {
+  return { page: 'state', abbr, district: null, cut: null, move: null, plan: 'finished', enacted: false, ...patch };
+}
+
+function positiveInt(s: string | undefined, min: number, digits = 3): number | null {
+  if (s === undefined || s.length > digits || !/^\d+$/.test(s)) return null;
   const n = Number(s);
   return n >= min ? n : null;
+}
+
+/** Reads a `plan` value. `official` is an older name for the finished map and still opens it. */
+export function parsePlan(value: string | null): Plan {
+  return value === 'before' ? 'before' : 'finished';
 }
 
 export function parseHash(hash: string): Route {
   const raw = hash.replace(/^#/, '');
   const [pathPart = '', queryPart = ''] = raw.split('?', 2);
   const segs = pathPart.split('/').filter(Boolean);
+  if (segs[0]?.toLowerCase() === 'how') {
+    const section = segs[1]?.toLowerCase();
+    return howRoute((HOW_SECTIONS as readonly string[]).includes(section ?? '') ? (section as HowSection) : null);
+  }
   const abbr = segs[0]?.toUpperCase();
   if (!abbr || !/^[A-Z]{2}$/.test(abbr)) return NATIONAL;
 
   let district: number | null = null;
   let cut: number | null = null;
+  let move: number | null = null;
   for (let i = 1; i < segs.length; i += 2) {
     const key = segs[i];
     const value = segs[i + 1];
     if (key === 'd') district = positiveInt(value, 1);
     else if (key === 'cut') cut = positiveInt(value, 0);
+    else if (key === 'balance') move = positiveInt(value, 0, 4);
   }
+  // The two phases of the sequence never show at once; the cuts come first.
+  if (cut !== null) move = null;
   const q = new URLSearchParams(queryPart);
   return stateRoute(abbr, {
     district,
     cut,
-    plan: q.get('plan') === 'before' ? 'before' : 'official',
+    move,
+    plan: parsePlan(q.get('plan')),
     enacted: q.get('compare') === 'enacted',
   });
 }
 
 export function formatHash(route: Route): string {
   if (route.page === 'national') return '#/';
+  if (route.page === 'how') return route.section ? `#/how/${route.section}` : '#/how';
   let path = `#/${route.abbr}`;
   if (route.district !== null) path += `/d/${route.district}`;
   if (route.cut !== null) path += `/cut/${route.cut}`;
+  else if (route.move !== null) path += `/balance/${route.move}`;
   const q = new URLSearchParams();
   if (route.plan === 'before') q.set('plan', 'before');
   if (route.enacted) q.set('compare', 'enacted');
@@ -92,17 +125,19 @@ export type StateRoute = Extract<Route, { page: 'state' }>;
 /** Something in a link that does not fit the state it names. */
 export type RouteIssue =
   | { kind: 'district'; district: number; seats: number }
-  | { kind: 'cut'; cut: number; cuts: number };
+  | { kind: 'cut'; cut: number; cuts: number }
+  | { kind: 'move'; move: number; moves: number };
 
 /**
  * Brings a state route in line with what the state actually has: a district
- * past the last one is dropped, a cut past the last one becomes the last.
+ * past the last one is dropped, a cut or balancing move past the last one
+ * becomes the last. `moves` is the number of balancing moves, when known.
  * Returns the corrected route and what was wrong, so the page can say so.
  */
-export function fitRouteToState(route: StateRoute, seats: number): { route: StateRoute; issues: RouteIssue[] } {
+export function fitRouteToState(route: StateRoute, seats: number, moves?: number): { route: StateRoute; issues: RouteIssue[] } {
   const issues: RouteIssue[] = [];
   const cuts = Math.max(seats - 1, 0);
-  let { district, cut } = route;
+  let { district, cut, move } = route;
   if (district !== null && district > seats) {
     issues.push({ kind: 'district', district, seats });
     district = null;
@@ -111,13 +146,22 @@ export function fitRouteToState(route: StateRoute, seats: number): { route: Stat
     issues.push({ kind: 'cut', cut, cuts });
     cut = cuts;
   }
-  return { route: issues.length ? { ...route, district, cut } : route, issues };
+  if (move !== null && moves !== undefined && move > moves) {
+    issues.push({ kind: 'move', move, moves });
+    move = moves === 0 ? null : moves;
+  }
+  return { route: issues.length ? { ...route, district, cut, move } : route, issues };
 }
 
 /** Plain-language sentence for a link problem. */
 export function describeRouteIssue(issue: RouteIssue, stateName: string): string {
   if (issue.kind === 'district') {
     return `${stateName} has ${issue.seats} ${issue.seats === 1 ? 'district' : 'districts'}, so there is no District ${issue.district}. Showing the whole state.`;
+  }
+  if (issue.kind === 'move') {
+    return issue.moves === 0
+      ? `${stateName} needed no balancing moves, so there is no balancing to show.`
+      : `${stateName} has ${issue.moves} balancing ${issue.moves === 1 ? 'move' : 'moves'}, so there is no move ${issue.move}. Showing the last one.`;
   }
   return issue.cuts === 0
     ? `${stateName} is a single district, so there are no cuts to show.`

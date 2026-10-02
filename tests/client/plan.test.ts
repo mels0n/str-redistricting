@@ -45,9 +45,9 @@ describe('published data passes the client schemas', () => {
     for (const s of generated) {
       const stats = StatsSchema.parse(data(`${s.abbr}/stats.json`));
       const cuts = CutsSchema.parse(data(`${s.abbr}/cuts.json`));
-      expect(stats.official.districts).toHaveLength(s.seats);
+      expect(stats.finished.districts).toHaveLength(s.seats);
       expect(cuts).toHaveLength(s.seats - 1);
-      expect(stats.official.metrics.assignmentSha256).toBe(s.summary.assignmentSha256);
+      expect(stats.finished.metrics.assignmentSha256).toBe(s.summary.assignmentSha256);
     }
   });
 

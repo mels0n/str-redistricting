@@ -1,6 +1,6 @@
 import { geoAlbersUsa, geoPath } from 'd3-geo';
 import type { FeatureCollection, MultiPolygon, Polygon } from 'geojson';
-import { svg, formatHash, stateRoute } from '../../shared';
+import { svg, formatHash, stateRoute, labelPoint, pointInPolygonRings } from '../../shared';
 import { isGenerated, type StateIndex } from '../../entities/state';
 
 export interface UsMapOptions {
@@ -25,6 +25,41 @@ function eastEdge(geometry: Polygon | MultiPolygon, project: (p: [number, number
     }
   }
   return best;
+}
+
+/** The largest part of a state, projected: its rings in drawing units. */
+function largestPart(geometry: Polygon | MultiPolygon, project: (p: [number, number]) => [number, number] | null): [number, number][][] {
+  const polys = geometry.type === 'Polygon' ? [geometry.coordinates] : geometry.coordinates;
+  let best: [number, number][][] = [];
+  let bestSpan = -1;
+  for (const poly of polys) {
+    const rings = poly.map((ring) => ring.map((p) => project(p as [number, number])).filter((q): q is [number, number] => q !== null));
+    const outer = rings[0] ?? [];
+    if (outer.length < 3) continue;
+    const xs = outer.map((q) => q[0]);
+    const ys = outer.map((q) => q[1]);
+    const span = (Math.max(...xs) - Math.min(...xs)) * (Math.max(...ys) - Math.min(...ys));
+    if (span > bestSpan) {
+      bestSpan = span;
+      best = rings;
+    }
+  }
+  return best;
+}
+
+/**
+ * Whether a label box of `w` by `h` drawing units, set at (x, y) the way the
+ * labels are (the code above the point, the seat count below it), lies wholly
+ * inside the state's main part.
+ */
+function labelFits(rings: [number, number][][], x: number, y: number, w: number, top: number, bottom: number, coreOnly = false): boolean {
+  if (rings.length === 0) return false;
+  for (const fx of [-0.5, 0, 0.5]) {
+    for (const fy of coreOnly ? [0.5] : [0, 0.5, 1]) {
+      if (!pointInPolygonRings([x + fx * w, y - top + fy * (top + bottom)], rings)) return false;
+    }
+  }
+  return true;
 }
 
 /**
@@ -64,11 +99,18 @@ function buildUsMap(opts: UsMapOptions, compact: boolean): SVGSVGElement {
       quiet.append(svg('path', { d }));
       continue;
     }
-    const [[x0, y0], [x1, y1]] = path.bounds(f);
-    const [cx, cy] = path.centroid(f);
+    // The label sits at the point of the state's main part farthest from its edges (Michigan's lower peninsula, not the lake).
+    const project = (p: [number, number]): [number, number] | null => projection(p);
+    const [cx, cy] = project(labelPoint(f.geometry) as [number, number]) ?? path.centroid(f);
+    const abbrSize = compact ? abbrUnits : 13;
+    const seatsSize = compact ? seatsUnits : 24;
     const href = formatHash(stateRoute(entry.abbr));
     const label = `${entry.name}, ${entry.seats} districts`;
-    const fits = x1 - x0 > (compact ? abbrUnits * 2.1 : 54) && y1 - y0 > (compact ? abbrUnits * 1.95 : 40) && !ALWAYS_CALLOUT.has(entry.abbr);
+    const labelW = Math.max(abbrSize * 1.6, String(entry.seats).length * seatsSize * 0.62) + 4;
+    // On a phone the labels are large against the drawing: a label may run past a state's edge there (its ink outline keeps it
+    // readable on the ground), as long as the middle of it is inside. A long leader across the country would read worse.
+    const k = compact ? 0.72 : 1;
+    const fits = !ALWAYS_CALLOUT.has(entry.abbr) && labelFits(largestPart(f.geometry, project), cx, cy, labelW * k, abbrSize * (compact ? 0.95 : 1.1) + 2, seatsSize * (compact ? 0.85 : 0.95) + 2, compact);
     // A label that fits sits inside its state's link, so it can change color with the state's hover and focus fill.
     const inside = fits
       ? svg(

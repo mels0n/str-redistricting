@@ -12,17 +12,17 @@ export function districtAt(
 
 /** The district a point falls in under each plan, by plan name. */
 export interface PlanDistricts {
-  official: number | null;
+  finished: number | null;
   before: number | null;
 }
 
-/** The point's district under the official map and under the map before balancing; they can differ near a border. */
+/** The point's district under the finished map and under the map before balancing; they can differ near a border. */
 export function districtsAt(
   plans: {
-    official: { features: readonly Feature<Polygon | MultiPolygon, { district: number }>[] };
+    finished: { features: readonly Feature<Polygon | MultiPolygon, { district: number }>[] };
     before: { features: readonly Feature<Polygon | MultiPolygon, { district: number }>[] };
   },
   pt: LonLat,
 ): PlanDistricts {
-  return { official: districtAt(plans.official.features, pt), before: districtAt(plans.before.features, pt) };
+  return { finished: districtAt(plans.finished.features, pt), before: districtAt(plans.before.features, pt) };
 }

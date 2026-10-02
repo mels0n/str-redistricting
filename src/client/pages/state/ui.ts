@@ -15,6 +15,7 @@ import {
   iconArrowDown,
   iconArrowLeft,
   stateRoute,
+  howRoute,
   NATIONAL,
   MapUnavailableError,
   UnknownStateError,
@@ -24,15 +25,27 @@ import {
   type LonLat,
 } from '../../shared';
 import { loadIndex, loadOutlines, findState, isGenerated, type GeneratedState } from '../../entities/state';
-import { loadStateBundle, loadEnacted, districtsAt, type PlanDistricts, type StateBundle, type EnactedShapes } from '../../entities/plan';
+import {
+  loadStateBundle,
+  loadEnacted,
+  loadBalance,
+  districtsAt,
+  populationsAfter,
+  type PlanDistricts,
+  type StateBundle,
+  type EnactedShapes,
+  type DistrictStats,
+  type SeqPos,
+} from '../../entities/plan';
 import { createAddressSearch, describeResolution, resolveAddress } from '../../features/address-search';
-import { createCutScrubber, type CutScrubber } from '../../features/cut-scrubber';
+import { createCutScrubber, type CutScrubber, type BalanceLogState } from '../../features/cut-scrubber';
 import { createPlanOptions, type PlanOptions } from '../../features/plan-options';
 import { createDistrictMap, type DistrictMapView } from '../../widgets/district-map';
 import { createDistrictTicket } from '../../widgets/district-ticket';
 import { createDistrictList } from '../../widgets/district-list';
 import { createProofPanel } from '../../widgets/proof-panel';
 import { createExplainer } from '../../widgets/explainer';
+import { createProcessPanel } from '../../widgets/process-panel';
 
 export function createStatePage(initial: StateRoute, nav: Navigate): Page {
   let route = initial;
@@ -44,8 +57,12 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
   let enactedLoading = false;
   let seats: number | null = null;
   let stateName = initial.abbr;
-  /** The plan on screen: the cut sequence always shows the plan before balancing. */
-  const shownPlan = (): 'official' | 'before' => (route.cut !== null ? 'before' : route.plan);
+  /** The plan on screen: the cut sequence and the balancing replay both start from the plan before balancing. */
+  const shownPlan = (): 'finished' | 'before' => (route.cut !== null || route.move !== null ? 'before' : route.plan);
+  /** The number of balancing moves, once the state's numbers are in. */
+  let moveCount: number | undefined;
+  /** The balancing log: fetched only when the replay opens. */
+  let balance: BalanceLogState = { status: 'idle' };
   /** The district of the located address under the plan on screen. */
   const locatedDistrict = (plan = shownPlan()): number | null => located?.districts[plan] ?? null;
   /** The corrected link a notice explains; the notice stays while the route is still that one. */
@@ -54,8 +71,9 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
 
   const h1 = h('h1', { class: 'strv-state__h1', tabindex: -1 }, initial.abbr);
   const back = h('a', { href: formatHash(NATIONAL), class: 'strv-back' }, iconArrowLeft(), 'All states');
+  const howLink = h('a', { href: formatHash(howRoute()), class: 'strv-back strv-state__how' }, 'How it works');
   const meta = h('dl', { class: 'strv-state__meta' });
-  const head = h('header', { class: 'strv-state__head' }, back, h1, meta);
+  const head = h('header', { class: 'strv-state__head' }, h('div', { class: 'strv-state__links' }, back, howLink), h1, meta);
 
   // Spoken through announce(); a hidden element cannot be a live region.
   const notice = h('p', { class: 'strv-notice', hidden: true });
@@ -89,7 +107,7 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
   /** Fits the route to this state. A link that asks for something it does not have is corrected and explained. */
   function fitRoute(next: StateRoute): StateRoute {
     if (seats === null) return next;
-    const fit = fitRouteToState(next, seats);
+    const fit = fitRouteToState(next, seats, moveCount);
     if (fit.issues.length === 0) return fit.route;
     setNotice(fit.issues.map((i) => describeRouteIssue(i, stateName)).join(' '));
     noticeHash = formatHash(fit.route);
@@ -253,7 +271,9 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
 
   function build(entry: GeneratedState, bundle: StateBundle, index: Awaited<ReturnType<typeof loadIndex>>): void {
     const total = bundle.cuts.length;
+    const finishedMetrics = bundle.stats.finished.metrics;
     seats = entry.seats;
+    moveCount = finishedMetrics.balanceMoves;
     route = fitRoute(route);
     const ticket = createDistrictTicket();
     const list = createDistrictList({ onSelect: (d) => go({ district: d === route.district ? null : d }) });
@@ -266,12 +286,40 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
     scrubber = createCutScrubber({
       cuts: bundle.cuts,
       seats: entry.seats,
-      onStep: (k, { animate }) => {
+      moves: finishedMetrics.balanceMoves,
+      peopleMoved: finishedMetrics.peopleMovedByBalancing,
+      rangeBefore: finishedMetrics.rangeBeforeBalancing,
+      onStep: (pos, { animate }) => {
         animateNext = animate;
-        go({ cut: k }, route.cut !== null);
+        const open = route.cut !== null || route.move !== null;
+        go(pos.phase === 'cut' ? { cut: pos.k, move: null } : { cut: null, move: pos.m }, open);
       },
-      onFinish: () => go({ cut: null }),
+      onFinish: () => go({ cut: null, move: null }),
+      onZoomToMove: () => map?.zoomToMove(),
     });
+    const sequence = scrubber;
+    /** Fetches the balancing log the first time the replay opens (and again after a failure, on request). */
+    const needBalance = (): void => {
+      if (balance.status !== 'idle') return;
+      balance = { status: 'loading' };
+      loadBalance(entry.abbr, bundle.stats)
+        .then((log) => {
+          balance = { status: 'ready', log };
+        })
+        .catch((err: unknown) => {
+          balance = {
+            status: 'error',
+            message: describeError(err),
+            retry: () => {
+              balance = { status: 'idle' };
+              render();
+            },
+          };
+        })
+        .finally(() => {
+          if (alive) render();
+        });
+    };
     const search = createAddressSearch({
       id: 'strv-address-state',
       label: 'Find a district by address',
@@ -329,6 +377,20 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
       h('div', { class: 'strv-state__search' }, search.el),
       h('div', { class: 'strv-state__options' }, options.el),
       h('div', { class: 'strv-state__list' }, list.el),
+      h(
+        'div',
+        { class: 'strv-state__process' },
+        createProcessPanel({
+          stateName: entry.name,
+          metrics: finishedMetrics,
+          onWatch: (part) => {
+            sequence.start(part);
+            // On a phone the panel is far below the map; bring the map and its controls up.
+            const top = stage.getBoundingClientRect().top;
+            if (top < 0 || top > window.innerHeight * 0.5) stage.scrollIntoView({ block: 'start', behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
+          },
+        }),
+      ),
       h('div', { class: 'strv-state__proof' }, proof.el),
       h('div', { class: 'strv-state__explain' }, createExplainer({ seats: entry.seats })),
     );
@@ -341,16 +403,33 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
     let listKey = '';
     let proofKey = '';
 
+    /** During the balancing replay the districts' populations are live: the populations before balancing plus the moves so far. */
+    const liveDistricts = (base: readonly DistrictStats[]): DistrictStats[] => {
+      if (route.move === null || balance.status !== 'ready') return [...base];
+      const log = balance.log;
+      const pops = populationsAfter(log.before, log.moves, route.move);
+      const ideal = bundle.stats.beforeBalancing.metrics.ideal;
+      return base.map((d) => {
+        const pop = pops[d.district - 1] ?? d.pop;
+        return { ...d, pop, dev: pop - ideal, devPct: ((pop - ideal) / ideal) * 100 };
+      });
+    };
+
     render = (light = false) => {
       if (!alive) return;
       const cutMode = route.cut !== null;
-      const plan = cutMode ? 'before' : route.plan;
-      const planStats = plan === 'official' ? bundle.stats.official : bundle.stats.beforeBalancing;
+      const balanceMode = route.move !== null;
+      const seqMode = cutMode || balanceMode;
+      if (balanceMode) needBalance();
+      const plan = shownPlan();
+      const planStats = plan === 'finished' ? bundle.stats.finished : bundle.stats.beforeBalancing;
+      const districts = liveDistricts(planStats.districts);
       const selected = route.district !== null && route.district <= entry.seats ? route.district : null;
       const shown = hovered ?? selected;
-      const stats = shown !== null ? (planStats.districts.find((d) => d.district === shown) ?? null) : null;
+      const stats = shown !== null ? (districts.find((d) => d.district === shown) ?? null) : null;
 
-      el.dataset.cutMode = String(cutMode);
+      el.dataset.cutMode = String(seqMode);
+      el.dataset.phase = cutMode ? 'cut' : balanceMode ? 'balance' : 'none';
       ticket.update({
         district: stats,
         color: shown !== null ? bundle.colors[shown - 1]! : null,
@@ -358,11 +437,12 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
         plan,
         located: locatedDistrict(plan) === shown && shown !== null,
         preview: hovered !== null && hovered !== selected,
+        stage: balanceMode && balance.status === 'ready' ? `After balancing move ${route.move} of ${finishedMetrics.balanceMoves}.` : undefined,
       });
-      const picked = selected !== null ? (planStats.districts.find((d) => d.district === selected) ?? null) : null;
+      const picked = selected !== null ? (districts.find((d) => d.district === selected) ?? null) : null;
       renderPick(plan, picked, picked ? bundle.colors[picked.district - 1]! : null);
       if (light) {
-        map?.set(mapState(selected, cutMode));
+        map?.set(mapState(selected));
         return;
       }
       if (located) {
@@ -372,29 +452,33 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
           ? `Your address, ${located.matchedAddress}, is in District ${here}. Shapes are simplified for display; close to a border, the block assignment file is the final word.`
           : `Your address, ${located.matchedAddress}, is marked on the map.`;
       }
-      const nextListKey = `${plan}|${selected}|${locatedDistrict(plan) ?? ''}`;
+      const liveMove = balanceMode && balance.status === 'ready' ? route.move : null;
+      const nextListKey = `${plan}|${selected}|${locatedDistrict(plan) ?? ''}|${liveMove ?? ''}`;
       if (nextListKey !== listKey) {
         listKey = nextListKey;
+        const which = liveMove !== null ? `after balancing move ${liveMove} of ${finishedMetrics.balanceMoves}` : plan === 'finished' ? 'finished map' : 'before balancing';
         list.update({
-          districts: planStats.districts,
+          districts,
           colors: bundle.colors,
           selected,
           located: locatedDistrict(plan),
-          caption: `${entry.name}, ${entry.seats} districts, ${plan === 'official' ? 'official map' : 'before balancing'}. Ideal district: ${formatPeople(planStats.metrics.ideal)} people.`,
+          caption: `${entry.name}, ${entry.seats} districts, ${which}. Ideal district: ${formatPeople(planStats.metrics.ideal)} people.`,
         });
       }
       if (plan !== proofKey) {
         proofKey = plan;
         proof.update({ metrics: planStats.metrics, plan, abbr: entry.abbr });
       }
-      options!.update({ plan: route.plan, enacted: route.enacted, cutMode, enactedFailed });
-      scrubber!.update(route.cut === null ? null : Math.min(route.cut, total));
+      options!.update({ plan: route.plan, enacted: route.enacted, phase: cutMode ? 'cut' : balanceMode ? 'balance' : null, enactedFailed });
+      const pos: SeqPos | null = cutMode ? { phase: 'cut', k: Math.min(route.cut!, total) } : balanceMode ? { phase: 'balance', m: route.move! } : null;
+      scrubber!.update(pos, { log: balance, canZoom: map !== null });
 
       clear(legend);
       const legendItems: (HTMLElement | null)[] = [
         h('span', { class: 'strv-legend__item' }, h('span', { class: 'strv-legend__num' }, '3'), 'District number'),
         cutMode ? h('span', { class: 'strv-legend__item' }, h('span', { class: 'strv-legend__cut' }), 'Newest cut') : null,
         cutMode ? h('span', { class: 'strv-legend__item' }, h('span', { class: 'strv-legend__past' }), 'Earlier cuts') : null,
+        balanceMode && (route.move ?? 0) > 0 ? h('span', { class: 'strv-legend__item' }, h('span', { class: 'strv-legend__move' }), 'Block moved') : null,
         route.enacted ? h('span', { class: 'strv-legend__item' }, h('span', { class: 'strv-legend__dash' }), '119th Congress districts') : null,
       ];
       legend.append(...legendItems.filter((x): x is HTMLElement => x !== null));
@@ -416,12 +500,14 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
           });
       }
 
-      map?.set(mapState(selected, cutMode));
+      map?.set(mapState(selected));
       animateNext = false;
     };
-    const mapState = (selected: number | null, cutMode: boolean) => ({
+    const mapState = (selected: number | null) => ({
       plan: route.plan,
-      cut: cutMode ? Math.min(route.cut!, total) : null,
+      cut: route.cut !== null ? Math.min(route.cut, total) : null,
+      move: route.move,
+      balance: balance.status === 'ready' ? balance.log : null,
       selected,
       hovered,
       enacted: route.enacted ? enacted : null,

@@ -32,7 +32,7 @@ export interface PlanShapes {
 export interface StateBundle {
   abbr: string;
   stats: Stats;
-  official: PlanShapes;
+  finished: PlanShapes;
   before: PlanShapes;
   cuts: Cut[];
   /** Fill color for each district, by district index (district 1 at 0). */
@@ -58,31 +58,36 @@ function toShapes(topo: DistrictTopology, url: string, seats: number): PlanShape
   };
 }
 
+/** A state's numbers alone (both plans, every district), without any shapes. */
+export function loadStats(abbr: string): Promise<Stats> {
+  return fetchJson(dataUrl(`${abbr}/stats.json`), StatsSchema);
+}
+
 const bundles = new Map<string, Promise<StateBundle>>();
 
 /** Loads everything a state view needs except the enacted districts. */
 export function loadStateBundle(abbr: string): Promise<StateBundle> {
   let p = bundles.get(abbr);
   if (!p) {
-    const officialUrl = dataUrl(`${abbr}/districts.topo.json`);
+    const finishedUrl = dataUrl(`${abbr}/districts.topo.json`);
     const beforeUrl = dataUrl(`${abbr}/before.topo.json`);
     p = Promise.all([
-      fetchJson(dataUrl(`${abbr}/stats.json`), StatsSchema),
-      fetchJson(officialUrl, DistrictTopoSchema),
+      loadStats(abbr),
+      fetchJson(finishedUrl, DistrictTopoSchema),
       fetchJson(beforeUrl, DistrictTopoSchema),
       fetchJson(dataUrl(`${abbr}/cuts.json`), CutsSchema),
-    ]).then(([stats, officialTopo, beforeTopo, cuts]) => {
-      const seats = stats.official.metrics.seats;
+    ]).then(([stats, finishedTopo, beforeTopo, cuts]) => {
+      const seats = stats.finished.metrics.seats;
       if (cuts.length !== seats - 1) {
         throw new DataShapeError(dataUrl(`${abbr}/cuts.json`), `expected ${seats - 1} cuts, found ${cuts.length}`);
       }
-      const official = toShapes(officialTopo as unknown as DistrictTopology, officialUrl, seats);
+      const finished = toShapes(finishedTopo as unknown as DistrictTopology, finishedUrl, seats);
       const before = toShapes(beforeTopo as unknown as DistrictTopology, beforeUrl, seats);
-      const slots = assignColors(unionNeighbors(official.neighbors, before.neighbors), districtPalette.length);
+      const slots = assignColors(unionNeighbors(finished.neighbors, before.neighbors), districtPalette.length);
       return {
         abbr,
         stats,
-        official,
+        finished,
         before,
         cuts: [...cuts].sort((a, b) => a.order - b.order),
         colors: slots.map((s) => districtPalette[s]!.hex),

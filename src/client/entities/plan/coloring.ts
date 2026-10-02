@@ -26,7 +26,7 @@ export function assignColors(neighbors: readonly (readonly number[])[], paletteS
   return slot;
 }
 
-/** Merges two adjacency lists (official and before-balancing shapes). */
+/** Merges two adjacency lists (finished and before-balancing shapes). */
 export function unionNeighbors(a: readonly (readonly number[])[], b: readonly (readonly number[])[]): number[][] {
   const n = Math.max(a.length, b.length);
   const out: number[][] = [];

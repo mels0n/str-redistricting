@@ -1,0 +1,69 @@
+import { h, arrowTo, formatHash, formatInt, howRoute, peopleNoun } from '../../shared';
+import type { Metrics } from '../../entities/plan';
+
+export interface ProcessPanelOptions {
+  stateName: string;
+  /** The finished map's numbers; the counts of cuts, lines and strays are the same in both plans. */
+  metrics: Metrics;
+  /** Opens the cut sequence or the balancing replay, playing. */
+  onWatch(part: 'cuts' | 'balance'): void;
+}
+
+const count = (n: number, one: string, many: string): string => `${formatInt(n)} ${n === 1 ? one : many}`;
+
+/** "35.2 seconds", "1 minute 50 seconds" (rounded to the tenth of a second under a minute). */
+export function formatRunTime(ms: number): string {
+  const s = ms / 1000;
+  if (s < 60) return `${s.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} seconds`;
+  const whole = Math.round(s);
+  const min = Math.floor(whole / 60);
+  const sec = whole % 60;
+  return `${count(min, 'minute', 'minutes')}${sec ? ` ${count(sec, 'second', 'seconds')}` : ''}`;
+}
+
+/**
+ * "What happened in this state": the drawing of this state's map, stage by
+ * stage, in its own numbers. Every figure comes from the state's published
+ * stats file.
+ */
+export function createProcessPanel(opts: ProcessPanelOptions): HTMLElement {
+  const m = opts.metrics;
+  const unevenTries = m.candidateLinesEvaluated - m.angleCount * m.cuts;
+  const row = (term: string, fig: Node | string, sub: string): HTMLElement =>
+    h('div', { class: 'strv-process__row' }, h('dt', null, term), h('dd', { class: 'strv-process__fig' }, fig), h('dd', { class: 'strv-process__sub' }, sub));
+
+  const watch = (part: 'cuts' | 'balance', label: string, signal: boolean): HTMLElement =>
+    h('button', { type: 'button', class: `strv-button${signal ? ' strv-button--signal' : ''}`, onclick: () => opts.onWatch(part) }, label);
+
+  return h(
+    'section',
+    { class: 'strv-process', 'aria-labelledby': 'strv-process-h' },
+    h('h2', { id: 'strv-process-h', class: 'strv-h2' }, 'What happened in this state'),
+    h(
+      'dl',
+      { class: 'strv-process__rows' },
+      row('Cuts', formatInt(m.cuts), `${m.seats} seats take ${count(m.cuts, 'cut', 'cuts')}. Each cut splits one piece of ${opts.stateName} in two.`),
+      row(
+        'Guide lines tested',
+        formatInt(m.candidateLinesEvaluated),
+        `${formatInt(m.angleCount)} directions for each cut${unevenTries > 0 ? ', tried both ways round where a piece’s seats split unevenly' : ''}.`,
+      ),
+      row('Ruled out by the stray cap', formatInt(m.strayCapRejected), 'Lines whose stray pieces held more than 1% of one district’s ideal population.'),
+      row('Stray blocks moved', formatInt(m.strayBlocksMoved), `${count(m.strayPopMoved, 'person', 'people')} in small pieces cut off by a line joined the side around them.`),
+      row('Balancing moves', formatInt(m.balanceMoves), `${count(m.peopleMovedByBalancing, 'person', 'people')} moved, one block at a time.`),
+      row(
+        'Population range',
+        h('span', { class: 'strv-nowrap' }, formatInt(m.rangeBeforeBalancing), arrowTo(), `${formatInt(m.rangeAfterBalancing)} ${peopleNoun(m.rangeAfterBalancing)}`),
+        'Largest district minus smallest, before balancing and after.',
+      ),
+      row('Run time', formatRunTime(m.runtimeMs), 'To draw the whole state, from the census file to the finished map.'),
+    ),
+    h(
+      'div',
+      { class: 'strv-process__actions' },
+      watch('cuts', `Watch the ${count(m.cuts, 'cut', 'cuts')}`, true),
+      m.balanceMoves > 0 ? watch('balance', `Watch the ${count(m.balanceMoves, 'balancing move', 'balancing moves')}`, false) : null,
+    ),
+    h('p', { class: 'strv-process__how' }, h('a', { href: formatHash(howRoute()) }, 'How each stage works')),
+  );
+}

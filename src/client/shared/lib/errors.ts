@@ -82,7 +82,7 @@ export function describeError(error: unknown): string {
   }
   if (error instanceof MapUnavailableError) {
     return error.kind === 'webgl'
-      ? 'This browser cannot draw the map, because WebGL (graphics acceleration) is turned off or missing. Everything else still works: every district is listed in the Districts table with its population and counties, and the cut sequence describes each cut in words.'
+      ? 'This browser cannot draw the map, because WebGL (graphics acceleration) is turned off or missing. Everything else still works: every district is listed in the Districts table with its population and counties, and the cuts and the balancing are described step by step in words.'
       : 'The part of this page that draws the map could not be loaded. Check your connection and try again.';
   }
   if (error instanceof DataLoadError) {

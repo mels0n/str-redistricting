@@ -17,6 +17,12 @@ const ConfigSchema = z.object({
   cutPlayIntervalMs: z.number().int().positive(),
   /** Duration of the drawing of one cut, when motion is allowed. */
   cutDrawMs: z.number().int().nonnegative(),
+  /** Milliseconds between balancing moves for a short log. */
+  movePlayIntervalMs: z.number().int().positive(),
+  /** A long log speeds up so the whole balancing plays in about this long. */
+  movePlayTotalMs: z.number().int().positive(),
+  /** The fastest the balancing ever plays, per move. */
+  movePlayMinMs: z.number().int().positive(),
 });
 
 export type ViewerConfig = z.infer<typeof ConfigSchema>;
@@ -49,6 +55,9 @@ function load(): ViewerConfig {
     geocoderTimeoutMs: 15000,
     cutPlayIntervalMs: 1400,
     cutDrawMs: 650,
+    movePlayIntervalMs: 1000,
+    movePlayTotalMs: 45000,
+    movePlayMinMs: 120,
   });
 }
 

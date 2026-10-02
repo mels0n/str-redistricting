@@ -1,4 +1,4 @@
-import { svg } from '../lib/dom';
+import { h, svg } from '../lib/dom';
 
 /** A 16px stroke arrow, drawn to sit beside the filled play and step icons. */
 function arrow(d: string): SVGSVGElement {
@@ -7,6 +7,18 @@ function arrow(d: string): SVGSVGElement {
 
 export const iconArrowLeft = (): SVGSVGElement => arrow('M13 8H3.25M7.5 3.5L3 8l4.5 4.5');
 export const iconArrowDown = (): SVGSVGElement => arrow('M8 3v9.75M3.5 8.5L8 13l4.5-4.5');
+export const iconArrowRight = (): SVGSVGElement => arrow('M3 8h9.75M8.5 3.5L13 8l-4.5 4.5');
 
 /** A disclosure chevron: points down when closed; the page turns it over when open. */
 export const iconChevronDown = (): SVGSVGElement => arrow('M3.5 6l4.5 4.5L12.5 6');
+
+/** A magnifier with a plus, for "zoom to". */
+export const iconZoomIn = (): SVGSVGElement => arrow('M7 2.75a4.25 4.25 0 1 1 0 8.5a4.25 4.25 0 1 1 0-8.5zM10.25 10.25L13.5 13.5M7 5v4M5 7h4');
+
+/**
+ * "A to B" between two figures: a drawn arrow for the eye, the word "to" for
+ * screen readers and for copied text.
+ */
+export function arrowTo(): HTMLElement {
+  return h('span', { class: 'strv-to' }, iconArrowRight(), h('span', { class: 'strv-visually-hidden' }, ' to '));
+}

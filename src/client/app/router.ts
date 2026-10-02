@@ -1,6 +1,7 @@
 import { clear, formatHash, parseHash, type Page, type Route } from '../shared';
 import { createNationalPage } from '../pages/national';
 import { createStatePage } from '../pages/state';
+import { createHowPage } from '../pages/how';
 
 /**
  * Hash router. A route for the page already showing is handed to that page
@@ -51,11 +52,20 @@ export function startRouter(outlet: HTMLElement): void {
     }
   };
 
+  /** The masthead's How it works link says when it is the page showing. */
+  const markNav = (route: Route): void => {
+    const link = document.querySelector('.strv-masthead [data-nav="how"]');
+    if (!link) return;
+    if (route.page === 'how') link.setAttribute('aria-current', 'page');
+    else link.removeAttribute('aria-current');
+  };
+
   function show(route: Route): void {
+    markNav(route);
     if (page?.update?.(route)) return;
     page?.destroy();
     clear(outlet);
-    page = route.page === 'national' ? createNationalPage(navigate) : createStatePage(route, navigate);
+    page = route.page === 'national' ? createNationalPage(navigate) : route.page === 'how' ? createHowPage(route) : createStatePage(route, navigate);
     outlet.append(page.el);
     // On the first load the browser owns focus; after that, move it to the new page's heading.
     if (!initial) {
@@ -77,5 +87,9 @@ export function startRouter(outlet: HTMLElement): void {
     show(route);
   });
 
-  show(parseHash(location.hash));
+  const first = parseHash(location.hash);
+  // An older or loose link (#/co, ?plan=official) is rewritten to its canonical form, as later navigations are.
+  const firstHash = formatHash(first);
+  if (location.hash !== '' && location.hash !== firstHash) replaceHash(firstHash);
+  show(first);
 }

@@ -25,12 +25,16 @@ import {
   type LonLat,
   type Plan,
 } from '../../shared';
-import { piecesAfter, pieceSizes, type StateBundle, type PlanShapes, type EnactedShapes } from '../../entities/plan';
+import { piecesAfter, pieceSizes, movedBlocksAt, type StateBundle, type PlanShapes, type EnactedShapes, type BalanceLog } from '../../entities/plan';
 
 export interface MapViewState {
   plan: Plan;
   /** null: finished map; k: the first k cuts. */
   cut: number | null;
+  /** null outside the balancing replay; m: the plan after the first m balancing moves. */
+  move: number | null;
+  /** The balancing log, once loaded; needed to draw the moved blocks. */
+  balance: BalanceLog | null;
   selected: number | null;
   hovered: number | null;
   enacted: EnactedShapes | null;
@@ -49,6 +53,8 @@ export interface DistrictMapOptions {
 
 export interface DistrictMapView {
   set(state: MapViewState): void;
+  /** Zooms to the block the current balancing move took across a border. */
+  zoomToMove(): void;
   destroy(): void;
 }
 
@@ -58,14 +64,17 @@ const SVG_NS = 'http://www.w3.org/2000/svg';
 const CUT_TAG_SPOTS = [0.5, 0.38, 0.62, 0.27, 0.73, 0.16, 0.84, 0.07, 0.93];
 
 const EMPTY_LINES: MultiLineString = { type: 'MultiLineString', coordinates: [] };
+
+/** The plan drawn underneath: both the cut sequence and the balancing replay start from the plan before balancing. */
+const planOnScreen = (s: MapViewState): Plan => (s.cut !== null || s.move !== null ? 'before' : s.plan);
 const asFeature = (g: MultiLineString) => ({ type: 'Feature' as const, properties: {}, geometry: g });
 
 setWorkerUrl(workerUrl);
 
 export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapView> {
   const { bundle, container } = opts;
-  const seats = bundle.stats.official.metrics.seats;
-  const bbox = bboxOf(bundle.official.features.map((f) => f.geometry))!;
+  const seats = bundle.stats.finished.metrics.seats;
+  const bbox = bboxOf(bundle.finished.features.map((f) => f.geometry))!;
   const coarse = matchMedia('(pointer: coarse)').matches;
   // A narrow or short frame (a phone, upright or on its side) puts the key across the top and wants bigger numbers.
   const narrow = container.clientWidth < 520 || container.clientHeight < 400;
@@ -77,6 +86,14 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
   const LABEL_W = big ? 30 : 26;
   const LABEL_H = big ? 28 : 24;
 
+  /** Room around the state inside the frame: the key sits at the top unless it is below the map. */
+  function framePadding(): number | { top: number; right: number; bottom: number; left: number } {
+    const isNarrow = container.clientWidth < 520 || container.clientHeight < 400;
+    return isNarrow ? (keyBelow ? 14 : { top: container.clientWidth < 380 ? 64 : 40, right: 14, bottom: 14, left: 14 }) : { top: 52, right: 32, bottom: 32, left: 32 };
+  }
+  /** True once the visitor has panned or zoomed; until then the whole state stays fitted to the frame as it changes size. */
+  let userMoved = false;
+
   const map = new MlMap({
     container,
     style: {
@@ -85,7 +102,7 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
       layers: [{ id: 'ground', type: 'background', paint: { 'background-color': tokens.ground } }],
     },
     bounds: bbox,
-    fitBoundsOptions: { padding: narrow ? (keyBelow ? 14 : { top: container.clientWidth < 380 ? 64 : 40, right: 14, bottom: 14, left: 14 }) : { top: 52, right: 32, bottom: 32, left: 32 } },
+    fitBoundsOptions: { padding: framePadding() },
     attributionControl: false,
     dragRotate: false,
     pitchWithRotate: false,
@@ -112,7 +129,7 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
   const labelsFor = (plan: Plan): LonLat[] => {
     let l = labelCache.get(plan);
     if (!l) {
-      const shapes = plan === 'official' ? bundle.official : bundle.before;
+      const shapes = plan === 'finished' ? bundle.finished : bundle.before;
       l = shapes.features.map((f) => labelPoint(f.geometry));
       labelCache.set(plan, l);
     }
@@ -180,7 +197,7 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
    */
   function layoutLabels(): void {
     if (!current || !leaders) return;
-    const plan: Plan = current.cut !== null ? 'before' : current.plan;
+    const plan = planOnScreen(current);
     const labels = labelsFor(plan);
     const areas = areasFor(plan);
     const frame = { w: container.clientWidth, h: container.clientHeight };
@@ -313,10 +330,11 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
         ev.stopPropagation();
         const g = chipTargets[n];
         if (!g || !current) return;
-        const labels = labelsFor(current.cut !== null ? 'before' : current.plan);
+        const labels = labelsFor(planOnScreen(current));
         const lls = g.map((i) => labels[i]!);
         const lons = lls.map((l) => l[0]);
         const lats = lls.map((l) => l[1]);
+        userMoved = true;
         map.fitBounds([[Math.min(...lons), Math.min(...lats)], [Math.max(...lons), Math.max(...lats)]], { padding: 70, maxZoom: Math.min(11, map.getZoom() + 3.5) });
         // The marker is about to go away; a keyboard visitor lands on the map so arrow keys keep working.
         if (ev.detail === 0) map.getCanvas().focus({ preventScroll: true });
@@ -328,17 +346,23 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
   }
   let cutTags: { marker: Marker; el: HTMLElement; spots: LonLat[] }[] = [];
   let pin: Marker | null = null;
+  /** The ring that marks the block of the current balancing move, which is too small to see at state scale. */
+  let moveMark: Marker | null = null;
+  /** The log whose blocks are in the 'moved' source. */
+  let drawnLog: BalanceLog | null = null;
+  /** Bounds of the current move's block, for "zoom to block". */
+  let moveBounds: [number, number, number, number] | null = null;
   let leaders: SVGSVGElement | null = null;
   let resizeObs: ResizeObserver | null = null;
 
-  const shapesOf = (plan: Plan): PlanShapes => (plan === 'official' ? bundle.official : bundle.before);
+  const shapesOf = (plan: Plan): PlanShapes => (plan === 'finished' ? bundle.finished : bundle.before);
 
   function setup(): void {
     map.addSource('context', {
       type: 'geojson',
       data: { type: 'FeatureCollection', features: opts.outlines.features.filter((f) => f.properties.abbr !== bundle.abbr) },
     });
-    for (const plan of ['official', 'before'] as const) {
+    for (const plan of ['finished', 'before'] as const) {
       map.addSource(plan, {
         type: 'geojson',
         data: { type: 'FeatureCollection', features: shapesOf(plan).features },
@@ -346,14 +370,15 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
       });
     }
     map.addSource('borders', { type: 'geojson', data: asFeature(EMPTY_LINES) });
-    map.addSource('outline', { type: 'geojson', data: asFeature(bundle.official.outline) });
+    map.addSource('outline', { type: 'geojson', data: asFeature(bundle.finished.outline) });
     map.addSource('enacted', { type: 'geojson', data: asFeature(EMPTY_LINES) });
     map.addSource('cuts-past', { type: 'geojson', data: asFeature(EMPTY_LINES) });
     map.addSource('cut-new', { type: 'geojson', data: asFeature(EMPTY_LINES) });
+    map.addSource('moved', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
 
     map.addLayer({ id: 'context-fill', type: 'fill', source: 'context', paint: { 'fill-color': tokens.quietFill } });
     map.addLayer({ id: 'context-line', type: 'line', source: 'context', paint: { 'line-color': tokens.paper, 'line-width': 1.25 } });
-    for (const plan of ['official', 'before'] as const) {
+    for (const plan of ['finished', 'before'] as const) {
       map.addLayer({
         id: `fill-${plan}`,
         type: 'fill',
@@ -369,6 +394,22 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
         },
       });
     }
+    // Blocks the balancing has moved so far, in the color of the district they joined.
+    map.addLayer({
+      id: 'moved-fill',
+      type: 'fill',
+      source: 'moved',
+      layout: { visibility: 'none' },
+      paint: {
+        'fill-color': ['coalesce', ['feature-state', 'fill'], tokens.quietFill],
+        'fill-opacity': [
+          'case',
+          ['!', ['boolean', ['feature-state', 'on'], false]], 0,
+          ['boolean', ['feature-state', 'dim'], false], 0.5,
+          1,
+        ],
+      },
+    });
     map.addLayer({
       id: 'borders',
       type: 'line',
@@ -390,7 +431,7 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
       layout: { 'line-join': 'round', visibility: 'none' },
       paint: { 'line-color': tokens.ink, 'line-width': 1.5, 'line-dasharray': [2, 1.6], 'line-opacity': 0.85 },
     });
-    for (const plan of ['official', 'before'] as const) {
+    for (const plan of ['finished', 'before'] as const) {
       map.addLayer({
         id: `sel-${plan}`,
         type: 'line',
@@ -420,8 +461,25 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
       layout: { 'line-cap': 'round' },
       paint: { 'line-color': tokens.signal, 'line-width': 3.5 },
     });
+    // The block the current balancing move took across: amber over an ink casing, above everything else.
+    map.addLayer({
+      id: 'move-now-casing',
+      type: 'line',
+      source: 'moved',
+      filter: ['==', ['id'], -1],
+      layout: { 'line-join': 'round', visibility: 'none' },
+      paint: { 'line-color': tokens.ink, 'line-width': 5 },
+    });
+    map.addLayer({
+      id: 'move-now',
+      type: 'line',
+      source: 'moved',
+      filter: ['==', ['id'], -1],
+      layout: { 'line-join': 'round', visibility: 'none' },
+      paint: { 'line-color': tokens.signal, 'line-width': 2.5 },
+    });
 
-    const fillLayers = ['fill-official', 'fill-before'];
+    const fillLayers = ['fill-finished', 'fill-before'];
     const pick = (pt: PointLike): number | null => {
       const f = map.queryRenderedFeatures(pt, { layers: fillLayers })[0];
       const d = f?.properties?.district;
@@ -451,14 +509,21 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
         ev.stopPropagation();
         opts.onSelect(i + 1);
       });
-      const marker = new Marker({ element: el, anchor: 'center' }).setLngLat(labelsFor('official')[i]! as [number, number]).addTo(map);
+      const marker = new Marker({ element: el, anchor: 'center' }).setLngLat(labelsFor('finished')[i]! as [number, number]).addTo(map);
       return { marker, el };
     });
 
     map.on('move', drawLeaders);
     map.on('moveend', layoutLabels);
     map.on('resize', layoutLabels);
-    resizeObs = new ResizeObserver(() => map.resize());
+    map.on('movestart', (e) => {
+      if ((e as { originalEvent?: unknown }).originalEvent) userMoved = true;
+    });
+    // The frame changes height when the sequence opens or its readout fills in; keep the whole state in view.
+    resizeObs = new ResizeObserver(() => {
+      map.resize();
+      if (!userMoved) map.fitBounds(bbox, { padding: framePadding(), duration: 0 });
+    });
     resizeObs.observe(container);
   }
 
@@ -491,12 +556,57 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
     anim = requestAnimationFrame(tick);
   }
 
+  /** Draws the balancing replay at move m: every block moved so far in its new district's color, the latest one marked. */
+  function drawBalance(next: MapViewState): void {
+    const log = next.move !== null ? next.balance : null;
+    const vis = log ? 'visible' : 'none';
+    for (const id of ['moved-fill', 'move-now-casing', 'move-now']) map.setLayoutProperty(id, 'visibility', vis);
+    if (!log) {
+      moveMark?.remove();
+      moveBounds = null;
+      return;
+    }
+    if (drawnLog !== log) {
+      drawnLog = log;
+      src('moved').setData({
+        type: 'FeatureCollection',
+        features: log.blocks.map((b) => ({ type: 'Feature' as const, id: b.id, properties: {}, geometry: b.geometry })),
+      });
+    }
+    const m = next.move!;
+    const at = movedBlocksAt(log.moves, m);
+    for (const b of log.blocks) {
+      const d = at.get(b.geoid);
+      map.setFeatureState(
+        { source: 'moved', id: b.id },
+        { on: d !== undefined, fill: d !== undefined ? bundle.colors[d - 1]! : tokens.quietFill, dim: d !== undefined && next.selected !== null && next.selected !== d },
+      );
+    }
+    const move = m >= 1 ? log.moves[m - 1] : undefined;
+    const block = move ? log.blockByGeoid.get(move.geoid) : undefined;
+    const filter: ['==', ['id'], number] = ['==', ['id'], block ? block.id : -1];
+    map.setFilter('move-now-casing', filter);
+    map.setFilter('move-now', filter);
+    moveBounds = block ? block.bbox : null;
+    if (!block) {
+      moveMark?.remove();
+      return;
+    }
+    if (!moveMark) {
+      const el = document.createElement('div');
+      el.className = 'strv-move-mark';
+      el.setAttribute('aria-hidden', 'true');
+      moveMark = new Marker({ element: el, anchor: 'center' });
+    }
+    moveMark.setLngLat(block.label as [number, number]).addTo(map);
+  }
+
   function apply(next: MapViewState): void {
     const prev = current;
     current = next;
     const cutMode = next.cut !== null;
-    const plan: Plan = cutMode ? 'before' : next.plan;
-    const other: Plan = plan === 'official' ? 'before' : 'official';
+    const plan = planOnScreen(next);
+    const other: Plan = plan === 'finished' ? 'before' : 'finished';
     const shapes = shapesOf(plan);
 
     map.setLayoutProperty(`fill-${plan}`, 'visibility', 'visible');
@@ -518,7 +628,7 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
       });
     }
 
-    const bordersChanged = !prev || prev.cut !== next.cut || (prev.cut === null && prev.plan !== next.plan);
+    const bordersChanged = !prev || prev.cut !== next.cut || planOnScreen(prev) !== plan;
     if (bordersChanged) src('borders').setData(asFeature(piece ? shapes.pieceBorders(piece) : shapes.borders));
 
     map.setFilter(`sel-${plan}`, ['==', ['get', 'district'], next.selected ?? -1]);
@@ -561,7 +671,9 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
       }
     }
 
-    if (!prev || prev.cut !== next.cut || prev.plan !== next.plan) layoutLabels();
+    drawBalance(next);
+
+    if (!prev || prev.cut !== next.cut || planOnScreen(prev) !== plan) layoutLabels();
 
     // The 119th Congress districts, display only.
     if (next.enacted) {
@@ -581,6 +693,7 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
       }
       pin!.setLngLat(next.located as [number, number]).addTo(map);
       if (!prev || prev.located !== next.located) {
+        userMoved = true;
         map.easeTo({ center: next.located as [number, number], zoom: Math.max(map.getZoom(), 8), duration: prefersReducedMotion() ? 0 : 600 });
       }
     } else if (pin) {
@@ -600,6 +713,12 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
       set(state) {
         if (ready) apply(state);
         else pending = state;
+      },
+      zoomToMove() {
+        if (!ready || !moveBounds) return;
+        const [w, s, e, n] = moveBounds;
+        userMoved = true;
+        map.fitBounds([[w, s], [e, n]], { padding: 80, maxZoom: 15 });
       },
       destroy() {
         stopAnim();

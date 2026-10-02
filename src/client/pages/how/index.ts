@@ -1,0 +1,1 @@
+export { createHowPage } from './ui';

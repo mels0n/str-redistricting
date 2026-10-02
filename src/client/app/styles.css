@@ -19,6 +19,16 @@
   --signal-hover: #e49b1f;
   --placeholder: #6b665c;
 
+  /* District fills, for drawings outside the map (the map reads them from tokens.ts). */
+  --d-sand: #e2d2ae;
+  --d-sage: #aebf94;
+  --d-heather: #bca9c4;
+  --d-verdigris: #93bcac;
+  --d-umber: #c9a783;
+  --d-rose-stone: #d9b9ae;
+  --d-olive: #a3a672;
+  --d-slate: #b9b7aa;
+
   --font: 'Public Sans Variable', 'Public Sans', system-ui, sans-serif;
   --mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Mono', monospace;
 
@@ -557,6 +567,19 @@ body:has(> #str-viewer) {
   fill: var(--ink);
 }
 
+/* An ink outline keeps a label readable where it runs past its state's edge onto the ground (phones, where labels are large). */
+.strv-us__label {
+  stroke: var(--ink);
+  stroke-width: 6px;
+  stroke-linejoin: round;
+  paint-order: stroke;
+}
+
+.strv-us__state:hover .strv-us__label,
+.strv-us__state:focus-visible .strv-us__label {
+  stroke: var(--signal);
+}
+
 .strv-us__abbr {
   font-size: 13px;
   font-weight: 600;
@@ -900,8 +923,9 @@ body:has(> #str-viewer) {
 .strv-state__search { order: 4; padding: var(--s-5) var(--gutter) 0; }
 .strv-state__options { order: 5; padding: var(--s-5) var(--gutter) 0; }
 .strv-state__list { order: 6; padding: var(--s-6) var(--gutter) 0; }
-.strv-state__proof { order: 7; padding: var(--s-6) var(--gutter) 0; }
-.strv-state__explain { order: 8; padding: var(--s-6) var(--gutter) var(--s-8); }
+.strv-state__process { order: 7; padding: var(--s-6) var(--gutter) 0; }
+.strv-state__proof { order: 8; padding: var(--s-6) var(--gutter) 0; }
+.strv-state__explain { order: 9; padding: var(--s-6) var(--gutter) var(--s-8); }
 
 @media (min-width: 64rem) {
   .strv-state {
@@ -1147,6 +1171,8 @@ body:has(> #str-viewer) {
 
 .strv-scrub[data-active='true'] .strv-scrub__body {
   display: grid;
+  /* Never wider than the strip, whatever the text size: long rows wrap or scroll inside it. */
+  grid-template-columns: minmax(0, 1fr);
 }
 
 .strv-scrub__head {
@@ -1164,13 +1190,18 @@ body:has(> #str-viewer) {
   border-right: 1px solid var(--ink);
 }
 
-.strv-scrub__count::before {
-  content: 'Cut';
+/* The step's name ("Cut", "Balancing move") reads into its number. */
+.strv-scrub__label {
   font-size: 0.8125rem;
   font-weight: 600;
   margin-right: var(--s-2);
   align-self: flex-start;
   padding-top: 0.35rem;
+}
+
+.strv-scrub__fig {
+  display: flex;
+  align-items: baseline;
 }
 
 .strv-scrub__k {
@@ -2585,4 +2616,916 @@ body:has(> #str-viewer) {
 
 .strv-cut-tag[data-newest='true'] {
   z-index: 3;
+}
+
+/* ---------- Masthead navigation ---------- */
+
+.strv-masthead__nav {
+  flex: none;
+}
+
+.strv .strv-masthead__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding: 0 var(--s-1);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.strv .strv-masthead__link:hover,
+.strv .strv-masthead__link[aria-current='page'] {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-decoration-color: var(--signal);
+}
+
+/* A phone: the title wraps, the link keeps its line, the credit moves to the next line. */
+@media (max-width: 30rem) {
+  .strv-masthead {
+    flex-wrap: wrap;
+    row-gap: 0;
+  }
+
+  .strv-masthead__credit {
+    order: 3;
+    flex-basis: 100%;
+    max-width: none;
+    text-align: left;
+    padding-bottom: var(--s-1);
+  }
+}
+
+/* ---------- Shared inline pieces ---------- */
+
+.strv-nowrap {
+  white-space: nowrap;
+}
+
+/* "530 to 2": a drawn arrow between two figures; screen readers hear "to". */
+.strv-to {
+  display: inline-flex;
+  vertical-align: -0.125em;
+  margin: 0 0.25em;
+}
+
+.strv-to .strv-icon {
+  width: 1em;
+  height: 1em;
+}
+
+.strv-explain__more {
+  padding-top: var(--s-3);
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+
+.strv-explain__more a {
+  display: inline-block;
+  padding: var(--s-1) 0;
+}
+
+/* ---------- State head links ---------- */
+
+.strv-state__links {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--s-3);
+}
+
+/* ---------- Sequence: the two parts, the balancing readout ---------- */
+
+.strv-scrub__starts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}
+
+.strv-scrub__top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-2) var(--s-3);
+}
+
+.strv-scrub__phases {
+  display: flex;
+}
+
+.strv-scrub__phase {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  min-height: 2.5rem;
+  padding: 0 var(--s-3);
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  cursor: pointer;
+  transition: background-color 120ms ease-out, color 120ms ease-out;
+}
+
+.strv-scrub__phase:first-child {
+  border-radius: 2px 0 0 2px;
+}
+
+.strv-scrub__phase:last-child {
+  border-radius: 0 2px 2px 0;
+}
+
+.strv-scrub__phase + .strv-scrub__phase {
+  border-left: 0;
+}
+
+.strv-scrub__phase:hover {
+  background: var(--ground-2);
+}
+
+.strv-scrub__phase[aria-pressed='true'] {
+  background: var(--ink);
+  color: var(--paper);
+  cursor: default;
+}
+
+.strv-scrub__phase-n {
+  font-weight: 700;
+  font-size: 0.75rem;
+  padding: 0 0.3125rem;
+  border: 1px solid currentColor;
+  border-radius: 2px;
+  line-height: 1.3;
+}
+
+.strv-scrub__phase:focus-visible {
+  position: relative;
+  z-index: 1;
+}
+
+.strv-scrub__readout {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--s-3);
+  padding: var(--s-2) 0;
+  border-top: 1px solid var(--hairline);
+  border-bottom: 1px solid var(--hairline);
+}
+
+.strv-scrub__readout[hidden] {
+  display: none;
+}
+
+.strv-scrub__readout-text {
+  font-size: 0.9375rem;
+  line-height: 1.45;
+  max-width: 60ch;
+  overflow-wrap: anywhere;
+}
+
+.strv-scrub__readout-text strong {
+  font-weight: 700;
+}
+
+.strv-scrub__done {
+  font-weight: 600;
+}
+
+.strv-scrub__zoom {
+  flex: none;
+  font-size: 0.8125rem;
+}
+
+.strv-scrub__zoom[hidden] {
+  display: none;
+}
+
+.strv-scrub__zoom svg {
+  fill: none;
+}
+
+.strv-scrub__retry {
+  margin-top: var(--s-2);
+}
+
+.strv-scrub__detail .strv-scrub__sub {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--ink-2);
+  white-space: normal;
+}
+
+/* The balancing axis runs to hundreds of moves: round numbers only, and the current move's own label rides along it. */
+.strv-scrub__ticks li[data-floating='true'] {
+  z-index: 1;
+}
+
+.strv-scrub__ticks[data-sparse='true'] li[data-state='done']:not([data-floating='true']):not([data-collide='true']) {
+  color: var(--ink-2);
+}
+
+/* Balancing timetable: pages of moves on a long log. */
+.strv-board__pager {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-2);
+  padding: var(--s-1) 0;
+}
+
+.strv-board__pager[hidden] {
+  display: none;
+}
+
+.strv-board__page {
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.strv-board__turn {
+  min-height: 2rem;
+  min-width: 2.5rem;
+}
+
+.strv-board[hidden] {
+  display: none;
+}
+
+.strv-board__table .strv-board__block {
+  letter-spacing: 0.01em;
+}
+
+.strv-board__wait {
+  color: var(--ink-2);
+  padding: var(--s-2) 0;
+}
+
+/* Map: the block the current balancing move took across, findable at any zoom. */
+.strv-move-mark {
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  border: 2px solid var(--ink);
+  box-shadow: inset 0 0 0 3px var(--signal);
+  pointer-events: none;
+  z-index: 3;
+}
+
+.strv-legend__move {
+  display: inline-block;
+  width: 0.875rem;
+  height: 0.875rem;
+  border-radius: 50%;
+  border: 2px solid var(--ink);
+  box-shadow: inset 0 0 0 2px var(--signal);
+}
+
+/* Phones: the open sequence takes more room under the map; the balancing readout a little more again. */
+.strv-state[data-cut-mode='true'] {
+  --x-cut: 12.75rem;
+}
+
+.strv-state[data-phase='balance'] {
+  --x-cut: 17rem;
+}
+
+@container strv-scrub (max-width: 40rem) {
+  .strv-scrub__readout-text {
+    font-size: 0.8125rem;
+  }
+
+  .strv-scrub__label {
+    font-size: 0.75rem;
+  }
+
+  .strv-scrub__phase {
+    padding: 0 var(--s-2);
+    font-size: 0.8125rem;
+  }
+}
+
+@media (pointer: coarse) {
+  .strv-scrub__phase {
+    min-height: 2.75rem;
+  }
+
+  .strv-board__turn {
+    min-height: 2.75rem;
+  }
+}
+
+/* ---------- What happened in this state ---------- */
+
+.strv-process__rows {
+  display: grid;
+  container-type: inline-size;
+}
+
+.strv-process__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas: 'term fig' 'sub sub';
+  column-gap: var(--s-3);
+  padding: var(--s-2) 0;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.strv-process__row dt {
+  grid-area: term;
+  font-size: 0.875rem;
+  font-weight: 600;
+  align-self: baseline;
+}
+
+.strv-process__fig {
+  grid-area: fig;
+  font-size: 1.125rem;
+  font-weight: 700;
+  text-align: right;
+  align-self: baseline;
+}
+
+.strv-process__sub {
+  grid-area: sub;
+  font-size: 0.8125rem;
+  color: var(--ink-2);
+  line-height: 1.45;
+}
+
+.strv-process__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  padding-top: var(--s-4);
+}
+
+.strv-process__how {
+  padding-top: var(--s-3);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.strv-process__how a {
+  display: inline-block;
+  padding: var(--s-1) 0;
+}
+
+@container (max-width: 16em) {
+  .strv-process__row {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: 'term' 'fig' 'sub';
+  }
+
+  .strv-process__fig {
+    text-align: left;
+  }
+}
+
+/* ---------- How it works ---------- */
+
+.strv-how__head {
+  display: grid;
+  gap: var(--s-3);
+  padding: var(--s-4) var(--gutter) var(--s-5);
+  border-bottom: 2px solid var(--ink);
+}
+
+.strv-how__head .strv-back {
+  justify-self: start;
+}
+
+.strv-how__h1 {
+  font-size: clamp(1.75rem, 1.1rem + 2.6vw, 3.25rem);
+  line-height: 1.04;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  max-width: 20ch;
+  overflow-wrap: break-word;
+}
+
+.strv-how__lede {
+  max-width: 62ch;
+  color: var(--ink-2);
+}
+
+.strv-how__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.strv-how__toc {
+  padding: var(--s-4) var(--gutter);
+  border-bottom: 1px solid var(--ink);
+  background: var(--paper);
+}
+
+.strv-how__toc-h {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--ink-2);
+  padding-bottom: var(--s-1);
+}
+
+.strv-how__toc-list {
+  list-style: none;
+  padding: 0;
+}
+
+.strv-how__toc-list li {
+  border-bottom: 1px solid var(--hairline);
+}
+
+.strv-how__toc-list li:last-child {
+  border-bottom: 0;
+}
+
+.strv .strv-how__toc-list a {
+  display: grid;
+  grid-template-columns: 1.75rem minmax(0, 1fr);
+  align-items: baseline;
+  min-height: 2.75rem;
+  padding: var(--s-2) 0;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.strv .strv-how__toc-list a:hover,
+.strv .strv-how__toc-list a:focus-visible {
+  background: var(--signal-tint);
+  box-shadow: -0.5rem 0 0 var(--signal-tint), 0.5rem 0 0 var(--signal-tint);
+}
+
+.strv .strv-how__toc-list a[aria-current='location'] {
+  text-decoration: underline;
+  text-decoration-color: var(--signal);
+  text-decoration-thickness: 2px;
+}
+
+.strv-how__toc-no {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--ink-2);
+}
+
+.strv-how__body {
+  padding: 0 var(--gutter) var(--s-8);
+  min-width: 0;
+}
+
+.strv-how__section {
+  padding-top: var(--s-6);
+  max-width: 46rem;
+}
+
+.strv .strv-how__h2 {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s-3);
+  font-size: 1.375rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+  padding-bottom: var(--s-2);
+  border-bottom: 2px solid var(--ink);
+  margin-bottom: var(--s-4);
+  scroll-margin-top: var(--s-4);
+}
+
+.strv-how__no {
+  flex: none;
+  align-self: center;
+  min-width: 1.75rem;
+  padding: 0.0625rem 0.375rem;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  text-align: center;
+  color: var(--paper);
+  background: var(--ink);
+  border-radius: 2px;
+}
+
+.strv-how__h2:focus {
+  outline: none;
+}
+
+.strv-how__h2:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.strv .strv-how__h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: var(--s-5) 0 var(--s-2);
+}
+
+.strv-how__section > p,
+.strv-how__worked > p,
+.strv-how__real {
+  max-width: 68ch;
+  line-height: 1.6;
+  margin-bottom: var(--s-3);
+}
+
+.strv .strv-how__list,
+.strv .strv-how__steps {
+  max-width: 68ch;
+  padding-left: 1.25rem;
+  margin: 0 0 var(--s-3);
+  line-height: 1.6;
+}
+
+.strv-how__list li + li,
+.strv-how__steps li + li {
+  margin-top: var(--s-1);
+}
+
+.strv-how__steps li::marker {
+  font-weight: 700;
+}
+
+.strv-how__code {
+  font-family: var(--mono);
+  font-size: 0.875em;
+  padding: 0 0.1875rem;
+  background: var(--ground-2);
+  border-radius: 2px;
+  overflow-wrap: anywhere;
+}
+
+.strv .strv-how__worked .strv-how__h3 {
+  margin-top: var(--s-3);
+}
+
+.strv .strv-how__fig {
+  margin: var(--s-4) 0 var(--s-5);
+  padding: var(--s-3);
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  border-radius: 2px;
+}
+
+.strv-how__panels {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  gap: var(--s-4);
+  justify-items: center;
+}
+
+.strv-how__fig figcaption {
+  margin-top: var(--s-3);
+  padding-top: var(--s-2);
+  border-top: 1px solid var(--hairline);
+  font-size: 0.8125rem;
+  color: var(--ink-2);
+  line-height: 1.45;
+}
+
+.strv-how__section .strv-code {
+  max-width: 34rem;
+  margin-bottom: var(--s-3);
+}
+
+.strv-how__table-wrap {
+  margin: var(--s-2) 0 var(--s-3);
+  max-width: 40rem;
+}
+
+.strv-how__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.strv-how__table th,
+.strv-how__table td {
+  padding: var(--s-1) var(--s-2) var(--s-1) 0;
+  border-bottom: 1px solid var(--hairline);
+  text-align: left;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.strv-how__table thead th {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--ink-2);
+  border-bottom: 1px solid var(--ink);
+}
+
+.strv-how__table tbody th {
+  font-weight: 600;
+}
+
+.strv-how__table tbody th a {
+  display: inline-block;
+  padding: var(--s-1) 0;
+}
+
+.strv-how__table .strv-how__num {
+  text-align: right;
+}
+
+@media (min-width: 64rem) {
+  .strv-how__head {
+    padding: var(--s-6) var(--gutter) var(--s-5);
+  }
+
+  .strv-how__grid {
+    grid-template-columns: var(--col) minmax(0, 1fr);
+  }
+
+  .strv-how__toc {
+    background: transparent;
+    border-bottom: 0;
+    border-right: 1px solid var(--ink);
+  }
+
+  /* The stage list stays beside the text as it scrolls; the sticky box is bounded by the grid, so it never covers what follows. */
+  .strv-how__toc-inner {
+    position: sticky;
+    top: var(--s-4);
+  }
+
+  .strv-how__body {
+    padding: 0 var(--s-6) var(--s-8);
+  }
+}
+
+/* Drawings: exact shapes in the page's ink, paper, district fills and one amber signal. */
+.strv-dg {
+  display: block;
+  width: 100%;
+  max-width: 24rem;
+  height: auto;
+  overflow: visible;
+  font-family: var(--font);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.strv-dg__block {
+  fill: var(--paper);
+  stroke: var(--ink);
+  stroke-width: 1;
+  stroke-linejoin: miter;
+}
+
+.strv-dg__block--hot {
+  fill: var(--signal-tint);
+  stroke-width: 2;
+}
+
+.strv-dg__da { fill: var(--d-sand); }
+.strv-dg__db { fill: var(--d-sage); }
+.strv-dg__dc { fill: var(--d-heather); }
+.strv-dg__dd { fill: var(--d-verdigris); }
+.strv-dg__de { fill: var(--d-umber); }
+.strv-dg__df { fill: var(--d-rose-stone); }
+.strv-dg__dg { fill: var(--d-olive); }
+.strv-dg__dh { fill: var(--d-slate); }
+
+.strv-dg__evenodd {
+  fill-rule: evenodd;
+}
+
+.strv-dg__dot {
+  fill: var(--ink);
+}
+
+.strv-dg__t {
+  font-size: 13px;
+  fill: var(--ink);
+}
+
+.strv-dg__t--small {
+  font-size: 12px;
+}
+
+.strv-dg__t--strong {
+  font-weight: 700;
+}
+
+.strv-dg__t--on-ink {
+  fill: var(--paper);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.strv-dg__n {
+  font-size: 11px;
+  font-weight: 700;
+  fill: var(--ink);
+}
+
+.strv-dg__district {
+  font-size: 18px;
+  font-weight: 700;
+  fill: var(--ink);
+}
+
+.strv-dg__leader {
+  stroke: var(--ink);
+  stroke-width: 1;
+}
+
+.strv-dg__piece {
+  fill: var(--d-sand);
+  stroke: var(--ink);
+  stroke-width: 1.5;
+  stroke-linejoin: miter;
+}
+
+.strv-dg__guide {
+  stroke: var(--rule);
+  stroke-width: 1;
+}
+
+.strv-dg__guide--ns {
+  stroke: var(--ink);
+  stroke-width: 1.5;
+}
+
+.strv-dg__guide--chosen {
+  stroke: var(--ink);
+  stroke-width: 1.5;
+  stroke-dasharray: 6 4;
+}
+
+.strv-dg__border {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 4;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+}
+
+.strv-dg__stray {
+  stroke: var(--signal);
+  stroke-width: 3;
+}
+
+.strv-dg__cut {
+  stroke: var(--ink);
+  stroke-width: 2.5;
+  stroke-linecap: square;
+}
+
+.strv-dg__tag rect {
+  fill: var(--paper);
+  stroke: var(--ink);
+  stroke-width: 1;
+}
+
+.strv-dg__tag-t {
+  font-size: 11px;
+  font-weight: 700;
+  fill: var(--ink);
+}
+
+.strv-dg__move {
+  stroke: var(--signal);
+  stroke-width: 3;
+}
+
+.strv-dg__nomove {
+  stroke-dasharray: 4 3;
+  stroke-width: 1.5;
+}
+
+.strv-dg__arrow line,
+.strv-dg__arrow path {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 1.5;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+}
+
+.strv-dg__arrow--go line,
+.strv-dg__arrow--go path {
+  stroke-width: 2;
+}
+
+.strv-dg__box {
+  fill: var(--paper);
+  stroke: var(--ink);
+  stroke-width: 1;
+}
+
+.strv-dg__box--dashed {
+  fill: var(--ground);
+  stroke-dasharray: 5 3;
+}
+
+.strv-dg__box--ink {
+  fill: var(--ink);
+}
+
+.strv-dg__digest {
+  fill: var(--paper);
+  stroke: var(--ink);
+  stroke-width: 1;
+}
+
+.strv-dg__glyph {
+  fill: var(--ink-2);
+}
+
+.strv-dg__flow {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 1.5;
+}
+
+.strv-dg__flow--dashed {
+  stroke-dasharray: 5 3;
+}
+
+.strv-scrub__narrow {
+  display: none;
+}
+
+/* Narrow strips: the longer halves of labels give way; the zoom button keeps its icon. */
+@container strv-scrub (max-width: 40rem) {
+  .strv-scrub__wide {
+    position: absolute !important;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .strv-scrub__zoom-text {
+    display: none;
+  }
+
+  .strv-scrub__zoom {
+    padding: 0;
+  }
+
+  .strv-scrub__finish {
+    padding: 0 var(--s-2);
+    font-size: 0.875rem;
+  }
+
+  .strv-scrub__narrow {
+    display: inline;
+  }
+}
+
+
+/* On a phone the balancing figures stay beside the move number: three short columns. */
+@container strv-scrub (max-width: 24rem) {
+  .strv-scrub[data-phase='balance'] .strv-scrub__head {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .strv-scrub[data-phase='balance'] .strv-scrub__detail {
+    grid-template-columns: repeat(auto-fit, minmax(5.5rem, 1fr));
+    gap: 0 var(--s-2);
+  }
+}
+
+.strv-how__watch {
+  margin-bottom: var(--s-3);
+  font-weight: 600;
+}
+
+.strv-how__watch a {
+  display: inline-block;
+  padding: var(--s-1) 0;
+}
+
+/* Large text in a narrow strip: the part buttons and the step name wrap rather than push the strip wider. */
+.strv-scrub__phases {
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
+.strv-scrub__count {
+  flex-wrap: wrap;
+  white-space: normal;
+  min-width: 0;
+}
+
+.strv-scrub__fig {
+  white-space: nowrap;
+}
+
+/* A phone on its side: the step controls come straight after the step number, so they stay on screen; the readout follows. */
+@media (orientation: landscape) and (max-height: 32rem) and (max-width: 63.99rem) {
+  .strv-scrub__top { order: 1; }
+  .strv-scrub__head { order: 2; }
+  .strv-scrub__controls { order: 3; }
+  .strv-scrub__readout { order: 4; }
+  .strv-scrub .strv-board { order: 5; }
 }

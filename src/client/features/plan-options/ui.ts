@@ -8,7 +8,7 @@ export interface PlanOptionsOptions {
 
 export interface PlanOptions {
   el: HTMLElement;
-  update(state: { plan: Plan; enacted: boolean; cutMode: boolean; enactedFailed: boolean }): void;
+  update(state: { plan: Plan; enacted: boolean; phase: 'cut' | 'balance' | null; enactedFailed: boolean }): void;
 }
 
 /** Plain-language name of the Census file the enacted districts come from. */
@@ -30,9 +30,9 @@ export function createPlanOptions(opts: PlanOptionsOptions): PlanOptions {
     return h('label', { class: 'strv-seg__option' }, input, h('span', { class: 'strv-seg__label' }, label), h('span', { class: 'strv-seg__hint' }, hint));
   };
 
-  const official = radio('official', 'Official map', 'After balancing');
+  const finished = radio('finished', 'Finished map', 'After balancing');
   const before = radio('before', 'Before balancing', 'Cuts only');
-  const group = h('fieldset', { class: 'strv-seg' }, h('legend', { class: 'strv-seg__legend' }, 'Plan shown'), official, before);
+  const group = h('fieldset', { class: 'strv-seg' }, h('legend', { class: 'strv-seg__legend' }, 'Plan shown'), finished, before);
 
   const enactedBox = h('input', {
     type: 'checkbox',
@@ -46,13 +46,18 @@ export function createPlanOptions(opts: PlanOptionsOptions): PlanOptions {
     h('label', { for: `${name}-enacted` }, h('span', { class: 'strv-check__label' }, 'Compare with the 119th Congress districts'), h('span', { class: 'strv-check__hint' }, `Dashed lines. For comparison only, never used to draw. Source: ${enactedSourceLabel(opts.enactedSource)}.`)),
   );
 
-  const cutNote = h('p', { class: 'strv-options__note' }, 'The cut sequence shows the plan before balancing, as the cuts left it.');
+  const cutNote = h('p', { class: 'strv-options__note' });
   const enactedError = h('p', { class: 'strv-options__error', role: 'status', hidden: true }, 'The 119th Congress districts could not be loaded. Uncheck the box and check it again to retry.');
   const el = h('div', { class: 'strv-options' }, group, cutNote, enacted, enactedError);
 
   return {
     el,
-    update({ plan, enacted: on, cutMode, enactedFailed }) {
+    update({ plan, enacted: on, phase, enactedFailed }) {
+      const cutMode = phase !== null;
+      cutNote.textContent =
+        phase === 'balance'
+          ? 'The balancing starts from the plan before balancing and its last move ends on the finished map.'
+          : 'The cut sequence shows the plan before balancing, as the cuts left it.';
       for (const input of group.querySelectorAll('input')) {
         // The cut sequence always shows the plan before balancing; the visitor's own choice comes back when it ends.
         input.checked = input.value === (cutMode ? 'before' : plan);

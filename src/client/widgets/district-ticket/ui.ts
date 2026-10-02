@@ -10,6 +10,8 @@ export interface TicketData {
   located: boolean;
   /** True while the visitor is only pointing at the district. */
   preview: boolean;
+  /** Names the moment shown, when it is not simply a plan (the balancing replay). */
+  stage?: string;
 }
 
 export interface DistrictTicket {
@@ -92,7 +94,7 @@ export function createDistrictTicket(): DistrictTicket {
           ),
         ),
       ),
-      h('p', { class: 'strv-ticket__foot' }, `${d.contiguous ? 'One connected piece.' : 'Not one connected piece.'} ${data.plan === 'official' ? 'Official map.' : 'Before balancing.'}`),
+      h('p', { class: 'strv-ticket__foot' }, `${d.contiguous ? 'One connected piece.' : 'Not one connected piece.'} ${data.stage ?? (data.plan === 'finished' ? 'Finished map.' : 'Before balancing.')}`),
     );
   }
 

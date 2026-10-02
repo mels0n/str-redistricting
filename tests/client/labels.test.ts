@@ -1,5 +1,21 @@
 import { describe, expect, it } from 'vitest';
-import { boxesOverlap, boxInside, clusterPoints, firstClearSpot, offsetToClear, placeNumbers, type Box } from '../../src/client/shared/lib/labels';
+import {
+  boxesOverlap,
+  boxInside,
+  boxInsideShape,
+  boxOutsideShapes,
+  clusterPoints,
+  firstClearSpot,
+  makeShape,
+  NumberPlacer,
+  offsetToClear,
+  pointInShape,
+  segmentsCross,
+  type Box,
+  type NumberItem,
+  type Pt,
+  type Shape,
+} from '../../src/client/shared/lib/labels';
 import { pointAlongLines } from '../../src/client/shared/lib/geo';
 import { cutRows, type Cut } from '../../src/client/entities/plan';
 
@@ -111,41 +127,95 @@ describe('cut timetable rows', () => {
   });
 });
 
-describe('district numbers at phone size', () => {
+describe('district numbers stay with their own district', () => {
+  // A phone-size frame, 390 x 300, with a state drawn as one block split into districts.
   const phone = { w: 390, h: 300 };
-  const size = { w: 32, h: 28 };
-  const shownBoxes = (pts: { x: number; y: number }[], res: ReturnType<typeof placeNumbers>): Box[] =>
-    pts.flatMap((p, i) => (res[i]!.shown ? [{ x: p.x + res[i]!.dx, y: p.y + res[i]!.dy, ...size }] : []));
-  const noneOverlap = (boxes: Box[]): boolean => boxes.every((a, i) => boxes.every((b, j) => i === j || !boxesOverlap(a, b)));
+  const rect = (x0: number, y0: number, x1: number, y1: number): Shape => makeShape([[[{ x: x0, y: y0 }, { x: x1, y: y0 }, { x: x1, y: y1 }, { x: x0, y: y1 }]]]);
+  const size = { w: 28, h: 28 };
+  const centerOf = (s: Shape): Pt => ({ x: (s.bbox[0] + s.bbox[2]) / 2, y: (s.bbox[1] + s.bbox[3]) / 2 });
+  const item = (shape: Shape, anchor: Pt = centerOf(shape)): NumberItem => ({ anchor, size, shape });
+  const boxAt = (spot: { x: number; y: number }): Box => ({ x: spot.x, y: spot.y, ...size });
 
-  it('keeps every shown number clear of the others in a crowded city', () => {
-    // 17 districts packed into a 50 px patch, as in a big city on a phone.
-    const pts = Array.from({ length: 17 }, (_, i) => ({ x: 270 + (i % 4) * 11, y: 160 + Math.floor(i / 4) * 10 }));
-    const order = pts.map((_, i) => i);
-    const res = placeNumbers(pts, order, size, [], phone);
-    expect(noneOverlap(shownBoxes(pts, res))).toBe(true);
-    expect(res.every((r) => r.shown)).toBe(true);
+  it('keeps a number put when its district has room', () => {
+    const d = rect(100, 100, 200, 200);
+    const placer = new NumberPlacer([d], [], phone);
+    expect(placer.placeNumber(item(d))).toEqual({ kind: 'inside', x: 150, y: 150 });
   });
 
-  it('leaves out what cannot fit instead of overlapping, and gives the chosen district first claim', () => {
-    const pts = Array.from({ length: 60 }, (_, i) => ({ x: 200 + (i % 8) * 4, y: 150 + Math.floor(i / 8) * 4 }));
-    const order = [59, ...pts.map((_, i) => i).filter((i) => i !== 59)];
-    const res = placeNumbers(pts, order, size, [], phone);
-    expect(noneOverlap(shownBoxes(pts, res))).toBe(true);
-    expect(res[59]).toEqual({ dx: 0, dy: 0, shown: true });
-    expect(res.some((r) => !r.shown)).toBe(true);
+  it('moves a number to another spot inside its own district, never into a neighbor', () => {
+    const left = rect(100, 100, 160, 200);
+    const right = rect(160, 100, 260, 200);
+    // The left district's natural spot is on a cut tag; its number must stay inside the left district.
+    const tag: Box = { x: 130, y: 150, w: 24, h: 20 };
+    const placer = new NumberPlacer([left, right], [tag], phone);
+    const spot = placer.placeNumber(item(left, { x: 130, y: 150 }))!;
+    expect(spot.kind).toBe('inside');
+    expect(boxInsideShape(boxAt(spot), left)).toBe(true);
+    expect(boxesOverlap(boxAt(spot), tag)).toBe(false);
+  });
+
+  it('gives a district too small for its number a spot in empty ground just outside the state, with a short leader', () => {
+    // A thin sliver at the state's edge: 6 px wide, so a 28 px number cannot sit in it.
+    const sliver = rect(200, 100, 206, 140);
+    const body = rect(100, 100, 200, 200);
+    const placer = new NumberPlacer([sliver, body], [], phone);
+    const anchor = centerOf(sliver);
+    const spot = placer.placeNumber(item(sliver))!;
+    expect(spot.kind).toBe('outside');
+    expect(Math.hypot(spot.x - anchor.x, spot.y - anchor.y)).toBeLessThanOrEqual(48);
+    expect(boxOutsideShapes(boxAt(spot), [sliver, body])).toBe(true);
+  });
+
+  it('never puts a number inside another district, even when that is the only room nearby', () => {
+    // A small district in the middle of the state: no empty ground within reach, so no spot at all.
+    const hole = rect(195, 145, 205, 155);
+    const body = rect(100, 100, 300, 200);
+    const placer = new NumberPlacer([hole, body], [], phone);
+    expect(placer.placeNumber(item(hole))).toBeNull();
+  });
+
+  it('keeps every placed number off every other number and off earlier leaders', () => {
+    // Six slivers along the state's east edge: each needs a spot outside, none may overlap or cross.
+    const body = rect(100, 40, 300, 260);
+    const slivers = Array.from({ length: 6 }, (_, i) => rect(300, 60 + i * 12, 304, 70 + i * 12));
+    const shapes = [body, ...slivers];
+    const placer = new NumberPlacer(shapes, [], phone);
+    const spots = slivers.map((s) => placer.placeNumber(item(s))).filter((s) => s !== null);
+    const boxes = spots.map(boxAt);
+    expect(boxes.every((a, i) => boxes.every((b, j) => i === j || !boxesOverlap(a, b)))).toBe(true);
+    // No spot lands inside the state.
+    expect(boxes.every((b) => boxOutsideShapes(b, shapes))).toBe(true);
+    // Leaders do not cross each other.
+    const leaders = spots.map((s, i) => ({ a: centerOf(slivers[i]!), b: { x: s.x, y: s.y } }));
+    for (let i = 0; i < leaders.length; i++) for (let j = i + 1; j < leaders.length; j++) expect(segmentsCross(leaders[i]!, leaders[j]!)).toBe(false);
   });
 
   it('keeps numbers out from under fixed boxes such as the zoom buttons', () => {
+    const d = rect(300, 200, 390, 300);
     const control: Box = { x: 358, y: 246, w: 48, h: 92 };
-    const pts = [{ x: 350, y: 240 }];
-    const res = placeNumbers(pts, [0], size, [control], phone);
-    expect(boxesOverlap({ x: 350 + res[0]!.dx, y: 240 + res[0]!.dy, ...size }, control)).toBe(false);
+    const spot = new NumberPlacer([d], [control], phone).placeNumber(item(d, { x: 350, y: 240 }));
+    if (spot) expect(boxesOverlap(boxAt(spot), control)).toBe(false);
   });
 
-  it('ignores points far outside the frame', () => {
-    const res = placeNumbers([{ x: -300, y: 10 }], [0], size, [], phone);
-    expect(res[0]).toEqual({ dx: 0, dy: 0, shown: true });
+  it('places a crowd marker inside one of the crowded districts when one has room, else outside the state', () => {
+    const big = rect(100, 100, 200, 200);
+    const tiny = rect(200, 100, 206, 106);
+    const marker = { w: 44, h: 28 };
+    const placer = new NumberPlacer([big, tiny], [], phone);
+    const inBig = placer.placeMarker(marker, [item(tiny), item(big)], centerOf(tiny))!;
+    expect(inBig.kind).toBe('inside');
+    expect(boxInsideShape({ x: inBig.x, y: inBig.y, ...marker }, big)).toBe(true);
+    const onlyTiny = new NumberPlacer([big, tiny], [], phone).placeMarker(marker, [item(tiny)], centerOf(tiny))!;
+    expect(onlyTiny.kind).toBe('outside');
+    expect(boxOutsideShapes({ x: onlyTiny.x, y: onlyTiny.y, ...marker }, [big, tiny])).toBe(true);
+  });
+
+  it('tests points and boxes against shapes with holes', () => {
+    const donut = makeShape([[[{ x: 0, y: 0 }, { x: 100, y: 0 }, { x: 100, y: 100 }, { x: 0, y: 100 }], [{ x: 40, y: 40 }, { x: 60, y: 40 }, { x: 60, y: 60 }, { x: 40, y: 60 }]]]);
+    expect(pointInShape({ x: 50, y: 50 }, donut)).toBe(false);
+    expect(pointInShape({ x: 20, y: 20 }, donut)).toBe(true);
+    expect(boxInsideShape({ x: 20, y: 20, w: 20, h: 20 }, donut)).toBe(true);
+    expect(boxInsideShape({ x: 40, y: 50, w: 20, h: 20 }, donut)).toBe(false);
   });
 
   it('groups crowded points into clusters', () => {

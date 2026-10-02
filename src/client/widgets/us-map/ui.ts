@@ -36,6 +36,11 @@ function buildUsMap(opts: UsMapOptions, compact: boolean): SVGSVGElement {
   // On a phone the drawing is shown at about 37% of its width, so labels are set in larger units
   // and the callout column is wider; the CSS sizes them so they read at 12 px or more on screen.
   const colW = compact ? 132 : 96;
+  // The drawing is scaled to the screen width (the page keeps a 1 rem gutter each side); label units are chosen so state codes
+  // measure 12.5 px and seat counts 13.5 px on screen however narrow the phone.
+  const scale = Math.max(0.28, (window.innerWidth - 32) / W);
+  const abbrUnits = Math.ceil(12.5 / scale);
+  const seatsUnits = Math.ceil(13.5 / scale);
   const projection = geoAlbersUsa().fitExtent(
     [
       [8, 8],
@@ -63,14 +68,14 @@ function buildUsMap(opts: UsMapOptions, compact: boolean): SVGSVGElement {
     const [cx, cy] = path.centroid(f);
     const href = formatHash(stateRoute(entry.abbr));
     const label = `${entry.name}, ${entry.seats} districts`;
-    const fits = x1 - x0 > (compact ? 70 : 54) && y1 - y0 > (compact ? 76 : 40) && !ALWAYS_CALLOUT.has(entry.abbr);
+    const fits = x1 - x0 > (compact ? abbrUnits * 2.1 : 54) && y1 - y0 > (compact ? abbrUnits * 1.95 : 40) && !ALWAYS_CALLOUT.has(entry.abbr);
     // A label that fits sits inside its state's link, so it can change color with the state's hover and focus fill.
     const inside = fits
       ? svg(
           'text',
           { x: cx, y: cy, class: 'strv-us__label', 'text-anchor': 'middle', 'aria-hidden': 'true' },
-          svg('tspan', { x: cx, dy: '-0.35em', class: 'strv-us__abbr' }, entry.abbr),
-          svg('tspan', { x: cx, dy: '1.15em', class: 'strv-us__seats' }, String(entry.seats)),
+          svg('tspan', { x: cx, dy: compact ? '-0.2em' : '-0.35em', class: 'strv-us__abbr' }, entry.abbr),
+          svg('tspan', { x: cx, dy: compact ? '1.05em' : '1.15em', class: 'strv-us__seats' }, String(entry.seats)),
         )
       : null;
     active.append(svg('a', { href, 'aria-label': label, class: 'strv-us__state' }, svg('title', null, label), svg('path', { d }), inside));
@@ -104,6 +109,7 @@ function buildUsMap(opts: UsMapOptions, compact: boolean): SVGSVGElement {
     'svg',
     {
       class: compact ? 'strv-us strv-us--compact' : 'strv-us',
+      style: compact ? `--us-abbr:${abbrUnits}px;--us-seats:${seatsUnits}px` : null,
       viewBox: `0 0 ${W} ${H}`,
       role: 'group',
       'aria-label': 'Map of the United States. States with a generated map are links, labeled with their number of House seats.',

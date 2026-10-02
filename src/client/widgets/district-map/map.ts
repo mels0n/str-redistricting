@@ -12,10 +12,14 @@ import {
   partialLines,
   firstClearSpot,
   offsetToClear,
-  findOffset,
-  placeNumbers,
   clusterPoints,
+  makeShape,
+  NumberPlacer,
   type Box,
+  type NumberItem,
+  type NumberSpot,
+  type Pt,
+  type Shape,
   prefersReducedMotion,
   type LonLat,
   type Plan,
@@ -64,13 +68,13 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
   const coarse = matchMedia('(pointer: coarse)').matches;
   // A narrow or short frame (a phone, upright or on its side) puts the key across the top and wants bigger numbers.
   const narrow = container.clientWidth < 520 || container.clientHeight < 400;
-  // Touch and small screens get larger numbers (see styles.css), so each needs a larger box to stay clear of its neighbours.
-  const roomy = coarse || narrow;
   // Under 600 px the key sits below the map (see styles.css); the map then needs no room at the top for it.
   const keyBelow = matchMedia('(max-width: 37.5rem) and (min-height: 32.01rem)').matches;
-  /** Pixel size of a district number's box, used to keep numbers from overlapping. */
-  const LABEL_W = roomy ? 32 : 26;
-  const LABEL_H = roomy ? 28 : 22;
+  // Touch and small screens get larger numbers (see styles.css); the box used for placement matches them.
+  const big = matchMedia('(pointer: coarse), (max-width: 40rem)').matches;
+  /** Pixel size of a district number's box. */
+  const LABEL_W = big ? 30 : 26;
+  const LABEL_H = big ? 28 : 24;
 
   const map = new MlMap({
     container,
@@ -128,12 +132,50 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
     return a;
   };
 
+  /** A district's outline in pixels at the current view. Points closer than 1.5 px to the last kept one are dropped. */
+  function pixelShape(geom: Polygon | MultiPolygon): Shape {
+    const polys = geom.type === 'Polygon' ? [geom.coordinates] : geom.coordinates;
+    return makeShape(
+      polys.map((poly) =>
+        poly.map((ring) => {
+          const out: Pt[] = [];
+          for (const c of ring) {
+            const q = map.project(c as [number, number]);
+            const last = out[out.length - 1];
+            if (!last || Math.hypot(q.x - last.x, q.y - last.y) >= 1.5) out.push({ x: q.x, y: q.y });
+          }
+          return out;
+        }),
+      ),
+    );
+  }
+
+  /** Leader lines (screen space follows the map as it moves, so they are redrawn from map positions). */
+  let leaderPairs: { anchor: LonLat; at: LonLat }[] = [];
+  function drawLeaders(): void {
+    if (!leaders) return;
+    const out: string[] = [];
+    for (const { anchor, at } of leaderPairs) {
+      const a = map.project(anchor as [number, number]);
+      const b = map.project(at as [number, number]);
+      const len = Math.hypot(b.x - a.x, b.y - a.y);
+      if (len < 14) continue;
+      const ex = b.x - ((b.x - a.x) / len) * 11;
+      const ey = b.y - ((b.y - a.y) / len) * 11;
+      out.push(`<path d="M${a.x.toFixed(1)},${a.y.toFixed(1)}L${ex.toFixed(1)},${ey.toFixed(1)}"/><circle cx="${a.x.toFixed(1)}" cy="${a.y.toFixed(1)}" r="2.5"/>`);
+    }
+    leaders.innerHTML = out.join('');
+  }
+
   /**
-   * Lay out every visible label so none covers another. Cut numbers go first:
-   * each slides along its own cut line to the nearest spot clear of the other
-   * cut numbers and of the district numbers. Then a district number that would
-   * still collide moves to the nearest free spot and is joined to its district
-   * by a short leader line and a dot.
+   * Lay out every visible label. Cut numbers go first: each slides along its own
+   * cut line to the nearest spot clear of the other cut numbers and of the
+   * district numbers. Then each district number goes inside its own district,
+   * or, failing that, in empty ground outside the state a short leader away;
+   * it is never placed inside another district's color. Numbers that cannot be
+   * placed that way give way to one "+N" marker per crowd, which sits in one of
+   * those districts or outside the state and zooms in when pressed. Every
+   * district stays in the Districts list.
    */
   function layoutLabels(): void {
     if (!current || !leaders) return;
@@ -142,14 +184,14 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
     const areas = areasFor(plan);
     const frame = { w: container.clientWidth, h: container.clientHeight };
     const size = { w: LABEL_W, h: LABEL_H };
-    // Larger districts claim their spot first; small ones move aside.
+    // Larger districts claim their spot first.
     const order = districtMarkers.map((_, i) => i).filter((i) => !districtMarkers[i]!.el.hidden).sort((a, b) => areas[b]! - areas[a]!);
-    const natural: Box[] = order.map((i) => {
-      const pt = map.project(labels[i]! as [number, number]);
-      return { x: pt.x, y: pt.y, ...size };
+    const pts = labels.map((l) => {
+      const q = map.project(l as [number, number]);
+      return { x: q.x, y: q.y };
     });
+    const natural: Box[] = order.map((i) => ({ x: pts[i]!.x, y: pts[i]!.y, ...size }));
 
-    // Cut numbers: newest first, kept on their line.
     // The zoom buttons are part of the frame too; nothing is placed under them.
     const placed: Box[] = [];
     const ctrl = container.querySelector('.maplibregl-ctrl-group');
@@ -158,69 +200,91 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
       const f = container.getBoundingClientRect();
       placed.push({ x: c.left - f.left + c.width / 2, y: c.top - f.top + c.height / 2, w: c.width + 4, h: c.height + 4 });
     }
+    // Cut numbers: newest first, kept on their line.
     for (const tag of [...cutTags].reverse()) {
       const tagSize = { w: tag.el.offsetWidth || 24, h: tag.el.offsetHeight || 20 };
-      const pts = tag.spots.map((s) => map.project(s as [number, number]));
-      let at = firstClearSpot(pts, tagSize, [...placed, ...natural], frame) ?? firstClearSpot(pts, tagSize, placed, frame);
+      const spots = tag.spots.map((s) => map.project(s as [number, number]));
+      let at = firstClearSpot(spots, tagSize, [...placed, ...natural], frame) ?? firstClearSpot(spots, tagSize, placed, frame);
       let nudge = { dx: 0, dy: 0 };
       if (at === null) {
         // A short line with no clear spot on it: the number sits as close to the line as the others allow.
         at = 0;
-        nudge = offsetToClear(pts[0]!, tagSize, placed, frame, 0, [12, 20, 28, 36, 48]);
+        nudge = offsetToClear(spots[0]!, tagSize, placed, frame, 0, [12, 20, 28, 36, 48]);
       }
       tag.marker.setLngLat(tag.spots[at]! as [number, number]);
       tag.marker.setOffset([nudge.dx, nudge.dy]);
-      placed.push({ x: pts[at]!.x + nudge.dx, y: pts[at]!.y + nudge.dy, ...tagSize });
+      placed.push({ x: spots[at]!.x + nudge.dx, y: spots[at]!.y + nudge.dy, ...tagSize });
     }
 
-    // District numbers: the chosen one first, then the larger districts. A number stays put when free, else moves
-    // to the nearest free spot with a leader. Where a crowd has no room (a big city on a phone), the numbers that
-    // do not fit give way to one "+N" marker that zooms in on tap; those districts stay in the list.
-    const selected = current.selected;
-    const prio = [...order].sort((x, y) => Number(y + 1 === selected) - Number(x + 1 === selected));
-    const pts = labels.map((l) => map.project(l as [number, number]));
-    const result = placeNumbers(pts, prio, size, placed, frame);
-    const out: string[] = [];
-    const leader = (from: { x: number; y: number }, dx: number, dy: number): void => {
-      const len = Math.hypot(dx, dy);
-      const ex = from.x + dx - (dx / len) * 11;
-      const ey = from.y + dy - (dy / len) * 9;
-      out.push(`<path d="M${from.x.toFixed(1)},${from.y.toFixed(1)}L${ex.toFixed(1)},${ey.toFixed(1)}"/><circle cx="${from.x.toFixed(1)}" cy="${from.y.toFixed(1)}" r="2.5"/>`);
-    };
-    districtMarkers.forEach(({ el }, i) => {
-      el.dataset.crowded = String(order.includes(i) && !result[i]!.shown);
+    const shapes = shapesOf(plan).features.map((f) => pixelShape(f.geometry));
+    const placer = new NumberPlacer(shapes, placed, frame);
+    const items: NumberItem[] = shapes.map((shape, i) => ({ anchor: pts[i]!, size, shape }));
+    leaderPairs = [];
+    const unplaced: number[] = [];
+    districtMarkers.forEach(({ el }) => {
+      el.dataset.crowded = 'false';
     });
-    for (const i of prio) {
-      const r = result[i]!;
-      if (!r.shown) continue;
-      districtMarkers[i]!.marker.setOffset([r.dx, r.dy]);
-      placed.push({ x: pts[i]!.x + r.dx, y: pts[i]!.y + r.dy, ...size });
-      if (r.dx || r.dy) leader(pts[i]!, r.dx, r.dy);
+    for (const i of order) {
+      const spot = placer.placeNumber(items[i]!);
+      if (!spot) {
+        districtMarkers[i]!.el.dataset.crowded = 'true';
+        unplaced.push(i);
+        continue;
+      }
+      const at = map.unproject([spot.x, spot.y]);
+      districtMarkers[i]!.marker.setLngLat([at.lng, at.lat]).setOffset([0, 0]);
+      if (spot.kind === 'outside') leaderPairs.push({ anchor: labels[i]!, at: [at.lng, at.lat] });
     }
-    const crowded = prio.filter((i) => !result[i]!.shown && pts[i]!.x >= 0 && pts[i]!.y >= 0 && pts[i]!.x <= frame.w && pts[i]!.y <= frame.h);
-    const groups = clusterPoints(crowded.map((i) => pts[i]!), 56).map((g) => g.map((k) => crowded[k]!));
-    const chipSize = { w: 42, h: 26 };
+
+    // Crowd markers, one per cluster of numbers that did not fit.
+    const inFrame = unplaced.filter((i) => pts[i]!.x >= 0 && pts[i]!.y >= 0 && pts[i]!.x <= frame.w && pts[i]!.y <= frame.h);
+    const groups = clusterPoints(inFrame.map((i) => pts[i]!), 44).map((g) => g.map((k) => inFrame[k]!));
+    const chipSize = { w: 44, h: 28 };
     chipTargets = [];
-    groups.forEach((g, n) => {
-      const cx = g.reduce((t, i) => t + pts[i]!.x, 0) / g.length;
-      const cy = g.reduce((t, i) => t + pts[i]!.y, 0) / g.length;
-      const off = findOffset({ x: cx, y: cy }, chipSize, placed, frame, 0, [20, 36, 52, 70, 90, 120]);
-      if (!off) return;
-      const chip = chipAt(n);
-      const at = map.unproject([cx, cy]);
-      chip.el.textContent = `+${g.length}`;
-      chip.marker.setLngLat([at.lng, at.lat]).setOffset([off.dx, off.dy]);
+    const centroidOf = (g: number[]): Pt => ({ x: g.reduce((t, i) => t + pts[i]!.x, 0) / g.length, y: g.reduce((t, i) => t + pts[i]!.y, 0) / g.length });
+    const crowds: { members: number[]; centroid: Pt; spot: NumberSpot }[] = [];
+    const failed: number[][] = [];
+    for (const g of groups) {
+      const centroid = centroidOf(g);
+      const spot = placer.placeMarker(chipSize, g.map((i) => items[i]!), centroid);
+      if (spot) crowds.push({ members: g, centroid, spot });
+      else failed.push(g);
+    }
+    // A crowd that found no room joins the nearest marker, so no district is left without a way to zoom to it.
+    for (const g of failed) {
+      const c = centroidOf(g);
+      const near = [...crowds].sort((x, y) => Math.hypot(x.centroid.x - c.x, x.centroid.y - c.y) - Math.hypot(y.centroid.x - c.x, y.centroid.y - c.y))[0];
+      if (near) near.members.push(...g);
+      else {
+        const all = failed.flat();
+        // Nothing placed yet: the one marker for everything may sit as far out as it must.
+        const ms = all.map((i) => items[i]!);
+        const spot = placer.placeMarker(chipSize, ms, centroidOf(all), 220) ?? placer.placeMarker(chipSize, ms, centroidOf(all), 400);
+        if (spot) crowds.push({ members: all, centroid: centroidOf(all), spot });
+        break;
+      }
+    }
+    let used = 0;
+    for (const { members, centroid, spot } of crowds) {
+      const chip = chipAt(used);
+      const at = map.unproject([spot.x, spot.y]);
+      chip.el.textContent = `+${members.length}`;
+      chip.el.setAttribute('aria-label', `${members.length} more ${members.length === 1 ? 'district' : 'districts'} here, zoom in`);
+      chip.marker.setLngLat([at.lng, at.lat]);
       if (!chip.on) chip.marker.addTo(map);
       chip.on = true;
-      chipTargets[n] = g;
-      placed.push({ x: cx + off.dx, y: cy + off.dy, ...chipSize });
-      if (off.dx || off.dy) leader({ x: cx, y: cy }, off.dx, off.dy);
-    });
-    for (let n = groups.length; n < chips.length; n++) {
+      chipTargets[used] = members;
+      if (spot.kind === 'outside') {
+        const from = map.unproject([centroid.x, centroid.y]);
+        leaderPairs.push({ anchor: [from.lng, from.lat], at: [at.lng, at.lat] });
+      }
+      used++;
+    }
+    for (let n = used; n < chips.length; n++) {
       if (chips[n]!.on) chips[n]!.marker.remove();
       chips[n]!.on = false;
     }
-    leaders.innerHTML = out.join('');
+    drawLeaders();
   }
 
   let current: MapViewState | null = null;
@@ -232,17 +296,20 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
   function chipAt(n: number): { marker: Marker; el: HTMLElement; on: boolean } {
     let c = chips[n];
     if (!c) {
-      const el = document.createElement('div');
+      const el = document.createElement('button');
+      el.type = 'button';
       el.className = 'strv-map-cluster';
-      el.setAttribute('aria-hidden', 'true');
       el.addEventListener('click', (ev) => {
         ev.stopPropagation();
         const g = chipTargets[n];
-        if (!g) return;
-        const lls = g.map((i) => labelsFor(current!.cut !== null ? 'before' : current!.plan)[i]!);
+        if (!g || !current) return;
+        const labels = labelsFor(current.cut !== null ? 'before' : current.plan);
+        const lls = g.map((i) => labels[i]!);
         const lons = lls.map((l) => l[0]);
         const lats = lls.map((l) => l[1]);
         map.fitBounds([[Math.min(...lons), Math.min(...lats)], [Math.max(...lons), Math.max(...lats)]], { padding: 70, maxZoom: Math.min(11, map.getZoom() + 3.5) });
+        // The marker is about to go away; a keyboard visitor lands on the map so arrow keys keep working.
+        if (ev.detail === 0) map.getCanvas().focus({ preventScroll: true });
       });
       c = { marker: new Marker({ element: el, anchor: 'center' }), el, on: false };
       chips[n] = c;
@@ -378,7 +445,8 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
       return { marker, el };
     });
 
-    map.on('move', layoutLabels);
+    map.on('move', drawLeaders);
+    map.on('moveend', layoutLabels);
     map.on('resize', layoutLabels);
     resizeObs = new ResizeObserver(() => map.resize());
     resizeObs.observe(container);
@@ -483,7 +551,7 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
       }
     }
 
-    layoutLabels();
+    if (!prev || prev.cut !== next.cut || prev.plan !== next.plan) layoutLabels();
 
     // Today's districts, display only.
     if (next.enacted) {

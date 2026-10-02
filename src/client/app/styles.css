@@ -598,12 +598,12 @@ body:has(> #str-viewer) {
 /* Phones: the drawing is scaled down to about 37%, so label sizes are set in larger units (12 px on screen is about 32 units). */
 .strv-us--compact .strv-us__abbr,
 .strv-us--compact .strv-us__abbr-ink {
-  font-size: 34px;
+  font-size: var(--us-abbr, 34px);
 }
 
 .strv-us--compact .strv-us__seats,
 .strv-us--compact .strv-us__seats-ink {
-  font-size: 36px;
+  font-size: var(--us-seats, 36px);
 }
 
 .strv-us--compact .strv-us__leader,
@@ -2549,4 +2549,18 @@ body:has(> #str-viewer) {
   content: '';
   position: absolute;
   inset: -0.375rem;
+}
+
+.strv-map-cluster {
+  margin: 0;
+  appearance: none;
+}
+
+.strv-map-cluster:hover {
+  background: var(--ground-2);
+}
+
+.strv-map-cluster:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 2px;
 }

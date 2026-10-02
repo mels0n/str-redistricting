@@ -1,10 +1,12 @@
-import { h, clear, announce, formatInt, formatPeople, formatSignedPeople, formatPct, peopleNoun, type Plan } from '../../shared';
-import type { DistrictStats } from '../../entities/plan';
+import { h, clear, announce, formatInt, peopleNoun, type Plan } from '../../shared';
+import { fromEven, describeFromEven, evenSplitSentence, type DistrictStats } from '../../entities/plan';
 
 export interface TicketData {
   district: DistrictStats | null;
   color: string | null;
-  ideal: number;
+  /** The state's population and seats: an even split is total ÷ seats, in whole people. */
+  total: number;
+  seats: number;
   plan: Plan;
   /** True when this is the district of the address the visitor looked up. */
   located: boolean;
@@ -21,9 +23,8 @@ export interface DistrictTicket {
   update(data: TicketData): void;
 }
 
-function describeDistrict(d: DistrictStats, ideal: number): string {
-  const gap = d.dev === 0 ? 'exactly the ideal' : `${formatPeople(Math.abs(d.dev))} ${peopleNoun(d.dev)} ${d.dev > 0 ? 'above' : 'below'} the ideal of ${formatPeople(ideal)}`;
-  return `District ${d.district}. Population ${formatInt(d.pop)}, ${gap}. Touches ${d.counties.length} ${d.counties.length === 1 ? 'county' : 'counties'}.`;
+function describeDistrict(d: DistrictStats, total: number, seats: number): string {
+  return `District ${d.district}. Population ${formatInt(d.pop)}, ${describeFromEven(fromEven(d.pop, total, seats).delta)}. Touches ${d.counties.length} ${d.counties.length === 1 ? 'county' : 'counties'}.`;
 }
 
 /**
@@ -41,17 +42,18 @@ export function createDistrictTicket(): DistrictTicket {
     // Say what a visitor chose (not what the pointer passes over). The first render is the page opening, not a choice.
     const chosen = data.preview || !d ? null : `${d.district}|${data.plan}`;
     if (!data.preview && chosen !== announced) {
-      if (announced !== undefined && d) announce(describeDistrict(d, data.ideal));
+      if (announced !== undefined && d) announce(describeDistrict(d, data.total, data.seats));
       announced = chosen;
     }
     el.dataset.empty = String(!d);
     el.dataset.preview = String(data.preview);
     if (!d) {
       el.append(
-        h('p', { class: 'strv-ticket__empty' }, 'Select a district on the map or in the list to see its population, its difference from the ideal and the counties it touches.'),
+        h('p', { class: 'strv-ticket__empty' }, 'Select a district on the map or in the list to see its population, how far it is from an even split and the counties it touches.'),
       );
       return;
     }
+    const off = fromEven(d.pop, data.total, data.seats);
     const counties = d.counties.map((c) => c.name);
     // Every county is listed; a long list scrolls inside its own box, which keyboard users can reach.
     const long = counties.length > 8;
@@ -71,9 +73,9 @@ export function createDistrictTicket(): DistrictTicket {
         h(
           'div',
           { class: 'strv-ticket__seg' },
-          h('dt', null, 'From the ideal'),
-          h('dd', null, `${formatSignedPeople(d.dev)} `, h('span', { class: 'strv-ticket__unit' }, peopleNoun(d.dev))),
-          h('dd', { class: 'strv-ticket__sub' }, `${formatPct(d.devPct, true)} of ${formatPeople(data.ideal)}`),
+          h('dt', null, 'From an even split'),
+          h('dd', null, `${off.label} `, h('span', { class: 'strv-ticket__unit' }, peopleNoun(off.delta))),
+          h('dd', { class: 'strv-ticket__sub' }, `${off.delta === 0 ? '' : `${off.pct} from an even split. `}${evenSplitSentence(data.total, data.seats)}.`),
         ),
         h(
           'div',

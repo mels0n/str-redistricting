@@ -1,5 +1,5 @@
-import { h, clear, formatInt, formatSignedPeople, formatPct } from '../../shared';
-import type { DistrictStats } from '../../entities/plan';
+import { h, clear, formatInt } from '../../shared';
+import { fromEven, type DistrictStats } from '../../entities/plan';
 
 export interface DistrictListOptions {
   onSelect(district: number): void;
@@ -7,7 +7,7 @@ export interface DistrictListOptions {
 
 export interface DistrictList {
   el: HTMLElement;
-  update(data: { districts: DistrictStats[]; colors: string[]; selected: number | null; located: number | null; caption: string; partway?: boolean }): void;
+  update(data: { districts: DistrictStats[]; total: number; seats: number; colors: string[]; selected: number | null; located: number | null; caption: string; partway?: boolean }): void;
 }
 
 /**
@@ -30,7 +30,7 @@ export function createDistrictList(opts: DistrictListOptions): DistrictList {
         null,
         h('th', { scope: 'col', class: 'strv-list__no' }, 'No.'),
         h('th', { scope: 'col', class: 'strv-list__num' }, 'Population'),
-        h('th', { scope: 'col', class: 'strv-list__num' }, 'From ideal'),
+        h('th', { scope: 'col', class: 'strv-list__num' }, 'From even'),
         h('th', { scope: 'col', class: 'strv-list__num strv-list__pct' }, '%'),
         countiesHead,
       ),
@@ -57,7 +57,7 @@ export function createDistrictList(opts: DistrictListOptions): DistrictList {
 
   return {
     el,
-    update({ districts, colors, selected, located, caption: cap, partway = false }) {
+    update({ districts, total, seats, colors, selected, located, caption: cap, partway = false }) {
       caption.textContent = cap;
       clear(countiesHead);
       countiesHead.append('Counties');
@@ -68,6 +68,7 @@ export function createDistrictList(opts: DistrictListOptions): DistrictList {
       clear(body);
       window.requestAnimationFrame(fit);
       for (const d of districts) {
+        const off = fromEven(d.pop, total, seats);
         const isSel = d.district === selected;
         const button = h(
           'button',
@@ -89,8 +90,8 @@ export function createDistrictList(opts: DistrictListOptions): DistrictList {
             { 'data-selected': String(isSel) },
             h('th', { scope: 'row', class: 'strv-list__no' }, button),
             h('td', { class: 'strv-list__num' }, formatInt(d.pop)),
-            h('td', { class: 'strv-list__num' }, formatSignedPeople(d.dev)),
-            h('td', { class: 'strv-list__num strv-list__pct' }, formatPct(d.devPct, true)),
+            h('td', { class: 'strv-list__num' }, off.label),
+            h('td', { class: 'strv-list__num strv-list__pct' }, off.pct),
             h('td', { class: 'strv-list__num' }, String(d.counties.length)),
           ),
         );

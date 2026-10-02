@@ -33,6 +33,8 @@ import {
   populationsAfter,
   balancePlanAt,
   isPartway,
+  evenSizes,
+  evenSplitSentence,
   type PlanDistricts,
   type StateBundle,
   type EnactedShapes,
@@ -171,7 +173,7 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
   /** Empty slots with the same shape as the real row, so the header does not change height when the numbers arrive. */
   function metaPlaceholder(): void {
     meta.setAttribute('aria-hidden', 'true');
-    for (const k of ['Districts', 'People', 'Ideal district', 'Range']) {
+    for (const k of ['Districts', 'People', 'Even split', 'Range']) {
       meta.append(h('div', null, h('dt', null, k), h('dd', null, ' ')));
     }
   }
@@ -184,7 +186,7 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
     meta.append(
       item('Districts', String(state.seats)),
       item('People', formatInt(s.population)),
-      item('Ideal district', formatPeople(s.ideal)),
+      item('Even split', `${evenSizes(s.population, state.seats)} people`),
       item('Range', `${formatPeople(s.rangePersons)} ${peopleNoun(s.rangePersons)}`),
     );
   }
@@ -415,10 +417,9 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
       if (route.move === null || balance.status !== 'ready' || shownPlan() === 'finished') return [...base];
       const log = balance.log;
       const pops = populationsAfter(log.before, log.moves, route.move);
-      const ideal = bundle.stats.beforeBalancing.metrics.ideal;
       return base.map((d) => {
         const pop = pops[d.district - 1] ?? d.pop;
-        return { ...d, pop, dev: pop - ideal, devPct: ((pop - ideal) / ideal) * 100 };
+        return { ...d, pop };
       });
     };
 
@@ -441,7 +442,8 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
       ticket.update({
         district: stats,
         color: shown !== null ? bundle.colors[shown - 1]! : null,
-        ideal: planStats.metrics.ideal,
+        total: planStats.metrics.population,
+        seats: entry.seats,
         plan,
         located: locatedDistrict(plan) === shown && shown !== null,
         preview: hovered !== null && hovered !== selected,
@@ -468,10 +470,12 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
         const which = liveMove !== null ? `after balancing move ${liveMove} of ${finishedMetrics.balanceMoves}` : plan === 'finished' ? 'finished map' : 'before balancing';
         list.update({
           districts,
+          total: planStats.metrics.population,
+          seats: entry.seats,
           colors: bundle.colors,
           selected,
           located: locatedDistrict(plan),
-          caption: `${entry.name}, ${entry.seats} districts, ${which}. Ideal district: ${formatPeople(planStats.metrics.ideal)} people.${partway ? ' Counties are as before balancing.' : ''}`,
+          caption: `${entry.name}, ${entry.seats} districts, ${which}. ${evenSplitSentence(planStats.metrics.population, entry.seats)}.${partway ? ' Counties are as before balancing.' : ''}`,
           partway,
         });
       }

@@ -229,7 +229,7 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
       p('So after the cuts, the districts are close to equal but not exactly. To finish the job, districts trade single blocks along their shared borders, one at a time. A trade is only made if it brings the two districts closer to equal and keeps both in one piece. When no trade helps any more, it stops.'),
       figure('Gap: the difference between the two districts’ populations. A block may move only if that gap gets strictly smaller. Example numbers.', ...balanceDiagrams()),
       exact(
-        p('The pass makes one move at a time. The ideal is the state’s population divided by its number of seats.'),
+        p('The pass makes one move at a time. The ideal is the state’s population divided by its number of seats. People come whole, so an even split puts each district at the ideal rounded down or up. For example, 6,154,913 people and 8 seats make an ideal of 769,364.125, so an even split is 769,364 or 769,365 people. The viewer shows how far each district is from an even split, in whole people.'),
         h(
           'ol',
           { class: 'strv-how__steps' },

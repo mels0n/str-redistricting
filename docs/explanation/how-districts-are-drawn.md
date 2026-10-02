@@ -77,6 +77,8 @@ It makes one move at a time. The ideal is the state's population divided by its 
 
 Every move lowers the sum of squared differences, so the pass always stops. The number of moves is reported as `balanceMoves`.
 
+People come whole, so the ideal is rarely a whole number: 6,154,913 people over 8 seats is 769,364.125 each. An **even split** means every district holds the ideal rounded down or up, here 769,364 or 769,365 people, or exactly the ideal when the population divides evenly. The viewer reports each district's distance from an even split in whole people: 0 when its population is one of those two sizes, otherwise the number of people above the larger or below the smaller. The percentage beside it is that whole-person distance as a share of the smaller size. This changes only how the numbers are shown; the balancing rule above still works from the exact ideal.
+
 The map in `out/<state>/` is the finished map: the cuts above followed by the balancing pass.
 
 ## Same data, same map
@@ -100,7 +102,7 @@ Each plan directory holds five files (the finished map's directory also holds `b
 
 - `assignment.csv` lists every block with its GEOID and the district number it belongs to. This is the map itself.
 - `metrics.json` holds the following:
-  - `state`, `seats`, `blocks`, `population` and `ideal` (the population divided by the number of seats), and `districts`, which lists for each district `district` (its number), `pop` (its population), `dev` and `devPct` (its difference from `ideal` in people and in percent) and `contiguous` (whether it is one connected piece).
+  - `state`, `seats`, `blocks`, `population` and `ideal` (the population divided by the number of seats), and `districts`, which lists for each district `district` (its number), `pop` (its population), `dev` and `devPct` (its difference from `ideal` in people and in percent, which keep the fraction; the viewer shows distance from an even split instead) and `contiguous` (whether it is one connected piece).
   - `rangePersons` and `rangePct`, the gap between the largest and smallest district in people and as a percentage of `ideal`.
   - `allContiguous`, whether every district is one connected piece.
   - `countiesSplit` and `countiesTotal`, for reporting only.

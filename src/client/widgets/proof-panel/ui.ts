@@ -1,5 +1,5 @@
 import { h, clear, chunkDigest, formatInt, formatPeople, formatPct, peopleNoun, type Plan } from '../../shared';
-import type { Metrics } from '../../entities/plan';
+import { evenSplitSentence, type Metrics } from '../../entities/plan';
 
 export interface ProofPanel {
   el: HTMLElement;
@@ -46,7 +46,7 @@ export function createProofPanel(): ProofPanel {
           row(
             'Population range',
             `${formatPeople(m.rangePersons)} ${peopleNoun(m.rangePersons)}`,
-            `The gap between the largest and smallest district: ${formatPct(m.rangePct)} of the ideal district of ${formatPeople(m.ideal)} people.`,
+            `The gap between the largest and smallest district: ${formatPct(m.rangePct)} of a district. ${evenSplitSentence(m.population, m.seats)}.`,
           ),
           row(
             'Connected districts',

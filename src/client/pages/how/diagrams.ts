@@ -335,78 +335,94 @@ export function balanceChoiceDiagram(): SVGSVGElement {
 
 /**
  * The re-count in three frames, on one small scene: two columns of West blocks, a large block that
- * straddles the guide line with a small block (the island) inside it, block T above the large block,
- * and the East blocks. Frame 1 places blocks by their centers; frame 2 shows the island cut off from
- * its side; frame 3 has the island joined to the side around it and the line slid so T crosses back.
- * The people come from RECOUNT_EXAMPLE.
+ * straddles the guide line with a small block (the stray piece) inside it, block T above the large
+ * block, and the East blocks. Frame 1 places blocks by their internal points; frame 2 shows the stray
+ * piece cut off from its side; frame 3 has the stray piece joined to the side around it and the line
+ * slid so T goes to the right. The people come from RECOUNT_EXAMPLE.
  */
 export function recountDiagrams(): [SVGSVGElement, SVGSVGElement, SVGSVGElement] {
   const r = recountExample();
   const t = RECOUNT_EXAMPLE.blocks.find((b) => b.name === 'T')!.people;
   const A = `strv-dg__block ${FILL[0]}`;
   const B = `strv-dg__block ${FILL[1]}`;
-  // The guide line before and after the re-count, and the island's square inside the large block.
-  const x1 = 122;
-  const x3 = 107;
-  const isl = { x: 126, y: 72, w: 20, h: 26 };
-  const island = `M${isl.x},${isl.y}v${isl.h}h${isl.w}v${-isl.h}Z`;
+  // The guide line before and after the re-count, and the stray piece inside the large block. The
+  // stray piece sits 8 or more units from every edge of the large block, so a band of the left
+  // side's color shows all round it.
+  const x1 = 96;
+  const x3 = 82;
+  const sp = { x: 104, y: 68, w: 38, h: 34 };
+  const stray = `M${sp.x},${sp.y}v${sp.h}h${sp.w}v${-sp.h}Z`;
+  // The drawing sits below a row that holds block T's label, clear of both guide lines.
+  const OY = 16;
   const scene = (frame: 1 | 2 | 3): SVGElement[] => {
     const out: SVGElement[] = [];
-    for (const y of [10, 50, 90, 130]) out.push(rect(10, y, 40, 40, A), rect(50, y, 40, 40, A), rect(150, y, 40, 40, B));
-    out.push(rect(90, 10, 30, 40, frame === 3 ? B : A), rect(120, 10, 30, 40, B));
-    out.push(rect(90, 130, 30, 40, A), rect(120, 130, 30, 40, B));
-    out.push(path(`M90,50H150V130H90Z${island}`, `${A} strv-dg__evenodd`));
-    out.push(rect(isl.x, isl.y, isl.w, isl.h, `${frame === 3 ? A : B}${frame === 2 ? ' strv-dg__stray' : ''}`));
+    for (const y of [10, 50, 90, 130]) out.push(rect(10, y, 30, 40, A), rect(40, y, 30, 40, A), rect(150, y, 40, 40, B));
+    out.push(rect(70, 10, 40, 40, frame === 3 ? B : A), rect(110, 10, 40, 40, B));
+    out.push(rect(70, 130, 40, 40, A), rect(110, 130, 40, 40, B));
+    out.push(path(`M70,50H150V130H70Z${stray}`, `${A} strv-dg__evenodd`));
+    out.push(rect(sp.x, sp.y, sp.w, sp.h, `${frame === 3 ? A : B} strv-dg__stray`));
     return out;
   };
-  // Block centers: the West columns and East column, then T, the block right of T, the two bottom
-  // blocks, the large block and the island.
-  const centers: Pt[] = [
-    ...[30, 70, 170].flatMap((x) => [30, 70, 110, 150].map((y): Pt => [x, y])),
-    [112, 38], [135, 30], [100, 150], [133, 150], [104, 112], [136, 91],
+  // Internal points: the West columns and East column, then T, the block right of T, the two bottom
+  // blocks, the large block and the stray piece.
+  const points: Pt[] = [
+    ...[25, 55, 170].flatMap((x) => [30, 70, 110, 150].map((y): Pt => [x, y])),
+    [90, 38], [130, 30], [76, 150], [130, 150], [78, 112], [135, 96],
   ];
-  const labels = (frame: 1 | 2 | 3): SVGElement[] => [
-    text(98, 25, String(t), 'strv-dg__n', 'middle'),
-    text(isl.x + isl.w / 2, isl.y + 11, String(r.island), 'strv-dg__n', 'middle'),
-    ...(frame === 1 ? centers.map((c) => dot(c, 'strv-dg__dot', 2.25)) : []),
-  ];
-  const foot = (lines: string[], strong: string): SVGElement[] => [
-    text(10, 200, lines, 'strv-dg__t strv-dg__t--small'),
-    text(10, 200 + lines.length * 14.4, strong, 'strv-dg__t strv-dg__t--small strv-dg__t--strong'),
-  ];
-  const H = 250;
+  const group = (frame: 1 | 2 | 3, ...extra: SVGElement[]): SVGElement =>
+    svg(
+      'g',
+      { transform: `translate(0,${OY})` },
+      ...scene(frame),
+      ...extra,
+      text(sp.x + sp.w / 2, sp.y + 14, ['Stray', String(r.island)], 'strv-dg__n', 'middle'),
+      ...(frame === 1 ? points.map((c) => dot(c, 'strv-dg__dot', 2.25)) : []),
+    );
+  const tLabel = (): SVGElement => text(90, 13, `T ${t}`, 'strv-dg__n', 'middle');
+  const foot = (lines: string[], left: number, right: number): SVGElement[] => {
+    const y = 200 + OY + 3 * 14.4 + 6;
+    return [
+      text(10, 200 + OY, lines, 'strv-dg__t strv-dg__t--small'),
+      text(10, y, 'Left', 'strv-dg__t strv-dg__t--small strv-dg__t--strong'),
+      text(100, y, formatInt(left), 'strv-dg__t strv-dg__t--small strv-dg__t--strong', 'end'),
+      text(10, y + 16, 'Right', 'strv-dg__t strv-dg__t--small strv-dg__t--strong'),
+      text(100, y + 16, formatInt(right), 'strv-dg__t strv-dg__t--small strv-dg__t--strong', 'end'),
+    ];
+  };
+  const H = 292;
+  const total = r.low + r.high;
   const one = sizedPanel(
     200,
     H,
-    'Frame 1: blocks placed by their centers',
-    `A dashed guide line runs down a small piece. Each block goes, whole, to the side its center dot is on. A large block straddles the line with its center on the left, so it goes left. A small block inside it, holding ${formatInt(r.island)} people, has its center just right of the line, so it goes right. Each side holds ${formatInt(r.firstWalk)} people.`,
-    ...scene(1),
-    line([x1, 4], [x1, 176], 'strv-dg__guide strv-dg__guide--chosen'),
-    ...labels(1),
-    ...foot(['1. Each block goes to the', 'side its center is on.'], `Left ${formatInt(r.firstWalk)}, right ${formatInt(r.low + r.high - r.firstWalk)}`),
+    'Frame 1: blocks placed by their internal points',
+    `A dashed guide line runs down a small piece. Each block goes, whole, to the side its internal point dot is on. A large block straddles the line with its internal point on the left, so it goes left. A small block inside it, labeled Stray ${formatInt(r.island)}, has its internal point just right of the line, so it goes right. Block T, with ${formatInt(t)} people, is on the left. Each side holds ${formatInt(r.firstWalk)} people.`,
+    group(1, line([x1, 4], [x1, 176], 'strv-dg__guide strv-dg__guide--chosen')),
+    tLabel(),
+    ...foot(['1. Each block goes to the side', 'its internal point is on.'], r.firstWalk, total - r.firstWalk),
   );
   const two = sizedPanel(
     200,
     H,
-    'Frame 2: an island on the wrong side',
-    'The small block is on the right side but surrounded by the large left block, so it is cut off from the rest of the right side: an island. It is outlined in amber.',
-    ...scene(2),
-    path(`M${x1 - 2},10V50H150V130H120V170${island}`, 'strv-dg__border'),
-    ...labels(2),
-    ...foot(['2. The small block is cut off', 'from its side: an island.'], `Island: ${formatInt(r.island)} people`),
+    'Frame 2: a stray piece on the wrong side',
+    `The small block is on the right side but surrounded by the large left block, so it is cut off from the rest of the right side: a stray piece. It is outlined in amber, with a band of the left side's color all round it. With its ${formatInt(r.island)} people counted on the left, the left side holds ${formatInt(r.firstWalk + r.island)} and the right ${formatInt(total - r.firstWalk - r.island)}.`,
+    group(2, path(`M110,10V50H150V130H110V170`, 'strv-dg__border')),
+    tLabel(),
+    ...foot(['2. The stray piece is cut off', 'from its side. It joins the left.'], r.firstWalk + r.island, total - r.firstWalk - r.island),
   );
   const three = sizedPanel(
     200,
     H,
-    'Frame 3: the island joins, and the line slides',
-    `The island joins the left side around it and stays there. The people are counted again: the left side now has ${formatInt(r.island)} people too many, so the guide line slides a little to the left and block T, with ${formatInt(t)} people, goes to the right side. Each side again holds ${formatInt(r.low)} people.`,
-    ...scene(3),
-    line([x1, 4], [x1, 176], 'strv-dg__guide'),
-    path('M90,10V50H150V130H120V170', 'strv-dg__border'),
-    line([x3, 4], [x3, 176], 'strv-dg__guide strv-dg__guide--chosen'),
-    arrow([x1, 184], [x3, 184]),
-    ...labels(3),
-    ...foot(['3. The island joins the left,', 'and the line slides so T', 'crosses back.'], `Left ${formatInt(r.low)}, right ${formatInt(r.high)}`),
+    'Frame 3: the stray piece joins, and the line slides',
+    `The stray piece joins the left side around it and stays there. The people are counted again: the left side now has ${formatInt(r.island)} people too many, so the guide line slides a little to the left and block T, with ${formatInt(t)} people, goes to the right side. Each side again holds ${formatInt(r.low)} people.`,
+    group(
+      3,
+      line([x1, 4], [x1, 176], 'strv-dg__guide'),
+      path('M70,10V50H150V130H110V170', 'strv-dg__border'),
+      line([x3, 4], [x3, 176], 'strv-dg__guide strv-dg__guide--chosen'),
+      arrow([x1, 184], [x3, 184]),
+    ),
+    tLabel(),
+    ...foot(['3. The line slides, and T', 'goes to the right.'], r.low, r.high),
   );
   return [one, two, three];
 }

@@ -46,7 +46,7 @@ export function createProofPanel(): ProofPanel {
           row(
             'Population range',
             `${formatPeople(m.rangePersons)} ${peopleNoun(m.rangePersons)}`,
-            `The gap between the largest and smallest district: ${formatPct(m.rangePct)} of a district. ${evenSplitSentence(m.population, m.seats)}.`,
+            `The gap between the largest and smallest district, as a percent of the ideal district population: ${formatPct(m.rangePct)}. ${evenSplitSentence(m.population, m.seats)}.`,
           ),
           row(
             'Connected districts',

@@ -91,7 +91,7 @@ function balancingTable(rows: { abbr: string; name: string; m: Metrics }[]): HTM
           null,
           h('th', { scope: 'col' }, 'State'),
           h('th', { scope: 'col', class: 'strv-how__num' }, 'Moves'),
-          h('th', { scope: 'col', class: 'strv-how__num' }, 'People moved'),
+          h('th', { scope: 'col', class: 'strv-how__num strv-how__col-opt' }, 'People moved'),
           h('th', { scope: 'col', class: 'strv-how__num' }, 'Range before'),
           h('th', { scope: 'col', class: 'strv-how__num' }, 'Range after'),
         ),
@@ -105,7 +105,7 @@ function balancingTable(rows: { abbr: string; name: string; m: Metrics }[]): HTM
             null,
             h('th', { scope: 'row' }, h('a', { href: formatHash(stateRoute(r.abbr, { move: 0 })), 'aria-label': `${r.name}: watch the balancing` }, r.name)),
             num(formatInt(r.m.balanceMoves)),
-            num(formatInt(r.m.peopleMovedByBalancing)),
+            num(formatInt(r.m.peopleMovedByBalancing), { class: 'strv-how__num strv-how__col-opt' }),
             num(formatInt(r.m.rangeBeforeBalancing)),
             num(formatInt(r.m.rangeAfterBalancing)),
           ),
@@ -187,13 +187,13 @@ function tradesTable(): HTMLElement {
       'tr',
       { 'data-chosen': chosen ? 'true' : null },
       h('th', { scope: 'row' }, label),
-      districts.map((d) => num(signed(dev[d] ?? 0))),
-      num(formatInt(sumOfSquares(dev))),
-      num(better),
+      districts.map((d) => num(signed(dev[d] ?? 0), { 'data-label': `District ${d}` })),
+      num(formatInt(sumOfSquares(dev)), { 'data-label': 'Sum of squares' }),
+      num(better, { 'data-label': 'Better by' }),
     );
   return h(
     'div',
-    { class: 'strv-list-scroll strv-how__table-wrap', tabindex: 0, role: 'group', 'aria-label': 'Each trade and its score' },
+    { class: 'strv-list-scroll strv-how__table-wrap strv-how__table-wrap--trades', tabindex: 0, role: 'group', 'aria-label': 'Each trade and its score' },
     h(
       'table',
       { class: 'strv-how__table strv-how__table--trades' },
@@ -350,11 +350,11 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
         p(`Example numbers: a piece with 2 seats and ${formatInt(recount.low + recount.high)} people, so each side’s share is ${formatInt(recount.share)}.`),
       ),
       figure(
-        `The re-count in three steps: the small block inside the large one ends up cut off, joins the side around it, and the line slides so each side still holds ${formatInt(recount.low)} people. Example numbers.`,
+        `The re-count in three steps: the small block inside the large one is cut off as a stray piece, joins the side around it, and the line slides so each side still holds ${formatInt(recount.low)} people. Example numbers.`,
         ...recountDiagrams(),
       ),
       h('h3', { class: 'strv-how__h3' }, 'Big stray pieces are allowed'),
-      p(`There is no limit on how many people a stray piece holds. A line that cuts off a big region still has to win on border length, like every other line, and its border is measured after the strays have joined and the line has slid. Here the line across both arms cuts off ${formatInt(STRANDED_EXAMPLE.stranded.people)} people and is allowed, but its border, ${STRANDED_EXAMPLE.stranded.km} km, is longer than the ${STRANDED_EXAMPLE.clean.km} km of a line that cuts off nobody.`),
+      p(`There is no limit on how many people a stray piece holds. A line that cuts off a big region still has to win on border length, like every other line, and its border is measured after the strays have joined and the line has slid. Here the line across both arms cuts off ${formatInt(STRANDED_EXAMPLE.stranded.people)} people and is allowed, but its border, ${STRANDED_EXAMPLE.stranded.km} km, is longer than the ${STRANDED_EXAMPLE.clean.km} km of a line that cuts off nobody. The stray piece itself adds no border; the extra length comes from the slid line crossing the wide right arm.`),
       figure(`Left: a line that cuts off ${formatInt(STRANDED_EXAMPLE.stranded.people)} people; the line slides down the right arm and its real border is ${STRANDED_EXAMPLE.stranded.km} km. Right: a line that cuts off nobody, with a ${STRANDED_EXAMPLE.clean.km} km border. The shorter border is used. Example numbers.`, ...strandedDiagrams()),
       p('A cut is also used only if both of its sides are each one connected piece.'),
       exact(
@@ -362,7 +362,7 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
           'ul',
           { class: 'strv-how__list' },
           li(h('strong', null, 'Which group stays.'), ' On each side, every connected group of blocks other than the side’s main body joins the other side, the side around it. The main body is the group with the most people, then the most blocks, then the lowest block position in GEOID order. The first side is settled, then the second, and this repeats until nothing moves.'),
-          li(h('strong', null, 'Moved pieces are fixed.'), ' A block that moves is fixed to its new side at once. It never moves again during that cut: not in a later pass, and not after a re-count. A fixed block counts toward its side’s groups like any other block, but fixed blocks and free blocks form separate groups, so free blocks next to a fixed piece can still move.'),
+          li(h('strong', null, 'Moved pieces are fixed.'), ' A block that moves is fixed to its new side at once. It never moves again during that cut: not in a later pass, and not after a re-count. Fixed blocks count toward their side’s groups like any other block. If a group cut off from its side’s main body contains fixed blocks, its free blocks still join the other side, and its fixed blocks stay where they are.'),
           li(h('strong', null, 'The re-count.'), ' The walk from stage 2 is done again over the free blocks only, in the same order. The fixed blocks’ people already count on their sides, so the first side’s target is its share minus the people fixed on it. The stopping rule is the same: the closer total, and a tie stops just before the block. A side with no fixed blocks keeps at least one free block. The guide line moves to halfway between the last free block of the first side and the first free block of the second.'),
           li(h('strong', null, 'When it ends.'), ' Stray pieces are settled and the people re-counted until a pass moves no free block. Every re-count follows at least one newly fixed block, and fixed blocks never become free, so a piece of n blocks needs at most n walks.'),
           li(h('strong', null, 'A piece that cannot rejoin.'), ' If a pass moves nothing but a fixed piece is still cut off from its side, it cannot move back. That line’s sides are not each one connected piece, so it fails the check that each side is one connected piece, and the next shortest line is considered.'),
@@ -392,7 +392,7 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
       h(
         'ol',
         { class: 'strv-how__steps' },
-        li(h('strong', null, 'Find the district furthest from an even split.'), ' Distance is counted from the ideal, so 400 people over and 400 people under are equally far. If two districts are equally far, the lower district number goes first.'),
+        li(h('strong', null, 'Find the district furthest from the ideal.'), ' Distance is counted from the ideal population, so 400 people over and 400 people under are equally far. If two districts are equally far, the lower district number goes first.'),
         li(h('strong', null, 'List every single-block trade involving it.'), ' That means each of its own blocks that touches a neighboring district, moving out to that neighbor, and each neighbor’s block that touches it, moving in. Blocks with no people never move.'),
         li(h('strong', null, 'Score each trade.'), ' The score is how much the trade brings the whole state closer to even, measured as the sum of squared distances from the ideal: square each district’s distance and add them up. Squaring makes a big miss count far more than a small one. One district 400 off adds 160,000; four districts 100 off add only 40,000 between them. A trade that does not strictly lower the sum is dropped.'),
         li(h('strong', null, 'Take the best trade that keeps the giving district in one piece.'), ' If two trades score the same, the block that comes first in GEOID order wins, then the lower-numbered district receiving it.'),
@@ -482,13 +482,39 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
     h('div', { class: 'strv-how__room' }, h('div', { class: 'strv-how__grid' }, toc, body)),
   );
 
-  function scrollTo(section: HowSection | null, focus: boolean): void {
+  // The tables of real numbers arrive after the page, pushing the lower stages down. The section the
+  // visitor asked for is kept in view until they scroll or press a key themselves.
+  let anchor: HowSection | null = initial.section;
+  let userMoved = false;
+  const onUserMove = (): void => {
+    userMoved = true;
+  };
+  const USER_EVENTS = ['wheel', 'touchstart', 'keydown', 'pointerdown'] as const;
+  for (const ev of USER_EVENTS) window.addEventListener(ev, onUserMove, { passive: true });
+
+  function headingOf(section: HowSection): HTMLElement | null {
+    return el.querySelector<HTMLElement>(`#${sectionId(section)}-h`);
+  }
+
+  function scrollTo(section: HowSection | null, focus: boolean, animate = true): void {
+    anchor = section;
+    userMoved = false;
     if (!section) return;
-    const target = el.querySelector<HTMLElement>(`#${sectionId(section)}-h`);
+    const target = headingOf(section);
     if (!target) return;
     requestAnimationFrame(() => {
-      target.scrollIntoView({ block: 'start', behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
+      target.scrollIntoView({ block: 'start', behavior: animate && !prefersReducedMotion() ? 'smooth' : 'auto' });
       if (focus) target.focus({ preventScroll: true });
+    });
+  }
+
+  /** Called when late content has changed the page's height: put the requested section back at the top. */
+  function keepAnchor(): void {
+    if (!alive || !anchor || userMoved) return;
+    const target = headingOf(anchor);
+    if (!target) return;
+    requestAnimationFrame(() => {
+      if (alive && !userMoved) target.scrollIntoView({ block: 'start', behavior: 'auto' });
     });
   }
 
@@ -518,11 +544,13 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
       }
       clear(balanceTable);
       balanceTable.append(balancingTable(rows));
+      keepAnchor();
     } catch (err) {
       if (!alive) return;
       clear(balanceSentence);
       balanceSentence.append(describeError(err), ' ');
       balanceSentence.append(h('button', { type: 'button', class: 'strv-button', onclick: () => void loadNumbers() }, 'Try again'));
+      keepAnchor();
     }
   }
 
@@ -538,11 +566,13 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
       );
       clear(followTable);
       followTable.append(followCutsTable(rows));
+      keepAnchor();
     } catch (err) {
       if (!alive) return;
       clear(followSentence);
       followSentence.append(describeError(err), ' ');
       followSentence.append(h('button', { type: 'button', class: 'strv-button', onclick: () => void loadFollow() }, 'Try again'));
+      keepAnchor();
     }
   }
 
@@ -550,7 +580,8 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
   void loadFollow();
   document.title = 'How the districts are drawn';
   markToc(initial.section);
-  scrollTo(initial.section, false);
+  // On arrival there is nothing to scroll from, so jump; a smooth scroll would still be running when the late tables land.
+  scrollTo(initial.section, false, false);
 
   return {
     el,
@@ -567,6 +598,7 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
     },
     destroy() {
       alive = false;
+      for (const ev of USER_EVENTS) window.removeEventListener(ev, onUserMove);
     },
   };
 }

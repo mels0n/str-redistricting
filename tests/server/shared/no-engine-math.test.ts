@@ -4,13 +4,22 @@ import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 
 /**
- * The generator must give the same map on any engine. ECMAScript lets an engine approximate these
- * Math functions and the ** operator, so the generator uses src/server/shared/detmath instead.
+ * The generator must give the same map on any engine. ECMAScript lets an engine approximate most Math
+ * functions and the ** operator, so the generator uses src/server/shared/detmath instead. Only the Math
+ * members that are exact on every engine are allowed: constants, rounding to whole numbers, comparisons,
+ * sign and absolute value, the correctly rounded square root, and exact integer operations. Anything
+ * else under Math, including a member added to the language later, is refused.
  */
-const ENGINE_MATH =
-  /\bMath\.(sin|cos|tan|asin|acos|atan|atan2|sinh|cosh|tanh|asinh|acosh|atanh|exp|expm1|log|log1p|log10|log2|pow|hypot|cbrt|random)\b/;
+const ALLOWED_MATH = new Set(['floor', 'ceil', 'round', 'trunc', 'abs', 'min', 'max', 'sqrt', 'sign', 'imul', 'clz32', 'fround', 'PI']);
+/** Every use of the Math object; a use that is not `Math.<allowed member>` is a hit. */
+const MATH_USE = /\bMath\b(\s*\.\s*([A-Za-z_$][\w$]*))?/g;
 /** The exponentiation operator, which is specified like Math.pow. */
 const POW_OPERATOR = /\*\*/;
+
+/** The Math uses on a line that are not allowed, as written. */
+function badMath(line: string): string[] {
+  return [...line.matchAll(MATH_USE)].filter((m) => m[2] === undefined || !ALLOWED_MATH.has(m[2])).map((m) => m[0]);
+}
 
 const root = fileURLToPath(new URL('../../../src/server', import.meta.url));
 
@@ -24,13 +33,20 @@ function sources(dir: string): string[] {
 const stripComments = (src: string): string => src.replace(/\/\*[\s\S]*?\*\//g, (c) => c.replace(/[^\n]/g, '')).replace(/(^|[^:'"`])\/\/.*$/gm, '$1');
 
 describe('generator arithmetic', () => {
-  it('calls no engine-approximated Math function and no ** anywhere under src/server', () => {
+  it('recognizes a Math member that is not allowed', () => {
+    expect(badMath('x = Math.sin(a) + Math.floor(b)')).toEqual(['Math.sin']);
+    expect(badMath('const { cos } = Math;')).toEqual(['Math']);
+    expect(badMath('Math [ "tan" ](a)')).toEqual(['Math']);
+    expect(badMath('Math.max(Math.abs(a), Math.PI)')).toEqual([]);
+  });
+
+  it('uses only allowed Math members and no ** anywhere under src/server', () => {
     const files = sources(root);
     expect(files.length).toBeGreaterThan(10);
     const hits: string[] = [];
     for (const file of files) {
       stripComments(readFileSync(file, 'utf8')).split('\n').forEach((line, i) => {
-        if (ENGINE_MATH.test(line) || POW_OPERATOR.test(line)) hits.push(`${relative(root, file).split(sep).join('/')}:${i + 1}: ${line.trim()}`);
+        if (badMath(line).length > 0 || POW_OPERATOR.test(line)) hits.push(`${relative(root, file).split(sep).join('/')}:${i + 1}: ${line.trim()}`);
       });
     }
     expect(hits).toEqual([]);

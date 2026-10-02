@@ -85,11 +85,11 @@ export function walkSplit(people: readonly number[], seats: number, lowSeats: nu
 export const RECOUNT_EXAMPLE = {
   seats: 2,
   lowSeats: 1,
-  island: 'Island',
+  island: 'Stray',
   blocks: [
     { name: 'West', people: 470 },
     { name: 'T', people: 30 },
-    { name: 'Island', people: 30 },
+    { name: 'Stray', people: 30 },
     { name: 'East', people: 470 },
   ] as readonly SplitBlock[],
 } as const;

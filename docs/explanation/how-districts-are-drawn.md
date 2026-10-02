@@ -44,7 +44,7 @@ Because blocks are assigned whole, a large block that straddles the guide line c
 
 1. Place the blocks by their internal points, as above.
 2. Settle the strays. On each side, every connected group of blocks other than the side's main body joins the other side, the side around it. The main body is the group with the most people, then the most blocks, then the lowest block position in GEOID order. The low side is settled, then the high side, and this is repeated until nothing moves.
-3. A block that moves is fixed to its new side at once, and stays there for the rest of that cut: it never moves again, in a later pass or after a re-count. A fixed block counts toward its side's groups like any other block, but fixed blocks and free blocks form separate groups, so free blocks next to a fixed piece can still move.
+3. A block that moves is fixed to its new side at once, and stays there for the rest of that cut: it never moves again, in a later pass or after a re-count. Fixed blocks count toward their side's groups like any other block. If a group cut off from its side's main body contains fixed blocks, its free blocks still join the other side, and its fixed blocks stay where they are.
 4. Re-count. Redo the walk over the free blocks only, in the same order. The fixed blocks' people already count on their sides, so the low side's target is its share minus the people fixed on it. The stopping rule is the same: whichever total is closer, and a tie stops just before the block. A side with no fixed blocks keeps at least one free block. The guide line moves to halfway between the last free block of the low side and the first free block of the high side.
 5. Repeat steps 2 to 4 until a strays pass moves no free block.
 
@@ -105,7 +105,7 @@ The state is given by its two-letter abbreviation. A list such as `--states CO,N
 
 The finished map is in `out/<state>/`. The plan as it stood after the cuts and before the balancing pass is written to `out/<state>/before-balancing/` with the same files, so the effect of the balancing pass can be read directly from the numbers.
 
-Each plan directory holds five files (the finished map's directory also holds `balance.json`, described below):
+Each plan directory holds five files (the finished map's directory also holds `balance.json`, described below, and two diagnostic files):
 
 - `assignment.csv` lists every block with its GEOID and the district number it belongs to. This is the map itself.
 - `metrics.json` holds the following:
@@ -126,6 +126,7 @@ Each plan directory holds five files (the finished map's directory also holds `b
 - `borders.geojson` holds the lines where districts meet, ready to draw on a map.
 - `districts.geojson` holds each district's shape.
 - `balance.json` (finished map only) lists every balancing move in the order it was made, as the block's index and GEOID, the district it left and the one it joined (numbered from 1), its population and its gain, together with the district populations before the first move.
+- `cut-stats.json` and `candidates.json` (finished map only) are diagnostic files, not used by the viewer or needed to reproduce a map. `cut-stats.json` records what each cut's search saw, including `threads`, the number of threads that ran the search. `candidates.json` lists the candidate lines each cut evaluated.
 - `cuts.geojson` holds the straight guide line chosen for each cut, after its re-counts, with its angle and the length of the real border it produced, so the recursive splitting can be followed step by step. Each cut also records how many seats it divides (`seats`, `lowSeats`, `highSeats`), `firstDistrict`, the 0-based number of the first district in its range, so each cut can be tied to the districts it separates, and `strayBlocks`, `strayPop` and `recounts`, the stray blocks and people that cut moved and the re-counts it made.
 
 ## Data for the map viewer

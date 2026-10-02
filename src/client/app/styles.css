@@ -3354,6 +3354,75 @@ body:has(> #str-viewer) {
   margin-top: 0;
 }
 
+/* Phones: the trades table stacks, one block per trade, and the real-states table drops its optional column. */
+@media (max-width: 30rem) {
+  .strv-how__col-opt {
+    display: none;
+  }
+
+  .strv-how__table-wrap--trades {
+    overflow-x: visible;
+  }
+
+  .strv-how__table--trades {
+    min-width: 0;
+  }
+
+  .strv-how__table--trades thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+
+  .strv-how__table--trades,
+  .strv-how__table--trades tbody {
+    display: block;
+  }
+
+  .strv-how__table--trades tbody tr {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: var(--s-2);
+    padding: var(--s-2) var(--s-2);
+    border-bottom: 1px solid var(--hairline);
+  }
+
+  .strv-how__table--trades tbody th {
+    grid-column: 1 / -1;
+    min-width: 0;
+    padding: 0 0 var(--s-1);
+    border-bottom: 0;
+    white-space: normal;
+  }
+
+  .strv-how__table--trades tbody td.strv-how__num {
+    padding: var(--s-1) 0 0;
+    border-bottom: 0;
+    text-align: left;
+  }
+
+  .strv-how__table--trades caption {
+    display: block;
+  }
+
+  .strv-how__table--trades tbody tr[data-chosen='true'] {
+    background: var(--signal-tint);
+  }
+
+  .strv-how__table--trades tr[data-chosen='true'] > * {
+    background: transparent;
+  }
+
+  .strv-how__table--trades tbody td::before {
+    content: attr(data-label);
+    display: block;
+    font-size: 0.75rem;
+    color: var(--ink-2);
+  }
+}
+
 @media (min-width: 64rem) {
   .strv-how__head {
     padding: var(--s-6) var(--gutter) var(--s-5);

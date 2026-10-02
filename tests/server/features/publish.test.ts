@@ -4,7 +4,7 @@ import { join } from 'node:path';
 import { afterAll, describe, expect, it } from 'vitest';
 import {
   buildCuts, buildIndex, countiesByDistrict, parseCdRecord, planStats, simplifyPercent, toTopology, vertexCount,
-  boundaryUrl, CountyRecord, PlanMetricsSchema, publishedSummaries, summarize, buildBalance, BalanceLogSchema, ProcessNumbersSchema,
+  boundaryUrl, CountyRecord, PlanMetricsSchema, publishedSummaries, summarize, buildBalance, BalanceLogSchema, ProcessNumbersSchema, buildStats,
 } from '../../../src/server/features/publish/index.js';
 import { STATES } from '../../../src/server/shared/apportionment/index.js';
 import { parsePublishConfig } from '../../../src/server/shared/config/index.js';
@@ -65,6 +65,13 @@ describe('index assembly', () => {
     expect(s.metrics).not.toHaveProperty('districts');
     expect(s.districts[0]).toMatchObject({ district: 1, pop: 5, counties: [{ fips: '44001', name: 'Bristol County' }] });
   });
+  it('publishes the per-cut counts as candidateLinesPerCut and the finished plan as finished', () => {
+    const s = planStats(PlanMetricsSchema.parse({ ...metrics, directionsPerCut: [3600, 1800] }), []);
+    expect(s.metrics).toMatchObject({ candidateLinesPerCut: [3600, 1800] });
+    expect(s.metrics).not.toHaveProperty('directionsPerCut');
+    const stats = buildStats(s, s, 'src');
+    expect(Object.keys(stats)).toEqual(['enactedSource', 'finished', 'beforeBalancing']);
+  });
 });
 
 describe('balance.json', () => {
@@ -93,6 +100,12 @@ describe('balance.json', () => {
     expect(() => buildBalance(2, bad({ to: 1 }), polygons)).toThrow(DataError);
     expect(() => buildBalance(2, bad({}), new Map())).toThrow(DataError);
     expect(() => buildBalance(3, bad({}), polygons)).toThrow(DataError);
+  });
+  it('rejects a move of zero people and a fractional or negative starting population', () => {
+    const move = { block: 1, geoid: '440010301001000', from: 1, to: 2, pop: 0, gain: 1 };
+    expect(() => BalanceLogSchema.parse({ before: [1, 1], moves: [move] })).toThrow();
+    expect(() => BalanceLogSchema.parse({ before: [1.5, 1], moves: [] })).toThrow();
+    expect(() => BalanceLogSchema.parse({ before: [-1, 1], moves: [] })).toThrow();
   });
   it('rejects a log with a malformed move', () => {
     expect(() => BalanceLogSchema.parse({ before: [1], moves: [{ block: 1, geoid: 'x', from: 1, to: 2, pop: 1, gain: 1 }] })).toThrow();
@@ -160,7 +173,7 @@ describe('published index', () => {
 
   it('lists only the states whose files are in the public directory', async () => {
     mkdirSync(join(dir, 'RI'));
-    writeFileSync(join(dir, 'RI', 'stats.json'), JSON.stringify({ official: { metrics: published } }));
+    writeFileSync(join(dir, 'RI', 'stats.json'), JSON.stringify({ finished: { metrics: published } }));
     // A state that was generated but not published (no stats.json) must not appear.
     mkdirSync(join(dir, 'CT'));
     const summaries = await publishedSummaries(dir);
@@ -171,14 +184,14 @@ describe('published index', () => {
     expect(idx.states.find((s) => s.abbr === 'RI')!.summary).toMatchObject({ population: 10, assignmentSha256: 'b' });
   });
   it('rejects a published stats file with the wrong shape', async () => {
-    writeFileSync(join(dir, 'CT', 'stats.json'), JSON.stringify({ official: { metrics: { state: 'CT' } } }));
+    writeFileSync(join(dir, 'CT', 'stats.json'), JSON.stringify({ finished: { metrics: { state: 'CT' } } }));
     await expect(publishedSummaries(dir)).rejects.toThrow(DataError);
   });
 });
 
 describe('published Rhode Island plan', () => {
-  it('keeps the official assignment hash the generator is pinned to', () => {
-    const stats = JSON.parse(readFileSync(new URL('../../../public/data/RI/stats.json', import.meta.url), 'utf8')) as { official: { metrics: { assignmentSha256: string } } };
-    expect(stats.official.metrics.assignmentSha256.startsWith('1f64bc2dbea6')).toBe(true);
+  it('keeps the finished assignment hash the generator is pinned to', () => {
+    const stats = JSON.parse(readFileSync(new URL('../../../public/data/RI/stats.json', import.meta.url), 'utf8')) as { finished: { metrics: { assignmentSha256: string } } };
+    expect(stats.finished.metrics.assignmentSha256.startsWith('1f64bc2dbea6')).toBe(true);
   });
 });

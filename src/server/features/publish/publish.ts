@@ -31,7 +31,7 @@ async function readMetrics(dir: string): Promise<PlanMetrics> {
 /** States whose generated plan is present in the output directory. */
 export const statesWithData = (outDir: string): StateInfo[] => STATES.filter((s) => existsSync(join(outDir, s.abbr, 'metrics.json')));
 
-const PublishedStatsSchema = z.object({ official: z.object({ metrics: PublishedMetricsSchema }) });
+const PublishedStatsSchema = z.object({ finished: z.object({ metrics: PublishedMetricsSchema }) });
 
 /**
  * Summaries of the states whose files are actually in the public directory. A state counts as published
@@ -44,7 +44,7 @@ export async function publishedSummaries(publicDir: string, states: readonly Sta
     if (!existsSync(path)) continue;
     const parsed = PublishedStatsSchema.safeParse(await readJson(path));
     if (!parsed.success) throw new DataError(`${path}: ${parsed.error.issues.map((i) => `${i.path.join('.')} ${i.message}`).join('; ')}`);
-    summaries.set(s.abbr, summarize(parsed.data.official.metrics));
+    summaries.set(s.abbr, summarize(parsed.data.finished.metrics));
   }
   return summaries;
 }

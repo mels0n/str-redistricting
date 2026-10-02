@@ -7,12 +7,12 @@ const Move = z.object({
   geoid: z.string().regex(/^[0-9]{15}$/),
   from: z.number().int().positive(),
   to: z.number().int().positive(),
-  pop: z.number().int().nonnegative(),
+  pop: z.number().int().positive(),
   gain: z.number().positive(),
 });
 
 /** out/<ST>/balance.json as the generator writes it: districts 1-based, populations before the first move. */
-export const BalanceLogSchema = z.object({ before: z.array(z.number()).min(1), moves: z.array(Move) });
+export const BalanceLogSchema = z.object({ before: z.array(z.number().int().nonnegative()).min(1), moves: z.array(Move) });
 export type BalanceLog = z.infer<typeof BalanceLogSchema>;
 
 /** The process numbers every plan's metrics.json reports; they pass through to stats.json. */

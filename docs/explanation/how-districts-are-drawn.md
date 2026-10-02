@@ -128,7 +128,7 @@ This reads the plans in `out/` and writes web-ready files to `public/data/`: an 
 
 - `districts.topo.json` and `before.topo.json`, the finished and before-balancing districts as simplified TopoJSON. Simplification runs along shared borders, so neighbouring districts still meet exactly. These shapes are for drawing and are slightly coarser than the block-level `districts.geojson`. The numbers and `assignment.csv` are never simplified.
 - `cuts.json`, the ordered guide lines with their angle, length and seat split.
-- `stats.json`, the metrics for both plans plus, for each district, the counties it touches.
+- `stats.json`, the metrics for both plans (under `finished` and `beforeBalancing`) plus, for each district, the counties it touches. It carries the per-cut counts from `metrics.json` as `candidateLinesPerCut` (the generator's own file calls them `directionsPerCut`).
 - `balance.json`, the balancing moves in order, with each moved block's outline taken unsimplified from the Census block file (rounded to six decimals) and the district populations before the first move, so the pass can be replayed move by move.
 - `enacted.topo.json`, the districts of the 119th Congress for the state, for comparison only.
 

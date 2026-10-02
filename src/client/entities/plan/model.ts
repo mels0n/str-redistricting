@@ -45,16 +45,14 @@ const PlanStatsSchema = z.object({
 });
 
 /**
- * The published stats file. Its key for the finished map is `official` (the
- * generator's file format); the viewer calls that plan the finished map.
+ * The published stats file: the finished map and the plan before balancing.
  */
 export const StatsSchema = z
   .object({
     enactedSource: z.string(),
-    official: PlanStatsSchema,
+    finished: PlanStatsSchema,
     beforeBalancing: PlanStatsSchema,
-  })
-  .transform(({ enactedSource, official, beforeBalancing }) => ({ enactedSource, finished: official, beforeBalancing }));
+  });
 
 const LonLatSchema = z.tuple([z.number(), z.number()]);
 

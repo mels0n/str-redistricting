@@ -97,8 +97,27 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
   /** Room around the state inside the frame: the key sits at the top unless it is below the map. */
   function framePadding(): number | { top: number; right: number; bottom: number; left: number } {
     const isNarrow = container.clientWidth < 520 || container.clientHeight < 400;
-    return isNarrow ? (keyBelow ? 14 : { top: container.clientWidth < 380 ? 64 : 40, right: 14, bottom: 14, left: 14 }) : { top: 52, right: 32, bottom: 32, left: 32 };
+    const base = isNarrow ? (keyBelow ? 14 : { top: container.clientWidth < 380 ? 64 : 40, right: 14, bottom: 14, left: 14 }) : { top: 52, right: 32, bottom: 32, left: 32 };
+    // The key's own height (it grows with enlarged text) is room the state must stay clear of.
+    const key = keyBox();
+    if (!key) return base;
+    const clear = key.y + key.h / 2 + 8;
+    if (typeof base === 'number') return clear > base ? { top: clear, right: base, bottom: base, left: base } : base;
+    return { ...base, top: Math.max(base.top, clear) };
   }
+  /** Enlarged text makes numbers, chips and the key bigger; the boxes used for placement grow with it. */
+  const textScale = (): number => Math.max(1, (parseFloat(getComputedStyle(document.documentElement).fontSize) || 16) / 16);
+  /** The key's box in the map's own coordinates (centre and size), when it lies over the map. */
+  function keyBox(): Box | null {
+    const key = container.parentElement?.querySelector('.strv-legend');
+    if (!key) return null;
+    const k = key.getBoundingClientRect();
+    const f = container.getBoundingClientRect();
+    if (k.width === 0 || k.height === 0 || k.bottom > f.bottom - 1 || k.top < f.top - 1) return null;
+    const g = 6;
+    return { x: k.left - f.left + k.width / 2, y: k.top - f.top + k.height / 2, w: k.width + 2 * g, h: k.height + 2 * g };
+  }
+  let fittedPad = '';
   /** True once the visitor has panned or zoomed; until then the whole state stays fitted to the frame as it changes size. */
   let userMoved = false;
 
@@ -126,6 +145,7 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
     const fly = map.flyTo.bind(map);
     map.flyTo = (o, d) => fly({ ...o, duration: 0 }, d);
   }
+  fittedPad = JSON.stringify(framePadding());
   map.touchZoomRotate.disableRotation();
   map.keyboard.disableRotation();
   // Zoom buttons sit where a thumb rests on a touch screen.
@@ -209,7 +229,8 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
     const labels = labelsFor(plan);
     const areas = areasFor(plan);
     const frame = { w: container.clientWidth, h: container.clientHeight };
-    const size = { w: LABEL_W, h: LABEL_H };
+    const scale = textScale();
+    const size = { w: Math.round(LABEL_W * scale), h: Math.round(LABEL_H * scale) };
     // Larger districts claim their spot first.
     const order = districtMarkers.map((_, i) => i).filter((i) => !districtMarkers[i]!.el.hidden).sort((a, b) => areas[b]! - areas[a]!);
     const pts = labels.map((l) => {
@@ -226,12 +247,15 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
       const f = container.getBoundingClientRect();
       placed.push({ x: c.left - f.left + c.width / 2, y: c.top - f.top + c.height / 2, w: c.width + 4, h: c.height + 4 });
     }
+    // The key lies over the map; nothing is placed under it.
+    const keyObstacle = keyBox();
+    if (keyObstacle) placed.push(keyObstacle);
     // Cut numbers: the newest goes first and is never displaced (it takes the best spot on its line that is in view);
     // the others keep clear of it and of each other where their lines allow, and may overlap when they cannot.
     const newestFirst = [...cutTags].reverse();
     let newestBox: Box | null = null;
     for (const [n, tag] of newestFirst.entries()) {
-      const tagSize = { w: tag.el.offsetWidth || 24, h: tag.el.offsetHeight || 20 };
+      const tagSize = { w: tag.el.offsetWidth || 24 * scale, h: tag.el.offsetHeight || 20 * scale };
       const spots = tag.spots.map((s) => map.project(s as [number, number]));
       if (n === 0) {
         // In view and clear of the zoom buttons when its line allows; otherwise just in view.
@@ -280,7 +304,7 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
     // Crowd markers, one per cluster of numbers that did not fit.
     const inFrame = unplaced.filter((i) => pts[i]!.x >= 0 && pts[i]!.y >= 0 && pts[i]!.x <= frame.w && pts[i]!.y <= frame.h);
     const groups = clusterPoints(inFrame.map((i) => pts[i]!), 44, 90).map((g) => g.map((k) => inFrame[k]!));
-    const chipSize = { w: 44, h: 28 };
+    const chipSize = { w: Math.round(44 * scale), h: Math.round(28 * scale) };
     chipTargets = [];
     const centroidOf = (g: number[]): Pt => ({ x: g.reduce((t, i) => t + pts[i]!.x, 0) / g.length, y: g.reduce((t, i) => t + pts[i]!.y, 0) / g.length });
     const crowds: { members: number[]; spot: MarkerSpot }[] = [];
@@ -612,6 +636,10 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
   function apply(next: MapViewState): void {
     const prev = current;
     current = next;
+    // The key may have grown or changed since the last fit (it is filled after the map is made).
+    const pad = JSON.stringify(framePadding());
+    if (!userMoved && fittedPad !== '' && pad !== fittedPad) map.fitBounds(bbox, { padding: framePadding(), duration: 0 });
+    fittedPad = pad;
     const cutMode = next.cut !== null;
     const plan = planShown(next);
     const other: Plan = plan === 'finished' ? 'before' : 'finished';

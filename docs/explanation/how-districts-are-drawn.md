@@ -4,10 +4,11 @@ This page explains how the generator turns census counts into a map of U.S. Hous
 
 ## What goes in
 
-The generator reads two things for every census block in a state, from the 2020 census:
+The generator reads three things for every census block in a state, from the 2020 census:
 
-- the number of people counted in the block, and
-- the block's shape on the ground.
+- the number of people counted in the block,
+- the block's shape on the ground, and
+- the block's internal point (the Census Bureau's `INTPTLAT20` and `INTPTLON20`), which is used only to put blocks in order across a guide line.
 
 That is all. It does not read party registration, election results, the addresses of current officeholders, or race and ethnicity data. County and city boundaries are not used to draw anything. Counties are only counted afterwards, for reporting. People are counted where the census counted them, with no adjustments, so a person in a prison is counted at the prison.
 
@@ -28,17 +29,19 @@ A state with N seats takes exactly N minus 1 cuts. Each piece is cut on its own,
 
 ### Straight lines on a globe
 
-A "straight line" here is a great circle, the path a plane through the center of the Earth traces on its surface. A line like that has no projection to choose and no distortion to argue about.
+A "straight line" here is a great circle, the path a plane through the center of the Earth traces on its surface. A line like that has no distortion to argue about.
+
+The 1,800 guide lines are defined in a gnomonic projection, a map projection in which every great circle is a straight line. The projection is centered on the center of the bounding box of all the blocks' internal points in the state. "North-south" (direction 0) is the meridian through that center. Directions are every 0.1 degrees (`k` times 0.1 degrees) measured in that flat plane. A block's position across a line is the distance of its projected internal point from the line, and blocks at equal distance go in GEOID order.
 
 ### Blocks are never split
 
-A census block is the smallest unit and is always kept whole. Once a guide line's direction is chosen, the blocks of the piece are ordered by how far they sit across the line. The generator walks along that order, adding up population, until the low side holds as close to its share as whole blocks allow. If stopping just before or just after the block that crosses the target gets closer, it picks whichever is closer, and a tie goes to stopping just before. Blocks at the same distance are taken in GEOID order, the census block identifier, so the order is fixed. Each side always holds at least one block.
+A census block is the smallest unit and is always kept whole. Once a guide line's direction is chosen, the blocks of the piece are ordered by how far their projected internal points sit across the line. The generator walks along that order, adding up population, until the low side holds as close to its share as whole blocks allow. If stopping just before or just after the block that crosses the target gets closer, it picks whichever is closer, and a tie goes to stopping just before. Blocks at the same distance are taken in GEOID order, the census block identifier, so the order is fixed. Each side always holds at least one block.
 
 The guide line only decides who goes on which side. The real border follows block edges, because every block belongs entirely to one side.
 
 ### Stray pieces join the side around them
 
-Because blocks are assigned whole, a large block that straddles the guide line can leave a few small blocks cut off on the far side. Examples are a median strip or an on-ramp. On each side, every connected group of blocks other than the side's main body is moved to the other side. The main body is the group with the most people, then the most blocks, then the lowest block position in GEOID order. This is repeated until no group moves. The number of blocks and people moved this way is reported as `strayBlocksMoved` and `strayPopMoved`.
+Because blocks are assigned whole, a large block that straddles the guide line can leave a few small blocks cut off on the far side. Examples are a median strip or an on-ramp. On each side, every connected group of blocks other than the side's main body is moved to the other side. The main body is the group with the most people, then the most blocks, then the lowest block position in GEOID order. This is repeated until no group moves. If pieces are still moving after 10 passes, the run stops with an error; this can only happen when a piece is disconnected. The number of blocks and people moved this way is reported as `strayBlocksMoved` and `strayPopMoved`. These counts are net per block, with moves in both directions summed.
 
 ### The stray cap
 
@@ -50,7 +53,7 @@ The length of a candidate is the length of the real border between its two final
 
 ### Every district is one connected piece
 
-Two blocks are connected when they share an edge, and touching at a single corner does not count. A cut is accepted only if both of its sides are each one connected piece. If a cut would leave a side in two or more parts, the next shortest candidate is tried. Islands and other detached pieces of land are joined to the nearest block of the main body, so a state with islands can still be cut. The number of these joins is reported as `bridges`.
+Two blocks are connected when they share an edge, and touching at a single corner does not count. A cut is accepted only if both of its sides are each one connected piece. If a cut would leave a side in two or more parts, the next shortest candidate is tried. Islands and other detached pieces of land are joined to the nearest block of the growing main body, which includes islands already joined, so a state with islands can still be cut. The number of these joins is reported as `bridges`.
 
 ### Ties
 
@@ -68,7 +71,7 @@ The map in `out/<state>/` is the official map: the cuts above followed by the ba
 
 ## Same data, same map
 
-The generator has no random numbers and no seed. Blocks are processed in GEOID order. Given the same census files, the same angle step and the same Node.js major version (the maps here were produced on Node.js 24), it produces byte-identical output. Each run writes a SHA-256 hash of the final assignment file into `metrics.json`, so two people can compare a single value to confirm they got the same map.
+The generator has no random numbers and no seed. Blocks are processed in GEOID order. Given the same census files, the same angle step and the same Node.js major version (the maps here were produced on Node.js 24), it produces byte-identical `assignment.csv` and GeoJSON files. `metrics.json` is identical except for `runtimeMs` and the provenance fields `nodeVersion` and `inputSha256`. Each run writes a SHA-256 hash of the final assignment file into `metrics.json`, so two people can compare a single value to confirm they got the same map.
 
 To reproduce a state's map:
 
@@ -93,11 +96,12 @@ Each plan directory holds five files:
   - `countiesSplit` and `countiesTotal`, for reporting only.
   - `bridges`, the number of joins made to connect detached land.
   - `cutsSkipped`, the number of candidate lines skipped, and `strayCapRejected`, how many of those were skipped because their stray pieces held more people than the stray cap allows. The rest of `cutsSkipped` are lines whose sides were not each one connected piece.
-  - `strayBlocksMoved` and `strayPopMoved`, the blocks and people moved by the stray rule, summed over all cuts.
+  - `strayBlocksMoved` and `strayPopMoved`, the blocks and people moved by the stray rule, net per block with both directions summed, over all cuts.
   - `balanceMoves`, the number of blocks the balancing pass moved. It is 0 in `before-balancing/`.
   - `angleStepDeg`, the angle step used.
   - `runtimeMs`, the run time of the whole state.
   - `assignmentSha256`, the SHA-256 hash of `assignment.csv`.
+  - `nodeVersion`, the Node.js version that ran the generator, and `inputSha256`, the SHA-256 hash of the state's Census zip file. Neither feeds into `assignmentSha256`.
 - `borders.geojson` holds the lines where districts meet, ready to draw on a map.
 - `districts.geojson` holds each district's shape.
 - `cuts.geojson` holds the straight guide line chosen for each cut, with its angle and the length of the real border it produced, so the recursive splitting can be followed step by step.

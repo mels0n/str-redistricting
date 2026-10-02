@@ -10,7 +10,7 @@ restate the code itself.
 - Typecheck: `npx tsc --noEmit`
 - Layer rules: `npm run depcruise`
 - Test: `npm test`
-- Lint: not yet set up
+- Lint: none
 
 ## Layout
 
@@ -40,7 +40,6 @@ layer above it, and slices inside a layer are reached only through their
 ## Conventions
 
 - Validate every inbound payload with a schema before using it.
-- Database rows never leave the data layer as-is; map them to a transport type.
 - Configuration is read once, at boot, from a single module.
 - Domain errors are typed and mapped to transport codes in exactly one place.
 

@@ -9,7 +9,7 @@ The repository has two parts:
 2. **The viewer** (`src/client/`) is a web app for browsing the generated maps, built to be embedded in a public website.
 
 ## Run locally
-Requires Node.js 24 to run. The maps do not depend on the Node.js version or the computer: the same census data and the same rule give the same map anywhere.
+Runs on Node.js 24. The maps depend only on the census data and the rule: the same inputs give the same map on any computer.
 
 ```bash
 npm install
@@ -25,7 +25,7 @@ npm run dev            # serves the viewer locally
 npm run build          # builds the static site into dist/, with public/data copied in
 ```
 
-`--states` takes two-letter state abbreviations, comma separated (for example `RI,CT,CO`). A state that fails is reported in the summary table and the run continues with the others. `--angle-step` sets the guide line step in degrees (default 0.1). `--out-dir` sets the output directory (default `out`).
+`--states` takes two-letter state abbreviations, comma separated (for example `RI,CT,CO`). A state that fails is reported in the summary table and the run continues with the others. `--angle-step` sets the guide line step in degrees (default 0.1). `--out-dir` sets the output directory (default `out`). `--threads` sets how many threads search the guide lines for each cut (default: the computer's hardware threads minus two; `1` uses a single thread). The thread count never changes a map.
 
 The finished map for each state is written to `out/<state>/`. The same files for the plan before the balancing pass are written to `out/<state>/before-balancing/`. `docs/explanation/how-districts-are-drawn.md` explains the rules and every output file.
 

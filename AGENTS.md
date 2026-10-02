@@ -12,7 +12,7 @@ restate the code itself.
 - Test: `npm test`
 - Run the viewer: `npm run dev`
 - Build the viewer into `dist/`: `npm run build`
-- Generate maps: `npm run explore`
+- Generate maps: `npm run explore -- --states CO` (`--threads N` sets the threads that search each cut; default hardware threads minus two)
 - Publish web-ready data to `public/data/`: `npm run publish-data`
 - Lint: none
 

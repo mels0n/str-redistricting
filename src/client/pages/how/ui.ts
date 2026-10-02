@@ -1,7 +1,9 @@
 import {
   h,
   clear,
+  dataUrl,
   describeError,
+  fetchJson,
   formatHash,
   formatInt,
   howRoute,
@@ -16,7 +18,7 @@ import {
   type Route,
 } from '../../shared';
 import { loadIndex, isGenerated, byName } from '../../entities/state';
-import { loadStats, type Metrics } from '../../entities/plan';
+import { loadStats, cutRows, CutsSchema, type CutRow, type Metrics } from '../../entities/plan';
 import {
   inputsDiagram,
   fanDiagram,
@@ -25,9 +27,13 @@ import {
   strayRejectedDiagram,
   recursionDiagram,
   balanceDiagrams,
+  balanceChoiceDiagram,
+  directionsDiagram,
+  signed,
   fingerprintDiagram,
   sourcesDiagram,
 } from './diagrams';
+import { BALANCE_EXAMPLE, DIRECTION_EXAMPLE, SPLIT_EXAMPLE, applyTrade, bestTrade, furthest, improvement, sumOfSquares, walkSplit } from './examples';
 
 const TITLES: Record<HowSection, string> = {
   inputs: 'What goes in',
@@ -70,7 +76,6 @@ function section(id: HowSection, n: number, ...body: (HTMLElement | null)[]): HT
 
 /** The balancing, state by state, from each state's published numbers. */
 function balancingTable(rows: { abbr: string; name: string; m: Metrics }[]): HTMLElement {
-  const num = (v: string): HTMLElement => h('td', { class: 'strv-how__num' }, v);
   return h(
     'div',
     { class: 'strv-list-scroll strv-how__table-wrap' },
@@ -110,6 +115,107 @@ function balancingTable(rows: { abbr: string; name: string; m: Metrics }[]): HTM
   );
 }
 
+const num = (v: string, attrs: Record<string, string> = {}): HTMLElement => h('td', { class: 'strv-how__num', ...attrs }, v);
+const colHead = (label: string, isNum = true): HTMLElement => h('th', { scope: 'col', class: isNum ? 'strv-how__num' : null }, label);
+
+/** One real state's cuts, in order, each opening the live map at that cut. */
+function followCutsTable(rows: readonly CutRow[]): HTMLElement {
+  return h(
+    'div',
+    { class: 'strv-list-scroll strv-how__table-wrap strv-how__table-wrap--narrow' },
+    h(
+      'table',
+      { class: 'strv-how__table' },
+      h('caption', { class: 'strv-list__caption' }, 'Colorado, cut by cut. Seats: the seats in the piece being cut. Border: the length of the real border the cut made.'),
+      h('thead', null, h('tr', null, colHead('Cut', false), colHead('Seats'), colHead('Split'), colHead('Border'))),
+      h(
+        'tbody',
+        null,
+        rows.map((r) =>
+          h(
+            'tr',
+            null,
+            h('th', { scope: 'row' }, h('a', { href: formatHash(stateRoute('CO', { cut: r.order })), 'aria-label': `Cut ${r.order}: open Colorado’s map at this cut` }, `Cut ${r.order}`)),
+            num(formatInt(r.seats)),
+            num(r.split.replace(' + ', ' and ')),
+            num(r.border),
+          ),
+        ),
+      ),
+    ),
+  );
+}
+
+/** The cut example: blocks in order, a running total, and where the first side stops. */
+function splitTable(): HTMLElement {
+  const { blocks, seats, lowSeats } = SPLIT_EXAMPLE;
+  const walk = walkSplit(blocks.map((b) => b.people), seats, lowSeats);
+  return h(
+    'div',
+    { class: 'strv-list-scroll strv-how__table-wrap strv-how__table-wrap--narrow' },
+    h(
+      'table',
+      { class: 'strv-how__table strv-how__table--walk' },
+      h('caption', { class: 'strv-list__caption' }, `Blocks in order across the line. The first side’s share is ${formatInt(walk.share)} people. Example numbers.`),
+      h('thead', null, h('tr', null, colHead('Block', false), colHead('People'), colHead('Running total'))),
+      h(
+        'tbody',
+        null,
+        blocks.map((b, i) => {
+          const crossing = i === walk.crossing;
+          const last = i === walk.count - 1;
+          return h(
+            'tr',
+            { 'data-crossing': crossing ? 'true' : null, 'data-split': last ? 'true' : null },
+            h('th', { scope: 'row' }, b.name, crossing ? h('span', { class: 'strv-how__flag' }, 'passes the share') : null),
+            num(formatInt(b.people)),
+            num(formatInt(walk.running[i]!)),
+          );
+        }),
+      ),
+    ),
+  );
+}
+
+/** The balancing example: every trade from the furthest district, scored. */
+function tradesTable(): HTMLElement {
+  const { start, trades } = BALANCE_EXAMPLE;
+  const best = bestTrade(start, trades);
+  const districts = Object.keys(start).map(Number).sort((a, b) => a - b);
+  const row = (label: Node | string, dev: Record<number, number>, better: string, chosen = false): HTMLElement =>
+    h(
+      'tr',
+      { 'data-chosen': chosen ? 'true' : null },
+      h('th', { scope: 'row' }, label),
+      districts.map((d) => num(signed(dev[d] ?? 0))),
+      num(formatInt(sumOfSquares(dev))),
+      num(better),
+    );
+  return h(
+    'div',
+    { class: 'strv-list-scroll strv-how__table-wrap', tabindex: 0, role: 'group', 'aria-label': 'Each trade and its score' },
+    h(
+      'table',
+      { class: 'strv-how__table strv-how__table--trades' },
+      h('caption', { class: 'strv-list__caption' }, 'People above (+) or below (−) an even split after each trade, and the sum of their squares. Example numbers.'),
+      h('thead', null, h('tr', null, colHead('Trade', false), districts.map((d) => colHead(`District ${d}`)), colHead('Sum of squares'), colHead('Better by'))),
+      h(
+        'tbody',
+        null,
+        row('Before any trade', start, '–'),
+        trades.map((t) =>
+          row(
+            h('span', null, `${t.id}: ${formatInt(t.people)} people to District ${t.to}`, t === best ? h('span', { class: 'strv-how__flag' }, 'chosen') : null),
+            applyTrade(start, t),
+            formatInt(improvement(start, t)),
+            t === best,
+          ),
+        ),
+      ),
+    ),
+  );
+}
+
 /**
  * How it works: every stage of the rule in plain language, each with a
  * drawing. It says what docs/explanation/how-districts-are-drawn.md says and
@@ -122,6 +228,19 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
   // The balancing figures come from every state's own numbers; they arrive after the page.
   const balanceSentence = h('p', { class: 'strv-how__real' }, 'Loading the numbers for each state…');
   const balanceTable = h('div', { class: 'strv-how__real-table' });
+  // Colorado's own cuts, for following one state through the repeat.
+  const followSentence = h('p', { class: 'strv-how__real' }, 'Loading Colorado’s cuts…');
+  const followTable = h('div', { class: 'strv-how__real-table' });
+
+  // The worked examples' figures, all derived from the example data.
+  const splitBlocks = SPLIT_EXAMPLE.blocks;
+  const splitWalk = walkSplit(splitBlocks.map((b) => b.people), SPLIT_EXAMPLE.seats, SPLIT_EXAMPLE.lowSeats);
+  const splitCrossing = splitBlocks[splitWalk.crossing]!.name;
+  const dirShortest = [...DIRECTION_EXAMPLE].sort((a, b) => a.km - b.km)[0]!;
+  const exStart = BALANCE_EXAMPLE.start;
+  const exD = furthest(exStart);
+  const exBest = bestTrade(exStart, BALANCE_EXAMPLE.trades);
+  const exAfter = applyTrade(exStart, exBest);
 
   const toc = h(
     'nav',
@@ -179,6 +298,30 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
       figure('Each block goes, whole, to the side its internal point is on. The real border follows block edges.', borderDiagram()),
       h('h3', { class: 'strv-how__h3' }, 'The shortest border wins'),
       p('Every guide line becomes a real border, and the generator measures its length. Lines that fail the checks are dropped: each side must be one connected piece, and the stray pieces must stay small (the next stage). Of the lines that remain, the one with the shortest real border is used.'),
+      h('h3', { class: 'strv-how__h3' }, 'How the winning line is chosen'),
+      h(
+        'ol',
+        { class: 'strv-how__steps' },
+        li(h('strong', null, 'Put the blocks in order.'), ' Take one direction. Line up the piece’s blocks by where their internal points sit across a line in that direction, from one edge of the piece to the other.'),
+        li(h('strong', null, 'Walk until the first side has its share.'), ' Go along that order adding up people. Find the block that takes the running total to the first side’s share or past it. Stop just before that block or just after it, whichever leaves the total closer to the share. If both are equally close, stop just before it.'),
+        li(h('strong', null, 'Repeat for every direction.'), ' Do the same for all 1,800 directions, one every 0.1 degrees.'),
+        li(h('strong', null, 'Throw out lines that break the rules.'), ' A line is out if its stray pieces hold too many people (the next stage), or if either side is not one connected piece.'),
+        li(h('strong', null, 'Measure the real borders.'), ' For each line left, measure the border along block edges that it makes.'),
+        li(h('strong', null, 'The shortest border wins.'), ' If two borders are the same length, the line closer to north-south wins.'),
+      ),
+      h(
+        'div',
+        { class: 'strv-how__worked' },
+        h('h3', { class: 'strv-how__h3' }, 'A worked example: placing one line'),
+        p(`Example numbers: a piece with 2 seats and ${formatInt(splitWalk.total)} people, so the first side’s share is half, ${formatInt(splitWalk.share)} people. For one direction, its eight blocks are already in order across the line.`),
+      ),
+      splitTable(),
+      p(
+        `The running total passes ${formatInt(splitWalk.share)} at block ${splitCrossing}. Stopping just before ${splitCrossing} leaves ${formatInt(splitWalk.before)} people, ${formatInt(splitWalk.share - splitWalk.before)} short. Stopping just after it gives ${formatInt(splitWalk.after)}, ${formatInt(splitWalk.after - splitWalk.share)} over. ${formatInt(splitWalk.after - splitWalk.share)} is closer, so the walk stops after ${splitCrossing}: blocks ${splitBlocks[0]!.name} to ${splitCrossing} (${formatInt(splitWalk.after)} people) form one side, and ${splitBlocks[splitWalk.count]!.name} to ${splitBlocks[splitBlocks.length - 1]!.name} (${formatInt(splitWalk.total - splitWalk.after)} people) the other. Had both been equally close, the walk would have stopped just before ${splitCrossing}.`,
+      ),
+      h('h3', { class: 'strv-how__h3' }, 'Comparing directions'),
+      p('That walk places one line. It is repeated in every direction, and each line that passes the checks gets its real border measured. The drawing shows three of the 1,800.'),
+      figure(`The same piece split in three directions. The border at ${dirShortest.angle}° is the shortest, ${dirShortest.km} km, so that line is used. Example numbers.`, directionsDiagram()),
       exact(
         h(
           'ul',
@@ -187,7 +330,10 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
           li(h('strong', null, 'Straight on a globe.'), ' A straight line here is a great circle, the path a plane through the center of the Earth traces on its surface, so the lines have no map distortion to argue about. The directions are measured in a flat projection centered on the state, in which every great circle is a straight line.'),
           li(h('strong', null, 'Putting blocks in order.'), ' The blocks are ordered by how far their internal points sit across the line. The generator walks along that order, adding up people, until the first side holds as close to its share as whole blocks allow. Blocks at the same distance are taken in GEOID order, the census block identifier, so the order is always the same.'),
           li(h('strong', null, 'Measuring the border.'), ' The length is the total of the block edges with one side on each hand, measured along the surface of the Earth. Water inside the state counts as part of the state, so a bay or a lake does not shorten or break a border.'),
-          li(h('strong', null, 'Ties.'), ' Two borders whose lengths agree to the nearest centimeter are tied. A tie goes to the line closest to north-south, then to the smaller angle, then to the line whose first side has fewer seats.'),
+          li(h('strong', null, 'The share.'), ' The first side’s share is the piece’s population times the first side’s seats, divided by the piece’s seats. It need not be a whole number: 3 seats split 1 and 2 with 1,000 people make a share of 333⅓.'),
+          li(h('strong', null, 'Where the walk stops.'), ' The walk stops at the first block that brings the running total to the share or past it. If the total after that block is strictly closer to the share than the total before it, the block joins the first side; otherwise it starts the second side. Each side always keeps at least one block. The guide line drawn on the map sits halfway between the last block of the first side and the first block of the second.'),
+          li(h('strong', null, 'The order of the checks.'), ' Every direction’s line is first settled for stray pieces and checked against the stray cap: it is out when the people in its stray pieces, times 100, times the piece’s seats, come to more than the piece’s population. That is the same as more than 1% of one district’s ideal population. The lines that pass are sorted by border length, and the shortest whose two sides are each one connected piece is used.'),
+          li(h('strong', null, 'Ties.'), ' Two borders whose lengths agree to the nearest centimeter are tied. A tie goes to the line closest to north-south, then to the smaller angle, then to the line whose first side has fewer seats. Directions that lean the same amount either side of north-south, such as 0.1° and 179.9°, are equally close to it.'),
         ),
       ),
     ),
@@ -221,6 +367,9 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
       p('Each side of a cut is cut again in the same way, and so on, until every piece has exactly one seat. Each piece then becomes one district.'),
       p('A state with N seats takes exactly N minus 1 cuts. Each piece is cut on its own, so the order in which pieces are handled does not change the result.'),
       figure('Seven seats take six cuts: 3 and 4, then each side again, until every piece has one seat.', recursionDiagram()),
+      h('h3', { class: 'strv-how__h3' }, 'Following one state: Colorado'),
+      followSentence,
+      followTable,
     ),
     section(
       'balancing',
@@ -228,14 +377,43 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
       p('U.S. House districts must be as nearly equal in population as practicable. That is the standard the Supreme Court applied to congressional districts in Karcher v. Daggett (1983). Each cut comes as close to equal as whole blocks allow, but the small differences, and the stray pieces, add up across many cuts.'),
       p('So after the cuts, the districts are close to equal but not exactly. To finish the job, districts trade single blocks along their shared borders, one at a time. A trade is only made if it brings the two districts closer to equal and keeps both in one piece. When no trade helps any more, it stops.'),
       figure('Gap: the difference between the two districts’ populations. A block may move only if that gap gets strictly smaller. Example numbers.', ...balanceDiagrams()),
+      h('h3', { class: 'strv-how__h3' }, 'How the next block is chosen'),
+      h(
+        'ol',
+        { class: 'strv-how__steps' },
+        li(h('strong', null, 'Find the district furthest from an even split.'), ' Distance is counted from the ideal, so 400 people over and 400 people under are equally far. If two districts are equally far, the lower district number goes first.'),
+        li(h('strong', null, 'List every single-block trade involving it.'), ' That means each of its own blocks that touches a neighboring district, moving out to that neighbor, and each neighbor’s block that touches it, moving in. Blocks with no people never move.'),
+        li(h('strong', null, 'Score each trade.'), ' The score is how much the trade brings the whole state closer to even, measured as the sum of squared distances from the ideal: square each district’s distance and add them up. Squaring makes a big miss count far more than a small one. One district 400 off adds 160,000; four districts 100 off add only 40,000 between them. A trade that does not strictly lower the sum is dropped.'),
+        li(h('strong', null, 'Take the best trade that keeps the giving district in one piece.'), ' If two trades score the same, the block that comes first in GEOID order wins, then the lower-numbered district receiving it.'),
+        li(h('strong', null, 'Start over.'), ' Go back to step 1 with the new populations. If the furthest district has no trade allowed, try the next furthest.'),
+        li(h('strong', null, 'Stop when no trade helps anywhere.')),
+      ),
+      h(
+        'div',
+        { class: 'strv-how__worked' },
+        h('h3', { class: 'strv-how__h3' }, 'A worked example: one move'),
+        p(
+          `Example numbers: District ${exD} is ${formatInt(exStart[exD]!)} people above an even split, District 1 is ${formatInt(-exStart[1]!)} below and District 5 is ${formatInt(-exStart[5]!)} below. Every other district is already even. The sum of squares is ${formatInt(exStart[exD]!)}² + ${formatInt(-exStart[1]!)}² + ${formatInt(-exStart[5]!)}² = ${formatInt(sumOfSquares(exStart))}.`,
+        ),
+        p(`District ${exD} is furthest off, so its trades are listed. Moving any block into District ${exD} would push it further over, so those trades make the sum bigger and are dropped. Three trades are left.`),
+      ),
+      figure(`Three blocks on District ${exD}’s border could move. The amber one leaves the state closest to even. Example numbers.`, balanceChoiceDiagram()),
+      tradesTable(),
+      p(
+        `Trade ${exBest.id} wins: it leaves the state closest to even overall, a sum of ${formatInt(sumOfSquares(exAfter))}. Trade A also helps a lot, but leaves District ${exD} ${formatInt(applyTrade(exStart, BALANCE_EXAMPLE.trades[0]!)[exD]!)} over. Trade C leaves District 1 ${formatInt(-exStart[1]!)} short.`,
+      ),
+      p(
+        `Then the process starts over from whichever district is now furthest off. After trade ${exBest.id}, District ${exD} is ${formatInt(exAfter[exD]!)} over and District 5 is ${formatInt(-exAfter[5]!)} under. They are equally far, so the tie goes to the lower number and the next round starts from District ${furthest(exAfter)}.`,
+      ),
+      p('In the replay, each move is one of these choices; the readout shows the block, its people, and the two districts’ new gap.'),
       exact(
         p('The pass makes one move at a time. The ideal is the state’s population divided by its number of seats. People come whole, so an even split puts each district at the ideal rounded down or up. For example, 6,154,913 people and 8 seats make an ideal of 769,364.125, so an even split is 769,364 or 769,365 people. The viewer shows how far each district is from an even split, in whole people.'),
         h(
           'ol',
           { class: 'strv-how__steps' },
-          li('Start with the district whose population is furthest from the ideal.'),
+          li('Start with the district whose population is furthest from the ideal, measured as the absolute difference. A tie goes to the lower district number.'),
           li('Look at the blocks along its border: its own blocks that touch a neighboring district, and the neighbors’ blocks that touch it. A block may move to the district on the other side only if it has people, if the move strictly narrows the gap between the two districts, and if the district it leaves stays one connected piece. The district it joins stays connected too, because the block touches it.'),
-          li('Of the moves allowed, make the one that brings the districts closest to equal overall, measured as the sum of the squared differences between each district’s population and the ideal. A tie goes to the block that comes first in GEOID order, then to the lower-numbered district it would join.'),
+          li('Of the moves allowed, make the one that brings the districts closest to equal overall, measured as the sum of the squared differences between each district’s population and the ideal. Only the two districts in a move change, so moving p people from a district a people above the ideal to one b people above it (a negative number when below) lowers the sum by exactly 2 × p × (a − b − p). That is above zero exactly when the gap between the two narrows. A tie goes to the block that comes first in GEOID order, then to the lower-numbered district it would join. A move that would leave the giving district with no blocks is never made.'),
           li('If that district has no allowed move, try the next furthest. After every move, start again from the district now furthest from the ideal.'),
           li('Stop when no move helps. Every move lowers the sum of the squared differences, so the pass always stops.'),
         ),
@@ -337,7 +515,28 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
     }
   }
 
+  async function loadFollow(): Promise<void> {
+    try {
+      const cuts = await fetchJson(dataUrl('CO/cuts.json'), CutsSchema);
+      if (!alive) return;
+      const rows = cutRows(cuts);
+      const seats = rows[0]?.seats ?? 0;
+      clear(followSentence);
+      followSentence.append(
+        `Colorado has ${formatInt(seats)} seats, so it takes ${formatInt(rows.length)} cuts. The first splits the whole state ${rows[0]?.split.replace(' + ', ' and ') ?? ''}; each side is then cut again, in the order below, until every piece has one seat. Each row opens Colorado’s map at that cut.`,
+      );
+      clear(followTable);
+      followTable.append(followCutsTable(rows));
+    } catch (err) {
+      if (!alive) return;
+      clear(followSentence);
+      followSentence.append(describeError(err), ' ');
+      followSentence.append(h('button', { type: 'button', class: 'strv-button', onclick: () => void loadFollow() }, 'Try again'));
+    }
+  }
+
   void loadNumbers();
+  void loadFollow();
   document.title = 'How the districts are drawn';
   markToc(initial.section);
   scrollTo(initial.section, false);

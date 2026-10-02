@@ -1,4 +1,5 @@
-import { svg } from '../../shared';
+import { formatInt, svg } from '../../shared';
+import { BALANCE_EXAMPLE, DIRECTION_EXAMPLE, applyTrade, bestTrade, improvement, sumOfSquares, type Trade } from './examples';
 
 /**
  * Drawings for the How it works page. Each is a small, exact diagram built
@@ -178,6 +179,149 @@ export function borderDiagram(): SVGSVGElement {
     ...dots,
     text(30, 200 + 14, 'Dashed: the guide line.', 'strv-dg__t strv-dg__t--small'),
     text(30, 200 + 30, 'Heavy: the real border, along block edges.', 'strv-dg__t strv-dg__t--small'),
+  );
+}
+
+/** The example piece for comparing directions: an irregular oval leaning 20° east of north, in a 96-unit cell. */
+function directionPiece(cx: number, cy: number): Pt[] {
+  const wobble = [1, 0.96, 1.04, 0.98, 1.02, 0.97, 1, 1.03, 0.96, 1.01, 0.99, 1.02];
+  const lean = (20 * Math.PI) / 180;
+  const u: Pt = [Math.sin(lean), -Math.cos(lean)];
+  const v: Pt = [Math.cos(lean), Math.sin(lean)];
+  return wobble.map((m, i) => {
+    const t = (i * 2 * Math.PI) / wobble.length;
+    const a = 46 * Math.cos(t) * m;
+    const b = 26 * Math.sin(t) * m;
+    return [cx + u[0] * a + v[0] * b, cy + u[1] * a + v[1] * b] as Pt;
+  });
+}
+
+/** Where a line through `c` in direction `deg` (clockwise from north) leaves the outline on each side. */
+export function clipThrough(outline: readonly Pt[], c: Pt, deg: number): [Pt, Pt] {
+  const d: Pt = [Math.sin((deg * Math.PI) / 180), -Math.cos((deg * Math.PI) / 180)];
+  let lo = 0;
+  let hi = 0;
+  for (let i = 0; i < outline.length; i++) {
+    const p = outline[i]!;
+    const q = outline[(i + 1) % outline.length]!;
+    const e: Pt = [q[0] - p[0], q[1] - p[1]];
+    const den = d[0] * e[1] - d[1] * e[0];
+    if (den === 0) continue;
+    const w: Pt = [p[0] - c[0], p[1] - c[1]];
+    const t = (w[0] * e[1] - w[1] * e[0]) / den;
+    const s = (w[0] * d[1] - w[1] * d[0]) / den;
+    if (s < 0 || s > 1) continue;
+    lo = Math.min(lo, t);
+    hi = Math.max(hi, t);
+  }
+  return [
+    [c[0] + d[0] * lo, c[1] + d[1] * lo],
+    [c[0] + d[0] * hi, c[1] + d[1] * hi],
+  ];
+}
+
+/** Drawn length of each example direction's line, in diagram units (for checking the drawing agrees with its numbers). */
+export function directionLengths(): number[] {
+  const c: Pt = [48, 50];
+  const outline = directionPiece(c[0], c[1]);
+  return DIRECTION_EXAMPLE.map(({ angle }) => {
+    const [a, b] = clipThrough(outline, c, angle);
+    return Math.hypot(b[0] - a[0], b[1] - a[1]);
+  });
+}
+
+/** Three directions for the same piece, each with its border length; the shortest is the one used. */
+export function directionsDiagram(): SVGSVGElement {
+  const shortest = Math.min(...DIRECTION_EXAMPLE.map((d) => d.km));
+  const cells = DIRECTION_EXAMPLE.map(({ angle, km }, i) => {
+    const x = 8 + i * 104;
+    const c: Pt = [x + 48, 50];
+    const outline = directionPiece(c[0], c[1]);
+    const [a, b] = clipThrough(outline, c, angle);
+    const won = km === shortest;
+    return svg(
+      'g',
+      null,
+      poly(outline, 'strv-dg__piece'),
+      won ? line(a, b, 'strv-dg__won-case') : null,
+      line(a, b, won ? 'strv-dg__won' : 'strv-dg__cand-line'),
+      text(c[0], 122, `${angle}°`, 'strv-dg__t strv-dg__t--small', 'middle'),
+      text(c[0], 140, `${km} km`, won ? 'strv-dg__t strv-dg__t--strong' : 'strv-dg__t', 'middle'),
+      won ? text(c[0], 156, 'Shortest: used', 'strv-dg__t strv-dg__t--small strv-dg__t--strong', 'middle') : null,
+    );
+  });
+  const [a, b, c] = DIRECTION_EXAMPLE;
+  return panel(
+    166,
+    'Three directions compared',
+    `The same piece drawn three times, each split by a line in a different direction, with the length of the real border it makes: ${a.angle} degrees, ${a.km} km; ${b.angle} degrees, ${b.km} km; ${c.angle} degrees, ${c.km} km. The shortest, ${shortest} km, is the one used.`,
+    ...cells,
+  );
+}
+
+/** A signed whole number with a true minus sign: +400, −300, 0. */
+export function signed(n: number): string {
+  return n > 0 ? `+${formatInt(n)}` : n < 0 ? `−${formatInt(-n)}` : '0';
+}
+
+/** The balancing example: District 3 is furthest from even; three of its border blocks could move. */
+export function balanceChoiceDiagram(): SVGSVGElement {
+  const { start, trades } = BALANCE_EXAMPLE;
+  const best = bestTrade(start, trades);
+  const y0 = 50;
+  const s = 40;
+  // Columns: District 1 (two), District 3 (three), District 5 (two).
+  const cols = [
+    { x: 20, d: 0 },
+    { x: 60, d: 0 },
+    { x: 100, d: 2 },
+    { x: 140, d: 2 },
+    { x: 180, d: 2 },
+    { x: 220, d: 1 },
+    { x: 260, d: 1 },
+  ];
+  // Where each trade's block sits on District 3's border: next to the district it would join.
+  const at: Record<string, Pt> = { A: [100, y0], B: [100, y0 + 2 * s], C: [180, y0 + s] };
+  const cells: SVGElement[] = [];
+  for (let r = 0; r < 3; r++) for (const c of cols) cells.push(rect(c.x, y0 + r * s, s, s, `strv-dg__block ${FILL[c.d]}`));
+  const cand = (t: Trade): SVGElement[] => {
+    const [x, y] = at[t.id]!;
+    const chosen = t === best;
+    const toLeft = t.to === 1;
+    const from: Pt = toLeft ? [x, y + 20] : [x + s, y + 20];
+    const to: Pt = toLeft ? [x - 36, y + 20] : [x + s + 36, y + 20];
+    return [
+      rect(x, y, s, s, `strv-dg__block ${FILL[2]} ${chosen ? 'strv-dg__move' : 'strv-dg__cand'}`),
+      text(x + s / 2, y + 17, t.id, 'strv-dg__n', 'middle'),
+      text(x + s / 2, y + 31, formatInt(t.people), 'strv-dg__n', 'middle'),
+      arrow(from, to, chosen ? 'strv-dg__arrow strv-dg__arrow--go' : 'strv-dg__arrow strv-dg__arrow--maybe'),
+    ];
+  };
+  const results = trades.map((t, i) =>
+    text(
+      20,
+      196 + i * 18,
+      `${t.id}: sum of squares ${formatInt(sumOfSquares(applyTrade(start, t)))}, better by ${formatInt(improvement(start, t))}`,
+      t === best ? 'strv-dg__t strv-dg__t--small strv-dg__t--strong' : 'strv-dg__t strv-dg__t--small',
+    ),
+  );
+  const head = (x: number, d: number): SVGElement[] => [
+    text(x, 18, `District ${d}`, 'strv-dg__t strv-dg__t--small strv-dg__t--strong', 'middle'),
+    text(x, 36, signed(start[d] ?? 0), 'strv-dg__t', 'middle'),
+  ];
+  return panel(
+    262,
+    'Choosing the next block to move',
+    `Three districts side by side. District 1 is ${formatInt(-start[1]!)} people below an even split, District 3 is ${formatInt(start[3]!)} above, District 5 is ${formatInt(-start[5]!)} below. Three blocks on District 3’s border could move: ${trades.map((t) => `${t.id}, ${formatInt(t.people)} people, to District ${t.to}`).join('; ')}. ${best.id} leaves the state closest to even, so ${best.id} moves.`,
+    ...head(60, 1),
+    ...head(160, 3),
+    ...head(260, 5),
+    ...cells,
+    line([100, y0], [100, y0 + 3 * s], 'strv-dg__cut'),
+    line([220, y0], [220, y0 + 3 * s], 'strv-dg__cut'),
+    ...trades.flatMap(cand),
+    ...results,
+    text(20, 254, 'Solid arrow: the move made. Dashed: passed over.', 'strv-dg__t strv-dg__t--small'),
   );
 }
 

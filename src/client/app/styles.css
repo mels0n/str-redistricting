@@ -3305,6 +3305,46 @@ body:has(> #str-viewer) {
   text-align: right;
 }
 
+/* Worked examples: short tables, the chosen row washed in signal tint and flagged in words. */
+.strv-how__table-wrap--narrow {
+  max-width: 28rem;
+}
+
+.strv-how__table--trades {
+  min-width: 34rem;
+}
+
+.strv-how__table--trades tbody th {
+  white-space: normal;
+  min-width: 11rem;
+}
+
+.strv-how__table tr[data-chosen='true'] > *,
+.strv-how__table tr[data-crossing='true'] > * {
+  background: var(--signal-tint);
+}
+
+.strv-how__table tr[data-split='true'] > * {
+  border-bottom: 2px solid var(--ink);
+}
+
+.strv-how__flag {
+  display: inline-block;
+  margin-left: var(--s-2);
+  padding: 0 0.3125rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--ink);
+  background: var(--signal);
+  border-radius: 2px;
+  white-space: nowrap;
+}
+
+.strv-how__worked + .strv-how__table-wrap {
+  margin-top: 0;
+}
+
 @media (min-width: 64rem) {
   .strv-how__head {
     padding: var(--s-6) var(--gutter) var(--s-5);
@@ -3513,6 +3553,35 @@ body:has(> #str-viewer) {
 
 .strv-dg__flow--dashed {
   stroke-dasharray: 5 3;
+}
+
+/* A block that could move but is passed over: ink, a step heavier than its neighbors. */
+.strv-dg__cand {
+  stroke-width: 2;
+}
+
+/* An arrow for a move considered but not made: dashed shaft, solid head. */
+.strv-dg__arrow--maybe line {
+  stroke-dasharray: 4 3;
+}
+
+/* Comparing directions: candidate lines in ink, the shortest in amber on an ink casing. */
+.strv-dg__cand-line {
+  stroke: var(--ink);
+  stroke-width: 2;
+  stroke-linecap: square;
+}
+
+.strv-dg__won-case {
+  stroke: var(--ink);
+  stroke-width: 6.5;
+  stroke-linecap: square;
+}
+
+.strv-dg__won {
+  stroke: var(--signal);
+  stroke-width: 3.5;
+  stroke-linecap: square;
 }
 
 .strv-scrub__narrow {

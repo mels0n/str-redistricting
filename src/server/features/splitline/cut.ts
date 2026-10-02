@@ -87,7 +87,7 @@ function settleStrays(g: StrayGraph): void {
 }
 
 /** Order local positions by (key, block id) and return the low-side count closest to the target population. */
-function selectLow(keys: Float64Array, ids: Int32Array, pops: Float64Array, perm: Int32Array, target: number): number {
+export function selectLow(keys: Float64Array, ids: Int32Array, pops: Float64Array, perm: Int32Array, target: number): number {
   const m = perm.length;
   for (let i = 0; i < m; i++) perm[i] = i;
   const less = (a: number, b: number) => keys[a]! < keys[b]! || (keys[a] === keys[b] && ids[a]! < ids[b]!);

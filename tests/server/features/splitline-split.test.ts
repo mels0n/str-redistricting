@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { isConnected } from '../../../src/server/entities/census-block/index.js';
 import { createContext, splitState } from '../../../src/server/features/splitline/index.js';
+import { DataError } from '../../../src/server/shared/errors/index.js';
 import { gridBlocks } from '../../helpers/grid.js';
 
 const districtPops = (assignment: Int32Array, pops: number[], seats: number) => {
@@ -30,5 +31,30 @@ describe('splitState', () => {
     const r = splitState(createContext(gridBlocks(2, 2), 1), 1);
     expect(Array.from(r.assignment)).toEqual([0, 0, 0, 0]);
     expect(r.cuts).toHaveLength(0);
+  });
+});
+
+describe('splitState numbering', () => {
+  it('numbers districts depth-first, low side first, with none left unassigned', () => {
+    // A row of equal blocks is cut across its length, so the low side is the low-x side at every level.
+    for (const seats of [4, 8]) {
+      const r = splitState(createContext(gridBlocks(seats, 1), 1), seats);
+      expect(Array.from(r.assignment)).toEqual(Array.from({ length: seats }, (_, i) => i));
+      expect(r.assignment.includes(-1)).toBe(false);
+    }
+  });
+  it('leaves no district index of -1 on a 2D grid', () => {
+    const r = splitState(createContext(gridBlocks(6, 5), 1), 5);
+    expect(r.assignment.includes(-1)).toBe(false);
+    expect(new Set(r.assignment).size).toBe(5);
+  });
+});
+
+describe('createContext', () => {
+  it('reports a block outside the projection hemisphere as a DataError', () => {
+    const near = gridBlocks(1, 1)[0]!;
+    const far = { ...near, geoid: '000000000000001', point: [170, 0] as const };
+    const lonFar = { ...near, geoid: '000000000000002', point: [-170, 0] as const };
+    expect(() => createContext([near, far, lonFar], 1)).toThrow(DataError);
   });
 });

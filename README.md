@@ -21,6 +21,8 @@ npm run explore -- --states CO
 
 The official map for each state is written to `out/<state>/`. The same files for the plan before the balancing pass are written to `out/<state>/before-balancing/`. `docs/explanation/how-districts-are-drawn.md` explains the rules and every output file.
 
+`npm run publish-data` turns the generated plans into web-ready files in `public/data/` for the viewer. It also downloads Census Bureau boundary files for state outlines, county names and today's enacted districts; these are for display only and never affect how districts are drawn.
+
 ## Deploy
 Not deployed.
 

@@ -104,4 +104,19 @@ Each plan directory holds five files:
   - `nodeVersion`, the Node.js version that ran the generator, and `inputSha256`, the SHA-256 hash of the state's Census zip file. Neither feeds into `assignmentSha256`.
 - `borders.geojson` holds the lines where districts meet, ready to draw on a map.
 - `districts.geojson` holds each district's shape.
-- `cuts.geojson` holds the straight guide line chosen for each cut, with its angle and the length of the real border it produced, so the recursive splitting can be followed step by step.
+- `cuts.geojson` holds the straight guide line chosen for each cut, with its angle and the length of the real border it produced, so the recursive splitting can be followed step by step. Each cut also records how many seats it divides (`seats`, `lowSeats`, `highSeats`) and `firstDistrict`, the 0-based number of the first district in its range, so each cut can be tied to the districts it separates.
+
+## Data for the map viewer
+
+```bash
+npm run publish-data
+```
+
+This reads the plans in `out/` and writes web-ready files to `public/data/`: an `index.json` listing all 50 states with a summary for each state that has a plan, a `states.topo.json` of state outlines, and for each state with a plan:
+
+- `districts.topo.json` and `before.topo.json`, the official and before-balancing districts as simplified TopoJSON. Simplification runs along shared borders, so neighbouring districts still meet exactly. These shapes are for drawing and are slightly coarser than the block-level `districts.geojson`. The numbers and `assignment.csv` are never simplified.
+- `cuts.json`, the ordered guide lines with their angle, length and seat split.
+- `stats.json`, the metrics for both plans plus, for each district, the counties it touches.
+- `enacted.topo.json`, today's congressional districts for the state, for comparison only.
+
+Today's enacted districts, the state outlines and the county names come from the U.S. Census Bureau's cartographic boundary files, which are downloaded into `data/raw/`. They are used only for display and reporting. The generator never reads them, and they have no effect on any district drawn. `stats.json` records which file the enacted districts came from as `enactedSource`.

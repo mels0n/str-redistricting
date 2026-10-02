@@ -18,7 +18,7 @@ export function simplifyPercent(vertices: number, budget: number): number {
 }
 
 /** Vertex budget for a state's district layer; grows with the number of districts. */
-export const districtBudget = (seats: number): number => 2500 + 900 * seats;
+export const districtBudget = (seats: number): number => 5000 + 5000 * seats;
 
 /**
  * Convert a polygon FeatureCollection to quantized TopoJSON, simplifying along shared arcs so

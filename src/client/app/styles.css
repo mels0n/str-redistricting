@@ -552,6 +552,37 @@ html:has(> body > #str-viewer) {
   }
 }
 
+/* Wide: the three steps sit side by side so the map stays on the first screen. */
+@media (min-width: 68.75rem) {
+  .strv-national__lede {
+    max-width: 64rem;
+  }
+
+  .strv-national__lede > p:first-child {
+    max-width: 62ch;
+  }
+
+  .strv-national__steps {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .strv-national__steps li {
+    grid-template-columns: minmax(0, 1fr);
+    align-content: start;
+    padding: var(--s-3) var(--s-4) var(--s-3) 0;
+    border-bottom: 0;
+  }
+
+  .strv-national__steps li + li {
+    padding-left: var(--s-4);
+    border-left: 1px solid var(--hairline);
+  }
+
+  .strv-national__steps li::before {
+    grid-row: auto;
+  }
+}
+
 /* The U.S. index map */
 
 .strv-us {

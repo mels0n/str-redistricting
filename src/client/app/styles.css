@@ -13,6 +13,11 @@
   --signal: #d88c0a;
   --signal-ink: #8a5200;
   --signal-tint: #f4ddb0;
+  /* Secondary text on ink (10.0:1), hover steps, and placeholder text (5.4:1 on paper). */
+  --on-ink-2: #c9c3b6;
+  --ink-hover: #34322c;
+  --signal-hover: #e49b1f;
+  --placeholder: #6b665c;
 
   --font: 'Public Sans Variable', 'Public Sans', system-ui, sans-serif;
   --mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Mono', monospace;
@@ -152,6 +157,9 @@ body:has(> #str-viewer) {
   text-decoration: none;
   line-height: 1.2;
   /* The title is the link home: it wraps rather than disappearing on a narrow screen or at large text. */
+  display: flex;
+  align-items: center;
+  min-height: 2.75rem;
   flex: 1 1 0;
   min-width: 0;
   overflow-wrap: anywhere;
@@ -163,7 +171,7 @@ body:has(> #str-viewer) {
 
 .strv-masthead__credit {
   font-size: 0.8125rem;
-  color: #c9c3b6;
+  color: var(--on-ink-2);
   line-height: 1.2;
   text-align: right;
   flex: 0 1 auto;
@@ -236,7 +244,7 @@ body:has(> #str-viewer) {
 }
 
 .strv-button--ink:hover:not(:disabled) {
-  background: #34322c;
+  background: var(--ink-hover);
 }
 
 .strv-button--ink:disabled {
@@ -250,7 +258,7 @@ body:has(> #str-viewer) {
 }
 
 .strv-button--signal:hover:not(:disabled) {
-  background: #e49b1f;
+  background: var(--signal-hover);
 }
 
 .strv-loading {
@@ -260,6 +268,13 @@ body:has(> #str-viewer) {
   min-height: 12rem;
   color: var(--ink-2);
   font-size: 0.9375rem;
+}
+
+/* A link standing on its own line is a target of its own: at least 24 px tall. */
+.strv-error p > a,
+.strv-empty p > a {
+  display: inline-block;
+  padding: var(--s-1) 0;
 }
 
 .strv-error,
@@ -314,7 +329,7 @@ body:has(> #str-viewer) {
 }
 
 .strv-search__row input::placeholder {
-  color: #6b665c;
+  color: var(--placeholder);
 }
 
 .strv-search__row input:focus-visible {
@@ -505,6 +520,13 @@ body:has(> #str-viewer) {
 .strv-us__label {
   fill: var(--paper);
   font-family: var(--font);
+  pointer-events: none;
+}
+
+/* The hover and focus fill is amber; paper text on it is only 2.6:1, ink is 6.4:1. */
+.strv-us__state:hover .strv-us__label,
+.strv-us__state:focus-visible .strv-us__label {
+  fill: var(--ink);
 }
 
 .strv-us__abbr {
@@ -1006,6 +1028,19 @@ body:has(> #str-viewer) {
   height: 2.25rem;
 }
 
+/* MapLibre's own focus ring is a blue glow; use the page's ring so it matches and stays visible. */
+.strv .maplibregl-ctrl-group button:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: -4px;
+  box-shadow: none;
+}
+
+/* The map itself takes keyboard focus (arrow keys pan, plus and minus zoom); draw the ring inside the frame so it is not clipped. */
+.strv .maplibregl-canvas:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: -3px;
+}
+
 .strv .maplibregl-cooperative-gesture-screen {
   font-family: var(--font);
   background: rgb(26 25 21 / 0.82);
@@ -1452,7 +1487,7 @@ body:has(> #str-viewer) {
 }
 
 .strv-seg__option:has(input:checked) .strv-seg__hint {
-  color: #c9c3b6;
+  color: var(--on-ink-2);
 }
 
 .strv-seg__option:has(input:focus-visible) {
@@ -1480,9 +1515,9 @@ body:has(> #str-viewer) {
 }
 
 .strv-check input {
-  width: 1.25rem;
-  height: 1.25rem;
-  margin: 0.125rem 0 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin: 0;
 }
 
 .strv-check label {

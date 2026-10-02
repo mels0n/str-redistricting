@@ -85,7 +85,7 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
   map.keyboard.disableRotation();
   map.addControl(new NavigationControl({ showCompass: false }), 'top-right');
   // The canvas is described by the region around it; the list is the full text view.
-  map.getCanvas().setAttribute('aria-label', `Map of ${opts.stateName} districts`);
+  map.getCanvas().setAttribute('aria-label', `Map of ${opts.stateName} districts. Arrow keys move the map; plus and minus zoom. To choose a district, use the Districts table.`);
 
   const labelCache = new Map<Plan, LonLat[]>();
   const labelsFor = (plan: Plan): LonLat[] => {

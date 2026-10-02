@@ -60,18 +60,18 @@ export function createUsMap(opts: UsMapOptions): SVGSVGElement {
     const [cx, cy] = path.centroid(f);
     const href = formatHash(stateRoute(entry.abbr));
     const label = `${entry.name}, ${entry.seats} districts`;
-    active.append(svg('a', { href, 'aria-label': label, class: 'strv-us__state' }, svg('title', null, label), svg('path', { d })));
     const fits = x1 - x0 > 54 && y1 - y0 > 40 && !ALWAYS_CALLOUT.has(entry.abbr);
-    if (fits) {
-      labels.append(
-        svg(
+    // A label that fits sits inside its state's link, so it can change color with the state's hover and focus fill.
+    const inside = fits
+      ? svg(
           'text',
-          { x: cx, y: cy, class: 'strv-us__label', 'text-anchor': 'middle' },
+          { x: cx, y: cy, class: 'strv-us__label', 'text-anchor': 'middle', 'aria-hidden': 'true' },
           svg('tspan', { x: cx, dy: '-0.35em', class: 'strv-us__abbr' }, entry.abbr),
           svg('tspan', { x: cx, dy: '1.15em', class: 'strv-us__seats' }, String(entry.seats)),
-        ),
-      );
-    } else {
+        )
+      : null;
+    active.append(svg('a', { href, 'aria-label': label, class: 'strv-us__state' }, svg('title', null, label), svg('path', { d }), inside));
+    if (!fits) {
       const [ax, ay] = eastEdge(f.geometry, (p) => projection(p)) ?? [cx, cy];
       callouts.push({ y: ay, cx: ax, cy: ay, abbr: entry.abbr, seats: entry.seats });
     }

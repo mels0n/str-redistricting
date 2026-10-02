@@ -20,7 +20,7 @@ import {
 import { StateIndexSchema, isGenerated } from '../../src/client/entities/state';
 import { labelPoint } from '../../src/client/shared/lib/geo';
 
-const PILOTS = ['RI', 'CT', 'CO', 'MD', 'NC', 'NM', 'TX'];
+const PILOTS = ['RI', 'CT', 'CO', 'MD', 'NC', 'NM', 'MO', 'MI', 'WA', 'LA', 'CA', 'TX'];
 
 const data = (p: string): unknown =>
   JSON.parse(readFileSync(new URL(`../../public/data/${p}`, import.meta.url), 'utf8'));

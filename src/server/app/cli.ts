@@ -5,9 +5,33 @@ import { buildTopology, ensureZip, loadStateBlocks } from '../entities/census-bl
 import { balance, balanceLog, peopleMoved } from '../features/balance/index.js';
 import { bordersGeoJson, cutsGeoJson, districtsGeoJson, writePlan } from '../features/export/index.js';
 import { assignmentCsv, computeMetrics } from '../features/metrics/index.js';
-import { createContext, ScanPool, splitState } from '../features/splitline/index.js';
+import { createContext, ScanPool, splitState, type SplitResult } from '../features/splitline/index.js';
 import { parseConfig } from '../shared/config/index.js';
 import { exitCodeFor } from '../shared/errors/index.js';
+
+type Cut = SplitResult['cuts'][number];
+
+/** Per-cut summary of the search, including the spread of recount iterations over every candidate. */
+function cutStats(c: Cut, i: number) {
+  const its = c.candidateStats.map((s) => s.iterations);
+  return {
+    order: i + 1, depth: c.depth, seats: c.seats, firstDistrict: c.firstDistrict, angleDeg: c.angleDeg, lengthM: Math.round(c.lengthM),
+    skipped: c.skipped, strayCapRejected: c.strayCapRejected, strayBlocksMoved: c.strayBlocksMoved, strayPopMoved: c.strayPopMoved,
+    iterations: c.iterations, offsetShiftM: Math.round(c.offsetShiftM),
+    candidateIterationsMax: Math.max(...its), candidateIterationsMean: its.reduce((s, v) => s + v, 0) / its.length,
+    unresolvedCandidates: c.candidateStats.filter((s) => s.unresolved).length,
+  };
+}
+
+/** Every candidate of every cut as compact rows. */
+function candidateRows(cuts: readonly Cut[]) {
+  return {
+    fields: ['k', 'lowSeats', 'lengthM', 'strayBlocks', 'strayPop', 'iterations', 'offsetShiftM', 'lowPop', 'unresolved'],
+    cuts: cuts.map((c) => c.candidateStats.map((s) => [
+      s.k, s.lowSeats, Math.round(s.lengthM), s.strayBlocks, s.strayPop, s.iterations, Math.round(s.offsetShiftM), s.lowPop, s.unresolved ? 1 : 0,
+    ])),
+  };
+}
 
 async function main(): Promise<void> {
   const config = parseConfig(process.argv.slice(2));
@@ -21,7 +45,7 @@ async function main(): Promise<void> {
       const blocks = await loadStateBlocks(state, config.cacheDir);
       const topo = buildTopology(blocks);
       const ctx = createContext(blocks, config.angleStepDeg, topo);
-      const split = splitState(ctx, state.seats, { pool });
+      const split = splitState(ctx, state.seats, { pool, rule: config.strayRule });
       const balanced = balance(blocks, topo, split.assignment, state.seats);
       const runtimeMs = Math.round(performance.now() - t0);
       const sum = (f: (c: (typeof split.cuts)[number]) => number): number => split.cuts.reduce((s, c) => s + f(c), 0);
@@ -52,6 +76,9 @@ async function main(): Promise<void> {
       }
       await writePlan(join(config.outDir, state.abbr), {
         'balance.json': JSON.stringify(balanceLog(balanced.moves, before.districts.map((d) => d.pop))),
+        // Debug only, not published: what each cut's search saw.
+        'cut-stats.json': JSON.stringify({ strayRule: config.strayRule, threads: config.threads, cuts: split.cuts.map(cutStats) }, null, 1),
+        ...(config.strayRule === 'recount' ? { 'candidates.json': JSON.stringify(candidateRows(split.cuts)) } : {}),
       });
       summary.push({
         state: state.abbr, status: 'ok', seats: state.seats, blocks: blocks.length,

@@ -18,18 +18,42 @@ export interface Piece {
   readonly lLen: Float64Array;
 }
 
+/**
+ * What to do with strays. `cap`: they join the side around them and a guide line whose strays hold more
+ * than 1% of an ideal district is not used. `recount`: they join the side around them and stay there
+ * (fixed), the population split is redone over the other blocks, and this repeats until no strays are
+ * left; there is no cap.
+ */
+export type StrayRule = 'cap' | 'recount';
+
 /** What to evaluate for one cut: every direction k < angleCount, once per low-side seat count. */
 export interface ScanJob {
   readonly angleCount: number;
   readonly seats: number;
   readonly orientations: readonly number[];
+  readonly rule: StrayRule;
 }
 
 /** Per-candidate fields in a scan result buffer; candidate (k, o) starts at (k * orientations + o) * FIELDS. */
-export const FIELDS = 4;
-export const F_OFFSET = 0, F_LENGTH = 1, F_BLOCKS = 2, F_POP = 3;
+export const FIELDS = 8;
+export const F_OFFSET = 0, F_LENGTH = 1, F_BLOCKS = 2, F_POP = 3, F_ITER = 4, F_SHIFT = 5, F_LOWPOP = 6, F_UNRESOLVED = 7;
 
-export interface Evaluation { offset: number; lengthM: number; movedBlocks: number; movedPop: number }
+export interface Evaluation {
+  /** Guide-line offset of the final population split, in projection units. */
+  offset: number;
+  lengthM: number;
+  /** Blocks (and their people) that changed side as strays. */
+  movedBlocks: number;
+  movedPop: number;
+  /** Population splits made: 1 plus one per recount. */
+  iterations: number;
+  /** Final offset minus the whole-block split's offset, in projection units. */
+  offsetShift: number;
+  /** People on the low side at the end. */
+  lowPop: number;
+  /** Strays remained that could not move because they were fixed (recount only); such sides are not connected. */
+  unresolved: boolean;
+}
 
 const RAD = Math.PI / 180;
 const MAX_STRAY_PASSES = 10;
@@ -48,14 +72,15 @@ interface StrayGraph {
 /**
  * Strays rule, in place: on the low side and then the high side, every connected component other than
  * the side's main one (most population, then most blocks, then lowest block index) joins the other side;
- * repeat until nothing moves.
+ * repeat until nothing moves. With `pinned`, pinned nodes never move and a node that moves is pinned at
+ * once, so the passes always end; returns whether a pinned node was left off its side's main component.
  */
-function settleStrays(g: StrayGraph): void {
+function settleStrays(g: StrayGraph, pinned?: Uint8Array): boolean {
   const comp = new Int32Array(g.n);
   const stack = new Int32Array(g.n);
   const cPop: number[] = [], cCnt: number[] = [], cMin: number[] = [];
   for (let pass = 1; ; pass++) {
-    let moved = false;
+    let moved = false, stranded = false;
     for (let s = 0; s < 2; s++) {
       comp.fill(-1);
       cPop.length = 0; cCnt.length = 0; cMin.length = 0;
@@ -81,16 +106,24 @@ function settleStrays(g: StrayGraph): void {
         if (cPop[c]! > cPop[main]! || (cPop[c] === cPop[main] &&
           (cCnt[c]! > cCnt[main]! || (cCnt[c] === cCnt[main] && cMin[c]! < cMin[main]!)))) main = c;
       }
-      for (let v = 0; v < g.n; v++) if (g.side[v] === s && comp[v] !== main) g.side[v] = 1 - s;
-      moved = true;
+      if (!pinned) {
+        for (let v = 0; v < g.n; v++) if (g.side[v] === s && comp[v] !== main) g.side[v] = 1 - s;
+        moved = true;
+        continue;
+      }
+      for (let v = 0; v < g.n; v++) {
+        if (g.side[v] !== s || comp[v] === main) continue;
+        if (pinned[v]) { stranded = true; continue; }
+        g.side[v] = 1 - s; pinned[v] = 1; moved = true;
+      }
     }
-    if (!moved) return;
-    if (pass >= MAX_STRAY_PASSES) throw new DataError(`stray pieces still moving after ${MAX_STRAY_PASSES} passes`);
+    if (!moved) return stranded;
+    if (!pinned && pass >= MAX_STRAY_PASSES) throw new DataError(`stray pieces still moving after ${MAX_STRAY_PASSES} passes`);
   }
 }
 
 /** Order local positions by (key, block id) and return the low-side count closest to the target population. */
-export function selectLow(keys: Float64Array, ids: Int32Array, pops: Float64Array, perm: Int32Array, target: number): number {
+export function selectLow(keys: Float64Array, ids: Int32Array, pops: Float64Array, perm: Int32Array, target: number, minCount = 1, maxCount = perm.length - 1): number {
   const m = perm.length;
   for (let i = 0; i < m; i++) perm[i] = i;
   const less = (a: number, b: number) => keys[a]! < keys[b]! || (keys[a] === keys[b] && ids[a]! < ids[b]!);
@@ -107,11 +140,11 @@ export function selectLow(keys: Float64Array, ids: Int32Array, pops: Float64Arra
         const next = cum + pops[perm[i]!]!;
         if (next >= target) {
           const count = Math.abs(next - target) < Math.abs(cum - target) ? i + 1 : i;
-          return Math.min(m - 1, Math.max(1, count));
+          return Math.min(maxCount, Math.max(minCount, count));
         }
         cum = next;
       }
-      return Math.min(m - 1, Math.max(1, hi));
+      return Math.min(maxCount, Math.max(minCount, hi));
     }
     const a = perm[lo]!, b = perm[(lo + hi) >> 1]!, c = perm[hi - 1]!;
     const pivot = less(a, b) ? (less(b, c) ? b : less(a, c) ? c : a) : (less(a, c) ? a : less(b, c) ? c : b);
@@ -127,7 +160,7 @@ export function selectLow(keys: Float64Array, ids: Int32Array, pops: Float64Arra
     if (withPivot >= target) {
       const dEx = Math.abs(before + wLess - target), dIn = Math.abs(withPivot - target);
       const count = dIn < dEx ? store + 1 : store;
-      return Math.min(m - 1, Math.max(1, count));
+      return Math.min(maxCount, Math.max(minCount, count));
     }
     before = withPivot; lo = store + 1;
   }
@@ -136,7 +169,7 @@ export function selectLow(keys: Float64Array, ids: Int32Array, pops: Float64Arra
 export interface Scanner {
   /** Point the guide line in direction k (k * 180 / angleCount degrees from north-south); returns the angle in radians. */
   setDirection(k: number): number;
-  /** Split for the current direction with lowSeats on the low side, apply the strays rule, and measure the border. Final sides (0 = low) go to `out` when given. */
+  /** Split for the current direction with lowSeats on the low side, apply the stray rule, and measure the border. Final sides (0 = low) go to `out` when given. */
   evaluate(lowSeats: number, out?: Uint8Array): Evaluation;
 }
 
@@ -145,21 +178,47 @@ export function createScanner(piece: Piece, job: ScanJob): Scanner {
   const { m, ids, pops, total, px, py, lOff, lAdj, lLen } = piece;
   const keys = new Float64Array(m);
   const perm = new Int32Array(m);
-  // After selectLow the low side is every position ordered (key, id) at or before its last member.
+  // After selectLow the low side is every position ordered (key, id) at or before its last member
+  // (among the blocks that were split; fixed blocks keep their side).
   let kL = 0, idL = 0;
-  /** Whole-block split of the current keys: records the low side's last member and returns the guide-line offset. */
-  const split = (lowSeats: number): number => {
-    const count = selectLow(keys, ids, pops, perm, (total * lowSeats) / job.seats);
+  /**
+   * Population split of the given blocks in (key, id) order: records the low side's last member and
+   * returns the guide-line offset, halfway between the last low key and the first high key.
+   */
+  const splitOver = (K: Float64Array, I: Int32Array, Pp: Float64Array, Pm: Int32Array, target: number, minCount: number, maxCount: number): number => {
+    const n = Pm.length;
+    const count = selectLow(K, I, Pp, Pm, target, minCount, maxCount);
     let maxLow = -Infinity, minHigh = Infinity, last = -1;
-    for (let i = 0; i < m; i++) {
-      const p = perm[i]!, kv = keys[p]!;
+    for (let i = 0; i < n; i++) {
+      const p = Pm[i]!, kv = K[p]!;
       if (i < count) {
-        if (last < 0 || kv > keys[last]! || (kv === keys[last] && ids[p]! > ids[last]!)) last = p;
+        if (last < 0 || kv > K[last]! || (kv === K[last] && I[p]! > I[last]!)) last = p;
         maxLow = Math.max(maxLow, kv);
       } else minHigh = Math.min(minHigh, kv);
     }
-    kL = keys[last]!; idL = ids[last]!;
-    return (maxLow + minHigh) / 2;
+    if (last < 0) { kL = -Infinity; idL = -1; return minHigh; }
+    kL = K[last]!; idL = I[last]!;
+    return count === n ? maxLow : (maxLow + minHigh) / 2;
+  };
+  /** Whole-block split of the current keys. */
+  const split = (lowSeats: number): number => splitOver(keys, ids, pops, perm, (total * lowSeats) / job.seats, 1, m - 1);
+
+  // Recount: fixed[i] is the side a moved stray is held to (-1 = free); the free blocks are re-split.
+  const fixed = job.rule === 'recount' ? new Int8Array(m) : undefined;
+  const fK = fixed ? new Float64Array(m) : keys, fI = fixed ? new Int32Array(m) : ids;
+  const fP = fixed ? new Float64Array(m) : pops, fPerm = fixed ? new Int32Array(m) : perm;
+  /** Population split of the free blocks, counting fixed blocks' people on their sides; returns the offset. */
+  const resplit = (lowSeats: number): number => {
+    let f = 0, fixedLowPop = 0, fixedLow = 0, fixedHigh = 0;
+    for (let i = 0; i < m; i++) {
+      const s = fixed![i]!;
+      if (s < 0) { fK[f] = keys[i]!; fI[f] = ids[i]!; fP[f] = pops[i]!; f++; }
+      else if (s === 0) { fixedLowPop += pops[i]!; fixedLow++; }
+      else fixedHigh++;
+    }
+    const target = (total * lowSeats) / job.seats - fixedLowPop;
+    // Each side keeps at least one block.
+    return splitOver(fK.subarray(0, f), fI.subarray(0, f), fP.subarray(0, f), fPerm.subarray(0, f), target, fixedLow > 0 ? 0 : 1, f - (fixedHigh > 0 ? 0 : 1));
   };
 
   // A connected same-side piece always moves as a whole, so the strays rule runs on the graph of the
@@ -167,15 +226,21 @@ export function createScanner(piece: Piece, job: ScanJob): Scanner {
   const side0 = new Uint8Array(m), comp = new Int32Array(m), stack = new Int32Array(m);
   let pairCap = 1024;
   let pairA = new Int32Array(pairCap), pairB = new Int32Array(pairCap), pairLen = new Float64Array(pairCap);
-  /** Strays rule and border length for the current split; final sides (0 = low) go to `out` when given. */
-  const settle = (out?: Uint8Array): Omit<Evaluation, 'offset'> => {
-    for (let i = 0; i < m; i++) side0[i] = keys[i]! < kL || (keys[i] === kL && ids[i]! <= idL) ? 0 : 1;
+  /**
+   * Strays rule and border length for the current split; final sides (0 = low) go to `out` when given.
+   * Under recount, fixed blocks keep their side, form their own nodes and never move, and blocks that
+   * move become fixed; `newlyFixed` counts them.
+   */
+  const settle = (out?: Uint8Array) => {
+    for (let i = 0; i < m; i++) {
+      side0[i] = fixed && fixed[i]! >= 0 ? fixed[i]! : keys[i]! < kL || (keys[i] === kL && ids[i]! <= idL) ? 0 : 1;
+    }
     comp.fill(-1);
-    const cPop: number[] = [], cCnt: number[] = [], cMin: number[] = [], cSide: number[] = [];
+    const cPop: number[] = [], cCnt: number[] = [], cMin: number[] = [], cSide: number[] = [], cPin: number[] = [];
     let np = 0;
     for (let v = 0; v < m; v++) {
       if (comp[v] !== -1) continue;
-      const id = cPop.length, s = side0[v]!;
+      const id = cPop.length, s = side0[v]!, pin = fixed !== undefined && fixed[v]! >= 0;
       let p = 0, c = 0, mi = Infinity, top = 0;
       stack[top++] = v; comp[v] = id;
       while (top > 0) {
@@ -184,7 +249,7 @@ export function createScanner(piece: Piece, job: ScanJob): Scanner {
         if (ids[u]! < mi) mi = ids[u]!;
         for (let k = lOff[u]!; k < lOff[u + 1]!; k++) {
           const j = lAdj[k]!;
-          if (side0[j] === s) { if (comp[j] === -1) { comp[j] = id; stack[top++] = j; } }
+          if (side0[j] === s && (fixed === undefined || fixed[j]! >= 0 === pin)) { if (comp[j] === -1) { comp[j] = id; stack[top++] = j; } }
           else if (u < j) {
             if (np === pairCap) {
               pairCap *= 2;
@@ -196,7 +261,7 @@ export function createScanner(piece: Piece, job: ScanJob): Scanner {
           }
         }
       }
-      cPop.push(p); cCnt.push(c); cMin.push(mi); cSide.push(s);
+      cPop.push(p); cCnt.push(c); cMin.push(mi); cSide.push(s); cPin.push(pin ? 1 : 0);
     }
     const n = cPop.length;
     const off = new Int32Array(n + 1);
@@ -208,12 +273,16 @@ export function createScanner(piece: Piece, job: ScanJob): Scanner {
       adj[cur[x]!++] = y; adj[cur[y]!++] = x;
     }
     const side = Uint8Array.from(cSide);
-    settleStrays({ n, off, adj, pop: Float64Array.from(cPop), cnt: Float64Array.from(cCnt), minIdx: Float64Array.from(cMin), side });
-    let lengthM = 0, movedBlocks = 0, movedPop = 0;
+    const stranded = settleStrays(
+      { n, off, adj, pop: Float64Array.from(cPop), cnt: Float64Array.from(cCnt), minIdx: Float64Array.from(cMin), side },
+      fixed ? Uint8Array.from(cPin) : undefined,
+    );
+    let lengthM = 0, movedBlocks = 0, movedPop = 0, newlyFixed = 0;
     for (let e = 0; e < np; e++) if (side[comp[pairA[e]!]!] !== side[comp[pairB[e]!]!]) lengthM += pairLen[e]!;
     for (let v = 0; v < n; v++) if (side[v] !== cSide[v]) { movedBlocks += cCnt[v]!; movedPop += cPop[v]!; }
+    if (fixed) for (let i = 0; i < m; i++) if (side[comp[i]!] !== cSide[comp[i]!]) { fixed[i] = side[comp[i]!]!; newlyFixed++; }
     if (out) for (let i = 0; i < m; i++) out[i] = side[comp[i]!]!;
-    return { lengthM, movedBlocks, movedPop };
+    return { lengthM, movedBlocks, movedPop, newlyFixed, stranded, side };
   };
 
   return {
@@ -224,8 +293,29 @@ export function createScanner(piece: Piece, job: ScanJob): Scanner {
       return th;
     },
     evaluate(lowSeats: number, out?: Uint8Array): Evaluation {
-      const offset = split(lowSeats);
-      return { offset, ...settle(out) };
+      const offset0 = split(lowSeats);
+      if (!fixed) {
+        const e = settle(out);
+        let lowPop = 0;
+        for (let i = 0; i < m; i++) if (e.side[comp[i]!] === 0) lowPop += pops[i]!;
+        return { offset: offset0, lengthM: e.lengthM, movedBlocks: e.movedBlocks, movedPop: e.movedPop, iterations: 1, offsetShift: 0, lowPop, unresolved: false };
+      }
+      fixed.fill(-1);
+      let offset = offset0, iterations = 1;
+      for (;;) {
+        const e = settle(out);
+        if (e.newlyFixed === 0) {
+          let movedBlocks = 0, movedPop = 0, lowPop = 0;
+          for (let i = 0; i < m; i++) {
+            if (fixed[i]! >= 0) { movedBlocks++; movedPop += pops[i]!; }
+            if (e.side[comp[i]!] === 0) lowPop += pops[i]!;
+          }
+          return { offset, lengthM: e.lengthM, movedBlocks, movedPop, iterations, offsetShift: offset - offset0, lowPop, unresolved: e.stranded };
+        }
+        // Every recount follows at least one newly fixed block, so this bound is never reached.
+        if (++iterations > m) throw new DataError(`recount did not settle within ${m} population splits`);
+        offset = resplit(lowSeats);
+      }
     },
   };
 }
@@ -241,6 +331,8 @@ export function scanDirections(piece: Piece, job: ScanJob, res: Float64Array, ne
       const at = (k * no + o) * FIELDS;
       res[at + F_OFFSET] = e.offset; res[at + F_LENGTH] = e.lengthM;
       res[at + F_BLOCKS] = e.movedBlocks; res[at + F_POP] = e.movedPop;
+      res[at + F_ITER] = e.iterations; res[at + F_SHIFT] = e.offsetShift;
+      res[at + F_LOWPOP] = e.lowPop; res[at + F_UNRESOLVED] = e.unresolved ? 1 : 0;
     }
   }
 }

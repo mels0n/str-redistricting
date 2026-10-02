@@ -1,10 +1,13 @@
 import { boundarySegments, isConnected } from '../../entities/census-block/index.js';
 import { cos, sin } from '../../shared/detmath/index.js';
 import { DataError } from '../../shared/errors/index.js';
-import { greatCircleDistance, type LonLat } from '../../shared/geo/index.js';
+import { EARTH_RADIUS_M, greatCircleDistance, type LonLat } from '../../shared/geo/index.js';
 import type { SplitContext } from './context.js';
 import type { ScanPool } from './pool.js';
-import { createScanner, F_LENGTH, F_OFFSET, F_POP, FIELDS, scanDirections, type Piece, type ScanJob } from './scan.js';
+import {
+  createScanner, F_BLOCKS, F_ITER, F_LENGTH, F_LOWPOP, F_OFFSET, F_POP, F_SHIFT, F_UNRESOLVED, FIELDS, scanDirections,
+  type Piece, type ScanJob, type StrayRule,
+} from './scan.js';
 
 export { selectLow } from './scan.js';
 
@@ -27,6 +30,26 @@ export interface CutResult {
   /** Blocks whose side changed when stray pieces joined the side around them, and their total population. */
   readonly strayBlocksMoved: number;
   readonly strayPopMoved: number;
+  /** Population splits made for the chosen line: 1, plus one per recount. */
+  readonly iterations: number;
+  /** How far the recounts moved the chosen guide line, in meters at the projection center (0 under the cap rule). */
+  readonly offsetShiftM: number;
+  /** Every candidate line evaluated, in direction then orientation order. */
+  readonly candidateStats: readonly CandidateStat[];
+}
+
+/** Debug record of one candidate line. */
+export interface CandidateStat {
+  readonly k: number;
+  readonly lowSeats: number;
+  readonly lengthM: number;
+  readonly strayBlocks: number;
+  readonly strayPop: number;
+  readonly iterations: number;
+  readonly offsetShiftM: number;
+  readonly lowPop: number;
+  /** Fixed strays were left stranded (recount); the line's sides are not connected. */
+  readonly unresolved: boolean;
 }
 
 export type SideValidator = (low: Int32Array, high: Int32Array) => boolean;
@@ -36,6 +59,8 @@ interface Candidate { k: number; lowSeats: number; offset: number; lengthM: numb
 export interface CutOptions {
   /** Evaluate candidate directions on these worker threads; without it, on the calling thread. */
   readonly pool?: ScanPool;
+  /** What to do with strays; default `cap`. */
+  readonly rule?: StrayRule;
 }
 
 export function findCut(ctx: SplitContext, members: Int32Array, seats: number, validate?: SideValidator, opts: CutOptions = {}): CutResult {
@@ -79,7 +104,8 @@ export function findCut(ctx: SplitContext, members: Int32Array, seats: number, v
   const px = new Float64Array(m), py = new Float64Array(m);
   for (let i = 0; i < m; i++) { px[i] = ctx.px[members[i]!]!; py[i] = ctx.py[members[i]!]!; }
   const piece: Piece = { m, ids, pops, total, px, py, lOff, lAdj, lLen };
-  const job: ScanJob = { angleCount: ctx.angleCount, seats, orientations };
+  const rule = opts.rule ?? 'cap';
+  const job: ScanJob = { angleCount: ctx.angleCount, seats, orientations, rule };
   let res: Float64Array;
   if (opts.pool) res = opts.pool.scan(piece, job);
   else {
@@ -89,13 +115,19 @@ export function findCut(ctx: SplitContext, members: Int32Array, seats: number, v
   }
 
   const candidates: Candidate[] = [];
+  const candidateStats: CandidateStat[] = [];
   let strayCapRejected = 0;
   for (let k = 0; k < ctx.angleCount; k++) {
     orientations.forEach((lowSeats, o) => {
       const at = (k * orientations.length + o) * FIELDS;
+      candidateStats.push({
+        k, lowSeats, lengthM: res[at + F_LENGTH]!, strayBlocks: res[at + F_BLOCKS]!, strayPop: res[at + F_POP]!,
+        iterations: res[at + F_ITER]!, offsetShiftM: res[at + F_SHIFT]! * EARTH_RADIUS_M, lowPop: res[at + F_LOWPOP]!,
+        unresolved: res[at + F_UNRESOLVED] === 1,
+      });
       // Stray cap: strays may hold at most 1% of the piece's ideal district population (pop / seats).
       // Populations are integers, so this form of the comparison is exact.
-      if (res[at + F_POP]! * 100 * seats > total) { strayCapRejected++; return; }
+      if (rule === 'cap' && res[at + F_POP]! * 100 * seats > total) { strayCapRejected++; return; }
       candidates.push({ k, lowSeats, offset: res[at + F_OFFSET]!, lengthM: res[at + F_LENGTH]! });
     });
   }
@@ -123,11 +155,14 @@ export function findCut(ctx: SplitContext, members: Int32Array, seats: number, v
         candidateLines: ctx.angleCount * orientations.length,
         spans: spanLength(ctx, sx, sy, th, c.offset).spans, skipped, strayCapRejected,
         strayBlocksMoved: e.movedBlocks, strayPopMoved: e.movedPop,
+        iterations: e.iterations, offsetShiftM: e.offsetShift * EARTH_RADIUS_M, candidateStats,
       };
     }
     skipped++;
   }
-  throw new DataError('no straight line meets the stray cap and produces two connected sides');
+  throw new DataError(rule === 'cap'
+    ? 'no straight line meets the stray cap and produces two connected sides'
+    : 'no straight line produces two connected sides');
 }
 
 /** Great-circle length of the line {p . n = offset} inside the piece, by even-odd pairing of boundary crossings. */

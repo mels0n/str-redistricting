@@ -19,27 +19,27 @@ describe('pooled cut search', () => {
     skip: (x, y) => (x > 8 && x < 12 && y > 3) || (y === 9 && x > 15),
   });
 
-  for (const rule of ['cap'] as const) {
+  for (const rule of ['cap', 'recount'] as const) {
     it(`gives the same cut as one thread on a synthetic grid (${rule})`, () => {
       const blocks = grid();
       const ctx = createContext(blocks, 0.5);
       for (const seats of [2, 3, 5]) {
-        const one = findCut(ctx, all(blocks.length), seats, undefined);
-        const many = findCut(ctx, all(blocks.length), seats, undefined, { pool });
+        const one = findCut(ctx, all(blocks.length), seats, undefined, { rule });
+        const many = findCut(ctx, all(blocks.length), seats, undefined, { rule, pool });
         expect(many).toEqual(one);
       }
     });
 
     it(`gives the same plan as one thread for a whole synthetic state (${rule})`, () => {
       const ctx = createContext(grid(), 0.5);
-      expect(splitState(ctx, 7, { pool })).toEqual(splitState(ctx, 7));
+      expect(splitState(ctx, 7, { rule, pool })).toEqual(splitState(ctx, 7, { rule }));
     });
 
     it.skipIf(!existsSync(RI_ZIP))(`gives the same Rhode Island plan as one thread (${rule})`, async () => {
       const blocks = await loadStateBlocks(stateByAbbr('RI')!, 'data/raw');
       const ctx = createContext(blocks, 0.5, buildTopology(blocks));
-      const one = splitState(ctx, 2);
-      const many = splitState(ctx, 2, { pool });
+      const one = splitState(ctx, 2, { rule });
+      const many = splitState(ctx, 2, { rule, pool });
       expect(Array.from(many.assignment)).toEqual(Array.from(one.assignment));
       expect(many.cuts).toEqual(one.cuts);
     }, 120_000);

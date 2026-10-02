@@ -1,3 +1,4 @@
+import './zod-config';
 import '@fontsource-variable/public-sans/wght.css';
 import '@fontsource/ibm-plex-mono/latin-400.css';
 import './styles.css';

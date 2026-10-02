@@ -58,3 +58,27 @@ describe('createContext', () => {
     expect(() => createContext([near, far, lonFar], 1)).toThrow(DataError);
   });
 });
+
+describe('splitState cut ranges', () => {
+  it('records the first district of each cut range in cut order', () => {
+    const r = splitState(createContext(gridBlocks(5, 1), 1), 5);
+    // 5 seats: first cut covers 0.., its low side covers 0.. and its high side starts at lowSeats.
+    expect(r.cuts[0]!.firstDistrict).toBe(0);
+    for (const c of r.cuts) {
+      expect(c.lowSeats + c.highSeats).toBe(c.seats);
+      expect(c.firstDistrict).toBeGreaterThanOrEqual(0);
+      expect(c.firstDistrict + c.seats).toBeLessThanOrEqual(5);
+    }
+    const low = r.cuts.find((c) => c.depth === 1 && c.firstDistrict === 0)!;
+    const high = r.cuts.find((c) => c.depth === 1 && c.firstDistrict === r.cuts[0]!.lowSeats)!;
+    expect(low.seats).toBe(r.cuts[0]!.lowSeats);
+    expect(high.seats).toBe(r.cuts[0]!.highSeats);
+  });
+  it('puts firstDistrict in cuts.geojson', async () => {
+    const { cutsGeoJson } = await import('../../../src/server/features/export/index.js');
+    const r = splitState(createContext(gridBlocks(4, 1), 1), 4);
+    const fc = cutsGeoJson(r.cuts) as { features: { properties: Record<string, number> }[] };
+    expect(fc.features.map((f) => f.properties.firstDistrict)).toEqual(r.cuts.map((c) => c.firstDistrict));
+    expect(fc.features.map((f) => f.properties.firstDistrict)).toEqual([0, 0, 2]);
+  });
+});

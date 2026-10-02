@@ -4,6 +4,8 @@ import { findCut, type CutResult } from './cut.js';
 export interface CutRecord {
   readonly depth: number;
   readonly seats: number;
+  /** 0-based index of the first district this cut's range covers. */
+  readonly firstDistrict: number;
   readonly lowSeats: number;
   readonly highSeats: number;
   readonly angleDeg: number;
@@ -26,7 +28,7 @@ export function splitState(ctx: SplitContext, seats: number): SplitResult {
   const visit = (members: Int32Array, n: number, first: number, depth: number): void => {
     if (n === 1) { for (const i of members) assignment[i] = first; return; }
     const c = findCut(ctx, members, n);
-    cuts.push({ depth, seats: n, lowSeats: c.lowSeats, highSeats: c.highSeats, angleDeg: c.angleDeg, lengthM: c.lengthM, skipped: c.skipped, strayCapRejected: c.strayCapRejected, strayBlocksMoved: c.strayBlocksMoved, strayPopMoved: c.strayPopMoved, spans: c.spans });
+    cuts.push({ depth, seats: n, firstDistrict: first, lowSeats: c.lowSeats, highSeats: c.highSeats, angleDeg: c.angleDeg, lengthM: c.lengthM, skipped: c.skipped, strayCapRejected: c.strayCapRejected, strayBlocksMoved: c.strayBlocksMoved, strayPopMoved: c.strayPopMoved, spans: c.spans });
     visit(c.low, c.lowSeats, first, depth + 1);
     visit(c.high, c.highSeats, first + c.lowSeats, depth + 1);
   };

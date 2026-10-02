@@ -23,12 +23,12 @@ export function bordersGeoJson(topo: Topology, assignment: Int32Array, seats: nu
   };
 }
 
-export function cutsGeoJson(cuts: readonly { depth: number; angleDeg: number; lengthM: number; spans: readonly (readonly [LonLat, LonLat])[] }[]): object {
+export function cutsGeoJson(cuts: readonly { depth: number; seats: number; firstDistrict: number; lowSeats: number; highSeats: number; angleDeg: number; lengthM: number; spans: readonly (readonly [LonLat, LonLat])[] }[]): object {
   return {
     type: 'FeatureCollection',
     features: cuts.map((c, i) => ({
       type: 'Feature',
-      properties: { order: i + 1, depth: c.depth, angleDeg: c.angleDeg, lengthM: Math.round(c.lengthM) },
+      properties: { order: i + 1, depth: c.depth, seats: c.seats, firstDistrict: c.firstDistrict, lowSeats: c.lowSeats, highSeats: c.highSeats, angleDeg: c.angleDeg, lengthM: Math.round(c.lengthM) },
       geometry: { type: 'MultiLineString', coordinates: c.spans.map(([p, q]) => [round(p), round(q)]) },
     })),
   };

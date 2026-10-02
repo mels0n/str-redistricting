@@ -1,7 +1,10 @@
-import { describe, expect, it } from 'vitest';
+import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { afterAll, describe, expect, it } from 'vitest';
 import {
   buildCuts, buildIndex, countiesByDistrict, parseCdRecord, planStats, simplifyPercent, toTopology, vertexCount,
-  boundaryUrl, CountyRecord, PlanMetricsSchema, summarize,
+  boundaryUrl, CountyRecord, PlanMetricsSchema, publishedSummaries, summarize,
 } from '../../../src/server/features/publish/index.js';
 import { STATES } from '../../../src/server/shared/apportionment/index.js';
 import { parsePublishConfig } from '../../../src/server/shared/config/index.js';
@@ -48,10 +51,11 @@ describe('index assembly', () => {
     assignmentSha256: 'b', balanceMoves: 1,
   });
   it('lists all 50 states and flags the ones with data', () => {
-    const idx = buildIndex(STATES, new Map([['RI', summarize(metrics, '2026-10-01')]]));
+    const idx = buildIndex(STATES, new Map([['RI', summarize(metrics)]]));
     expect(idx.states).toHaveLength(50);
     const ri = idx.states.find((s) => s.abbr === 'RI')!;
-    expect(ri).toMatchObject({ name: 'Rhode Island', seats: 2, hasData: true, summary: { population: 10, generated: '2026-10-01', assignmentSha256: 'b' } });
+    expect(ri).toMatchObject({ name: 'Rhode Island', seats: 2, hasData: true, summary: { population: 10, assignmentSha256: 'b' } });
+    expect(ri.summary).not.toHaveProperty('generated');
     const tx = idx.states.find((s) => s.abbr === 'TX')!;
     expect(tx).toEqual({ abbr: 'TX', name: 'Texas', seats: 38, hasData: false });
   });
@@ -105,5 +109,39 @@ describe('publish config', () => {
   });
   it('rejects an unknown state', () => {
     expect(() => parsePublishConfig(['--states', 'ZZ'])).toThrow();
+  });
+});
+
+describe('published index', () => {
+  const dir = mkdtempSync(join(tmpdir(), 'str-publish-'));
+  afterAll(() => rmSync(dir, { recursive: true, force: true }));
+  const { districts: _d, ...published } = PlanMetricsSchema.parse({
+    state: 'RI', angleStepDeg: 0.1, nodeVersion: 'v24.12.0', inputSha256: 'a', seats: 2, population: 10, ideal: 5,
+    districts: [{ district: 1, pop: 5, dev: 0, devPct: 0, contiguous: true }], rangePersons: 1, rangePct: 0.1, allContiguous: true,
+    assignmentSha256: 'b',
+  });
+
+  it('lists only the states whose files are in the public directory', async () => {
+    mkdirSync(join(dir, 'RI'));
+    writeFileSync(join(dir, 'RI', 'stats.json'), JSON.stringify({ official: { metrics: published } }));
+    // A state that was generated but not published (no stats.json) must not appear.
+    mkdirSync(join(dir, 'CT'));
+    const summaries = await publishedSummaries(dir);
+    expect([...summaries.keys()]).toEqual(['RI']);
+    const idx = buildIndex(STATES, summaries);
+    expect(idx.states.filter((s) => s.hasData).map((s) => s.abbr)).toEqual(['RI']);
+    expect(idx.states.find((s) => s.abbr === 'CT')).toEqual({ abbr: 'CT', name: 'Connecticut', seats: 5, hasData: false });
+    expect(idx.states.find((s) => s.abbr === 'RI')!.summary).toMatchObject({ population: 10, assignmentSha256: 'b' });
+  });
+  it('rejects a published stats file with the wrong shape', async () => {
+    writeFileSync(join(dir, 'CT', 'stats.json'), JSON.stringify({ official: { metrics: { state: 'CT' } } }));
+    await expect(publishedSummaries(dir)).rejects.toThrow(DataError);
+  });
+});
+
+describe('published Rhode Island plan', () => {
+  it('keeps the official assignment hash the generator is pinned to', () => {
+    const stats = JSON.parse(readFileSync(new URL('../../../public/data/RI/stats.json', import.meta.url), 'utf8')) as { official: { metrics: { assignmentSha256: string } } };
+    expect(stats.official.metrics.assignmentSha256.startsWith('1f64bc2dbea6')).toBe(true);
   });
 });

@@ -1,5 +1,6 @@
+import { z } from 'zod';
 import { existsSync } from 'node:fs';
-import { mkdir, readFile, stat, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { STATES, type StateInfo } from '../../shared/apportionment/index.js';
 import type { PublishConfig } from '../../shared/config/index.js';
@@ -8,7 +9,7 @@ import { loadCountyNames, loadEnacted, loadStates, type EnactedFile } from './bo
 import { countiesByDistrict } from './counties.js';
 import { buildCuts } from './cuts.js';
 import { buildStats, planStats } from './stats.js';
-import { buildIndex, PlanMetricsSchema, summarize, type PlanMetrics, type StateSummary } from './summary.js';
+import { buildIndex, PlanMetricsSchema, PublishedMetricsSchema, summarize, type PlanMetrics, type StateSummary } from './summary.js';
 import { districtBudget, toTopology } from './topo.js';
 
 const NATIONAL_BUDGET = 12000;
@@ -22,12 +23,27 @@ async function readMetrics(dir: string): Promise<PlanMetrics> {
   return parsed.data;
 }
 
-async function generatedDate(dir: string): Promise<string> {
-  return (await stat(join(dir, 'metrics.json'))).mtime.toISOString().slice(0, 10);
-}
 
 /** States whose generated plan is present in the output directory. */
 export const statesWithData = (outDir: string): StateInfo[] => STATES.filter((s) => existsSync(join(outDir, s.abbr, 'metrics.json')));
+
+const PublishedStatsSchema = z.object({ official: z.object({ metrics: PublishedMetricsSchema }) });
+
+/**
+ * Summaries of the states whose files are actually in the public directory. A state counts as published
+ * when its stats.json is there (it is the last file written for a state), so the index never lists a state without files.
+ */
+export async function publishedSummaries(publicDir: string, states: readonly StateInfo[] = STATES): Promise<Map<string, StateSummary>> {
+  const summaries = new Map<string, StateSummary>();
+  for (const s of states) {
+    const path = join(publicDir, s.abbr, 'stats.json');
+    if (!existsSync(path)) continue;
+    const parsed = PublishedStatsSchema.safeParse(await readJson(path));
+    if (!parsed.success) throw new DataError(`${path}: ${parsed.error.issues.map((i) => `${i.path.join('.')} ${i.message}`).join('; ')}`);
+    summaries.set(s.abbr, summarize(parsed.data.official.metrics));
+  }
+  return summaries;
+}
 
 interface Shared {
   readonly countyNames: ReadonlyMap<string, string>;
@@ -65,18 +81,11 @@ async function publishState(state: StateInfo, cfg: PublishConfig, shared: Shared
   await write(join(dest, 'stats.json'), JSON.stringify(stats));
 }
 
-/** Write the web-ready data for every state with a generated plan, plus the national files. */
+/** Write the web-ready data for the selected states (default: every state with a generated plan), plus the national files and the index. */
 export async function publishData(cfg: PublishConfig): Promise<void> {
   const withData = statesWithData(cfg.outDir);
   const selected = cfg.states === undefined ? withData : withData.filter((s) => cfg.states!.some((x) => x.abbr === s.abbr));
   await mkdir(cfg.publicDir, { recursive: true });
-
-  const summaries = new Map<string, StateSummary>();
-  for (const s of withData) {
-    const dir = join(cfg.outDir, s.abbr);
-    summaries.set(s.abbr, summarize(await readMetrics(dir), await generatedDate(dir)));
-  }
-  await write(join(cfg.publicDir, 'index.json'), JSON.stringify(buildIndex(STATES, summaries)));
 
   const outlines = (await loadStates(cfg.cacheDir)).filter((o) => STATES.some((s) => s.abbr === o.abbr));
   await write(
@@ -89,4 +98,7 @@ export async function publishData(cfg: PublishConfig): Promise<void> {
     console.log(`publishing ${s.abbr}`);
     await publishState(s, cfg, shared);
   }
+
+  // The index describes what is in the public directory, after this run's states are written.
+  await write(join(cfg.publicDir, 'index.json'), JSON.stringify(buildIndex(STATES, await publishedSummaries(cfg.publicDir))));
 }

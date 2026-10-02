@@ -4,7 +4,7 @@ export { countiesByDistrict } from './counties.js';
 export type { CountyRef } from './counties.js';
 export { buildCuts } from './cuts.js';
 export type { PublishedCut } from './cuts.js';
-export { publishData, statesWithData } from './publish.js';
+export { publishData, publishedSummaries, statesWithData } from './publish.js';
 export { buildStats, planStats } from './stats.js';
 export { buildIndex, PlanMetricsSchema, summarize } from './summary.js';
 export type { IndexEntry, StateSummary } from './summary.js';

@@ -392,13 +392,13 @@ html:has(> body > #str-viewer) {
   grid-template-columns: minmax(0, 1fr);
   grid-template-areas:
     'head'
-    'search'
+    'lede'
     'map'
     'index'
-    'lede';
+    'search';
 }
 
-/* On a phone the side wrapper steps aside so the map and the lede are rows of their own. */
+/* On a phone the side wrapper steps aside so the map and the lede are rows of their own: the why comes straight after the headline, the address search last. */
 .strv-national__side {
   display: contents;
 }
@@ -420,7 +420,7 @@ html:has(> body > #str-viewer) {
 
 .strv-national__lede {
   grid-area: lede;
-  padding: var(--s-4) var(--gutter) var(--s-7);
+  padding: 0 var(--gutter) var(--s-5);
   max-width: 62ch;
   color: var(--ink-2);
   font-size: 1rem;

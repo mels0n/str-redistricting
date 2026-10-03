@@ -56,10 +56,10 @@ export function createNationalPage(nav: Navigate): Page {
       'div',
       { class: 'strv-national__grid' },
       h('div', { class: 'strv-national__head' }, h1),
-      h('div', { class: 'strv-national__search' }, search.el),
-      // On a phone the lede and map are separate rows (address, map, index, then the lede); on a wide screen they stay pinned together beside the index.
+      // On a phone the lede and map are separate rows (lede, map, index, then the address search); on a wide screen they stay pinned together beside the index.
       h('div', { class: 'strv-national__side' }, lede, mapSlot),
       indexSlot,
+      h('div', { class: 'strv-national__search' }, search.el),
     ),
   );
 

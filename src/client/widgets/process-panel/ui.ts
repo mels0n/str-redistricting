@@ -1,4 +1,4 @@
-import { h, arrowTo, formatHash, formatInt, howRoute, peopleNoun } from '../../shared';
+import { h, arrowTo, formatHash, formatInt, howRoute, peopleNoun, type HowSection } from '../../shared';
 import type { Metrics } from '../../entities/plan';
 
 export interface ProcessPanelOptions {
@@ -29,8 +29,16 @@ export function formatRunTime(ms: number): string {
 export function createProcessPanel(opts: ProcessPanelOptions): HTMLElement {
   const m = opts.metrics;
   const unevenTries = m.candidateLinesEvaluated - m.angleCount * m.cuts;
-  const row = (term: string, fig: Node | string, sub: string): HTMLElement =>
-    h('div', { class: 'strv-process__row' }, h('dt', null, term), h('dd', { class: 'strv-process__fig' }, fig), h('dd', { class: 'strv-process__sub' }, sub));
+  // Each label opens the stage of How it works that explains the figure, so a reader who meets a
+  // word like "re-count" here can jump straight to its worked example.
+  const row = (term: string, section: HowSection, fig: Node | string, sub: string): HTMLElement =>
+    h(
+      'div',
+      { class: 'strv-process__row' },
+      h('dt', null, h('a', { class: 'strv-process__term', href: formatHash(howRoute(section)), 'aria-label': `${term}: how this stage works` }, term)),
+      h('dd', { class: 'strv-process__fig' }, fig),
+      h('dd', { class: 'strv-process__sub' }, sub),
+    );
 
   const single = m.seats === 1;
   const watch = (part: 'cuts' | 'balance', label: string, signal: boolean): HTMLElement =>
@@ -45,9 +53,9 @@ export function createProcessPanel(opts: ProcessPanelOptions): HTMLElement {
       h(
         'dl',
         { class: 'strv-process__rows' },
-        row('Cuts', '0', 'A state with one seat needs no cut.'),
-        row('Balancing moves', '0', 'One district has no neighbor to balance against.'),
-        row('Run time', formatRunTime(m.runtimeMs), 'To read the census file and check the district.'),
+        row('Cuts', 'recursion', '0', 'A state with one seat needs no cut.'),
+        row('Balancing moves', 'balancing', '0', 'One district has no neighbor to balance against.'),
+        row('Run time', 'fingerprint', formatRunTime(m.runtimeMs), 'To read the census file and check the district.'),
       ),
       h('p', { class: 'strv-process__how' }, h('a', { href: formatHash(howRoute()) }, 'How each stage works')),
     );
@@ -60,31 +68,35 @@ export function createProcessPanel(opts: ProcessPanelOptions): HTMLElement {
     h(
       'dl',
       { class: 'strv-process__rows' },
-      row('Cuts', formatInt(m.cuts), `${m.seats} seats take ${count(m.cuts, 'cut', 'cuts')}. Each cut splits one piece of ${opts.stateName} in two.`),
+      row('Cuts', 'recursion', formatInt(m.cuts), `${m.seats} seats take ${count(m.cuts, 'cut', 'cuts')}. Each cut splits one piece of ${opts.stateName} in two.`),
       row(
         'Guide lines tested',
+        'cut',
         formatInt(m.candidateLinesEvaluated),
         `${formatInt(m.angleCount)} directions for each cut${unevenTries > 0 ? ', tried both ways round where a piece’s seats split unevenly' : ''}.`,
       ),
       row(
         'Strays moved',
+        'strays',
         count(m.strayBlocksMoved, 'block', 'blocks'),
         `${count(m.strayPopMoved, 'person', 'people')} in pieces cut off from their side joined the side around them.`,
       ),
       row(
         'Re-counts',
+        'strays',
         formatInt(m.recounts),
         m.recounts === 0
           ? 'No line needed sliding again: the people still split evenly after the strays moved.'
           : `Times a line slid again so the people still split evenly after strays moved. At most ${count(m.recountsMaxPerCut, 'time', 'times')} for one cut.`,
       ),
-      row('Balancing moves', formatInt(m.balanceMoves), `${count(m.peopleMovedByBalancing, 'person', 'people')} moved, one block at a time.`),
+      row('Balancing moves', 'balancing', formatInt(m.balanceMoves), `${count(m.peopleMovedByBalancing, 'person', 'people')} moved, one block at a time.`),
       row(
         'Population range',
+        'balancing',
         h('span', { class: 'strv-nowrap' }, formatInt(m.rangeBeforeBalancing), arrowTo(), `${formatInt(m.rangeAfterBalancing)} ${peopleNoun(m.rangeAfterBalancing)}`),
         'Largest district minus smallest, before balancing and after.',
       ),
-      row('Run time', formatRunTime(m.runtimeMs), 'To draw the whole state, from the census file to the finished map.'),
+      row('Run time', 'fingerprint', formatRunTime(m.runtimeMs), 'To draw the whole state, from the census file to the finished map.'),
     ),
     h(
       'div',

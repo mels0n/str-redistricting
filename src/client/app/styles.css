@@ -3278,6 +3278,19 @@ html:has(> body > #str-viewer) {
   align-self: baseline;
 }
 
+/* The label is the way into the How it works stage behind the figure: a quiet underline that shows
+   on hover and focus, so the row still reads as a list of numbers first. */
+.strv .strv-process__term {
+  display: inline-block;
+  padding: var(--s-1) 0;
+  text-decoration-color: var(--hairline);
+}
+
+.strv .strv-process__term:hover,
+.strv .strv-process__term:focus-visible {
+  text-decoration-color: var(--signal);
+}
+
 .strv-process__fig {
   grid-area: fig;
   font-size: 1.125rem;

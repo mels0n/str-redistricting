@@ -1,6 +1,8 @@
 # str-redistricting
 
 ## What this is
+Live site: https://fairmaps.melson.us
+
 Save the Republic's redistricting algorithm: shortest splitline, deterministic, partisan-blind, reproducible by anyone.
 
 The repository has two parts:
@@ -32,7 +34,7 @@ The finished map for each state is written to `out/<state>/`. The same files for
 `npm run publish-data` turns the generated plans into web-ready files in `public/data/` for the viewer. It also downloads Census Bureau boundary files for state outlines, county names and the districts of the 119th Congress (Census file `cb_2025_us_cd119_500k`); these are for display only and never affect how districts are drawn.
 
 ## Deploy
-Deployed on Vercel from the `main` branch: every push to `main` builds the site with `npm run build` and serves the static output in `dist/` (settings in `vercel.json`). `vercel.json` sets a Content-Security-Policy, a no-referrer policy, `nosniff`, a restrictive Permissions-Policy and long-lived caching for built assets. `public/_headers` carries the same headers for hosts that read that file, such as Cloudflare Pages. The one outside request the viewer makes is the address lookup, a script from the Census Bureau geocoder, which the policy allows.
+Deployed on Vercel at https://fairmaps.melson.us (the `str-redistricting.vercel.app` address also serves it) from the `main` branch: every push to `main` builds the site with `npm run build` and serves the static output in `dist/` (settings in `vercel.json`). `vercel.json` sets a Content-Security-Policy, a no-referrer policy, `nosniff`, a restrictive Permissions-Policy and long-lived caching for built assets. `public/_headers` carries the same headers for hosts that read that file, such as Cloudflare Pages. The one outside request the viewer makes is the address lookup, a script from the Census Bureau geocoder, which the policy allows.
 
 ## Where secrets live
 None. Census data is downloaded from public endpoints.

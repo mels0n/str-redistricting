@@ -57,6 +57,9 @@ export function createAddressSearch(opts: AddressSearchOptions): AddressSearch {
           const result = await geocodeAddress(input.value);
           const msg = (opts.onFound(result) ?? `Found ${result.matchedAddress}.`) + describeMultipleMatches(result.matchCount);
           setMessage(msg);
+          // Hand focus from the field to the button: a phone closes its keyboard (and any zoom it applied
+          // for the field) so the map is in view, and a keyboard user stays in the form.
+          if (document.activeElement === input) button.focus({ preventScroll: true });
         } catch (err) {
           setMessage(describeError(err), 'error');
           input.focus();

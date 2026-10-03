@@ -2,7 +2,7 @@
   "name": "str-redistricting",
   "version": "0.1.0",
   "private": true,
-  "description": "Save the Republic's redistricting algorithm: shortest splitline, deterministic, partisan-blind, reproducible by anyone.",
+  "description": "Chris Melson's redistricting algorithm: shortest splitline, deterministic, partisan-blind, reproducible by anyone.",
   "license": "UNLICENSED",
   "engines": {
     "node": "24.x"

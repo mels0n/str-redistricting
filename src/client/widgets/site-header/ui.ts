@@ -11,6 +11,6 @@ export function createSiteHeader(): HTMLElement {
       h('a', { href: formatHash(NATIONAL), class: 'strv-masthead__link', 'data-nav': 'states' }, 'All states'),
       h('a', { href: formatHash(howRoute()), class: 'strv-masthead__link', 'data-nav': 'how' }, 'How it works'),
     ),
-    h('p', { class: 'strv-masthead__credit' }, 'from Save the Republic'),
+    h('p', { class: 'strv-masthead__credit' }, 'by Chris Melson'),
   );
 }

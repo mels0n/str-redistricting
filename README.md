@@ -3,7 +3,7 @@
 ## What this is
 Live site: https://fairmaps.melson.us
 
-Save the Republic's redistricting algorithm: shortest splitline, deterministic, partisan-blind, reproducible by anyone.
+Chris Melson's redistricting algorithm: shortest splitline, deterministic, partisan-blind, reproducible by anyone.
 
 The repository has two parts:
 

@@ -23,12 +23,23 @@ export function resetPageZoom(): void {
   if (!pageZoomed()) return;
   const meta = document.querySelector<HTMLMetaElement>('meta[name="viewport"]');
   if (!meta) return;
-  const original = meta.content;
-  meta.content = `${original}, maximum-scale=1`;
-  setTimeout(() => {
-    meta.content = original;
-  }, 300);
+  // A second reset while the cap is still on keeps the uncapped value it saved first; reading it again
+  // would save the cap itself and put it back for good.
+  capBase ??= meta.content;
+  const base = capBase;
+  clearTimeout(capTimer);
+  meta.content = `${base}, maximum-scale=1`;
+  capTimer = setTimeout(() => {
+    meta.content = base;
+    capBase = null;
+  }, CAP_MS);
 }
+
+/** How long the scale cap stays on. */
+const CAP_MS = 300;
+/** The viewport's own content while a cap is on, else null. */
+let capBase: string | null = null;
+let capTimer: ReturnType<typeof setTimeout> | undefined;
 
 /** Calls back whenever the page goes from normal scale to zoomed in or back. Returns the function that stops watching. */
 export function watchPageZoom(onChange: (zoomed: boolean) => void): () => void {

@@ -166,6 +166,7 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
       map.dragPan.disable();
     } else {
       map.touchZoomRotate.enable();
+      // enable() turns two-finger rotation back on as well; the map never rotates.
       map.touchZoomRotate.disableRotation();
       map.dragPan.enable();
     }

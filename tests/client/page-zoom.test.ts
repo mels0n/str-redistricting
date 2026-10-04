@@ -46,8 +46,40 @@ describe('page zoom', () => {
     vv.scale = 2.5;
     resetPageZoom();
     expect(meta()).toBe(`${BASE}, maximum-scale=1`);
+    vi.advanceTimersByTime(299);
+    expect(meta()).toBe(`${BASE}, maximum-scale=1`);
+    vi.advanceTimersByTime(1);
+    expect(meta()).toBe(BASE);
+  });
+
+  it('a second reset while the cap is on still lifts it afterwards', () => {
+    vi.useFakeTimers();
+    vv.scale = 2.5;
+    resetPageZoom();
+    vi.advanceTimersByTime(100);
+    resetPageZoom();
+    expect(meta()).toBe(`${BASE}, maximum-scale=1`);
     vi.runAllTimers();
     expect(meta()).toBe(BASE);
+  });
+
+  it('does nothing without a viewport tag or a visual viewport', () => {
+    document.head.innerHTML = '';
+    vv.scale = 2;
+    expect(() => resetPageZoom()).not.toThrow();
+    Object.defineProperty(window, 'visualViewport', { value: undefined, configurable: true });
+    expect(pageZoomed()).toBe(false);
+    expect(() => watchPageZoom(() => {})()).not.toThrow();
+  });
+
+  it('a watch that starts zoomed reports the zoom-out', () => {
+    vv.scale = 2;
+    const seen: boolean[] = [];
+    const stop = watchPageZoom((z) => seen.push(z));
+    vv.zoom(2.5);
+    vv.zoom(1);
+    stop();
+    expect(seen).toEqual([false]);
   });
 
   it('reports each change between zoomed and not, and stops when asked', () => {

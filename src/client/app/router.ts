@@ -1,4 +1,4 @@
-import { clear, formatHash, parseHash, type Page, type Route } from '../shared';
+import { clear, formatHash, parseHash, resetPageZoom, type Page, type Route } from '../shared';
 import { createNationalPage } from '../pages/national';
 import { createStatePage } from '../pages/state';
 import { createHowPage } from '../pages/how';
@@ -68,6 +68,8 @@ export function startRouter(outlet: HTMLElement): void {
     if (page?.update?.(route)) return;
     page?.destroy();
     clear(outlet);
+    // A pinch-zoom from the last page would otherwise carry over (no reload between pages).
+    if (!initial) resetPageZoom();
     page = route.page === 'national' ? createNationalPage(navigate) : route.page === 'how' ? createHowPage(route) : createStatePage(route, navigate);
     outlet.append(page.el);
     // On the first load the browser owns focus; after that, move it to the new page's heading.

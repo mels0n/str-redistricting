@@ -7,3 +7,4 @@ export * from './located';
 export * from './labels';
 export * from './fit';
 export * from './split';
+export * from './page-zoom';

@@ -28,6 +28,8 @@ import {
   type Pt,
   type Shape,
   prefersReducedMotion,
+  pageZoomed,
+  watchPageZoom,
   type LonLat,
   type Plan,
 } from '../../shared';
@@ -155,6 +157,21 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
   fittedPad = JSON.stringify(framePadding());
   map.touchZoomRotate.disableRotation();
   map.keyboard.disableRotation();
+  // While the page itself is pinch-zoomed, finger gestures go to the page, not the map, so the visitor
+  // can always pinch back out (the map could otherwise fill the screen and take every pinch).
+  // The zoom buttons and keys still move the map.
+  const setTouchToPage = (toPage: boolean): void => {
+    if (toPage) {
+      map.touchZoomRotate.disable();
+      map.dragPan.disable();
+    } else {
+      map.touchZoomRotate.enable();
+      map.touchZoomRotate.disableRotation();
+      map.dragPan.enable();
+    }
+  };
+  const stopWatchingZoom = coarse ? watchPageZoom(setTouchToPage) : () => {};
+  if (coarse && pageZoomed()) setTouchToPage(true);
   // Zoom buttons sit where a thumb rests on a touch screen.
   map.addControl(new NavigationControl({ showCompass: false }), coarse ? 'bottom-right' : 'top-right');
   // The canvas is described by the region around it; the list is the full text view.
@@ -788,6 +805,7 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
       destroy() {
         stopAnim();
         resizeObs?.disconnect();
+        stopWatchingZoom();
         map.remove();
       },
     });

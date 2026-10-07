@@ -16,15 +16,20 @@ export function createNationalPage(nav: Navigate): Page {
   const lede = h(
     'div',
     { class: 'strv-national__lede' },
-    h('p', null, 'In most states, politicians draw the district lines. Here, nobody does. Every map comes from 2020 Census counts and three fixed steps that anyone can check:'),
+    h('p', null, 'Politicians draw most district lines. Politicians are people, and people see your party, your race, your religion and your income, whether they mean to or not.'),
+    h('p', { class: 'strv-national__closing' }, 'These maps are drawn by code. Code sees only what it is given, and the only thing we give it is how many people live where. Same input, same map, every time.'),
     h(
-      'ol',
-      { class: 'strv-national__steps' },
-      step('Cut.', 'Split the state along the shortest line that divides its people evenly between the seats on each side. Repeat until each piece is one district.'),
-      step('Keep blocks whole.', 'Census blocks are never split. A stray piece cut off from its side joins the side around it, and the line slides so the count stays even.'),
-      step('Balance.', 'Single blocks along a border move to the neighboring district only when that narrows the population gap and both stay connected.'),
+      'div',
+      { class: 'strv-national__how' },
+      h('h2', { class: 'strv-national__how-h' }, 'Three fixed steps'),
+      h(
+        'ol',
+        { class: 'strv-national__steps' },
+        step('Cut.', 'Split the state along the shortest line that divides its people by seats. Repeat until each piece is one district.'),
+        step('Keep blocks whole.', 'The census counts people in blocks: areas bounded by streets, streams, rail lines and similar edges. There is no count for part of a block, so lines follow block edges.'),
+        step('Balance.', 'Blocks along each border shift only when that brings two districts closer to equal population.'),
+      ),
     ),
-    h('p', { class: 'strv-national__closing' }, 'No party data. No incumbent addresses. The same map every time.'),
     h('p', { class: 'strv-national__more' }, h('a', { href: formatHash(howRoute()) }, 'How it works: every stage, with drawings')),
   );
 

@@ -426,9 +426,21 @@ html:has(> body > #str-viewer) {
   font-size: 1rem;
 }
 
-.strv .strv-national__lede > p + ol,
-.strv .strv-national__lede > ol + p {
+.strv .strv-national__lede > p + p {
   margin-top: var(--s-3);
+}
+
+.strv-national__how {
+  margin-top: var(--s-4);
+}
+
+.strv .strv-national__how-h {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin: 0 0 var(--s-2);
 }
 
 .strv-national__steps {
@@ -617,16 +629,15 @@ html:has(> body > #str-viewer) {
     padding-bottom: var(--s-3);
   }
 
-  .strv .strv-national__lede > ol {
-    margin-top: 0;
+  .strv-national__how {
+    grid-area: steps;
+    align-self: start;
+    margin: var(--s-6) var(--s-5) var(--s-3) var(--s-2);
   }
 
   .strv .strv-national__steps {
-    grid-area: steps;
     grid-template-columns: minmax(0, 1fr);
     align-content: start;
-    align-self: start;
-    margin: var(--s-6) var(--s-5) var(--s-3) var(--s-2);
   }
 
   .strv-national__steps li {
@@ -3497,6 +3508,72 @@ html:has(> body > #str-viewer) {
 
 .strv-how__steps li::marker {
   font-weight: 700;
+}
+
+/* "Goes in / Never goes in": the whole input contract at a glance, ahead of the detail. Two columns, stacked on narrow screens. */
+.strv-how__ledger {
+  display: grid;
+  grid-template-columns: 1fr;
+  max-width: 68ch;
+  margin: 0 0 var(--s-5);
+  border: 2px solid var(--ink);
+  border-radius: 2px;
+}
+
+@media (min-width: 40rem) {
+  .strv-how__ledger {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.strv .strv-how__ledger-lead {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: var(--s-3);
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--paper);
+  background: var(--ink);
+}
+
+.strv-how__ledger-col {
+  padding: var(--s-3);
+}
+
+.strv-how__ledger-col--out {
+  border-top: 1px solid var(--hairline);
+}
+
+@media (min-width: 40rem) {
+  .strv-how__ledger-col--out {
+    border-top: 0;
+    border-left: 1px solid var(--hairline);
+  }
+}
+
+.strv .strv-how__ledger-h {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin: 0 0 var(--s-2);
+}
+
+.strv .strv-how__ledger-list {
+  padding-left: 1.125rem;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.strv-how__ledger-list li + li {
+  margin-top: var(--s-1);
+}
+
+.strv .strv-how__ledger-note {
+  margin: var(--s-3) 0 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
 }
 
 /* "The exact rule": folded detail under a plain summary. The row is a full-width target with a chevron that turns over when open. */

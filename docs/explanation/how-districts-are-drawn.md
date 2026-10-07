@@ -148,6 +148,8 @@ This reads the plans in `out/` and writes web-ready files to `public/data/`: an 
 - `enacted.topo.json`, the districts of the 119th Congress for the state, for comparison only.
 - `water.topo.json`, the part of the state's districts that lies over water. Census blocks include water: they run out to the state's legal boundary, across lakes, bays and coastal water, so the districts drawn from them cover that water too. The mask is the area the districts cover, less the land in the Census Bureau's shoreline-clipped state outlines (`cb_2020_us_state_500k`). The viewer draws it as a pale wash over the districts so land stands out. It is for display only: no district, assignment, fingerprint, population or statistic depends on it.
 
+The numbers, `assignment.csv` and `blocks.json` are never simplified.
+
 The 119th Congress districts, the state outlines and the county names come from the U.S. Census Bureau's cartographic boundary files, which are downloaded into `data/raw/`. They are used only for display and reporting. The generator never reads them, and they have no effect on any district drawn. `stats.json` records which file the enacted districts came from as `enactedSource`. The file is the one named `cb_2025_us_cd119_500k`, so it shows the maps in use for the 119th Congress. A state that adopted a new map after that file was made is not reflected in it.
 
 Alaska's western Aleutian Islands lie east of the 180th meridian, so the state has longitudes on both sides of it. In the published display files only, those longitudes continue past -180 (172 degrees east is written as -188), so the state is one continuous shape. The same shift is applied to its guide lines, balancing blocks and enacted districts. The files in `out/` are not changed.

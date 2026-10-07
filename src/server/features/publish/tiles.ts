@@ -55,7 +55,7 @@ function layerFields(features: readonly Feature[]): Record<string, string> {
  * simplified index; TILE_MAXZOOM comes from a tolerance-0 index at a finer extent so borders are block-exact.
  * Tiles are found by walking the geojson-vt tile tree from 0/0/0 (a tile exists only if it has features).
  */
-export function buildDetailTiles(layers: Layers): Uint8Array {
+export function buildDetailTiles(layers: Layers, fingerprints: { finished: string; before: string }): Uint8Array {
   const names = Object.keys(layers);
   const bounds: [number, number, number, number] = [Infinity, Infinity, -Infinity, -Infinity];
   for (const name of names) for (const f of layers[name]!) growBounds((f.geometry as { coordinates?: unknown } | null)?.coordinates, bounds);
@@ -94,6 +94,7 @@ export function buildDetailTiles(layers: Layers): Uint8Array {
     center: [(bounds[0] + bounds[2]) / 2, (bounds[1] + bounds[3]) / 2, TILE_MINZOOM],
     metadata: {
       name: 'detail',
+      fingerprints: { finished: fingerprints.finished, before: fingerprints.before },
       format: 'pbf',
       minzoom: TILE_MINZOOM,
       maxzoom: TILE_MAXZOOM,

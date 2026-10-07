@@ -4,14 +4,26 @@ type Pair = [number, number];
 type Exceptions = Record<string, Pair>;
 
 /** Block-to-district lookup for one state: each tract is its most common (finished, before) pair plus the blocks that differ. */
+export interface Fingerprints {
+  finished: string;
+  before: string;
+}
+
 export interface BlocksFile {
   v: 1;
   state: string;
   seats: number;
+  /** SHA-256 of each plan's assignment (the generator's assignmentSha256), so a file from another plan is detectable. */
+  fingerprints: Fingerprints;
   tracts: Record<string, Pair | [number, number, Exceptions]>;
 }
 
 const GEOID = /^\d{15}$/;
+const SHA256 = /^[0-9a-f]{64}$/;
+
+function checkFingerprints(f: Fingerprints): void {
+  if (!SHA256.test(f.finished) || !SHA256.test(f.before)) throw new DataError('plan fingerprints must be 64 lowercase hex characters');
+}
 
 /** Parses `GEOID20,district` rows (header first) into a map from GEOID to district. */
 function parseAssignment(csv: string, label: string, seats: number): Map<string, number> {
@@ -51,7 +63,8 @@ function joinPlans(finishedCsv: string, beforeCsv: string, seats: number): Map<s
 const tractOf = (geoid: string): string => geoid.slice(2, 11);
 const suffixOf = (geoid: string): string => geoid.slice(11, 15);
 
-export function encodeBlocks(stateFips: string, seats: number, finishedCsv: string, beforeCsv: string): BlocksFile {
+export function encodeBlocks(stateFips: string, seats: number, finishedCsv: string, beforeCsv: string, fingerprints: Fingerprints): BlocksFile {
+  checkFingerprints(fingerprints);
   const byTract = new Map<string, [string, Pair][]>();
   for (const [g, pair] of joinPlans(finishedCsv, beforeCsv, seats)) {
     if (g.slice(0, 2) !== stateFips) throw new DataError(`block ${g} is not in state ${stateFips}`);
@@ -83,7 +96,7 @@ export function encodeBlocks(stateFips: string, seats: number, finishedCsv: stri
     }
     tracts[t] = any ? [base!.pair[0], base!.pair[1], exceptions] : [base!.pair[0], base!.pair[1]];
   }
-  return { v: 1, state: stateFips, seats, tracts };
+  return { v: 1, state: stateFips, seats, fingerprints: { finished: fingerprints.finished, before: fingerprints.before }, tracts };
 }
 
 /** The block's (finished, before) districts in the file, or null when it is not covered. */
@@ -98,9 +111,12 @@ export function lookup(file: BlocksFile, geoid: string): Pair | null {
  * Decodes every block of the file and compares it with the source CSVs; throws naming the first block that differs.
  * The file must also hold nothing the CSVs lack (tracts or block exceptions), and its state and seats must match `expected`.
  */
-export function checkBlocks(file: BlocksFile, finishedCsv: string, beforeCsv: string, expected: { state: string; seats: number }): void {
+export function checkBlocks(file: BlocksFile, finishedCsv: string, beforeCsv: string, expected: { state: string; seats: number; fingerprints: Fingerprints }): void {
   if (file.state !== expected.state) throw new DataError(`blocks.json is for state ${file.state}, expected ${expected.state}`);
   if (file.seats !== expected.seats) throw new DataError(`blocks.json has ${file.seats} seats, expected ${expected.seats}`);
+  if (file.fingerprints.finished !== expected.fingerprints.finished || file.fingerprints.before !== expected.fingerprints.before) {
+    throw new DataError('blocks.json carries different plan fingerprints than the plans being published');
+  }
   const plans = joinPlans(finishedCsv, beforeCsv, expected.seats);
   for (const [g, want] of plans) {
     const got = lookup(file, g);

@@ -52,7 +52,7 @@ const water: Feature = {
 };
 const layers = { finished: [d1, d2], before: [d1, d2], 'finished-arcs': [arc], 'before-arcs': [arc], water: [water] };
 
-const bytes = buildDetailTiles(layers);
+const bytes = buildDetailTiles(layers, { finished: 'a'.repeat(64), before: 'b'.repeat(64) });
 
 async function arcPoints(z: number, x: number, y: number, extent: number): Promise<string[]> {
   const got = await new PMTiles(new BufferSource(bytes)).getZxy(z, x, y);

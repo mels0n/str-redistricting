@@ -6,6 +6,7 @@ const file = {
   v: 1,
   state: '08',
   seats: 8,
+  fingerprints: { finished: 'a'.repeat(64), before: 'b'.repeat(64) },
   tracts: { '001007801': [6, 6, { '1002': [6, 7] }], '001007802': [5, 5] },
 };
 const blocks = BlocksSchema.parse(file);
@@ -26,6 +27,8 @@ describe('districtsForBlock', () => {
 describe('BlocksSchema', () => {
   it('rejects v 2, district 0 and a district above seats', () => {
     expect(BlocksSchema.safeParse({ ...file, v: 2 }).success).toBe(false);
+    expect(BlocksSchema.safeParse({ ...file, fingerprints: undefined }).success).toBe(false);
+    expect(BlocksSchema.safeParse({ ...file, fingerprints: { finished: 'x', before: 'b'.repeat(64) } }).success).toBe(false);
     expect(BlocksSchema.safeParse({ ...file, tracts: { a: [0, 1] } }).success).toBe(false);
     expect(BlocksSchema.safeParse({ ...file, tracts: { a: [1, 9] } }).success).toBe(false);
     expect(BlocksSchema.safeParse({ ...file, tracts: { a: [1, 1, { '1000': [9, 1] }] } }).success).toBe(false);

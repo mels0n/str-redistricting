@@ -11,6 +11,7 @@ export const BlocksSchema = z
     v: z.literal(1),
     state: z.string().regex(/^\d{2}$/),
     seats: z.number().int().min(1),
+    fingerprints: z.object({ finished: z.string().regex(/^[0-9a-f]{64}$/), before: z.string().regex(/^[0-9a-f]{64}$/) }),
     tracts: z.record(z.string(), z.union([Pair, z.tuple([District, District, z.record(z.string(), Pair)])])),
   })
   .superRefine((b, ctx) => {

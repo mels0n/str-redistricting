@@ -111,8 +111,9 @@ async function publishState(state: StateInfo, cfg: PublishConfig, shared: Shared
   await write(join(dest, 'balance.json'), JSON.stringify({ ...balance, blocks }));
 
   // Block lookup and detail tiles, from the same display copies as the topologies above (unsimplified).
-  const blocksFile = encodeBlocks(state.fips, state.seats, officialCsv, beforeCsv);
-  checkBlocks(blocksFile, officialCsv, beforeCsv, { state: state.fips, seats: state.seats });
+  const fingerprints = { finished: official.assignmentSha256, before: before.assignmentSha256 };
+  const blocksFile = encodeBlocks(state.fips, state.seats, officialCsv, beforeCsv, fingerprints);
+  checkBlocks(blocksFile, officialCsv, beforeCsv, { state: state.fips, seats: state.seats, fingerprints });
   const blocksJson = JSON.stringify(blocksFile);
   await write(join(dest, 'blocks.json'), blocksJson);
 
@@ -124,7 +125,7 @@ async function publishState(state: StateInfo, cfg: PublishConfig, shared: Shared
     'finished-arcs': (await districtArcs({ features: finishedFeatures as never })) as Feature[],
     'before-arcs': (await districtArcs({ features: beforeFeatures as never })) as Feature[],
     water: display(water.features) as unknown as Feature[],
-  });
+  }, fingerprints);
   await verifyTiles(state, cfg, tiles, blocksFile, new Set(log.data.moves.map((m) => m.geoid)), wrapped);
   await write(join(dest, 'detail.pmtiles'), tiles);
   const rawBytes = Buffer.byteLength(blocksJson);

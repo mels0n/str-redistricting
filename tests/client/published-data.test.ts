@@ -68,8 +68,12 @@ describe('the detail tiles and block lookup', () => {
       expect(blocks.seats).toBe(s.seats);
       expect(blocks.state).toBe(fips);
       expect(Object.keys(blocks.tracts).length).toBeGreaterThan(0);
-      const header = await new PMTiles(new BufferSource(readFileSync(join(dir, s.abbr, 'detail.pmtiles')))).getMetadata();
-      const layers = (header as { vector_layers: { id: string }[] }).vector_layers.map((l) => l.id).sort();
+      const meta = (await new PMTiles(new BufferSource(readFileSync(join(dir, s.abbr, 'detail.pmtiles')))).getMetadata()) as { vector_layers: { id: string }[]; fingerprints: unknown };
+      const layers = meta.vector_layers.map((l) => l.id).sort();
+      const stats = StatsSchema.parse(read(s.abbr, 'stats.json'));
+      const want = { finished: stats.finished.metrics.assignmentSha256, before: stats.beforeBalancing.metrics.assignmentSha256 };
+      expect(blocks.fingerprints).toEqual(want);
+      expect(meta.fingerprints).toEqual(want);
       expect(layers).toEqual(['before', 'before-arcs', 'finished', 'finished-arcs', 'water']);
     });
   }

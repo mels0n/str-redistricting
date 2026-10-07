@@ -1,4 +1,4 @@
-import { existsSync } from 'node:fs';
+import { existsSync, readdirSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { z } from 'zod';
@@ -61,6 +61,20 @@ export async function loadStateOutput(outDir: string, abbr: string): Promise<Sta
     readAssignment(join(dir, 'before-balancing', 'assignment.csv')),
   ]);
   return { metrics, candidates, cutStats, balance, assignment, before };
+}
+
+/** Abbreviations of the states with a generated candidates.json under an output directory, in order. */
+export function generatedStates(outDir: string): string[] {
+  if (!existsSync(outDir)) return [];
+  return readdirSync(outDir, { withFileTypes: true })
+    .filter((e) => e.isDirectory() && /^[A-Z]{2}$/.test(e.name) && existsSync(join(outDir, e.name, 'candidates.json')))
+    .map((e) => e.name)
+    .sort();
+}
+
+/** Just a state's candidates.json, without loading the rest of its output. */
+export function loadCandidates(outDir: string, abbr: string): Promise<Candidates> {
+  return readJson(join(outDir, abbr, 'candidates.json'), CandidatesSchema);
 }
 
 /** Metrics of a plan directory, or undefined when it has not been generated. */

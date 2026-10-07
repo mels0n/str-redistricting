@@ -1,11 +1,10 @@
 import { forEachEdge, type Block, type BlockPolygons } from '../../../entities/census-block/index.js';
 import { projectWindow, type CaseBuilder, type ExtractContext, type RuleCase } from '../../../features/rule-examples/index.js';
 import { selectLow, type CandidateTrace } from '../../../features/splitline/index.js';
-import { stateByAbbr } from '../../../shared/apportionment/index.js';
 import { cos, sin } from '../../../shared/detmath/index.js';
 import { DataError } from '../../../shared/errors/index.js';
 import { EARTH_RADIUS_M, greatCircleDistance, type LonLat } from '../../../shared/geo/index.js';
-import { alongGreatCircle, bowOf, clip, densify, dot, fit, foot, greatCircle, people, round1, stateOutline, whole, type P } from './panel.js';
+import { alongGreatCircle, bowOf, clip, densify, dot, fit, foot, greatCircle, nameOf, people, round1, stateOutline, whole, type P } from './panel.js';
 import { cutTrace, type CutTrace } from './trace.js';
 
 export { cutTrace } from './trace.js';
@@ -20,12 +19,6 @@ const W = 320;
 const WINDOW = 20;
 /** The one-cut panels use Colorado's third cut (two seats around Denver's northern suburbs) and Alabama's first. */
 const CO_CUT = 3;
-
-function nameOf(abbr: string): string {
-  const info = stateByAbbr(abbr);
-  if (!info) throw new DataError(`unknown state: ${abbr}`);
-  return info.name;
-}
 
 /** Walk position of every block of the piece (-1 outside it). */
 function ranks(t: CutTrace, tr: CandidateTrace): Int32Array {

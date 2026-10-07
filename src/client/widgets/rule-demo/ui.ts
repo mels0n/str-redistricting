@@ -1,5 +1,6 @@
 import { h, svg, formatHash, prefersReducedMotion, stateRoute } from '../../shared';
 import type { RuleCase } from '../../entities/rule-example';
+import { drawChart, updateChart } from './chart';
 import { createPlayer } from './player';
 
 type Pts = readonly (readonly [number, number])[];
@@ -100,6 +101,8 @@ export function createRuleDemo(c: RuleCase): RuleDemo {
     shapes.set(l.id, { el, start: l.pts, now: l.pts });
     frame.append(el);
   }
+  const chartEl = c.chart ? drawChart(c.chart, c.view) : undefined;
+  if (chartEl) frame.append(chartEl);
   for (const l of c.labels ?? []) {
     const room = Math.max(Math.min(l.x, w - l.x) * 2 - PAD * 2, CHAR_W * 8);
     const lines = wrap(l.text, Math.floor(room / CHAR_W));
@@ -159,10 +162,12 @@ export function createRuleDemo(c: RuleCase): RuleDemo {
       if (animate && to.length === sh.now.length) moves.push({ id, from: sh.now, to });
       else draw(id, to);
     }
-    if (!moves.length) return;
+    const glide = chartEl ? updateChart(chartEl, visible, animate) : undefined;
+    if (!moves.length && !glide) return;
     const t0 = performance.now();
     endTween = () => {
       for (const m of moves) draw(m.id, m.to);
+      glide?.end();
     };
     const tick = (): void => {
       const t = Math.min((performance.now() - t0) / TWEEN_MS, 1);
@@ -177,6 +182,7 @@ export function createRuleDemo(c: RuleCase): RuleDemo {
         const cur = m.from.map(([x, y], k) => [x + (m.to[k]![0] - x) * e, y + (m.to[k]![1] - y) * e] as const);
         shapes.get(m.id)!.el.setAttribute('points', pointsAttr(cur));
       }
+      glide?.frame(e);
       raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);

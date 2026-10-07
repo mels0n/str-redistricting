@@ -30,7 +30,17 @@ const Step = z.object({
 const Chart = z.object({
   kind: z.enum(['strip', 'bars', 'series']),
   values: z.array(z.number()),
+  /** Classes of value indices a step highlights by showing the id `chart-<name>`. */
   marks: z.record(z.string(), z.array(Int)).optional(),
+  /** Bars grow from this value (default 0). */
+  baseline: z.number().optional(),
+  /** One name per value, drawn under the bars. */
+  labels: z.array(z.string()).optional(),
+}).superRefine((c, ctx) => {
+  if (c.labels && c.labels.length !== c.values.length) ctx.addIssue({ code: 'custom', message: 'labels must have one entry per value', path: ['labels'] });
+  for (const [name, at] of Object.entries(c.marks ?? {})) {
+    if (at.some((i) => i < 0 || i >= c.values.length)) ctx.addIssue({ code: 'custom', message: `mark ${name} points outside the values`, path: ['marks', name] });
+  }
 });
 
 /** One animated panel under an "exact rule" bullet. */

@@ -58,15 +58,15 @@ export async function idealCase(ctx: ExtractContext): Promise<RuleCase> {
     link: { state: abbr },
     view: VIEW,
     labels: [
-      { id: 'ideal', x: 160, y: 60, text: `${whole(pop)} / ${seats} = ${twoDecimals(ideal)}` },
-      { id: 'targets', x: 160, y: 110, text: `${whole(floor)} or ${whole(ceil)}`, tag: 'targets' },
+      { id: 'ideal', x: 160, y: 11, text: `${whole(pop)} / ${seats} = ${twoDecimals(ideal)}` },
+      { id: 'targets', x: 160, y: 172, text: `${whole(floor)} or ${whole(ceil)}`, tag: 'targets' },
     ],
     steps: [
       { caption: `${nameOf(abbr)} has ${whole(pop)} people and ${seats} seats.`, show: [] },
-      { caption: `${whole(pop)} / ${seats} = ${twoDecimals(ideal)} people per district, which no district can hit exactly.`, show: ['ideal'] },
-      { caption: `So the target is the two neighbouring whole numbers: ${whole(floor)} and ${whole(ceil)}.`, show: ['ideal', 'targets'] },
+      { caption: `${whole(pop)} / ${seats} = ${twoDecimals(ideal)} people per district, which no district can hit exactly.`, show: ['ideal', 'chart'] },
+      { caption: `So the target is the two neighbouring whole numbers: ${whole(floor)} and ${whole(ceil)}. Each bar is a district's final distance from the ideal, and ${onTarget.length} of ${seats} are within one person of it.`, show: ['ideal', 'targets', 'chart', 'chart-onTarget'] },
     ],
-    chart: { kind: 'bars', values: metrics.districts.map((d) => d.pop), marks: { onTarget } },
+    chart: { kind: 'bars', values: metrics.districts.map((d) => d.pop), baseline: ideal, marks: { onTarget } },
   };
 }
 

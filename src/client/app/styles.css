@@ -3774,6 +3774,42 @@ html:has(> body > #str-viewer) {
 .strv-rule-demo__svg [data-district='7'] { fill: var(--d-olive); }
 .strv-rule-demo__svg [data-district='8'] { fill: var(--d-slate); }
 
+/* The chart a case draws behind its labels (widgets/rule-demo/chart.ts). Tick widths are attributes, so these rules set colors only. */
+.strv-chart__axis {
+  fill: none;
+  stroke: var(--rule);
+  stroke-width: 1;
+}
+
+.strv-chart__ticks { stroke: var(--ink-2); }
+.strv-chart__ticks:not([data-mark='base']) { stroke: var(--signal); }
+.strv-chart__ticks[data-mark='skipped'] { stroke: var(--ink); }
+.strv-chart__ticks[data-mark='winner'] { stroke: var(--signal-ink); }
+
+.strv-chart__bar { fill: var(--rule); }
+.strv-chart__bar[data-mark] { fill: var(--signal); }
+.strv-chart__bar[data-mark='runnerUp'] { fill: var(--ink-2); }
+.strv-chart__bar[data-mark='winner'] { fill: var(--signal-ink); }
+
+.strv-chart__line {
+  stroke: var(--ink-2);
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+}
+
+.strv-chart__dot {
+  fill: var(--paper);
+  stroke: var(--ink-2);
+  stroke-width: 1.5;
+}
+
+.strv-chart__dot[data-mark] {
+  fill: var(--signal);
+  stroke: var(--signal-ink);
+}
+
+.strv-chart__label { text-anchor: middle; }
+
 .strv-rule-demo__bar {
   display: flex;
   flex-wrap: wrap;

@@ -20,10 +20,10 @@ const TILE_TYPE_MVT = 1;
 /** Hilbert-curve tile id per the PMTiles v3 spec: zoom levels are laid out one after another. */
 export function zxyToTileId(z: number, x: number, y: number): number {
   if (z > 26) throw new DataError(`PMTiles zoom ${z} exceeds 26`);
-  const n = 2 ** z;
+  const n = 1 << z;
   if (x < 0 || y < 0 || x >= n || y >= n) throw new DataError(`PMTiles tile ${z}/${x}/${y} is out of range`);
   let acc = 0;
-  for (let t = 0; t < z; t++) acc += 4 ** t;
+  for (let t = 0, level = 1; t < z; t++, level *= 4) acc += level;
   let tx = x;
   let ty = y;
   let d = 0;

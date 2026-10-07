@@ -13,7 +13,7 @@ const { createAddressSearch } = await import('../../src/client/features/address-
 
 const found = { lonLat: [-104.98, 39.74] as [number, number], state: 'CO', matchedAddress: '200 E COLFAX AVE, DENVER, CO, 80203', matchCount: 1 };
 
-function mount(onFound: () => string | void = () => undefined) {
+function mount(onFound: () => string | void | Promise<string | void> = () => undefined) {
   const search = createAddressSearch({ id: 'strv-test', onFound });
   document.body.append(search.el);
   const input = search.el.querySelector('input')!;
@@ -37,6 +37,16 @@ describe('address search focus', () => {
     input.value = '200 E Colfax Ave, Denver';
     input.focus();
     await submit(search.el);
+    expect(document.activeElement).toBe(button);
+  });
+
+  it('waits for an async onFound, shows its message, then hands focus to the button', async () => {
+    geocode.impl = () => Promise.resolve(found);
+    const { search, input, button } = mount(() => new Promise<string>((r) => setTimeout(() => r('Exact answer.'), 5)));
+    input.value = '200 E Colfax Ave, Denver';
+    input.focus();
+    await submit(search.el);
+    expect(search.el.textContent).toContain('Exact answer.');
     expect(document.activeElement).toBe(button);
   });
 

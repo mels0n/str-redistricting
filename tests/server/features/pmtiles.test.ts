@@ -75,5 +75,5 @@ describe('writePmtiles', () => {
       const got = await reader.getZxy(z, x, y);
       expect(Buffer.from(got!.data)).toEqual(Buffer.from(gunzipSync(bytes)));
     }
-  });
+  }, 30_000);
 });

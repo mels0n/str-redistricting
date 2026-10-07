@@ -14,3 +14,5 @@ export { buildIndex, PlanMetricsSchema, summarize } from './summary.js';
 export type { IndexEntry, StateSummary } from './summary.js';
 export { districtBudget, simplifyPercent, toTopology, vertexCount } from './topo.js';
 export { buildWater, mergeLand } from './water.js';
+export { districtArcs } from './arcs.js';
+export type { ArcFeature } from './arcs.js';

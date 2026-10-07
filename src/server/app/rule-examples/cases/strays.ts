@@ -67,11 +67,13 @@ async function cutOne(ctx: ExtractContext) {
   if (!resolved.length) throw new DataError(`${ABBR} cut 1: no resolved candidate`);
   const most = Math.max(...resolved.map((r) => r.iterations!));
   const ends = resolved.filter((r) => r.iterations === most).sort(byK)[0]!;
-  const noRejoin = rows.filter((r) => r.unresolved === 1).sort(byK)[0];
+  // Every unresolved line, by k: the first is the no-rejoin case, and they are searched for a mixed group.
+  const unresolved = rows.filter((r) => r.unresolved === 1).sort(byK);
+  const noRejoin = unresolved[0];
   const asks: CandidateTraceRequest[] = [{ k: chosen.k!, lowSeats: chosen.lowSeats! }, { k: ends.k!, lowSeats: ends.lowSeats! }];
-  if (noRejoin) asks.push({ k: noRejoin.k!, lowSeats: noRejoin.lowSeats! });
+  for (const r of unresolved) asks.push({ k: r.k!, lowSeats: r.lowSeats! });
   const t = await cutTrace(ctx, ABBR, 1, asks);
-  return { t, out, chosen, ends, noRejoin, traces: t.traces };
+  return { t, out, chosen, ends, noRejoin, traces: t.traces, unresolvedTraces: t.traces.slice(2) };
 }
 
 /** The line a cut used, traced: cut 1 comes from the shared re-run so it is not searched twice. */
@@ -135,11 +137,14 @@ interface Window {
   readonly pins: (bs: readonly number[], prefix: string) => Line[];
 }
 
-function windowOf(t: CutTrace, tr: CandidateTrace, around: number[], h: number): Window {
+/** A block window; `prefix` keeps the ids of several windows in one panel apart. */
+function windowOf(t: CutTrace, tr: CandidateTrace, around: number[], h: number, prefix = ''): Window {
   const panel = blockPanel(t, around, ranks(t, tr), h);
   // Largest first, so a block inside another's hole (an enclave, the usual stray) is drawn on top of it.
-  const blocks = blockList(t, panel).sort((p, q) => ringArea(q.ring) - ringArea(p.ring) || (p.id < q.id ? -1 : 1));
-  const at = new Map(panel.ids.map((b, i) => [b, `b${i}`] as const));
+  const blocks = blockList(t, panel)
+    .map((b) => ({ ...b, id: `${prefix}${b.id}` }))
+    .sort((p, q) => ringArea(q.ring) - ringArea(p.ring) || (p.id < q.id ? -1 : 1));
+  const at = new Map(panel.ids.map((b, i) => [b, `${prefix}b${i}`] as const));
   const idOf = (b: number): string => {
     const id = at.get(b);
     if (!id) throw new DataError(`${t.abbr}: block ${t.blocks[b]!.geoid} is not in the window`);
@@ -245,6 +250,57 @@ function lastFreeLow(tr: CandidateTrace, rank: Int32Array, p: number): number {
   return last;
 }
 
+export interface MixedPick {
+  readonly t: CutTrace;
+  readonly tr: CandidateTrace;
+  /** 0-based pass and sweep in which the group was cut off. */
+  readonly pass: number;
+  readonly sweepAt: number;
+  readonly sweep: TraceSweep;
+  readonly group: TraceGroup;
+  /** Side of every block just before and just after that sweep. */
+  readonly before: (b: number) => 0 | 1;
+  readonly after: (b: number) => 0 | 1;
+  /** Blocks fixed when the sweep ran. */
+  readonly held: ReadonlySet<number>;
+}
+
+/** Blocks that change side in one sweep: the free blocks of every group other than the main body. */
+const sweepMoves = (sw: TraceSweep): number[] =>
+  sw.groups.flatMap((g) => (g.main ? [] : [...g.blocks].filter((b) => !g.fixed.includes(b))));
+
+const isMixed = (g: TraceGroup): boolean => !g.main && g.fixed.length > 0 && g.fixed.length < g.blocks.length;
+
+/**
+ * The first group, over cut 1's unresolved lines by k, then passes, sweeps and groups in the generator's order,
+ * that is cut off from its side's main body while holding both fixed and free blocks.
+ */
+export async function mixedGroup(ctx: ExtractContext): Promise<MixedPick | undefined> {
+  const one = await cutOne(ctx);
+  for (const tr of one.unresolvedTraces) {
+    for (let p = 0; p < tr.passes.length; p++) {
+      const pass = tr.passes[p]!;
+      const sweepAt = pass.sweeps.findIndex((sw) => sw.groups.some(isMixed));
+      if (sweepAt < 0) continue;
+      // Sides as the sweeps leave them: a block flips in the sweep that moves it.
+      const flips = pass.sweeps.map(sweepMoves);
+      const all = new Set(flips.flat());
+      if (all.size !== pass.moved.length || [...pass.moved].some((b) => !all.has(b))) throw new DataError(`${ABBR} cut 1: sweep moves do not add up to the pass's moved blocks`);
+      const walk = walkSide(tr, p);
+      const flippedBy = (n: number): Set<number> => new Set(flips.slice(0, n).flat());
+      const sideAfter = (n: number) => {
+        const f = flippedBy(n);
+        return (b: number): 0 | 1 => (f.has(b) ? (1 - walk(b)) as 0 | 1 : walk(b));
+      };
+      const sweep = pass.sweeps[sweepAt]!;
+      const group = sweep.groups.find(isMixed)!;
+      const held = new Set([...pass.fixedLow, ...pass.fixedHigh, ...flippedBy(sweepAt)]);
+      return { t: one.t, tr, pass: p, sweepAt, sweep, group, before: sideAfter(sweepAt), after: sideAfter(sweepAt + 1), held };
+    }
+  }
+  return undefined;
+}
+
 /** strays.fixed: a group that moves is fixed at once and keeps its new side through the re-count. */
 export async function fixedCase(ctx: ExtractContext): Promise<RuleCase> {
   const pick = await cutOffGroup(ctx);
@@ -266,6 +322,40 @@ export async function fixedCase(ctx: ExtractContext): Promise<RuleCase> {
   const withPins = [...base, ...ids(pins)];
   const final = finalSide(tr);
   if ([...group.blocks].some((b) => final(b) !== o)) throw new DataError(`${t.abbr} cut ${t.cut.order}: a fixed block did not end on its new side`);
+  // A second window: a cut-off group holding fixed and free blocks, on another line tried for cut 1.
+  const mix = await mixedGroup(ctx);
+  const mixBlocks: RuleBlock[] = [], mixLines: Line[] = [];
+  const mixSteps: RuleCase['steps'] = [];
+  if (mix) {
+    const g = [...mix.group.blocks];
+    const fixedIn = g.filter((b) => mix.group.fixed.includes(b)), freeIn = g.filter((b) => !mix.group.fixed.includes(b));
+    const mw = windowOf(mix.t, mix.tr, groupWindow(mix.t, mix.group.blocks), MAP_H, 'x');
+    let mGuide: Line[] = [];
+    try { mGuide = guideLines(mix.tr.passes[mix.pass]!.spans, mw.panel.project, MAP_H, 'xguide'); } catch { mGuide = []; }
+    const mPins = mw.pins(mw.panel.ids.filter((b) => mix.held.has(b)), 'xpin');
+    mixBlocks.push(...mw.blocks);
+    mixLines.push(...mGuide, ...mPins);
+    const sw = mix.sweep.side, so = (1 - sw) as 0 | 1;
+    const mShow = [...ids(mw.blocks), ...ids(mGuide), ...ids(mPins)];
+    const fb = (k: number): string => plural(k, 'block', 'blocks');
+    mixSteps.push(
+      {
+        caption: `Fixed blocks count toward their side's groups like any other block. On a line tried for cut 1 at ${deg(mix.tr.angleDeg)}, this group on the ${sideWord(sw)} side holds ${fb(fixedIn.length)} fixed there (dotted) and ${fb(freeIn.length)} still free, and it is cut off from the side's main body.`,
+        show: mShow,
+        set: mw.paint(mix.before, g),
+      },
+      {
+        caption: `Its free ${freeIn.length === 1 ? 'block joins' : 'blocks join'} the ${sideWord(so)} side. Its fixed ${fixedIn.length === 1 ? 'block stays' : 'blocks stay'} on the ${sideWord(sw)} side, where ${fixedIn.length === 1 ? 'it was' : 'they were'} fixed.`,
+        show: mShow,
+        set: mw.paint(mix.after),
+      },
+    );
+  } else {
+    mixSteps.push({
+      caption: `Fixed blocks count toward their side's groups like any other block. No line tried for cut 1 in ${name} cuts off a group holding both fixed and free blocks, so that case is not shown here.`,
+      show: withPins,
+    });
+  }
   return {
     id: 'strays.fixed',
     state: t.abbr,
@@ -273,8 +363,8 @@ export async function fixedCase(ctx: ExtractContext): Promise<RuleCase> {
     source: { cut: t.cut.order, angleDeg: t.cut.angleDeg },
     link: { state: t.abbr, cut: t.cut.order },
     view: { w: W, h: 170 },
-    blocks: win.blocks,
-    lines: [...guide, ...pins],
+    blocks: [...win.blocks, ...mixBlocks],
+    lines: [...guide, ...pins, ...mixLines],
     steps: [
       {
         caption: `Cut ${t.cut.order} in ${name}, just after its first walk. These ${n} blocks are on the ${sideWord(s)} side, cut off from the rest of it.`,
@@ -298,6 +388,7 @@ export async function fixedCase(ctx: ExtractContext): Promise<RuleCase> {
         show: withPins,
         set: win.paint(final),
       },
+      ...mixSteps,
     ],
   };
 }
@@ -382,19 +473,57 @@ export async function endsTrace(ctx: ExtractContext) {
   return { t: one.t, tr: one.traces[1]!, row: one.ends };
 }
 
+/** Blocks of `bs` within `m` meters of the one with the most such neighbors (lowest block index on a tie). */
+function cluster(t: CutTrace, bs: readonly number[], m: number): number[] {
+  let best: number[] = [];
+  for (const a of [...bs].sort((p, q) => p - q)) {
+    const near = bs.filter((b) => greatCircleDistance(t.blocks[a]!.point, t.blocks[b]!.point) <= m);
+    if (near.length > best.length) best = near;
+  }
+  return [...best].sort((p, q) => p - q);
+}
+
+/** How far apart one pass's moved blocks may be and still be drawn in one close-up. */
+const CLUSTER_M = 2000;
+
 export async function endsCase(ctx: ExtractContext): Promise<RuleCase> {
   const { t, tr, row } = await endsTrace(ctx);
   const name = nameOf(t.abbr);
   const n = tr.passes.length;
-  if (n < 3 || n > 7) throw new DataError(`${t.abbr} cut 1: the line with the most passes has ${n}, outside the 3 to 7 a panel shows`);
+  if (n < 3 || n > 6) throw new DataError(`${t.abbr} cut 1: the line with the most passes has ${n}, outside the 3 to 6 a panel shows`);
   if (tr.passes.at(-1)!.moved.length !== 0) throw new DataError(`${t.abbr} cut 1: the last pass moved blocks`);
   const outline = await stateOutline(ctx.cfg.rawDir, t.abbr, 120);
   const proj = (p: LonLat) => t.split.proj.forward(p);
-  const H = 204, MAP_H = 182;
+  const H = 204, MAP_H = 176;
   const toPanel = fit(outline.map(proj), W, MAP_H, 10);
   const at = (p: LonLat): P => toPanel(proj(p));
   const guide: Line[] = tr.passes.at(-1)!.spans.map(([a, b], i) => ({ id: i ? `line-${i}` : 'line', pts: [round1(at(a)), round1(at(b))], tag: 'guide' }));
+  // The overview: every block that moves in any pass, as a dot on the state.
   const dots: Line[][] = tr.passes.map((p, i) => Array.from(p.moved, (b, j) => ({ id: `m${i + 1}-${j}`, pts: dot(at(t.blocks[b]!.point)), tag: 'point' })));
+  const blocks: RuleBlock[] = [];
+  const lines: Line[] = [{ id: 'outline', pts: [...outline, outline[0]!].map((p) => round1(at(p))), tag: 'outline' }, ...guide, ...dots.flat()];
+  // Up close, one window per pass that moves blocks: a cluster of that pass's moved blocks and the blocks around it.
+  const close: { show: string[]; set: Record<string, string>; here: number; win: Window; guide: Line[]; fixedAfter: Set<number>; prefix: string }[] = [];
+  for (let p = 0; p < n - 1; p++) {
+    const pass = tr.passes[p]!;
+    const here = cluster(t, [...pass.moved], CLUSTER_M);
+    const prefix = `p${p + 1}`;
+    const win = windowOf(t, tr, groupWindow(t, Int32Array.from(here)), MAP_H, prefix);
+    let g: Line[] = [];
+    try { g = guideLines(pass.spans, win.panel.project, MAP_H, `${prefix}guide`); } catch { g = []; }
+    const held = new Set([...pass.fixedLow, ...pass.fixedHigh]);
+    const pins = win.pins(win.panel.ids.filter((b) => held.has(b)), `${prefix}pin`);
+    blocks.push(...win.blocks);
+    lines.push(...g, ...pins);
+    close.push({
+      show: [...ids(win.blocks), ...ids(g), ...ids(pins)], set: win.paint(walkSide(tr, p), here), here: here.length, win, guide: g,
+      fixedAfter: new Set([...held, ...pass.moved]), prefix,
+    });
+  }
+  // The last pass: the last close-up again, settled, with a dot on every block now fixed.
+  const last = close.at(-1)!;
+  const lastPins = last.win.pins(last.win.panel.ids.filter((b) => last.fixedAfter.has(b)), `${last.prefix}end`);
+  lines.push(...lastPins);
   let fixed = 0;
   const labels: Label[] = tr.passes.map((p, i) => {
     fixed += p.moved.length;
@@ -402,14 +531,15 @@ export async function endsCase(ctx: ExtractContext): Promise<RuleCase> {
   });
   const shift = Math.round(row.offsetShiftM!);
   const m = t.members.length;
-  const map = ['outline', ...ids(guide)];
   const captionOf = (i: number): string => {
     const moved = tr.passes[i]!.moved.length;
-    if (i === 0) return `Pass 1. A line tried for cut 1 in ${name}, ${deg(tr.angleDeg)} from north-south. After its walk, ${plural(moved, 'block is', 'blocks are')} cut off from their side and ${moved === 1 ? 'moves' : 'move'}, each fixed at once.`;
     if (i === n - 1) {
       return `Pass ${n} moves no free block, so it ends: ${whole(n)} walks, ${whole(fixed)} fixed blocks, and the line slid ${shift === 0 ? 'less than a meter' : plural(shift < 0 ? -shift : shift, 'meter', 'meters')} in all. A piece of ${whole(m)} blocks could need at most ${whole(m)} walks.`;
     }
-    return `Pass ${i + 1}. The re-count walks the free blocks again, and ${plural(moved, 'more block is', 'more blocks are')} cut off and ${moved === 1 ? 'moves' : 'move'}.`;
+    const here = close[i]!.here;
+    const where = here === moved ? `${moved === 1 ? 'It is' : 'They are'} highlighted here, close up.` : `${here === 1 ? '1 of them is' : `${whole(here)} of them are`} highlighted here, close up.`;
+    if (i === 0) return `Pass 1. After the walk, ${plural(moved, 'block is', 'blocks are')} cut off from their side and ${moved === 1 ? 'moves' : 'move'}, each fixed at once. ${where}`;
+    return `Pass ${i + 1}. The re-count walks the free blocks again, and ${plural(moved, 'more block is', 'more blocks are')} cut off. ${where} Dots mark blocks fixed earlier.`;
   };
   return {
     id: 'strays.ends',
@@ -418,14 +548,22 @@ export async function endsCase(ctx: ExtractContext): Promise<RuleCase> {
     source: { cut: t.cut.order, angleDeg: tr.angleDeg },
     link: { state: t.abbr, cut: t.cut.order },
     view: { w: W, h: H },
-    lines: [{ id: 'outline', pts: [...outline, outline[0]!].map((p) => round1(at(p))), tag: 'outline' }, ...guide, ...dots.flat()],
+    blocks,
+    lines,
     labels,
-    steps: tr.passes.map((_, i) => ({
-      caption: captionOf(i),
-      show: [...map, ...dots.slice(0, i + 1).flatMap(ids), `count${i + 1}`],
-      // Earlier passes' dots fade; the marks carry over, so each step only adds the pass just finished.
-      set: Object.fromEntries((dots[i - 1] ?? []).map((x) => [x.id, 'dim'])),
-    })),
+    steps: [
+      {
+        caption: `A line tried for cut 1 in ${name}, ${deg(tr.angleDeg)} from north-south. Its strays take ${whole(n)} passes to settle; each dot is a block that moves in one of them.`,
+        show: ['outline', ...ids(guide), ...dots.flatMap(ids)],
+      },
+      ...tr.passes.map((_, i) => (i < n - 1
+        ? { caption: captionOf(i), show: [...close[i]!.show, `count${i + 1}`], set: close[i]!.set }
+        : {
+          caption: captionOf(i),
+          show: [...ids(last.win.blocks), ...ids(last.guide), ...ids(lastPins), `count${i + 1}`],
+          set: last.win.paint(finalSide(tr)),
+        })),
+    ],
   };
 }
 
@@ -834,7 +972,7 @@ export async function islandsCase(ctx: ExtractContext): Promise<RuleCase> {
         show: [...I, ...M, 'pi', 'pm', 'bridge', 'dist'],
       },
       {
-        caption: `Every detached piece is joined the same way, so ${name} can be cut like any other state.`,
+        caption: `Every detached piece is joined to the nearest block of the land already joined, sometimes another island, so ${name} can be cut like any other state.`,
         show: [...I, ...M, 'pi', 'pm', 'bridge', 'dist'],
       },
     ],

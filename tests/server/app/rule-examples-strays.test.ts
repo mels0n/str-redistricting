@@ -1,7 +1,7 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import {
-  connectedCase, cornerPair, cutOffGroup, endsCase, endsTrace, fixedCase, fixedOnFirst, islandBridge, islandsCase, noRejoinCase,
+  connectedCase, cornerPair, cutOffGroup, endsCase, endsTrace, fixedCase, fixedOnFirst, islandBridge, islandsCase, mixedGroup, noRejoinCase,
   noRejoinTrace, outlineCase, recountCase, strayCases, whichStaysCase,
 } from '../../../src/server/app/rule-examples/cases/strays.js';
 import { createExtractContext, RuleCaseSchema, RuleExamplesSchema, type RuleCase } from '../../../src/server/features/rule-examples/index.js';
@@ -96,8 +96,33 @@ describe('stage 3 stray-piece cases', () => {
       const set = finalSet(c, i);
       for (const b of group.blocks) expect(set[blockId(c, t.blocks[b]!.geoid)]).toBe(other);
     }
-    const pins = (c.lines ?? []).filter((l) => l.tag === 'point');
+    const pins = (c.lines ?? []).filter((l) => l.tag === 'point' && l.id.startsWith('pin'));
     expect(pins.length).toBe(group.blocks.length);
+  }, SLOW);
+
+  it.skipIf(!haveCO)('fixed shows a cut-off group whose free blocks move while its fixed blocks stay', async () => {
+    const c = await fixedCase(ctx);
+    shape(c);
+    const mix = await mixedGroup(ctx);
+    expect(mix).toBeDefined();
+    const { t, tr, pass, sweep, group, before, after } = mix!;
+    expect(tr.unresolved).toBe(true);
+    expect(group.main).toBe(false);
+    expect(group.fixed.length).toBeGreaterThan(0);
+    expect(group.fixed.length).toBeLessThan(group.blocks.length);
+    expect(tr.passes[pass]!.sweeps).toContain(sweep);
+    const free = [...group.blocks].filter((b) => !group.fixed.includes(b));
+    // In the trace: the free blocks move in this pass. The fixed ones keep their side through this sweep
+    // (one may have been fixed by an earlier sweep of the same pass, so it can still be in the pass's moved list).
+    for (const b of free) expect(tr.passes[pass]!.moved.includes(b)).toBe(true);
+    for (const b of group.blocks) expect(before(b)).toBe(sweep.side);
+    // In the panel: the last step shows free blocks on the other side and fixed blocks still on theirs.
+    const other = sweep.side === 0 ? 'high' : 'low', own = sweep.side === 0 ? 'low' : 'high';
+    const last = c.steps.at(-1)!.set ?? {};
+    const idIn = (geoid: string) => c.blocks!.find((b) => b.geoid === geoid && b.id.startsWith('x'))!.id;
+    for (const b of free) { expect(after(b)).not.toBe(sweep.side); expect(last[idIn(t.blocks[b]!.geoid)]).toBe(other); }
+    for (const b of group.fixed) { expect(after(b)).toBe(sweep.side); expect(last[idIn(t.blocks[b]!.geoid)]).toBe(own); }
+    expect(c.steps.at(-2)!.caption).toContain('count toward');
   }, SLOW);
 
   it.skipIf(!haveCO)('recount target equals share minus fixed people', async () => {
@@ -120,7 +145,7 @@ describe('stage 3 stray-piece cases', () => {
   it.skipIf(!(haveCO && land))('ends shows exactly iterations passes and the last moves nothing', async () => {
     const c = await endsCase(ctx);
     shape(c);
-    const { tr, row } = await endsTrace(ctx);
+    const { t, tr, row } = await endsTrace(ctx);
     const cands = json<Cands>('out/CO/candidates.json');
     const f = (n: string) => cands.fields.indexOf(n);
     const resolved = cands.cuts[0]!.filter((r) => r[f('unresolved')] === 0);
@@ -128,11 +153,32 @@ describe('stage 3 stray-piece cases', () => {
     const pick = resolved.filter((r) => r[f('iterations')] === most).sort((p, q) => p[f('k')]! - q[f('k')]! || p[f('lowSeats')]! - q[f('lowSeats')]!)[0]!;
     expect([row.k, row.lowSeats]).toEqual([pick[f('k')], pick[f('lowSeats')]]);
     expect(tr.passes.length).toBe(most);
-    expect(c.steps.length).toBe(most);
-    c.steps.forEach((s, i) => expect(s.caption.startsWith(`Pass ${i + 1}`)).toBe(true));
+    // An overview step, then one step per pass.
+    expect(c.steps.length).toBe(most + 1);
+    c.steps.slice(1).forEach((s, i) => expect(s.caption.startsWith(`Pass ${i + 1}`)).toBe(true));
     tr.passes.forEach((p, i) => expect((c.lines ?? []).filter((l) => l.id.startsWith(`m${i + 1}-`)).length).toBe(p.moved.length));
     expect(tr.passes.at(-1)!.moved.length).toBe(0);
     expect(c.steps.at(-1)!.caption).toContain('moves no free block');
+    // Every pass that moves blocks highlights blocks of its own, never shown before, each big enough to see.
+    const byId = new Map((c.blocks ?? []).map((b) => [b.id, b]));
+    const seen = new Set<string>(c.steps[0]!.show);
+    for (let i = 0; i < most - 1; i++) {
+      const step = c.steps[i + 1]!;
+      const hot = Object.entries(step.set ?? {}).filter(([, v]) => v === 'hot').map(([id]) => id);
+      expect(hot.length, `pass ${i + 1}`).toBeGreaterThan(0);
+      for (const id of hot) {
+        expect(seen.has(id), `${id} shown before pass ${i + 1}`).toBe(false);
+        expect(step.show).toContain(id);
+        const xs = byId.get(id)!.ring.map((p) => p[0]), ys = byId.get(id)!.ring.map((p) => p[1]);
+        expect(Math.max(Math.max(...xs) - Math.min(...xs), Math.max(...ys) - Math.min(...ys))).toBeGreaterThanOrEqual(3);
+        // A moved block of this pass, by GEOID.
+        expect(tr.passes[i]!.moved.some((b) => t.blocks[b]!.geoid === byId.get(id)!.geoid)).toBe(true);
+      }
+      for (const id of step.show) seen.add(id);
+    }
+    // The last step settles the last close-up: its highlighted blocks take their final side.
+    const prev = c.steps.at(-2)!.set ?? {}, end = c.steps.at(-1)!.set ?? {};
+    expect(Object.keys(prev).filter((id) => prev[id] === 'hot' && (end[id] === 'low' || end[id] === 'high')).length).toBeGreaterThan(0);
   }, SLOW);
 
   it.skipIf(!haveCO)('no-rejoin candidate is unresolved in candidates.json', async () => {
@@ -232,6 +278,9 @@ describe('stage 3 stray-piece cases', () => {
     blockId(c, blocks[islandBlock]!.geoid);
     blockId(c, blocks[mainBlock]!.geoid);
     expect(c.steps.map((s) => s.caption).join(' ')).toContain(`${whole(island.length)} blocks`);
+    // The generator joins each piece to the land already joined, which may be another island.
+    expect(c.steps.at(-1)!.caption).toContain('land already joined');
+    expect(c.steps.map((s) => s.caption).join(' ')).not.toContain('joined the same way');
   }, SLOW);
 
   it('registers the eight cases', () => {

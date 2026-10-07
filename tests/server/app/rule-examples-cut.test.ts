@@ -1,11 +1,12 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import {
-  borderEdges, cutBothWaysCase, cutCases, cutGlobeCase, cutMeasureCase, cutOrderCase, cutTrace, cutWalkStopCase,
+  borderEdges, cutBothWaysCase, cutCases, cutGlobeCase, cutMeasureCase, cutOrderCase, cutTrace, cutWalkStopCase, walkTies,
 } from '../../../src/server/app/rule-examples/cases/cut.js';
 import { createExtractContext, RuleCaseSchema, RuleExamplesSchema, type RuleCase } from '../../../src/server/features/rule-examples/index.js';
 import { selectLow } from '../../../src/server/features/splitline/index.js';
 import { parseRuleExamplesConfig } from '../../../src/server/shared/config/index.js';
+import { DataError } from '../../../src/server/shared/errors/index.js';
 
 // These read the generated plans (out/) and the cached census files (data/raw/); without them they skip.
 const ctx = createExtractContext(parseRuleExamplesConfig([]));
@@ -13,6 +14,12 @@ const land = existsSync('data/raw/cb_2020_us_state_500k.zip');
 const haveCO = existsSync('out/CO/cut-stats.json') && existsSync('out/CO/cuts.geojson') && existsSync('data/raw/tl_2020_08_tabblock20.zip');
 const haveAL = existsSync('out/AL/candidates.json') && existsSync('data/raw/tl_2020_01_tabblock20.zip');
 const SLOW = 240_000;
+/** Largest distance of any point from the line through the first and last, in panel units. */
+const bow = (pts: readonly (readonly [number, number])[]): number => {
+  const a = pts[0]!, b = pts.at(-1)!;
+  const dx = b[0] - a[0], dy = b[1] - a[1], d = Math.sqrt(dx * dx + dy * dy);
+  return Math.max(...pts.map((p) => Math.abs(dx * (a[1] - p[1]) - (a[0] - p[0]) * dy) / d));
+};
 
 const whole = (n: number): string => n.toLocaleString('en-US');
 const label = (c: RuleCase, id: string): string => {
@@ -100,6 +107,7 @@ describe('stage 2 block-window cases', () => {
     expect(sums.length).toBeGreaterThanOrEqual(2);
     for (let i = 1; i < sums.length; i++) expect(sums[i]!).toBeGreaterThanOrEqual(sums[i - 1]!);
     expect(sums.at(-1)!).toBeLessThanOrEqual(Math.round(tr.lengthM));
+    expect(c.steps.at(-1)!.caption).toContain('Water inside the state counts as part of the state');
   }, SLOW);
 
   it.skipIf(!(haveAL && land))('cut.both-ways shows two lengths that match candidates.json for AL cut 1 and keeps the shorter', async () => {
@@ -119,18 +127,28 @@ describe('stage 2 block-window cases', () => {
     expect(last.caption).toContain(`${shorter} seats`);
   }, SLOW);
 
-  it.skipIf(!(haveCO && land))('cut.globe tween ends with the line straight', async () => {
+  it.skipIf(!(haveCO && land))('cut.globe starts visibly bowed and ends with the line straight', async () => {
     const c = await cutGlobeCase(ctx);
     shape(c);
     const start = c.lines!.find((l) => l.id === 'cut')!.pts;
     const end = lastTween(c, 'cut')!;
     expect(end.length).toBe(start.length);
-    const [a, b] = [end[0]!, end.at(-1)!];
-    const dx = b[0] - a[0], dy = b[1] - a[1], d = Math.sqrt(dx * dx + dy * dy);
-    for (const p of end) expect(Math.abs(dx * (a[1] - p[1]) - (a[0] - p[0]) * dy) / d).toBeLessThanOrEqual(0.5);
+    // The plain grid must show a real bend (not a no-op tween), and the projection must remove it.
+    expect(bow(start)).toBeGreaterThanOrEqual(8);
+    expect(bow(end)).toBeLessThanOrEqual(0.5);
     const outline = c.lines!.find((l) => l.id === 'outline')!;
     expect(outline.pts.length).toBeLessThan(150);
     expect(lastTween(c, 'outline')!.length).toBe(outline.pts.length);
+  }, SLOW);
+
+  it.skipIf(!haveCO)('the copied walk key agrees with the generator and fails loudly when it does not', async () => {
+    const t = await cutTrace(ctx, 'CO', 3);
+    const order = t.traces[0]!.order;
+    expect(walkTies(t, order)).toBe(0);
+    const shuffled = Int32Array.from(order);
+    [shuffled[100], shuffled[5000]] = [shuffled[5000]!, shuffled[100]!];
+    expect(() => walkTies(t, shuffled)).toThrow(DataError);
+    expect(() => walkTies(t, Int32Array.from(order).reverse())).toThrow(DataError);
   }, SLOW);
 
   it('registers the five cases', () => {

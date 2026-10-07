@@ -5,7 +5,7 @@ import { LAND_FILE, readBoundaryZip, StateRecord } from '../../../features/publi
 import { simplifyRing } from '../../../features/rule-examples/index.js';
 import { asin, atan2, cos, sin } from '../../../shared/detmath/index.js';
 import { DataError } from '../../../shared/errors/index.js';
-import type { LonLat } from '../../../shared/geo/index.js';
+import { EARTH_RADIUS_M, type LonLat } from '../../../shared/geo/index.js';
 
 /** A point in panel units. */
 export type P = [number, number];
@@ -74,6 +74,35 @@ export function greatCircle(a: LonLat, b: LonLat, n: number): LonLat[] {
     out.push([atan2(y, x) / RAD, asin(z / len) / RAD]);
   }
   return out;
+}
+
+/**
+ * 2n + 1 points on the great circle through a and b, evenly spaced and centered on their midpoint, reaching
+ * `halfM` meters along the surface each way.
+ */
+export function alongGreatCircle(a: LonLat, b: LonLat, halfM: number, n: number): LonLat[] {
+  const va = toVec(a), vb = toVec(b);
+  const unit = (v: number[]): number[] => { const l = Math.sqrt(v[0]! * v[0]! + v[1]! * v[1]! + v[2]! * v[2]!); return v.map((x) => x / l); };
+  const m = unit([va[0] + vb[0], va[1] + vb[1], va[2] + vb[2]]);
+  const d = [vb[0] - va[0], vb[1] - va[1], vb[2] - va[2]];
+  const dm = d[0]! * m[0]! + d[1]! * m[1]! + d[2]! * m[2]!;
+  const t = unit(d.map((x, i) => x - dm * m[i]!));
+  const out: LonLat[] = [];
+  for (let i = -n; i <= n; i++) {
+    const q = (halfM / EARTH_RADIUS_M) * (i / n), c = cos(q), s = sin(q);
+    const p = m.map((x, j) => c * x + s * t[j]!);
+    out.push([atan2(p[1]!, p[0]!) / RAD, asin(p[2]!) / RAD]);
+  }
+  return out;
+}
+
+/** Largest distance of any point from the straight line through the first and last point, in the points' units. */
+export function bowOf(pts: readonly (readonly [number, number])[]): number {
+  const a = pts[0]!, b = pts[pts.length - 1]!;
+  const dx = b[0] - a[0], dy = b[1] - a[1], len = Math.sqrt(dx * dx + dy * dy);
+  let worst = 0;
+  for (const p of pts) worst = Math.max(worst, Math.abs(dx * (a[1] - p[1]) - (a[0] - p[0]) * dy) / len);
+  return worst;
 }
 
 const Position = z.tuple([z.number(), z.number()]).rest(z.number());

@@ -1,15 +1,12 @@
-import { readFile } from 'node:fs/promises';
-import { join } from 'node:path';
 import { forEachEdge, type Block, type BlockPolygons } from '../../../entities/census-block/index.js';
-import { CutLinesSchema } from '../../../entities/plan-output/index.js';
 import { projectWindow, type CaseBuilder, type ExtractContext, type RuleCase } from '../../../features/rule-examples/index.js';
 import { selectLow, type CandidateTrace } from '../../../features/splitline/index.js';
 import { stateByAbbr } from '../../../shared/apportionment/index.js';
 import { cos, sin } from '../../../shared/detmath/index.js';
 import { DataError } from '../../../shared/errors/index.js';
-import { greatCircleDistance, type LonLat } from '../../../shared/geo/index.js';
-import { clip, densify, dot, fit, foot, greatCircle, people, round1, stateOutline, whole, type P } from './panel.js';
-import { cutTrace, splitContextOf, type CutTrace } from './trace.js';
+import { EARTH_RADIUS_M, greatCircleDistance, type LonLat } from '../../../shared/geo/index.js';
+import { alongGreatCircle, bowOf, clip, densify, dot, fit, foot, greatCircle, people, round1, stateOutline, whole, type P } from './panel.js';
+import { cutTrace, type CutTrace } from './trace.js';
 
 export { cutTrace } from './trace.js';
 export type { CutTrace } from './trace.js';
@@ -101,6 +98,26 @@ async function orderWindow(ctx: ExtractContext) {
   return { t, tr, rank, walk, near };
 }
 
+/**
+ * Counts the places in a walk order where two blocks have exactly the same key, using the generator's walk key
+ * for the cut's direction (as features/splitline/scan.ts computes it). Throws if the order is not sorted by that key
+ * with block index breaking ties, so this copy of the formula cannot drift from the generator unnoticed.
+ */
+export function walkTies(t: CutTrace, order: Int32Array): number {
+  const th = (t.k * 180 * (Math.PI / 180)) / t.split.angleCount;
+  const nx = cos(th), ny = -sin(th);
+  const key = (b: number) => t.split.px[b]! * nx + t.split.py[b]! * ny;
+  let ties = 0;
+  for (let i = 1; i < order.length; i++) {
+    const a = order[i - 1]!, b = order[i]!, ka = key(a), kb = key(b);
+    if (ka > kb || (ka === kb && a > b)) {
+      throw new DataError(`${t.abbr} cut ${t.cut.order}: walk key is out of order at place ${i + 1}; the key formula no longer matches the generator`);
+    }
+    if (ka === kb) ties++;
+  }
+  return ties;
+}
+
 /** cut.order: blocks are ordered by how far their internal points sit across the line, GEOID breaking ties. */
 export async function cutOrderCase(ctx: ExtractContext): Promise<RuleCase> {
   const { t, tr, rank, walk, near } = await orderWindow(ctx);
@@ -125,12 +142,7 @@ export async function cutOrderCase(ctx: ExtractContext): Promise<RuleCase> {
   const sides = Object.fromEntries(panel.ids.map((b, i) => [`b${i}`, lowWalk.has(b) ? 'low' : 'high']));
   const nLow = panel.ids.filter((b) => lowWalk.has(b)).length;
 
-  // Ties: the generator's own key for this direction, compared along the walk.
-  const th = (t.k * 180 * (Math.PI / 180)) / t.split.angleCount;
-  const nx = cos(th), ny = -sin(th);
-  const key = (b: number) => t.split.px[b]! * nx + t.split.py[b]! * ny;
-  let ties = 0;
-  for (let i = 1; i < tr.order.length; i++) if (key(tr.order[i]!) === key(tr.order[i - 1]!)) ties++;
+  const ties = walkTies(t, tr.order);
   const m = tr.order.length;
   const rs = panel.ids.map((b) => rank[b]!);
 
@@ -254,7 +266,7 @@ export async function cutMeasureCase(ctx: ExtractContext): Promise<RuleCase> {
         show: [...B, ...upTo(g), `sum${g + 1}`],
       })),
       {
-        caption: `Along the whole line, ${whole(edges.length)} such edges add up to ${whole(lenTotal)} m. That is the length of cut ${t.cut.order}'s border.`,
+        caption: `Along the whole line, ${whole(edges.length)} such edges add up to ${whole(lenTotal)} m. That is the length of cut ${t.cut.order}'s border. Water inside the state counts as part of the state, so a bay or lake would not shorten this border.`,
         show: [...B, ...upTo(groups.length - 1), 'total'],
       },
     ],
@@ -428,70 +440,79 @@ export async function cutBothWaysCase(ctx: ExtractContext): Promise<RuleCase> {
   };
 }
 
-/** cut.globe: a straight line is a great circle, straight in the gnomonic projection the generator uses. */
-export async function cutGlobeCase(ctx: ExtractContext): Promise<RuleCase> {
-  const abbr = 'CO';
-  const path = join(ctx.cfg.outDir, abbr, 'cuts.geojson');
-  let raw: unknown;
-  try {
-    raw = JSON.parse((await readFile(path, 'utf8')).replace(/^﻿/, ''));
-  } catch {
-    throw new DataError(`cannot read ${path}`);
-  }
-  const parsed = CutLinesSchema.safeParse(raw);
-  if (!parsed.success) throw new DataError(`${path}: not a cut-lines file`);
-  const feature = parsed.data.features.find((f) => f.properties.order === 1);
-  if (!feature) throw new DataError(`${path}: no cut 1`);
-  let span = feature.geometry.coordinates[0]!;
-  for (const s of feature.geometry.coordinates) if (greatCircleDistance(s[0]!, s.at(-1)!) > greatCircleDistance(span[0]!, span.at(-1)!)) span = s;
-  const [from, to] = [span[0]!, span.at(-1)!];
-  const out = await ctx.state(abbr);
-  const cut = out.cutStats.cuts.find((c) => c.order === 1)!;
-  const split = await splitContextOf(ctx, abbr);
+/** How far cut.globe follows the guide line's great circle past the state, each way. */
+const GLOBE_REACH_M = 2_500_000;
 
-  const ring = densify(await stateOutline(ctx.cfg.rawDir, abbr, 40), 0.25);
-  if (ring.length >= 150) throw new DataError(`${abbr}: outline has ${ring.length} points, over 150`);
-  const line = greatCircle(from, to, 16);
-  // How far the great circle strays from the straight path between its ends on a plain lon/lat grid.
-  const chord = Array.from({ length: 401 }, (_, i): LonLat => [from[0] + ((to[0] - from[0]) * i) / 400, from[1] + ((to[1] - from[1]) * i) / 400]);
-  let bow = 0;
-  for (const p of line) bow = Math.max(bow, Math.min(...chord.map((q) => greatCircleDistance(p, q))));
+/**
+ * cut.globe: a straight line is a great circle. Cut 3's guide line, continued along its great circle well past the
+ * state, bows on a plain longitude and latitude grid and is exactly straight in the generator's gnomonic projection.
+ */
+export async function cutGlobeCase(ctx: ExtractContext): Promise<RuleCase> {
+  const t = await cutTrace(ctx, 'CO', CO_CUT);
+  const tr = t.traces[0]!;
+  let span = tr.passes.at(-1)!.spans[0]!;
+  for (const s of tr.passes.at(-1)!.spans) if (greatCircleDistance(s[0], s[1]) > greatCircleDistance(span[0], span[1])) span = s;
+  const line = alongGreatCircle(span[0], span[1], GLOBE_REACH_M, 20);
+
+  const ring = densify(await stateOutline(ctx.cfg.rawDir, t.abbr, 40), 0.25);
+  if (ring.length >= 150) throw new DataError(`${t.abbr}: outline has ${ring.length} points, over 150`);
+  let lon0 = 0, lat0 = 0;
+  {
+    let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity;
+    for (const [x, y] of ring) { x0 = Math.min(x0, x); x1 = Math.max(x1, x); y0 = Math.min(y0, y); y1 = Math.max(y1, y); }
+    lon0 = Math.round((x0 + x1) / 2); lat0 = Math.round((y0 + y1) / 2);
+  }
+  const lons = line.map((p) => p[0]), lats = line.map((p) => p[1]);
+  const lonA = Math.floor(Math.min(...lons)), lonB = Math.ceil(Math.max(...lons));
+  const latA = Math.floor(Math.min(...lats)) - 2, latB = Math.ceil(Math.max(...lats)) + 2;
+  const parallel = Array.from({ length: 41 }, (_, i): LonLat => [lonA + ((lonB - lonA) * i) / 40, lat0]);
+  const meridian = Array.from({ length: 21 }, (_, i): LonLat => [lon0, latA + ((latB - latA) * i) / 20]);
+
+  // Plain grid: longitude scaled by cos(lat0) so it is not stretched; one unit is a degree of latitude.
+  const k = cos(lat0 * (Math.PI / 180));
+  const plain = (p: LonLat): P => [p[0] * k, p[1]];
+  const flat = (p: LonLat): P => { const [x, y] = t.split.proj.forward(p); return [x, y]; };
+  const bowKm = (bowOf(line.map(plain)) * (Math.PI / 180) * EARTH_RADIUS_M) / 1000;
 
   const H = 210, MAP_H = 188, PAD = 12;
-  const plain = (p: LonLat): P => [p[0], p[1]];
-  const flat = (p: LonLat): P => { const [x, y] = split.proj.forward(p); return [x, y]; };
-  const fPlain = fit([...ring, ...line].map(plain), W, MAP_H, PAD);
-  const fFlat = fit([...ring, ...line].map(flat), W, MAP_H, PAD);
+  const all = [...ring, ...line, ...parallel, ...meridian];
+  const fPlain = fit(all.map(plain), W, MAP_H, PAD);
+  const fFlat = fit(all.map(flat), W, MAP_H, PAD);
   const draw = (pts: readonly LonLat[], f: (p: P) => P, g: (p: LonLat) => P): P[] => pts.map((p) => round1(f(g(p))));
-  const name = nameOf(abbr);
+  const shapes: [string, readonly LonLat[], string][] = [
+    ['parallel', parallel, 'axis'], ['meridian', meridian, 'axis'], ['outline', ring, 'outline'], ['cut', line, 'cut'],
+  ];
+  const name = nameOf(t.abbr);
+  const grid = ['parallel', 'meridian', 'outline'];
   return {
     id: 'cut.globe',
-    state: abbr,
+    state: t.abbr,
     stateName: name,
-    source: { cut: 1, angleDeg: cut.angleDeg },
-    link: { state: abbr, cut: 1 },
+    source: { cut: t.cut.order, angleDeg: t.cut.angleDeg },
+    link: { state: t.abbr, cut: t.cut.order },
     view: { w: W, h: H },
-    lines: [
-      { id: 'outline', pts: draw(ring, fPlain, plain), tag: 'outline' },
-      { id: 'cut', pts: draw(line, fPlain, plain), tag: 'cut' },
-    ],
+    lines: shapes.map(([id, pts, tag]) => ({ id, pts: draw(pts, fPlain, plain), tag })),
     labels: [
       { id: 'grid', x: W / 2, y: H - 4, text: 'longitude and latitude' },
       { id: 'flat', x: W / 2, y: H - 4, text: `projection centered on ${name}` },
     ],
     steps: [
       {
-        caption: `Cut 1 in ${name}, drawn on a plain grid of longitude and latitude. On this grid the line is not quite straight: it bows up to ${(bow / 1000).toFixed(1)} km off the straight path between its ends.`,
-        show: ['outline', 'cut', 'grid'],
+        caption: `${name}, small in the middle, on a plain grid of longitude and latitude, with the parallel at ${lat0}° north and the meridian at ${-lon0}° west running through it.`,
+        show: [...grid, 'grid'],
       },
       {
-        caption: `The generator measures directions in a flat projection centered on the state. In it every great circle, the path a plane through the Earth's center traces on the surface, is a straight line.`,
-        show: ['outline', 'cut', 'flat'],
-        tween: [{ id: 'outline', to: draw(ring, fFlat, flat) }, { id: 'cut', to: draw(line, fFlat, flat) }],
+        caption: `This is cut ${t.cut.order}'s guide line, continued past the state along its great circle for ${whole(GLOBE_REACH_M / 1000)} km each way. On this grid it bows: its middle sits ${whole(Math.round(bowKm))} km off the straight path between its ends.`,
+        show: [...grid, 'cut', 'grid'],
       },
       {
-        caption: `Here cut 1 is exactly straight. The state's north and south borders follow lines of latitude, which are not great circles, so in this view they curve.`,
-        show: ['outline', 'cut', 'flat'],
+        caption: 'The generator measures directions in a flat projection centered on the state. In it every great circle, the path a plane through the Earth\'s center traces on the surface, is a straight line.',
+        show: [...grid, 'cut', 'flat'],
+        tween: shapes.map(([id, pts]) => ({ id, to: draw(pts, fFlat, flat) })),
+      },
+      {
+        caption: 'Here the guide line is exactly straight, and so is the meridian, which is also a great circle. The parallel is not a great circle, so it curves.',
+        show: [...grid, 'cut', 'flat'],
       },
     ],
   };

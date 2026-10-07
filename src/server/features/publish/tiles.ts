@@ -11,10 +11,10 @@ import { DataError } from '../../shared/errors/index.js';
 import { writePmtiles } from './pmtiles.js';
 
 /** First and last zoom of the detail tiles. The map draws them only when zoomed in. */
-export const TILE_MINZOOM = 6;
-export const TILE_MAXZOOM = 14;
-/** Tile extent at TILE_MAXZOOM: 16384 units over a ~2.4 km tile is under 0.2 m, finer than a census block corner. */
-export const DEEP_EXTENT = 16384;
+export const TILE_MINZOOM = 7;
+export const TILE_MAXZOOM = 13;
+/** Tile extent at TILE_MAXZOOM: 8192 units over a ~4.9 km tile is about 0.45 m at 40N. */
+export const DEEP_EXTENT = 8192;
 const COARSE_EXTENT = 4096;
 const MVT_VERSION = 2;
 
@@ -23,7 +23,7 @@ type Layers = Readonly<Record<string, readonly Feature[]>>;
 /** Zooms below TILE_MAXZOOM: ordinary simplification, extent 4096. */
 const coarseOptions = (): Options => ({ maxZoom: TILE_MAXZOOM - 1, extent: COARSE_EXTENT });
 /** TILE_MAXZOOM: tolerance 0 keeps every vertex. Point sampling uses the same options so it projects identically. */
-const deepOptions = (): Options => ({ maxZoom: TILE_MAXZOOM, indexMaxZoom: TILE_MAXZOOM, extent: DEEP_EXTENT, buffer: 256, tolerance: 0 });
+const deepOptions = (): Options => ({ maxZoom: TILE_MAXZOOM, indexMaxZoom: TILE_MAXZOOM, extent: DEEP_EXTENT, buffer: 128, tolerance: 0 });
 
 const collection = (features: readonly Feature[]): FeatureCollection => ({ type: 'FeatureCollection', features: [...features] });
 

@@ -24,6 +24,7 @@ class BufferSource implements Source {
   }
 }
 
+const COARSE = 4096;
 const SPLIT = -104.9;
 const M_LON = 1 / 85_500; // one metre of longitude at Denver, in degrees
 const M_LAT = 1 / 111_200;
@@ -53,15 +54,16 @@ const layers = { finished: [d1, d2], before: [d1, d2], 'finished-arcs': [arc], '
 
 const bytes = buildDetailTiles(layers);
 
-async function arcVertices(z: number, x: number, y: number): Promise<number> {
+async function arcPoints(z: number, x: number, y: number, extent: number): Promise<string[]> {
   const got = await new PMTiles(new BufferSource(bytes)).getZxy(z, x, y);
-  if (!got) return 0;
+  if (!got) return [];
   const layer = new VectorTile(new PbfReader(new Uint8Array(got.data))).layers['finished-arcs'];
-  if (!layer) return 0;
-  let n = 0;
-  for (let i = 0; i < layer.length; i++) for (const ring of layer.feature(i).loadGeometry()) n += ring.length;
-  return n;
+  if (!layer) return [];
+  const out: string[] = [];
+  for (let i = 0; i < layer.length; i++) for (const ring of layer.feature(i).loadGeometry()) for (const p of ring) out.push(`${x * extent + p.x},${y * extent + p.y}`);
+  return out;
 }
+const arcVertices = async (z: number, x: number, y: number): Promise<number> => (await arcPoints(z, x, y, COARSE)).length;
 
 describe('buildDetailTiles', () => {
   it('declares zoom range, extent and every layer with its fields', async () => {
@@ -86,11 +88,17 @@ describe('buildDetailTiles', () => {
       const r = (lat * Math.PI) / 180;
       return Math.floor(((1 - Math.log(Math.tan(r) + 1 / Math.cos(r)) / Math.PI) / 2) * n);
     };
-    let deepTotal = 0;
+    const distinct = new Set<string>();
     for (let x = tileX(SPLIT) - 1; x <= tileX(SPLIT) + 1; x++) for (let y = tileY(39.9) - 1; y <= tileY(39.5) + 1; y++) {
-      if (await reader.getZxy(TILE_MAXZOOM, x, y)) deepTotal += await arcVertices(TILE_MAXZOOM, x, y);
+      if (await reader.getZxy(TILE_MAXZOOM, x, y)) for (const k of await arcPoints(TILE_MAXZOOM, x, y, DEEP_EXTENT)) distinct.add(k);
     }
-    expect(deepTotal).toBeGreaterThanOrEqual(JAG);
+    // Buffer copies in neighbouring tiles dedupe to one global point each, so the jag keeps exactly its own vertices.
+    const latOf = (key: string): number => {
+      const gy = Number(key.split(',')[1]);
+      return (Math.atan(Math.sinh(Math.PI * (1 - (2 * gy) / (n * DEEP_EXTENT)))) * 180) / Math.PI;
+    };
+    const inJag = [...distinct].filter((k) => latOf(k) > LAT0 + M_LAT && latOf(k) < LAT0 + (JAG * 2 + 1) * M_LAT);
+    expect(inJag.length).toBe(JAG);
     const m = 1 << TILE_MINZOOM;
     let coarse = Infinity;
     for (let x = 0; x < m; x++) for (let y = 0; y < m; y++) {

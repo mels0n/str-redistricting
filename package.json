@@ -19,6 +19,7 @@
     "publish-data": "node --max-old-space-size=8192 --import tsx src/server/app/publish.ts"
   },
   "devDependencies": {
+    "@maplibre/maplibre-gl-style-spec": "^26.4.4",
     "@types/adm-zip": "^0.5.8",
     "@types/d3-geo": "^3.1.1",
     "@types/geojson": "^7946.0.16",

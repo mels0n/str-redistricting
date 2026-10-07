@@ -1,0 +1,113 @@
+import { describe, expect, it, vi } from 'vitest';
+import { createExpression, featureFilter, validateStyleMin } from '@maplibre/maplibre-gl-style-spec';
+import {
+  DETAIL_ZOOM,
+  DETAIL_SOURCE,
+  fadeIn,
+  fadeOut,
+  bordersFilter,
+  outlineFilter,
+  selectedFilter,
+  detailUrl,
+  detailLayerSpecs,
+  fadedPaint,
+  setDistrictState,
+  dropDetail,
+} from '../../src/client/widgets/district-map/detail';
+
+const keeps = (filter: Parameters<typeof featureFilter>[0], a: number, b: number): boolean =>
+  featureFilter(filter, 'layers[0].filter').filter({ zoom: 0 } as never, { type: 2, properties: { a, b } } as never);
+
+describe('detail filters', () => {
+  it('keeps every interior arc when no piece colouring applies', () => {
+    const f = bordersFilter(null);
+    expect(keeps(f, 1, 2)).toBe(true);
+    expect(keeps(f, 3, 7)).toBe(true);
+    expect(keeps(f, 2, 0)).toBe(false);
+  });
+  it('keeps only arcs between different pieces in cut mode', () => {
+    const f = bordersFilter([0, 0, 1]);
+    expect(keeps(f, 1, 2)).toBe(false);
+    expect(keeps(f, 2, 3)).toBe(true);
+    expect(keeps(f, 1, 3)).toBe(true);
+    expect(keeps(f, 3, 0)).toBe(false);
+  });
+  it('outline keeps only the state edge', () => {
+    const f = outlineFilter();
+    expect(keeps(f, 2, 0)).toBe(true);
+    expect(keeps(f, 1, 2)).toBe(false);
+  });
+  it('selected keeps arcs touching the district and none for null', () => {
+    expect(keeps(selectedFilter(3), 3, 5)).toBe(true);
+    expect(keeps(selectedFilter(3), 1, 3)).toBe(true);
+    expect(keeps(selectedFilter(3), 3, 0)).toBe(true);
+    expect(keeps(selectedFilter(3), 1, 2)).toBe(false);
+    expect(keeps(selectedFilter(null), 1, 2)).toBe(false);
+    expect(keeps(selectedFilter(null), 1, 0)).toBe(false);
+  });
+});
+
+describe('detail fade', () => {
+  it('fades start inside the tileset zoom range', () => {
+    expect(DETAIL_ZOOM - 0.5).toBeGreaterThanOrEqual(7);
+  });
+  it('multiplies the zoom fade into the existing expression', () => {
+    const at = (e: unknown, zoom: number, hover: boolean): number => {
+      const r = createExpression(e as never, 'layers[0].paint.fill-opacity', { type: 'number', 'property-type': 'data-driven', expression: { interpolated: true, parameters: ['zoom', 'feature'] } } as never);
+      if (r.result !== 'success') throw new Error(JSON.stringify(r.value));
+      return r.value.evaluate({ zoom }, { type: 3, properties: {} } as never, { hover }) as number;
+    };
+    const base = ['case', ['boolean', ['feature-state', 'hover'], false], 0.82, 1];
+    expect(at(fadeOut(base as never), DETAIL_ZOOM - 1, true)).toBeCloseTo(0.82);
+    expect(at(fadeOut(base as never), DETAIL_ZOOM + 1, true)).toBeCloseTo(0);
+    expect(at(fadeIn(base as never), DETAIL_ZOOM - 1, false)).toBeCloseTo(0);
+    expect(at(fadeIn(base as never), DETAIL_ZOOM + 1, false)).toBeCloseTo(1);
+    expect(at(fadeIn(1), DETAIL_ZOOM - 0.25, false)).toBeCloseTo(0.5);
+  });
+});
+
+describe('detail layers', () => {
+  const style = (layers: unknown[]): unknown => ({
+    version: 8,
+    sources: { [DETAIL_SOURCE]: { type: 'vector', url: 'pmtiles://x' }, water: { type: 'geojson', data: { type: 'FeatureCollection', features: [] } } },
+    layers,
+  });
+  it('every twin layer and every faded counterpart validates', () => {
+    const specs = detailLayerSpecs().map((s) => s.layer);
+    expect(specs.length).toBeGreaterThan(8);
+    const faded = fadedPaint().map((p) => ({ id: p.id, type: p.prop.startsWith('fill') ? 'fill' : 'line', source: 'water', paint: { [p.prop]: p.faded } }));
+    const errs = validateStyleMin(style([...specs, ...faded]) as never);
+    expect(errs.map((e) => e.message)).toEqual([]);
+  });
+  it('twins start at the fade and sit after their counterparts', () => {
+    for (const { layer, after } of detailLayerSpecs()) {
+      expect(layer.minzoom).toBe(DETAIL_ZOOM - 0.5);
+      expect(layer.id.endsWith('-detail')).toBe(true);
+      expect(after).toBeTruthy();
+    }
+  });
+  it('detailUrl points at the published pmtiles through the data root', () => {
+    expect(detailUrl('CA')).toMatch(/^pmtiles:\/\/.*CA\/detail\.pmtiles$/);
+  });
+});
+
+describe('detail state and fallback', () => {
+  it('writes feature state to both sources', () => {
+    const setFeatureState = vi.fn();
+    setDistrictState({ setFeatureState } as never, 'before', 4, { dim: true });
+    expect(setFeatureState).toHaveBeenCalledWith({ source: 'before', id: 4 }, { dim: true });
+    expect(setFeatureState).toHaveBeenCalledWith({ source: DETAIL_SOURCE, sourceLayer: 'before', id: 4 }, { dim: true });
+  });
+  it('dropping detail hides twins and restores unfaded opacity', () => {
+    const setLayoutProperty = vi.fn();
+    const setPaintProperty = vi.fn();
+    dropDetail({ setLayoutProperty, setPaintProperty } as never);
+    const hidden = setLayoutProperty.mock.calls.map((c) => c[0] as string);
+    expect(hidden).toContain('fill-finished-detail');
+    expect(hidden).toContain('water-veil-detail');
+    expect(hidden.every((id) => id.endsWith('-detail'))).toBe(true);
+    const restored = setPaintProperty.mock.calls.map((c) => c[0] as string);
+    expect(restored).toContain('fill-finished');
+    expect(restored).toContain('borders');
+  });
+});

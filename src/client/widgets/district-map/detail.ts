@@ -1,4 +1,4 @@
-import { addProtocol, type ExpressionSpecification, type FilterSpecification, type LayerSpecification, type Map as MlMap } from 'maplibre-gl';
+import { addProtocol, type ExpressionSpecification, type VectorSourceSpecification, type FilterSpecification, type LayerSpecification, type Map as MlMap } from 'maplibre-gl';
 import { Protocol } from 'pmtiles';
 import { tokens, dataUrl, WATER_VEIL } from '../../shared';
 import type { Plan } from '../../shared';
@@ -63,6 +63,21 @@ export function selectedFilter(district: number | null): FilterSpecification {
 
 export function detailUrl(abbr: string): string {
   return `pmtiles://${dataUrl(`${abbr}/detail.pmtiles`)}`;
+}
+
+/**
+ * The detail source as a tile template, not a tileset URL. A URL makes MapLibre take the file's bounds, and it clamps
+ * them to the real world, which drops Alaska's tiles west of -180 (the Aleutians, drawn on the far world copy).
+ * The zoom range is the tileset's own (7 to 13).
+ */
+export function detailSource(abbr: string): VectorSourceSpecification {
+  return {
+    type: 'vector',
+    tiles: [`${detailUrl(abbr)}/{z}/{x}/{y}`],
+    minzoom: 7,
+    maxzoom: 13,
+    promoteId: { finished: 'district', before: 'district' },
+  };
 }
 
 let registered = false;

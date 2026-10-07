@@ -39,7 +39,7 @@ import {
   BORDER_WIDTH,
   OUTLINE_WIDTH,
   detailLayerSpecs,
-  detailUrl,
+  detailSource,
   fadedPaint,
   registerPmtiles,
   setDistrictState,
@@ -451,11 +451,7 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
       });
     }
     registerPmtiles();
-    map.addSource(DETAIL_SOURCE, {
-      type: 'vector',
-      url: detailUrl(bundle.abbr),
-      promoteId: { finished: 'district', before: 'district' },
-    });
+    map.addSource(DETAIL_SOURCE, detailSource(bundle.abbr));
     map.addSource('water', { type: 'geojson', data: bundle.water ?? { type: 'FeatureCollection', features: [] } });
     map.addSource('borders', { type: 'geojson', data: asFeature(EMPTY_LINES) });
     map.addSource('outline', { type: 'geojson', data: asFeature(bundle.finished.outline) });

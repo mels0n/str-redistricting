@@ -9,6 +9,7 @@ import {
   outlineFilter,
   selectedFilter,
   detailUrl,
+  detailSource,
   detailLayerSpecs,
   fadedPaint,
   setDistrictState,
@@ -88,6 +89,16 @@ describe('detail layers', () => {
   });
   it('detailUrl points at the published pmtiles through the data root', () => {
     expect(detailUrl('CA')).toMatch(/^pmtiles:\/\/.*CA\/detail\.pmtiles$/);
+  });
+});
+
+describe('detailSource', () => {
+  it('is a tile template with the tileset zoom range and no bounds, so western Aleutian tiles load', () => {
+    const src = detailSource('AK');
+    expect(src.url).toBeUndefined();
+    expect(src.bounds).toBeUndefined();
+    expect(src.tiles).toEqual([`${detailUrl('AK')}/{z}/{x}/{y}`]);
+    expect([src.minzoom, src.maxzoom]).toEqual([7, 13]);
   });
 });
 

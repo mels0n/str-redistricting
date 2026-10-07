@@ -3630,6 +3630,115 @@ html:has(> body > #str-viewer) {
   margin-bottom: 0;
 }
 
+/* Animated panels under the exact-rule bullets: a drawing, step controls, the step's caption, a link to the real map. */
+.strv-rule-slot {
+  max-width: 26rem;
+}
+
+.strv-rule-slot:empty {
+  display: none;
+}
+
+.strv-rule-slot,
+.strv-rule-demo__status {
+  margin-top: var(--s-2);
+}
+
+.strv-rule-demo__status {
+  font-size: 0.875rem;
+  color: var(--ink-2);
+}
+
+.strv .strv-rule-demo {
+  margin: 0;
+  padding: var(--s-3);
+  background: var(--paper);
+  border: 1px solid var(--hairline);
+  border-radius: 2px;
+}
+
+.strv-rule-demo__svg {
+  max-width: 100%;
+}
+
+.strv-rule-demo__off {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.strv-rule-demo__svg [data-id] {
+  transition: opacity 240ms ease-out;
+}
+
+.strv-rule-demo__line {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 2;
+}
+
+.strv-rule-demo__label[data-tag] {
+  font-weight: 700;
+  fill: var(--signal-ink);
+}
+
+.strv-rule-demo__svg [data-state='hot'] {
+  fill: var(--signal-tint);
+  stroke-width: 2;
+}
+
+.strv-rule-demo__svg [data-side='0'] { fill: var(--d-sand); }
+.strv-rule-demo__svg [data-side='1'] { fill: var(--d-sage); }
+.strv-rule-demo__svg [data-district='1'] { fill: var(--d-sand); }
+.strv-rule-demo__svg [data-district='2'] { fill: var(--d-sage); }
+.strv-rule-demo__svg [data-district='3'] { fill: var(--d-heather); }
+.strv-rule-demo__svg [data-district='4'] { fill: var(--d-verdigris); }
+.strv-rule-demo__svg [data-district='5'] { fill: var(--d-umber); }
+.strv-rule-demo__svg [data-district='6'] { fill: var(--d-rose-stone); }
+.strv-rule-demo__svg [data-district='7'] { fill: var(--d-olive); }
+.strv-rule-demo__svg [data-district='8'] { fill: var(--d-slate); }
+
+.strv-rule-demo__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-2);
+  margin-top: var(--s-2);
+}
+
+.strv-rule-demo__btn {
+  min-height: 2.75rem;
+  min-width: 2.75rem;
+}
+
+.strv-rule-demo__count {
+  margin-left: auto;
+  font-size: 0.8125rem;
+  color: var(--ink-2);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.strv-rule-demo__caption {
+  margin: var(--s-2) 0 0;
+  min-height: 4rem;
+  font-size: 0.875rem;
+  line-height: 1.45;
+  color: var(--ink);
+}
+
+.strv-rule-demo__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .strv-rule-demo__svg [data-id] {
+    transition: none;
+  }
+}
+
 .strv-how__code {
   font-family: var(--mono);
   font-size: 0.875em;

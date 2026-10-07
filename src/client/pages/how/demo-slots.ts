@@ -1,0 +1,102 @@
+import { clear, describeError, h } from '../../shared';
+import { loadRuleExamples } from '../../entities/rule-example';
+import { createRuleDemo, type RuleDemo } from '../../widgets/rule-demo';
+
+/** An empty place for one case's panel; filled when its "The exact rule" expander is first opened. */
+export function ruleSlot(caseId: string): HTMLElement {
+  return h('div', { class: 'strv-rule-slot', 'data-case': caseId });
+}
+
+interface Entry {
+  demo: RuleDemo;
+  seen: boolean;
+  /** Whether it was last told to play, so a panel that has finished is not restarted by every scroll. */
+  running: boolean;
+}
+
+interface Wired {
+  destroy(): void;
+}
+const wired = new WeakMap<HTMLDetailsElement, Wired>();
+
+/**
+ * Fills an expander's slots the first time it opens, from the one shared fetch of the examples file, and
+ * plays the panels only while the expander is open and the panel is on screen.
+ */
+export function wireExact(details: HTMLDetailsElement): void {
+  const demos: Entry[] = [];
+  const status = h('p', { class: 'strv-rule-demo__status', role: 'status' });
+  // Opening starts the load once; after a failure only the Try again button asks again.
+  let started = false;
+  let alive = true;
+  let observer: IntersectionObserver | null = null;
+
+  const settle = (): void => {
+    for (const d of demos) {
+      const want = details.open && d.seen;
+      if (want === d.running) continue;
+      d.running = want;
+      if (want) d.demo.play();
+      else d.demo.pause();
+    }
+  };
+
+  async function fill(): Promise<void> {
+    const slots = [...details.querySelectorAll<HTMLElement>('[data-case]')];
+    if (!slots.length) return;
+    started = true;
+    clear(status);
+    status.append('Loading the animated examples…');
+    slots[0]!.before(status);
+    try {
+      const cases = await loadRuleExamples();
+      if (!alive) return;
+      status.remove();
+      for (const slot of slots) {
+        const c = cases.get(slot.dataset.case ?? '');
+        if (!c) continue;
+        const demo = createRuleDemo(c);
+        slot.append(demo.el);
+        // Without IntersectionObserver (old browsers, jsdom) a panel counts as in view.
+        const entry: Entry = { demo, seen: observer === null, running: false };
+        demos.push(entry);
+        observer?.observe(demo.el);
+        elToEntry.set(demo.el, entry);
+      }
+      settle();
+    } catch (err) {
+      if (!alive) return;
+      clear(status);
+      status.append(describeError(err), ' ', h('button', { type: 'button', class: 'strv-button', onclick: () => void fill() }, 'Try again'));
+    }
+  }
+
+  const elToEntry = new WeakMap<Element, Entry>();
+  if (typeof IntersectionObserver === 'function') {
+    observer = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        const d = elToEntry.get(e.target);
+        if (d) d.seen = e.isIntersecting;
+      }
+      settle();
+    });
+  }
+
+  details.addEventListener('toggle', () => {
+    if (details.open && !started) void fill();
+    else settle();
+  });
+
+  wired.set(details, {
+    destroy() {
+      alive = false;
+      observer?.disconnect();
+      for (const d of demos) d.demo.destroy();
+    },
+  });
+}
+
+/** Stops every panel under `root`; the page calls this when it goes away. */
+export function destroyExact(root: ParentNode): void {
+  for (const d of root.querySelectorAll<HTMLDetailsElement>('details.strv-how__more')) wired.get(d)?.destroy();
+}

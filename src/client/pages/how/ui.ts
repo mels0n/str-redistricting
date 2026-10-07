@@ -418,7 +418,7 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
           exactItem('strays.no-rejoin', h('strong', null, 'A piece that cannot rejoin.'), ' If a pass moves nothing but a fixed piece is still cut off from its side, it cannot move back. That line’s sides are not each one connected piece, so it fails the check that each side is one connected piece, and the next shortest line is considered.'),
           exactItem('strays.outline', h('strong', null, 'Crossing the outline.'), ' A line may cross the piece’s outline any number of times.'),
           exactItem('strays.connected', h('strong', null, 'Connected.'), ' Two blocks are connected when they share an edge; touching at a single corner does not count.'),
-          exactItem('strays.islands', h('strong', null, 'Islands.'), ' Islands and other detached land are joined to the nearest block of the main body, so a state with islands can still be cut.'),
+          exactItem('strays.islands', h('strong', null, 'Islands.'), ' Islands and other detached land are joined to the nearest block of the land already joined, which can be another island, so a state with islands can still be cut.'),
         ),
       ),
     ),

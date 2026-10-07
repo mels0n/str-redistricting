@@ -399,7 +399,8 @@ html:has(> body > #str-viewer) {
 }
 
 /* On a phone the side wrapper steps aside so the map and the lede are rows of their own: the why comes straight after the headline, the address search last. */
-.strv-national__side {
+.strv-national__side,
+.strv-national__rail {
   display: contents;
 }
 
@@ -505,9 +506,21 @@ html:has(> body > #str-viewer) {
     grid-template-columns: var(--col) minmax(0, 1fr);
     grid-template-rows: auto 1fr;
     grid-template-areas:
-      'search head'
-      'index side';
+      'rail head'
+      'rail side';
     column-gap: 0;
+  }
+
+  /* One left column: the search on top, the index straight under it, however tall the headline beside them. */
+  .strv-national__rail {
+    display: flex;
+    flex-direction: column;
+    grid-area: rail;
+    border-right: 1px solid var(--ink);
+  }
+
+  .strv-national__rail > .strv-national__search {
+    order: -1;
   }
 
   .strv-national__head {
@@ -528,13 +541,11 @@ html:has(> body > #str-viewer) {
   .strv-national__search {
     grid-area: search;
     border-top: 0;
-    border-right: 1px solid var(--ink);
     border-bottom: 2px solid var(--ink);
     padding: var(--s-5) var(--gutter) var(--s-4);
   }
 
   .strv-national__index {
-    border-right: 1px solid var(--ink);
     padding-top: var(--s-4);
   }
 
@@ -586,13 +597,13 @@ html:has(> body > #str-viewer) {
 @media (min-width: 75rem) {
   .strv-national__grid {
     grid-template-columns: var(--col) minmax(0, 3fr) minmax(0, 2fr);
-    grid-template-rows: auto auto minmax(0, 1fr) auto auto;
+    grid-template-rows: auto auto auto auto minmax(0, 1fr);
     grid-template-areas:
-      'search head steps'
-      'search lede steps'
-      'search closing steps'
-      'search more steps'
-      'index map map';
+      'rail head steps'
+      'rail lede steps'
+      'rail closing steps'
+      'rail more steps'
+      'rail map map';
   }
 
   .strv-national__side,

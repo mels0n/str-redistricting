@@ -64,8 +64,8 @@ export function createNationalPage(nav: Navigate): Page {
       // On a phone the lede and map are separate rows (lede, map, index, then the address search); on a wide screen they stay pinned together beside the index.
       // Source order follows the phone layout, so on a wide screen the search (shown top left) is reached after the index by Tab; its search landmark is the shortcut.
       h('div', { class: 'strv-national__side' }, lede, mapSlot),
-      indexSlot,
-      h('div', { class: 'strv-national__search' }, search.el),
+      // On a wide screen the search and index share one left rail, so the index starts right under the search instead of below the headline block.
+      h('div', { class: 'strv-national__rail' }, indexSlot, h('div', { class: 'strv-national__search' }, search.el)),
     ),
   );
 

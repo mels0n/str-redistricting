@@ -25,5 +25,5 @@ export type { StateOutput } from './load.js';
 export type { BalanceLog, Candidates, CutStats, PlanMetrics } from '../../entities/plan-output/index.js';
 export { RuleCaseSchema, RuleExamplesSchema } from './schema.js';
 export type { RuleCase, RuleExamples } from './schema.js';
-export { projectWindow } from './window.js';
+export { projectWindow, simplifyRing } from './window.js';
 export { MAX_BYTES, writeRuleExamples } from './write.js';

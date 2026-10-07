@@ -58,3 +58,13 @@ export const CandidatesSchema = z.object({
   cuts: z.array(z.array(z.array(z.number()))),
 });
 export type Candidates = z.infer<typeof CandidatesSchema>;
+
+const CutLine = z.object({
+  type: z.literal('Feature'),
+  properties: z.object({ order: z.number().int().positive() }).passthrough(),
+  geometry: z.object({ type: z.literal('MultiLineString'), coordinates: z.array(z.array(z.tuple([z.number(), z.number()])).min(2)) }),
+});
+
+/** out/<ST>/cuts.geojson: each cut's guide line inside its piece, one feature per cut in cut order. */
+export const CutLinesSchema = z.object({ type: z.literal('FeatureCollection'), features: z.array(CutLine) });
+export type CutLines = z.infer<typeof CutLinesSchema>;

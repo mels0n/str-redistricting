@@ -3694,8 +3694,74 @@ html:has(> body > #str-viewer) {
 
 .strv-rule-demo__svg [data-state='hot'] {
   fill: var(--signal-tint);
-  stroke-width: 2;
+  stroke: var(--signal-ink);
+  stroke-width: 2.5;
 }
+
+/* What a line is (data-tag) and what a step makes a shape (data-state). Attribute selectors outrank the
+   single-class .strv-dg__border base. */
+.strv-rule-demo__svg [data-tag='point'] {
+  stroke: var(--ink);
+  stroke-width: 5;
+  stroke-linecap: round;
+}
+
+.strv-rule-demo__svg [data-tag='tick'] {
+  stroke: var(--signal);
+  stroke-width: 1.5;
+  stroke-linecap: butt;
+}
+
+.strv-rule-demo__svg [data-tag='guide'] {
+  stroke: var(--ink);
+  stroke-width: 1.5;
+  stroke-dasharray: 6 4;
+  stroke-linecap: butt;
+}
+
+.strv-rule-demo__svg [data-tag='axis'] {
+  stroke: var(--rule);
+  stroke-width: 1;
+  stroke-linecap: butt;
+}
+
+.strv-rule-demo__svg [data-tag='border'] {
+  stroke: var(--signal);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.strv-rule-demo__svg [data-tag='track'],
+.strv-rule-demo__svg [data-tag='fill'] {
+  stroke-width: 8;
+  stroke-linecap: butt;
+}
+
+.strv-rule-demo__svg [data-tag='track'] { stroke: var(--quiet); }
+.strv-rule-demo__svg [data-tag='fill'] { stroke: var(--signal); }
+
+.strv-rule-demo__svg [data-tag='mark'] {
+  stroke: var(--ink);
+  stroke-width: 2;
+  stroke-linecap: butt;
+}
+
+.strv-rule-demo__svg [data-tag='outline'] {
+  stroke: var(--ink-2);
+  stroke-width: 1.25;
+  stroke-linejoin: round;
+}
+
+.strv-rule-demo__svg [data-tag='cut'] {
+  stroke: var(--ink);
+  stroke-width: 2.5;
+  stroke-linecap: butt;
+}
+
+.strv-rule-demo__svg [data-state='low'] { fill: var(--d-sand); }
+.strv-rule-demo__svg [data-state='high'] { fill: var(--d-sage); }
+.strv-rule-demo__svg [data-state='kept'] { stroke: var(--signal-ink); stroke-width: 3.5; }
+.strv-rule-demo__svg [data-state='dim'] { stroke-opacity: 0.3; }
 
 .strv-rule-demo__svg [data-side='0'] { fill: var(--d-sand); }
 .strv-rule-demo__svg [data-side='1'] { fill: var(--d-sage); }

@@ -32,7 +32,7 @@ function simplifyLine(pts: P[], tol: number): P[] {
 }
 
 /** Douglas-Peucker on a closed ring (no repeated closing point): split at the point farthest from the start. */
-function simplifyRing(ring: P[], tol: number): P[] {
+export function simplifyRing(ring: P[], tol: number): P[] {
   if (ring.length <= 3) return ring;
   let far = 0, best = -1;
   for (let i = 1; i < ring.length; i++) {

@@ -4,6 +4,8 @@ export { countiesByDistrict } from './counties.js';
 export type { CountyRef } from './counties.js';
 export { BalanceLogSchema, buildBalance, ProcessNumbersSchema } from './balance.js';
 export type { BalanceLog, PublishedBalance } from './balance.js';
+export { checkBlocks, encodeBlocks } from './blocks.js';
+export type { BlocksFile } from './blocks.js';
 export { buildCuts } from './cuts.js';
 export type { PublishedCut } from './cuts.js';
 export { publishData, publishedSummaries, statesWithData } from './publish.js';

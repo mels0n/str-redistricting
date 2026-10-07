@@ -501,9 +501,10 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
       });
     }
     // Water inside the districts (lakes, bays, coastal water) is covered with the ground color, over the district colors and
-    // every district border, so only land shows a district. Water holds no people, and census water blocks are large, so the
-    // lines across them do not follow the cuts. Guide lines and the balancing block draw above it. Display only.
-    map.addLayer({ id: 'water-veil', type: 'fill', source: 'water', paint: { 'fill-color': tokens.ground } });
+    // every district border, so only land shows a district. Census water blocks are large and hold almost no people, so the
+    // lines across them do not follow the cuts. The selected-district outline and the enacted lines stop at the shore on
+    // purpose; guide lines and the balancing block draw above it. Display only: hit-testing still uses the fill layers.
+    map.addLayer({ id: 'water-cover', type: 'fill', source: 'water', paint: { 'fill-color': tokens.ground } });
     map.addLayer({
       id: 'cuts-past',
       type: 'line',

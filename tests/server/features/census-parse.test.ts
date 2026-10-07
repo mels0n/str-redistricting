@@ -20,6 +20,14 @@ describe('parseBlockFeature', () => {
     expect(b.rings).toHaveLength(2);
     expect(b.water).toBe(true);
   });
+  it('counts a block with no land but with people as land, not water', () => {
+    const b = parseBlockFeature({ GEOID20: '080010078011002', POP20: 4, ALAND20: 0, INTPTLAT20: '+39.5', INTPTLON20: '-104.9' }, square);
+    expect(b.water).toBe(false);
+  });
+  it('fails loudly when land area is missing', () => {
+    expect(() => parseBlockFeature({ GEOID20: '080010078011000', POP20: 1, INTPTLAT20: '+1', INTPTLON20: '-1' }, square))
+      .toThrow(DataError);
+  });
   it('fails loudly when population is missing', () => {
     expect(() => parseBlockFeature({ GEOID20: '080010078011000', INTPTLAT20: '+1', INTPTLON20: '-1' }, square))
       .toThrow(DataError);

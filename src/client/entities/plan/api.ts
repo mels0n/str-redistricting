@@ -64,7 +64,7 @@ function toShapes(topo: DistrictTopology, url: string, seats: number): PlanShape
   };
 }
 
-/** The water mask for a state. A missing or unreadable file is not an error: the map just has no water wash. */
+/** The water mask for a state. A missing or unreadable file is not an error: the map just draws no water cover. */
 function loadWater(abbr: string): Promise<WaterShapes | null> {
   return fetchJson(dataUrl(`${abbr}/water.topo.json`), WaterTopoSchema)
     .then((raw) => {

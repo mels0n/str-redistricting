@@ -463,7 +463,7 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
         'ul',
         { class: 'strv-how__list' },
         li('District shapes are simplified so the maps load quickly. They are slightly coarser than the block-level shapes. The numbers, and the file that assigns every block to a district, are never simplified.'),
-        li('The maps are drawn from census blocks, and census blocks include water: they run out to the state’s legal boundary, across lakes, bays and coastal water. Each district therefore covers the water inside its edge. For display only, the viewer leaves that water plain, without the district’s color or the border lines that cross it, so each district shows as the land it covers. Water holds no people, and census water blocks are large, so the lines across them do not follow the cuts. This changes how the map looks, not the districts, the people counted or any number.'),
+        li('The maps are drawn from census blocks, and census blocks include water: they run out to the state’s legal boundary, across lakes, bays and coastal water. Each district therefore covers the water inside its edge. For display only, the viewer leaves that water plain, without the district’s color or the border lines that cross it, so each district shows as the land it covers. Census water blocks are large and almost never hold people, so the lines across them do not follow the cuts. This changes how the map looks, not the districts, the people counted or any number.'),
         li('Because the shapes are simplified, an address very close to a border may show in the wrong district. Close to a border, the block assignment file is the final word.'),
       ),
     ),

@@ -35,5 +35,5 @@ export function parseBlockFeature(props: unknown, geometry: unknown): Block {
   const lat = Number.parseFloat(p.data.INTPTLAT20);
   const lon = Number.parseFloat(p.data.INTPTLON20);
   if (!Number.isFinite(lat) || !Number.isFinite(lon)) throw new DataError(`bad internal point for block ${p.data.GEOID20}`);
-  return { geoid: p.data.GEOID20, pop: p.data.POP20, point: [lon, lat], rings, water: p.data.ALAND20 === 0 };
+  return { geoid: p.data.GEOID20, pop: p.data.POP20, point: [lon, lat], rings, water: p.data.ALAND20 === 0 && p.data.POP20 === 0 };
 }

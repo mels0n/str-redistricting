@@ -1,6 +1,6 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { BlocksSchema } from '../../src/client/entities/plan';
-import { lookupDistricts } from '../../src/client/pages/state/lookup';
+import { finishWhenLoaded, lookupDistricts } from '../../src/client/pages/state/lookup';
 
 const blocks = BlocksSchema.parse({
   v: 1,
@@ -30,5 +30,27 @@ describe('lookupDistricts', () => {
   it('falls back for a block in another state or an unknown tract', () => {
     expect(lookupDistricts({ block: '060010078011002', blocks, shapes, at }).exact).toBe(false);
     expect(lookupDistricts({ block: '080019999991000', blocks, shapes, at }).exact).toBe(false);
+  });
+});
+
+describe('finishWhenLoaded', () => {
+  const mk = (alive: boolean) => ({ alive: () => alive, setBlocks: vi.fn(), finish: vi.fn(() => 'done'), fallback: 'Found X.' });
+  it('sets blocks and finishes when the page is alive', async () => {
+    const o = mk(true);
+    expect(await finishWhenLoaded(Promise.resolve(blocks), o)).toBe('done');
+    expect(o.setBlocks).toHaveBeenCalledWith(blocks);
+  });
+  it('still finishes when the load fails', async () => {
+    const o = mk(true);
+    expect(await finishWhenLoaded(Promise.reject(new Error('x')), o)).toBe('done');
+    expect(o.setBlocks).toHaveBeenCalledWith(null);
+  });
+  it('does nothing when the page was destroyed before the load settled', async () => {
+    for (const load of [Promise.resolve(blocks), Promise.reject(new Error('x'))]) {
+      const o = mk(false);
+      expect(await finishWhenLoaded(load, o)).toBe('Found X.');
+      expect(o.finish).not.toHaveBeenCalled();
+      expect(o.setBlocks).not.toHaveBeenCalled();
+    }
   });
 });

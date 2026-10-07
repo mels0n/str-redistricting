@@ -46,7 +46,7 @@ import {
   type SeqPos,
   type Blocks,
 } from '../../entities/plan';
-import { lookupDistricts } from './lookup';
+import { finishWhenLoaded, lookupDistricts } from './lookup';
 import { createAddressSearch, describeResolution, resolveAddress } from '../../features/address-search';
 import { createCutScrubber, type CutScrubber, type BalanceLogState } from '../../features/cut-scrubber';
 import { createPlanOptions, type PlanOptions } from '../../features/plan-options';
@@ -306,9 +306,7 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
     let bundle: StateBundle;
     let outlines;
     try {
-      let preload: Promise<Blocks | null> = Promise.resolve(null);
-      if (getLocated()?.state === entry.abbr && getLocated()?.block) preload = loadBlocks(entry.abbr).catch(() => null);
-      [bundle, outlines, blocks] = await Promise.all([loadStateBundle(entry.abbr), loadOutlines(), preload]);
+      [bundle, outlines] = await Promise.all([loadStateBundle(entry.abbr), loadOutlines()]);
     } catch (err) {
       if (alive) showError(err, { retry });
       return;
@@ -429,13 +427,14 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
           return `${result.matchedAddress} is in District ${here}.`;
         };
         if (result.block === null || blocks) return finish();
-        return loadBlocks(entry.abbr).then(
-          (b) => {
+        return finishWhenLoaded(loadBlocks(entry.abbr), {
+          alive: () => alive,
+          setBlocks: (b) => {
             blocks = b;
-            return finish();
           },
-          () => finish(),
-        );
+          finish,
+          fallback: `Found ${result.matchedAddress}.`,
+        });
       },
     });
     const locatedNote = h('p', { class: 'strv-located', hidden: true });
@@ -492,6 +491,18 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
     );
 
     locate(bundle);
+    // The exact answer arrives after the first draw; a failed load keeps the simplified-shape answer.
+    if (getLocated()?.state === entry.abbr && getLocated()?.block && !blocks) {
+      void loadBlocks(entry.abbr).then(
+        (b) => {
+          if (!alive) return;
+          blocks = b;
+          locate(bundle);
+          render();
+        },
+        () => undefined,
+      );
+    }
     const startAt = locatedDistrict();
     if (startAt && route.district === null) go({ district: startAt }, true);
 

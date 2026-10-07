@@ -467,7 +467,7 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
         { class: 'strv-how__list' },
         li('Zoomed out, district shapes are simplified so the maps load quickly. Zoomed in, they are drawn block by block. The numbers, and the file that assigns every block to a district, are never simplified.'),
         li('The maps are drawn from census blocks, and census blocks include water: they run out to the state’s legal boundary, across lakes, bays and coastal water. Each district therefore covers the water inside its edge. For display only, the viewer shows that water paler so the land stands out. This changes how the map looks, not the districts, the people counted or any number.'),
-        li('Address search asks the Census Bureau which census block the address is in, then reads that block’s district from the map file, so the answer is exact.'),
+        li('Address search asks the Census Bureau which census block the address is in. When the Census Bureau names the block, address search reads that block’s district from the map file, so the answer is exact. Otherwise it uses the drawn shapes.'),
       ),
     ),
   );

@@ -151,11 +151,27 @@ export function selectLow(keys: Float64Array, ids: Int32Array, pops: Float64Arra
   }
 }
 
+/** One population split and the strays settling after it, in local positions; observation only. */
+export interface PassObservation {
+  /** Low side's target population for this split: the share less the people held on the low side. */
+  readonly target: number;
+  /** Guide-line offset of this split, in projection units. */
+  readonly offset: number;
+  /** Side of every position after the split (0 = low), held blocks included, before strays settle. */
+  readonly walk: Uint8Array;
+  /** Side each position was held to during the split (-1 = free). */
+  readonly held: Int8Array;
+  /** Positions that changed side as strays in this pass. */
+  readonly moved: Int32Array;
+}
+
 export interface Scanner {
   /** Point the guide line in direction k (k * 180 / angleCount degrees from north-south); returns the angle in radians. */
   setDirection(k: number): number;
-  /** Split for the current direction with lowSeats on the low side, apply the stray rule, and measure the border. Final sides (0 = low) go to `out` when given. */
-  evaluate(lowSeats: number, out?: Uint8Array): Evaluation;
+  /** Split for the current direction with lowSeats on the low side, apply the stray rule, and measure the border. Final sides (0 = low) go to `out` when given; `onPass` sees each split and its settling. */
+  evaluate(lowSeats: number, out?: Uint8Array, onPass?: (p: PassObservation) => void): Evaluation;
+  /** Local positions in the current direction's walk order: by key, then block id. */
+  walkOrder(): Int32Array;
 }
 
 /** Candidate evaluation for one piece; holds scratch space, so each thread needs its own. */
@@ -166,6 +182,8 @@ export function createScanner(piece: Piece, job: ScanJob): Scanner {
   // After selectLow the low side is every free position ordered (key, id) at or before its last member;
   // fixed blocks keep their side.
   let kL = 0, idL = 0;
+  // Target of the latest split, kept for observers only.
+  let lastTarget = 0;
   /**
    * Population split of the given blocks in (key, id) order: records the low side's last member and
    * returns the guide-line offset, halfway between the last low key and the first high key.
@@ -186,7 +204,7 @@ export function createScanner(piece: Piece, job: ScanJob): Scanner {
     return count === n ? maxLow : (maxLow + minHigh) / 2;
   };
   /** Whole-block split of the current keys. */
-  const split = (lowSeats: number): number => splitOver(keys, ids, pops, perm, (total * lowSeats) / job.seats, 1, m - 1);
+  const split = (lowSeats: number): number => splitOver(keys, ids, pops, perm, (lastTarget = (total * lowSeats) / job.seats), 1, m - 1);
 
   // fixed[i] is the side a moved stray is held to (-1 = free); a re-count splits the free blocks again.
   const fixed = new Int8Array(m);
@@ -201,6 +219,7 @@ export function createScanner(piece: Piece, job: ScanJob): Scanner {
       else fixedHigh++;
     }
     const target = (total * lowSeats) / job.seats - fixedLowPop;
+    lastTarget = target;
     // Each side keeps at least one block.
     return splitOver(fK.subarray(0, f), fI.subarray(0, f), fP.subarray(0, f), fPerm.subarray(0, f), target, fixedLow > 0 ? 0 : 1, f - (fixedHigh > 0 ? 0 : 1));
   };
@@ -275,12 +294,22 @@ export function createScanner(piece: Piece, job: ScanJob): Scanner {
       for (let i = 0; i < m; i++) keys[i] = px[i]! * nx + py[i]! * ny;
       return th;
     },
-    evaluate(lowSeats: number, out?: Uint8Array): Evaluation {
+    walkOrder(): Int32Array {
+      const order = Int32Array.from({ length: m }, (_, i) => i);
+      return order.sort((a, b) => keys[a]! - keys[b]! || ids[a]! - ids[b]!);
+    },
+    evaluate(lowSeats: number, out?: Uint8Array, onPass?: (p: PassObservation) => void): Evaluation {
       const offset0 = split(lowSeats);
       fixed.fill(-1);
       let offset = offset0, iterations = 1;
       for (;;) {
+        const held = onPass ? fixed.slice() : undefined;
         const e = settle(out);
+        if (onPass && held) {
+          const moved: number[] = [];
+          for (let i = 0; i < m; i++) if (held[i]! < 0 && fixed[i]! >= 0) moved.push(i);
+          onPass({ target: lastTarget, offset, walk: side0.slice(), held, moved: Int32Array.from(moved) });
+        }
         if (e.newlyFixed === 0) {
           let movedBlocks = 0, movedPop = 0, lowPop = 0;
           for (let i = 0; i < m; i++) {

@@ -34,6 +34,43 @@ export interface CutResult {
   readonly offsetShiftM: number;
   /** Every candidate line evaluated, in direction then orientation order. */
   readonly candidateStats: readonly CandidateStat[];
+  /** The candidates asked for in `CutOptions.trace`, in request order; empty when none were asked for. */
+  readonly traces: readonly CandidateTrace[];
+}
+
+/** A candidate line to trace: direction k and the seats on its first (low) side. */
+export interface CandidateTraceRequest { readonly k: number; readonly lowSeats: number }
+
+/** One population split of a traced candidate and the strays settling after it. Block arrays hold block indices. */
+export interface TracePass {
+  /** The first side after this split's walk, held blocks included, before strays settle. */
+  readonly walkLow: Int32Array;
+  /** Blocks that changed side as strays in this pass. */
+  readonly moved: Int32Array;
+  /** Blocks held to the first or the second side during this split. */
+  readonly fixedLow: Int32Array;
+  readonly fixedHigh: Int32Array;
+  /** The first side's target population for this walk: the share less the people held on the first side. */
+  readonly target: number;
+  /** The guide line's portion inside the piece at this split's offset. */
+  readonly spans: readonly (readonly [LonLat, LonLat])[];
+}
+
+/** Everything about one candidate line, for explaining a cut. */
+export interface CandidateTrace {
+  readonly k: number;
+  readonly lowSeats: number;
+  readonly angleDeg: number;
+  /** The first side's target population: piece population x lowSeats / seats. */
+  readonly share: number;
+  /** The piece's blocks in walk order for this direction (block-id tie-break). */
+  readonly order: Int32Array;
+  /** One per population split; the last is the one after which nothing moved (or the candidate stopped unresolved). */
+  readonly passes: readonly TracePass[];
+  readonly low: Int32Array;
+  readonly high: Int32Array;
+  readonly lengthM: number;
+  readonly unresolved: boolean;
 }
 
 /** Debug record of one candidate line. */
@@ -57,6 +94,8 @@ interface Candidate { k: number; lowSeats: number; offset: number; lengthM: numb
 export interface CutOptions {
   /** Evaluate candidate directions on these worker threads; without it, on the calling thread. */
   readonly pool?: ScanPool;
+  /** Candidates to record in full on the calling thread after the scan; observation only. */
+  readonly trace?: readonly CandidateTraceRequest[];
 }
 
 export function findCut(ctx: SplitContext, members: Int32Array, seats: number, validate?: SideValidator, opts: CutOptions = {}): CutResult {
@@ -101,6 +140,11 @@ export function findCut(ctx: SplitContext, members: Int32Array, seats: number, v
   for (let i = 0; i < m; i++) { px[i] = ctx.px[members[i]!]!; py[i] = ctx.py[members[i]!]!; }
   const piece: Piece = { m, ids, pops, total, px, py, lOff, lAdj, lLen };
   const job: ScanJob = { angleCount: ctx.angleCount, seats, orientations };
+  for (const t of opts.trace ?? []) {
+    if (!Number.isInteger(t.k) || t.k < 0 || t.k >= ctx.angleCount || !orientations.includes(t.lowSeats)) {
+      throw new DataError(`trace asks for k=${t.k}, lowSeats=${t.lowSeats}, which is not a candidate of this cut`);
+    }
+  }
   let res: Float64Array;
   if (opts.pool) res = opts.pool.scan(piece, job);
   else {
@@ -140,18 +184,47 @@ export function findCut(ctx: SplitContext, members: Int32Array, seats: number, v
     const low = new Int32Array(nLow), high = new Int32Array(m - nLow);
     for (let i = 0, l = 0, h = 0; i < m; i++) { if (side[i] === 0) low[l++] = members[i]!; else high[h++] = members[i]!; }
     if (check(low, high)) {
+      const traces = (opts.trace ?? []).map((t) => traceCandidate(ctx, piece, job, members, sx, sy, t));
       return {
         low, high, lowSeats: c.lowSeats, highSeats: seats - c.lowSeats,
         angleDeg: (c.k * 180) / ctx.angleCount, lengthM: e.lengthM,
         candidateLines: ctx.angleCount * orientations.length,
         spans: spanLength(ctx, sx, sy, th, c.offset).spans, skipped,
         strayBlocksMoved: e.movedBlocks, strayPopMoved: e.movedPop,
-        iterations: e.iterations, offsetShiftM: e.offsetShift * EARTH_RADIUS_M, candidateStats,
+        iterations: e.iterations, offsetShiftM: e.offsetShift * EARTH_RADIUS_M, candidateStats, traces,
       };
     }
     skipped++;
   }
   throw new DataError('no straight line produces two connected sides');
+}
+
+/** Re-run one candidate on a fresh scanner, recording each split and its settling. */
+function traceCandidate(ctx: SplitContext, piece: Piece, job: ScanJob, members: Int32Array, sx: Float64Array, sy: Float64Array, t: CandidateTraceRequest): CandidateTrace {
+  const m = piece.m;
+  const scanner = createScanner(piece, job);
+  const th = scanner.setDirection(t.k);
+  const toBlocks = (local: Iterable<number>) => Int32Array.from(local, (i) => members[i]!);
+  const where = (n: number, keep: (i: number) => boolean) => {
+    const out: number[] = [];
+    for (let i = 0; i < n; i++) if (keep(i)) out.push(members[i]!);
+    return Int32Array.from(out);
+  };
+  const passes: TracePass[] = [];
+  const side = new Uint8Array(m);
+  const e = scanner.evaluate(t.lowSeats, side, (p) => {
+    passes.push({
+      walkLow: where(m, (i) => p.walk[i] === 0), moved: toBlocks(p.moved),
+      fixedLow: where(m, (i) => p.held[i] === 0), fixedHigh: where(m, (i) => p.held[i] === 1),
+      target: p.target, spans: spanLength(ctx, sx, sy, th, p.offset).spans,
+    });
+  });
+  return {
+    k: t.k, lowSeats: t.lowSeats, angleDeg: (t.k * 180) / ctx.angleCount,
+    share: (piece.total * t.lowSeats) / job.seats, order: toBlocks(scanner.walkOrder()), passes,
+    low: where(m, (i) => side[i] === 0), high: where(m, (i) => side[i] === 1),
+    lengthM: e.lengthM, unresolved: e.unresolved,
+  };
 }
 
 /** Great-circle length of the line {p . n = offset} inside the piece, by even-odd pairing of boundary crossings. */

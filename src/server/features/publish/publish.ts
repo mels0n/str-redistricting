@@ -115,7 +115,6 @@ async function publishState(state: StateInfo, cfg: PublishConfig, shared: Shared
   const blocksFile = encodeBlocks(state.fips, state.seats, officialCsv, beforeCsv, fingerprints);
   checkBlocks(blocksFile, officialCsv, beforeCsv, { state: state.fips, seats: state.seats, fingerprints });
   const blocksJson = JSON.stringify(blocksFile);
-  await write(join(dest, 'blocks.json'), blocksJson);
 
   const finishedFeatures = display(districts.features) as Feature[];
   const beforeFeatures = display(beforeDistricts.features) as Feature[];
@@ -127,6 +126,7 @@ async function publishState(state: StateInfo, cfg: PublishConfig, shared: Shared
     water: display(water.features) as unknown as Feature[],
   }, fingerprints);
   await verifyTiles(state, cfg, tiles, blocksFile, new Set(log.data.moves.map((m) => m.geoid)), wrapped);
+  await write(join(dest, 'blocks.json'), blocksJson);
   await write(join(dest, 'detail.pmtiles'), tiles);
   const rawBytes = Buffer.byteLength(blocksJson);
   console.log(`  ${state.abbr}: detail.pmtiles ${tiles.byteLength} B, blocks.json ${rawBytes} B (${gzipSync(blocksJson).byteLength} B gzip)`);

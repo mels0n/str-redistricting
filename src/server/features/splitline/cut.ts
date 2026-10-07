@@ -41,6 +41,22 @@ export interface CutResult {
 /** A candidate line to trace: direction k and the seats on its first (low) side. */
 export interface CandidateTraceRequest { readonly k: number; readonly lowSeats: number }
 
+/** A connected group of one side's blocks during the strays rule. Block arrays hold block indices. */
+export interface TraceGroup {
+  readonly blocks: Int32Array;
+  readonly pop: number;
+  /** Blocks of the group that were already fixed; they stay where they are even when the group is not the main body. */
+  readonly fixed: Int32Array;
+  /** The side's main body: the group that stays. */
+  readonly main: boolean;
+}
+
+/** One sweep of the strays rule over a side that was in two or more groups, in the generator's group order. */
+export interface TraceSweep {
+  readonly side: 0 | 1;
+  readonly groups: readonly TraceGroup[];
+}
+
 /** One population split of a traced candidate and the strays settling after it. Block arrays hold block indices. */
 export interface TracePass {
   /** The first side after this split's walk, held blocks included, before strays settle. */
@@ -54,6 +70,8 @@ export interface TracePass {
   readonly target: number;
   /** The guide line's portion inside the piece at this split's offset. */
   readonly spans: readonly (readonly [LonLat, LonLat])[];
+  /** Each sweep of the strays rule in this pass that found a side in two or more groups, in order. */
+  readonly sweeps: readonly TraceSweep[];
 }
 
 /** Everything about one candidate line, for explaining a cut. */
@@ -230,6 +248,10 @@ function traceCandidate(ctx: SplitContext, piece: Piece, job: ScanJob, members: 
       walkLow: where(m, (i) => p.walk[i] === 0), moved: toBlocks(p.moved),
       fixedLow: where(m, (i) => p.held[i] === 0), fixedHigh: where(m, (i) => p.held[i] === 1),
       target: p.target, spans: spanLength(ctx, sx, sy, th, p.offset).spans,
+      sweeps: p.sweeps.map((sw) => ({
+        side: sw.side,
+        groups: sw.groups.map((g) => ({ blocks: toBlocks(g.positions), pop: g.pop, fixed: toBlocks(g.fixed), main: g.main })),
+      })),
     });
   });
   return {

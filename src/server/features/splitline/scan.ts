@@ -59,6 +59,9 @@ interface StrayGraph {
   readonly side: Uint8Array;
 }
 
+/** One side's groups in one sweep of the strays rule, for observers: component of each node (-1 off the side) and the main one. */
+type SweepObserver = (side: number, nodeComp: Int32Array, main: number, pop: readonly number[]) => void;
+
 /**
  * Strays rule, in place: on the low side and then the high side, every connected component other than
  * the side's main one (most population, then most blocks, then lowest block index) joins the other side;
@@ -66,7 +69,7 @@ interface StrayGraph {
  * continuing pass pins another node and the passes always end. Returns whether a pinned node was left
  * off its side's main component.
  */
-function settleStrays(g: StrayGraph, pinned: Uint8Array): boolean {
+function settleStrays(g: StrayGraph, pinned: Uint8Array, observe?: SweepObserver): boolean {
   const comp = new Int32Array(g.n);
   const stack = new Int32Array(g.n);
   const cPop: number[] = [], cCnt: number[] = [], cMin: number[] = [];
@@ -97,6 +100,7 @@ function settleStrays(g: StrayGraph, pinned: Uint8Array): boolean {
         if (cPop[c]! > cPop[main]! || (cPop[c] === cPop[main] &&
           (cCnt[c]! > cCnt[main]! || (cCnt[c] === cCnt[main] && cMin[c]! < cMin[main]!)))) main = c;
       }
+      observe?.(s, comp, main, cPop);
       for (let v = 0; v < g.n; v++) {
         if (g.side[v] !== s || comp[v] === main) continue;
         if (pinned[v]) { stranded = true; continue; }
@@ -151,6 +155,22 @@ export function selectLow(keys: Float64Array, ids: Int32Array, pops: Float64Arra
   }
 }
 
+/** A connected group of one side's blocks in one sweep of the strays rule, in local positions; observation only. */
+export interface GroupObservation {
+  readonly positions: Int32Array;
+  readonly pop: number;
+  /** Positions in the group that were fixed when the sweep ran; they stay put even if the group is not the main body. */
+  readonly fixed: Int32Array;
+  /** The side's main body, the group that stays. */
+  readonly main: boolean;
+}
+
+/** One sweep of the strays rule over one side that found the side in two or more groups. */
+export interface SweepObservation {
+  readonly side: 0 | 1;
+  readonly groups: readonly GroupObservation[];
+}
+
 /** One population split and the strays settling after it, in local positions; observation only. */
 export interface PassObservation {
   /** Low side's target population for this split: the share less the people held on the low side. */
@@ -163,6 +183,8 @@ export interface PassObservation {
   readonly held: Int8Array;
   /** Positions that changed side as strays in this pass. */
   readonly moved: Int32Array;
+  /** Every sweep of the strays rule in this pass that found a side in two or more groups, in order. */
+  readonly sweeps: readonly SweepObservation[];
 }
 
 export interface Scanner {
@@ -234,7 +256,7 @@ export function createScanner(piece: Piece, job: ScanJob): Scanner {
    * Fixed blocks keep their side, form their own nodes and never move, and blocks that move become
    * fixed; `newlyFixed` counts them.
    */
-  const settle = (out?: Uint8Array) => {
+  const settle = (out?: Uint8Array, sweeps?: SweepObservation[]) => {
     for (let i = 0; i < m; i++) {
       side0[i] = fixed[i]! >= 0 ? fixed[i]! : keys[i]! < kL || (keys[i] === kL && ids[i]! <= idL) ? 0 : 1;
     }
@@ -276,9 +298,25 @@ export function createScanner(piece: Piece, job: ScanJob): Scanner {
       adj[cur[x]!++] = y; adj[cur[y]!++] = x;
     }
     const side = Uint8Array.from(cSide);
+    const pinned = Uint8Array.from(cPin);
+    // Observers see each sweep's groups as positions; nodes are mapped back through comp.
+    const observe: SweepObserver | undefined = sweeps && ((s, nodeComp, main, pop) => {
+      const members: number[][] = pop.map(() => []), held: number[][] = pop.map(() => []);
+      for (let i = 0; i < m; i++) {
+        const c = nodeComp[comp[i]!]!;
+        if (c < 0) continue;
+        members[c]!.push(i);
+        if (pinned[comp[i]!]) held[c]!.push(i);
+      }
+      sweeps.push({
+        side: s === 0 ? 0 : 1,
+        groups: pop.map((p, c) => ({ positions: Int32Array.from(members[c]!), pop: p, fixed: Int32Array.from(held[c]!), main: c === main })),
+      });
+    });
     const stranded = settleStrays(
       { n, off, adj, pop: Float64Array.from(cPop), cnt: Float64Array.from(cCnt), minIdx: Float64Array.from(cMin), side },
-      Uint8Array.from(cPin),
+      pinned,
+      observe,
     );
     let lengthM = 0, newlyFixed = 0;
     for (let e = 0; e < np; e++) if (side[comp[pairA[e]!]!] !== side[comp[pairB[e]!]!]) lengthM += pairLen[e]!;
@@ -304,11 +342,12 @@ export function createScanner(piece: Piece, job: ScanJob): Scanner {
       let offset = offset0, iterations = 1;
       for (;;) {
         const held = onPass ? fixed.slice() : undefined;
-        const e = settle(out);
+        const sweeps: SweepObservation[] | undefined = onPass ? [] : undefined;
+        const e = settle(out, sweeps);
         if (onPass && held) {
           const moved: number[] = [];
           for (let i = 0; i < m; i++) if (held[i]! < 0 && fixed[i]! >= 0) moved.push(i);
-          onPass({ target: lastTarget, offset, walk: side0.slice(), held, moved: Int32Array.from(moved) });
+          onPass({ target: lastTarget, offset, walk: side0.slice(), held, moved: Int32Array.from(moved), sweeps: sweeps ?? [] });
         }
         if (e.newlyFixed === 0) {
           let movedBlocks = 0, movedPop = 0, lowPop = 0;

@@ -100,6 +100,39 @@ describe('candidate trace', () => {
     for (const b of p2.fixedLow) expect(t!.low.includes(b)).toBe(true);
   });
 
+  it('records the groups each side splits into and which one is the main body', () => {
+    const blocks = uShape();
+    const ctx = createContext(blocks, 90);
+    const [t] = findCut(ctx, all(blocks.length), 2, undefined, { trace: [{ k: 0, lowSeats: 1 }] }).traces;
+    const p1 = t!.passes[0]!, p2 = t!.passes[1]!;
+    // Pass 1: only the second side is in two groups, its main body and the cut-off arm.
+    expect(p1.sweeps.length).toBe(1);
+    const sw = p1.sweeps[0]!;
+    expect(sw.side).toBe(1);
+    expect(sw.groups.length).toBe(2);
+    expect(sw.groups.filter((g) => g.main).length).toBe(1);
+    const main = sw.groups.find((g) => g.main)!, arm = sw.groups.find((g) => !g.main)!;
+    expect(sorted(arm.blocks)).toEqual(sorted(p1.moved));
+    expect(main.pop).toBeGreaterThan(arm.pop);
+    for (const g of sw.groups) {
+      expect(g.pop).toBe(Array.from(g.blocks).reduce((s, b) => s + blocks[b]!.pop, 0));
+      expect(g.fixed.length).toBe(0);
+    }
+    // Pass 2: both sides are whole, so nothing is recorded.
+    expect(p2.sweeps).toEqual([]);
+  });
+
+  it('records a cut-off group whose fixed blocks cannot move', () => {
+    const blocks = stuckU();
+    const ctx = createContext(blocks, 90);
+    const [t] = findCut(ctx, all(blocks.length), 2, undefined, { trace: [{ k: 0, lowSeats: 1 }] }).traces;
+    expect(t!.unresolved).toBe(true);
+    const last = t!.passes.at(-1)!;
+    const stuck = last.sweeps.flatMap((s) => s.groups).filter((g) => !g.main && g.fixed.length > 0);
+    expect(stuck.length).toBeGreaterThan(0);
+    for (const g of stuck) for (const b of g.fixed) expect(last.moved.includes(b)).toBe(false);
+  });
+
   it('walk order follows the direction with the block-id tie-break', () => {
     // k = 0 orders west to east.
     const row = gridBlocks(4, 1);

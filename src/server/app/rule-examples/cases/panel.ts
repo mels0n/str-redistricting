@@ -120,7 +120,8 @@ const Geometry = z.discriminatedUnion('type', [
   z.object({ type: z.literal('MultiPolygon'), coordinates: z.array(Rings) }),
 ]);
 
-const ringArea = (ring: readonly (readonly number[])[]): number => {
+/** Area of a ring in its own units (closed or not). */
+export const ringArea = (ring: readonly (readonly number[])[]): number => {
   let s = 0;
   for (let i = 0; i < ring.length; i++) {
     const a = ring[i]!, b = ring[(i + 1) % ring.length]!;

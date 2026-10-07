@@ -3779,6 +3779,9 @@ html:has(> body > #str-viewer) {
 .strv-rule-demo__svg [data-district='6'] { fill: var(--d-rose-stone); }
 .strv-rule-demo__svg [data-district='7'] { fill: var(--d-olive); }
 .strv-rule-demo__svg [data-district='8'] { fill: var(--d-slate); }
+/* A step's state recolors a district block: ruled out (grey) or picked out (tinted). */
+.strv-rule-demo__svg [data-district][data-state='out'] { fill: var(--quiet); }
+.strv-rule-demo__svg [data-district][data-state='hot'] { fill: var(--signal-tint); }
 
 /* The chart a case draws behind its labels (widgets/rule-demo/chart.ts). Tick widths are attributes, so these rules set colors only. */
 .strv-chart__axis {

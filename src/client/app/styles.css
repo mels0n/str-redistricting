@@ -3752,6 +3752,12 @@ html:has(> body > #str-viewer) {
   stroke-linejoin: round;
 }
 
+.strv-rule-demo__svg [data-tag='crossing'] {
+  stroke: var(--signal-ink);
+  stroke-width: 7;
+  stroke-linecap: round;
+}
+
 .strv-rule-demo__svg [data-tag='cut'] {
   stroke: var(--ink);
   stroke-width: 2.5;

@@ -2,7 +2,7 @@ import type { Block, Topology } from '../../../entities/census-block/index.js';
 import type { CutStats } from '../../../entities/plan-output/index.js';
 import { chosenCandidate, pieceMembers, type ExtractContext, type StateOutput } from '../../../features/rule-examples/index.js';
 import {
-  createContext, findCut, ScanPool, type CandidateTrace, type CutResult, type SplitContext,
+  createContext, findCut, ScanPool, type CandidateTrace, type CandidateTraceRequest, type CutResult, type SplitContext,
 } from '../../../features/splitline/index.js';
 import { DataError } from '../../../shared/errors/index.js';
 
@@ -20,7 +20,7 @@ export interface CutTrace {
   /** The piece the cut splits. */
   readonly members: Int32Array;
   readonly result: CutResult;
-  /** One per requested first-side seat count, in request order. */
+  /** One per requested candidate, in request order. */
   readonly traces: readonly CandidateTrace[];
 }
 
@@ -47,14 +47,17 @@ export function splitContextOf(ctx: ExtractContext, abbr: string): Promise<Split
   return hit;
 }
 
+/** A candidate to trace: a first-side seat count on the cut's own direction, or any direction and seat count. */
+export type TraceAsk = number | CandidateTraceRequest;
+
 /**
- * Re-run cut `order` (1-based) of a state exactly as the generator did, tracing its winning direction with the
- * given first-side seat counts (default: the seat count the cut chose). Fails if the re-run does not reproduce
- * the cut on disk, so a stale out/ never ships.
+ * Re-run cut `order` (1-based) of a state exactly as the generator did, tracing the given candidates: a number is
+ * a first-side seat count on the cut's winning direction (default: the seat count the cut chose). Fails if the
+ * re-run does not reproduce the cut on disk, so a stale out/ never ships.
  */
-export function cutTrace(ctx: ExtractContext, abbr: string, order: number, lowSeats?: readonly number[]): Promise<CutTrace> {
+export function cutTrace(ctx: ExtractContext, abbr: string, order: number, lowSeats?: readonly TraceAsk[]): Promise<CutTrace> {
   const cache = cacheOf(traced, ctx);
-  const key = `${abbr}:${order}:${lowSeats?.join(',') ?? ''}`;
+  const key = `${abbr}:${order}:${lowSeats?.map((l) => (typeof l === 'number' ? l : `${l.k}/${l.lowSeats}`)).join(',') ?? ''}`;
   let hit = cache.get(key);
   if (!hit) {
     hit = run(ctx, abbr, order, lowSeats);
@@ -63,7 +66,7 @@ export function cutTrace(ctx: ExtractContext, abbr: string, order: number, lowSe
   return hit;
 }
 
-async function run(ctx: ExtractContext, abbr: string, order: number, lowSeats: readonly number[] | undefined): Promise<CutTrace> {
+async function run(ctx: ExtractContext, abbr: string, order: number, lowSeats: readonly TraceAsk[] | undefined): Promise<CutTrace> {
   const out = await ctx.state(abbr);
   const at = out.cutStats.cuts.findIndex((c) => c.order === order);
   const cut = out.cutStats.cuts[at];
@@ -82,7 +85,7 @@ async function run(ctx: ExtractContext, abbr: string, order: number, lowSeats: r
   const pool = ctx.cfg.threads > 1 ? new ScanPool(ctx.cfg.threads) : undefined;
   let result: CutResult;
   try {
-    result = findCut(split, members, cut.seats, undefined, { pool, trace: lows.map((l) => ({ k, lowSeats: l })) });
+    result = findCut(split, members, cut.seats, undefined, { pool, trace: lows.map((l) => (typeof l === 'number' ? { k, lowSeats: l } : l)) });
   } finally {
     await pool?.close();
   }

@@ -21,14 +21,14 @@ const WINDOW = 20;
 const CO_CUT = 3;
 
 /** Walk position of every block of the piece (-1 outside it). */
-function ranks(t: CutTrace, tr: CandidateTrace): Int32Array {
+export function ranks(t: CutTrace, tr: CandidateTrace): Int32Array {
   const rank = new Int32Array(t.blocks.length).fill(-1);
   tr.order.forEach((b, i) => { rank[b] = i; });
   return rank;
 }
 
 /** The `n` blocks of the piece whose internal points are nearest `at`, nearest first (ties by block index). */
-function nearest(t: CutTrace, at: LonLat, n: number): number[] {
+export function nearest(t: CutTrace, at: LonLat, n: number): number[] {
   return Array.from(t.members, (b) => [b, greatCircleDistance(at, t.blocks[b]!.point)] as const)
     .sort((p, q) => p[1] - q[1] || p[0] - q[0])
     .slice(0, n)
@@ -42,7 +42,7 @@ function middleOf(spans: CandidateTrace['passes'][number]['spans']): LonLat {
   return greatCircle(best[0], best[1], 2)[1]!;
 }
 
-interface BlockPanel {
+export interface BlockPanel {
   /** Block indices in walk order. */
   readonly ids: number[];
   readonly project: (p: LonLat) => P;
@@ -50,7 +50,7 @@ interface BlockPanel {
 }
 
 /** Project window blocks (sorted by walk position) into a w by h map area. */
-function blockPanel(t: CutTrace, ids: number[], rank: Int32Array, h: number): BlockPanel {
+export function blockPanel(t: CutTrace, ids: number[], rank: Int32Array, h: number): BlockPanel {
   const sorted = [...ids].sort((a, b) => rank[a]! - rank[b]!);
   const blocks: Block[] = sorted.map((b) => t.blocks[b]!);
   // Each ring as its own polygon: projectWindow keeps the largest, which is the outer ring.
@@ -60,7 +60,7 @@ function blockPanel(t: CutTrace, ids: number[], rank: Int32Array, h: number): Bl
   return { ids: sorted, project: (p) => project(p), rings };
 }
 
-const blockList = (t: CutTrace, panel: BlockPanel, side?: (b: number) => 0 | 1): RuleBlock[] =>
+export const blockList = (t: CutTrace, panel: BlockPanel, side?: (b: number) => 0 | 1): RuleBlock[] =>
   panel.ids.map((b, i) => {
     const blk = t.blocks[b]!;
     const out: RuleBlock = { id: `b${i}`, geoid: blk.geoid, pop: blk.pop, ring: panel.rings.get(blk.geoid)! };
@@ -69,7 +69,7 @@ const blockList = (t: CutTrace, panel: BlockPanel, side?: (b: number) => 0 | 1):
   });
 
 /** A guide line's spans as panel lines clipped to the map area; ids `id`, `id-1`, ... */
-function guideLines(spans: CandidateTrace['passes'][number]['spans'], project: (p: LonLat) => P, h: number, id: string, tag = 'guide'): Line[] {
+export function guideLines(spans: CandidateTrace['passes'][number]['spans'], project: (p: LonLat) => P, h: number, id: string, tag = 'guide'): Line[] {
   const out: Line[] = [];
   for (const [a, b] of spans) {
     const c = clip(project(a), project(b), W, h);

@@ -4,7 +4,8 @@ import { join } from 'node:path';
 import { afterAll, describe, expect, it } from 'vitest';
 import type { Block, BlockPolygons } from '../../../src/server/entities/census-block/index.js';
 import {
-  createExtractContext, CASES, MAX_BYTES, pieceMembers, projectWindow, writeRuleExamples, type RuleCase,
+  createExtractContext, dataCases, extractRuleExamples, MAX_BYTES, pieceMembers, projectWindow, RuleExamplesSchema, writeRuleExamples,
+  type CaseBuilder, type ExtractContext, type RuleCase, type StateOutput,
 } from '../../../src/server/features/rule-examples/index.js';
 import { fingerprintCase, idealCase, shareCase } from '../../../src/server/features/rule-examples/cases/data.js';
 import { parseRuleExamplesConfig } from '../../../src/server/shared/config/index.js';
@@ -54,9 +55,9 @@ describe('rule-examples data cases', () => {
   }, 30_000);
 
   it.skipIf(!(haveAL && haveRepeat))('no em dash in any caption or label (needs out/AL, out/CO, out-repeat/CO)', async () => {
-    for (const build of CASES) {
+    for (const build of dataCases) {
       const c = await build(ctx);
-      expect([...captions(c), ...(c.labels ?? []).map((l) => l.text)].join('\n')).not.toContain('—');
+      expect([...captions(c), ...(c.labels ?? []).map((l) => l.text)].join('\n')).not.toContain('\u2014');
     }
   });
 });
@@ -120,5 +121,95 @@ describe('pieceMembers', () => {
     const before = new Map([['a', 1], ['b', 2], ['c', 3], ['d', 4]]);
     expect([...pieceMembers(before, 1, 2)].sort()).toEqual(['b', 'c']);
     expect([...pieceMembers(before, 0, 4)].sort()).toEqual(['a', 'b', 'c', 'd']);
+  });
+});
+
+// ---- fake in-memory context: these run everywhere, with no out/ or data/raw ----
+const HASH = 'a'.repeat(64);
+function fakeCtx(opts: { repeatHash?: string | undefined; chosenLowSeats?: number } = {}): ExtractContext {
+  const hasRepeat = !('repeatHash' in opts) || opts.repeatHash !== undefined;
+  const metrics = (state: string, seats: number, population: number, ideal: number, hash: string, pops: number[]) => ({
+    state, angleStepDeg: 0.1, nodeVersion: 'v24', inputSha256: 'x', seats, population, ideal,
+    districts: pops.map((pop, i) => ({ district: i + 1, pop, dev: 0, devPct: 0, contiguous: true })),
+    rangePersons: 1, rangePct: 0, allContiguous: true, assignmentSha256: hash,
+  });
+  const outputs: Record<string, StateOutput> = {
+    AL: {
+      metrics: metrics('AL', 7, 5024279, 5024279 / 7, HASH, [717754, 717754]),
+      candidates: { fields: ['k', 'lowSeats', 'lengthM'], cuts: [[[850, 3, 479246], [850, 4, 642462], [851, 4, 111]]] },
+      cutStats: { cuts: [{ order: 1, depth: 0, seats: 7, firstDistrict: 0, angleDeg: 85, lengthM: opts.chosenLowSeats === 4 ? 642462 : 479246 }] },
+      balance: { before: [1], moves: [] }, assignment: new Map(), before: new Map(),
+    },
+    CO: {
+      metrics: metrics('CO', 8, 5773714, 721714.25, HASH, [721714, 721715, 721714, 721715, 721714, 721715, 721714, 721715]),
+      candidates: { fields: [], cuts: [] }, cutStats: { cuts: [] }, balance: { before: [1], moves: [] }, assignment: new Map(), before: new Map(),
+    },
+  };
+  return {
+    cfg: parseRuleExamplesConfig([]),
+    state: async (abbr) => outputs[abbr]!,
+    repeatMetrics: async () => (hasRepeat ? metrics('CO', 8, 5773714, 721714.25, opts.repeatHash ?? HASH, []) : undefined),
+    blocks: async () => { throw new Error('not needed'); },
+  };
+}
+
+describe('data case builders (fake context)', () => {
+  it('shareCase uses the low-side seat count from the cut record, not a recomputed split', async () => {
+    const three = captions(await shareCase(fakeCtx())).at(-1)!;
+    expect(three).toContain('5,024,279');
+    expect(three).toContain('2,153,262.43');
+    const four = captions(await shareCase(fakeCtx({ chosenLowSeats: 4 }))).at(-1)!;
+    expect(four).toContain('2,871,016.57');
+    expect(four).not.toContain('2,153,262.43');
+  });
+
+  it('idealCase states the population, seats, ideal and both whole targets', async () => {
+    const c = await idealCase(fakeCtx());
+    const text = captions(c).join(' ');
+    for (const s of ['5,773,714', '8', '721,714.25', '721,714', '721,715']) expect(text).toContain(s);
+    expect(c.chart?.marks?.onTarget).toHaveLength(8);
+  });
+
+  it('fingerprintCase carries both hashes when they match', async () => {
+    const c = await fingerprintCase(fakeCtx());
+    expect(c.labels?.map((l) => l.text)).toEqual([HASH, HASH]);
+    expect(c.missing).toBeUndefined();
+  });
+
+  it('fingerprintCase throws a DataError when the hashes differ', async () => {
+    await expect(fingerprintCase(fakeCtx({ repeatHash: 'b'.repeat(64) }))).rejects.toBeInstanceOf(DataError);
+  });
+
+  it('fingerprintCase is marked missing when there is no repeat run', async () => {
+    const c = await fingerprintCase(fakeCtx({ repeatHash: undefined }));
+    expect(c.missing).toBeTruthy();
+  });
+
+  it('extractRuleExamples writes the cases of the builders it is given', async () => {
+    const dest = join(tmp, 'extract.json');
+    const builder: CaseBuilder = async () => tiny('only');
+    const r = await extractRuleExamples({ ...parseRuleExamplesConfig([]), dest }, [builder]);
+    expect(r.cases).toBe(1);
+    expect(JSON.parse(readFileSync(dest, 'utf8')).cases.map((c: { id: string }) => c.id)).toEqual(['only']);
+  });
+});
+
+describe('committed public/data/how/rule-examples.json', () => {
+  const path = 'public/data/how/rule-examples.json';
+  const raw = readFileSync(path, 'utf8');
+  const file = RuleExamplesSchema.parse(JSON.parse(raw));
+
+  it('is within the size budget and has no em dash anywhere', () => {
+    expect(Buffer.byteLength(raw)).toBeLessThan(MAX_BYTES);
+    expect(raw).not.toContain('\u2014');
+  });
+
+  it('fingerprint.repeat carries two equal hashes', () => {
+    const c = file.cases.find((x) => x.id === 'fingerprint.repeat')!;
+    expect(c.missing).toBeUndefined();
+    const hashes = (c.labels ?? []).filter((l) => l.tag === 'hash').map((l) => l.text);
+    expect(hashes).toHaveLength(2);
+    expect(hashes[0]).toBe(hashes[1]);
+    expect(hashes[0]).toMatch(/^[0-9a-f]{64}$/);
   });
 });

@@ -6,22 +6,23 @@ import { writeRuleExamples } from './write.js';
 
 export type CaseBuilder = (ctx: ExtractContext) => Promise<RuleCase>;
 
-/** Every registered case; later cases are added here. */
-export const CASES: readonly CaseBuilder[] = [shareCase, idealCase, fingerprintCase];
+/** The cases that need only a state's generated output files (no geometry). */
+export const dataCases: readonly CaseBuilder[] = [shareCase, idealCase, fingerprintCase];
 
-/** Build every case from the generated plans and write the examples file; returns case count and bytes. */
-export async function extractRuleExamples(cfg: RuleExamplesConfig): Promise<{ cases: number; bytes: number }> {
+/** Build every given case from the generated plans and write the examples file; returns case count and bytes. */
+export async function extractRuleExamples(cfg: RuleExamplesConfig, builders: readonly CaseBuilder[]): Promise<{ cases: number; bytes: number }> {
   const ctx = createExtractContext(cfg);
   const cases: RuleCase[] = [];
-  for (const build of CASES) cases.push(await build(ctx));
+  for (const build of builders) cases.push(await build(ctx));
   const bytes = await writeRuleExamples(cfg.dest, cases);
   return { cases: cases.length, bytes };
 }
 
 export { createExtractContext } from './context.js';
 export type { ExtractContext, StateBlocks } from './context.js';
-export { loadStateOutput, pieceMembers } from './load.js';
+export { chosenCandidate, loadStateOutput, pieceMembers } from './load.js';
 export type { StateOutput } from './load.js';
+export type { BalanceLog, Candidates, CutStats, PlanMetrics } from '../../entities/plan-output/index.js';
 export { RuleCaseSchema, RuleExamplesSchema } from './schema.js';
 export type { RuleCase, RuleExamples } from './schema.js';
 export { projectWindow } from './window.js';

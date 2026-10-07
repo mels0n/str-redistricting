@@ -3,7 +3,8 @@ import { buildTopology, loadBlockPolygons, loadStateBlocks } from '../../entitie
 import { stateByAbbr } from '../../shared/apportionment/index.js';
 import type { RuleExamplesConfig } from '../../shared/config/index.js';
 import { DataError } from '../../shared/errors/index.js';
-import { loadMetricsIfPresent, loadStateOutput, type Metrics, type StateOutput } from './load.js';
+import type { PlanMetrics } from '../../entities/plan-output/index.js';
+import { loadMetricsIfPresent, loadStateOutput, type StateOutput } from './load.js';
 
 export interface StateBlocks {
   /** Sorted by GEOID, as the generator sees them. */
@@ -18,7 +19,7 @@ export interface ExtractContext {
   readonly cfg: RuleExamplesConfig;
   state(abbr: string): Promise<StateOutput>;
   /** Metrics of the repeat run in the repeat directory, or undefined when that run is absent. */
-  repeatMetrics(abbr: string): Promise<Metrics | undefined>;
+  repeatMetrics(abbr: string): Promise<PlanMetrics | undefined>;
   blocks(abbr: string): Promise<StateBlocks>;
 }
 
@@ -30,7 +31,7 @@ const memo = <T>(cache: Map<string, Promise<T>>, key: string, make: () => Promis
 
 export function createExtractContext(cfg: RuleExamplesConfig): ExtractContext {
   const outputs = new Map<string, Promise<StateOutput>>();
-  const repeats = new Map<string, Promise<Metrics | undefined>>();
+  const repeats = new Map<string, Promise<PlanMetrics | undefined>>();
   const blockSets = new Map<string, Promise<StateBlocks>>();
   return {
     cfg,

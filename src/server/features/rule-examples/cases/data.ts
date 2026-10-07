@@ -1,4 +1,6 @@
+import { DataError } from '../../../shared/errors/index.js';
 import type { ExtractContext } from '../context.js';
+import { chosenCandidate } from '../load.js';
 import type { RuleCase } from '../schema.js';
 
 const VIEW = { w: 320, h: 180 };
@@ -12,7 +14,8 @@ export async function shareCase(ctx: ExtractContext): Promise<RuleCase> {
   const { population: pop, seats } = out.metrics;
   const cut = out.cutStats.cuts[0];
   if (!cut) throw new Error(`${abbr}: no cuts in cut-stats.json`);
-  const low = Math.floor(cut.seats / 2);
+  const low = chosenCandidate(out, 0).lowSeats;
+  if (low === undefined) throw new DataError(abbr + ': candidates.json has no lowSeats column');
   const share = (pop * low) / cut.seats;
   return {
     id: 'cut.share',
@@ -71,6 +74,7 @@ export async function fingerprintCase(ctx: ExtractContext): Promise<RuleCase> {
     };
   }
   const a = metrics.assignmentSha256, b = repeat.assignmentSha256;
+  if (a !== b) throw new DataError(abbr + ': the repeat run does not reproduce the plan (stale or non-deterministic out-repeat), refusing to publish a differing fingerprint');
   return {
     ...base,
     labels: [
@@ -80,7 +84,7 @@ export async function fingerprintCase(ctx: ExtractContext): Promise<RuleCase> {
     steps: [
       { caption: 'Run the generator on Colorado and fingerprint the plan with SHA-256.', show: ['hash-a'] },
       { caption: 'Run it again from scratch and fingerprint that plan too.', show: ['hash-a', 'hash-b'] },
-      { caption: a === b ? 'The two fingerprints are identical, so the two plans are identical.' : 'The two fingerprints differ.', show: ['hash-a', 'hash-b'] },
+      { caption: 'The two fingerprints are identical, so the two plans are identical.', show: ['hash-a', 'hash-b'] },
     ],
   };
 }

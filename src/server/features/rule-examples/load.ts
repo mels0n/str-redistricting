@@ -2,54 +2,17 @@ import { existsSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { z } from 'zod';
+import {
+  BalanceLogSchema, CandidatesSchema, CutStatsSchema, PlanMetricsSchema,
+  type BalanceLog, type Candidates, type CutStats, type PlanMetrics,
+} from '../../entities/plan-output/index.js';
 import { DataError } from '../../shared/errors/index.js';
 
-/** The fields of a plan's metrics.json the examples read; any others pass through. */
-export const MetricsSchema = z.object({
-  state: z.string(),
-  seats: z.number().int().positive(),
-  population: z.number(),
-  ideal: z.number(),
-  districts: z.array(z.object({ district: z.number().int().positive(), pop: z.number() })),
-  assignmentSha256: z.string(),
-}).passthrough();
-export type Metrics = z.infer<typeof MetricsSchema>;
-
-/** candidates.json: one row per candidate line, per cut (in cut order); `fields` names the columns. */
-export const CandidatesSchema = z.object({
-  fields: z.array(z.string()),
-  cuts: z.array(z.array(z.array(z.number()))),
-});
-export type Candidates = z.infer<typeof CandidatesSchema>;
-
-const CutStat = z.object({
-  order: z.number().int(),
-  depth: z.number().int(),
-  seats: z.number().int(),
-  /** 0-based index of the first district the piece will become. */
-  firstDistrict: z.number().int(),
-  angleDeg: z.number(),
-  lengthM: z.number(),
-}).passthrough();
-export const CutStatsSchema = z.object({ cuts: z.array(CutStat) }).passthrough();
-export type CutStats = z.infer<typeof CutStatsSchema>;
-
-const Move = z.object({
-  block: z.number().int(),
-  geoid: z.string(),
-  from: z.number().int(),
-  to: z.number().int(),
-  pop: z.number(),
-  gain: z.number(),
-});
-export const BalanceSchema = z.object({ before: z.array(z.number().int().nonnegative()).min(1), moves: z.array(Move) });
-export type Balance = z.infer<typeof BalanceSchema>;
-
 export interface StateOutput {
-  readonly metrics: Metrics;
+  readonly metrics: PlanMetrics;
   readonly candidates: Candidates;
   readonly cutStats: CutStats;
-  readonly balance: Balance;
+  readonly balance: BalanceLog;
   /** Final plan: GEOID to 1-based district. */
   readonly assignment: Map<string, number>;
   /** Plan before balancing: GEOID to 1-based district. */
@@ -90,10 +53,10 @@ async function readAssignment(path: string): Promise<Map<string, number>> {
 export async function loadStateOutput(outDir: string, abbr: string): Promise<StateOutput> {
   const dir = join(outDir, abbr);
   const [metrics, candidates, cutStats, balance, assignment, before] = await Promise.all([
-    readJson(join(dir, 'metrics.json'), MetricsSchema),
+    readJson(join(dir, 'metrics.json'), PlanMetricsSchema),
     readJson(join(dir, 'candidates.json'), CandidatesSchema),
     readJson(join(dir, 'cut-stats.json'), CutStatsSchema),
-    readJson(join(dir, 'balance.json'), BalanceSchema),
+    readJson(join(dir, 'balance.json'), BalanceLogSchema),
     readAssignment(join(dir, 'assignment.csv')),
     readAssignment(join(dir, 'before-balancing', 'assignment.csv')),
   ]);
@@ -101,9 +64,9 @@ export async function loadStateOutput(outDir: string, abbr: string): Promise<Sta
 }
 
 /** Metrics of a plan directory, or undefined when it has not been generated. */
-export async function loadMetricsIfPresent(outDir: string, abbr: string): Promise<Metrics | undefined> {
+export async function loadMetricsIfPresent(outDir: string, abbr: string): Promise<PlanMetrics | undefined> {
   const path = join(outDir, abbr, 'metrics.json');
-  return existsSync(path) ? readJson(path, MetricsSchema) : undefined;
+  return existsSync(path) ? readJson(path, PlanMetricsSchema) : undefined;
 }
 
 /** GEOIDs of the blocks in the piece a cut works on: districts firstDistrict+1 .. firstDistrict+seats (1-based) before balancing. */
@@ -113,4 +76,17 @@ export function pieceMembers(before: ReadonlyMap<string, number>, firstDistrict:
     if (district > firstDistrict && district <= firstDistrict + seats) members.add(geoid);
   }
   return members;
+}
+
+/** The candidate row of the line a cut chose: same direction index and length, one row per side. */
+export function chosenCandidate(out: StateOutput, cutIndex: number): Record<string, number> {
+  const cut = out.cutStats.cuts[cutIndex];
+  const rows = out.candidates.cuts[cutIndex];
+  if (!cut || !rows) throw new DataError(`${out.metrics.state}: no cut ${cutIndex + 1} in the cut data`);
+  const k = Math.round(cut.angleDeg / out.metrics.angleStepDeg);
+  const { fields } = out.candidates;
+  const kAt = fields.indexOf('k'), lenAt = fields.indexOf('lengthM');
+  const row = rows.find((r) => r[kAt] === k && r[lenAt] === cut.lengthM);
+  if (!row) throw new DataError(`${out.metrics.state}: cut ${cut.order} chose a line that is not in candidates.json`);
+  return Object.fromEntries(fields.map((f, i) => [f, row[i] ?? 0]));
 }

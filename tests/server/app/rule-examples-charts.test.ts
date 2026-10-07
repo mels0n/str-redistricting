@@ -101,6 +101,13 @@ describe('cut.order-of-checks (MS cut 1)', () => {
     const text = c.steps.map((s) => s.caption).join(' ');
     expect(text).toContain(whole(unresolved!.length));
     expect(text).toContain(whole(cut.lengthM));
+    // The order follows the bullet: settle each line, then measure its border, then mark the unconnected ones, sort, pick.
+    const first = c.steps[0]!.caption;
+    expect(first.indexOf('settled')).toBeGreaterThan(-1);
+    expect(first.indexOf('settled')).toBeLessThan(first.indexOf('measured'));
+    expect(c.steps[1]!.caption).toContain('connected');
+    expect(c.steps[1]!.show).toContain('chart-unresolved');
+    expect(c.steps[2]!.show).toContain('chart-sorted');
     // The steps show the chart, then the unresolved marks, then the sort, then the skipped line, then the winner.
     const shows = c.steps.map((s) => s.show.filter((id) => id.startsWith('chart')));
     expect(shows[0]).toEqual(['chart']);

@@ -98,6 +98,22 @@ export interface CutOptions {
   readonly trace?: readonly CandidateTraceRequest[];
 }
 
+/** How many direction steps a line at index k leans from north-south (k = 0 and k = angleCount are both north-south). */
+export const northSouthDistance = (k: number, angleCount: number): number => Math.min(k, angleCount - k);
+
+/**
+ * The order candidate lines are tried in: border length to the centimeter, then closeness to north-south, then
+ * the smaller direction index, then the smaller first-side seat count. Lengths within a centimeter count as
+ * equal: on a sphere exact ties only exist up to rounding.
+ */
+export function compareCandidates(angleCount: number): (p: Pick<Candidate, 'k' | 'lowSeats' | 'lengthM'>, q: Pick<Candidate, 'k' | 'lowSeats' | 'lengthM'>) => number {
+  return (p, q) =>
+    Math.round(p.lengthM * 100) - Math.round(q.lengthM * 100) ||
+    northSouthDistance(p.k, angleCount) - northSouthDistance(q.k, angleCount) ||
+    p.k - q.k ||
+    p.lowSeats - q.lowSeats;
+}
+
 export function findCut(ctx: SplitContext, members: Int32Array, seats: number, validate?: SideValidator, opts: CutOptions = {}): CutResult {
   const m = members.length;
   if (seats < 2 || m < 2) throw new DataError('a cut needs at least two seats and two blocks');
@@ -167,10 +183,7 @@ export function findCut(ctx: SplitContext, members: Int32Array, seats: number, v
     });
   }
 
-  const nsDist = (k: number) => Math.min(k, ctx.angleCount - k);
-  // Lengths within a centimeter count as equal: on a sphere exact ties only exist up to rounding.
-  const cm = (c: Candidate) => Math.round(c.lengthM * 100);
-  candidates.sort((p, q) => cm(p) - cm(q) || nsDist(p.k) - nsDist(q.k) || p.k - q.k || p.lowSeats - q.lowSeats);
+  candidates.sort(compareCandidates(ctx.angleCount));
 
   const check: SideValidator = validate ?? ((lo, hi) => isConnected(topo, lo) && isConnected(topo, hi));
   const side = new Uint8Array(m);

@@ -1,6 +1,7 @@
 import {
   chosenCandidate, generatedStates, loadCandidates, loadMetricsIfPresent, type CaseBuilder, type ExtractContext, type RuleCase,
 } from '../../../features/rule-examples/index.js';
+import { compareCandidates, northSouthDistance } from '../../../features/splitline/index.js';
 import { DataError } from '../../../shared/errors/index.js';
 import { nameOf, people, whole } from './panel.js';
 import { cutTrace } from './trace.js';
@@ -43,11 +44,10 @@ function ranked(rows: readonly number[][], fields: readonly string[], angleCount
   const at = (f: string): number => fields.indexOf(f);
   const [kAt, lowAt, lenAt, unAt] = [at('k'), at('lowSeats'), at('lengthM'), at('unresolved')];
   if (kAt < 0 || lowAt < 0 || lenAt < 0 || unAt < 0) throw new DataError('candidates.json is missing a column the charts read');
-  const ns = (k: number): number => Math.min(k, angleCount - k);
+  const cmp = compareCandidates(angleCount);
   return rows
     .map((r) => ({ cand: { k: r[kAt]!, lowSeats: r[lowAt]!, lengthM: r[lenAt]! }, unresolved: r[unAt] === 1 }))
-    .sort((p, q) =>
-      Math.round(p.cand.lengthM * 100) - Math.round(q.cand.lengthM * 100) || ns(p.cand.k) - ns(q.cand.k) || p.cand.k - q.cand.k || p.cand.lowSeats - q.cand.lowSeats);
+    .sort((p, q) => cmp(p.cand, q.cand));
 }
 
 /** The two shortest resolved candidates of a cut in the generator's order, or undefined when fewer than two are resolved. */
@@ -58,7 +58,7 @@ export function shortestTwo(rows: readonly number[][], fields: readonly string[]
 
 /** Which of two equally long candidates goes first, and by which rule: 1 closer to north-south, 2 smaller angle, 3 fewer first-side seats. */
 export function tieRule(a: Pick<Cand, 'k' | 'lowSeats'>, b: Pick<Cand, 'k' | 'lowSeats'>, angleCount: number): { first: 'a' | 'b'; rule: 1 | 2 | 3 } {
-  const da = Math.min(a.k, angleCount - a.k), db = Math.min(b.k, angleCount - b.k);
+  const da = northSouthDistance(a.k, angleCount), db = northSouthDistance(b.k, angleCount);
   if (da !== db) return { first: da < db ? 'a' : 'b', rule: 1 };
   if (a.k !== b.k) return { first: a.k < b.k ? 'a' : 'b', rule: 2 };
   return { first: a.lowSeats <= b.lowSeats ? 'a' : 'b', rule: 3 };
@@ -127,8 +127,8 @@ export async function orderOfChecksCase(ctx: ExtractContext): Promise<RuleCase> 
       axisLabel('x-sorted-r', AXIS_R, 'longest'),
     ],
     steps: [
-      { caption: `${name}'s first cut tries ${whole(n)} straight lines, one every ${step}° from 0° to ${deg(lastAngle)}. Each tick is the border length of one line.`, show: angles },
-      { caption: `Every line is first settled for stray pieces. ${whole(unresolved.length)} of the ${whole(n)} cannot be settled, so their two sides are not each one connected piece. They are marked.`, show: [...angles, 'chart-unresolved'] },
+      { caption: `${name}'s first cut tries ${whole(n)} straight lines, one every ${step}° from 0° to ${deg(lastAngle)}. Each line is first settled for stray pieces, and only then is its real border measured. Each tick is that measured length.`, show: angles },
+      { caption: `Settling cannot fix every line. For ${whole(unresolved.length)} of the ${whole(n)}, the two sides are still not each one connected piece. They are marked.`, show: [...angles, 'chart-unresolved'] },
       { caption: `Now the lines are sorted by border length, shortest first.`, show: [...byLength, 'chart-unresolved'] },
       { caption: `The shortest line, ${deg((shortest.k * 180) / angleCount)} at ${km(shortest.lengthM)} km, is one of the unresolved ones. ${one ? 'It is' : 'They are'} skipped.`, show: [...byLength, 'chart-unresolved', 'chart-skipped'] },
       {

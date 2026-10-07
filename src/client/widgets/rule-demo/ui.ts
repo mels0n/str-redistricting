@@ -48,11 +48,12 @@ function wrap(text: string, max: number): string[] {
 
 function linkOf(c: RuleCase): HTMLAnchorElement {
   const { state, cut, move } = c.link;
+  const name = c.stateName;
   const patch: { cut?: number; move?: number } = {};
   if (cut !== undefined) patch.cut = cut;
   else if (move !== undefined) patch.move = move;
   const what = cut !== undefined ? ` at cut ${cut}` : move !== undefined ? ` at balancing move ${move}` : '';
-  return h('a', { class: 'strv-rule-demo__link', href: formatHash(stateRoute(state, patch)) }, `Open ${state}${what}`);
+  return h('a', { class: 'strv-rule-demo__link', href: formatHash(stateRoute(state, patch)) }, `Open ${name}${what}`);
 }
 
 interface Shape {
@@ -190,13 +191,18 @@ export function createRuleDemo(c: RuleCase): RuleDemo {
     caption.textContent = c.steps[i]!.caption;
     caption.setAttribute('aria-live', announce ? 'polite' : 'off');
     count.textContent = `Step ${i + 1} of ${c.steps.length}`;
-    prev.disabled = i === 0;
-    next.disabled = i === c.steps.length - 1;
+    // aria-disabled, not disabled: a button the visitor just pressed keeps focus at the end of the steps.
+    prev.setAttribute('aria-disabled', String(i === 0));
+    next.setAttribute('aria-disabled', String(i === c.steps.length - 1));
     sync();
   };
   const player = createPlayer(c.steps.length, onStep);
-  const prev = btn('Previous step', 'Previous', () => player.prev());
-  const next = btn('Next step', 'Next', () => player.next());
+  const prev = btn('Previous step', 'Previous', () => {
+    if (prev.getAttribute('aria-disabled') !== 'true') player.prev();
+  });
+  const next = btn('Next step', 'Next', () => {
+    if (next.getAttribute('aria-disabled') !== 'true') player.next();
+  });
   const toggle = btn('Play', 'Play', () => {
     if (player.playing) player.pause();
     else player.play();
@@ -208,7 +214,7 @@ export function createRuleDemo(c: RuleCase): RuleDemo {
     toggle.textContent = label;
   }
 
-  fig.append(frame, h('div', { class: 'strv-rule-demo__bar' }, prev, prefersReducedMotion() ? null : toggle, next, count), caption, linkOf(c));
+  fig.append(frame, h('div', { class: 'strv-rule-demo__bar' }, prefersReducedMotion() ? null : toggle, prev, next, count), caption, linkOf(c));
   onStep(0, false);
 
   return {

@@ -9,6 +9,7 @@ const steps = (n: number): RuleCase['steps'] =>
 const base = (over: Partial<RuleCase> = {}): RuleCase => ({
   id: 'cut.test',
   state: 'CO',
+  stateName: 'Colorado',
   source: { cut: 3 },
   link: { state: 'CO', cut: 3 },
   view: { w: 320, h: 180 },
@@ -97,6 +98,54 @@ describe('rule demo widget', () => {
     d.destroy();
   });
 
+  it('names the state when there is no cut or move', () => {
+    const d = createRuleDemo(base({ link: { state: 'CO' } }));
+    expect(d.el.querySelector('a')!.textContent).toBe('Open Colorado');
+    d.destroy();
+  });
+
+  it('toggle reads Pause while autoplay runs and Play once it reaches the last step', () => {
+    const d = createRuleDemo(base());
+    const toggle = d.el.querySelector<HTMLButtonElement>('.strv-rule-demo__btn')!;
+    expect(toggle.getAttribute('aria-label')).toBe('Play');
+    d.play();
+    expect(toggle.getAttribute('aria-label')).toBe('Pause');
+    vi.advanceTimersByTime(2200);
+    expect(counter(d.el)).toBe('Step 2 of 5');
+    expect(toggle.getAttribute('aria-label')).toBe('Pause');
+    expect(toggle.textContent).toBe('Pause');
+    vi.advanceTimersByTime(2200 * 3);
+    expect(counter(d.el)).toBe('Step 5 of 5');
+    expect(toggle.getAttribute('aria-label')).toBe('Play');
+    d.destroy();
+  });
+
+  it('keeps focus on a button that reaches the end of the steps and ignores its click', () => {
+    const d = createRuleDemo(base({ steps: steps(2) }));
+    document.body.append(d.el);
+    const next = button(d.el, 'Next step');
+    next.focus();
+    next.click();
+    expect(counter(d.el)).toBe('Step 2 of 2');
+    expect(next.getAttribute('aria-disabled')).toBe('true');
+    expect(next.hasAttribute('disabled')).toBe(false);
+    expect(document.activeElement).toBe(next);
+    next.click();
+    expect(counter(d.el)).toBe('Step 2 of 2');
+    const prev = button(d.el, 'Previous step');
+    d.step(0, true);
+    prev.click();
+    expect(counter(d.el)).toBe('Step 1 of 2');
+    d.el.remove();
+    d.destroy();
+  });
+
+  it('orders the controls Play or Pause, Previous, Next', () => {
+    const d = createRuleDemo(base());
+    expect([...d.el.querySelectorAll('button')].map((b) => b.getAttribute('aria-label'))).toEqual(['Play', 'Previous step', 'Next step']);
+    d.destroy();
+  });
+
   it('missing case renders its caption and no controls', () => {
     const d = createRuleDemo(base({ missing: 'No such case', steps: [{ caption: 'No real state shows this yet.', show: [] }] }));
     expect(caption(d.el).textContent).toBe('No real state shows this yet.');
@@ -110,7 +159,7 @@ describe('rule demo widget', () => {
     const d = createRuleDemo(base());
     const a = d.el.querySelector('a')!;
     expect(a.getAttribute('href')).toBe('#/CO/cut/3');
-    expect(a.textContent).toBe('Open CO at cut 3');
+    expect(a.textContent).toBe('Open Colorado at cut 3');
     d.destroy();
   });
 

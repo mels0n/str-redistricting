@@ -21,7 +21,7 @@ const haveCO = existsSync('out/CO/metrics.json') && existsSync('out/CO/balance.j
 const haveRepeat = haveCO && existsSync('out-repeat/CO/metrics.json');
 
 const tiny = (id: string, caption = 'A caption.'): RuleCase => ({
-  id, state: 'XX', source: {}, link: { state: 'XX' }, view: { w: 10, h: 10 }, steps: [{ caption, show: [] }],
+  id, state: 'XX', stateName: 'Xland', source: {}, link: { state: 'XX' }, view: { w: 10, h: 10 }, steps: [{ caption, show: [] }],
 });
 const captions = (c: RuleCase): string[] => c.steps.map((s) => s.caption);
 
@@ -34,6 +34,8 @@ describe('rule-examples data cases', () => {
     expect(last).toContain('7');
     expect(last).toContain('2,153,262.43');
     expect(c.link).toEqual({ state: 'AL', cut: 1 });
+    expect(c.stateName).toBe('Alabama');
+    expect(captions(c)[0]).toContain('Alabama has');
   });
 
   it.skipIf(!haveCO)('balance.ideal for CO (needs out/CO)', async () => {

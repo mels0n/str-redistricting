@@ -37,6 +37,7 @@ const Chart = z.object({
 export const RuleCaseSchema = z.object({
   id: z.string().min(1),
   state: z.string().min(1),
+  stateName: z.string().min(1),
   source: z.object({ cut: Int.optional(), move: Int.optional(), angleDeg: z.number().optional() }),
   link: z.object({ state: z.string().min(1), cut: Int.optional(), move: Int.optional() }),
   view: z.object({ w: z.number().positive(), h: z.number().positive() }),

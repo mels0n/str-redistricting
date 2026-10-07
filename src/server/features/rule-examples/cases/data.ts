@@ -1,8 +1,15 @@
+import { stateByAbbr } from '../../../shared/apportionment/index.js';
 import { DataError } from '../../../shared/errors/index.js';
 import type { ExtractContext } from '../context.js';
 import { chosenCandidate } from '../load.js';
 import type { RuleCase } from '../schema.js';
 
+/** The state's full name from the apportionment table. */
+function nameOf(abbr: string): string {
+  const info = stateByAbbr(abbr);
+  if (!info) throw new DataError(`unknown state: ${abbr}`);
+  return info.name;
+}
 const VIEW = { w: 320, h: 180 };
 const whole = (n: number): string => n.toLocaleString('en-US');
 const twoDecimals = (n: number): string => n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -20,6 +27,7 @@ export async function shareCase(ctx: ExtractContext): Promise<RuleCase> {
   return {
     id: 'cut.share',
     state: abbr,
+    stateName: nameOf(abbr),
     source: { cut: cut.order, angleDeg: cut.angleDeg },
     link: { state: abbr, cut: cut.order },
     view: VIEW,
@@ -28,7 +36,7 @@ export async function shareCase(ctx: ExtractContext): Promise<RuleCase> {
       { id: 'share', x: 160, y: 110, text: `${twoDecimals(share)} people`, tag: 'share' },
     ],
     steps: [
-      { caption: `Alabama has ${whole(pop)} people and ${seats} seats, so the first cut works on all ${seats}.`, show: ['pop'] },
+      { caption: `${nameOf(abbr)} has ${whole(pop)} people and ${seats} seats, so the first cut works on all ${seats}.`, show: ['pop'] },
       { caption: `The ${seats} seats split into ${low} and ${cut.seats - low}. The ${low}-seat side should hold ${low} of every ${seats} people.`, show: ['pop'] },
       { caption: `${whole(pop)} x ${low} / ${seats} = ${twoDecimals(share)}, the number of people the ${low}-seat side should hold.`, show: ['pop', 'share'] },
     ],
@@ -45,6 +53,7 @@ export async function idealCase(ctx: ExtractContext): Promise<RuleCase> {
   return {
     id: 'balance.ideal',
     state: abbr,
+    stateName: nameOf(abbr),
     source: {},
     link: { state: abbr },
     view: VIEW,
@@ -53,7 +62,7 @@ export async function idealCase(ctx: ExtractContext): Promise<RuleCase> {
       { id: 'targets', x: 160, y: 110, text: `${whole(floor)} or ${whole(ceil)}`, tag: 'targets' },
     ],
     steps: [
-      { caption: `Colorado has ${whole(pop)} people and ${seats} seats.`, show: [] },
+      { caption: `${nameOf(abbr)} has ${whole(pop)} people and ${seats} seats.`, show: [] },
       { caption: `${whole(pop)} / ${seats} = ${twoDecimals(ideal)} people per district, which no district can hit exactly.`, show: ['ideal'] },
       { caption: `So the target is the two neighbouring whole numbers: ${whole(floor)} and ${whole(ceil)}.`, show: ['ideal', 'targets'] },
     ],
@@ -65,7 +74,7 @@ export async function idealCase(ctx: ExtractContext): Promise<RuleCase> {
 export async function fingerprintCase(ctx: ExtractContext): Promise<RuleCase> {
   const abbr = 'CO';
   const [{ metrics }, repeat] = await Promise.all([ctx.state(abbr), ctx.repeatMetrics(abbr)]);
-  const base = { id: 'fingerprint.repeat', state: abbr, source: {}, link: { state: abbr }, view: VIEW } as const;
+  const base = { id: 'fingerprint.repeat', state: abbr, stateName: nameOf(abbr), source: {}, link: { state: abbr }, view: VIEW } as const;
   if (!repeat) {
     return {
       ...base,
@@ -82,7 +91,7 @@ export async function fingerprintCase(ctx: ExtractContext): Promise<RuleCase> {
       { id: 'hash-b', x: 160, y: 110, text: b, tag: 'hash' },
     ],
     steps: [
-      { caption: 'Run the generator on Colorado and fingerprint the plan with SHA-256.', show: ['hash-a'] },
+      { caption: `Run the generator on ${nameOf(abbr)} and fingerprint the plan with SHA-256.`, show: ['hash-a'] },
       { caption: 'Run it again from scratch and fingerprint that plan too.', show: ['hash-a', 'hash-b'] },
       { caption: 'The two fingerprints are identical, so the two plans are identical.', show: ['hash-a', 'hash-b'] },
     ],

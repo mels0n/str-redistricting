@@ -3710,6 +3710,18 @@ html:has(> body > #str-viewer) {
   min-width: 2.75rem;
 }
 
+.strv-rule-demo__btn[aria-disabled='true'] {
+  color: var(--rule);
+  border-color: var(--hairline);
+  cursor: default;
+}
+
+.strv-rule-demo__btn:focus-visible,
+.strv-rule-demo__link:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
 .strv-rule-demo__count {
   margin-left: auto;
   font-size: 0.8125rem;

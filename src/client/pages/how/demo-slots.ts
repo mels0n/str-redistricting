@@ -1,4 +1,4 @@
-import { clear, describeError, h } from '../../shared';
+import { clear, h } from '../../shared';
 import { loadRuleExamples } from '../../entities/rule-example';
 import { createRuleDemo, type RuleDemo } from '../../widgets/rule-demo';
 
@@ -64,10 +64,10 @@ export function wireExact(details: HTMLDetailsElement): void {
         elToEntry.set(demo.el, entry);
       }
       settle();
-    } catch (err) {
+    } catch {
       if (!alive) return;
       clear(status);
-      status.append(describeError(err), ' ', h('button', { type: 'button', class: 'strv-button', onclick: () => void fill() }, 'Try again'));
+      status.append('Could not load the examples', ' ', h('button', { type: 'button', class: 'strv-button', onclick: () => void fill() }, 'Try again'));
     }
   }
 

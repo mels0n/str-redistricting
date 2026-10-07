@@ -32,8 +32,10 @@ export function createPlayer(steps: number, onStep: (i: number, announce: boolea
   const schedule = (): void => {
     timer = window.setTimeout(() => {
       timer = null;
-      go(index + 1, false);
-      if (index < last) schedule();
+      const i = Math.min(index + 1, last);
+      // Re-arm first, so onStep sees a player that is still playing until it reaches the last step.
+      if (i < last) schedule();
+      go(i, false);
     }, dwellMs);
   };
 

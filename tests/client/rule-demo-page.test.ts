@@ -7,11 +7,30 @@ const FILE = {
     {
       id: 'cut.share',
       state: 'AL',
+      stateName: 'Alabama',
       source: { cut: 1 },
       link: { state: 'AL', cut: 1 },
       view: { w: 320, h: 180 },
       labels: [{ id: 'pop', x: 160, y: 60, text: '5,024,279 people' }],
-      steps: [{ caption: 'The share.', show: ['pop'] }],
+      steps: [
+        { caption: 'S1', show: ['pop'] },
+        { caption: 'S2', show: ['pop'] },
+        { caption: 'S3', show: ['pop'] },
+      ],
+    },
+    {
+      id: 'strays.fixed',
+      state: 'CO',
+      stateName: 'Colorado',
+      source: {},
+      link: { state: 'CO' },
+      view: { w: 320, h: 180 },
+      labels: [{ id: 'a', x: 160, y: 60, text: 'a' }],
+      steps: [
+        { caption: 'T1', show: ['a'] },
+        { caption: 'T2', show: ['a'] },
+        { caption: 'T3', show: ['a'] },
+      ],
     },
   ],
 };
@@ -54,7 +73,8 @@ describe('How page rule demos', () => {
     open(b!);
     await flush();
     expect(ruleCalls()).toBe(1);
-    expect(page.el.querySelectorAll('figure.strv-rule-demo').length).toBe(1);
+    expect(page.el.querySelectorAll('figure.strv-rule-demo').length).toBe(2);
+    expect(page.el.querySelector('figure.strv-rule-demo a')!.textContent).toBe('Open Alabama at cut 1');
     page.destroy();
   });
 
@@ -66,6 +86,7 @@ describe('How page rule demos', () => {
     open(d);
     await flush();
     expect(ruleCalls()).toBe(1);
+    expect(d.querySelector('.strv-rule-demo__status')!.textContent).toBe('Could not load the examples Try again');
     const retry = [...d.querySelectorAll('button')].find((b) => b.textContent === 'Try again')!;
     expect(retry).toBeTruthy();
     good = true;
@@ -97,5 +118,101 @@ describe('How page rule demos', () => {
     expect(EXACT_CASE_IDS).toContain('fingerprint.repeat');
     expect(EXACT_CASE_IDS.length).toBe(new Set(EXACT_CASE_IDS).size);
     page.destroy();
+  });
+});
+
+class FakeObserver {
+  static all: FakeObserver[] = [];
+  watched = new Set<Element>();
+  disconnected = false;
+  constructor(private cb: (e: { target: Element; isIntersecting: boolean }[]) => void) {
+    FakeObserver.all.push(this);
+  }
+  observe(el: Element): void {
+    this.watched.add(el);
+  }
+  disconnect(): void {
+    this.disconnected = true;
+    this.watched.clear();
+  }
+  show(el: Element, isIntersecting: boolean): void {
+    this.cb([{ target: el, isIntersecting }]);
+  }
+}
+
+describe('How page playback gating', () => {
+  beforeEach(() => {
+    vi.useFakeTimers();
+    FakeObserver.all = [];
+    vi.stubGlobal('IntersectionObserver', FakeObserver);
+  });
+  afterEach(() => vi.useRealTimers());
+
+  const settle = async (): Promise<void> => {
+    await vi.advanceTimersByTimeAsync(0);
+  };
+  // jsdom queues its own toggle event on a timer; let it run so only the panels' timers are left to count.
+  const setOpen = async (d: HTMLDetailsElement, v: boolean): Promise<void> => {
+    d.open = v;
+    d.dispatchEvent(new Event('toggle'));
+    await settle();
+  };
+  const counterOf = (d: HTMLElement): string => d.querySelector('.strv-rule-demo__count')!.textContent ?? '';
+  const obsFor = (d: HTMLElement): FakeObserver => FakeObserver.all.find((o) => [...o.watched].some((w) => d.contains(w)))!;
+  const panel = (d: HTMLElement): HTMLElement => d.querySelector<HTMLElement>('figure.strv-rule-demo')!;
+
+  it('plays on open once in view, pauses on leaving view and on close, and reopening leaves one timer', async () => {
+    stubFetch(() => true);
+    const page = await newPage();
+    const base = vi.getTimerCount();
+    const d = page.el.querySelector<HTMLDetailsElement>('details.strv-how__more')!;
+    open(d);
+    await settle();
+    expect(vi.getTimerCount()).toBe(base);
+    expect(counterOf(d)).toBe('Step 1 of 3');
+    const obs = obsFor(d);
+    obs.show(panel(d), true);
+    expect(vi.getTimerCount()).toBe(base + 1);
+    await vi.advanceTimersByTimeAsync(2200);
+    expect(counterOf(d)).toBe('Step 2 of 3');
+
+    obs.show(panel(d), false);
+    expect(vi.getTimerCount()).toBe(base);
+    await vi.advanceTimersByTimeAsync(10_000);
+    expect(counterOf(d)).toBe('Step 2 of 3');
+
+    obs.show(panel(d), true);
+    await setOpen(d, false);
+    expect(vi.getTimerCount()).toBe(base);
+    await setOpen(d, true);
+    await setOpen(d, false);
+    await setOpen(d, true);
+    expect(vi.getTimerCount()).toBe(base + 1);
+    page.destroy();
+  });
+
+  it('runs two open panels independently and tears everything down on destroy', async () => {
+    stubFetch(() => true);
+    const page = await newPage();
+    const base = vi.getTimerCount();
+    const [a, b] = [...page.el.querySelectorAll<HTMLDetailsElement>('details.strv-how__more')];
+    const second = [...page.el.querySelectorAll<HTMLDetailsElement>('details.strv-how__more')].find((x) => x.querySelector('[data-case="strays.fixed"]'))!;
+    open(a!);
+    open(second);
+    await settle();
+    expect(b).toBeTruthy();
+    obsFor(a!).show(panel(a!), true);
+    await vi.advanceTimersByTimeAsync(2200);
+    obsFor(second).show(panel(second), true);
+    expect(counterOf(a!)).toBe('Step 2 of 3');
+    expect(counterOf(second)).toBe('Step 1 of 3');
+    await vi.advanceTimersByTimeAsync(2200);
+    expect(counterOf(a!)).toBe('Step 3 of 3');
+    expect(counterOf(second)).toBe('Step 2 of 3');
+    expect(vi.getTimerCount()).toBe(base + 1);
+
+    page.destroy();
+    expect(vi.getTimerCount()).toBe(base);
+    expect(FakeObserver.all.filter((o) => !o.disconnected).length).toBe(0);
   });
 });

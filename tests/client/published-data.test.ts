@@ -8,7 +8,7 @@ import { describe, expect, it } from 'vitest';
 import { BlocksSchema } from '../../src/client/entities/plan/blocks';
 import { BalanceSchema } from '../../src/client/entities/plan/balance';
 import { CutsSchema, DistrictTopoSchema, EnactedTopoSchema, StatsSchema, WaterTopoSchema } from '../../src/client/entities/plan/model';
-import { StateIndexSchema } from '../../src/client/entities/state';
+import { STATE_FIPS, StateIndexSchema } from '../../src/client/entities/state';
 import { bboxOf, openingBox, pointInGeometry, toStateFrame } from '../../src/client/shared/lib/geo';
 
 const dir = join(process.cwd(), 'public', 'data');
@@ -63,10 +63,9 @@ describe('the published data covers all 50 states', () => {
 describe('the detail tiles and block lookup', () => {
   for (const s of index.states) {
     it(`${s.abbr}: blocks.json passes the viewer's schema and detail.pmtiles has the five layers`, async () => {
-      const fips = (read(s.abbr, 'blocks.json') as { state: string }).state;
       const blocks = BlocksSchema.parse(read(s.abbr, 'blocks.json'));
       expect(blocks.seats).toBe(s.seats);
-      expect(blocks.state).toBe(fips);
+      expect(STATE_FIPS[blocks.state]).toBe(s.abbr);
       expect(Object.keys(blocks.tracts).length).toBeGreaterThan(0);
       const meta = (await new PMTiles(new BufferSource(readFileSync(join(dir, s.abbr, 'detail.pmtiles')))).getMetadata()) as { vector_layers: { id: string }[]; fingerprints: unknown };
       const layers = meta.vector_layers.map((l) => l.id).sort();

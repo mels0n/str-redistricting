@@ -216,6 +216,10 @@ export async function allowedCase(ctx: ExtractContext): Promise<RuleCase> {
   const allowedAll = cands.filter((c) => c.allowed).length;
   const intoOther = ok.every((b) => cands.filter((c) => c.block === b).every((c) => c.to === other));
   const name = nameOf(run.abbr);
+  // How far this stretch is from the block move 1 takes, which the panel's link opens.
+  const move = run.result.moves[0];
+  if (!move) throw new DataError(`${run.abbr}: balancing made no move`);
+  const km = (greatCircleDistance(run.sb.blocks[move.block]!.point, run.sb.blocks[around[0]!]!.point) / 1000).toFixed(1);
   const B = ids(win.blocks);
   const labels: Label[] = [
     { id: 'gd', x: 80, y: 176, text: `District ${gd}: ${whole(pops[d]!)}` },
@@ -234,7 +238,7 @@ export async function allowedCase(ctx: ExtractContext): Promise<RuleCase> {
     labels,
     steps: [
       {
-        caption: `Before balancing, District ${gd} is furthest from ${name}'s ideal, so its border is checked first. These ${whole(around.length)} blocks are where it meets District ${go}.`,
+        caption: `Before balancing, District ${gd} is furthest from ${name}'s ideal, so its border is checked first. These ${whole(around.length)} blocks are one stretch of that border, where it meets District ${go}, ${km} km from the first move, picked because all three checks show up here.`,
         show: base,
       },
       {

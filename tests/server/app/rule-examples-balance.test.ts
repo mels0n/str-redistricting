@@ -120,6 +120,9 @@ describe('balancing move panels (CO)', () => {
       expect(s.caption).toMatch({ 'no-people': /no people/, widens: /widen/, disconnects: /connected/ }[reason!]!);
     });
     expect(order).toEqual(['no-people', 'widens', 'disconnects']);
+    // The window is one stretch of a long border, chosen to show the checks, and the caption says so.
+    expect(c.steps[0]!.caption).toMatch(/one stretch of that border/);
+    expect(c.steps[0]!.caption).toMatch(/picked because all three checks show up here/);
     // The blocks left lit are moves the hook allowed; together they cover every border block in the window.
     const hot = c.steps.flatMap((_, i) => newlySet(c, i, 'hot'));
     expect(hot.length).toBeGreaterThan(0);

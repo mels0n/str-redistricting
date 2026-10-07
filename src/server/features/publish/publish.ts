@@ -71,7 +71,6 @@ async function publishState(state: StateInfo, cfg: PublishConfig, shared: Shared
   const src = join(cfg.outDir, state.abbr);
   const srcBefore = join(src, 'before-balancing');
   const dest = join(cfg.publicDir, state.abbr);
-  await mkdir(dest, { recursive: true });
   const budget = districtBudget(state.seats);
 
   const [official, before] = [await readMetrics(src), await readMetrics(srcBefore)];
@@ -86,29 +85,30 @@ async function publishState(state: StateInfo, cfg: PublishConfig, shared: Shared
   const wrapped = crossesAntimeridian(state.abbr);
   const display = <T extends { readonly geometry: unknown }>(fs: readonly T[]): T[] => (wrapped ? unwrapFeatures(fs) : [...fs]);
   const districts = (await readJson(join(src, 'districts.geojson'))) as Parameters<typeof toTopology>[0];
-  await write(join(dest, 'districts.topo.json'), await toTopology({ features: display(districts.features) }, 'districts', budget));
+  const outputs: [string, string | Uint8Array][] = [];
+  outputs.push(['districts.topo.json', await toTopology({ features: display(districts.features) }, 'districts', budget)]);
   const beforeDistricts = (await readJson(join(srcBefore, 'districts.geojson'))) as Parameters<typeof toTopology>[0];
-  await write(join(dest, 'before.topo.json'), await toTopology({ features: display(beforeDistricts.features) }, 'districts', budget));
+  outputs.push(['before.topo.json', await toTopology({ features: display(beforeDistricts.features) }, 'districts', budget)]);
 
   // Water is display only: the area the districts cover less the shoreline-clipped land. It gets half the district vertex budget.
   const water = await buildWater(await readFile(join(src, 'districts.geojson'), 'utf8'), shared.land);
-  await write(join(dest, 'water.topo.json'), await toTopology({ features: display(water.features) }, 'water', Math.round(budget / 2)));
+  outputs.push(['water.topo.json', await toTopology({ features: display(water.features) }, 'water', Math.round(budget / 2))]);
 
   const enacted = shared.enacted.features
     .filter((f) => f.record.stateFp === state.fips)
     .sort((a, b) => a.record.code.localeCompare(b.record.code))
     .map((f) => ({ type: 'Feature', properties: { label: f.record.label, code: f.record.code }, geometry: f.geometry as { coordinates?: unknown } }));
   if (enacted.length === 0) throw new DataError(`${state.abbr}: no enacted districts in ${shared.enacted.source}`);
-  await write(join(dest, 'enacted.topo.json'), await toTopology({ features: display(enacted) }, 'enacted', budget));
+  outputs.push(['enacted.topo.json', await toTopology({ features: display(enacted) }, 'enacted', budget)]);
 
   const cuts = buildCuts(await readJson(join(src, 'cuts.geojson')));
-  await write(join(dest, 'cuts.json'), JSON.stringify(wrapped ? cuts.map((c) => ({ ...c, lines: unwrapCoordinates(c.lines) })) : cuts));
+  outputs.push(['cuts.json', JSON.stringify(wrapped ? cuts.map((c) => ({ ...c, lines: unwrapCoordinates(c.lines) })) : cuts)]);
   const log = BalanceLogSchema.safeParse(await readJson(join(src, 'balance.json')));
   if (!log.success) throw new DataError(`${src}/balance.json: ${log.error.issues.map((i) => `${i.path.join('.')} ${i.message}`).join('; ')}`);
   const polygons = await loadBlockPolygons(state, cfg.cacheDir, new Set(log.data.moves.map((m) => m.geoid)));
   const balance = buildBalance(state.seats, log.data, polygons);
   const blocks = wrapped ? Object.fromEntries(Object.entries(balance.blocks).map(([g, polys]) => [g, unwrapCoordinates(polys)])) : balance.blocks;
-  await write(join(dest, 'balance.json'), JSON.stringify({ ...balance, blocks }));
+  outputs.push(['balance.json', JSON.stringify({ ...balance, blocks })]);
 
   // Block lookup and detail tiles, from the same display copies as the topologies above (unsimplified).
   const fingerprints = { finished: official.assignmentSha256, before: before.assignmentSha256 };
@@ -118,7 +118,7 @@ async function publishState(state: StateInfo, cfg: PublishConfig, shared: Shared
 
   const finishedFeatures = display(districts.features) as Feature[];
   const beforeFeatures = display(beforeDistricts.features) as Feature[];
-  let tiles: Uint8Array | null = buildDetailTiles({
+  const tiles = buildDetailTiles({
     finished: finishedFeatures,
     before: beforeFeatures,
     'finished-arcs': (await districtArcs({ features: finishedFeatures as never })) as Feature[],
@@ -126,11 +126,13 @@ async function publishState(state: StateInfo, cfg: PublishConfig, shared: Shared
     water: display(water.features) as unknown as Feature[],
   }, fingerprints);
   await verifyTiles(state, cfg, tiles, blocksFile, new Set(log.data.moves.map((m) => m.geoid)), wrapped);
-  await write(join(dest, 'blocks.json'), blocksJson);
-  await write(join(dest, 'detail.pmtiles'), tiles);
+  outputs.push(['blocks.json', blocksJson], ['detail.pmtiles', tiles]);
+
+  // Every output is built and checked above; only now does anything in the public directory change, stats.json last.
+  await mkdir(dest, { recursive: true });
+  for (const [name, body] of outputs) await write(join(dest, name), body);
   const rawBytes = Buffer.byteLength(blocksJson);
   console.log(`  ${state.abbr}: detail.pmtiles ${tiles.byteLength} B, blocks.json ${rawBytes} B (${gzipSync(blocksJson).byteLength} B gzip)`);
-  tiles = null;
 
   await write(join(dest, 'stats.json'), JSON.stringify(stats));
 }

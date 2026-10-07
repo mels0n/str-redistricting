@@ -26,6 +26,16 @@ describe('balance', () => {
       expect(isConnected(topo, members)).toBe(true);
     }
   });
+  it('does not move a block across water: a 0-population water block is not a border', () => {
+    // Blocks 0 and 1 hold District 0's people; block 2 is water in District 1, block 3 its only person.
+    const pops = [3, 3, 0, 1];
+    const opts = { pop: (x: number) => pops[x]! };
+    const across = gridBlocks(4, 1, { ...opts, water: (x) => x === 2 });
+    expect(balance(across, buildTopology(across), Int32Array.from([0, 0, 1, 1]), 2).moves).toHaveLength(0);
+    // The same block on land is a border, and block 1 moves.
+    const land = gridBlocks(4, 1, opts);
+    expect(balance(land, buildTopology(land), Int32Array.from([0, 0, 1, 1]), 2).moves.map((m) => m.block)).toEqual([1]);
+  });
   it('leaves an already balanced plan alone', () => {
     const blocks = gridBlocks(2, 1);
     const r = balance(blocks, buildTopology(blocks), Int32Array.from([0, 1]), 2);

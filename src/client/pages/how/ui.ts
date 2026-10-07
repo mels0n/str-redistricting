@@ -1,6 +1,7 @@
 import {
   h,
   clear,
+  config,
   dataUrl,
   describeError,
   fetchJson,
@@ -10,6 +11,7 @@ import {
   iconArrowLeft,
   iconChevronDown,
   prefersReducedMotion,
+  reproduceCommands,
   stateRoute,
   NATIONAL,
   HOW_SECTIONS,
@@ -443,7 +445,8 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
         p('Blocks are always processed in GEOID order. Given the same census files and the same angle step, the generator writes a byte-identical assignment file and identical district shapes on any computer: its arithmetic, including the angles of the guide lines, is done in a way that gives the same result everywhere. The fingerprint is the SHA-256 hash of that assignment file.'),
       ),
       h('h3', { class: 'strv-how__h3' }, 'To reproduce a state’s map'),
-      h('pre', { class: 'strv-code', tabindex: 0, role: 'group', 'aria-label': 'Commands to run' }, h('code', null, 'npm install\nnpm run explore -- --states CO')),
+      p('The generator, this viewer and the published data are all in ', h('a', { href: config.repoUrl }, 'the project’s GitHub repository'), '. Get the code and run it:'),
+      h('pre', { class: 'strv-code', tabindex: 0, role: 'group', 'aria-label': 'Commands to run' }, h('code', null, reproduceCommands('CO'))),
       p('The state is given by its two-letter abbreviation. The census block file for the state is downloaded from the U.S. Census Bureau the first time it is needed.'),
     ),
     section(

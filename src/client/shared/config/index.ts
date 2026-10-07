@@ -23,6 +23,8 @@ const ConfigSchema = z.object({
   movePlayTotalMs: z.number().int().positive(),
   /** The fastest the balancing ever plays, per move. */
   movePlayMinMs: z.number().int().positive(),
+  /** The public source repository: the generator, the viewer and the published data. */
+  repoUrl: z.url(),
 });
 
 export type ViewerConfig = z.infer<typeof ConfigSchema>;
@@ -58,10 +60,17 @@ function load(): ViewerConfig {
     movePlayIntervalMs: 1000,
     movePlayTotalMs: 45000,
     movePlayMinMs: 120,
+    repoUrl: 'https://github.com/mels0n/str-redistricting',
   });
 }
 
 export const config: ViewerConfig = load();
+
+/** The shell commands that fetch the code and regenerate one state's map. */
+export function reproduceCommands(abbr: string): string {
+  const dir = new URL(config.repoUrl).pathname.split('/').filter(Boolean).pop() ?? '';
+  return `git clone ${config.repoUrl}\ncd ${dir}\nnpm install\nnpm run explore -- --states ${abbr}`;
+}
 
 export function dataUrl(path: string): string {
   return new URL(path, config.dataBase).toString();

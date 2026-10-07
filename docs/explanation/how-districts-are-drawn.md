@@ -92,9 +92,11 @@ The generator has no random numbers and no seed. Blocks are processed in GEOID o
 
 This holds because every number the generator computes comes from operations that give the same result everywhere. The IEEE 754 standard for floating-point arithmetic requires addition, subtraction, multiplication, division and square root to be rounded exactly the same way on every computer, and whole-number operations, comparisons and rounding to whole numbers are exact. The JavaScript language standard, on the other hand, lets each engine approximate sine, cosine, arctangent and similar functions in its own way, so their last digit can differ from one engine or version to the next. The generator therefore never uses the engine's versions of those functions. It computes the sines, cosines, arctangents and arcsines it needs with its own code, built only from the exactly rounded operations above (a port of the long-established fdlibm routines, accurate to within one unit in the last place), and a test fails if any of the engine's approximated functions appears in the generator's code. Each run writes a SHA-256 hash of the final assignment file into `metrics.json`, so two people can compare a single value to confirm they got the same map.
 
-To reproduce a state's map:
+To reproduce a state's map, get the code from the project's repository, [github.com/mels0n/str-redistricting](https://github.com/mels0n/str-redistricting), and run the generator:
 
 ```bash
+git clone https://github.com/mels0n/str-redistricting
+cd str-redistricting
 npm install
 npm run explore -- --states CO
 ```

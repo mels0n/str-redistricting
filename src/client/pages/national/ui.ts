@@ -21,7 +21,7 @@ export function createNationalPage(nav: Navigate): Page {
     h(
       'div',
       { class: 'strv-national__how' },
-      h('h2', { class: 'strv-national__how-h' }, 'Three fixed steps'),
+      h('h2', { class: 'strv-national__how-h' }, 'Three steps. No humans.'),
       h(
         'ol',
         { class: 'strv-national__steps' },

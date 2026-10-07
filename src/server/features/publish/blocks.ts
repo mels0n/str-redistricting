@@ -14,7 +14,7 @@ export interface BlocksFile {
 const GEOID = /^\d{15}$/;
 
 /** Parses `GEOID20,district` rows (header first) into a map from GEOID to district. */
-function parseAssignment(csv: string, label: string): Map<string, number> {
+function parseAssignment(csv: string, label: string, seats: number): Map<string, number> {
   const out = new Map<string, number>();
   const lines = csv.split(/\r?\n/);
   if (lines[0]?.trim() !== 'GEOID20,district') throw new DataError(`${label}: expected header GEOID20,district`);
@@ -23,8 +23,9 @@ function parseAssignment(csv: string, label: string): Map<string, number> {
     if (line === '') continue;
     const parts = line.split(',');
     const geoid = parts[0] ?? '';
-    const district = Number(parts[1]);
-    if (parts.length !== 2 || !GEOID.test(geoid) || !Number.isInteger(district) || district < 1) {
+    const raw = parts[1] ?? '';
+    const district = /^\d+$/.test(raw) ? Number(raw) : NaN;
+    if (parts.length !== 2 || !GEOID.test(geoid) || !Number.isInteger(district) || district < 1 || district > seats) {
       throw new DataError(`${label}: bad row ${i + 1}`);
     }
     if (out.has(geoid)) throw new DataError(`${label}: duplicate GEOID ${geoid}`);
@@ -34,9 +35,9 @@ function parseAssignment(csv: string, label: string): Map<string, number> {
 }
 
 /** Both plans' districts per GEOID, in the finished file's order; the two files must list the same blocks. */
-function joinPlans(finishedCsv: string, beforeCsv: string): Map<string, Pair> {
-  const fin = parseAssignment(finishedCsv, 'finished assignment');
-  const bef = parseAssignment(beforeCsv, 'before assignment');
+function joinPlans(finishedCsv: string, beforeCsv: string, seats: number): Map<string, Pair> {
+  const fin = parseAssignment(finishedCsv, 'finished assignment', seats);
+  const bef = parseAssignment(beforeCsv, 'before assignment', seats);
   const out = new Map<string, Pair>();
   for (const [g, d] of fin) {
     const b = bef.get(g);
@@ -52,7 +53,7 @@ const suffixOf = (geoid: string): string => geoid.slice(11, 15);
 
 export function encodeBlocks(stateFips: string, seats: number, finishedCsv: string, beforeCsv: string): BlocksFile {
   const byTract = new Map<string, [string, Pair][]>();
-  for (const [g, pair] of joinPlans(finishedCsv, beforeCsv)) {
+  for (const [g, pair] of joinPlans(finishedCsv, beforeCsv, seats)) {
     if (g.slice(0, 2) !== stateFips) throw new DataError(`block ${g} is not in state ${stateFips}`);
     const t = tractOf(g);
     let list = byTract.get(t);
@@ -85,19 +86,34 @@ export function encodeBlocks(stateFips: string, seats: number, finishedCsv: stri
   return { v: 1, state: stateFips, seats, tracts };
 }
 
-function lookup(file: BlocksFile, geoid: string): Pair | null {
+/** The block's (finished, before) districts in the file, or null when it is not covered. */
+export function lookup(file: BlocksFile, geoid: string): Pair | null {
   if (!GEOID.test(geoid) || geoid.slice(0, 2) !== file.state) return null;
   const tract = file.tracts[tractOf(geoid)];
   if (!tract) return null;
   return tract[2]?.[suffixOf(geoid)] ?? [tract[0], tract[1]];
 }
 
-/** Decodes every block of the file and compares it with the source CSVs; throws naming the first block that differs. */
-export function checkBlocks(file: BlocksFile, finishedCsv: string, beforeCsv: string): void {
-  for (const [g, want] of joinPlans(finishedCsv, beforeCsv)) {
+/**
+ * Decodes every block of the file and compares it with the source CSVs; throws naming the first block that differs.
+ * The file must also hold nothing the CSVs lack (tracts or block exceptions), and its state and seats must match `expected`.
+ */
+export function checkBlocks(file: BlocksFile, finishedCsv: string, beforeCsv: string, expected: { state: string; seats: number }): void {
+  if (file.state !== expected.state) throw new DataError(`blocks.json is for state ${file.state}, expected ${expected.state}`);
+  if (file.seats !== expected.seats) throw new DataError(`blocks.json has ${file.seats} seats, expected ${expected.seats}`);
+  const plans = joinPlans(finishedCsv, beforeCsv, expected.seats);
+  for (const [g, want] of plans) {
     const got = lookup(file, g);
     if (!got || got[0] !== want[0] || got[1] !== want[1]) {
       throw new DataError(`blocks.json disagrees with the assignment at block ${g}`);
+    }
+  }
+  const tractsInCsv = new Set<string>();
+  for (const g of plans.keys()) tractsInCsv.add(tractOf(g));
+  for (const [t, v] of Object.entries(file.tracts)) {
+    if (!tractsInCsv.has(t)) throw new DataError(`blocks.json has tract ${t} that is not in the assignment`);
+    for (const suffix of Object.keys(v[2] ?? {})) {
+      if (!plans.has(`${expected.state}${t}${suffix}`)) throw new DataError(`blocks.json has block ${expected.state}${t}${suffix} that is not in the assignment`);
     }
   }
 }

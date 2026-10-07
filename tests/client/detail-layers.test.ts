@@ -5,6 +5,8 @@ import {
   DETAIL_SOURCE,
   fadeIn,
   fadeOut,
+  fillFadeIn,
+  fillFadeOut,
   bordersFilter,
   outlineFilter,
   selectedFilter,
@@ -50,7 +52,20 @@ describe('detail filters', () => {
 
 describe('detail fade', () => {
   it('fades start inside the tileset zoom range', () => {
-    expect(DETAIL_ZOOM - 0.5).toBeGreaterThanOrEqual(7);
+    expect(DETAIL_ZOOM - 1).toBeGreaterThanOrEqual(7);
+  });
+  it('fill fades run over whole zoom levels and keep the simplified fill full while the detail fill rises', () => {
+    const stops = (e: unknown): number[] => (e as unknown[]).filter((_, i) => i >= 3 && i % 2 === 1) as number[];
+    for (const e of [fillFadeIn(1), fillFadeOut(1)]) for (const z of stops(e)) expect(Number.isInteger(z)).toBe(true);
+    const at = (e: unknown, zoom: number): number => {
+      const r = createExpression(e as never, 'layers[0].paint.fill-opacity', { type: 'number', 'property-type': 'data-driven', expression: { interpolated: true, parameters: ['zoom', 'feature'] } } as never);
+      if (r.result !== 'success') throw new Error(JSON.stringify(r.value));
+      return r.value.evaluate({ zoom }, { type: 3, properties: {} } as never, {}) as number;
+    };
+    for (const z of [DETAIL_ZOOM - 1, DETAIL_ZOOM - 0.5, DETAIL_ZOOM]) expect(at(fillFadeOut(1), z)).toBe(1);
+    expect(at(fillFadeIn(1), DETAIL_ZOOM - 1)).toBe(0);
+    expect(at(fillFadeIn(1), DETAIL_ZOOM)).toBe(1);
+    expect(at(fillFadeOut(1), DETAIL_ZOOM + 1)).toBe(0);
   });
   it('multiplies the zoom fade into the existing expression', () => {
     const at = (e: unknown, zoom: number, hover: boolean): number => {
@@ -82,7 +97,7 @@ describe('detail layers', () => {
   });
   it('twins start at the fade and sit after their counterparts', () => {
     for (const { layer, after } of detailLayerSpecs()) {
-      expect(layer.minzoom).toBe(DETAIL_ZOOM - 0.5);
+      expect(layer.minzoom).toBe(layer.type === 'fill' && layer.id.startsWith('fill-') ? DETAIL_ZOOM - 1 : DETAIL_ZOOM - 0.5);
       expect(layer.id.endsWith('-detail')).toBe(true);
       expect(after).toBeTruthy();
     }

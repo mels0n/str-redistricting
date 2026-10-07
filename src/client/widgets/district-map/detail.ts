@@ -6,11 +6,13 @@ import type { Plan } from '../../shared';
 /**
  * Full-detail layers. Past DETAIL_ZOOM the map draws the published vector tiles (the exact district polygons and
  * the arcs between them) over the simplified in-memory shapes, crossfading between the two. The tileset covers
- * zooms 7 to 13, so the fade must begin at 7 or later.
+ * zooms 7 to 13, so the fade must begin at 7 or later (the fills begin a level earlier than the lines).
  */
 export const DETAIL_ZOOM = 9;
 export const DETAIL_SOURCE = 'detail';
 const FADE_FROM = DETAIL_ZOOM - 0.5;
+/** The fills fade over whole zoom levels; see fillFadeIn. */
+const FILL_FADE_FROM = DETAIL_ZOOM - 1;
 
 const PLANS: readonly Plan[] = ['finished', 'before'];
 
@@ -24,6 +26,21 @@ export function fadeOut(value: Opacity): ExpressionSpecification {
 /** Opacity that rises from nothing to `value` across the fade: the detail layers. */
 export function fadeIn(value: Opacity): ExpressionSpecification {
   return ['interpolate', ['linear'], ['zoom'], FADE_FROM, 0, DETAIL_ZOOM, value];
+}
+
+/**
+ * Fill opacity depends on feature state (hover, dim), and MapLibre evaluates such an expression only at whole zoom
+ * levels, then interpolates linearly between them. A fade with stops at fractional zooms therefore does not happen
+ * where it says: it spreads over the whole level, and the layer's minzoom then makes the detail fill pop in half way.
+ * So the fills fade over whole levels: the detail fill rises across [DETAIL_ZOOM - 1, DETAIL_ZOOM] while the simplified
+ * fill stays full under it (a crossfade of two translucent fills shows the ground through the middle), and the
+ * simplified fill leaves across [DETAIL_ZOOM, DETAIL_ZOOM + 1].
+ */
+export function fillFadeIn(value: Opacity): ExpressionSpecification {
+  return ['interpolate', ['linear'], ['zoom'], FILL_FADE_FROM, 0, DETAIL_ZOOM, value];
+}
+export function fillFadeOut(value: Opacity): ExpressionSpecification {
+  return ['interpolate', ['linear'], ['zoom'], DETAIL_ZOOM, value, DETAIL_ZOOM + 1, 0];
 }
 
 /** The opacities and widths the simplified layers already had; the twins reuse them. */
@@ -98,10 +115,11 @@ export function detailLayerSpecs(): { layer: LayerSpecification; after: string }
       after: `fill-${plan}`,
       layer: {
         ...base,
+        minzoom: FILL_FADE_FROM,
         id: `fill-${plan}-detail`,
         type: 'fill',
         'source-layer': plan,
-        paint: { 'fill-color': FILL_COLOR, 'fill-opacity': fadeIn(FILL_OPACITY) },
+        paint: { 'fill-color': FILL_COLOR, 'fill-opacity': fillFadeIn(FILL_OPACITY) },
       },
     });
   }
@@ -168,7 +186,7 @@ export function fadedPaint(): { id: string; prop: 'fill-opacity' | 'line-opacity
   rows.push({ id: 'outline', prop: 'line-opacity', base: 1 });
   rows.push({ id: 'water-veil', prop: 'fill-opacity', base: WATER_VEIL });
   for (const plan of PLANS) rows.push({ id: `sel-${plan}`, prop: 'line-opacity', base: 1 });
-  return rows.map((r) => ({ ...r, faded: fadeOut(r.base) }));
+  return rows.map((r) => ({ ...r, faded: r.id.startsWith('fill-') ? fillFadeOut(r.base) : fadeOut(r.base) }));
 }
 
 /** Feature state for a district on both the simplified source and the detail tiles (their ids are the district number). */

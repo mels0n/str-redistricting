@@ -50,7 +50,10 @@ const water: Feature = {
   properties: {},
   geometry: { type: 'Polygon', coordinates: [[[-105.1, 39.6], [-105.0, 39.6], [-105.0, 39.65], [-105.1, 39.65], [-105.1, 39.6]]] },
 };
-const layers = { finished: [d1, d2], before: [d1, d2], 'finished-arcs': [arc], 'before-arcs': [arc], water: [water] };
+// The balanced plan's numbering is swapped relative to the finished one, so the two layers must answer differently at the same point.
+const d1Before: Feature = { ...d1, properties: { district: 2 } };
+const d2Before: Feature = { ...d2, properties: { district: 1 } };
+const layers = { finished: [d1, d2], before: [d1Before, d2Before], 'finished-arcs': [arc], 'before-arcs': [arc], water: [water] };
 
 const bytes = buildDetailTiles(layers, { finished: 'a'.repeat(64), before: 'b'.repeat(64) });
 
@@ -118,7 +121,16 @@ describe('districtAtDeepTile', () => {
       expect(await districtAtDeepTile(bytes, 'finished', sample(v, -1))).toBe(1);
       expect(await districtAtDeepTile(bytes, 'finished', sample(v, 1))).toBe(2);
     }
-    expect(await districtAtDeepTile(bytes, 'before', [-105.1, 39.8])).toBe(1);
+    expect(await districtAtDeepTile(bytes, 'before', [-105.1, 39.8])).toBe(2);
+  });
+
+  it('answers the finished and before plans separately for the same point', async () => {
+    const west: [number, number] = [-105.1, 39.8];
+    const east: [number, number] = [-104.7, 39.6];
+    expect(await districtAtDeepTile(bytes, 'finished', west)).toBe(1);
+    expect(await districtAtDeepTile(bytes, 'before', west)).toBe(2);
+    expect(await districtsAtDeepTile(bytes, 'finished', [west, east])).toEqual([1, 2]);
+    expect(await districtsAtDeepTile(bytes, 'before', [west, east])).toEqual([2, 1]);
   });
 
   it('answers null outside the plan and in a batch matches the single form', async () => {

@@ -1,5 +1,16 @@
-import { describe, expect, it } from 'vitest';
-import { parseGeocodeResponse, resolveAddress, type GeocodeResult } from '../../src/client/features/address-search';
+import { describe, expect, it, vi } from 'vitest';
+
+const jsonpCalls = vi.hoisted(() => ({ calls: [] as unknown[][] }));
+vi.mock('../../src/client/shared/api/jsonp', async (importOriginal) => ({
+  ...(await importOriginal<object>()),
+  jsonp: (...args: unknown[]) => {
+    jsonpCalls.calls.push(args);
+    return Promise.resolve({ result: { addressMatches: [] } });
+  },
+}));
+
+import { geocodeAddress, parseGeocodeResponse, resolveAddress, type GeocodeResult } from '../../src/client/features/address-search';
+import { config } from '../../src/client/shared';
 import type { StateIndex } from '../../src/client/entities/state';
 import { GeocodeError, describeError } from '../../src/client/shared/lib/errors';
 
@@ -88,5 +99,23 @@ describe('resolving an address by its census block', () => {
     expect(resolveAddress(index, result('MD', null), 'MD').kind).toBe('here');
     expect(resolveAddress(index, result('MD', '990010001001001'), 'MD').kind).toBe('here');
     expect(resolveAddress(index, result('VA', '510010001001001'), null).kind).toBe('open');
+  });
+});
+
+describe('geocodeAddress request', () => {
+  it('asks the Census geographies endpoint for 2020 blocks with the normalized address', async () => {
+    jsonpCalls.calls.length = 0;
+    await geocodeAddress('  200  E Colfax Ave,\n Denver, CO ').catch(() => undefined);
+    expect(jsonpCalls.calls).toHaveLength(1);
+    const [url, params, timeout] = jsonpCalls.calls[0]!;
+    expect(url).toBe(config.geocoderUrl);
+    expect(String(url).endsWith('/geocoder/geographies/onelineaddress')).toBe(true);
+    expect(params).toEqual({
+      address: '200 E Colfax Ave, Denver, CO',
+      benchmark: 'Public_AR_Current',
+      vintage: 'Census2020_Current',
+      layers: 'Census Blocks',
+    });
+    expect(timeout).toBe(config.geocoderTimeoutMs);
   });
 });

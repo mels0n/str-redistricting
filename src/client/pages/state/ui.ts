@@ -46,7 +46,7 @@ import {
   type SeqPos,
   type Blocks,
 } from '../../entities/plan';
-import { finishWhenLoaded, lookupDistricts } from './lookup';
+import { exactSelection, finishWhenLoaded, lookupDistricts } from './lookup';
 import { createAddressSearch, describeResolution, resolveAddress } from '../../features/address-search';
 import { createCutScrubber, type CutScrubber, type BalanceLogState } from '../../features/cut-scrubber';
 import { createPlanOptions, type PlanOptions } from '../../features/plan-options';
@@ -493,12 +493,16 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
     locate(bundle);
     // The exact answer arrives after the first draw; a failed load keeps the simplified-shape answer.
     if (getLocated()?.state === entry.abbr && getLocated()?.block && !blocks) {
+      const shapeAnswer = locatedDistrict();
       void loadBlocks(entry.abbr).then(
         (b) => {
           if (!alive) return;
           blocks = b;
           locate(bundle);
-          render();
+          // Near a border the exact district differs from the shape answer already selected; follow it unless the visitor moved on.
+          const next = exactSelection({ before: shapeAnswer, after: locatedDistrict(), selected: route.district });
+          if (next !== null) go({ district: next }, true);
+          else render();
         },
         () => undefined,
       );

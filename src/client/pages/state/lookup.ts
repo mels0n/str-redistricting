@@ -26,3 +26,14 @@ export async function finishWhenLoaded(
   opts.setBlocks(b);
   return opts.finish();
 }
+
+/**
+ * The district to select once the exact answer arrives, or null to leave the selection alone. `before` is the
+ * district located from the simplified shapes when the page opened; the selection is replaced only if the visitor
+ * has not changed it since (it is still `before`, or empty).
+ */
+export function exactSelection(input: { before: number | null; after: number | null; selected: number | null }): number | null {
+  const { before, after, selected } = input;
+  if (after === null || after === before) return null;
+  return selected === before || selected === null ? after : null;
+}

@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 import { BlocksSchema } from '../../src/client/entities/plan';
-import { finishWhenLoaded, lookupDistricts } from '../../src/client/pages/state/lookup';
+import { exactSelection, finishWhenLoaded, lookupDistricts } from '../../src/client/pages/state/lookup';
 
 const blocks = BlocksSchema.parse({
   v: 1,
@@ -52,5 +52,23 @@ describe('finishWhenLoaded', () => {
       expect(o.finish).not.toHaveBeenCalled();
       expect(o.setBlocks).not.toHaveBeenCalled();
     }
+  });
+});
+
+describe('exactSelection', () => {
+  it('selects the exact district when the route still holds the shape answer', () => {
+    expect(exactSelection({ before: 3, after: 6, selected: 3 })).toBe(6);
+  });
+  it('selects the exact district when the shapes found none and nothing is selected', () => {
+    expect(exactSelection({ before: null, after: 6, selected: null })).toBe(6);
+  });
+  it('keeps a district the visitor picked meanwhile', () => {
+    expect(exactSelection({ before: 3, after: 6, selected: 2 })).toBeNull();
+  });
+  it('does not navigate when the exact answer equals the shape answer', () => {
+    expect(exactSelection({ before: 3, after: 3, selected: 3 })).toBeNull();
+  });
+  it('does not navigate when there is no exact answer', () => {
+    expect(exactSelection({ before: 3, after: null, selected: 3 })).toBeNull();
   });
 });

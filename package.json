@@ -16,7 +16,8 @@
     "depcruise": "depcruise src --config .dependency-cruiser.cjs",
     "test": "vitest run",
     "explore": "node --max-old-space-size=8192 --import tsx src/server/app/cli.ts",
-    "publish-data": "node --max-old-space-size=8192 --import tsx src/server/app/publish.ts"
+    "publish-data": "node --max-old-space-size=8192 --import tsx src/server/app/publish.ts",
+    "rule-examples": "node --max-old-space-size=8192 --import tsx src/server/app/rule-examples.ts"
   },
   "devDependencies": {
     "@types/adm-zip": "^0.5.8",

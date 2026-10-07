@@ -16,8 +16,8 @@ export function createNationalPage(nav: Navigate): Page {
   const lede = h(
     'div',
     { class: 'strv-national__lede' },
-    h('p', null, 'Politicians draw most district lines. Politicians are people, and people see your party, your race, your religion and your income, whether they mean to or not.'),
-    h('p', { class: 'strv-national__closing' }, 'These maps are drawn by code. Code sees only what it is given, and the only thing we give it is how many people live where. Same input, same map, every time.'),
+    h('p', null, 'Politicians draw the lines. They see your party, your race, your religion, your income, and use that to pick their voters. That is gerrymandering.'),
+    h('p', { class: 'strv-national__closing' }, 'So we removed the human. Code draws these maps from population alone. No human, no gerrymandering.'),
     h(
       'div',
       { class: 'strv-national__how' },

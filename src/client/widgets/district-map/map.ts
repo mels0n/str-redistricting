@@ -766,7 +766,7 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
       map.setLayoutProperty('enacted', 'visibility', 'none');
     }
 
-    // The visitor's address, when one was found in this state.
+    // The visitor's address, when one was found in this state: a pin on the current view, no camera move.
     if (next.located) {
       if (!pin) {
         const el = document.createElement('div');
@@ -775,10 +775,6 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
         pin = new Marker({ element: el, anchor: 'center' });
       }
       pin!.setLngLat(next.located as [number, number]).addTo(map);
-      if (!prev || prev.located !== next.located) {
-        userMoved = true;
-        map.easeTo({ center: next.located as [number, number], zoom: Math.max(map.getZoom(), 8), duration: prefersReducedMotion() ? 0 : 600 });
-      }
     } else if (pin) {
       pin.remove();
     }

@@ -405,12 +405,12 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
         const where = resolveAddress(index, result, entry.abbr);
         if (where.kind !== 'here') {
           if (where.kind === 'open') {
-            setLocated({ state: where.state.abbr, lonLat: result.lonLat, matchedAddress: result.matchedAddress });
+            setLocated({ state: where.state.abbr, lonLat: result.lonLat, matchedAddress: result.matchedAddress, ...(result.block !== null && { block: result.block }) });
             nav(stateRoute(where.state.abbr));
           }
           return describeResolution(where, result);
         }
-        setLocated({ state: entry.abbr, lonLat: result.lonLat, matchedAddress: result.matchedAddress });
+        setLocated({ state: entry.abbr, lonLat: result.lonLat, matchedAddress: result.matchedAddress, ...(result.block !== null && { block: result.block }) });
         locate(bundle);
         const here = locatedDistrict();
         if (here === null) {

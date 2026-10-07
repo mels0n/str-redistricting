@@ -39,4 +39,35 @@ describe('districtArcs', () => {
     expect(pairs).toContain('1-0');
     expect(pairs).not.toContain('2-0');
   });
+
+  it('drops seams between two features of the same district', async () => {
+    const arcs = await districtArcs({ features: [feat(1, sq(0, 0)), feat(1, sq(1, 0)), feat(2, sq(5, 5))] });
+    const seam = arcs.find((f) => f.geometry.coordinates.every((c) => c[0] === 1));
+    expect(seam).toBeUndefined();
+    expect(arcs.some((f) => f.properties.a === 1 && f.properties.b === 0)).toBe(true);
+    expect(arcs.some((f) => f.properties.a === 2 && f.properties.b === 0)).toBe(true);
+    expect(arcs.every((f) => f.properties.b === 0 || f.properties.a < f.properties.b)).toBe(true);
+  });
+
+  it('throws when three districts overlap on one arc', async () => {
+    await expect(districtArcs({ features: [feat(1, sq(0, 0)), feat(2, sq(0, 0)), feat(3, sq(0, 0))] })).rejects.toThrow(/more than two/);
+  });
+
+  it('rejects invalid district numbers', async () => {
+    await expect(districtArcs({ features: [feat(0, sq(0, 0))] })).rejects.toThrow(/invalid district/);
+    await expect(districtArcs({ features: [feat(1.5, sq(0, 0))] })).rejects.toThrow(/invalid district/);
+  });
+
+  it('handles a MultiPolygon whose parts border different districts', async () => {
+    const multi = { type: 'Feature', properties: { district: 2 }, geometry: { type: 'MultiPolygon', coordinates: [[sq(1, 0)], [sq(-2, 0)]] } };
+    const arcs = await districtArcs({ features: [feat(1, sq(0, 0)), multi, feat(3, sq(-3, 0))] });
+    const pairs = arcs.map((f) => `${f.properties.a}-${f.properties.b}`);
+    expect(pairs).toContain('1-2');
+    expect(pairs).toContain('2-3');
+    expect(pairs).not.toContain('1-3');
+  });
+
+  it('is deterministic', async () => {
+    expect(await districtArcs(plan)).toEqual(await districtArcs(plan));
+  });
 });

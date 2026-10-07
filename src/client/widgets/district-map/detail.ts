@@ -5,13 +5,13 @@ import type { Plan } from '../../shared';
 
 /**
  * Full-detail layers. Past DETAIL_ZOOM the map draws the published vector tiles (the exact district polygons and
- * the arcs between them) over the simplified in-memory shapes, crossfading between the two. The tileset covers
- * zooms 7 to 13, so the fade must begin at 7 or later (the fills begin a level earlier than the lines).
+ * the arcs between them) over the simplified in-memory shapes, crossfading the lines between the two and swapping the fills. The tileset covers
+ * zooms 7 to 13, so the fade must begin at 7 or later (the fill layers load a level earlier than the lines fade).
  */
 export const DETAIL_ZOOM = 9;
 export const DETAIL_SOURCE = 'detail';
 const FADE_FROM = DETAIL_ZOOM - 0.5;
-/** The fills fade over whole zoom levels; see fillFadeIn. */
+/** The detail fills' layers start here, a level before they are drawn; see fillFadeIn. */
 const FILL_FADE_FROM = DETAIL_ZOOM - 1;
 
 const PLANS: readonly Plan[] = ['finished', 'before'];
@@ -30,17 +30,16 @@ export function fadeIn(value: Opacity): ExpressionSpecification {
 
 /**
  * Fill opacity depends on feature state (hover, dim), and MapLibre evaluates such an expression only at whole zoom
- * levels, then interpolates linearly between them. A fade with stops at fractional zooms therefore does not happen
- * where it says: it spreads over the whole level, and the layer's minzoom then makes the detail fill pop in half way.
- * So the fills fade over whole levels: the detail fill rises across [DETAIL_ZOOM - 1, DETAIL_ZOOM] while the simplified
- * fill stays full under it (a crossfade of two translucent fills shows the ground through the middle), and the
- * simplified fill leaves across [DETAIL_ZOOM, DETAIL_ZOOM + 1].
+ * levels, so a fractional-zoom fade does not happen where it says. Crossfading two translucent fills would also stack
+ * them (a dimmed district would read as barely dimmed). The fills therefore swap outright at DETAIL_ZOOM: exactly one
+ * of the two is drawn at any zoom. Their colours are identical, so the swap shows only as the edge shift. The detail
+ * fill's layer starts a level earlier, so its tiles are loaded (at opacity 0) before the swap.
  */
 export function fillFadeIn(value: Opacity): ExpressionSpecification {
-  return ['interpolate', ['linear'], ['zoom'], FILL_FADE_FROM, 0, DETAIL_ZOOM, value];
+  return ['step', ['zoom'], 0, DETAIL_ZOOM, value];
 }
 export function fillFadeOut(value: Opacity): ExpressionSpecification {
-  return ['interpolate', ['linear'], ['zoom'], DETAIL_ZOOM, value, DETAIL_ZOOM + 1, 0];
+  return ['step', ['zoom'], value, DETAIL_ZOOM, 0];
 }
 
 /** The opacities and widths the simplified layers already had; the twins reuse them. */
@@ -91,6 +90,7 @@ export function detailSource(abbr: string): VectorSourceSpecification {
   return {
     type: 'vector',
     tiles: [`${detailUrl(abbr)}/{z}/{x}/{y}`],
+    // Must match TILE_MINZOOM and TILE_MAXZOOM in src/server/features/publish/tiles.ts (a test checks it).
     minzoom: 7,
     maxzoom: 13,
     promoteId: { finished: 'district', before: 'district' },

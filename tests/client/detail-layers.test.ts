@@ -5,6 +5,7 @@ import {
   DETAIL_SOURCE,
   fadeIn,
   fadeOut,
+  FILL_OPACITY,
   fillFadeIn,
   fillFadeOut,
   bordersFilter,
@@ -54,18 +55,20 @@ describe('detail fade', () => {
   it('fades start inside the tileset zoom range', () => {
     expect(DETAIL_ZOOM - 1).toBeGreaterThanOrEqual(7);
   });
-  it('fill fades run over whole zoom levels and keep the simplified fill full while the detail fill rises', () => {
-    const stops = (e: unknown): number[] => (e as unknown[]).filter((_, i) => i >= 3 && i % 2 === 1) as number[];
-    for (const e of [fillFadeIn(1), fillFadeOut(1)]) for (const z of stops(e)) expect(Number.isInteger(z)).toBe(true);
-    const at = (e: unknown, zoom: number): number => {
+  it('swaps the fills outright: at any zoom exactly one of the two is drawn, with the full state expression', () => {
+    const at = (e: unknown, zoom: number, hover: boolean): number => {
       const r = createExpression(e as never, 'layers[0].paint.fill-opacity', { type: 'number', 'property-type': 'data-driven', expression: { interpolated: true, parameters: ['zoom', 'feature'] } } as never);
       if (r.result !== 'success') throw new Error(JSON.stringify(r.value));
-      return r.value.evaluate({ zoom }, { type: 3, properties: {} } as never, {}) as number;
+      return r.value.evaluate({ zoom }, { type: 3, properties: {} } as never, { hover }) as number;
     };
-    for (const z of [DETAIL_ZOOM - 1, DETAIL_ZOOM - 0.5, DETAIL_ZOOM]) expect(at(fillFadeOut(1), z)).toBe(1);
-    expect(at(fillFadeIn(1), DETAIL_ZOOM - 1)).toBe(0);
-    expect(at(fillFadeIn(1), DETAIL_ZOOM)).toBe(1);
-    expect(at(fillFadeOut(1), DETAIL_ZOOM + 1)).toBe(0);
+    for (let z = 0; z <= 16; z += 0.25) {
+      for (const hover of [false, true]) {
+        const s = at(fillFadeOut(FILL_OPACITY), z, hover);
+        const d = at(fillFadeIn(FILL_OPACITY), z, hover);
+        expect(s === 0 ? 1 : 0).toBe(d === 0 ? 0 : 1);
+        expect(s + d).toBeCloseTo(hover ? 0.82 : 1);
+      }
+    }
   });
   it('multiplies the zoom fade into the existing expression', () => {
     const at = (e: unknown, zoom: number, hover: boolean): number => {

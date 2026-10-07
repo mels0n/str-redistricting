@@ -44,6 +44,8 @@ import {
   registerPmtiles,
   setDistrictState,
   dropDetail,
+  shouldDropDetail,
+  twinVisibility,
   bordersFilter,
   selectedFilter,
 } from './detail';
@@ -531,7 +533,7 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
     // The simplified layers fade out as the detail tiles fade in; if the tiles cannot be had, the map is as it was.
     for (const p of fadedPaint()) map.setPaintProperty(p.id, p.prop, p.faded);
     map.on('error', (e) => {
-      if ((e as { sourceId?: string }).sourceId !== DETAIL_SOURCE || detailFailed) return;
+      if (!shouldDropDetail(e, detailFailed)) return;
       detailFailed = true;
       dropDetail(map);
     });
@@ -722,8 +724,8 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
     map.setLayoutProperty(`sel-${plan}`, 'visibility', 'visible');
     map.setLayoutProperty(`sel-${other}`, 'visibility', 'none');
     for (const kind of ['fill', 'sel', 'borders', 'outline']) {
-      map.setLayoutProperty(`${kind}-${plan}-detail`, 'visibility', detailFailed ? 'none' : 'visible');
-      map.setLayoutProperty(`${kind}-${other}-detail`, 'visibility', 'none');
+      map.setLayoutProperty(`${kind}-${plan}-detail`, 'visibility', twinVisibility(plan, plan, detailFailed));
+      map.setLayoutProperty(`${kind}-${other}-detail`, 'visibility', twinVisibility(plan, other, detailFailed));
     }
 
     const piece = cutMode ? piecesAfter(bundle.cuts, next.cut!, seats) : null;

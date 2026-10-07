@@ -195,6 +195,16 @@ export function setDistrictState(map: Pick<MlMap, 'setFeatureState'>, plan: Plan
   map.setFeatureState({ source: DETAIL_SOURCE, sourceLayer: plan, id }, state);
 }
 
+/** A map error that means the detail tiles cannot be had: it comes from the detail source, and the layers are not already dropped. */
+export function shouldDropDetail(event: unknown, failed: boolean): boolean {
+  return !failed && (event as { sourceId?: string } | null)?.sourceId === DETAIL_SOURCE;
+}
+
+/** Visibility of the detail twin for `plan` while `planShown` is on screen: only the shown plan's, and none once the tiles failed. */
+export function twinVisibility(planShown: Plan, plan: Plan, failed: boolean): 'visible' | 'none' {
+  return !failed && plan === planShown ? 'visible' : 'none';
+}
+
 /** The tiles cannot be had: hide every detail layer and give the simplified ones back their unfaded opacity. */
 export function dropDetail(map: Pick<MlMap, 'setLayoutProperty' | 'setPaintProperty'>): void {
   for (const { layer } of detailLayerSpecs()) map.setLayoutProperty(layer.id, 'visibility', 'none');

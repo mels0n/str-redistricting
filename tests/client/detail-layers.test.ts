@@ -17,6 +17,8 @@ import {
   fadedPaint,
   setDistrictState,
   dropDetail,
+  shouldDropDetail,
+  twinVisibility,
 } from '../../src/client/widgets/district-map/detail';
 
 const keeps = (filter: Parameters<typeof featureFilter>[0], a: number, b: number): boolean =>
@@ -138,5 +140,23 @@ describe('detail state and fallback', () => {
     const restored = setPaintProperty.mock.calls.map((c) => c[0] as string);
     expect(restored).toContain('fill-finished');
     expect(restored).toContain('borders');
+  });
+});
+
+describe('detail error wiring', () => {
+  it('ignores a map error from another source or with none', () => {
+    expect(shouldDropDetail({ sourceId: 'cuts' }, false)).toBe(false);
+    expect(shouldDropDetail({ error: new Error('x') }, false)).toBe(false);
+    expect(shouldDropDetail(null, false)).toBe(false);
+  });
+  it('drops on the first detail error and not again', () => {
+    expect(shouldDropDetail({ sourceId: DETAIL_SOURCE }, false)).toBe(true);
+    expect(shouldDropDetail({ sourceId: DETAIL_SOURCE }, true)).toBe(false);
+  });
+  it('shows only the shown plan twin, and none for any plan once the tiles failed', () => {
+    expect(twinVisibility('finished', 'finished', false)).toBe('visible');
+    expect(twinVisibility('finished', 'before', false)).toBe('none');
+    expect(twinVisibility('before', 'before', false)).toBe('visible');
+    for (const shown of ['finished', 'before'] as const) for (const plan of ['finished', 'before'] as const) expect(twinVisibility(shown, plan, true)).toBe('none');
   });
 });

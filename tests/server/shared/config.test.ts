@@ -1,7 +1,7 @@
 import { availableParallelism } from 'node:os';
 import { describe, expect, it } from 'vitest';
 import { parseConfig } from '../../../src/server/shared/config/index.js';
-import { ConfigError } from '../../../src/server/shared/errors/index.js';
+import { ConfigError, DataError, exitCodeFor, WorkerPoolError } from '../../../src/server/shared/errors/index.js';
 
 describe('parseConfig', () => {
   it('parses states and angle step', () => {
@@ -35,5 +35,15 @@ describe('parseConfig', () => {
   });
   it('has no stray rule option', () => {
     expect(() => parseConfig(['--states', 'CO', '--stray-rule', 'recount'])).toThrow();
+  });
+});
+
+describe('exitCodeFor', () => {
+  it('maps each typed error to its exit code', () => {
+    expect(exitCodeFor(new ConfigError('x'))).toBe(2);
+    expect(exitCodeFor(new DataError('x'))).toBe(3);
+    // A lost worker pool is the run's own fault, not a configuration or data problem.
+    expect(exitCodeFor(new WorkerPoolError('x'))).toBe(1);
+    expect(exitCodeFor(new Error('x'))).toBe(1);
   });
 });

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { chunkDigest, formatKm, formatPct, formatPeople, formatSignedPeople, ordinal, peopleNoun } from '../../src/client/shared/lib/format';
+import { chunkDigest, congressOfSource, formatKm, formatPct, formatPeople, formatSignedPeople, ordinal, peopleNoun } from '../../src/client/shared/lib/format';
 import { enactedSourceLabel } from '../../src/client/features/plan-options';
 
 describe('format', () => {
@@ -54,5 +54,17 @@ describe('enactedSourceLabel', () => {
     expect(enactedSourceLabel('cb_2025_us_cd119_500k')).toBe('U.S. Census Bureau cartographic boundary file for the 119th Congress (2025 release, cb_2025_us_cd119_500k)');
     expect(enactedSourceLabel('cb_2027_us_cd121_500k')).toContain('121st Congress');
     expect(enactedSourceLabel('weird')).toBe('U.S. Census Bureau boundary file weird');
+  });
+});
+
+describe('congressOfSource', () => {
+  it('reads the Congress from an enacted-districts file name, any digit count', () => {
+    expect(congressOfSource('cb_2025_us_cd119_500k')).toBe(119);
+    expect(congressOfSource('cb_2031_us_cd1000_500k')).toBe(1000);
+  });
+  it('rejects names the publisher would reject', () => {
+    expect(congressOfSource('cb_2025_us_cd119_20m')).toBeNull();
+    expect(congressOfSource('cb_2025_us_cd119_500k.zip')).toBeNull();
+    expect(congressOfSource('something else')).toBeNull();
   });
 });

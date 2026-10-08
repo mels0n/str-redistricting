@@ -13,6 +13,21 @@ vi.mock('../../src/client/widgets/district-map', () => ({
   },
 }));
 
+const fault = vi.hoisted(() => ({ failOnce: false }));
+vi.mock('../../src/client/pages/state/lookup', async (importOriginal) => {
+  const real = await importOriginal<typeof import('../../src/client/pages/state/lookup')>();
+  return {
+    ...real,
+    lookupDistricts: (...args: Parameters<typeof real.lookupDistricts>) => {
+      if (fault.failOnce) {
+        fault.failOnce = false;
+        throw new Error('build failed partway');
+      }
+      return real.lookupDistricts(...args);
+    },
+  };
+});
+
 const geo = vi.hoisted(() => ({ impl: (): Promise<unknown> => Promise.reject(new Error('unset')) }));
 vi.mock('../../src/client/features/address-search/geocode', async (importOriginal) => ({
   ...(await importOriginal<object>()),
@@ -115,6 +130,26 @@ describe('an address answer that arrives after the visitor left the page', () =>
     await lateAnswer(page, { ...lookup, state: 'CO' });
     expect(navs).toHaveLength(0);
     expect(getLocated()).toBeNull();
+  });
+});
+
+describe('Try again after the page build throws partway', () => {
+  it('removes everything the failed build added, then builds once', async () => {
+    setLocated({ state: 'AK', lonLat: [-150, 64], matchedAddress: '1 Test St' });
+    fault.failOnce = true;
+    const { page } = await mount(route({}));
+    const panel = page.el.querySelector('.strv-state__panel')!;
+    // build() had already appended its sections to the panel when it threw; they are gone again.
+    const trimmed = panel.children.length;
+    expect(page.el.querySelector('.strv-error button')).not.toBeNull();
+    expect(page.el.querySelectorAll('.strv-scrub')).toHaveLength(0);
+    expect(page.el.querySelectorAll('[id="strv-address-state"]')).toHaveLength(0);
+    page.el.querySelector<HTMLButtonElement>('.strv-error button')!.click();
+    await flush();
+    expect(page.el.querySelectorAll('.strv-scrub')).toHaveLength(1);
+    expect(page.el.querySelectorAll('[id="strv-address-state"]')).toHaveLength(1);
+    expect(panel.children.length).toBeGreaterThan(trimmed);
+    page.destroy();
   });
 });
 

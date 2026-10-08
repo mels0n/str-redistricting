@@ -316,11 +316,13 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
     }
     if (!alive) return;
     if (!built) {
+      // What the panel holds before build adds to it, so a failed build is trimmed back to exactly that.
+      const panelBase = panel.childElementCount;
       try {
         build(entry, bundle, index);
         built = true;
       } catch (err) {
-        unbuild();
+        unbuild(panelBase);
         showError(err, { retry });
         return;
       }
@@ -359,7 +361,7 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
   }
 
   /** Removes what a build that threw partway added, so a retry starts clean. */
-  function unbuild(): void {
+  function unbuild(panelBase: number): void {
     if (scrubber) {
       splitWatch?.unobserve(scrubber.el);
       scrubber.destroy();
@@ -367,8 +369,7 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
       scrubber = null;
     }
     controls = null;
-    // The panel starts with the header and the notice; everything after them came from build.
-    while (panel.children.length > 2) panel.lastElementChild?.remove();
+    while (panel.childElementCount > panelBase) panel.lastElementChild?.remove();
   }
 
   function build(entry: GeneratedState, bundle: StateBundle, index: Awaited<ReturnType<typeof loadIndex>>): void {

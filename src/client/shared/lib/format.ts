@@ -14,10 +14,10 @@ export function ordinal(n: number): string {
   return `${n}${suffix}`;
 }
 
-/** The Congress number in an enacted-districts file name: "cb_2025_us_cd119_500k" -> 119, anything else -> null. */
+/** The Congress number in an enacted-districts file name (the pattern the publisher uses): "cb_2025_us_cd119_500k" -> 119, anything else -> null. */
 export function congressOfSource(source: string): number | null {
-  const m = /^cb_\d{4}_us_cd(\d{3})_/.exec(source);
-  return m ? Number(m[1]) : null;
+  const m = /^cb_(\d{4})_us_cd(\d+)_500k$/.exec(source);
+  return m ? Number(m[2]) : null;
 }
 
 /** "119th Congress" from a file name like cb_2025_us_cd119_500k, or "enacted" when the name is not recognised. */

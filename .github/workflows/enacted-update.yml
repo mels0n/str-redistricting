@@ -8,7 +8,11 @@ name: Enacted districts update
 #
 # Two jobs, so that no code from a dependency ever runs holding a token that can write:
 #   build    runs npm, the tests and the build with a read-only token, and hands over only the files the update may change.
-#   open-pr  holds the write token, runs no npm or repository script, and only commits those files and opens the pull request.
+#   open-pr  holds the write token and runs no npm or repository script. It treats the build job's output as untrusted
+#            data: the artifact is downloaded outside the workspace, every entry is checked in plain bash (regular files
+#            only, names on an exact allowlist), and only then are those files copied to their fixed places. Nothing from
+#            the artifact can reach .git/ or any other path. The checkout keeps no credentials; the token is handed only
+#            to the one push and the one gh call that need it.
 
 on:
   schedule:
@@ -36,8 +40,6 @@ jobs:
     outputs:
       update: ${{ steps.detect.outputs.update }}
       file: ${{ steps.detect.outputs.file }}
-      year: ${{ steps.detect.outputs.year }}
-      congress: ${{ steps.detect.outputs.congress }}
       url: ${{ steps.detect.outputs.url }}
       changed: ${{ steps.changes.outputs.changed }}
 
@@ -79,8 +81,6 @@ jobs:
           {
             echo "update=true"
             echo "file=$file"
-            echo "year=${BASH_REMATCH[1]}"
-            echo "congress=${BASH_REMATCH[2]}"
             echo "url=$(echo "$result" | jq -r '.url')"
           } >> "$GITHUB_OUTPUT"
 
@@ -170,16 +170,20 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
+      # Outside the workspace, so nothing in it can land on .git/ or a tracked path before it has been checked.
       - uses: actions/download-artifact@v4
         with:
           name: enacted-update
-          path: .
+          path: ${{ runner.temp }}/enacted-artifact
 
-      - name: Only the expected files changed
+      - name: Check the artifact and copy in the expected files
         env:
           FILE: ${{ needs.build.outputs.file }}
           URL: ${{ needs.build.outputs.url }}
+          ARTIFACT: ${{ runner.temp }}/enacted-artifact
         run: |
           set -euo pipefail
           if ! [[ "$FILE" =~ ^cb_[0-9]{4}_us_cd[0-9]+_500k$ ]]; then
@@ -190,10 +194,42 @@ jobs:
             echo "::error::Unexpected source address: $URL"
             exit 1
           fi
+          allowed='^(config/(enacted|census-sha256)\.json|public/data/[A-Z]{2}/(enacted\.topo|stats)\.json)$'
+          dir="$ARTIFACT"
+          files=()
+          while IFS= read -r -d '' entry; do
+            rel="${entry#"$dir"/}"
+            if [ -L "$entry" ]; then
+              echo "::error::The artifact holds a symbolic link: $rel"
+              exit 1
+            fi
+            if [ -d "$entry" ]; then
+              continue
+            fi
+            if ! [ -f "$entry" ]; then
+              echo "::error::The artifact holds something other than a directory or a regular file: $rel"
+              exit 1
+            fi
+            if ! [[ "$rel" =~ $allowed ]]; then
+              echo "::error::The artifact holds a file the update should not touch: $rel"
+              exit 1
+            fi
+            files+=("$rel")
+          done < <(find "$dir" -mindepth 1 -print0)
+          if [ "${#files[@]}" -eq 0 ]; then
+            echo "::error::The artifact holds no files."
+            exit 1
+          fi
+          for rel in "${files[@]}"; do
+            parent=$(dirname "$rel")
+            test -d "$parent" || { echo "::error::No such directory in the checkout: $parent"; exit 1; }
+            cp -- "$dir/$rel" "$rel"
+          done
+          # A second check, on what git now sees.
           unexpected=$(git status --porcelain --untracked-files=all | cut -c4- \
-            | grep -Ev '^(config/(enacted|census-sha256)\.json|public/data/[A-Z]{2}/(enacted\.topo|stats)\.json)$' || true)
+            | grep -Ev "$allowed" || true)
           if [ -n "$unexpected" ]; then
-            echo "::error::The downloaded files include ones the update should not touch:"
+            echo "::error::The copied files include ones the update should not touch:"
             echo "$unexpected"
             exit 1
           fi
@@ -207,6 +243,7 @@ jobs:
         env:
           BRANCH: auto/enacted-${{ needs.build.outputs.file }}
           FILE: ${{ needs.build.outputs.file }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
@@ -215,19 +252,24 @@ jobs:
           git add config/enacted.json config/census-sha256.json public/data
           git commit -m "chore(data): update enacted districts to $FILE" \
             -m "Rebuilds enacted.topo.json and the enactedSource in stats.json for every state, and pins the new Census file in config/census-sha256.json. Display only: no generated district changes."
-          git push --force origin "$BRANCH"
+          git -c http.https://github.com/.extraheader="AUTHORIZATION: basic $(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w0)" push --force origin "$BRANCH"
 
       - name: Open the pull request
         env:
           GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
           BRANCH: auto/enacted-${{ needs.build.outputs.file }}
           FILE: ${{ needs.build.outputs.file }}
-          YEAR: ${{ needs.build.outputs.year }}
-          CONGRESS: ${{ needs.build.outputs.congress }}
           URL: ${{ needs.build.outputs.url }}
           BASE: ${{ github.event.repository.default_branch }}
         run: |
           set -euo pipefail
+          if ! [[ "$FILE" =~ ^cb_([0-9]{4})_us_cd([0-9]+)_500k$ ]]; then
+            echo "::error::Unexpected file name: $FILE"
+            exit 1
+          fi
+          YEAR="${BASH_REMATCH[1]}"
+          CONGRESS="${BASH_REMATCH[2]}"
           cat > "$RUNNER_TEMP/body.md" <<EOF
           The Census Bureau has published a newer enacted congressional districts file. This updates the dashed comparison overlay in the viewer to it.
 
@@ -242,7 +284,7 @@ jobs:
           Typecheck, the dependency rules, the tests and the build all passed in the workflow run that opened this pull request. Review the changed Census file and the overlay, then merge. This workflow never approves or merges a pull request.
           EOF
           if ! gh pr create --base "$BASE" --head "$BRANCH" --title "Update enacted districts to ${FILE}" --body-file "$RUNNER_TEMP/body.md"; then
-            git push origin --delete "$BRANCH" || true
+            git -c http.https://github.com/.extraheader="AUTHORIZATION: basic $(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w0)" push origin --delete "$BRANCH" || true
             echo "::error::Could not open the pull request. The likely cause is that the repository setting \"Allow GitHub Actions to create and approve pull requests\" (Settings > Actions > General) is off. The branch was deleted so the next run can try again."
             exit 1
           fi

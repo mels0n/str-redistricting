@@ -231,23 +231,26 @@ export async function publishEnactedOnly(cfg: PublishConfig): Promise<void> {
     // Parsing keeps key order, and the file is written with JSON.stringify, so only these values can change. The
     // assignments are untouched, so no gate: a stamped state takes the current maps release and input revision.
     const stamped = b.stats.versions !== undefined;
-    changed.push(await writeIfChanged(b.statsPath, JSON.stringify({ ...b.stats, enactedSource: enacted.source, ...(stamped ? { versions: stamp } : {}) })));
+    changed.push(await writeIfChanged(b.statsPath, JSON.stringify({ ...b.stats, enactedSource: enacted.source, ...(stamped ? { versions: restamped(b.stats.versions!, stamp) } : {}) })));
     console.log(`  ${b.state.abbr}: ${changed.some(Boolean) ? 'updated' : 'unchanged'}`);
   }
-  const restamped = built.filter((b) => b.stats.versions !== undefined);
-  if (restamped.length > 0) {
-    await restampIndex(join(cfg.publicDir, 'index.json'), new Set(restamped.map((b) => b.state.abbr)), stamp);
+  const stampedStates = built.filter((b) => b.stats.versions !== undefined);
+  if (stampedStates.length > 0) {
+    await restampIndex(join(cfg.publicDir, 'index.json'), new Map(stampedStates.map((b) => [b.state.abbr, restamped(b.stats.versions!, stamp)])));
     await writeIfChanged(join(cfg.publicDir, 'versions.json'), formatVersions(VERSIONS));
   }
 }
 
+/** A published stamp moved to the current Maps release and input revision. The engine and schema stay: no map was regenerated. */
+const restamped = (old: VersionStamp, current: VersionStamp): VersionStamp => ({ ...old, maps: current.maps, input: current.input });
+
 /** Replace `summary.versions` in the index for the given states; everything else in the file is kept as parsed. */
-async function restampIndex(path: string, states: ReadonlySet<string>, stamp: VersionStamp): Promise<void> {
+async function restampIndex(path: string, states: ReadonlyMap<string, VersionStamp>): Promise<void> {
   if (!existsSync(path)) return;
   const IndexShape = z.looseObject({ states: z.array(z.looseObject({ abbr: z.string(), summary: z.looseObject({}).optional() })) });
   const parsed = IndexShape.safeParse(await readJson(path));
   if (!parsed.success) throw new DataError(`${path}: ${parsed.error.issues.map((i) => `${i.path.join('.')} ${i.message}`).join('; ')}`);
-  const next = { ...parsed.data, states: parsed.data.states.map((e) => (e.summary !== undefined && states.has(e.abbr) ? { ...e, summary: { ...e.summary, versions: stamp } } : e)) };
+  const next = { ...parsed.data, states: parsed.data.states.map((e) => (e.summary !== undefined && states.has(e.abbr) ? { ...e, summary: { ...e.summary, versions: states.get(e.abbr) } } : e)) };
   await writeIfChanged(path, JSON.stringify(next));
 }
 

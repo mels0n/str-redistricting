@@ -104,16 +104,16 @@ describe('publish-data --enacted-only', () => {
 });
 
 describe('publish-data --enacted-only on stamped data', () => {
-  const OLD_STAMP = { engine: '1.0.0', input: { vintage: 'census-2020', revision: 0, sha256: 'c'.repeat(64) }, maps: 0, schema: '1.0.0' };
+  const OLD_STAMP = { engine: '0.9.0', input: { vintage: 'census-2020', revision: 0, sha256: 'c'.repeat(64) }, maps: 0, schema: '0.8.0' };
   const SHA = 'd'.repeat(64);
 
-  it('moves versions.maps and versions.input to the current release, in stats and index, without the gate', async () => {
+  it('moves only versions.maps and versions.input to the current release (engine and schema stay), in stats and index, without the gate', async () => {
     for (const st of ['RI', 'DE']) {
       put(st, 'stats.json', JSON.stringify({ enactedSource: 'old_file', versions: OLD_STAMP, finished: { metrics: { assignmentSha256: SHA } }, beforeBalancing: { x: [1, 2] } }));
     }
     writeFileSync(join(dir, 'index.json'), JSON.stringify({ states: [{ abbr: 'RI', summary: { assignmentSha256: SHA, versions: OLD_STAMP } }, { abbr: 'DE', summary: { assignmentSha256: SHA, versions: OLD_STAMP } }, { abbr: 'AK', hasData: false }] }));
     await run();
-    const stamp = stampOf(VERSIONS);
+    const stamp = { ...stampOf(VERSIONS), engine: OLD_STAMP.engine, schema: OLD_STAMP.schema };
     for (const st of ['RI', 'DE']) {
       expect(get(st, 'stats.json')).toBe(JSON.stringify({ enactedSource: 'cb_2026_us_cd119_500k', versions: stamp, finished: { metrics: { assignmentSha256: SHA } }, beforeBalancing: { x: [1, 2] } }));
     }

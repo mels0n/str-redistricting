@@ -78,6 +78,37 @@ describe('fonts', () => {
   });
 });
 
+describe('ogSvg projection', () => {
+  const square = (x: number, y: number, size: number) => [[x, y], [x, y + 4], [x + size, y + 4], [x + size, y], [x, y]];
+  /** Two districts at both ends of an unwrapped frame (longitudes below -180), like the published Alaska. */
+  const wide = JSON.stringify({
+    type: 'Topology',
+    objects: {
+      districts: {
+        type: 'GeometryCollection',
+        geometries: [
+          { type: 'Polygon', properties: { district: 1 }, arcs: [[0]] },
+          { type: 'Polygon', properties: { district: 2 }, arcs: [[1]] },
+        ],
+      },
+    },
+    arcs: [square(-195, 52, 25), square(-140, 52, 10)],
+  });
+  it('fits a map that runs past -180 degrees across the map area instead of wrapping it', () => {
+    const svg = ogSvg({ name: 'Wide', abbr: 'XX', seats: 2, topo: wide, credit: 'x', palette: OG_PALETTE });
+    const spans = [...svg.matchAll(/<path d="([^"]*)"/g)].map((m) => {
+      const xs = [...m[1]!.matchAll(/[ML]\s*(-?[0-9.]+)[ ,]/g)].map((n) => Number(n[1]));
+      return { min: Math.min(...xs), max: Math.max(...xs) };
+    });
+    expect(spans).toHaveLength(2);
+    const usable = 630 - 72;
+    // The whole map is 65 degrees wide: the 25 degree district takes 25/65 of it, the 10 degree one 10/65 (a wrapped map shrinks both to a sliver).
+    expect(Math.max(...spans.map((s) => s.max)) - Math.min(...spans.map((s) => s.min))).toBeGreaterThan(0.95 * usable);
+    expect(spans[0]!.max - spans[0]!.min).toBeGreaterThan((25 / 65) * usable * 0.9);
+    expect(spans[1]!.max - spans[1]!.min).toBeGreaterThan((10 / 65) * usable * 0.9);
+  });
+});
+
 describe('font families', () => {
   it('the headline family resolves to a loaded font instead of the renderer fallback', async () => {
     const fonts = await loadOgFonts();

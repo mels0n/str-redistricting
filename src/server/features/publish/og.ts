@@ -5,7 +5,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { Resvg } from '@resvg/resvg-js';
 import { geoMercator, geoPath } from 'd3-geo';
-import { feature, neighbors } from 'topojson-client';
+import { bbox, feature, neighbors } from 'topojson-client';
 import type { GeometryCollection, Topology } from 'topojson-specification';
 import wawoff2 from 'wawoff2';
 import { z } from 'zod';
@@ -72,7 +72,9 @@ export function ogSvg(p: { name: string; abbr: string; seats: number; topo: stri
   collection.geometries.sort((a, b) => number(a) - number(b));
   const slots = assignColors(neighbors(collection.geometries), p.palette.length);
   const features = feature(topo, collection);
-  const projection = geoMercator().fitExtent([[MAP_PAD, MAP_PAD], [MAP_SIZE - MAP_PAD, MAP_SIZE - MAP_PAD]], features);
+  // Published frames can run past -180 degrees (Alaska); turn the globe so the state's center is the middle and nothing wraps.
+  const [west, , east] = bbox(topo);
+  const projection = geoMercator().rotate([-(west! + east!) / 2, 0]).fitExtent([[MAP_PAD, MAP_PAD], [MAP_SIZE - MAP_PAD, MAP_SIZE - MAP_PAD]], features);
   const toPath = geoPath(projection);
   const shapes = features.features
     .map((f, i) => `<path d="${toPath(f) ?? ''}" fill="${p.palette[slots[i]!]!}" stroke="${INK}" stroke-width="1.5" stroke-linejoin="round"/>`)

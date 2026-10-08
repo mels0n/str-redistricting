@@ -46,11 +46,18 @@ const CutStat = z.object({
   firstDistrict: z.number().int(),
   angleDeg: z.number(),
   lengthM: z.number(),
+  /** Seats on the first side. cut-stats.json does not record it; the loader fills it in from cuts.geojson. */
+  lowSeats: z.number().int().positive().optional(),
 }).passthrough();
 
 /** out/<ST>/cut-stats.json: one record per cut, in cut order. */
 export const CutStatsSchema = z.object({ cuts: z.array(CutStat) }).passthrough();
 export type CutStats = z.infer<typeof CutStatsSchema>;
+
+/** The part of out/<ST>/cuts.geojson that names each cut's first-side seat count. */
+export const CutsGeoSchema = z.object({
+  features: z.array(z.object({ properties: z.object({ order: z.number().int(), lowSeats: z.number().int().positive() }).passthrough() })),
+});
 
 /** out/<ST>/candidates.json: per cut, one row per candidate line and side; `fields` names the columns. */
 export const CandidatesSchema = z.object({

@@ -8,6 +8,8 @@ const ResponseSchema = z.object({
         matchedAddress: z.string(),
         coordinates: z.object({ x: z.number(), y: z.number() }),
         addressComponents: z.looseObject({ state: z.string() }),
+        // Optional and lenient: a missing or odd block must never fail the lookup.
+        geographies: z.looseObject({ 'Census Blocks': z.array(z.looseObject({ GEOID: z.unknown() })).optional() }).optional().catch(undefined),
       }),
     ),
   }),
@@ -20,6 +22,15 @@ export interface GeocodeResult {
   matchedAddress: string;
   /** How many matches the Census Bureau returned; the first is the one used. */
   matchCount: number;
+  /** The address's 15-digit 2020 census block GEOID, or null when the answer carried none. */
+  block: string | null;
+}
+
+const BLOCK_GEOID = /^\d{15}$/;
+
+function blockFrom(geographies: { 'Census Blocks'?: { GEOID?: unknown }[] } | undefined): string | null {
+  const geoid = geographies?.['Census Blocks']?.[0]?.GEOID;
+  return typeof geoid === 'string' && BLOCK_GEOID.test(geoid) ? geoid : null;
 }
 
 /** Longest address sent to the geocoder. */
@@ -36,6 +47,7 @@ export function parseGeocodeResponse(data: unknown): GeocodeResult {
     state: match.addressComponents.state.toUpperCase(),
     matchedAddress: match.matchedAddress,
     matchCount: parsed.data.result.addressMatches.length,
+    block: blockFrom(match.geographies),
   };
 }
 
@@ -55,7 +67,7 @@ export function geocodeFailureFrom(cause: unknown): GeocodeError {
 
 /**
  * Looks up an address with the U.S. Census Bureau geocoder (one-line
- * address, current public address ranges). The Bureau's service answers
+ * address, current public address ranges, 2020 census blocks). The Bureau's service answers
  * browsers through JSONP only, so that is how it is called.
  */
 export async function geocodeAddress(address: string): Promise<GeocodeResult> {
@@ -65,7 +77,12 @@ export async function geocodeAddress(address: string): Promise<GeocodeResult> {
   try {
     data = await jsonp(
       config.geocoderUrl,
-      { address: text, benchmark: config.geocoderBenchmark },
+      {
+        address: text,
+        benchmark: config.geocoderBenchmark,
+        vintage: config.geocoderVintage,
+        layers: config.geocoderLayers,
+      },
       config.geocoderTimeoutMs,
     );
   } catch (cause) {

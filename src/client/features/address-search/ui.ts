@@ -4,7 +4,7 @@ import { describeMultipleMatches } from './resolve';
 
 export interface AddressSearchOptions {
   /** Called with the match; return a sentence to show under the field. */
-  onFound(result: GeocodeResult): string | void;
+  onFound(result: GeocodeResult): string | void | Promise<string | void>;
   /** Input id, unique on the page. */
   id: string;
   label?: string;
@@ -55,7 +55,7 @@ export function createAddressSearch(opts: AddressSearchOptions): AddressSearch {
         setMessage('Looking up the address with the Census Bureau…');
         try {
           const result = await geocodeAddress(input.value);
-          const msg = (opts.onFound(result) ?? `Found ${result.matchedAddress}.`) + describeMultipleMatches(result.matchCount);
+          const msg = ((await opts.onFound(result)) ?? `Found ${result.matchedAddress}.`) + describeMultipleMatches(result.matchCount);
           setMessage(msg);
           // Hand focus from the field to the button: a phone closes its keyboard (and any zoom it applied
           // for the field) so the map is in view, and a keyboard user stays in the form.

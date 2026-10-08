@@ -11,7 +11,6 @@ import {
   crossesAntimeridian,
   labelPoint,
   landLabelPoint,
-  WATER_VEIL,
   pointAlongLines,
   partialLines,
   firstClearSpot,
@@ -33,6 +32,22 @@ import {
   type LonLat,
   type Plan,
 } from '../../shared';
+import {
+  DETAIL_SOURCE,
+  FILL_OPACITY,
+  BORDER_WIDTH,
+  OUTLINE_WIDTH,
+  detailLayerSpecs,
+  detailSource,
+  fadedPaint,
+  registerPmtiles,
+  setDistrictState,
+  dropDetail,
+  shouldDropDetail,
+  twinVisibility,
+  bordersFilter,
+  selectedFilter,
+} from './detail';
 import { piecesAfter, pieceSizes, movedBlocksAt, balancePlanAt, type StateBundle, type PlanShapes, type EnactedShapes, type BalanceLog } from '../../entities/plan';
 
 export interface MapViewState {
@@ -416,6 +431,14 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
 
   const shapesOf = (plan: Plan): PlanShapes => (plan === 'finished' ? bundle.finished : bundle.before);
 
+  /** Set once the detail tiles have failed to load; the detail layers stay hidden after that. */
+  let detailFailed = false;
+
+  /** Adds the detail layers that belong directly above `id`. */
+  function addDetailAfter(id: string): void {
+    for (const s of detailLayerSpecs()) if (s.after === id) map.addLayer(s.layer);
+  }
+
   function setup(): void {
     map.addSource('context', {
       type: 'geojson',
@@ -428,6 +451,8 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
         promoteId: 'district',
       });
     }
+    registerPmtiles();
+    map.addSource(DETAIL_SOURCE, detailSource(bundle.abbr));
     map.addSource('water', { type: 'geojson', data: bundle.water ?? { type: 'FeatureCollection', features: [] } });
     map.addSource('borders', { type: 'geojson', data: asFeature(EMPTY_LINES) });
     map.addSource('outline', { type: 'geojson', data: asFeature(bundle.finished.outline) });
@@ -445,14 +470,10 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
         source: plan,
         paint: {
           'fill-color': ['coalesce', ['feature-state', 'fill'], tokens.quietFill],
-          'fill-opacity': [
-            'case',
-            ['boolean', ['feature-state', 'hover'], false], 0.82,
-            ['boolean', ['feature-state', 'dim'], false], 0.5,
-            1,
-          ],
+          'fill-opacity': FILL_OPACITY,
         },
       });
+      addDetailAfter(`fill-${plan}`);
     }
     // Blocks the balancing has moved so far, in the color of the district they joined.
     map.addLayer({
@@ -475,18 +496,17 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
       type: 'line',
       source: 'borders',
       layout: { 'line-join': 'round' },
-      paint: { 'line-color': tokens.ink, 'line-width': ['interpolate', ['linear'], ['zoom'], 5, 0.9, 10, 1.6] },
+      paint: { 'line-color': tokens.ink, 'line-width': BORDER_WIDTH },
     });
+    addDetailAfter('borders');
     map.addLayer({
       id: 'outline',
       type: 'line',
       source: 'outline',
       layout: { 'line-join': 'round' },
-      paint: { 'line-color': tokens.ink, 'line-width': ['interpolate', ['linear'], ['zoom'], 5, 1.5, 10, 2.5] },
+      paint: { 'line-color': tokens.ink, 'line-width': OUTLINE_WIDTH },
     });
-    // Water inside the districts (lakes, bays, coastal water) is washed with the ground color: the district's color stays faintly
-    // visible, land leads, and the borders that run across water are softened with it. Display only: nothing queries this layer.
-    map.addLayer({ id: 'water-veil', type: 'fill', source: 'water', paint: { 'fill-color': tokens.ground, 'fill-opacity': WATER_VEIL } });
+    addDetailAfter('outline');
     map.addLayer({
       id: 'enacted',
       type: 'line',
@@ -503,7 +523,22 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
         layout: { 'line-join': 'round' },
         paint: { 'line-color': tokens.ink, 'line-width': 3.5 },
       });
+      addDetailAfter(`sel-${plan}`);
     }
+    // Water inside the districts (lakes, bays, coastal water) is covered with the ground color, over the district colors and
+    // every district border, so only land shows a district. Census water blocks are large and hold almost no people, so the
+    // lines across them do not follow the cuts. The selected-district outline and the enacted lines stop at the shore on
+    // purpose; guide lines and the balancing block draw above it. Display only: hit-testing still uses the fill layers.
+    // Past DETAIL_ZOOM the cover swaps to the detail tiles' water.
+    map.addLayer({ id: 'water-cover', type: 'fill', source: 'water', paint: { 'fill-color': tokens.ground } });
+    addDetailAfter('water-cover');
+    // The simplified layers fade out as the detail tiles fade in; if the tiles cannot be had, the map is as it was.
+    for (const p of fadedPaint()) map.setPaintProperty(p.id, p.prop, p.faded);
+    map.on('error', (e) => {
+      if (!shouldDropDetail(e, detailFailed)) return;
+      detailFailed = true;
+      dropDetail(map);
+    });
     map.addLayer({
       id: 'cuts-past',
       type: 'line',
@@ -542,7 +577,7 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
       paint: { 'line-color': tokens.signal, 'line-width': 2.5 },
     });
 
-    const fillLayers = ['fill-finished', 'fill-before'];
+    const fillLayers = ['fill-finished', 'fill-before', 'fill-finished-detail', 'fill-before-detail'];
     const pick = (pt: PointLike): number | null => {
       const f = map.queryRenderedFeatures(pt, { layers: fillLayers })[0];
       const d = f?.properties?.district;
@@ -690,6 +725,10 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
     map.setLayoutProperty(`fill-${other}`, 'visibility', 'none');
     map.setLayoutProperty(`sel-${plan}`, 'visibility', 'visible');
     map.setLayoutProperty(`sel-${other}`, 'visibility', 'none');
+    for (const kind of ['fill', 'sel', 'borders', 'outline']) {
+      map.setLayoutProperty(`${kind}-${plan}-detail`, 'visibility', twinVisibility(plan, plan, detailFailed));
+      map.setLayoutProperty(`${kind}-${other}-detail`, 'visibility', twinVisibility(plan, other, detailFailed));
+    }
 
     const piece = cutMode ? piecesAfter(bundle.cuts, next.cut!, seats) : null;
     const sizes = piece ? pieceSizes(piece) : null;
@@ -698,7 +737,7 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
     for (let i = 0; i < seats; i++) {
       const color = bundle.colors[piece ? piece[i]! : i]!;
       const id = i + 1;
-      map.setFeatureState({ source: plan, id }, {
+      setDistrictState(map, plan, id, {
         fill: color,
         hover: next.hovered === id && next.hovered !== next.selected,
         // In the cut sequence the colors are pieces, not districts, so a chosen district does not wash out the rest.
@@ -710,6 +749,8 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
     if (bordersChanged) src('borders').setData(asFeature(piece ? shapes.pieceBorders(piece) : shapes.borders));
 
     map.setFilter(`sel-${plan}`, ['==', ['get', 'district'], next.selected ?? -1]);
+    map.setFilter(`sel-${plan}-detail`, selectedFilter(next.selected));
+    if (bordersChanged) map.setFilter(`borders-${plan}-detail`, bordersFilter(piece));
 
     // District numbers: shown once a district is its own piece.
     const labels = labelsFor(plan);

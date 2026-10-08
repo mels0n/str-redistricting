@@ -33,7 +33,7 @@ import {
   loadStateBundle,
   loadEnacted,
   loadBalance,
-  districtsAt,
+  loadBlocks,
   populationsAfter,
   balancePlanAt,
   isPartway,
@@ -44,7 +44,9 @@ import {
   type EnactedShapes,
   type DistrictStats,
   type SeqPos,
+  type Blocks,
 } from '../../entities/plan';
+import { afterArrivalLoad, finishWhenLoaded, lookupDistricts } from './lookup';
 import { createAddressSearch, describeResolution, resolveAddress } from '../../features/address-search';
 import { createCutScrubber, type CutScrubber, type BalanceLogState } from '../../features/cut-scrubber';
 import { createPlanOptions, type PlanOptions } from '../../features/plan-options';
@@ -78,7 +80,9 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
   const locatedDistrict = (plan = shownPlan()): number | null => located?.districts[plan] ?? null;
   /** The corrected link a notice explains; the notice stays while the route is still that one. */
   let noticeHash: string | null = null;
-  let located: { districts: PlanDistricts; lonLat: LonLat; matchedAddress: string } | null = null;
+  let located: { districts: PlanDistricts; lonLat: LonLat; matchedAddress: string; exact: boolean } | null = null;
+  /** The block assignment file, loaded when an address with a census block is looked up; null if it failed. */
+  let blocks: Blocks | null = null;
 
   const h1 = h('h1', { class: 'strv-state__h1', tabindex: -1 }, initial.abbr);
   const back = h('a', { href: formatHash(NATIONAL), class: 'strv-back' }, iconArrowLeft(), 'All states');
@@ -405,21 +409,32 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
         const where = resolveAddress(index, result, entry.abbr);
         if (where.kind !== 'here') {
           if (where.kind === 'open') {
-            setLocated({ state: where.state.abbr, lonLat: result.lonLat, matchedAddress: result.matchedAddress });
+            setLocated({ state: where.state.abbr, lonLat: result.lonLat, matchedAddress: result.matchedAddress, ...(result.block !== null && { block: result.block }) });
             nav(stateRoute(where.state.abbr));
           }
           return describeResolution(where, result);
         }
-        setLocated({ state: entry.abbr, lonLat: result.lonLat, matchedAddress: result.matchedAddress });
-        locate(bundle);
-        const here = locatedDistrict();
-        if (here === null) {
-          // No district to select, so nothing else redraws: draw the pin and the note now.
-          render();
-          return `${result.matchedAddress} falls just outside the simplified district shapes. It is in ${entry.name}; check the district list near that spot.`;
-        }
-        go({ district: here });
-        return `${result.matchedAddress} is in District ${here}.`;
+        setLocated({ state: entry.abbr, lonLat: result.lonLat, matchedAddress: result.matchedAddress, ...(result.block !== null && { block: result.block }) });
+        const finish = (): string => {
+          locate(bundle);
+          const here = locatedDistrict();
+          if (here === null) {
+            // No district to select, so nothing else redraws: draw the pin and the note now.
+            render();
+            return `${result.matchedAddress} falls just outside the simplified district shapes. It is in ${entry.name}; check the district list near that spot.`;
+          }
+          go({ district: here });
+          return `${result.matchedAddress} is in District ${here}.`;
+        };
+        if (result.block === null || blocks) return finish();
+        return finishWhenLoaded(loadBlocks(entry.abbr), {
+          alive: () => alive,
+          setBlocks: (b) => {
+            blocks = b;
+          },
+          finish,
+          fallback: `Found ${result.matchedAddress}.`,
+        });
       },
     });
     const locatedNote = h('p', { class: 'strv-located', hidden: true });
@@ -476,6 +491,27 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
     );
 
     locate(bundle);
+    // The exact answer arrives after the first draw; a failed load keeps the simplified-shape answer.
+    if (getLocated()?.state === entry.abbr && getLocated()?.block && !blocks) {
+      const shapeAnswer = locatedDistrict();
+      // Near a border the exact district differs from the shape answer already selected; follow it unless the visitor moved on.
+      void afterArrivalLoad({
+        load: loadBlocks(entry.abbr),
+        alive: () => alive,
+        setBlocks: (b) => {
+          blocks = b;
+        },
+        relocate: () => {
+          locate(bundle);
+          return locatedDistrict();
+        },
+        before: shapeAnswer,
+        selected: () => route.district,
+      }).then((next) => {
+        if (next === 'render') render();
+        else if (next !== null) go({ district: next }, true);
+      });
+    }
     const startAt = locatedDistrict();
     if (startAt && route.district === null) go({ district: startAt }, true);
 
@@ -532,7 +568,7 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
         locatedNote.hidden = false;
         const here = locatedDistrict(plan);
         locatedNote.textContent = here
-          ? `Your address, ${located.matchedAddress}, is in District ${here}. Shapes are simplified for display; close to a border, the block assignment file is the final word.`
+          ? `Your address, ${located.matchedAddress}, is in District ${here}.${located.exact ? '' : ' Shapes are simplified for display; close to a border, the block assignment file is the final word.'}`
           : `Your address, ${located.matchedAddress}, is marked on the map.`;
       }
       const liveMove = partway && balance.status === 'ready' ? route.move : null;
@@ -570,7 +606,7 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
         h('span', { class: 'strv-legend__item' }, sample('strv-legend__num', '3'), 'District number'),
         cutMode ? h('span', { class: 'strv-legend__item' }, sample('strv-legend__tag', 'Cut 3'), 'Order of a cut') : null,
         h('span', { class: 'strv-legend__item' }, sample('strv-legend__chip', '+2'), 'More districts, zoom in'),
-        bundle.water ? h('span', { class: 'strv-legend__item' }, sample('strv-legend__water'), 'Water, shown pale') : null,
+        bundle.water ? h('span', { class: 'strv-legend__item' }, sample('strv-legend__water'), 'Water, left plain') : null,
         cutMode ? h('span', { class: 'strv-legend__item' }, sample('strv-legend__cut'), 'Newest cut') : null,
         cutMode ? h('span', { class: 'strv-legend__item' }, sample('strv-legend__past'), 'Earlier cuts') : null,
         balanceMode && (route.move ?? 0) > 0 ? h('span', { class: 'strv-legend__item' }, sample('strv-legend__move'), 'Block moved') : null,
@@ -616,7 +652,14 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
     const l = getLocated();
     if (!l || l.state !== bundle.abbr) return;
     const at = toStateFrame(bundle.abbr, l.lonLat);
-    located = { districts: districtsAt(bundle, at), lonLat: at, matchedAddress: l.matchedAddress };
+    const { districts, exact } = lookupDistricts({
+      block: l.block ?? null,
+      blocks,
+      fingerprints: { finished: bundle.stats.finished.metrics.assignmentSha256, before: bundle.stats.beforeBalancing.metrics.assignmentSha256 },
+      shapes: bundle,
+      at,
+    });
+    located = { districts, lonLat: at, matchedAddress: l.matchedAddress, exact };
   }
 
   void start();

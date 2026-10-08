@@ -9,6 +9,8 @@ export interface LocatedAddress {
   state: string;
   lonLat: LonLat;
   matchedAddress: string;
+  /** The address's 15-digit 2020 census block GEOID, when the geocoder gave one. */
+  block?: string;
 }
 
 let current: LocatedAddress | null = null;

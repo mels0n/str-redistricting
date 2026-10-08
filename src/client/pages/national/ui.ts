@@ -16,8 +16,8 @@ export function createNationalPage(nav: Navigate): Page {
   const lede = h(
     'div',
     { class: 'strv-national__lede' },
-    h('p', null, 'Politicians draw the lines. They see your party, your race, your religion, your income, and use that to pick their voters. That is gerrymandering.'),
-    h('p', { class: 'strv-national__closing' }, 'So we removed the human. Code draws these maps from population alone. No human, no gerrymandering.'),
+    h('p', null, 'People, usually politicians, draw the lines. They see your party, your race, your income, and use that to pick their voters. That is gerrymandering.'),
+    h('p', { class: 'strv-national__closing' }, 'So we removed the human. Code draws these maps from census headcounts and block shapes alone. No human, no gerrymandering.'),
     h(
       'div',
       { class: 'strv-national__how' },
@@ -41,7 +41,7 @@ export function createNationalPage(nav: Navigate): Page {
       const where = resolveAddress(indexCache, result, null);
       if (where.kind === 'here') return undefined;
       if (where.kind === 'open') {
-        setLocated({ state: where.state.abbr, lonLat: result.lonLat, matchedAddress: result.matchedAddress });
+        setLocated({ state: where.state.abbr, lonLat: result.lonLat, matchedAddress: result.matchedAddress, ...(result.block !== null && { block: result.block }) });
         nav(stateRoute(where.state.abbr));
       }
       return describeResolution(where, result);

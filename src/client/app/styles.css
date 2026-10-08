@@ -427,7 +427,8 @@ html:has(> body > #str-viewer) {
   font-size: 1rem;
 }
 
-.strv .strv-national__lede > p + p {
+.strv .strv-national__lede > p + p,
+.strv .strv-national__lede > .strv-national__more {
   margin-top: var(--s-3);
 }
 
@@ -539,7 +540,6 @@ html:has(> body > #str-viewer) {
   }
 
   .strv-national__search {
-    grid-area: search;
     border-top: 0;
     border-bottom: 2px solid var(--ink);
     padding: var(--s-5) var(--gutter) var(--s-4);
@@ -1281,7 +1281,7 @@ html:has(> body > #str-viewer) {
   border-radius: 2px;
 }
 
-/* A district color, strong on the left and washed with the ground color (the same 0.7 the map uses over water) on the right. */
+/* A district color on the left and the plain ground color the map uses over water on the right. */
 .strv-legend__water {
   position: relative;
   display: inline-block;
@@ -1295,7 +1295,7 @@ html:has(> body > #str-viewer) {
   content: '';
   position: absolute;
   inset: 0 0 0 50%;
-  background: rgb(243 239 229 / 0.7);
+  background: var(--ground);
 }
 
 .strv-legend__cut,

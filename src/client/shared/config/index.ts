@@ -12,6 +12,9 @@ const ConfigSchema = z.object({
   /** U.S. Census Bureau geocoder, one-line address endpoint. */
   geocoderUrl: z.url(),
   geocoderBenchmark: z.string().min(1),
+  /** Geography vintage and layers, so the answer names the address's census block. */
+  geocoderVintage: z.string().min(1),
+  geocoderLayers: z.string().min(1),
   geocoderTimeoutMs: z.number().int().positive(),
   /** Milliseconds between cuts when the cut sequence plays. */
   cutPlayIntervalMs: z.number().int().positive(),
@@ -52,8 +55,10 @@ function load(): ViewerConfig {
   const host = readHostOverrides();
   return ConfigSchema.parse({
     dataBase: resolveDataBase(host?.dataBase),
-    geocoderUrl: 'https://geocoding.geo.census.gov/geocoder/locations/onelineaddress',
+    geocoderUrl: 'https://geocoding.geo.census.gov/geocoder/geographies/onelineaddress',
     geocoderBenchmark: 'Public_AR_Current',
+    geocoderVintage: 'Census2020_Current',
+    geocoderLayers: 'Census Blocks',
     geocoderTimeoutMs: 15000,
     cutPlayIntervalMs: 1400,
     cutDrawMs: 650,

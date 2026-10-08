@@ -41,7 +41,7 @@
   --s-7: 3rem;
   --s-8: 4rem;
 
-  /* The strip's real height: 44px tap targets plus its 4px top and bottom padding. */
+  /* The strip's real height: 44px tap targets plus its 4px top and bottom padding (see the notch rule below). */
   --mast-h: 3.25rem;
   --col: 27rem;
   --gutter: 1rem;
@@ -2410,7 +2410,8 @@ html:has(> body > #str-viewer) {
 
 /* Notches and rounded corners: the masthead and the page keep clear of them. */
 .strv {
-  --mast-h: calc(3.25rem + env(safe-area-inset-top, 0px));
+  /* Matches the masthead's padding-top below: 44px targets + 4px bottom + max(4px, inset) top. */
+  --mast-h: calc(3rem + max(var(--s-1), env(safe-area-inset-top, 0px)));
 }
 
 .strv-masthead {

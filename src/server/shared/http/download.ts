@@ -43,8 +43,8 @@ async function fetchToPart(url: string, part: string, label: string, sha256: str
     timer = setTimeout(() => stall.abort(new Error(`no data for ${o.stallMs} ms`)), o.stallMs);
   };
   const signal = AbortSignal.any([stall.signal, AbortSignal.timeout(o.totalMs)]);
-  arm();
   const file = await open(part, 'w');
+  arm();
   try {
     const res = await o.fetchFn(url, { signal });
     if (!res.ok) throw new DownloadError(`download failed for ${label}: HTTP ${res.status}`, res.status);
@@ -65,7 +65,7 @@ async function fetchToPart(url: string, part: string, label: string, sha256: str
       throw new DownloadError(`download for ${label} truncated: expected ${expected} bytes, got ${size}`);
     }
     const digest = hash.digest('hex');
-    if (sha256 !== null && digest !== sha256) throw new ChecksumError(basename(part, '.part'), part.slice(0, -'.part'.length));
+    if (sha256 !== null && digest !== sha256) throw new ChecksumError(basename(part, '.part'), part.slice(0, -'.part'.length), 'fresh');
     return digest;
   } finally {
     clearTimeout(timer);

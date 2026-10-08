@@ -33,10 +33,14 @@ export class WorkerPoolError extends AppError {
 
 /** A Census file whose sha256 differs from the pinned value: corrupt cache, or the Census Bureau reissued it. */
 export class ChecksumError extends DataError {
-  constructor(fileName: string, path: string) {
+  /** `fresh`: the mismatch was found on a download that has not been kept, so there is no cached file to delete. */
+  constructor(fileName: string, path: string, origin: 'cached' | 'fresh' = 'cached') {
     super(
-      `${fileName}: sha256 does not match the pinned value. The cached file is corrupt or the Census Bureau reissued it. ` +
-      `Delete ${path} to download it again, or, if the Census Bureau reissued it, update the manifest (this changes the maps).`,
+      origin === 'fresh'
+        ? `${fileName}: sha256 does not match the pinned value. The file just downloaded differs from the pinned hash; ` +
+          'the Census Bureau may have reissued it. Check the new file, then update the manifest (config/census-sha256.json; this changes the maps).'
+        : `${fileName}: sha256 does not match the pinned value. The cached file is corrupt or the Census Bureau reissued it. ` +
+          `Delete ${path} to download it again, or, if the Census Bureau reissued it, update the manifest (this changes the maps).`,
     );
   }
 }

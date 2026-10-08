@@ -1295,7 +1295,8 @@ html:has(> body > #str-viewer) {
   content: '';
   position: absolute;
   inset: 0 0 0 50%;
-  background: rgb(243 239 229 / 0.7);
+  /* 70% mirrors WATER_VEIL in shared/ui/tokens.ts */
+  background: color-mix(in srgb, var(--ground) 70%, transparent);
 }
 
 .strv-legend__cut,

@@ -102,7 +102,13 @@ describe('downloadCached integrity', () => {
   });
   it('fails a hash mismatch on a fresh download, without retrying, and leaves no cache file', async () => {
     const f = vi.fn<typeof fetch>(async () => ok('different'));
-    await expect(run(f)).rejects.toThrow(ChecksumError);
+    const err = await run(f).catch((e: unknown) => e);
+    expect(err).toBeInstanceOf(ChecksumError);
+    const msg = (err as Error).message;
+    expect(msg).toContain('f.zip: sha256 does not match the pinned value');
+    expect(msg).toContain('just downloaded');
+    expect(msg).toContain('config/census-sha256.json');
+    expect(msg).not.toContain('Delete');
     expect(f).toHaveBeenCalledTimes(1);
     expect(existsSync(path)).toBe(false);
     expect(existsSync(`${path}.part`)).toBe(false);

@@ -6,6 +6,7 @@
  * How much of the ground color covers the part of a district that lies over water. 1 would hide the district
  * color there; 0 would leave it as strong as land. The wash leaves the district's hue faintly showing.
  */
+/** Also written as 70% in `.strv-legend__water::after` in app/styles.css; keep the two equal. */
 export const WATER_VEIL = 0.7;
 
 export const tokens = {

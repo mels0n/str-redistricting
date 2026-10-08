@@ -37,7 +37,7 @@ function parsePerms(block: string): Record<string, string> {
   const out: Record<string, string> = {};
   for (const line of block.split(/\r?\n/)) {
     const m = line.match(/^\s+([\w-]+):\s*(\S+)\s*$/);
-    if (m) out[m[1]] = m[2];
+    if (m) out[m[1]!] = m[2]!;
   }
   return out;
 }
@@ -48,16 +48,16 @@ function parseJobs(text: string): Map<string, Job> {
     .filter((l) => !/^\s*#/.test(l))
     .join('\n');
   const top = clean.match(/^permissions:[ \t]*\r?\n((?: {2}.*\n?)+)/m);
-  const topPerms = top ? parsePerms(top[1]) : {};
+  const topPerms = top ? parsePerms(top[1]!) : {};
   const jobsText = clean.slice(clean.search(/^jobs:[ \t]*$/m)).replace(/^jobs:[ \t]*\n/, '');
   const parts = jobsText.split(/^ {2}([\w-]+):[ \t]*$/m);
   const jobs = new Map<string, Job>();
   for (let i = 1; i < parts.length; i += 2) {
-    const body = parts[i + 1];
+    const body = parts[i + 1] ?? '';
     const m = body.match(/^ {4}permissions:[ \t]*\n((?: {6}.*\n?)+)/m);
-    const perms = m ? parsePerms(m[1]) : topPerms;
+    const perms = m ? parsePerms(m[1]!) : topPerms;
     const stepsText = body.split(/^ {4}steps:[ \t]*$/m)[1] ?? '';
-    jobs.set(parts[i], { body, perms, steps: stepsText.split(/^ {6}- /m).slice(1) });
+    jobs.set(parts[i]!, { body, perms, steps: stepsText.split(/^ {6}- /m).slice(1) });
   }
   return jobs;
 }

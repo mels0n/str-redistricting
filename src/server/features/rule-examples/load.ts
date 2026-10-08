@@ -50,6 +50,12 @@ async function readAssignment(path: string): Promise<Map<string, number>> {
   return out;
 }
 
+/** Joins each cut's first-side seat count (cuts.geojson) onto cut-stats.json by cut order, never by position. */
+export function withLowSeats(stats: CutStats, geo: { features: readonly { properties: { order: number; lowSeats: number } }[] }): CutStats {
+  const lowByOrder = new Map(geo.features.map((f) => [f.properties.order, f.properties.lowSeats] as const));
+  return { ...stats, cuts: stats.cuts.map((c) => ({ ...c, lowSeats: lowByOrder.get(c.order) })) };
+}
+
 export async function loadStateOutput(outDir: string, abbr: string): Promise<StateOutput> {
   const dir = join(outDir, abbr);
   const [metrics, candidates, rawCutStats, cutsGeo, balance, assignment, before] = await Promise.all([
@@ -62,8 +68,7 @@ export async function loadStateOutput(outDir: string, abbr: string): Promise<Sta
     readAssignment(join(dir, 'before-balancing', 'assignment.csv')),
   ]);
   // cut-stats.json leaves out which side got the smaller share; cuts.geojson has it, keyed by cut order.
-  const lowByOrder = new Map(cutsGeo.features.map((f) => [f.properties.order, f.properties.lowSeats] as const));
-  const cutStats: CutStats = { ...rawCutStats, cuts: rawCutStats.cuts.map((c) => ({ ...c, lowSeats: lowByOrder.get(c.order) })) };
+  const cutStats = withLowSeats(rawCutStats, cutsGeo);
   return { metrics, candidates, cutStats, balance, assignment, before };
 }
 

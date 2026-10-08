@@ -16,35 +16,48 @@ export const BORDER_LAYER = 'blocks';
 const MAX_MISSING_LISTED = 5;
 
 const vertexKey = (p: readonly number[]): string => `${p[0]},${p[1]}`;
+/** A JS Map holds at most about 16.7 million entries; a pass keeps well under that many vertices. */
+const VERTICES_PER_PASS = 8_000_000;
+/** Which pass a vertex belongs to: a hash of its coordinates at 1e-6 degree, so equal coordinates always agree. */
+const passOf = (p: readonly number[], passes: number): number =>
+  ((Math.imul(Math.round(p[0]! * 1e6), 73856093) ^ Math.imul(Math.round(p[1]! * 1e6), 19349663)) >>> 0) % passes;
 
 /**
  * GEOIDs of the blocks that share at least one vertex with a block of a different district, under any of the plans.
  * TIGER blocks share exact vertex coordinates, so a vertex that two districts meet at is enough: the blocks on both
  * sides of a district line, and blocks that only touch it at a corner. A vertex on the state edge has one side only
- * and never counts. Blocks are ordinary blocks here (water blocks included).
+ * and never counts. Blocks are ordinary blocks here (water blocks included). A state with more vertices than one map
+ * can hold (Texas) is handled in several passes, each over its own share of the vertices.
  */
-export function borderGeoids(blocks: readonly Block[], plans: readonly ReadonlyMap<string, number>[]): Set<string> {
+export function borderGeoids(blocks: readonly Block[], plans: readonly ReadonlyMap<string, number>[], passesOverride?: number): Set<string> {
+  let vertices = 0;
+  for (const b of blocks) for (const ring of b.rings) vertices += ring.length;
+  const passes = passesOverride ?? Math.max(1, Math.ceil(vertices / VERTICES_PER_PASS));
   const out = new Set<string>();
   for (const plan of plans) {
-    const district = (b: Block): number => {
+    const districts = blocks.map((b) => {
       const d = plan.get(b.geoid);
       if (d === undefined) throw new DataError(`block ${b.geoid} has no district in the plan`);
       return d;
-    };
-    const touch = new Map<string, number>(); // vertex -> district, or -1 where two districts meet
-    for (const b of blocks) {
-      const d = district(b);
-      for (const ring of b.rings) {
-        for (const p of ring) {
-          const k = vertexKey(p);
-          const seen = touch.get(k);
-          if (seen === undefined) touch.set(k, d);
-          else if (seen !== d) touch.set(k, -1);
+    });
+    for (let pass = 0; pass < passes; pass++) {
+      const touch = new Map<string, number>(); // vertex -> district, or -1 where two districts meet
+      const mine = (p: readonly number[]): boolean => passes === 1 || passOf(p, passes) === pass;
+      blocks.forEach((b, i) => {
+        const d = districts[i]!;
+        for (const ring of b.rings) {
+          for (const p of ring) {
+            if (!mine(p)) continue;
+            const k = vertexKey(p);
+            const seen = touch.get(k);
+            if (seen === undefined) touch.set(k, d);
+            else if (seen !== d) touch.set(k, -1);
+          }
         }
+      });
+      for (const b of blocks) {
+        if (!out.has(b.geoid) && b.rings.some((ring) => ring.some((p) => mine(p) && touch.get(vertexKey(p)) === -1))) out.add(b.geoid);
       }
-    }
-    for (const b of blocks) {
-      if (b.rings.some((ring) => ring.some((p) => touch.get(vertexKey(p)) === -1))) out.add(b.geoid);
     }
   }
   return out;

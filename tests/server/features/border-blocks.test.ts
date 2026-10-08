@@ -72,6 +72,14 @@ describe('borderGeoids', () => {
     expect(got.size).toBe(20);
   });
 
+  it('gives the same answer when the vertices are split over several passes', () => {
+    const big = grid(30);
+    const p = plan(big, (c, r) => (c + r < 28 ? 1 : 2));
+    const once = borderGeoids(big, [p]);
+    expect(once.size).toBeGreaterThan(0);
+    expect(borderGeoids(big, [p], 7)).toEqual(once);
+  });
+
   it('rejects a block the plan does not cover', () => {
     expect(() => borderGeoids(blocks, [new Map()])).toThrow(DataError);
   });

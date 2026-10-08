@@ -4,17 +4,28 @@ import type { ScanReply, ScanRequest } from './pool.js';
 import { scanDirections } from './scan.js';
 
 /** One worker of ScanPool: claims directions from the shared counter until none are left, then reports. */
-const port = (workerData as { port: MessagePort }).port;
+const { port, health } = workerData as { port: MessagePort; health: Int32Array };
 const NEXT = 0, DONE = 1;
+const DEAD = 0, CLOSING = 1;
+let current: Int32Array | undefined;
+
+// The caller sleeps in Atomics.wait, so it cannot hear this thread's 'exit' event. Leave a flag it can read.
+// This covers process.exit and uncaught errors. A silent kill (out of memory) leaves no trace; the caller's stall limit catches that.
+process.on('exit', () => {
+  if (Atomics.load(health, CLOSING) !== 0) return;
+  Atomics.store(health, DEAD, 1);
+  if (current) Atomics.notify(current, DONE);
+});
 
 parentPort!.on('message', (req: ScanRequest) => {
-  let reply: ScanReply = { ok: true };
+  current = req.ctrl;
+  let reply: ScanReply = { ok: true, id: req.id };
   try {
     scanDirections(req.piece, req.job, req.res, () => Atomics.add(req.ctrl, NEXT, 1));
   } catch (err) {
     // Stop the other workers early: nothing they find can be used.
     Atomics.store(req.ctrl, NEXT, req.job.angleCount);
-    reply = { ok: false, message: err instanceof Error ? err.message : String(err), data: err instanceof DataError };
+    reply = { ok: false, id: req.id, message: err instanceof Error ? err.message : String(err), data: err instanceof DataError };
   }
   // Post before counting in: the caller reads the reply as soon as every worker has counted in.
   port.postMessage(reply);

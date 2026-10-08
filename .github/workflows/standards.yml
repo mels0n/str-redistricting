@@ -25,6 +25,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-node@v4
         with:
@@ -54,3 +56,38 @@ jobs:
 
       - name: Build the viewer
         run: npm run build
+
+      # Which components changed in this pull request, and did their versions move? Warns until config/release.json
+      # sets enforce.
+      - name: Version check
+        if: github.event_name == 'pull_request'
+        env:
+          BASE_REF: ${{ github.base_ref }}
+        run: npm run version:check -- --base "origin/$BASE_REF"
+
+  # Draws a few small states and compares their fingerprints with tests/fingerprints/engine.json: the map may only
+  # change when the engine major version does. Passes vacuously while that file records no states.
+  fixture-gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - uses: actions/cache@v4
+        with:
+          path: data/raw
+          key: census-${{ hashFiles('config/census-sha256.json') }}
+
+      - name: Install
+        run: npm ci
+
+      - name: Fixture fingerprints
+        run: npm run fingerprints -- --check

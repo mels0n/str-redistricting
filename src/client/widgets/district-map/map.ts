@@ -11,7 +11,6 @@ import {
   crossesAntimeridian,
   labelPoint,
   landLabelPoint,
-  WATER_VEIL,
   pointAlongLines,
   partialLines,
   firstClearSpot,
@@ -508,10 +507,6 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
       paint: { 'line-color': tokens.ink, 'line-width': OUTLINE_WIDTH },
     });
     addDetailAfter('outline');
-    // Water inside the districts (lakes, bays, coastal water) is washed with the ground color: the district's color stays faintly
-    // visible, land leads, and the borders that run across water are softened with it. Display only: nothing queries this layer.
-    map.addLayer({ id: 'water-veil', type: 'fill', source: 'water', paint: { 'fill-color': tokens.ground, 'fill-opacity': WATER_VEIL } });
-    addDetailAfter('water-veil');
     map.addLayer({
       id: 'enacted',
       type: 'line',
@@ -530,6 +525,13 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
       });
       addDetailAfter(`sel-${plan}`);
     }
+    // Water inside the districts (lakes, bays, coastal water) is covered with the ground color, over the district colors and
+    // every district border, so only land shows a district. Census water blocks are large and hold almost no people, so the
+    // lines across them do not follow the cuts. The selected-district outline and the enacted lines stop at the shore on
+    // purpose; guide lines and the balancing block draw above it. Display only: hit-testing still uses the fill layers.
+    // Past DETAIL_ZOOM the cover swaps to the detail tiles' water.
+    map.addLayer({ id: 'water-cover', type: 'fill', source: 'water', paint: { 'fill-color': tokens.ground } });
+    addDetailAfter('water-cover');
     // The simplified layers fade out as the detail tiles fade in; if the tiles cannot be had, the map is as it was.
     for (const p of fadedPaint()) map.setPaintProperty(p.id, p.prop, p.faded);
     map.on('error', (e) => {

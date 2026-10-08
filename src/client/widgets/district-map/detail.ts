@@ -1,6 +1,6 @@
 import { addProtocol, type ExpressionSpecification, type VectorSourceSpecification, type FilterSpecification, type LayerSpecification, type Map as MlMap } from 'maplibre-gl';
 import { Protocol } from 'pmtiles';
-import { tokens, dataUrl, WATER_VEIL } from '../../shared';
+import { tokens, dataUrl } from '../../shared';
 import type { Plan } from '../../shared';
 
 /**
@@ -152,13 +152,15 @@ export function detailLayerSpecs(): { layer: LayerSpecification; after: string }
     });
   }
   out.push({
-    after: 'water-veil',
+    after: 'water-cover',
     layer: {
       ...base,
-      id: 'water-veil-detail',
+      minzoom: FILL_FADE_FROM,
+      id: 'water-cover-detail',
       type: 'fill',
       'source-layer': 'water',
-      paint: { 'fill-color': tokens.ground, 'fill-opacity': fadeIn(WATER_VEIL) },
+      // Opaque, so it swaps outright like the fills: a crossfade would let the borders show through mid-fade.
+      paint: { 'fill-color': tokens.ground, 'fill-opacity': fillFadeIn(1) },
     },
   });
   for (const plan of PLANS) {
@@ -184,9 +186,9 @@ export function fadedPaint(): { id: string; prop: 'fill-opacity' | 'line-opacity
   for (const plan of PLANS) rows.push({ id: `fill-${plan}`, prop: 'fill-opacity', base: FILL_OPACITY });
   rows.push({ id: 'borders', prop: 'line-opacity', base: 1 });
   rows.push({ id: 'outline', prop: 'line-opacity', base: 1 });
-  rows.push({ id: 'water-veil', prop: 'fill-opacity', base: WATER_VEIL });
+  rows.push({ id: 'water-cover', prop: 'fill-opacity', base: 1 });
   for (const plan of PLANS) rows.push({ id: `sel-${plan}`, prop: 'line-opacity', base: 1 });
-  return rows.map((r) => ({ ...r, faded: r.id.startsWith('fill-') ? fillFadeOut(r.base) : fadeOut(r.base) }));
+  return rows.map((r) => ({ ...r, faded: r.prop === 'fill-opacity' ? fillFadeOut(r.base) : fadeOut(r.base) }));
 }
 
 /** Feature state for a district on both the simplified source and the detail tiles (their ids are the district number). */

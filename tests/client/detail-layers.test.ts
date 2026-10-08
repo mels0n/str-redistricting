@@ -102,7 +102,7 @@ describe('detail layers', () => {
   });
   it('twins start at the fade and sit after their counterparts', () => {
     for (const { layer, after } of detailLayerSpecs()) {
-      expect(layer.minzoom).toBe(layer.type === 'fill' && layer.id.startsWith('fill-') ? DETAIL_ZOOM - 1 : DETAIL_ZOOM - 0.5);
+      expect(layer.minzoom).toBe(layer.type === 'fill' ? DETAIL_ZOOM - 1 : DETAIL_ZOOM - 0.5);
       expect(layer.id.endsWith('-detail')).toBe(true);
       expect(after).toBeTruthy();
     }
@@ -135,7 +135,7 @@ describe('detail state and fallback', () => {
     dropDetail({ setLayoutProperty, setPaintProperty } as never);
     const hidden = setLayoutProperty.mock.calls.map((c) => c[0] as string);
     expect(hidden).toContain('fill-finished-detail');
-    expect(hidden).toContain('water-veil-detail');
+    expect(hidden).toContain('water-cover-detail');
     expect(hidden.every((id) => id.endsWith('-detail'))).toBe(true);
     const restored = setPaintProperty.mock.calls.map((c) => c[0] as string);
     expect(restored).toContain('fill-finished');

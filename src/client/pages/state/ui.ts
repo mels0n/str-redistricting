@@ -606,7 +606,7 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
         h('span', { class: 'strv-legend__item' }, sample('strv-legend__num', '3'), 'District number'),
         cutMode ? h('span', { class: 'strv-legend__item' }, sample('strv-legend__tag', 'Cut 3'), 'Order of a cut') : null,
         h('span', { class: 'strv-legend__item' }, sample('strv-legend__chip', '+2'), 'More districts, zoom in'),
-        bundle.water ? h('span', { class: 'strv-legend__item' }, sample('strv-legend__water'), 'Water, shown pale') : null,
+        bundle.water ? h('span', { class: 'strv-legend__item' }, sample('strv-legend__water'), 'Water, left plain') : null,
         cutMode ? h('span', { class: 'strv-legend__item' }, sample('strv-legend__cut'), 'Newest cut') : null,
         cutMode ? h('span', { class: 'strv-legend__item' }, sample('strv-legend__past'), 'Earlier cuts') : null,
         balanceMode && (route.move ?? 0) > 0 ? h('span', { class: 'strv-legend__item' }, sample('strv-legend__move'), 'Block moved') : null,

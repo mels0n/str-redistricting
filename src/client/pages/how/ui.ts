@@ -64,22 +64,19 @@ function exact(...body: (Node | string)[]): HTMLElement {
   return details;
 }
 
-/** Every case id wired into an expander, in the order the page builds them. */
-export const EXACT_CASE_IDS: readonly string[] = [];
-const noteCase = (id: string): void => {
-  if (!EXACT_CASE_IDS.includes(id)) (EXACT_CASE_IDS as string[]).push(id);
-};
+/** Every case id wired into an expander under `root`, in page order. */
+export function exactCaseIds(root: ParentNode): string[] {
+  return [...root.querySelectorAll<HTMLElement>('[data-case]')].map((el) => el.dataset.case ?? '');
+}
 
 /** A list item of an exact rule with a place after its text for the case's animated panel (none when `caseId` is null). */
 export function exactItem(caseId: string | null, ...children: (Node | string)[]): HTMLElement {
   if (caseId === null) return li(...children);
-  noteCase(caseId);
   return li(...children, ruleSlot(caseId));
 }
 
 /** A paragraph of an exact rule followed by a sibling slot for the case's panel. */
 function exactPara(caseId: string, ...children: (Node | string)[]): DocumentFragment {
-  noteCase(caseId);
   const frag = document.createDocumentFragment();
   frag.append(p(...children), ruleSlot(caseId));
   return frag;
@@ -468,7 +465,7 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
       ),
       p('In the replay, each move is one of these choices; the readout shows the block, its people, and the two districts’ new gap.'),
       exact(
-        exactPara('balance.ideal', 'The pass makes one move at a time. The ideal is the state’s population divided by its number of seats. People come whole, so an even split puts each district at the ideal rounded down or up. For example, 6,154,913 people and 8 seats make an ideal of 769,364.125, so an even split is 769,364 or 769,365 people. The viewer shows how far each district is from an even split, in whole people.'),
+        exactPara('balance.ideal', 'The pass makes one move at a time. The ideal is the state’s population divided by its number of seats. People come whole, so an even split puts each district at the ideal rounded down or up. For example, Missouri’s 6,154,913 people and 8 seats make an ideal of 769,364.125, so an even split is 769,364 or 769,365 people. The viewer shows how far each district is from an even split, in whole people.'),
         h(
           'ol',
           { class: 'strv-how__steps' },

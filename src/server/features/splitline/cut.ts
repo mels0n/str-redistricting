@@ -119,17 +119,37 @@ export interface CutOptions {
 /** How many direction steps a line at index k leans from north-south (k = 0 and k = angleCount are both north-south). */
 export const northSouthDistance = (k: number, angleCount: number): number => Math.min(k, angleCount - k);
 
+type TieKey = Pick<Candidate, 'k' | 'lowSeats'>;
+
+/** The tie-break rules in the order they apply, each as a signed difference (negative: p goes first). */
+const tieDifferences = (angleCount: number, p: TieKey, q: TieKey): [number, number, number] => [
+  northSouthDistance(p.k, angleCount) - northSouthDistance(q.k, angleCount),
+  p.k - q.k,
+  p.lowSeats - q.lowSeats,
+];
+
 /**
- * The order candidate lines are tried in: border length to the centimeter, then closeness to north-south, then
- * the smaller direction index, then the smaller first-side seat count. Lengths within a centimeter count as
- * equal: on a sphere exact ties only exist up to rounding.
+ * Which rule decides between two equally long candidates, and which of the two goes first: 1 closer to
+ * north-south, 2 smaller direction index, 3 fewer first-side seats. Candidates equal on all three keep a first
+ * and report rule 3. compareCandidates is built from the same differences, so the two cannot drift apart.
+ */
+export function decidingTieRule(angleCount: number): (a: TieKey, b: TieKey) => { first: 'a' | 'b'; rule: 1 | 2 | 3 } {
+  return (a, b) => {
+    const d = tieDifferences(angleCount, a, b);
+    const at = d[0] !== 0 ? 0 : d[1] !== 0 ? 1 : 2;
+    return { first: d[at]! <= 0 ? 'a' : 'b', rule: (at + 1) as 1 | 2 | 3 };
+  };
+}
+
+/**
+ * The order candidate lines are tried in: border length to the centimeter, then the tie rules of
+ * decidingTieRule. Lengths within a centimeter count as equal: on a sphere exact ties only exist up to rounding.
  */
 export function compareCandidates(angleCount: number): (p: Pick<Candidate, 'k' | 'lowSeats' | 'lengthM'>, q: Pick<Candidate, 'k' | 'lowSeats' | 'lengthM'>) => number {
-  return (p, q) =>
-    Math.round(p.lengthM * 100) - Math.round(q.lengthM * 100) ||
-    northSouthDistance(p.k, angleCount) - northSouthDistance(q.k, angleCount) ||
-    p.k - q.k ||
-    p.lowSeats - q.lowSeats;
+  return (p, q) => {
+    const d = tieDifferences(angleCount, p, q);
+    return Math.round(p.lengthM * 100) - Math.round(q.lengthM * 100) || d[0] || d[1] || d[2];
+  };
 }
 
 export function findCut(ctx: SplitContext, members: Int32Array, seats: number, validate?: SideValidator, opts: CutOptions = {}): CutResult {

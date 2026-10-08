@@ -1,6 +1,6 @@
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import type { Block } from '../../../src/server/entities/census-block/index.js';
-import { createContext, findCut, ScanPool, type CutResult } from '../../../src/server/features/splitline/index.js';
+import { compareCandidates, createContext, findCut, ScanPool, type CutResult } from '../../../src/server/features/splitline/index.js';
 import { gridBlocks } from '../../helpers/grid.js';
 
 const u = 0.01;
@@ -22,6 +22,10 @@ const uShape = () => nudged(4, 5, (x, y) => (x === 1 && y === 1 ? 3 : 1), (x, y)
 const stuckU = () => nudged(4, 5, () => 1, (x, y) => x >= 2 && y >= 1 && y <= 3);
 // An uneven seat count on a skewed grid gives two orientations and many angles.
 const field = () => gridBlocks(7, 6, { pop: (x, y) => 1 + ((x * 3 + y * 5) % 7) });
+// Two separate stray arms on the east side: the east-west line (k = 1) needs three strays passes.
+const twoArms = () => nudged(4, 7, (x, y) => (x === 1 && (y === 1 || y === 4) ? 3 : 1), (x, y) => x >= 2 && ((y >= 1 && y <= 2) || (y >= 4 && y <= 5)));
+// A uniform square: the north-south and east-west lines have the same border length to the centimeter, so the tie-break decides.
+const square = () => gridBlocks(4, 4);
 const every = (r: CutResult) => r.candidateStats.map((s) => ({ k: s.k, lowSeats: s.lowSeats }));
 const sameResult = (a: CutResult, b: CutResult) => {
   expect(sorted(a.low)).toEqual(sorted(b.low));
@@ -33,7 +37,7 @@ const sameResult = (a: CutResult, b: CutResult) => {
 
 describe('candidate trace', () => {
   it('trace leaves the result unchanged', () => {
-    for (const [blocks, seats, step] of [[uShape(), 2, 90], [stuckU(), 2, 90], [field(), 3, 15]] as const) {
+    for (const [blocks, seats, step] of [[uShape(), 2, 90], [stuckU(), 2, 90], [field(), 3, 15], [twoArms(), 2, 90], [square(), 2, 90]] as const) {
       const ctx = createContext(blocks, step);
       const plain = findCut(ctx, all(blocks.length), seats);
       const traced = findCut(ctx, all(blocks.length), seats, undefined, { trace: every(plain) });
@@ -41,6 +45,25 @@ describe('candidate trace', () => {
       expect(plain.traces).toEqual([]);
       expect(traced.traces.length).toBe(plain.candidateStats.length);
     }
+  });
+
+  it('the parity fixtures include a cut with three strays passes and an exact border-length tie', () => {
+    const arms = twoArms();
+    const armsCtx = createContext(arms, 90);
+    const armsPlain = findCut(armsCtx, all(arms.length), 2);
+    const armsTraced = findCut(armsCtx, all(arms.length), 2, undefined, { trace: every(armsPlain) });
+    // At least one traced candidate settles strays three times.
+    expect(Math.max(...armsTraced.traces.map((t) => t.passes.length))).toBeGreaterThanOrEqual(3);
+
+    const sq = square();
+    const sqCtx = createContext(sq, 90);
+    const sqPlain = findCut(sqCtx, all(sq.length), 2);
+    const [p, q] = sqPlain.candidateStats;
+    // Different directions, the same length to the centimeter: only the tie-break orders them.
+    expect(p!.k).not.toBe(q!.k);
+    expect(Math.round(p!.lengthM * 100)).toBe(Math.round(q!.lengthM * 100));
+    expect(compareCandidates(sqCtx.angleCount)(p!, q!)).toBeLessThan(0);
+    expect(sqPlain.angleDeg).toBe(0);
   });
 
   it('trace of the winning candidate matches the result', () => {

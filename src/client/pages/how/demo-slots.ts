@@ -10,8 +10,10 @@ export function ruleSlot(caseId: string): HTMLElement {
 interface Entry {
   demo: RuleDemo;
   seen: boolean;
-  /** Whether it was last told to play, so a panel that has finished is not restarted by every scroll. */
+  /** Whether it is meant to be on screen and playing now. */
   running: boolean;
+  /** Whether to play when it next comes into view: false once it has finished or the visitor paused it. */
+  resume: boolean;
 }
 
 interface Wired {
@@ -36,8 +38,12 @@ export function wireExact(details: HTMLDetailsElement): void {
       const want = details.open && d.seen;
       if (want === d.running) continue;
       d.running = want;
-      if (want) d.demo.play();
-      else d.demo.pause();
+      if (want) {
+        if (d.resume) d.demo.play();
+      } else {
+        d.resume = d.demo.playing;
+        d.demo.pause();
+      }
     }
   };
 
@@ -51,14 +57,22 @@ export function wireExact(details: HTMLDetailsElement): void {
     try {
       const cases = await loadRuleExamples();
       if (!alive) return;
+      // Build every panel before showing any, so a panel that fails leaves no half-filled set behind for Try again.
+      const built: [HTMLElement, RuleDemo][] = [];
+      try {
+        for (const slot of slots) {
+          const c = cases.get(slot.dataset.case ?? '');
+          if (c) built.push([slot, createRuleDemo(c)]);
+        }
+      } catch (err) {
+        for (const [, demo] of built) demo.destroy();
+        throw err;
+      }
       status.remove();
-      for (const slot of slots) {
-        const c = cases.get(slot.dataset.case ?? '');
-        if (!c) continue;
-        const demo = createRuleDemo(c);
+      for (const [slot, demo] of built) {
         slot.append(demo.el);
         // Without IntersectionObserver (old browsers, jsdom) a panel counts as in view.
-        const entry: Entry = { demo, seen: observer === null, running: false };
+        const entry: Entry = { demo, seen: observer === null, running: false, resume: true };
         demos.push(entry);
         observer?.observe(demo.el);
         elToEntry.set(demo.el, entry);

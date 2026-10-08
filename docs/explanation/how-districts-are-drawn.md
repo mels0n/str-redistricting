@@ -82,7 +82,7 @@ It makes one move at a time. The ideal is the state's population divided by its 
 
 Every move lowers the sum of squared differences, so the pass always stops. The number of moves is reported as `balanceMoves`.
 
-People come whole, so the ideal is rarely a whole number: 6,154,913 people over 8 seats is 769,364.125 each. An **even split** means every district holds the ideal rounded down or up, here 769,364 or 769,365 people, or exactly the ideal when the population divides evenly. The viewer reports each district's distance from an even split in whole people: 0 when its population is one of those two sizes, otherwise the number of people above the larger or below the smaller. The percentage beside it is that whole-person distance as a share of the smaller size. This changes only how the numbers are shown; the balancing rule above still works from the exact ideal.
+People come whole, so the ideal is rarely a whole number: Missouri’s 6,154,913 people over 8 seats is 769,364.125 each. An **even split** means every district holds the ideal rounded down or up, here 769,364 or 769,365 people, or exactly the ideal when the population divides evenly. The viewer reports each district's distance from an even split in whole people: 0 when its population is one of those two sizes, otherwise the number of people above the larger or below the smaller. The percentage beside it is that whole-person distance as a share of the smaller size. This changes only how the numbers are shown; the balancing rule above still works from the exact ideal.
 
 The map in `out/<state>/` is the finished map: the cuts above followed by the balancing pass.
 

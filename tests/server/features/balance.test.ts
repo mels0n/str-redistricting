@@ -127,6 +127,34 @@ describe('balance onRound', () => {
       expect(rounds).toHaveLength(a.moves.length + 1);
     }
   });
+  it('onRound does not change the result with 3 and 4 districts, ties and several moves', () => {
+    const cases = [
+      // 3 districts in column bands with equal populations everywhere, so many moves share the same gain.
+      { w: 6, h: 3, seats: 3, pop: () => 1, start: (i: number) => (i % 6 < 4 ? 0 : i % 6 === 4 ? 1 : 2) },
+      // 3 districts in row bands with uneven populations.
+      { w: 5, h: 6, seats: 3, pop: (x: number, y: number) => 1 + ((x * 3 + y * 5) % 4), start: (i: number) => (Math.floor(i / 5) < 4 ? 0 : Math.floor(i / 5) < 5 ? 1 : 2) },
+      // 4 districts as quadrants of a grid, the first holding most of the people.
+      { w: 6, h: 6, seats: 4, pop: (x: number, y: number) => (x < 4 && y < 4 ? 3 : 1), start: (i: number) => (i % 6 < 3 ? 0 : 1) + (Math.floor(i / 6) < 3 ? 0 : 2) },
+      // 4 districts in column bands with equal populations.
+      { w: 8, h: 2, seats: 4, pop: () => 2, start: (i: number) => (i % 8 < 5 ? 0 : i % 8 < 6 ? 1 : i % 8 < 7 ? 2 : 3) },
+    ];
+    for (const { w, h, seats, pop, start } of cases) {
+      const blocks = gridBlocks(w, h, { pop });
+      const topo = buildTopology(blocks);
+      const input = Int32Array.from(blocks.map((_, i) => start(i)));
+      const rounds: BalanceRound[] = [];
+      const a = balance(blocks, topo, input, seats);
+      const b = balance(blocks, topo, input, seats, { onRound: (r) => rounds.push(r) });
+      expect(Array.from(b.assignment)).toEqual(Array.from(a.assignment));
+      expect(b.moves).toEqual(a.moves);
+      // Not vacuous: the hook ran, and the pass made several moves.
+      expect(rounds.length).toBeGreaterThan(0);
+      expect(rounds).toHaveLength(a.moves.length + 1);
+      expect(a.moves.length).toBeGreaterThanOrEqual(2);
+      // Population ties: some round ranks two moves with the same positive gain.
+      expect(rounds.some((r) => r.candidates.some((c, i) => c.gain > 0 && r.candidates.some((d, j) => j !== i && d.gain === c.gain)))).toBe(true);
+    }
+  });
   it('reports every candidate of a round with the check that ruled it out', () => {
     const pops = [1, 3, 1, 0, 0, 0];
     const blocks = gridBlocks(3, 2, { pop: (x, y) => pops[y * 3 + x]! });

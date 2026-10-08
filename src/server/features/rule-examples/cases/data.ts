@@ -5,13 +5,14 @@ import { chosenCandidate } from '../load.js';
 import type { RuleCase } from '../schema.js';
 
 /** The state's full name from the apportionment table. */
-function nameOf(abbr: string): string {
+export function nameOf(abbr: string): string {
   const info = stateByAbbr(abbr);
   if (!info) throw new DataError(`unknown state: ${abbr}`);
   return info.name;
 }
 const VIEW = { w: 320, h: 180 };
-const whole = (n: number): string => n.toLocaleString('en-US');
+/** A whole number with thousands separators, as the page prints people. */
+export const whole = (n: number): string => n.toLocaleString('en-US');
 const twoDecimals = (n: number): string => n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
 /** cut.share: the first cut of a state gives the smaller side its seats' share of the people. */

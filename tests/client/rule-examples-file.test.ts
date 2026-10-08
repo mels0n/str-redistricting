@@ -18,10 +18,10 @@ describe('committed rule-examples file', () => {
     vi.stubGlobal('fetch', () => new Promise(() => {}));
     vi.stubGlobal('matchMedia', () => ({ matches: false }));
     const { createHowPage } = await import('../../src/client/pages/how');
-    const { EXACT_CASE_IDS } = await import('../../src/client/pages/how/ui');
+    const { exactCaseIds } = await import('../../src/client/pages/how/ui');
     const page = createHowPage({ page: 'how', section: null });
     const file = new Set(RuleExamplesSchema.parse(JSON.parse(raw)).cases.map((c) => c.id));
-    const wired = new Set(EXACT_CASE_IDS);
+    const wired = new Set(exactCaseIds(page.el));
     expect(wired.size).toBeGreaterThan(0);
     expect([...wired].filter((id) => !file.has(id))).toEqual([]);
     expect([...file].filter((id) => !wired.has(id))).toEqual([]);

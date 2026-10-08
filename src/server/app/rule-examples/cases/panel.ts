@@ -3,7 +3,6 @@ import { join } from 'node:path';
 import { z } from 'zod';
 import { LAND_FILE, readBoundaryZip, StateRecord } from '../../../features/publish/index.js';
 import { simplifyRing } from '../../../features/rule-examples/index.js';
-import { stateByAbbr } from '../../../shared/apportionment/index.js';
 import { asin, atan2, cos, sin } from '../../../shared/detmath/index.js';
 import { DataError } from '../../../shared/errors/index.js';
 import { EARTH_RADIUS_M, type LonLat } from '../../../shared/geo/index.js';
@@ -17,14 +16,10 @@ export const round1 = (p: readonly [number, number]): P => [r1(p[0]), r1(p[1])];
 /** A zero-length line, which the panel draws as a round dot. */
 export const dot = (p: readonly [number, number]): P[] => [round1(p), round1(p)];
 
-/** The state's full name from the apportionment table. */
-export function nameOf(abbr: string): string {
-  const info = stateByAbbr(abbr);
-  if (!info) throw new DataError(`unknown state: ${abbr}`);
-  return info.name;
-}
+import { whole } from '../../../features/rule-examples/index.js';
 
-export const whole = (n: number): string => n.toLocaleString('en-US');
+export { nameOf, whole } from '../../../features/rule-examples/index.js';
+
 /** People counts: whole numbers as they are, a fractional share to two decimals. */
 export const people = (n: number): string =>
   Number.isInteger(n) ? whole(n) : n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });

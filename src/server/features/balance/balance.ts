@@ -101,6 +101,8 @@ export function balance(blocks: readonly Block[], topo: Topology, input: Int32Ar
     const consider = (block: number, from: number, to: number) => {
       const p = blocks[block]!.pop;
       const key = block * seats + to;
+      // Without an observer a block with no people is never a candidate, so skip it before any border work.
+      if (p === 0 && !ruledOut) return;
       if (seen.has(key)) return;
       seen.add(key);
       if (!touchesByLand(block, to)) return;

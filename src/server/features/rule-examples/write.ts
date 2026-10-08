@@ -1,4 +1,4 @@
-import { mkdir, writeFile } from 'node:fs/promises';
+import { mkdir, rename, writeFile } from 'node:fs/promises';
 import { dirname } from 'node:path';
 import { DataError } from '../../shared/errors/index.js';
 import { RuleExamplesSchema, type RuleCase } from './schema.js';
@@ -25,6 +25,9 @@ export async function writeRuleExamples(dest: string, cases: readonly RuleCase[]
   const bytes = Buffer.byteLength(text);
   if (bytes > MAX_BYTES) throw new DataError(`rule examples are ${bytes} bytes, over the ${MAX_BYTES} byte budget`);
   await mkdir(dirname(dest), { recursive: true });
-  await writeFile(dest, text);
+  // Write beside the target and rename over it, so an interrupted run never leaves a cut-off file.
+  const tmp = `${dest}.tmp`;
+  await writeFile(tmp, text);
+  await rename(tmp, dest);
   return bytes;
 }

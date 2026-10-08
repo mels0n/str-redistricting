@@ -15,6 +15,8 @@ export interface RuleDemo {
   el: HTMLElement;
   play(): void;
   pause(): void;
+  /** Whether the panel is advancing on its own; false once it reaches the last step or is paused. */
+  readonly playing: boolean;
   step(i: number, announce: boolean): void;
   destroy(): void;
 }
@@ -76,7 +78,7 @@ export function createRuleDemo(c: RuleCase): RuleDemo {
     caption.textContent = c.steps[0]!.caption;
     fig.classList.add('strv-rule-demo--missing');
     fig.append(caption);
-    return { el: fig, play() {}, pause() {}, step() {}, destroy() {} };
+    return { el: fig, play() {}, pause() {}, playing: false, step() {}, destroy() {} };
   }
 
   const shapes = new Map<string, Shape>();
@@ -225,6 +227,9 @@ export function createRuleDemo(c: RuleCase): RuleDemo {
 
   return {
     el: fig,
+    get playing() {
+      return player.playing;
+    },
     play() {
       player.play();
       sync();

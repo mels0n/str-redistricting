@@ -109,14 +109,45 @@ describe('How page rule demos', () => {
     page.destroy();
   });
 
+  it('a panel that fails to build leaves no half-filled set, and Try again fills each slot once', async () => {
+    stubFetch(() => true);
+    let fail = true;
+    vi.doMock('../../src/client/widgets/rule-demo', async (orig) => {
+      const real = await orig<typeof import('../../src/client/widgets/rule-demo')>();
+      return {
+        ...real,
+        createRuleDemo: (c: Parameters<typeof real.createRuleDemo>[0]) => {
+          if (fail && c.id === 'strays.fixed') throw new Error('cannot draw');
+          return real.createRuleDemo(c);
+        },
+      };
+    });
+    const page = await newPage();
+    const all = [...page.el.querySelectorAll<HTMLDetailsElement>('details.strv-how__more')];
+    const both = all.find((x) => x.querySelector('[data-case="cut.share"]') && x.querySelector('[data-case="strays.fixed"]'));
+    const target = both ?? all.find((x) => x.querySelector('[data-case="strays.fixed"]'))!;
+    open(target);
+    await flush();
+    expect(target.querySelectorAll('figure.strv-rule-demo').length).toBe(0);
+    fail = false;
+    target.querySelector<HTMLButtonElement>('.strv-rule-demo__status button')!.click();
+    await flush();
+    const filled = [...target.querySelectorAll<HTMLElement>('[data-case]')].filter((slot) => slot.querySelector('figure.strv-rule-demo'));
+    expect(filled.length).toBeGreaterThan(0);
+    for (const slot of filled) expect(slot.querySelectorAll('figure.strv-rule-demo').length).toBe(1);
+    page.destroy();
+    vi.doUnmock('../../src/client/widgets/rule-demo');
+  });
+
   it('registers each wired case id once', async () => {
     stubFetch(() => true);
     const page = await newPage();
-    const { EXACT_CASE_IDS } = await import('../../src/client/pages/how/ui');
-    expect(EXACT_CASE_IDS).toContain('cut.share');
-    expect(EXACT_CASE_IDS).toContain('balance.ideal');
-    expect(EXACT_CASE_IDS).toContain('fingerprint.repeat');
-    expect(EXACT_CASE_IDS.length).toBe(new Set(EXACT_CASE_IDS).size);
+    const { exactCaseIds } = await import('../../src/client/pages/how/ui');
+    const ids = exactCaseIds(page.el);
+    expect(ids).toContain('cut.share');
+    expect(ids).toContain('balance.ideal');
+    expect(ids).toContain('fingerprint.repeat');
+    expect(ids.length).toBe(new Set(ids).size);
     page.destroy();
   });
 });
@@ -188,6 +219,25 @@ describe('How page playback gating', () => {
     await setOpen(d, false);
     await setOpen(d, true);
     expect(vi.getTimerCount()).toBe(base + 1);
+    page.destroy();
+  });
+
+  it('a panel that played to its end, or was paused, does not restart when it scrolls back into view', async () => {
+    stubFetch(() => true);
+    const page = await newPage();
+    const base = vi.getTimerCount();
+    const d = page.el.querySelector<HTMLDetailsElement>('details.strv-how__more')!;
+    open(d);
+    await settle();
+    const obs = obsFor(d);
+    obs.show(panel(d), true);
+    await vi.advanceTimersByTimeAsync(2200 * 3);
+    expect(counterOf(d)).toBe('Step 3 of 3');
+    expect(vi.getTimerCount()).toBe(base);
+    obs.show(panel(d), false);
+    obs.show(panel(d), true);
+    expect(vi.getTimerCount()).toBe(base);
+    expect(counterOf(d)).toBe('Step 3 of 3');
     page.destroy();
   });
 

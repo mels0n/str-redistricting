@@ -1,7 +1,7 @@
 import {
   chosenCandidate, generatedStates, loadCandidates, loadMetricsIfPresent, type CaseBuilder, type ExtractContext, type RuleCase,
 } from '../../../features/rule-examples/index.js';
-import { compareCandidates, northSouthDistance } from '../../../features/splitline/index.js';
+import { compareCandidates, decidingTieRule } from '../../../features/splitline/index.js';
 import { DataError } from '../../../shared/errors/index.js';
 import { nameOf, people, whole } from './panel.js';
 import { cutTrace } from './trace.js';
@@ -58,10 +58,7 @@ export function shortestTwo(rows: readonly number[][], fields: readonly string[]
 
 /** Which of two equally long candidates goes first, and by which rule: 1 closer to north-south, 2 smaller angle, 3 fewer first-side seats. */
 export function tieRule(a: Pick<Cand, 'k' | 'lowSeats'>, b: Pick<Cand, 'k' | 'lowSeats'>, angleCount: number): { first: 'a' | 'b'; rule: 1 | 2 | 3 } {
-  const da = northSouthDistance(a.k, angleCount), db = northSouthDistance(b.k, angleCount);
-  if (da !== db) return { first: da < db ? 'a' : 'b', rule: 1 };
-  if (a.k !== b.k) return { first: a.k < b.k ? 'a' : 'b', rule: 2 };
-  return { first: a.lowSeats <= b.lowSeats ? 'a' : 'b', rule: 3 };
+  return decidingTieRule(angleCount)(a, b);
 }
 
 /** The 0-based index of the value furthest from zero on either side; the lower index when two are equally far. */

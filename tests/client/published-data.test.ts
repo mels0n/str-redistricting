@@ -1,11 +1,14 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { PMTiles } from 'pmtiles';
+import type { RangeResponse, Source } from 'pmtiles';
 import { feature } from 'topojson-client';
 import type { Feature, FeatureCollection, MultiPolygon, Polygon } from 'geojson';
 import { describe, expect, it } from 'vitest';
+import { BlocksSchema } from '../../src/client/entities/plan/blocks';
 import { BalanceSchema } from '../../src/client/entities/plan/balance';
 import { CutsSchema, DistrictTopoSchema, EnactedTopoSchema, StatsSchema, WaterTopoSchema } from '../../src/client/entities/plan/model';
-import { StateIndexSchema } from '../../src/client/entities/state';
+import { STATE_FIPS, StateIndexSchema } from '../../src/client/entities/state';
 import { bboxOf, openingBox, pointInGeometry, toStateFrame } from '../../src/client/shared/lib/geo';
 
 const dir = join(process.cwd(), 'public', 'data');
@@ -14,6 +17,17 @@ const collection = (topo: unknown, name: string): FeatureCollection<Polygon | Mu
   const t = topo as { objects: Record<string, never> };
   return feature(t as never, t.objects[name]!) as unknown as FeatureCollection<Polygon | MultiPolygon>;
 };
+
+class BufferSource implements Source {
+  constructor(private readonly bytes: Uint8Array) {}
+  getKey(): string {
+    return 'buffer';
+  }
+  async getBytes(offset: number, length: number): Promise<RangeResponse> {
+    const slice = this.bytes.slice(offset, offset + length);
+    return { data: slice.buffer.slice(slice.byteOffset, slice.byteOffset + slice.byteLength) as ArrayBuffer };
+  }
+}
 
 const index = StateIndexSchema.parse(read('index.json'));
 
@@ -42,6 +56,24 @@ describe('the published data covers all 50 states', () => {
         const box = bboxOf(fc.features.map((x) => x.geometry))!;
         expect(box[2] - box[0]).toBeLessThan(70);
       }
+    });
+  }
+});
+
+describe('the detail tiles and block lookup', () => {
+  for (const s of index.states) {
+    it(`${s.abbr}: blocks.json passes the viewer's schema and detail.pmtiles has the five layers`, async () => {
+      const blocks = BlocksSchema.parse(read(s.abbr, 'blocks.json'));
+      expect(blocks.seats).toBe(s.seats);
+      expect(STATE_FIPS[blocks.state]).toBe(s.abbr);
+      expect(Object.keys(blocks.tracts).length).toBeGreaterThan(0);
+      const meta = (await new PMTiles(new BufferSource(readFileSync(join(dir, s.abbr, 'detail.pmtiles')))).getMetadata()) as { vector_layers: { id: string }[]; fingerprints: unknown };
+      const layers = meta.vector_layers.map((l) => l.id).sort();
+      const stats = StatsSchema.parse(read(s.abbr, 'stats.json'));
+      const want = { finished: stats.finished.metrics.assignmentSha256, before: stats.beforeBalancing.metrics.assignmentSha256 };
+      expect(blocks.fingerprints).toEqual(want);
+      expect(meta.fingerprints).toEqual(want);
+      expect(layers).toEqual(['before', 'before-arcs', 'finished', 'finished-arcs', 'water']);
     });
   }
 });

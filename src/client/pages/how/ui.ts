@@ -1,6 +1,7 @@
 import {
   h,
   clear,
+  config,
   dataUrl,
   describeError,
   fetchJson,
@@ -10,6 +11,7 @@ import {
   iconArrowLeft,
   iconChevronDown,
   prefersReducedMotion,
+  reproduceCommands,
   stateRoute,
   NATIONAL,
   HOW_SECTIONS,
@@ -467,7 +469,8 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
         p('Blocks are always processed in GEOID order. Given the same census files and the same angle step, the generator writes a byte-identical assignment file and identical district shapes on any computer: its arithmetic, including the angles of the guide lines, is done in a way that gives the same result everywhere. The fingerprint is the SHA-256 hash of that assignment file.'),
       ),
       h('h3', { class: 'strv-how__h3' }, 'To reproduce a state’s map'),
-      h('pre', { class: 'strv-code', tabindex: 0, role: 'group', 'aria-label': 'Commands to run' }, h('code', null, 'npm install\nnpm run explore -- --states CO')),
+      p('The generator, this viewer and the published data are all in ', h('a', { href: config.repoUrl }, 'the project’s GitHub repository'), '. Get the code and run it:'),
+      h('pre', { class: 'strv-code', tabindex: 0, role: 'group', 'aria-label': 'Commands to run' }, h('code', null, reproduceCommands('CO'))),
       p('The state is given by its two-letter abbreviation. The census block file for the state is downloaded from the U.S. Census Bureau the first time it is needed.'),
     ),
     section(
@@ -486,9 +489,9 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
       h(
         'ul',
         { class: 'strv-how__list' },
-        li('District shapes are simplified so the maps load quickly. They are slightly coarser than the block-level shapes. The numbers, and the file that assigns every block to a district, are never simplified.'),
+        li('Zoomed out, district shapes are simplified so the maps load quickly. Zoomed in, they are drawn block by block. The numbers, and the file that assigns every block to a district, are never simplified.'),
         li('The maps are drawn from census blocks, and census blocks include water: they run out to the state’s legal boundary, across lakes, bays and coastal water. Each district therefore covers the water inside its edge. For display only, the viewer leaves that water plain, without the district’s color or the border lines that cross it, so each district shows as the land it covers. Census water blocks are large and almost never hold people, so the lines across them do not follow the cuts. This changes how the map looks, not the districts, the people counted or any number.'),
-        li('Because the shapes are simplified, an address very close to a border may show in the wrong district. Close to a border, the block assignment file is the final word.'),
+        li('Address search asks the Census Bureau which census block the address is in. When the Census Bureau names the block, address search reads that block’s district from the map file, so the answer is exact. Otherwise it uses the drawn shapes.'),
       ),
     ),
   );

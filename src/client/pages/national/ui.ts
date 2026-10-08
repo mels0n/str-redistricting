@@ -41,7 +41,7 @@ export function createNationalPage(nav: Navigate): Page {
       const where = resolveAddress(indexCache, result, null);
       if (where.kind === 'here') return undefined;
       if (where.kind === 'open') {
-        setLocated({ state: where.state.abbr, lonLat: result.lonLat, matchedAddress: result.matchedAddress });
+        setLocated({ state: where.state.abbr, lonLat: result.lonLat, matchedAddress: result.matchedAddress, ...(result.block !== null && { block: result.block }) });
         nav(stateRoute(where.state.abbr));
       }
       return describeResolution(where, result);

@@ -92,9 +92,11 @@ The generator has no random numbers and no seed. Blocks are processed in GEOID o
 
 This holds because every number the generator computes comes from operations that give the same result everywhere. The IEEE 754 standard for floating-point arithmetic requires addition, subtraction, multiplication, division and square root to be rounded exactly the same way on every computer, and whole-number operations, comparisons and rounding to whole numbers are exact. The JavaScript language standard, on the other hand, lets each engine approximate sine, cosine, arctangent and similar functions in its own way, so their last digit can differ from one engine or version to the next. The generator therefore never uses the engine's versions of those functions. It computes the sines, cosines, arctangents and arcsines it needs with its own code, built only from the exactly rounded operations above (a port of the long-established fdlibm routines, accurate to within one unit in the last place), and a test fails if any of the engine's approximated functions appears in the generator's code. Each run writes a SHA-256 hash of the final assignment file into `metrics.json`, so two people can compare a single value to confirm they got the same map.
 
-To reproduce a state's map:
+To reproduce a state's map, get the code from the project's repository, [github.com/mels0n/str-redistricting](https://github.com/mels0n/str-redistricting), and run the generator:
 
 ```bash
+git clone https://github.com/mels0n/str-redistricting
+cd str-redistricting
 npm install
 npm run explore -- --states CO
 ```
@@ -137,12 +139,16 @@ npm run publish-data
 
 This reads the plans in `out/` and writes web-ready files to `public/data/`: an `index.json` listing all 50 states with a summary for each state that has a plan, a `states.topo.json` of state outlines, and for each state with a plan:
 
-- `districts.topo.json` and `before.topo.json`, the finished and before-balancing districts as simplified TopoJSON. Simplification runs along shared borders, so neighbouring districts still meet exactly. These shapes are for drawing and are slightly coarser than the block-level `districts.geojson`. The numbers and `assignment.csv` are never simplified.
+- `districts.topo.json` and `before.topo.json`, the finished and before-balancing districts as simplified TopoJSON. Simplification runs along shared borders, so neighbouring districts still meet exactly. These are the overview shapes, drawn when the whole state is in view, and are slightly coarser than the block-level `districts.geojson`.
+- `detail.pmtiles`, the full-detail districts and the borders between them as vector tiles (zoom 7 to 13), for both plans. The viewer draws them in place of the overview shapes as the map is zoomed in, and they are never simplified at the deepest zoom.
+- `blocks.json`, every block's district in both plans, which address search uses to name the exact district for an address.
 - `cuts.json`, the ordered guide lines with their angle, length, seat split, strays and re-counts.
 - `stats.json`, the metrics for both plans (under `finished` and `beforeBalancing`) plus, for each district, the counties it touches. It carries the per-cut counts from `metrics.json` as `candidateLinesPerCut` (the generator's own file calls them `directionsPerCut`).
 - `balance.json`, the balancing moves in order, with each moved block's outline taken unsimplified from the Census block file (rounded to six decimals) and the district populations before the first move, so the pass can be replayed move by move.
 - `enacted.topo.json`, the districts of the 119th Congress for the state, for comparison only.
 - `water.topo.json`, the part of the state's districts that lies over water. Census blocks include water: they run out to the state's legal boundary, across lakes, bays and coastal water, so the districts drawn from them cover that water too. The mask is the area the districts cover, less the land in the Census Bureau's shoreline-clipped state outlines (`cb_2020_us_state_500k`). The viewer covers it with the background color, above the district colors and the district borders, so each district shows as the land it covers and no line is drawn across water. Census water blocks are large and their edges do not follow the cuts, so lines drawn there would read as borders the cuts never made. It is for display only: no district, assignment, fingerprint, population or statistic depends on it.
+
+The numbers, `assignment.csv` and `blocks.json` are never simplified.
 
 The 119th Congress districts, the state outlines and the county names come from the U.S. Census Bureau's cartographic boundary files, which are downloaded into `data/raw/`. They are used only for display and reporting. The generator never reads them, and they have no effect on any district drawn. `stats.json` records which file the enacted districts came from as `enactedSource`. The file is the one named `cb_2025_us_cd119_500k`, so it shows the maps in use for the 119th Congress. A state that adopted a new map after that file was made is not reflected in it.
 

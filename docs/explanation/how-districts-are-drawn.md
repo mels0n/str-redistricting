@@ -101,6 +101,14 @@ npm install
 npm run explore -- --states CO
 ```
 
+To get the map the site shows, use the code that drew it. Every published map names the maps release it belongs to (on the site, in the state's proof panel and the page footer), and each release has a tag in the repository, so clone that tag instead of the latest code:
+
+```bash
+git clone --branch maps-1 --depth 1 https://github.com/mels0n/str-redistricting
+```
+
+Replace `1` with the release number the map names, then run the same commands. The tag pins both the engine version and the Census file checksums (`config/census-sha256.json`), so the same inputs go through the same code. Maps published before versioning began have no release number; for those the latest code is the nearest match. Release tags start with the 1.0 release. What changed in each release is on the site's changelog page.
+
 `--states` is required. The state is given by its two-letter abbreviation. A list such as `--states CO,NC` runs several states in turn. `--threads` sets how many threads search the guide lines for each cut; the default is the computer's hardware threads minus two, and `--threads 1` searches on a single thread. The census block file for each state is downloaded from the U.S. Census Bureau the first time it is needed and kept in `data/raw/` (`--cache-dir` changes that, and `--out-dir` changes where the plans are written; the defaults are `data/raw` and `out`). If one state fails in a multi-state run, the command reports the error in the summary table, continues with the remaining states, and exits with a non-zero code at the end.
 
 ## Why a district can look strange

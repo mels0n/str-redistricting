@@ -2,6 +2,7 @@ import { join } from 'node:path';
 import AdmZip from 'adm-zip';
 import * as shapefile from 'shapefile';
 import { z } from 'zod';
+import { pinnedSha256 } from '../../shared/config/index.js';
 import { DataError, DownloadError } from '../../shared/errors/index.js';
 import { downloadCached } from '../../shared/http/index.js';
 
@@ -73,7 +74,7 @@ export async function readBoundaryZip(zipPath: string, file: string): Promise<Ra
 }
 
 async function fetchBoundary(file: string, cacheDir: string): Promise<RawFeature[]> {
-  const zip = await downloadCached(boundaryUrl(file), join(cacheDir, `${file}.zip`), file);
+  const zip = await downloadCached(boundaryUrl(file), join(cacheDir, `${file}.zip`), file, pinnedSha256(`${file}.zip`));
   return readBoundaryZip(zip, file);
 }
 

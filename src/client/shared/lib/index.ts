@@ -9,3 +9,4 @@ export * from './fit';
 export * from './split';
 export * from './page-zoom';
 export * from './markdown';
+export * from './credit';

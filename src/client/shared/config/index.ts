@@ -30,6 +30,8 @@ const ConfigSchema = z.object({
   movePlayMinMs: z.number().int().positive(),
   /** The public source repository: the generator, the viewer and the published data. */
   repoUrl: z.url(),
+  /** The public host the site is served from; named on the maps' credit strip. */
+  siteHost: z.string().min(1),
 });
 
 const EnactedSchema = z.looseObject({ congress: z.number().int().positive(), file: z.string().min(1) });
@@ -99,6 +101,7 @@ function load(): ViewerConfig {
     movePlayTotalMs: 45000,
     movePlayMinMs: 120,
     repoUrl: 'https://github.com/mels0n/str-redistricting',
+    siteHost: 'fairmaps.melson.us',
   });
 }
 

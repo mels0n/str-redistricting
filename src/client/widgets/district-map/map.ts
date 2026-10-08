@@ -20,6 +20,8 @@ import {
   boxesOverlap,
   cutTagPlan,
   fitPadding,
+  mountCreditStrip,
+  CREDIT_RESERVE_PX,
   makeShape,
   NumberPlacer,
   type Box,
@@ -140,7 +142,9 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
 
   /** Room around the state inside the frame: the key at the top (unless it is below the map) and the zoom buttons at their side. */
   function framePadding(): { top: number; right: number; bottom: number; left: number } {
-    return fitPadding({ frameW: container.clientWidth, frameH: container.clientHeight, keyBelow, key: keyBox(), controls: controlsBox() });
+    const pad = fitPadding({ frameW: container.clientWidth, frameH: container.clientHeight, keyBelow, key: keyBox(), controls: controlsBox() });
+    // The credit strip lies along the bottom edge; the state stays above it.
+    return { ...pad, bottom: pad.bottom + CREDIT_RESERVE_PX };
   }
   /** Enlarged text makes numbers, chips and the key bigger; the boxes used for placement grow with it. */
   const textScale = (): number => Math.max(1, (parseFloat(getComputedStyle(document.documentElement).fontSize) || 16) / 16);
@@ -192,6 +196,10 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
     const fly = map.flyTo.bind(map);
     map.flyTo = (o, d) => fly({ ...o, duration: 0 }, d);
   }
+  const finishedSha = bundle.stats.finished.metrics.assignmentSha256;
+  const beforeSha = bundle.stats.beforeBalancing.metrics.assignmentSha256;
+  let creditSha = finishedSha;
+  const credit = mountCreditStrip(container, () => ({ abbr: bundle.abbr, name: opts.stateName, versions: bundle.stats.versions, sha: creditSha }));
   fittedPad = JSON.stringify(framePadding());
   map.touchZoomRotate.disableRotation();
   map.keyboard.disableRotation();
@@ -991,6 +999,8 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
     });
     resolve({
       set(state) {
+        creditSha = state.cut === null && state.move === null && state.plan === 'before' ? beforeSha : finishedSha;
+        credit.update();
         if (ready) apply(state);
         else pending = state;
       },
@@ -1003,6 +1013,7 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
       destroy() {
         stopAnim();
         resizeObs?.disconnect();
+        credit.destroy();
         stopWatchingZoom();
         blockTipEl?.remove();
         map.remove();

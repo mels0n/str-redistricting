@@ -1,7 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import { featureFilter } from '@maplibre/maplibre-gl-style-spec';
 import {
+  BLOCKS_LAYERS,
   BLOCKS_ZOOM,
+  hasBorderBlocks,
   blocksShown,
   blocksSource,
   blocksLayerSpecs,
@@ -28,12 +30,23 @@ describe('border blocks visibility (also the key rule)', () => {
   });
 });
 
+describe('which states have border blocks', () => {
+  it('is every state with more than one seat', () => {
+    expect(hasBorderBlocks(1)).toBe(false);
+    expect(hasBorderBlocks(2)).toBe(true);
+    expect(hasBorderBlocks(52)).toBe(true);
+  });
+});
+
 describe('border blocks source and layers', () => {
   it('is one zoom level, 13, so the map overzooms past it', () => {
     const s = blocksSource('RI');
     expect(s.minzoom).toBe(13);
     expect(s.maxzoom).toBe(13);
     expect(s.tiles?.[0]).toMatch(/^pmtiles:\/\/.*RI\/blocks\.pmtiles\/\{z\}\/\{x\}\/\{y\}$/);
+  });
+  it('lists the layer ids it adds', () => {
+    expect(blocksLayerSpecs().map((l) => l.id)).toEqual(BLOCKS_LAYERS);
   });
   it('draws only from zoom 13 and reads the blocks layer', () => {
     for (const l of blocksLayerSpecs()) {

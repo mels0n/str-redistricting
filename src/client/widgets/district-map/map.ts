@@ -62,6 +62,7 @@ import {
   blocksSource,
   blocksLayerSpecs,
   blocksShown,
+  hasBorderBlocks,
   shouldDropBlocks,
   blockFilter,
   blockInfo,
@@ -462,8 +463,14 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
   /** Set once the border-blocks tiles have failed (a state published without them); the layer stays hidden after that. */
   let blocksFailed = false;
   let blocksOn = false;
+  /** A one-seat state has no blocks.pmtiles; its map never adds the source or layers. */
+  const hasBlocks = hasBorderBlocks(bundle.stats.finished.metrics.seats);
   let blockTipEl: HTMLElement | null = null;
   let tipBlock: string | null = null;
+  /** What the tooltip shows now, and its measured size, so a moving pointer on one block only repositions it. */
+  let tipKey = '';
+  let tipW = 0;
+  let tipH = 0;
 
   /** Whether the layer is in a replay (cut or balancing), where it is not drawn. */
   const inReplay = (s: MapViewState | null): boolean => s !== null && (s.cut !== null || s.move !== null);
@@ -505,15 +512,21 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
       blockTipEl.setAttribute('aria-hidden', 'true');
       container.append(blockTipEl);
     }
-    blockTipEl.hidden = false;
-    blockTipEl.replaceChildren(...blockTip(info, plan).map((line, i) => {
-      const row = document.createElement('div');
-      if (i === 0) row.className = 'strv-block-tip__head';
-      row.textContent = line;
-      return row;
-    }));
-    const w = blockTipEl.offsetWidth;
-    const h = blockTipEl.offsetHeight;
+    const key = `${info.geoid}|${plan}`;
+    if (blockTipEl.hidden || key !== tipKey) {
+      blockTipEl.hidden = false;
+      blockTipEl.replaceChildren(...blockTip(info, plan).map((line, i) => {
+        const row = document.createElement('div');
+        if (i === 0) row.className = 'strv-block-tip__head';
+        row.textContent = line;
+        return row;
+      }));
+      tipKey = key;
+      tipW = blockTipEl.offsetWidth;
+      tipH = blockTipEl.offsetHeight;
+    }
+    const w = tipW;
+    const h = tipH;
     const left = Math.max(4, Math.min(container.clientWidth - w - 4, x + 12));
     const top = y + 16 + h > container.clientHeight ? Math.max(4, y - h - 12) : y + 16;
     blockTipEl.style.left = `${left}px`;
@@ -545,7 +558,7 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
     }
     registerPmtiles();
     map.addSource(DETAIL_SOURCE, detailSource(bundle.abbr));
-    map.addSource(BLOCKS_SOURCE, blocksSource(bundle.abbr));
+    if (hasBlocks) map.addSource(BLOCKS_SOURCE, blocksSource(bundle.abbr));
     map.addSource('water', { type: 'geojson', data: bundle.water ?? { type: 'FeatureCollection', features: [] } });
     map.addSource('borders', { type: 'geojson', data: asFeature(EMPTY_LINES) });
     map.addSource('outline', { type: 'geojson', data: asFeature(bundle.finished.outline) });
@@ -619,7 +632,7 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
       addDetailAfter(selFillId(plan));
     }
     // Border blocks: above every fill, so the chosen district's own-color fill does not cover them, and under its line.
-    for (const layer of blocksLayerSpecs()) map.addLayer({ ...layer, layout: { ...layer.layout, visibility: 'none' } });
+    if (hasBlocks) for (const layer of blocksLayerSpecs()) map.addLayer({ ...layer, layout: { ...layer.layout, visibility: 'none' } });
     map.addLayer({
       id: 'enacted',
       type: 'line',

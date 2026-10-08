@@ -1,3 +1,4 @@
+import { z } from 'zod';
 import { DataError } from '../../shared/errors/index.js';
 
 type Pair = [number, number];
@@ -9,19 +10,23 @@ export interface Fingerprints {
   before: string;
 }
 
-export interface BlocksFile {
-  v: 1;
-  state: string;
-  seats: number;
+const PairSchema = z.tuple([z.number().int().min(1), z.number().int().min(1)]);
+
+/** The shape of a published blocks.json; `BlocksFile` is derived from it so there is one definition. */
+export const BlocksFileSchema = z.object({
+  v: z.literal(1),
+  state: z.string().length(2),
+  seats: z.number().int().min(1),
   /** SHA-256 of each plan's assignment (the generator's assignmentSha256), so a file from another plan is detectable. */
-  fingerprints: Fingerprints;
-  tracts: Record<string, Pair | [number, number, Exceptions]>;
-}
+  fingerprints: z.object({ finished: z.string().min(1), before: z.string().min(1) }),
+  tracts: z.record(z.string(), z.union([PairSchema, z.tuple([z.number().int().min(1), z.number().int().min(1), z.record(z.string(), PairSchema)])])),
+});
+export type BlocksFile = z.infer<typeof BlocksFileSchema>;
 
 const GEOID = /^\d{15}$/;
 const SHA256 = /^[0-9a-f]{64}$/;
 
-function checkFingerprints(f: Fingerprints): void {
+export function checkFingerprints(f: Fingerprints): void {
   if (!SHA256.test(f.finished) || !SHA256.test(f.before)) throw new DataError('plan fingerprints must be 64 lowercase hex characters');
 }
 

@@ -5,7 +5,7 @@ import type { RangeResponse, Source } from 'pmtiles';
 import type { Feature } from 'geojson';
 import { describe, expect, it } from 'vitest';
 import type { Block } from '../../../src/server/entities/census-block/index.js';
-import { borderGeoids, buildBorderBlockTiles, verifyBorderBlocks } from '../../../src/server/features/publish/border-blocks.js';
+import { borderGeoids, buildBorderBlockTiles, buildStateBorderBlocks, verifyBorderBlocks } from '../../../src/server/features/publish/border-blocks.js';
 import { TILE_MAXZOOM } from '../../../src/server/features/publish/tiles.js';
 import { DataError } from '../../../src/server/shared/errors/index.js';
 import { stateByAbbr } from '../../../src/server/shared/apportionment/index.js';
@@ -82,6 +82,18 @@ describe('borderGeoids', () => {
 
   it('rejects a block the plan does not cover', () => {
     expect(() => borderGeoids(blocks, [new Map()])).toThrow(DataError);
+  });
+});
+
+describe('buildStateBorderBlocks', () => {
+  const blocks = grid(2);
+  const one = plan(blocks, () => 1);
+  const fp = { finished: 'f'.repeat(64), before: 'b'.repeat(64) };
+  it('throws when no block sits on a line but the state has several seats', async () => {
+    await expect(buildStateBorderBlocks(stateByAbbr('RI')!, '', blocks, one, one, fp)).rejects.toThrow(DataError);
+  });
+  it('returns null for a one-seat state', async () => {
+    expect(await buildStateBorderBlocks(stateByAbbr('DE')!, '', blocks, one, one, fp)).toBeNull();
   });
 });
 

@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { detailSource } from '../../src/client/widgets/district-map/detail';
+import { BLOCKS_ZOOM } from '../../src/client/widgets/district-map/blocks';
 
 /** The client cannot import the publisher, so read its zoom constants from the source. */
 const published = (name: string): number => {
@@ -14,5 +15,8 @@ describe('detail source zooms', () => {
   it('match the zooms the publisher writes', () => {
     const src = detailSource('CO');
     expect([src.minzoom, src.maxzoom]).toEqual([published('TILE_MINZOOM'), published('TILE_MAXZOOM')]);
+  });
+  it('has the blocks zoom equal to the deepest detail zoom', () => {
+    expect(BLOCKS_ZOOM).toBe(published('TILE_MAXZOOM'));
   });
 });

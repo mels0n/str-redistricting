@@ -140,8 +140,11 @@ export async function buildStateBorderBlocks(
   fingerprints: { finished: string; before: string },
 ): Promise<Uint8Array | null> {
   const selected = borderGeoids(allBlocks, [finished, before]);
-  // A state with one district has no district line, so no file at all.
-  if (selected.size === 0) return null;
+  // A state with one district has no district line, so no file at all; any other state with none is a bad input.
+  if (selected.size === 0) {
+    if (state.seats > 1) throw new DataError(`${state.abbr}: no block sits on a district line, but the state has ${state.seats} districts`);
+    return null;
+  }
   const polygons = await loadBlockPolygons(state, cacheDir, selected);
   const wrapped = crossesAntimeridian(state.abbr);
   const features: Feature[] = [];

@@ -51,6 +51,11 @@ export function blocksLayerSpecs(): LayerSpecification[] {
 
 export const BLOCKS_LAYERS = [BLOCKS_PICK_LAYER, BLOCKS_HOVER_LAYER, BLOCKS_LINE_LAYER];
 
+/** Whether a state has a blocks.pmtiles at all: a state with one seat has no district line, so none is published. */
+export function hasBorderBlocks(seats: number): boolean {
+  return seats > 1;
+}
+
 /** Whether the layer is on screen: zoomed in far enough, tiles not failed, and no replay (its colors mean pieces or moves, not the two plans). */
 export function blocksShown(zoom: number, failed: boolean, replay: boolean): boolean {
   return !failed && !replay && zoom >= BLOCKS_ZOOM;

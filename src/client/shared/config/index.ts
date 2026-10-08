@@ -44,7 +44,7 @@ const enacted = EnactedSchema.parse(enactedJson);
  */
 export const ENACTED = { congress: enacted.congress, file: enacted.file } as const;
 
-const VersionsSchema = z.looseObject({
+export const VersionsSchema = z.looseObject({
   engine: z.string().min(1),
   input: z.looseObject({ vintage: z.string().min(1), revision: z.number().int().positive(), sha256: z.string().min(1) }),
   maps: z.number().int().positive(),
@@ -55,6 +55,7 @@ const VersionsSchema = z.looseObject({
 
 /** The version of every component of the site and its data, read from config/versions.json (the file the release script writes). */
 export const VERSIONS = VersionsSchema.parse(versionsJson);
+export type Versions = z.infer<typeof VersionsSchema>;
 
 /** What published data carries about the code and inputs that drew it; optional because data published before versioning has none. */
 export const VersionStampSchema = z.object({

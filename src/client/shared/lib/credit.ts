@@ -1,11 +1,11 @@
-import { config, VERSIONS, type VersionStamp } from '../config';
+import { config, type VersionStamp } from '../config';
 import { h } from './dom';
 
 export interface CreditSubject {
   /** A state's code; absent on the national map. */
   abbr?: string;
   name?: string;
-  /** What the state's published data says drew it; absent on data published before versioning. */
+  /** What the published data says drew the map (a state's stamp, or the national versions file); absent on data published before versioning. */
   versions?: VersionStamp;
   /** The map's fingerprint (SHA-256 of the assignment file); the first 8 characters are shown. */
   sha?: string;
@@ -19,12 +19,15 @@ export const CREDIT_RESERVE_PX = 22;
 
 /**
  * The provenance line drawn on a map, so any screenshot of it names the site, the release and the engine.
- * A state reads its stamp from its own published data; the national map reads the site's current versions.
+ * A state reads its stamp from its own published data; the national map reads the published versions file.
+ * With no stamp the strip names only the site.
  */
 export function creditLine(p: CreditSubject, compact: boolean): string {
   const host = config.siteHost;
   if (p.abbr === undefined) {
-    return compact ? `${host} · Maps ${VERSIONS.maps} · engine ${VERSIONS.engine}` : `${host} · Maps release ${VERSIONS.maps} · engine ${VERSIONS.engine}`;
+    const n = p.versions;
+    if (!n) return host;
+    return compact ? `${host} · Maps ${n.maps} · engine ${n.engine}` : `${host} · Maps release ${n.maps} · engine ${n.engine}`;
   }
   const address = `${host}/${p.abbr}`;
   const short = p.sha ? p.sha.slice(0, 8) : null;

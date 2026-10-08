@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import { describe, expect, it } from 'vitest';
-import { config, creditLine, mountCreditStrip, VERSIONS, type VersionStamp } from '../../src/client/shared';
+import { config, creditLine, mountCreditStrip, type VersionStamp } from '../../src/client/shared';
 
 const stamp: VersionStamp = { engine: '1.0.0', input: { vintage: 'census-2020', revision: 1, sha256: 'c'.repeat(64) }, maps: 1, schema: '1.0.0' };
 const sha = 'eaffe5a8' + 'f'.repeat(56);
@@ -23,9 +23,14 @@ describe('map credit line', () => {
     expect(creditLine({ abbr: 'CO', name: 'Colorado', sha }, true)).toBe('fairmaps.melson.us/CO');
   });
 
-  it('names the current release and engine on the national map, with no fingerprint', () => {
-    expect(creditLine({}, false)).toBe(`fairmaps.melson.us · Maps release ${VERSIONS.maps} · engine ${VERSIONS.engine}`);
-    expect(creditLine({}, true)).toBe(`fairmaps.melson.us · Maps ${VERSIONS.maps} · engine ${VERSIONS.engine}`);
+  it('names the published release and engine on the national map, with no fingerprint', () => {
+    expect(creditLine({ versions: stamp }, false)).toBe(`fairmaps.melson.us · Maps release ${stamp.maps} · engine ${stamp.engine}`);
+    expect(creditLine({ versions: stamp }, true)).toBe(`fairmaps.melson.us · Maps ${stamp.maps} · engine ${stamp.engine}`);
+  });
+
+  it('names only the site on the national map until the versions are published', () => {
+    expect(creditLine({}, false)).toBe('fairmaps.melson.us');
+    expect(creditLine({}, true)).toBe('fairmaps.melson.us');
   });
 
   it('has no em dash in any form', () => {

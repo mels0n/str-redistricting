@@ -1,6 +1,6 @@
 import { geoAlbersUsa, geoPath } from 'd3-geo';
 import type { FeatureCollection, MultiPolygon, Polygon } from 'geojson';
-import { svg, mountCreditStrip, formatHash, stateRoute, labelPoint, pointInPolygonRings, districtCount } from '../../shared';
+import { svg, mountCreditStrip, loadPublishedVersions, type Versions, formatHash, stateRoute, labelPoint, pointInPolygonRings, districtCount } from '../../shared';
 import { isGenerated, type StateIndex } from '../../entities/state';
 
 export interface UsMapOptions {
@@ -188,12 +188,20 @@ export function createUsMap(opts: UsMapOptions): UsMap {
     else el.prepend(next);
   };
   draw();
-  const credit = mountCreditStrip(el, () => ({}));
+  let published: Versions | null = null;
+  const credit = mountCreditStrip(el, () => (published ? { versions: published } : {}));
+  let gone = false;
+  void loadPublishedVersions().then((v) => {
+    if (v === null || gone) return;
+    published = v;
+    credit.update();
+  });
   window.addEventListener('resize', draw);
   return {
     el,
     destroy: () => {
       window.removeEventListener('resize', draw);
+      gone = true;
       credit.destroy();
     },
   };

@@ -1016,6 +1016,8 @@ html:has(> body > #str-viewer) {
   order: 1;
   padding: var(--s-2) var(--gutter) var(--s-3);
   display: grid;
+  /* One track no wider than the head; an auto track grows to the summary strip's unwrapped width and widens the page on a phone. */
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--s-2);
 }
 
@@ -2278,6 +2280,31 @@ html:has(> body > #str-viewer) {
   container-type: inline-size;
 }
 
+/* The summary strip needs about 28em on one line for the larger states, so a phone-width head gets it two by two. The desktop column has its own rule (strv-col). */
+@media (max-width: 63.99rem) {
+  @container (max-width: 30em) {
+    .strv-state__meta {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      row-gap: var(--s-1);
+    }
+
+    .strv-state__meta > div,
+    .strv-state__meta > div:last-child {
+      margin-right: 0;
+      padding-right: var(--s-2);
+    }
+
+    .strv-state__meta > div:nth-child(even) {
+      border-right: 0;
+    }
+
+    .strv-state__meta dd {
+      white-space: normal;
+    }
+  }
+}
+
 @container (max-width: 20em) {
   .strv-index__row > a,
   .strv-index__row[data-generated='false'] {
@@ -2295,26 +2322,6 @@ html:has(> body > #str-viewer) {
 
   .strv-index__seats {
     text-align: left;
-  }
-
-  .strv-state__meta {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    row-gap: var(--s-1);
-  }
-
-  .strv-state__meta > div,
-  .strv-state__meta > div:last-child {
-    margin-right: 0;
-    padding-right: var(--s-2);
-  }
-
-  .strv-state__meta > div:nth-child(even) {
-    border-right: 0;
-  }
-
-  .strv-state__meta dd {
-    white-space: normal;
   }
 }
 

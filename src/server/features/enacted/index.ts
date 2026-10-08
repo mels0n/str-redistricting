@@ -1,4 +1,4 @@
-export { checkArchive, checkCoverage } from './archive.js';
+export { checkCoverage } from './archive.js';
 export { applyBump, formatEnacted, formatManifest, planBump } from './bump.js';
 export type { BumpPlan } from './bump.js';
 export { candidateFiles, describeFile, detectUpdate, isServed } from './detect.js';

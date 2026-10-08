@@ -4,6 +4,7 @@
  *
  *   #/                          national index
  *   #/how                       how the maps are drawn
+ *   #/changelog                release notes for maps, engine and input
  *   #/how/balancing             the same page, at one of its sections
  *   #/CO                        Colorado, finished map
  *   #/CO/d/3                    Colorado, district 3 selected
@@ -23,6 +24,7 @@ export type HowSection = (typeof HOW_SECTIONS)[number];
 export type Route =
   | { page: 'national' }
   | { page: 'how'; section: HowSection | null }
+  | { page: 'changelog' }
   | {
       page: 'state';
       abbr: string;
@@ -36,6 +38,7 @@ export type Route =
     };
 
 export const NATIONAL: Route = { page: 'national' };
+export const CHANGELOG: Route = { page: 'changelog' };
 
 export function howRoute(section: HowSection | null = null): Route {
   return { page: 'how', section };
@@ -64,6 +67,7 @@ export function parseHash(hash: string): Route {
     const section = segs[1]?.toLowerCase();
     return howRoute((HOW_SECTIONS as readonly string[]).includes(section ?? '') ? (section as HowSection) : null);
   }
+  if (segs[0]?.toLowerCase() === 'changelog') return CHANGELOG;
   const abbr = segs[0]?.toUpperCase();
   if (!abbr || !/^[A-Z]{2}$/.test(abbr)) return NATIONAL;
 
@@ -91,6 +95,7 @@ export function parseHash(hash: string): Route {
 
 export function formatHash(route: Route): string {
   if (route.page === 'national') return '#/';
+  if (route.page === 'changelog') return '#/changelog';
   if (route.page === 'how') return route.section ? `#/how/${route.section}` : '#/how';
   let path = `#/${route.abbr}`;
   if (route.district !== null) path += `/d/${route.district}`;

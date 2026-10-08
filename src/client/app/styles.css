@@ -3408,6 +3408,33 @@ html:has(> body > #str-viewer) {
   }
 }
 
+/* ---------- Changelog ---------- */
+
+.strv-changelog__body {
+  display: grid;
+  gap: var(--s-5);
+  padding: var(--s-5) var(--gutter);
+  max-width: 62ch;
+}
+
+.strv-changelog__section h2 {
+  font-size: 1.5rem;
+  margin-bottom: var(--s-3);
+}
+
+.strv-changelog__section h3 {
+  font-size: 1.125rem;
+  margin: var(--s-4) 0 var(--s-2);
+}
+
+.strv-changelog__section ul {
+  padding-left: 1.25em;
+}
+
+.strv-changelog__empty {
+  color: var(--ink-2);
+}
+
 /* ---------- How it works ---------- */
 
 .strv-how__head {

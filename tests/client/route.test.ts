@@ -78,4 +78,19 @@ describe('hash routes', () => {
     expect(none.route.move).toBeNull();
     expect(describeRouteIssue(none.issues[0]!, 'Wyoming')).toMatch(/no balancing to show/);
   });
+
+  it('drops any cut or move request when there is nothing to cut or balance, even 0', () => {
+    for (const cut of [0, 1, 5]) {
+      const fit = fitRouteToState(stateRoute('WY', { cut }), 1, 0);
+      expect(fit.route.cut).toBeNull();
+      expect(describeRouteIssue(fit.issues[0]!, 'Wyoming')).toBe('Wyoming is a single district, so there are no cuts to show.');
+    }
+    for (const move of [0, 1]) {
+      const fit = fitRouteToState(stateRoute('WY', { move }), 1, 0);
+      expect(fit.route.move).toBeNull();
+      expect(describeRouteIssue(fit.issues[0]!, 'Wyoming')).toMatch(/needed no balancing moves/);
+    }
+    // Cut 0 stays valid where there are cuts.
+    expect(fitRouteToState(stateRoute('CO', { cut: 0 }), 8, 22).issues).toHaveLength(0);
+  });
 });

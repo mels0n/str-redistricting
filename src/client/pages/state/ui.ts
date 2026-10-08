@@ -172,6 +172,8 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
   metaPlaceholder();
   let map: DistrictMapView | null = null;
   let scrubber: CutScrubber | null = null;
+  /** The panel and the scrubber are built once; a retry after a failed map mount only redoes the map. */
+  let built = false;
   let options: PlanOptions | null = null;
   let render: (light?: boolean) => void = () => undefined;
 
@@ -313,11 +315,15 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
       return;
     }
     if (!alive) return;
-    try {
-      build(entry, bundle, index);
-    } catch (err) {
-      showError(err, { retry });
-      return;
+    if (!built) {
+      try {
+        build(entry, bundle, index);
+        built = true;
+      } catch (err) {
+        unbuild();
+        showError(err, { retry });
+        return;
+      }
     }
     clear(mapEl);
     try {
@@ -350,6 +356,19 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
     }
     mapEl.removeAttribute('aria-busy');
     render();
+  }
+
+  /** Removes what a build that threw partway added, so a retry starts clean. */
+  function unbuild(): void {
+    if (scrubber) {
+      splitWatch?.unobserve(scrubber.el);
+      scrubber.destroy();
+      scrubber.el.remove();
+      scrubber = null;
+    }
+    controls = null;
+    // The panel starts with the header and the notice; everything after them came from build.
+    while (panel.children.length > 2) panel.lastElementChild?.remove();
   }
 
   function build(entry: GeneratedState, bundle: StateBundle, index: Awaited<ReturnType<typeof loadIndex>>): void {
@@ -407,6 +426,8 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
       id: 'strv-address-state',
       label: 'Find a district by address',
       onFound(result) {
+        // The lookup can outlive the page: a late answer must not move a visitor who has gone elsewhere.
+        if (!alive) return undefined;
         const where = resolveAddress(index, result, entry.abbr);
         if (where.kind !== 'here') {
           if (where.kind === 'open') {

@@ -503,7 +503,8 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
     // Water inside the districts (lakes, bays, coastal water) is covered with the ground color, over the district colors and
     // every district border, so only land shows a district. Census water blocks are large and hold almost no people, so the
     // lines across them do not follow the cuts. The selected-district outline and the enacted lines stop at the shore on
-    // purpose; guide lines and the balancing block draw above it. Display only: hit-testing still uses the fill layers.
+    // purpose; guide lines and the balancing block draw above it. Water is not clickable: a hover or tap there picks no district,
+    // as outside the state. Display only: no district, number or file depends on it.
     map.addLayer({ id: 'water-cover', type: 'fill', source: 'water', paint: { 'fill-color': tokens.ground } });
     map.addLayer({
       id: 'cuts-past',
@@ -545,6 +546,7 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
 
     const fillLayers = ['fill-finished', 'fill-before'];
     const pick = (pt: PointLike): number | null => {
+      if (map.queryRenderedFeatures(pt, { layers: ['water-cover'] }).length > 0) return null;
       const f = map.queryRenderedFeatures(pt, { layers: fillLayers })[0];
       const d = f?.properties?.district;
       return typeof d === 'number' ? d : null;

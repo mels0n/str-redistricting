@@ -5,7 +5,7 @@ import type { Plan } from '../../shared';
 
 /**
  * Full-detail layers. Past DETAIL_ZOOM the map draws the published vector tiles (the exact district polygons and
- * the arcs between them) over the simplified in-memory shapes, crossfading the lines between the two and swapping the fills. The tileset covers
+ * the arcs between them) over the simplified in-memory shapes, crossfading the lines between the two and swapping the fills and the water cover. The tileset covers
  * zooms 7 to 13, so the fade must begin at 7 or later (the fill layers load a level earlier than the lines fade).
  */
 export const DETAIL_ZOOM = 9;
@@ -33,7 +33,8 @@ export function fadeIn(value: Opacity): ExpressionSpecification {
  * levels, so a fractional-zoom fade does not happen where it says. Crossfading two translucent fills would also stack
  * them (a dimmed district would read as barely dimmed). The fills therefore swap outright at DETAIL_ZOOM: exactly one
  * of the two is drawn at any zoom. Their colours are identical, so the swap shows only as the edge shift. The detail
- * fill's layer starts a level earlier, so its tiles are loaded (at opacity 0) before the swap.
+ * fill's layer starts a level earlier, so its tiles are loaded (at opacity 0) before the swap. The opaque water cover
+ * swaps the same way: crossfading two opaque covers would let the borders beneath show through mid-fade.
  */
 export function fillFadeIn(value: Opacity): ExpressionSpecification {
   return ['step', ['zoom'], 0, DETAIL_ZOOM, value];

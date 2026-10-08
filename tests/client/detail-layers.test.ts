@@ -72,6 +72,24 @@ describe('detail fade', () => {
       }
     }
   });
+  it('swaps the water cover outright: exactly one opaque cover is drawn at any zoom', () => {
+    const at = (e: unknown, zoom: number): number => {
+      const r = createExpression(e as never, 'layers[0].paint.fill-opacity', { type: 'number', 'property-type': 'data-constant', expression: { interpolated: true, parameters: ['zoom'] } } as never);
+      if (r.result !== 'success') throw new Error(JSON.stringify(r.value));
+      return r.value.evaluate({ zoom }) as number;
+    };
+    const cover = fadedPaint().find((p) => p.id === 'water-cover');
+    expect(cover?.prop).toBe('fill-opacity');
+    expect(cover?.base).toBe(1);
+    expect(cover?.faded).toEqual(fillFadeOut(1));
+    const twin = detailLayerSpecs().find((s) => s.layer.id === 'water-cover-detail');
+    expect(twin?.after).toBe('water-cover');
+    const detailOpacity = (twin?.layer as { paint: Record<string, unknown> }).paint['fill-opacity'];
+    for (const z of [8, 8.5, 8.9, 9, 9.5, 13]) {
+      const pair = [at(cover?.faded, z), at(detailOpacity, z)];
+      expect(pair).toEqual(z < DETAIL_ZOOM ? [1, 0] : [0, 1]);
+    }
+  });
   it('multiplies the zoom fade into the existing expression', () => {
     const at = (e: unknown, zoom: number, hover: boolean): number => {
       const r = createExpression(e as never, 'layers[0].paint.fill-opacity', { type: 'number', 'property-type': 'data-driven', expression: { interpolated: true, parameters: ['zoom', 'feature'] } } as never);
@@ -140,6 +158,7 @@ describe('detail state and fallback', () => {
     const restored = setPaintProperty.mock.calls.map((c) => c[0] as string);
     expect(restored).toContain('fill-finished');
     expect(restored).toContain('borders');
+    expect(setPaintProperty).toHaveBeenCalledWith('water-cover', 'fill-opacity', 1);
   });
 });
 

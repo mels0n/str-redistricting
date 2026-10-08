@@ -12,6 +12,9 @@ const ConfigSchema = z.object({
   /** U.S. Census Bureau geocoder, one-line address endpoint. */
   geocoderUrl: z.url(),
   geocoderBenchmark: z.string().min(1),
+  /** Geography vintage and layers, so the answer names the address's census block. */
+  geocoderVintage: z.string().min(1),
+  geocoderLayers: z.string().min(1),
   geocoderTimeoutMs: z.number().int().positive(),
   /** Milliseconds between cuts when the cut sequence plays. */
   cutPlayIntervalMs: z.number().int().positive(),
@@ -23,6 +26,8 @@ const ConfigSchema = z.object({
   movePlayTotalMs: z.number().int().positive(),
   /** The fastest the balancing ever plays, per move. */
   movePlayMinMs: z.number().int().positive(),
+  /** The public source repository: the generator, the viewer and the published data. */
+  repoUrl: z.url(),
 });
 
 export type ViewerConfig = z.infer<typeof ConfigSchema>;
@@ -50,18 +55,27 @@ function load(): ViewerConfig {
   const host = readHostOverrides();
   return ConfigSchema.parse({
     dataBase: resolveDataBase(host?.dataBase),
-    geocoderUrl: 'https://geocoding.geo.census.gov/geocoder/locations/onelineaddress',
+    geocoderUrl: 'https://geocoding.geo.census.gov/geocoder/geographies/onelineaddress',
     geocoderBenchmark: 'Public_AR_Current',
+    geocoderVintage: 'Census2020_Current',
+    geocoderLayers: 'Census Blocks',
     geocoderTimeoutMs: 15000,
     cutPlayIntervalMs: 1400,
     cutDrawMs: 650,
     movePlayIntervalMs: 1000,
     movePlayTotalMs: 45000,
     movePlayMinMs: 120,
+    repoUrl: 'https://github.com/mels0n/str-redistricting',
   });
 }
 
 export const config: ViewerConfig = load();
+
+/** The shell commands that fetch the code and regenerate one state's map. */
+export function reproduceCommands(abbr: string): string {
+  const dir = new URL(config.repoUrl).pathname.split('/').filter(Boolean).pop() ?? '';
+  return `git clone ${config.repoUrl}\ncd ${dir}\nnpm install\nnpm run explore -- --states ${abbr}`;
+}
 
 export function dataUrl(path: string): string {
   return new URL(path, config.dataBase).toString();

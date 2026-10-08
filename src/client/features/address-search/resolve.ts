@@ -1,4 +1,4 @@
-import { findState, isGenerated, type GeneratedState, type StateEntry, type StateIndex } from '../../entities/state';
+import { findState, stateFromFips, isGenerated, type GeneratedState, type StateEntry, type StateIndex } from '../../entities/state';
 import type { GeocodeResult } from './geocode';
 
 /** What an address answer means for the page the visitor is on. */
@@ -8,13 +8,19 @@ export type Resolution =
   | { kind: 'no-map'; state: StateEntry }
   | { kind: 'outside' };
 
+/** The state an answer belongs to: the census block's state when known, else the reported one. */
+export function stateFromBlock(result: GeocodeResult): string {
+  return (result.block !== null ? stateFromFips(result.block.slice(0, 2)) : null) ?? result.state;
+}
+
 /**
  * Decides where a found address belongs. `currentAbbr` is the state page the
  * visitor is on, or null on the national page.
  */
 export function resolveAddress(index: StateIndex, result: GeocodeResult, currentAbbr: string | null): Resolution {
-  if (currentAbbr !== null && result.state === currentAbbr) return { kind: 'here' };
-  const state = findState(index, result.state);
+  const abbr = stateFromBlock(result);
+  if (currentAbbr !== null && abbr === currentAbbr) return { kind: 'here' };
+  const state = findState(index, abbr);
   if (!state) return { kind: 'outside' };
   if (!isGenerated(state)) return { kind: 'no-map', state };
   return { kind: 'open', state };

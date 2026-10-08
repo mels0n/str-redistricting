@@ -1,4 +1,4 @@
-import { h, clear, chunkDigest, formatInt, formatPeople, formatPct, peopleNoun, type Plan } from '../../shared';
+import { h, clear, chunkDigest, config, reproduceCommands, formatInt, formatPeople, formatPct, peopleNoun, type Plan } from '../../shared';
 import { evenSplitSentence, type Metrics } from '../../entities/plan';
 
 export interface ProofPanel {
@@ -82,8 +82,8 @@ export function createProofPanel(): ProofPanel {
         h(
           'div',
           { class: 'strv-proof__recipe' },
-          h('p', null, 'To reproduce this map, run the generator on the same Census file:'),
-          h('pre', { class: 'strv-code', tabindex: 0, role: 'group', 'aria-label': 'Command to run' }, h('code', null, `npm install\nnpm run explore -- --states ${abbr}`)),
+          h('p', null, 'To reproduce this map, get the generator’s code from ', h('a', { href: config.repoUrl }, 'its GitHub repository'), ' and run it on the same Census file:'),
+          h('pre', { class: 'strv-code', tabindex: 0, role: 'group', 'aria-label': 'Commands to run' }, h('code', null, reproduceCommands(abbr))),
           h('p', null, 'The same data and the same steps give a byte-identical map with the same fingerprint, on any computer. No random numbers are used.'),
         ),
       );

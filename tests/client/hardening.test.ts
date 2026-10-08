@@ -79,7 +79,7 @@ const index: StateIndex = {
     { abbr: 'OH', name: 'Ohio', seats: 15, hasData: false },
   ],
 };
-const found = (state: string): GeocodeResult => ({ lonLat: [0, 0], state, matchedAddress: '1 MAIN ST', matchCount: 1 });
+const found = (state: string): GeocodeResult => ({ lonLat: [0, 0], state, matchedAddress: '1 MAIN ST', matchCount: 1, block: null });
 
 describe('where an address belongs', () => {
   it('stays on the page for the state being viewed', () => {

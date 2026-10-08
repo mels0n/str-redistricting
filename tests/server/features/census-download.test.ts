@@ -1,6 +1,6 @@
 import { createHash } from 'node:crypto';
 import { existsSync } from 'node:fs';
-import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
+import { mkdtemp, readdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
@@ -19,6 +19,7 @@ let sleeps: number[];
 const sleep = async (ms: number): Promise<void> => {
   sleeps.push(ms);
 };
+const partFiles = async (): Promise<string[]> => (await readdir(dir)).filter((f) => f.endsWith('.part'));
 const ok = (body = BODY, headers: Record<string, string> = {}): Response => new Response(body, { status: 200, headers });
 const run = (fetchFn: typeof fetch, sha256 = GOOD) => downloadCached('https://example.test/f.zip', path, 'f', sha256, { fetchFn, sleep });
 
@@ -41,7 +42,7 @@ describe('downloadCached retries', () => {
     expect(f).toHaveBeenCalledTimes(3);
     expect(sleeps).toEqual([2000, 4000]);
     expect(await readFile(path, 'utf8')).toBe(BODY);
-    expect(existsSync(`${path}.part`)).toBe(false);
+    expect(await partFiles()).toEqual([]);
   });
   it('gives up after three retries and names the file and attempts', async () => {
     const f = vi.fn<typeof fetch>(async () => new Response('x', { status: 500 }));
@@ -51,7 +52,7 @@ describe('downloadCached retries', () => {
     expect(f).toHaveBeenCalledTimes(4);
     expect(sleeps).toEqual([2000, 4000, 8000]);
     expect(existsSync(path)).toBe(false);
-    expect(existsSync(`${path}.part`)).toBe(false);
+    expect(await partFiles()).toEqual([]);
   });
   it('does not retry a 404', async () => {
     const f = vi.fn<typeof fetch>(async () => new Response('x', { status: 404 }));
@@ -88,10 +89,51 @@ describe('downloadCached retries', () => {
     expect(f).toHaveBeenCalledTimes(2);
     expect(await readFile(path, 'utf8')).toBe(BODY);
   });
-  it('ignores a leftover .part file', async () => {
-    await writeFile(`${path}.part`, 'garbage');
+  it('gives each attempt a part name of its own, so concurrent downloads of one file do not collide', async () => {
+    // Both runs must be in flight (part file open, body not yet streamed) before either goes on. Each stub then waits
+    // for its own gate, and the gates open one after the other so the two renames never race (Windows refuses that
+    // with EPERM, which would send the loser round again and hide what this test is about).
+    const gates: Array<() => void> = [];
+    let inFlight: string[] = [];
+    let arrived!: () => void;
+    const bothArrived = new Promise<void>((r) => {
+      arrived = r;
+      setTimeout(r, 500); // a collision fails the assertions below instead of hanging the test
+    });
+    const stub = (): Promise<Response> => {
+      const gate = new Promise<void>((r) => gates.push(r));
+      if (gates.length === 2) arrived();
+      return gate.then(() => ok());
+    };
+    const a = vi.fn<typeof fetch>(stub);
+    const b = vi.fn<typeof fetch>(stub);
+    const runs = Promise.all([run(a), run(b)]);
+    await bothArrived;
+    inFlight = await partFiles();
+    gates[0]?.();
+    // Whichever run arrived first finishes (renames its part into place) before the other is let go.
+    for (let i = 0; i < 200 && (await partFiles()).length > 1; i++) await new Promise((r) => setTimeout(r, 5));
+    gates[1]?.();
+    await runs;
+    expect(inFlight).toHaveLength(2);
+    expect(new Set(inFlight).size).toBe(2);
+    expect(a).toHaveBeenCalledTimes(1);
+    expect(b).toHaveBeenCalledTimes(1);
+    expect(await readFile(path, 'utf8')).toBe(BODY);
+    expect(await partFiles()).toEqual([]);
+  });
+  it('cancels the body of a failed response', async () => {
+    const cancel = vi.fn();
+    const f = vi.fn<typeof fetch>().mockResolvedValueOnce(new Response(new ReadableStream({ cancel }), { status: 404 }));
+    await expect(run(f)).rejects.toThrow(DownloadError);
+    expect(cancel).toHaveBeenCalled();
+  });
+  it('leaves a stray part file of another run alone', async () => {
+    const stray = `${path}.99999.00000000-0000-0000-0000-000000000000.part`;
+    await writeFile(stray, 'garbage');
     await run(vi.fn<typeof fetch>(async () => ok()));
     expect(await readFile(path, 'utf8')).toBe(BODY);
+    expect(await readFile(stray, 'utf8')).toBe('garbage');
   });
 });
 
@@ -111,7 +153,7 @@ describe('downloadCached integrity', () => {
     expect(msg).not.toContain('Delete');
     expect(f).toHaveBeenCalledTimes(1);
     expect(existsSync(path)).toBe(false);
-    expect(existsSync(`${path}.part`)).toBe(false);
+    expect(await partFiles()).toEqual([]);
   });
   it('accepts a cached file that matches without fetching', async () => {
     await writeFile(path, BODY);

@@ -49,5 +49,7 @@ export class ChecksumError extends DataError {
 export function exitCodeFor(err: unknown): number {
   if (err instanceof ConfigError) return 2;
   if (err instanceof DataError) return 3;
+  // A lost worker pool is a fault of the run itself, not of its configuration or input data: the generic failure code.
+  if (err instanceof WorkerPoolError) return 1;
   return 1;
 }

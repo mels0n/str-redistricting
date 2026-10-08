@@ -96,6 +96,10 @@ describe('release:tags', () => {
 function indexJson(assignment: string, input = 'i'): string {
   return JSON.stringify({ states: [{ abbr: 'CO', name: 'Colorado', summary: { assignmentSha256: assignment, inputSha256: input } }] });
 }
+/** An index whose one state carries a version stamp for the given Maps release. */
+function stampedIndexJson(assignment: string, maps: number, input = 'i'): string {
+  return JSON.stringify({ states: [{ abbr: 'CO', name: 'Colorado', summary: { assignmentSha256: assignment, inputSha256: input, versions: { maps } } }] });
+}
 /** seed() plus a published public/data/index.json, so version-check has hashes to compare. */
 function seedWithData(enforce: boolean): string {
   write('public/data/index.json', indexJson('a'));
@@ -128,6 +132,27 @@ describe('version:check', () => {
     const out = run('version-check.ts', ['--base', base]);
     expect(out.status).toBe(0);
     expect(out.stdout).toContain('version-check: ok');
+  });
+  it('passes a republish stamped with the Maps release an earlier change already declared (enforce true)', () => {
+    seedWithData(true);
+    write('config/versions.json', formatVersions({ ...VERSIONS, engine: '2.0.0', maps: 2 }));
+    write('changelog/engine.md', '# engine changelog\n\n## 2.0.0\n\n- x\n');
+    const base = commitAll('release: engine 2.0.0, maps 2');
+    write('public/data/index.json', stampedIndexJson('b', 2));
+    commitAll('fix: republish CO');
+    const out = run('version-check.ts', ['--base', base]);
+    expect(out.status, out.stdout).toBe(0);
+    expect(out.stdout).toContain('version-check: ok');
+  });
+  it('still requires a maps bump when the republished stamps carry an old maps number', () => {
+    seedWithData(true);
+    write('config/versions.json', formatVersions({ ...VERSIONS, engine: '2.0.0', maps: 2 }));
+    const base = commitAll('release: engine 2.0.0, maps 2');
+    write('public/data/index.json', stampedIndexJson('b', 1));
+    commitAll('fix: republish CO');
+    const out = run('version-check.ts', ['--base', base]);
+    expect(out.status).toBe(1);
+    expect(out.stdout).toMatch(/::error::maps: the published assignment or input hashes/);
   });
   it('does not need a maps bump for data files that are not assignments (og images, tiles)', () => {
     const base = seedWithData(true);
@@ -255,6 +280,30 @@ describe('release (repeat runs and measuring)', () => {
     const out = run('release.ts', ['--dry-run']);
     expect(out.status, out.stderr).toBe(0);
     expect(out.stdout).toContain('release: maps 2');
+  });
+  it('proposes nothing for a republish stamped with the Maps release already declared and tagged', () => {
+    tagged(true);
+    write('config/versions.json', formatVersions({ ...VERSIONS, engine: '2.0.0', maps: 2 }));
+    commitAll('release: engine 2.0.0, maps 2');
+    git('tag', 'engine-v2.0.0');
+    git('tag', 'maps-2');
+    write('public/data/index.json', stampedIndexJson('b', 2));
+    commitAll('fix: republish CO');
+    const out = run('release.ts', ['--dry-run']);
+    expect(out.status, out.stderr).toBe(0);
+    expect(out.stdout).toContain('nothing to release');
+  });
+  it('still proposes maps for a republish whose stamps carry an older maps number', () => {
+    tagged(true);
+    write('config/versions.json', formatVersions({ ...VERSIONS, engine: '2.0.0', maps: 2 }));
+    commitAll('release: engine 2.0.0, maps 2');
+    git('tag', 'engine-v2.0.0');
+    git('tag', 'maps-2');
+    write('public/data/index.json', stampedIndexJson('b', 1));
+    commitAll('fix: republish CO');
+    const out = run('release.ts', ['--dry-run']);
+    expect(out.status, out.stderr).toBe(0);
+    expect(out.stdout).toContain('release: maps 3');
   });
   it('leaves maps alone when only non-assignment data files changed', () => {
     tagged(true);

@@ -92,7 +92,10 @@ function release(): void {
   const inputSha256 = inputSha256Of(readText('config/census-sha256.json'), readText('config/enacted.json'));
   // Published hashes that moved since the last maps release (a republish) need a maps release even with no engine bump.
   const mapsRef = newest.maps;
-  const dataChanged = mapsRef !== null && mapsDataChanged(showFile(mapsRef, 'public/data/index.json'), showFile('HEAD', 'public/data/index.json'));
+  // Data stamped with the Maps release that is already declared (the tag's number equals the current one) is covered.
+  const taggedMaps = mapsRef === null ? null : Number(/^maps-(\d+)$/.exec(mapsRef)?.[1]);
+  const dataChanged =
+    mapsRef !== null && mapsDataChanged(showFile(mapsRef, 'public/data/index.json'), showFile('HEAD', 'public/data/index.json'), taggedMaps === null ? undefined : { base: taggedMaps, head: current.maps });
   const { next, reasons } = proposeVersions(current, { byComponent, engineOutputChanged, inputSha256, mapsDataChanged: dataChanged, alreadyBumped });
   const moved = COMPONENTS.filter((c) => identityOf(current, c) !== identityOf(next, c));
   if (moved.length === 0) {

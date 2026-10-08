@@ -191,6 +191,29 @@ describe('mapsDataChanged', () => {
   });
 });
 
+describe('mapsDataChanged with a declared Maps release', () => {
+  const stamped = (states: [string, string, number | null][]): string =>
+    JSON.stringify({ states: states.map(([abbr, a, maps]) => ({ abbr, summary: { assignmentSha256: a, inputSha256: 'x', ...(maps === null ? {} : { versions: { maps } }) } })) });
+  const before = stamped([['CO', 'a', 1], ['RI', 'b', 1]]);
+
+  it('covers changed states stamped with the release that was already declared', () => {
+    const after = stamped([['CO', 'a2', 2], ['RI', 'b', 1]]);
+    expect(mapsDataChanged(before, after)).toBe(true);
+    expect(mapsDataChanged(before, after, { base: 2, head: 2 })).toBe(false);
+  });
+  it('does not cover a state stamped with an older release, an unstamped one, or a removed one', () => {
+    expect(mapsDataChanged(before, stamped([['CO', 'a2', 1], ['RI', 'b', 1]]), { base: 2, head: 2 })).toBe(true);
+    expect(mapsDataChanged(before, stamped([['CO', 'a2', null], ['RI', 'b', 1]]), { base: 2, head: 2 })).toBe(true);
+    expect(mapsDataChanged(before, stamped([['CO', 'a', 1]]), { base: 2, head: 2 })).toBe(true);
+  });
+  it('does not cover anything when this change bumps the Maps release itself', () => {
+    expect(mapsDataChanged(before, stamped([['CO', 'a2', 2], ['RI', 'b', 1]]), { base: 1, head: 2 })).toBe(true);
+  });
+  it('needs every changed state covered, not just one', () => {
+    expect(mapsDataChanged(before, stamped([['CO', 'a2', 2], ['RI', 'b2', 1]]), { base: 2, head: 2 })).toBe(true);
+  });
+});
+
 describe('newestTag', () => {
   const all = ['engine-v1.0.0', 'engine-v1.10.0', 'engine-v1.9.0', 'input-census-2020-r1', 'input-census-2020-r2', 'input-census-2020-r10', 'maps-2', 'maps-10', 'web-v1.0.0', 'nonsense', 'engine-v1.0.0-rc1'];
   it('picks the highest version of each component by numeric order', () => {

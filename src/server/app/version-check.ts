@@ -33,12 +33,15 @@ function check(): void {
   }
 
   const changelogs = Object.fromEntries(COMPONENTS.map((c) => [c, showFile('HEAD', `changelog/${c}.md`) ?? ''])) as Record<Component, string>;
+  const baseVersions = VersionsSchema.parse(JSON.parse(baseText));
+  const headVersions = VersionsSchema.parse(JSON.parse(headText));
   const problems = versionProblems({
-    base: VersionsSchema.parse(JSON.parse(baseText)),
-    head: VersionsSchema.parse(JSON.parse(headText)),
+    base: baseVersions,
+    head: headVersions,
     touched,
     changelogs,
-    mapsDataChanged: mapsDataChanged(showFile(base, 'public/data/index.json'), showFile('HEAD', 'public/data/index.json')),
+    // Data stamped with a Maps release an earlier change already declared needs no further bump.
+    mapsDataChanged: mapsDataChanged(showFile(base, 'public/data/index.json'), showFile('HEAD', 'public/data/index.json'), { base: baseVersions.maps, head: headVersions.maps }),
   });
   if (problems.length === 0) {
     console.log('version-check: ok');

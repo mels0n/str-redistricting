@@ -4,7 +4,7 @@ import type { Topology, GeometryCollection } from 'topojson-specification';
 import type { Feature, FeatureCollection, MultiPolygon, Polygon } from 'geojson';
 import { dataUrl, fetchJson, DataShapeError } from '../../shared';
 
-const OutlineTopoSchema = z.looseObject({
+export const OutlineTopoSchema = z.looseObject({
   type: z.literal('Topology'),
   arcs: z.array(z.unknown()),
   objects: z.object({

@@ -4,6 +4,8 @@ import { z } from 'zod';
 import { stateByAbbr, type StateInfo } from '../apportionment/index.js';
 import { ConfigError } from '../errors/index.js';
 
+export { CENSUS_SHA256, pinnedSha256 } from './census-manifest.js';
+
 export interface Config {
   readonly states: StateInfo[];
   readonly angleStepDeg: number;

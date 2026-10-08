@@ -33,6 +33,8 @@ The finished map for each state is written to `out/<state>/`. The same files for
 
 `npm run publish-data` turns the generated plans into web-ready files in `public/data/` for the viewer. It also downloads Census Bureau boundary files for state outlines, county names and the districts of the 119th Congress (Census file `cb_2025_us_cd119_500k`); these are for display only and never affect how districts are drawn.
 
+Every Census file is downloaded once into `data/raw/` and checked against a pinned SHA-256 in `src/server/shared/config/census-manifest.ts`, both when it is downloaded and each time the cached copy is reused, so the maps are always built from the exact same bytes. A failed or interrupted download is retried up to three times. If a file fails the check, the cached copy is corrupt or the Census Bureau has reissued it: delete the file to download it again, and if the new file still differs, the Census Bureau reissued it, so update the manifest only knowing that it changes the maps.
+
 ## Deploy
 Deployed on Vercel at https://fairmaps.melson.us (the `str-redistricting.vercel.app` address also serves it) from the `main` branch: every push to `main` builds the site with `npm run build` and serves the static output in `dist/` (settings in `vercel.json`). `vercel.json` sets a Content-Security-Policy, a no-referrer policy, `nosniff`, a restrictive Permissions-Policy and long-lived caching for built assets. `public/_headers` carries the same headers for hosts that read that file, such as Cloudflare Pages. The one outside request the viewer makes is the address lookup, a script from the Census Bureau geocoder, which the policy allows.
 

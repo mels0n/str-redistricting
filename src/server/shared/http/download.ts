@@ -35,7 +35,7 @@ function isRetryable(err: unknown): boolean {
 }
 
 /** One attempt: stream the body into `part`, enforcing the stall and total timeouts, content-length and the pinned hash. */
-async function fetchToPart(url: string, part: string, label: string, sha256: string, o: Required<DownloadOptions>): Promise<void> {
+async function fetchToPart(url: string, part: string, label: string, sha256: string | null, o: Required<DownloadOptions>): Promise<string> {
   const stall = new AbortController();
   let timer: NodeJS.Timeout | undefined;
   const arm = (): void => {
@@ -64,10 +64,41 @@ async function fetchToPart(url: string, part: string, label: string, sha256: str
     if (expected !== null && Number(expected) !== size) {
       throw new DownloadError(`download for ${label} truncated: expected ${expected} bytes, got ${size}`);
     }
-    if (hash.digest('hex') !== sha256) throw new ChecksumError(basename(part, '.part'), part.slice(0, -'.part'.length));
+    const digest = hash.digest('hex');
+    if (sha256 !== null && digest !== sha256) throw new ChecksumError(basename(part, '.part'), part.slice(0, -'.part'.length));
+    return digest;
   } finally {
     clearTimeout(timer);
     await file.close();
+  }
+}
+
+/** Download to `path` with retries and backoff, checking the body against `sha256` unless it is null; returns the body's SHA-256. */
+async function fetchWithRetries(url: string, path: string, label: string, sha256: string | null, opts: DownloadOptions): Promise<string> {
+  const o: Required<DownloadOptions> = {
+    fetchFn: opts.fetchFn ?? ((input, init) => fetch(input, init)),
+    sleep: opts.sleep ?? ((ms) => delay(ms)),
+    stallMs: opts.stallMs ?? STALL_TIMEOUT_MS,
+    totalMs: opts.totalMs ?? TOTAL_TIMEOUT_MS,
+  };
+  await mkdir(dirname(path), { recursive: true });
+  const part = `${path}.part`;
+  let backoff = BACKOFF_BASE_MS;
+  for (let attempt = 1; ; attempt++) {
+    try {
+      const digest = await fetchToPart(url, part, label, sha256, o);
+      await rename(part, path);
+      return digest;
+    } catch (err) {
+      await rm(part, { force: true });
+      if (!isRetryable(err)) throw err;
+      const reason = err instanceof Error ? err.message : String(err);
+      if (attempt > MAX_RETRIES) {
+        throw new DownloadError(`download failed for ${label} after ${attempt} attempts: ${reason}`, err instanceof DownloadError ? err.status : undefined);
+      }
+      await o.sleep(backoff);
+      backoff *= 2;
+    }
   }
 }
 
@@ -82,29 +113,16 @@ export async function downloadCached(url: string, path: string, label: string, s
     if ((await sha256File(path)) !== sha256) throw new ChecksumError(basename(path), path);
     return path;
   }
-  const o: Required<DownloadOptions> = {
-    fetchFn: opts.fetchFn ?? ((input, init) => fetch(input, init)),
-    sleep: opts.sleep ?? ((ms) => delay(ms)),
-    stallMs: opts.stallMs ?? STALL_TIMEOUT_MS,
-    totalMs: opts.totalMs ?? TOTAL_TIMEOUT_MS,
-  };
-  await mkdir(dirname(path), { recursive: true });
-  const part = `${path}.part`;
-  let backoff = BACKOFF_BASE_MS;
-  for (let attempt = 1; ; attempt++) {
-    try {
-      await fetchToPart(url, part, label, sha256, o);
-      await rename(part, path);
-      return path;
-    } catch (err) {
-      await rm(part, { force: true });
-      if (!isRetryable(err)) throw err;
-      const reason = err instanceof Error ? err.message : String(err);
-      if (attempt > MAX_RETRIES) {
-        throw new DownloadError(`download failed for ${label} after ${attempt} attempts: ${reason}`, err instanceof DownloadError ? err.status : undefined);
-      }
-      await o.sleep(backoff);
-      backoff *= 2;
-    }
-  }
+  await fetchWithRetries(url, path, label, sha256, opts);
+  return path;
+}
+
+/**
+ * The same download for a file that is not pinned yet (a new Census release the maintainer is about to adopt):
+ * no hash is checked, and the file's SHA-256 is returned for the manifest. Every later read goes through
+ * `downloadCached`, which checks the cached file against that hash.
+ */
+export async function downloadForPinning(url: string, path: string, label: string, opts: DownloadOptions = {}): Promise<{ path: string; sha256: string }> {
+  if (existsSync(path)) return { path, sha256: await sha256File(path) };
+  return { path, sha256: await fetchWithRetries(url, path, label, null, opts) };
 }

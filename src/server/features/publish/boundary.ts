@@ -2,7 +2,7 @@ import { join } from 'node:path';
 import AdmZip from 'adm-zip';
 import * as shapefile from 'shapefile';
 import { z } from 'zod';
-import { pinnedSha256 } from '../../shared/config/index.js';
+import { ENACTED_CONFIG, pinnedSha256 } from '../../shared/config/index.js';
 import { DataError, DownloadError } from '../../shared/errors/index.js';
 import { downloadCached } from '../../shared/http/index.js';
 
@@ -21,12 +21,12 @@ export const LAND_FILE = 'cb_2020_us_state_500k';
 /** County names must match the 2020 block files the generator reads, so the 2020 vintage is used. */
 export const COUNTIES_FILE = 'cb_2020_us_county_20m';
 /**
- * The one Congress whose districts are shown for comparison. The viewer carries the same number
- * (src/client/shared/config); change both when a new Congress is seated.
+ * The one Congress whose districts are shown for comparison, from config/enacted.json. The viewer reads the same
+ * file, so the two cannot drift; `npm run enacted:bump` rewrites it.
  */
-export const ENACTED_CONGRESS = 119;
+export const ENACTED_CONGRESS: number = ENACTED_CONFIG.congress;
 /** Census vintages of that Congress's file, newest first; the first one the Census Bureau serves is the enacted source. */
-export const ENACTED_CANDIDATES = [`cb_2025_us_cd${ENACTED_CONGRESS}_500k`, `cb_2024_us_cd${ENACTED_CONGRESS}_500k`] as const;
+export const ENACTED_CANDIDATES: readonly string[] = ENACTED_CONFIG.candidates;
 
 export const boundaryUrl = (file: string): string => `${GENZ}/GENZ${file.slice(3, 7)}/shp/${file}.zip`;
 

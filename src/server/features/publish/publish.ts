@@ -4,7 +4,7 @@ import { existsSync } from 'node:fs';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { gzipSync } from 'node:zlib';
 import { join } from 'node:path';
-import { loadBlockPolygons, loadStateBlocks } from '../../entities/census-block/index.js';
+import { loadBlockPolygons, loadStateBlocks, type Block } from '../../entities/census-block/index.js';
 import { STATES, type StateInfo } from '../../shared/apportionment/index.js';
 import type { PublishConfig } from '../../shared/config/index.js';
 import { DataError } from '../../shared/errors/index.js';
@@ -20,7 +20,8 @@ import { buildStats, planStats } from './stats.js';
 import { buildIndex, PlanMetricsSchema, PublishedMetricsSchema, summarize, type PlanMetrics, type StateSummary } from './summary.js';
 import { buildDetailTiles, districtsAtDeepTile } from './tiles.js';
 import { districtBudget, toTopology } from './topo.js';
-import { buildWater, mergeLand } from './water.js';
+import { buildPublishedBridges, districtsByGeoid } from './bridges.js';
+import { buildWater, countLandParts, mergeLand, type PopulatedPoint } from './water.js';
 
 const NATIONAL_BUDGET = 12000;
 /** About this many blocks per state are checked against the detail tiles, plus every block the balancer moved. */
@@ -76,9 +77,27 @@ async function publishState(state: StateInfo, cfg: PublishConfig, shared: Shared
 
   const [official, before] = [await readMetrics(src), await readMetrics(srcBefore)];
   const [officialCsv, beforeCsv] = [await readFile(join(src, 'assignment.csv'), 'utf8'), await readFile(join(srcBefore, 'assignment.csv'), 'utf8')];
+  // Display only: separate land pieces with people on them per district, from the same district files the water mask uses.
+  const allBlocks = await loadStateBlocks(state, cfg.cacheDir);
+  const populatedUnder = (csv: string, label: string): PopulatedPoint[] => {
+    const byGeoid = districtsByGeoid(csv, label);
+    const out: PopulatedPoint[] = [];
+    for (const b of allBlocks) {
+      const district = byGeoid.get(b.geoid);
+      if (b.pop > 0 && district !== undefined) out.push({ district, point: [b.point[0], b.point[1]] });
+    }
+    return out;
+  };
+  const finishedLand = await countLandParts(await readFile(join(src, 'districts.geojson'), 'utf8'), shared.land, state.seats, populatedUnder(officialCsv, `${state.abbr} assignment.csv`));
+  const beforeLand = await countLandParts(await readFile(join(srcBefore, 'districts.geojson'), 'utf8'), shared.land, state.seats, populatedUnder(beforeCsv, `${state.abbr} before-balancing/assignment.csv`));
+  const finishedParts = finishedLand.parts;
+  const beforeParts = beforeLand.parts;
+  if (finishedLand.clamped + beforeLand.clamped + finishedLand.outside + beforeLand.outside > 0) {
+    console.log(`  ${state.abbr}: landParts clamped to 1 for ${finishedLand.clamped} finished and ${beforeLand.clamped} before-balancing districts; populated points outside the clipped land: ${finishedLand.outside} finished, ${beforeLand.outside} before-balancing`);
+  }
   const stats = buildStats(
-    planStats(official, countiesByDistrict(officialCsv, state.seats, shared.countyNames)),
-    planStats(before, countiesByDistrict(beforeCsv, state.seats, shared.countyNames)),
+    planStats(official, countiesByDistrict(officialCsv, state.seats, shared.countyNames), finishedParts),
+    planStats(before, countiesByDistrict(beforeCsv, state.seats, shared.countyNames), beforeParts),
     shared.enacted.source,
   );
 
@@ -94,6 +113,10 @@ async function publishState(state: StateInfo, cfg: PublishConfig, shared: Shared
   // Water is display only: the area the districts cover less the shoreline-clipped land. It gets half the district vertex budget.
   const water = await buildWater(await readFile(join(src, 'districts.geojson'), 'utf8'), shared.land);
   outputs.push(['water.topo.json', await toTopology({ features: display(water.features) }, 'water', Math.round(budget / 2))]);
+
+  const bridgeCount = official.bridges;
+  if (bridgeCount === undefined) throw new DataError(`${src}/metrics.json: bridges is missing; re-run explore for ${state.abbr}`);
+  outputs.push(['bridges.json', JSON.stringify(await buildPublishedBridges(src, state.abbr, bridgeCount, officialCsv, beforeCsv))]);
 
   outputs.push(['enacted.topo.json', await buildEnactedTopology(state, shared.enacted)]);
 
@@ -121,7 +144,7 @@ async function publishState(state: StateInfo, cfg: PublishConfig, shared: Shared
     'before-arcs': (await districtArcs({ features: beforeFeatures as never })) as Feature[],
     water: display(water.features) as unknown as Feature[],
   }, fingerprints);
-  await verifyTiles(state, cfg, tiles, blocksFile, new Set(log.data.moves.map((m) => m.geoid)), wrapped);
+  await verifyTiles(state, allBlocks, tiles, blocksFile, new Set(log.data.moves.map((m) => m.geoid)), wrapped);
   outputs.push(['blocks.json', blocksJson], ['detail.pmtiles', tiles]);
 
   // Every output is built and checked above; only now does anything in the public directory change, stats.json last.
@@ -134,8 +157,7 @@ async function publishState(state: StateInfo, cfg: PublishConfig, shared: Shared
 }
 
 /** Every 1-in-N block (about TILE_CHECK_SAMPLE) plus every moved block must land in the district the CSVs give, under both plans. */
-async function verifyTiles(state: StateInfo, cfg: PublishConfig, tiles: Uint8Array, file: BlocksFile, moved: ReadonlySet<string>, wrapped: boolean): Promise<void> {
-  const all = await loadStateBlocks(state, cfg.cacheDir);
+async function verifyTiles(state: StateInfo, all: readonly Block[], tiles: Uint8Array, file: BlocksFile, moved: ReadonlySet<string>, wrapped: boolean): Promise<void> {
   const stride = Math.max(1, Math.floor(all.length / TILE_CHECK_SAMPLE));
   const picked = all.filter((b, i) => i % stride === 0 || moved.has(b.geoid));
   const misses: string[] = [];

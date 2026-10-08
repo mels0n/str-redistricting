@@ -6,6 +6,8 @@ export { BalanceLogSchema, buildBalance, ProcessNumbersSchema } from './balance.
 export type { BalanceLog, PublishedBalance } from './balance.js';
 export { checkBlocks, encodeBlocks } from './blocks.js';
 export type { BlocksFile, Fingerprints } from './blocks.js';
+export { buildPublishedBridges } from './bridges.js';
+export type { PublishedBridge, PublishedBridges } from './bridges.js';
 export { buildCuts } from './cuts.js';
 export type { PublishedCut } from './cuts.js';
 export { publishData, publishEnactedOnly, publishedSummaries, statesWithData } from './publish.js';
@@ -14,6 +16,6 @@ export { buildStats, planStats } from './stats.js';
 export { buildIndex, PlanMetricsSchema, summarize } from './summary.js';
 export type { IndexEntry, StateSummary } from './summary.js';
 export { districtBudget, simplifyPercent, toTopology, vertexCount } from './topo.js';
-export { buildWater, mergeLand } from './water.js';
+export { buildWater, countLandParts, MIN_PIECE, mergeLand, type PopulatedPoint } from './water.js';
 export { districtArcs } from './arcs.js';
 export type { ArcFeature } from './arcs.js';

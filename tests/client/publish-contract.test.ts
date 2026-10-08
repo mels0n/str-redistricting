@@ -25,10 +25,12 @@ import { buildDetailTiles } from '../../src/server/features/publish/tiles.js';
 import {
   createExtractContext, dataCases, writeRuleExamples, type RuleCase,
 } from '../../src/server/features/rule-examples/index.js';
+import { buildPublishedBridges } from '../../src/server/features/publish/index.js';
 import { STATES } from '../../src/server/shared/apportionment/index.js';
 import { parseRuleExamplesConfig } from '../../src/server/shared/config/index.js';
 import { BalanceSchema } from '../../src/client/entities/plan/balance';
 import { BlocksSchema } from '../../src/client/entities/plan/blocks';
+import { BridgesSchema } from '../../src/client/entities/plan/model';
 import { CutsSchema, DistrictTopoSchema, EnactedTopoSchema, StatsSchema, WaterTopoSchema } from '../../src/client/entities/plan/model';
 import { RuleExamplesSchema } from '../../src/client/entities/rule-example/model';
 import { OutlineTopoSchema } from '../../src/client/entities/state/outlines';
@@ -55,7 +57,7 @@ const metricsFor = (seats: number, sha: string) => PlanMetricsSchema.parse({
 
 const SEATS = 2;
 const counties = [[{ fips: '44001', name: 'Bristol County' }], [{ fips: '44003', name: 'Kent County' }]] as const;
-const stats = buildStats(planStats(metricsFor(SEATS, SHA_A), counties), planStats(metricsFor(SEATS, SHA_B), counties), 'enacted-source');
+const stats = buildStats(planStats(metricsFor(SEATS, SHA_A), counties, [1, 2]), planStats(metricsFor(SEATS, SHA_B), counties, [2, 1]), 'enacted-source');
 
 /** Two unit-ish squares sharing an edge, at a longitude offset (so the same shapes serve the antimeridian case). */
 const square = (district: number, x0: number): Feature<Polygon> => ({
@@ -86,6 +88,30 @@ describe('stats.json', () => {
     expect(parsed.finished.metrics.assignmentSha256).toBe(SHA_A);
     expect(parsed.beforeBalancing.metrics.assignmentSha256).toBe(SHA_B);
     expect(parsed.finished.districts[0]!.counties).toEqual([{ fips: '44001', name: 'Bristol County' }]);
+    expect(parsed.finished.districts.map((d) => d.landParts)).toEqual([1, 2]);
+    expect(parsed.beforeBalancing.districts.map((d) => d.landParts)).toEqual([2, 1]);
+  });
+});
+
+describe('bridges.json', () => {
+  const A = '440010301001000';
+  const B = '440010301001001';
+  const csv = (a: number, b: number) => `GEOID20,district
+${A},${a}
+${B},${b}
+`;
+
+  it('written by buildPublishedBridges parses with the viewer bridges schema', async () => {
+    const dir = join(tmp, 'bridges');
+    mkdirSync(dir, { recursive: true });
+    writeFileSync(join(dir, 'bridges.json'), JSON.stringify({ links: [{ a: A, b: B, aPoint: [-71.1, 41.5], bPoint: [-71.2, 41.6] }] }));
+    const parsed = BridgesSchema.parse(roundTrip(await buildPublishedBridges(dir, 'RI', 1, csv(1, 2), csv(2, 2))));
+    expect(parsed.links).toEqual([{ a: [-71.1, 41.5], b: [-71.2, 41.6], finished: [1, 2], before: [2, 2] }]);
+  });
+  it('the empty case (no links) parses too', async () => {
+    const dir = join(tmp, 'bridges-empty');
+    mkdirSync(dir, { recursive: true });
+    expect(BridgesSchema.parse(roundTrip(await buildPublishedBridges(dir, 'RI', 0, csv(1, 2), csv(1, 2)))).links).toEqual([]);
   });
 });
 

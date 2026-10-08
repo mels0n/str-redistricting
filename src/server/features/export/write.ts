@@ -1,6 +1,6 @@
 import { mkdir, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
-import { forEachEdge, type Topology } from '../../entities/census-block/index.js';
+import { forEachEdge, type Block, type Topology } from '../../entities/census-block/index.js';
 import { atan2, hypot2 } from '../../shared/detmath/index.js';
 import { DataError } from '../../shared/errors/index.js';
 import type { LonLat } from '../../shared/geo/index.js';
@@ -21,6 +21,13 @@ export function bordersGeoJson(topo: Topology, assignment: Int32Array, seats: nu
       properties: { district: d + 1 },
       geometry: { type: 'MultiLineString', coordinates },
     })),
+  };
+}
+
+/** The links that join detached land to the rest of the state: block GEOIDs and internal points, in bridge order. */
+export function bridgesJson(topo: Topology, blocks: readonly Block[]): { links: { a: string; b: string; aPoint: number[]; bPoint: number[] }[] } {
+  return {
+    links: topo.bridges.map(([u, v]) => ({ a: blocks[u]!.geoid, b: blocks[v]!.geoid, aPoint: round(blocks[u]!.point), bPoint: round(blocks[v]!.point) })),
   };
 }
 

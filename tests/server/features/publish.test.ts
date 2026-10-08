@@ -65,6 +65,12 @@ describe('index assembly', () => {
     expect(s.metrics).not.toHaveProperty('districts');
     expect(s.districts[0]).toMatchObject({ district: 1, pop: 5, counties: [{ fips: '44001', name: 'Bristol County' }] });
   });
+  it('planStats attaches landParts and fails when a district has no entry', () => {
+    const all = metrics.districts.map((d) => d.district);
+    expect(planStats(metrics, [], all.map(() => 2)).districts.every((d) => d.landParts === 2)).toBe(true);
+    expect(() => planStats(metrics, [], [])).toThrow(DataError);
+    expect(() => planStats(metrics, [], [])).toThrow(/missing land-parts entry for district 1/);
+  });
   it('publishes the per-cut counts as candidateLinesPerCut and the finished plan as finished', () => {
     const s = planStats(PlanMetricsSchema.parse({ ...metrics, directionsPerCut: [3600, 1800] }), []);
     expect(s.metrics).toMatchObject({ candidateLinesPerCut: [3600, 1800] });

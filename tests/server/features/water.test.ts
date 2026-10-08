@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { buildWater, mergeLand } from '../../../src/server/features/publish/index.js';
+import { buildWater, countLandParts, mergeLand } from '../../../src/server/features/publish/index.js';
 
 const square = (x0: number, y0: number, x1: number, y1: number) => ({
   type: 'Polygon' as const,
@@ -42,5 +42,48 @@ describe('buildWater', () => {
   it('merges neighbouring land so a shared border leaves no sliver', async () => {
     const land = await mergeLand([square(-5, 30, 1, 50), square(1, 30, 5, 50)]);
     expect((await buildWater(districts, land)).features).toHaveLength(0);
+  });
+});
+
+describe('countLandParts', () => {
+  const district = (n: number, ...g: object[]) => ({ type: 'Feature', properties: { district: n }, geometry: g.length === 1 ? g[0] : { type: 'MultiPolygon', coordinates: g.map((p) => (p as { coordinates: unknown }).coordinates) } });
+  const fc = (...f: object[]) => JSON.stringify({ type: 'FeatureCollection', features: f });
+
+  const pt = (district: number, x: number, y: number) => ({ district, point: [x, y] as [number, number] });
+
+  it('counts pieces with people: a tiny populated piece counts, a large unpopulated one does not, two populated is 2', async () => {
+    // District 1: big piece plus a 0.001 degree populated strip. District 2: two populated pieces. District 3: big populated piece plus a large empty one. District 4: populated piece plus an unpopulated speck.
+    const districts = fc(
+      district(1, square(0, 40, 3, 42)),
+      district(2, square(0, 30, 3, 32)),
+      district(3, square(0, 20, 3, 22)),
+      district(4, square(0, 10, 3, 12)),
+    );
+    const land = await mergeLand([
+      square(0, 40, 1.5, 42), square(2.5, 40, 2.501, 40.001),
+      square(0, 30, 1, 32), square(2, 30, 3, 32),
+      square(0, 20, 1, 22), square(2, 20, 3, 22),
+      square(0, 10, 1.5, 12), square(2.5, 11, 2.501, 11.001),
+    ]);
+    const populated = [
+      pt(1, 0.5, 41), pt(1, 2.5005, 40.0005),
+      pt(2, 0.5, 31), pt(2, 2.5, 31),
+      pt(3, 0.5, 21),
+      pt(4, 0.5, 11),
+    ];
+    expect(await countLandParts(districts, land, 4, populated)).toEqual({ parts: [2, 2, 1, 1], clamped: 0, outside: 0 });
+  });
+
+  it('clamps a populated district whose points miss the land to 1 and reports it', async () => {
+    const districts = fc(district(1, square(0, 40, 3, 42)), district(2, square(0, 30, 3, 32)));
+    const land = await mergeLand([square(0, 40, 1, 42), square(0, 30, 1, 32)]);
+    expect(await countLandParts(districts, land, 2, [pt(1, 2, 41)])).toEqual({ parts: [1, 1], clamped: 1, outside: 1 });
+  });
+
+  it('does not count a point in a land hole (a lake): 1 part, 1 point outside', async () => {
+    const districts = fc(district(1, square(0, 40, 3, 42)));
+    // Land is the district less a lake in the middle.
+    const land = await mergeLand([{ type: 'Polygon', coordinates: [square(0, 40, 3, 42).coordinates[0], [[1, 40.5], [1, 41.5], [2, 41.5], [2, 40.5], [1, 40.5]]] }]);
+    expect(await countLandParts(districts, land, 1, [pt(1, 1.5, 41), pt(1, 0.5, 41)])).toEqual({ parts: [1], clamped: 0, outside: 1 });
   });
 });

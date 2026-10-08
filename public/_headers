@@ -1,4 +1,5 @@
-# Headers for the static deploy (Cloudflare Pages). Everything the viewer
+# Same headers as vercel.json, for static hosts that read a _headers file
+# (the production deploy on Vercel uses vercel.json). Everything the viewer
 # loads comes from this site, except one script: the answer from the U.S.
 # Census Bureau address service, which only answers browsers as a script.
 #

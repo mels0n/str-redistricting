@@ -4,6 +4,10 @@ import { z } from 'zod';
 import { stateByAbbr, type StateInfo } from '../apportionment/index.js';
 import { ConfigError } from '../errors/index.js';
 
+export { CENSUS_SHA256, ManifestSchema, pinnedSha256 } from './census-manifest.js';
+export { ENACTED_CONFIG, EnactedConfigSchema, enactedFileName, parseEnactedFileName } from './enacted.js';
+export type { EnactedConfig } from './enacted.js';
+
 export interface Config {
   readonly states: StateInfo[];
   readonly angleStepDeg: number;
@@ -13,8 +17,10 @@ export interface Config {
   readonly threads: number;
 }
 
+const STATES_REQUIRED = '--states is required (two-letter abbreviations, comma separated, for example CO or RI,CT)';
+
 const Raw = z.object({
-  states: z.string().min(1),
+  states: z.string(STATES_REQUIRED).min(1, STATES_REQUIRED),
   angleStep: z.coerce.number().positive().max(10)
     .refine((v) => Math.abs(180 / v - Math.round(180 / v)) < 1e-9, 'angle step must divide 180 exactly'),
   cacheDir: z.string().min(1),
@@ -57,6 +63,8 @@ export interface PublishConfig {
   readonly cacheDir: string;
   readonly outDir: string;
   readonly publicDir: string;
+  /** Rebuild only what depends on the enacted-districts file, from the already published files; needs no generated plans. */
+  readonly enactedOnly: boolean;
 }
 
 const RawPublish = z.object({
@@ -64,6 +72,7 @@ const RawPublish = z.object({
   cacheDir: z.string().min(1),
   outDir: z.string().min(1),
   publicDir: z.string().min(1),
+  enactedOnly: z.boolean(),
 });
 
 /** Read once at boot from the command line. */
@@ -75,17 +84,20 @@ export function parsePublishConfig(argv: readonly string[]): PublishConfig {
       'cache-dir': { type: 'string', default: 'data/raw' },
       'out-dir': { type: 'string', default: 'out' },
       'public-dir': { type: 'string', default: 'public/data' },
+      'enacted-only': { type: 'boolean', default: false },
     },
     strict: true,
   });
-  const parsed = RawPublish.safeParse({ states: values.states, cacheDir: values['cache-dir'], outDir: values['out-dir'], publicDir: values['public-dir'] });
+  const parsed = RawPublish.safeParse({
+    states: values.states, cacheDir: values['cache-dir'], outDir: values['out-dir'], publicDir: values['public-dir'], enactedOnly: values['enacted-only'],
+  });
   if (!parsed.success) throw new ConfigError(parsed.error.issues.map((i) => i.message).join('; '));
   const states = parsed.data.states?.split(',').map((s) => s.trim()).filter(Boolean).map((abbr) => {
     const info = stateByAbbr(abbr);
     if (!info) throw new ConfigError(`unknown state: ${abbr}`);
     return info;
   });
-  return { states, cacheDir: parsed.data.cacheDir, outDir: parsed.data.outDir, publicDir: parsed.data.publicDir };
+  return { states, cacheDir: parsed.data.cacheDir, outDir: parsed.data.outDir, publicDir: parsed.data.publicDir, enactedOnly: parsed.data.enactedOnly };
 }
 
 export interface RuleExamplesConfig {
@@ -122,5 +134,43 @@ export function parseRuleExamplesConfig(argv: readonly string[]): RuleExamplesCo
     outDir: values['out-dir'], repeatDir: values['repeat-dir'], rawDir: values['raw-dir'], dest: values.dest, threads: values.threads,
   });
   if (!parsed.success) throw new ConfigError(parsed.error.issues.map((i) => i.message).join('; '));
+  return parsed.data;
+}
+
+export interface EnactedBumpConfig {
+  /** The enacted-districts file to adopt, e.g. cb_2027_us_cd120_500k. */
+  readonly file: string;
+  readonly cacheDir: string;
+  readonly publicDir: string;
+  readonly configDir: string;
+  /** Update the config and manifest only; leave the published data for a separate `publish-data --enacted-only`. */
+  readonly skipPublish: boolean;
+}
+
+const RawBump = z.object({
+  file: z.string().regex(/^cb_\d{4}_us_cd\d+_500k$/, 'file must look like cb_2027_us_cd120_500k (no .zip)'),
+  cacheDir: z.string().min(1),
+  publicDir: z.string().min(1),
+  configDir: z.string().min(1),
+  skipPublish: z.boolean(),
+});
+
+/** Read once at boot from the command line. */
+export function parseEnactedBumpConfig(argv: readonly string[]): EnactedBumpConfig {
+  const { values } = parseArgs({
+    args: [...argv],
+    options: {
+      file: { type: 'string' },
+      'cache-dir': { type: 'string', default: 'data/raw' },
+      'public-dir': { type: 'string', default: 'public/data' },
+      'config-dir': { type: 'string', default: 'config' },
+      'skip-publish': { type: 'boolean', default: false },
+    },
+    strict: true,
+  });
+  const parsed = RawBump.safeParse({
+    file: values.file, cacheDir: values['cache-dir'], publicDir: values['public-dir'], configDir: values['config-dir'], skipPublish: values['skip-publish'],
+  });
+  if (!parsed.success) throw new ConfigError(parsed.error.issues.map((i) => `${i.path.join('.')} ${i.message}`).join('; '));
   return parsed.data;
 }

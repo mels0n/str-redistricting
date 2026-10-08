@@ -4,6 +4,7 @@ import AdmZip from 'adm-zip';
 import * as shapefile from 'shapefile';
 import type { Block } from './model.js';
 import type { StateInfo } from '../../shared/apportionment/index.js';
+import { pinnedSha256 } from '../../shared/config/index.js';
 import { DataError } from '../../shared/errors/index.js';
 import { downloadCached } from '../../shared/http/index.js';
 import { parseBlockFeature, parseBlockPolygons, type BlockPolygons } from './parse.js';
@@ -12,7 +13,8 @@ export const blocksUrl = (fips: string): string =>
   `https://www2.census.gov/geo/tiger/TIGER2020/TABBLOCK20/tl_2020_${fips}_tabblock20.zip`;
 
 export async function ensureZip(state: StateInfo, cacheDir: string): Promise<string> {
-  return downloadCached(blocksUrl(state.fips), join(cacheDir, `tl_2020_${state.fips}_tabblock20.zip`), state.abbr);
+  const file = `tl_2020_${state.fips}_tabblock20.zip`;
+  return downloadCached(blocksUrl(state.fips), join(cacheDir, file), state.abbr, pinnedSha256(file));
 }
 
 async function openBlockSource(state: StateInfo, cacheDir: string) {

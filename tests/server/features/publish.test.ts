@@ -4,7 +4,7 @@ import { join } from 'node:path';
 import { afterAll, describe, expect, it } from 'vitest';
 import {
   buildCuts, buildIndex, countiesByDistrict, parseCdRecord, planStats, simplifyPercent, toTopology, vertexCount,
-  boundaryUrl, CountyRecord, PlanMetricsSchema, publishedSummaries, summarize, buildBalance, BalanceLogSchema, ProcessNumbersSchema, buildStats,
+  boundaryUrl, ENACTED_CANDIDATES, ENACTED_CONGRESS, CountyRecord, PlanMetricsSchema, publishedSummaries, summarize, buildBalance, BalanceLogSchema, ProcessNumbersSchema, buildStats,
 } from '../../../src/server/features/publish/index.js';
 import { STATES } from '../../../src/server/shared/apportionment/index.js';
 import { parsePublishConfig } from '../../../src/server/shared/config/index.js';
@@ -130,6 +130,13 @@ describe('boundary records', () => {
   it('builds the Census URL from the vintage in the file name', () => {
     expect(boundaryUrl('cb_2025_us_cd119_500k')).toBe('https://www2.census.gov/geo/tiger/GENZ2025/shp/cb_2025_us_cd119_500k.zip');
   });
+  it('only tries files of the one pinned Congress, read from the same config file the viewer reads', () => {
+    for (const file of ENACTED_CANDIDATES) expect(file).toContain(`_cd${ENACTED_CONGRESS}_`);
+    const shared = JSON.parse(readFileSync('config/enacted.json', 'utf8')) as { congress: number; file: string; candidates: string[] };
+    expect(shared.congress).toBe(ENACTED_CONGRESS);
+    expect(shared.candidates).toEqual([...ENACTED_CANDIDATES]);
+    expect(shared.file).toBe(ENACTED_CANDIDATES[0]);
+  });
 });
 
 describe('topology', () => {
@@ -155,7 +162,7 @@ describe('topology', () => {
 
 describe('publish config', () => {
   it('defaults to every state and the standard directories', () => {
-    expect(parsePublishConfig([])).toEqual({ states: undefined, cacheDir: 'data/raw', outDir: 'out', publicDir: 'public/data' });
+    expect(parsePublishConfig([])).toEqual({ states: undefined, cacheDir: 'data/raw', outDir: 'out', publicDir: 'public/data', enactedOnly: false });
   });
   it('rejects an unknown state', () => {
     expect(() => parsePublishConfig(['--states', 'ZZ'])).toThrow();

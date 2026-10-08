@@ -1,4 +1,4 @@
-export { CountyRecord, ENACTED_CANDIDATES, LAND_FILE, STATES_FILE, COUNTIES_FILE, StateRecord, boundaryUrl, parseCdRecord, readBoundaryZip } from './boundary.js';
+export { CountyRecord, ENACTED_CANDIDATES, ENACTED_CONGRESS, LAND_FILE, STATES_FILE, COUNTIES_FILE, StateRecord, boundaryUrl, parseCdRecord, readBoundaryZip } from './boundary.js';
 export type { CdRecord } from './boundary.js';
 export { countiesByDistrict } from './counties.js';
 export type { CountyRef } from './counties.js';
@@ -8,7 +8,8 @@ export { checkBlocks, encodeBlocks } from './blocks.js';
 export type { BlocksFile, Fingerprints } from './blocks.js';
 export { buildCuts } from './cuts.js';
 export type { PublishedCut } from './cuts.js';
-export { publishData, publishedSummaries, statesWithData } from './publish.js';
+export { publishData, publishEnactedOnly, publishedSummaries, statesWithData } from './publish.js';
+export { buildEnactedTopology } from './enacted.js';
 export { buildStats, planStats } from './stats.js';
 export { buildIndex, PlanMetricsSchema, summarize } from './summary.js';
 export type { IndexEntry, StateSummary } from './summary.js';

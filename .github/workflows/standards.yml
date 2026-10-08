@@ -1,6 +1,6 @@
 name: Code Standards
 
-# Mechanical enforcement of notes/system/code-standards.md sections 2, 3 and 7.
+# Mechanical enforcement of the repo's layering and code standards.
 # These are FAILING gates, not advisory: a rule nobody has seen fail is a rule
 # nobody knows is wired up.
 

@@ -5,7 +5,7 @@ import { buildTopology, ensureZip, loadStateBlocks } from '../entities/census-bl
 import { balance, balanceLog, peopleMoved } from '../features/balance/index.js';
 import { bordersGeoJson, cutsGeoJson, districtsGeoJson, writePlan } from '../features/export/index.js';
 import { assignmentCsv, computeMetrics } from '../features/metrics/index.js';
-import { createContext, ScanPool, splitState, type SplitResult } from '../features/splitline/index.js';
+import { createContext, PoolSlot, splitState, type SplitResult } from '../features/splitline/index.js';
 import { parseConfig } from '../shared/config/index.js';
 import { exitCodeFor } from '../shared/errors/index.js';
 
@@ -37,15 +37,17 @@ async function main(): Promise<void> {
   const config = parseConfig(process.argv.slice(2));
   const summary: Record<string, unknown>[] = [];
   let firstError: unknown;
-  const pool = config.threads > 1 ? new ScanPool(config.threads) : undefined;
+  const slot = new PoolSlot(config.threads);
   for (const state of config.states) {
+    // A worker that died while idle between states must not fail this one; a no-op unless the pool is broken.
+    slot.refresh();
     try {
       const t0 = performance.now();
       const inputSha256 = createHash('sha256').update(await readFile(await ensureZip(state, config.cacheDir))).digest('hex');
       const blocks = await loadStateBlocks(state, config.cacheDir);
       const topo = buildTopology(blocks);
       const ctx = createContext(blocks, config.angleStepDeg, topo);
-      const split = splitState(ctx, state.seats, { pool });
+      const split = splitState(ctx, state.seats, { pool: slot.pool });
       const balanced = balance(blocks, topo, split.assignment, state.seats);
       const runtimeMs = Math.round(performance.now() - t0);
       const sum = (f: (c: (typeof split.cuts)[number]) => number): number => split.cuts.reduce((s, c) => s + f(c), 0);
@@ -93,9 +95,11 @@ async function main(): Promise<void> {
     } catch (err) {
       firstError ??= err;
       summary.push({ state: state.abbr, status: err instanceof Error ? err.message : String(err), seats: state.seats });
+      // A lost worker breaks the pool; the next state gets a fresh one (or one thread) so the run continues.
+      slot.refresh();
     }
   }
-  await pool?.close();
+  await slot.close().catch(() => undefined);
   console.table(summary);
   if (firstError !== undefined) throw firstError;
 }

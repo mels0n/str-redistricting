@@ -63,7 +63,7 @@ describe('a state with one seat', () => {
     const route = parseHash('#/AK/cut/1');
     if (route.page !== 'state') throw new Error('not a state route');
     const fit = fitRouteToState(route, 1, 0);
-    expect(fit.route.cut).toBe(0);
+    expect(fit.route.cut).toBeNull();
     expect(fit.issues[0] && describeRouteIssue(fit.issues[0], 'Alaska')).toBe('Alaska is a single district, so there are no cuts to show.');
   });
 });

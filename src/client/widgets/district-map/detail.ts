@@ -1,19 +1,19 @@
 import { addProtocol, type ExpressionSpecification, type VectorSourceSpecification, type FilterSpecification, type LayerSpecification, type Map as MlMap } from 'maplibre-gl';
 import { Protocol } from 'pmtiles';
-import { tokens, dataUrl } from '../../shared';
+import { tokens, dataUrl, WATER_VEIL } from '../../shared';
 import type { Plan } from '../../shared';
 
 /**
  * Full-detail layers. Past DETAIL_ZOOM the map draws the published vector tiles (the exact district polygons and
- * the arcs between them) over the simplified in-memory shapes, crossfading the lines between the two and swapping the fills and the water cover. The tileset covers
+ * the arcs between them) over the simplified in-memory shapes, crossfading the lines between the two and swapping the fills and the water veil. The tileset covers
  * zooms 7 to 13, so the fade must begin at 7 or later (the fill layers load a level earlier than the lines fade).
  */
 export const DETAIL_ZOOM = 9;
 export const DETAIL_SOURCE = 'detail';
-/** The opaque water layer. The map's hit test reads it too, so water stays unclickable; keep every use on this one id. */
-export const WATER_COVER_LAYER = 'water-cover';
-/** The detail tiles' twin of the water cover, drawn past DETAIL_ZOOM. */
-export const WATER_COVER_DETAIL_LAYER = 'water-cover-detail';
+/** The pale wash over the part of each district that lies over water. */
+export const WATER_VEIL_LAYER = 'water-veil';
+/** The detail tiles' twin of the water veil, drawn past DETAIL_ZOOM. */
+export const WATER_VEIL_DETAIL_LAYER = 'water-veil-detail';
 const FADE_FROM = DETAIL_ZOOM - 0.5;
 /** The detail fills' layers start here, a level before they are drawn; see fillFadeIn. */
 const FILL_FADE_FROM = DETAIL_ZOOM - 1;
@@ -157,15 +157,15 @@ export function detailLayerSpecs(): { layer: LayerSpecification; after: string }
     });
   }
   out.push({
-    after: WATER_COVER_LAYER,
+    after: WATER_VEIL_LAYER,
     layer: {
       ...base,
       minzoom: FILL_FADE_FROM,
-      id: WATER_COVER_DETAIL_LAYER,
+      id: WATER_VEIL_DETAIL_LAYER,
       type: 'fill',
       'source-layer': 'water',
-      // Opaque, so it swaps outright like the fills: a crossfade would let the borders show through mid-fade.
-      paint: { 'fill-color': tokens.ground, 'fill-opacity': fillFadeIn(1) },
+      // Swaps outright like the fills, so exactly one veil is drawn at any zoom: two stacked would wash the water out twice.
+      paint: { 'fill-color': tokens.ground, 'fill-opacity': fillFadeIn(WATER_VEIL) },
     },
   });
   for (const plan of PLANS) {
@@ -191,14 +191,9 @@ export function fadedPaint(): { id: string; prop: 'fill-opacity' | 'line-opacity
   for (const plan of PLANS) rows.push({ id: `fill-${plan}`, prop: 'fill-opacity', base: FILL_OPACITY });
   rows.push({ id: 'borders', prop: 'line-opacity', base: 1 });
   rows.push({ id: 'outline', prop: 'line-opacity', base: 1 });
-  rows.push({ id: WATER_COVER_LAYER, prop: 'fill-opacity', base: 1 });
+  rows.push({ id: WATER_VEIL_LAYER, prop: 'fill-opacity', base: WATER_VEIL });
   for (const plan of PLANS) rows.push({ id: `sel-${plan}`, prop: 'line-opacity', base: 1 });
   return rows.map((r) => ({ ...r, faded: r.prop === 'fill-opacity' ? fillFadeOut(r.base) : fadeOut(r.base) }));
-}
-
-/** The water layer drawn at `zoom`, for hit-testing: the detail cover from DETAIL_ZOOM unless the tiles failed, else the simplified one. */
-export function waterLayerAt(zoom: number, failed: boolean): string {
-  return !failed && zoom >= DETAIL_ZOOM ? WATER_COVER_DETAIL_LAYER : WATER_COVER_LAYER;
 }
 
 /** The fill layers a pointer can pick a district from, simplified and detail. */
@@ -207,18 +202,9 @@ export const PICK_FILL_LAYERS = ['fill-finished', 'fill-before', 'fill-finished-
 /** One `queryRenderedFeatures` call at the pointer, limited to `layers`, topmost feature first. */
 export type QueryAt = (layers: string[]) => readonly { layer: { id: string }; properties?: Record<string, unknown> | null }[];
 
-/**
- * The district under the pointer, or null. Water picks no district, as outside the state. Past DETAIL_ZOOM the detail
- * water answers, but where the detail tiles have not loaded yet the hit comes from a simplified fill, and then the
- * simplified water decides instead, so water is never clickable while tiles load.
- */
-export function pickDistrict(query: QueryAt, zoom: number, failed: boolean): number | null {
-  if (query([waterLayerAt(zoom, failed)]).length > 0) return null;
-  const f = query(PICK_FILL_LAYERS)[0];
-  if (!f) return null;
-  const simplifiedHitPastSwap = !failed && zoom >= DETAIL_ZOOM && !f.layer.id.endsWith('-detail');
-  if (simplifiedHitPastSwap && query([WATER_COVER_LAYER]).length > 0) return null;
-  const d = f.properties?.district;
+/** The district under the pointer, or null outside the state. Water picks the district under it, as land does. */
+export function pickDistrict(query: QueryAt): number | null {
+  const d = query(PICK_FILL_LAYERS)[0]?.properties?.district;
   return typeof d === 'number' ? d : null;
 }
 

@@ -3,7 +3,7 @@ import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { z } from 'zod';
 import {
-  BalanceLogSchema, CandidatesSchema, CutStatsSchema, PlanMetricsSchema,
+  BalanceLogSchema, CandidatesSchema, CutsGeoSchema, CutStatsSchema, PlanMetricsSchema,
   type BalanceLog, type Candidates, type CutStats, type PlanMetrics,
 } from '../../entities/plan-output/index.js';
 import { DataError } from '../../shared/errors/index.js';
@@ -50,16 +50,25 @@ async function readAssignment(path: string): Promise<Map<string, number>> {
   return out;
 }
 
+/** Joins each cut's first-side seat count (cuts.geojson) onto cut-stats.json by cut order, never by position. */
+export function withLowSeats(stats: CutStats, geo: { features: readonly { properties: { order: number; lowSeats: number } }[] }): CutStats {
+  const lowByOrder = new Map(geo.features.map((f) => [f.properties.order, f.properties.lowSeats] as const));
+  return { ...stats, cuts: stats.cuts.map((c) => ({ ...c, lowSeats: lowByOrder.get(c.order) })) };
+}
+
 export async function loadStateOutput(outDir: string, abbr: string): Promise<StateOutput> {
   const dir = join(outDir, abbr);
-  const [metrics, candidates, cutStats, balance, assignment, before] = await Promise.all([
+  const [metrics, candidates, rawCutStats, cutsGeo, balance, assignment, before] = await Promise.all([
     readJson(join(dir, 'metrics.json'), PlanMetricsSchema),
     readJson(join(dir, 'candidates.json'), CandidatesSchema),
     readJson(join(dir, 'cut-stats.json'), CutStatsSchema),
+    readJson(join(dir, 'cuts.geojson'), CutsGeoSchema),
     readJson(join(dir, 'balance.json'), BalanceLogSchema),
     readAssignment(join(dir, 'assignment.csv')),
     readAssignment(join(dir, 'before-balancing', 'assignment.csv')),
   ]);
+  // cut-stats.json leaves out which side got the smaller share; cuts.geojson has it, keyed by cut order.
+  const cutStats = withLowSeats(rawCutStats, cutsGeo);
   return { metrics, candidates, cutStats, balance, assignment, before };
 }
 
@@ -92,15 +101,22 @@ export function pieceMembers(before: ReadonlyMap<string, number>, firstDistrict:
   return members;
 }
 
-/** The candidate row of the line a cut chose: same direction index and length, one row per side. */
+/**
+ * The candidate row of the line a cut chose. An odd seat count gives each direction two rows (one per side), and both
+ * can round to the same meter, so the row is found by direction index and first-side seat count, never by length.
+ */
 export function chosenCandidate(out: StateOutput, cutIndex: number): Record<string, number> {
   const cut = out.cutStats.cuts[cutIndex];
   const rows = out.candidates.cuts[cutIndex];
   if (!cut || !rows) throw new DataError(`${out.metrics.state}: no cut ${cutIndex + 1} in the cut data`);
+  if (cut.lowSeats === undefined) throw new DataError(`${out.metrics.state}: cut ${cut.order} has no first-side seat count`);
   const k = Math.round(cut.angleDeg / out.metrics.angleStepDeg);
   const { fields } = out.candidates;
-  const kAt = fields.indexOf('k'), lenAt = fields.indexOf('lengthM');
-  const row = rows.find((r) => r[kAt] === k && r[lenAt] === cut.lengthM);
-  if (!row) throw new DataError(`${out.metrics.state}: cut ${cut.order} chose a line that is not in candidates.json`);
+  const kAt = fields.indexOf('k'), lowAt = fields.indexOf('lowSeats'), lenAt = fields.indexOf('lengthM');
+  if (kAt < 0 || lowAt < 0 || lenAt < 0) throw new DataError(`${out.metrics.state}: candidates.json is missing the k, lowSeats or lengthM column`);
+  const matches = rows.filter((r) => r[kAt] === k && r[lowAt] === cut.lowSeats);
+  if (matches.length !== 1) throw new DataError(`${out.metrics.state}: cut ${cut.order} matches ${matches.length} rows of candidates.json for k=${k}, lowSeats=${cut.lowSeats}`);
+  const row = matches[0]!;
+  if (row[lenAt] !== cut.lengthM) throw new DataError(`${out.metrics.state}: cut ${cut.order} length ${cut.lengthM} differs from its candidate row (${row[lenAt]})`);
   return Object.fromEntries(fields.map((f, i) => [f, row[i] ?? 0]));
 }

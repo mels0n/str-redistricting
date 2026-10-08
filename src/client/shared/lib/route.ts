@@ -131,7 +131,7 @@ export type RouteIssue =
 /**
  * Brings a state route in line with what the state actually has: a district
  * past the last one is dropped, a cut or balancing move past the last one
- * becomes the last. `moves` is the number of balancing moves, when known.
+ * becomes the last (or is dropped when there are none). `moves` is the number of balancing moves, when known.
  * Returns the corrected route and what was wrong, so the page can say so.
  */
 export function fitRouteToState(route: StateRoute, seats: number, moves?: number): { route: StateRoute; issues: RouteIssue[] } {
@@ -142,11 +142,13 @@ export function fitRouteToState(route: StateRoute, seats: number, moves?: number
     issues.push({ kind: 'district', district, seats });
     district = null;
   }
-  if (cut !== null && cut > cuts) {
+  // With no cuts to show (one seat) even cut 0 is wrong: there is no sequence to open.
+  if (cut !== null && (cut > cuts || cuts === 0)) {
     issues.push({ kind: 'cut', cut, cuts });
-    cut = cuts;
+    cut = cuts === 0 ? null : cuts;
   }
-  if (move !== null && moves !== undefined && move > moves) {
+  // Likewise with no balancing moves, even move 0 is wrong.
+  if (move !== null && moves !== undefined && (move > moves || moves === 0)) {
     issues.push({ kind: 'move', move, moves });
     move = moves === 0 ? null : moves;
   }

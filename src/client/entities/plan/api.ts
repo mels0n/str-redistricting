@@ -64,7 +64,7 @@ function toShapes(topo: DistrictTopology, url: string, seats: number): PlanShape
   };
 }
 
-/** The water mask for a state. A missing or unreadable file is not an error: the map just draws no water cover. */
+/** The water mask for a state. A missing or unreadable file is not an error: the map just has no water wash. */
 function loadWater(abbr: string): Promise<WaterShapes | null> {
   return fetchJson(dataUrl(`${abbr}/water.topo.json`), WaterTopoSchema)
     .then((raw) => {
@@ -124,7 +124,7 @@ export interface EnactedShapes {
 
 const enacted = new Map<string, Promise<EnactedShapes>>();
 
-/** The 119th Congress districts, for display only. Loaded when first shown. */
+/** The enacted Congress's districts, for display only. Loaded when first shown. */
 export function loadEnacted(abbr: string): Promise<EnactedShapes> {
   let p = enacted.get(abbr);
   if (!p) {

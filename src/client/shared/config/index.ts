@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import enactedJson from '../../../../config/enacted.json';
 
 /**
  * The one configuration module for the viewer. It is read once, at boot, and
@@ -29,6 +30,16 @@ const ConfigSchema = z.object({
   /** The public source repository: the generator, the viewer and the published data. */
   repoUrl: z.url(),
 });
+
+const EnactedSchema = z.looseObject({ congress: z.number().int().positive(), file: z.string().min(1) });
+const enacted = EnactedSchema.parse(enactedJson);
+
+/**
+ * The Congress whose districts the viewer shows for comparison, and the Census file they come from. Read from
+ * config/enacted.json, the same file the publisher reads, so the two cannot drift; `npm run enacted:bump` rewrites
+ * it, and a test checks the published data against it.
+ */
+export const ENACTED = { congress: enacted.congress, file: enacted.file } as const;
 
 export type ViewerConfig = z.infer<typeof ConfigSchema>;
 

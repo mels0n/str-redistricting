@@ -36,6 +36,8 @@ export function createNationalPage(nav: Navigate): Page {
   const search = createAddressSearch({
     id: 'strv-address-national',
     onFound(result) {
+      // The lookup can outlive the page: a late answer must not move a visitor who has gone elsewhere.
+      if (!alive) return undefined;
       // The index has not loaded yet (the data failed or is slow): there is nothing to look the state up in.
       if (!indexCache) return 'The list of states has not loaded yet. Try again once the map appears.';
       const where = resolveAddress(indexCache, result, null);

@@ -24,6 +24,27 @@ export class DownloadError extends DataError {
   }
 }
 
+/** The cut search worker pool is unusable (a worker died or stalled); the run can go on with a fresh pool. */
+export class WorkerPoolError extends AppError {
+  constructor(message: string) {
+    super('POOL', message);
+  }
+}
+
+/** A Census file whose sha256 differs from the pinned value: corrupt cache, or the Census Bureau reissued it. */
+export class ChecksumError extends DataError {
+  /** `fresh`: the mismatch was found on a download that has not been kept, so there is no cached file to delete. */
+  constructor(fileName: string, path: string, origin: 'cached' | 'fresh' = 'cached') {
+    super(
+      origin === 'fresh'
+        ? `${fileName}: sha256 does not match the pinned value. The file just downloaded differs from the pinned hash; ` +
+          'the Census Bureau may have reissued it. Check the new file, then update the manifest (config/census-sha256.json; this changes the maps).'
+        : `${fileName}: sha256 does not match the pinned value. The cached file is corrupt or the Census Bureau reissued it. ` +
+          `Delete ${path} to download it again, or, if the Census Bureau reissued it, update the manifest (this changes the maps).`,
+    );
+  }
+}
+
 /** The one place errors become process exit codes. */
 export function exitCodeFor(err: unknown): number {
   if (err instanceof ConfigError) return 2;

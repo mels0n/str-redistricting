@@ -8,6 +8,8 @@ import {
   bumpSemver,
   compareFingerprints,
   componentsFor,
+  mapsDataChanged,
+  newestTag,
   levelOf,
   parseCommitSubject,
   prependEntry,
@@ -50,7 +52,6 @@ describe('componentsFor', () => {
     expect(of('fix: x', ['src/server/features/splitline/cut.ts'])).toEqual(['engine']);
     expect(of('fix: x', ['src/server/features/publish/topo.ts'])).toEqual(['schema']);
     expect(of('fix: x', ['src/server/entities/plan-output/schema.ts'])).toEqual(['schema']);
-    expect(of('fix: x', ['public/data/CO/stats.json'])).toEqual(['maps']);
     expect(of('chore: x', ['config/enacted.json'])).toEqual(['input']);
     expect(of('fix: x', ['src/client/app/main.ts', 'index.html', 'public/og-image.png'])).toEqual(['web']);
     expect(of('docs: x', ['README.md', 'docs/how.md'])).toEqual(['docs']);
@@ -61,8 +62,11 @@ describe('componentsFor', () => {
   it('keeps release tooling and enacted and rule-example code out of the engine', () => {
     expect(of('feat: x', ['src/server/features/release/bump.ts', 'src/server/app/release.ts', 'src/server/features/enacted/bump.ts'])).toEqual([]);
   });
-  it('does not match public/data as a web file', () => {
-    expect(of('fix: x', ['public/data/index.json'])).toEqual(['maps']);
+  it('attributes published data files to no component (maps follow the content hashes, not the paths)', () => {
+    expect(of('fix: x', ['public/data/index.json', 'public/data/CO/assignments.json', 'public/data/CO/og.png', 'public/data/AL/blocks.pmtiles'])).toEqual([]);
+  });
+  it('keeps the Census watch and the shared HTTP helpers out of the engine', () => {
+    expect(of('feat: x', ['src/server/features/census-watch/probe.ts', 'src/server/app/census-watch.ts', 'src/server/shared/http/fetch.ts'])).toEqual([]);
   });
   it('sends the client files of a copy commit to docs', () => {
     expect(of('copy(how): reword', ['src/client/pages/how/ui.ts'])).toEqual(['docs']);
@@ -72,7 +76,7 @@ describe('componentsFor', () => {
     expect(of('docs: x', ['src/client/pages/how/ui.ts', 'src/server/features/splitline/cut.ts'])).toEqual(['docs', 'engine']);
   });
   it('lands a commit in every component it touches', () => {
-    expect(of('fix(balance): x', ['src/server/features/splitline/cut.ts', 'public/data/FL/assignments.json'])).toEqual(['engine', 'maps']);
+    expect(of('fix(balance): x', ['src/server/features/splitline/cut.ts', 'src/client/a.ts'])).toEqual(['engine', 'web']);
   });
 });
 
@@ -112,9 +116,9 @@ describe('proposeVersions', () => {
     expect(next).toEqual(base);
     expect(reasons).toEqual([]);
   });
-  it('bumps the input revision and the maps release when the input sha differs and data was touched', () => {
+  it('bumps the input revision and the maps release when the input sha differs', () => {
     const { next } = proposeVersions(base, {
-      byComponent: byComponent([['maps', [commit('chore: x', ['public/data/CO/stats.json'])]]]),
+      byComponent: new Map(),
       engineOutputChanged: false,
       inputSha256: 'f'.repeat(64),
     });
@@ -122,15 +126,31 @@ describe('proposeVersions', () => {
     expect(next.input.sha256).toBe('f'.repeat(64));
     expect(next.maps).toBe(2);
   });
-  it('does not bump maps when no data file changed, or when neither engine nor input moved', () => {
-    const noData = proposeVersions(base, { byComponent: new Map(), engineOutputChanged: false, inputSha256: 'f'.repeat(64) });
-    expect(noData.next.maps).toBe(1);
-    const noMove = proposeVersions(base, {
-      byComponent: byComponent([['maps', [commit('chore: x', ['public/data/CO/stats.json'])]]]),
-      engineOutputChanged: false,
-      inputSha256: same,
+  it('bumps maps with an engine major bump, but not with an engine minor', () => {
+    const major = proposeVersions(base, { byComponent: new Map(), engineOutputChanged: true, inputSha256: same });
+    expect([major.next.engine, major.next.maps]).toEqual(['2.0.0', 2]);
+    const minor = proposeVersions(base, { byComponent: byComponent([['engine', [commit('feat: x', [])]]]), engineOutputChanged: false, inputSha256: same });
+    expect([minor.next.engine, minor.next.maps]).toEqual(['1.1.0', 1]);
+  });
+  it('bumps maps when the published hashes changed since the maps tag, and not otherwise', () => {
+    expect(proposeVersions(base, { byComponent: new Map(), engineOutputChanged: false, inputSha256: same, mapsDataChanged: true }).next.maps).toBe(2);
+    expect(proposeVersions(base, { byComponent: new Map(), engineOutputChanged: false, inputSha256: same }).next.maps).toBe(1);
+  });
+  it('never bumps a component twice: already-bumped components are left as they are', () => {
+    const bumped: Versions = { ...base, engine: '2.0.0', maps: 2, web: '1.1.0' };
+    const { next, reasons } = proposeVersions(bumped, {
+      byComponent: byComponent([
+        ['engine', [commit('fix: x', [])]],
+        ['web', [commit('feat: x', [])]],
+        ['docs', [commit('docs: x', [])]],
+      ]),
+      engineOutputChanged: true,
+      inputSha256: 'f'.repeat(64),
+      mapsDataChanged: true,
+      alreadyBumped: new Set<Component>(['engine', 'input', 'maps', 'web']),
     });
-    expect(noMove.next.maps).toBe(1);
+    expect([next.engine, next.maps, next.web, next.input.revision, next.docs]).toEqual(['2.0.0', 2, '1.1.0', 1, '1.0.1']);
+    expect(reasons.join(' ')).not.toContain('engine');
   });
   it('takes schema, web and docs from their commit levels, with major allowed', () => {
     const { next } = proposeVersions(base, {
@@ -151,6 +171,38 @@ describe('proposeVersions', () => {
   });
 });
 
+describe('mapsDataChanged', () => {
+  const index = (states: [string, string, string][]): string =>
+    JSON.stringify({ states: states.map(([abbr, a, i]) => ({ abbr, name: abbr, summary: { assignmentSha256: a, inputSha256: i, population: 1 } })) });
+  const base2 = index([['CO', 'a', 'x'], ['RI', 'b', 'x']]);
+
+  it('is false when the file is absent at the base, or nothing relevant differs', () => {
+    expect(mapsDataChanged(null, base2)).toBe(false);
+    expect(mapsDataChanged(base2, base2)).toBe(false);
+    expect(mapsDataChanged(base2, JSON.stringify({ ...JSON.parse(base2), extra: 1 }))).toBe(false);
+  });
+  it('is true when an assignment or input hash differs, or a state is added or removed', () => {
+    expect(mapsDataChanged(base2, index([['CO', 'a2', 'x'], ['RI', 'b', 'x']]))).toBe(true);
+    expect(mapsDataChanged(base2, index([['CO', 'a', 'y'], ['RI', 'b', 'x']]))).toBe(true);
+    expect(mapsDataChanged(base2, index([['CO', 'a', 'x']]))).toBe(true);
+    expect(mapsDataChanged(base2, index([['CO', 'a', 'x'], ['RI', 'b', 'x'], ['DE', 'c', 'x']]))).toBe(true);
+    expect(mapsDataChanged(base2, null)).toBe(true);
+  });
+});
+
+describe('newestTag', () => {
+  const all = ['engine-v1.0.0', 'engine-v1.10.0', 'engine-v1.9.0', 'input-census-2020-r1', 'input-census-2020-r2', 'input-census-2020-r10', 'maps-2', 'maps-10', 'web-v1.0.0', 'nonsense', 'engine-v1.0.0-rc1'];
+  it('picks the highest version of each component by numeric order', () => {
+    expect(newestTag(all, 'engine')).toBe('engine-v1.10.0');
+    expect(newestTag(all, 'input')).toBe('input-census-2020-r10');
+    expect(newestTag(all, 'maps')).toBe('maps-10');
+    expect(newestTag(all, 'web')).toBe('web-v1.0.0');
+  });
+  it('is null when the component has no tag', () => {
+    expect(newestTag(all, 'docs')).toBeNull();
+  });
+});
+
 describe('tagsFor', () => {
   it('tags every component on a root commit, with the exact baseline names', () => {
     expect(tagsFor(null, base)).toEqual(['engine-v1.0.0', 'input-census-2020-r1', 'maps-1', 'schema-v1.0.0', 'web-v1.0.0', 'docs-v1.0.0']);
@@ -166,23 +218,30 @@ describe('tagsFor', () => {
 });
 
 describe('versionProblems', () => {
+  let mapsDataChanged = false;
   const check = (head: Versions, touched: Component[], changelogs = noChangelog): string[] =>
-    versionProblems({ base, head, touched: new Set(touched), changelogs });
+    versionProblems({ base, head, touched: new Set(touched), changelogs, mapsDataChanged });
 
   it('is quiet when nothing changed or when touched components are bumped', () => {
     expect(check(base, [])).toEqual([]);
     expect(check({ ...base, web: '1.0.1' }, ['web'])).toEqual([]);
   });
-  it('flags public/data touched without a maps bump', () => {
-    const problems = check(base, ['maps']);
+  it('flags changed published hashes without a maps bump', () => {
+    mapsDataChanged = true;
+    const problems = check(base, []);
     expect(problems).toHaveLength(1);
     expect(problems[0]).toContain('maps');
     expect(problems[0]).toContain('not bumped');
+    expect(check({ ...base, maps: 2 }, [])).toEqual([]);
+    mapsDataChanged = false;
+  });
+  it('flags a maps bump when the hashes did not change and neither engine nor input moved', () => {
+    expect(check({ ...base, maps: 2 }, [])).toEqual(['maps: bumped in config/versions.json but the published assignment and input hashes did not change']);
   });
   it('flags a bump with no changed files', () => {
     expect(check({ ...base, docs: '1.0.1' }, [])).toEqual(['docs: bumped in config/versions.json but none of its files changed']);
   });
-  it('lets maps follow an engine or input bump without data files', () => {
+  it('lets maps follow an engine or input bump without changed hashes', () => {
     expect(check({ ...base, engine: '1.1.0', maps: 2 }, ['engine'])).toEqual([]);
     expect(check({ ...base, input: { ...base.input, revision: 2 }, maps: 2 }, ['input'])).toEqual([]);
   });

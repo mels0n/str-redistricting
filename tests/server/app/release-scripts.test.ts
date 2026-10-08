@@ -18,6 +18,10 @@ let repo: string;
 beforeEach(() => {
   repo = mkdtempSync(join(tmpdir(), 'release-scripts-'));
   git('init', '-q', '-b', 'main');
+  // The scripts commit through plain git, which needs an identity in the temp repo.
+  git('config', 'user.name', 't');
+  git('config', 'user.email', 't@example.com');
+  git('config', 'commit.gpgsign', 'false');
 });
 afterEach(() => rmSync(repo, { recursive: true, force: true }));
 
@@ -89,35 +93,68 @@ describe('release:tags', () => {
   });
 });
 
+function indexJson(assignment: string, input = 'i'): string {
+  return JSON.stringify({ states: [{ abbr: 'CO', name: 'Colorado', summary: { assignmentSha256: assignment, inputSha256: input } }] });
+}
+/** seed() plus a published public/data/index.json, so version-check has hashes to compare. */
+function seedWithData(enforce: boolean): string {
+  write('public/data/index.json', indexJson('a'));
+  write('public/data/CO/og.png', 'png');
+  return seed(enforce);
+}
+
 describe('version:check', () => {
-  it('warns and exits 0 when public/data changes without a maps bump (enforce false)', () => {
-    const base = seed(false);
-    write('public/data/CO/stats.json', '{}');
+  it('warns and exits 0 when the published hashes change without a maps bump (enforce false)', () => {
+    const base = seedWithData(false);
+    write('public/data/index.json', indexJson('b'));
     commitAll('fix: redraw');
     const out = run('version-check.ts', ['--base', base]);
     expect(out.status).toBe(0);
-    expect(out.stdout).toMatch(/::warning::maps: its files changed but maps was not bumped/);
+    expect(out.stdout).toMatch(/::warning::maps: the published assignment or input hashes .* but maps was not bumped/);
   });
   it('exits 1 with an error line when enforce is true', () => {
-    const base = seed(true);
-    write('public/data/CO/stats.json', '{}');
+    const base = seedWithData(true);
+    write('public/data/index.json', indexJson('b'));
     commitAll('fix: redraw');
     const out = run('version-check.ts', ['--base', base]);
     expect(out.status).toBe(1);
-    expect(out.stdout).toMatch(/::error::maps: its files changed but maps was not bumped/);
+    expect(out.stdout).toMatch(/::error::maps: the published assignment or input hashes/);
   });
-  it('passes when the touched component is bumped', () => {
-    const base = seed(true);
-    write('public/data/CO/stats.json', '{}');
+  it('passes when the hashes changed and maps is bumped, with no engine or input bump', () => {
+    const base = seedWithData(true);
+    write('public/data/index.json', indexJson('b'));
     write('config/versions.json', formatVersions({ ...VERSIONS, maps: 2 }));
     commitAll('fix: redraw');
-    // maps bumped alongside its files; the engine and input did not move, which is allowed (a data-only republish).
     const out = run('version-check.ts', ['--base', base]);
     expect(out.status).toBe(0);
     expect(out.stdout).toContain('version-check: ok');
   });
+  it('does not need a maps bump for data files that are not assignments (og images, tiles)', () => {
+    const base = seedWithData(true);
+    write('public/data/CO/og.png', 'png2');
+    write('public/data/CO/blocks.pmtiles', 'tiles');
+    commitAll('feat: tiles');
+    expect(run('version-check.ts', ['--base', base]).status).toBe(0);
+  });
+  it('flags a maps bump with unchanged hashes unless the engine or input moved', () => {
+    const base = seedWithData(true);
+    write('config/versions.json', formatVersions({ ...VERSIONS, maps: 2 }));
+    commitAll('chore: bump maps');
+    const out = run('version-check.ts', ['--base', base]);
+    expect(out.status).toBe(1);
+    expect(out.stdout).toMatch(/::error::maps: bumped in config\/versions.json but the published assignment and input hashes did not change/);
+  });
+  it('reads config/release.json from the base, so a pull request cannot loosen enforcement', () => {
+    const base = seedWithData(true);
+    write('public/data/index.json', indexJson('b'));
+    write('config/release.json', JSON.stringify({ ...JSON.parse(releaseJson), enforce: false }));
+    commitAll('fix: redraw and relax');
+    const out = run('version-check.ts', ['--base', base]);
+    expect(out.status).toBe(1);
+    expect(out.stdout).toContain('::error::');
+  });
   it('ignores a file that was changed and put back inside the pull request', () => {
-    const base = seed(true);
+    const base = seedWithData(true);
     write('src/client/a.ts', 'one');
     commitAll('feat: a');
     git('rm', '-q', 'src/client/a.ts');
@@ -131,6 +168,15 @@ describe('version:check', () => {
     const out = run('version-check.ts', ['--base', base]);
     expect(out.status).toBe(0);
     expect(out.stdout).toContain('::notice::');
+  });
+  it('fails clearly when the branch shares no history with the base', () => {
+    const base = seed(true);
+    git('checkout', '-q', '--orphan', 'island');
+    write('README.md', 'island');
+    commitAll('chore: island');
+    const out = run('version-check.ts', ['--base', base]);
+    expect(out.status).not.toBe(0);
+    expect(out.stderr).toContain(`no common history with ${base}; rebase this branch onto ${base}`);
   });
   it('needs --base', () => {
     seed(false);
@@ -159,6 +205,62 @@ describe('release', () => {
     expect(out.stdout).toContain('release: web 1.1.0');
     expect(git('status', '--porcelain')).toBe('');
     expect(readFileSync(join(repo, 'config/versions.json'), 'utf8')).toBe(formatVersions(VERSIONS));
+  });
+});
+
+describe('release (repeat runs and measuring)', () => {
+  const baselineTags = ['engine-v1.0.0', 'input-census-2020-r1', 'maps-1', 'schema-v1.0.0', 'web-v1.0.0', 'docs-v1.0.0'];
+  function tagged(withData = false): void {
+    if (withData) {
+      write('public/data/index.json', indexJson('a'));
+    }
+    seed(false);
+    for (const f of ['tests/fingerprints/engine.json', 'config/census-sha256.json', 'config/enacted.json']) write(f, readFileSync(f, 'utf8'));
+    commitAll('chore: inputs');
+    for (const tag of baselineTags) git('tag', tag);
+  }
+  const head = (): string => git('rev-parse', 'HEAD');
+
+  it('changes nothing the second time it runs', () => {
+    tagged();
+    write('src/client/a.ts', 'x');
+    commitAll('feat: a client thing');
+    expect(run('release.ts', []).status).toBe(0);
+    const after = head();
+    const versions = readFileSync(join(repo, 'config/versions.json'), 'utf8');
+    expect(versions).toContain('"web": "1.1.0"');
+    const again = run('release.ts', []);
+    expect(again.status, again.stderr).toBe(0);
+    expect(again.stdout).toContain('nothing to release');
+    expect(head()).toBe(after);
+    expect(readFileSync(join(repo, 'config/versions.json'), 'utf8')).toBe(versions);
+  });
+  it('measures each component from its newest tag', () => {
+    tagged();
+    write('src/client/a.ts', 'x');
+    commitAll('feat: a client thing');
+    expect(run('release.ts', []).status).toBe(0);
+    git('tag', 'web-v1.1.0');
+    write('src/client/b.ts', 'y');
+    commitAll('fix: a client fix');
+    const out = run('release.ts', ['--dry-run']);
+    expect(out.status, out.stderr).toBe(0);
+    expect(out.stdout).toContain('release: web 1.1.1');
+    expect(out.stdout).not.toContain('web 1.2.0');
+  });
+  it('bumps maps when the published hashes changed since the maps tag', () => {
+    tagged(true);
+    write('public/data/index.json', indexJson('b'));
+    commitAll('fix: republish CO');
+    const out = run('release.ts', ['--dry-run']);
+    expect(out.status, out.stderr).toBe(0);
+    expect(out.stdout).toContain('release: maps 2');
+  });
+  it('leaves maps alone when only non-assignment data files changed', () => {
+    tagged(true);
+    write('public/data/CO/og.png', 'png');
+    commitAll('feat: og image');
+    expect(run('release.ts', ['--dry-run']).stdout).toContain('nothing to release');
   });
 });
 

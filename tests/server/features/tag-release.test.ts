@@ -41,9 +41,18 @@ describe('tag-release workflow', () => {
     }
   });
 
-  it('leaves existing remote tags alone and creates lightweight tags at the pushed commit', () => {
-    expect(tagJob).toContain('ls-remote --exit-code --tags origin');
+  it('skips a remote tag at the pushed commit, fails on one elsewhere, and creates lightweight tags otherwise', () => {
+    expect(tagJob).toContain('ls-remote --tags origin');
+    expect(tagJob).toContain('"$remote" != "$GITHUB_SHA"');
+    expect(tagJob).toMatch(/::error::\$tag already exists on the remote at/);
     expect(tagJob).toContain('git tag "$tag" "$GITHUB_SHA"');
+  });
+
+  it('plans from the push event\'s before commit, falling back to the parent, then to none', () => {
+    expect(planJob).toContain('EVENT_BEFORE: ${{ github.event.before }}');
+    expect(planJob).toContain('git cat-file -e');
+    expect(planJob).toContain('git rev-parse --verify --quiet "HEAD^" || echo none');
+    expect(planJob).toMatch(/fetch-depth: 0/);
   });
 });
 
@@ -58,7 +67,8 @@ describe('standards workflow', () => {
     expect(text).toMatch(/^ {2}fixture-gate:/m);
     expect(text).toContain("key: census-${{ hashFiles('config/census-sha256.json') }}");
     expect(text).toContain('path: data/raw');
-    expect(text).toContain('npm run fingerprints -- --check');
+    expect(text).toContain('npm run fingerprints -- --check --base "origin/$BASE_REF"');
+    expect(text).toContain('npm run fingerprints -- --check --base "HEAD^"');
     expect(text).toMatch(/timeout-minutes: 30/);
   });
 });

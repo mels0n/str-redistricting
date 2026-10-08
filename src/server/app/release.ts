@@ -4,6 +4,8 @@ import {
   ReleaseConfigSchema,
   compareFingerprints,
   componentsFor,
+  mapsDataChanged,
+  newestTag,
   prependEntry,
   proposeVersions,
   tagsFor,
@@ -13,10 +15,11 @@ import {
 import { VersionsSchema, formatVersions, inputSha256Of, parseReleaseArgs, type Versions } from '../shared/config/index.js';
 import { exitCodeFor } from '../shared/errors/index.js';
 import { FINGERPRINT_PATH, drawFingerprints, readFingerprintFile, readFingerprintFileAt } from './fixtures.js';
-import { commit, commitsSince, tagExists } from './git.js';
+import { commit, commitsSince, listTags, showFile } from './git.js';
 
 // Reads config/ and changelog/ relative to the current directory, and proposes the next versions from the commits
-// since each component's last release tag.
+// since each component's newest release tag. A component whose version already differs from its newest tag was bumped
+// since, so it is not bumped again: running release twice in a row changes nothing the second time.
 
 const readText = (path: string): string => readFileSync(path, 'utf8');
 
@@ -37,32 +40,49 @@ function bullets(commits: readonly Commit[]): string[] {
   return [...seen];
 }
 
+/** The changelog bullet for a moved component that no commit touched by path. */
+const NO_COMMITS: Record<Component, string> = {
+  engine: 'Maps drawn by the engine changed.',
+  input: 'Pinned input files changed.',
+  maps: 'Published maps rebuilt.',
+  schema: 'Schema changed.',
+  web: 'Site changed.',
+  docs: 'Docs changed.',
+};
+
 function release(): void {
   const args = parseReleaseArgs(process.argv.slice(2));
   const cfg = ReleaseConfigSchema.parse(JSON.parse(readText('config/release.json')));
   const current = VersionsSchema.parse(JSON.parse(readText('config/versions.json')));
 
-  const tags = currentTags(current);
-  const found = COMPONENTS.filter((c) => tagExists(tags[c]));
+  const allTags = listTags();
+  const newest = Object.fromEntries(COMPONENTS.map((c) => [c, newestTag(allTags, c)])) as Record<Component, string | null>;
+  const found = COMPONENTS.filter((c) => newest[c] !== null);
   if (found.length === 0) {
     console.log('no release tags yet; versions are the 1.0 baseline');
     return;
   }
-  // A component whose current tag is missing is measured from the first tag that does exist.
-  const fallback = tags[found[0]!];
+  // A component with no tag at all is measured from the first tag that does exist.
+  const fallback = newest[found[0]!]!;
+  const refOf = (c: Component): string => newest[c] ?? fallback;
+
+  // Versions that already differ from the newest tag were bumped since the last release.
+  const expected = currentTags(current);
+  const alreadyBumped = new Set(COMPONENTS.filter((c) => newest[c] !== null && newest[c] !== expected[c]));
+  if (alreadyBumped.size > 0) console.log(`already bumped since their last tag: ${[...alreadyBumped].join(', ')}`);
 
   const byComponent = new Map<Component, Commit[]>();
   for (const c of COMPONENTS) {
-    const ref = tagExists(tags[c]) ? tags[c] : fallback;
-    byComponent.set(c, commitsSince(ref).filter((k) => componentsFor(k, cfg).has(c)));
+    byComponent.set(c, commitsSince(refOf(c)).filter((k) => componentsFor(k, cfg).has(c)));
   }
 
   // Fixture gate: a changed fingerprint under an unchanged engine major means the maps changed.
   let engineOutputChanged = false;
   // Judged against the file at the last engine release, so a rewritten fingerprint file cannot hide a changed map.
-  const recorded = readFingerprintFileAt(tags.engine);
+  const engineRef = refOf('engine');
+  const recorded = readFingerprintFileAt(engineRef);
   if (Object.keys(recorded.states).length === 0) {
-    console.log(`${FINGERPRINT_PATH} recorded no fixture states at ${tags.engine}; the fixture gate is vacuous`);
+    console.log(`${FINGERPRINT_PATH} recorded no fixture states at ${engineRef}; the fixture gate is vacuous`);
   } else {
     const result = compareFingerprints(recorded, readFingerprintFile(), drawFingerprints(Object.keys(recorded.states), args.cacheDir), Number(current.engine.split('.')[0]));
     console.log(result.message);
@@ -70,7 +90,10 @@ function release(): void {
   }
 
   const inputSha256 = inputSha256Of(readText('config/census-sha256.json'), readText('config/enacted.json'));
-  const { next, reasons } = proposeVersions(current, { byComponent, engineOutputChanged, inputSha256 });
+  // Published hashes that moved since the last maps release (a republish) need a maps release even with no engine bump.
+  const mapsRef = newest.maps;
+  const dataChanged = mapsRef !== null && mapsDataChanged(showFile(mapsRef, 'public/data/index.json'), showFile('HEAD', 'public/data/index.json'));
+  const { next, reasons } = proposeVersions(current, { byComponent, engineOutputChanged, inputSha256, mapsDataChanged: dataChanged, alreadyBumped });
   const moved = COMPONENTS.filter((c) => identityOf(current, c) !== identityOf(next, c));
   if (moved.length === 0) {
     console.log('nothing to release');
@@ -89,7 +112,7 @@ function release(): void {
   for (const c of moved) {
     const path = `changelog/${c}.md`;
     const lines = bullets(byComponent.get(c) ?? []);
-    writeFileSync(path, prependEntry(readText(path), identityOf(next, c), date, lines.length > 0 ? lines : ['Pinned input files changed.']));
+    writeFileSync(path, prependEntry(readText(path), identityOf(next, c), date, lines.length > 0 ? lines : [NO_COMMITS[c]]));
     files.push(path);
   }
   commit(files, subject);

@@ -23,6 +23,10 @@ export interface BumpInput {
   engineOutputChanged: boolean;
   /** inputSha256Of the files as they are now. */
   inputSha256: string;
+  /** public/data/index.json hashes differ from the ones at the last maps release. */
+  mapsDataChanged?: boolean;
+  /** Components whose versions already differ from their last release tag: bumped since, so never bumped again. */
+  alreadyBumped?: ReadonlySet<Component>;
 }
 
 function nextSemver(current: string, commits: readonly Commit[], capMinor: boolean): { next: string; level: Level | null } {
@@ -34,8 +38,11 @@ function nextSemver(current: string, commits: readonly Commit[], capMinor: boole
 export function proposeVersions(current: Versions, p: BumpInput): { next: Versions; reasons: string[] } {
   const reasons: string[] = [];
   const next: Versions = { ...current, input: { ...current.input } };
+  const done = p.alreadyBumped ?? new Set<Component>();
 
-  if (p.engineOutputChanged) {
+  if (done.has('engine')) {
+    // Already bumped since its tag.
+  } else if (p.engineOutputChanged) {
     next.engine = bumpSemver(current.engine, 'major');
     reasons.push(`engine ${next.engine}: the fixture fingerprints changed, so the maps change`);
   } else {
@@ -44,20 +51,23 @@ export function proposeVersions(current: Versions, p: BumpInput): { next: Versio
     if (e.level !== null) reasons.push(`engine ${next.engine}: ${e.level} (assignments unchanged)`);
   }
 
-  const inputChanged = p.inputSha256 !== current.input.sha256;
+  const inputChanged = !done.has('input') && p.inputSha256 !== current.input.sha256;
   if (inputChanged) {
     next.input.revision = current.input.revision + 1;
     next.input.sha256 = p.inputSha256;
     reasons.push(`input ${next.input.vintage} r${next.input.revision}: the Census manifest or enacted config changed`);
   }
 
-  const engineChanged = next.engine !== current.engine;
-  if ((engineChanged || inputChanged) && (p.byComponent.get('maps')?.length ?? 0) > 0) {
+  // The maps release follows a new engine major or input revision (the next publish draws different maps), or
+  // published hashes that already moved since the last maps release.
+  const engineMajorMoved = Number(next.engine.split('.')[0]) > Number(current.engine.split('.')[0]);
+  if (!done.has('maps') && (engineMajorMoved || inputChanged || p.mapsDataChanged === true)) {
     next.maps = current.maps + 1;
-    reasons.push(`maps ${next.maps}: engine or input moved and the published data changed`);
+    reasons.push(`maps ${next.maps}: ${engineMajorMoved || inputChanged ? 'the engine major or the input moved, so the published data changes' : 'the published assignment or input hashes changed'}`);
   }
 
   for (const c of ['schema', 'web', 'docs'] as const) {
+    if (done.has(c)) continue;
     const r = nextSemver(current[c], p.byComponent.get(c) ?? [], false);
     next[c] = r.next;
     if (r.level !== null) reasons.push(`${c} ${next[c]}: ${r.level}`);

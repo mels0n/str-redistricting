@@ -7,4 +7,5 @@ export { COMPONENTS, ReleaseConfigSchema, componentsFor, componentsOfFile, match
 export type { Commit, Component, ReleaseConfig } from './components.js';
 export { FingerprintFileSchema, compareFingerprints } from './fingerprints.js';
 export type { FingerprintFile } from './fingerprints.js';
-export { tagsFor } from './tags.js';
+export { mapsDataChanged } from './maps.js';
+export { newestTag, tagsFor } from './tags.js';

@@ -1,14 +1,16 @@
 import { readFileSync } from 'node:fs';
-import { COMPONENTS, ReleaseConfigSchema, componentsFor, versionProblems, type Component } from '../features/release/index.js';
+import { COMPONENTS, ReleaseConfigSchema, componentsFor, mapsDataChanged, versionProblems, type Component } from '../features/release/index.js';
 import { VersionsSchema, parseVersionCheckArgs } from '../shared/config/index.js';
 import { DataError, exitCodeFor } from '../shared/errors/index.js';
-import { changedFiles, commitsSince, showFile } from './git.js';
+import { changedFiles, commitsSince, mergeBase, showFile } from './git.js';
 
-// Compares config/versions.json at --base and at HEAD with what the pull request touched. Reads config/release.json
-// from the current directory. Warns until release.json says enforce, then fails.
+// Compares config/versions.json at --base and at HEAD with what the pull request touched, and public/data/index.json
+// at both for the maps release. Reads config/release.json from --base, so a pull request cannot loosen its own check
+// (HEAD's copy is used only when the base has none). Warns until release.json says enforce, then fails.
 
 function check(): void {
   const { base } = parseVersionCheckArgs(process.argv.slice(2));
+  if (mergeBase(base, 'HEAD') === null) throw new DataError(`no common history with ${base}; rebase this branch onto ${base}`);
   const baseText = showFile(base, 'config/versions.json');
   if (baseText === null) {
     console.log(`::notice::${base} has no config/versions.json, so there is nothing to compare against`);
@@ -16,7 +18,12 @@ function check(): void {
   }
   const headText = showFile('HEAD', 'config/versions.json');
   if (headText === null) throw new DataError('config/versions.json is missing at HEAD');
-  const cfg = ReleaseConfigSchema.parse(JSON.parse(readFileSync('config/release.json', 'utf8')));
+  let cfgText = showFile(base, 'config/release.json');
+  if (cfgText === null) {
+    console.log(`::notice::${base} has no config/release.json, so this branch's copy is used`);
+    cfgText = readFileSync('config/release.json', 'utf8');
+  }
+  const cfg = ReleaseConfigSchema.parse(JSON.parse(cfgText));
 
   // Only files still different at HEAD count, so a file changed and put back in the same PR is not "touched".
   const net = new Set(changedFiles(base, 'HEAD'));
@@ -31,6 +38,7 @@ function check(): void {
     head: VersionsSchema.parse(JSON.parse(headText)),
     touched,
     changelogs,
+    mapsDataChanged: mapsDataChanged(showFile(base, 'public/data/index.json'), showFile('HEAD', 'public/data/index.json')),
   });
   if (problems.length === 0) {
     console.log('version-check: ok');

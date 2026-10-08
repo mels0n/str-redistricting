@@ -3,7 +3,7 @@
   "paths": {
     "engine": ["src/server/**"],
     "input": ["config/census-sha256.json", "config/enacted.json"],
-    "maps": ["public/data/**"],
+    "maps": [],
     "schema": ["src/server/entities/plan-output/schema.ts", "src/server/features/publish/**", "src/server/features/export/**"],
     "web": ["src/client/**", "index.html", "public/*"],
     "docs": ["docs/**", "README.md"]
@@ -26,6 +26,9 @@
       "src/server/app/fingerprints.ts",
       "src/server/app/git.ts",
       "src/server/app/fixtures.ts",
+      "src/server/features/census-watch/**",
+      "src/server/app/census-watch.ts",
+      "src/server/shared/http/**",
       "src/server/shared/config/versions.ts"
     ],
     "input": [],
@@ -34,7 +37,7 @@
     "web": [],
     "docs": []
   },
-  "ignore": ["tests/**", ".github/**", "config/versions.json", "config/release.json", "changelog/**"],
+  "ignore": ["public/data/**", "tests/**", ".github/**", "config/versions.json", "config/release.json", "changelog/**"],
   "docsTypes": ["copy", "docs"],
   "fixtureStates": ["RI", "DE", "VT", "HI"]
 }

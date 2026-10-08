@@ -20,6 +20,17 @@ export function showFile(ref: string, path: string): string | null {
   return tryGit(['show', `${ref}:${path}`]);
 }
 
+/** Every tag in the repository. */
+export function listTags(): string[] {
+  return git(['tag', '--list']).split('\n').filter(Boolean);
+}
+
+/** The best common ancestor of two refs, or null when they share no history. */
+export function mergeBase(a: string, b: string): string | null {
+  const out = tryGit(['merge-base', a, b]);
+  return out === null ? null : out.trim();
+}
+
 export function tagExists(tag: string): boolean {
   return tryGit(['rev-parse', '--verify', '--quiet', `refs/tags/${tag}`]) !== null;
 }

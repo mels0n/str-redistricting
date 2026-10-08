@@ -17,7 +17,7 @@
 export type Plan = 'finished' | 'before';
 
 /** Sections of the How it works page, in page order. */
-export const HOW_SECTIONS = ['inputs', 'cut', 'strays', 'recursion', 'balancing', 'fingerprint', 'sources'] as const;
+export const HOW_SECTIONS = ['inputs', 'cut', 'strays', 'recursion', 'balancing', 'fingerprint', 'sources', 'strange'] as const;
 export type HowSection = (typeof HOW_SECTIONS)[number];
 
 export type Route =

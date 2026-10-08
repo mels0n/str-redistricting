@@ -48,6 +48,7 @@ const TITLES: Record<HowSection, string> = {
   balancing: 'Balancing, and why it is needed',
   fingerprint: 'Same data, same map',
   sources: 'Data sources and limits',
+  strange: 'Why does my district look strange?',
 };
 
 const sectionId = (s: HowSection): string => `strv-how-${s}`;
@@ -516,6 +517,25 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
         li('The maps are drawn from census blocks, and census blocks include water: they run out to the state’s legal boundary, across lakes, bays and coastal water. Each district therefore covers the water inside its edge, and that water is part of the district and counts toward connection. The viewer shows it paler so the land stands out, and shows the selected district’s water in full color. When a district uses an island link, the link appears as a dashed line while that district is selected. None of this changes the districts, the people counted or any number.'),
         li('Address search asks the Census Bureau which census block the address is in. When the Census Bureau names the block, address search reads that block’s district from the map file, so the answer is exact. Otherwise it uses the drawn shapes.'),
       ),
+    ),
+    section(
+      'strange',
+      8,
+      p('A strange shape is not a mistake. The generator runs the same steps in every state, and the map is whatever those steps produce. Nobody looks at the result and fixes it.'),
+      p('The generator doesn’t know what a town, a county, a river, a highway or a neighborhood is. All it sees is how many people live in each census block and the block’s shape. So a line can run through a city, split a county or cross a bay. Bays are made of census blocks too.'),
+      p('“It looks wrong” usually means it doesn’t match a picture you already have, like the old district lines, the county map, or where you feel your area ends. People drew those pictures. Making the map match them would mean adding back the human choices this method leaves out.'),
+      h('h3', { class: 'strv-how__h3' }, 'Where odd edges come from'),
+      h(
+        'ul',
+        { class: 'strv-how__list' },
+        li(h('strong', null, 'Stair steps.'), ' The line follows census block edges and keeps every block whole, so a straight guide line becomes a ragged border.'),
+        li(h('strong', null, 'Notches and small bumps.'), ' The balancing pass moves single blocks across borders to even out the population, one block at a time.'),
+        li(h('strong', null, 'Across water.'), ' Water is census blocks like any other, so a district can join two shores, and an island link can join land no block reaches.'),
+        li(h('strong', null, 'Long or thin pieces.'), ' The shortest border wins each cut, and in a state shaped by its people rather than a neat outline, the shortest border can still leave a long piece.'),
+      ),
+      h('h3', { class: 'strv-how__h3' }, 'Check it yourself'),
+      p('Every border traces back to a cut you can replay on the state’s map, ', h('a', { href: formatHash(stateRoute('CO', { cut: 0 })) }, 'starting with Colorado’s first cut'), '. Anyone who reruns the generator gets the same map and the same fingerprint.'),
+      p('The rules themselves, shortest border and equal population, were chosen once and up front. They apply to every state alike and were fixed before any map existed. Nobody chose any single line.'),
     ),
   );
 

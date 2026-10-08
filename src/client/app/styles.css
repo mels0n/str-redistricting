@@ -3042,6 +3042,10 @@ html:has(> body > #str-viewer) {
   padding: var(--s-1) 0;
 }
 
+.strv-explain__more--next {
+  padding-top: 0;
+}
+
 /* ---------- State head links ---------- */
 
 .strv-state__links {

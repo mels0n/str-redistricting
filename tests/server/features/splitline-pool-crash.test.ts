@@ -4,6 +4,7 @@ import { WorkerPoolError } from '../../../src/server/shared/errors/index.js';
 import { gridBlocks } from '../../helpers/grid.js';
 
 const dyingUrl = new URL('../../helpers/dying-scan-worker.ts', import.meta.url);
+const wrongIdUrl = new URL('../../helpers/wrong-id-scan-worker.ts', import.meta.url);
 const all = (n: number) => Int32Array.from({ length: n }, (_, i) => i);
 const ctx = createContext(gridBlocks(6, 6), 1);
 const search = (pool: ScanPool) => findCut(ctx, all(36), 2, undefined, { pool });
@@ -27,6 +28,14 @@ describe('pool with a dying worker', () => {
     const t1 = Date.now();
     expect(() => search(pool)).toThrow(/unusable/);
     expect(Date.now() - t1).toBeLessThan(1000);
+    await pool.close();
+  }, 30_000);
+
+  it('breaks the pool when a worker answers a different request', async () => {
+    const pool = new ScanPool(2, wrongIdUrl);
+    expect(() => search(pool)).toThrow(WorkerPoolError);
+    expect(pool.broken).toBe(true);
+    expect(() => search(pool)).toThrow(/unusable/);
     await pool.close();
   }, 30_000);
 

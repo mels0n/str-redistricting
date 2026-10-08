@@ -4,6 +4,15 @@ name: Enacted districts update
 # pull request that updates the comparison overlay. The checks run here, before the pull request exists, because a
 # pull request opened with GITHUB_TOKEN does not trigger the other workflows. Needs the repository setting
 # "Allow GitHub Actions to create and approve pull requests" (Settings > Actions > General).
+#
+# Two jobs, so that no job runs repository or dependency code while it holds a write token:
+#   prepare  - read-only, no token, no persisted checkout credentials. Installs dependencies, downloads and rebuilds
+#              the overlay, runs typecheck, depcruise, tests and build, and hands over ONLY the allowlisted changed
+#              files as one tarball artifact.
+#   open-pr  - holds contents: write and pull-requests: write, runs no npm and no repository scripts. Re-checks the
+#              allowlist, commits exactly those files, pushes the branch and opens the pull request.
+# A pull request in ANY state (open, closed or merged) for a file means skip: closed means it was rejected. A branch
+# with no pull request is a leftover from a failed run and is rebuilt and force-pushed (see open-pr).
 
 on:
   schedule:
@@ -20,18 +29,28 @@ concurrency:
   cancel-in-progress: false
 
 permissions:
-  contents: write
-  pull-requests: write
+  contents: read
+
+env:
+  # The only paths an update may change. Used by both jobs.
+  ALLOWED: '^(config/(enacted|census-sha256)\.json|public/data/[A-Z]{2}/(enacted\.topo|stats)\.json)$'
 
 jobs:
-  update:
+  prepare:
     runs-on: ubuntu-latest
     timeout-minutes: 45
-    env:
-      GH_TOKEN: ${{ github.token }}
+    permissions:
+      contents: read
+    outputs:
+      changed: ${{ steps.changes.outputs.changed }}
+      file: ${{ steps.detect.outputs.file }}
+      year: ${{ steps.detect.outputs.year }}
+      congress: ${{ steps.detect.outputs.congress }}
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       - uses: actions/setup-node@v4
         with:
@@ -70,39 +89,28 @@ jobs:
             echo "congress=${BASH_REMATCH[2]}"
           } >> "$GITHUB_OUTPUT"
 
-      - name: Skip if this file already has a branch or pull request
-        id: existing
-        if: steps.detect.outputs.update == 'true'
-        env:
-          BRANCH: auto/enacted-${{ steps.detect.outputs.file }}
-        run: |
-          set -euo pipefail
-          prs=$(gh pr list --head "$BRANCH" --state all --json number --jq 'length')
-          if [ "$prs" != "0" ] || git ls-remote --exit-code --heads origin "$BRANCH" > /dev/null; then
-            echo "skip=true" >> "$GITHUB_OUTPUT"
-            echo "A branch or pull request for $BRANCH already exists. Nothing to do."
-          else
-            echo "skip=false" >> "$GITHUB_OUTPUT"
-          fi
-
       - name: Download the file and rebuild the overlay
-        if: steps.detect.outputs.update == 'true' && steps.existing.outputs.skip == 'false'
+        if: steps.detect.outputs.update == 'true'
         env:
           FILE: ${{ steps.detect.outputs.file }}
         run: npm run enacted:bump -- --file "$FILE"
 
       - name: Only the expected files changed
         id: changes
-        if: steps.detect.outputs.update == 'true' && steps.existing.outputs.skip == 'false'
+        if: steps.detect.outputs.update == 'true'
         run: |
           set -euo pipefail
-          if [ -z "$(git status --porcelain)" ]; then
+          if [ -z "$(git status --porcelain --untracked-files=all)" ]; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
             echo "The update changed nothing. Nothing to do."
             exit 0
           fi
-          unexpected=$(git status --porcelain | cut -c4- \
-            | grep -Ev '^(config/(enacted|census-sha256)\.json|public/data/[A-Z]{2}/(enacted\.topo|stats)\.json)$' || true)
+          # Deletions and renames are never expected.
+          if git status --porcelain --untracked-files=all | grep -E '^(.[DR]|[DR].)'; then
+            echo "::error::The update deleted or renamed files."
+            exit 1
+          fi
+          unexpected=$(git status --porcelain --untracked-files=all | cut -c4- | grep -Ev "$ALLOWED" || true)
           if [ -n "$unexpected" ]; then
             echo "::error::The update touched files it should not have:"
             echo "$unexpected"
@@ -126,29 +134,127 @@ jobs:
         if: steps.changes.outputs.changed == 'true'
         run: npm run build
 
-      - name: Commit and push a branch
-        id: push
+      - name: Only the expected files changed (after the checks)
         if: steps.changes.outputs.changed == 'true'
+        run: |
+          set -euo pipefail
+          if git status --porcelain --untracked-files=all | grep -E '^(.[DR]|[DR].)'; then
+            echo "::error::The checks deleted or renamed files."
+            exit 1
+          fi
+          unexpected=$(git status --porcelain --untracked-files=all | cut -c4- | grep -Ev "$ALLOWED" || true)
+          if [ -n "$unexpected" ]; then
+            echo "::error::The checks touched files they should not have:"
+            echo "$unexpected"
+            exit 1
+          fi
+
+      - name: Pack the changed files
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          set -euo pipefail
+          git status --porcelain --untracked-files=all | cut -c4- > "$RUNNER_TEMP/files.txt"
+          tar -czf "$RUNNER_TEMP/enacted-update.tgz" -T "$RUNNER_TEMP/files.txt"
+
+      - name: Upload the changed files
+        if: steps.changes.outputs.changed == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: enacted-update
+          path: ${{ runner.temp }}/enacted-update.tgz
+          if-no-files-found: error
+          retention-days: 7
+
+  open-pr:
+    needs: prepare
+    if: needs.prepare.outputs.changed == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+      pull-requests: write
+    env:
+      BRANCH: auto/enacted-${{ needs.prepare.outputs.file }}
+      FILE: ${{ needs.prepare.outputs.file }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Skip if this file already has a pull request
+        id: existing
         env:
-          BRANCH: auto/enacted-${{ steps.detect.outputs.file }}
-          FILE: ${{ steps.detect.outputs.file }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          # Any state counts: open, closed (rejected) or merged. A branch without a pull request is NOT a reason to
+          # skip: it is what a failed "gh pr create" leaves behind, and skipping would hide that forever.
+          prs=$(gh pr list --head "$BRANCH" --state all --json number --jq 'length')
+          if [ "$prs" != "0" ]; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            echo "A pull request for $BRANCH already exists. Nothing to do."
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Download the changed files
+        if: steps.existing.outputs.skip == 'false'
+        uses: actions/download-artifact@v4
+        with:
+          name: enacted-update
+          path: ${{ runner.temp }}/artifact
+
+      - name: Unpack, re-check the allowlist
+        if: steps.existing.outputs.skip == 'false'
+        run: |
+          set -euo pipefail
+          tgz="$RUNNER_TEMP/artifact/enacted-update.tgz"
+          # Regular files only, and every path must be on the allowlist, before anything is extracted.
+          if tar -tvzf "$tgz" | grep -v '^-'; then
+            echo "::error::The artifact holds something other than regular files."
+            exit 1
+          fi
+          bad=$(tar -tzf "$tgz" | grep -Ev "$ALLOWED" || true)
+          if [ -n "$bad" ]; then
+            echo "::error::The artifact holds files outside the allowlist:"
+            echo "$bad"
+            exit 1
+          fi
+          tar -xzf "$tgz"
+          if git status --porcelain --untracked-files=all | grep -E '^(.[DR]|[DR].)'; then
+            echo "::error::Unexpected deletions or renames."
+            exit 1
+          fi
+          unexpected=$(git status --porcelain --untracked-files=all | cut -c4- | grep -Ev "$ALLOWED" || true)
+          if [ -n "$unexpected" ]; then
+            echo "::error::Files outside the allowlist changed:"
+            echo "$unexpected"
+            exit 1
+          fi
+          if [ -z "$(git status --porcelain --untracked-files=all)" ]; then
+            echo "::error::The artifact changed nothing."
+            exit 1
+          fi
+
+      - name: Commit and push a branch
+        if: steps.existing.outputs.skip == 'false'
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git checkout -b "$BRANCH"
-          git add config/enacted.json config/census-sha256.json public/data
+          git checkout -B "$BRANCH"
+          git status --porcelain --untracked-files=all | cut -c4- | xargs -d '\n' git add --
           git commit -m "chore(data): update enacted districts to $FILE" \
             -m "Rebuilds enacted.topo.json and the enactedSource in stats.json for every state, and pins the new Census file in config/census-sha256.json. Display only: no generated district changes."
-          git push origin "$BRANCH"
+          # The auto/enacted-* branch is bot-owned and, having no pull request (checked above), is either new or left
+          # over from a run whose "gh pr create" failed. Force-update it so the retry starts from fresh output.
+          git push --force origin "$BRANCH"
 
       - name: Open the pull request
-        if: steps.changes.outputs.changed == 'true'
+        if: steps.existing.outputs.skip == 'false'
         env:
-          BRANCH: auto/enacted-${{ steps.detect.outputs.file }}
-          FILE: ${{ steps.detect.outputs.file }}
-          YEAR: ${{ steps.detect.outputs.year }}
-          CONGRESS: ${{ steps.detect.outputs.congress }}
+          GH_TOKEN: ${{ github.token }}
+          YEAR: ${{ needs.prepare.outputs.year }}
+          CONGRESS: ${{ needs.prepare.outputs.congress }}
           BASE: ${{ github.event.repository.default_branch }}
         run: |
           set -euo pipefail

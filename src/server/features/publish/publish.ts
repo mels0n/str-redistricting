@@ -81,8 +81,6 @@ async function publishState(state: StateInfo, cfg: PublishConfig, shared: Shared
 
   const [official, before] = [await readMetrics(src), await readMetrics(srcBefore)];
   const versions = stampOf(VERSIONS);
-  // Before any work or write: a map may only change when the engine major or the input revision moves.
-  checkPublishGate(await readPublishedState(join(dest, 'stats.json')), { versions, sha: official.assignmentSha256 }, cfg.baseline, state.abbr);
   const [officialCsv, beforeCsv] = [await readFile(join(src, 'assignment.csv'), 'utf8'), await readFile(join(srcBefore, 'assignment.csv'), 'utf8')];
   // Display only: separate land pieces with people on them per district, from the same district files the water mask uses.
   const allBlocks = await loadStateBlocks(state, cfg.cacheDir);
@@ -315,6 +313,12 @@ export async function publishData(cfg: PublishConfig): Promise<void> {
   if (cfg.blocksOnly) return publishBlocksOnly(cfg);
   const withData = statesWithData(cfg.outDir);
   const selected = cfg.states === undefined ? withData : withData.filter((s) => cfg.states!.some((x) => x.abbr === s.abbr));
+  // Before any write: a map may only change when the engine major or the input revision moves, and one refused state refuses the run.
+  const versions = stampOf(VERSIONS);
+  for (const s of selected) {
+    const next = { versions, sha: (await readMetrics(join(cfg.outDir, s.abbr))).assignmentSha256 };
+    checkPublishGate(await readPublishedState(join(cfg.publicDir, s.abbr, 'stats.json')), next, cfg.baseline, s.abbr);
+  }
   await mkdir(cfg.publicDir, { recursive: true });
 
   const outlines = (await loadStates(cfg.cacheDir)).filter((o) => STATES.some((s) => s.abbr === o.abbr));

@@ -274,7 +274,8 @@ describe('How page: why a district can look strange', () => {
     const sections = [...page.el.querySelectorAll('section.strv-how__section')];
     const last = sections[sections.length - 1]!;
     expect(last.id).toBe('strv-how-strange');
-    expect(last.querySelector('h2')?.textContent).toBe('8Why does my district look strange?');
+    expect(last.querySelector('h2')?.textContent).toContain('Why does my district look strange?');
+    expect(last.querySelector('a[href="#/CO/cut/1"]')?.textContent).toBe('starting with Colorado’s first cut');
     expect(page.el.querySelector('.strv-how__toc a[data-section="strange"]')).not.toBeNull();
     expect(last.textContent).toContain('Nobody chose any single line.');
     expect(last.textContent).not.toContain('—');

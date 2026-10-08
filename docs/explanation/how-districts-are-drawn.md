@@ -111,9 +111,9 @@ The generator doesn't know what a town, a county, a river, a highway or a neighb
 
 "It looks wrong" usually means it doesn't match a picture you already have, like the old district lines, the county map, or where you feel your area ends. People drew those pictures. Making the map match them would mean adding back the human choices this method leaves out.
 
-Odd edges have plain causes. Stair steps come from following block edges and keeping every block whole. Notches and small bumps come from the balancing pass moving single blocks. A district crosses water because water is census blocks like any other, and island links join land no block reaches. A long or thin piece is what the shortest border left, since the people, not a neat outline, decide where that is.
+Odd edges have plain causes. Stair steps come from following block edges and keeping every block whole. Notches and small bumps come from the balancing pass moving single blocks. A district crosses water because water is census blocks like any other, and island links join land no block reaches. The shortest border wins each cut, and the people, not a neat outline, decide where that is, so it sometimes leaves a long or thin piece.
 
-Every border traces back to a cut that can be replayed in the viewer, and anyone who reruns the generator gets the same map and the same fingerprint. The rules themselves, shortest border and equal population, were chosen once and up front. They apply to every state alike and were fixed before any map existed. Nobody chose any single line.
+Every border traces back to a cut or a balancing move, both of which can be replayed in the viewer, and anyone who reruns the generator gets the same map and the same fingerprint. The rules themselves, shortest border and equal population, were chosen once and up front. They apply to every state alike and were fixed before any map existed. Nobody chose any single line.
 
 ## What is written for each state
 

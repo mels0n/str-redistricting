@@ -275,7 +275,7 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
     h(
       'div',
       { class: 'strv-how__toc-inner' },
-      h('h2', { id: 'strv-how-toc-h', class: 'strv-how__toc-h' }, 'Stages'),
+      h('h2', { id: 'strv-how-toc-h', class: 'strv-how__toc-h' }, 'On this page'),
       h(
         'ol',
         { class: 'strv-how__toc-list' },
@@ -531,10 +531,10 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
         li(h('strong', null, 'Stair steps.'), ' The line follows census block edges and keeps every block whole, so a straight guide line becomes a ragged border.'),
         li(h('strong', null, 'Notches and small bumps.'), ' The balancing pass moves single blocks across borders to even out the population, one block at a time.'),
         li(h('strong', null, 'Across water.'), ' Water is census blocks like any other, so a district can join two shores, and an island link can join land no block reaches.'),
-        li(h('strong', null, 'Long or thin pieces.'), ' The shortest border wins each cut, and in a state shaped by its people rather than a neat outline, the shortest border can still leave a long piece.'),
+        li(h('strong', null, 'Long or thin pieces.'), ' The shortest border wins each cut, and the people, not a neat outline, decide where that is. Sometimes it leaves a long piece.'),
       ),
       h('h3', { class: 'strv-how__h3' }, 'Check it yourself'),
-      p('Every border traces back to a cut you can replay on the state’s map, ', h('a', { href: formatHash(stateRoute('CO', { cut: 0 })) }, 'starting with Colorado’s first cut'), '. Anyone who reruns the generator gets the same map and the same fingerprint.'),
+      p('Every border traces back to a cut or a balancing move, and both can be replayed on the state’s map, ', h('a', { href: formatHash(stateRoute('CO', { cut: 1 })) }, 'starting with Colorado’s first cut'), '. Anyone who reruns the generator gets the same map and the same fingerprint.'),
       p('The rules themselves, shortest border and equal population, were chosen once and up front. They apply to every state alike and were fixed before any map existed. Nobody chose any single line.'),
     ),
   );

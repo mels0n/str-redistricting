@@ -1,0 +1,277 @@
+{
+  "cb_2020_us_county_20m.zip": {
+    "url": "https://www2.census.gov/geo/tiger/GENZ2020/shp/cb_2020_us_county_20m.zip",
+    "lastModified": "Fri, 19 May 2023 00:20:26 GMT",
+    "contentLength": 893148
+  },
+  "cb_2020_us_state_500k.zip": {
+    "url": "https://www2.census.gov/geo/tiger/GENZ2020/shp/cb_2020_us_state_500k.zip",
+    "lastModified": "Fri, 19 May 2023 18:50:29 GMT",
+    "contentLength": 3548589
+  },
+  "cb_2024_us_cd119_500k.zip": {
+    "url": "https://www2.census.gov/geo/tiger/GENZ2024/shp/cb_2024_us_cd119_500k.zip",
+    "lastModified": "Thu, 10 Apr 2025 16:26:02 GMT",
+    "contentLength": 7045981
+  },
+  "cb_2025_us_cd119_500k.zip": {
+    "url": "https://www2.census.gov/geo/tiger/GENZ2025/shp/cb_2025_us_cd119_500k.zip",
+    "lastModified": "Thu, 23 Apr 2026 13:45:35 GMT",
+    "contentLength": 7067743
+  },
+  "cb_2025_us_state_20m.zip": {
+    "url": "https://www2.census.gov/geo/tiger/GENZ2025/shp/cb_2025_us_state_20m.zip",
+    "lastModified": "Thu, 23 Apr 2026 13:45:35 GMT",
+    "contentLength": 184850
+  },
+  "tl_2020_01_tabblock20.zip": {
+    "url": "https://www2.census.gov/geo/tiger/TIGER2020/TABBLOCK20/tl_2020_01_tabblock20.zip",
+    "lastModified": "Fri, 06 Jan 2023 21:45:36 GMT",
+    "contentLength": 255921861
+  },
+  "tl_2020_02_tabblock20.zip": {
+    "url": "https://www2.census.gov/geo/tiger/TIGER2020/TABBLOCK20/tl_2020_02_tabblock20.zip",
+    "lastModified": "Fri, 06 Jan 2023 21:45:37 GMT",
+    "contentLength": 130404435
+  },
+  "tl_2020_04_tabblock20.zip": {
+    "url": "https://www2.census.gov/geo/tiger/TIGER2020/TABBLOCK20/tl_2020_04_tabblock20.zip",
+    "lastModified": "Fri, 06 Jan 2023 21:45:38 GMT",
+    "contentLength": 204298997
+  },
+  "tl_2020_05_tabblock20.zip": {
+    "url": "https://www2.census.gov/geo/tiger/TIGER2020/TABBLOCK20/tl_2020_05_tabblock20.zip",
+    "lastModified": "Fri, 06 Jan 2023 21:45:39 GMT",
+    "contentLength": 223619657
+  },
+  "tl_2020_06_tabblock20.zip": {
+    "url": "https://www2.census.gov/geo/tiger/TIGER2020/TABBLOCK20/tl_2020_06_tabblock20.zip",
+    "lastModified": "Tue, 07 Mar 2023 15:08:47 GMT",
+    "contentLength": 382375859
+  },
+  "tl_2020_08_tabblock20.zip": {
+    "url": "https://www2.census.gov/geo/tiger/TIGER2020/TABBLOCK20/tl_2020_08_tabblock20.zip",
+    "lastModified": "Fri, 06 Jan 2023 21:45:43 GMT",
+    "contentLength": 218525462
+  },
+  "tl_2020_09_tabblock20.zip": {
+    "url": "https://www2.census.gov/geo/tiger/TIGER2020/TABBLOCK20/tl_2020_09_tabblock20.zip",
+    "lastModified": "Fri, 06 Jan 2023 21:45:44 GMT",
+    "contentLength": 61439410
+  },
+  "tl_2020_10_tabblock20.zip": {
+    "url": "https://www2.census.gov/geo/tiger/TIGER2020/TABBLOCK20/tl_2020_10_tabblock20.zip",
+    "lastModified": "Fri, 06 Jan 2023 21:45:44 GMT",
+    "contentLength": 21469676
+  },
+  "tl_2020_12_tabblock20.zip": {
+    "url": "https://www2.census.gov/geo/tiger/TIGER2020/TABBLOCK20/tl_2020_12_tabblock20.zip",
+    "lastModified": "Fri, 06 Jan 2023 21:45:46 GMT",
+    "contentLength": 353358123
+  },
+  "tl_2020_13_tabblock20.zip": {
+    "url": "https://www2.census.gov/geo/tiger/TIGER2020/TABBLOCK20/tl_2020_13_tabblock20.zip",
+    "lastModified": "Fri, 29 Dec 2023 14:48:20 GMT",
+    "contentLength": 163736833
+  },
+  "tl_2020_15_tabblock20.zip": {
+    "url": "https://www2.census.gov/geo/tiger/TIGER2020/TABBLOCK20/tl_2020_15_tabblock20.zip",
+    "lastModified": "Fri, 06 Jan 2023 21:45:48 GMT",
+    "contentLength": 24070539
+  },
+  "tl_2020_16_tabblock20.zip": {
+    "url": "https://www2.census.gov/geo/tiger/TIGER2020/TABBLOCK20/tl_2020_16_tabblock20.zip",
+    "lastModified": "Fri, 06 Jan 2023 21:45:49 GMT",
+    "contentLength": 195436937
+  },
+  "tl_2020_17_tabblock20.zip": {
+    "url": "https://www2.census.gov/geo/tiger/TIGER2020/TABBLOCK20/tl_2020_17_tabblock20.zip",
+    "lastModified": "Fri, 06 Jan 2023 21:45:50 GMT",
+    "contentLength": 306602097
+  },
+  "tl_2020_18_tabblock20.zip": {
+    "url": "https://www2.census.gov/geo/tiger/TIGER2020/TABBLOCK20/tl_2020_18_tabblock20.zip",
+    "lastModified": "Fri, 06 Jan 2023 21:45:51 GMT",
+    "contentLength": 198328801
+  },
+  "tl_2020_19_tabblock20.zip": {
+    "url": "https://www2.census.gov/geo/tiger/TIGER2020/TABBLOCK20/tl_2020_19_tabblock20.zip",
+    "lastModified": "Fri, 06 Jan 2023 21:45:52 GMT",
+    "contentLength": 165038337
+  },
+  "tl_2020_20_tabblock20.zip": {
+    "url": "https://www2.census.gov/geo/tiger/TIGER2020/TABBLOCK20/tl_2020_20_tabblock20.zip",
+    "lastModified": "Fri, 06 Jan 2023 21:45:52 GMT",
+    "contentLength": 162837181
+  },
+  "tl_2020_21_tabblock20.zip": {
+    "url": "https://www2.census.gov/geo/tiger/TIGER2020/TABBLOCK20/tl_2020_21_tabblock20.zip",
+    "lastModified": "Fri, 06 Jan 2023 21:45:54 GMT",
+    "contentLength": 265195721
+  },
+  "tl_2020_22_tabblock20.zip": {
+    "url": "https://www2.census.gov/geo/tiger/TIGER2020/TABBLOCK20/tl_2020_22_tabblock20.zip",
+    "lastModified": "Fri, 29 Dec 2023 14:49:50 GMT",
+    "contentLength": 108629191
+  },
+  "tl_2020_23_tabblock20.zip": {
+    "url": "https://www2.census.gov/geo/tiger/TIGER2020/TABBLOCK20/tl_2020_23_tabblock20.zip",
+    "lastModified": "Fri, 06 Jan 2023 21:45:55 GMT",
+    "contentLength": 112882262
+  },
+  "tl_2020_24_tabblock20.zip": {
+    "url": "https://www2.census.gov/geo/tiger/TIGER2020/TABBLOCK20/tl_2020_24_tabblock20.zip",
+    "lastModified": "Fri, 06 Jan 2023 21:45:56 GMT",
+    "contentLength": 109605781
+  },
+  "tl_2020_25_tabblock20.zip": {
+    "url": "https://www2.census.gov/geo/tiger/TIGER2020/TABBLOCK20/tl_2020_25_tabblock20.zip",
+    "lastModified": "Fri, 06 Jan 2023 21:45:56 GMT",
+    "contentLength": 106898194
+  },
+  "tl_2020_26_tabblock20.zip": {
+    "url": "https://www2.census.gov/geo/tiger/TIGER2020/TABBLOCK20/tl_2020_26_tabblock20.zip",
+    "lastModified": "Fri, 06 Jan 2023 21:45:57 GMT",
+    "contentLength": 225308229
+  },
+  "tl_2020_27_tabblock20.zip": {
+    "url": "https://www2.census.gov/geo/tiger/TIGER2020/TABBLOCK20/tl_2020_27_tabblock20.zip",
+    "lastModified": "Fri, 06 Jan 2023 21:45:59 GMT",
+    "contentLength": 265232506
+  },
+  "tl_2020_28_tabblock20.zip": {
+    "url": "https://www2.census.gov/geo/tiger/TIGER2020/TABBLOCK20/tl_2020_28_tabblock20.zip",
+    "lastModified": "Fri, 06 Jan 2023 21:45:59 GMT",
+    "contentLength": 202288122
+  },
+  "tl_2020_29_tabblock20.zip": {
+    "url": "https://www2.census.gov/geo/tiger/TIGER2020/TABBLOCK20/tl_2020_29_tabblock20.zip",
+    "lastModified": "Fri, 06 Jan 2023 21:46:01 GMT",
+    "contentLength": 344256630
+  },
+  "tl_2020_30_tabblock20.zip": {
+    "url": "https://www2.census.gov/geo/tiger/TIGER2020/TABBLOCK20/tl_2020_30_tabblock20.zip",
+    "lastModified": "Fri, 06 Jan 2023 21:46:02 GMT",
+    "contentLength": 237571595
+  },
+  "tl_2020_31_tabblock20.zip": {
+    "url": "https://www2.census.gov/geo/tiger/TIGER2020/TABBLOCK20/tl_2020_31_tabblock20.zip",
+    "lastModified": "Fri, 06 Jan 2023 21:46:03 GMT",
+    "contentLength": 96550682
+  },
+  "tl_2020_32_tabblock20.zip": {
+    "url": "https://www2.census.gov/geo/tiger/TIGER2020/TABBLOCK20/tl_2020_32_tabblock20.zip",
+    "lastModified": "Fri, 06 Jan 2023 21:46:03 GMT",
+    "contentLength": 121326353
+  },
+  "tl_2020_33_tabblock20.zip": {
+    "url": "https://www2.census.gov/geo/tiger/TIGER2020/TABBLOCK20/tl_2020_33_tabblock20.zip",
+    "lastModified": "Fri, 06 Jan 2023 21:46:03 GMT",
+    "contentLength": 45390756
+  },
+  "tl_2020_34_tabblock20.zip": {
+    "url": "https://www2.census.gov/geo/tiger/TIGER2020/TABBLOCK20/tl_2020_34_tabblock20.zip",
+    "lastModified": "Fri, 06 Jan 2023 21:46:04 GMT",
+    "contentLength": 122300178
+  },
+  "tl_2020_35_tabblock20.zip": {
+    "url": "https://www2.census.gov/geo/tiger/TIGER2020/TABBLOCK20/tl_2020_35_tabblock20.zip",
+    "lastModified": "Fri, 06 Jan 2023 21:46:05 GMT",
+    "contentLength": 173663847
+  },
+  "tl_2020_36_tabblock20.zip": {
+    "url": "https://www2.census.gov/geo/tiger/TIGER2020/TABBLOCK20/tl_2020_36_tabblock20.zip",
+    "lastModified": "Fri, 06 Jan 2023 21:46:06 GMT",
+    "contentLength": 325849613
+  },
+  "tl_2020_37_tabblock20.zip": {
+    "url": "https://www2.census.gov/geo/tiger/TIGER2020/TABBLOCK20/tl_2020_37_tabblock20.zip",
+    "lastModified": "Fri, 06 Jan 2023 21:46:08 GMT",
+    "contentLength": 348180093
+  },
+  "tl_2020_38_tabblock20.zip": {
+    "url": "https://www2.census.gov/geo/tiger/TIGER2020/TABBLOCK20/tl_2020_38_tabblock20.zip",
+    "lastModified": "Fri, 06 Jan 2023 21:46:08 GMT",
+    "contentLength": 90191505
+  },
+  "tl_2020_39_tabblock20.zip": {
+    "url": "https://www2.census.gov/geo/tiger/TIGER2020/TABBLOCK20/tl_2020_39_tabblock20.zip",
+    "lastModified": "Fri, 06 Jan 2023 21:46:09 GMT",
+    "contentLength": 280427139
+  },
+  "tl_2020_40_tabblock20.zip": {
+    "url": "https://www2.census.gov/geo/tiger/TIGER2020/TABBLOCK20/tl_2020_40_tabblock20.zip",
+    "lastModified": "Fri, 06 Jan 2023 21:46:10 GMT",
+    "contentLength": 199426822
+  },
+  "tl_2020_41_tabblock20.zip": {
+    "url": "https://www2.census.gov/geo/tiger/TIGER2020/TABBLOCK20/tl_2020_41_tabblock20.zip",
+    "lastModified": "Fri, 06 Jan 2023 21:46:15 GMT",
+    "contentLength": 300974144
+  },
+  "tl_2020_42_tabblock20.zip": {
+    "url": "https://www2.census.gov/geo/tiger/TIGER2020/TABBLOCK20/tl_2020_42_tabblock20.zip",
+    "lastModified": "Fri, 06 Jan 2023 21:46:17 GMT",
+    "contentLength": 409374440
+  },
+  "tl_2020_44_tabblock20.zip": {
+    "url": "https://www2.census.gov/geo/tiger/TIGER2020/TABBLOCK20/tl_2020_44_tabblock20.zip",
+    "lastModified": "Fri, 06 Jan 2023 21:46:17 GMT",
+    "contentLength": 28351631
+  },
+  "tl_2020_45_tabblock20.zip": {
+    "url": "https://www2.census.gov/geo/tiger/TIGER2020/TABBLOCK20/tl_2020_45_tabblock20.zip",
+    "lastModified": "Fri, 06 Jan 2023 21:46:18 GMT",
+    "contentLength": 195482135
+  },
+  "tl_2020_46_tabblock20.zip": {
+    "url": "https://www2.census.gov/geo/tiger/TIGER2020/TABBLOCK20/tl_2020_46_tabblock20.zip",
+    "lastModified": "Fri, 06 Jan 2023 21:46:18 GMT",
+    "contentLength": 103000754
+  },
+  "tl_2020_47_tabblock20.zip": {
+    "url": "https://www2.census.gov/geo/tiger/TIGER2020/TABBLOCK20/tl_2020_47_tabblock20.zip",
+    "lastModified": "Fri, 06 Jan 2023 21:46:20 GMT",
+    "contentLength": 313037548
+  },
+  "tl_2020_48_tabblock20.zip": {
+    "url": "https://www2.census.gov/geo/tiger/TIGER2020/TABBLOCK20/tl_2020_48_tabblock20.zip",
+    "lastModified": "Fri, 06 Jan 2023 21:46:23 GMT",
+    "contentLength": 746348959
+  },
+  "tl_2020_49_tabblock20.zip": {
+    "url": "https://www2.census.gov/geo/tiger/TIGER2020/TABBLOCK20/tl_2020_49_tabblock20.zip",
+    "lastModified": "Fri, 06 Jan 2023 21:46:24 GMT",
+    "contentLength": 166709303
+  },
+  "tl_2020_50_tabblock20.zip": {
+    "url": "https://www2.census.gov/geo/tiger/TIGER2020/TABBLOCK20/tl_2020_50_tabblock20.zip",
+    "lastModified": "Fri, 06 Jan 2023 21:46:24 GMT",
+    "contentLength": 56912635
+  },
+  "tl_2020_51_tabblock20.zip": {
+    "url": "https://www2.census.gov/geo/tiger/TIGER2020/TABBLOCK20/tl_2020_51_tabblock20.zip",
+    "lastModified": "Fri, 06 Jan 2023 21:46:26 GMT",
+    "contentLength": 311011970
+  },
+  "tl_2020_53_tabblock20.zip": {
+    "url": "https://www2.census.gov/geo/tiger/TIGER2020/TABBLOCK20/tl_2020_53_tabblock20.zip",
+    "lastModified": "Fri, 06 Jan 2023 21:46:27 GMT",
+    "contentLength": 203676690
+  },
+  "tl_2020_54_tabblock20.zip": {
+    "url": "https://www2.census.gov/geo/tiger/TIGER2020/TABBLOCK20/tl_2020_54_tabblock20.zip",
+    "lastModified": "Fri, 06 Jan 2023 21:46:27 GMT",
+    "contentLength": 170048369
+  },
+  "tl_2020_55_tabblock20.zip": {
+    "url": "https://www2.census.gov/geo/tiger/TIGER2020/TABBLOCK20/tl_2020_55_tabblock20.zip",
+    "lastModified": "Fri, 06 Jan 2023 21:46:29 GMT",
+    "contentLength": 291345891
+  },
+  "tl_2020_56_tabblock20.zip": {
+    "url": "https://www2.census.gov/geo/tiger/TIGER2020/TABBLOCK20/tl_2020_56_tabblock20.zip",
+    "lastModified": "Fri, 06 Jan 2023 21:46:29 GMT",
+    "contentLength": 140690499
+  }
+}

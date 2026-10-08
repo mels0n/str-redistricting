@@ -182,3 +182,30 @@ export function parseEnactedBumpConfig(argv: readonly string[]): EnactedBumpConf
   if (!parsed.success) throw new ConfigError(parsed.error.issues.map((i) => `${i.path.join('.')} ${i.message}`).join('; '));
   return parsed.data;
 }
+
+export type CensusWatchConfig =
+  | { readonly mode: 'record'; readonly configDir: string }
+  | { readonly mode: 'check'; readonly configDir: string; readonly report: string };
+
+const RawCensusWatch = z.discriminatedUnion('mode', [
+  z.object({ mode: z.literal('record'), configDir: z.string().min(1) }),
+  z.object({ mode: z.literal('check'), configDir: z.string().min(1), report: z.string().min(1, '--report <path> is required with --check') }),
+]);
+
+/** Read once at boot from the command line: `--record`, or `--check --report <path>`. */
+export function parseCensusWatchConfig(argv: readonly string[]): CensusWatchConfig {
+  const { values } = parseArgs({
+    args: [...argv],
+    options: {
+      record: { type: 'boolean', default: false },
+      check: { type: 'boolean', default: false },
+      report: { type: 'string' },
+      'config-dir': { type: 'string', default: 'config' },
+    },
+    strict: true,
+  });
+  if (values.record === values.check) throw new ConfigError('usage: census:watch --record | --check --report <path>');
+  const parsed = RawCensusWatch.safeParse({ mode: values.record ? 'record' : 'check', configDir: values['config-dir'], report: values.report });
+  if (!parsed.success) throw new ConfigError(parsed.error.issues.map((i) => i.message).join('; '));
+  return parsed.data;
+}

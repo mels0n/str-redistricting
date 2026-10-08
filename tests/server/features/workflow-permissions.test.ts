@@ -292,4 +292,15 @@ describe('the Census watch workflow', () => {
     expect(permissionProblems(text)).toEqual([]);
     expect(jobs.find((j) => j.name === 'check')!.steps.some((s) => /npm run/.test(s.run))).toBe(true);
   });
+
+  it('also opens an issue for files that could not be checked, from the same validated report', () => {
+    const text = readFileSync(new URL('census-watch.yml', dir), 'utf8').replace(/\r\n/g, '\n');
+    expect(text).toContain("unknown: ${{ steps.run.outputs.unknown }}");
+    expect(text).toContain("echo \"unknown=$(jq '.unknown | length'");
+    expect(text).toContain("needs.check.outputs.changed != '0' || needs.check.outputs.unknown != '0'");
+    expect(text).toContain('Census files could not be checked: $ucount');
+    expect(text).toContain('startswith("Census files could not be checked:")');
+    const report = parseJobs(text.split('\n')).find((j) => j.name === 'report')!;
+    expect(report.steps.some((s) => /\b(npm|npx|node|tsx)\b/.test(s.run))).toBe(false);
+  });
 });

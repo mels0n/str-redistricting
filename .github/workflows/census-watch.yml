@@ -1,8 +1,8 @@
 name: Census files watch
 
 # Once a month, asks the Census Bureau's file server whether any pinned file was reissued (config/census-sources.json
-# holds what it said last time) and opens one issue listing what changed. It never republishes or commits: a person
-# decides whether a reissue is worth a new input revision.
+# holds what it said last time) and opens one issue listing what changed, and another listing files it could not check.
+# It never republishes or commits: a person decides whether a reissue is worth a new input revision.
 #
 # Two jobs, so that no code from a dependency ever runs holding a token that can write:
 #   check   runs npm with a read-only token and hands over one small JSON report.
@@ -28,6 +28,7 @@ jobs:
       contents: read
     outputs:
       changed: ${{ steps.run.outputs.changed }}
+      unknown: ${{ steps.run.outputs.unknown }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -48,9 +49,10 @@ jobs:
           mkdir -p "$RUNNER_TEMP/census-report"
           npm run -s census:watch -- --check --report "$RUNNER_TEMP/census-report/report.json"
           echo "changed=$(jq '.changed | length' "$RUNNER_TEMP/census-report/report.json")" >> "$GITHUB_OUTPUT"
+          echo "unknown=$(jq '.unknown | length' "$RUNNER_TEMP/census-report/report.json")" >> "$GITHUB_OUTPUT"
 
       - name: Hand over the report
-        if: steps.run.outputs.changed != '0'
+        if: steps.run.outputs.changed != '0' || steps.run.outputs.unknown != '0'
         uses: actions/upload-artifact@v4
         with:
           name: census-report
@@ -60,7 +62,7 @@ jobs:
 
   report:
     needs: check
-    if: needs.check.outputs.changed != '0'
+    if: needs.check.outputs.changed != '0' || needs.check.outputs.unknown != '0'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
@@ -96,20 +98,38 @@ jobs:
             (if (.unknown | length) > 0 then "\nCould not be checked (try again or check by hand):\n" + ([.unknown[] | "- `" + . + "`"] | join("\n")) else "" end),
             "",
             "Nothing was republished. If the new bytes should be adopted, update `config/census-sha256.json`, bump the input revision with `npm run release` and regenerate the affected states."
+          UNKNOWN_BODY: |
+            "The Census Bureau file server could not be asked about these pinned files, so nobody knows whether they changed:",
+            "",
+            (.unknown[] | "- `" + . + "`"),
+            "",
+            "Run the Census files watch again, or check them by hand against `config/census-sha256.json`."
         run: |
           set -euo pipefail
           test -f "$REPORT"
           test ! -L "$REPORT"
           jq -e "$VALIDATE" "$REPORT" > /dev/null
           count=$(jq '.changed | length' "$REPORT")
+          ucount=$(jq '.unknown | length' "$REPORT")
           if [ "$count" = "0" ]; then
-            echo "Nothing changed. No issue."
-            exit 0
+            echo "Nothing changed."
+          else
+            open=$(gh issue list --state open --limit 100 --json title --jq '[.[] | select(.title | startswith("Census files changed:"))] | length')
+            if [ "$open" != "0" ]; then
+              echo "An open issue about changed Census files already exists. Nothing to do."
+            else
+              jq -r "$BODY" "$REPORT" > "$RUNNER_TEMP/body.md"
+              gh issue create --title "Census files changed: $count" --body-file "$RUNNER_TEMP/body.md"
+            fi
           fi
-          open=$(gh issue list --state open --limit 100 --json title --jq '[.[] | select(.title | startswith("Census files changed:"))] | length')
-          if [ "$open" != "0" ]; then
-            echo "An open issue about changed Census files already exists. Nothing to do."
-            exit 0
+          if [ "$ucount" = "0" ]; then
+            echo "Every file could be checked."
+          else
+            open=$(gh issue list --state open --limit 100 --json title --jq '[.[] | select(.title | startswith("Census files could not be checked:"))] | length')
+            if [ "$open" != "0" ]; then
+              echo "An open issue about unchecked Census files already exists. Nothing to do."
+            else
+              jq -r "$UNKNOWN_BODY" "$REPORT" > "$RUNNER_TEMP/unknown.md"
+              gh issue create --title "Census files could not be checked: $ucount" --body-file "$RUNNER_TEMP/unknown.md"
+            fi
           fi
-          jq -r "$BODY" "$REPORT" > "$RUNNER_TEMP/body.md"
-          gh issue create --title "Census files changed: $count" --body-file "$RUNNER_TEMP/body.md"

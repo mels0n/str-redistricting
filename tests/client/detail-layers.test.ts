@@ -20,7 +20,7 @@ import {
   shouldDropDetail,
   twinVisibility,
   waterLayerAt,
-  WATER_COVER_LAYER,
+  pickDistrict,
 } from '../../src/client/widgets/district-map/detail';
 
 const keeps = (filter: Parameters<typeof featureFilter>[0], a: number, b: number): boolean =>
@@ -166,10 +166,45 @@ describe('detail state and fallback', () => {
 
 describe('water hit-testing', () => {
   it('reads the water layer that is drawn: simplified below the swap or after a tile failure, detail past it', () => {
-    expect(waterLayerAt(DETAIL_ZOOM - 0.01, false)).toBe(WATER_COVER_LAYER);
-    expect(waterLayerAt(DETAIL_ZOOM, false)).toBe(`${WATER_COVER_LAYER}-detail`);
-    expect(waterLayerAt(13, true)).toBe(WATER_COVER_LAYER);
+    expect(waterLayerAt(DETAIL_ZOOM - 0.01, false)).toBe('water-cover');
+    expect(waterLayerAt(DETAIL_ZOOM, false)).toBe('water-cover-detail');
+    expect(waterLayerAt(13, true)).toBe('water-cover');
     expect(detailLayerSpecs().some((s) => s.layer.id === waterLayerAt(13, false))).toBe(true);
+  });
+
+  /** A stub map: `hits` maps a layer id to the feature found there, listed topmost first as MapLibre returns them. */
+  const stub = (hits: Record<string, number | null>) => {
+    const asked: string[][] = [];
+    const query = (layers: string[]) => {
+      asked.push(layers);
+      return Object.keys(hits).filter((id) => layers.includes(id)).map((id) => ({ layer: { id }, properties: hits[id] === null ? {} : { district: hits[id] } }));
+    };
+    return { query, asked };
+  };
+
+  it('picks no district on water, even where a district fill lies underneath', () => {
+    expect(pickDistrict(stub({ 'water-cover': null, 'fill-finished': 3 }).query, 5, false)).toBeNull();
+    expect(pickDistrict(stub({ 'water-cover-detail': null, 'fill-finished-detail': 3 }).query, 10, false)).toBeNull();
+  });
+  it('asks the water layer drawn at the zoom: detail past the swap, simplified below it or after a tile failure', () => {
+    for (const [zoom, failed, layer] of [[5, false, 'water-cover'], [9, false, 'water-cover-detail'], [12, true, 'water-cover']] as const) {
+      const s = stub({});
+      pickDistrict(s.query, zoom, failed);
+      expect(s.asked[0]).toEqual([layer]);
+    }
+  });
+  it('picks the district on land', () => {
+    expect(pickDistrict(stub({ 'fill-finished': 4 }).query, 5, false)).toBe(4);
+    expect(pickDistrict(stub({ 'fill-finished-detail': 4, 'fill-finished': 4, 'water-cover': null }).query, 10, false)).toBe(4);
+  });
+  it('picks nothing outside the state or on a feature without a district number', () => {
+    expect(pickDistrict(stub({}).query, 5, false)).toBeNull();
+    expect(pickDistrict(stub({ 'fill-finished': null }).query, 5, false)).toBeNull();
+  });
+  it('keeps water unclickable past the swap while the detail tiles there are still loading', () => {
+    // Detail tiles not loaded: no detail water and no detail fill, only the simplified layers answer.
+    expect(pickDistrict(stub({ 'fill-finished': 3, 'water-cover': null }).query, 10, false)).toBeNull();
+    expect(pickDistrict(stub({ 'fill-finished': 3 }).query, 10, false)).toBe(3);
   });
 });
 

@@ -35,7 +35,7 @@ import {
 import {
   DETAIL_SOURCE,
   WATER_COVER_LAYER,
-  waterLayerAt,
+  pickDistrict,
   FILL_OPACITY,
   BORDER_WIDTH,
   OUTLINE_WIDTH,
@@ -580,13 +580,8 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
       paint: { 'line-color': tokens.signal, 'line-width': 2.5 },
     });
 
-    const fillLayers = ['fill-finished', 'fill-before', 'fill-finished-detail', 'fill-before-detail'];
-    const pick = (pt: PointLike): number | null => {
-      if (map.queryRenderedFeatures(pt, { layers: [waterLayerAt(map.getZoom(), detailFailed)] }).length > 0) return null;
-      const f = map.queryRenderedFeatures(pt, { layers: fillLayers })[0];
-      const d = f?.properties?.district;
-      return typeof d === 'number' ? d : null;
-    };
+    const pick = (pt: PointLike): number | null =>
+      pickDistrict((layers) => map.queryRenderedFeatures(pt, { layers }), map.getZoom(), detailFailed);
     map.on('click', (e) => opts.onSelect(pick(e.point)));
     if (!coarse) {
       map.on('mousemove', (e) => {

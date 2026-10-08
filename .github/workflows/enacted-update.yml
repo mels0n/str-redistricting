@@ -3,7 +3,12 @@ name: Enacted districts update
 # Looks for a newer enacted congressional districts file from the Census Bureau and, when there is one, opens a
 # pull request that updates the comparison overlay. The checks run here, before the pull request exists, because a
 # pull request opened with GITHUB_TOKEN does not trigger the other workflows. Needs the repository setting
-# "Allow GitHub Actions to create and approve pull requests" (Settings > Actions > General).
+# "Allow GitHub Actions to create and approve pull requests" (Settings > Actions > General), which is what lets a
+# workflow open one. This workflow only ever opens a pull request; a person reviews and merges it.
+#
+# Two jobs, so that no code from a dependency ever runs holding a token that can write:
+#   build    runs npm, the tests and the build with a read-only token, and hands over only the files the update may change.
+#   open-pr  holds the write token, runs no npm or repository script, and only commits those files and opens the pull request.
 
 on:
   schedule:
@@ -19,19 +24,27 @@ concurrency:
   group: enacted-update
   cancel-in-progress: false
 
-permissions:
-  contents: write
-  pull-requests: write
+permissions: {}
 
 jobs:
-  update:
+  build:
     runs-on: ubuntu-latest
     timeout-minutes: 45
-    env:
-      GH_TOKEN: ${{ github.token }}
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      update: ${{ steps.detect.outputs.update }}
+      file: ${{ steps.detect.outputs.file }}
+      year: ${{ steps.detect.outputs.year }}
+      congress: ${{ steps.detect.outputs.congress }}
+      url: ${{ steps.detect.outputs.url }}
+      changed: ${{ steps.changes.outputs.changed }}
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       - uses: actions/setup-node@v4
         with:
@@ -48,17 +61,17 @@ jobs:
         run: |
           set -euo pipefail
           if [ -n "$FORCE_FILE" ]; then
-            file="$FORCE_FILE"
+            result=$(npm run -s enacted:check -- --file "$FORCE_FILE")
           else
             result=$(npm run -s enacted:check)
-            echo "$result"
-            if [ "$(echo "$result" | jq -r '.update')" != "true" ]; then
-              echo "update=false" >> "$GITHUB_OUTPUT"
-              echo "No newer enacted districts file. Nothing to do."
-              exit 0
-            fi
-            file=$(echo "$result" | jq -r '.file')
           fi
+          echo "$result"
+          if [ "$(echo "$result" | jq -r '.update')" != "true" ]; then
+            echo "update=false" >> "$GITHUB_OUTPUT"
+            echo "No newer enacted districts file. Nothing to do."
+            exit 0
+          fi
+          file=$(echo "$result" | jq -r '.file')
           if ! [[ "$file" =~ ^cb_([0-9]{4})_us_cd([0-9]+)_500k$ ]]; then
             echo "::error::Unexpected file name: $file"
             exit 1
@@ -68,19 +81,25 @@ jobs:
             echo "file=$file"
             echo "year=${BASH_REMATCH[1]}"
             echo "congress=${BASH_REMATCH[2]}"
+            echo "url=$(echo "$result" | jq -r '.url')"
           } >> "$GITHUB_OUTPUT"
 
-      - name: Skip if this file already has a branch or pull request
+      # A pull request for this file in any state means it was already handled; a closed one means the owner
+      # turned that file down, and it stays turned down. A branch with no pull request is a failed earlier run
+      # and does not block this one.
+      - name: Skip if this file already has a pull request
         id: existing
         if: steps.detect.outputs.update == 'true'
         env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
           BRANCH: auto/enacted-${{ steps.detect.outputs.file }}
         run: |
           set -euo pipefail
           prs=$(gh pr list --head "$BRANCH" --state all --json number --jq 'length')
-          if [ "$prs" != "0" ] || git ls-remote --exit-code --heads origin "$BRANCH" > /dev/null; then
+          if [ "$prs" != "0" ]; then
             echo "skip=true" >> "$GITHUB_OUTPUT"
-            echo "A branch or pull request for $BRANCH already exists. Nothing to do."
+            echo "A pull request for $BRANCH already exists. Nothing to do."
           else
             echo "skip=false" >> "$GITHUB_OUTPUT"
           fi
@@ -96,12 +115,12 @@ jobs:
         if: steps.detect.outputs.update == 'true' && steps.existing.outputs.skip == 'false'
         run: |
           set -euo pipefail
-          if [ -z "$(git status --porcelain)" ]; then
+          if [ -z "$(git status --porcelain --untracked-files=all)" ]; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
             echo "The update changed nothing. Nothing to do."
             exit 0
           fi
-          unexpected=$(git status --porcelain | cut -c4- \
+          unexpected=$(git status --porcelain --untracked-files=all | cut -c4- \
             | grep -Ev '^(config/(enacted|census-sha256)\.json|public/data/[A-Z]{2}/(enacted\.topo|stats)\.json)$' || true)
           if [ -n "$unexpected" ]; then
             echo "::error::The update touched files it should not have:"
@@ -126,12 +145,68 @@ jobs:
         if: steps.changes.outputs.changed == 'true'
         run: npm run build
 
-      - name: Commit and push a branch
-        id: push
+      # Only the files the update may change leave this job.
+      - name: Hand over the changed files
         if: steps.changes.outputs.changed == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: enacted-update
+          if-no-files-found: error
+          retention-days: 1
+          path: |
+            config/enacted.json
+            config/census-sha256.json
+            public/data/*/enacted.topo.json
+            public/data/*/stats.json
+
+  open-pr:
+    needs: build
+    if: needs.build.outputs.changed == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: enacted-update
+          path: .
+
+      - name: Only the expected files changed
         env:
-          BRANCH: auto/enacted-${{ steps.detect.outputs.file }}
-          FILE: ${{ steps.detect.outputs.file }}
+          FILE: ${{ needs.build.outputs.file }}
+          URL: ${{ needs.build.outputs.url }}
+        run: |
+          set -euo pipefail
+          if ! [[ "$FILE" =~ ^cb_[0-9]{4}_us_cd[0-9]+_500k$ ]]; then
+            echo "::error::Unexpected file name: $FILE"
+            exit 1
+          fi
+          if [ "$URL" != "https://www2.census.gov/geo/tiger/GENZ${FILE:3:4}/shp/${FILE}.zip" ]; then
+            echo "::error::Unexpected source address: $URL"
+            exit 1
+          fi
+          unexpected=$(git status --porcelain --untracked-files=all | cut -c4- \
+            | grep -Ev '^(config/(enacted|census-sha256)\.json|public/data/[A-Z]{2}/(enacted\.topo|stats)\.json)$' || true)
+          if [ -n "$unexpected" ]; then
+            echo "::error::The downloaded files include ones the update should not touch:"
+            echo "$unexpected"
+            exit 1
+          fi
+          if [ -z "$(git status --porcelain --untracked-files=all)" ]; then
+            echo "::error::The downloaded files change nothing."
+            exit 1
+          fi
+
+      # The branch belongs to this workflow and has no pull request (the first job checked), so replacing it is safe.
+      - name: Commit and push a branch
+        env:
+          BRANCH: auto/enacted-${{ needs.build.outputs.file }}
+          FILE: ${{ needs.build.outputs.file }}
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
@@ -140,30 +215,34 @@ jobs:
           git add config/enacted.json config/census-sha256.json public/data
           git commit -m "chore(data): update enacted districts to $FILE" \
             -m "Rebuilds enacted.topo.json and the enactedSource in stats.json for every state, and pins the new Census file in config/census-sha256.json. Display only: no generated district changes."
-          git push origin "$BRANCH"
+          git push --force origin "$BRANCH"
 
       - name: Open the pull request
-        if: steps.changes.outputs.changed == 'true'
         env:
-          BRANCH: auto/enacted-${{ steps.detect.outputs.file }}
-          FILE: ${{ steps.detect.outputs.file }}
-          YEAR: ${{ steps.detect.outputs.year }}
-          CONGRESS: ${{ steps.detect.outputs.congress }}
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: auto/enacted-${{ needs.build.outputs.file }}
+          FILE: ${{ needs.build.outputs.file }}
+          YEAR: ${{ needs.build.outputs.year }}
+          CONGRESS: ${{ needs.build.outputs.congress }}
+          URL: ${{ needs.build.outputs.url }}
           BASE: ${{ github.event.repository.default_branch }}
         run: |
           set -euo pipefail
-          url="https://www2.census.gov/geo/tiger/GENZ${YEAR}/shp/${FILE}.zip"
           cat > "$RUNNER_TEMP/body.md" <<EOF
           The Census Bureau has published a newer enacted congressional districts file. This updates the dashed comparison overlay in the viewer to it.
 
           - File: \`${FILE}\` (Congress ${CONGRESS}, ${YEAR} release)
-          - Source: ${url}
+          - Source: ${URL}
           - Pinned in \`config/census-sha256.json\` by its SHA-256; the entries for enacted files that are no longer used were removed.
           - \`config/enacted.json\` now names this Congress and file, and both the publisher and the viewer read it.
-          - Every state's \`enacted.topo.json\` was rebuilt and its \`stats.json\` \`enactedSource\` updated. No other published file changed.
+          - Every state's \`enacted.topo.json\` was rebuilt and its \`stats.json\` \`enactedSource\` updated. No other file changed.
 
           The overlay is display only. It never affects how districts are drawn, and no generated district, population or statistic depends on it.
 
-          Typecheck, the dependency rules, the tests and the build all passed in the workflow run that opened this pull request. Review the changed Census file and the overlay, then merge. Vercel deploys on merge.
+          Typecheck, the dependency rules, the tests and the build all passed in the workflow run that opened this pull request. Review the changed Census file and the overlay, then merge. This workflow never approves or merges a pull request.
           EOF
-          gh pr create --base "$BASE" --head "$BRANCH" --title "Update enacted districts to ${FILE}" --body-file "$RUNNER_TEMP/body.md"
+          if ! gh pr create --base "$BASE" --head "$BRANCH" --title "Update enacted districts to ${FILE}" --body-file "$RUNNER_TEMP/body.md"; then
+            git push origin --delete "$BRANCH" || true
+            echo "::error::Could not open the pull request. The likely cause is that the repository setting \"Allow GitHub Actions to create and approve pull requests\" (Settings > Actions > General) is off. The branch was deleted so the next run can try again."
+            exit 1
+          fi

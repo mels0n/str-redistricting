@@ -14,6 +14,9 @@ const FORBIDDEN = [
   /\bAPPROVE\b/,
   /createReview|pulls\/\S*\/reviews|pulls\/\S*\/merge/i,
   /enablePullRequestAutoMerge|--auto\b/i,
+  /mergePullRequest|addPullRequestReview|submitPullRequestReview/i,
+  /pulls\.merge|pulls\.createReview/i,
+  /auto-?approve|automerge|auto-merge/i,
 ];
 
 describe('workflows never approve or merge a pull request', () => {
@@ -26,4 +29,147 @@ describe('workflows never approve or merge a pull request', () => {
       for (const pattern of FORBIDDEN) expect(text, `${file} matches ${pattern}`).not.toMatch(pattern);
     });
   }
+});
+
+// The workflow files are simple and the repository has no YAML dependency, so this reads them line by line: keys at
+// fixed indentation, `permissions:` as an inline value or an indented block, steps as `- ` items, `run:` as a block.
+
+const WRITES = /\b(contents|pull-requests)\s*:\s*write\b|\bwrite-all\b/;
+const PACKAGE_RUNNERS = /\b(npm|npx|node|tsx|yarn|pnpm)\b/;
+const WRITE_JOB_ACTIONS = new Set(['actions/checkout', 'actions/download-artifact', 'actions/upload-artifact']);
+
+const indentOf = (line: string): number => line.length - line.trimStart().length;
+
+/** The text of a `permissions:` key found at `indent`, whether written inline or as an indented block. */
+function permissionsAt(lines: readonly string[], indent: number): string {
+  return permissionsIn(lines, indent) ?? '';
+}
+
+function permissionsIn(lines: readonly string[], indent: number): string | null {
+  const at = lines.findIndex((l) => indentOf(l) === indent && /^permissions:/.test(l.trim()));
+  if (at === -1) return null;
+  const out = [lines[at]!.trim().slice('permissions:'.length)];
+  for (let i = at + 1; i < lines.length && (lines[i]!.trim() === '' || indentOf(lines[i]!) > indent); i++) out.push(lines[i]!);
+  return out.join('\n');
+}
+
+interface Step {
+  readonly uses: string | null;
+  readonly run: string;
+}
+interface Job {
+  readonly name: string;
+  /** null when the job declares none. */
+  readonly permissions: string | null;
+  readonly steps: readonly Step[];
+}
+
+function parseJobs(lines: readonly string[]): Job[] {
+  const start = lines.findIndex((l) => /^jobs:\s*$/.test(l));
+  if (start === -1) return [];
+  const body = lines.slice(start + 1);
+  const heads = body.flatMap((l, i) => (indentOf(l) === 2 && /^\s{2}[\w-]+:\s*$/.test(l) ? [i] : []));
+  return heads.map((from, n) => {
+    const jobLines = body.slice(from + 1, heads[n + 1] ?? body.length);
+    const stepsAt = jobLines.findIndex((l) => indentOf(l) === 4 && /^steps:\s*$/.test(l.trim()));
+    const stepLines = stepsAt === -1 ? [] : jobLines.slice(stepsAt + 1);
+    const items: string[][] = [];
+    for (const l of stepLines) {
+      if (/^\s{6}- /.test(l)) items.push([l]);
+      else items.at(-1)?.push(l);
+    }
+    const steps = items.map((item): Step => {
+      const uses = item.map((l) => /^\s*(?:- )?uses:\s*(\S+)/.exec(l)?.[1]).find((u) => u !== undefined) ?? null;
+      const runAt = item.findIndex((l) => /^\s*(?:- )?run:/.test(l));
+      let run = '';
+      if (runAt !== -1) {
+        const first = item[runAt]!.replace(/^\s*(?:- )?run:/, '');
+        const runIndent = indentOf(item[runAt]!.replace('- ', '  '));
+        const block = [first];
+        for (let i = runAt + 1; i < item.length && (item[i]!.trim() === '' || indentOf(item[i]!) > runIndent); i++) block.push(item[i]!);
+        run = block.join('\n');
+      }
+      return { uses, run };
+    });
+    return { name: body[from]!.trim().replace(/:$/, ''), permissions: permissionsIn(jobLines, 4), steps };
+  });
+}
+
+/** What is wrong with a workflow's permissions, as readable lines; empty when it is fine. */
+export function permissionProblems(text: string): string[] {
+  const lines = text
+    .replace(/\r\n/g, '\n')
+    .split('\n')
+    .filter((l) => !l.trim().startsWith('#'));
+  const problems: string[] = [];
+  const top = permissionsAt(lines, 0);
+  if (WRITES.test(top)) problems.push('grants a write permission at workflow level');
+  for (const job of parseJobs(lines)) {
+    // A job that declares no permissions of its own inherits the workflow's.
+    if (!WRITES.test(job.permissions ?? top)) continue;
+    job.steps.forEach((step, i) => {
+      if (PACKAGE_RUNNERS.test(step.run)) problems.push(`job ${job.name} holds a write permission and step ${i + 1} runs npm, node or similar`);
+      if (step.uses !== null && !WRITE_JOB_ACTIONS.has(step.uses.split('@')[0]!)) {
+        problems.push(`job ${job.name} holds a write permission and step ${i + 1} uses ${step.uses}`);
+      }
+    });
+  }
+  return problems;
+}
+
+describe('workflow write tokens never reach dependency code', () => {
+  for (const file of workflows) {
+    it(file, () => {
+      expect(permissionProblems(readFileSync(new URL(file, dir), 'utf8'))).toEqual([]);
+    });
+  }
+
+  it('sees the write job of the enacted districts update (so the check above is not vacuous)', () => {
+    const text = readFileSync(new URL('enacted-update.yml', dir), 'utf8');
+    const lines = text.replace(/\r\n/g, '\n').split('\n');
+    const writers = parseJobs(lines).filter((j) => WRITES.test(j.permissions ?? ''));
+    expect(writers.map((j) => j.name)).toEqual(['open-pr']);
+    expect(writers[0]!.steps.length).toBeGreaterThan(2);
+  });
+
+  const OLD_SHAPE = [
+    'permissions:',
+    '  contents: write',
+    '  pull-requests: write',
+    'jobs:',
+    '  update:',
+    '    runs-on: ubuntu-latest',
+    '    steps:',
+    '      - uses: actions/checkout@v4',
+    '      - name: Install',
+    '        run: npm ci',
+    '',
+  ].join('\n');
+
+  it('flags the old shape: write at workflow level and npm in the job', () => {
+    expect(permissionProblems(OLD_SHAPE)).toEqual([
+      'grants a write permission at workflow level',
+      'job update holds a write permission and step 2 runs npm, node or similar',
+    ]);
+  });
+  it('flags npm and a third-party action in a job that holds a write permission', () => {
+    const job = [
+      'permissions: {}',
+      'jobs:',
+      '  open-pr:',
+      '    permissions:',
+      '      contents: write',
+      '    steps:',
+      '      - uses: actions/checkout@v4',
+      '      - uses: actions/setup-node@v4',
+      '      - name: Build',
+      '        run: |',
+      '          npm ci',
+      '',
+    ].join('\n');
+    expect(permissionProblems(job)).toEqual([
+      'job open-pr holds a write permission and step 2 uses actions/setup-node@v4',
+      'job open-pr holds a write permission and step 3 runs npm, node or similar',
+    ]);
+  });
 });

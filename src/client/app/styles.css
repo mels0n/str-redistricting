@@ -4673,3 +4673,23 @@ html:has(> body > #str-viewer) {
     white-space: normal;
   }
 }
+
+/* ---------- Site footer ---------- */
+
+.strv-footer {
+  padding: 1.5rem var(--gutter) 2rem;
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+
+.strv-footer__link {
+  color: var(--ink-2);
+  text-decoration: none;
+}
+
+.strv-footer__link:hover,
+.strv-footer__link:focus-visible {
+  text-decoration: underline;
+}

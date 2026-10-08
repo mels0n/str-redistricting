@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import { sharePages } from './build/share-pages.js';
+import { versionMeta } from './build/version-meta.js';
 
 // Static build for the map viewer. A relative base keeps every asset and data
 // URL relative to the page, so the build works at a domain root, in a
@@ -7,7 +8,7 @@ import { sharePages } from './build/share-pages.js';
 export default defineConfig({
   base: './',
   publicDir: 'public',
-  plugins: [sharePages()],
+  plugins: [versionMeta(), sharePages()],
   worker: { format: 'es' },
   build: {
     outDir: 'dist',

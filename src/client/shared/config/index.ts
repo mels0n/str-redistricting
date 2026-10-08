@@ -104,10 +104,14 @@ function load(): ViewerConfig {
 
 export const config: ViewerConfig = load();
 
-/** The shell commands that fetch the code and regenerate one state's map. */
-export function reproduceCommands(abbr: string): string {
+/**
+ * The shell commands that fetch the code and regenerate one state's map. With a maps release number the clone is
+ * pinned to that release's tag; null (data published before versioning) clones the default branch.
+ */
+export function reproduceCommands(abbr: string, mapsRelease: number | null): string {
   const dir = new URL(config.repoUrl).pathname.split('/').filter(Boolean).pop() ?? '';
-  return `git clone ${config.repoUrl}\ncd ${dir}\nnpm install\nnpm run explore -- --states ${abbr}`;
+  const clone = mapsRelease === null ? `git clone ${config.repoUrl}` : `git clone --branch maps-${mapsRelease} --depth 1 ${config.repoUrl}`;
+  return `${clone}\ncd ${dir}\nnpm install\nnpm run explore -- --states ${abbr}`;
 }
 
 export function dataUrl(path: string): string {

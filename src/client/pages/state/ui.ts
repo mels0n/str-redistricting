@@ -623,7 +623,7 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
       }
       if (plan !== proofKey) {
         proofKey = plan;
-        proof.update({ metrics: planStats.metrics, plan, abbr: entry.abbr });
+        proof.update({ metrics: planStats.metrics, plan, abbr: entry.abbr, versions: bundle.stats.versions });
       }
       options!.update({
         plan: route.plan,

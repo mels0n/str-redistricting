@@ -11,7 +11,6 @@ import {
   crossesAntimeridian,
   labelPoint,
   landLabelPoint,
-  WATER_VEIL,
   pointAlongLines,
   partialLines,
   firstClearSpot,
@@ -484,9 +483,6 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
       layout: { 'line-join': 'round' },
       paint: { 'line-color': tokens.ink, 'line-width': ['interpolate', ['linear'], ['zoom'], 5, 1.5, 10, 2.5] },
     });
-    // Water inside the districts (lakes, bays, coastal water) is washed with the ground color: the district's color stays faintly
-    // visible, land leads, and the borders that run across water are softened with it. Display only: nothing queries this layer.
-    map.addLayer({ id: 'water-veil', type: 'fill', source: 'water', paint: { 'fill-color': tokens.ground, 'fill-opacity': WATER_VEIL } });
     map.addLayer({
       id: 'enacted',
       type: 'line',
@@ -504,6 +500,11 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
         paint: { 'line-color': tokens.ink, 'line-width': 3.5 },
       });
     }
+    // Water inside the districts (lakes, bays, coastal water) is covered with the ground color, over the district colors and
+    // every district border, so only land shows a district. Census water blocks are large and hold almost no people, so the
+    // lines across them do not follow the cuts. The selected-district outline and the enacted lines stop at the shore on
+    // purpose; guide lines and the balancing block draw above it. Display only: hit-testing still uses the fill layers.
+    map.addLayer({ id: 'water-cover', type: 'fill', source: 'water', paint: { 'fill-color': tokens.ground } });
     map.addLayer({
       id: 'cuts-past',
       type: 'line',

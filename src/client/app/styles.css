@@ -1301,7 +1301,8 @@ html:has(> body > #str-viewer) {
 
 .strv-legend__cut,
 .strv-legend__past,
-.strv-legend__dash {
+.strv-legend__dash,
+.strv-legend__link {
   display: inline-block;
   width: 1.25rem;
   height: 0;
@@ -1318,6 +1319,11 @@ html:has(> body > #str-viewer) {
 }
 
 .strv-legend__dash {
+  border-top: 2px dashed var(--ink);
+}
+
+.strv-legend__link {
+  /* Dashed like the island-links layer on the map. */
   border-top: 2px dashed var(--ink);
 }
 

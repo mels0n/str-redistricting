@@ -65,3 +65,16 @@ export const CandidatesSchema = z.object({
   cuts: z.array(z.array(z.array(z.number()))),
 });
 export type Candidates = z.infer<typeof CandidatesSchema>;
+
+const Point = z.tuple([z.number(), z.number()]);
+
+/** out/<ST>/bridges.json: each link the generator added to join detached land, with the two blocks and their internal points. */
+export const BridgesOutSchema = z.object({
+  links: z.array(z.object({
+    a: z.string().regex(/^[0-9]{15}$/),
+    b: z.string().regex(/^[0-9]{15}$/),
+    aPoint: Point,
+    bPoint: Point,
+  })),
+});
+export type BridgesOut = z.infer<typeof BridgesOutSchema>;

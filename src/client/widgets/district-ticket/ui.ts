@@ -16,11 +16,23 @@ export interface TicketData {
   stage?: string;
   /** True partway through the balancing replay: counties and contiguity are those of the plan before balancing. */
   partway?: boolean;
+  /** True when an island link of the plan shown has both ends in this district. */
+  linked?: boolean;
 }
 
 export interface DistrictTicket {
   el: HTMLElement;
   update(data: TicketData): void;
+}
+
+/** What the card says about the district's connection (the sentence before any before-balancing suffix). */
+export function connectionText(d: Pick<DistrictStats, 'contiguous' | 'landParts'>, linked: boolean): string {
+  if (!d.contiguous) return 'Not one connected piece';
+  const water = (d.landParts ?? 1) > 1;
+  if (water && linked) return 'One connected piece, joined across water and by a link to the nearest land';
+  if (water) return 'One connected piece, joined across water';
+  if (linked) return 'One connected piece, joined by a link to the nearest land';
+  return 'One connected piece';
 }
 
 function describeDistrict(d: DistrictStats, total: number, seats: number): string {
@@ -98,7 +110,7 @@ export function createDistrictTicket(): DistrictTicket {
           ),
         ),
       ),
-      h('p', { class: 'strv-ticket__foot' }, `${d.contiguous ? 'One connected piece' : 'Not one connected piece'}${data.partway ? ' before balancing' : ''}. ${data.stage ?? (data.plan === 'finished' ? 'Finished map.' : 'Before balancing.')}`),
+      h('p', { class: 'strv-ticket__foot' }, `${connectionText(d, data.linked ?? false)}${data.partway ? ' before balancing' : ''}. ${data.stage ?? (data.plan === 'finished' ? 'Finished map.' : 'Before balancing.')}`),
     );
   }
 

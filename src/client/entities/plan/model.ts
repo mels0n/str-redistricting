@@ -8,6 +8,8 @@ export const DistrictStatsSchema = z.object({
   dev: z.number(),
   devPct: z.number(),
   contiguous: z.boolean(),
+  /** Separate pieces of land in the district (water joins them). Absent in files published before this was counted. */
+  landParts: z.number().int().min(1).optional(),
   counties: z.array(CountySchema),
 });
 
@@ -87,6 +89,23 @@ export const DistrictTopoSchema = z.looseObject({
     }),
   }),
 });
+
+const PointSchema = z.tuple([z.number(), z.number()]);
+const DistrictPairSchema = z.tuple([z.number().int().positive(), z.number().int().positive()]);
+
+/** Links that join land no block reaches to the nearest land: both ends, and the district of each end in each plan. Display only. */
+export const BridgesSchema = z.object({
+  links: z.array(
+    z.object({
+      a: PointSchema,
+      b: PointSchema,
+      finished: DistrictPairSchema,
+      before: DistrictPairSchema,
+    }),
+  ),
+});
+export type Bridges = z.infer<typeof BridgesSchema>;
+export type BridgeLink = Bridges['links'][number];
 
 /** The water mask: one GeometryCollection named `water`, the part of the districts that lies over water. Display only. */
 export const WaterTopoSchema = z.looseObject({

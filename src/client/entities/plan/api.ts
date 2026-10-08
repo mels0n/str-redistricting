@@ -7,6 +7,8 @@ import {
   DistrictTopoSchema,
   EnactedTopoSchema,
   WaterTopoSchema,
+  BridgesSchema,
+  type Bridges,
   StatsSchema,
   type Cut,
   type Stats,
@@ -41,6 +43,8 @@ export interface StateBundle {
   cuts: Cut[];
   /** The water mask, or null when the state has none (the map is then drawn without it). */
   water: WaterShapes | null;
+  /** The island links, or null when the file is missing or unreadable (nothing is then drawn or said about links). */
+  bridges: Bridges | null;
   /** Fill color for each district, by district index (district 1 at 0). */
   colors: string[];
 }
@@ -74,6 +78,11 @@ function loadWater(abbr: string): Promise<WaterShapes | null> {
     .catch(() => null);
 }
 
+/** The island links for a state. A missing or unreadable file is not an error: the map just has no links. */
+function loadBridges(abbr: string): Promise<Bridges | null> {
+  return fetchJson(dataUrl(`${abbr}/bridges.json`), BridgesSchema).catch(() => null);
+}
+
 /** A state's numbers alone (both plans, every district), without any shapes. */
 export function loadStats(abbr: string): Promise<Stats> {
   return fetchJson(dataUrl(`${abbr}/stats.json`), StatsSchema);
@@ -93,7 +102,8 @@ export function loadStateBundle(abbr: string): Promise<StateBundle> {
       fetchJson(beforeUrl, DistrictTopoSchema),
       fetchJson(dataUrl(`${abbr}/cuts.json`), CutsSchema),
       loadWater(abbr),
-    ]).then(([stats, finishedTopo, beforeTopo, cuts, water]) => {
+      loadBridges(abbr),
+    ]).then(([stats, finishedTopo, beforeTopo, cuts, water, bridges]) => {
       const seats = stats.finished.metrics.seats;
       if (cuts.length !== seats - 1) {
         throw new DataShapeError(dataUrl(`${abbr}/cuts.json`), `expected ${seats - 1} cuts, found ${cuts.length}`);
@@ -108,6 +118,7 @@ export function loadStateBundle(abbr: string): Promise<StateBundle> {
         before,
         cuts: [...cuts].sort((a, b) => a.order - b.order),
         water,
+        bridges,
         colors: slots.map((s) => districtPalette[s]!.hex),
       };
     });

@@ -1,1 +1,1 @@
-export { bordersGeoJson, chainRings, cutsGeoJson, districtsGeoJson, writePlan } from './write.js';
+export { bordersGeoJson, bridgesJson, chainRings, cutsGeoJson, districtsGeoJson, writePlan } from './write.js';

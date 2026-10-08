@@ -1,2 +1,2 @@
-export { BalanceLogSchema, CandidatesSchema, CutsGeoSchema, CutStatsSchema, PlanMetricsSchema } from './schema.js';
-export type { BalanceLog, Candidates, CutStats, PlanMetrics } from './schema.js';
+export { BalanceLogSchema, BridgesOutSchema, CandidatesSchema, CutsGeoSchema, CutStatsSchema, PlanMetricsSchema } from './schema.js';
+export type { BalanceLog, BridgesOut, Candidates, CutStats, PlanMetrics } from './schema.js';

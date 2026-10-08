@@ -50,8 +50,11 @@ import {
   twinVisibility,
   bordersFilter,
   selectedFilter,
+  selectedFillFilter,
+  selFillId,
+  selFillVisibility,
 } from './detail';
-import { piecesAfter, pieceSizes, movedBlocksAt, balancePlanAt, type StateBundle, type PlanShapes, type EnactedShapes, type BalanceLog } from '../../entities/plan';
+import { linksIn, linksFeatures, piecesAfter, pieceSizes, movedBlocksAt, balancePlanAt, type StateBundle, type PlanShapes, type EnactedShapes, type BalanceLog } from '../../entities/plan';
 
 export interface MapViewState {
   plan: Plan;
@@ -434,6 +437,9 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
 
   const shapesOf = (plan: Plan): PlanShapes => (plan === 'finished' ? bundle.finished : bundle.before);
 
+  /** What the island-link sources hold now, so hovering does not rewrite them. */
+  let linksKey = '';
+
   /** Set once the detail tiles have failed to load; the detail layers stay hidden after that. */
   let detailFailed = false;
 
@@ -462,6 +468,8 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
     map.addSource('enacted', { type: 'geojson', data: asFeature(EMPTY_LINES) });
     map.addSource('cuts-past', { type: 'geojson', data: asFeature(EMPTY_LINES) });
     map.addSource('cut-new', { type: 'geojson', data: asFeature(EMPTY_LINES) });
+    map.addSource('island-links', { type: 'geojson', data: asFeature(EMPTY_LINES) });
+    map.addSource('island-ends', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
     map.addSource('moved', { type: 'geojson', data: { type: 'FeatureCollection', features: [] } });
 
     map.addLayer({ id: 'context-fill', type: 'fill', source: 'context', paint: { 'fill-color': tokens.quietFill } });
@@ -515,12 +523,37 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
     // Past DETAIL_ZOOM the wash swaps to the detail tiles' water.
     map.addLayer({ id: WATER_VEIL_LAYER, type: 'fill', source: 'water', paint: { 'fill-color': tokens.ground, 'fill-opacity': WATER_VEIL } });
     addDetailAfter(WATER_VEIL_LAYER);
+    // The chosen district again in its own color over the wash, so its water shows in full color and its connection across water is visible.
+    for (const plan of ['finished', 'before'] as const) {
+      map.addLayer({
+        id: selFillId(plan),
+        type: 'fill',
+        source: plan,
+        filter: selectedFillFilter(null),
+        paint: { 'fill-color': ['coalesce', ['feature-state', 'fill'], tokens.quietFill], 'fill-opacity': 1 },
+      });
+      addDetailAfter(selFillId(plan));
+    }
     map.addLayer({
       id: 'enacted',
       type: 'line',
       source: 'enacted',
       layout: { 'line-join': 'round', visibility: 'none' },
       paint: { 'line-color': tokens.ink, 'line-width': 1.5, 'line-dasharray': [2, 1.6], 'line-opacity': 0.85 },
+    });
+    // Links that join land no block reaches to the nearest land, for the chosen district only.
+    map.addLayer({
+      id: 'island-links',
+      type: 'line',
+      source: 'island-links',
+      layout: { 'line-cap': 'butt' },
+      paint: { 'line-color': tokens.ink, 'line-width': 2, 'line-dasharray': [2, 1.6] },
+    });
+    map.addLayer({
+      id: 'island-ends',
+      type: 'circle',
+      source: 'island-ends',
+      paint: { 'circle-radius': 3, 'circle-color': tokens.ink, 'circle-stroke-color': tokens.paper, 'circle-stroke-width': 1 },
     });
     for (const plan of ['finished', 'before'] as const) {
       map.addLayer({
@@ -726,6 +759,12 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
       map.setLayoutProperty(`${kind}-${plan}-detail`, 'visibility', twinVisibility(plan, plan, detailFailed));
       map.setLayoutProperty(`${kind}-${other}-detail`, 'visibility', twinVisibility(plan, other, detailFailed));
     }
+    // The chosen district's own-color fill and its island links: not in the replays, where colors mean pieces.
+    const replay = cutMode || next.move !== null;
+    map.setLayoutProperty(selFillId(plan), 'visibility', selFillVisibility(true, replay));
+    map.setLayoutProperty(selFillId(other), 'visibility', 'none');
+    map.setLayoutProperty(`${selFillId(plan)}-detail`, 'visibility', selFillVisibility(twinVisibility(plan, plan, detailFailed) === 'visible', replay));
+    map.setLayoutProperty(`${selFillId(other)}-detail`, 'visibility', 'none');
 
     const piece = cutMode ? piecesAfter(bundle.cuts, next.cut!, seats) : null;
     const sizes = piece ? pieceSizes(piece) : null;
@@ -747,6 +786,15 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
 
     map.setFilter(`sel-${plan}`, ['==', ['get', 'district'], next.selected ?? -1]);
     map.setFilter(`sel-${plan}-detail`, selectedFilter(next.selected));
+    map.setFilter(selFillId(plan), selectedFillFilter(next.selected));
+    map.setFilter(`${selFillId(plan)}-detail`, selectedFillFilter(next.selected));
+    const linkKey = replay ? '' : `${plan}|${next.selected}`;
+    if (linkKey !== linksKey) {
+      linksKey = linkKey;
+      const links = linksFeatures(replay ? [] : linksIn(bundle.bridges, plan, next.selected));
+      src('island-links').setData(links.lines);
+      src('island-ends').setData(links.ends);
+    }
     if (bordersChanged) map.setFilter(`borders-${plan}-detail`, bordersFilter(piece));
 
     // District numbers: shown once a district is its own piece.

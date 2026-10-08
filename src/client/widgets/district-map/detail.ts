@@ -82,6 +82,21 @@ export function selectedFilter(district: number | null): FilterSpecification {
   return ['any', ['==', ['get', 'a'], d], ['==', ['get', 'b'], d]];
 }
 
+/** The chosen district's polygons (simplified and detail tiles both carry `district`); none when nothing is chosen. */
+export function selectedFillFilter(district: number | null): FilterSpecification {
+  return ['==', ['get', 'district'], district ?? -1];
+}
+
+/** The chosen district's color fill, drawn over the water veil so its water shows in full color. */
+export function selFillId(plan: Plan): string {
+  return `sel-fill-${plan}`;
+}
+
+/** Visibility of a selected-fill layer: none while a cut or balancing replay is open (colors there mean pieces). */
+export function selFillVisibility(shown: boolean, replay: boolean): 'visible' | 'none' {
+  return shown && !replay ? 'visible' : 'none';
+}
+
 export function detailUrl(abbr: string): string {
   return `pmtiles://${dataUrl(`${abbr}/detail.pmtiles`)}`;
 }
@@ -170,6 +185,21 @@ export function detailLayerSpecs(): { layer: LayerSpecification; after: string }
   });
   for (const plan of PLANS) {
     out.push({
+      after: selFillId(plan),
+      layer: {
+        ...base,
+        minzoom: FILL_FADE_FROM,
+        id: `${selFillId(plan)}-detail`,
+        type: 'fill',
+        'source-layer': plan,
+        filter: selectedFillFilter(null),
+        // Swaps outright like the fills: two stacked opaque fills are no different, but the swap keeps one rule for every fill.
+        paint: { 'fill-color': FILL_COLOR, 'fill-opacity': fillFadeIn(1) },
+      },
+    });
+  }
+  for (const plan of PLANS) {
+    out.push({
       after: `sel-${plan}`,
       layer: {
         ...base,
@@ -192,6 +222,7 @@ export function fadedPaint(): { id: string; prop: 'fill-opacity' | 'line-opacity
   rows.push({ id: 'borders', prop: 'line-opacity', base: 1 });
   rows.push({ id: 'outline', prop: 'line-opacity', base: 1 });
   rows.push({ id: WATER_VEIL_LAYER, prop: 'fill-opacity', base: WATER_VEIL });
+  for (const plan of PLANS) rows.push({ id: selFillId(plan), prop: 'fill-opacity', base: 1 });
   for (const plan of PLANS) rows.push({ id: `sel-${plan}`, prop: 'line-opacity', base: 1 });
   return rows.map((r) => ({ ...r, faded: r.prop === 'fill-opacity' ? fillFadeOut(r.base) : fadeOut(r.base) }));
 }

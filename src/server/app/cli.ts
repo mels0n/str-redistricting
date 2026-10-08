@@ -3,7 +3,7 @@ import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { buildTopology, ensureZip, loadStateBlocks } from '../entities/census-block/index.js';
 import { balance, balanceLog, peopleMoved } from '../features/balance/index.js';
-import { bordersGeoJson, cutsGeoJson, districtsGeoJson, writePlan } from '../features/export/index.js';
+import { bordersGeoJson, bridgesJson, cutsGeoJson, districtsGeoJson, writePlan } from '../features/export/index.js';
 import { assignmentCsv, computeMetrics } from '../features/metrics/index.js';
 import { createContext, PoolSlot, splitState, type SplitResult } from '../features/splitline/index.js';
 import { parseConfig } from '../shared/config/index.js';
@@ -79,6 +79,7 @@ async function main(): Promise<void> {
         });
       }
       await writePlan(join(config.outDir, state.abbr), {
+        'bridges.json': JSON.stringify(bridgesJson(topo, blocks)),
         'balance.json': JSON.stringify(balanceLog(balanced.moves, before.districts.map((d) => d.pop))),
         // Debug only, not published: what each cut's search saw.
         'cut-stats.json': JSON.stringify({ threads: config.threads, cuts: split.cuts.map(cutStats) }, null, 1),

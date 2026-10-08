@@ -40,6 +40,7 @@ import {
   isPartway,
   evenSizes,
   evenSplitSentence,
+  linksIn,
   type PlanDistricts,
   type StateBundle,
   type EnactedShapes,
@@ -579,6 +580,7 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
         preview: hovered !== null && hovered !== selected,
         stage: partway && balance.status === 'ready' ? `After balancing move ${route.move} of ${finishedMetrics.balanceMoves}.` : undefined,
         partway,
+        linked: stats !== null && linksIn(bundle.bridges, plan, stats.district).length > 0,
       });
       const picked = selected !== null ? (districts.find((d) => d.district === selected) ?? null) : null;
       renderPick(plan, picked, picked ? bundle.colors[picked.district - 1]! : null);
@@ -629,6 +631,7 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
         cutMode ? h('span', { class: 'strv-legend__item' }, sample('strv-legend__tag', 'Cut 3'), 'Order of a cut') : null,
         h('span', { class: 'strv-legend__item' }, sample('strv-legend__chip', '+2'), 'More districts, zoom in'),
         bundle.water ? h('span', { class: 'strv-legend__item' }, sample('strv-legend__water'), 'Water, shown pale') : null,
+        bundle.bridges && bundle.bridges.links.length > 0 ? h('span', { class: 'strv-legend__item' }, sample('strv-legend__link'), 'Joined to nearest land') : null,
         cutMode ? h('span', { class: 'strv-legend__item' }, sample('strv-legend__cut'), 'Newest cut') : null,
         cutMode ? h('span', { class: 'strv-legend__item' }, sample('strv-legend__past'), 'Earlier cuts') : null,
         balanceMode && (route.move ?? 0) > 0 ? h('span', { class: 'strv-legend__item' }, sample('strv-legend__move'), 'Block moved') : null,

@@ -1,6 +1,6 @@
 import { createHash } from 'node:crypto';
 import { existsSync } from 'node:fs';
-import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
+import { mkdtemp, readdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
@@ -19,6 +19,7 @@ let sleeps: number[];
 const sleep = async (ms: number): Promise<void> => {
   sleeps.push(ms);
 };
+const partFiles = async (): Promise<string[]> => (await readdir(dir)).filter((f) => f.endsWith('.part'));
 const ok = (body = BODY, headers: Record<string, string> = {}): Response => new Response(body, { status: 200, headers });
 const run = (fetchFn: typeof fetch, sha256 = GOOD) => downloadCached('https://example.test/f.zip', path, 'f', sha256, { fetchFn, sleep });
 
@@ -41,7 +42,7 @@ describe('downloadCached retries', () => {
     expect(f).toHaveBeenCalledTimes(3);
     expect(sleeps).toEqual([2000, 4000]);
     expect(await readFile(path, 'utf8')).toBe(BODY);
-    expect(existsSync(`${path}.part`)).toBe(false);
+    expect(await partFiles()).toEqual([]);
   });
   it('gives up after three retries and names the file and attempts', async () => {
     const f = vi.fn<typeof fetch>(async () => new Response('x', { status: 500 }));
@@ -51,7 +52,7 @@ describe('downloadCached retries', () => {
     expect(f).toHaveBeenCalledTimes(4);
     expect(sleeps).toEqual([2000, 4000, 8000]);
     expect(existsSync(path)).toBe(false);
-    expect(existsSync(`${path}.part`)).toBe(false);
+    expect(await partFiles()).toEqual([]);
   });
   it('does not retry a 404', async () => {
     const f = vi.fn<typeof fetch>(async () => new Response('x', { status: 404 }));
@@ -88,6 +89,23 @@ describe('downloadCached retries', () => {
     expect(f).toHaveBeenCalledTimes(2);
     expect(await readFile(path, 'utf8')).toBe(BODY);
   });
+  it('gives each attempt a part name of its own, so concurrent downloads of one file do not collide', async () => {
+    const seen: string[] = [];
+    const slow = async (): Promise<Response> => {
+      seen.push(...(await partFiles()));
+      await new Promise((r) => setTimeout(r, 20));
+      return ok();
+    };
+    await Promise.all([run(vi.fn<typeof fetch>(slow)), run(vi.fn<typeof fetch>(slow))]);
+    expect(await readFile(path, 'utf8')).toBe(BODY);
+    expect(await partFiles()).toEqual([]);
+  });
+  it('cancels the body of a failed response', async () => {
+    const cancel = vi.fn();
+    const f = vi.fn<typeof fetch>().mockResolvedValueOnce(new Response(new ReadableStream({ cancel }), { status: 404 }));
+    await expect(run(f)).rejects.toThrow(DownloadError);
+    expect(cancel).toHaveBeenCalled();
+  });
   it('ignores a leftover .part file', async () => {
     await writeFile(`${path}.part`, 'garbage');
     await run(vi.fn<typeof fetch>(async () => ok()));
@@ -105,7 +123,7 @@ describe('downloadCached integrity', () => {
     await expect(run(f)).rejects.toThrow(ChecksumError);
     expect(f).toHaveBeenCalledTimes(1);
     expect(existsSync(path)).toBe(false);
-    expect(existsSync(`${path}.part`)).toBe(false);
+    expect(await partFiles()).toEqual([]);
   });
   it('accepts a cached file that matches without fetching', async () => {
     await writeFile(path, BODY);

@@ -1,4 +1,4 @@
-import { createHash } from 'node:crypto';
+import { createHash, randomUUID } from 'node:crypto';
 import { createReadStream, existsSync } from 'node:fs';
 import { mkdir, open, rename, rm } from 'node:fs/promises';
 import { basename, dirname } from 'node:path';
@@ -34,8 +34,8 @@ function isRetryable(err: unknown): boolean {
   return true;
 }
 
-/** One attempt: stream the body into `part`, enforcing the stall and total timeouts, content-length and the pinned hash. */
-async function fetchToPart(url: string, part: string, label: string, sha256: string | null, o: Required<DownloadOptions>): Promise<string> {
+/** One attempt: stream the body into `part` (a name no other attempt shares), enforcing the stall and total timeouts, content-length and the pinned hash. */
+async function fetchToPart(url: string, path: string, part: string, label: string, sha256: string | null, o: Required<DownloadOptions>): Promise<string> {
   const stall = new AbortController();
   let timer: NodeJS.Timeout | undefined;
   const arm = (): void => {
@@ -44,10 +44,13 @@ async function fetchToPart(url: string, part: string, label: string, sha256: str
   };
   const signal = AbortSignal.any([stall.signal, AbortSignal.timeout(o.totalMs)]);
   arm();
-  const file = await open(part, 'w');
+  const file = await open(part, 'wx');
   try {
     const res = await o.fetchFn(url, { signal });
-    if (!res.ok) throw new DownloadError(`download failed for ${label}: HTTP ${res.status}`, res.status);
+    if (!res.ok) {
+      await res.body?.cancel().catch(() => undefined);
+      throw new DownloadError(`download failed for ${label}: HTTP ${res.status}`, res.status);
+    }
     if (res.body === null) throw new DownloadError(`download for ${label} had no body`);
     const hash = createHash('sha256');
     let size = 0;
@@ -65,7 +68,7 @@ async function fetchToPart(url: string, part: string, label: string, sha256: str
       throw new DownloadError(`download for ${label} truncated: expected ${expected} bytes, got ${size}`);
     }
     const digest = hash.digest('hex');
-    if (sha256 !== null && digest !== sha256) throw new ChecksumError(basename(part, '.part'), part.slice(0, -'.part'.length));
+    if (sha256 !== null && digest !== sha256) throw new ChecksumError(basename(path), path);
     return digest;
   } finally {
     clearTimeout(timer);
@@ -82,15 +85,21 @@ async function fetchWithRetries(url: string, path: string, label: string, sha256
     totalMs: opts.totalMs ?? TOTAL_TIMEOUT_MS,
   };
   await mkdir(dirname(path), { recursive: true });
-  const part = `${path}.part`;
   let backoff = BACKOFF_BASE_MS;
   for (let attempt = 1; ; attempt++) {
+    // A name of its own per attempt, so two runs downloading the same file never write into one another's part.
+    const part = `${path}.${process.pid}.${randomUUID()}.part`;
     try {
-      const digest = await fetchToPart(url, part, label, sha256, o);
+      const digest = await fetchToPart(url, path, part, label, sha256, o);
       await rename(part, path);
       return digest;
     } catch (err) {
-      await rm(part, { force: true });
+      // A cleanup failure (EBUSY on Windows) must not replace the real error.
+      try {
+        await rm(part, { force: true });
+      } catch {
+        // Left behind; the next attempt uses a different name.
+      }
       if (!isRetryable(err)) throw err;
       const reason = err instanceof Error ? err.message : String(err);
       if (attempt > MAX_RETRIES) {
@@ -104,7 +113,7 @@ async function fetchWithRetries(url: string, path: string, label: string, sha256
 
 /**
  * Fetch `url` to `path` unless it is already there, and check the file against its pinned `sha256` either way.
- * The body is written to `path.part` and renamed only once it is complete and verified, so neither a partial
+ * The body is written to a part file beside it and renamed only once it is complete and verified, so neither a partial
  * nor a wrong download ever looks like a cached file. A cached file that fails the check is left in place for
  * the maintainer to inspect, and the run stops.
  */

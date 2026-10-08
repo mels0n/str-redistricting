@@ -17,6 +17,11 @@ describe('parseConfig', () => {
   it('rejects unknown states', () => {
     expect(() => parseConfig(['--states', 'XX'])).toThrow(ConfigError);
   });
+  it('says --states is required when it is missing', () => {
+    expect(() => parseConfig([])).toThrow(ConfigError);
+    expect(() => parseConfig([])).toThrow(/--states is required .*for example CO or RI,CT/);
+    expect(() => parseConfig(['--states', ''])).toThrow(/--states is required/);
+  });
   it('rejects an angle step that does not divide 180', () => {
     expect(() => parseConfig(['--states', 'CO', '--angle-step', '0.7'])).toThrow(ConfigError);
   });

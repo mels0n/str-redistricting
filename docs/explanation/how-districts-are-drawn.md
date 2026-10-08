@@ -101,7 +101,7 @@ npm install
 npm run explore -- --states CO
 ```
 
-The state is given by its two-letter abbreviation. A list such as `--states CO,NC` runs several states in turn. `--threads` sets how many threads search the guide lines for each cut; the default is the computer's hardware threads minus two, and `--threads 1` searches on a single thread. The census block file for each state is downloaded from the U.S. Census Bureau the first time it is needed and kept in `data/raw/`. If one state fails in a multi-state run, the command reports the error in the summary table, continues with the remaining states, and exits with a non-zero code at the end.
+`--states` is required. The state is given by its two-letter abbreviation. A list such as `--states CO,NC` runs several states in turn. `--threads` sets how many threads search the guide lines for each cut; the default is the computer's hardware threads minus two, and `--threads 1` searches on a single thread. The census block file for each state is downloaded from the U.S. Census Bureau the first time it is needed and kept in `data/raw/` (`--cache-dir` changes that, and `--out-dir` changes where the plans are written; the defaults are `data/raw` and `out`). If one state fails in a multi-state run, the command reports the error in the summary table, continues with the remaining states, and exits with a non-zero code at the end.
 
 ## What is written for each state
 
@@ -137,7 +137,7 @@ Each plan directory holds five files (the finished map's directory also holds `b
 npm run publish-data
 ```
 
-This reads the plans in `out/` and writes web-ready files to `public/data/`: an `index.json` listing all 50 states with a summary for each state that has a plan, a `states.topo.json` of state outlines, and for each state with a plan:
+This reads the plans in `out/` and writes web-ready files to `public/data/` (`--states` limits it to some states; `--cache-dir`, `--out-dir` and `--public-dir` change the three directories): an `index.json` listing all 50 states with a summary for each state that has a plan, a `states.topo.json` of state outlines, and for each state with a plan:
 
 - `districts.topo.json` and `before.topo.json`, the finished and before-balancing districts as simplified TopoJSON. Simplification runs along shared borders, so neighbouring districts still meet exactly. These are the overview shapes, drawn when the whole state is in view, and are slightly coarser than the block-level `districts.geojson`.
 - `detail.pmtiles`, the full-detail districts and the borders between them as vector tiles (zoom 7 to 13), for both plans. The viewer draws them in place of the overview shapes as the map is zoomed in, and they are never simplified at the deepest zoom.
@@ -150,7 +150,7 @@ This reads the plans in `out/` and writes web-ready files to `public/data/`: an 
 
 The numbers, `assignment.csv` and `blocks.json` are never simplified.
 
-The 119th Congress districts, the state outlines and the county names come from the U.S. Census Bureau's cartographic boundary files, which are downloaded into `data/raw/`. They are used only for display and reporting. The generator never reads them, and they have no effect on any district drawn. `stats.json` records which file the enacted districts came from as `enactedSource`. The file is the one named `cb_2025_us_cd119_500k`, so it shows the maps in use for the 119th Congress. A state that adopted a new map after that file was made is not reflected in it.
+The 119th Congress districts, the state outlines and the county names come from the U.S. Census Bureau's cartographic boundary files, which are downloaded into `data/raw/`. They are used only for display and reporting. The generator never reads them, and they have no effect on any district drawn. `stats.json` records which file the enacted districts came from as `enactedSource`. The file is the one named `cb_2025_us_cd119_500k` (or the 2024 release of the same Congress), so it shows the maps in use for the 119th Congress. The source is pinned to that one Congress: if the Census Bureau serves neither file, publishing stops with an error rather than using another Congress. When a new Congress is seated, change `ENACTED_CONGRESS` in `src/server/features/publish/boundary.ts` and `ENACTED` in `src/client/shared/config/index.ts`, then rerun `npm run publish-data`. A state that adopted a new map after that file was made is not reflected in it.
 
 Alaska's western Aleutian Islands lie east of the 180th meridian, so the state has longitudes on both sides of it. In the published display files only, those longitudes continue past -180 (172 degrees east is written as -188), so the state is one continuous shape. The same shift is applied to its guide lines, balancing blocks and enacted districts. The files in `out/` are not changed.
 

@@ -1,0 +1,169 @@
+name: Enacted districts update
+
+# Looks for a newer enacted congressional districts file from the Census Bureau and, when there is one, opens a
+# pull request that updates the comparison overlay. The checks run here, before the pull request exists, because a
+# pull request opened with GITHUB_TOKEN does not trigger the other workflows. Needs the repository setting
+# "Allow GitHub Actions to create and approve pull requests" (Settings > Actions > General).
+
+on:
+  schedule:
+    - cron: '0 14 3 * *'
+  workflow_dispatch:
+    inputs:
+      force_file:
+        description: 'Skip the Census check and adopt this file instead, e.g. cb_2027_us_cd120_500k (for testing the update)'
+        required: false
+        default: ''
+
+concurrency:
+  group: enacted-update
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      GH_TOKEN: ${{ github.token }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Look for a newer file
+        id: detect
+        env:
+          FORCE_FILE: ${{ inputs.force_file }}
+        run: |
+          set -euo pipefail
+          if [ -n "$FORCE_FILE" ]; then
+            file="$FORCE_FILE"
+          else
+            result=$(npm run -s enacted:check)
+            echo "$result"
+            if [ "$(echo "$result" | jq -r '.update')" != "true" ]; then
+              echo "update=false" >> "$GITHUB_OUTPUT"
+              echo "No newer enacted districts file. Nothing to do."
+              exit 0
+            fi
+            file=$(echo "$result" | jq -r '.file')
+          fi
+          if ! [[ "$file" =~ ^cb_([0-9]{4})_us_cd([0-9]+)_500k$ ]]; then
+            echo "::error::Unexpected file name: $file"
+            exit 1
+          fi
+          {
+            echo "update=true"
+            echo "file=$file"
+            echo "year=${BASH_REMATCH[1]}"
+            echo "congress=${BASH_REMATCH[2]}"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Skip if this file already has a branch or pull request
+        id: existing
+        if: steps.detect.outputs.update == 'true'
+        env:
+          BRANCH: auto/enacted-${{ steps.detect.outputs.file }}
+        run: |
+          set -euo pipefail
+          prs=$(gh pr list --head "$BRANCH" --state all --json number --jq 'length')
+          if [ "$prs" != "0" ] || git ls-remote --exit-code --heads origin "$BRANCH" > /dev/null; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            echo "A branch or pull request for $BRANCH already exists. Nothing to do."
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Download the file and rebuild the overlay
+        if: steps.detect.outputs.update == 'true' && steps.existing.outputs.skip == 'false'
+        env:
+          FILE: ${{ steps.detect.outputs.file }}
+        run: npm run enacted:bump -- --file "$FILE"
+
+      - name: Only the expected files changed
+        id: changes
+        if: steps.detect.outputs.update == 'true' && steps.existing.outputs.skip == 'false'
+        run: |
+          set -euo pipefail
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "The update changed nothing. Nothing to do."
+            exit 0
+          fi
+          unexpected=$(git status --porcelain | cut -c4- \
+            | grep -Ev '^(config/(enacted|census-sha256)\.json|public/data/[A-Z]{2}/(enacted\.topo|stats)\.json)$' || true)
+          if [ -n "$unexpected" ]; then
+            echo "::error::The update touched files it should not have:"
+            echo "$unexpected"
+            exit 1
+          fi
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Typecheck
+        if: steps.changes.outputs.changed == 'true'
+        run: npm run typecheck
+
+      - name: Layer direction and public-API rules
+        if: steps.changes.outputs.changed == 'true'
+        run: npm run depcruise
+
+      - name: Test
+        if: steps.changes.outputs.changed == 'true'
+        run: npm test
+
+      - name: Build the viewer
+        if: steps.changes.outputs.changed == 'true'
+        run: npm run build
+
+      - name: Commit and push a branch
+        id: push
+        if: steps.changes.outputs.changed == 'true'
+        env:
+          BRANCH: auto/enacted-${{ steps.detect.outputs.file }}
+          FILE: ${{ steps.detect.outputs.file }}
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$BRANCH"
+          git add config/enacted.json config/census-sha256.json public/data
+          git commit -m "chore(data): update enacted districts to $FILE" \
+            -m "Rebuilds enacted.topo.json and the enactedSource in stats.json for every state, and pins the new Census file in config/census-sha256.json. Display only: no generated district changes."
+          git push origin "$BRANCH"
+
+      - name: Open the pull request
+        if: steps.changes.outputs.changed == 'true'
+        env:
+          BRANCH: auto/enacted-${{ steps.detect.outputs.file }}
+          FILE: ${{ steps.detect.outputs.file }}
+          YEAR: ${{ steps.detect.outputs.year }}
+          CONGRESS: ${{ steps.detect.outputs.congress }}
+          BASE: ${{ github.event.repository.default_branch }}
+        run: |
+          set -euo pipefail
+          url="https://www2.census.gov/geo/tiger/GENZ${YEAR}/shp/${FILE}.zip"
+          cat > "$RUNNER_TEMP/body.md" <<EOF
+          The Census Bureau has published a newer enacted congressional districts file. This updates the dashed comparison overlay in the viewer to it.
+
+          - File: \`${FILE}\` (Congress ${CONGRESS}, ${YEAR} release)
+          - Source: ${url}
+          - Pinned in \`config/census-sha256.json\` by its SHA-256; the entries for enacted files that are no longer used were removed.
+          - \`config/enacted.json\` now names this Congress and file, and both the publisher and the viewer read it.
+          - Every state's \`enacted.topo.json\` was rebuilt and its \`stats.json\` \`enactedSource\` updated. No other published file changed.
+
+          The overlay is display only. It never affects how districts are drawn, and no generated district, population or statistic depends on it.
+
+          Typecheck, the dependency rules, the tests and the build all passed in the workflow run that opened this pull request. Review the changed Census file and the overlay, then merge. Vercel deploys on merge.
+          EOF
+          gh pr create --base "$BASE" --head "$BRANCH" --title "Update enacted districts to ${FILE}" --body-file "$RUNNER_TEMP/body.md"

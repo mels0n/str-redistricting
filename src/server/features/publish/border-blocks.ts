@@ -8,7 +8,6 @@ import { loadBlockPolygons, type Block } from '../../entities/census-block/index
 import type { StateInfo } from '../../shared/apportionment/index.js';
 import { DataError } from '../../shared/errors/index.js';
 import { crossesAntimeridian, unwrapCoordinates } from './antimeridian.js';
-import { districtsByGeoid } from './bridges.js';
 import { writePmtiles } from './pmtiles.js';
 import { collection, deepOptions, DEEP_EXTENT, growBounds, MVT_VERSION, TILE_MAXZOOM } from './tiles.js';
 
@@ -117,18 +116,19 @@ export function verifyBorderBlocks(state: StateInfo, expected: ReadonlySet<strin
 /**
  * The blocks.pmtiles of one state, built and verified. `allBlocks` supplies the vertices for selection; the shapes
  * themselves are re-read from the TIGER file so a block made of several polygons keeps its structure.
+ * Null when no block sits on a district line (a one-district state).
  */
 export async function buildStateBorderBlocks(
   state: StateInfo,
   cacheDir: string,
   allBlocks: readonly Block[],
-  finishedCsv: string,
-  beforeCsv: string,
+  finished: ReadonlyMap<string, number>,
+  before: ReadonlyMap<string, number>,
   fingerprints: { finished: string; before: string },
-): Promise<Uint8Array> {
-  const finished = districtsByGeoid(finishedCsv, `${state.abbr} assignment.csv`);
-  const before = districtsByGeoid(beforeCsv, `${state.abbr} before-balancing/assignment.csv`);
+): Promise<Uint8Array | null> {
   const selected = borderGeoids(allBlocks, [finished, before]);
+  // A state with one district has no district line, so no file at all.
+  if (selected.size === 0) return null;
   const polygons = await loadBlockPolygons(state, cacheDir, selected);
   const wrapped = crossesAntimeridian(state.abbr);
   const features: Feature[] = [];

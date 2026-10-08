@@ -146,14 +146,15 @@ async function publishState(state: StateInfo, cfg: PublishConfig, shared: Shared
     water: display(water.features) as unknown as Feature[],
   }, fingerprints);
   await verifyTiles(state, allBlocks, tiles, blocksFile, new Set(log.data.moves.map((m) => m.geoid)), wrapped);
-  const borderTiles = await buildStateBorderBlocks(state, cfg.cacheDir, allBlocks, officialCsv, beforeCsv, fingerprints);
-  outputs.push(['blocks.json', blocksJson], ['detail.pmtiles', tiles], ['blocks.pmtiles', borderTiles]);
+  const borderTiles = await buildStateBorderBlocks(state, cfg.cacheDir, allBlocks, districtsByGeoid(officialCsv, `${state.abbr} assignment.csv`), districtsByGeoid(beforeCsv, `${state.abbr} before-balancing/assignment.csv`), fingerprints);
+  outputs.push(['blocks.json', blocksJson], ['detail.pmtiles', tiles]);
+  if (borderTiles) outputs.push(['blocks.pmtiles', borderTiles]);
 
   // Every output is built and checked above; only now does anything in the public directory change, stats.json last.
   await mkdir(dest, { recursive: true });
   for (const [name, body] of outputs) await write(join(dest, name), body);
   const rawBytes = Buffer.byteLength(blocksJson);
-  console.log(`  ${state.abbr}: detail.pmtiles ${tiles.byteLength} B, blocks.pmtiles ${borderTiles.byteLength} B, blocks.json ${rawBytes} B (${gzipSync(blocksJson).byteLength} B gzip)`);
+  console.log(`  ${state.abbr}: detail.pmtiles ${tiles.byteLength} B, blocks.pmtiles ${borderTiles ? `${borderTiles.byteLength} B` : 'none (one district)'}, blocks.json ${rawBytes} B (${gzipSync(blocksJson).byteLength} B gzip)`);
 
   await write(join(dest, 'stats.json'), JSON.stringify(stats));
 }
@@ -218,12 +219,19 @@ async function writeIfChanged(path: string, body: string): Promise<boolean> {
   return true;
 }
 
-const PublishedFingerprintsSchema = z.looseObject({ fingerprints: z.object({ finished: z.string().min(1), before: z.string().min(1) }) });
+const Pair = z.tuple([z.number().int().min(1), z.number().int().min(1)]);
+const PublishedBlocksSchema = z.object({
+  v: z.literal(1),
+  state: z.string().length(2),
+  seats: z.number().int().min(1),
+  fingerprints: z.object({ finished: z.string().min(1), before: z.string().min(1) }),
+  tracts: z.record(z.string(), z.union([Pair, z.tuple([z.number().int().min(1), z.number().int().min(1), z.record(z.string(), Pair)])])),
+});
 
 /**
- * Rebuild only each published state's `blocks.pmtiles`, from its generated plans and the cached TIGER blocks. The
- * fingerprints are the ones already published in `blocks.json` and must match the plans in the output directory, so
- * the file always belongs to the data it sits next to. Every other file is left alone.
+ * Rebuild only each published state's `blocks.pmtiles`. The districts of every block come from the state's published
+ * `blocks.json` (the same data the detail tiles were cut from) and the shapes from the cached TIGER blocks, so the file
+ * always belongs to the data it sits next to and nothing is needed from the output directory. Every other file is left alone.
  */
 export async function publishBlocksOnly(cfg: PublishConfig): Promise<void> {
   const published = STATES.filter((s) => existsSync(join(cfg.publicDir, s.abbr, 'stats.json')));
@@ -232,20 +240,23 @@ export async function publishBlocksOnly(cfg: PublishConfig): Promise<void> {
     if (!published.some((p) => p.abbr === s.abbr)) throw new DataError(`${s.abbr}: nothing published in ${cfg.publicDir}, so there is no data to update`);
   }
   for (const s of selected) {
-    const src = join(cfg.outDir, s.abbr);
-    const srcBefore = join(src, 'before-balancing');
     const path = join(cfg.publicDir, s.abbr, 'blocks.json');
-    const parsed = PublishedFingerprintsSchema.safeParse(await readJson(path));
+    const parsed = PublishedBlocksSchema.safeParse(await readJson(path));
     if (!parsed.success) throw new DataError(`${path}: ${parsed.error.issues.map((i) => `${i.path.join('.')} ${i.message}`).join('; ')}`);
-    const fingerprints = parsed.data.fingerprints;
-    const [official, before] = [await readMetrics(src), await readMetrics(srcBefore)];
-    if (official.assignmentSha256 !== fingerprints.finished || before.assignmentSha256 !== fingerprints.before) {
-      throw new DataError(`${s.abbr}: the plans in ${cfg.outDir} are not the ones published in ${cfg.publicDir}; run a full publish for it`);
+    const file: BlocksFile = parsed.data;
+    if (file.state !== s.fips || file.seats !== s.seats) throw new DataError(`${path}: is not the file of ${s.abbr}`);
+    const allBlocks = await loadStateBlocks(s, cfg.cacheDir);
+    const finished = new Map<string, number>();
+    const before = new Map<string, number>();
+    for (const b of allBlocks) {
+      const got = lookup(file, b.geoid);
+      if (!got) throw new DataError(`${s.abbr}: block ${b.geoid} is not in ${path}`);
+      finished.set(b.geoid, got[0]);
+      before.set(b.geoid, got[1]);
     }
-    const [officialCsv, beforeCsv] = [await readFile(join(src, 'assignment.csv'), 'utf8'), await readFile(join(srcBefore, 'assignment.csv'), 'utf8')];
-    const bytes = await buildStateBorderBlocks(s, cfg.cacheDir, await loadStateBlocks(s, cfg.cacheDir), officialCsv, beforeCsv, fingerprints);
-    await write(join(cfg.publicDir, s.abbr, 'blocks.pmtiles'), bytes);
-    console.log(`  ${s.abbr}: blocks.pmtiles ${bytes.byteLength} B`);
+    const bytes = await buildStateBorderBlocks(s, cfg.cacheDir, allBlocks, finished, before, file.fingerprints);
+    if (bytes) await write(join(cfg.publicDir, s.abbr, 'blocks.pmtiles'), bytes);
+    console.log(`  ${s.abbr}: blocks.pmtiles ${bytes ? `${bytes.byteLength} B` : 'none (one district)'}`);
   }
 }
 

@@ -22,7 +22,7 @@ describe('checkPublishGate', () => {
   });
   it('refuses a changed map under the same engine and input revision', () => {
     expect(() => checkPublishGate({ versions: stamp, sha: A }, { versions: stamp, sha: B }, false, 'RI')).toThrow(
-      'RI: the map changed but the engine version and input revision did not; bump the engine major (npm run release)',
+      'RI: the map changed but the engine major and input revision did not; bump the engine major (npm run release)',
     );
   });
   it('allows an identical map under the same versions', () => {
@@ -30,6 +30,10 @@ describe('checkPublishGate', () => {
   });
   it('allows a changed map when the engine version moved', () => {
     expect(() => checkPublishGate({ versions: stamp, sha: A }, { versions: bumped({ engine: '2.0.0' }), sha: B }, false, 'RI')).not.toThrow();
+  });
+  it('refuses a changed map when only the engine minor or patch moved', () => {
+    expect(() => checkPublishGate({ versions: stamp, sha: A }, { versions: bumped({ engine: '1.0.1' }), sha: B }, false, 'RI')).toThrow('the map changed');
+    expect(() => checkPublishGate({ versions: stamp, sha: A }, { versions: bumped({ engine: '1.9.0' }), sha: B }, false, 'RI')).toThrow('the map changed');
   });
   it('allows a changed map when the input revision moved', () => {
     const next = bumped({ input: { ...stamp.input, revision: stamp.input.revision + 1 } });

@@ -17,7 +17,6 @@ import {
   reproduceCommands,
   stateRoute,
   NATIONAL,
-  VERSIONS,
   HOW_SECTIONS,
   type HowSection,
   type Page,
@@ -254,6 +253,8 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
   const h1 = h('h1', { class: 'strv-how__h1', tabindex: -1 }, 'How the districts are drawn');
 
   // The balancing figures come from every state's own numbers; they arrive after the page.
+  // Unpinned until the published data says which maps release Colorado belongs to; the bundled release is the site's, not the data's.
+  const recipeCode = h('code', null, reproduceCommands('CO', null));
   const balanceSentence = h('p', { class: 'strv-how__real' }, 'Loading the numbers for each state…');
   const balanceTable = h('div', { class: 'strv-how__real-table' });
   // Colorado's own cuts, for following one state through the repeat.
@@ -496,7 +497,7 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
       ),
       h('h3', { class: 'strv-how__h3' }, 'To reproduce a state’s map'),
       p('The generator, this viewer and the published data are all in ', h('a', { href: config.repoUrl }, 'the project’s GitHub repository'), '. Get the code and run it:'),
-      h('pre', { class: 'strv-code', tabindex: 0, role: 'group', 'aria-label': 'Commands to run' }, h('code', null, reproduceCommands('CO', VERSIONS.maps))),
+      h('pre', { class: 'strv-code', tabindex: 0, role: 'group', 'aria-label': 'Commands to run' }, recipeCode),
       p('Every map names the engine and Census input version that drew it. Same versions, same districts, every time. See what changed in each release on the ', h('a', { href: formatHash(CHANGELOG) }, 'changelog page'), '.'),
       p('The state is given by its two-letter abbreviation. The census block file for the state is downloaded from the U.S. Census Bureau the first time it is needed.'),
     ),
@@ -628,6 +629,16 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
     }
   }
 
+  async function loadRecipe(): Promise<void> {
+    try {
+      const co = (await loadIndex()).states.find((s) => s.abbr === 'CO');
+      const maps = co?.summary?.versions?.maps;
+      if (alive && maps !== undefined) recipeCode.textContent = reproduceCommands('CO', maps);
+    } catch {
+      // The recipe stays unpinned; the numbers section reports the failed load.
+    }
+  }
+
   async function loadFollow(): Promise<void> {
     try {
       const cuts = await fetchJson(dataUrl('CO/cuts.json'), CutsSchema);
@@ -652,6 +663,7 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
 
   void loadNumbers();
   void loadFollow();
+  void loadRecipe();
   document.title = 'How the districts are drawn';
   markToc(initial.section);
   // On arrival there is nothing to scroll from, so jump; a smooth scroll would still be running when the late tables land.

@@ -156,7 +156,7 @@ describe('links that do not fit the state', () => {
   it('reports both problems at once, and a one-seat state has no cuts', () => {
     expect(fitRouteToState(stateRoute('CO', { district: 9, cut: 9 }), 8).issues).toHaveLength(2);
     const one = fitRouteToState(stateRoute('WY', { district: 2, cut: 1 }), 1);
-    expect(one.route).toEqual(stateRoute('WY', { cut: 0 }));
+    expect(one.route).toEqual(stateRoute('WY'));
     expect(describeRouteIssue(one.issues[1]!, 'Wyoming')).toMatch(/single district/);
   });
 

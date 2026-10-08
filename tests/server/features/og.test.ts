@@ -110,12 +110,20 @@ describe('ogSvg projection', () => {
 });
 
 describe('font families', () => {
-  it('the headline family resolves to a loaded font instead of the renderer fallback', async () => {
+  it('the headline (weight 800) and the count (weight 600) render with different loaded faces, not one fallback', async () => {
     const fonts = await loadOgFonts();
     const svg = ogSvg({ name: 'Testland', abbr: 'XX', seats: 2, topo: TOPO, credit: 'fairmaps.melson.us/XX', palette: OG_PALETTE });
-    expect(svg).toContain('font-family="Public Sans" font-weight="800"');
-    const unmatched = svg.replaceAll('font-family="Public Sans" font-weight="800"', 'font-family="Nonexistent Font"').replaceAll('font-family="Public Sans" font-weight="600"', 'font-family="Nonexistent Font"');
-    expect(Buffer.from(renderOgPng(svg, fonts)).equals(Buffer.from(renderOgPng(unmatched, fonts)))).toBe(false);
+    const w800 = 'font-family="Public Sans" font-weight="800"';
+    const w600 = 'font-family="Public Sans" font-weight="600"';
+    expect(svg).toContain(w800);
+    expect(svg).toContain(w600);
+    const bytes = (s: string): Buffer => Buffer.from(renderOgPng(s, fonts));
+    // Swapping a weight for the other changes the picture only when the two weights are different faces.
+    expect(bytes(svg).equals(bytes(svg.replaceAll(w800, w600)))).toBe(false);
+    expect(bytes(svg).equals(bytes(svg.replaceAll(w600, w800)))).toBe(false);
+    // And the headline resolves to its loaded face rather than the renderer fallback. (The fallback for a missing
+    // family lands on the 600 face, so the count cannot be checked this way; the swaps above cover it.)
+    expect(bytes(svg).equals(bytes(svg.replaceAll(w800, 'font-family="Nonexistent Font"')))).toBe(false);
   });
 });
 

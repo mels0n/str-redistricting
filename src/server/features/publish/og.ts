@@ -88,14 +88,14 @@ export function ogSvg(p: { name: string; abbr: string; seats: number; topo: stri
     `<svg xmlns="http://www.w3.org/2000/svg" width="${OG_WIDTH}" height="${OG_HEIGHT}" viewBox="0 0 ${OG_WIDTH} ${OG_HEIGHT}">`,
     `<rect width="${OG_WIDTH}" height="${OG_HEIGHT}" fill="${GROUND}"/>`,
     shapes,
-    `<text x="${COLUMN_X}" y="196" font-family="Public Sans Thin ExtraBold" font-size="58" fill="${INK}">Fair House Maps</text>`,
-    `<text x="${COLUMN_X}" y="260" font-family="Public Sans Thin SemiBold" font-size="${countSize}" fill="${INK}">${escapeXml(count)}</text>`,
+    `<text x="${COLUMN_X}" y="196" font-family="Public Sans" font-weight="800" font-size="58" fill="${INK}">Fair House Maps</text>`,
+    `<text x="${COLUMN_X}" y="260" font-family="Public Sans" font-weight="600" font-size="${countSize}" fill="${INK}">${escapeXml(count)}</text>`,
     credit,
     '</svg>',
   ].join('');
 }
 
-/** The family names the static Public Sans files carry in their name tables (they are cut from the variable font, hence "Thin"). */
+/** The static Public Sans files are cut from the variable font, so their name tables say family "Public Sans Thin" with the weight in the subfamily. The renderer matches the typographic family "Public Sans" plus font-weight (800 and 600 here); an unmatched name silently falls back to another face. */
 const FONT_FILES = [
   '@fontsource/public-sans/files/public-sans-latin-800-normal.woff2',
   '@fontsource/public-sans/files/public-sans-latin-600-normal.woff2',

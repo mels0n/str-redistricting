@@ -78,6 +78,16 @@ describe('fonts', () => {
   });
 });
 
+describe('font families', () => {
+  it('the headline family resolves to a loaded font instead of the renderer fallback', async () => {
+    const fonts = await loadOgFonts();
+    const svg = ogSvg({ name: 'Testland', abbr: 'XX', seats: 2, topo: TOPO, credit: 'fairmaps.melson.us/XX', palette: OG_PALETTE });
+    expect(svg).toContain('font-family="Public Sans" font-weight="800"');
+    const unmatched = svg.replaceAll('font-family="Public Sans" font-weight="800"', 'font-family="Nonexistent Font"').replaceAll('font-family="Public Sans" font-weight="600"', 'font-family="Nonexistent Font"');
+    expect(Buffer.from(renderOgPng(svg, fonts)).equals(Buffer.from(renderOgPng(unmatched, fonts)))).toBe(false);
+  });
+});
+
 describe('palette parity', () => {
   it('matches districtPalette in the client tokens', () => {
     const tokens = readFileSync(new URL('../../../src/client/shared/ui/tokens.ts', import.meta.url), 'utf8');

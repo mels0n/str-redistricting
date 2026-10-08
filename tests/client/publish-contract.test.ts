@@ -9,6 +9,7 @@
  */
 /// <reference path="../../src/server/features/publish/mapshaper.d.ts" />
 /// <reference path="../../src/server/features/publish/vt-pbf.d.ts" />
+/// <reference path="../../src/server/features/publish/wawoff2.d.ts" />
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';

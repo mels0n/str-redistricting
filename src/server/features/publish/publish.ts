@@ -18,6 +18,8 @@ import { buildStateBorderBlocks } from './border-blocks.js';
 import { buildEnactedTopology } from './enacted.js';
 import { buildCuts } from './cuts.js';
 import { checkPublishGate } from './gate.js';
+import { loadOgFonts, OG_PALETTE, ogSvg, renderOgPng } from './og.js';
+import { ogCredit } from './og-credit.js';
 import { buildStats, planStats } from './stats.js';
 import { buildIndex, PlanMetricsSchema, PublishedMetricsSchema, PublishedStampSchema, summarize, type PlanMetrics, type StateSummary } from './summary.js';
 import { buildDetailTiles, districtsAtDeepTile } from './tiles.js';
@@ -112,7 +114,10 @@ async function publishState(state: StateInfo, cfg: PublishConfig, shared: Shared
   const display = <T extends { readonly geometry: unknown }>(fs: readonly T[]): T[] => (wrapped ? unwrapFeatures(fs) : [...fs]);
   const districts = (await readJson(join(src, 'districts.geojson'))) as Parameters<typeof toTopology>[0];
   const outputs: [string, string | Uint8Array][] = [];
-  outputs.push(['districts.topo.json', await toTopology({ features: display(districts.features) }, 'districts', budget)]);
+  const districtsTopo = await toTopology({ features: display(districts.features) }, 'districts', budget);
+  outputs.push(['districts.topo.json', districtsTopo]);
+  const credit = ogCredit({ abbr: state.abbr, name: state.name, versions, assignmentSha256: official.assignmentSha256 });
+  outputs.push(['og.png', renderOgPng(ogSvg({ name: state.name, abbr: state.abbr, seats: state.seats, topo: districtsTopo, credit, palette: OG_PALETTE }), await loadOgFonts())]);
   const beforeDistricts = (await readJson(join(srcBefore, 'districts.geojson'))) as Parameters<typeof toTopology>[0];
   outputs.push(['before.topo.json', await toTopology({ features: display(beforeDistricts.features) }, 'districts', budget)]);
 

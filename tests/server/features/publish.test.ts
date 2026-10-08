@@ -4,7 +4,7 @@ import { join } from 'node:path';
 import { afterAll, describe, expect, it } from 'vitest';
 import {
   buildCuts, buildIndex, countiesByDistrict, parseCdRecord, planStats, simplifyPercent, toTopology, vertexCount,
-  boundaryUrl, CountyRecord, PlanMetricsSchema, publishedSummaries, summarize, buildBalance, BalanceLogSchema, ProcessNumbersSchema, buildStats,
+  boundaryUrl, ENACTED_CANDIDATES, ENACTED_CONGRESS, CountyRecord, PlanMetricsSchema, publishedSummaries, summarize, buildBalance, BalanceLogSchema, ProcessNumbersSchema, buildStats,
 } from '../../../src/server/features/publish/index.js';
 import { STATES } from '../../../src/server/shared/apportionment/index.js';
 import { parsePublishConfig } from '../../../src/server/shared/config/index.js';
@@ -129,6 +129,11 @@ describe('boundary records', () => {
   });
   it('builds the Census URL from the vintage in the file name', () => {
     expect(boundaryUrl('cb_2025_us_cd119_500k')).toBe('https://www2.census.gov/geo/tiger/GENZ2025/shp/cb_2025_us_cd119_500k.zip');
+  });
+  it('only tries files of the one pinned Congress, the same one the viewer names', () => {
+    for (const file of ENACTED_CANDIDATES) expect(file).toContain(`_cd${ENACTED_CONGRESS}_`);
+    const viewer = /congress: (\d+)/.exec(readFileSync('src/client/shared/config/index.ts', 'utf8'));
+    expect(Number(viewer?.[1])).toBe(ENACTED_CONGRESS);
   });
 });
 

@@ -12,8 +12,9 @@ restate the code itself.
 - Test: `npm test`
 - Run the viewer: `npm run dev`
 - Build the viewer into `dist/`: `npm run build`
-- Generate maps: `npm run explore -- --states CO` (`--threads N` sets the threads that search each cut; default hardware threads minus two)
+- Generate maps: `npm run explore -- --states CO` (`--states` is required; `--threads N` sets the threads that search each cut, default hardware threads minus two)
 - Publish web-ready data to `public/data/`: `npm run publish-data`
+- Extract the How it works examples: `npm run rule-examples`
 - Lint: none
 
 ## Layout
@@ -49,4 +50,4 @@ layer above it, and slices inside a layer are reached only through their
 
 ## Documentation
 
-`docs/` describes the system as it currently is. Keep it to final explanations of how things work: no decision logs, change history, or roadmaps. History lives in git.
+`docs/` describes the system as it currently is. Keep it to explanations of how things work, with no change history or roadmaps. History lives in git.

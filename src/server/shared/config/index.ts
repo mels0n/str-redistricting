@@ -13,8 +13,10 @@ export interface Config {
   readonly threads: number;
 }
 
+const STATES_REQUIRED = '--states is required (two-letter abbreviations, comma separated, for example CO or RI,CT)';
+
 const Raw = z.object({
-  states: z.string().min(1),
+  states: z.string(STATES_REQUIRED).min(1, STATES_REQUIRED),
   angleStep: z.coerce.number().positive().max(10)
     .refine((v) => Math.abs(180 / v - Math.round(180 / v)) < 1e-9, 'angle step must divide 180 exactly'),
   cacheDir: z.string().min(1),

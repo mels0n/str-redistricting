@@ -1,4 +1,4 @@
-import { h, ordinal, formatInt, type Plan } from '../../shared';
+import { h, ordinal, congressName, formatInt, type Plan } from '../../shared';
 import { balancePlanAt } from '../../entities/plan';
 
 export interface PlanOptionsOptions {
@@ -45,6 +45,7 @@ export function enactedSourceLabel(source: string): string {
   return `U.S. Census Bureau cartographic boundary file for the ${ordinal(Number(m[2]))} Congress (${m[1]} release, ${source})`;
 }
 
+
 export function createPlanOptions(opts: PlanOptionsOptions): PlanOptions {
   const name = `strv-plan-${Math.random().toString(36).slice(2, 8)}`;
   const radio = (value: Plan, label: string, hint: string): HTMLElement => {
@@ -70,11 +71,11 @@ export function createPlanOptions(opts: PlanOptionsOptions): PlanOptions {
     'div',
     { class: 'strv-check' },
     enactedBox,
-    h('label', { for: `${name}-enacted` }, h('span', { class: 'strv-check__label' }, 'Compare with the 119th Congress districts'), h('span', { class: 'strv-check__hint' }, `Dashed lines. For comparison only, never used to draw. Source: ${enactedSourceLabel(opts.enactedSource)}.`)),
+    h('label', { for: `${name}-enacted` }, h('span', { class: 'strv-check__label' }, `Compare with the ${congressName(opts.enactedSource)} districts`), h('span', { class: 'strv-check__hint' }, `Dashed lines. For comparison only, never used to draw. Source: ${enactedSourceLabel(opts.enactedSource)}.`)),
   );
 
   const cutNote = h('p', { class: 'strv-options__note' });
-  const enactedError = h('p', { class: 'strv-options__error', role: 'status', hidden: true }, 'The 119th Congress districts could not be loaded. Uncheck the box and check it again to retry.');
+  const enactedError = h('p', { class: 'strv-options__error', role: 'status', hidden: true }, `The ${congressName(opts.enactedSource)} districts could not be loaded. Uncheck the box and check it again to retry.`);
   const el = h('div', { class: 'strv-options' }, group, cutNote, enacted, enactedError);
 
   return {

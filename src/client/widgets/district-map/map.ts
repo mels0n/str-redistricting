@@ -798,7 +798,7 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
 
     if (!prev || prev.cut !== next.cut || planShown(prev) !== plan) layoutLabels();
 
-    // The 119th Congress districts, display only.
+    // The enacted Congress's districts, display only.
     if (next.enacted) {
       if (prev?.enacted !== next.enacted) src('enacted').setData(asFeature(next.enacted.lines));
       map.setLayoutProperty('enacted', 'visibility', 'visible');

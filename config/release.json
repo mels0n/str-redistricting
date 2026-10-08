@@ -1,0 +1,38 @@
+{
+  "enforce": false,
+  "paths": {
+    "engine": ["src/server/**"],
+    "input": ["config/census-sha256.json", "config/enacted.json"],
+    "maps": ["public/data/**"],
+    "schema": ["src/server/entities/plan-output/schema.ts", "src/server/features/publish/**", "src/server/features/export/**"],
+    "web": ["src/client/**", "index.html", "public/*"],
+    "docs": ["docs/**", "README.md"]
+  },
+  "exclude": {
+    "engine": [
+      "src/server/entities/plan-output/schema.ts",
+      "src/server/features/publish/**",
+      "src/server/features/export/**",
+      "src/server/features/enacted/**",
+      "src/server/app/enacted-*.ts",
+      "src/server/app/publish.ts",
+      "src/server/features/rule-examples/**",
+      "src/server/app/rule-examples.ts",
+      "src/server/app/rule-examples/**",
+      "src/server/features/release/**",
+      "src/server/app/release.ts",
+      "src/server/app/release-tags.ts",
+      "src/server/app/version-check.ts",
+      "src/server/app/fingerprints.ts",
+      "src/server/app/git.ts",
+      "src/server/shared/config/versions.ts"
+    ],
+    "input": [],
+    "maps": [],
+    "schema": [],
+    "web": [],
+    "docs": []
+  },
+  "ignore": ["tests/**", ".github/**", "config/versions.json", "config/release.json", "changelog/**"],
+  "docsTypes": ["copy", "docs"]
+}

@@ -1281,7 +1281,7 @@ html:has(> body > #str-viewer) {
   border-radius: 2px;
 }
 
-/* A district color on the left and the plain ground color the map uses over water on the right. */
+/* A district color, strong on the left and washed with the ground color (the same 0.7 the map uses over water) on the right. */
 .strv-legend__water {
   position: relative;
   display: inline-block;
@@ -1295,7 +1295,7 @@ html:has(> body > #str-viewer) {
   content: '';
   position: absolute;
   inset: 0 0 0 50%;
-  background: var(--ground);
+  background: rgb(243 239 229 / 0.7);
 }
 
 .strv-legend__cut,

@@ -6,7 +6,6 @@ import type { LonLat } from '../../shared/geo/index.js';
 const Props = z.object({
   GEOID20: z.string().regex(/^\d{15}$/),
   POP20: z.number().int().nonnegative(),
-  ALAND20: z.number().nonnegative(),
   INTPTLAT20: z.string().min(1),
   INTPTLON20: z.string().min(1),
 });
@@ -35,5 +34,5 @@ export function parseBlockFeature(props: unknown, geometry: unknown): Block {
   const lat = Number.parseFloat(p.data.INTPTLAT20);
   const lon = Number.parseFloat(p.data.INTPTLON20);
   if (!Number.isFinite(lat) || !Number.isFinite(lon)) throw new DataError(`bad internal point for block ${p.data.GEOID20}`);
-  return { geoid: p.data.GEOID20, pop: p.data.POP20, point: [lon, lat], rings, water: p.data.ALAND20 === 0 && p.data.POP20 === 0 };
+  return { geoid: p.data.GEOID20, pop: p.data.POP20, point: [lon, lat], rings };
 }

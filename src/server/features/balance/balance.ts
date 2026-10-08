@@ -90,14 +90,6 @@ export function balance(blocks: readonly Block[], topo: Topology, input: Int32Ar
     const seen = new Set<number>();
     const cands: Move[] = [];
     const ruledOut: RoundCandidate[] | undefined = observe ? [] : undefined;
-    // A block borders district `to` only across land: water blocks hold no people, so touching one is not a border.
-    const touchesByLand = (block: number, to: number): boolean => {
-      for (let k = topo.adjOffsets[block]!; k < topo.adjOffsets[block + 1]!; k++) {
-        const j = topo.adjList[k]!;
-        if (assignment[j] === to && !blocks[j]!.water) return true;
-      }
-      return false;
-    };
     const consider = (block: number, from: number, to: number) => {
       const p = blocks[block]!.pop;
       const key = block * seats + to;
@@ -105,7 +97,6 @@ export function balance(blocks: readonly Block[], topo: Topology, input: Int32Ar
       if (p === 0 && !ruledOut) return;
       if (seen.has(key)) return;
       seen.add(key);
-      if (!touchesByLand(block, to)) return;
       if (p === 0) { ruledOut?.push({ block, from, to, gain: 0, allowed: false, reason: 'no-people', district }); return; }
       // Exact decrease in the sum of squared deviations (populations are integers).
       const gain = 2 * p * (pop[from]! - pop[to]! - p);

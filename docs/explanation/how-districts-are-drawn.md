@@ -10,7 +10,7 @@ The generator reads three things for every census block in a state, from the 202
 - the block's shape on the ground, and
 - the block's internal point (the Census Bureau's `INTPTLAT20` and `INTPTLON20`), which is used only to put blocks in order across a guide line.
 
-That is all. It does not read party registration, election results, the addresses of current officeholders, or race and ethnicity data. County and city boundaries are not used to draw anything. Counties are only counted afterwards, for reporting. People are counted where the census counted them, with no adjustments, so a person in a prison is counted at the prison.
+That is all. It does not read party registration or voter records, election results or turnout, where officeholders or candidates live, current or past district lines, or race, ethnicity, age, income or anything else about people besides the count. The 119th Congress districts are shown in the viewer for comparison only. County and city boundaries are not used to draw anything. Counties are only counted afterwards, for reporting. People are counted where the census counted them, with no adjustments, so a person in a prison is counted at the prison.
 
 The number of districts for each state is the number of House seats the state received in the 2020 apportionment.
 

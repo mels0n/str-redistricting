@@ -16,15 +16,20 @@ export function createNationalPage(nav: Navigate): Page {
   const lede = h(
     'div',
     { class: 'strv-national__lede' },
-    h('p', null, 'In most states, politicians draw the district lines. Here, nobody does. Every map comes from 2020 Census counts and three fixed steps that anyone can check:'),
+    h('p', null, 'People, usually politicians, draw the lines. They see your party, your race, your income, and use that to pick their voters. That is gerrymandering.'),
+    h('p', { class: 'strv-national__closing' }, 'So we removed the human. Code draws these maps from census headcounts and block shapes alone. No human, no gerrymandering.'),
     h(
-      'ol',
-      { class: 'strv-national__steps' },
-      step('Cut.', 'Split the state along the shortest line that divides its people evenly between the seats on each side. Repeat until each piece is one district.'),
-      step('Keep blocks whole.', 'Census blocks are never split. A stray piece cut off from its side joins the side around it, and the line slides so the count stays even.'),
-      step('Balance.', 'Single blocks along a border move to the neighboring district only when that narrows the population gap and both stay connected.'),
+      'div',
+      { class: 'strv-national__how' },
+      h('h2', { class: 'strv-national__how-h' }, 'Three steps. No humans.'),
+      h(
+        'ol',
+        { class: 'strv-national__steps' },
+        step('Cut.', 'Split the state along the shortest line that divides its people by seats. Repeat until each piece is one district.'),
+        step('Keep blocks whole.', 'The census counts people in blocks: areas bounded by streets, streams, rail lines and similar edges. There is no count for part of a block, so lines follow block edges.'),
+        step('Balance.', 'Blocks along each border shift only when that brings two districts closer to equal population.'),
+      ),
     ),
-    h('p', { class: 'strv-national__closing' }, 'No party data. No incumbent addresses. The same map every time.'),
     h('p', { class: 'strv-national__more' }, h('a', { href: formatHash(howRoute()) }, 'How it works: every stage, with drawings')),
   );
 
@@ -59,8 +64,8 @@ export function createNationalPage(nav: Navigate): Page {
       // On a phone the lede and map are separate rows (lede, map, index, then the address search); on a wide screen they stay pinned together beside the index.
       // Source order follows the phone layout, so on a wide screen the search (shown top left) is reached after the index by Tab; its search landmark is the shortcut.
       h('div', { class: 'strv-national__side' }, lede, mapSlot),
-      indexSlot,
-      h('div', { class: 'strv-national__search' }, search.el),
+      // On a wide screen the search and index share one left rail, so the index starts right under the search instead of below the headline block.
+      h('div', { class: 'strv-national__rail' }, indexSlot, h('div', { class: 'strv-national__search' }, search.el)),
     ),
   );
 

@@ -16,8 +16,8 @@ restate the code itself.
 - Publish web-ready data to `public/data/`: `npm run publish-data`
 - Look for a newer enacted districts file: `npm run enacted:check`; adopt one: `npm run enacted:bump -- --file cb_2027_us_cd120_500k` (rebuilds only the overlay files: `npm run publish-data -- --enacted-only`)
 - Extract the How it works examples: `npm run rule-examples`
-- Propose and commit the next component versions: `npm run release` (`-- --dry-run` to preview). Check a branch against its base: `npm run version:check -- --base origin/main`. Tags a commit introduces: `npm run release:tags -- --before <sha> --after <sha>`
-- Redraw the fixture states and compare with `tests/fingerprints/engine.json`: `npm run fingerprints -- --check` (`--record` writes new ones)
+- Propose and commit the next component versions: `npm run release` (`-- --dry-run` to preview). Check a branch against its base: `npm run version:check -- --base origin/main`. Tags a commit introduces: `npm run release:tags -- --before <sha> --after <sha>` (prints nothing before the 1.0 cut)
+- Redraw the fixture states and compare with `tests/fingerprints/engine.json`: `npm run fingerprints -- --check --base origin/main` (`--record` writes new ones)
 - Ask the Census Bureau whether a pinned file was reissued: `npm run census:watch -- --check --report report.json` (`--record` stores what it serves now)
 - Publish over data made before versioning existed: `npm run publish-data -- --baseline`
 - Lint: none

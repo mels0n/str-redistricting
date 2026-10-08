@@ -17,29 +17,29 @@ Six things have a version, because they change for different reasons. All six li
 | --- | --- | --- | --- |
 | Engine | `1.0.0` | the code in `src/server/` that draws maps changes. A change that alters any map is a major version; a feature is a minor one; anything else is a patch | `changelog/engine.md` |
 | Input | `census-2020` revision `1` | a pinned Census file changes (`config/census-sha256.json`, `config/enacted.json`). The vintage names the census; the revision counts reissues | `changelog/input.md` |
-| Maps | `1` | the engine or the input moved and the published data in `public/data/` changed. Whole numbers: one maps release is one complete, consistent set of 50 states | `changelog/maps.md` |
+| Maps | `1` | the engine major or the input moved, or the published maps changed (the assignment or input hashes in `public/data/index.json`). Whole numbers: one maps release is one complete, consistent set of 50 states | `changelog/maps.md` |
 | Schema | `1.0.0` | the shape of the published and exported files changes | `changelog/schema.md` |
 | Web | `1.0.0` | the viewer in `src/client/` changes | `changelog/web.md` |
 | Docs | `1.0.0` | `docs/` or this README changes, or copy-only edits to the viewer | `changelog/docs.md` |
 
 **Versioning starts at the 1.0 release.** Until that release is cut, no version tags exist in this repository, `config/versions.json` holds the 1.0 baseline, and the version checks only warn (`enforce` in `config/release.json` is `false`). After it, every component version that changes gets a tag when the change reaches `main`: `engine-v1.0.0`, `input-census-2020-r1`, `maps-1`, `schema-v1.0.0`, `web-v1.0.0`, `docs-v1.0.0`.
 
-The same engine version and the same input revision always draw the same map. That is the point of the engine and input versions, and it is checked: a handful of small states (`fixtureStates` in `config/release.json`) are drawn on every pull request and compared with the fingerprints recorded in `tests/fingerprints/engine.json`. If a map changed but the engine's major version did not, the check fails.
+The same engine version and the same input revision always draw the same map. That is the point of the engine and input versions, and it is checked: a handful of small states (`fixtureStates` in `config/release.json`) are drawn on every pull request and compared with the fingerprints recorded in `tests/fingerprints/engine.json` on the branch being merged into (never the pull request's own copy). If a map changed but the engine's major version did not go up, or the new fingerprints were not recorded with it, the check fails.
 
 Commands:
 
 ```bash
-npm run release          # propose and commit the next versions from the commits since each component's last tag
+npm run release          # propose and commit the next versions from the commits since each component's newest tag; running it again changes nothing
 npm run release -- --dry-run   # show what it would do, change nothing
 npm run version:check -- --base origin/main   # what CI runs on a pull request: did the versions move with the changes?
 npm run release:tags -- --before <sha> --after <sha>   # the tags a commit introduces (what the tag workflow uses)
-npm run fingerprints -- --check   # redraw the fixture states and compare (--record writes them; --states limits them)
+npm run fingerprints -- --check --base origin/main   # redraw the fixture states and compare with the base branch (--record writes them; --states limits them)
 npm run census:watch -- --check --report report.json   # ask the Census Bureau whether a pinned file was reissued (--record notes what it serves now)
 ```
 
-`release` reads commit subjects in the conventional form (`feat:`, `fix:`, a `!` for a breaking change), decides which components each commit touched from the file paths in `config/release.json`, and writes the new versions plus a dated entry in each moved component's changelog. It commits; it never pushes or tags. Publishing data with `npm run publish-data` stamps every state with the versions in `config/versions.json` and refuses to replace a published map that changed without a new engine version or input revision.
+`release` reads commit subjects in the conventional form (`feat:`, `fix:`, a `!` for a breaking change), decides which components each commit touched from the file paths in `config/release.json` (published data under `public/data/` belongs to no path rule: the maps release follows the content hashes in `public/data/index.json`), and writes the new versions plus a dated entry in each moved component's changelog. It commits; it never pushes or tags. Publishing data with `npm run publish-data` stamps every state with the versions in `config/versions.json` and refuses to replace a published map that changed without a new engine version or input revision.
 
-Four GitHub workflows run the checks: `standards.yml` (typecheck, layer rules, tests, the version check and the fixture fingerprints), `tag-release.yml` (creates the tags after a merge to `main`), `census-watch.yml` (monthly, opens an issue if the Census Bureau reissued a pinned file) and `enacted-update.yml` (the monthly enacted districts check described below, which also moves the input revision and maps release when it adopts a new file).
+Four GitHub workflows run the checks: `standards.yml` (typecheck, layer rules, tests, the version check and the fixture fingerprints), `tag-release.yml` (creates the tags after a merge to `main`, and only once `enforce` is on and the previous commit already had `config/versions.json`), `census-watch.yml` (monthly, opens an issue if the Census Bureau reissued a pinned file, and another for files it could not check) and `enacted-update.yml` (the monthly enacted districts check described below, which also moves the input revision and maps release when it adopts a new file).
 
 On the site:
 

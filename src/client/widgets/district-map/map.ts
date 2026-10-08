@@ -34,6 +34,8 @@ import {
 } from '../../shared';
 import {
   DETAIL_SOURCE,
+  WATER_COVER_LAYER,
+  pickDistrict,
   FILL_OPACITY,
   BORDER_WIDTH,
   OUTLINE_WIDTH,
@@ -528,10 +530,11 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
     // Water inside the districts (lakes, bays, coastal water) is covered with the ground color, over the district colors and
     // every district border, so only land shows a district. Census water blocks are large and hold almost no people, so the
     // lines across them do not follow the cuts. The selected-district outline and the enacted lines stop at the shore on
-    // purpose; guide lines and the balancing block draw above it. Display only: hit-testing still uses the fill layers.
-    // Past DETAIL_ZOOM the cover swaps to the detail tiles' water.
-    map.addLayer({ id: 'water-cover', type: 'fill', source: 'water', paint: { 'fill-color': tokens.ground } });
-    addDetailAfter('water-cover');
+    // purpose; guide lines and the balancing block draw above it. Water is not clickable: a hover or tap there picks no district,
+    // as outside the state. Display only: no district, number or file depends on it. Past DETAIL_ZOOM the cover swaps to the
+    // detail tiles' water.
+    map.addLayer({ id: WATER_COVER_LAYER, type: 'fill', source: 'water', paint: { 'fill-color': tokens.ground } });
+    addDetailAfter(WATER_COVER_LAYER);
     // The simplified layers fade out as the detail tiles fade in; if the tiles cannot be had, the map is as it was.
     for (const p of fadedPaint()) map.setPaintProperty(p.id, p.prop, p.faded);
     map.on('error', (e) => {
@@ -577,12 +580,8 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
       paint: { 'line-color': tokens.signal, 'line-width': 2.5 },
     });
 
-    const fillLayers = ['fill-finished', 'fill-before', 'fill-finished-detail', 'fill-before-detail'];
-    const pick = (pt: PointLike): number | null => {
-      const f = map.queryRenderedFeatures(pt, { layers: fillLayers })[0];
-      const d = f?.properties?.district;
-      return typeof d === 'number' ? d : null;
-    };
+    const pick = (pt: PointLike): number | null =>
+      pickDistrict((layers) => map.queryRenderedFeatures(pt, { layers }), map.getZoom(), detailFailed);
     map.on('click', (e) => opts.onSelect(pick(e.point)));
     if (!coarse) {
       map.on('mousemove', (e) => {

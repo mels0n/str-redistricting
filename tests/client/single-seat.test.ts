@@ -59,6 +59,11 @@ describe('a state with one seat', () => {
     expect(el.textContent).not.toMatch(/0 cuts|1 seats/);
   });
 
+  it('links the explainer to why a district can look strange', () => {
+    const el = createExplainer({ seats: 3 });
+    expect(el.querySelector('a[href="#/how/strange"]')?.textContent).toContain('look strange');
+  });
+
   it('corrects a link to a cut that does not exist', () => {
     const route = parseHash('#/AK/cut/1');
     if (route.page !== 'state') throw new Error('not a state route');

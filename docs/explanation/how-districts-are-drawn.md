@@ -103,6 +103,18 @@ npm run explore -- --states CO
 
 `--states` is required. The state is given by its two-letter abbreviation. A list such as `--states CO,NC` runs several states in turn. `--threads` sets how many threads search the guide lines for each cut; the default is the computer's hardware threads minus two, and `--threads 1` searches on a single thread. The census block file for each state is downloaded from the U.S. Census Bureau the first time it is needed and kept in `data/raw/` (`--cache-dir` changes that, and `--out-dir` changes where the plans are written; the defaults are `data/raw` and `out`). If one state fails in a multi-state run, the command reports the error in the summary table, continues with the remaining states, and exits with a non-zero code at the end.
 
+## Why a district can look strange
+
+A strange shape is not a mistake. The generator runs the same steps in every state, and the map is whatever those steps produce. Nobody looks at the result and fixes it.
+
+The generator doesn't know what a town, a county, a river, a highway or a neighborhood is. All it sees is how many people live in each census block and the block's shape. So a line can run through a city, split a county or cross a bay. Bays are made of census blocks too.
+
+"It looks wrong" usually means it doesn't match a picture you already have, like the old district lines, the county map, or where you feel your area ends. People drew those pictures. Making the map match them would mean adding back the human choices this method leaves out.
+
+Odd edges have plain causes. Stair steps come from following block edges and keeping every block whole. Notches and small bumps come from the balancing pass moving single blocks. A district crosses water because water is census blocks like any other, and island links join land no block reaches. The shortest border wins each cut, and the people, not a neat outline, decide where that is, so it sometimes leaves a long or thin piece.
+
+Every border traces back to a cut or a balancing move, both of which can be replayed in the viewer, and anyone who reruns the generator gets the same map and the same fingerprint. The rules themselves, shortest border and equal population, were chosen once and up front. They apply to every state alike and were fixed before any map existed. Nobody chose any single line.
+
 ## What is written for each state
 
 The finished map is in `out/<state>/`. The plan as it stood after the cuts and before the balancing pass is written to `out/<state>/before-balancing/` with the same files, so the effect of the balancing pass can be read directly from the numbers.

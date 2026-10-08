@@ -64,7 +64,7 @@ describe('hash routes', () => {
     expect(parseHash('#/how/nonsense')).toEqual(howRoute());
     expect(formatHash(howRoute())).toBe('#/how');
     expect(formatHash(howRoute('strays'))).toBe('#/how/strays');
-    for (const r of [howRoute(), howRoute('inputs'), howRoute('sources')]) expect(parseHash(formatHash(r))).toEqual(r);
+    for (const r of [howRoute(), howRoute('inputs'), howRoute('sources'), howRoute('strange')]) expect(parseHash(formatHash(r))).toEqual(r);
   });
 
   it('corrects a balancing move past the last one', () => {

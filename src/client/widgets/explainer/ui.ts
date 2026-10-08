@@ -43,5 +43,6 @@ export function createExplainer(opts: { seats?: number } = {}): HTMLElement {
       ' There is no randomness and no human choice. Anyone who runs the generator on the same census files gets the same map, down to the fingerprint.',
     ),
     h('p', { class: 'strv-explain__more' }, h('a', { href: formatHash(howRoute()) }, 'How it works: every stage, with drawings')),
+    h('p', { class: 'strv-explain__more strv-explain__more--next' }, h('a', { href: formatHash(howRoute('strange')) }, 'District look strange? Here’s why')),
   );
 }

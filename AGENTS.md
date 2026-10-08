@@ -55,7 +55,7 @@ layer above it, and slices inside a layer are reached only through their
 
 ## Versions
 
-Six components are versioned in `config/versions.json` (engine, input, maps, schema, web, docs), each with a changelog in `changelog/`. A change to a component's files comes with a version bump and a changelog entry; `npm run release` proposes both from the commit subjects, so write them as `feat:`, `fix:`, `docs:` and mark breaking changes with `!`. The README has the full table.
+Six components are versioned in `config/versions.json` (engine, input, maps, schema, web, docs), each with a changelog in `changelog/`. A change to a component's files comes with a version bump and a changelog entry; `npm run release` proposes both from the commit subjects, so write them as `feat:`, `fix:`, `docs:` and mark breaking changes with `!`. The README has the full table. Reverting a release commit makes the tag job fail, because the earlier version's tag already exists at another commit; to undo a release, make a new release with higher numbers instead.
 
 ## Documentation
 

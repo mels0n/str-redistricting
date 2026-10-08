@@ -70,7 +70,8 @@ describe('district card connection copy', () => {
     expect(connectionText({ contiguous: true, landParts: 1 }, false)).toBe('One connected piece');
     expect(connectionText({ contiguous: true }, false)).toBe('One connected piece');
     expect(connectionText({ contiguous: true, landParts: 2 }, false)).toBe('One connected piece, joined across water');
-    expect(connectionText({ contiguous: true, landParts: 2 }, true)).toBe('One connected piece, joined across water and by a link to the nearest land');
+    expect(connectionText({ contiguous: true, landParts: 2 }, true)).toBe('One connected piece, joined across water or by a link to the nearest land');
+    expect(connectionText({ contiguous: true }, true)).toBe('One connected piece, joined by a link to the nearest land');
     expect(connectionText({ contiguous: true, landParts: 1 }, true)).toBe('One connected piece, joined by a link to the nearest land');
     expect(connectionText({ contiguous: false, landParts: 2 }, true)).toBe('Not one connected piece');
   });

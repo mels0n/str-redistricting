@@ -90,10 +90,10 @@ const inPart = (p: Part, x: number, y: number): boolean =>
  * point of at least one populated block of the district. `districts` is a GeoJSON FeatureCollection (text) whose
  * features carry a 1-based `district` property; `land` is the merged land layer; `populated` lists the blocks with
  * people under this plan. Result is indexed by district - 1. A district with people always has at least 1: when
- * none of its populated points fall on the clipped land (the outlines disagree), it is counted as 1 and listed in `clamped`.
+ * none of its populated points fall on the clipped land (the outlines disagree), it is counted as 1 and in `clamped`. `outside` is the number of populated points that fall in no piece.
  * Display only: it never feeds the generator or any number.
  */
-export async function countLandParts(districts: string, land: string, seats: number, populated: readonly PopulatedPoint[]): Promise<{ parts: number[]; clamped: number }> {
+export async function countLandParts(districts: string, land: string, seats: number, populated: readonly PopulatedPoint[]): Promise<{ parts: number[]; clamped: number; outside: number }> {
   const out = await mapshaper.applyCommands('-i land.json districts.json combine-files -clip target=districts source=land -o target=districts out.json format=geojson', { 'land.json': land, 'districts.json': districts });
   const body = JSON.parse(text(out['out.json'], 'land parts')) as { features?: { properties?: { district?: number }; geometry?: { type: string; coordinates?: unknown[] } | null }[] };
   const pieces: Part[][] = Array.from({ length: seats }, () => []);
@@ -106,14 +106,13 @@ export async function countLandParts(districts: string, land: string, seats: num
     for (const rings of polys) if (rings.length > 0) pieces[d - 1]!.push(toPart(rings));
   }
   const populatedIn = new Array<boolean>(seats).fill(false);
+  let outside = 0;
   for (const p of populated) {
     if (p.district < 1 || p.district > seats) continue;
     populatedIn[p.district - 1] = true;
-    for (const part of pieces[p.district - 1]!) {
-      if (part.hit || !inPart(part, p.point[0], p.point[1])) continue;
-      part.hit = true;
-      break;
-    }
+    const part = pieces[p.district - 1]!.find((x) => inPart(x, p.point[0], p.point[1]));
+    if (part === undefined) outside++;
+    else part.hit = true;
   }
   let clamped = 0;
   const parts = pieces.map((ps, i) => {
@@ -121,5 +120,5 @@ export async function countLandParts(districts: string, land: string, seats: num
     if (n === 0 && populatedIn[i]) clamped++;
     return Math.max(1, n);
   });
-  return { parts, clamped };
+  return { parts, clamped, outside };
 }

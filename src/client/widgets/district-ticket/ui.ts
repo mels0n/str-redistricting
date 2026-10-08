@@ -29,7 +29,8 @@ export interface DistrictTicket {
 export function connectionText(d: Pick<DistrictStats, 'contiguous' | 'landParts'>, linked: boolean): string {
   if (!d.contiguous) return 'Not one connected piece';
   const water = (d.landParts ?? 1) > 1;
-  if (water && linked) return 'One connected piece, joined across water and by a link to the nearest land';
+  // With a link in the district, several land pieces are not proof of a join across water: the link may be what joins them.
+  if (water && linked) return 'One connected piece, joined across water or by a link to the nearest land';
   if (water) return 'One connected piece, joined across water';
   if (linked) return 'One connected piece, joined by a link to the nearest land';
   return 'One connected piece';

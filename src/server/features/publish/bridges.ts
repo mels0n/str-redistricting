@@ -43,7 +43,13 @@ export async function buildPublishedBridges(
   if (count === 0) return { links: [] };
   const path = join(srcDir, 'bridges.json');
   if (!existsSync(path)) throw new DataError(`${abbr}: metrics.json reports ${count} island links but ${path} is missing; re-run explore for ${abbr}`);
-  const parsed = BridgesOutSchema.safeParse(JSON.parse(await readFile(path, 'utf8')));
+  let raw: unknown;
+  try {
+    raw = JSON.parse(await readFile(path, 'utf8'));
+  } catch {
+    throw new DataError(`${path}: not valid JSON; re-run explore for ${abbr}`);
+  }
+  const parsed = BridgesOutSchema.safeParse(raw);
   if (!parsed.success) throw new DataError(`${path}: ${parsed.error.issues.map((i) => `${i.path.join('.')} ${i.message}`).join('; ')}`);
   if (parsed.data.links.length !== count) throw new DataError(`${abbr}: ${path} has ${parsed.data.links.length} links but metrics.json reports ${count}; re-run explore for ${abbr}`);
   const finished = districtsByGeoid(finishedCsv, `${abbr} assignment.csv`);

@@ -36,6 +36,11 @@ describe('bridges.json', () => {
     await expect(buildPublishedBridges(dir, 'RI', 1, csv(1, 2), csv(1, 2))).rejects.toThrow(/re-run explore for RI/);
   });
 
+  it('turns a syntax error in the file into a DataError naming the state', async () => {
+    writeFileSync(join(dir, 'bridges.json'), '{ not json');
+    await expect(buildPublishedBridges(dir, 'RI', 1, csv(1, 2), csv(1, 2))).rejects.toThrow(/not valid JSON; re-run explore for RI/);
+  });
+
   it('fails when the file holds a different number of links than metrics', async () => {
     putLinks(2);
     await expect(buildPublishedBridges(dir, 'RI', 1, csv(1, 2), csv(1, 2))).rejects.toThrow(DataError);

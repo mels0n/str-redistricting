@@ -22,6 +22,8 @@ export const PlanMetricsSchema = z.object({
   rangePct: z.number(),
   allContiguous: z.boolean(),
   assignmentSha256: z.string(),
+  /** Island links the plan uses; absent from metrics written before links existed. */
+  bridges: z.number().int().nonnegative().optional(),
 }).passthrough();
 export type PlanMetrics = z.infer<typeof PlanMetricsSchema>;
 

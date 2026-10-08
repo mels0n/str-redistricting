@@ -71,12 +71,19 @@ describe('countLandParts', () => {
       pt(3, 0.5, 21),
       pt(4, 0.5, 11),
     ];
-    expect(await countLandParts(districts, land, 4, populated)).toEqual({ parts: [2, 2, 1, 1], clamped: 0 });
+    expect(await countLandParts(districts, land, 4, populated)).toEqual({ parts: [2, 2, 1, 1], clamped: 0, outside: 0 });
   });
 
   it('clamps a populated district whose points miss the land to 1 and reports it', async () => {
     const districts = fc(district(1, square(0, 40, 3, 42)), district(2, square(0, 30, 3, 32)));
     const land = await mergeLand([square(0, 40, 1, 42), square(0, 30, 1, 32)]);
-    expect(await countLandParts(districts, land, 2, [pt(1, 2, 41)])).toEqual({ parts: [1, 1], clamped: 1 });
+    expect(await countLandParts(districts, land, 2, [pt(1, 2, 41)])).toEqual({ parts: [1, 1], clamped: 1, outside: 1 });
+  });
+
+  it('does not count a point in a land hole (a lake): 1 part, 1 point outside', async () => {
+    const districts = fc(district(1, square(0, 40, 3, 42)));
+    // Land is the district less a lake in the middle.
+    const land = await mergeLand([{ type: 'Polygon', coordinates: [square(0, 40, 3, 42).coordinates[0], [[1, 40.5], [1, 41.5], [2, 41.5], [2, 40.5], [1, 40.5]]] }]);
+    expect(await countLandParts(districts, land, 1, [pt(1, 1.5, 41), pt(1, 0.5, 41)])).toEqual({ parts: [1], clamped: 0, outside: 1 });
   });
 });

@@ -7,6 +7,7 @@ import type { Feature, FeatureCollection, MultiPolygon, Polygon } from 'geojson'
 import { describe, expect, it } from 'vitest';
 import { BlocksSchema } from '../../src/client/entities/plan/blocks';
 import { BalanceSchema } from '../../src/client/entities/plan/balance';
+import { BridgesSchema } from '../../src/client/entities/plan/model';
 import { CutsSchema, DistrictTopoSchema, EnactedTopoSchema, StatsSchema, WaterTopoSchema } from '../../src/client/entities/plan/model';
 import { STATE_FIPS, StateIndexSchema } from '../../src/client/entities/state';
 import { ENACTED } from '../../src/client/shared/config';
@@ -50,6 +51,10 @@ describe('the published data covers all 50 states', () => {
       BalanceSchema.parse(read(s.abbr, 'balance.json'));
       EnactedTopoSchema.parse(read(s.abbr, 'enacted.topo.json'));
       WaterTopoSchema.parse(read(s.abbr, 'water.topo.json'));
+      const bridges = BridgesSchema.parse(read(s.abbr, 'bridges.json'));
+      expect(bridges.links.length, `${s.abbr} links`).toBe(stats.finished.metrics.bridges);
+      for (const l of bridges.links) for (const d of [...l.finished, ...l.before]) expect(d >= 1 && d <= s.seats, `${s.abbr} link district ${d}`).toBe(true);
+      for (const plan of [stats.finished, stats.beforeBalancing]) for (const d of plan.districts) expect(d.landParts, `${s.abbr} district ${d.district}`).toBeGreaterThanOrEqual(1);
       for (const f of ['districts', 'before']) {
         const topo = DistrictTopoSchema.parse(read(s.abbr, `${f}.topo.json`));
         const fc = collection(topo, 'districts');

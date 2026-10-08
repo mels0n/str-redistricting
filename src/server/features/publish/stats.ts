@@ -1,3 +1,4 @@
+import { DataError } from '../../shared/errors/index.js';
 import type { CountyRef } from './counties.js';
 import type { PlanMetrics } from './summary.js';
 
@@ -14,7 +15,11 @@ export function planStats(m: PlanMetrics, counties: readonly (readonly CountyRef
   const metrics = directionsPerCut === undefined ? rest : { ...rest, candidateLinesPerCut: directionsPerCut };
   return {
     metrics,
-    districts: districts.map((d) => ({ district: d.district, pop: d.pop, dev: d.dev, devPct: d.devPct, contiguous: d.contiguous, counties: counties[d.district - 1] ?? [], ...(landParts === undefined ? {} : { landParts: landParts[d.district - 1] ?? 0 }) })),
+    districts: districts.map((d) => {
+      const parts = landParts?.[d.district - 1];
+      if (landParts !== undefined && parts === undefined) throw new DataError(`missing land-parts entry for district ${d.district}`);
+      return { district: d.district, pop: d.pop, dev: d.dev, devPct: d.devPct, contiguous: d.contiguous, counties: counties[d.district - 1] ?? [], ...(parts === undefined ? {} : { landParts: parts }) };
+    }),
   };
 }
 

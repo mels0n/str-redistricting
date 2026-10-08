@@ -92,7 +92,9 @@ async function publishState(state: StateInfo, cfg: PublishConfig, shared: Shared
   const beforeLand = await countLandParts(await readFile(join(srcBefore, 'districts.geojson'), 'utf8'), shared.land, state.seats, populatedUnder(beforeCsv, `${state.abbr} before-balancing/assignment.csv`));
   const finishedParts = finishedLand.parts;
   const beforeParts = beforeLand.parts;
-  console.log(`  ${state.abbr}: landParts clamped to 1 for ${finishedLand.clamped} finished and ${beforeLand.clamped} before-balancing districts (populated points all outside the clipped land)`);
+  if (finishedLand.clamped + beforeLand.clamped + finishedLand.outside + beforeLand.outside > 0) {
+    console.log(`  ${state.abbr}: landParts clamped to 1 for ${finishedLand.clamped} finished and ${beforeLand.clamped} before-balancing districts; populated points outside the clipped land: ${finishedLand.outside} finished, ${beforeLand.outside} before-balancing`);
+  }
   const stats = buildStats(
     planStats(official, countiesByDistrict(officialCsv, state.seats, shared.countyNames), finishedParts),
     planStats(before, countiesByDistrict(beforeCsv, state.seats, shared.countyNames), beforeParts),
@@ -112,8 +114,8 @@ async function publishState(state: StateInfo, cfg: PublishConfig, shared: Shared
   const water = await buildWater(await readFile(join(src, 'districts.geojson'), 'utf8'), shared.land);
   outputs.push(['water.topo.json', await toTopology({ features: display(water.features) }, 'water', Math.round(budget / 2))]);
 
-  const bridgeCount = (official as Record<string, unknown>).bridges;
-  if (typeof bridgeCount !== 'number') throw new DataError(`${src}/metrics.json: bridges is missing; re-run explore for ${state.abbr}`);
+  const bridgeCount = official.bridges;
+  if (bridgeCount === undefined) throw new DataError(`${src}/metrics.json: bridges is missing; re-run explore for ${state.abbr}`);
   outputs.push(['bridges.json', JSON.stringify(await buildPublishedBridges(src, state.abbr, bridgeCount, officialCsv, beforeCsv))]);
 
   outputs.push(['enacted.topo.json', await buildEnactedTopology(state, shared.enacted)]);

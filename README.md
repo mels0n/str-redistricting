@@ -36,9 +36,9 @@ The finished map for each state is written to `out/<state>/`. The same files for
 - the state outlines (`cb_2025_us_state_20m`)
 - the county names (`cb_2020_us_county_20m`)
 - the state land outlines clipped to the shoreline (`cb_2020_us_state_500k`), used to mask the water the census blocks cover
-- the enacted districts of the pinned Congress, currently the 119th (`cb_2025_us_cd119_500k`, or the 2024 release of the same Congress)
+- the enacted districts of the pinned Congress (the file `config/enacted.json` names, or an earlier release of the same Congress listed there)
 
-The enacted districts are pinned to one Congress. If the Census Bureau serves neither file, `publish-data` stops with an error naming what it tried; it never falls back to another Congress. The Congress and the file names live in one place, `config/enacted.json`, which the publisher and the viewer both read.
+The enacted districts are pinned to one Congress, the one named in `config/enacted.json`. If the Census Bureau serves none of the files listed there, `publish-data` stops with an error naming what it tried; it never falls back to another Congress. The Congress and the file names live in one place, `config/enacted.json`, which the publisher and the viewer both read.
 
 The overlay updates itself. On the 3rd of each month the `Enacted districts update` workflow checks whether the Census Bureau has published a newer enacted districts file (a newer release of the same Congress, or the next Congress). If it has, the workflow downloads and pins the file, rebuilds the overlay for all 50 states, runs the typecheck, dependency rules, tests and build, and opens a pull request. Review it and merge; nothing else is needed. For this to work the repository setting "Allow GitHub Actions to create and approve pull requests" (Settings, Actions, General) must be on. The workflow can also be started by hand from the Actions tab; its `force_file` input adopts a named file without asking the Census Bureau, which is how to test the update.
 

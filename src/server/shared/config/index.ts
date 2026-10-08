@@ -7,6 +7,8 @@ import { ConfigError } from '../errors/index.js';
 export { CENSUS_SHA256, ManifestSchema, pinnedSha256 } from './census-manifest.js';
 export { ENACTED_CONFIG, EnactedConfigSchema, enactedFileName, parseEnactedFileName } from './enacted.js';
 export type { EnactedConfig } from './enacted.js';
+export { VERSIONS, VersionsSchema, formatVersions, inputSha256Of, stampOf } from './versions.js';
+export type { VersionStamp, Versions } from './versions.js';
 
 export interface Config {
   readonly states: StateInfo[];

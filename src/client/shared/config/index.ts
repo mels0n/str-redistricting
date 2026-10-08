@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import enactedJson from '../../../../config/enacted.json';
+import versionsJson from '../../../../config/versions.json';
 
 /**
  * The one configuration module for the viewer. It is read once, at boot, and
@@ -40,6 +41,18 @@ const enacted = EnactedSchema.parse(enactedJson);
  * it, and a test checks the published data against it.
  */
 export const ENACTED = { congress: enacted.congress, file: enacted.file } as const;
+
+const VersionsSchema = z.looseObject({
+  engine: z.string().min(1),
+  input: z.looseObject({ vintage: z.string().min(1), revision: z.number().int().positive(), sha256: z.string().min(1) }),
+  maps: z.number().int().positive(),
+  schema: z.string().min(1),
+  web: z.string().min(1),
+  docs: z.string().min(1),
+});
+
+/** The version of every component of the site and its data, read from config/versions.json (the file the release script writes). */
+export const VERSIONS = VersionsSchema.parse(versionsJson);
 
 export type ViewerConfig = z.infer<typeof ConfigSchema>;
 

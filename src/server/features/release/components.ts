@@ -16,6 +16,8 @@ export const ReleaseConfigSchema = z.strictObject({
   ignore: Globs,
   /** Commit types whose client files count as docs, not web. */
   docsTypes: z.array(z.string().min(1)),
+  /** States the fixture gate draws on every pull request: small and fast, covering islands, water and a one-seat state. */
+  fixtureStates: z.array(z.string().regex(/^[A-Z]{2}$/)),
 });
 export type ReleaseConfig = z.infer<typeof ReleaseConfigSchema>;
 

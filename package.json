@@ -20,7 +20,11 @@
     "census:watch": "node --import tsx src/server/app/census-watch.ts",
     "enacted:check": "node --import tsx src/server/app/enacted-check.ts",
     "enacted:bump": "node --max-old-space-size=8192 --import tsx src/server/app/enacted-bump.ts",
-    "rule-examples": "node --max-old-space-size=8192 --import tsx src/server/app/rule-examples.ts"
+    "rule-examples": "node --max-old-space-size=8192 --import tsx src/server/app/rule-examples.ts",
+    "release": "node --max-old-space-size=8192 --import tsx src/server/app/release.ts",
+    "version:check": "node --import tsx src/server/app/version-check.ts",
+    "release:tags": "node --import tsx src/server/app/release-tags.ts",
+    "fingerprints": "node --max-old-space-size=8192 --import tsx src/server/app/fingerprints.ts"
   },
   "devDependencies": {
     "@mapbox/vector-tile": "^3.0.0",

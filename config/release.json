@@ -25,6 +25,7 @@
       "src/server/app/version-check.ts",
       "src/server/app/fingerprints.ts",
       "src/server/app/git.ts",
+      "src/server/app/fixtures.ts",
       "src/server/shared/config/versions.ts"
     ],
     "input": [],
@@ -34,5 +35,6 @@
     "docs": []
   },
   "ignore": ["tests/**", ".github/**", "config/versions.json", "config/release.json", "changelog/**"],
-  "docsTypes": ["copy", "docs"]
+  "docsTypes": ["copy", "docs"],
+  "fixtureStates": ["RI", "DE", "VT", "HI"]
 }

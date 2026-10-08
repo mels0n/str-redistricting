@@ -213,3 +213,82 @@ export function parseCensusWatchConfig(argv: readonly string[]): CensusWatchConf
   if (!parsed.success) throw new ConfigError(parsed.error.issues.map((i) => i.message).join('; '));
   return parsed.data;
 }
+
+export interface ReleaseArgs {
+  /** Print the proposal; change nothing. */
+  readonly dryRun: boolean;
+  readonly cacheDir: string;
+}
+
+/** Read once at boot from the command line. */
+export function parseReleaseArgs(argv: readonly string[]): ReleaseArgs {
+  const { values } = parseArgs({
+    args: [...argv],
+    options: { 'dry-run': { type: 'boolean', default: false }, 'cache-dir': { type: 'string', default: 'data/raw' } },
+    strict: true,
+  });
+  const parsed = z.object({ dryRun: z.boolean(), cacheDir: z.string().min(1) }).safeParse({ dryRun: values['dry-run'], cacheDir: values['cache-dir'] });
+  if (!parsed.success) throw new ConfigError(parsed.error.issues.map((i) => i.message).join('; '));
+  return parsed.data;
+}
+
+const GitRef = z.string().regex(/^[A-Za-z0-9][A-Za-z0-9._/-]*$/, 'must be a git ref or sha');
+
+export interface VersionCheckArgs {
+  /** The ref the pull request is compared against, e.g. origin/main. */
+  readonly base: string;
+}
+
+/** Read once at boot from the command line. */
+export function parseVersionCheckArgs(argv: readonly string[]): VersionCheckArgs {
+  const { values } = parseArgs({ args: [...argv], options: { base: { type: 'string' } }, strict: true });
+  const parsed = z.object({ base: GitRef }).safeParse({ base: values.base });
+  if (!parsed.success) throw new ConfigError(`--base is required: ${parsed.error.issues.map((i) => i.message).join('; ')}`);
+  return parsed.data;
+}
+
+export interface ReleaseTagsArgs {
+  /** A commit sha, or `none` for a root commit. */
+  readonly before: string;
+  readonly after: string;
+}
+
+/** Read once at boot from the command line. */
+export function parseReleaseTagsArgs(argv: readonly string[]): ReleaseTagsArgs {
+  const { values } = parseArgs({ args: [...argv], options: { before: { type: 'string' }, after: { type: 'string' } }, strict: true });
+  const parsed = z
+    .object({ before: z.union([z.literal('none'), z.string().regex(/^[0-9a-f]{7,64}$/, 'must be a commit sha or none')]), after: z.string().regex(/^[0-9a-f]{7,64}$/, 'must be a commit sha') })
+    .safeParse({ before: values.before, after: values.after });
+  if (!parsed.success) throw new ConfigError(`--before and --after are required: ${parsed.error.issues.map((i) => `${i.path.join('.')} ${i.message}`).join('; ')}`);
+  return parsed.data;
+}
+
+export interface FingerprintArgs {
+  readonly mode: 'check' | 'record';
+  /** Two-letter abbreviations; undefined means the fixtureStates of config/release.json. */
+  readonly states: string[] | undefined;
+  readonly cacheDir: string;
+}
+
+/** Read once at boot from the command line. */
+export function parseFingerprintArgs(argv: readonly string[]): FingerprintArgs {
+  const { values } = parseArgs({
+    args: [...argv],
+    options: {
+      check: { type: 'boolean', default: false },
+      record: { type: 'boolean', default: false },
+      states: { type: 'string' },
+      'cache-dir': { type: 'string', default: 'data/raw' },
+    },
+    strict: true,
+  });
+  if (values.check === values.record) throw new ConfigError('pass exactly one of --check or --record');
+  const states = values.states?.split(',').map((s) => s.trim()).filter(Boolean).map((abbr) => {
+    const info = stateByAbbr(abbr);
+    if (!info) throw new ConfigError(`unknown state: ${abbr}`);
+    return info.abbr;
+  });
+  if (states?.length === 0) throw new ConfigError('--states must name at least one state');
+  if (values['cache-dir'] === '') throw new ConfigError('--cache-dir must not be empty');
+  return { mode: values.record ? 'record' : 'check', states, cacheDir: values['cache-dir'] };
+}

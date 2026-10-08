@@ -67,6 +67,9 @@ export interface DistrictMapView {
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
 
+/** The opaque water layer. `pick` reads it too, so water stays unclickable; keep the two uses on this one id. */
+const WATER_COVER_LAYER = 'water-cover';
+
 /** Where along a cut line its number may sit, as fractions of the line's length, in order of preference. */
 const CUT_TAG_SPOTS = [0.5, 0.38, 0.62, 0.27, 0.73, 0.16, 0.84, 0.07, 0.93];
 
@@ -505,7 +508,7 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
     // lines across them do not follow the cuts. The selected-district outline and the enacted lines stop at the shore on
     // purpose; guide lines and the balancing block draw above it. Water is not clickable: a hover or tap there picks no district,
     // as outside the state. Display only: no district, number or file depends on it.
-    map.addLayer({ id: 'water-cover', type: 'fill', source: 'water', paint: { 'fill-color': tokens.ground } });
+    map.addLayer({ id: WATER_COVER_LAYER, type: 'fill', source: 'water', paint: { 'fill-color': tokens.ground } });
     map.addLayer({
       id: 'cuts-past',
       type: 'line',
@@ -546,7 +549,7 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
 
     const fillLayers = ['fill-finished', 'fill-before'];
     const pick = (pt: PointLike): number | null => {
-      if (map.queryRenderedFeatures(pt, { layers: ['water-cover'] }).length > 0) return null;
+      if (map.queryRenderedFeatures(pt, { layers: [WATER_COVER_LAYER] }).length > 0) return null;
       const f = map.queryRenderedFeatures(pt, { layers: fillLayers })[0];
       const d = f?.properties?.district;
       return typeof d === 'number' ? d : null;

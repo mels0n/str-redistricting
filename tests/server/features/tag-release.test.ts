@@ -51,6 +51,7 @@ describe('tag-release workflow', () => {
   it('plans from the push event\'s before commit, falling back to the parent, then to none', () => {
     expect(planJob).toContain('EVENT_BEFORE: ${{ github.event.before }}');
     expect(planJob).toContain('git cat-file -e');
+    expect(planJob).toContain('git merge-base --is-ancestor "$before" HEAD');
     expect(planJob).toContain('git rev-parse --verify --quiet "HEAD^" || echo none');
     expect(planJob).toMatch(/fetch-depth: 0/);
   });

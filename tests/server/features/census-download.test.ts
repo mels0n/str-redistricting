@@ -90,13 +90,35 @@ describe('downloadCached retries', () => {
     expect(await readFile(path, 'utf8')).toBe(BODY);
   });
   it('gives each attempt a part name of its own, so concurrent downloads of one file do not collide', async () => {
-    const seen: string[] = [];
-    const slow = async (): Promise<Response> => {
-      seen.push(...(await partFiles()));
-      await new Promise((r) => setTimeout(r, 20));
-      return ok();
+    // Both runs must be in flight (part file open, body not yet streamed) before either goes on. Each stub then waits
+    // for its own gate, and the gates open one after the other so the two renames never race (Windows refuses that
+    // with EPERM, which would send the loser round again and hide what this test is about).
+    const gates: Array<() => void> = [];
+    let inFlight: string[] = [];
+    let arrived!: () => void;
+    const bothArrived = new Promise<void>((r) => {
+      arrived = r;
+      setTimeout(r, 500); // a collision fails the assertions below instead of hanging the test
+    });
+    const stub = (): Promise<Response> => {
+      const gate = new Promise<void>((r) => gates.push(r));
+      if (gates.length === 2) arrived();
+      return gate.then(() => ok());
     };
-    await Promise.all([run(vi.fn<typeof fetch>(slow)), run(vi.fn<typeof fetch>(slow))]);
+    const a = vi.fn<typeof fetch>(stub);
+    const b = vi.fn<typeof fetch>(stub);
+    const runs = Promise.all([run(a), run(b)]);
+    await bothArrived;
+    inFlight = await partFiles();
+    gates[0]?.();
+    // Whichever run arrived first finishes (renames its part into place) before the other is let go.
+    for (let i = 0; i < 200 && (await partFiles()).length > 1; i++) await new Promise((r) => setTimeout(r, 5));
+    gates[1]?.();
+    await runs;
+    expect(inFlight).toHaveLength(2);
+    expect(new Set(inFlight).size).toBe(2);
+    expect(a).toHaveBeenCalledTimes(1);
+    expect(b).toHaveBeenCalledTimes(1);
     expect(await readFile(path, 'utf8')).toBe(BODY);
     expect(await partFiles()).toEqual([]);
   });
@@ -106,10 +128,12 @@ describe('downloadCached retries', () => {
     await expect(run(f)).rejects.toThrow(DownloadError);
     expect(cancel).toHaveBeenCalled();
   });
-  it('ignores a leftover .part file', async () => {
-    await writeFile(`${path}.part`, 'garbage');
+  it('leaves a stray part file of another run alone', async () => {
+    const stray = `${path}.99999.00000000-0000-0000-0000-000000000000.part`;
+    await writeFile(stray, 'garbage');
     await run(vi.fn<typeof fetch>(async () => ok()));
     expect(await readFile(path, 'utf8')).toBe(BODY);
+    expect(await readFile(stray, 'utf8')).toBe('garbage');
   });
 });
 

@@ -66,6 +66,10 @@ describe('the enacted districts are pinned to one Congress', () => {
   it('names its file after that Congress', () => {
     expect(congressOfSource(ENACTED.file)).toBe(ENACTED.congress);
   });
+  it('reads the same config file as the publisher', () => {
+    const shared = JSON.parse(readFileSync(join(process.cwd(), 'config', 'enacted.json'), 'utf8')) as { congress: number; file: string };
+    expect(ENACTED).toEqual({ congress: shared.congress, file: shared.file });
+  });
   it('was published from that Congress for every state', () => {
     // Moving to the next Congress fails here until the constants and the published data agree.
     for (const s of index.states) {

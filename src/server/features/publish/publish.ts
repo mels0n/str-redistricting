@@ -14,6 +14,7 @@ import { checkBlocks, encodeBlocks, lookup, type BlocksFile } from './blocks.js'
 import { loadCountyNames, loadEnacted, loadLand, loadStates, type EnactedFile } from './boundary.js';
 import { BalanceLogSchema, buildBalance, ProcessNumbersSchema } from './balance.js';
 import { countiesByDistrict } from './counties.js';
+import { buildEnactedTopology } from './enacted.js';
 import { buildCuts } from './cuts.js';
 import { buildStats, planStats } from './stats.js';
 import { buildIndex, PlanMetricsSchema, PublishedMetricsSchema, summarize, type PlanMetrics, type StateSummary } from './summary.js';
@@ -94,12 +95,7 @@ async function publishState(state: StateInfo, cfg: PublishConfig, shared: Shared
   const water = await buildWater(await readFile(join(src, 'districts.geojson'), 'utf8'), shared.land);
   outputs.push(['water.topo.json', await toTopology({ features: display(water.features) }, 'water', Math.round(budget / 2))]);
 
-  const enacted = shared.enacted.features
-    .filter((f) => f.record.stateFp === state.fips)
-    .sort((a, b) => a.record.code.localeCompare(b.record.code))
-    .map((f) => ({ type: 'Feature', properties: { label: f.record.label, code: f.record.code }, geometry: f.geometry as { coordinates?: unknown } }));
-  if (enacted.length === 0) throw new DataError(`${state.abbr}: no enacted districts in ${shared.enacted.source}`);
-  outputs.push(['enacted.topo.json', await toTopology({ features: display(enacted) }, 'enacted', budget)]);
+  outputs.push(['enacted.topo.json', await buildEnactedTopology(state, shared.enacted)]);
 
   const cuts = buildCuts(await readJson(join(src, 'cuts.geojson')));
   outputs.push(['cuts.json', JSON.stringify(wrapped ? cuts.map((c) => ({ ...c, lines: unwrapCoordinates(c.lines) })) : cuts)]);
@@ -159,8 +155,48 @@ async function verifyTiles(state: StateInfo, cfg: PublishConfig, tiles: Uint8Arr
   }
 }
 
+const EnactedStatsSchema = z.looseObject({ enactedSource: z.string() });
+
+/**
+ * Rebuild only what depends on the enacted-districts file, from the files already published: each state's
+ * `enacted.topo.json` and the `enactedSource` in its `stats.json`. It needs no generated plans, and writes a file
+ * only when its bytes change, so a run against the file the data was built from touches nothing. The index and
+ * every other file are left alone: none of them depends on the enacted districts.
+ */
+export async function publishEnactedOnly(cfg: PublishConfig): Promise<void> {
+  const published = STATES.filter((s) => existsSync(join(cfg.publicDir, s.abbr, 'stats.json')));
+  const selected = cfg.states === undefined ? published : cfg.states;
+  for (const s of selected) {
+    if (!published.some((p) => p.abbr === s.abbr)) throw new DataError(`${s.abbr}: nothing published in ${cfg.publicDir}, so there is no data to update`);
+  }
+  const enacted = await loadEnacted(cfg.cacheDir);
+  console.log(`enacted source: ${enacted.source}`);
+  // Everything is built and checked first, so a state that fails leaves the public directory untouched.
+  const built: { state: StateInfo; dir: string; statsPath: string; stats: z.infer<typeof EnactedStatsSchema>; topo: string }[] = [];
+  for (const s of selected) {
+    const dir = join(cfg.publicDir, s.abbr);
+    const statsPath = join(dir, 'stats.json');
+    const stats = EnactedStatsSchema.safeParse(await readJson(statsPath));
+    if (!stats.success) throw new DataError(`${statsPath}: ${stats.error.issues.map((i) => `${i.path.join('.')} ${i.message}`).join('; ')}`);
+    built.push({ state: s, dir, statsPath, stats: stats.data, topo: await buildEnactedTopology(s, enacted) });
+  }
+  for (const b of built) {
+    const changed = [await writeIfChanged(join(b.dir, 'enacted.topo.json'), b.topo)];
+    // Parsing keeps key order, and the file is written with JSON.stringify, so only the one value can change.
+    changed.push(await writeIfChanged(b.statsPath, JSON.stringify({ ...b.stats, enactedSource: enacted.source })));
+    console.log(`  ${b.state.abbr}: ${changed.some(Boolean) ? 'updated' : 'unchanged'}`);
+  }
+}
+
+async function writeIfChanged(path: string, body: string): Promise<boolean> {
+  if (existsSync(path) && (await readFile(path, 'utf8')) === body) return false;
+  await write(path, body);
+  return true;
+}
+
 /** Write the web-ready data for the selected states (default: every state with a generated plan), plus the national files and the index. */
 export async function publishData(cfg: PublishConfig): Promise<void> {
+  if (cfg.enactedOnly) return publishEnactedOnly(cfg);
   const withData = statesWithData(cfg.outDir);
   const selected = cfg.states === undefined ? withData : withData.filter((s) => cfg.states!.some((x) => x.abbr === s.abbr));
   await mkdir(cfg.publicDir, { recursive: true });

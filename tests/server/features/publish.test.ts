@@ -130,10 +130,12 @@ describe('boundary records', () => {
   it('builds the Census URL from the vintage in the file name', () => {
     expect(boundaryUrl('cb_2025_us_cd119_500k')).toBe('https://www2.census.gov/geo/tiger/GENZ2025/shp/cb_2025_us_cd119_500k.zip');
   });
-  it('only tries files of the one pinned Congress, the same one the viewer names', () => {
+  it('only tries files of the one pinned Congress, read from the same config file the viewer reads', () => {
     for (const file of ENACTED_CANDIDATES) expect(file).toContain(`_cd${ENACTED_CONGRESS}_`);
-    const viewer = /congress: (\d+)/.exec(readFileSync('src/client/shared/config/index.ts', 'utf8'));
-    expect(Number(viewer?.[1])).toBe(ENACTED_CONGRESS);
+    const shared = JSON.parse(readFileSync('config/enacted.json', 'utf8')) as { congress: number; file: string; candidates: string[] };
+    expect(shared.congress).toBe(ENACTED_CONGRESS);
+    expect(shared.candidates).toEqual([...ENACTED_CANDIDATES]);
+    expect(shared.file).toBe(ENACTED_CANDIDATES[0]);
   });
 });
 
@@ -160,7 +162,7 @@ describe('topology', () => {
 
 describe('publish config', () => {
   it('defaults to every state and the standard directories', () => {
-    expect(parsePublishConfig([])).toEqual({ states: undefined, cacheDir: 'data/raw', outDir: 'out', publicDir: 'public/data' });
+    expect(parsePublishConfig([])).toEqual({ states: undefined, cacheDir: 'data/raw', outDir: 'out', publicDir: 'public/data', enactedOnly: false });
   });
   it('rejects an unknown state', () => {
     expect(() => parsePublishConfig(['--states', 'ZZ'])).toThrow();

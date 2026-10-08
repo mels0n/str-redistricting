@@ -1,4 +1,5 @@
 import type { Versions } from '../../shared/config/index.js';
+import type { TaggedVersions } from './bump.js';
 import type { Component } from './components.js';
 
 /** One tag per component whose identity changed; with no previous versions (a root commit) every component is tagged. */
@@ -46,4 +47,25 @@ export function newestTag(tags: readonly string[], component: Component): string
     }
   }
   return best;
+}
+
+/** The versions the newest tags name (a component with no tag is left out). */
+export function taggedVersions(newest: Readonly<Record<Component, string | null>>): TaggedVersions {
+  const out: TaggedVersions = {};
+  const semver = (tag: string | null): string | undefined => /-v(\d+\.\d+\.\d+)$/.exec(tag ?? '')?.[1];
+  const trailing = (tag: string | null, re: RegExp): number | undefined => {
+    const m = re.exec(tag ?? '');
+    return m === null ? undefined : Number(m[1]);
+  };
+  const engine = semver(newest.engine);
+  if (engine !== undefined) out.engine = engine;
+  const inputRevision = trailing(newest.input, /-r(\d+)$/);
+  if (inputRevision !== undefined) out.inputRevision = inputRevision;
+  const maps = trailing(newest.maps, /^maps-(\d+)$/);
+  if (maps !== undefined) out.maps = maps;
+  for (const c of ['schema', 'web', 'docs'] as const) {
+    const v = semver(newest[c]);
+    if (v !== undefined) out[c] = v;
+  }
+  return out;
 }

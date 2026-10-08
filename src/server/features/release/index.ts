@@ -1,5 +1,5 @@
-export { bumpSemver, levelOf, proposeVersions } from './bump.js';
-export type { BumpInput, Level } from './bump.js';
+export { bumpSemver, compareSemver, levelOf, proposeVersions } from './bump.js';
+export type { BumpInput, Level, TaggedVersions } from './bump.js';
 export { prependEntry } from './changelog.js';
 export { versionProblems } from './check.js';
 export type { VersionCheckInput } from './check.js';
@@ -8,4 +8,4 @@ export type { Commit, Component, ReleaseConfig } from './components.js';
 export { FingerprintFileSchema, baseEngineMajor, compareFingerprints } from './fingerprints.js';
 export type { FingerprintFile } from './fingerprints.js';
 export { mapsDataChanged } from './maps.js';
-export { newestTag, tagsFor } from './tags.js';
+export { newestTag, tagsFor, taggedVersions } from './tags.js';

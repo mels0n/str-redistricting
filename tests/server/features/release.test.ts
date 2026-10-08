@@ -137,8 +137,9 @@ describe('proposeVersions', () => {
     expect(proposeVersions(base, { byComponent: new Map(), engineOutputChanged: false, inputSha256: same, mapsDataChanged: true }).next.maps).toBe(2);
     expect(proposeVersions(base, { byComponent: new Map(), engineOutputChanged: false, inputSha256: same }).next.maps).toBe(1);
   });
-  it('never bumps a component twice: already-bumped components are left as they are', () => {
-    const bumped: Versions = { ...base, engine: '2.0.0', maps: 2, web: '1.1.0' };
+  const taggedBase = { engine: '1.0.0', inputRevision: 1, maps: 1, schema: '1.0.0', web: '1.0.0', docs: '1.0.0' };
+  it('never bumps a component twice: a bump made since the tag is kept when no new evidence arrived', () => {
+    const bumped: Versions = { ...base, engine: '2.0.0', maps: 2, web: '1.1.0', docs: '1.0.1' };
     const { next, reasons } = proposeVersions(bumped, {
       byComponent: byComponent([
         ['engine', [commit('fix: x', [])]],
@@ -146,12 +147,35 @@ describe('proposeVersions', () => {
         ['docs', [commit('docs: x', [])]],
       ]),
       engineOutputChanged: true,
-      inputSha256: 'f'.repeat(64),
+      inputSha256: same,
       mapsDataChanged: true,
-      alreadyBumped: new Set<Component>(['engine', 'input', 'maps', 'web']),
+      tagged: taggedBase,
     });
     expect([next.engine, next.maps, next.web, next.input.revision, next.docs]).toEqual(['2.0.0', 2, '1.1.0', 1, '1.0.1']);
-    expect(reasons.join(' ')).not.toContain('engine');
+    expect(reasons).toEqual([]);
+  });
+  it('escalates a bump made since the tag when later commits call for a bigger one', () => {
+    // A patch was released since the tag, then a feat arrived: the minor counts from the tag, not from the patch.
+    const afterPatch: Versions = { ...base, web: '1.0.1', schema: '1.0.1' };
+    const { next } = proposeVersions(afterPatch, {
+      byComponent: byComponent([
+        ['web', [commit('fix: a', []), commit('feat: b', [])]],
+        ['schema', [commit('fix: a', [])]],
+      ]),
+      engineOutputChanged: false,
+      inputSha256: same,
+      tagged: taggedBase,
+    });
+    expect([next.web, next.schema]).toEqual(['1.1.0', '1.0.1']);
+  });
+  it('raises an engine minor to a major when the fixture output then changed, and maps follows once', () => {
+    const afterMinor: Versions = { ...base, engine: '1.1.0' };
+    const first = proposeVersions(afterMinor, { byComponent: byComponent([['engine', [commit('feat: x', [])]]]), engineOutputChanged: true, inputSha256: same, tagged: taggedBase });
+    expect([first.next.engine, first.next.maps]).toEqual(['2.0.0', 2]);
+    // Running again from the result changes nothing.
+    const again = proposeVersions(first.next, { byComponent: byComponent([['engine', [commit('feat: x', [])]]]), engineOutputChanged: true, inputSha256: same, tagged: taggedBase });
+    expect(again.next).toEqual(first.next);
+    expect(again.reasons).toEqual([]);
   });
   it('takes schema, web and docs from their commit levels, with major allowed', () => {
     const { next } = proposeVersions(base, {

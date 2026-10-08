@@ -9,6 +9,7 @@ import {
   prependEntry,
   proposeVersions,
   tagsFor,
+  taggedVersions,
   type Commit,
   type Component,
 } from '../features/release/index.js';
@@ -66,10 +67,12 @@ function release(): void {
   const fallback = newest[found[0]!]!;
   const refOf = (c: Component): string => newest[c] ?? fallback;
 
-  // Versions that already differ from the newest tag were bumped since the last release.
+  // Versions that already differ from the newest tag were bumped since the last release. The proposal is worked out
+  // from the tag, and the higher of that and the current version wins, so a later feat or output change can still
+  // raise a bump made since the tag, and running again with nothing new changes nothing.
   const expected = currentTags(current);
-  const alreadyBumped = new Set(COMPONENTS.filter((c) => newest[c] !== null && newest[c] !== expected[c]));
-  if (alreadyBumped.size > 0) console.log(`already bumped since their last tag: ${[...alreadyBumped].join(', ')}`);
+  const bumpedSince = COMPONENTS.filter((c) => newest[c] !== null && newest[c] !== expected[c]);
+  if (bumpedSince.length > 0) console.log(`already bumped since their last tag: ${bumpedSince.join(', ')}`);
 
   const byComponent = new Map<Component, Commit[]>();
   for (const c of COMPONENTS) {
@@ -96,7 +99,7 @@ function release(): void {
   const taggedMaps = mapsRef === null ? null : Number(/^maps-(\d+)$/.exec(mapsRef)?.[1]);
   const dataChanged =
     mapsRef !== null && mapsDataChanged(showFile(mapsRef, 'public/data/index.json'), showFile('HEAD', 'public/data/index.json'), taggedMaps === null ? undefined : { base: taggedMaps, head: current.maps });
-  const { next, reasons } = proposeVersions(current, { byComponent, engineOutputChanged, inputSha256, mapsDataChanged: dataChanged, alreadyBumped });
+  const { next, reasons } = proposeVersions(current, { byComponent, engineOutputChanged, inputSha256, mapsDataChanged: dataChanged, tagged: taggedVersions(newest) });
   const moved = COMPONENTS.filter((c) => identityOf(current, c) !== identityOf(next, c));
   if (moved.length === 0) {
     console.log('nothing to release');

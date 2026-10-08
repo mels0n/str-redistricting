@@ -260,6 +260,23 @@ describe('release (repeat runs and measuring)', () => {
     expect(head()).toBe(after);
     expect(readFileSync(join(repo, 'config/versions.json'), 'utf8')).toBe(versions);
   });
+  it('escalates a patch release to a minor when a feat follows, and is idempotent afterwards', () => {
+    tagged();
+    write('src/client/a.ts', 'x');
+    commitAll('fix: a client fix');
+    expect(run('release.ts', []).status).toBe(0);
+    expect(readFileSync(join(repo, 'config/versions.json'), 'utf8')).toContain('"web": "1.0.1"');
+    write('src/client/b.ts', 'y');
+    commitAll('feat: a client thing');
+    const second = run('release.ts', []);
+    expect(second.status, second.stderr).toBe(0);
+    expect(readFileSync(join(repo, 'config/versions.json'), 'utf8')).toContain('"web": "1.1.0"');
+    const after = head();
+    const again = run('release.ts', []);
+    expect(again.status, again.stderr).toBe(0);
+    expect(again.stdout).toContain('nothing to release');
+    expect(head()).toBe(after);
+  });
   it('measures each component from its newest tag', () => {
     tagged();
     write('src/client/a.ts', 'x');

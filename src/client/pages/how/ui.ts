@@ -269,7 +269,7 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
       h(
         'div',
         { class: 'strv-how__ledger' },
-        h('p', { class: 'strv-how__ledger-lead' }, 'Three facts about each census block go in. Nothing else does.'),
+        h('p', { class: 'strv-how__ledger-lead' }, 'Three facts about each census block go in, plus each state’s seat count. Nothing else does.'),
         h(
           'div',
           { class: 'strv-how__ledger-col strv-how__ledger-col--in' },

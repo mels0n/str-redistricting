@@ -427,7 +427,8 @@ html:has(> body > #str-viewer) {
   font-size: 1rem;
 }
 
-.strv .strv-national__lede > p + p {
+.strv .strv-national__lede > p + p,
+.strv .strv-national__lede > .strv-national__more {
   margin-top: var(--s-3);
 }
 
@@ -539,7 +540,6 @@ html:has(> body > #str-viewer) {
   }
 
   .strv-national__search {
-    grid-area: search;
     border-top: 0;
     border-bottom: 2px solid var(--ink);
     padding: var(--s-5) var(--gutter) var(--s-4);

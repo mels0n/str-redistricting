@@ -1,4 +1,4 @@
-import { Map as MlMap, Marker, NavigationControl, setWorkerUrl, type GeoJSONSource, type PointLike } from 'maplibre-gl';
+import { Map as MlMap, Marker, NavigationControl, setWorkerUrl, type GeoJSONSource, type Point, type PointLike } from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 // MapLibre runs its tile work in a module worker; Vite bundles it and hands back its URL.
 import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
@@ -54,6 +54,20 @@ import {
   selFillId,
   selFillVisibility,
 } from './detail';
+import {
+  BLOCKS_SOURCE,
+  BLOCKS_PICK_LAYER,
+  BLOCKS_HOVER_LAYER,
+  BLOCKS_LAYERS,
+  blocksSource,
+  blocksLayerSpecs,
+  blocksShown,
+  shouldDropBlocks,
+  blockFilter,
+  blockInfo,
+  blockTip,
+  type BlockInfo,
+} from './blocks';
 import { linksIn, linksFeatures, piecesAfter, pieceSizes, movedBlocksAt, balancePlanAt, type StateBundle, type PlanShapes, type EnactedShapes, type BalanceLog } from '../../entities/plan';
 
 export interface MapViewState {
@@ -78,6 +92,8 @@ export interface DistrictMapOptions {
   stateName: string;
   onSelect(district: number | null): void;
   onHover(district: number | null): void;
+  /** Called when the border-blocks layer comes on or goes off screen (zoom, replay, tiles missing); the key follows it. */
+  onBorderBlocks(visible: boolean): void;
 }
 
 export interface DistrictMapView {
@@ -443,6 +459,73 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
   /** Set once the detail tiles have failed to load; the detail layers stay hidden after that. */
   let detailFailed = false;
 
+  /** Set once the border-blocks tiles have failed (a state published without them); the layer stays hidden after that. */
+  let blocksFailed = false;
+  let blocksOn = false;
+  let blockTipEl: HTMLElement | null = null;
+  let tipBlock: string | null = null;
+
+  /** Whether the layer is in a replay (cut or balancing), where it is not drawn. */
+  const inReplay = (s: MapViewState | null): boolean => s !== null && (s.cut !== null || s.move !== null);
+
+  /** Brings the layer's visibility, the hover, and the key's flag in line with the zoom and the mode. */
+  function syncBlocks(): void {
+    if (!map.getLayer(BLOCKS_PICK_LAYER)) return;
+    const on = blocksShown(map.getZoom(), blocksFailed, inReplay(current));
+    for (const id of BLOCKS_LAYERS) map.setLayoutProperty(id, 'visibility', on ? 'visible' : 'none');
+    if (!on) showBlockTip(null, null, 0, 0);
+    if (on !== blocksOn) {
+      blocksOn = on;
+      opts.onBorderBlocks(on);
+    }
+  }
+
+  /** The block under `pt`, read for the plan on screen, or null. */
+  function blockAt(pt: PointLike): BlockInfo | null {
+    if (!blocksOn || !current) return null;
+    const f = map.queryRenderedFeatures(pt, { layers: [BLOCKS_PICK_LAYER] })[0];
+    return blockInfo(f?.properties, planShown(current));
+  }
+
+  /** Shows the block's tooltip near (x, y), kept inside the frame; null hides it. */
+  function showBlockTip(info: BlockInfo | null, plan: Plan | null, x: number, y: number): void {
+    const geoid = info?.geoid ?? null;
+    if (geoid !== tipBlock) {
+      tipBlock = geoid;
+      if (map.getLayer(BLOCKS_HOVER_LAYER)) map.setFilter(BLOCKS_HOVER_LAYER, blockFilter(geoid));
+    }
+    if (!info || !plan) {
+      if (blockTipEl) blockTipEl.hidden = true;
+      return;
+    }
+    if (!blockTipEl) {
+      blockTipEl = document.createElement('div');
+      blockTipEl.className = 'strv-block-tip';
+      // Pointer-only help: the numbers it gives are not needed to use the page.
+      blockTipEl.setAttribute('aria-hidden', 'true');
+      container.append(blockTipEl);
+    }
+    blockTipEl.hidden = false;
+    blockTipEl.replaceChildren(...blockTip(info, plan).map((line, i) => {
+      const row = document.createElement('div');
+      if (i === 0) row.className = 'strv-block-tip__head';
+      row.textContent = line;
+      return row;
+    }));
+    const w = blockTipEl.offsetWidth;
+    const h = blockTipEl.offsetHeight;
+    const left = Math.max(4, Math.min(container.clientWidth - w - 4, x + 12));
+    const top = y + 16 + h > container.clientHeight ? Math.max(4, y - h - 12) : y + 16;
+    blockTipEl.style.left = `${left}px`;
+    blockTipEl.style.top = `${top}px`;
+  }
+
+  /** Shows the tooltip for the block under the pointer, or hides it. */
+  function tipAt(pt: Point): void {
+    const info = blockAt(pt);
+    showBlockTip(info, info && current ? planShown(current) : null, pt.x, pt.y);
+  }
+
   /** Adds the detail layers that belong directly above `id`. */
   function addDetailAfter(id: string): void {
     for (const s of detailLayerSpecs()) if (s.after === id) map.addLayer(s.layer);
@@ -462,6 +545,7 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
     }
     registerPmtiles();
     map.addSource(DETAIL_SOURCE, detailSource(bundle.abbr));
+    map.addSource(BLOCKS_SOURCE, blocksSource(bundle.abbr));
     map.addSource('water', { type: 'geojson', data: bundle.water ?? { type: 'FeatureCollection', features: [] } });
     map.addSource('borders', { type: 'geojson', data: asFeature(EMPTY_LINES) });
     map.addSource('outline', { type: 'geojson', data: asFeature(bundle.finished.outline) });
@@ -534,6 +618,8 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
       });
       addDetailAfter(selFillId(plan));
     }
+    // Border blocks: above every fill, so the chosen district's own-color fill does not cover them, and under its line.
+    for (const layer of blocksLayerSpecs()) map.addLayer({ ...layer, layout: { ...layer.layout, visibility: 'none' } });
     map.addLayer({
       id: 'enacted',
       type: 'line',
@@ -569,6 +655,10 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
     // The simplified layers fade out as the detail tiles fade in; if the tiles cannot be had, the map is as it was.
     for (const p of fadedPaint()) map.setPaintProperty(p.id, p.prop, p.faded);
     map.on('error', (e) => {
+      if (shouldDropBlocks(e, blocksFailed)) {
+        blocksFailed = true;
+        syncBlocks();
+      }
       if (!shouldDropDetail(e, detailFailed)) return;
       detailFailed = true;
       dropDetail(map);
@@ -613,14 +703,24 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
 
     const pick = (pt: PointLike): number | null =>
       pickDistrict((layers) => map.queryRenderedFeatures(pt, { layers }));
-    map.on('click', (e) => opts.onSelect(pick(e.point)));
+    map.on('click', (e) => {
+      // On touch there is no hover: a tap on a block shows its tooltip, a tap elsewhere clears it.
+      if (coarse) tipAt(e.point);
+      opts.onSelect(pick(e.point));
+    });
+    map.on('zoom', syncBlocks);
+    map.on('movestart', () => showBlockTip(null, null, 0, 0));
     if (!coarse) {
       map.on('mousemove', (e) => {
+        tipAt(e.point);
         const d = pick(e.point);
         map.getCanvas().style.cursor = d === null ? '' : 'pointer';
         if (d !== current?.hovered) opts.onHover(d);
       });
-      map.on('mouseout', () => opts.onHover(null));
+      map.on('mouseout', () => {
+        showBlockTip(null, null, 0, 0);
+        opts.onHover(null);
+      });
     }
 
     leaders = document.createElementNS(SVG_NS, 'svg');
@@ -748,6 +848,8 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
     fittedPad = pad;
     const cutMode = next.cut !== null;
     const plan = planShown(next);
+    syncBlocks();
+    if (prev && planShown(prev) !== plan) showBlockTip(null, null, 0, 0);
     const other: Plan = plan === 'finished' ? 'before' : 'finished';
     const shapes = shapesOf(plan);
 
@@ -889,6 +991,7 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
         stopAnim();
         resizeObs?.disconnect();
         stopWatchingZoom();
+        blockTipEl?.remove();
         map.remove();
       },
     });

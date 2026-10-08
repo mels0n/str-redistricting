@@ -5,7 +5,6 @@ export interface GridOptions {
   origin?: readonly [number, number];               // lon/lat of cell (0,0) corner
   pop?: (x: number, y: number) => number;
   skip?: (x: number, y: number) => boolean;
-  water?: (x: number, y: number) => boolean;        // block with no land area
   geoidPrefix?: string;                             // 5 chars: state+county
   indexOffset?: number;
 }
@@ -25,7 +24,6 @@ export function gridBlocks(w: number, h: number, opts: GridOptions = {}): Block[
         pop: opts.pop?.(x, y) ?? 1,
         point: [x0 + size / 2, y0 + size / 2],
         rings: [[[x0, y0], [x1, y0], [x1, y1], [x0, y1], [x0, y0]]],
-        ...(opts.water?.(x, y) ? { water: true } : {}),
       });
     }
   }

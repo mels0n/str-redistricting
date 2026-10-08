@@ -4,7 +4,7 @@ import { join } from 'node:path';
 import { afterAll, describe, expect, it } from 'vitest';
 import type { Block, BlockPolygons } from '../../../src/server/entities/census-block/index.js';
 import {
-  chosenCandidate, createExtractContext, dataCases, extractRuleExamples, MAX_BYTES, pieceMembers, projectWindow, RuleExamplesSchema, writeRuleExamples,
+  chosenCandidate, createExtractContext, dataCases, extractRuleExamples, MAX_BYTES, pieceMembers, projectWindow, RuleExamplesSchema, withLowSeats, writeRuleExamples,
   type CaseBuilder, type ExtractContext, type RuleCase, type StateOutput,
 } from '../../../src/server/features/rule-examples/index.js';
 import { fingerprintCase, idealCase, shareCase } from '../../../src/server/features/rule-examples/cases/data.js';
@@ -236,5 +236,19 @@ describe('committed public/data/how/rule-examples.json', () => {
     expect(hashes).toHaveLength(2);
     expect(hashes[0]).toBe(hashes[1]);
     expect(hashes[0]).toMatch(/^[0-9a-f]{64}$/);
+  });
+});
+
+describe('withLowSeats', () => {
+  const stats = (orders: number[]) => ({ cuts: orders.map((order) => ({ order })) }) as unknown as Parameters<typeof withLowSeats>[0];
+  const geo = (rows: [number, number][]) => ({ features: rows.map(([order, lowSeats]) => ({ properties: { order, lowSeats } })) });
+  it('joins by cut order, not by position', () => {
+    const out = withLowSeats(stats([1, 2, 3]), geo([[3, 7], [1, 5], [2, 6]]));
+    expect(out.cuts.map((c) => [c.order, c.lowSeats])).toEqual([[1, 5], [2, 6], [3, 7]]);
+  });
+  it('leaves lowSeats unset for a cut with no matching order', () => {
+    const out = withLowSeats(stats([1, 2]), geo([[1, 4]]));
+    expect(out.cuts[0]!.lowSeats).toBe(4);
+    expect(out.cuts[1]!.lowSeats).toBeUndefined();
   });
 });

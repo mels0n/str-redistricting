@@ -21,7 +21,7 @@ export async function extractRuleExamples(cfg: RuleExamplesConfig, builders: rea
 export { createExtractContext } from './context.js';
 export { nameOf, whole } from './cases/data.js';
 export type { ExtractContext, StateBlocks } from './context.js';
-export { chosenCandidate, generatedStates, loadCandidates, loadMetricsIfPresent, loadStateOutput, pieceMembers } from './load.js';
+export { chosenCandidate, generatedStates, loadCandidates, loadMetricsIfPresent, loadStateOutput, pieceMembers, withLowSeats } from './load.js';
 export type { StateOutput } from './load.js';
 export type { BalanceLog, Candidates, CutStats, PlanMetrics } from '../../entities/plan-output/index.js';
 export { RuleCaseSchema, RuleExamplesSchema } from './schema.js';

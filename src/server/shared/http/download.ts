@@ -43,8 +43,8 @@ async function fetchToPart(url: string, path: string, part: string, label: strin
     timer = setTimeout(() => stall.abort(new Error(`no data for ${o.stallMs} ms`)), o.stallMs);
   };
   const signal = AbortSignal.any([stall.signal, AbortSignal.timeout(o.totalMs)]);
-  arm();
   const file = await open(part, 'wx');
+  arm();
   try {
     const res = await o.fetchFn(url, { signal });
     if (!res.ok) {
@@ -68,7 +68,7 @@ async function fetchToPart(url: string, path: string, part: string, label: strin
       throw new DownloadError(`download for ${label} truncated: expected ${expected} bytes, got ${size}`);
     }
     const digest = hash.digest('hex');
-    if (sha256 !== null && digest !== sha256) throw new ChecksumError(basename(path), path);
+    if (sha256 !== null && digest !== sha256) throw new ChecksumError(basename(path), path, 'fresh');
     return digest;
   } finally {
     clearTimeout(timer);

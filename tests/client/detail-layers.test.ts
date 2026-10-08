@@ -19,9 +19,9 @@ import {
   dropDetail,
   shouldDropDetail,
   twinVisibility,
-  waterLayerAt,
   pickDistrict,
 } from '../../src/client/widgets/district-map/detail';
+import { WATER_VEIL } from '../../src/client/shared/ui';
 
 const keeps = (filter: Parameters<typeof featureFilter>[0], a: number, b: number): boolean =>
   featureFilter(filter, 'layers[0].filter').filter({ zoom: 0 } as never, { type: 2, properties: { a, b } } as never);
@@ -74,22 +74,22 @@ describe('detail fade', () => {
       }
     }
   });
-  it('swaps the water cover outright: exactly one opaque cover is drawn at any zoom', () => {
+  it('swaps the water veil outright: exactly one veil is drawn at any zoom', () => {
     const at = (e: unknown, zoom: number): number => {
       const r = createExpression(e as never, 'layers[0].paint.fill-opacity', { type: 'number', 'property-type': 'data-constant', expression: { interpolated: true, parameters: ['zoom'] } } as never);
       if (r.result !== 'success') throw new Error(JSON.stringify(r.value));
       return r.value.evaluate({ zoom }) as number;
     };
-    const cover = fadedPaint().find((p) => p.id === 'water-cover');
-    expect(cover?.prop).toBe('fill-opacity');
-    expect(cover?.base).toBe(1);
-    expect(cover?.faded).toEqual(fillFadeOut(1));
-    const twin = detailLayerSpecs().find((s) => s.layer.id === 'water-cover-detail');
-    expect(twin?.after).toBe('water-cover');
+    const veil = fadedPaint().find((p) => p.id === 'water-veil');
+    expect(veil?.prop).toBe('fill-opacity');
+    expect(veil?.base).toBe(WATER_VEIL);
+    expect(veil?.faded).toEqual(fillFadeOut(WATER_VEIL));
+    const twin = detailLayerSpecs().find((s) => s.layer.id === 'water-veil-detail');
+    expect(twin?.after).toBe('water-veil');
     const detailOpacity = (twin?.layer as { paint: Record<string, unknown> }).paint['fill-opacity'];
     for (const z of [8, 8.5, 8.9, 9, 9.5, 13]) {
-      const pair = [at(cover?.faded, z), at(detailOpacity, z)];
-      expect(pair).toEqual(z < DETAIL_ZOOM ? [1, 0] : [0, 1]);
+      const pair = [at(veil?.faded, z), at(detailOpacity, z)];
+      expect(pair).toEqual(z < DETAIL_ZOOM ? [WATER_VEIL, 0] : [0, WATER_VEIL]);
     }
   });
   it('multiplies the zoom fade into the existing expression', () => {
@@ -155,56 +155,30 @@ describe('detail state and fallback', () => {
     dropDetail({ setLayoutProperty, setPaintProperty } as never);
     const hidden = setLayoutProperty.mock.calls.map((c) => c[0] as string);
     expect(hidden).toContain('fill-finished-detail');
-    expect(hidden).toContain('water-cover-detail');
+    expect(hidden).toContain('water-veil-detail');
     expect(hidden.every((id) => id.endsWith('-detail'))).toBe(true);
     const restored = setPaintProperty.mock.calls.map((c) => c[0] as string);
     expect(restored).toContain('fill-finished');
     expect(restored).toContain('borders');
-    expect(setPaintProperty).toHaveBeenCalledWith('water-cover', 'fill-opacity', 1);
+    expect(setPaintProperty).toHaveBeenCalledWith('water-veil', 'fill-opacity', WATER_VEIL);
   });
 });
 
-describe('water hit-testing', () => {
-  it('reads the water layer that is drawn: simplified below the swap or after a tile failure, detail past it', () => {
-    expect(waterLayerAt(DETAIL_ZOOM - 0.01, false)).toBe('water-cover');
-    expect(waterLayerAt(DETAIL_ZOOM, false)).toBe('water-cover-detail');
-    expect(waterLayerAt(13, true)).toBe('water-cover');
-    expect(detailLayerSpecs().some((s) => s.layer.id === waterLayerAt(13, false))).toBe(true);
-  });
+describe('district hit-testing', () => {
+  /** A stub map: `hits` maps a layer id to the district found there, listed topmost first as MapLibre returns them. */
+  const stub = (hits: Record<string, number | null>) => (layers: string[]) =>
+    Object.keys(hits).filter((id) => layers.includes(id)).map((id) => ({ layer: { id }, properties: hits[id] === null ? {} : { district: hits[id] } }));
 
-  /** A stub map: `hits` maps a layer id to the feature found there, listed topmost first as MapLibre returns them. */
-  const stub = (hits: Record<string, number | null>) => {
-    const asked: string[][] = [];
-    const query = (layers: string[]) => {
-      asked.push(layers);
-      return Object.keys(hits).filter((id) => layers.includes(id)).map((id) => ({ layer: { id }, properties: hits[id] === null ? {} : { district: hits[id] } }));
-    };
-    return { query, asked };
-  };
-
-  it('picks no district on water, even where a district fill lies underneath', () => {
-    expect(pickDistrict(stub({ 'water-cover': null, 'fill-finished': 3 }).query, 5, false)).toBeNull();
-    expect(pickDistrict(stub({ 'water-cover-detail': null, 'fill-finished-detail': 3 }).query, 10, false)).toBeNull();
+  it('picks the district under the pointer from the simplified fill or the detail fill', () => {
+    expect(pickDistrict(stub({ 'fill-finished': 4 }))).toBe(4);
+    expect(pickDistrict(stub({ 'fill-before-detail': 6 }))).toBe(6);
   });
-  it('asks the water layer drawn at the zoom: detail past the swap, simplified below it or after a tile failure', () => {
-    for (const [zoom, failed, layer] of [[5, false, 'water-cover'], [9, false, 'water-cover-detail'], [12, true, 'water-cover']] as const) {
-      const s = stub({});
-      pickDistrict(s.query, zoom, failed);
-      expect(s.asked[0]).toEqual([layer]);
-    }
-  });
-  it('picks the district on land', () => {
-    expect(pickDistrict(stub({ 'fill-finished': 4 }).query, 5, false)).toBe(4);
-    expect(pickDistrict(stub({ 'fill-finished-detail': 4, 'fill-finished': 4, 'water-cover': null }).query, 10, false)).toBe(4);
+  it('prefers the topmost hit when both fills answer', () => {
+    expect(pickDistrict(stub({ 'fill-finished-detail': 4, 'fill-finished': 5 }))).toBe(4);
   });
   it('picks nothing outside the state or on a feature without a district number', () => {
-    expect(pickDistrict(stub({}).query, 5, false)).toBeNull();
-    expect(pickDistrict(stub({ 'fill-finished': null }).query, 5, false)).toBeNull();
-  });
-  it('keeps water unclickable past the swap while the detail tiles there are still loading', () => {
-    // Detail tiles not loaded: no detail water and no detail fill, only the simplified layers answer.
-    expect(pickDistrict(stub({ 'fill-finished': 3, 'water-cover': null }).query, 10, false)).toBeNull();
-    expect(pickDistrict(stub({ 'fill-finished': 3 }).query, 10, false)).toBe(3);
+    expect(pickDistrict(stub({}))).toBeNull();
+    expect(pickDistrict(stub({ 'fill-finished': null }))).toBeNull();
   });
 });
 

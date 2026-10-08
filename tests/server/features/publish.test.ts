@@ -8,7 +8,7 @@ import {
 } from '../../../src/server/features/publish/index.js';
 import { STATES } from '../../../src/server/shared/apportionment/index.js';
 import { parsePublishConfig } from '../../../src/server/shared/config/index.js';
-import { DataError } from '../../../src/server/shared/errors/index.js';
+import { ConfigError, DataError } from '../../../src/server/shared/errors/index.js';
 
 const names = new Map([['44001', 'Bristol County'], ['44003', 'Kent County'], ['44007', 'Providence County']]);
 
@@ -168,7 +168,11 @@ describe('topology', () => {
 
 describe('publish config', () => {
   it('defaults to every state and the standard directories', () => {
-    expect(parsePublishConfig([])).toEqual({ states: undefined, cacheDir: 'data/raw', outDir: 'out', publicDir: 'public/data', enactedOnly: false });
+    expect(parsePublishConfig([])).toEqual({ states: undefined, cacheDir: 'data/raw', outDir: 'out', publicDir: 'public/data', enactedOnly: false, blocksOnly: false });
+  });
+  it('parses --blocks-only, and refuses it with --enacted-only', () => {
+    expect(parsePublishConfig(['--blocks-only']).blocksOnly).toBe(true);
+    expect(() => parsePublishConfig(['--enacted-only', '--blocks-only'])).toThrow(ConfigError);
   });
   it('rejects an unknown state', () => {
     expect(() => parsePublishConfig(['--states', 'ZZ'])).toThrow();

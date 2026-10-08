@@ -1,7 +1,7 @@
 import type { Feature } from 'geojson';
 import { z } from 'zod';
 import { existsSync } from 'node:fs';
-import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { gzipSync } from 'node:zlib';
 import { join } from 'node:path';
 import { loadBlockPolygons, loadStateBlocks, type Block } from '../../entities/census-block/index.js';
@@ -10,10 +10,11 @@ import type { PublishConfig } from '../../shared/config/index.js';
 import { DataError } from '../../shared/errors/index.js';
 import { crossesAntimeridian, unwrapCoordinates, unwrapFeatures, unwrapLon } from './antimeridian.js';
 import { districtArcs } from './arcs.js';
-import { checkBlocks, encodeBlocks, lookup, type BlocksFile } from './blocks.js';
+import { BlocksFileSchema, checkBlocks, checkFingerprints, encodeBlocks, lookup, type BlocksFile } from './blocks.js';
 import { loadCountyNames, loadEnacted, loadLand, loadStates, type EnactedFile } from './boundary.js';
 import { BalanceLogSchema, buildBalance, ProcessNumbersSchema } from './balance.js';
 import { countiesByDistrict } from './counties.js';
+import { buildStateBorderBlocks } from './border-blocks.js';
 import { buildEnactedTopology } from './enacted.js';
 import { buildCuts } from './cuts.js';
 import { buildStats, planStats } from './stats.js';
@@ -145,13 +146,17 @@ async function publishState(state: StateInfo, cfg: PublishConfig, shared: Shared
     water: display(water.features) as unknown as Feature[],
   }, fingerprints);
   await verifyTiles(state, allBlocks, tiles, blocksFile, new Set(log.data.moves.map((m) => m.geoid)), wrapped);
+  const borderTiles = await buildStateBorderBlocks(state, cfg.cacheDir, allBlocks, districtsByGeoid(officialCsv, `${state.abbr} assignment.csv`), districtsByGeoid(beforeCsv, `${state.abbr} before-balancing/assignment.csv`), fingerprints);
   outputs.push(['blocks.json', blocksJson], ['detail.pmtiles', tiles]);
+  if (borderTiles) outputs.push(['blocks.pmtiles', borderTiles]);
 
   // Every output is built and checked above; only now does anything in the public directory change, stats.json last.
   await mkdir(dest, { recursive: true });
+  // A one-district state has no blocks.pmtiles; a file left by an earlier run would be stale.
+  if (!borderTiles) await rm(join(dest, 'blocks.pmtiles'), { force: true });
   for (const [name, body] of outputs) await write(join(dest, name), body);
   const rawBytes = Buffer.byteLength(blocksJson);
-  console.log(`  ${state.abbr}: detail.pmtiles ${tiles.byteLength} B, blocks.json ${rawBytes} B (${gzipSync(blocksJson).byteLength} B gzip)`);
+  console.log(`  ${state.abbr}: detail.pmtiles ${tiles.byteLength} B, blocks.pmtiles ${borderTiles ? `${borderTiles.byteLength} B` : 'none (one district)'}, blocks.json ${rawBytes} B (${gzipSync(blocksJson).byteLength} B gzip)`);
 
   await write(join(dest, 'stats.json'), JSON.stringify(stats));
 }
@@ -216,9 +221,59 @@ async function writeIfChanged(path: string, body: string): Promise<boolean> {
   return true;
 }
 
+const PlanShaSchema = z.looseObject({ metrics: z.looseObject({ assignmentSha256: z.string() }) });
+const ShaStatsSchema = z.looseObject({ finished: PlanShaSchema, beforeBalancing: PlanShaSchema });
+
+/**
+ * Rebuild only each published state's `blocks.pmtiles`. The districts of every block come from the state's published
+ * `blocks.json` (the same data the detail tiles were cut from) and the shapes from the cached TIGER blocks, so the file
+ * always belongs to the data it sits next to and nothing is needed from the output directory. Every other file is left alone.
+ */
+export async function publishBlocksOnly(cfg: PublishConfig): Promise<void> {
+  const published = STATES.filter((s) => existsSync(join(cfg.publicDir, s.abbr, 'stats.json')));
+  const selected = cfg.states === undefined ? published : cfg.states;
+  for (const s of selected) {
+    if (!published.some((p) => p.abbr === s.abbr)) throw new DataError(`${s.abbr}: nothing published in ${cfg.publicDir}, so there is no data to update`);
+  }
+  for (const s of selected) {
+    const path = join(cfg.publicDir, s.abbr, 'blocks.json');
+    const parsed = BlocksFileSchema.safeParse(await readJson(path));
+    if (!parsed.success) throw new DataError(`${path}: ${parsed.error.issues.map((i) => `${i.path.join('.')} ${i.message}`).join('; ')}`);
+    const file: BlocksFile = parsed.data;
+    if (file.state !== s.fips || file.seats !== s.seats) throw new DataError(`${path}: is not the file of ${s.abbr}`);
+    checkFingerprints(file.fingerprints);
+    for (const [tract, v] of Object.entries(file.tracts)) {
+      const districts = [v[0], v[1], ...Object.values(v[2] ?? {}).flat()];
+      if (districts.some((d) => d > file.seats)) throw new DataError(`${path}: tract ${tract} names a district above ${file.seats}`);
+    }
+    // The file must belong to the plans published beside it: its fingerprints are those recorded in stats.json.
+    const statsPath = join(cfg.publicDir, s.abbr, 'stats.json');
+    const stats = ShaStatsSchema.safeParse(await readJson(statsPath));
+    if (!stats.success) throw new DataError(`${statsPath}: ${stats.error.issues.map((i) => `${i.path.join('.')} ${i.message}`).join('; ')}`);
+    if (stats.data.finished.metrics.assignmentSha256 !== file.fingerprints.finished || stats.data.beforeBalancing.metrics.assignmentSha256 !== file.fingerprints.before) {
+      throw new DataError(`${path}: its plan fingerprints differ from those in ${statsPath}`);
+    }
+    const allBlocks = await loadStateBlocks(s, cfg.cacheDir);
+    const finished = new Map<string, number>();
+    const before = new Map<string, number>();
+    for (const b of allBlocks) {
+      const got = lookup(file, b.geoid);
+      if (!got) throw new DataError(`${s.abbr}: block ${b.geoid} is not in ${path}`);
+      finished.set(b.geoid, got[0]);
+      before.set(b.geoid, got[1]);
+    }
+    const bytes = await buildStateBorderBlocks(s, cfg.cacheDir, allBlocks, finished, before, file.fingerprints);
+    const out = join(cfg.publicDir, s.abbr, 'blocks.pmtiles');
+    if (bytes) await write(out, bytes);
+    else await rm(out, { force: true });
+    console.log(`  ${s.abbr}: blocks.pmtiles ${bytes ? `${bytes.byteLength} B` : 'none (one district)'}`);
+  }
+}
+
 /** Write the web-ready data for the selected states (default: every state with a generated plan), plus the national files and the index. */
 export async function publishData(cfg: PublishConfig): Promise<void> {
   if (cfg.enactedOnly) return publishEnactedOnly(cfg);
+  if (cfg.blocksOnly) return publishBlocksOnly(cfg);
   const withData = statesWithData(cfg.outDir);
   const selected = cfg.states === undefined ? withData : withData.filter((s) => cfg.states!.some((x) => x.abbr === s.abbr));
   await mkdir(cfg.publicDir, { recursive: true });

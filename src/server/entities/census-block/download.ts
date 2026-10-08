@@ -51,6 +51,6 @@ export async function loadBlockPolygons(state: StateInfo, cacheDir: string, geoi
     found.set(geoid, parseBlockPolygons(r.value.geometry, geoid));
   }
   const missing = [...geoids].filter((g) => !found.has(g));
-  if (missing.length > 0) throw new DataError(`${state.abbr}: ${missing.length} moved blocks not in the TIGER file (first ${missing[0]})`);
+  if (missing.length > 0) throw new DataError(`${state.abbr}: ${missing.length} blocks not in the TIGER file (first ${missing[0]})`);
   return found;
 }

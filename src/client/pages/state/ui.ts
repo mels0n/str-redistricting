@@ -63,6 +63,8 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
   let route = initial;
   let alive = true;
   let hovered: number | null = null;
+  /** Whether the map is drawing the border blocks right now (zoomed in, tiles present); the key lists them only then. */
+  let borderBlocks = false;
   let animateNext = false;
   let enacted: EnactedShapes | null = null;
   let enactedFailed = false;
@@ -341,6 +343,13 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
         onHover: (d) => {
           hovered = d;
           render(true);
+        },
+        onBorderBlocks: (visible) => {
+          borderBlocks = visible;
+          // Called from inside map.set during a render as well; redraw the key once that has finished.
+          queueMicrotask(() => {
+            if (alive) render();
+          });
         },
       });
     } catch (err) {
@@ -633,6 +642,7 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
         h('span', { class: 'strv-legend__item' }, sample('strv-legend__chip', '+2'), 'More districts, zoom in'),
         bundle.water ? h('span', { class: 'strv-legend__item' }, sample('strv-legend__water'), 'Water, shown pale') : null,
         bundle.bridges && bundle.bridges.links.length > 0 ? h('span', { class: 'strv-legend__item' }, sample('strv-legend__link'), 'Joined to nearest land') : null,
+        borderBlocks ? h('span', { class: 'strv-legend__item' }, sample('strv-legend__block'), 'Border blocks: the Census blocks along each district line') : null,
         cutMode ? h('span', { class: 'strv-legend__item' }, sample('strv-legend__cut'), 'Newest cut') : null,
         cutMode ? h('span', { class: 'strv-legend__item' }, sample('strv-legend__past'), 'Earlier cuts') : null,
         balanceMode && (route.move ?? 0) > 0 ? h('span', { class: 'strv-legend__item' }, sample('strv-legend__move'), 'Block moved') : null,

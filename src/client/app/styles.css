@@ -1313,6 +1313,14 @@ html:has(> body > #str-viewer) {
   height: 0;
 }
 
+/* Thin outline in the secondary ink, like the border-blocks layer on the map (tokens.ink2). */
+.strv-legend__block {
+  display: inline-block;
+  width: 1.25rem;
+  height: 0.75rem;
+  border: 1px solid var(--ink-2);
+}
+
 .strv-legend__cut {
   height: 4px;
   background: var(--signal);
@@ -2922,6 +2930,27 @@ html:has(> body > #str-viewer) {
 /* Where numbers crowd together and cannot all be shown, one marker stands in for them and zooms in when tapped. */
 .strv-map-label[data-crowded='true'] {
   display: none;
+}
+
+/* Pointer tooltip for a border block (tap on touch). */
+.strv-block-tip {
+  position: absolute;
+  z-index: 4;
+  max-width: 14rem;
+  padding: 0.25rem 0.5rem;
+  font-family: var(--font);
+  font-size: 0.8125rem;
+  line-height: 1.35;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  border-radius: 2px;
+  pointer-events: none;
+}
+
+.strv-block-tip__head {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
 }
 
 .strv-map-cluster {

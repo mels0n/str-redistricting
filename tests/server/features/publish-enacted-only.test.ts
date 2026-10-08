@@ -125,6 +125,16 @@ describe('publish-data --enacted-only on stamped data', () => {
 `);
   });
 
+  it('keeps engine, schema, web and docs in an existing public versions.json, and moves only maps and input', async () => {
+    for (const st of ['RI', 'DE']) {
+      put(st, 'stats.json', JSON.stringify({ enactedSource: 'old_file', versions: OLD_STAMP, finished: { metrics: { assignmentSha256: SHA } } }));
+    }
+    const published = { ...VERSIONS, engine: '0.9.0', schema: '0.8.0', web: '0.7.0', docs: '0.6.0', input: { ...VERSIONS.input, sha256: 'c'.repeat(64) } };
+    writeFileSync(join(dir, 'versions.json'), `${JSON.stringify(published, null, 2)}\n`);
+    await run();
+    expect(JSON.parse(readFileSync(join(dir, 'versions.json'), 'utf8'))).toEqual({ ...published, maps: VERSIONS.maps, input: VERSIONS.input });
+  });
+
   it('does not stamp states that were published without a stamp', async () => {
     await run();
     expect(JSON.parse(get('RI', 'stats.json'))).not.toHaveProperty('versions');

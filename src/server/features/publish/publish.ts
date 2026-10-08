@@ -6,7 +6,7 @@ import { gzipSync } from 'node:zlib';
 import { join } from 'node:path';
 import { loadBlockPolygons, loadStateBlocks, type Block } from '../../entities/census-block/index.js';
 import { STATES, type StateInfo } from '../../shared/apportionment/index.js';
-import { formatVersions, stampOf, VERSIONS, type PublishConfig, type VersionStamp } from '../../shared/config/index.js';
+import { formatVersions, stampOf, VERSIONS, VersionsSchema, type PublishConfig, type VersionStamp, type Versions } from '../../shared/config/index.js';
 import { DataError } from '../../shared/errors/index.js';
 import { crossesAntimeridian, unwrapCoordinates, unwrapFeatures, unwrapLon } from './antimeridian.js';
 import { districtArcs } from './arcs.js';
@@ -235,8 +235,20 @@ export async function publishEnactedOnly(cfg: PublishConfig): Promise<void> {
   const stampedStates = built.filter((b) => b.stats.versions !== undefined);
   if (stampedStates.length > 0) {
     await restampIndex(join(cfg.publicDir, 'index.json'), new Map(stampedStates.map((b) => [b.state.abbr, restamped(b.stats.versions!, stamp)])));
-    await writeIfChanged(join(cfg.publicDir, 'versions.json'), formatVersions(VERSIONS));
+    await writeIfChanged(join(cfg.publicDir, 'versions.json'), formatVersions(await restampedVersions(join(cfg.publicDir, 'versions.json'))));
   }
+}
+
+/**
+ * The versions file for the published data after a restamp: the engine, schema, web and docs stay as already published
+ * (no map was regenerated), and only the maps release and the input follow the current versions. With no readable file
+ * there is nothing to keep, so it is the current versions.
+ */
+async function restampedVersions(path: string): Promise<Versions> {
+  if (!existsSync(path)) return VERSIONS;
+  const published = VersionsSchema.safeParse(await readJson(path));
+  if (!published.success) return VERSIONS;
+  return { ...published.data, maps: VERSIONS.maps, input: { ...VERSIONS.input } };
 }
 
 /** A published stamp moved to the current Maps release and input revision. The engine and schema stay: no map was regenerated. */

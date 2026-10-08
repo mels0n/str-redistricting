@@ -3641,6 +3641,238 @@ html:has(> body > #str-viewer) {
   margin-bottom: 0;
 }
 
+/* Animated panels under the exact-rule bullets: a drawing, step controls, the step's caption, a link to the real map. */
+.strv-rule-slot {
+  max-width: 26rem;
+}
+
+.strv-rule-slot:empty {
+  display: none;
+}
+
+.strv-rule-slot,
+.strv-rule-demo__status {
+  margin-top: var(--s-2);
+}
+
+.strv-rule-demo__status {
+  font-size: 0.875rem;
+  color: var(--ink-2);
+}
+
+.strv .strv-rule-demo {
+  margin: 0;
+  padding: var(--s-3);
+  background: var(--paper);
+  border: 1px solid var(--hairline);
+  border-radius: 2px;
+}
+
+.strv-rule-demo__svg {
+  max-width: 100%;
+}
+
+.strv-rule-demo__off {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.strv-rule-demo__svg [data-id] {
+  transition: opacity 240ms ease-out;
+}
+
+.strv-rule-demo__line {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 2;
+}
+
+.strv-rule-demo__label[data-tag] {
+  font-weight: 700;
+  fill: var(--signal-ink);
+}
+
+.strv-rule-demo__svg [data-state='hot'] {
+  fill: var(--signal-tint);
+  stroke: var(--signal-ink);
+  stroke-width: 2.5;
+}
+
+/* What a line is (data-tag) and what a step makes a shape (data-state). Attribute selectors outrank the
+   single-class .strv-dg__border base. */
+.strv-rule-demo__svg [data-tag='point'] {
+  stroke: var(--ink);
+  stroke-width: 5;
+  stroke-linecap: round;
+}
+
+.strv-rule-demo__svg [data-tag='tick'] {
+  stroke: var(--signal);
+  stroke-width: 1.5;
+  stroke-linecap: butt;
+}
+
+.strv-rule-demo__svg [data-tag='guide'] {
+  stroke: var(--ink);
+  stroke-width: 1.5;
+  stroke-dasharray: 6 4;
+  stroke-linecap: butt;
+}
+
+.strv-rule-demo__svg [data-tag='axis'] {
+  stroke: var(--rule);
+  stroke-width: 1;
+  stroke-linecap: butt;
+}
+
+.strv-rule-demo__svg [data-tag='border'] {
+  stroke: var(--signal);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.strv-rule-demo__svg [data-tag='track'],
+.strv-rule-demo__svg [data-tag='fill'] {
+  stroke-width: 8;
+  stroke-linecap: butt;
+}
+
+.strv-rule-demo__svg [data-tag='track'] { stroke: var(--quiet); }
+.strv-rule-demo__svg [data-tag='fill'] { stroke: var(--signal); }
+
+.strv-rule-demo__svg [data-tag='mark'] {
+  stroke: var(--ink);
+  stroke-width: 2;
+  stroke-linecap: butt;
+}
+
+.strv-rule-demo__svg [data-tag='outline'] {
+  stroke: var(--ink-2);
+  stroke-width: 1.25;
+  stroke-linejoin: round;
+}
+
+.strv-rule-demo__svg [data-tag='crossing'] {
+  stroke: var(--signal-ink);
+  stroke-width: 7;
+  stroke-linecap: round;
+}
+
+.strv-rule-demo__svg [data-tag='cut'] {
+  stroke: var(--ink);
+  stroke-width: 2.5;
+  stroke-linecap: butt;
+}
+
+.strv-rule-demo__svg [data-state='low'] { fill: var(--d-sand); }
+.strv-rule-demo__svg [data-state='high'] { fill: var(--d-sage); }
+.strv-rule-demo__svg [data-state='kept'] { stroke: var(--signal-ink); stroke-width: 3.5; }
+.strv-rule-demo__svg [data-state='dim'] { stroke-opacity: 0.3; }
+
+.strv-rule-demo__svg [data-side='0'] { fill: var(--d-sand); }
+.strv-rule-demo__svg [data-side='1'] { fill: var(--d-sage); }
+.strv-rule-demo__svg [data-district='1'] { fill: var(--d-sand); }
+.strv-rule-demo__svg [data-district='2'] { fill: var(--d-sage); }
+.strv-rule-demo__svg [data-district='3'] { fill: var(--d-heather); }
+.strv-rule-demo__svg [data-district='4'] { fill: var(--d-verdigris); }
+.strv-rule-demo__svg [data-district='5'] { fill: var(--d-umber); }
+.strv-rule-demo__svg [data-district='6'] { fill: var(--d-rose-stone); }
+.strv-rule-demo__svg [data-district='7'] { fill: var(--d-olive); }
+.strv-rule-demo__svg [data-district='8'] { fill: var(--d-slate); }
+/* A step's state recolors a district block: ruled out (grey) or picked out (tinted). */
+.strv-rule-demo__svg [data-district][data-state='out'] { fill: var(--quiet); }
+.strv-rule-demo__svg [data-district][data-state='hot'] { fill: var(--signal-tint); }
+
+/* The chart a case draws behind its labels (widgets/rule-demo/chart.ts). Tick widths are attributes, so these rules set colors only. */
+.strv-chart__axis {
+  fill: none;
+  stroke: var(--rule);
+  stroke-width: 1;
+}
+
+.strv-chart__ticks { stroke: var(--ink-2); }
+.strv-chart__ticks:not([data-mark='base']) { stroke: var(--signal); }
+.strv-chart__ticks[data-mark='skipped'] { stroke: var(--ink); }
+.strv-chart__ticks[data-mark='winner'] { stroke: var(--signal-ink); }
+
+.strv-chart__bar { fill: var(--rule); }
+.strv-chart__bar[data-mark] { fill: var(--signal); }
+.strv-chart__bar[data-mark='runnerUp'] { fill: var(--ink-2); }
+.strv-chart__bar[data-mark='winner'] { fill: var(--signal-ink); }
+
+.strv-chart__line {
+  stroke: var(--ink-2);
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+}
+
+.strv-chart__dot {
+  fill: var(--paper);
+  stroke: var(--ink-2);
+  stroke-width: 1.5;
+}
+
+.strv-chart__dot[data-mark] {
+  fill: var(--signal);
+  stroke: var(--signal-ink);
+}
+
+.strv-chart__label { text-anchor: middle; }
+
+.strv-rule-demo__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-2);
+  margin-top: var(--s-2);
+}
+
+.strv-rule-demo__btn {
+  min-height: 2.75rem;
+  min-width: 2.75rem;
+}
+
+.strv-rule-demo__btn[aria-disabled='true'] {
+  color: var(--rule);
+  border-color: var(--hairline);
+  cursor: default;
+}
+
+.strv-rule-demo__btn:focus-visible,
+.strv-rule-demo__link:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.strv-rule-demo__count {
+  margin-left: auto;
+  font-size: 0.8125rem;
+  color: var(--ink-2);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.strv-rule-demo__caption {
+  margin: var(--s-2) 0 0;
+  min-height: 4rem;
+  font-size: 0.875rem;
+  line-height: 1.45;
+  color: var(--ink);
+}
+
+.strv-rule-demo__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .strv-rule-demo__svg [data-id] {
+    transition: none;
+  }
+}
+
 .strv-how__code {
   font-family: var(--mono);
   font-size: 0.875em;

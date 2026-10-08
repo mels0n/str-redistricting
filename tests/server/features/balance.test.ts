@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { buildTopology, isConnected } from '../../../src/server/entities/census-block/index.js';
-import { balance, balanceLog, peopleMoved } from '../../../src/server/features/balance/index.js';
+import { balance, balanceLog, peopleMoved, type BalanceRound } from '../../../src/server/features/balance/index.js';
 import { gridBlocks } from '../../helpers/grid.js';
 
 describe('balance', () => {
@@ -105,6 +105,87 @@ describe('balance', () => {
     const replay = Int32Array.from(start);
     for (const m of r.moves) { expect(replay[m.block]).toBe(m.from); replay[m.block] = m.to; }
     expect(Array.from(replay)).toEqual(Array.from(r.assignment));
+  });
+});
+
+describe('balance onRound', () => {
+  const reasonOf = (r: BalanceRound, block: number, to: number) => r.candidates.find((c) => c.block === block && c.to === to);
+  it('onRound does not change the result', () => {
+    for (const [w, hh, pop, start] of [
+      [5, 4, (x: number, y: number) => 1 + ((x * 3 + y * 5) % 4), (i: number) => (i % 5 < 3 ? 0 : 1)],
+      [3, 2, (x: number, y: number) => [1, 3, 1, 0, 0, 0][y * 3 + x]!, (i: number) => (i < 3 ? 0 : 1)],
+    ] as const) {
+      const blocks = gridBlocks(w, hh, { pop });
+      const topo = buildTopology(blocks);
+      const input = Int32Array.from(blocks.map((_, i) => start(i)));
+      const rounds: BalanceRound[] = [];
+      const a = balance(blocks, topo, input, 2);
+      const b = balance(blocks, topo, input, 2, { onRound: (r) => rounds.push(r) });
+      expect(Array.from(b.assignment)).toEqual(Array.from(a.assignment));
+      expect(b.moves).toEqual(a.moves);
+      // One round per move, plus the last one that finds nothing.
+      expect(rounds).toHaveLength(a.moves.length + 1);
+    }
+  });
+  it('onRound does not change the result with 3 and 4 districts, ties and several moves', () => {
+    const cases = [
+      // 3 districts in column bands with equal populations everywhere, so many moves share the same gain.
+      { w: 6, h: 3, seats: 3, pop: () => 1, start: (i: number) => (i % 6 < 4 ? 0 : i % 6 === 4 ? 1 : 2) },
+      // 3 districts in row bands with uneven populations.
+      { w: 5, h: 6, seats: 3, pop: (x: number, y: number) => 1 + ((x * 3 + y * 5) % 4), start: (i: number) => (Math.floor(i / 5) < 4 ? 0 : Math.floor(i / 5) < 5 ? 1 : 2) },
+      // 4 districts as quadrants of a grid, the first holding most of the people.
+      { w: 6, h: 6, seats: 4, pop: (x: number, y: number) => (x < 4 && y < 4 ? 3 : 1), start: (i: number) => (i % 6 < 3 ? 0 : 1) + (Math.floor(i / 6) < 3 ? 0 : 2) },
+      // 4 districts in column bands with equal populations.
+      { w: 8, h: 2, seats: 4, pop: () => 2, start: (i: number) => (i % 8 < 5 ? 0 : i % 8 < 6 ? 1 : i % 8 < 7 ? 2 : 3) },
+    ];
+    for (const { w, h, seats, pop, start } of cases) {
+      const blocks = gridBlocks(w, h, { pop });
+      const topo = buildTopology(blocks);
+      const input = Int32Array.from(blocks.map((_, i) => start(i)));
+      const rounds: BalanceRound[] = [];
+      const a = balance(blocks, topo, input, seats);
+      const b = balance(blocks, topo, input, seats, { onRound: (r) => rounds.push(r) });
+      expect(Array.from(b.assignment)).toEqual(Array.from(a.assignment));
+      expect(b.moves).toEqual(a.moves);
+      // Not vacuous: the hook ran, and the pass made several moves.
+      expect(rounds.length).toBeGreaterThan(0);
+      expect(rounds).toHaveLength(a.moves.length + 1);
+      expect(a.moves.length).toBeGreaterThanOrEqual(2);
+      // Population ties: some round ranks two moves with the same positive gain.
+      expect(rounds.some((r) => r.candidates.some((c, i) => c.gain > 0 && r.candidates.some((d, j) => j !== i && d.gain === c.gain)))).toBe(true);
+    }
+  });
+  it('reports every candidate of a round with the check that ruled it out', () => {
+    const pops = [1, 3, 1, 0, 0, 0];
+    const blocks = gridBlocks(3, 2, { pop: (x, y) => pops[y * 3 + x]! });
+    const rounds: BalanceRound[] = [];
+    balance(blocks, buildTopology(blocks), Int32Array.from([0, 0, 0, 1, 1, 1]), 2, { onRound: (r) => rounds.push(r) });
+    const [first, second] = rounds as [BalanceRound, BalanceRound];
+    expect(first.furthest).toBe(0);
+    expect(first.tried).toEqual([0]);
+    // Block 1 holds the top row together; blocks 0 and 2 may go; the empty bottom row has no people.
+    expect(reasonOf(first, 1, 1)).toMatchObject({ from: 0, gain: 12, allowed: false, reason: 'disconnects' });
+    expect(reasonOf(first, 0, 1)).toMatchObject({ from: 0, gain: 8, allowed: true });
+    expect(reasonOf(first, 2, 1)).toMatchObject({ from: 0, gain: 8, allowed: true });
+    for (const b of [3, 4, 5]) expect(reasonOf(first, b, 0)).toMatchObject({ from: 1, allowed: false, reason: 'no-people' });
+    expect(first.candidates.every((c) => c.allowed === (c.reason === undefined))).toBe(true);
+    // Next round: 4 against 1. Moving the 3 would leave 1 against 4, no narrower; moving the 1 back would widen it.
+    expect(reasonOf(second, 1, 1)).toMatchObject({ gain: 0, allowed: false, reason: 'widens' });
+    expect(reasonOf(second, 0, 0)).toMatchObject({ from: 1, allowed: false, reason: 'widens' });
+    expect(reasonOf(second, 2, 1)).toMatchObject({ gain: 4, allowed: true });
+  });
+  it('tries the next furthest district when the furthest has no allowed move', () => {
+    // Three one-block districts: none can give its only block away, so every district is tried and the pass stops.
+    const pops = [5, 1, 3];
+    const blocks = gridBlocks(3, 1, { pop: (x) => pops[x]! });
+    const rounds: BalanceRound[] = [];
+    const r = balance(blocks, buildTopology(blocks), Int32Array.from([0, 1, 2]), 3, { onRound: (x) => rounds.push(x) });
+    expect(r.moves).toHaveLength(0);
+    expect(rounds).toHaveLength(1);
+    expect(rounds[0]!.tried).toEqual([0, 1, 2]);
+    expect(rounds[0]!.candidates.every((c) => !c.allowed)).toBe(true);
+    // Each candidate names the district whose border it was found on.
+    expect(new Set(rounds[0]!.candidates.map((c) => c.district))).toEqual(new Set([0, 1, 2]));
   });
 });
 

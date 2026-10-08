@@ -19,7 +19,39 @@ export interface BalanceResult {
 
 interface Move { block: number; from: number; to: number; gain: number }
 
-export function balance(blocks: readonly Block[], topo: Topology, input: Int32Array, seats: number): BalanceResult {
+/** Why a border move was not allowed: the block has no people, the move would not narrow the gap, or the giving district would not stay one connected piece. */
+export type MoveReason = 'no-people' | 'widens' | 'disconnects';
+
+/** One move looked at in a round, with the generator's own verdict on it. Districts are 0-based. */
+export interface RoundCandidate {
+  readonly block: number;
+  readonly from: number;
+  readonly to: number;
+  /** Exact decrease in the sum of squared district deviations; 0 for a block with no people. */
+  readonly gain: number;
+  readonly allowed: boolean;
+  readonly reason?: MoveReason;
+  /** The tried district on whose border the move was found. */
+  readonly district: number;
+}
+
+/**
+ * One round of the pass: the districts tried, furthest first, until one made a move (the last one tried) or none
+ * could. `candidates` lists each tried district's moves: those that narrow the gap in the order they are ranked, then
+ * the ones ruled out before ranking. Every candidate is checked, including those ranked after the move made.
+ */
+export interface BalanceRound {
+  readonly furthest: number;
+  readonly tried: readonly number[];
+  readonly candidates: readonly RoundCandidate[];
+}
+
+export interface BalanceOptions {
+  /** Observation only: called once per round; the result is the same with or without it. */
+  onRound?(r: BalanceRound): void;
+}
+
+export function balance(blocks: readonly Block[], topo: Topology, input: Int32Array, seats: number, opts: BalanceOptions = {}): BalanceResult {
   const assignment = Int32Array.from(input);
   const pop = new Float64Array(seats);
   blocks.forEach((b, i) => { pop[assignment[i]!]! += b.pop; });
@@ -35,8 +67,17 @@ export function balance(blocks: readonly Block[], topo: Topology, input: Int32Ar
     return lo;
   };
 
+  /** The giving district stays one connected piece (and keeps at least one block) without the block. */
+  const leavesConnected = (c: Move): boolean => {
+    const rest = members(c.from).filter((i) => i !== c.block);
+    return rest.length > 0 && isConnected(topo, Int32Array.from(rest));
+  };
+
   const moves: BalanceMove[] = [];
   const exhausted = new Uint8Array(seats);
+  const observe = opts.onRound;
+  let tried: number[] = [];
+  let seenInRound: RoundCandidate[] = [];
   for (;;) {
     let d = -1;
     for (let k = 0; k < seats; k++) {
@@ -44,9 +85,11 @@ export function balance(blocks: readonly Block[], topo: Topology, input: Int32Ar
       if (d === -1 || Math.abs(pop[k]! - ideal) > Math.abs(pop[d]! - ideal)) d = k;
     }
     if (d === -1) break;
+    const district = d;
 
     const seen = new Set<number>();
     const cands: Move[] = [];
+    const ruledOut: RoundCandidate[] | undefined = observe ? [] : undefined;
     // A block borders district `to` only across land: water blocks hold no people, so touching one is not a border.
     const touchesByLand = (block: number, to: number): boolean => {
       for (let k = topo.adjOffsets[block]!; k < topo.adjOffsets[block + 1]!; k++) {
@@ -58,12 +101,16 @@ export function balance(blocks: readonly Block[], topo: Topology, input: Int32Ar
     const consider = (block: number, from: number, to: number) => {
       const p = blocks[block]!.pop;
       const key = block * seats + to;
-      if (p === 0 || seen.has(key)) return;
+      // Without an observer a block with no people is never a candidate, so skip it before any border work.
+      if (p === 0 && !ruledOut) return;
+      if (seen.has(key)) return;
       seen.add(key);
       if (!touchesByLand(block, to)) return;
+      if (p === 0) { ruledOut?.push({ block, from, to, gain: 0, allowed: false, reason: 'no-people', district }); return; }
       // Exact decrease in the sum of squared deviations (populations are integers).
       const gain = 2 * p * (pop[from]! - pop[to]! - p);
       if (gain > 0) cands.push({ block, from, to, gain });
+      else ruledOut?.push({ block, from, to, gain, allowed: false, reason: 'widens', district });
     };
     // Only the border of district d: its blocks moving out, and neighbouring blocks moving in.
     for (const i of members(d)) {
@@ -77,10 +124,22 @@ export function balance(blocks: readonly Block[], topo: Topology, input: Int32Ar
     }
     cands.sort((x, y) => y.gain - x.gain || x.block - y.block || x.to - y.to);
 
-    let moved = false;
-    for (const c of cands) {
-      const rest = members(c.from).filter((i) => i !== c.block);
-      if (rest.length === 0 || !isConnected(topo, Int32Array.from(rest))) continue;
+    let chosen = -1;
+    for (let i = 0; i < cands.length; i++) {
+      if (leavesConnected(cands[i]!)) { chosen = i; break; }
+    }
+    if (observe) {
+      tried.push(d);
+      cands.forEach((c, i) => {
+        // Ranked ahead of the move made: the generator found them disconnecting. After it: checked here, the same way.
+        const allowed = i === chosen || (chosen >= 0 && i > chosen && leavesConnected(c));
+        seenInRound.push(allowed ? { ...c, allowed, district } : { ...c, allowed, reason: 'disconnects', district });
+      });
+      seenInRound.push(...ruledOut!);
+    }
+    if (chosen >= 0) {
+      const c = cands[chosen]!;
+      if (observe) { observe({ furthest: tried[0]!, tried, candidates: seenInRound }); tried = []; seenInRound = []; }
       assignment[c.block] = c.to;
       pop[c.from]! -= blocks[c.block]!.pop;
       pop[c.to]! += blocks[c.block]!.pop;
@@ -88,10 +147,9 @@ export function balance(blocks: readonly Block[], topo: Topology, input: Int32Ar
       const fromList = lists[c.from]!, toList = lists[c.to]!;
       fromList.splice(lowerBound(fromList, c.block), 1);
       toList.splice(lowerBound(toList, c.block), 0, c.block);
-      moved = true;
-      break;
-    }
-    if (moved) exhausted.fill(0); else exhausted[d] = 1;
+      exhausted.fill(0);
+    } else exhausted[d] = 1;
   }
+  if (observe) observe({ furthest: tried[0] ?? -1, tried, candidates: seenInRound });
   return { assignment, moves };
 }

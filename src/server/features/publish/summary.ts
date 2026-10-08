@@ -1,30 +1,9 @@
 import { z } from 'zod';
+import { PlanMetricsSchema, type PlanMetrics } from '../../entities/plan-output/index.js';
 import type { StateInfo } from '../../shared/apportionment/index.js';
 
-const District = z.object({
-  district: z.number().int().positive(),
-  pop: z.number(),
-  dev: z.number(),
-  devPct: z.number(),
-  contiguous: z.boolean(),
-});
-
-/** The fields of a plan's metrics.json the published data relies on; any others pass through to stats.json. */
-export const PlanMetricsSchema = z.object({
-  state: z.string(),
-  angleStepDeg: z.number(),
-  nodeVersion: z.string(),
-  inputSha256: z.string(),
-  seats: z.number().int().positive(),
-  population: z.number(),
-  ideal: z.number(),
-  districts: z.array(District),
-  rangePersons: z.number(),
-  rangePct: z.number(),
-  allContiguous: z.boolean(),
-  assignmentSha256: z.string(),
-}).passthrough();
-export type PlanMetrics = z.infer<typeof PlanMetricsSchema>;
+export { PlanMetricsSchema };
+export type { PlanMetrics };
 
 /** The same fields without the per-district list: what a published stats.json keeps under `metrics`. */
 export const PublishedMetricsSchema = PlanMetricsSchema.omit({ districts: true });

@@ -20,6 +20,7 @@ import {
   type Route,
 } from '../../shared';
 import { loadIndex, isGenerated, byName } from '../../entities/state';
+import { ruleSlot, wireExact, destroyExact } from './demo-slots';
 import { loadStats, cutRows, CutsSchema, type CutRow, type Metrics } from '../../entities/plan';
 import {
   inputsDiagram,
@@ -53,12 +54,32 @@ const p = (...children: (Node | string)[]): HTMLElement => h('p', null, ...child
 const li = (...children: (Node | string)[]): HTMLElement => h('li', null, ...children);
 /** Exact detail, folded away: the plain summary above it stands on its own. */
 function exact(...body: (Node | string)[]): HTMLElement {
-  return h(
+  const details = h(
     'details',
     { class: 'strv-how__more' },
     h('summary', { class: 'strv-how__more-summary' }, iconChevronDown(), h('span', null, 'The exact rule')),
     h('div', { class: 'strv-how__more-body' }, body),
   );
+  wireExact(details);
+  return details;
+}
+
+/** Every case id wired into an expander under `root`, in page order. */
+export function exactCaseIds(root: ParentNode): string[] {
+  return [...root.querySelectorAll<HTMLElement>('[data-case]')].map((el) => el.dataset.case ?? '');
+}
+
+/** A list item of an exact rule with a place after its text for the case's animated panel (none when `caseId` is null). */
+export function exactItem(caseId: string | null, ...children: (Node | string)[]): HTMLElement {
+  if (caseId === null) return li(...children);
+  return li(...children, ruleSlot(caseId));
+}
+
+/** A paragraph of an exact rule followed by a sibling slot for the case's panel. */
+function exactPara(caseId: string, ...children: (Node | string)[]): DocumentFragment {
+  const frag = document.createDocumentFragment();
+  frag.append(p(...children), ruleSlot(caseId));
+  return frag;
 }
 
 const code = (t: string): HTMLElement => h('code', { class: 'strv-how__code' }, t);
@@ -353,14 +374,14 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
         h(
           'ul',
           { class: 'strv-how__list' },
-          li(h('strong', null, 'Both ways of splitting the seats.'), ' When the two shares differ (an odd number of seats), each direction is tried twice, once with the smaller share on each side of the line.'),
-          li(h('strong', null, 'Straight on a globe.'), ' A straight line here is a great circle, the path a plane through the center of the Earth traces on its surface. The directions are measured in a flat projection centered on the state, in which every great circle is a straight line.'),
-          li(h('strong', null, 'Putting blocks in order.'), ' The blocks are ordered by how far their internal points sit across the line. The generator walks along that order, adding up people, until the first side holds as close to its share as whole blocks allow. Blocks at the same distance are taken in GEOID order, the census block identifier, so the order is always the same.'),
-          li(h('strong', null, 'Measuring the border.'), ' The length is the total of the block edges with one side on each hand, measured along the surface of the Earth. Water inside the state counts as part of the state, so a bay or a lake does not shorten or break a border.'),
-          li(h('strong', null, 'The share.'), ' The first side’s share is the piece’s population times the first side’s seats, divided by the piece’s seats. It need not be a whole number: 3 seats split 1 and 2 with 1,000 people make a share of 333⅓.'),
-          li(h('strong', null, 'Where the walk stops.'), ' The walk stops at the first block that brings the running total to the share or past it. If the total after that block is strictly closer to the share than the total before it, the block joins the first side; otherwise it starts the second side. Each side always keeps at least one block. The guide line drawn on the map sits halfway between the last block of the first side and the first block of the second.'),
-          li(h('strong', null, 'The order of the checks.'), ' Every direction’s line is first settled for stray pieces, with its re-counts (the next stage), and its real border is measured after that. The lines are sorted by border length, and the shortest whose two sides are each one connected piece is used.'),
-          li(h('strong', null, 'Ties.'), ' Two borders whose lengths agree to the nearest centimeter are tied. A tie goes to the line closest to north-south, then to the smaller angle, then to the line whose first side has fewer seats. Directions that lean the same amount either side of north-south, such as 0.1° and 179.9°, are equally close to it.'),
+          exactItem('cut.both-ways', h('strong', null, 'Both ways of splitting the seats.'), ' When the two shares differ (an odd number of seats), each direction is tried twice, once with the smaller share on each side of the line.'),
+          exactItem('cut.globe', h('strong', null, 'Straight on a globe.'), ' A straight line here is a great circle, the path a plane through the center of the Earth traces on its surface. The directions are measured in a flat projection centered on the state, in which every great circle is a straight line.'),
+          exactItem('cut.order', h('strong', null, 'Putting blocks in order.'), ' The blocks are ordered by how far their internal points sit across the line. The generator walks along that order, adding up people, until the first side holds as close to its share as whole blocks allow. Blocks at the same distance are taken in GEOID order, the census block identifier, so the order is always the same.'),
+          exactItem('cut.measure', h('strong', null, 'Measuring the border.'), ' The length is the total of the block edges with one side on each hand, measured along the surface of the Earth. Water inside the state counts as part of the state, so a bay or a lake does not shorten or break a border.'),
+          exactItem('cut.share', h('strong', null, 'The share.'), ' The first side’s share is the piece’s population times the first side’s seats, divided by the piece’s seats. It need not be a whole number: 3 seats split 1 and 2 with 1,000 people make a share of 333⅓.'),
+          exactItem('cut.walk-stop', h('strong', null, 'Where the walk stops.'), ' The walk stops at the first block that brings the running total to the share or past it. If the total after that block is strictly closer to the share than the total before it, the block joins the first side; otherwise it starts the second side. Each side always keeps at least one block. The guide line drawn on the map sits halfway between the last block of the first side and the first block of the second.'),
+          exactItem('cut.order-of-checks', h('strong', null, 'The order of the checks.'), ' Every direction’s line is first settled for stray pieces, with its re-counts (the next stage), and its real border is measured after that. The lines are sorted by border length, and the shortest whose two sides are each one connected piece is used.'),
+          exactItem('cut.ties', h('strong', null, 'Ties.'), ' Two borders whose lengths agree to the nearest centimeter are tied. A tie goes to the line closest to north-south, then to the smaller angle, then to the line whose first side has fewer seats. Directions that lean the same amount either side of north-south, such as 0.1° and 179.9°, are equally close to it.'),
         ),
       ),
     ),
@@ -387,14 +408,14 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
         h(
           'ul',
           { class: 'strv-how__list' },
-          li(h('strong', null, 'Which group stays.'), ' On each side, every connected group of blocks other than the side’s main body joins the other side, the side around it. The main body is the group with the most people, then the most blocks, then the lowest block position in GEOID order. The first side is settled, then the second, and this repeats until nothing moves.'),
-          li(h('strong', null, 'Moved pieces are fixed.'), ' A block that moves is fixed to its new side at once. It never moves again during that cut: not in a later pass, and not after a re-count. Fixed blocks count toward their side’s groups like any other block. If a group cut off from its side’s main body contains fixed blocks, its free blocks still join the other side, and its fixed blocks stay where they are.'),
-          li(h('strong', null, 'The re-count.'), ' The walk from stage 2 is done again over the free blocks only, in the same order. The fixed blocks’ people already count on their sides, so the first side’s target is its share minus the people fixed on it. The stopping rule is the same: the closer total, and a tie stops just before the block. A side with no fixed blocks keeps at least one free block. The guide line moves to halfway between the last free block of the first side and the first free block of the second.'),
-          li(h('strong', null, 'When it ends.'), ' Stray pieces are settled and the people re-counted until a pass moves no free block. Every re-count follows at least one newly fixed block, and fixed blocks never become free, so a piece of n blocks needs at most n walks.'),
-          li(h('strong', null, 'A piece that cannot rejoin.'), ' If a pass moves nothing but a fixed piece is still cut off from its side, it cannot move back. That line’s sides are not each one connected piece, so it fails the check that each side is one connected piece, and the next shortest line is considered.'),
-          li(h('strong', null, 'Crossing the outline.'), ' A line may cross the piece’s outline any number of times.'),
-          li(h('strong', null, 'Connected.'), ' Two blocks are connected when they share an edge; touching at a single corner does not count.'),
-          li(h('strong', null, 'Islands.'), ' Islands and other detached land are joined to the nearest block of the main body, so a state with islands can still be cut.'),
+          exactItem('strays.which-stays', h('strong', null, 'Which group stays.'), ' On each side, every connected group of blocks other than the side’s main body joins the other side, the side around it. The main body is the group with the most people, then the most blocks, then the lowest block position in GEOID order. The first side is settled, then the second, and this repeats until nothing moves.'),
+          exactItem('strays.fixed', h('strong', null, 'Moved pieces are fixed.'), ' A block that moves is fixed to its new side at once. It never moves again during that cut: not in a later pass, and not after a re-count. Fixed blocks count toward their side’s groups like any other block. If a group cut off from its side’s main body contains fixed blocks, its free blocks still join the other side, and its fixed blocks stay where they are.'),
+          exactItem('strays.recount', h('strong', null, 'The re-count.'), ' The walk from stage 2 is done again over the free blocks only, in the same order. The fixed blocks’ people already count on their sides, so the first side’s target is its share minus the people fixed on it. The stopping rule is the same: the closer total, and a tie stops just before the block. A side with no fixed blocks keeps at least one free block. The guide line moves to halfway between the last free block of the first side and the first free block of the second.'),
+          exactItem('strays.ends', h('strong', null, 'When it ends.'), ' Stray pieces are settled and the people re-counted until a pass moves no free block. Every re-count follows at least one newly fixed block, and fixed blocks never become free, so a piece of n blocks needs at most n walks.'),
+          exactItem('strays.no-rejoin', h('strong', null, 'A piece that cannot rejoin.'), ' If a pass moves nothing but a fixed piece is still cut off from its side, it cannot move back. That line’s sides are not each one connected piece, so it fails the check that each side is one connected piece, and the next shortest line is considered.'),
+          exactItem('strays.outline', h('strong', null, 'Crossing the outline.'), ' A line may cross the piece’s outline any number of times.'),
+          exactItem('strays.connected', h('strong', null, 'Connected.'), ' Two blocks are connected when they share an edge; touching at a single corner does not count.'),
+          exactItem('strays.islands', h('strong', null, 'Islands.'), ' Islands and other detached land are joined to the nearest block of the land already joined, which can be another island, so a state with islands can still be cut.'),
         ),
       ),
     ),
@@ -444,15 +465,15 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
       ),
       p('In the replay, each move is one of these choices; the readout shows the block, its people, and the two districts’ new gap.'),
       exact(
-        p('The pass makes one move at a time. The ideal is the state’s population divided by its number of seats. People come whole, so an even split puts each district at the ideal rounded down or up. For example, 6,154,913 people and 8 seats make an ideal of 769,364.125, so an even split is 769,364 or 769,365 people. The viewer shows how far each district is from an even split, in whole people.'),
+        exactPara('balance.ideal', 'The pass makes one move at a time. The ideal is the state’s population divided by its number of seats. People come whole, so an even split puts each district at the ideal rounded down or up. For example, Missouri’s 6,154,913 people and 8 seats make an ideal of 769,364.125, so an even split is 769,364 or 769,365 people. The viewer shows how far each district is from an even split, in whole people.'),
         h(
           'ol',
           { class: 'strv-how__steps' },
-          li('Start with the district whose population is furthest from the ideal, measured as the absolute difference. A tie goes to the lower district number.'),
-          li('Look at the blocks along its border: its own blocks that touch a neighboring district, and the neighbors’ blocks that touch it. A block may move to the district on the other side only if it has people, if the move strictly narrows the gap between the two districts, and if the district it leaves stays one connected piece. The district it joins stays connected too, because the block touches it. Water does not count as touching: a block on the shore that meets the other district only across a lake, bay or coastal water, through census water blocks with no land and no people, is not on its border.'),
-          li('Of the moves allowed, make the one that brings the districts closest to equal overall, measured as the sum of the squared differences between each district’s population and the ideal. Only the two districts in a move change, so moving p people from a district a people above the ideal to one b people above it (a negative number when below) lowers the sum by exactly 2 × p × (a − b − p). That is above zero exactly when the gap between the two narrows. A tie goes to the block that comes first in GEOID order, then to the lower-numbered district it would join. A move that would leave the giving district with no blocks is never made.'),
-          li('If that district has no allowed move, try the next furthest. After every move, start again from the district now furthest from the ideal.'),
-          li('Stop when no move helps. Every move lowers the sum of the squared differences, so the pass always stops.'),
+          exactItem('balance.furthest', 'Start with the district whose population is furthest from the ideal, measured as the absolute difference. A tie goes to the lower district number.'),
+          exactItem('balance.allowed', 'Look at the blocks along its border: its own blocks that touch a neighboring district, and the neighbors’ blocks that touch it. A block may move to the district on the other side only if it has people, if the move strictly narrows the gap between the two districts, and if the district it leaves stays one connected piece. The district it joins stays connected too, because the block touches it. Water does not count as touching: a block on the shore that meets the other district only across a lake, bay or coastal water, through census water blocks with no land and no people, is not on its border.'),
+          exactItem('balance.score', 'Of the moves allowed, make the one that brings the districts closest to equal overall, measured as the sum of the squared differences between each district’s population and the ideal. Only the two districts in a move change, so moving p people from a district a people above the ideal to one b people above it (a negative number when below) lowers the sum by exactly 2 × p × (a − b − p). That is above zero exactly when the gap between the two narrows. A tie goes to the block that comes first in GEOID order, then to the lower-numbered district it would join. A move that would leave the giving district with no blocks is never made.'),
+          exactItem('balance.next-furthest', 'If that district has no allowed move, try the next furthest. After every move, start again from the district now furthest from the ideal.'),
+          exactItem('balance.stop', 'Stop when no move helps. Every move lowers the sum of the squared differences, so the pass always stops.'),
         ),
       ),
       h('h3', { class: 'strv-how__h3' }, 'In the real states'),
@@ -466,7 +487,7 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
       p('The map itself is a file that lists every block and the district it belongs to. Its fingerprint is a 64-character code worked out from that file. The code changes completely if even one block is assigned differently, so two people can compare that one value to confirm they got the same map. Each state’s fingerprint is printed under “Check this map” in its view.'),
       figure('The same inputs always give the same assignment file, and so the same fingerprint.', fingerprintDiagram()),
       exact(
-        p('Blocks are always processed in GEOID order. Given the same census files and the same angle step, the generator writes a byte-identical assignment file and identical district shapes on any computer: its arithmetic, including the angles of the guide lines, is done in a way that gives the same result everywhere. The fingerprint is the SHA-256 hash of that assignment file.'),
+        exactPara('fingerprint.repeat', 'Blocks are always processed in GEOID order. Given the same census files and the same angle step, the generator writes a byte-identical assignment file and identical district shapes on any computer: its arithmetic, including the angles of the guide lines, is done in a way that gives the same result everywhere. The fingerprint is the SHA-256 hash of that assignment file.'),
       ),
       h('h3', { class: 'strv-how__h3' }, 'To reproduce a state’s map'),
       p('The generator, this viewer and the published data are all in ', h('a', { href: config.repoUrl }, 'the project’s GitHub repository'), '. Get the code and run it:'),
@@ -626,6 +647,7 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
     },
     destroy() {
       alive = false;
+      destroyExact(el);
       for (const ev of USER_EVENTS) window.removeEventListener(ev, onUserMove);
     },
   };

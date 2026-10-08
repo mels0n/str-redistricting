@@ -1,19 +1,10 @@
 import { z } from 'zod';
 import type { BlockPolygons } from '../../entities/census-block/index.js';
+import { BalanceLogSchema, type BalanceLog } from '../../entities/plan-output/index.js';
 import { DataError } from '../../shared/errors/index.js';
 
-const Move = z.object({
-  block: z.number().int().nonnegative(),
-  geoid: z.string().regex(/^[0-9]{15}$/),
-  from: z.number().int().positive(),
-  to: z.number().int().positive(),
-  pop: z.number().int().positive(),
-  gain: z.number().positive(),
-});
-
-/** out/<ST>/balance.json as the generator writes it: districts 1-based, populations before the first move. */
-export const BalanceLogSchema = z.object({ before: z.array(z.number().int().nonnegative()).min(1), moves: z.array(Move) });
-export type BalanceLog = z.infer<typeof BalanceLogSchema>;
+export { BalanceLogSchema };
+export type { BalanceLog };
 
 /** The process numbers every plan's metrics.json reports; they pass through to stats.json. */
 export const ProcessNumbersSchema = z.object({

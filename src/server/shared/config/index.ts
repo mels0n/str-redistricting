@@ -87,3 +87,40 @@ export function parsePublishConfig(argv: readonly string[]): PublishConfig {
   });
   return { states, cacheDir: parsed.data.cacheDir, outDir: parsed.data.outDir, publicDir: parsed.data.publicDir };
 }
+
+export interface RuleExamplesConfig {
+  readonly outDir: string;
+  readonly repeatDir: string;
+  readonly rawDir: string;
+  readonly dest: string;
+  /** Threads for re-running a cut's search to trace it; 1 searches on the main thread only. */
+  readonly threads: number;
+}
+
+const RawRuleExamples = z.object({
+  outDir: z.string().min(1),
+  repeatDir: z.string().min(1),
+  rawDir: z.string().min(1),
+  dest: z.string().min(1),
+  threads: Raw.shape.threads,
+});
+
+/** Read once at boot from the command line. */
+export function parseRuleExamplesConfig(argv: readonly string[]): RuleExamplesConfig {
+  const { values } = parseArgs({
+    args: [...argv],
+    options: {
+      'out-dir': { type: 'string', default: 'out' },
+      'repeat-dir': { type: 'string', default: 'out-repeat' },
+      'raw-dir': { type: 'string', default: 'data/raw' },
+      dest: { type: 'string', default: 'public/data/how/rule-examples.json' },
+      threads: { type: 'string', default: String(Math.max(1, availableParallelism() - 2)) },
+    },
+    strict: true,
+  });
+  const parsed = RawRuleExamples.safeParse({
+    outDir: values['out-dir'], repeatDir: values['repeat-dir'], rawDir: values['raw-dir'], dest: values.dest, threads: values.threads,
+  });
+  if (!parsed.success) throw new ConfigError(parsed.error.issues.map((i) => i.message).join('; '));
+  return parsed.data;
+}

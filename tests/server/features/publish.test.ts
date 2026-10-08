@@ -1,3 +1,4 @@
+import { stampOf, VERSIONS } from '../../../src/server/shared/config/index.js';
 import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
@@ -75,8 +76,9 @@ describe('index assembly', () => {
     const s = planStats(PlanMetricsSchema.parse({ ...metrics, directionsPerCut: [3600, 1800] }), []);
     expect(s.metrics).toMatchObject({ candidateLinesPerCut: [3600, 1800] });
     expect(s.metrics).not.toHaveProperty('directionsPerCut');
-    const stats = buildStats(s, s, 'src');
-    expect(Object.keys(stats)).toEqual(['enactedSource', 'finished', 'beforeBalancing']);
+    const stats = buildStats(s, s, 'src', stampOf(VERSIONS));
+    expect(Object.keys(stats)).toEqual(['enactedSource', 'versions', 'finished', 'beforeBalancing']);
+    expect(stats.versions).toEqual(stampOf(VERSIONS));
   });
 });
 
@@ -168,11 +170,14 @@ describe('topology', () => {
 
 describe('publish config', () => {
   it('defaults to every state and the standard directories', () => {
-    expect(parsePublishConfig([])).toEqual({ states: undefined, cacheDir: 'data/raw', outDir: 'out', publicDir: 'public/data', enactedOnly: false, blocksOnly: false });
+    expect(parsePublishConfig([])).toEqual({ states: undefined, cacheDir: 'data/raw', outDir: 'out', publicDir: 'public/data', enactedOnly: false, blocksOnly: false, baseline: false });
   });
   it('parses --blocks-only, and refuses it with --enacted-only', () => {
     expect(parsePublishConfig(['--blocks-only']).blocksOnly).toBe(true);
     expect(() => parsePublishConfig(['--enacted-only', '--blocks-only'])).toThrow(ConfigError);
+  });
+  it('reads --baseline', () => {
+    expect(parsePublishConfig(['--baseline']).baseline).toBe(true);
   });
   it('rejects an unknown state', () => {
     expect(() => parsePublishConfig(['--states', 'ZZ'])).toThrow();

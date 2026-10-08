@@ -1,3 +1,4 @@
+import type { VersionStamp } from '../../shared/config/index.js';
 import { DataError } from '../../shared/errors/index.js';
 import type { CountyRef } from './counties.js';
 import type { PlanMetrics } from './summary.js';
@@ -24,6 +25,6 @@ export function planStats(m: PlanMetrics, counties: readonly (readonly CountyRef
 }
 
 /** The published stats file. The finished plan is written under `finished` (the generator's own name for it is `official`). */
-export function buildStats(finished: PlanStats, beforeBalancing: PlanStats, enactedSource: string) {
-  return { enactedSource, finished, beforeBalancing };
+export function buildStats(finished: PlanStats, beforeBalancing: PlanStats, enactedSource: string, versions: VersionStamp) {
+  return { enactedSource, versions, finished, beforeBalancing };
 }

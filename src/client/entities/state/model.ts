@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { VersionStampSchema } from '../../shared';
 
 export const PlanSummarySchema = z.object({
   population: z.number().int().nonnegative(),
@@ -9,6 +10,7 @@ export const PlanSummarySchema = z.object({
   assignmentSha256: z.string().regex(/^[0-9a-f]{64}$/),
   inputSha256: z.string().regex(/^[0-9a-f]{64}$/),
   angleStepDeg: z.number().positive(),
+  versions: VersionStampSchema.optional(),
 });
 
 export const StateEntrySchema = z.object({

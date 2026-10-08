@@ -9,7 +9,7 @@ export type { Blocks } from './blocks';
 export type { PlanDistricts } from './locate';
 export { evenSplit, evenSizes, evenSplitSentence, formatEvenPct, fromEven, describeFromEven } from './even';
 export type { EvenSplit, FromEven } from './even';
-export { StatsSchema, CutsSchema, WaterTopoSchema, BridgesSchema } from './model';
+export { StatsSchema, VersionStampSchema, CutsSchema, WaterTopoSchema, BridgesSchema } from './model';
 export type { Stats, PlanStats, DistrictStats, Metrics, Cut, Bridges, BridgeLink } from './model';
 export { linksIn, linksFeatures } from './bridges';
 export { loadBalance, checkLog, BalanceSchema } from './balance';

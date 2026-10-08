@@ -54,6 +54,15 @@ const VersionsSchema = z.looseObject({
 /** The version of every component of the site and its data, read from config/versions.json (the file the release script writes). */
 export const VERSIONS = VersionsSchema.parse(versionsJson);
 
+/** What published data carries about the code and inputs that drew it; optional because data published before versioning has none. */
+export const VersionStampSchema = z.object({
+  engine: z.string().min(1),
+  input: z.object({ vintage: z.string().min(1), revision: z.number().int().positive(), sha256: z.string().regex(/^[0-9a-f]{64}$/) }),
+  maps: z.number().int().positive(),
+  schema: z.string().min(1),
+});
+export type VersionStamp = z.infer<typeof VersionStampSchema>;
+
 export type ViewerConfig = z.infer<typeof ConfigSchema>;
 
 const HostOverrides = z

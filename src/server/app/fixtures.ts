@@ -6,12 +6,22 @@ import { fileURLToPath } from 'node:url';
 import { z } from 'zod';
 import { FingerprintFileSchema, type FingerprintFile } from '../features/release/index.js';
 import { DataError } from '../shared/errors/index.js';
+import { showFile } from './git.js';
 
 export const FINGERPRINT_PATH = 'tests/fingerprints/engine.json';
 
 export function readFingerprintFile(path = FINGERPRINT_PATH): FingerprintFile {
   const parsed = FingerprintFileSchema.safeParse(JSON.parse(readFileSync(path, 'utf8')));
   if (!parsed.success) throw new DataError(`${path}: ${parsed.error.issues.map((i) => `${i.path.join('.')} ${i.message}`).join('; ')}`);
+  return parsed.data;
+}
+
+/** The fingerprint file as committed at `ref`; a ref without one counts as recording no states (before the cut). */
+export function readFingerprintFileAt(ref: string): FingerprintFile {
+  const text = showFile(ref, FINGERPRINT_PATH);
+  if (text === null) return { engineMajor: 1, states: {} };
+  const parsed = FingerprintFileSchema.safeParse(JSON.parse(text));
+  if (!parsed.success) throw new DataError(`${ref}:${FINGERPRINT_PATH}: ${parsed.error.issues.map((i) => `${i.path.join('.')} ${i.message}`).join('; ')}`);
   return parsed.data;
 }
 

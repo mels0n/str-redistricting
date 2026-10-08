@@ -12,7 +12,7 @@ import {
 } from '../features/release/index.js';
 import { VersionsSchema, formatVersions, inputSha256Of, parseReleaseArgs, type Versions } from '../shared/config/index.js';
 import { exitCodeFor } from '../shared/errors/index.js';
-import { FINGERPRINT_PATH, drawFingerprints, readFingerprintFile } from './fixtures.js';
+import { FINGERPRINT_PATH, drawFingerprints, readFingerprintFile, readFingerprintFileAt } from './fixtures.js';
 import { commit, commitsSince, tagExists } from './git.js';
 
 // Reads config/ and changelog/ relative to the current directory, and proposes the next versions from the commits
@@ -59,11 +59,12 @@ function release(): void {
 
   // Fixture gate: a changed fingerprint under an unchanged engine major means the maps changed.
   let engineOutputChanged = false;
-  const recorded = readFingerprintFile();
+  // Judged against the file at the last engine release, so a rewritten fingerprint file cannot hide a changed map.
+  const recorded = readFingerprintFileAt(tags.engine);
   if (Object.keys(recorded.states).length === 0) {
-    console.log(`${FINGERPRINT_PATH} records no fixture states yet; the fixture gate is vacuous`);
+    console.log(`${FINGERPRINT_PATH} recorded no fixture states at ${tags.engine}; the fixture gate is vacuous`);
   } else {
-    const result = compareFingerprints(recorded, drawFingerprints(Object.keys(recorded.states), args.cacheDir), Number(current.engine.split('.')[0]));
+    const result = compareFingerprints(recorded, readFingerprintFile(), drawFingerprints(Object.keys(recorded.states), args.cacheDir), Number(current.engine.split('.')[0]));
     console.log(result.message);
     engineOutputChanged = !result.ok;
   }

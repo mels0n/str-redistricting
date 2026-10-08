@@ -206,27 +206,42 @@ describe('prependEntry', () => {
 
 describe('compareFingerprints', () => {
   const sha = (ch: string): string => ch.repeat(64);
-  const file = FingerprintFileSchema.parse({ engineMajor: 1, states: { RI: sha('a'), DE: sha('b') } });
+  const states = { RI: sha('a'), DE: sha('b') };
+  const baseFile = FingerprintFileSchema.parse({ engineMajor: 1, states });
+  const recorded = (engineMajor: number, s: Record<string, string>) => FingerprintFileSchema.parse({ engineMajor, states: s });
 
-  it('passes when every fingerprint is equal', () => {
-    expect(compareFingerprints(file, { RI: sha('a'), DE: sha('b') }, 1)).toMatchObject({ ok: true, changed: [] });
+  it('passes when the drawn fingerprints equal the base', () => {
+    expect(compareFingerprints(baseFile, baseFile, states, 1)).toMatchObject({ ok: true, changed: [] });
   });
   it('fails when one changed and the major did not', () => {
-    const r = compareFingerprints(file, { RI: sha('a'), DE: sha('c') }, 1);
+    const r = compareFingerprints(baseFile, baseFile, { ...states, DE: sha('c') }, 1);
     expect(r.ok).toBe(false);
     expect(r.changed).toEqual(['DE']);
     expect(r.message).toContain('DE');
   });
-  it('passes when one changed and the major was bumped', () => {
-    const r = compareFingerprints(file, { RI: sha('c'), DE: sha('b') }, 2);
+  it('passes when one changed, the major was bumped and the head file records the new fingerprints', () => {
+    const drawn = { ...states, RI: sha('c') };
+    const r = compareFingerprints(baseFile, recorded(2, drawn), drawn, 2);
     expect(r.ok).toBe(true);
     expect(r.changed).toEqual(['RI']);
   });
-  it('treats a missing fixture state as changed', () => {
-    expect(compareFingerprints(file, { RI: sha('a') }, 1).changed).toEqual(['DE']);
+  it('fails when the major was bumped but the head file still holds the old fingerprints', () => {
+    const drawn = { ...states, RI: sha('c') };
+    expect(compareFingerprints(baseFile, baseFile, drawn, 2).ok).toBe(false);
   });
-  it('passes vacuously for a file with no recorded states', () => {
-    expect(compareFingerprints({ engineMajor: 1, states: {} }, { RI: sha('a') }, 1).ok).toBe(true);
+  it('fails when the head file was edited to match a changed map without a major bump', () => {
+    const drawn = { ...states, RI: sha('c') };
+    expect(compareFingerprints(baseFile, recorded(1, drawn), drawn, 1).ok).toBe(false);
+  });
+  it('fails when the head file records a different engine major than the head version', () => {
+    const drawn = { ...states, RI: sha('c') };
+    expect(compareFingerprints(baseFile, recorded(1, drawn), drawn, 2).ok).toBe(false);
+  });
+  it('treats a missing fixture state as changed', () => {
+    expect(compareFingerprints(baseFile, baseFile, { RI: sha('a') }, 1).changed).toEqual(['DE']);
+  });
+  it('passes vacuously when the base records no states (before the cut)', () => {
+    expect(compareFingerprints({ engineMajor: 1, states: {} }, baseFile, states, 1).ok).toBe(true);
   });
   it('reads the checked-in fingerprint file', () => {
     expect(FingerprintFileSchema.parse(JSON.parse(readFileSync('tests/fingerprints/engine.json', 'utf8')))).toEqual({ engineMajor: 1, states: {} });

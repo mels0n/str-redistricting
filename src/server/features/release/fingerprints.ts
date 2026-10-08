@@ -7,24 +7,36 @@ export const FingerprintFileSchema = z.strictObject({
 });
 export type FingerprintFile = z.infer<typeof FingerprintFileSchema>;
 
+/**
+ * The fixture gate. `base` is the fingerprint file on the branch being merged into (never the pull request's own
+ * copy), `head` is the pull request's file, `drawn` is what the engine draws now.
+ * Passes when the engine draws what the base recorded, or when it draws something else, the engine major was raised
+ * past the base's, and the head file records exactly the drawn fingerprints at that major.
+ */
 export function compareFingerprints(
-  file: FingerprintFile,
-  got: Readonly<Record<string, string>>,
+  base: FingerprintFile,
+  head: FingerprintFile,
+  drawn: Readonly<Record<string, string>>,
   headEngineMajor: number,
 ): { ok: boolean; changed: string[]; message: string } {
-  const changed = Object.keys(file.states).filter((st) => got[st] !== file.states[st]).sort();
+  if (Object.keys(base.states).length === 0) return { ok: true, changed: [], message: 'the base records no fixture states yet; the fixture gate passes' };
+  const changed = Object.keys(base.states).filter((st) => drawn[st] !== base.states[st]).sort();
   if (changed.length === 0) return { ok: true, changed, message: 'fixture fingerprints match' };
   const names = changed.join(', ');
-  if (headEngineMajor > file.engineMajor) {
+  if (headEngineMajor <= base.engineMajor) {
     return {
-      ok: true,
+      ok: false,
       changed,
-      message: `fixture fingerprints changed for ${names}; the engine major was bumped (${file.engineMajor} to ${headEngineMajor}). Record them with npm run fingerprints -- --record`,
+      message: `the map changed for ${names} but the engine major is still ${headEngineMajor}; bump the engine major (npm run release) and record the new fingerprints with npm run fingerprints -- --record`,
     };
   }
-  return {
-    ok: false,
-    changed,
-    message: `the map changed for ${names} but the engine major is still ${headEngineMajor}; bump the engine major (npm run release) and record the new fingerprints with npm run fingerprints -- --record`,
-  };
+  const recordedOk = head.engineMajor === headEngineMajor && Object.keys(drawn).every((st) => head.states[st] === drawn[st]);
+  if (!recordedOk) {
+    return {
+      ok: false,
+      changed,
+      message: `the engine major was bumped (${base.engineMajor} to ${headEngineMajor}) but tests/fingerprints/engine.json does not record the fingerprints drawn now at major ${headEngineMajor}; run npm run fingerprints -- --record`,
+    };
+  }
+  return { ok: true, changed, message: `fixture fingerprints changed for ${names}; the engine major was bumped (${base.engineMajor} to ${headEngineMajor}) and the new fingerprints are recorded` };
 }

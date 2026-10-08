@@ -232,7 +232,7 @@ export function parseReleaseArgs(argv: readonly string[]): ReleaseArgs {
   return parsed.data;
 }
 
-const GitRef = z.string().regex(/^[A-Za-z0-9][A-Za-z0-9._/-]*$/, 'must be a git ref or sha');
+const GitRef = z.string().regex(/^[A-Za-z0-9][A-Za-z0-9._/^~-]*$/, 'must be a git ref or sha');
 
 export interface VersionCheckArgs {
   /** The ref the pull request is compared against, e.g. origin/main. */
@@ -268,6 +268,8 @@ export interface FingerprintArgs {
   /** Two-letter abbreviations; undefined means the fixtureStates of config/release.json. */
   readonly states: string[] | undefined;
   readonly cacheDir: string;
+  /** The ref whose tests/fingerprints/engine.json the draw is compared against; undefined means the working copy. */
+  readonly base: string | undefined;
 }
 
 /** Read once at boot from the command line. */
@@ -279,6 +281,7 @@ export function parseFingerprintArgs(argv: readonly string[]): FingerprintArgs {
       record: { type: 'boolean', default: false },
       states: { type: 'string' },
       'cache-dir': { type: 'string', default: 'data/raw' },
+      base: { type: 'string' },
     },
     strict: true,
   });
@@ -290,5 +293,8 @@ export function parseFingerprintArgs(argv: readonly string[]): FingerprintArgs {
   });
   if (states?.length === 0) throw new ConfigError('--states must name at least one state');
   if (values['cache-dir'] === '') throw new ConfigError('--cache-dir must not be empty');
-  return { mode: values.record ? 'record' : 'check', states, cacheDir: values['cache-dir'] };
+  const base = values.base === undefined ? undefined : GitRef.safeParse(values.base);
+  if (base !== undefined && !base.success) throw new ConfigError(`--base must be a git ref: ${base.error.issues.map((i) => i.message).join('; ')}`);
+  if (values.base !== undefined && values.record) throw new ConfigError('--base only applies to --check');
+  return { mode: values.record ? 'record' : 'check', states, cacheDir: values['cache-dir'], base: base?.data };
 }

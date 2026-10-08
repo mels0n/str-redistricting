@@ -162,6 +162,28 @@ describe('release', () => {
   });
 });
 
+describe('fingerprints --check --base', () => {
+  const empty = `${JSON.stringify({ engineMajor: 1, states: {} })}
+`;
+  it('passes vacuously when the base ref has no fingerprint file, whatever the head file says', () => {
+    const base = seed(false);
+    write('tests/fingerprints/engine.json', `${JSON.stringify({ engineMajor: 1, states: { RI: 'a'.repeat(64) } })}
+`);
+    commitAll('chore: record');
+    const out = run('fingerprints.ts', ['--check', '--base', base]);
+    expect(out.status, out.stderr).toBe(0);
+    expect(out.stdout).toContain('::notice::');
+  });
+  it('passes vacuously when the base file records no states', () => {
+    seed(false);
+    write('tests/fingerprints/engine.json', empty);
+    const base = commitAll('chore: empty fingerprints');
+    write('notes.txt', 'x');
+    commitAll('chore: notes');
+    expect(run('fingerprints.ts', ['--check', '--base', base]).status).toBe(0);
+  });
+});
+
 describe('script argument parsers', () => {
   it('parse and reject', () => {
     expect(parseVersionCheckArgs(['--base', 'origin/main'])).toEqual({ base: 'origin/main' });
@@ -171,6 +193,10 @@ describe('script argument parsers', () => {
     expect(() => parseReleaseTagsArgs(['--before', 'none'])).toThrow(ConfigError);
     expect(parseFingerprintArgs(['--check'])).toEqual({ mode: 'check', states: undefined, cacheDir: 'data/raw' });
     expect(parseFingerprintArgs(['--record', '--states', 'RI,DE']).states).toEqual(['RI', 'DE']);
+    expect(parseFingerprintArgs(['--check', '--base', 'origin/main']).base).toBe('origin/main');
+    expect(parseFingerprintArgs(['--check', '--base', 'HEAD^']).base).toBe('HEAD^');
+    expect(() => parseFingerprintArgs(['--check', '--base=--evil'])).toThrow(ConfigError);
+    expect(() => parseFingerprintArgs(['--record', '--base', 'main'])).toThrow(ConfigError);
     expect(() => parseFingerprintArgs([])).toThrow(ConfigError);
     expect(() => parseFingerprintArgs(['--check', '--record'])).toThrow(ConfigError);
     expect(() => parseFingerprintArgs(['--check', '--states', 'ZZ'])).toThrow(ConfigError);

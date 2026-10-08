@@ -2,7 +2,7 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { ReleaseConfigSchema, compareFingerprints } from '../features/release/index.js';
 import { VERSIONS, parseFingerprintArgs } from '../shared/config/index.js';
 import { exitCodeFor } from '../shared/errors/index.js';
-import { FINGERPRINT_PATH, drawFingerprints, readFingerprintFile } from './fixtures.js';
+import { FINGERPRINT_PATH, drawFingerprints, readFingerprintFile, readFingerprintFileAt } from './fixtures.js';
 
 // Reads config/ and tests/ relative to the current directory.
 function main(): void {
@@ -18,14 +18,17 @@ function main(): void {
     return;
   }
 
-  const recorded = readFingerprintFile();
+  // The base is the branch being merged into, never the pull request's own file: a pull request cannot pass by
+  // rewriting the fingerprints it is judged against.
+  const head = readFingerprintFile();
+  const recorded = args.base === undefined ? head : readFingerprintFileAt(args.base);
   const names = args.states ?? Object.keys(recorded.states);
-  const file = { ...recorded, states: Object.fromEntries(Object.entries(recorded.states).filter(([st]) => names.includes(st))) };
-  if (Object.keys(file.states).length === 0) {
-    console.log(`::notice::${FINGERPRINT_PATH} records no fixture states yet, so the fixture gate passes vacuously (the 1.0 cut records them)`);
+  const base = { ...recorded, states: Object.fromEntries(Object.entries(recorded.states).filter(([st]) => names.includes(st))) };
+  if (Object.keys(base.states).length === 0) {
+    console.log(`::notice::${args.base ?? 'the working copy'} records no fixture states in ${FINGERPRINT_PATH} yet, so the fixture gate passes vacuously (the 1.0 cut records them)`);
     return;
   }
-  const result = compareFingerprints(file, drawFingerprints(Object.keys(file.states), args.cacheDir), engineMajor);
+  const result = compareFingerprints(base, head, drawFingerprints(Object.keys(base.states), args.cacheDir), engineMajor);
   console.log(result.message);
   if (!result.ok) process.exit(1);
 }

@@ -66,7 +66,7 @@ jobs:
         run: npm run version:check -- --base "origin/$BASE_REF"
 
   # Draws a few small states and compares their fingerprints with tests/fingerprints/engine.json: the map may only
-  # change when the engine major version does. Passes vacuously while that file records no states.
+  # change when the engine major version does. Passes vacuously while the base's file records no states.
   fixture-gate:
     runs-on: ubuntu-latest
     timeout-minutes: 30
@@ -74,7 +74,10 @@ jobs:
       contents: read
 
     steps:
+      # Full history: the gate compares against the base branch (pull request) or the previous commit (push to main).
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-node@v4
         with:
@@ -89,5 +92,17 @@ jobs:
       - name: Install
         run: npm ci
 
+      # Compared against the BASE branch's tests/fingerprints/engine.json, never the pull request's own copy.
       - name: Fixture fingerprints
-        run: npm run fingerprints -- --check
+        env:
+          EVENT: ${{ github.event_name }}
+          BASE_REF: ${{ github.base_ref }}
+        run: |
+          set -euo pipefail
+          if [ "$EVENT" = "pull_request" ]; then
+            npm run fingerprints -- --check --base "origin/$BASE_REF"
+          elif git rev-parse --verify --quiet "HEAD^" > /dev/null; then
+            npm run fingerprints -- --check --base "HEAD^"
+          else
+            echo "::notice::Root commit: there is no base to compare the fixture fingerprints with."
+          fi

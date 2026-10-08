@@ -30,6 +30,13 @@ const ConfigSchema = z.object({
   repoUrl: z.url(),
 });
 
+/**
+ * The Congress whose districts the viewer shows for comparison, and the Census file they come from.
+ * Must match ENACTED_CONGRESS in the publisher (src/server/features/publish/boundary.ts); a test checks the
+ * published data against it. When a new Congress is seated, change both, then rerun `npm run publish-data`.
+ */
+export const ENACTED = { congress: 119, file: 'cb_2025_us_cd119_500k' } as const;
+
 export type ViewerConfig = z.infer<typeof ConfigSchema>;
 
 const HostOverrides = z

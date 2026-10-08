@@ -19,8 +19,13 @@ export const STATES_FILE = 'cb_2025_us_state_20m';
 export const LAND_FILE = 'cb_2020_us_state_500k';
 /** County names must match the 2020 block files the generator reads, so the 2020 vintage is used. */
 export const COUNTIES_FILE = 'cb_2020_us_county_20m';
-/** Newest vintage first; the first one the Census Bureau serves is the enacted source. */
-export const ENACTED_CANDIDATES = ['cb_2025_us_cd119_500k', 'cb_2024_us_cd119_500k', 'cb_2023_us_cd118_500k'] as const;
+/**
+ * The one Congress whose districts are shown for comparison. The viewer carries the same number
+ * (src/client/shared/config); change both when a new Congress is seated.
+ */
+export const ENACTED_CONGRESS = 119;
+/** Census vintages of that Congress's file, newest first; the first one the Census Bureau serves is the enacted source. */
+export const ENACTED_CANDIDATES = [`cb_2025_us_cd${ENACTED_CONGRESS}_500k`, `cb_2024_us_cd${ENACTED_CONGRESS}_500k`] as const;
 
 export const boundaryUrl = (file: string): string => `${GENZ}/GENZ${file.slice(3, 7)}/shp/${file}.zip`;
 
@@ -105,7 +110,7 @@ export interface EnactedFile {
   readonly features: { record: CdRecord; geometry: unknown }[];
 }
 
-/** All enacted districts from the newest Congress file the Census Bureau serves. */
+/** All enacted districts of the pinned Congress. Never falls back to another Congress: if no vintage is served, publishing fails. */
 export async function loadEnacted(cacheDir: string): Promise<EnactedFile> {
   for (const source of ENACTED_CANDIDATES) {
     try {
@@ -115,5 +120,5 @@ export async function loadEnacted(cacheDir: string): Promise<EnactedFile> {
       if (!(err instanceof DownloadError && err.status === 404)) throw err;
     }
   }
-  throw new DataError(`no enacted-district file available (tried ${ENACTED_CANDIDATES.join(', ')})`);
+  throw new DataError(`no enacted-district file for Congress ${ENACTED_CONGRESS} available (tried ${ENACTED_CANDIDATES.join(', ')})`);
 }

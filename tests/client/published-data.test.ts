@@ -9,6 +9,8 @@ import { BlocksSchema } from '../../src/client/entities/plan/blocks';
 import { BalanceSchema } from '../../src/client/entities/plan/balance';
 import { CutsSchema, DistrictTopoSchema, EnactedTopoSchema, StatsSchema, WaterTopoSchema } from '../../src/client/entities/plan/model';
 import { STATE_FIPS, StateIndexSchema } from '../../src/client/entities/state';
+import { ENACTED } from '../../src/client/shared/config';
+import { congressOfSource } from '../../src/client/shared/lib/format';
 import { bboxOf, openingBox, pointInGeometry, toStateFrame } from '../../src/client/shared/lib/geo';
 
 const dir = join(process.cwd(), 'public', 'data');
@@ -58,6 +60,19 @@ describe('the published data covers all 50 states', () => {
       }
     });
   }
+});
+
+describe('the enacted districts are pinned to one Congress', () => {
+  it('names its file after that Congress', () => {
+    expect(congressOfSource(ENACTED.file)).toBe(ENACTED.congress);
+  });
+  it('was published from that Congress for every state', () => {
+    // Moving to the next Congress fails here until the constants and the published data agree.
+    for (const s of index.states) {
+      const stats = StatsSchema.parse(read(s.abbr, 'stats.json'));
+      expect(congressOfSource(stats.enactedSource), s.abbr).toBe(ENACTED.congress);
+    }
+  });
 });
 
 describe('the detail tiles and block lookup', () => {

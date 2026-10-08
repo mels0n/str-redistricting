@@ -1,4 +1,4 @@
-import { formatInt, svg } from '../../shared';
+import { ENACTED, formatInt, ordinal, svg } from '../../shared';
 import { BALANCE_EXAMPLE, DIRECTION_EXAMPLE, RECOUNT_EXAMPLE, STRANDED_EXAMPLE, applyTrade, bestTrade, improvement, recountExample, sumOfSquares, type Trade } from './examples';
 
 /**
@@ -600,7 +600,7 @@ export function sourcesDiagram(): SVGSVGElement {
   return panel(
     300,
     'Which data draws the map and which is only shown',
-    'Left column, solid: the 2020 Census blocks go into the generator, which writes the districts and their numbers. Right column, dashed: the 119th Congress districts, state outlines and county names, and the Census geocoder are used only by the viewer, for display. Both columns feed the viewer; only the left one draws districts.',
+    `Left column, solid: the 2020 Census blocks go into the generator, which writes the districts and their numbers. Right column, dashed: the ${ordinal(ENACTED.congress)} Congress districts, state outlines and county names, and the Census geocoder are used only by the viewer, for display. Both columns feed the viewer; only the left one draws districts.`,
     text(80, 16, 'Draws the map', 'strv-dg__t strv-dg__t--strong', 'middle'),
     text(240, 16, 'Shown only', 'strv-dg__t strv-dg__t--strong', 'middle'),
     ...solid(10, 28, 140, 48, ['2020 Census blocks:', 'people, shapes, points']),
@@ -608,7 +608,7 @@ export function sourcesDiagram(): SVGSVGElement {
     ...solid(10, 100, 140, 40, ['The generator']),
     arrow([80, 140], [80, 162]),
     ...solid(10, 164, 140, 48, ['Districts and', 'their numbers']),
-    ...dashed(170, 28, 140, 48, ['119th Congress', 'districts']),
+    ...dashed(170, 28, 140, 48, [`${ordinal(ENACTED.congress)} Congress`, 'districts']),
     ...dashed(170, 96, 140, 48, ['State outlines,', 'county names']),
     ...dashed(170, 164, 140, 48, ['Census geocoder', '(address search)']),
     arrow([80, 212], [80, 244]),

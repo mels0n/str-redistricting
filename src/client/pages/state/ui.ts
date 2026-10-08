@@ -7,6 +7,7 @@ import {
   fitRouteToState,
   formatHash,
   formatInt,
+  congressName,
   districtCount,
   toStateFrame,
   formatPeople,
@@ -610,7 +611,7 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
         cutMode ? h('span', { class: 'strv-legend__item' }, sample('strv-legend__cut'), 'Newest cut') : null,
         cutMode ? h('span', { class: 'strv-legend__item' }, sample('strv-legend__past'), 'Earlier cuts') : null,
         balanceMode && (route.move ?? 0) > 0 ? h('span', { class: 'strv-legend__item' }, sample('strv-legend__move'), 'Block moved') : null,
-        route.enacted ? h('span', { class: 'strv-legend__item' }, sample('strv-legend__dash'), '119th Congress districts') : null,
+        route.enacted ? h('span', { class: 'strv-legend__item' }, sample('strv-legend__dash'), `${congressName(bundle.stats.enactedSource)} districts`) : null,
       ];
       legendList.append(...legendItems.filter((x): x is HTMLElement => x !== null));
 

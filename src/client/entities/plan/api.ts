@@ -124,7 +124,7 @@ export interface EnactedShapes {
 
 const enacted = new Map<string, Promise<EnactedShapes>>();
 
-/** The 119th Congress districts, for display only. Loaded when first shown. */
+/** The enacted Congress's districts, for display only. Loaded when first shown. */
 export function loadEnacted(abbr: string): Promise<EnactedShapes> {
   let p = enacted.get(abbr);
   if (!p) {

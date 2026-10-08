@@ -65,6 +65,8 @@ export interface PublishConfig {
   readonly publicDir: string;
   /** Rebuild only what depends on the enacted-districts file, from the already published files; needs no generated plans. */
   readonly enactedOnly: boolean;
+  /** Rebuild only blocks.pmtiles (the blocks on a district line) for the published states; leaves every other file untouched. */
+  readonly blocksOnly: boolean;
 }
 
 const RawPublish = z.object({
@@ -73,6 +75,7 @@ const RawPublish = z.object({
   outDir: z.string().min(1),
   publicDir: z.string().min(1),
   enactedOnly: z.boolean(),
+  blocksOnly: z.boolean(),
 });
 
 /** Read once at boot from the command line. */
@@ -85,19 +88,22 @@ export function parsePublishConfig(argv: readonly string[]): PublishConfig {
       'out-dir': { type: 'string', default: 'out' },
       'public-dir': { type: 'string', default: 'public/data' },
       'enacted-only': { type: 'boolean', default: false },
+      'blocks-only': { type: 'boolean', default: false },
     },
     strict: true,
   });
   const parsed = RawPublish.safeParse({
     states: values.states, cacheDir: values['cache-dir'], outDir: values['out-dir'], publicDir: values['public-dir'], enactedOnly: values['enacted-only'],
+    blocksOnly: values['blocks-only'],
   });
   if (!parsed.success) throw new ConfigError(parsed.error.issues.map((i) => i.message).join('; '));
+  if (parsed.data.enactedOnly && parsed.data.blocksOnly) throw new ConfigError('--enacted-only and --blocks-only cannot be combined');
   const states = parsed.data.states?.split(',').map((s) => s.trim()).filter(Boolean).map((abbr) => {
     const info = stateByAbbr(abbr);
     if (!info) throw new ConfigError(`unknown state: ${abbr}`);
     return info;
   });
-  return { states, cacheDir: parsed.data.cacheDir, outDir: parsed.data.outDir, publicDir: parsed.data.publicDir, enactedOnly: parsed.data.enactedOnly };
+  return { states, cacheDir: parsed.data.cacheDir, outDir: parsed.data.outDir, publicDir: parsed.data.publicDir, enactedOnly: parsed.data.enactedOnly, blocksOnly: parsed.data.blocksOnly };
 }
 
 export interface RuleExamplesConfig {

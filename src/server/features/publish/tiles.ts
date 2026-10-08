@@ -16,18 +16,18 @@ export const TILE_MAXZOOM = 13;
 /** Tile extent at TILE_MAXZOOM: 8192 units over a ~4.9 km tile is about 0.45 m at 40N. */
 export const DEEP_EXTENT = 8192;
 const COARSE_EXTENT = 4096;
-const MVT_VERSION = 2;
+export const MVT_VERSION = 2;
 
 type Layers = Readonly<Record<string, readonly Feature[]>>;
 
 /** Zooms below TILE_MAXZOOM: ordinary simplification, extent 4096. */
 const coarseOptions = (): Options => ({ maxZoom: TILE_MAXZOOM - 1, extent: COARSE_EXTENT });
 /** TILE_MAXZOOM: tolerance 0 keeps every vertex. Point sampling uses the same options so it projects identically. */
-const deepOptions = (): Options => ({ maxZoom: TILE_MAXZOOM, indexMaxZoom: TILE_MAXZOOM, extent: DEEP_EXTENT, buffer: 128, tolerance: 0 });
+export const deepOptions = (): Options => ({ maxZoom: TILE_MAXZOOM, indexMaxZoom: TILE_MAXZOOM, extent: DEEP_EXTENT, buffer: 128, tolerance: 0 });
 
-const collection = (features: readonly Feature[]): FeatureCollection => ({ type: 'FeatureCollection', features: [...features] });
+export const collection = (features: readonly Feature[]): FeatureCollection => ({ type: 'FeatureCollection', features: [...features] });
 
-function growBounds(node: unknown, b: [number, number, number, number]): void {
+export function growBounds(node: unknown, b: [number, number, number, number]): void {
   if (!Array.isArray(node)) return;
   if (typeof node[0] === 'number' && typeof node[1] === 'number') {
     b[0] = Math.min(b[0], node[0]);

@@ -168,7 +168,7 @@ describe('topology', () => {
 
 describe('publish config', () => {
   it('defaults to every state and the standard directories', () => {
-    expect(parsePublishConfig([])).toEqual({ states: undefined, cacheDir: 'data/raw', outDir: 'out', publicDir: 'public/data', enactedOnly: false });
+    expect(parsePublishConfig([])).toEqual({ states: undefined, cacheDir: 'data/raw', outDir: 'out', publicDir: 'public/data', enactedOnly: false, blocksOnly: false });
   });
   it('rejects an unknown state', () => {
     expect(() => parsePublishConfig(['--states', 'ZZ'])).toThrow();

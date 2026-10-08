@@ -14,6 +14,7 @@ import { checkBlocks, encodeBlocks, lookup, type BlocksFile } from './blocks.js'
 import { loadCountyNames, loadEnacted, loadLand, loadStates, type EnactedFile } from './boundary.js';
 import { BalanceLogSchema, buildBalance, ProcessNumbersSchema } from './balance.js';
 import { countiesByDistrict } from './counties.js';
+import { buildStateBorderBlocks } from './border-blocks.js';
 import { buildEnactedTopology } from './enacted.js';
 import { buildCuts } from './cuts.js';
 import { buildStats, planStats } from './stats.js';
@@ -145,13 +146,14 @@ async function publishState(state: StateInfo, cfg: PublishConfig, shared: Shared
     water: display(water.features) as unknown as Feature[],
   }, fingerprints);
   await verifyTiles(state, allBlocks, tiles, blocksFile, new Set(log.data.moves.map((m) => m.geoid)), wrapped);
-  outputs.push(['blocks.json', blocksJson], ['detail.pmtiles', tiles]);
+  const borderTiles = await buildStateBorderBlocks(state, cfg.cacheDir, allBlocks, officialCsv, beforeCsv, fingerprints);
+  outputs.push(['blocks.json', blocksJson], ['detail.pmtiles', tiles], ['blocks.pmtiles', borderTiles]);
 
   // Every output is built and checked above; only now does anything in the public directory change, stats.json last.
   await mkdir(dest, { recursive: true });
   for (const [name, body] of outputs) await write(join(dest, name), body);
   const rawBytes = Buffer.byteLength(blocksJson);
-  console.log(`  ${state.abbr}: detail.pmtiles ${tiles.byteLength} B, blocks.json ${rawBytes} B (${gzipSync(blocksJson).byteLength} B gzip)`);
+  console.log(`  ${state.abbr}: detail.pmtiles ${tiles.byteLength} B, blocks.pmtiles ${borderTiles.byteLength} B, blocks.json ${rawBytes} B (${gzipSync(blocksJson).byteLength} B gzip)`);
 
   await write(join(dest, 'stats.json'), JSON.stringify(stats));
 }
@@ -216,9 +218,41 @@ async function writeIfChanged(path: string, body: string): Promise<boolean> {
   return true;
 }
 
+const PublishedFingerprintsSchema = z.looseObject({ fingerprints: z.object({ finished: z.string().min(1), before: z.string().min(1) }) });
+
+/**
+ * Rebuild only each published state's `blocks.pmtiles`, from its generated plans and the cached TIGER blocks. The
+ * fingerprints are the ones already published in `blocks.json` and must match the plans in the output directory, so
+ * the file always belongs to the data it sits next to. Every other file is left alone.
+ */
+export async function publishBlocksOnly(cfg: PublishConfig): Promise<void> {
+  const published = STATES.filter((s) => existsSync(join(cfg.publicDir, s.abbr, 'stats.json')));
+  const selected = cfg.states === undefined ? published : cfg.states;
+  for (const s of selected) {
+    if (!published.some((p) => p.abbr === s.abbr)) throw new DataError(`${s.abbr}: nothing published in ${cfg.publicDir}, so there is no data to update`);
+  }
+  for (const s of selected) {
+    const src = join(cfg.outDir, s.abbr);
+    const srcBefore = join(src, 'before-balancing');
+    const path = join(cfg.publicDir, s.abbr, 'blocks.json');
+    const parsed = PublishedFingerprintsSchema.safeParse(await readJson(path));
+    if (!parsed.success) throw new DataError(`${path}: ${parsed.error.issues.map((i) => `${i.path.join('.')} ${i.message}`).join('; ')}`);
+    const fingerprints = parsed.data.fingerprints;
+    const [official, before] = [await readMetrics(src), await readMetrics(srcBefore)];
+    if (official.assignmentSha256 !== fingerprints.finished || before.assignmentSha256 !== fingerprints.before) {
+      throw new DataError(`${s.abbr}: the plans in ${cfg.outDir} are not the ones published in ${cfg.publicDir}; run a full publish for it`);
+    }
+    const [officialCsv, beforeCsv] = [await readFile(join(src, 'assignment.csv'), 'utf8'), await readFile(join(srcBefore, 'assignment.csv'), 'utf8')];
+    const bytes = await buildStateBorderBlocks(s, cfg.cacheDir, await loadStateBlocks(s, cfg.cacheDir), officialCsv, beforeCsv, fingerprints);
+    await write(join(cfg.publicDir, s.abbr, 'blocks.pmtiles'), bytes);
+    console.log(`  ${s.abbr}: blocks.pmtiles ${bytes.byteLength} B`);
+  }
+}
+
 /** Write the web-ready data for the selected states (default: every state with a generated plan), plus the national files and the index. */
 export async function publishData(cfg: PublishConfig): Promise<void> {
   if (cfg.enactedOnly) return publishEnactedOnly(cfg);
+  if (cfg.blocksOnly) return publishBlocksOnly(cfg);
   const withData = statesWithData(cfg.outDir);
   const selected = cfg.states === undefined ? withData : withData.filter((s) => cfg.states!.some((x) => x.abbr === s.abbr));
   await mkdir(cfg.publicDir, { recursive: true });

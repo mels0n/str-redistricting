@@ -24,6 +24,13 @@ export class DownloadError extends DataError {
   }
 }
 
+/** The cut search worker pool is unusable (a worker died or stalled); the run can go on with a fresh pool. */
+export class WorkerPoolError extends AppError {
+  constructor(message: string) {
+    super('POOL', message);
+  }
+}
+
 /** The one place errors become process exit codes. */
 export function exitCodeFor(err: unknown): number {
   if (err instanceof ConfigError) return 2;

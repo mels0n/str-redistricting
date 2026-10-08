@@ -1,14 +1,15 @@
 name: Tag release
 
 # After a merge to main, tags every component whose version changed in config/versions.json (engine-v1.0.0,
-# input-census-2020-r1, maps-1, schema-v1.0.0, web-v1.0.0, docs-v1.0.0). A root commit has no previous versions, so
-# it tags all six.
+# input-census-2020-r1, maps-1, schema-v1.0.0, web-v1.0.0, docs-v1.0.0). The push's "before" commit is the baseline.
+# A true root commit (or a forced push whose before commit is gone, with no parent) tags all six; a before commit
+# without config/versions.json, or a config/release.json that does not enforce, tags nothing.
 #
 # Two jobs, so that no code from a dependency ever runs holding a token that can write:
 #   plan  runs npm with a read-only token and writes the tag names to a one-line-per-tag text file.
 #   tag   holds the write token and runs no npm or repository script. It treats the file as untrusted data: it is
 #         downloaded outside the workspace, every line is matched against the exact tag shapes in plain bash, and only
-#         then is a lightweight tag created and pushed. Tags that already exist on the remote are left alone.
+#         then is a lightweight tag created and pushed. A tag that already exists on the remote at this commit is skipped; at a different commit the job fails.
 
 on:
   push:
@@ -32,7 +33,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 2
+          fetch-depth: 0
           persist-credentials: false
 
       - uses: actions/setup-node@v4
@@ -45,9 +46,15 @@ jobs:
 
       - name: Work out the tags
         id: plan
+        env:
+          EVENT_BEFORE: ${{ github.event.before }}
         run: |
           set -euo pipefail
-          before=$(git rev-parse --verify --quiet "HEAD^" || echo none)
+          before="$EVENT_BEFORE"
+          if ! [[ "$before" =~ ^[0-9a-f]{40}$ ]] || [[ "$before" =~ ^0+$ ]] || ! git cat-file -e "${before}^{commit}" 2> /dev/null; then
+            before=$(git rev-parse --verify --quiet "HEAD^" || echo none)
+          fi
+          echo "Comparing $before with $GITHUB_SHA"
           npm run -s release:tags -- --before "$before" --after "$GITHUB_SHA" > "$RUNNER_TEMP/tags.txt"
           cat "$RUNNER_TEMP/tags.txt"
           if [ -s "$RUNNER_TEMP/tags.txt" ]; then
@@ -118,8 +125,13 @@ jobs:
           fi
           AUTH="AUTHORIZATION: basic $(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w0)"
           for tag in "${tags[@]}"; do
-            if git -c "http.https://github.com/.extraheader=$AUTH" ls-remote --exit-code --tags origin "refs/tags/$tag" > /dev/null; then
-              echo "$tag already exists on the remote. Leaving it alone."
+            remote=$(git -c "http.https://github.com/.extraheader=$AUTH" ls-remote --tags origin "refs/tags/$tag" "refs/tags/$tag^{}" | awk 'END { print $1 }')
+            if [ -n "$remote" ]; then
+              if [ "$remote" != "$GITHUB_SHA" ]; then
+                echo "::error::$tag already exists on the remote at $remote, not at $GITHUB_SHA. Tags are never moved; fix the version or remove the tag by hand."
+                exit 1
+              fi
+              echo "$tag already exists on the remote at this commit. Skipping."
               continue
             fi
             git tag "$tag" "$GITHUB_SHA"

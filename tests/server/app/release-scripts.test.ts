@@ -48,19 +48,25 @@ function seed(enforce: boolean): string {
 
 describe('release:tags', () => {
   it('prints the six baseline tags for a root commit', () => {
-    const first = seed(false);
+    const first = seed(true);
     const out = run('release-tags.ts', ['--before', 'none', '--after', first]);
     expect(out.status).toBe(0);
-    expect(out.stdout.trim().split('\n')).toEqual(['engine-v1.0.0', 'input-census-2020-r1', 'maps-1', 'schema-v1.0.0', 'web-v1.0.0', 'docs-v1.0.0']);
+    expect(out.stdout.trim().split(String.fromCharCode(10))).toEqual(['engine-v1.0.0', 'input-census-2020-r1', 'maps-1', 'schema-v1.0.0', 'web-v1.0.0', 'docs-v1.0.0']);
   });
-  it('treats a parent without the versions file as no previous versions', () => {
+  it('prints nothing when the before commit has no versions file (the cut has not happened yet)', () => {
     write('README.md', 'x');
     const parent = commitAll('chore: first');
-    const child = seed(false);
-    expect(run('release-tags.ts', ['--before', parent, '--after', child]).stdout.trim().split('\n')).toHaveLength(6);
+    const child = seed(true);
+    const out = run('release-tags.ts', ['--before', parent, '--after', child]);
+    expect(out.status).toBe(0);
+    expect(out.stdout.trim()).toBe('');
+  });
+  it('prints nothing at all while release.json does not enforce, even for a root commit', () => {
+    const first = seed(false);
+    expect(run('release-tags.ts', ['--before', 'none', '--after', first]).stdout.trim()).toBe('');
   });
   it('prints maps-2 when only the maps release changed', () => {
-    const first = seed(false);
+    const first = seed(true);
     write('config/versions.json', formatVersions({ ...VERSIONS, maps: 2 }));
     const second = commitAll('release: maps 2');
     const out = run('release-tags.ts', ['--before', first, '--after', second]);
@@ -68,7 +74,7 @@ describe('release:tags', () => {
     expect(out.stdout.trim()).toBe('maps-2');
   });
   it('prints nothing when no version changed, and fails when the after commit has no versions file', () => {
-    const first = seed(false);
+    const first = seed(true);
     write('notes.txt', 'x');
     const second = commitAll('chore: notes');
     expect(run('release-tags.ts', ['--before', first, '--after', second]).stdout.trim()).toBe('');

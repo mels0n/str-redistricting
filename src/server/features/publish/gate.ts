@@ -4,7 +4,7 @@ import { DataError } from '../../shared/errors/index.js';
 const engineMajor = (engine: string): string => engine.split('.')[0] ?? engine;
 
 /**
- * Refuses to replace a published map with a different one under the same engine version and input revision.
+ * Refuses to replace a published map with a different one under the same engine major and input revision.
  * A map may only change when the engine major or the input revision moves (npm run release does both). `baseline`
  * skips the check for the one-time stamping of data published before versioning existed.
  */

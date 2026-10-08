@@ -39,6 +39,8 @@ async function main(): Promise<void> {
   let firstError: unknown;
   const slot = new PoolSlot(config.threads);
   for (const state of config.states) {
+    // A worker that died between states is replaced before the next state starts, not after it fails.
+    slot.refresh();
     try {
       const t0 = performance.now();
       const inputSha256 = createHash('sha256').update(await readFile(await ensureZip(state, config.cacheDir))).digest('hex');

@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { VersionsSchema } from '../../shared/config/index.js';
 
 /** tests/fingerprints/engine.json: the assignment fingerprint of each fixture state at a given engine major. */
 export const FingerprintFileSchema = z.strictObject({
@@ -6,6 +7,16 @@ export const FingerprintFileSchema = z.strictObject({
   states: z.record(z.string().regex(/^[A-Z]{2}$/), z.string().regex(/^[0-9a-f]{64}$/)),
 });
 export type FingerprintFile = z.infer<typeof FingerprintFileSchema>;
+
+/**
+ * The engine major the base branch had: from its config/versions.json, because that is what the base released. The
+ * fingerprint file's own engineMajor is a record anyone can rewrite in a pull request and can lag behind the version
+ * (an engine major bump that never re-recorded). Falls back to the fingerprint file's when the base has no versions file.
+ */
+export function baseEngineMajor(baseVersionsText: string | null, fingerprintEngineMajor: number): number {
+  if (baseVersionsText === null) return fingerprintEngineMajor;
+  return Number(VersionsSchema.parse(JSON.parse(baseVersionsText)).engine.split('.')[0]);
+}
 
 /**
  * The fixture gate. `base` is the fingerprint file on the branch being merged into (never the pull request's own

@@ -5,7 +5,7 @@ export { versionProblems } from './check.js';
 export type { VersionCheckInput } from './check.js';
 export { COMPONENTS, ReleaseConfigSchema, componentsFor, componentsOfFile, matchesGlob, parseCommitSubject } from './components.js';
 export type { Commit, Component, ReleaseConfig } from './components.js';
-export { FingerprintFileSchema, compareFingerprints } from './fingerprints.js';
+export { FingerprintFileSchema, baseEngineMajor, compareFingerprints } from './fingerprints.js';
 export type { FingerprintFile } from './fingerprints.js';
 export { mapsDataChanged } from './maps.js';
 export { newestTag, tagsFor } from './tags.js';

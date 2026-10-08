@@ -4,6 +4,7 @@ import { VERSIONS, type Versions } from '../../../src/server/shared/config/index
 import {
   COMPONENTS,
   FingerprintFileSchema,
+  baseEngineMajor,
   ReleaseConfigSchema,
   bumpSemver,
   compareFingerprints,
@@ -301,6 +302,22 @@ describe('compareFingerprints', () => {
   });
   it('passes vacuously when the base records no states (before the cut)', () => {
     expect(compareFingerprints({ engineMajor: 1, states: {} }, baseFile, states, 1).ok).toBe(true);
+  });
+  it('takes the major to beat from the base versions.json, not the base fingerprint file', () => {
+    const versionsAt = (engine: string): string => JSON.stringify({ ...VERSIONS, engine });
+    expect(baseEngineMajor(versionsAt('2.3.1'), 1)).toBe(2);
+    expect(baseEngineMajor(null, 1)).toBe(1);
+    // Base released engine 2.0.0 but its fingerprint file still says major 1. A pull request changes the output and
+    // re-records major 2 without bumping versions.json: the major to beat is 2, so it fails.
+    const stale = FingerprintFileSchema.parse({ engineMajor: 1, states });
+    const drawn = { ...states, RI: sha('c') };
+    const head = recorded(2, drawn);
+    const baseMajor = baseEngineMajor(versionsAt('2.0.0'), stale.engineMajor);
+    expect(compareFingerprints({ ...stale, engineMajor: baseMajor }, head, drawn, 2).ok).toBe(false);
+    // Judged by the stale file's own major, the same pull request would have passed.
+    expect(compareFingerprints(stale, head, drawn, 2).ok).toBe(true);
+    // A real bump to 3 passes.
+    expect(compareFingerprints({ ...stale, engineMajor: baseMajor }, recorded(3, drawn), drawn, 3).ok).toBe(true);
   });
   it('reads the checked-in fingerprint file', () => {
     expect(FingerprintFileSchema.parse(JSON.parse(readFileSync('tests/fingerprints/engine.json', 'utf8')))).toEqual({ engineMajor: 1, states: {} });

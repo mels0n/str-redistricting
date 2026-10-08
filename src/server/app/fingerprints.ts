@@ -1,8 +1,9 @@
 import { readFileSync, writeFileSync } from 'node:fs';
-import { ReleaseConfigSchema, compareFingerprints } from '../features/release/index.js';
+import { ReleaseConfigSchema, baseEngineMajor, compareFingerprints } from '../features/release/index.js';
 import { VERSIONS, parseFingerprintArgs } from '../shared/config/index.js';
 import { exitCodeFor } from '../shared/errors/index.js';
 import { FINGERPRINT_PATH, drawFingerprints, readFingerprintFile, readFingerprintFileAt } from './fixtures.js';
+import { showFile } from './git.js';
 
 // Reads config/ and tests/ relative to the current directory.
 function main(): void {
@@ -23,7 +24,9 @@ function main(): void {
   const head = readFingerprintFile();
   const recorded = args.base === undefined ? head : readFingerprintFileAt(args.base);
   const names = args.states ?? Object.keys(recorded.states);
-  const base = { ...recorded, states: Object.fromEntries(Object.entries(recorded.states).filter(([st]) => names.includes(st))) };
+  // The major to beat is the one the base's config/versions.json declares, not the one its fingerprint file recorded.
+  const baseMajor = args.base === undefined ? recorded.engineMajor : baseEngineMajor(showFile(args.base, 'config/versions.json'), recorded.engineMajor);
+  const base = { engineMajor: baseMajor, states: Object.fromEntries(Object.entries(recorded.states).filter(([st]) => names.includes(st))) };
   if (Object.keys(base.states).length === 0) {
     console.log(`::notice::${args.base ?? 'the working copy'} records no fixture states in ${FINGERPRINT_PATH} yet, so the fixture gate passes vacuously (the 1.0 cut records them)`);
     return;

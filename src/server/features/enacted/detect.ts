@@ -86,6 +86,13 @@ export type Detection =
   | { readonly update: false }
   | { readonly update: true; readonly file: string; readonly congress: number; readonly year: number; readonly url: string };
 
+/** The same report for a file the maintainer names (the workflow's manual override), without probing: its name decides everything. */
+export function describeFile(file: string, urlFor: (file: string) => string): Detection {
+  const parsed = parseEnactedFileName(file);
+  if (parsed === null) throw new ConfigError(`${file} is not an enacted-districts file name (expected cb_<year>_us_cd<congress>_500k)`);
+  return { update: true, file, congress: parsed.congress, year: parsed.year, url: urlFor(file) };
+}
+
 /** Probe every candidate and report the most preferred one that is served, or that there is nothing new. */
 export async function detectUpdate(
   current: Pick<EnactedConfig, 'congress' | 'file'>,

@@ -1,19 +1,11 @@
 import { spawnSync } from 'node:child_process';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { applyBump } from '../features/enacted/index.js';
-import { boundaryUrl, parseCdRecord, readBoundaryZip } from '../features/publish/index.js';
-import { STATES } from '../shared/apportionment/index.js';
+import { applyBump, checkArchive } from '../features/enacted/index.js';
+import { boundaryUrl } from '../features/publish/index.js';
 import { parseEnactedBumpConfig, type EnactedBumpConfig } from '../shared/config/index.js';
 import { DataError, exitCodeFor } from '../shared/errors/index.js';
 import { downloadForPinning } from '../shared/http/index.js';
-
-/** The archive must parse and hold districts for every state, or it is not pinned. */
-async function checkArchive(zip: string, file: string): Promise<void> {
-  const fips = new Set((await readBoundaryZip(zip, file)).map((f) => parseCdRecord(f.properties).stateFp));
-  const missing = STATES.filter((s) => !fips.has(s.fips)).map((s) => s.abbr);
-  if (missing.length > 0) throw new DataError(`${file}: no districts for ${missing.join(', ')}; refusing to adopt it`);
-}
 
 async function bump(cfg: EnactedBumpConfig): Promise<void> {
   const { path, sha256 } = await downloadForPinning(boundaryUrl(cfg.file), join(cfg.cacheDir, `${cfg.file}.zip`), cfg.file);

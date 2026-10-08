@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
-import { candidateFiles, detectUpdate, isServed } from '../../../src/server/features/enacted/index.js';
-import { DownloadError } from '../../../src/server/shared/errors/index.js';
+import { candidateFiles, describeFile, detectUpdate, isServed } from '../../../src/server/features/enacted/index.js';
+import { ConfigError, DownloadError } from '../../../src/server/shared/errors/index.js';
 
 const URL_OF = (file: string): string => `https://example.test/${file}.zip`;
 const pinned = { congress: 119, file: 'cb_2025_us_cd119_500k' };
@@ -105,5 +105,16 @@ describe('detectUpdate', () => {
   it('propagates a persistent probe failure', async () => {
     const f = vi.fn<typeof fetch>(async () => new Response(null, { status: 502 }));
     await expect(detectUpdate(pinned, 2026, URL_OF, { fetchFn: f, sleep: noSleep })).rejects.toBeInstanceOf(DownloadError);
+  });
+});
+
+describe('describeFile', () => {
+  it('reports a named file with its source url, without probing', () => {
+    expect(describeFile('cb_2027_us_cd120_500k', URL_OF)).toEqual({
+      update: true, file: 'cb_2027_us_cd120_500k', congress: 120, year: 2027, url: URL_OF('cb_2027_us_cd120_500k'),
+    });
+  });
+  it('rejects a name that is not an enacted-districts file', () => {
+    expect(() => describeFile('../etc/passwd', URL_OF)).toThrow(ConfigError);
   });
 });

@@ -47,3 +47,10 @@ Deployed on Vercel at https://fairmaps.melson.us (the `str-redistricting.vercel.
 
 ## Where secrets live
 None. Census data is downloaded from public endpoints.
+
+## License
+The code is licensed under the [Apache License 2.0](LICENSE). You may use, change and redistribute it, including commercially, as long as you keep the copyright notice and pass along the [NOTICE](NOTICE) file, which credits the original work.
+
+The published maps and data in `public/data/` and the documentation in `docs/` are licensed under [Creative Commons Attribution 4.0](LICENSES/CC-BY-4.0.txt). You may reuse them for any purpose if you credit "Chris Melson, fairmaps.melson.us" and note any changes you made.
+
+The Census Bureau population counts and boundary files the maps are built from are public domain.

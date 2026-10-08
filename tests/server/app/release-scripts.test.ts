@@ -97,8 +97,10 @@ function indexJson(assignment: string, input = 'i'): string {
   return JSON.stringify({ states: [{ abbr: 'CO', name: 'Colorado', summary: { assignmentSha256: assignment, inputSha256: input } }] });
 }
 /** An index whose one state carries a version stamp for the given Maps release. */
-function stampedIndexJson(assignment: string, maps: number, input = 'i'): string {
-  return JSON.stringify({ states: [{ abbr: 'CO', name: 'Colorado', summary: { assignmentSha256: assignment, inputSha256: input, versions: { maps } } }] });
+/** A stamp like publish writes: the maps release, and the engine and input revision that drew the map. */
+function stampedIndexJson(assignment: string, maps: number, input = 'i', engine = maps >= 2 ? '2.0.0' : '1.0.0'): string {
+  const versions = { engine, input: { vintage: 'census-2020', revision: 1, sha256: VERSIONS.input.sha256 }, maps, schema: '1.0.0' };
+  return JSON.stringify({ states: [{ abbr: 'CO', name: 'Colorado', summary: { assignmentSha256: assignment, inputSha256: input, versions } }] });
 }
 /** seed() plus a published public/data/index.json, so version-check has hashes to compare. */
 function seedWithData(enforce: boolean): string {

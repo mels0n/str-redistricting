@@ -138,6 +138,11 @@ describe('proposeVersions', () => {
     expect(proposeVersions(base, { byComponent: new Map(), engineOutputChanged: false, inputSha256: same }).next.maps).toBe(1);
   });
   const taggedBase = { engine: '1.0.0', inputRevision: 1, maps: 1, schema: '1.0.0', web: '1.0.0', docs: '1.0.0' };
+  it('keeps one input revision per release when the input changes again before it is tagged', () => {
+    const bumped = { ...base, input: { ...base.input, revision: 2, sha256: 'e'.repeat(64) }, maps: 2 };
+    const { next } = proposeVersions(bumped, { byComponent: new Map(), engineOutputChanged: false, inputSha256: 'f'.repeat(64), tagged: taggedBase });
+    expect([next.input.revision, next.input.sha256, next.maps]).toEqual([2, 'f'.repeat(64), 2]);
+  });
   it('never bumps a component twice: a bump made since the tag is kept when no new evidence arrived', () => {
     const bumped: Versions = { ...base, engine: '2.0.0', maps: 2, web: '1.1.0', docs: '1.0.1' };
     const { next, reasons } = proposeVersions(bumped, {
@@ -216,8 +221,14 @@ describe('mapsDataChanged', () => {
 });
 
 describe('mapsDataChanged with a declared Maps release', () => {
-  const stamped = (states: [string, string, number | null][]): string =>
-    JSON.stringify({ states: states.map(([abbr, a, maps]) => ({ abbr, summary: { assignmentSha256: a, inputSha256: 'x', ...(maps === null ? {} : { versions: { maps } }) } })) });
+  // [abbr, assignment hash, maps release (null = unstamped), engine, input revision]
+  const stamped = (states: [string, string, number | null, string?, number?][]): string =>
+    JSON.stringify({
+      states: states.map(([abbr, a, maps, engine = maps === 2 ? '2.0.0' : '1.0.0', revision = 1]) => ({
+        abbr,
+        summary: { assignmentSha256: a, inputSha256: 'x', ...(maps === null ? {} : { versions: { maps, engine, input: { revision } } }) },
+      })),
+    });
   const before = stamped([['CO', 'a', 1], ['RI', 'b', 1]]);
 
   it('covers changed states stamped with the release that was already declared', () => {
@@ -232,6 +243,13 @@ describe('mapsDataChanged with a declared Maps release', () => {
   });
   it('does not cover anything when this change bumps the Maps release itself', () => {
     expect(mapsDataChanged(before, stamped([['CO', 'a2', 2], ['RI', 'b', 1]]), { base: 1, head: 2 })).toBe(true);
+  });
+  it('never covers a changed map whose stamp did not move (same engine major and input revision)', () => {
+    const declared = stamped([['CO', 'a', 2], ['RI', 'b', 2]]);
+    expect(mapsDataChanged(declared, stamped([['CO', 'a2', 2], ['RI', 'b', 2]]), { base: 2, head: 2 })).toBe(true);
+  });
+  it('covers a state drawn under a new input revision for the declared release', () => {
+    expect(mapsDataChanged(before, stamped([['CO', 'a2', 2, '1.0.0', 2], ['RI', 'b', 1]]), { base: 2, head: 2 })).toBe(false);
   });
   it('needs every changed state covered, not just one', () => {
     expect(mapsDataChanged(before, stamped([['CO', 'a2', 2], ['RI', 'b2', 1]]), { base: 2, head: 2 })).toBe(true);

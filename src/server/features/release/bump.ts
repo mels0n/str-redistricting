@@ -82,7 +82,7 @@ export function proposeVersions(current: Versions, p: BumpInput): { next: Versio
   if (next.engine !== current.engine) reasons.push(`engine ${next.engine}: ${engineWhy}`);
 
   if (p.inputSha256 !== current.input.sha256) {
-    next.input.revision = current.input.revision + 1;
+    next.input.revision = Math.max(current.input.revision, (tagged.inputRevision ?? current.input.revision) + 1);
     next.input.sha256 = p.inputSha256;
     reasons.push(`input ${next.input.vintage} r${next.input.revision}: the Census manifest or enacted config changed`);
   }

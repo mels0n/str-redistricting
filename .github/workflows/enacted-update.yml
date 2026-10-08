@@ -121,7 +121,7 @@ jobs:
             exit 0
           fi
           unexpected=$(git status --porcelain --untracked-files=all | cut -c4- \
-            | grep -Ev '^(config/(enacted|census-sha256)\.json|public/data/[A-Z]{2}/(enacted\.topo|stats)\.json)$' || true)
+            | grep -Ev '^(config/(enacted|census-sha256|versions)\.json|changelog/(input|maps)\.md|public/data/(index|versions)\.json|public/data/[A-Z]{2}/(enacted\.topo|stats)\.json)$' || true)
           if [ -n "$unexpected" ]; then
             echo "::error::The update touched files it should not have:"
             echo "$unexpected"
@@ -156,6 +156,11 @@ jobs:
           path: |
             config/enacted.json
             config/census-sha256.json
+            config/versions.json
+            changelog/input.md
+            changelog/maps.md
+            public/data/index.json
+            public/data/versions.json
             public/data/*/enacted.topo.json
             public/data/*/stats.json
 
@@ -194,7 +199,7 @@ jobs:
             echo "::error::Unexpected source address: $URL"
             exit 1
           fi
-          allowed='^(config/(enacted|census-sha256)\.json|public/data/[A-Z]{2}/(enacted\.topo|stats)\.json)$'
+          allowed='^(config/(enacted|census-sha256|versions)\.json|changelog/(input|maps)\.md|public/data/(index|versions)\.json|public/data/[A-Z]{2}/(enacted\.topo|stats)\.json)$'
           dir="$ARTIFACT"
           files=()
           while IFS= read -r -d '' entry; do
@@ -249,9 +254,9 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout -b "$BRANCH"
-          git add config/enacted.json config/census-sha256.json public/data
+          git add config/enacted.json config/census-sha256.json config/versions.json changelog/input.md changelog/maps.md public/data
           git commit -m "chore(data): update enacted districts to $FILE" \
-            -m "Rebuilds enacted.topo.json and the enactedSource in stats.json for every state, and pins the new Census file in config/census-sha256.json. Display only: no generated district changes."
+            -m "Rebuilds enacted.topo.json and the enactedSource in stats.json for every state, pins the new Census file in config/census-sha256.json, and bumps the input revision and maps release in config/versions.json. Display only: no generated district changes."
           git -c http.https://github.com/.extraheader="AUTHORIZATION: basic $(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w0)" push --force origin "$BRANCH"
 
       - name: Open the pull request
@@ -277,7 +282,7 @@ jobs:
           - Source: ${URL}
           - Pinned in \`config/census-sha256.json\` by its SHA-256; the entries for enacted files that are no longer used were removed.
           - \`config/enacted.json\` now names this Congress and file, and both the publisher and the viewer read it.
-          - Every state's \`enacted.topo.json\` was rebuilt and its \`stats.json\` \`enactedSource\` updated. No other file changed.
+          - Every state's \`enacted.topo.json\` was rebuilt and its \`stats.json\` \`enactedSource\` updated. The input revision and maps release in \`config/versions.json\` moved up by one, with entries in \`changelog/input.md\` and \`changelog/maps.md\`; the version stamps in \`stats.json\` and \`index.json\` follow. No other file changed.
 
           The overlay is display only. It never affects how districts are drawn, and no generated district, population or statistic depends on it.
 

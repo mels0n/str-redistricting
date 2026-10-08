@@ -1,6 +1,6 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
-import { EnactedConfigSchema, ManifestSchema, parseEnactedFileName, type EnactedConfig } from '../../shared/config/index.js';
+import { EnactedConfigSchema, ManifestSchema, parseEnactedFileName, type EnactedConfig, type Versions } from '../../shared/config/index.js';
 import { ConfigError, DataError } from '../../shared/errors/index.js';
 
 export const ENACTED_JSON = 'enacted.json';
@@ -46,6 +46,13 @@ export function planBump(current: EnactedConfig, manifest: Readonly<Record<strin
   out[zip] = sha256;
   return { config, manifest: Object.fromEntries(Object.entries(out).sort(([a], [b]) => (a < b ? -1 : a > b ? 1 : 0))) };
 }
+
+/** The versions after the input files changed: a new input revision with the new fingerprint, and a new maps release. */
+export const planVersionBump = (current: Versions, newInputSha: string): Versions => ({
+  ...current,
+  input: { ...current.input, revision: current.input.revision + 1, sha256: newInputSha },
+  maps: current.maps + 1,
+});
 
 /** The exact layout of config/enacted.json, so a bump changes only the lines whose values changed. */
 export const formatEnacted = (c: EnactedConfig): string =>

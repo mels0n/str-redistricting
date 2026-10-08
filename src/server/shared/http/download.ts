@@ -68,7 +68,7 @@ async function fetchToPart(url: string, path: string, part: string, label: strin
       throw new DownloadError(`download for ${label} truncated: expected ${expected} bytes, got ${size}`);
     }
     const digest = hash.digest('hex');
-    if (sha256 !== null && digest !== sha256) throw new ChecksumError(basename(path), path, 'fresh');
+    if (sha256 !== null && digest !== sha256) throw new ChecksumError(basename(path));
     return digest;
   } finally {
     clearTimeout(timer);
@@ -119,7 +119,7 @@ async function fetchWithRetries(url: string, path: string, label: string, sha256
  */
 export async function downloadCached(url: string, path: string, label: string, sha256: string, opts: DownloadOptions = {}): Promise<string> {
   if (existsSync(path)) {
-    if ((await sha256File(path)) !== sha256) throw new ChecksumError(basename(path), path);
+    if ((await sha256File(path)) !== sha256) throw new ChecksumError(basename(path));
     return path;
   }
   await fetchWithRetries(url, path, label, sha256, opts);

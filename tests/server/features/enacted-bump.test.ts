@@ -2,8 +2,8 @@ import { copyFileSync, mkdtempSync, readFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
-import { applyBump, formatEnacted, formatManifest, planBump } from '../../../src/server/features/enacted/index.js';
-import { CENSUS_SHA256, ENACTED_CONFIG, EnactedConfigSchema, parseEnactedBumpConfig } from '../../../src/server/shared/config/index.js';
+import { applyBump, formatEnacted, formatManifest, planBump, planVersionBump } from '../../../src/server/features/enacted/index.js';
+import { CENSUS_SHA256, ENACTED_CONFIG, EnactedConfigSchema, parseEnactedBumpConfig, VERSIONS, VersionsSchema } from '../../../src/server/shared/config/index.js';
 import { ConfigError, DataError } from '../../../src/server/shared/errors/index.js';
 
 const HASH = 'ab'.repeat(32);
@@ -90,5 +90,20 @@ describe('parseEnactedBumpConfig', () => {
     });
     expect(() => parseEnactedBumpConfig([])).toThrow(ConfigError);
     expect(() => parseEnactedBumpConfig(['--file', 'cb_2027_us_cd120_500k.zip'])).toThrow(ConfigError);
+  });
+});
+
+describe('planVersionBump', () => {
+  it('moves the input revision and fingerprint and the maps release, and nothing else', () => {
+    const sha = 'e'.repeat(64);
+    const next = planVersionBump(VERSIONS, sha);
+    expect(next.input).toEqual({ ...VERSIONS.input, revision: VERSIONS.input.revision + 1, sha256: sha });
+    expect(next.maps).toBe(VERSIONS.maps + 1);
+    expect({ ...next, input: VERSIONS.input, maps: VERSIONS.maps }).toEqual(VERSIONS);
+  });
+  it('from the 1.0 baseline gives input revision 2 and maps 2 with the engine unchanged', () => {
+    const baseline = VersionsSchema.parse({ ...VERSIONS, engine: '1.0.0', input: { ...VERSIONS.input, revision: 1 }, maps: 1 });
+    const next = planVersionBump(baseline, 'f'.repeat(64));
+    expect([next.input.revision, next.maps, next.engine]).toEqual([2, 2, '1.0.0']);
   });
 });

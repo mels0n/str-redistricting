@@ -24,8 +24,9 @@ const stuckU = () => nudged(4, 5, () => 1, (x, y) => x >= 2 && y >= 1 && y <= 3)
 const field = () => gridBlocks(7, 6, { pop: (x, y) => 1 + ((x * 3 + y * 5) % 7) });
 // Two separate stray arms on the east side: the east-west line (k = 1) needs three strays passes.
 const twoArms = () => nudged(4, 7, (x, y) => (x === 1 && (y === 1 || y === 4) ? 3 : 1), (x, y) => x >= 2 && ((y >= 1 && y <= 2) || (y >= 4 && y <= 5)));
-// A uniform square: the north-south and east-west lines have the same border length to the centimeter, so the tie-break decides.
-const square = () => gridBlocks(4, 4);
+// A uniform square centered on the equator: the east-west border runs along the equator, so it is exactly as long as
+// the north-south one and the tie-break decides. (North of the equator the east-west border would be a hair shorter.)
+const square = () => gridBlocks(4, 4, { origin: [0, -0.02] });
 const every = (r: CutResult) => r.candidateStats.map((s) => ({ k: s.k, lowSeats: s.lowSeats }));
 const sameResult = (a: CutResult, b: CutResult) => {
   expect(sorted(a.low)).toEqual(sorted(b.low));
@@ -59,9 +60,9 @@ describe('candidate trace', () => {
     const sqCtx = createContext(sq, 90);
     const sqPlain = findCut(sqCtx, all(sq.length), 2);
     const [p, q] = sqPlain.candidateStats;
-    // Different directions, the same length to the centimeter: only the tie-break orders them.
+    // Different directions, exactly the same length: only the tie-break orders them.
     expect(p!.k).not.toBe(q!.k);
-    expect(Math.round(p!.lengthM * 100)).toBe(Math.round(q!.lengthM * 100));
+    expect(p!.lengthM).toBe(q!.lengthM);
     expect(compareCandidates(sqCtx.angleCount)(p!, q!)).toBeLessThan(0);
     expect(sqPlain.angleDeg).toBe(0);
   });

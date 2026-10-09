@@ -269,6 +269,7 @@ export function createScanner(piece: Piece, job: ScanJob): Scanner {
   const side0 = new Uint8Array(m), comp = new Int32Array(m), stack = new Int32Array(m);
   let pairCap = 1024;
   let pairA = new Int32Array(pairCap), pairB = new Int32Array(pairCap), pairLen = new Float64Array(pairCap);
+  let cross = new Int32Array(pairCap);
   /**
    * Strays rule and border length for the current split; final sides (0 = low) go to `out` when given.
    * Fixed blocks keep their side, form their own nodes and never move, and blocks that move become
@@ -336,8 +337,15 @@ export function createScanner(piece: Piece, job: ScanJob): Scanner {
       pinned,
       observe,
     );
+    // The border is the pairs that end on different sides. Their lengths are added in block order (lower
+    // position, then higher), not in the order the search above met them, so the same border always sums to
+    // the same number however the candidate reached it.
+    if (cross.length < np) cross = new Int32Array(pairCap);
+    let nc = 0;
+    for (let e = 0; e < np; e++) if (side[comp[pairA[e]!]!] !== side[comp[pairB[e]!]!]) cross[nc++] = e;
+    const border = cross.subarray(0, nc).sort((x, y) => pairA[x]! - pairA[y]! || pairB[x]! - pairB[y]!);
     let lengthM = 0, newlyFixed = 0;
-    for (let e = 0; e < np; e++) if (side[comp[pairA[e]!]!] !== side[comp[pairB[e]!]!]) lengthM += pairLen[e]!;
+    for (let i = 0; i < nc; i++) lengthM += pairLen[border[i]!]!;
     for (let i = 0; i < m; i++) if (side[comp[i]!] !== cSide[comp[i]!]) { fixed[i] = side[comp[i]!]!; newlyFixed++; }
     if (out) for (let i = 0; i < m; i++) out[i] = side[comp[i]!]!;
     return { lengthM, newlyFixed, stranded, side };

@@ -4,9 +4,9 @@ import { existsSync } from 'node:fs';
 import { mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { gzipSync } from 'node:zlib';
 import { join } from 'node:path';
-import { loadBlockPolygons, loadStateBlocks, type Block } from '../../entities/census-block/index.js';
+import { blocksFileName, loadBlockPolygons, loadStateBlocks, type Block } from '../../entities/census-block/index.js';
 import { STATES, type StateInfo } from '../../shared/apportionment/index.js';
-import { formatVersions, stampOf, VERSIONS, VersionsSchema, type PublishConfig, type VersionStamp, type Versions } from '../../shared/config/index.js';
+import { DEFAULT_ANGLE_STEP_DEG, formatVersions, pinnedSha256, stampOf, VERSIONS, VersionsSchema, type PublishConfig, type VersionStamp, type Versions } from '../../shared/config/index.js';
 import { DataError } from '../../shared/errors/index.js';
 import { crossesAntimeridian, unwrapCoordinates, unwrapFeatures, unwrapLon } from './antimeridian.js';
 import { districtArcs } from './arcs.js';
@@ -17,7 +17,8 @@ import { countiesByDistrict } from './counties.js';
 import { buildStateBorderBlocks } from './border-blocks.js';
 import { buildEnactedTopology } from './enacted.js';
 import { buildCuts } from './cuts.js';
-import { checkPublishGate, staleStamps } from './gate.js';
+import { checkPublishGate, staleStamps, type PublishedPlan } from './gate.js';
+import { checkPlanProvenance } from './provenance.js';
 import { loadOgFonts, OG_PALETTE, ogSvg, renderOgPng } from './og.js';
 import { ogCredit } from './og-credit.js';
 import { buildStats, planStats } from './stats.js';
@@ -48,7 +49,25 @@ async function readMetrics(dir: string): Promise<PlanMetrics> {
 /** States whose generated plan is present in the output directory. */
 export const statesWithData = (outDir: string): StateInfo[] => STATES.filter((s) => existsSync(join(outDir, s.abbr, 'metrics.json')));
 
-const PublishedStatsSchema = z.object({ versions: PublishedStampSchema.optional(), finished: z.object({ metrics: PublishedMetricsSchema }) });
+const PublishedStatsSchema = z.object({
+  versions: PublishedStampSchema.optional(),
+  finished: z.object({ metrics: PublishedMetricsSchema }),
+  beforeBalancing: z.looseObject({ metrics: z.looseObject({ assignmentSha256: z.string() }) }).optional(),
+});
+
+/**
+ * Read both plans of a state from the output directory and refuse any not drawn by the current engine major, from the
+ * pinned census file, at the published angle step. Nothing is published from a plan this refuses.
+ */
+async function readCheckedPlans(state: StateInfo, outDir: string): Promise<{ finished: PlanMetrics; before: PlanMetrics }> {
+  const dir = join(outDir, state.abbr);
+  const expected = { engine: VERSIONS.engine, inputSha256: pinnedSha256(blocksFileName(state)), angleStepDeg: DEFAULT_ANGLE_STEP_DEG };
+  const finished = await readMetrics(dir);
+  checkPlanProvenance(finished, state.abbr, state.abbr, expected);
+  const before = await readMetrics(join(dir, 'before-balancing'));
+  checkPlanProvenance(before, state.abbr, `${state.abbr} before-balancing`, expected);
+  return { finished, before };
+}
 
 /**
  * Summaries of the states whose files are actually in the public directory. A state counts as published
@@ -61,7 +80,7 @@ export async function publishedSummaries(publicDir: string, states: readonly Sta
     if (!existsSync(path)) continue;
     const parsed = PublishedStatsSchema.safeParse(await readJson(path));
     if (!parsed.success) throw new DataError(`${path}: ${parsed.error.issues.map((i) => `${i.path.join('.')} ${i.message}`).join('; ')}`);
-    summaries.set(s.abbr, summarize(parsed.data.finished.metrics, parsed.data.versions));
+    summaries.set(s.abbr, summarize(parsed.data.finished.metrics, parsed.data.versions, parsed.data.beforeBalancing?.metrics.assignmentSha256));
   }
   return summaries;
 }
@@ -158,7 +177,9 @@ async function publishState(state: StateInfo, cfg: PublishConfig, shared: Shared
   outputs.push(['blocks.json', blocksJson], ['detail.pmtiles', tiles]);
   if (borderTiles) outputs.push(['blocks.pmtiles', borderTiles]);
 
-  // Every output is built and checked above; only now does anything in the public directory change, stats.json last.
+  // Every output of THIS state is built and checked above; only now do this state's files in the public directory
+  // change, stats.json last. The run as a whole is not atomic: states.topo.json was written before the first state and
+  // states are written one at a time, so a failure here leaves earlier states updated and later ones untouched.
   await mkdir(dest, { recursive: true });
   // A one-district state has no blocks.pmtiles; a file left by an earlier run would be stale.
   if (!borderTiles) await rm(join(dest, 'blocks.pmtiles'), { force: true });
@@ -170,11 +191,17 @@ async function publishState(state: StateInfo, cfg: PublishConfig, shared: Shared
 }
 
 /** The stamp and fingerprint of a state already in the public directory, or null when nothing is published. */
-async function readPublishedState(statsPath: string): Promise<{ versions?: VersionStamp; sha: string } | null> {
+async function readPublishedState(statsPath: string): Promise<PublishedPlan | null> {
   if (!existsSync(statsPath)) return null;
   const parsed = PublishedStatsSchema.safeParse(await readJson(statsPath));
   if (!parsed.success) throw new DataError(`${statsPath}: ${parsed.error.issues.map((i) => `${i.path.join('.')} ${i.message}`).join('; ')}`);
-  return { ...(parsed.data.versions ? { versions: parsed.data.versions } : {}), sha: parsed.data.finished.metrics.assignmentSha256 };
+  const { finished, beforeBalancing, versions } = parsed.data;
+  return {
+    ...(versions ? { versions } : {}),
+    sha: finished.metrics.assignmentSha256,
+    beforeSha: beforeBalancing?.metrics.assignmentSha256,
+    inputSha256: finished.metrics.inputSha256,
+  };
 }
 
 /** Every 1-in-N block (about TILE_CHECK_SAMPLE) plus every moved block must land in the district the CSVs give, under both plans. */
@@ -325,10 +352,14 @@ export async function publishData(cfg: PublishConfig): Promise<void> {
   if (cfg.blocksOnly) return publishBlocksOnly(cfg);
   const withData = statesWithData(cfg.outDir);
   const selected = cfg.states === undefined ? withData : withData.filter((s) => cfg.states!.some((x) => x.abbr === s.abbr));
-  // Before any write: a map may only change when the engine major or the input revision moves, and one refused state refuses the run.
+  const missing = (cfg.states ?? []).filter((s) => !withData.some((w) => w.abbr === s.abbr)).map((s) => s.abbr);
+  if (missing.length > 0) throw new DataError(`no generated plan in ${cfg.outDir} for ${missing.join(', ')}; run \`npm run explore -- --states ${missing.join(',')}\` first`);
+  // Before any write: every plan must come from the current engine major and the pinned census, and a map may only
+  // change when the engine major or the census input moves. One refused state refuses the run.
   const versions = stampOf(VERSIONS);
   for (const s of selected) {
-    const next = { versions, sha: (await readMetrics(join(cfg.outDir, s.abbr))).assignmentSha256 };
+    const { finished, before } = await readCheckedPlans(s, cfg.outDir);
+    const next = { versions, sha: finished.assignmentSha256, beforeSha: before.assignmentSha256, inputSha256: finished.inputSha256 };
     checkPublishGate(await readPublishedState(join(cfg.publicDir, s.abbr, 'stats.json')), next, cfg.baseline, s.abbr);
   }
   await mkdir(cfg.publicDir, { recursive: true });

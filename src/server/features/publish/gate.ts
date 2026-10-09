@@ -6,14 +6,28 @@ const engineMajor = (engine: string): string => engine.split('.')[0] ?? engine;
 const sameStamp = (a: VersionStamp, b: VersionStamp): boolean =>
   a.engine === b.engine && a.maps === b.maps && a.schema === b.schema && a.input.vintage === b.input.vintage && a.input.revision === b.input.revision && a.input.sha256 === b.input.sha256;
 
+/** What the gate knows about one state's map: both plans' fingerprints and the census file the plans were drawn from. */
+export interface PublishedPlan {
+  readonly versions?: VersionStamp;
+  /** assignmentSha256 of the finished plan. */
+  readonly sha: string;
+  /** assignmentSha256 of the before-balancing plan; undefined when the published stats do not record it. */
+  readonly beforeSha?: string | undefined;
+  /** The state's census input sha256 recorded with the plan. */
+  readonly inputSha256: string;
+}
+
 /**
- * Refuses to replace a published map with a different one under the same engine major and input revision.
- * A map may only change when the engine major or the input revision moves (npm run release does both). `baseline`
- * skips the check for unstamped states only, for the one-time stamping of data published before versioning existed.
+ * Refuses to replace a published map with a different one unless the engine major moved or the census input changed
+ * (a new vintage, or a different pinned census file for the state). "The map" is both the finished and the
+ * before-balancing assignment, so a change the balancing step absorbs still counts. A change to the enacted districts
+ * alone moves the input revision but never reopens the gate: it cannot change an assignment. The release script
+ * records the bump; the gate accepts either an engine major or a census change. `baseline` skips the check for
+ * unstamped states only, for the one-time stamping of data published before versioning existed.
  */
 export function checkPublishGate(
-  existing: { versions?: VersionStamp; sha: string } | null,
-  next: { versions: VersionStamp; sha: string },
+  existing: PublishedPlan | null,
+  next: PublishedPlan & { versions: VersionStamp },
   baseline: boolean,
   state = 'state',
 ): void {
@@ -22,8 +36,12 @@ export function checkPublishGate(
   if (existing.versions === undefined) {
     throw new DataError(`${state}: published data has no version stamp; run publish-data --baseline once`);
   }
-  if (engineMajor(existing.versions.engine) === engineMajor(next.versions.engine) && existing.versions.input.revision === next.versions.input.revision && existing.sha !== next.sha) {
-    throw new DataError(`${state}: the map changed but the engine major and input revision did not; bump the engine major (npm run release)`);
+  const beforeChanged = existing.beforeSha !== undefined && next.beforeSha !== undefined && existing.beforeSha !== next.beforeSha;
+  if (existing.sha === next.sha && !beforeChanged) return;
+  const engineMoved = engineMajor(existing.versions.engine) !== engineMajor(next.versions.engine);
+  const censusMoved = existing.versions.input.vintage !== next.versions.input.vintage || existing.inputSha256 !== next.inputSha256;
+  if (!engineMoved && !censusMoved) {
+    throw new DataError(`${state}: the map changed but the engine major and the census input did not; bump the engine major (npm run release)`);
   }
 }
 

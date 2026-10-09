@@ -25,6 +25,8 @@ export interface StateSummary {
   readonly rangePct: number;
   readonly allContiguous: boolean;
   readonly assignmentSha256: string;
+  /** Fingerprint of the before-balancing plan; absent from indexes built before it was recorded. */
+  readonly beforeAssignmentSha256?: string;
   readonly inputSha256: string;
   readonly nodeVersion: string;
   readonly angleStepDeg: number;
@@ -39,11 +41,12 @@ export interface IndexEntry {
   readonly summary?: StateSummary;
 }
 
-export function summarize(m: PublishedMetrics, versions?: VersionStamp): StateSummary {
+export function summarize(m: PublishedMetrics, versions?: VersionStamp, beforeAssignmentSha256?: string): StateSummary {
   return {
     population: m.population, ideal: m.ideal, rangePersons: m.rangePersons, rangePct: m.rangePct,
     allContiguous: m.allContiguous, assignmentSha256: m.assignmentSha256, inputSha256: m.inputSha256,
     nodeVersion: m.nodeVersion, angleStepDeg: m.angleStepDeg,
+    ...(beforeAssignmentSha256 ? { beforeAssignmentSha256 } : {}),
     ...(versions ? { versions } : {}),
   };
 }

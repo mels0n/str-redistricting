@@ -16,6 +16,7 @@ import {
   prependEntry,
   proposeVersions,
   tagsFor,
+  taggedVersions,
   versionProblems,
   type Commit,
   type Component,
@@ -143,6 +144,24 @@ describe('proposeVersions', () => {
     const { next } = proposeVersions(bumped, { byComponent: new Map(), engineOutputChanged: false, inputSha256: 'f'.repeat(64), tagged: taggedBase });
     expect([next.input.revision, next.input.sha256, next.maps]).toEqual([2, 'f'.repeat(64), 2]);
   });
+  it('resets the input revision to 1 for a new vintage, however high the old vintage got', () => {
+    const v2030: Versions = { ...base, input: { ...base.input, vintage: 'census-2030', revision: 7 } };
+    const { next, reasons } = proposeVersions(v2030, {
+      byComponent: new Map(), engineOutputChanged: false, inputSha256: 'f'.repeat(64), tagged: { ...taggedBase, inputVintage: 'census-2020', inputRevision: 7 },
+    });
+    expect([next.input.vintage, next.input.revision, next.input.sha256]).toEqual(['census-2030', 1, 'f'.repeat(64)]);
+    expect(next.maps).toBe(2);
+    expect(reasons.join('\n')).toContain('a new Census vintage');
+  });
+  it('counts a new vintage as an input change for the maps release even when its revision is not above the old one', () => {
+    const v2030: Versions = { ...base, input: { ...base.input, vintage: 'census-2030', revision: 1 } };
+    const { next } = proposeVersions(v2030, { byComponent: new Map(), engineOutputChanged: false, inputSha256: v2030.input.sha256, tagged: { ...taggedBase, inputVintage: 'census-2020', inputRevision: 3 } });
+    expect([next.input.revision, next.maps]).toEqual([1, 2]);
+  });
+  it('keeps counting revisions within the same vintage', () => {
+    const { next } = proposeVersions(base, { byComponent: new Map(), engineOutputChanged: false, inputSha256: 'f'.repeat(64), tagged: { ...taggedBase, inputVintage: 'census-2020', inputRevision: 3 } });
+    expect(next.input.revision).toBe(4);
+  });
   it('never bumps a component twice: a bump made since the tag is kept when no new evidence arrived', () => {
     const bumped: Versions = { ...base, engine: '2.0.0', maps: 2, web: '1.1.0', docs: '1.0.1' };
     const { next, reasons } = proposeVersions(bumped, {
@@ -221,12 +240,15 @@ describe('mapsDataChanged', () => {
 });
 
 describe('mapsDataChanged with a declared Maps release', () => {
-  // [abbr, assignment hash, maps release (null = unstamped), engine, input revision]
-  const stamped = (states: [string, string, number | null, string?, number?][]): string =>
+  // [abbr, assignment hash, maps release (null = unstamped), engine, input vintage, state census hash, before-balancing hash]
+  const stamped = (states: [string, string, number | null, string?, string?, string?, string?][]): string =>
     JSON.stringify({
-      states: states.map(([abbr, a, maps, engine = maps === 2 ? '2.0.0' : '1.0.0', revision = 1]) => ({
+      states: states.map(([abbr, a, maps, engine = maps === 2 ? '2.0.0' : '1.0.0', vintage = 'census-2020', census = 'x', beforeSha]) => ({
         abbr,
-        summary: { assignmentSha256: a, inputSha256: 'x', ...(maps === null ? {} : { versions: { maps, engine, input: { revision } } }) },
+        summary: {
+          assignmentSha256: a, inputSha256: census, ...(beforeSha === undefined ? {} : { beforeAssignmentSha256: beforeSha }),
+          ...(maps === null ? {} : { versions: { maps, engine, input: { vintage } } }),
+        },
       })),
     });
   const before = stamped([['CO', 'a', 1], ['RI', 'b', 1]]);
@@ -244,12 +266,34 @@ describe('mapsDataChanged with a declared Maps release', () => {
   it('does not cover anything when this change bumps the Maps release itself', () => {
     expect(mapsDataChanged(before, stamped([['CO', 'a2', 2], ['RI', 'b', 1]]), { base: 1, head: 2 })).toBe(true);
   });
-  it('never covers a changed map whose stamp did not move (same engine major and input revision)', () => {
+  it('never covers a changed map whose engine major, vintage and census file did not move', () => {
     const declared = stamped([['CO', 'a', 2], ['RI', 'b', 2]]);
     expect(mapsDataChanged(declared, stamped([['CO', 'a2', 2], ['RI', 'b', 2]]), { base: 2, head: 2 })).toBe(true);
   });
-  it('covers a state drawn under a new input revision for the declared release', () => {
-    expect(mapsDataChanged(before, stamped([['CO', 'a2', 2, '1.0.0', 2], ['RI', 'b', 1]]), { base: 2, head: 2 })).toBe(false);
+  it('covers a state drawn from a changed census file for the declared release', () => {
+    expect(mapsDataChanged(before, stamped([['CO', 'a2', 2, '1.0.0', 'census-2020', 'y'], ['RI', 'b', 1]]), { base: 2, head: 2 })).toBe(false);
+  });
+  it('covers a state drawn under a new vintage for the declared release', () => {
+    expect(mapsDataChanged(before, stamped([['CO', 'a2', 2, '1.0.0', 'census-2030'], ['RI', 'b', 1]]), { base: 2, head: 2 })).toBe(false);
+  });
+  it('covers a state drawn by a new engine major for the declared release', () => {
+    expect(mapsDataChanged(before, stamped([['CO', 'a2', 2], ['RI', 'b', 1]]), { base: 2, head: 2 })).toBe(false);
+  });
+  it('does not cover a state that carries no census hash', () => {
+    const noCensus = JSON.parse(stamped([['CO', 'a2', 2], ['RI', 'b', 1]])) as { states: { summary: Record<string, unknown> }[] };
+    delete noCensus.states[0]!.summary.inputSha256;
+    expect(mapsDataChanged(before, JSON.stringify(noCensus), { base: 2, head: 2 })).toBe(true);
+  });
+  it('sees a change in the before-balancing plan alone, and never covers it under the same inputs', () => {
+    const a = stamped([['CO', 'a', 2, undefined, undefined, undefined, 'p'], ['RI', 'b', 2]]);
+    const b = stamped([['CO', 'a', 2, undefined, undefined, undefined, 'q'], ['RI', 'b', 2]]);
+    expect(mapsDataChanged(a, b)).toBe(true);
+    expect(mapsDataChanged(a, b, { base: 2, head: 2 })).toBe(true);
+  });
+  it('does not count the before-balancing hash appearing in an index that lacked it', () => {
+    const a = stamped([['CO', 'a', 2], ['RI', 'b', 2]]);
+    const b = stamped([['CO', 'a', 2, undefined, undefined, undefined, 'p'], ['RI', 'b', 2]]);
+    expect(mapsDataChanged(a, b)).toBe(false);
   });
   it('needs every changed state covered, not just one', () => {
     expect(mapsDataChanged(before, stamped([['CO', 'a2', 2], ['RI', 'b2', 1]]), { base: 2, head: 2 })).toBe(true);
@@ -266,6 +310,14 @@ describe('newestTag', () => {
   });
   it('is null when the component has no tag', () => {
     expect(newestTag(all, 'docs')).toBeNull();
+  });
+});
+
+describe('taggedVersions', () => {
+  it('reads the vintage and the revision from the newest input tag', () => {
+    const none = { engine: null, input: null, maps: null, schema: null, web: null, docs: null };
+    expect(taggedVersions({ ...none, input: 'input-census-2030-r2' })).toEqual({ inputVintage: 'census-2030', inputRevision: 2 });
+    expect(taggedVersions(none)).toEqual({});
   });
 });
 

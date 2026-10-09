@@ -59,6 +59,8 @@ export function taggedVersions(newest: Readonly<Record<Component, string | null>
   };
   const engine = semver(newest.engine);
   if (engine !== undefined) out.engine = engine;
+  const inputVintage = /^input-(census-\d{4})-r\d+$/.exec(newest.input ?? '')?.[1];
+  if (inputVintage !== undefined) out.inputVintage = inputVintage;
   const inputRevision = trailing(newest.input, /-r(\d+)$/);
   if (inputRevision !== undefined) out.inputRevision = inputRevision;
   const maps = trailing(newest.maps, /^maps-(\d+)$/);

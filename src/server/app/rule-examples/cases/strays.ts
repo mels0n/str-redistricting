@@ -972,7 +972,7 @@ export async function islandsCase(ctx: ExtractContext): Promise<RuleCase> {
         show: [...I, ...M, 'pi', 'pm', 'bridge', 'dist'],
       },
       {
-        caption: `Detached land is joined by the shortest links that connect every piece, each between two internal points and sometimes to another island, so ${name} can be cut like any other state.`,
+        caption: `Detached land is connected one shortest link at a time, measured between internal points and often to another island, so ${name} can be cut like any other state.`,
         show: [...I, ...M, 'pi', 'pm', 'bridge', 'dist'],
       },
     ],

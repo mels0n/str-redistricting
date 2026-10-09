@@ -278,8 +278,8 @@ describe('stage 3 stray-piece cases', () => {
     blockId(c, blocks[islandBlock]!.geoid);
     blockId(c, blocks[mainBlock]!.geoid);
     expect(c.steps.map((s) => s.caption).join(' ')).toContain(`${whole(island.length)} blocks`);
-    // Detached land is joined by the shortest set of links, which may reach another island.
-    expect(c.steps.at(-1)!.caption).toContain('shortest links that connect every piece');
+    // Detached land is connected one shortest link at a time, which may reach another island.
+    expect(c.steps.at(-1)!.caption).toContain('one shortest link at a time');
     expect(c.steps.map((s) => s.caption).join(' ')).not.toContain('joined the same way');
   }, SLOW);
 

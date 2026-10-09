@@ -478,7 +478,7 @@ function nearestToGrid(
   return best;
 }
 
-/** Link the disconnected components with the shortest set of block pairs that joins them all, in the order joined. */
+/** Connect the disconnected components one shortest link at a time, returned in the order added. */
 function bridgeComponents(blocks: readonly Block[], adjOffsets: Int32Array, adjList: Int32Array): [number, number][] {
   const n = blocks.length;
   const comp = new Int32Array(n).fill(-1);
@@ -507,9 +507,9 @@ function bridgeComponents(blocks: readonly Block[], adjOffsets: Int32Array, adjL
   for (let i = 0; i < n; i++) {
     if (!vecs[i]!.every(Number.isFinite)) throw new DataError(`block ${i} has a non-finite internal point`);
   }
-  // Grow nearest first: each round links the detached group closest to anything already joined, at its closest
-  // pair. The result is the shortest set of links that joins every group, the same whatever the block numbering
-  // (ties by block index) and whichever group growth starts from; starting from the main body keeps it cheap.
+  // Like a cut, take the shortest: of every possible link between the connected land (starting as the main body) and
+  // a group not yet connected, add the shortest, then repeat. Together the links are the shortest set that connects
+  // every group, so block numbering changes nothing except exact ties, which go to the lower block positions.
   const gridOf = (list: readonly number[]): SphereGrid => {
     const g = new SphereGrid();
     for (const idx of list) g.add(idx, vecs[idx]!);

@@ -143,14 +143,13 @@ export function decidingTieRule(angleCount: number): (a: TieKey, b: TieKey) => {
 
 /**
  * The order candidate lines are tried in: border length, then the tie rules of decidingTieRule. Lengths are
- * rounded to the nearest centimeter and compared as integers, so lengths that round to the same centimeter are
- * equal (on a sphere exact ties only exist up to rounding). Two lengths a hair apart can still straddle a
- * rounding boundary and compare as different.
+ * compared exactly, with no rounding unit. The scan adds each border's shared-edge lengths in block order, so
+ * the same border always has the same length and only exactly equal lengths reach the tie rules.
  */
 export function compareCandidates(angleCount: number): (p: Pick<Candidate, 'k' | 'lowSeats' | 'lengthM'>, q: Pick<Candidate, 'k' | 'lowSeats' | 'lengthM'>) => number {
   return (p, q) => {
     const d = tieDifferences(angleCount, p, q);
-    return Math.round(p.lengthM * 100) - Math.round(q.lengthM * 100) || d[0] || d[1] || d[2];
+    return (p.lengthM < q.lengthM ? -1 : p.lengthM > q.lengthM ? 1 : 0) || d[0] || d[1] || d[2];
   };
 }
 

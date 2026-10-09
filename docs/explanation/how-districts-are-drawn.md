@@ -56,6 +56,16 @@ There is no limit on how many people a stray piece holds. A line that strands a 
 
 The length of a candidate is the length of the real border between its two final sides: the sum of the lengths of all block edges that have a block of one side on one side and a block of the other side on the other. Lengths are measured along the surface of the Earth. Water inside the state counts as part of the state, so a bay or a lake does not shorten or break a border. Water blocks also connect the land on either side of them.
 
+The Census Bureau publishes each block's outline as a list of corner points in longitude and latitude, to at most six decimal places of a degree (about 11 cm north-south). It publishes no lengths. Every length is computed from those corner points, in three steps:
+
+1. **One stretch of outline.** Where two blocks share their outline, each straight stretch between two corner points is measured as the shortest path between those points over a sphere of radius 6,371,008.8 meters, the Earth's mean radius (the haversine formula). The shared stretch is measured once, from the corner points as published, so both blocks see the same number.
+2. **One pair of neighbors.** All the stretches two blocks share are added together, giving one length for that pair. Island links (below) have length zero.
+3. **One border.** The border of a candidate is the sum of the lengths of every pair of neighboring blocks that ended up on different sides. The pairs are added in a fixed order: by the first block's position in GEOID order, then by the second block's.
+
+The fixed order in step 3 matters because a computer rounds the last digit of every addition, so adding the same numbers in a different order can change the total by a few billionths of a meter. Two candidate lines often reach the same final border by different routes, for example after moving different stray pieces. Adding in a fixed order gives the same border exactly the same length every time, however it was reached.
+
+The sine, cosine and arcsine in step 1 are computed by the generator's own code from basic arithmetic, not by the computer's math library, so every length comes out the same to the last digit on any computer.
+
 ### Every district is one connected piece
 
 Two blocks are connected when they share an edge, and touching at a single corner does not count. A cut is accepted only if both of its sides are each one connected piece. If a cut would leave a side in two or more parts, the next shortest candidate is tried. Census blocks cover lakes, bays and coastal water, and a water block is a block like any other, so land on two shores is connected when blocks of the same district, water blocks included, join them. Some land is reached by no block at all, such as an island beyond the coastal water blocks. It is connected by island links, and links are chosen the way cuts are: measure every option and take the shortest. A block stands at its internal point, and a link's length is the distance along the surface of the Earth between the internal points of its two blocks.
@@ -72,7 +82,9 @@ A link adds nothing to any border's length, and it counts toward connection only
 
 ### Ties
 
-Two borders whose lengths agree to the nearest centimeter are tied. A tie goes to the guide line closest to north-south. If two tied lines are equally close to north-south, the one with the smaller angle wins, and then the one whose low side has fewer seats.
+Lengths are compared exactly as computed. The data gives corner points in degrees, not lengths, so there is no unit to round them to. Two borders are tied only when their lengths are exactly equal, which in practice means two lines that produce the same border. A shorter border always wins, however small the difference.
+
+A tie goes to the guide line closest to north-south. If two tied lines are equally close to north-south, the one with the smaller angle wins, and then the one whose low side has fewer seats.
 
 ### Which angles are tested
 

@@ -49,6 +49,19 @@ export interface Evaluation {
 
 const RAD = Math.PI / 180;
 
+/**
+ * Total length of the border pairs `border` (indices into a, b, len; reordered in place). The lengths are added in
+ * block order, lower position a then higher position b, never in the order the pairs were found: floating-point
+ * addition depends on order, so this is what makes the same border sum to the same number however a candidate
+ * reached it. Each (a, b) appears once, so the order is fixed.
+ */
+export function borderLength(border: Int32Array, a: Int32Array, b: Int32Array, len: Float64Array): number {
+  border.sort((x, y) => a[x]! - a[y]! || b[x]! - b[y]!);
+  let total = 0;
+  for (let i = 0; i < border.length; i++) total += len[border[i]!]!;
+  return total;
+}
+
 /** Graph for the strays rule: node v is on side[v] (0 = low, 1 = high) with population, block count and lowest block index. */
 interface StrayGraph {
   readonly n: number;
@@ -269,6 +282,7 @@ export function createScanner(piece: Piece, job: ScanJob): Scanner {
   const side0 = new Uint8Array(m), comp = new Int32Array(m), stack = new Int32Array(m);
   let pairCap = 1024;
   let pairA = new Int32Array(pairCap), pairB = new Int32Array(pairCap), pairLen = new Float64Array(pairCap);
+  let cross = new Int32Array(pairCap);
   /**
    * Strays rule and border length for the current split; final sides (0 = low) go to `out` when given.
    * Fixed blocks keep their side, form their own nodes and never move, and blocks that move become
@@ -336,8 +350,12 @@ export function createScanner(piece: Piece, job: ScanJob): Scanner {
       pinned,
       observe,
     );
-    let lengthM = 0, newlyFixed = 0;
-    for (let e = 0; e < np; e++) if (side[comp[pairA[e]!]!] !== side[comp[pairB[e]!]!]) lengthM += pairLen[e]!;
+    // The border is the pairs that end on different sides.
+    if (cross.length < np) cross = new Int32Array(pairCap);
+    let nc = 0;
+    for (let e = 0; e < np; e++) if (side[comp[pairA[e]!]!] !== side[comp[pairB[e]!]!]) cross[nc++] = e;
+    const lengthM = borderLength(cross.subarray(0, nc), pairA, pairB, pairLen);
+    let newlyFixed = 0;
     for (let i = 0; i < m; i++) if (side[comp[i]!] !== cSide[comp[i]!]) { fixed[i] = side[comp[i]!]!; newlyFixed++; }
     if (out) for (let i = 0; i < m; i++) out[i] = side[comp[i]!]!;
     return { lengthM, newlyFixed, stranded, side };

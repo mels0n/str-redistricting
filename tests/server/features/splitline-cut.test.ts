@@ -149,7 +149,9 @@ describe('findCut', () => {
   });
 
   it('breaks a length tie toward north-south', () => {
-    const ctx = createContext(gridBlocks(2, 2), 1);
+    // Centered on the equator, the east-west border runs along it and is exactly as long as the north-south one.
+    // North of the equator the east-west border would be a hair shorter and win outright.
+    const ctx = createContext(gridBlocks(2, 2, { origin: [0, -0.01] }), 1);
     const r = findCut(ctx, all(4), 2);
     expect(r.angleDeg).toBe(0);
     expect(sorted(r.low)).toEqual([0, 2]);

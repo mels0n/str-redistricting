@@ -1,7 +1,7 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import {
-  chartCases, furthestCase, furthestOf, orderOfChecksCase, shortestTwo, stopCase, tieRule, tiesCase,
+  chartCases, furthestCase, furthestOf, gapWords, orderOfChecksCase, shortestTwo, stopCase, tieRule, tiesCase,
 } from '../../../src/server/app/rule-examples/cases/charts.js';
 import { cutTrace } from '../../../src/server/app/rule-examples/cases/trace.js';
 import { createExtractContext, RuleCaseSchema, type RuleCase } from '../../../src/server/features/rule-examples/index.js';
@@ -117,6 +117,15 @@ describe('cut.order-of-checks (MS cut 1)', () => {
   });
 });
 
+describe('gapWords', () => {
+  it('says a gap in meters, centimeters or millimeters, and floors the tiniest', () => {
+    expect(gapWords(12.345)).toBe('12.35 m');
+    expect(gapWords(0.0907)).toBe('9.1 cm');
+    expect(gapWords(0.0004)).toBe('0.40 mm');
+    expect(gapWords(1e-9)).toBe('less than a thousandth of a millimeter');
+  });
+});
+
 describe('cut.ties', () => {
   it.skipIf(!haveTie)('is a true tie settled by the documented order, or says it is not a tie', async () => {
     const c = await tiesCase(ctx);
@@ -124,16 +133,14 @@ describe('cut.ties', () => {
     expect(c.id).toBe('cut.ties');
     expect(c.chart!.kind).toBe('bars');
     const text = c.steps.map((s) => s.caption).join(' ');
-    const [a, b] = c.chart!.values;
-    const tied = Math.round(a! * 100) === Math.round(b! * 100);
-    if (!tied) {
+    // The chart rounds to the centimeter for display, so whether it is a tie comes from the full-precision re-run.
+    const t = await cutTrace(ctx, c.state, c.source.cut!);
+    const pair = [...t.result.candidateStats].filter((s) => s.lengthM === t.result.lengthM);
+    if (pair.length < 2) {
       expect(text).toContain('Not a tie');
       return;
     }
-    // A true tie: the two lines agree to the centimeter and the cut took the one the documented order puts first.
-    const t = await cutTrace(ctx, c.state, c.source.cut!);
-    const pair = [...t.result.candidateStats].filter((s) => Math.round(s.lengthM * 100) === Math.round(t.result.lengthM * 100));
-    expect(pair.length).toBeGreaterThanOrEqual(2);
+    // A true tie: the two lines are exactly the same length and the cut took the one the documented order puts first.
     const order = pair.sort((x, y) => {
       const r = tieRule({ k: x.k, lowSeats: x.lowSeats }, { k: y.k, lowSeats: y.lowSeats }, t.out.metrics.angleCount as number);
       return r.first === 'a' ? -1 : 1;
@@ -142,7 +149,7 @@ describe('cut.ties', () => {
     expect(c.chart!.labels![0]).toBe(`${t.cut.angleDeg}°`);
     expect(c.chart!.marks!.winner).toEqual([0]);
     expect(text).toContain('tied');
-    expect(text).toContain(whole(Math.round(a! * 100)));
+    expect(text).toContain('exactly the same length');
     expect(c.source.angleDeg).toBe(t.cut.angleDeg);
   }, SLOW);
 });

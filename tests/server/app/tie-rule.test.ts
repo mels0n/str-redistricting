@@ -40,3 +40,23 @@ describe('decidingTieRule', () => {
     expect(decide({ k: 300, lowSeats: 3 }, { k: 300, lowSeats: 2 })).toEqual({ first: 'b', rule: 3 });
   });
 });
+
+describe('compareCandidates', () => {
+  it('orders by exact length, with no rounding unit, before any tie rule', () => {
+    const cmp = compareCandidates(1800);
+    // k = 0 is north-south and would win every tie rule; the other line is 4 mm shorter, so it goes first.
+    const ns = { k: 0, lowSeats: 1, lengthM: 10.004 };
+    const leaning = { k: 900, lowSeats: 2, lengthM: 10 };
+    expect(cmp(leaning, ns)).toBeLessThan(0);
+    expect(cmp(ns, leaning)).toBeGreaterThan(0);
+    // A difference far below a millimeter still decides.
+    expect(cmp({ ...leaning, lengthM: 10 + 1e-9 }, { ...ns, lengthM: 10 + 2e-9 })).toBeLessThan(0);
+  });
+
+  it('leaves exactly equal lengths to the tie rules', () => {
+    const cmp = compareCandidates(1800);
+    expect(cmp({ k: 0, lowSeats: 1, lengthM: 10 }, { k: 900, lowSeats: 1, lengthM: 10 })).toBeLessThan(0);
+    expect(cmp({ k: 900, lowSeats: 1, lengthM: 10 }, { k: 0, lowSeats: 1, lengthM: 10 })).toBeGreaterThan(0);
+  });
+});
+

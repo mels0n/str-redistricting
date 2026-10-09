@@ -20,3 +20,7 @@ DESIGN.md
 DESIGN.*.json
 .impeccable/
 .agents/
+strategy/
+briefs/
+.env.*
+.dev.vars

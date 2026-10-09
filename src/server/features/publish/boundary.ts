@@ -4,7 +4,7 @@ import * as shapefile from 'shapefile';
 import { z } from 'zod';
 import { ENACTED_CONFIG, pinnedSha256 } from '../../shared/config/index.js';
 import { DataError, DownloadError } from '../../shared/errors/index.js';
-import { downloadCached } from '../../shared/http/index.js';
+import { downloadCached, readZipEntry } from '../../shared/http/index.js';
 
 /**
  * Census cartographic boundary files. They are drawn for display only (state outlines, county names,
@@ -58,12 +58,7 @@ export interface RawFeature {
 
 export async function readBoundaryZip(zipPath: string, file: string): Promise<RawFeature[]> {
   const zip = new AdmZip(zipPath);
-  const entry = (ext: string) => {
-    const e = zip.getEntries().find((x) => x.entryName.toLowerCase().endsWith(ext));
-    if (!e) throw new DataError(`${file}: archive has no ${ext} file`);
-    return e.getData();
-  };
-  const source = await shapefile.open(entry('.shp'), entry('.dbf'));
+  const source = await shapefile.open(readZipEntry(zip, '.shp', file), readZipEntry(zip, '.dbf', file));
   const out: RawFeature[] = [];
   for (;;) {
     const r = await source.read();

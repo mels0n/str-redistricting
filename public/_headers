@@ -18,3 +18,8 @@
 
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
+
+# Map data keeps its name between releases, so a browser must check with the server before reusing it
+# (a cheap 304 when nothing changed). Range requests for .pmtiles are unaffected.
+/data/*
+  Cache-Control: public, max-age=0, must-revalidate

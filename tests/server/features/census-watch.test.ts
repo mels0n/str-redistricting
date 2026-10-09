@@ -77,7 +77,7 @@ describe('hashRemote', () => {
   it('streams to a temp dir, returns the sha256 and leaves nothing behind', async () => {
     const root = mkdtempSync(join(tmpdir(), 'cw-test-'));
     const fetchFn = vi.fn<typeof fetch>(async () => new Response('hello', { status: 200 }));
-    const sha = await hashRemote('https://x.test/a.zip', 'a.zip', { fetchFn, sleep: async () => undefined, tmpRoot: root });
+    const sha = await hashRemote('https://www2.census.gov/a.zip', 'a.zip', { fetchFn, sleep: async () => undefined, tmpRoot: root });
     expect(sha).toBe('2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824');
     expect(readdirSync(root)).toEqual([]);
   });

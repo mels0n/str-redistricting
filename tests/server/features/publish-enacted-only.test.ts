@@ -148,8 +148,8 @@ describe('downloadForPinning', () => {
       const path = join(tmp, 'f.zip');
       const fetchFn = vi.fn<typeof fetch>(async () => new Response('new census bytes', { status: 200 }));
       const want = createHash('sha256').update('new census bytes').digest('hex');
-      expect(await downloadForPinning('https://example.test/f.zip', path, 'f', { fetchFn })).toEqual({ path, sha256: want });
-      expect(await downloadForPinning('https://example.test/f.zip', path, 'f', { fetchFn })).toEqual({ path, sha256: want });
+      expect(await downloadForPinning('https://www2.census.gov/f.zip', path, 'f', { fetchFn })).toEqual({ path, sha256: want });
+      expect(await downloadForPinning('https://www2.census.gov/f.zip', path, 'f', { fetchFn })).toEqual({ path, sha256: want });
       expect(fetchFn).toHaveBeenCalledTimes(1);
     } finally {
       rmSync(tmp, { recursive: true, force: true });

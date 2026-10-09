@@ -6,7 +6,7 @@ import type { Block } from './model.js';
 import type { StateInfo } from '../../shared/apportionment/index.js';
 import { pinnedSha256 } from '../../shared/config/index.js';
 import { DataError } from '../../shared/errors/index.js';
-import { downloadCached } from '../../shared/http/index.js';
+import { downloadCached, readZipEntry } from '../../shared/http/index.js';
 import { parseBlockFeature, parseBlockPolygons, type BlockPolygons } from './parse.js';
 
 export const blocksUrl = (fips: string): string =>
@@ -22,12 +22,7 @@ export async function ensureZip(state: StateInfo, cacheDir: string): Promise<str
 
 async function openBlockSource(state: StateInfo, cacheDir: string) {
   const zip = new AdmZip(await readFile(await ensureZip(state, cacheDir)));
-  const entry = (ext: string) => {
-    const e = zip.getEntries().find((x) => x.entryName.toLowerCase().endsWith(ext));
-    if (!e) throw new DataError(`${state.abbr}: archive has no ${ext} file`);
-    return e.getData();
-  };
-  return shapefile.open(entry('.shp'), entry('.dbf'));
+  return shapefile.open(readZipEntry(zip, '.shp', state.abbr), readZipEntry(zip, '.dbf', state.abbr));
 }
 
 export async function loadStateBlocks(state: StateInfo, cacheDir: string): Promise<Block[]> {

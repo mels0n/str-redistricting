@@ -24,6 +24,9 @@ export class DownloadError extends DataError {
   }
 }
 
+/** A download was refused on purpose (wrong host, not https, or over the size cap). Retrying cannot help. */
+export class DownloadRefusedError extends DownloadError {}
+
 /** The cut search worker pool is unusable (a worker died or stalled); the run can go on with a fresh pool. */
 export class WorkerPoolError extends AppError {
   constructor(message: string) {

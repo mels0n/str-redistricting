@@ -4,9 +4,10 @@ import { mkdtemp, readdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import AdmZip from 'adm-zip';
 import { loadStateBlocks } from '../../../src/server/entities/census-block/index.js';
-import { ChecksumError, DataError, DownloadError } from '../../../src/server/shared/errors/index.js';
-import { downloadCached } from '../../../src/server/shared/http/index.js';
+import { ChecksumError, DataError, DownloadError, DownloadRefusedError } from '../../../src/server/shared/errors/index.js';
+import { downloadCached, MAX_DOWNLOAD_BYTES, readZipEntry } from '../../../src/server/shared/http/index.js';
 
 const sha = (s: string): string => createHash('sha256').update(s).digest('hex');
 const BODY = 'census bytes';
@@ -21,7 +22,7 @@ const sleep = async (ms: number): Promise<void> => {
 };
 const partFiles = async (): Promise<string[]> => (await readdir(dir)).filter((f) => f.endsWith('.part'));
 const ok = (body = BODY, headers: Record<string, string> = {}): Response => new Response(body, { status: 200, headers });
-const run = (fetchFn: typeof fetch, sha256 = GOOD) => downloadCached('https://example.test/f.zip', path, 'f', sha256, { fetchFn, sleep });
+const run = (fetchFn: typeof fetch, sha256 = GOOD) => downloadCached('https://www2.census.gov/f.zip', path, 'f', sha256, { fetchFn, sleep });
 
 beforeEach(async () => {
   dir = await mkdtemp(join(tmpdir(), 'census-dl-'));
@@ -78,7 +79,7 @@ describe('downloadCached retries', () => {
     const f = vi.fn<typeof fetch>()
       .mockImplementationOnce(stalled)
       .mockResolvedValueOnce(ok());
-    await downloadCached('https://example.test/f.zip', path, 'f', GOOD, { fetchFn: f, sleep, stallMs: 20 });
+    await downloadCached('https://www2.census.gov/f.zip', path, 'f', GOOD, { fetchFn: f, sleep, stallMs: 20 });
     expect(f).toHaveBeenCalledTimes(2);
   });
   it('retries a truncated body', async () => {
@@ -191,5 +192,73 @@ describe('census file lookup', () => {
     await writeFile(join(dir, 'tl_2020_44_tabblock20.zip'), 'not the real zip');
     await expect(loadStateBlocks(state, dir)).rejects.toThrow(DataError);
     await expect(loadStateBlocks(state, dir)).rejects.toThrow(/sha256 differs from config\/census-sha256\.json/);
+  });
+});
+
+describe('download hardening', () => {
+  const at = (url: string, fetchFn: typeof fetch, extra: object = {}) => downloadCached(url, path, 'f', GOOD, { fetchFn, sleep, ...extra });
+  const redirected = (to: string): Response => {
+    const res = ok();
+    Object.defineProperty(res, 'url', { value: to });
+    return res;
+  };
+
+  it('allows the Census host', async () => {
+    await at('https://www2.census.gov/f.zip', async () => redirected('https://www2.census.gov/f.zip'));
+    expect(await readFile(path, 'utf8')).toBe(BODY);
+  });
+  it('refuses a request address that is not https on a Census host, without fetching', async () => {
+    for (const url of ['http://www2.census.gov/f.zip', 'https://example.test/f.zip', 'not a url']) {
+      const f = vi.fn<typeof fetch>(async () => ok());
+      await expect(at(url, f)).rejects.toThrow(DownloadRefusedError);
+      expect(f).not.toHaveBeenCalled();
+    }
+  });
+  it('refuses a redirect to another host or to plain http, once, leaving no file behind', async () => {
+    for (const to of ['https://evil.example/f.zip', 'http://www2.census.gov/f.zip']) {
+      const f = vi.fn<typeof fetch>(async () => redirected(to));
+      await expect(at('https://www2.census.gov/f.zip', f)).rejects.toThrow(/not an allowed Census host/);
+      expect(f).toHaveBeenCalledTimes(1);
+      expect(existsSync(path)).toBe(false);
+      expect(await partFiles()).toEqual([]);
+    }
+  });
+  it('refuses a declared length over the cap without reading the body', async () => {
+    const f = vi.fn<typeof fetch>(async () => ok(BODY, { 'content-length': String(MAX_DOWNLOAD_BYTES + 1) }));
+    await expect(at('https://www2.census.gov/f.zip', f)).rejects.toThrow(/over the \d+ byte limit/);
+    expect(f).toHaveBeenCalledTimes(1);
+    expect(existsSync(path)).toBe(false);
+  });
+  it('aborts a body that grows past the cap, whatever it declared, and does not retry', async () => {
+    const f = vi.fn<typeof fetch>(async () => ok(BODY));
+    const err = await at('https://www2.census.gov/f.zip', f, { maxBytes: 5 }).catch((e: unknown) => e);
+    expect(err).toBeInstanceOf(DownloadRefusedError);
+    expect(f).toHaveBeenCalledTimes(1);
+    expect(existsSync(path)).toBe(false);
+    expect(await partFiles()).toEqual([]);
+  });
+  it('keeps the cap above the largest real Census file (746 MB, Texas blocks)', () => {
+    expect(MAX_DOWNLOAD_BYTES).toBeGreaterThan(746_348_959);
+  });
+});
+
+describe('archive entry size guard', () => {
+  const zipOf = (content: string): AdmZip => {
+    const z = new AdmZip();
+    z.addFile('a.shp', Buffer.from(content));
+    return new AdmZip(z.toBuffer());
+  };
+  it('reads an entry under the cap', () => {
+    expect(readZipEntry(zipOf('hello'), '.shp', 'x').toString()).toBe('hello');
+  });
+  it('refuses an entry whose declared size is over the cap, before inflating it', () => {
+    const zip = zipOf('hello');
+    const entry = zip.getEntries()[0]!;
+    const inflate = vi.spyOn(entry, 'getData');
+    expect(() => readZipEntry(zip, '.shp', 'x', 4)).toThrow(/over the 4 byte limit/);
+    expect(inflate).not.toHaveBeenCalled();
+  });
+  it('names a missing entry', () => {
+    expect(() => readZipEntry(zipOf('hello'), '.dbf', 'x')).toThrow(/archive has no \.dbf file/);
   });
 });

@@ -8,7 +8,7 @@ export { CENSUS_HOSTS } from './census-hosts.js';
 export { CENSUS_SHA256, ManifestSchema, pinnedSha256 } from './census-manifest.js';
 export { ENACTED_CONFIG, EnactedConfigSchema, enactedFileName, parseEnactedFileName } from './enacted.js';
 export type { EnactedConfig } from './enacted.js';
-export { VERSIONS, VersionsSchema, formatVersions, inputSha256Of, stampOf } from './versions.js';
+export { VERSIONS, VersionsSchema, engineMajor, formatVersions, inputSha256Of, stampOf } from './versions.js';
 export type { VersionStamp, Versions } from './versions.js';
 
 /** The guide line step, in degrees, the published maps are drawn with. */

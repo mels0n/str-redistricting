@@ -1,7 +1,5 @@
-import type { VersionStamp } from '../../shared/config/index.js';
+import { engineMajor, type VersionStamp } from '../../shared/config/index.js';
 import { DataError } from '../../shared/errors/index.js';
-
-const engineMajor = (engine: string): string => engine.split('.')[0] ?? engine;
 
 const sameStamp = (a: VersionStamp, b: VersionStamp): boolean =>
   a.engine === b.engine && a.maps === b.maps && a.schema === b.schema && a.input.vintage === b.input.vintage && a.input.revision === b.input.revision && a.input.sha256 === b.input.sha256;

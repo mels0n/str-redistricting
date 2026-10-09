@@ -20,8 +20,19 @@ export function readFingerprintFile(path = FINGERPRINT_PATH): FingerprintFile {
 export function readFingerprintFileAt(ref: string): FingerprintFile {
   const text = showFile(ref, FINGERPRINT_PATH);
   if (text === null) return { engineMajor: 1, states: {} };
-  const parsed = FingerprintFileSchema.safeParse(JSON.parse(text));
-  if (!parsed.success) throw new DataError(`${ref}:${FINGERPRINT_PATH}: ${parsed.error.issues.map((i) => `${i.path.join('.')} ${i.message}`).join('; ')}`);
+  return parseFingerprintFile(text, `${ref}:${FINGERPRINT_PATH}`);
+}
+
+/** Parse fingerprint file text; text that is not JSON, or does not match the schema, is a DataError naming `label`. */
+export function parseFingerprintFile(text: string, label: string): FingerprintFile {
+  let json: unknown;
+  try {
+    json = JSON.parse(text);
+  } catch {
+    throw new DataError(`${label}: not valid JSON`);
+  }
+  const parsed = FingerprintFileSchema.safeParse(json);
+  if (!parsed.success) throw new DataError(`${label}: ${parsed.error.issues.map((i) => `${i.path.join('.')} ${i.message}`).join('; ')}`);
   return parsed.data;
 }
 

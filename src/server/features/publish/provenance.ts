@@ -1,4 +1,5 @@
 import type { PlanMetrics } from '../../entities/plan-output/index.js';
+import { engineMajor } from '../../shared/config/index.js';
 import { DataError } from '../../shared/errors/index.js';
 
 /** What a plan must have been drawn with to be published under the current code and pinned inputs. */
@@ -10,8 +11,6 @@ export interface PlanExpectation {
   readonly angleStepDeg: number;
 }
 
-const major = (v: string): string => v.split('.')[0] ?? v;
-
 /**
  * Refuses a plan that was not drawn by the current engine major from the pinned census file at the published guide
  * line step. `label` names the plan for the message (for example "CO" or "CO before-balancing").
@@ -19,7 +18,7 @@ const major = (v: string): string => v.split('.')[0] ?? v;
 export function checkPlanProvenance(plan: PlanMetrics, abbr: string, label: string, expected: PlanExpectation): void {
   const problems: string[] = [];
   if (plan.engine === undefined) problems.push('it records no engine version');
-  else if (major(plan.engine) !== major(expected.engine)) problems.push(`it was drawn by engine ${plan.engine} and the current engine is ${expected.engine} (different major)`);
+  else if (engineMajor(plan.engine) !== engineMajor(expected.engine)) problems.push(`it was drawn by engine ${plan.engine} and the current engine is ${expected.engine} (different major)`);
   if (plan.inputSha256 !== expected.inputSha256) problems.push('its census input sha256 is not the pinned one');
   if (plan.angleStepDeg !== expected.angleStepDeg) problems.push(`its angle step is ${plan.angleStepDeg} degrees and the published step is ${expected.angleStepDeg}`);
   if (problems.length > 0) {

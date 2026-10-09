@@ -1,4 +1,4 @@
-import type { Versions } from '../../shared/config/index.js';
+import { engineMajor, type Versions } from '../../shared/config/index.js';
 import { COMPONENTS, type Component } from './components.js';
 
 function identity(v: Versions, c: Component): string {
@@ -16,9 +16,10 @@ export interface VersionCheckInput {
   mapsDataChanged: boolean;
   /**
    * engineMajor recorded in tests/fingerprints/engine.json at head (null when absent). An engine bump with no engine
-   * file changed is accepted only when the engine MAJOR moved and this equals the new major: a dependency bump
-   * (package-lock.json belongs to no component) can change the drawn maps, and the fixture gate then demands an
-   * engine major and re-recorded fingerprints. A minor or patch bump gets no such exemption.
+   * file changed is accepted when the engine MAJOR moved and the head fingerprint file records that new major, for
+   * example a dependency update (package-lock.json belongs to no component) that changes the drawn maps. This does not
+   * itself prove the maps changed: it trusts the recorded major (the fixture gate is what demands it). A minor or
+   * patch bump gets no such exemption.
    */
   headFingerprintMajor?: number | null;
 }
@@ -26,7 +27,7 @@ export interface VersionCheckInput {
 export function versionProblems(p: VersionCheckInput): string[] {
   const problems: string[] = [];
   const bumped = (c: Component): boolean => identity(p.base, c) !== identity(p.head, c);
-  const major = (v: string): number => Number.parseInt(v, 10);
+  const major = (v: string): number => Number(engineMajor(v));
   const engineMajorMoved = major(p.head.engine) !== major(p.base.engine) && p.headFingerprintMajor === major(p.head.engine);
   for (const c of COMPONENTS) {
     if (c === 'maps') {

@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { engineMajor } from '../../shared/config/index.js';
 
 const IndexSchema = z.object({
   states: z.array(
@@ -36,7 +37,7 @@ function entriesOf(text: string): Map<string, Entry> {
   for (const s of IndexSchema.parse(JSON.parse(text)).states) {
     const v = s.summary?.versions;
     const census = s.summary?.inputSha256;
-    const drawnBy = v?.engine === undefined || v.input === undefined || census === undefined ? undefined : `${v.engine.split('.')[0]}|${v.input.vintage}|${census}`;
+    const drawnBy = v?.engine === undefined || v.input === undefined || census === undefined ? undefined : `${engineMajor(v.engine)}|${v.input.vintage}|${census}`;
     out.set(s.abbr, { hashes: `${s.summary?.assignmentSha256 ?? ''}|${census ?? ''}`, before: s.summary?.beforeAssignmentSha256, maps: v?.maps, drawnBy });
   }
   return out;

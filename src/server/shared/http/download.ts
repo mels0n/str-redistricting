@@ -13,6 +13,8 @@ export const TOTAL_TIMEOUT_MS = 15 * 60_000;
 /** Retries after the first attempt; waits double each time (2 s, 4 s, 8 s). */
 export const MAX_RETRIES = 3;
 export const BACKOFF_BASE_MS = 2_000;
+/** Redirects followed for one attempt; more than this is refused. */
+export const MAX_REDIRECTS = 5;
 /**
  * No Census file may exceed 1 GiB. The largest real one (the Texas block file) is 746 MB, so this leaves about 40%
  * headroom for a reissue while stopping a wrong or hostile response long before it fills the disk.
@@ -70,9 +72,20 @@ async function fetchToPart(url: string, path: string, part: string, label: strin
   const file = await open(part, 'wx');
   arm();
   try {
-    const res = await o.fetchFn(url, { signal });
-    // fetch follows redirects, so the address that answered may differ from the one asked for (a mock has none).
-    if (res.url !== '') assertAllowedUrl(res.url, label, o.allowedHosts);
+    // Redirects are followed here, one hop at a time, so an address off the allowlist is refused before it is requested.
+    let current = url;
+    let res = await o.fetchFn(current, { signal, redirect: 'manual' });
+    for (let hops = 0; res.status >= 300 && res.status < 400 && res.headers.has('location'); hops++) {
+      await res.body?.cancel().catch(() => undefined);
+      if (hops >= MAX_REDIRECTS) throw new DownloadRefusedError(`download for ${label} refused: more than ${MAX_REDIRECTS} redirects`);
+      try {
+        current = new URL(res.headers.get('location')!, current).toString();
+      } catch {
+        throw new DownloadRefusedError(`download for ${label} refused: redirect to an invalid address`);
+      }
+      assertAllowedUrl(current, label, o.allowedHosts);
+      res = await o.fetchFn(current, { signal, redirect: 'manual' });
+    }
     if (!res.ok) {
       await res.body?.cancel().catch(() => undefined);
       throw new DownloadError(`download failed for ${label}: HTTP ${res.status}`, res.status);

@@ -7,7 +7,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import AdmZip from 'adm-zip';
 import { loadStateBlocks } from '../../../src/server/entities/census-block/index.js';
 import { ChecksumError, DataError, DownloadError, DownloadRefusedError } from '../../../src/server/shared/errors/index.js';
-import { downloadCached, MAX_DOWNLOAD_BYTES, readZipEntry } from '../../../src/server/shared/http/index.js';
+import { downloadCached, MAX_DOWNLOAD_BYTES, MAX_REDIRECTS, readZipEntry } from '../../../src/server/shared/http/index.js';
 
 const sha = (s: string): string => createHash('sha256').update(s).digest('hex');
 const BODY = 'census bytes';
@@ -197,14 +197,9 @@ describe('census file lookup', () => {
 
 describe('download hardening', () => {
   const at = (url: string, fetchFn: typeof fetch, extra: object = {}) => downloadCached(url, path, 'f', GOOD, { fetchFn, sleep, ...extra });
-  const redirected = (to: string): Response => {
-    const res = ok();
-    Object.defineProperty(res, 'url', { value: to });
-    return res;
-  };
-
+  const redirect = (to: string, status = 302): Response => new Response(null, { status, headers: { location: to } });
   it('allows the Census host', async () => {
-    await at('https://www2.census.gov/f.zip', async () => redirected('https://www2.census.gov/f.zip'));
+    await at('https://www2.census.gov/f.zip', async () => ok());
     expect(await readFile(path, 'utf8')).toBe(BODY);
   });
   it('refuses a request address that is not https on a Census host, without fetching', async () => {
@@ -214,14 +209,33 @@ describe('download hardening', () => {
       expect(f).not.toHaveBeenCalled();
     }
   });
-  it('refuses a redirect to another host or to plain http, once, leaving no file behind', async () => {
+  it('follows a redirect to an allowed Census host, relative or absolute, requesting it manually', async () => {
+    const seen: string[] = [];
+    const f = vi.fn<typeof fetch>(async (input, init) => {
+      seen.push(String(input));
+      expect(init?.redirect).toBe('manual');
+      if (seen.length === 1) return redirect('/moved/f.zip');
+      if (seen.length === 2) return redirect('https://www2.census.gov/final/f.zip', 301);
+      return ok();
+    });
+    await at('https://www2.census.gov/f.zip', f);
+    expect(seen).toEqual(['https://www2.census.gov/f.zip', 'https://www2.census.gov/moved/f.zip', 'https://www2.census.gov/final/f.zip']);
+    expect(await readFile(path, 'utf8')).toBe(BODY);
+  });
+  it('refuses a redirect to another host or to plain http before requesting it, leaving no file behind', async () => {
     for (const to of ['https://evil.example/f.zip', 'http://www2.census.gov/f.zip']) {
-      const f = vi.fn<typeof fetch>(async () => redirected(to));
+      const f = vi.fn<typeof fetch>(async () => redirect(to));
       await expect(at('https://www2.census.gov/f.zip', f)).rejects.toThrow(/not an allowed Census host/);
       expect(f).toHaveBeenCalledTimes(1);
       expect(existsSync(path)).toBe(false);
       expect(await partFiles()).toEqual([]);
     }
+  });
+  it('refuses a redirect chain longer than the limit, without retrying', async () => {
+    const f = vi.fn<typeof fetch>(async () => redirect('https://www2.census.gov/again.zip'));
+    await expect(at('https://www2.census.gov/f.zip', f)).rejects.toThrow(/more than \d+ redirects/);
+    expect(f).toHaveBeenCalledTimes(MAX_REDIRECTS + 1);
+    expect(existsSync(path)).toBe(false);
   });
   it('refuses a declared length over the cap without reading the body', async () => {
     const f = vi.fn<typeof fetch>(async () => ok(BODY, { 'content-length': String(MAX_DOWNLOAD_BYTES + 1) }));

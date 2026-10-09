@@ -83,7 +83,10 @@ function loadBridges(abbr: string): Promise<Bridges | null> {
   return fetchJson(dataUrl(`${abbr}/bridges.json`), BridgesSchema).catch(() => null);
 }
 
-/** A state's numbers alone (both plans, every district), without any shapes. */
+/**
+ * A state's numbers alone (both plans, every district), without any shapes. It also checks the state's stamp for
+ * release skew (see checkRelease), so loading stats can reload the app when a newer release went out.
+ */
 export function loadStats(abbr: string): Promise<Stats> {
   return fetchJson(dataUrl(`${abbr}/stats.json`), StatsSchema).then((stats) => {
     void checkRelease(stats.versions);

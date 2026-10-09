@@ -150,6 +150,25 @@ describe('release skew', () => {
     expect(handler).toHaveBeenCalledTimes(1);
   });
 
+  it('retries a confirmation whose read failed: a later stamp for the same release reads versions.json again', async () => {
+    let versionsReads = 0;
+    vi.stubGlobal('fetch', vi.fn(async (url: string) => {
+      if (!url.includes('versions.json')) return new Response('{}');
+      versionsReads++;
+      if (versionsReads === 1) return new Response('{}', { status: 500 });
+      return new Response(JSON.stringify({ ...published, maps: 8 }));
+    }));
+    const { checkRelease, setDataRelease, setSkewHandler } = await import('../../src/client/shared');
+    const handler = vi.fn();
+    setSkewHandler(handler);
+    setDataRelease(7);
+    expect(await checkRelease({ maps: 8 })).toBe(false);
+    expect(handler).not.toHaveBeenCalled();
+    expect(await checkRelease({ maps: 8 })).toBe(true);
+    expect(versionsReads).toBe(2);
+    expect(handler).toHaveBeenCalledWith(8);
+  });
+
   it('is found when a state stats file names a newer release than the session and versions.json agrees', async () => {
     const real = JSON.parse(readFileSync('public/data/CO/stats.json', 'utf8')) as Record<string, unknown>;
     const stats = { ...real, versions: { engine: '1.2.3', input: { vintage: 'census-2020', revision: 3, sha256: 'c'.repeat(64) }, maps: 8, schema: '1.0.0' } };

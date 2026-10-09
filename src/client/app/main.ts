@@ -6,6 +6,7 @@ import { h, initDataRelease, setSkewHandler } from '../shared';
 import { createSiteHeader } from '../widgets/site-header';
 import { createSiteFooter } from '../widgets/site-footer';
 import { startRouter } from './router';
+import { reloadOncePerRelease } from './skew-reload';
 
 const root = document.getElementById('str-viewer');
 if (root) {
@@ -23,15 +24,6 @@ if (root) {
     createSiteFooter(),
   );
   // A release went out while this page was open: reload once so no state mixes files from two releases.
-  setSkewHandler((release) => {
-    try {
-      const key = 'strv-skew-reload';
-      if (sessionStorage.getItem(key) === String(release)) return;
-      sessionStorage.setItem(key, String(release));
-    } catch {
-      return;
-    }
-    location.reload();
-  });
+  setSkewHandler(reloadOncePerRelease(() => sessionStorage, () => location.reload()));
   void initDataRelease().then(() => startRouter(outlet));
 }

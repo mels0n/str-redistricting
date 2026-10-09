@@ -16,7 +16,10 @@ export async function loadPublishedVersions(): Promise<Versions | null> {
 /** How long boot waits for versions.json before starting with plain URLs. */
 export const BOOT_TIMEOUT_MS = 3_000;
 
-/** One uncached read of versions.json that gives up after `timeoutMs`; null on any failure. */
+/**
+ * One uncached read of versions.json that gives up after `timeoutMs`; null on any failure. It bypasses fetchJson on
+ * purpose: the skew check needs a `no-store` read that never touches the fetch cache, and boot needs a hard timeout.
+ */
 async function readPublished(timeoutMs: number, noStore: boolean): Promise<Versions | null> {
   const controller = new AbortController();
   const timer = window.setTimeout(() => controller.abort(), timeoutMs);
@@ -65,8 +68,10 @@ export async function checkRelease(stamp: { maps: number } | undefined): Promise
   checking = true;
   try {
     const published = await readPublished(BOOT_TIMEOUT_MS, true);
+    // A failed read leaves the stamp unchecked, so a later stamp can retry the confirmation.
+    if (!published) return false;
     checkedUpTo = Math.max(checkedUpTo, stamp.maps);
-    if (!published || published.maps <= known) return false;
+    if (published.maps <= known) return false;
     clearFetchCache();
     onSkew?.(published.maps);
     return true;

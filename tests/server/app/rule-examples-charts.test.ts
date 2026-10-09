@@ -1,7 +1,7 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import {
-  chartCases, furthestCase, furthestOf, orderOfChecksCase, shortestTwo, stopCase, tieRule, tiesCase,
+  chartCases, furthestCase, furthestOf, gapWords, orderOfChecksCase, shortestTwo, stopCase, tieRule, tiesCase,
 } from '../../../src/server/app/rule-examples/cases/charts.js';
 import { cutTrace } from '../../../src/server/app/rule-examples/cases/trace.js';
 import { createExtractContext, RuleCaseSchema, type RuleCase } from '../../../src/server/features/rule-examples/index.js';
@@ -114,6 +114,15 @@ describe('cut.order-of-checks (MS cut 1)', () => {
     expect(shows.some((s) => s.includes('chart-unresolved'))).toBe(true);
     expect(shows.some((s) => s.includes('chart-sorted'))).toBe(true);
     expect(shows.at(-1)).toContain('chart-winner');
+  });
+});
+
+describe('gapWords', () => {
+  it('says a gap in meters, centimeters or millimeters, and floors the tiniest', () => {
+    expect(gapWords(12.345)).toBe('12.35 m');
+    expect(gapWords(0.0907)).toBe('9.1 cm');
+    expect(gapWords(0.0004)).toBe('0.40 mm');
+    expect(gapWords(1e-9)).toBe('less than a thousandth of a millimeter');
   });
 });
 

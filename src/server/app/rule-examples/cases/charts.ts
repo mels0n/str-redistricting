@@ -153,9 +153,8 @@ interface Close {
 interface CloseCalls {
   readonly states: number;
   readonly cuts: number;
-  /** Cuts whose two shortest borders are equal to the meter, and how many each rule settles. */
+  /** Cuts whose two shortest borders are equal to the meter. */
   readonly equal: number;
-  readonly byRule: [number, number, number];
   readonly closest: Close;
 }
 
@@ -167,7 +166,6 @@ export async function closeCalls(ctx: ExtractContext): Promise<CloseCalls> {
   const { outDir } = ctx.cfg;
   const abbrs = generatedStates(outDir);
   let cuts = 0, equal = 0;
-  const byRule: [number, number, number] = [0, 0, 0];
   let closest: Close | undefined;
   for (const abbr of abbrs) {
     const [metrics, cands] = await Promise.all([loadMetricsIfPresent(outDir, abbr), loadCandidates(outDir, abbr)]);
@@ -179,26 +177,24 @@ export async function closeCalls(ctx: ExtractContext): Promise<CloseCalls> {
       if (!pair) return;
       cuts++;
       const gapM = pair[1].lengthM - pair[0].lengthM;
-      if (gapM === 0) {
-        equal++;
-        byRule[tieRule(pair[0], pair[1], angleCount).rule - 1]!++;
-      }
+      if (gapM === 0) equal++;
       const here: Close = { abbr, blocks, order: i + 1, angleCount, gapM, pair };
       if (!closest || gapM < closest.gapM || (gapM === closest.gapM && blocks < closest.blocks)) closest = here;
     });
   }
   if (!closest) throw new DataError(`${outDir}: no cuts to search for ties`);
-  return { states: abbrs.length, cuts, equal, byRule, closest };
+  return { states: abbrs.length, cuts, equal, closest };
 }
 
 /** The distance of a line at `angle` degrees from north-south, 0 to 90. */
 const fromNorthSouth = (angle: number): number => Math.min(angle, 180 - angle);
 
-/** How far apart two lengths are, in words: meters from a meter up, centimeters from a centimeter, millimeters below that. */
-function gapWords(m: number): string {
+/** How far apart two lengths are, in words: meters from a meter up, centimeters from a centimeter, millimeters down to a micrometer. */
+export function gapWords(m: number): string {
   if (m >= 1) return `${people(round2(m))} m`;
   if (m >= 0.01) return `${(m * 100).toFixed(1)} cm`;
-  return `${(m * 1000).toPrecision(2)} mm`;
+  if (m >= 1e-6) return `${(m * 1000).toPrecision(2)} mm`;
+  return 'less than a thousandth of a millimeter';
 }
 
 /** cut.ties: the closest call in any state, re-run at full precision to say whether the two lengths are exactly equal. */
@@ -211,8 +207,11 @@ export async function tiesCase(ctx: ExtractContext): Promise<RuleCase> {
     if (!s) throw new DataError(`${abbr} cut ${order}: no candidate k=${c.k} in the re-run`);
     return s.lengthM;
   };
-  const [first, second] = found.closest.pair;
-  const [lenFirst, lenSecond] = [lengthOf(first), lengthOf(second)];
+  // candidates.json holds whole meters, so order the pair again by the full lengths of the re-run, as the generator does.
+  const [first, second] = found.closest.pair
+    .map((c) => ({ ...c, lengthM: lengthOf(c) }))
+    .sort(compareCandidates(angleCount)) as [Cand, Cand];
+  const [lenFirst, lenSecond] = [first.lengthM, second.lengthM];
   const tied = lenFirst === lenSecond;
   if ((first.k * 180) / angleCount !== t.cut.angleDeg) {
     throw new DataError(`${abbr} cut ${order}: the shortest resolved line is not the cut on disk (its sides were not connected?)`);
@@ -225,10 +224,10 @@ export async function tiesCase(ctx: ExtractContext): Promise<RuleCase> {
   const decided = tieRule(first, second, angleCount);
 
   const search = found.equal > 0
-    ? `Searching every cut in all ${found.states} states: in ${found.equal} of ${whole(found.cuts)} cuts the two shortest settled borders agree to the meter. The one on the fewest blocks is ${name}'s cut ${order}.`
+    ? `Searching every cut in all ${found.states} states: in ${found.equal} of ${whole(found.cuts)} cuts the two shortest settled borders agree to the meter. The one on the fewest blocks is ${name}'s cut ${order}, measured in full below.`
     : `Searching every cut in all ${found.states} states: none of ${whole(found.cuts)} cuts has two shortest settled borders that agree to the meter. The closest is ${name}'s cut ${order}.`;
   const rule = decided.rule === 1
-    ? `A tie goes to the line closest to north-south. ${a} leans ${deg(fromNorthSouth(angle(first)))} from north-south and ${b} leans ${deg(fromNorthSouth(angle(second)))}, so ${a} goes first. Of the ${found.equal} such cuts in the data, ${found.byRule[0]} are settled by this first rule.`
+    ? `A tie goes to the line closest to north-south. ${a} leans ${deg(fromNorthSouth(angle(first)))} from north-south and ${b} leans ${deg(fromNorthSouth(angle(second)))}, so ${a} goes first.`
     : decided.rule === 2
       ? `Both lines lean ${deg(fromNorthSouth(angle(first)))} from north-south, so the smaller angle goes first: ${a} before ${b}.`
       : `Both lines have the same angle, so the one whose first side has fewer seats goes first: ${first.lowSeats} before ${second.lowSeats}.`;

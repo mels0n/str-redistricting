@@ -421,7 +421,7 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
           exactItem('strays.no-rejoin', h('strong', null, 'A piece that cannot rejoin.'), ' If a pass moves nothing but a fixed piece is still cut off from its side, it cannot move back. That line’s sides are not each one connected piece, so it fails the check that each side is one connected piece, and the next shortest line is considered.'),
           exactItem('strays.outline', h('strong', null, 'Crossing the outline.'), ' A line may cross the piece’s outline any number of times.'),
           exactItem('strays.connected', h('strong', null, 'Connected.'), ' Two blocks are connected when they share an edge; touching at a single corner does not count. Census blocks cover lakes, bays and coastal water, and a water block is a block like any other. Land on two shores is therefore connected when blocks of the same district, water blocks included, join them.'),
-          exactItem('strays.islands', h('strong', null, 'Islands.'), ' Land that no block reaches, even across water, is linked to the nearest block of the land already joined, which can be another island, so a state with islands can still be cut. The map draws these links as dashed lines.'),
+          exactItem('strays.islands', h('strong', null, 'Islands.'), ' Land that no block reaches, even across water, is joined by the shortest links that connect every piece, measured between internal points like everything else. Each detached piece is taken nearest first and linked to the closest land already joined, which is often another island, so a state with islands can still be cut. The map draws these links as dashed lines.'),
         ),
       ),
     ),

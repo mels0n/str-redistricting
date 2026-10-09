@@ -398,6 +398,16 @@ class SphereGrid {
   }
 }
 
+/** Chord distance (unit sphere) between the bounding boxes of two grids; no stored pair is closer. */
+function boxGap(a: SphereGrid, b: SphereGrid): number {
+  let gap2 = 0;
+  for (let k = 0; k < 3; k++) {
+    const g = Math.max(a.boxLo[k]! - b.boxHi[k]!, b.boxLo[k]! - a.boxHi[k]!, 0);
+    gap2 += g * g;
+  }
+  return Math.sqrt(gap2);
+}
+
 /**
  * Exact nearest-pair search from component members to the grid, equal to a brute-force scan:
  * minimum great-circle distance, ties to the smaller pair[0] then pair[1].
@@ -468,7 +478,7 @@ function nearestToGrid(
   return best;
 }
 
-/** Connect every disconnected component to the nearest block of the growing main component. */
+/** Link the disconnected components with the shortest set of block pairs that joins them all, in the order joined. */
 function bridgeComponents(blocks: readonly Block[], adjOffsets: Int32Array, adjList: Int32Array): [number, number][] {
   const n = blocks.length;
   const comp = new Int32Array(n).fill(-1);
@@ -497,16 +507,40 @@ function bridgeComponents(blocks: readonly Block[], adjOffsets: Int32Array, adjL
   for (let i = 0; i < n; i++) {
     if (!vecs[i]!.every(Number.isFinite)) throw new DataError(`block ${i} has a non-finite internal point`);
   }
-  const grid = new SphereGrid();
-  for (const idx of members[mainId]!) grid.add(idx, vecs[idx]!);
-
-  const bridges: [number, number][] = [];
+  // Grow nearest first: each round links the detached group closest to anything already joined, at its closest
+  // pair. The result is the shortest set of links that joins every group, the same whatever the block numbering
+  // (ties by block index) and whichever group growth starts from; starting from the main body keeps it cheap.
+  const gridOf = (list: readonly number[]): SphereGrid => {
+    const g = new SphereGrid();
+    for (const idx of list) g.add(idx, vecs[idx]!);
+    return g;
+  };
+  const mainGrid = gridOf(members[mainId]!);
+  const pending: { c: number; box: SphereGrid; pair: [number, number]; d: number }[] = [];
   for (let c = 0; c < members.length; c++) {
     if (c === mainId) continue;
-    const best = nearestToGrid(blocks, vecs, grid, members[c]!);
-    if (best[0] === -1) throw new DataError(`component ${c} found no block in the main component`);
-    bridges.push(best);
-    for (const idx of members[c]!) grid.add(idx, vecs[idx]!);
+    const pair = nearestToGrid(blocks, vecs, mainGrid, members[c]!);
+    if (pair[0] === -1) throw new DataError(`component ${c} found no block in the main component`);
+    pending.push({ c, box: gridOf(members[c]!), pair, d: greatCircleDistance(blocks[pair[0]]!.point, blocks[pair[1]]!.point) });
+  }
+  const closer = (d: number, p: readonly [number, number], bestD: number, best: readonly [number, number]): boolean =>
+    d < bestD || (d === bestD && (p[0] < best[0] || (p[0] === best[0] && p[1] < best[1])));
+
+  const bridges: [number, number][] = [];
+  while (pending.length) {
+    let pick = 0;
+    for (let i = 1; i < pending.length; i++) {
+      if (closer(pending[i]!.d, pending[i]!.pair, pending[pick]!.d, pending[pick]!.pair)) pick = i;
+    }
+    const joined = pending.splice(pick, 1)[0]!;
+    bridges.push(joined.pair);
+    // The new group may now be the closest joined land for any group still waiting.
+    for (const rest of pending) {
+      if (rest.d < EARTH_RADIUS_M * boxGap(rest.box, joined.box) * BOUND_SLACK) continue;
+      const pair = nearestToGrid(blocks, vecs, joined.box, members[rest.c]!);
+      const d = greatCircleDistance(blocks[pair[0]]!.point, blocks[pair[1]]!.point);
+      if (closer(d, pair, rest.d, rest.pair)) { rest.pair = pair; rest.d = d; }
+    }
   }
   return bridges;
 }

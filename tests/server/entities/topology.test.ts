@@ -26,8 +26,8 @@ function scatter(count: number, origin: [number, number], span: [number, number]
     square(origin[0] + rnd() * span[0], origin[1] + rnd() * span[1], 0.002, 1000 + i));
 }
 
-/** Independent brute-force definition of the bridges (rook adjacency by shared rounded edges). */
-function bruteForceBridges(blocks: readonly Block[]): [number, number][] {
+/** Pieces joined by shared rounded edges alone (rook adjacency), found independently of the engine. */
+function piecesOf(blocks: readonly Block[]): { comp: number[]; members: number[][] } {
   const n = blocks.length;
   const r = (v: number) => v.toFixed(7);
   const owners = new Map<string, number[]>();
@@ -61,28 +61,78 @@ function bruteForceBridges(blocks: readonly Block[]): [number, number][] {
     }
     members.push(list);
   }
+  return { comp, members };
+}
+
+const pieceOf = (blocks: readonly Block[]): number[] => piecesOf(blocks).comp;
+
+/** Independent brute-force definition of the bridges: nearest-first growth from the largest piece. */
+function bruteForceBridges(blocks: readonly Block[]): [number, number][] {
+  const { members } = piecesOf(blocks);
+  if (members.length <= 1) return [];
   let mainId = 0;
   for (let c = 1; c < members.length; c++) if (members[c]!.length > members[mainId]!.length) mainId = c;
-  const main = [...members[mainId]!];
+  // Grow from the main body: each round, scan every joined x unjoined pair and take the nearest.
+  const joined = [...members[mainId]!];
+  const left = new Set(members.keys());
+  left.delete(mainId);
   const bridges: [number, number][] = [];
-  for (let c = 0; c < members.length; c++) {
-    if (c === mainId) continue;
+  while (left.size) {
     let best: [number, number] = [-1, -1];
     let bestD = Infinity;
-    for (const u of members[c]!) {
-      for (const v of main) {
-        const d = greatCircleDistance(blocks[u]!.point, blocks[v]!.point);
-        const pair: [number, number] = u < v ? [u, v] : [v, u];
-        if (d < bestD || (d === bestD && (pair[0] < best[0] || (pair[0] === best[0] && pair[1] < best[1])))) {
-          bestD = d;
-          best = pair;
+    let bestC = -1;
+    for (const c of left) {
+      for (const u of members[c]!) {
+        for (const v of joined) {
+          const d = greatCircleDistance(blocks[u]!.point, blocks[v]!.point);
+          const pair: [number, number] = u < v ? [u, v] : [v, u];
+          if (d < bestD || (d === bestD && (pair[0] < best[0] || (pair[0] === best[0] && pair[1] < best[1])))) {
+            bestD = d;
+            best = pair;
+            bestC = c;
+          }
         }
       }
     }
     bridges.push(best);
-    for (const u of members[c]!) main.push(u);
+    left.delete(bestC);
+    for (const u of members[bestC]!) joined.push(u);
   }
   return bridges;
+}
+
+/** Total great-circle length of a set of links, in metres. */
+const totalLength = (blocks: readonly Block[], links: readonly (readonly [number, number])[]): number =>
+  links.reduce((sum, [u, v]) => sum + greatCircleDistance(blocks[u]!.point, blocks[v]!.point), 0);
+
+/** Links as a sorted list of "lo,hi" strings, for comparing sets regardless of order. */
+const linkSet = (links: readonly (readonly [number, number])[]): string[] =>
+  links.map(([u, v]) => (u < v ? `${u},${v}` : `${v},${u}`)).sort();
+
+/**
+ * Independent definition by the other classic construction: list every pair of blocks in different pieces, shortest
+ * first, and keep a pair whenever it joins two pieces not yet joined. Equals the nearest-first growth when no two
+ * candidate pairs are exactly the same length.
+ */
+function shortestTreeBridges(blocks: readonly Block[]): [number, number][] {
+  const piece = pieceOf(blocks);
+  const pairs: [number, number, number][] = [];
+  for (let u = 0; u < blocks.length; u++) {
+    for (let v = u + 1; v < blocks.length; v++) {
+      if (piece[u] !== piece[v]) pairs.push([greatCircleDistance(blocks[u]!.point, blocks[v]!.point), u, v]);
+    }
+  }
+  pairs.sort((p, q) => p[0] - q[0] || p[1] - q[1] || p[2] - q[2]);
+  const parent = new Map<number, number>();
+  const find = (x: number): number => { while (parent.has(x)) x = parent.get(x)!; return x; };
+  const out: [number, number][] = [];
+  for (const [, u, v] of pairs) {
+    const a = find(piece[u]!), b = find(piece[v]!);
+    if (a === b) continue;
+    parent.set(a, b);
+    out.push([u, v]);
+  }
+  return out;
 }
 
 describe('buildTopology', () => {
@@ -111,7 +161,7 @@ describe('island bridging (water counts as connection)', () => {
     expect(isConnected(topo, Int32Array.from([0, 1, 2, 3]))).toBe(true);
   });
 
-  it('bridges several islands in component order, each to the growing main', () => {
+  it('bridges several islands nearest first, each to the nearest joined block', () => {
     const blocks = [
       ...main,
       ...gridBlocks(1, 1, { origin: [0.05, 0], indexOffset: 100 }), // 3, nearest to block 2
@@ -123,9 +173,43 @@ describe('island bridging (water counts as connection)', () => {
     expect(topo3.bridges).toEqual(bruteForceBridges(blocks));
     expect(isConnected(topo3, Int32Array.from(blocks.map((_, i) => i)))).toBe(true);
   });
+
+  it('links an island to a nearer island even when that island comes later in block order', () => {
+    const blocks = [
+      ...main, // 0..2, centers at x = 0.005, 0.015, 0.025
+      ...gridBlocks(1, 1, { origin: [0.15, 0], indexOffset: 100 }), // 3, far: 0.13 to main, 0.05 to block 4
+      ...gridBlocks(1, 1, { origin: [0.1, 0], indexOffset: 200 }), // 4, near: 0.08 to main
+    ];
+    const topo3 = buildTopology(blocks);
+    expect(topo3.bridges).toEqual([[2, 4], [3, 4]]);
+    expect(topo3.bridges).toEqual(bruteForceBridges(blocks));
+  });
 });
 
-describe('bridging equals brute force', () => {
+describe('island links are the shortest set that joins every piece', () => {
+  const pieces = (): Block[] => [...gridBlocks(5, 5), ...scatter(60, [-0.3, -0.3], [0.7, 0.7], 12345)];
+
+  it('equals the shortest tree over the pieces, built shortest link first (no order, no main body)', () => {
+    for (const blocks of [pieces(), [...gridBlocks(3, 3), ...scatter(25, [-0.2, -0.2], [0.5, 0.5], 4242)]]) {
+      const topo = buildTopology(blocks);
+      expect(linkSet(topo.bridges)).toEqual(linkSet(shortestTreeBridges(blocks)));
+    }
+  });
+
+  it('does not depend on how blocks are numbered', () => {
+    const blocks = pieces();
+    const base = buildTopology(blocks);
+    // Reverse every other position: position p of the shuffled list holds original block order[p].
+    const n = blocks.length;
+    const order = Array.from({ length: n }, (_, i) => (i % 2 === 0 ? n - 1 - i : i));
+    const topo = buildTopology(order.map((orig) => blocks[orig]!));
+    const back = topo.bridges.map(([u, v]) => [order[u]!, order[v]!] as [number, number]);
+    expect(linkSet(back)).toEqual(linkSet(base.bridges));
+  });
+});
+
+describe('bridging equals brute force'
+, () => {
   it('matches on a checkerboard of 50 isolated blocks (many distance ties)', () => {
     const blocks = gridBlocks(10, 10, { skip: (x, y) => (x + y) % 2 === 1 });
     expect(blocks).toHaveLength(50);

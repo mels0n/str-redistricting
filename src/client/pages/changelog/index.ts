@@ -1,0 +1,1 @@
+export { createChangelogPage } from './ui';

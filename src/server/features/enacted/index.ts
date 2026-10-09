@@ -1,5 +1,5 @@
 export { checkCoverage } from './archive.js';
-export { applyBump, formatEnacted, formatManifest, planBump } from './bump.js';
+export { applyBump, formatEnacted, formatManifest, planBump, planVersionBump } from './bump.js';
 export type { BumpPlan } from './bump.js';
 export { candidateFiles, describeFile, detectUpdate, isServed } from './detect.js';
 export type { Candidate, Detection, ProbeOptions } from './detect.js';

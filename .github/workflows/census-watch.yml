@@ -1,0 +1,135 @@
+name: Census files watch
+
+# Once a month, asks the Census Bureau's file server whether any pinned file was reissued (config/census-sources.json
+# holds what it said last time) and opens one issue listing what changed, and another listing files it could not check.
+# It never republishes or commits: a person decides whether a reissue is worth a new input revision.
+#
+# Two jobs, so that no code from a dependency ever runs holding a token that can write:
+#   check   runs npm with a read-only token and hands over one small JSON report.
+#   report  holds issues: write and runs no npm or repository script. The report is untrusted data: it is downloaded
+#           outside the workspace and validated with jq before anything from it reaches the issue.
+
+on:
+  schedule:
+    - cron: '0 14 17 * *'
+  workflow_dispatch:
+
+concurrency:
+  group: census-watch
+  cancel-in-progress: false
+
+permissions: {}
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    permissions:
+      contents: read
+    outputs:
+      changed: ${{ steps.run.outputs.changed }}
+      unknown: ${{ steps.run.outputs.unknown }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Compare the Census files with the recorded ones
+        id: run
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/census-report"
+          npm run -s census:watch -- --check --report "$RUNNER_TEMP/census-report/report.json"
+          echo "changed=$(jq '.changed | length' "$RUNNER_TEMP/census-report/report.json")" >> "$GITHUB_OUTPUT"
+          echo "unknown=$(jq '.unknown | length' "$RUNNER_TEMP/census-report/report.json")" >> "$GITHUB_OUTPUT"
+
+      - name: Hand over the report
+        if: steps.run.outputs.changed != '0' || steps.run.outputs.unknown != '0'
+        uses: actions/upload-artifact@v4
+        with:
+          name: census-report
+          if-no-files-found: error
+          retention-days: 1
+          path: ${{ runner.temp }}/census-report/report.json
+
+  report:
+    needs: check
+    if: needs.check.outputs.changed != '0' || needs.check.outputs.unknown != '0'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      issues: write
+
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: census-report
+          path: ${{ runner.temp }}/census-artifact
+
+      # The jq programs live in env, not in the run block, so the run block holds only plain commands.
+      - name: Open an issue unless one is already open
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          REPORT: ${{ runner.temp }}/census-artifact/report.json
+          # Names and abbreviations only; anything else in the report is refused.
+          VALIDATE: |
+            (keys | sort) == ["changed", "display", "states", "unknown"]
+            and (.changed | type == "array" and all(.[]; type == "string" and test("^[A-Za-z0-9_.-]+[.]zip$")))
+            and (.unknown | type == "array" and all(.[]; type == "string" and test("^[A-Za-z0-9_.-]+[.]zip$")))
+            and (.states | type == "array" and all(.[]; type == "string" and test("^[A-Z]{2}$")))
+            and (.display | type == "boolean")
+          BODY: |
+            "The Census Bureau file server reports that pinned files differ from the ones recorded in `config/census-sources.json` and `config/census-sha256.json`.",
+            "",
+            "Changed files:",
+            (.changed[] | "- `" + . + "`"),
+            "",
+            (if (.states | length) > 0 then "States whose maps read these files: " + (.states | join(", ")) + "." else "No state block files changed." end),
+            (if .display then "Display files (state outlines, counties, enacted districts) also changed." else "No display files changed." end),
+            (if (.unknown | length) > 0 then "\nCould not be checked (try again or check by hand):\n" + ([.unknown[] | "- `" + . + "`"] | join("\n")) else "" end),
+            "",
+            "Nothing was republished. If the new bytes should be adopted, update `config/census-sha256.json`, bump the input revision with `npm run release` and regenerate the affected states."
+          UNKNOWN_BODY: |
+            "The Census Bureau file server could not be asked about these pinned files, so nobody knows whether they changed:",
+            "",
+            (.unknown[] | "- `" + . + "`"),
+            "",
+            "Run the Census files watch again, or check them by hand against `config/census-sha256.json`."
+        run: |
+          set -euo pipefail
+          test -f "$REPORT"
+          test ! -L "$REPORT"
+          jq -e "$VALIDATE" "$REPORT" > /dev/null
+          count=$(jq '.changed | length' "$REPORT")
+          ucount=$(jq '.unknown | length' "$REPORT")
+          if [ "$count" = "0" ]; then
+            echo "Nothing changed."
+          else
+            open=$(gh issue list --state open --limit 100 --json title --jq '[.[] | select(.title | startswith("Census files changed:"))] | length')
+            if [ "$open" != "0" ]; then
+              echo "An open issue about changed Census files already exists. Nothing to do."
+            else
+              jq -r "$BODY" "$REPORT" > "$RUNNER_TEMP/body.md"
+              gh issue create --title "Census files changed: $count" --body-file "$RUNNER_TEMP/body.md"
+            fi
+          fi
+          if [ "$ucount" = "0" ]; then
+            echo "Every file could be checked."
+          else
+            open=$(gh issue list --state open --limit 100 --json title --jq '[.[] | select(.title | startswith("Census files could not be checked:"))] | length')
+            if [ "$open" != "0" ]; then
+              echo "An open issue about unchecked Census files already exists. Nothing to do."
+            else
+              jq -r "$UNKNOWN_BODY" "$REPORT" > "$RUNNER_TEMP/unknown.md"
+              gh issue create --title "Census files could not be checked: $ucount" --body-file "$RUNNER_TEMP/unknown.md"
+            fi
+          fi

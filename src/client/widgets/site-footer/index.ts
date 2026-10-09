@@ -1,0 +1,1 @@
+export { createSiteFooter } from './ui';

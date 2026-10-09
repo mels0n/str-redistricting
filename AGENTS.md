@@ -16,6 +16,10 @@ restate the code itself.
 - Publish web-ready data to `public/data/`: `npm run publish-data`
 - Look for a newer enacted districts file: `npm run enacted:check`; adopt one: `npm run enacted:bump -- --file cb_2027_us_cd120_500k` (rebuilds only the overlay files: `npm run publish-data -- --enacted-only`)
 - Extract the How it works examples: `npm run rule-examples`
+- Propose and commit the next component versions: `npm run release` (`-- --dry-run` to preview). Check a branch against its base: `npm run version:check -- --base origin/main`. Tags a commit introduces: `npm run release:tags -- --before <sha> --after <sha>` (prints nothing before the 1.0 cut)
+- Redraw the fixture states and compare with `tests/fingerprints/engine.json`: `npm run fingerprints -- --check --base origin/main` (`--record` writes new ones)
+- Ask the Census Bureau whether a pinned file was reissued: `npm run census:watch -- --check --report report.json` (`--record` stores what it serves now)
+- Publish over data made before versioning existed: `npm run publish-data -- --baseline`
 - Lint: none
 
 ## Layout
@@ -48,6 +52,10 @@ layer above it, and slices inside a layer are reached only through their
 - Validate every inbound payload with a schema before using it.
 - Configuration is read once, at boot, from a single module.
 - Domain errors are typed and mapped to transport codes in exactly one place.
+
+## Versions
+
+Six components are versioned in `config/versions.json` (engine, input, maps, schema, web, docs), each with a changelog in `changelog/`. A change to a component's files comes with a version bump and a changelog entry; `npm run release` proposes both from the commit subjects, so write them as `feat:`, `fix:`, `docs:` and mark breaking changes with `!`. The README has the full table. Reverting a release commit makes the tag job fail, because the earlier version's tag already exists at another commit; to undo a release, make a new release with higher numbers instead.
 
 ## Documentation
 

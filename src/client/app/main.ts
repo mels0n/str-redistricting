@@ -4,6 +4,7 @@ import '@fontsource/ibm-plex-mono/latin-400.css';
 import './styles.css';
 import { h } from '../shared';
 import { createSiteHeader } from '../widgets/site-header';
+import { createSiteFooter } from '../widgets/site-footer';
 import { startRouter } from './router';
 
 const root = document.getElementById('str-viewer');
@@ -19,6 +20,7 @@ if (root) {
     } }, 'Skip to content'),
     createSiteHeader(),
     outlet,
+    createSiteFooter(),
   );
   startRouter(outlet);
 }

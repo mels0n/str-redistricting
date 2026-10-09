@@ -2,6 +2,7 @@ import { clear, formatHash, parseHash, resetPageZoom, type Page, type Route } fr
 import { createNationalPage } from '../pages/national';
 import { createStatePage } from '../pages/state';
 import { createHowPage } from '../pages/how';
+import { createChangelogPage } from '../pages/changelog';
 
 /**
  * Hash router. A route for the page already showing is handed to that page
@@ -70,7 +71,7 @@ export function startRouter(outlet: HTMLElement): void {
     clear(outlet);
     // A pinch-zoom from the last page would otherwise carry over (no reload between pages).
     if (!initial) resetPageZoom();
-    page = route.page === 'national' ? createNationalPage(navigate) : route.page === 'how' ? createHowPage(route) : createStatePage(route, navigate);
+    page = route.page === 'national' ? createNationalPage(navigate) : route.page === 'how' ? createHowPage(route) : route.page === 'changelog' ? createChangelogPage() : createStatePage(route, navigate);
     outlet.append(page.el);
     // On the first load the browser owns focus; after that, move it to the new page's heading.
     if (!initial) {

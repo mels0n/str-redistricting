@@ -34,7 +34,7 @@ describe('workflows never approve or merge a pull request', () => {
 // The workflow files are simple and the repository has no YAML dependency, so this reads them line by line: keys at
 // fixed indentation, `permissions:` as an inline value or an indented block, steps as `- ` items, `run:` as a block.
 
-const WRITES = /\b(contents|pull-requests)\s*:\s*write\b|\bwrite-all\b/;
+const WRITES = /\b(contents|pull-requests|issues)\s*:\s*write\b|\bwrite-all\b/;
 const PACKAGE_RUNNERS = /\b(npm|npx|node|tsx|yarn|pnpm)\b/;
 const WRITE_JOB_ACTIONS = new Set(['actions/checkout', 'actions/download-artifact', 'actions/upload-artifact']);
 
@@ -280,5 +280,27 @@ describe('workflow write tokens never reach dependency code', () => {
       'files+=("$FILE")',
     ];
     expect(runCommands(run.join('\n'))).toEqual(['set', 'if', 'echo', 'cat']);
+  });
+});
+
+describe('the Census watch workflow', () => {
+  it('has a write job (issues: write is covered by the check) that runs no package runner', () => {
+    const text = readFileSync(new URL('census-watch.yml', dir), 'utf8');
+    const jobs = parseJobs(text.replace(/\r\n/g, '\n').split('\n'));
+    const writers = jobs.filter((j) => WRITES.test(j.permissions ?? ''));
+    expect(writers.map((j) => j.name)).toEqual(['report']);
+    expect(permissionProblems(text)).toEqual([]);
+    expect(jobs.find((j) => j.name === 'check')!.steps.some((s) => /npm run/.test(s.run))).toBe(true);
+  });
+
+  it('also opens an issue for files that could not be checked, from the same validated report', () => {
+    const text = readFileSync(new URL('census-watch.yml', dir), 'utf8').replace(/\r\n/g, '\n');
+    expect(text).toContain("unknown: ${{ steps.run.outputs.unknown }}");
+    expect(text).toContain("echo \"unknown=$(jq '.unknown | length'");
+    expect(text).toContain("needs.check.outputs.changed != '0' || needs.check.outputs.unknown != '0'");
+    expect(text).toContain('Census files could not be checked: $ucount');
+    expect(text).toContain('startswith("Census files could not be checked:")');
+    const report = parseJobs(text.split('\n')).find((j) => j.name === 'report')!;
+    expect(report.steps.some((s) => /\b(npm|npx|node|tsx)\b/.test(s.run))).toBe(false);
   });
 });

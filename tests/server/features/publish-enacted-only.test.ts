@@ -5,6 +5,7 @@ import { join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import type { EnactedFile } from '../../../src/server/features/publish/boundary.js';
 import { downloadForPinning } from '../../../src/server/shared/http/index.js';
+import { stampOf, VERSIONS } from '../../../src/server/shared/config/index.js';
 import { DataError } from '../../../src/server/shared/errors/index.js';
 
 vi.mock('../../../src/server/features/publish/boundary.js', async (orig) => ({
@@ -99,6 +100,44 @@ describe('publish-data --enacted-only', () => {
     const before = snapshot();
     await expect(run()).rejects.toThrow(/DE: no enacted districts/);
     expect(snapshot()).toEqual(before);
+  });
+});
+
+describe('publish-data --enacted-only on stamped data', () => {
+  const OLD_STAMP = { engine: '0.9.0', input: { vintage: 'census-2020', revision: 0, sha256: 'c'.repeat(64) }, maps: 0, schema: '0.8.0' };
+  const SHA = 'd'.repeat(64);
+
+  it('moves only versions.maps and versions.input to the current release (engine and schema stay), in stats and index, without the gate', async () => {
+    for (const st of ['RI', 'DE']) {
+      put(st, 'stats.json', JSON.stringify({ enactedSource: 'old_file', versions: OLD_STAMP, finished: { metrics: { assignmentSha256: SHA } }, beforeBalancing: { x: [1, 2] } }));
+    }
+    writeFileSync(join(dir, 'index.json'), JSON.stringify({ states: [{ abbr: 'RI', summary: { assignmentSha256: SHA, versions: OLD_STAMP } }, { abbr: 'DE', summary: { assignmentSha256: SHA, versions: OLD_STAMP } }, { abbr: 'AK', hasData: false }] }));
+    await run();
+    const stamp = { ...stampOf(VERSIONS), engine: OLD_STAMP.engine, schema: OLD_STAMP.schema };
+    for (const st of ['RI', 'DE']) {
+      expect(get(st, 'stats.json')).toBe(JSON.stringify({ enactedSource: 'cb_2026_us_cd119_500k', versions: stamp, finished: { metrics: { assignmentSha256: SHA } }, beforeBalancing: { x: [1, 2] } }));
+    }
+    const index = JSON.parse(readFileSync(join(dir, 'index.json'), 'utf8')) as { states: { abbr: string; summary?: { versions: unknown; assignmentSha256: string } }[] };
+    expect(index.states.filter((e) => e.summary).map((e) => e.summary!.versions)).toEqual([stamp, stamp]);
+    expect(index.states.every((e) => e.summary === undefined || e.summary.assignmentSha256 === SHA)).toBe(true);
+    expect(index.states[2]).toEqual({ abbr: 'AK', hasData: false });
+    expect(readFileSync(join(dir, 'versions.json'), 'utf8')).toBe(`${JSON.stringify(VERSIONS, null, 2)}
+`);
+  });
+
+  it('keeps engine, schema, web and docs in an existing public versions.json, and moves only maps and input', async () => {
+    for (const st of ['RI', 'DE']) {
+      put(st, 'stats.json', JSON.stringify({ enactedSource: 'old_file', versions: OLD_STAMP, finished: { metrics: { assignmentSha256: SHA } } }));
+    }
+    const published = { ...VERSIONS, engine: '0.9.0', schema: '0.8.0', web: '0.7.0', docs: '0.6.0', input: { ...VERSIONS.input, sha256: 'c'.repeat(64) } };
+    writeFileSync(join(dir, 'versions.json'), `${JSON.stringify(published, null, 2)}\n`);
+    await run();
+    expect(JSON.parse(readFileSync(join(dir, 'versions.json'), 'utf8'))).toEqual({ ...published, maps: VERSIONS.maps, input: VERSIONS.input });
+  });
+
+  it('does not stamp states that were published without a stamp', async () => {
+    await run();
+    expect(JSON.parse(get('RI', 'stats.json'))).not.toHaveProperty('versions');
   });
 });
 

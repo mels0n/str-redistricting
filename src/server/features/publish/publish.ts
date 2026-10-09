@@ -6,7 +6,7 @@ import { gzipSync } from 'node:zlib';
 import { join } from 'node:path';
 import { loadBlockPolygons, loadStateBlocks, type Block } from '../../entities/census-block/index.js';
 import { STATES, type StateInfo } from '../../shared/apportionment/index.js';
-import type { PublishConfig } from '../../shared/config/index.js';
+import { formatVersions, stampOf, VERSIONS, VersionsSchema, type PublishConfig, type VersionStamp, type Versions } from '../../shared/config/index.js';
 import { DataError } from '../../shared/errors/index.js';
 import { crossesAntimeridian, unwrapCoordinates, unwrapFeatures, unwrapLon } from './antimeridian.js';
 import { districtArcs } from './arcs.js';
@@ -17,8 +17,11 @@ import { countiesByDistrict } from './counties.js';
 import { buildStateBorderBlocks } from './border-blocks.js';
 import { buildEnactedTopology } from './enacted.js';
 import { buildCuts } from './cuts.js';
+import { checkPublishGate, staleStamps } from './gate.js';
+import { loadOgFonts, OG_PALETTE, ogSvg, renderOgPng } from './og.js';
+import { ogCredit } from './og-credit.js';
 import { buildStats, planStats } from './stats.js';
-import { buildIndex, PlanMetricsSchema, PublishedMetricsSchema, summarize, type PlanMetrics, type StateSummary } from './summary.js';
+import { buildIndex, PlanMetricsSchema, PublishedMetricsSchema, PublishedStampSchema, summarize, type PlanMetrics, type StateSummary } from './summary.js';
 import { buildDetailTiles, districtsAtDeepTile } from './tiles.js';
 import { districtBudget, toTopology } from './topo.js';
 import { buildPublishedBridges, districtsByGeoid } from './bridges.js';
@@ -45,7 +48,7 @@ async function readMetrics(dir: string): Promise<PlanMetrics> {
 /** States whose generated plan is present in the output directory. */
 export const statesWithData = (outDir: string): StateInfo[] => STATES.filter((s) => existsSync(join(outDir, s.abbr, 'metrics.json')));
 
-const PublishedStatsSchema = z.object({ finished: z.object({ metrics: PublishedMetricsSchema }) });
+const PublishedStatsSchema = z.object({ versions: PublishedStampSchema.optional(), finished: z.object({ metrics: PublishedMetricsSchema }) });
 
 /**
  * Summaries of the states whose files are actually in the public directory. A state counts as published
@@ -58,7 +61,7 @@ export async function publishedSummaries(publicDir: string, states: readonly Sta
     if (!existsSync(path)) continue;
     const parsed = PublishedStatsSchema.safeParse(await readJson(path));
     if (!parsed.success) throw new DataError(`${path}: ${parsed.error.issues.map((i) => `${i.path.join('.')} ${i.message}`).join('; ')}`);
-    summaries.set(s.abbr, summarize(parsed.data.finished.metrics));
+    summaries.set(s.abbr, summarize(parsed.data.finished.metrics, parsed.data.versions));
   }
   return summaries;
 }
@@ -77,6 +80,7 @@ async function publishState(state: StateInfo, cfg: PublishConfig, shared: Shared
   const budget = districtBudget(state.seats);
 
   const [official, before] = [await readMetrics(src), await readMetrics(srcBefore)];
+  const versions = stampOf(VERSIONS);
   const [officialCsv, beforeCsv] = [await readFile(join(src, 'assignment.csv'), 'utf8'), await readFile(join(srcBefore, 'assignment.csv'), 'utf8')];
   // Display only: separate land pieces with people on them per district, from the same district files the water mask uses.
   const allBlocks = await loadStateBlocks(state, cfg.cacheDir);
@@ -100,6 +104,7 @@ async function publishState(state: StateInfo, cfg: PublishConfig, shared: Shared
     planStats(official, countiesByDistrict(officialCsv, state.seats, shared.countyNames), finishedParts),
     planStats(before, countiesByDistrict(beforeCsv, state.seats, shared.countyNames), beforeParts),
     shared.enacted.source,
+    versions,
   );
 
   // The display copies of a state that crosses the antimeridian are drawn in one continuous frame; the generator's files are not touched.
@@ -107,7 +112,10 @@ async function publishState(state: StateInfo, cfg: PublishConfig, shared: Shared
   const display = <T extends { readonly geometry: unknown }>(fs: readonly T[]): T[] => (wrapped ? unwrapFeatures(fs) : [...fs]);
   const districts = (await readJson(join(src, 'districts.geojson'))) as Parameters<typeof toTopology>[0];
   const outputs: [string, string | Uint8Array][] = [];
-  outputs.push(['districts.topo.json', await toTopology({ features: display(districts.features) }, 'districts', budget)]);
+  const districtsTopo = await toTopology({ features: display(districts.features) }, 'districts', budget);
+  outputs.push(['districts.topo.json', districtsTopo]);
+  const credit = ogCredit({ abbr: state.abbr, name: state.name, versions, assignmentSha256: official.assignmentSha256 });
+  outputs.push(['og.png', renderOgPng(ogSvg({ name: state.name, abbr: state.abbr, seats: state.seats, topo: districtsTopo, credit, palette: OG_PALETTE }), await loadOgFonts())]);
   const beforeDistricts = (await readJson(join(srcBefore, 'districts.geojson'))) as Parameters<typeof toTopology>[0];
   outputs.push(['before.topo.json', await toTopology({ features: display(beforeDistricts.features) }, 'districts', budget)]);
 
@@ -161,6 +169,14 @@ async function publishState(state: StateInfo, cfg: PublishConfig, shared: Shared
   await write(join(dest, 'stats.json'), JSON.stringify(stats));
 }
 
+/** The stamp and fingerprint of a state already in the public directory, or null when nothing is published. */
+async function readPublishedState(statsPath: string): Promise<{ versions?: VersionStamp; sha: string } | null> {
+  if (!existsSync(statsPath)) return null;
+  const parsed = PublishedStatsSchema.safeParse(await readJson(statsPath));
+  if (!parsed.success) throw new DataError(`${statsPath}: ${parsed.error.issues.map((i) => `${i.path.join('.')} ${i.message}`).join('; ')}`);
+  return { ...(parsed.data.versions ? { versions: parsed.data.versions } : {}), sha: parsed.data.finished.metrics.assignmentSha256 };
+}
+
 /** Every 1-in-N block (about TILE_CHECK_SAMPLE) plus every moved block must land in the district the CSVs give, under both plans. */
 async function verifyTiles(state: StateInfo, all: readonly Block[], tiles: Uint8Array, file: BlocksFile, moved: ReadonlySet<string>, wrapped: boolean): Promise<void> {
   const stride = Math.max(1, Math.floor(all.length / TILE_CHECK_SAMPLE));
@@ -182,7 +198,7 @@ async function verifyTiles(state: StateInfo, all: readonly Block[], tiles: Uint8
   }
 }
 
-const EnactedStatsSchema = z.looseObject({ enactedSource: z.string() });
+const EnactedStatsSchema = z.looseObject({ enactedSource: z.string(), versions: PublishedStampSchema.optional() });
 
 /**
  * Rebuild only what depends on the enacted-districts file, from the files already published: each state's
@@ -196,6 +212,7 @@ export async function publishEnactedOnly(cfg: PublishConfig): Promise<void> {
   for (const s of selected) {
     if (!published.some((p) => p.abbr === s.abbr)) throw new DataError(`${s.abbr}: nothing published in ${cfg.publicDir}, so there is no data to update`);
   }
+  const stamp = stampOf(VERSIONS);
   const enacted = await loadEnacted(cfg.cacheDir);
   console.log(`enacted source: ${enacted.source}`);
   // Everything is built and checked first, so a state that fails leaves the public directory untouched.
@@ -209,10 +226,42 @@ export async function publishEnactedOnly(cfg: PublishConfig): Promise<void> {
   }
   for (const b of built) {
     const changed = [await writeIfChanged(join(b.dir, 'enacted.topo.json'), b.topo)];
-    // Parsing keeps key order, and the file is written with JSON.stringify, so only the one value can change.
-    changed.push(await writeIfChanged(b.statsPath, JSON.stringify({ ...b.stats, enactedSource: enacted.source })));
+    // Parsing keeps key order, and the file is written with JSON.stringify, so only these values can change. The
+    // assignments are untouched, so no gate: a stamped state takes the current maps release and input revision.
+    const stamped = b.stats.versions !== undefined;
+    changed.push(await writeIfChanged(b.statsPath, JSON.stringify({ ...b.stats, enactedSource: enacted.source, ...(stamped ? { versions: restamped(b.stats.versions!, stamp) } : {}) })));
     console.log(`  ${b.state.abbr}: ${changed.some(Boolean) ? 'updated' : 'unchanged'}`);
   }
+  const stampedStates = built.filter((b) => b.stats.versions !== undefined);
+  if (stampedStates.length > 0) {
+    await restampIndex(join(cfg.publicDir, 'index.json'), new Map(stampedStates.map((b) => [b.state.abbr, restamped(b.stats.versions!, stamp)])));
+    await writeIfChanged(join(cfg.publicDir, 'versions.json'), formatVersions(await restampedVersions(join(cfg.publicDir, 'versions.json'))));
+  }
+}
+
+/**
+ * The versions file for the published data after a restamp: the engine, schema, web and docs stay as already published
+ * (no map was regenerated), and only the maps release and the input follow the current versions. With no readable file
+ * there is nothing to keep, so it is the current versions.
+ */
+async function restampedVersions(path: string): Promise<Versions> {
+  if (!existsSync(path)) return VERSIONS;
+  const published = VersionsSchema.safeParse(await readJson(path));
+  if (!published.success) return VERSIONS;
+  return { ...published.data, maps: VERSIONS.maps, input: { ...VERSIONS.input } };
+}
+
+/** A published stamp moved to the current Maps release and input revision. The engine and schema stay: no map was regenerated. */
+const restamped = (old: VersionStamp, current: VersionStamp): VersionStamp => ({ ...old, maps: current.maps, input: current.input });
+
+/** Replace `summary.versions` in the index for the given states; everything else in the file is kept as parsed. */
+async function restampIndex(path: string, states: ReadonlyMap<string, VersionStamp>): Promise<void> {
+  if (!existsSync(path)) return;
+  const IndexShape = z.looseObject({ states: z.array(z.looseObject({ abbr: z.string(), summary: z.looseObject({}).optional() })) });
+  const parsed = IndexShape.safeParse(await readJson(path));
+  if (!parsed.success) throw new DataError(`${path}: ${parsed.error.issues.map((i) => `${i.path.join('.')} ${i.message}`).join('; ')}`);
+  const next = { ...parsed.data, states: parsed.data.states.map((e) => (e.summary !== undefined && states.has(e.abbr) ? { ...e, summary: { ...e.summary, versions: states.get(e.abbr) } } : e)) };
+  await writeIfChanged(path, JSON.stringify(next));
 }
 
 async function writeIfChanged(path: string, body: string): Promise<boolean> {
@@ -276,6 +325,12 @@ export async function publishData(cfg: PublishConfig): Promise<void> {
   if (cfg.blocksOnly) return publishBlocksOnly(cfg);
   const withData = statesWithData(cfg.outDir);
   const selected = cfg.states === undefined ? withData : withData.filter((s) => cfg.states!.some((x) => x.abbr === s.abbr));
+  // Before any write: a map may only change when the engine major or the input revision moves, and one refused state refuses the run.
+  const versions = stampOf(VERSIONS);
+  for (const s of selected) {
+    const next = { versions, sha: (await readMetrics(join(cfg.outDir, s.abbr))).assignmentSha256 };
+    checkPublishGate(await readPublishedState(join(cfg.publicDir, s.abbr, 'stats.json')), next, cfg.baseline, s.abbr);
+  }
   await mkdir(cfg.publicDir, { recursive: true });
 
   const outlines = (await loadStates(cfg.cacheDir)).filter((o) => STATES.some((s) => s.abbr === o.abbr));
@@ -292,4 +347,14 @@ export async function publishData(cfg: PublishConfig): Promise<void> {
 
   // The index describes what is in the public directory, after this run's states are written.
   await write(join(cfg.publicDir, 'index.json'), JSON.stringify(buildIndex(STATES, await publishedSummaries(cfg.publicDir))));
+  // The versions file speaks for the whole published dataset, so it moves to the current versions only when every
+  // published state now carries the current stamp; after a partial run that left older stamps it stays as it was.
+  const published: { abbr: string; versions?: VersionStamp }[] = [];
+  for (const s of STATES) {
+    const state = await readPublishedState(join(cfg.publicDir, s.abbr, 'stats.json'));
+    if (state !== null) published.push({ abbr: s.abbr, ...(state.versions ? { versions: state.versions } : {}) });
+  }
+  const stale = staleStamps(published, versions);
+  if (stale.length === 0) await write(join(cfg.publicDir, 'versions.json'), formatVersions(VERSIONS));
+  else console.log(`versions.json kept: ${stale.join(', ')} still carry an older stamp`);
 }

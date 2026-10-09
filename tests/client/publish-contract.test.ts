@@ -9,6 +9,7 @@
  */
 /// <reference path="../../src/server/features/publish/mapshaper.d.ts" />
 /// <reference path="../../src/server/features/publish/vt-pbf.d.ts" />
+/// <reference path="../../src/server/features/publish/wawoff2.d.ts" />
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
@@ -26,6 +27,7 @@ import {
   createExtractContext, dataCases, writeRuleExamples, type RuleCase,
 } from '../../src/server/features/rule-examples/index.js';
 import { buildPublishedBridges } from '../../src/server/features/publish/index.js';
+import { stampOf, VERSIONS } from '../../src/server/shared/config/index.js';
 import { STATES } from '../../src/server/shared/apportionment/index.js';
 import { parseRuleExamplesConfig } from '../../src/server/shared/config/index.js';
 import { BalanceSchema } from '../../src/client/entities/plan/balance';
@@ -57,7 +59,7 @@ const metricsFor = (seats: number, sha: string) => PlanMetricsSchema.parse({
 
 const SEATS = 2;
 const counties = [[{ fips: '44001', name: 'Bristol County' }], [{ fips: '44003', name: 'Kent County' }]] as const;
-const stats = buildStats(planStats(metricsFor(SEATS, SHA_A), counties, [1, 2]), planStats(metricsFor(SEATS, SHA_B), counties, [2, 1]), 'enacted-source');
+const stats = buildStats(planStats(metricsFor(SEATS, SHA_A), counties, [1, 2]), planStats(metricsFor(SEATS, SHA_B), counties, [2, 1]), 'enacted-source', stampOf(VERSIONS));
 
 /** Two unit-ish squares sharing an edge, at a longitude offset (so the same shapes serve the antimeridian case). */
 const square = (district: number, x0: number): Feature<Polygon> => ({
@@ -76,7 +78,7 @@ describe('index.json', () => {
     expect(parsed.states).toHaveLength(50);
     const ri = parsed.states.find((s) => s.abbr === 'RI')!;
     expect(ri.hasData).toBe(true);
-    expect(ri.summary).toMatchObject({ assignmentSha256: SHA_A, inputSha256: SHA_A, population: 200, angleStepDeg: 0.1 });
+    expect(ri.summary).toMatchObject({ assignmentSha256: SHA_A, inputSha256: SHA_A, population: 200, angleStepDeg: 0.1, versions: stampOf(VERSIONS) });
     expect(parsed.states.find((s) => s.abbr === 'TX')!.summary).toBeUndefined();
   });
 });
@@ -90,6 +92,14 @@ describe('stats.json', () => {
     expect(parsed.finished.districts[0]!.counties).toEqual([{ fips: '44001', name: 'Bristol County' }]);
     expect(parsed.finished.districts.map((d) => d.landParts)).toEqual([1, 2]);
     expect(parsed.beforeBalancing.districts.map((d) => d.landParts)).toEqual([2, 1]);
+    expect(parsed.versions).toEqual(stampOf(VERSIONS));
+  });
+  it('still parses a stats file published before versioning (no stamp)', () => {
+    const { versions: _versions, ...unstamped } = roundTrip(stats) as Record<string, unknown>;
+    expect(StatsSchema.parse(unstamped).versions).toBeUndefined();
+  });
+  it('rejects a malformed stamp', () => {
+    expect(() => StatsSchema.parse({ ...(roundTrip(stats) as object), versions: { engine: '1.0.0' } })).toThrow();
   });
 });
 

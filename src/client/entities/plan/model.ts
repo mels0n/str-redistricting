@@ -1,4 +1,7 @@
 import { z } from 'zod';
+import { VersionStampSchema } from '../../shared';
+
+export { VersionStampSchema };
 
 const CountySchema = z.object({ fips: z.string(), name: z.string() });
 
@@ -52,6 +55,8 @@ const PlanStatsSchema = z.object({
 export const StatsSchema = z
   .object({
     enactedSource: z.string(),
+    /** The code and inputs that drew the map. Absent in files published before versioning. */
+    versions: VersionStampSchema.optional(),
     finished: PlanStatsSchema,
     beforeBalancing: PlanStatsSchema,
   });

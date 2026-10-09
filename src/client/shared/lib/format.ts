@@ -26,6 +26,12 @@ export function congressName(source: string): string {
   return n === null ? 'enacted' : `${ordinal(n)} Congress`;
 }
 
+/** "census-2020" -> "2020 Census"; any other id is shown as it is. */
+export function censusLabel(vintage: string): string {
+  const m = /^census-(\d{4})$/.exec(vintage);
+  return m ? `${m[1]} Census` : vintage;
+}
+
 /** A number of people, keeping any fraction (ideal sizes are not whole). */
 export function formatPeople(n: number): string {
   const abs = Math.abs(n);

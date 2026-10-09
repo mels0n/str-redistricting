@@ -1,9 +1,9 @@
-import { h, clear, chunkDigest, config, reproduceCommands, formatInt, formatPeople, formatPct, peopleNoun, type Plan } from '../../shared';
+import { h, clear, chunkDigest, censusLabel, config, reproduceCommands, formatInt, formatPeople, formatPct, peopleNoun, type Plan, type VersionStamp } from '../../shared';
 import { evenSplitSentence, type Metrics } from '../../entities/plan';
 
 export interface ProofPanel {
   el: HTMLElement;
-  update(data: { metrics: Metrics; plan: Plan; abbr: string }): void;
+  update(data: { metrics: Metrics; plan: Plan; abbr: string; versions?: VersionStamp }): void;
 }
 
 function digestBlock(hex: string, label: string): HTMLElement {
@@ -35,7 +35,7 @@ export function createProofPanel(): ProofPanel {
 
   return {
     el,
-    update({ metrics: m, plan, abbr }) {
+    update({ metrics: m, plan, abbr, versions }) {
       clear(body);
       const steps = Math.round(180 / m.angleStepDeg);
       const before = plan === 'before';
@@ -72,9 +72,17 @@ export function createProofPanel(): ProofPanel {
           row(
             'Census input',
             digestBlock(m.inputSha256, 'Census input checksum'),
-            'SHA-256 of the 2020 Census block file the map was drawn from.',
+            versions
+              ? `SHA-256 of the 2020 Census block file the map was drawn from (${censusLabel(versions.input.vintage)}, revision ${versions.input.revision}).`
+              : 'SHA-256 of the 2020 Census block file the map was drawn from.',
             'strv-proof__row--digest',
           ),
+          ...(versions
+            ? [
+                row('Engine', versions.engine, 'The version of the code that drew this map.'),
+                row('Maps release', String(versions.maps), 'Every map in this release was drawn by the same code from the same Census files.'),
+              ]
+            : []),
           single
             ? row('Guide lines', 'None', 'A state with one seat needs no cut, so no guide line is drawn.')
             : row('Guide lines', `Every ${m.angleStepDeg}°`, `${formatInt(steps)} directions tried for each cut.`),
@@ -83,8 +91,8 @@ export function createProofPanel(): ProofPanel {
           'div',
           { class: 'strv-proof__recipe' },
           h('p', null, 'To reproduce this map, get the generator’s code from ', h('a', { href: config.repoUrl }, 'its GitHub repository'), ' and run it on the same Census file:'),
-          h('pre', { class: 'strv-code', tabindex: 0, role: 'group', 'aria-label': 'Commands to run' }, h('code', null, reproduceCommands(abbr))),
-          h('p', null, 'The same data and the same steps give a byte-identical map with the same fingerprint, on any computer. No random numbers are used.'),
+          h('pre', { class: 'strv-code', tabindex: 0, role: 'group', 'aria-label': 'Commands to run' }, h('code', null, reproduceCommands(abbr, versions?.maps ?? null))),
+          h('p', null, 'The same code release and the same Census files give a byte-identical map with the same fingerprint, on any computer. No random numbers are used.'),
         ),
       );
     },

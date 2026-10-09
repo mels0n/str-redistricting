@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import enactedJson from '../../../../config/enacted.json';
+import versionsJson from '../../../../config/versions.json';
 
 /**
  * The one configuration module for the viewer. It is read once, at boot, and
@@ -29,6 +30,8 @@ const ConfigSchema = z.object({
   movePlayMinMs: z.number().int().positive(),
   /** The public source repository: the generator, the viewer and the published data. */
   repoUrl: z.url(),
+  /** The public host the site is served from; named on the maps' credit strip. */
+  siteHost: z.string().min(1),
 });
 
 const EnactedSchema = z.looseObject({ congress: z.number().int().positive(), file: z.string().min(1) });
@@ -40,6 +43,28 @@ const enacted = EnactedSchema.parse(enactedJson);
  * it, and a test checks the published data against it.
  */
 export const ENACTED = { congress: enacted.congress, file: enacted.file } as const;
+
+export const VersionsSchema = z.looseObject({
+  engine: z.string().min(1),
+  input: z.looseObject({ vintage: z.string().min(1), revision: z.number().int().positive(), sha256: z.string().min(1) }),
+  maps: z.number().int().positive(),
+  schema: z.string().min(1),
+  web: z.string().min(1),
+  docs: z.string().min(1),
+});
+
+/** The version of every component of the site and its data, read from config/versions.json (the file the release script writes). */
+export const VERSIONS = VersionsSchema.parse(versionsJson);
+export type Versions = z.infer<typeof VersionsSchema>;
+
+/** What published data carries about the code and inputs that drew it; optional because data published before versioning has none. */
+export const VersionStampSchema = z.object({
+  engine: z.string().min(1),
+  input: z.object({ vintage: z.string().min(1), revision: z.number().int().positive(), sha256: z.string().regex(/^[0-9a-f]{64}$/) }),
+  maps: z.number().int().positive(),
+  schema: z.string().min(1),
+});
+export type VersionStamp = z.infer<typeof VersionStampSchema>;
 
 export type ViewerConfig = z.infer<typeof ConfigSchema>;
 
@@ -77,15 +102,20 @@ function load(): ViewerConfig {
     movePlayTotalMs: 45000,
     movePlayMinMs: 120,
     repoUrl: 'https://github.com/mels0n/str-redistricting',
+    siteHost: 'fairmaps.melson.us',
   });
 }
 
 export const config: ViewerConfig = load();
 
-/** The shell commands that fetch the code and regenerate one state's map. */
-export function reproduceCommands(abbr: string): string {
+/**
+ * The shell commands that fetch the code and regenerate one state's map. With a maps release number the clone is
+ * pinned to that release's tag; null (data published before versioning) clones the default branch.
+ */
+export function reproduceCommands(abbr: string, mapsRelease: number | null): string {
   const dir = new URL(config.repoUrl).pathname.split('/').filter(Boolean).pop() ?? '';
-  return `git clone ${config.repoUrl}\ncd ${dir}\nnpm install\nnpm run explore -- --states ${abbr}`;
+  const clone = mapsRelease === null ? `git clone ${config.repoUrl}` : `git clone --branch maps-${mapsRelease} --depth 1 ${config.repoUrl}`;
+  return `${clone}\ncd ${dir}\nnpm install\nnpm run explore -- --states ${abbr}`;
 }
 
 export function dataUrl(path: string): string {

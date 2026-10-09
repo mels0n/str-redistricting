@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { chunkDigest, congressOfSource, formatKm, formatPct, formatPeople, formatSignedPeople, ordinal, peopleNoun } from '../../src/client/shared/lib/format';
+import { censusLabel, chunkDigest, congressOfSource, formatKm, formatPct, formatPeople, formatSignedPeople, ordinal, peopleNoun } from '../../src/client/shared/lib/format';
 import { enactedSourceLabel } from '../../src/client/features/plan-options';
 
 describe('format', () => {
@@ -66,5 +66,13 @@ describe('congressOfSource', () => {
     expect(congressOfSource('cb_2025_us_cd119_20m')).toBeNull();
     expect(congressOfSource('cb_2025_us_cd119_500k.zip')).toBeNull();
     expect(congressOfSource('something else')).toBeNull();
+  });
+});
+
+describe('censusLabel', () => {
+  it('turns a vintage id into a plain label', () => {
+    expect(censusLabel('census-2020')).toBe('2020 Census');
+    expect(censusLabel('census-2030')).toBe('2030 Census');
+    expect(censusLabel('something-else')).toBe('something-else');
   });
 });

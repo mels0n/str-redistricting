@@ -147,9 +147,9 @@ describe('downloadCached integrity', () => {
     const err = await run(f).catch((e: unknown) => e);
     expect(err).toBeInstanceOf(ChecksumError);
     const msg = (err as Error).message;
-    expect(msg).toContain('f.zip: sha256 does not match the pinned value');
+    expect(msg).toContain('f.zip: sha256 differs from config/census-sha256.json');
     expect(msg).toContain('just downloaded');
-    expect(msg).toContain('config/census-sha256.json');
+    expect(msg).toContain('npm run release');
     expect(msg).not.toContain('Delete');
     expect(f).toHaveBeenCalledTimes(1);
     expect(existsSync(path)).toBe(false);
@@ -167,10 +167,10 @@ describe('downloadCached integrity', () => {
     const err = await run(f).catch((e: unknown) => e);
     expect(err).toBeInstanceOf(ChecksumError);
     const msg = (err as Error).message;
-    expect(msg).toContain('f.zip: sha256 does not match the pinned value');
+    expect(msg).toContain('f.zip: sha256 differs from config/census-sha256.json');
+    expect(msg).toContain('npm run release');
     expect(msg).toContain('The cached file is corrupt or the Census Bureau reissued it');
     expect(msg).toContain(`Delete ${path} to download it again`);
-    expect(msg).toContain('update the manifest (this changes the maps)');
     expect(f).not.toHaveBeenCalled();
     expect(await readFile(path, 'utf8')).toBe('corrupt');
   });
@@ -190,6 +190,6 @@ describe('census file lookup', () => {
   it('fails a cached state zip that does not match the pinned hash', async () => {
     await writeFile(join(dir, 'tl_2020_44_tabblock20.zip'), 'not the real zip');
     await expect(loadStateBlocks(state, dir)).rejects.toThrow(DataError);
-    await expect(loadStateBlocks(state, dir)).rejects.toThrow(/sha256 does not match the pinned value/);
+    await expect(loadStateBlocks(state, dir)).rejects.toThrow(/sha256 differs from config\/census-sha256\.json/);
   });
 });

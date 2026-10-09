@@ -14,6 +14,7 @@ export { buildCuts } from './cuts.js';
 export type { PublishedCut } from './cuts.js';
 export { publishData, publishBlocksOnly, publishEnactedOnly, publishedSummaries, statesWithData } from './publish.js';
 export { buildEnactedTopology } from './enacted.js';
+export { checkPublishGate, staleStamps } from './gate.js';
 export { buildStats, planStats } from './stats.js';
 export { buildIndex, PlanMetricsSchema, summarize } from './summary.js';
 export type { IndexEntry, StateSummary } from './summary.js';
@@ -21,3 +22,5 @@ export { districtBudget, simplifyPercent, toTopology, vertexCount } from './topo
 export { buildWater, countLandParts, MIN_PIECE, mergeLand, type PopulatedPoint } from './water.js';
 export { districtArcs } from './arcs.js';
 export type { ArcFeature } from './arcs.js';
+export { loadOgFonts, OG_PALETTE, ogSvg, renderOgPng } from './og.js';
+export { ogCredit } from './og-credit.js';

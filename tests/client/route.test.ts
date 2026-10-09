@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { fitRouteToState, describeRouteIssue, formatHash, howRoute, parseHash, stateRoute, NATIONAL } from '../../src/client/shared/lib/route';
+import { fitRouteToState, describeRouteIssue, formatHash, howRoute, CHANGELOG, parseHash, stateRoute, NATIONAL } from '../../src/client/shared/lib/route';
 
 describe('hash routes', () => {
   it('parses the national index', () => {
@@ -62,6 +62,9 @@ describe('hash routes', () => {
     expect(parseHash('#/HOW')).toEqual(howRoute());
     expect(parseHash('#/how/balancing')).toEqual(howRoute('balancing'));
     expect(parseHash('#/how/nonsense')).toEqual(howRoute());
+    expect(parseHash('#/changelog')).toEqual(CHANGELOG);
+    expect(parseHash('#/Changelog/x')).toEqual(CHANGELOG);
+    expect(formatHash(CHANGELOG)).toBe('#/changelog');
     expect(formatHash(howRoute())).toBe('#/how');
     expect(formatHash(howRoute('strays'))).toBe('#/how/strays');
     for (const r of [howRoute(), howRoute('inputs'), howRoute('sources'), howRoute('strange')]) expect(parseHash(formatHash(r))).toEqual(r);

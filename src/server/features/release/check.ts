@@ -14,6 +14,12 @@ export interface VersionCheckInput {
   changelogs: Readonly<Record<Component, string>>;
   /** public/data/index.json differs between base and head in an assignment or input hash, or in its state list. */
   mapsDataChanged: boolean;
+  /**
+   * tests/fingerprints/engine.json differs between base and head. An engine bump with no engine file changed is
+   * accepted then: a dependency bump (package-lock.json belongs to no component) can change the drawn maps, and the
+   * fixture gate then demands an engine major and re-recorded fingerprints.
+   */
+  fingerprintsChanged?: boolean;
 }
 
 export function versionProblems(p: VersionCheckInput): string[] {
@@ -31,7 +37,7 @@ export function versionProblems(p: VersionCheckInput): string[] {
     } else if (p.touched.has(c) && !bumped(c)) {
       problems.push(`${c}: its files changed but ${c} was not bumped in config/versions.json (npm run release proposes the bump)`);
     }
-    if (c !== 'maps' && !p.touched.has(c) && bumped(c)) {
+    if (c !== 'maps' && !p.touched.has(c) && bumped(c) && !(c === 'engine' && p.fingerprintsChanged === true)) {
       problems.push(`${c}: bumped in config/versions.json but none of its files changed`);
     }
     if (p.changelogs[c].includes('—')) problems.push(`changelog/${c}.md contains an em dash; use a period, comma or parentheses`);

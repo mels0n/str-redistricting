@@ -12,10 +12,11 @@ export { borderGeoids, buildBorderBlockTiles, buildStateBorderBlocks, verifyBord
 export type { BorderBlockTiles } from './border-blocks.js';
 export { buildCuts } from './cuts.js';
 export type { PublishedCut } from './cuts.js';
-export { publishData, publishBlocksOnly, publishEnactedOnly, publishedSummaries, statesWithData } from './publish.js';
+export { assertGatedAssignments, publishData, publishBlocksOnly, publishEnactedOnly, publishedSummaries, statesWithData } from './publish.js';
 export { buildEnactedTopology } from './enacted.js';
 export { checkPublishGate, staleStamps } from './gate.js';
 export type { PublishedPlan } from './gate.js';
+export type { GatedPlans } from './publish.js';
 export { checkPlanProvenance } from './provenance.js';
 export type { PlanExpectation } from './provenance.js';
 export { buildStats, planStats } from './stats.js';

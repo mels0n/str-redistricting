@@ -1,5 +1,6 @@
 import type { Feature } from 'geojson';
 import { z } from 'zod';
+import { createHash } from 'node:crypto';
 import { existsSync } from 'node:fs';
 import { mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { gzipSync } from 'node:zlib';
@@ -92,15 +93,37 @@ interface Shared {
   readonly land: string;
 }
 
-async function publishState(state: StateInfo, cfg: PublishConfig, shared: Shared): Promise<void> {
+/** The two plans of a state exactly as the provenance check and the publish gate saw them. */
+export interface GatedPlans {
+  readonly finished: PlanMetrics;
+  readonly before: PlanMetrics;
+}
+
+/**
+ * Refuse files that are not the plans the gate checked. The gate ran on metrics.json earlier in the run; the files
+ * published from are read later, so an `explore` running in between could swap in an unchecked plan, or leave a
+ * finished plan from one run beside a before-balancing plan from another. The assignment CSVs are compared with the
+ * fingerprints the gate saw (sha256 of the CSV text, as metrics.json records it). The districts, cuts and balance
+ * files are covered by that: `explore` rewrites them together with the CSVs.
+ */
+export function assertGatedAssignments(abbr: string, gated: GatedPlans, finishedCsv: string, beforeCsv: string): void {
+  const sha256 = (text: string): string => createHash('sha256').update(text).digest('hex');
+  if (sha256(finishedCsv) !== gated.finished.assignmentSha256 || sha256(beforeCsv) !== gated.before.assignmentSha256) {
+    throw new DataError(`${abbr}: out/${abbr} changed after it was checked; do not run explore while publish-data runs`);
+  }
+}
+
+async function publishState(state: StateInfo, cfg: PublishConfig, shared: Shared, gated: GatedPlans): Promise<void> {
   const src = join(cfg.outDir, state.abbr);
   const srcBefore = join(src, 'before-balancing');
   const dest = join(cfg.publicDir, state.abbr);
   const budget = districtBudget(state.seats);
 
-  const [official, before] = [await readMetrics(src), await readMetrics(srcBefore)];
+  // The metrics the gate checked, not a fresh read: see assertGatedAssignments.
+  const { finished: official, before } = gated;
   const versions = stampOf(VERSIONS);
   const [officialCsv, beforeCsv] = [await readFile(join(src, 'assignment.csv'), 'utf8'), await readFile(join(srcBefore, 'assignment.csv'), 'utf8')];
+  assertGatedAssignments(state.abbr, gated, officialCsv, beforeCsv);
   // Display only: separate land pieces with people on them per district, from the same district files the water mask uses.
   const allBlocks = await loadStateBlocks(state, cfg.cacheDir);
   const populatedUnder = (csv: string, label: string): PopulatedPoint[] => {
@@ -357,8 +380,10 @@ export async function publishData(cfg: PublishConfig): Promise<void> {
   // Before any write: every plan must come from the current engine major and the pinned census, and a map may only
   // change when the engine major or the census input moves. One refused state refuses the run.
   const versions = stampOf(VERSIONS);
+  const checked = new Map<string, GatedPlans>();
   for (const s of selected) {
     const { finished, before } = await readCheckedPlans(s, cfg.outDir);
+    checked.set(s.abbr, { finished, before });
     const next = { versions, sha: finished.assignmentSha256, beforeSha: before.assignmentSha256, inputSha256: finished.inputSha256 };
     checkPublishGate(await readPublishedState(join(cfg.publicDir, s.abbr, 'stats.json')), next, cfg.baseline, s.abbr);
   }
@@ -373,7 +398,7 @@ export async function publishData(cfg: PublishConfig): Promise<void> {
   const shared: Shared = { countyNames: await loadCountyNames(cfg.cacheDir), enacted: await loadEnacted(cfg.cacheDir), land: await mergeLand(await loadLand(cfg.cacheDir)) };
   for (const s of selected) {
     console.log(`publishing ${s.abbr}`);
-    await publishState(s, cfg, shared);
+    await publishState(s, cfg, shared, checked.get(s.abbr)!);
   }
 
   // The index describes what is in the public directory, after this run's states are written.

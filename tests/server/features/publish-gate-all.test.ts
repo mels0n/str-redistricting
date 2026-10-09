@@ -1,3 +1,5 @@
+import { createHash } from 'node:crypto';
+import type { GatedPlans } from '../../../src/server/features/publish/index.js';
 import { mkdirSync, mkdtempSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
@@ -7,7 +9,7 @@ import { stateByAbbr } from '../../../src/server/shared/apportionment/index.js';
 import { DEFAULT_ANGLE_STEP_DEG, pinnedSha256, stampOf, VERSIONS } from '../../../src/server/shared/config/index.js';
 import { DataError } from '../../../src/server/shared/errors/index.js';
 
-const { publishData } = await import('../../../src/server/features/publish/index.js');
+const { assertGatedAssignments, publishData } = await import('../../../src/server/features/publish/index.js');
 const { parsePublishConfig } = await import('../../../src/server/shared/config/index.js');
 
 /** A plan's metrics drawn by this engine from the pinned census file, unless `over` says otherwise. */
@@ -85,6 +87,23 @@ describe('publishData provenance', () => {
   it('refuses a plan drawn from a census file other than the pinned one', () => refused({ inputSha256: B }, undefined, /not the pinned one/));
   it('refuses a plan drawn at another angle step', () => refused({ angleStepDeg: 0.5 }, undefined, /angle step is 0.5/));
   it('checks the before-balancing plan too', () => refused({}, { engine: '99.0.0' }, /RI before-balancing: .*different major/));
+});
+
+describe('assertGatedAssignments', () => {
+  const sha = (text: string): string => createHash('sha256').update(text).digest('hex');
+  const plans = (finished: string, before: string) => ({ finished: { assignmentSha256: sha(finished) }, before: { assignmentSha256: sha(before) } }) as unknown as GatedPlans;
+
+  it('accepts assignment files that hash to what the gate checked', () => {
+    expect(() => assertGatedAssignments('RI', plans('a', 'b'), 'a', 'b')).not.toThrow();
+  });
+
+  it('throws a DataError naming the state when either assignment.csv changed after the check', () => {
+    for (const [finished, before] of [['changed', 'b'], ['a', 'changed']] as const) {
+      const err = (() => { try { assertGatedAssignments('RI', plans('a', 'b'), finished, before); } catch (e) { return e; } })();
+      expect(err).toBeInstanceOf(DataError);
+      expect((err as Error).message).toBe('RI: out/RI changed after it was checked; do not run explore while publish-data runs');
+    }
+  });
 });
 
 describe('publishData requested states', () => {

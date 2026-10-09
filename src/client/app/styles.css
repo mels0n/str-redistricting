@@ -247,7 +247,7 @@ html:has(> body > #str-viewer) {
 }
 
 .strv-button:disabled {
-  color: var(--rule);
+  color: var(--ink-2);
   border-color: var(--hairline);
   cursor: default;
 }
@@ -444,6 +444,11 @@ html:has(> body > #str-viewer) {
   text-transform: uppercase;
   color: var(--ink);
   margin: 0 0 var(--s-2);
+}
+
+.strv-national__scope {
+  margin-top: var(--s-3);
+  font-size: 0.875rem;
 }
 
 .strv-national__steps {
@@ -3911,7 +3916,7 @@ html:has(> body > #str-viewer) {
 }
 
 .strv-rule-demo__btn[aria-disabled='true'] {
-  color: var(--rule);
+  color: var(--ink-2);
   border-color: var(--hairline);
   cursor: default;
 }
@@ -4725,5 +4730,134 @@ html:has(> body > #str-viewer) {
   /* The zoom buttons sit at the bottom right on a touch screen. */
   .strv-state__map .strv-credit {
     max-width: calc(100% - 4.5rem);
+  }
+}
+
+/* Windows High Contrast and other forced-colors modes. The browser swaps in the user's palette for text, borders and
+   backgrounds, which drops fills that carry meaning and the focus color. These rules say it again in system colors.
+   The map canvas (MapLibre) is drawn by script and keeps its own colors; its district numbers, controls and focus ring
+   are page elements and are covered here. */
+@media (forced-colors: active) {
+  .strv :focus-visible,
+  .strv h1:focus-visible,
+  .strv-search__row input:focus-visible,
+  .strv .maplibregl-ctrl-group button:focus-visible,
+  .strv .maplibregl-canvas:focus-visible,
+  .strv-map-cluster:focus-visible,
+  .strv-seg__option:has(input:focus-visible) {
+    outline: 3px solid Highlight;
+    outline-offset: 2px;
+  }
+
+  .strv-button,
+  .strv-scrub__phase,
+  .strv-map-cluster {
+    border: 1px solid ButtonText;
+  }
+
+  .strv-button:disabled,
+  .strv-rule-demo__btn[aria-disabled='true'] {
+    color: GrayText;
+    border-color: GrayText;
+  }
+
+  /* The US map: a state is a filled shape, hover and focus are a different fill and a heavier edge. */
+  .strv-us {
+    forced-color-adjust: none;
+  }
+
+  .strv-us__quiet path {
+    fill: Canvas;
+    stroke: GrayText;
+  }
+
+  .strv-us__state path {
+    fill: LinkText;
+    stroke: Canvas;
+  }
+
+  .strv-us__state:hover path,
+  .strv-us__state:focus-visible path {
+    fill: Highlight;
+    stroke: CanvasText;
+    stroke-width: 3;
+  }
+
+  .strv-us__label {
+    fill: CanvasText;
+    stroke: Canvas;
+  }
+
+  .strv-us__state:hover .strv-us__label,
+  .strv-us__state:focus-visible .strv-us__label {
+    fill: HighlightText;
+    stroke: Highlight;
+  }
+
+  /* District numbers over the map and the selected row of the list. */
+  .strv-map-label {
+    text-shadow: none;
+    background: Canvas;
+    color: CanvasText;
+    border: 1px solid CanvasText;
+  }
+
+  .strv-map-label[data-selected='true'],
+  .strv-scrub__phase[aria-pressed='true'] {
+    background: Highlight;
+    color: HighlightText;
+    border-color: HighlightText;
+  }
+
+  .strv-list tr[data-selected='true'] th,
+  .strv-list tr[data-selected='true'] td {
+    background: Highlight;
+    color: HighlightText;
+  }
+
+  /* The scrubber: a visible track, thumb and ticks, and the current step marked. */
+  .strv-scrub__range {
+    forced-color-adjust: none;
+  }
+
+  .strv-scrub__range::-webkit-slider-runnable-track {
+    background: CanvasText;
+  }
+
+  .strv-scrub__range::-moz-range-track {
+    background: CanvasText;
+  }
+
+  .strv-scrub__range::-webkit-slider-thumb,
+  .strv-scrub__range::-moz-range-thumb {
+    background: Highlight;
+    border: 2px solid CanvasText;
+  }
+
+  .strv-scrub__ticks li::before {
+    background: CanvasText;
+  }
+
+  .strv-scrub__ticks li[data-state='current'] {
+    background: Highlight;
+    color: HighlightText;
+  }
+
+  .strv-legend__cut {
+    background: Highlight;
+    outline: 1px solid CanvasText;
+  }
+
+  .strv-legend__block {
+    border-color: CanvasText;
+  }
+
+  /* Drawings that say state by fill. */
+  .strv-rule-demo__svg [data-district][data-state='out'] {
+    fill: Canvas;
+  }
+
+  .strv-rule-demo__svg [data-district][data-state='hot'] {
+    fill: Highlight;
   }
 }

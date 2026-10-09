@@ -30,6 +30,11 @@ async function fetchRaw(url: string): Promise<unknown> {
   }
 }
 
+/** Forgets every fetched file, so the next call for any URL fetches again. */
+export function clearFetchCache(): void {
+  cache.clear();
+}
+
 /**
  * Fetches a JSON file once and validates it against a schema at the boundary.
  * Repeated calls for the same URL share one request; a failed request is

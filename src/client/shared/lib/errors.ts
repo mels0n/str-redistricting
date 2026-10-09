@@ -68,7 +68,7 @@ export function describeError(error: unknown): string {
       case 'empty':
         return 'Type a street address, including the city and state or the ZIP code.';
       case 'no-match':
-        return 'The Census Bureau could not find that address. Check the spelling, or add the city and state or the ZIP code.';
+        return 'The Census Bureau could not find that address. Check the spelling, or add the city and state or the ZIP code. It needs a street address: a PO box cannot be placed on a map.';
       case 'timeout':
         return 'The Census Bureau did not answer in time. Try again in a moment.';
       case 'network':

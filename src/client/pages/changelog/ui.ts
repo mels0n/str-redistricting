@@ -35,5 +35,6 @@ export function createChangelogPage(sources: ChangelogSources = DEFAULT_SOURCES)
     ),
     h('div', { class: 'strv-changelog__body' }, sections),
   );
+  document.title = 'Changelog | Fair House Maps';
   return { el, focusTarget: () => h1, destroy() {} };
 }

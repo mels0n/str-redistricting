@@ -1,4 +1,4 @@
-export { fetchJson } from './fetch-json';
+export { fetchJson, clearFetchCache } from './fetch-json';
 export { jsonp, JsonpError } from './jsonp';
 export type { JsonpFailure } from './jsonp';
-export { loadPublishedVersions } from './versions';
+export { loadPublishedVersions, initDataRelease, checkRelease, setSkewHandler } from './versions';

@@ -72,7 +72,7 @@ Two blocks are connected when they share an edge, and touching at a single corne
 
 ### Ties
 
-Lengths are compared exactly as computed, with no rounding to centimeters, meters or any other unit. The data does not come with a unit to round to: the corner points are given in degrees, and every length is computed from them. Two borders are tied only when their lengths are exactly equal, which in practice means two lines that produce the same border. A shorter border always wins, however small the difference.
+Lengths are compared exactly as computed. The data gives corner points in degrees, not lengths, so there is no unit to round them to. Two borders are tied only when their lengths are exactly equal, which in practice means two lines that produce the same border. A shorter border always wins, however small the difference.
 
 A tie goes to the guide line closest to north-south. If two tied lines are equally close to north-south, the one with the smaller angle wins, and then the one whose low side has fewer seats.
 

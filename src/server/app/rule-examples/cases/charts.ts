@@ -39,7 +39,11 @@ export interface Cand {
   readonly lengthM: number;
 }
 
-/** Candidate rows of one cut by the generator's order: border length to the centimeter, then closeness to north-south, then angle, then first-side seats. */
+/**
+ * Candidate rows of one cut by the generator's order: border length, then closeness to north-south, then angle, then
+ * first-side seats. candidates.json holds whole meters, so lines within a meter of each other may rank differently here
+ * than in the generator, which compares exact lengths; tiesCase re-runs the cut to check.
+ */
 function ranked(rows: readonly number[][], fields: readonly string[], angleCount: number): { cand: Cand; unresolved: boolean }[] {
   const at = (f: string): number => fields.indexOf(f);
   const [kAt, lowAt, lenAt, unAt] = [at('k'), at('lowSeats'), at('lengthM'), at('unresolved')];
@@ -190,7 +194,14 @@ export async function closeCalls(ctx: ExtractContext): Promise<CloseCalls> {
 /** The distance of a line at `angle` degrees from north-south, 0 to 90. */
 const fromNorthSouth = (angle: number): number => Math.min(angle, 180 - angle);
 
-/** cut.ties: the closest call in any state, re-run at full precision to say whether it is a tie to the centimeter. */
+/** How far apart two lengths are, in words: meters from a meter up, centimeters from a centimeter, millimeters below that. */
+function gapWords(m: number): string {
+  if (m >= 1) return `${people(round2(m))} m`;
+  if (m >= 0.01) return `${(m * 100).toFixed(1)} cm`;
+  return `${(m * 1000).toPrecision(2)} mm`;
+}
+
+/** cut.ties: the closest call in any state, re-run at full precision to say whether the two lengths are exactly equal. */
 export async function tiesCase(ctx: ExtractContext): Promise<RuleCase> {
   const found = await closeCalls(ctx);
   const { abbr, order, angleCount } = found.closest;
@@ -202,8 +213,7 @@ export async function tiesCase(ctx: ExtractContext): Promise<RuleCase> {
   };
   const [first, second] = found.closest.pair;
   const [lenFirst, lenSecond] = [lengthOf(first), lengthOf(second)];
-  const [cmFirst, cmSecond] = [Math.round(lenFirst * 100), Math.round(lenSecond * 100)];
-  const tied = cmFirst === cmSecond;
+  const tied = lenFirst === lenSecond;
   if ((first.k * 180) / angleCount !== t.cut.angleDeg) {
     throw new DataError(`${abbr} cut ${order}: the shortest resolved line is not the cut on disk (its sides were not connected?)`);
   }
@@ -235,8 +245,8 @@ export async function tiesCase(ctx: ExtractContext): Promise<RuleCase> {
       { caption: `${name}'s cut ${order} splits ${t.cut.seats} seats. Its two shortest borders run at ${a} and ${b}.`, show: ['chart'] },
       {
         caption: tied
-          ? `Both borders are ${meters(lenFirst)} m, which is ${whole(cmFirst)} cm. They agree to the nearest centimeter, so they are tied.`
-          : `The closest call in any state: ${a} and ${b}, ${whole(cmSecond - cmFirst)} cm apart. Not a tie.`,
+          ? `Both borders are ${meters(lenFirst)} m, exactly the same length when measured in full, so they are tied.`
+          : `The closest call in any state: ${a} and ${b}, ${gapWords(lenSecond - lenFirst)} apart when measured in full. Not a tie.`,
         show: ['chart', `chart-${mark}`],
       },
       {

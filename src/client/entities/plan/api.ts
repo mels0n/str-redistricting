@@ -1,7 +1,7 @@
 import { feature, mesh, neighbors } from 'topojson-client';
 import type { GeometryCollection, Topology } from 'topojson-specification';
 import type { Feature, FeatureCollection, MultiLineString, MultiPolygon, Polygon } from 'geojson';
-import { dataUrl, fetchJson, DataShapeError, districtPalette } from '../../shared';
+import { dataUrl, fetchJson, checkRelease, DataShapeError, districtPalette } from '../../shared';
 import {
   CutsSchema,
   DistrictTopoSchema,
@@ -85,7 +85,10 @@ function loadBridges(abbr: string): Promise<Bridges | null> {
 
 /** A state's numbers alone (both plans, every district), without any shapes. */
 export function loadStats(abbr: string): Promise<Stats> {
-  return fetchJson(dataUrl(`${abbr}/stats.json`), StatsSchema);
+  return fetchJson(dataUrl(`${abbr}/stats.json`), StatsSchema).then((stats) => {
+    checkRelease(stats.versions);
+    return stats;
+  });
 }
 
 const bundles = new Map<string, Promise<StateBundle>>();

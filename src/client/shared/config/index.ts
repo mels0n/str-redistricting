@@ -118,6 +118,23 @@ export function reproduceCommands(abbr: string, mapsRelease: number | null): str
   return `${clone}\ncd ${dir}\nnpm install\nnpm run explore -- --states ${abbr}`;
 }
 
+let dataRelease: number | null = null;
+
+/** The maps release the session's data files belong to, or null while unknown (nothing stamped yet). */
+export function getDataRelease(): number | null {
+  return dataRelease;
+}
+
+/** Sets the release that every later dataUrl carries as ?v=, so files from two releases are never mixed in a cache. */
+export function setDataRelease(release: number | null): void {
+  dataRelease = release;
+}
+
+/** Files that say which release is current; they are always asked for plain. */
+const UNVERSIONED = new Set(['versions.json']);
+
 export function dataUrl(path: string): string {
-  return new URL(path, config.dataBase).toString();
+  const url = new URL(path, config.dataBase);
+  if (dataRelease !== null && !UNVERSIONED.has(path)) url.searchParams.set('v', String(dataRelease));
+  return url.toString();
 }

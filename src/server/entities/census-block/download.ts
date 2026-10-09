@@ -12,8 +12,11 @@ import { parseBlockFeature, parseBlockPolygons, type BlockPolygons } from './par
 export const blocksUrl = (fips: string): string =>
   `https://www2.census.gov/geo/tiger/TIGER2020/TABBLOCK20/tl_2020_${fips}_tabblock20.zip`;
 
+/** The name of a state's block file in the pinned Census manifest. */
+export const blocksFileName = (state: StateInfo): string => `tl_2020_${state.fips}_tabblock20.zip`;
+
 export async function ensureZip(state: StateInfo, cacheDir: string): Promise<string> {
-  const file = `tl_2020_${state.fips}_tabblock20.zip`;
+  const file = blocksFileName(state);
   return downloadCached(blocksUrl(state.fips), join(cacheDir, file), state.abbr, pinnedSha256(file));
 }
 

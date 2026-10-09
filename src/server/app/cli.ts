@@ -6,7 +6,7 @@ import { balance, balanceLog, peopleMoved } from '../features/balance/index.js';
 import { bordersGeoJson, bridgesJson, cutsGeoJson, districtsGeoJson, writePlan } from '../features/export/index.js';
 import { assignmentCsv, computeMetrics } from '../features/metrics/index.js';
 import { createContext, PoolSlot, splitState, type SplitResult } from '../features/splitline/index.js';
-import { parseConfig } from '../shared/config/index.js';
+import { parseConfig, VERSIONS } from '../shared/config/index.js';
 import { exitCodeFor } from '../shared/errors/index.js';
 
 type Cut = SplitResult['cuts'][number];
@@ -53,7 +53,7 @@ async function main(): Promise<void> {
       const sum = (f: (c: (typeof split.cuts)[number]) => number): number => split.cuts.reduce((s, c) => s + f(c), 0);
       // Stray counts are net per block, both directions summed over all cuts.
       const common = {
-        state: state.abbr, angleStepDeg: config.angleStepDeg, bridges: topo.bridges.length, nodeVersion: process.version, inputSha256,
+        state: state.abbr, angleStepDeg: config.angleStepDeg, bridges: topo.bridges.length, nodeVersion: process.version, inputSha256, engine: VERSIONS.engine,
         cutsSkipped: sum((c) => c.skipped),
         strayBlocksMoved: sum((c) => c.strayBlocksMoved), strayPopMoved: sum((c) => c.strayPopMoved),
         // Re-counts: how many times a chosen line was slid again after strays moved, in total and at most for one cut.

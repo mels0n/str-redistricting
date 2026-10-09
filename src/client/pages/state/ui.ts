@@ -236,7 +236,7 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
 
   function showNotGenerated(name: string): void {
     h1.textContent = name;
-    document.title = `${name}: map not generated`;
+    document.title = `${name}: map not generated | Fair House Maps`;
     el.dataset.empty = 'true';
     clear(mapEl);
     mapEl.removeAttribute('aria-busy');
@@ -291,7 +291,7 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
     const entry = findState(index, route.abbr);
     if (!entry) {
       h1.textContent = 'State not found';
-      document.title = 'State not found';
+      document.title = 'State not found | Fair House Maps';
       showError(new UnknownStateError(route.abbr), { link: true });
       return;
     }

@@ -551,7 +551,7 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
       { class: 'strv-how__head' },
       h('a', { href: formatHash(NATIONAL), class: 'strv-back' }, iconArrowLeft(), 'All states'),
       h1,
-      h('p', { class: 'strv-how__lede' }, 'Every map in this viewer comes from 2020 Census counts and three fixed steps: cut, keep blocks whole, balance. Here is each stage in plain language, with a drawing. Numbers in the drawings are examples unless they name a state.'),
+      h('p', { class: 'strv-how__lede' }, 'Every map in this viewer comes from 2020 Census counts and three fixed steps: cut, keep blocks whole, balance. Here is each stage in plain language, with a drawing. Numbers in the drawings are examples unless they name a state. The maps cover the 50 states. Washington, D.C. and the U.S. territories elect non-voting delegates to the House, so they have no districts to draw.'),
     ),
     // The wrapper measures the room: the stage list sits beside the text only when the text keeps a readable measure.
     h('div', { class: 'strv-how__room' }, h('div', { class: 'strv-how__grid' }, toc, body)),
@@ -664,7 +664,7 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
   void loadNumbers();
   void loadFollow();
   void loadRecipe();
-  document.title = 'How the districts are drawn';
+  document.title = 'How the districts are drawn | Fair House Maps';
   markToc(initial.section);
   // On arrival there is nothing to scroll from, so jump; a smooth scroll would still be running when the late tables land.
   scrollTo(initial.section, false, false);

@@ -16,7 +16,7 @@ export interface AddressSearch {
 }
 
 const NOTE =
-  'Your address is sent to the U.S. Census Bureau geocoder to find where it is. This site does not keep it.';
+  'Your address is sent to the U.S. Census Bureau geocoder to find where it is. This site does not keep it. Enter a street address; a PO box cannot be placed on a map.';
 
 export function createAddressSearch(opts: AddressSearchOptions): AddressSearch {
   const input = h('input', {

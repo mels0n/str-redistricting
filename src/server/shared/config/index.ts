@@ -4,11 +4,15 @@ import { z } from 'zod';
 import { stateByAbbr, type StateInfo } from '../apportionment/index.js';
 import { ConfigError } from '../errors/index.js';
 
+export { CENSUS_HOSTS } from './census-hosts.js';
 export { CENSUS_SHA256, ManifestSchema, pinnedSha256 } from './census-manifest.js';
 export { ENACTED_CONFIG, EnactedConfigSchema, enactedFileName, parseEnactedFileName } from './enacted.js';
 export type { EnactedConfig } from './enacted.js';
-export { VERSIONS, VersionsSchema, formatVersions, inputSha256Of, stampOf } from './versions.js';
+export { VERSIONS, VersionsSchema, engineMajor, formatVersions, inputSha256Of, stampOf } from './versions.js';
 export type { VersionStamp, Versions } from './versions.js';
+
+/** The guide line step, in degrees, the published maps are drawn with. */
+export const DEFAULT_ANGLE_STEP_DEG = 0.1;
 
 export interface Config {
   readonly states: StateInfo[];
@@ -36,7 +40,7 @@ export function parseConfig(argv: readonly string[]): Config {
     args: [...argv],
     options: {
       states: { type: 'string' },
-      'angle-step': { type: 'string', default: '0.1' },
+      'angle-step': { type: 'string', default: String(DEFAULT_ANGLE_STEP_DEG) },
       'cache-dir': { type: 'string', default: 'data/raw' },
       'out-dir': { type: 'string', default: 'out' },
       threads: { type: 'string', default: String(Math.max(1, availableParallelism() - 2)) },

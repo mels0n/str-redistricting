@@ -16,9 +16,12 @@ export function tagsFor(prev: Versions | null, next: Versions): string[] {
   return tags;
 }
 
+/** The shape of an input tag, with the vintage and revision captured; the tag shape and the vintage read-back both use it. */
+const INPUT_TAG = /^input-(census-\d{4})-r(\d+)$/;
+
 const TAG_SHAPE: Record<Component, RegExp> = {
   engine: /^engine-v\d+\.\d+\.\d+$/,
-  input: /^input-census-\d{4}-r\d+$/,
+  input: INPUT_TAG,
   maps: /^maps-\d+$/,
   schema: /^schema-v\d+\.\d+\.\d+$/,
   web: /^web-v\d+\.\d+\.\d+$/,
@@ -59,6 +62,8 @@ export function taggedVersions(newest: Readonly<Record<Component, string | null>
   };
   const engine = semver(newest.engine);
   if (engine !== undefined) out.engine = engine;
+  const inputVintage = INPUT_TAG.exec(newest.input ?? '')?.[1];
+  if (inputVintage !== undefined) out.inputVintage = inputVintage;
   const inputRevision = trailing(newest.input, /-r(\d+)$/);
   if (inputRevision !== undefined) out.inputRevision = inputRevision;
   const maps = trailing(newest.maps, /^maps-(\d+)$/);

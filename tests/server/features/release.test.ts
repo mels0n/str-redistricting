@@ -16,6 +16,7 @@ import {
   prependEntry,
   proposeVersions,
   tagsFor,
+  taggedVersions,
   versionProblems,
   type Commit,
   type Component,
@@ -143,6 +144,24 @@ describe('proposeVersions', () => {
     const { next } = proposeVersions(bumped, { byComponent: new Map(), engineOutputChanged: false, inputSha256: 'f'.repeat(64), tagged: taggedBase });
     expect([next.input.revision, next.input.sha256, next.maps]).toEqual([2, 'f'.repeat(64), 2]);
   });
+  it('resets the input revision to 1 for a new vintage, however high the old vintage got', () => {
+    const v2030: Versions = { ...base, input: { ...base.input, vintage: 'census-2030', revision: 7 } };
+    const { next, reasons } = proposeVersions(v2030, {
+      byComponent: new Map(), engineOutputChanged: false, inputSha256: 'f'.repeat(64), tagged: { ...taggedBase, inputVintage: 'census-2020', inputRevision: 7 },
+    });
+    expect([next.input.vintage, next.input.revision, next.input.sha256]).toEqual(['census-2030', 1, 'f'.repeat(64)]);
+    expect(next.maps).toBe(2);
+    expect(reasons.join('\n')).toContain('a new Census vintage');
+  });
+  it('counts a new vintage as an input change for the maps release even when its revision is not above the old one', () => {
+    const v2030: Versions = { ...base, input: { ...base.input, vintage: 'census-2030', revision: 1 } };
+    const { next } = proposeVersions(v2030, { byComponent: new Map(), engineOutputChanged: false, inputSha256: v2030.input.sha256, tagged: { ...taggedBase, inputVintage: 'census-2020', inputRevision: 3 } });
+    expect([next.input.revision, next.maps]).toEqual([1, 2]);
+  });
+  it('keeps counting revisions within the same vintage', () => {
+    const { next } = proposeVersions(base, { byComponent: new Map(), engineOutputChanged: false, inputSha256: 'f'.repeat(64), tagged: { ...taggedBase, inputVintage: 'census-2020', inputRevision: 3 } });
+    expect(next.input.revision).toBe(4);
+  });
   it('never bumps a component twice: a bump made since the tag is kept when no new evidence arrived', () => {
     const bumped: Versions = { ...base, engine: '2.0.0', maps: 2, web: '1.1.0', docs: '1.0.1' };
     const { next, reasons } = proposeVersions(bumped, {
@@ -221,12 +240,15 @@ describe('mapsDataChanged', () => {
 });
 
 describe('mapsDataChanged with a declared Maps release', () => {
-  // [abbr, assignment hash, maps release (null = unstamped), engine, input revision]
-  const stamped = (states: [string, string, number | null, string?, number?][]): string =>
+  // [abbr, assignment hash, maps release (null = unstamped), engine, input vintage, state census hash, before-balancing hash]
+  const stamped = (states: [string, string, number | null, string?, string?, string?, string?][]): string =>
     JSON.stringify({
-      states: states.map(([abbr, a, maps, engine = maps === 2 ? '2.0.0' : '1.0.0', revision = 1]) => ({
+      states: states.map(([abbr, a, maps, engine = maps === 2 ? '2.0.0' : '1.0.0', vintage = 'census-2020', census = 'x', beforeSha]) => ({
         abbr,
-        summary: { assignmentSha256: a, inputSha256: 'x', ...(maps === null ? {} : { versions: { maps, engine, input: { revision } } }) },
+        summary: {
+          assignmentSha256: a, inputSha256: census, ...(beforeSha === undefined ? {} : { beforeAssignmentSha256: beforeSha }),
+          ...(maps === null ? {} : { versions: { maps, engine, input: { vintage } } }),
+        },
       })),
     });
   const before = stamped([['CO', 'a', 1], ['RI', 'b', 1]]);
@@ -244,12 +266,34 @@ describe('mapsDataChanged with a declared Maps release', () => {
   it('does not cover anything when this change bumps the Maps release itself', () => {
     expect(mapsDataChanged(before, stamped([['CO', 'a2', 2], ['RI', 'b', 1]]), { base: 1, head: 2 })).toBe(true);
   });
-  it('never covers a changed map whose stamp did not move (same engine major and input revision)', () => {
+  it('never covers a changed map whose engine major, vintage and census file did not move', () => {
     const declared = stamped([['CO', 'a', 2], ['RI', 'b', 2]]);
     expect(mapsDataChanged(declared, stamped([['CO', 'a2', 2], ['RI', 'b', 2]]), { base: 2, head: 2 })).toBe(true);
   });
-  it('covers a state drawn under a new input revision for the declared release', () => {
-    expect(mapsDataChanged(before, stamped([['CO', 'a2', 2, '1.0.0', 2], ['RI', 'b', 1]]), { base: 2, head: 2 })).toBe(false);
+  it('covers a state drawn from a changed census file for the declared release', () => {
+    expect(mapsDataChanged(before, stamped([['CO', 'a2', 2, '1.0.0', 'census-2020', 'y'], ['RI', 'b', 1]]), { base: 2, head: 2 })).toBe(false);
+  });
+  it('covers a state drawn under a new vintage for the declared release', () => {
+    expect(mapsDataChanged(before, stamped([['CO', 'a2', 2, '1.0.0', 'census-2030'], ['RI', 'b', 1]]), { base: 2, head: 2 })).toBe(false);
+  });
+  it('covers a state drawn by a new engine major for the declared release', () => {
+    expect(mapsDataChanged(before, stamped([['CO', 'a2', 2], ['RI', 'b', 1]]), { base: 2, head: 2 })).toBe(false);
+  });
+  it('does not cover a state that carries no census hash', () => {
+    const noCensus = JSON.parse(stamped([['CO', 'a2', 2], ['RI', 'b', 1]])) as { states: { summary: Record<string, unknown> }[] };
+    delete noCensus.states[0]!.summary.inputSha256;
+    expect(mapsDataChanged(before, JSON.stringify(noCensus), { base: 2, head: 2 })).toBe(true);
+  });
+  it('sees a change in the before-balancing plan alone, and never covers it under the same inputs', () => {
+    const a = stamped([['CO', 'a', 2, undefined, undefined, undefined, 'p'], ['RI', 'b', 2]]);
+    const b = stamped([['CO', 'a', 2, undefined, undefined, undefined, 'q'], ['RI', 'b', 2]]);
+    expect(mapsDataChanged(a, b)).toBe(true);
+    expect(mapsDataChanged(a, b, { base: 2, head: 2 })).toBe(true);
+  });
+  it('does not count the before-balancing hash appearing in an index that lacked it', () => {
+    const a = stamped([['CO', 'a', 2], ['RI', 'b', 2]]);
+    const b = stamped([['CO', 'a', 2, undefined, undefined, undefined, 'p'], ['RI', 'b', 2]]);
+    expect(mapsDataChanged(a, b)).toBe(false);
   });
   it('needs every changed state covered, not just one', () => {
     expect(mapsDataChanged(before, stamped([['CO', 'a2', 2], ['RI', 'b2', 1]]), { base: 2, head: 2 })).toBe(true);
@@ -266,6 +310,14 @@ describe('newestTag', () => {
   });
   it('is null when the component has no tag', () => {
     expect(newestTag(all, 'docs')).toBeNull();
+  });
+});
+
+describe('taggedVersions', () => {
+  it('reads the vintage and the revision from the newest input tag', () => {
+    const none = { engine: null, input: null, maps: null, schema: null, web: null, docs: null };
+    expect(taggedVersions({ ...none, input: 'input-census-2030-r2' })).toEqual({ inputVintage: 'census-2030', inputRevision: 2 });
+    expect(taggedVersions(none)).toEqual({});
   });
 });
 
@@ -307,6 +359,30 @@ describe('versionProblems', () => {
   it('flags a bump with no changed files', () => {
     expect(check({ ...base, docs: '1.0.1' }, [])).toEqual(['docs: bumped in config/versions.json but none of its files changed']);
   });
+  it('accepts an engine major bump with no engine file changed only when the head fingerprints record that major', () => {
+    const head = { ...base, engine: '2.0.0', maps: 2 };
+    const problems = (headFingerprintMajor: number | null): string[] =>
+      versionProblems({ base, head, touched: new Set<Component>(), changelogs: noChangelog, mapsDataChanged, headFingerprintMajor });
+    const refused = ['engine: bumped in config/versions.json but none of its files changed'];
+    expect(problems(null)).toEqual(refused);
+    expect(problems(1)).toEqual(refused);
+    expect(problems(2)).toEqual([]);
+  });
+  it('does not exempt an engine minor or patch bump even when the fingerprints major matches', () => {
+    for (const engine of ['1.1.0', '1.0.1']) {
+      const problems = versionProblems({ base, head: { ...base, engine, maps: 2 }, touched: new Set<Component>(), changelogs: noChangelog, mapsDataChanged, headFingerprintMajor: 1 });
+      expect(problems).toEqual(['engine: bumped in config/versions.json but none of its files changed']);
+    }
+  });
+  it('does not let changed fingerprints excuse another component bumped without changed files', () => {
+    const problems = versionProblems({ base, head: { ...base, web: '1.0.1' }, touched: new Set<Component>(), changelogs: noChangelog, mapsDataChanged, headFingerprintMajor: 1 });
+    expect(problems).toEqual(['web: bumped in config/versions.json but none of its files changed']);
+  });
+  it('still demands an engine bump when engine files changed, fingerprints or not', () => {
+    const problems = versionProblems({ base, head: base, touched: new Set<Component>(['engine']), changelogs: noChangelog, mapsDataChanged, headFingerprintMajor: 1 });
+    expect(problems).toHaveLength(1);
+    expect(problems[0]).toContain('engine: its files changed');
+  });
   it('lets maps follow an engine or input bump without changed hashes', () => {
     expect(check({ ...base, engine: '1.1.0', maps: 2 }, ['engine'])).toEqual([]);
     expect(check({ ...base, input: { ...base.input, revision: 2 }, maps: 2 }, ['input'])).toEqual([]);
@@ -331,39 +407,59 @@ describe('prependEntry', () => {
 
 describe('compareFingerprints', () => {
   const sha = (ch: string): string => ch.repeat(64);
-  const states = { RI: sha('a'), DE: sha('b') };
+  const fp = (before: string, finished = before) => ({ before: sha(before), finished: sha(finished) });
+  const states = { RI: fp('a'), DE: fp('b') };
   const baseFile = FingerprintFileSchema.parse({ engineMajor: 1, states });
-  const recorded = (engineMajor: number, s: Record<string, string>) => FingerprintFileSchema.parse({ engineMajor, states: s });
+  const recorded = (engineMajor: number, s: Record<string, { before: string; finished: string }>) => FingerprintFileSchema.parse({ engineMajor, states: s });
 
   it('passes when the drawn fingerprints equal the base', () => {
     expect(compareFingerprints(baseFile, baseFile, states, 1)).toMatchObject({ ok: true, changed: [] });
   });
   it('fails when one changed and the major did not', () => {
-    const r = compareFingerprints(baseFile, baseFile, { ...states, DE: sha('c') }, 1);
+    const r = compareFingerprints(baseFile, baseFile, { ...states, DE: fp('c') }, 1);
     expect(r.ok).toBe(false);
     expect(r.changed).toEqual(['DE']);
     expect(r.message).toContain('DE');
   });
   it('passes when one changed, the major was bumped and the head file records the new fingerprints', () => {
-    const drawn = { ...states, RI: sha('c') };
+    const drawn = { ...states, RI: fp('c') };
     const r = compareFingerprints(baseFile, recorded(2, drawn), drawn, 2);
     expect(r.ok).toBe(true);
     expect(r.changed).toEqual(['RI']);
   });
   it('fails when the major was bumped but the head file still holds the old fingerprints', () => {
-    const drawn = { ...states, RI: sha('c') };
+    const drawn = { ...states, RI: fp('c') };
     expect(compareFingerprints(baseFile, baseFile, drawn, 2).ok).toBe(false);
   });
   it('fails when the head file was edited to match a changed map without a major bump', () => {
-    const drawn = { ...states, RI: sha('c') };
+    const drawn = { ...states, RI: fp('c') };
     expect(compareFingerprints(baseFile, recorded(1, drawn), drawn, 1).ok).toBe(false);
   });
   it('fails when the head file records a different engine major than the head version', () => {
-    const drawn = { ...states, RI: sha('c') };
+    const drawn = { ...states, RI: fp('c') };
     expect(compareFingerprints(baseFile, recorded(1, drawn), drawn, 2).ok).toBe(false);
   });
+  it('fails when only the before-balancing assignment changed, even though the finished one matches', () => {
+    const drawn = { ...states, RI: { before: sha('c'), finished: states.RI.finished } };
+    const r = compareFingerprints(baseFile, baseFile, drawn, 1);
+    expect(r.ok).toBe(false);
+    expect(r.changed).toEqual(['RI']);
+  });
+  it('fails when only the finished assignment changed', () => {
+    const drawn = { ...states, RI: { before: states.RI.before, finished: sha('c') } };
+    expect(compareFingerprints(baseFile, baseFile, drawn, 1).changed).toEqual(['RI']);
+  });
+  it('fails when the head file records the finished sha but not the new before-balancing one', () => {
+    const drawn = { ...states, RI: fp('c', 'd') };
+    const stale = { ...states, RI: { before: states.RI.before, finished: sha('d') } };
+    expect(compareFingerprints(baseFile, recorded(2, stale), drawn, 2).ok).toBe(false);
+    expect(compareFingerprints(baseFile, recorded(2, drawn), drawn, 2).ok).toBe(true);
+  });
+  it('rejects the old single-sha file format', () => {
+    expect(FingerprintFileSchema.safeParse({ engineMajor: 1, states: { RI: sha('a') } }).success).toBe(false);
+  });
   it('treats a missing fixture state as changed', () => {
-    expect(compareFingerprints(baseFile, baseFile, { RI: sha('a') }, 1).changed).toEqual(['DE']);
+    expect(compareFingerprints(baseFile, baseFile, { RI: fp('a') }, 1).changed).toEqual(['DE']);
   });
   it('passes vacuously when the base records no states (before the cut)', () => {
     expect(compareFingerprints({ engineMajor: 1, states: {} }, baseFile, states, 1).ok).toBe(true);
@@ -375,7 +471,7 @@ describe('compareFingerprints', () => {
     // Base released engine 2.0.0 but its fingerprint file still says major 1. A pull request changes the output and
     // re-records major 2 without bumping versions.json: the major to beat is 2, so it fails.
     const stale = FingerprintFileSchema.parse({ engineMajor: 1, states });
-    const drawn = { ...states, RI: sha('c') };
+    const drawn = { ...states, RI: fp('c') };
     const head = recorded(2, drawn);
     const baseMajor = baseEngineMajor(versionsAt('2.0.0'), stale.engineMajor);
     expect(compareFingerprints({ ...stale, engineMajor: baseMajor }, head, drawn, 2).ok).toBe(false);
@@ -385,7 +481,11 @@ describe('compareFingerprints', () => {
     expect(compareFingerprints({ ...stale, engineMajor: baseMajor }, recorded(3, drawn), drawn, 3).ok).toBe(true);
   });
   it('reads the checked-in fingerprint file', () => {
-    expect(FingerprintFileSchema.parse(JSON.parse(readFileSync('tests/fingerprints/engine.json', 'utf8')))).toEqual({ engineMajor: 1, states: {} });
+    const text = readFileSync('tests/fingerprints/engine.json', 'utf8');
+    const file = FingerprintFileSchema.parse(JSON.parse(text));
+    // Records exactly the configured fixture states, sorted, so the file is deterministic.
+    expect(Object.keys(file.states)).toEqual([...cfg.fixtureStates].sort());
+    expect(text).toBe(`${JSON.stringify(file, null, 2)}\n`);
   });
 });
 

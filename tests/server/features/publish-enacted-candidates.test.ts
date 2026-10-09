@@ -13,7 +13,7 @@ vi.mock('../../../src/server/shared/http/index.js', async (importOriginal) => ({
 vi.mock('adm-zip', () => ({
   default: class {
     getEntries() {
-      return ['.shp', '.dbf'].map((ext) => ({ entryName: `x${ext}`, getData: () => Buffer.alloc(0) }));
+      return ['.shp', '.dbf'].map((ext) => ({ entryName: `x${ext}`, header: { size: 0 }, getData: () => Buffer.alloc(0) }));
     }
   },
 }));

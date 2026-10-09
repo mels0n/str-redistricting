@@ -38,6 +38,9 @@ export interface VersionStamp {
 /** Validated once, at boot. */
 export const VERSIONS: Versions = VersionsSchema.parse(versionsJson);
 
+/** The major part of an engine version, as written ("2.1.0" gives "2"). */
+export const engineMajor = (version: string): string => version.split('.')[0] ?? version;
+
 export function stampOf(v: Versions): VersionStamp {
   return { engine: v.engine, input: { ...v.input }, maps: v.maps, schema: v.schema };
 }

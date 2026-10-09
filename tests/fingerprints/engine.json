@@ -1,4 +1,21 @@
 {
   "engineMajor": 1,
-  "states": {}
+  "states": {
+    "CT": {
+      "before": "e19886e84a9ce3e71fea2ed214ffdcabaf830bb4a1286c9c7af15fffec560245",
+      "finished": "8b8ac9f05e6247c1ed9498a4c5b0077dd463e7abefd2b49e525ad7a2c4ff6067"
+    },
+    "NV": {
+      "before": "00982fbd023934a08c7f31a69e3dc6b19816095a834b7dd84e889f0e0160628f",
+      "finished": "f7e7df01399731e8a9817a5d6255e38627b33c57bdd09659ac49e5f51a11d364"
+    },
+    "RI": {
+      "before": "adc66a64bc38f6c568d1a79bd1141e3b10fe46827eeee169c59cdf74579e4c67",
+      "finished": "1f64bc2dbea66d9353cee2474c5f424ef2e487f08f90c6cd2bd1d28f7790d3a3"
+    },
+    "VT": {
+      "before": "d221e7eba65998b2fb4d94b95e73785e60113a14a7cd8637793b75ce1d1b56e3",
+      "finished": "d221e7eba65998b2fb4d94b95e73785e60113a14a7cd8637793b75ce1d1b56e3"
+    }
+  }
 }

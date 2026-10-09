@@ -13,6 +13,8 @@ const appDir = fileURLToPath(new URL('../../../src/server/app/', import.meta.url
 // `--import tsx` resolves from the working directory, which is a temp repo with no node_modules, so name tsx by URL.
 const tsx = pathToFileURL(createRequire(import.meta.url).resolve('tsx')).href;
 const releaseJson = readFileSync('config/release.json', 'utf8');
+// The release scripts redraw every state a fingerprint file records; these tests are about versions, not maps.
+const noFixtures = `${JSON.stringify({ engineMajor: 1, states: {} })}\n`;
 
 let repo: string;
 beforeEach(() => {
@@ -220,7 +222,7 @@ describe('release', () => {
   });
   it('proposes a web minor for a feat since the tags, and writes nothing on --dry-run', () => {
     seed(false);
-    write('tests/fingerprints/engine.json', readFileSync('tests/fingerprints/engine.json', 'utf8'));
+    write('tests/fingerprints/engine.json', noFixtures);
     write('config/census-sha256.json', readFileSync('config/census-sha256.json', 'utf8'));
     write('config/enacted.json', readFileSync('config/enacted.json', 'utf8'));
     commitAll('chore: inputs');
@@ -242,7 +244,8 @@ describe('release (repeat runs and measuring)', () => {
       write('public/data/index.json', indexJson('a'));
     }
     seed(false);
-    for (const f of ['tests/fingerprints/engine.json', 'config/census-sha256.json', 'config/enacted.json']) write(f, readFileSync(f, 'utf8'));
+    write('tests/fingerprints/engine.json', noFixtures);
+    for (const f of ['config/census-sha256.json','config/enacted.json']) write(f, readFileSync(f, 'utf8'));
     commitAll('chore: inputs');
     for (const tag of baselineTags) git('tag', tag);
   }
@@ -337,7 +340,7 @@ describe('fingerprints --check --base', () => {
 `;
   it('passes vacuously when the base ref has no fingerprint file, whatever the head file says', () => {
     const base = seed(false);
-    write('tests/fingerprints/engine.json', `${JSON.stringify({ engineMajor: 1, states: { RI: 'a'.repeat(64) } })}
+    write('tests/fingerprints/engine.json', `${JSON.stringify({ engineMajor: 1, states: { RI: { before: 'a'.repeat(64), finished: 'b'.repeat(64) } } })}
 `);
     commitAll('chore: record');
     const out = run('fingerprints.ts', ['--check', '--base', base]);

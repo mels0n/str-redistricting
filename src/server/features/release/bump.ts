@@ -31,6 +31,8 @@ export function compareSemver(a: string, b: string): number {
 /** The versions as of each component's newest release tag; a component with no tag is left out and measured from its current version. */
 export interface TaggedVersions {
   engine?: string;
+  /** The vintage of the newest input tag, e.g. census-2020. A revision only counts within its vintage. */
+  inputVintage?: string;
   inputRevision?: number;
   maps?: number;
   schema?: string;
@@ -81,16 +83,18 @@ export function proposeVersions(current: Versions, p: BumpInput): { next: Versio
   next.engine = higher(current.engine, engineProposed);
   if (next.engine !== current.engine) reasons.push(`engine ${next.engine}: ${engineWhy}`);
 
-  if (p.inputSha256 !== current.input.sha256) {
-    next.input.revision = Math.max(current.input.revision, (tagged.inputRevision ?? current.input.revision) + 1);
+  // A revision counts changes within one vintage: the first release of a vintage the last tag does not name is r1.
+  const newVintage = tagged.inputVintage !== undefined && tagged.inputVintage !== current.input.vintage;
+  if (p.inputSha256 !== current.input.sha256 || (newVintage && current.input.revision !== 1)) {
+    next.input.revision = newVintage ? 1 : Math.max(current.input.revision, (tagged.inputRevision ?? current.input.revision) + 1);
     next.input.sha256 = p.inputSha256;
-    reasons.push(`input ${next.input.vintage} r${next.input.revision}: the Census manifest or enacted config changed`);
+    reasons.push(newVintage ? `input ${next.input.vintage} r${next.input.revision}: a new Census vintage` : `input ${next.input.vintage} r${next.input.revision}: the Census manifest or enacted config changed`);
   }
 
   // The maps release follows a new engine major or input revision since the last maps release (the next publish draws
   // different maps), or published hashes that already moved since then.
   const engineMajorMoved = Number(next.engine.split('.')[0]) > Number((tagged.engine ?? current.engine).split('.')[0]);
-  const inputMoved = next.input.revision > (tagged.inputRevision ?? current.input.revision);
+  const inputMoved = newVintage || next.input.revision > (tagged.inputRevision ?? current.input.revision);
   const mapsFrom = tagged.maps ?? current.maps;
   if (engineMajorMoved || inputMoved || p.mapsDataChanged === true) {
     next.maps = Math.max(current.maps, mapsFrom + 1);

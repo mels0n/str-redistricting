@@ -14,6 +14,8 @@ export const PlanMetricsSchema = z.object({
   angleStepDeg: z.number(),
   nodeVersion: z.string(),
   inputSha256: z.string(),
+  /** The engine version (config/versions.json) that drew the plan; absent from metrics written before it was recorded. */
+  engine: z.string().optional(),
   seats: z.number().int().positive(),
   population: z.number(),
   ideal: z.number(),

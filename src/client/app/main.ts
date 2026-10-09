@@ -2,10 +2,11 @@ import './zod-config';
 import '@fontsource-variable/public-sans/wght.css';
 import '@fontsource/ibm-plex-mono/latin-400.css';
 import './styles.css';
-import { h } from '../shared';
+import { h, initDataRelease, setSkewHandler } from '../shared';
 import { createSiteHeader } from '../widgets/site-header';
 import { createSiteFooter } from '../widgets/site-footer';
 import { startRouter } from './router';
+import { reloadOncePerRelease } from './skew-reload';
 
 const root = document.getElementById('str-viewer');
 if (root) {
@@ -22,5 +23,7 @@ if (root) {
     outlet,
     createSiteFooter(),
   );
-  startRouter(outlet);
+  // A release went out while this page was open: reload once so no state mixes files from two releases.
+  setSkewHandler(reloadOncePerRelease(() => sessionStorage, () => location.reload()));
+  void initDataRelease().then(() => startRouter(outlet));
 }

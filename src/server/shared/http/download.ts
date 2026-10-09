@@ -3,7 +3,8 @@ import { createReadStream, existsSync } from 'node:fs';
 import { mkdir, open, rename, rm } from 'node:fs/promises';
 import { basename, dirname } from 'node:path';
 import { setTimeout as delay } from 'node:timers/promises';
-import { ChecksumError, DownloadError } from '../errors/index.js';
+import { CENSUS_HOSTS } from '../config/index.js';
+import { ChecksumError, DownloadError, DownloadRefusedError } from '../errors/index.js';
 
 /** A download is abandoned when no byte (headers included) arrives for this long. Block zips run to about 260 MB. */
 export const STALL_TIMEOUT_MS = 60_000;
@@ -12,12 +13,36 @@ export const TOTAL_TIMEOUT_MS = 15 * 60_000;
 /** Retries after the first attempt; waits double each time (2 s, 4 s, 8 s). */
 export const MAX_RETRIES = 3;
 export const BACKOFF_BASE_MS = 2_000;
+/** Redirects followed for one attempt; more than this is refused. */
+export const MAX_REDIRECTS = 5;
+/**
+ * No Census file may exceed 1 GiB. The largest real one (the Texas block file) is 746 MB, so this leaves about 40%
+ * headroom for a reissue while stopping a wrong or hostile response long before it fills the disk.
+ */
+export const MAX_DOWNLOAD_BYTES = 1_073_741_824;
 
 export interface DownloadOptions {
   readonly fetchFn?: typeof fetch;
   readonly sleep?: (ms: number) => Promise<void>;
   readonly stallMs?: number;
   readonly totalMs?: number;
+  /** Hosts a download may come from, https only; defaults to the hosts in config/census-sources.json. */
+  readonly allowedHosts?: ReadonlySet<string>;
+  /** Largest body accepted; defaults to MAX_DOWNLOAD_BYTES. */
+  readonly maxBytes?: number;
+}
+
+/** Refuse an address that is not https on an allowed host. */
+function assertAllowedUrl(url: string, label: string, hosts: ReadonlySet<string>): void {
+  let parsed: URL;
+  try {
+    parsed = new URL(url);
+  } catch {
+    throw new DownloadRefusedError(`download for ${label} refused: not a valid address`);
+  }
+  if (parsed.protocol !== 'https:' || !hosts.has(parsed.hostname) || parsed.port !== '') {
+    throw new DownloadRefusedError(`download for ${label} refused: ${parsed.protocol}//${parsed.host} is not an allowed Census host`);
+  }
 }
 
 /** SHA-256 of a file, streamed so a 260 MB archive is never held in memory. */
@@ -29,7 +54,7 @@ export async function sha256File(path: string): Promise<string> {
 
 /** Network errors, timeouts, truncated bodies, HTTP 5xx and 429 are worth another try; other 4xx and hash mismatches are not. */
 function isRetryable(err: unknown): boolean {
-  if (err instanceof ChecksumError) return false;
+  if (err instanceof ChecksumError || err instanceof DownloadRefusedError) return false;
   if (err instanceof DownloadError) return err.status === undefined || err.status >= 500 || err.status === 429;
   return true;
 }
@@ -43,15 +68,34 @@ async function fetchToPart(url: string, path: string, part: string, label: strin
     timer = setTimeout(() => stall.abort(new Error(`no data for ${o.stallMs} ms`)), o.stallMs);
   };
   const signal = AbortSignal.any([stall.signal, AbortSignal.timeout(o.totalMs)]);
+  assertAllowedUrl(url, label, o.allowedHosts);
   const file = await open(part, 'wx');
   arm();
   try {
-    const res = await o.fetchFn(url, { signal });
+    // Redirects are followed here, one hop at a time, so an address off the allowlist is refused before it is requested.
+    let current = url;
+    let res = await o.fetchFn(current, { signal, redirect: 'manual' });
+    for (let hops = 0; res.status >= 300 && res.status < 400 && res.headers.has('location'); hops++) {
+      await res.body?.cancel().catch(() => undefined);
+      if (hops >= MAX_REDIRECTS) throw new DownloadRefusedError(`download for ${label} refused: more than ${MAX_REDIRECTS} redirects`);
+      try {
+        current = new URL(res.headers.get('location')!, current).toString();
+      } catch {
+        throw new DownloadRefusedError(`download for ${label} refused: redirect to an invalid address`);
+      }
+      assertAllowedUrl(current, label, o.allowedHosts);
+      res = await o.fetchFn(current, { signal, redirect: 'manual' });
+    }
     if (!res.ok) {
       await res.body?.cancel().catch(() => undefined);
       throw new DownloadError(`download failed for ${label}: HTTP ${res.status}`, res.status);
     }
     if (res.body === null) throw new DownloadError(`download for ${label} had no body`);
+    const declared = res.headers.get('content-length');
+    if (declared !== null && Number(declared) > o.maxBytes) {
+      await res.body.cancel().catch(() => undefined);
+      throw new DownloadRefusedError(`download for ${label} refused: ${declared} bytes is over the ${o.maxBytes} byte limit`);
+    }
     const hash = createHash('sha256');
     let size = 0;
     const reader = res.body.getReader();
@@ -61,6 +105,10 @@ async function fetchToPart(url: string, path: string, part: string, label: strin
       arm();
       hash.update(value);
       size += value.length;
+      if (size > o.maxBytes) {
+        await reader.cancel().catch(() => undefined);
+        throw new DownloadRefusedError(`download for ${label} refused: more than ${o.maxBytes} bytes`);
+      }
       await file.write(value);
     }
     const expected = res.headers.get('content-length');
@@ -83,6 +131,8 @@ async function fetchWithRetries(url: string, path: string, label: string, sha256
     sleep: opts.sleep ?? ((ms) => delay(ms)),
     stallMs: opts.stallMs ?? STALL_TIMEOUT_MS,
     totalMs: opts.totalMs ?? TOTAL_TIMEOUT_MS,
+    allowedHosts: opts.allowedHosts ?? CENSUS_HOSTS,
+    maxBytes: opts.maxBytes ?? MAX_DOWNLOAD_BYTES,
   };
   await mkdir(dirname(path), { recursive: true });
   let backoff = BACKOFF_BASE_MS;

@@ -1,11 +1,21 @@
 import { z } from 'zod';
 import { VersionsSchema } from '../../shared/config/index.js';
 
-/** tests/fingerprints/engine.json: the assignment fingerprint of each fixture state at a given engine major. */
+const Sha = z.string().regex(/^[0-9a-f]{64}$/);
+
+/** One fixture state: the assignment sha of the plan before balancing (the cuts alone) and of the finished plan. */
+export const StateFingerprintSchema = z.strictObject({ before: Sha, finished: Sha });
+export type StateFingerprint = z.infer<typeof StateFingerprintSchema>;
+
+/** tests/fingerprints/engine.json: the fingerprints of each fixture state at a given engine major. */
 export const FingerprintFileSchema = z.strictObject({
   engineMajor: z.number().int().min(1),
-  states: z.record(z.string().regex(/^[A-Z]{2}$/), z.string().regex(/^[0-9a-f]{64}$/)),
+  states: z.record(z.string().regex(/^[A-Z]{2}$/), StateFingerprintSchema),
 });
+
+function sameFingerprint(a: StateFingerprint | undefined, b: StateFingerprint | undefined): boolean {
+  return a !== undefined && b !== undefined && a.before === b.before && a.finished === b.finished;
+}
 export type FingerprintFile = z.infer<typeof FingerprintFileSchema>;
 
 /**
@@ -27,11 +37,11 @@ export function baseEngineMajor(baseVersionsText: string | null, fingerprintEngi
 export function compareFingerprints(
   base: FingerprintFile,
   head: FingerprintFile,
-  drawn: Readonly<Record<string, string>>,
+  drawn: Readonly<Record<string, StateFingerprint>>,
   headEngineMajor: number,
 ): { ok: boolean; changed: string[]; message: string } {
   if (Object.keys(base.states).length === 0) return { ok: true, changed: [], message: 'the base records no fixture states yet; the fixture gate passes' };
-  const changed = Object.keys(base.states).filter((st) => drawn[st] !== base.states[st]).sort();
+  const changed = Object.keys(base.states).filter((st) => !sameFingerprint(drawn[st], base.states[st])).sort();
   if (changed.length === 0) return { ok: true, changed, message: 'fixture fingerprints match' };
   const names = changed.join(', ');
   if (headEngineMajor <= base.engineMajor) {
@@ -41,7 +51,7 @@ export function compareFingerprints(
       message: `the map changed for ${names} but the engine major is still ${headEngineMajor}; bump the engine major (npm run release) and record the new fingerprints with npm run fingerprints -- --record`,
     };
   }
-  const recordedOk = head.engineMajor === headEngineMajor && Object.keys(drawn).every((st) => head.states[st] === drawn[st]);
+  const recordedOk = head.engineMajor === headEngineMajor && Object.keys(drawn).every((st) => sameFingerprint(head.states[st], drawn[st]));
   if (!recordedOk) {
     return {
       ok: false,

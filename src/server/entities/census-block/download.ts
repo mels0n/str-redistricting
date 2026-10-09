@@ -6,25 +6,23 @@ import type { Block } from './model.js';
 import type { StateInfo } from '../../shared/apportionment/index.js';
 import { pinnedSha256 } from '../../shared/config/index.js';
 import { DataError } from '../../shared/errors/index.js';
-import { downloadCached } from '../../shared/http/index.js';
+import { downloadCached, readZipEntry } from '../../shared/http/index.js';
 import { parseBlockFeature, parseBlockPolygons, type BlockPolygons } from './parse.js';
 
 export const blocksUrl = (fips: string): string =>
   `https://www2.census.gov/geo/tiger/TIGER2020/TABBLOCK20/tl_2020_${fips}_tabblock20.zip`;
 
+/** The name of a state's block file in the pinned Census manifest. */
+export const blocksFileName = (state: StateInfo): string => `tl_2020_${state.fips}_tabblock20.zip`;
+
 export async function ensureZip(state: StateInfo, cacheDir: string): Promise<string> {
-  const file = `tl_2020_${state.fips}_tabblock20.zip`;
+  const file = blocksFileName(state);
   return downloadCached(blocksUrl(state.fips), join(cacheDir, file), state.abbr, pinnedSha256(file));
 }
 
 async function openBlockSource(state: StateInfo, cacheDir: string) {
   const zip = new AdmZip(await readFile(await ensureZip(state, cacheDir)));
-  const entry = (ext: string) => {
-    const e = zip.getEntries().find((x) => x.entryName.toLowerCase().endsWith(ext));
-    if (!e) throw new DataError(`${state.abbr}: archive has no ${ext} file`);
-    return e.getData();
-  };
-  return shapefile.open(entry('.shp'), entry('.dbf'));
+  return shapefile.open(readZipEntry(zip, '.shp', state.abbr), readZipEntry(zip, '.dbf', state.abbr));
 }
 
 export async function loadStateBlocks(state: StateInfo, cacheDir: string): Promise<Block[]> {

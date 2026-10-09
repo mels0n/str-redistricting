@@ -6,6 +6,8 @@ import type { Plan } from '../../shared';
  * The border-blocks layer: the outlines of the Census blocks that sit on a district line, from `<state>/blocks.pmtiles`.
  * The tileset has one zoom level, BLOCKS_ZOOM, and the layer shows from there up (MapLibre overzooms the tiles past it).
  * A state published before the file existed has none; the map then goes without the layer, silently.
+ * Must match TILE_MAXZOOM in src/server/features/publish/tiles.ts, the one zoom the publisher writes blocks.pmtiles at
+ * (the client cannot import it; tests/client/detail-source-zooms.test.ts checks they are equal).
  */
 export const BLOCKS_ZOOM = 13;
 export const BLOCKS_SOURCE = 'blocks';

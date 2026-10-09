@@ -1,4 +1,4 @@
-export { blocksUrl, ensureZip, loadStateBlocks, loadBlockPolygons } from './download.js';
+export { blocksFileName, blocksUrl, ensureZip, loadStateBlocks, loadBlockPolygons } from './download.js';
 export { parseBlockFeature, parseBlockPolygons } from './parse.js';
 export type { BlockPolygons } from './parse.js';
 export type { Assignment, Block } from './model.js';

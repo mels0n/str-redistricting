@@ -39,5 +39,5 @@
   },
   "ignore": ["public/data/**", "tests/**", ".github/**", "config/versions.json", "config/release.json", "changelog/**"],
   "docsTypes": ["copy", "docs"],
-  "fixtureStates": ["RI", "DE", "VT", "HI"]
+  "fixtureStates": ["CT", "NV", "RI", "VT"]
 }

@@ -30,7 +30,7 @@ export function resolveAddress(index: StateIndex, result: GeocodeResult, current
 export function describeResolution(res: Exclude<Resolution, { kind: 'here' }>, result: GeocodeResult): string {
   switch (res.kind) {
     case 'outside':
-      return `${result.matchedAddress} is not in one of the 50 states, so there is no map for it here.`;
+      return `${result.matchedAddress} is not in one of the 50 states, so there is no map for it here. Washington, D.C. and the U.S. territories elect non-voting delegates to the House, so they have no districts to draw.`;
     case 'no-map':
       return `${result.matchedAddress} is in ${res.state.name}. The map for ${res.state.name} has not been generated.`;
     case 'open':

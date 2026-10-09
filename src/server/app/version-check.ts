@@ -2,11 +2,18 @@ import { readFileSync } from 'node:fs';
 import { COMPONENTS, ReleaseConfigSchema, componentsFor, mapsDataChanged, versionProblems, type Component } from '../features/release/index.js';
 import { VersionsSchema, parseVersionCheckArgs } from '../shared/config/index.js';
 import { DataError, exitCodeFor } from '../shared/errors/index.js';
+import { FINGERPRINT_PATH, parseFingerprintFile } from './fixtures.js';
 import { changedFiles, commitsSince, mergeBase, showFile } from './git.js';
 
 // Compares config/versions.json at --base and at HEAD with what the pull request touched, and public/data/index.json
 // at both for the maps release. Reads config/release.json from --base, so a pull request cannot loosen its own check
 // (HEAD's copy is used only when the base has none). Warns until release.json says enforce, then fails.
+
+/** The engine major recorded at HEAD; null only when there is no fingerprint file. A malformed file is an error, never "no major". */
+function headFingerprintMajor(): number | null {
+  const text = showFile('HEAD', FINGERPRINT_PATH);
+  return text === null ? null : parseFingerprintFile(text, `HEAD:${FINGERPRINT_PATH}`).engineMajor;
+}
 
 function check(): void {
   const { base } = parseVersionCheckArgs(process.argv.slice(2));
@@ -40,6 +47,7 @@ function check(): void {
     head: headVersions,
     touched,
     changelogs,
+    headFingerprintMajor: headFingerprintMajor(),
     // Data stamped with a Maps release an earlier change already declared needs no further bump.
     mapsDataChanged: mapsDataChanged(showFile(base, 'public/data/index.json'), showFile('HEAD', 'public/data/index.json'), { base: baseVersions.maps, head: headVersions.maps }),
   });

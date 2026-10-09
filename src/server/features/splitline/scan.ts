@@ -117,8 +117,10 @@ function settleStrays(g: StrayGraph, pinned: Uint8Array, observe?: SweepObserver
  * closest to `target`. A quickselect, not a sort: it writes the identity permutation into `perm` and partitions
  * only the window that still holds the target, so `perm` ends partially ordered (everything left of the final
  * window sorts before it; the rest is unspecified). Callers read the low side as the first `count` entries.
- * The clamp can move `count` outside the ordered part, so there the first `count` entries are not guaranteed to
- * be the `count` smallest.
+ * Those are the `count` smallest as long as minCount <= 1 and maxCount >= length - 1, which holds for every
+ * caller (split uses the default clamp; resplit passes minCount 0 or 1 and maxCount f - 1 or f). Then the clamp
+ * moves `count` by at most one, onto a boundary of the ordered part, so the prefix is still the `count` smallest.
+ * A wider clamp (a larger minCount or a smaller maxCount) could push `count` into the unordered part and break that.
  *
  * The low side is the shortest prefix that reaches `target`, or one block fewer when that is strictly nearer
  * to it. An exact tie in distance goes to the smaller count (the strict `<` in both places). The result is

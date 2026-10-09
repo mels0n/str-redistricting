@@ -913,7 +913,7 @@ export async function islandBridge(ctx: ExtractContext): Promise<IslandPick | un
   };
 }
 
-/** strays.islands: a detached piece of land joined to the nearest block of the main body. */
+/** strays.islands: a detached piece of land linked to the main body, at the closest pair of internal points. */
 export async function islandsCase(ctx: ExtractContext): Promise<RuleCase> {
   const pick = await islandBridge(ctx);
   if (!pick) return missingCase('strays.islands', ABBR, 'no generated state has detached land', 'None of the generated states has an island or other detached land, so there is no bridge to show.');
@@ -972,7 +972,7 @@ export async function islandsCase(ctx: ExtractContext): Promise<RuleCase> {
         show: [...I, ...M, 'pi', 'pm', 'bridge', 'dist'],
       },
       {
-        caption: `Every detached piece is joined to the nearest block of the land already joined, sometimes another island, so ${name} can be cut like any other state.`,
+        caption: `Detached land is connected one shortest link at a time, measured between internal points and often to another island, so ${name} can be cut like any other state.`,
         show: [...I, ...M, 'pi', 'pm', 'bridge', 'dist'],
       },
     ],

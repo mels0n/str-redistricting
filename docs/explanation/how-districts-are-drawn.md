@@ -8,7 +8,7 @@ The generator reads three things for every census block in a state, from the 202
 
 - the number of people counted in the block,
 - the block's shape on the ground, and
-- the block's internal point (the Census Bureau's `INTPTLAT20` and `INTPTLON20`), which is used only to put blocks in order across a guide line.
+- the block's internal point (the Census Bureau's `INTPTLAT20` and `INTPTLON20`), which is used to put blocks in order across a guide line and to measure island links (see [Every district is one connected piece](#every-district-is-one-connected-piece)).
 
 That is all. It does not read party registration or voter records, election results or turnout, where officeholders or candidates live, current or past district lines, or race, ethnicity, age, income or anything else about people besides the count. The enacted districts of the current Congress are shown in the viewer for comparison only. County and city boundaries are not used to draw anything. Counties are only counted afterwards, for reporting. People are counted where the census counted them, with no adjustments, so a person in a prison is counted at the prison.
 
@@ -58,7 +58,17 @@ The length of a candidate is the length of the real border between its two final
 
 ### Every district is one connected piece
 
-Two blocks are connected when they share an edge, and touching at a single corner does not count. A cut is accepted only if both of its sides are each one connected piece. If a cut would leave a side in two or more parts, the next shortest candidate is tried. Census blocks cover lakes, bays and coastal water, and a water block is a block like any other, so land on two shores is connected when blocks of the same district, water blocks included, join them. Land that no block reaches, even across water, is linked to the nearest block of the growing main body, which includes islands already joined, so a state with islands can still be cut. These links are called island links, and their number is reported as `bridges`.
+Two blocks are connected when they share an edge, and touching at a single corner does not count. A cut is accepted only if both of its sides are each one connected piece. If a cut would leave a side in two or more parts, the next shortest candidate is tried. Census blocks cover lakes, bays and coastal water, and a water block is a block like any other, so land on two shores is connected when blocks of the same district, water blocks included, join them. Some land is reached by no block at all, such as an island beyond the coastal water blocks. It is connected by island links, and links are chosen the way cuts are: measure every option and take the shortest. A block stands at its internal point, and a link's length is the distance along the surface of the Earth between the internal points of its two blocks.
+
+1. Find every piece of the state that shared edges alone hold together. The piece with the most blocks is the connected land to start from.
+2. Of every possible link between a block of the connected land and a block of a piece not yet connected, take the shortest. If two are exactly the same length, the one between lower block positions in GEOID order wins.
+3. That piece is now part of the connected land. Repeat step 2 until no piece is left.
+
+Each link is the shortest one available, so together the links are the shortest set that connects every piece. An island links to whatever land is nearest, which is often another island rather than the mainland. The order the blocks are numbered in does not change which links are made, except where two possible links are exactly the same length (step 2).
+
+A piece is a group of blocks, not a single island. The Census Bureau sometimes draws one block around a cluster of small islands, and those islands are then one block, so no link is drawn between them; a link goes only between pieces. In the map viewer, click a district to select it and zoom in: zoomed in, the map is drawn block by block, so a block that spans several islands shows as one shape, and the selected district's links stay on screen as dashed lines.
+
+A link adds nothing to any border's length, and it counts toward connection only when both of its ends are on the same side. This is how a state with islands can be cut like any other. The number of links is reported as `bridges`.
 
 ### Ties
 

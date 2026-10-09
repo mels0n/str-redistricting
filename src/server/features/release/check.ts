@@ -15,16 +15,19 @@ export interface VersionCheckInput {
   /** public/data/index.json differs between base and head in an assignment or input hash, or in its state list. */
   mapsDataChanged: boolean;
   /**
-   * tests/fingerprints/engine.json differs between base and head. An engine bump with no engine file changed is
-   * accepted then: a dependency bump (package-lock.json belongs to no component) can change the drawn maps, and the
-   * fixture gate then demands an engine major and re-recorded fingerprints.
+   * engineMajor recorded in tests/fingerprints/engine.json at head (null when absent). An engine bump with no engine
+   * file changed is accepted only when the engine MAJOR moved and this equals the new major: a dependency bump
+   * (package-lock.json belongs to no component) can change the drawn maps, and the fixture gate then demands an
+   * engine major and re-recorded fingerprints. A minor or patch bump gets no such exemption.
    */
-  fingerprintsChanged?: boolean;
+  headFingerprintMajor?: number | null;
 }
 
 export function versionProblems(p: VersionCheckInput): string[] {
   const problems: string[] = [];
   const bumped = (c: Component): boolean => identity(p.base, c) !== identity(p.head, c);
+  const major = (v: string): number => Number.parseInt(v, 10);
+  const engineMajorMoved = major(p.head.engine) !== major(p.base.engine) && p.headFingerprintMajor === major(p.head.engine);
   for (const c of COMPONENTS) {
     if (c === 'maps') {
       // Maps follow the content of public/data (its hashes), not which paths a pull request touched.
@@ -37,7 +40,7 @@ export function versionProblems(p: VersionCheckInput): string[] {
     } else if (p.touched.has(c) && !bumped(c)) {
       problems.push(`${c}: its files changed but ${c} was not bumped in config/versions.json (npm run release proposes the bump)`);
     }
-    if (c !== 'maps' && !p.touched.has(c) && bumped(c) && !(c === 'engine' && p.fingerprintsChanged === true)) {
+    if (c !== 'maps' && !p.touched.has(c) && bumped(c) && !(c === 'engine' && engineMajorMoved)) {
       problems.push(`${c}: bumped in config/versions.json but none of its files changed`);
     }
     if (p.changelogs[c].includes('—')) problems.push(`changelog/${c}.md contains an em dash; use a period, comma or parentheses`);

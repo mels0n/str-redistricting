@@ -359,19 +359,27 @@ describe('versionProblems', () => {
   it('flags a bump with no changed files', () => {
     expect(check({ ...base, docs: '1.0.1' }, [])).toEqual(['docs: bumped in config/versions.json but none of its files changed']);
   });
-  it('accepts an engine bump with no engine file changed when the recorded fingerprints changed in the same diff', () => {
+  it('accepts an engine major bump with no engine file changed only when the head fingerprints record that major', () => {
     const head = { ...base, engine: '2.0.0', maps: 2 };
-    const problems = (fingerprintsChanged: boolean): string[] =>
-      versionProblems({ base, head, touched: new Set<Component>(), changelogs: noChangelog, mapsDataChanged, fingerprintsChanged });
-    expect(problems(false)).toEqual(['engine: bumped in config/versions.json but none of its files changed']);
-    expect(problems(true)).toEqual([]);
+    const problems = (headFingerprintMajor: number | null): string[] =>
+      versionProblems({ base, head, touched: new Set<Component>(), changelogs: noChangelog, mapsDataChanged, headFingerprintMajor });
+    const refused = ['engine: bumped in config/versions.json but none of its files changed'];
+    expect(problems(null)).toEqual(refused);
+    expect(problems(1)).toEqual(refused);
+    expect(problems(2)).toEqual([]);
+  });
+  it('does not exempt an engine minor or patch bump even when the fingerprints major matches', () => {
+    for (const engine of ['1.1.0', '1.0.1']) {
+      const problems = versionProblems({ base, head: { ...base, engine, maps: 2 }, touched: new Set<Component>(), changelogs: noChangelog, mapsDataChanged, headFingerprintMajor: 1 });
+      expect(problems).toEqual(['engine: bumped in config/versions.json but none of its files changed']);
+    }
   });
   it('does not let changed fingerprints excuse another component bumped without changed files', () => {
-    const problems = versionProblems({ base, head: { ...base, web: '1.0.1' }, touched: new Set<Component>(), changelogs: noChangelog, mapsDataChanged, fingerprintsChanged: true });
+    const problems = versionProblems({ base, head: { ...base, web: '1.0.1' }, touched: new Set<Component>(), changelogs: noChangelog, mapsDataChanged, headFingerprintMajor: 1 });
     expect(problems).toEqual(['web: bumped in config/versions.json but none of its files changed']);
   });
   it('still demands an engine bump when engine files changed, fingerprints or not', () => {
-    const problems = versionProblems({ base, head: base, touched: new Set<Component>(['engine']), changelogs: noChangelog, mapsDataChanged, fingerprintsChanged: true });
+    const problems = versionProblems({ base, head: base, touched: new Set<Component>(['engine']), changelogs: noChangelog, mapsDataChanged, headFingerprintMajor: 1 });
     expect(problems).toHaveLength(1);
     expect(problems[0]).toContain('engine: its files changed');
   });

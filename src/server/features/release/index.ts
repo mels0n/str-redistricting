@@ -6,6 +6,6 @@ export type { VersionCheckInput } from './check.js';
 export { COMPONENTS, ReleaseConfigSchema, componentsFor, componentsOfFile, matchesGlob, parseCommitSubject } from './components.js';
 export type { Commit, Component, ReleaseConfig } from './components.js';
 export { FingerprintFileSchema, baseEngineMajor, compareFingerprints } from './fingerprints.js';
-export type { FingerprintFile } from './fingerprints.js';
+export type { FingerprintFile, StateFingerprint } from './fingerprints.js';
 export { mapsDataChanged } from './maps.js';
 export { newestTag, tagsFor, taggedVersions } from './tags.js';

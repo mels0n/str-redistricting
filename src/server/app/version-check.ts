@@ -2,6 +2,7 @@ import { readFileSync } from 'node:fs';
 import { COMPONENTS, ReleaseConfigSchema, componentsFor, mapsDataChanged, versionProblems, type Component } from '../features/release/index.js';
 import { VersionsSchema, parseVersionCheckArgs } from '../shared/config/index.js';
 import { DataError, exitCodeFor } from '../shared/errors/index.js';
+import { FINGERPRINT_PATH } from './fixtures.js';
 import { changedFiles, commitsSince, mergeBase, showFile } from './git.js';
 
 // Compares config/versions.json at --base and at HEAD with what the pull request touched, and public/data/index.json
@@ -40,6 +41,7 @@ function check(): void {
     head: headVersions,
     touched,
     changelogs,
+    fingerprintsChanged: net.has(FINGERPRINT_PATH),
     // Data stamped with a Maps release an earlier change already declared needs no further bump.
     mapsDataChanged: mapsDataChanged(showFile(base, 'public/data/index.json'), showFile('HEAD', 'public/data/index.json'), { base: baseVersions.maps, head: headVersions.maps }),
   });

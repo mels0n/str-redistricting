@@ -1,10 +1,12 @@
 import { z } from 'zod';
 import enactedJson from '../../../../config/enacted.json' with { type: 'json' };
 
-/**
+/*
  * Which Congress's districts are shown for comparison, and which Census file they come from. The values live in
  * config/enacted.json, the one place the generator, the viewer and the scheduled update all read and write.
  */
+
+/** Census cartographic boundary file name: cb_<year>_us_cd<congress>_500k. */
 const FILE_PATTERN = /^cb_(\d{4})_us_cd(\d+)_500k$/;
 
 /** "cb_2025_us_cd119_500k" -> { year: 2025, congress: 119 }; any other name -> null. */

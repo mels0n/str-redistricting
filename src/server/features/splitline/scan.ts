@@ -3,8 +3,9 @@ import { DataError } from '../../shared/errors/index.js';
 
 /**
  * A piece of the state in local positions 0..m-1, as plain typed arrays so worker threads can share it.
- * px/py are the projected internal points; lOff/lAdj/lLen the adjacency inside the piece with shared
- * border lengths in meters.
+ * px/py are the blocks' internal points in gnomonic coordinates on the unit sphere (dimensionless; multiply by
+ * EARTH_RADIUS_M for meters near the center). lOff/lAdj/lLen the adjacency inside the piece (CSR layout) with
+ * shared border lengths lLen in meters.
  */
 export interface Piece {
   readonly m: number;
@@ -30,7 +31,7 @@ export const FIELDS = 8;
 export const F_OFFSET = 0, F_LENGTH = 1, F_BLOCKS = 2, F_POP = 3, F_ITER = 4, F_SHIFT = 5, F_LOWPOP = 6, F_UNRESOLVED = 7;
 
 export interface Evaluation {
-  /** Guide-line offset of the final population split, in projection units. */
+  /** Guide-line offset of the final population split, in projection units (unit-sphere radii, not meters). */
   offset: number;
   lengthM: number;
   /** Blocks (and their people) that changed side as strays. */
@@ -111,7 +112,22 @@ function settleStrays(g: StrayGraph, pinned: Uint8Array, observe?: SweepObserver
   }
 }
 
-/** Order local positions by (key, block id) and return the low-side count closest to the target population. */
+/**
+ * How many blocks, taken in (key, block id) order, form the low side: the count whose cumulative population is
+ * closest to `target`. A quickselect, not a sort: it writes the identity permutation into `perm` and partitions
+ * only the window that still holds the target, so `perm` ends partially ordered (everything left of the final
+ * window sorts before it; the rest is unspecified). Callers read the low side as the first `count` entries.
+ * The clamp can move `count` outside the ordered part, so there the first `count` entries are not guaranteed to
+ * be the `count` smallest.
+ *
+ * The low side is the shortest prefix that reaches `target`, or one block fewer when that is strictly nearer
+ * to it. An exact tie in distance goes to the smaller count (the strict `<` in both places). The result is
+ * clamped to [minCount, maxCount], so a side is never empty by default (1 .. m - 1).
+ *
+ * Windows of 16 or fewer positions are insertion-sorted and scanned; larger ones are partitioned around a
+ * median-of-3 pivot (first, middle, last of the window). (key, id) is a strict total order because block ids are
+ * unique, so every comparison, pivot and partition depends only on the inputs and the result is deterministic.
+ */
 export function selectLow(keys: Float64Array, ids: Int32Array, pops: Float64Array, perm: Int32Array, target: number, minCount = 1, maxCount = perm.length - 1): number {
   const m = perm.length;
   for (let i = 0; i < m; i++) perm[i] = i;

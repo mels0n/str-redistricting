@@ -86,7 +86,7 @@ function loadBridges(abbr: string): Promise<Bridges | null> {
 /** A state's numbers alone (both plans, every district), without any shapes. */
 export function loadStats(abbr: string): Promise<Stats> {
   return fetchJson(dataUrl(`${abbr}/stats.json`), StatsSchema).then((stats) => {
-    checkRelease(stats.versions);
+    void checkRelease(stats.versions);
     return stats;
   });
 }

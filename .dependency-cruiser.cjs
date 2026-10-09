@@ -1,9 +1,8 @@
 /**
- * Dependency rules for the day-1 code standard.
- * Reference: notes/system/code-standards.md sections 2, 3 and 7.
+ * Dependency rules for the layered code standard (see AGENTS.md, Layout).
  *
  * These run in CI and FAIL the build. They are not advisory: mechanical
- * enforcement is what keeps the layer graph honest when agents write the code.
+ * enforcement is what keeps the layer graph honest.
  *
  * Layer order, top to bottom:
  * src/client/  app > pages > widgets > features > entities > shared

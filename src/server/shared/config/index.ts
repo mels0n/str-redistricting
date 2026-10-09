@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { stateByAbbr, type StateInfo } from '../apportionment/index.js';
 import { ConfigError } from '../errors/index.js';
 
+export { CENSUS_HOSTS } from './census-hosts.js';
 export { CENSUS_SHA256, ManifestSchema, pinnedSha256 } from './census-manifest.js';
 export { ENACTED_CONFIG, EnactedConfigSchema, enactedFileName, parseEnactedFileName } from './enacted.js';
 export type { EnactedConfig } from './enacted.js';

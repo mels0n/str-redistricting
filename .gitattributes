@@ -1,1 +1,2 @@
 config/*.json text eol=lf
+tests/fingerprints/*.json text eol=lf

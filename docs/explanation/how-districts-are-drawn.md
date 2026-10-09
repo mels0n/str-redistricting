@@ -64,7 +64,7 @@ Two blocks are connected when they share an edge, and touching at a single corne
 2. Of every possible link between a block of the connected land and a block of a piece not yet connected, take the shortest. If two are exactly the same length, the one between lower block positions in GEOID order wins.
 3. That piece is now part of the connected land. Repeat step 2 until no piece is left.
 
-Each link is the shortest one available, so together the links are the shortest set that connects every piece. An island links to whatever land is nearest, which is often another island rather than the mainland. The order the blocks are numbered in does not change which links are made.
+Each link is the shortest one available, so together the links are the shortest set that connects every piece. An island links to whatever land is nearest, which is often another island rather than the mainland. The order the blocks are numbered in does not change which links are made, except where two possible links are exactly the same length (step 2).
 
 A piece is a group of blocks, not a single island. The Census Bureau sometimes draws one block around a cluster of small islands, and those islands are then one block, so no link is drawn between them; a link goes only between pieces. In the map viewer, click a district to select it and zoom in: zoomed in, the map is drawn block by block, so a block that spans several islands shows as one shape, and the selected district's links stay on screen as dashed lines.
 

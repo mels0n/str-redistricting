@@ -101,10 +101,6 @@ function bruteForceBridges(blocks: readonly Block[]): [number, number][] {
   return bridges;
 }
 
-/** Total great-circle length of a set of links, in metres. */
-const totalLength = (blocks: readonly Block[], links: readonly (readonly [number, number])[]): number =>
-  links.reduce((sum, [u, v]) => sum + greatCircleDistance(blocks[u]!.point, blocks[v]!.point), 0);
-
 /** Links as a sorted list of "lo,hi" strings, for comparing sets regardless of order. */
 const linkSet = (links: readonly (readonly [number, number])[]): string[] =>
   links.map(([u, v]) => (u < v ? `${u},${v}` : `${v},${u}`)).sort();
@@ -196,6 +192,22 @@ describe('island links are the shortest set that joins every piece', () => {
     }
   });
 
+  it('links multi-block islands through the island joined since, and leaves far ones on their first link', () => {
+    const blocks = [
+      ...gridBlocks(3, 3), // main body, x and y in [0, 0.03]
+      ...gridBlocks(2, 2, { origin: [0.2, 0], indexOffset: 100 }), // far east: 0.08 from the middle island, 0.17 from main
+      ...gridBlocks(2, 2, { origin: [0.1, 0], indexOffset: 200 }), // middle: 0.07 from main, joins first
+      ...gridBlocks(2, 2, { origin: [0, 0.5], indexOffset: 300 }), // far north: nearest to main, far from both islands
+    ];
+    const topo = buildTopology(blocks);
+    expect(topo.bridges).toEqual(bruteForceBridges(blocks));
+    expect(linkSet(topo.bridges)).toEqual(linkSet(shortestTreeBridges(blocks)));
+    const piece = pieceOf(blocks);
+    const links = topo.bridges.map(([u, v]) => [piece[u]!, piece[v]!].sort((p, q) => p - q).join('-'));
+    // Pieces in block order: 0 main, 1 far east, 2 middle, 3 far north.
+    expect(links.sort()).toEqual(['0-2', '0-3', '1-2']);
+  });
+
   it('does not depend on how blocks are numbered', () => {
     const blocks = pieces();
     const base = buildTopology(blocks);
@@ -208,8 +220,7 @@ describe('island links are the shortest set that joins every piece', () => {
   });
 });
 
-describe('bridging equals brute force'
-, () => {
+describe('bridging equals brute force', () => {
   it('matches on a checkerboard of 50 isolated blocks (many distance ties)', () => {
     const blocks = gridBlocks(10, 10, { skip: (x, y) => (x + y) % 2 === 1 });
     expect(blocks).toHaveLength(50);

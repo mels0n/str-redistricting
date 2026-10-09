@@ -203,7 +203,7 @@ describe('download hardening', () => {
     expect(await readFile(path, 'utf8')).toBe(BODY);
   });
   it('refuses a request address that is not https on a Census host, without fetching', async () => {
-    for (const url of ['http://www2.census.gov/f.zip', 'https://example.test/f.zip', 'not a url']) {
+    for (const url of ['http://www2.census.gov/f.zip', 'https://example.test/f.zip', 'https://www2.census.gov:8443/f.zip', 'not a url']) {
       const f = vi.fn<typeof fetch>(async () => ok());
       await expect(at(url, f)).rejects.toThrow(DownloadRefusedError);
       expect(f).not.toHaveBeenCalled();

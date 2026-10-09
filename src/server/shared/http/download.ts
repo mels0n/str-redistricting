@@ -40,8 +40,8 @@ function assertAllowedUrl(url: string, label: string, hosts: ReadonlySet<string>
   } catch {
     throw new DownloadRefusedError(`download for ${label} refused: not a valid address`);
   }
-  if (parsed.protocol !== 'https:' || !hosts.has(parsed.hostname)) {
-    throw new DownloadRefusedError(`download for ${label} refused: ${parsed.protocol}//${parsed.hostname} is not an allowed Census host`);
+  if (parsed.protocol !== 'https:' || !hosts.has(parsed.hostname) || parsed.port !== '') {
+    throw new DownloadRefusedError(`download for ${label} refused: ${parsed.protocol}//${parsed.host} is not an allowed Census host`);
   }
 }
 

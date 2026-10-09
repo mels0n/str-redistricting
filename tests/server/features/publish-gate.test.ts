@@ -12,8 +12,11 @@ describe('checkPublishGate', () => {
   it('allows a first publish', () => {
     expect(() => checkPublishGate(null, { versions: stamp, sha: A }, false, 'RI')).not.toThrow();
   });
-  it('allows anything under --baseline', () => {
+  it('lets --baseline stamp unstamped data', () => {
     expect(() => checkPublishGate({ sha: A }, { versions: stamp, sha: B }, true, 'RI')).not.toThrow();
+  });
+  it('still gates a stamped state under --baseline', () => {
+    expect(() => checkPublishGate({ versions: stamp, sha: A }, { versions: stamp, sha: B }, true, 'RI')).toThrow(DataError);
   });
   it('refuses unstamped published data without --baseline', () => {
     expect(() => checkPublishGate({ sha: A }, { versions: stamp, sha: A }, false, 'RI')).toThrow(

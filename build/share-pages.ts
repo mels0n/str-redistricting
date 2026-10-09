@@ -2,6 +2,7 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import type { Plugin } from 'vite';
 import { z } from 'zod';
+// Imported from the file, not the publish slice's index, so the Vite config does not load the image renderer.
 import { SITE_HOST } from '../src/server/features/publish/site.js';
 
 const SITE = `https://${SITE_HOST}`;

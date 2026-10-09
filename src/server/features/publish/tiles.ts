@@ -13,7 +13,7 @@ import { writePmtiles } from './pmtiles.js';
 /** First and last zoom of the detail tiles. The map draws them only when zoomed in. */
 export const TILE_MINZOOM = 7;
 export const TILE_MAXZOOM = 13;
-/** Tile extent at TILE_MAXZOOM: 8192 units over a ~4.9 km tile is about 0.45 m at 40N. */
+/** Tile extent at TILE_MAXZOOM: a z13 tile is ~4.9 km wide at the equator and ~3.75 km at 40N, so 8192 units there are about 0.46 m. */
 export const DEEP_EXTENT = 8192;
 const COARSE_EXTENT = 4096;
 export const MVT_VERSION = 2;

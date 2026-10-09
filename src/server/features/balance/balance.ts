@@ -51,6 +51,22 @@ export interface BalanceOptions {
   onRound?(r: BalanceRound): void;
 }
 
+/**
+ * Greedy population balancing of a district map: repeatedly move one border block from a district to a neighbour
+ * while that lowers the sum of squared deviations from the ideal population. Deterministic, every tie is broken
+ * by index.
+ *
+ * Each round takes the non-exhausted district furthest from the ideal population (ties to the lowest district
+ * index: the strict `>` keeps the first). Candidates are the moves across that district's border, its blocks
+ * moving out and neighbouring blocks moving in, kept only when the gain is positive, ranked by gain descending,
+ * then block, then destination district. The first candidate that leaves the giving district connected (and
+ * non-empty) is made. If none can be, that district is marked exhausted and the next furthest is tried. After any
+ * move the exhausted marks are cleared, since populations and borders changed.
+ *
+ * It terminates: populations are integers, so a move's gain is a positive integer, the sum of squared deviations
+ * is bounded below by 0 and strictly decreases with every move, so only finitely many moves exist; between
+ * moves each district is exhausted at most once. The loop ends when every district is exhausted.
+ */
 export function balance(blocks: readonly Block[], topo: Topology, input: Int32Array, seats: number, opts: BalanceOptions = {}): BalanceResult {
   const assignment = Int32Array.from(input);
   const pop = new Float64Array(seats);
@@ -98,7 +114,9 @@ export function balance(blocks: readonly Block[], topo: Topology, input: Int32Ar
       if (seen.has(key)) return;
       seen.add(key);
       if (p === 0) { ruledOut?.push({ block, from, to, gain: 0, allowed: false, reason: 'no-people', district }); return; }
-      // Exact decrease in the sum of squared deviations (populations are integers).
+      // Exact decrease in the sum of squared deviations (populations are integers). With a = pop[from], b = pop[to]
+      // and ideal I, moving p changes (a-I)^2 + (b-I)^2 into (a-p-I)^2 + (b+p-I)^2; the difference is
+      // 2p(a-I) - p^2 - 2p(b-I) - p^2 = 2p(a - b - p), so I cancels.
       const gain = 2 * p * (pop[from]! - pop[to]! - p);
       if (gain > 0) cands.push({ block, from, to, gain });
       else ruledOut?.push({ block, from, to, gain, allowed: false, reason: 'widens', district });

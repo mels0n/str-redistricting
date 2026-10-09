@@ -142,8 +142,10 @@ export function decidingTieRule(angleCount: number): (a: TieKey, b: TieKey) => {
 }
 
 /**
- * The order candidate lines are tried in: border length to the centimeter, then the tie rules of
- * decidingTieRule. Lengths within a centimeter count as equal: on a sphere exact ties only exist up to rounding.
+ * The order candidate lines are tried in: border length, then the tie rules of decidingTieRule. Lengths are
+ * rounded to the nearest centimeter and compared as integers, so lengths that round to the same centimeter are
+ * equal (on a sphere exact ties only exist up to rounding). Two lengths a hair apart can still straddle a
+ * rounding boundary and compare as different.
  */
 export function compareCandidates(angleCount: number): (p: Pick<Candidate, 'k' | 'lowSeats' | 'lengthM'>, q: Pick<Candidate, 'k' | 'lowSeats' | 'lengthM'>) => number {
   return (p, q) => {
@@ -152,6 +154,16 @@ export function compareCandidates(angleCount: number): (p: Pick<Candidate, 'k' |
   };
 }
 
+/**
+ * Split a piece (`members`, block indices) holding `seats` seats into two sides, choosing the shortest valid
+ * border. Candidates are every direction k < ctx.angleCount crossed with the low-side seat count: a = floor(seats / 2)
+ * and b = seats - a, so [a, b] when they differ. When a === b the two orientations are mirror images of each other
+ * (same line, sides swapped), so only [a] is scanned. Each candidate is scanned for its offset and border length
+ * (in a pool when `opts.pool` is given), then all are sorted with compareCandidates and tried in that order. The
+ * first whose sides pass `validate` wins; by default both sides must be connected. Candidates failing validation
+ * are counted in `skipped`. If none passes, the DataError after the loop reports that no valid cut exists.
+ * Throws a DataError up front for fewer than two seats or two blocks.
+ */
 export function findCut(ctx: SplitContext, members: Int32Array, seats: number, validate?: SideValidator, opts: CutOptions = {}): CutResult {
   const m = members.length;
   if (seats < 2 || m < 2) throw new DataError('a cut needs at least two seats and two blocks');
@@ -212,6 +224,7 @@ export function findCut(ctx: SplitContext, members: Int32Array, seats: number, v
   for (let k = 0; k < ctx.angleCount; k++) {
     orientations.forEach((lowSeats, o) => {
       const at = (k * orientations.length + o) * FIELDS;
+      // The scan reports offset shifts in sphere radii (projection units); times EARTH_RADIUS_M gives meters at the projection center.
       candidateStats.push({
         k, lowSeats, lengthM: res[at + F_LENGTH]!, strayBlocks: res[at + F_BLOCKS]!, strayPop: res[at + F_POP]!,
         iterations: res[at + F_ITER]!, offsetShiftM: res[at + F_SHIFT]! * EARTH_RADIUS_M, lowPop: res[at + F_LOWPOP]!,

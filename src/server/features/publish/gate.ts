@@ -22,3 +22,12 @@ export function checkPublishGate(
     throw new DataError(`${state}: the map changed but the engine major and input revision did not; bump the engine major (npm run release)`);
   }
 }
+
+/**
+ * The published states whose stamp is not the current one. The dataset-wide versions file may only move to the
+ * current versions when this is empty; after a partial publish it would otherwise name a release some maps were not drawn under.
+ */
+export function staleStamps(published: readonly { abbr: string; versions?: VersionStamp }[], current: VersionStamp): string[] {
+  const key = JSON.stringify(current);
+  return published.filter((p) => p.versions === undefined || JSON.stringify(p.versions) !== key).map((p) => p.abbr);
+}

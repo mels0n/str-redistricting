@@ -56,5 +56,6 @@ export function commitsSince(ref: string | null): Commit[] {
 
 export function commit(files: readonly string[], message: string): void {
   git(['add', '--', ...files]);
-  git(['commit', '-m', message]);
+  // Only the release files: anything else already staged stays staged, out of the release commit.
+  git(['commit', '-m', message, '--', ...files]);
 }

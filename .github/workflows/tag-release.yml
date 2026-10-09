@@ -15,8 +15,10 @@ on:
   push:
     branches: [main]
 
+# One group per pushed commit: a shared group would drop a queued run when a newer push arrives, and that run's
+# range (before..after) would then never be tagged. Runs cover disjoint ranges and the tag job skips existing tags.
 concurrency:
-  group: tag-release
+  group: tag-release-${{ github.sha }}
   cancel-in-progress: false
 
 permissions: {}

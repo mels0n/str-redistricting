@@ -19,8 +19,8 @@ describe('sharePageHtml', () => {
     expect(html).toContain('<meta property="og:image:height" content="630" />');
     expect(html).toContain('<meta property="og:image:alt"');
     expect(html).toContain('<meta name="twitter:card" content="summary_large_image" />');
-    expect(html).toContain('<meta http-equiv="refresh" content="0; url=/#/CO" />');
-    expect(html).toContain('<a href="/#/CO">Open the Colorado map</a>');
+    expect(html).toContain('<meta http-equiv="refresh" content="0; url=../#/CO" />');
+    expect(html).toContain('<a href="../#/CO">Open the Colorado map</a>');
   });
   it('falls back to the site image when the state has none', () => {
     const fallback = sharePageHtml({ abbr: 'CO', name: 'Colorado', seats: 8 }, 'https://fairmaps.melson.us', false);

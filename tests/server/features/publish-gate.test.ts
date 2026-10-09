@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { checkPublishGate } from '../../../src/server/features/publish/index.js';
+import { checkPublishGate, staleStamps } from '../../../src/server/features/publish/index.js';
 import { stampOf, VERSIONS } from '../../../src/server/shared/config/index.js';
 import { DataError } from '../../../src/server/shared/errors/index.js';
 
@@ -38,5 +38,16 @@ describe('checkPublishGate', () => {
   it('allows a changed map when the input revision moved', () => {
     const next = bumped({ input: { ...stamp.input, revision: stamp.input.revision + 1 } });
     expect(() => checkPublishGate({ versions: stamp, sha: A }, { versions: next, sha: B }, false, 'RI')).not.toThrow();
+  });
+});
+
+describe('staleStamps', () => {
+  const current = stampOf(VERSIONS);
+  it('is empty when every published state carries the current stamp', () => {
+    expect(staleStamps([{ abbr: 'CO', versions: current }, { abbr: 'RI', versions: { ...current } }], current)).toEqual([]);
+  });
+  it('names states with an older or missing stamp', () => {
+    const older = { ...current, maps: current.maps - 1 };
+    expect(staleStamps([{ abbr: 'CO', versions: current }, { abbr: 'RI', versions: older }, { abbr: 'DE' }], current)).toEqual(['RI', 'DE']);
   });
 });

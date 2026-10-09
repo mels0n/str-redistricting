@@ -148,7 +148,9 @@ describe('downloadCached integrity', () => {
     expect(err).toBeInstanceOf(ChecksumError);
     const msg = (err as Error).message;
     expect(msg).toContain('f.zip: sha256 differs from config/census-sha256.json');
+    expect(msg).toContain('just downloaded');
     expect(msg).toContain('npm run release');
+    expect(msg).not.toContain('Delete');
     expect(f).toHaveBeenCalledTimes(1);
     expect(existsSync(path)).toBe(false);
     expect(await partFiles()).toEqual([]);
@@ -167,7 +169,8 @@ describe('downloadCached integrity', () => {
     const msg = (err as Error).message;
     expect(msg).toContain('f.zip: sha256 differs from config/census-sha256.json');
     expect(msg).toContain('npm run release');
-    expect(msg).toContain('delete the cached file to re-download');
+    expect(msg).toContain('The cached file is corrupt or the Census Bureau reissued it');
+    expect(msg).toContain(`Delete ${path} to download it again`);
     expect(f).not.toHaveBeenCalled();
     expect(await readFile(path, 'utf8')).toBe('corrupt');
   });

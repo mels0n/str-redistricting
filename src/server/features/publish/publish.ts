@@ -17,7 +17,7 @@ import { countiesByDistrict } from './counties.js';
 import { buildStateBorderBlocks } from './border-blocks.js';
 import { buildEnactedTopology } from './enacted.js';
 import { buildCuts } from './cuts.js';
-import { checkPublishGate } from './gate.js';
+import { checkPublishGate, staleStamps } from './gate.js';
 import { loadOgFonts, OG_PALETTE, ogSvg, renderOgPng } from './og.js';
 import { ogCredit } from './og-credit.js';
 import { buildStats, planStats } from './stats.js';
@@ -347,5 +347,14 @@ export async function publishData(cfg: PublishConfig): Promise<void> {
 
   // The index describes what is in the public directory, after this run's states are written.
   await write(join(cfg.publicDir, 'index.json'), JSON.stringify(buildIndex(STATES, await publishedSummaries(cfg.publicDir))));
-  await write(join(cfg.publicDir, 'versions.json'), formatVersions(VERSIONS));
+  // The versions file speaks for the whole published dataset, so it moves to the current versions only when every
+  // published state now carries the current stamp; after a partial run that left older stamps it stays as it was.
+  const published: { abbr: string; versions?: VersionStamp }[] = [];
+  for (const s of STATES) {
+    const state = await readPublishedState(join(cfg.publicDir, s.abbr, 'stats.json'));
+    if (state !== null) published.push({ abbr: s.abbr, ...(state.versions ? { versions: state.versions } : {}) });
+  }
+  const stale = staleStamps(published, versions);
+  if (stale.length === 0) await write(join(cfg.publicDir, 'versions.json'), formatVersions(VERSIONS));
+  else console.log(`versions.json kept: ${stale.join(', ')} still carry an older stamp`);
 }

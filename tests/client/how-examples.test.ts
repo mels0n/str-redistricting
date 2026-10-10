@@ -53,11 +53,25 @@ describe('balancing worked example', () => {
     for (const t of trades) expect(improvement(start, t)).toBe(sumOfSquares(start) - sumOfSquares(applyTrade(start, t)));
   });
 
-  it('chooses B, then restarts from District 3 on the tie with District 5', () => {
+  it('chooses B, then restarts from District 5 on the tie with District 3 (its first block comes first in GEOID order)', () => {
     expect(bestTrade(start, trades).id).toBe('B');
     const after = applyTrade(start, trade('B'));
     expect(Math.abs(after[3]!)).toBe(Math.abs(after[5]!));
-    expect(furthest(after)).toBe(3);
+    expect(furthest(after)).toBe(5);
+  });
+
+  it('breaks a tie for furthest by first block in GEOID order, never by district number', () => {
+    const dev = { 1: 200, 2: -200, 3: 50 };
+    expect(furthest(dev, { 1: 9, 2: 4, 3: 1 })).toBe(2);
+    expect(furthest(dev, { 1: 4, 2: 9, 3: 1 })).toBe(1);
+  });
+
+  it('breaks a tie in improvement by shorter border, then by block order', () => {
+    const dev = { 1: -300, 3: 400 };
+    const mk = (id: string, border: number, block: number): Trade => ({ id, people: 100, from: 3, to: 1, border, block });
+    expect(bestTrade(dev, [mk('X', 5, 1), mk('Y', -5, 2)]).id).toBe('Y');
+    expect(bestTrade(dev, [mk('X', 5, 2), mk('Y', 5, 1)]).id).toBe('Y');
+    expect(bestTrade(dev, [mk('X', 5, 1), mk('Y', 5, 2)]).id).toBe('X');
   });
 
   it('drops a trade into the furthest district: it makes the sum bigger', () => {
@@ -156,7 +170,7 @@ describe('How it works page', () => {
     expect(text).toContain('Following one state: Colorado');
     expect(text).toContain('400² + 300² + 100² = 260,000');
     expect(text).toContain('The running total passes 500 at block E');
-    expect(text).toContain('the next round starts from District 3');
+    expect(text).toContain('the next round starts from District 5');
     expect(text).toContain('Stray pieces and the re-count');
     expect(text).toContain('each side still holds 500 people');
     expect(text).not.toMatch(/cap|1%|Node\.js/);

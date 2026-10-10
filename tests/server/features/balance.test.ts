@@ -59,6 +59,53 @@ describe('balance', () => {
       expect(isConnected(topo, members)).toBe(true);
     }
   });
+  it('breaks a tie in gain by the shorter total border before GEOID order', () => {
+    // 3x3 grid, District 1 is the right column's lower two blocks. Blocks 4 and 7 each hold one person and either may
+    // leave District 0 with the same gain. Block 4 shares three edges with District 0 and one with District 1, so
+    // moving it lengthens the border by about two edges; block 7 shares two and one, about one edge. Block 2 is
+    // empty, so it never moves.
+    const blocks = gridBlocks(3, 3, { pop: (x, y) => (x === 2 && y === 0 ? 0 : 1) });
+    const topo = buildTopology(blocks);
+    const rounds: BalanceRound[] = [];
+    const r = balance(blocks, topo, Int32Array.from([0, 0, 0, 0, 0, 1, 0, 0, 1]), 2, { onRound: (x) => rounds.push(x) });
+    const ranked = rounds[0]!.candidates.filter((c) => c.gain > 0);
+    expect(ranked.map((c) => c.block)).toEqual([7, 4]);
+    expect(ranked[0]!.gain).toBe(ranked[1]!.gain);
+    expect(ranked[0]!.border!).toBeLessThan(ranked[1]!.border!);
+    expect(r.moves[0]!.block).toBe(7);
+  });
+  it('breaks a tie in gain and border by GEOID order before the receiving district', () => {
+    // 4x2 grid: District 1 is the left column, District 2 the right column, District 0 the four blocks between.
+    // Blocks 2 and 5 can each leave District 0 with the same gain and exactly the same border change (each shares
+    // one vertical and one horizontal edge with District 0 and one vertical edge with its receiver). Block 2 would
+    // join District 2, whose first block is 3; block 5 would join District 1, whose first block is 0. Block 2 still
+    // goes first: the block decides before the receiving district.
+    const pops = [0, 0, 1, 0, 1, 1, 1, 1];
+    const blocks = gridBlocks(4, 2, { pop: (x, y) => pops[y * 4 + x]! });
+    const rounds: BalanceRound[] = [];
+    const r = balance(blocks, buildTopology(blocks), Int32Array.from([1, 0, 0, 2, 1, 0, 0, 2]), 3, { onRound: (x) => rounds.push(x) });
+    const ranked = rounds[0]!.candidates.filter((c) => c.gain > 0);
+    const [b2, b5] = [ranked.find((c) => c.block === 2)!, ranked.find((c) => c.block === 5)!];
+    expect(b2.gain).toBe(b5.gain);
+    expect(b2.border).toBe(b5.border);
+    expect(r.moves[0]).toMatchObject({ block: 2, from: 0, to: 2 });
+  });
+  it('sends a block to the neighbor whose first block comes first in GEOID order when everything else ties', () => {
+    // 3x2 grid: District 2 is block 0, District 1 is block 2, District 0 the rest. Block 1 touches both one-block
+    // districts along edges of the same length and both hold one person, so only the receiving district can decide.
+    const pops = [1, 1, 1, 0, 3, 0];
+    const blocks = gridBlocks(3, 2, { pop: (x, y) => pops[y * 3 + x]! });
+    const r = balance(blocks, buildTopology(blocks), Int32Array.from([2, 0, 1, 0, 0, 0]), 3);
+    expect(r.moves[0]).toMatchObject({ block: 1, from: 0, to: 2 });
+  });
+  it('tries equally far districts in the order of their first block, not their number', () => {
+    // District 1 holds block 0 (5 people) and District 0 block 1 (1 person): both are 2 from the ideal of 3.
+    const pops = [5, 1, 3];
+    const blocks = gridBlocks(3, 1, { pop: (x) => pops[x]! });
+    const rounds: BalanceRound[] = [];
+    balance(blocks, buildTopology(blocks), Int32Array.from([1, 0, 2]), 3, { onRound: (x) => rounds.push(x) });
+    expect(rounds[0]!.tried).toEqual([1, 0, 2]);
+  });
   it('is deterministic and leaves its input untouched', () => {
     const blocks = gridBlocks(5, 4, { pop: (x, y) => 1 + ((x * 3 + y * 5) % 4) });
     const topo = buildTopology(blocks);

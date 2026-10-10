@@ -3,7 +3,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { setTimeout as delay } from 'node:timers/promises';
 import { DownloadError } from '../../shared/errors/index.js';
-import { CENSUS_USER_AGENT, HEAD_TIMEOUT_MS, retryAfterMs, downloadForPinning, type DownloadOptions } from '../../shared/http/index.js';
+import { CENSUS_USER_AGENT, HEAD_TIMEOUT_MS, retryAfterMs, retryWaitMs, downloadForPinning, type DownloadOptions } from '../../shared/http/index.js';
 import type { Source } from './diff.js';
 
 const HEAD_RETRIES = 2;
@@ -36,7 +36,7 @@ export async function probeSource(url: string, opts: ProbeOptions = {}): Promise
     } catch (err) {
       const retryable = !(err instanceof DownloadError) || err.status === undefined || err.status >= 500 || err.status === 429;
       if (!retryable || attempt >= HEAD_RETRIES) throw err;
-      await sleep(err instanceof DownloadError && err.retryAfterMs !== undefined ? err.retryAfterMs : backoff);
+      await sleep(retryWaitMs(backoff, err instanceof DownloadError ? err.retryAfterMs : undefined));
       backoff *= 2;
     }
   }

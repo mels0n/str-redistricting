@@ -364,7 +364,7 @@ describe('script argument parsers', () => {
     expect(() => parseVersionCheckArgs(['--base=--upload-pack=x'])).toThrow(ConfigError);
     expect(parseReleaseTagsArgs(['--before', 'none', '--after', 'abcdef1'])).toEqual({ before: 'none', after: 'abcdef1' });
     expect(() => parseReleaseTagsArgs(['--before', 'none'])).toThrow(ConfigError);
-    expect(() => parseReleaseTagsArgs(['--before', '--output=x', '--after', 'abcdef1'])).toThrow();
+    expect(() => parseReleaseTagsArgs(['--before', '--output=x', '--after', 'abcdef1'])).toThrow(ConfigError);
     expect(() => parseReleaseTagsArgs(['--before=--output=x', '--after', 'abcdef1'])).toThrow(ConfigError);
     expect(() => parseReleaseTagsArgs(['--before', 'none', '--after=-abcdef1'])).toThrow(ConfigError);
     expect(parseFingerprintArgs(['--check'])).toEqual({ mode: 'check', states: undefined, cacheDir: 'data/raw' });

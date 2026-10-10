@@ -6,6 +6,11 @@ export const CENSUS_USER_AGENT = 'str-redistricting (+https://github.com/mels0n/
 /** The longest a server's Retry-After is honored. */
 export const MAX_RETRY_AFTER_MS = 60_000;
 
+/** How long to wait before a retry: the backoff, or longer when the server asked for more. */
+export function retryWaitMs(backoffMs: number, serverAskedMs: number | undefined): number {
+  return Math.max(backoffMs, serverAskedMs ?? 0);
+}
+
 /** The wait a 429 or 503 asks for in `Retry-After` (whole seconds), capped at MAX_RETRY_AFTER_MS; undefined when absent, or an HTTP date. */
 export function retryAfterMs(res: Response): number | undefined {
   if (res.status !== 429 && res.status !== 503) return undefined;

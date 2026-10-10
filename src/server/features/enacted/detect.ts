@@ -1,7 +1,7 @@
 import { setTimeout as delay } from 'node:timers/promises';
 import { CENSUS_HOSTS, enactedFileName, parseEnactedFileName, type EnactedConfig } from '../../shared/config/index.js';
 import { ConfigError, DownloadError, DownloadRefusedError } from '../../shared/errors/index.js';
-import { CENSUS_USER_AGENT, HEAD_TIMEOUT_MS, retryAfterMs } from '../../shared/http/index.js';
+import { CENSUS_USER_AGENT, HEAD_TIMEOUT_MS, retryAfterMs, retryWaitMs, isAllowedUrl } from '../../shared/http/index.js';
 
 /** Retries after the first probe of one URL; waits double each time. */
 export const PROBE_RETRIES = 3;
@@ -55,9 +55,9 @@ async function probeOnce(
     headers: { 'User-Agent': CENSUS_USER_AGENT, ...(method === 'GET' ? { Range: 'bytes=0-0' } : {}) },
   });
   // A redirect off the Census hosts is refused, not read as "served". (A response with no url is not from a real fetch.)
-  if (res.url !== '' && !hosts.has(new URL(res.url).hostname)) {
+  if (res.url !== '' && !isAllowedUrl(res.url, hosts)) {
     await res.body?.cancel().catch(() => undefined);
-    throw new DownloadRefusedError(`probe of ${url} refused: redirected to ${new URL(res.url).host}, which is not a Census host`);
+    throw new DownloadRefusedError(`probe of ${url} refused: redirected to ${res.url}, which is not https on a Census host`);
   }
   // The body is never wanted; a server that ignores Range would otherwise stream the whole file.
   await res.body?.cancel().catch(() => undefined);
@@ -98,7 +98,7 @@ export async function isServed(url: string, opts: ProbeOptions = {}): Promise<bo
     if (attempt > PROBE_RETRIES) {
       throw new DownloadError(`probe of ${url} failed after ${attempt} attempts: ${reason}`, 'status' in outcome ? outcome.status : undefined);
     }
-    await sleep('status' in outcome && outcome.retryAfterMs !== undefined ? outcome.retryAfterMs : backoff);
+    await sleep(retryWaitMs(backoff, 'status' in outcome ? outcome.retryAfterMs : undefined));
     backoff *= 2;
   }
 }

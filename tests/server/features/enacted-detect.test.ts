@@ -114,6 +114,15 @@ describe('isServed safety', () => {
     expect(err).toBeInstanceOf(DownloadRefusedError);
     expect(f).toHaveBeenCalledTimes(1);
   });
+  it('refuses a redirect that ends on http or on a port, even on a Census host', async () => {
+    for (const end of ['http://www2.census.gov/a.zip', 'https://www2.census.gov:8443/a.zip']) {
+      const res = new Response(null, { status: 200, headers: { 'content-type': 'application/zip' } });
+      Object.defineProperty(res, 'url', { value: end });
+      const f = vi.fn<typeof fetch>(async () => res);
+      const err = await isServed('https://www2.census.gov/a.zip', { fetchFn: f, sleep: noSleep, allowedHosts: new Set(['www2.census.gov']) }).catch((e: unknown) => e);
+      expect(err).toBeInstanceOf(DownloadRefusedError);
+    }
+  });
   it('accepts a response that ends on an allowed host', async () => {
     const res = new Response(null, { status: 200, headers: { 'content-type': 'application/zip' } });
     Object.defineProperty(res, 'url', { value: 'https://www2.census.gov/a.zip' });
@@ -138,6 +147,14 @@ describe('isServed identity and Retry-After', () => {
       .mockResolvedValueOnce(zip());
     expect(await isServed(URL_OF('a'), { fetchFn: f, sleep: async (ms) => void sleeps.push(ms) })).toBe(true);
     expect(sleeps).toEqual([5000]);
+  });
+  it('still waits the backoff when Retry-After asks for less', async () => {
+    const sleeps: number[] = [];
+    const f = vi.fn<typeof fetch>()
+      .mockResolvedValueOnce(new Response(null, { status: 429, headers: { 'retry-after': '0' } }))
+      .mockResolvedValueOnce(zip());
+    await isServed(URL_OF('a'), { fetchFn: f, sleep: async (ms) => void sleeps.push(ms) });
+    expect(sleeps).toEqual([2000]);
   });
   it('caps Retry-After at 60 seconds', async () => {
     const sleeps: number[] = [];

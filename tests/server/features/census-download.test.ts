@@ -50,6 +50,21 @@ describe('downloadCached retries', () => {
     await run(f);
     expect((f.mock.calls[0]?.[1]?.headers as Record<string, string>)['User-Agent']).toBe('str-redistricting (+https://github.com/mels0n/str-redistricting)');
   });
+  it('sends the User-Agent on a redirect hop too', async () => {
+    const f = vi.fn<typeof fetch>()
+      .mockResolvedValueOnce(new Response(null, { status: 302, headers: { location: 'https://www2.census.gov/g.zip' } }))
+      .mockResolvedValueOnce(ok());
+    await run(f);
+    expect(f).toHaveBeenCalledTimes(2);
+    for (const [, init] of f.mock.calls) expect((init?.headers as Record<string, string>)['User-Agent']).toBe('str-redistricting (+https://github.com/mels0n/str-redistricting)');
+  });
+  it('still waits the backoff when Retry-After asks for less', async () => {
+    const f = vi.fn<typeof fetch>()
+      .mockResolvedValueOnce(new Response('x', { status: 429, headers: { 'retry-after': '0' } }))
+      .mockResolvedValueOnce(ok());
+    await run(f);
+    expect(sleeps).toEqual([2000]);
+  });
   it('waits for Retry-After seconds on a 429, capped at 60 s', async () => {
     const f = vi.fn<typeof fetch>()
       .mockResolvedValueOnce(new Response('x', { status: 429, headers: { 'retry-after': '5' } }))

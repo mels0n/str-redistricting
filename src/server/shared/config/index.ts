@@ -260,7 +260,13 @@ export interface ReleaseTagsArgs {
 
 /** Read once at boot from the command line. */
 export function parseReleaseTagsArgs(argv: readonly string[]): ReleaseTagsArgs {
-  const { values } = parseArgs({ args: [...argv], options: { before: { type: 'string' }, after: { type: 'string' } }, strict: true });
+  let values: { before?: string; after?: string };
+  try {
+    values = parseArgs({ args: [...argv], options: { before: { type: 'string' }, after: { type: 'string' } }, strict: true }).values;
+  } catch (err) {
+    // A value that looks like an option (`--before --output=x`) is refused by parseArgs; report it like any other bad argument.
+    throw new ConfigError(`usage: release-tags --before <sha|none> --after <sha> (${err instanceof Error ? err.message : String(err)})`);
+  }
   const parsed = z
     .object({ before: z.union([z.literal('none'), z.string().regex(/^[0-9a-f]{7,64}$/, 'must be a commit sha or none')]), after: z.string().regex(/^[0-9a-f]{7,64}$/, 'must be a commit sha') })
     .safeParse({ before: values.before, after: values.after });

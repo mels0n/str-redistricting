@@ -54,6 +54,14 @@ describe('affectedBy', () => {
 });
 
 describe('probeSource', () => {
+  it('still waits the backoff when Retry-After asks for less', async () => {
+    const sleeps: number[] = [];
+    const f = vi.fn<typeof fetch>()
+      .mockResolvedValueOnce(new Response(null, { status: 503, headers: { 'retry-after': '0' } }))
+      .mockResolvedValueOnce(new Response(null, { status: 200 }));
+    await probeSource('https://x.test/a.zip', { fetchFn: f, sleep: async (ms) => void sleeps.push(ms) });
+    expect(sleeps).toEqual([2000]);
+  });
   it('sends the project User-Agent and honors Retry-After', async () => {
     const sleeps: number[] = [];
     const f = vi.fn<typeof fetch>()

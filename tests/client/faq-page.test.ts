@@ -25,6 +25,11 @@ describe('FAQ page', () => {
     const ties = page.el.querySelector('#strv-faq-ties')!;
     expect(ties.textContent).toContain('nearer their fair shares of people');
     expect(ties.textContent).toContain('GEOID order');
+    // The rules as the generator applies them, and none of the direction preferences it does not have.
+    expect(ties.textContent).toContain('both stopping points are kept as candidates');
+    expect(ties.textContent).toContain('the lower GEOID');
+    expect(ties.textContent).toContain('shorter total border');
+    expect(ties.textContent).not.toMatch(/north-south|smaller angle|most blocks|lower district number|lower-numbered/);
     expect(ties.querySelector('a[href="#/how/balancing"]')).not.toBeNull();
   });
 

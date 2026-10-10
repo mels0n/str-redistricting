@@ -44,6 +44,8 @@ export function createShareButton(): ShareButton {
   const el = h('span', { class: 'strv-share', hidden: true }, button, manual);
   let target: ShareTarget | null = null;
   let resetTimer = 0;
+  /** A share sheet is open; a second tap would be refused by the browser and fall through to copying. */
+  let sharing = false;
 
   const say = (text: string): void => {
     label.textContent = text;
@@ -54,6 +56,7 @@ export function createShareButton(): ShareButton {
   const copy = async (url: string): Promise<void> => {
     try {
       await navigator.clipboard.writeText(url);
+      manual.hidden = true;
       say('Link copied');
       announce('Link copied');
     } catch {
@@ -66,18 +69,24 @@ export function createShareButton(): ShareButton {
   };
 
   button.addEventListener('click', () => {
-    if (!target) return;
+    if (!target || sharing) return;
     const content = shareContent(target);
     const sheet = typeof navigator.share === 'function' && typeof matchMedia === 'function' && matchMedia('(pointer: coarse)').matches;
     if (!sheet) {
       void copy(content.url);
       return;
     }
-    navigator.share(content).catch((err: unknown) => {
-      // Closing the sheet is a choice, not a failure.
-      if (err instanceof DOMException && err.name === 'AbortError') return;
-      void copy(content.url);
-    });
+    sharing = true;
+    navigator
+      .share(content)
+      .catch((err: unknown) => {
+        // Closing the sheet is a choice, not a failure.
+        if (err instanceof DOMException && err.name === 'AbortError') return;
+        void copy(content.url);
+      })
+      .finally(() => {
+        sharing = false;
+      });
   });
 
   return {

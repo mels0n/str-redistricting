@@ -3082,7 +3082,7 @@ html:has(> body > #str-viewer) {
 }
 
 /* Not drawn yet: shown so the plan is visible, but not a link and not focusable. */
-.strv-chamber__item[aria-disabled='true'] {
+.strv-chamber__item--soon {
   color: var(--on-ink-2);
   cursor: default;
 }
@@ -3127,6 +3127,19 @@ html:has(> body > #str-viewer) {
 
   .strv .strv-chamber__item {
     font-size: 0.8125rem;
+  }
+}
+
+/* The smallest phones: tighter type and padding so all three chambers still fit on one row. */
+@media (max-width: 22.5rem) {
+  .strv .strv-chamber__item {
+    padding: 0 0.3125rem;
+    font-size: 0.75rem;
+    gap: 0.25em;
+  }
+
+  .strv-chamber__soon {
+    font-size: 0.625rem;
   }
 }
 
@@ -4949,8 +4962,11 @@ html:has(> body > #str-viewer) {
 
 .strv-state__actions {
   display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
   align-items: center;
-  gap: var(--s-3);
+  gap: 0 var(--s-3);
+  min-width: 0;
 }
 
 .strv-share {

@@ -22,6 +22,20 @@ describe('district numbering', () => {
     expect(r.cuts[1]!.firstDistrict).toBe(0);
   });
 
+  it('numbers the smaller side first when it holds block 0 and is the second side of the line', () => {
+    // People grow northward, so the first cut is an east-west line whose first (north) side gets the 3-seat share
+    // and leaves the 2-seat share on the south side, with block 0.
+    const r = splitState(createContext(gridBlocks(2, 10, { pop: (_x, y) => 1 + y })), 5);
+    const root = r.cuts[0]!;
+    expect(root.lowSeats).toBe(3);
+    expect(root.highSeats).toBe(2);
+    expect(r.assignment[0]).toBe(0);
+    expect(new Set(r.assignment)).toEqual(new Set([0, 1, 2, 3, 4]));
+    // The 2-seat south side is districts 0 and 1: the next cut splits it, and the north side starts at district 2.
+    expect(r.cuts[1]).toMatchObject({ firstDistrict: 0, seats: 2 });
+    expect(r.cuts.find((c) => c.depth === 1 && c.firstDistrict === 2)!.seats).toBe(3);
+  });
+
   it('keeps district ids 0..N-1 and starts every cut range at its lowest block, nested', () => {
     for (const [w, h] of [[3, 5], [5, 3], [4, 4], [6, 5]] as const) {
       const blocks = gridBlocks(w, h, { pop: (x, y) => 1 + ((x * 3 + y * 5) % 4) });

@@ -87,17 +87,21 @@ describe('createContext', () => {
 describe('splitState cut ranges', () => {
   it('records the first district of each cut range in cut order', () => {
     const r = splitState(createContext(gridBlocks(5, 1)), 5);
-    // 5 seats: first cut covers 0.., its low side covers 0.. and its high side starts at lowSeats.
+    // 5 seats: the first cut covers 0..4. The side holding block 0 (either side of the line) covers 0.., and the
+    // other side starts right after it.
     expect(r.cuts[0]!.firstDistrict).toBe(0);
     for (const c of r.cuts) {
       expect(c.lowSeats + c.highSeats).toBe(c.seats);
       expect(c.firstDistrict).toBeGreaterThanOrEqual(0);
       expect(c.firstDistrict + c.seats).toBeLessThanOrEqual(5);
     }
-    const low = r.cuts.find((c) => c.depth === 1 && c.firstDistrict === 0)!;
-    const high = r.cuts.find((c) => c.depth === 1 && c.firstDistrict === r.cuts[0]!.lowSeats)!;
-    expect(low.seats).toBe(r.cuts[0]!.lowSeats);
-    expect(high.seats).toBe(r.cuts[0]!.highSeats);
+    // 5 seats split 2 + 3, so each part has its own cut: the part holding block 0 starts at district 0 (its size
+    // is that cut's seats, whichever side of the line it is), and the other part starts right after it.
+    const lower = r.cuts.find((c) => c.depth === 1 && c.firstDistrict === 0)!;
+    const upper = r.cuts.find((c) => c.depth === 1 && c.firstDistrict === lower.seats)!;
+    expect(r.assignment[0]).toBe(0);
+    expect(lower.seats + upper.seats).toBe(5);
+    expect([lower.seats, upper.seats].sort()).toEqual([r.cuts[0]!.lowSeats, r.cuts[0]!.highSeats].sort());
   });
   it('puts firstDistrict in cuts.geojson', async () => {
     const { cutsGeoJson } = await import('../../../src/server/features/export/index.js');

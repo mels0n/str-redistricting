@@ -35,9 +35,8 @@ export interface CutResult {
   readonly candidateRanges: number;
   /** Of those, ranges of lines slid from the other end, swept only where a stopping-rule tie made them differ. */
   readonly reversedRanges: number;
-  /** Stretches swept again from the other end, and the time that took (on the calling thread); for measuring. */
+  /** Stretches swept again from the other end (where some pass sat on a stopping-rule tie). */
   readonly tieSpans: number;
-  readonly reversedMs: number;
   /** Directions where some population split changed. */
   readonly splitChanges: number;
   /** The guide line's portion inside the piece. */
@@ -308,7 +307,6 @@ export function findCut(ctx: SplitContext, members: Int32Array, seats: number, v
   const spans = opts.reverseEverywhere
     ? orientations.map((o) => ({ lowSeats: o, ties: [{ s: directionAt(0), e: directionAt(180), sDeg: 0, eDeg: 180, endIsPi: true }] }))
     : joinTieSpans(chunks);
-  const t0 = performance.now();
   let tieSpans = 0;
   for (const c of spans) {
     for (const t of c.ties) {
@@ -318,7 +316,6 @@ export function findCut(ctx: SplitContext, members: Int32Array, seats: number, v
       for (const r of new Set([res.first, res.last, ...res.top])) if (!r.unresolved) reversed.push({ ...r, reversed: true });
     }
   }
-  const reversedMs = performance.now() - t0;
   // Listing order is stable, so a reversed range starting where an ordinary one does stays behind it.
   const ranges = [...merged.ranges, ...reversed].sort(compareRanges);
 
@@ -384,7 +381,7 @@ export function findCut(ctx: SplitContext, members: Int32Array, seats: number, v
     return {
       low, high, lowSeats: r.lowSeats, highSeats: seats - r.lowSeats,
       angleDeg, fromDeg: r.sDeg, toDeg: endDeg(r), wraps: r.wraps === true, reversed: r.reversed === true, lengthM: r.lengthUm / 1e6,
-      candidateRanges: merged.count + reversedCount, reversedRanges: reversedCount, tieSpans, reversedMs, splitChanges: chunks.reduce((s, c) => s + c.splitChanges, 0),
+      candidateRanges: merged.count + reversedCount, reversedRanges: reversedCount, tieSpans, splitChanges: chunks.reduce((s, c) => s + c.splitChanges, 0),
       spans: spanLength(ctx, sx, sy, th, offset).spans, skipped: shorterUnresolved.size + refused, skippedRanges,
       strayBlocksMoved: chain.movedBlocks, strayPopMoved: movedPop,
       iterations: chain.passes.length, offsetShiftM: (offset - offset0) * EARTH_RADIUS_M, candidates, traces,
@@ -402,7 +399,8 @@ export function findCut(ctx: SplitContext, members: Int32Array, seats: number, v
  * the line from the other end, which differs on a stopping-rule tie.)
  */
 export function cutTraceRequest(c: { readonly angleDeg: number; readonly fromDeg: number; readonly toDeg: number; readonly seats: number; readonly lowSeats: number; readonly wraps?: boolean; readonly reversed?: boolean }): { request: CandidateTraceRequest; swapped: boolean } {
-  const swapped = (c.wraps ?? c.toDeg < c.fromDeg) && c.angleDeg >= c.fromDeg;
+  // Drawn at 0 exactly means the middle is 180 itself, the part after 0 (a range that covers the whole half turn).
+  const swapped = (c.wraps ?? c.toDeg < c.fromDeg) && c.angleDeg >= c.fromDeg && !(c.angleDeg === 0 && c.fromDeg === 0);
   return { request: { angleDeg: c.angleDeg, lowSeats: swapped ? c.seats - c.lowSeats : c.lowSeats, reversed: c.reversed === true }, swapped };
 }
 

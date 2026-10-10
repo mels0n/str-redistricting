@@ -3,6 +3,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { buildTopology, loadStateBlocks, type Block } from '../../../src/server/entities/census-block/index.js';
 import { createContext, findCut, ScanPool, splitState } from '../../../src/server/features/splitline/index.js';
 import { stateByAbbr } from '../../../src/server/shared/apportionment/index.js';
+import { planWithoutCounters, withoutCounters } from '../../helpers/counters.js';
 import { gridBlocks } from '../../helpers/grid.js';
 
 const all = (n: number) => Int32Array.from({ length: n }, (_, i) => i);
@@ -25,13 +26,13 @@ describe('pooled cut search', () => {
     for (const seats of [2, 3]) {
       const one = findCut(ctx, all(blocks.length), seats);
       const many = findCut(ctx, all(blocks.length), seats, undefined, { pool });
-      expect(many).toEqual(one);
+      expect(withoutCounters(many)).toEqual(withoutCounters(one));
     }
   });
 
   it('gives the same plan as one thread for a whole synthetic state', () => {
     const ctx = createContext(grid(6, 5));
-    expect(splitState(ctx, 7, { pool })).toEqual(splitState(ctx, 7));
+    expect(planWithoutCounters(splitState(ctx, 7, { pool }))).toEqual(planWithoutCounters(splitState(ctx, 7)));
   });
 
   it.skipIf(!existsSync(RI_ZIP))('gives the same Rhode Island plan as one thread', async () => {
@@ -40,7 +41,7 @@ describe('pooled cut search', () => {
     const one = splitState(ctx, 2);
     const many = splitState(ctx, 2, { pool });
     expect(Array.from(many.assignment)).toEqual(Array.from(one.assignment));
-    expect(many.cuts).toEqual(one.cuts);
+    expect(many.cuts.map(withoutCounters)).toEqual(one.cuts.map(withoutCounters));
   }, 120_000);
 
   it('reuses its workers across cuts and reports their count', () => {
@@ -48,7 +49,7 @@ describe('pooled cut search', () => {
     const ctx = createContext(gridBlocks(6, 6));
     const a = findCut(ctx, all(36), 2, undefined, { pool });
     const b = findCut(ctx, all(36), 2, undefined, { pool });
-    expect(b).toEqual(a);
+    expect(withoutCounters(b)).toEqual(withoutCounters(a));
   });
 
   it('passes a worker error back to the caller', () => {

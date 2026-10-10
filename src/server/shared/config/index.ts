@@ -1,4 +1,4 @@
-import { availableParallelism } from 'node:os';
+import { availableParallelism, freemem } from 'node:os';
 import { parseArgs } from 'node:util';
 import { z } from 'zod';
 import { stateByAbbr, type StateInfo } from '../apportionment/index.js';
@@ -25,6 +25,16 @@ export interface Config {
   readonly threads: number;
   /** Redraw every listed state, even one whose folder already holds plans drawn from the same inputs and code. */
   readonly force: boolean;
+  /** No --threads was given and free memory lowered the default below the hardware threads minus two. */
+  readonly threadsLimitedByMemory: boolean;
+}
+
+/** Memory one cut search thread may need on the largest states. */
+const BYTES_PER_THREAD = 400 * 1024 * 1024;
+
+/** Default threads: the hardware threads minus two, no more than free memory allows, at least one. */
+export function defaultThreads(cpus = availableParallelism(), freeBytes = freemem()): number {
+  return Math.max(1, Math.min(cpus - 2, Math.floor(freeBytes / BYTES_PER_THREAD)));
 }
 
 const STATES_REQUIRED = '--states is required (two-letter abbreviations, comma separated, for example CO or RI,CT)';
@@ -38,13 +48,14 @@ const Raw = z.object({
 
 /** Read once at boot from the command line. */
 export function parseConfig(argv: readonly string[]): Config {
+  const dflt = defaultThreads();
   const { values } = parseArgs({
     args: [...argv],
     options: {
       states: { type: 'string' },
       'cache-dir': { type: 'string', default: 'data/raw' },
       'out-dir': { type: 'string', default: 'out' },
-      threads: { type: 'string', default: String(Math.max(1, availableParallelism() - 2)) },
+      threads: { type: 'string' },
       force: { type: 'boolean', default: false },
     },
     strict: true,
@@ -53,7 +64,7 @@ export function parseConfig(argv: readonly string[]): Config {
     states: values.states,
     cacheDir: values['cache-dir'],
     outDir: values['out-dir'],
-    threads: values.threads,
+    threads: values.threads ?? String(dflt),
   });
   if (!parsed.success) throw new ConfigError(parsed.error.issues.map((i) => i.message).join('; '));
   const states = parsed.data.states.split(',').map((s) => s.trim()).filter(Boolean).map((abbr) => {
@@ -61,7 +72,10 @@ export function parseConfig(argv: readonly string[]): Config {
     if (!info) throw new ConfigError(`unknown state: ${abbr}`);
     return info;
   });
-  return { states, cacheDir: parsed.data.cacheDir, outDir: parsed.data.outDir, threads: parsed.data.threads, force: values.force === true };
+  return {
+    states, cacheDir: parsed.data.cacheDir, outDir: parsed.data.outDir, threads: parsed.data.threads, force: values.force === true,
+    threadsLimitedByMemory: values.threads === undefined && dflt < defaultThreads(availableParallelism(), Infinity),
+  };
 }
 
 export interface PublishConfig {
@@ -143,7 +157,7 @@ export function parseRuleExamplesConfig(argv: readonly string[]): RuleExamplesCo
       'repeat-dir': { type: 'string', default: 'out-repeat' },
       'raw-dir': { type: 'string', default: 'data/raw' },
       dest: { type: 'string', default: 'public/data/how/rule-examples.json' },
-      threads: { type: 'string', default: String(Math.max(1, availableParallelism() - 2)) },
+      threads: { type: 'string', default: String(defaultThreads()) },
     },
     strict: true,
   });

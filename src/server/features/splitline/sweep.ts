@@ -1,4 +1,4 @@
-import { signOfDifference } from '../../shared/exact/index.js';
+import { exactFallbacks, signOfDifference } from '../../shared/exact/index.js';
 import { atan2, cos, sin } from '../../shared/detmath/index.js';
 import { Chain } from './chain.js';
 import type { Piece } from './scan.js';
@@ -115,17 +115,18 @@ export function geoFor(piece: Piece, start: Dir, end: Dir, endIsPi: boolean): Ge
 }
 
 /** Sweep directions [aDeg, bDeg) for one first-side seat count, keeping the best `keep` resolved ranges. */
-export function sweepChunk(piece: Piece, seats: number, lowSeats: number, aDeg: number, bDeg: number, keep: number): ChunkResult {
-  return sweepSpan(piece, seats, lowSeats, directionAt(aDeg), directionAt(bDeg), aDeg, bDeg, bDeg >= 180, keep, true);
+export function sweepChunk(piece: Piece, seats: number, lowSeats: number, aDeg: number, bDeg: number, keep: number, beat?: () => void): ChunkResult {
+  return sweepSpan(piece, seats, lowSeats, directionAt(aDeg), directionAt(bDeg), aDeg, bDeg, bDeg >= 180, keep, true, beat);
 }
 
 /**
  * Sweep directions [start, end) (degrees aDeg, bDeg for reporting) for one first-side seat count. With `findTies`,
  * the stretches where some pass sits on an exact tie of its stopping rule are listed in `ties` (Tracker.atTie):
- * only there can the same line slid from the other end give different sides.
+ * only there can the same line slid from the other end give different sides. `beat`, when given, is called every
+ * 16384 steps to show the sweep is still running (the pool's stall check); nothing in the sweep reads it back.
  */
-export function sweepSpan(piece: Piece, seats: number, lowSeats: number, start: Dir, end: Dir, aDeg: number, bDeg: number, endIsPi: boolean, keep: number, findTies: boolean): ChunkResult {
-  const t0 = performance.now();
+export function sweepSpan(piece: Piece, seats: number, lowSeats: number, start: Dir, end: Dir, aDeg: number, bDeg: number, endIsPi: boolean, keep: number, findTies: boolean, beat?: () => void): ChunkResult {
+  const t0 = performance.now(), f0 = exactFallbacks();
   const g = geoFor(piece, start, end, endIsPi);
   const chain = new Chain(piece, g, seats, lowSeats);
   chain.start(-4, -2);
@@ -157,7 +158,9 @@ export function sweepSpan(piece: Piece, seats: number, lowSeats: number, start: 
       while (top.length > keep && top[top.length - 1]!.lengthUm > top[keep - 1]!.lengthUm) top.pop();
     }
   };
+  let steps = 0;
   for (;;) {
+    if (beat !== undefined && (++steps & 0x3fff) === 0) beat();
     const st = chain.step();
     if (!st) break;
     if (st.changedSets) splitChanges++;
@@ -180,7 +183,7 @@ export function sweepSpan(piece: Piece, seats: number, lowSeats: number, start: 
   return {
     lowSeats, aDeg, bDeg, top, first: first!, last: last!, unresolvedBelow, splitChanges, resultRanges, ties,
     unresolvedRanges: unresolvedRanges.filter((u) => u.lengthUm < best).sort(compareRanges),
-    stats: { ...chain.stats, ms: performance.now() - t0 },
+    stats: { ...chain.stats, exactFallbacks: exactFallbacks() - f0, ms: performance.now() - t0 },
   };
 }
 

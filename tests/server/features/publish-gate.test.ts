@@ -25,6 +25,11 @@ describe('checkPublishGate', () => {
   it('refuses unstamped published data without --baseline', () => {
     expect(() => checkPublishGate(plan(A), same, false, 'RI')).toThrow(new DataError('RI: published data has no version stamp; run publish-data --baseline once'));
   });
+  it('allows, with a warning, a changed map under the same engine major while the version rules are not enforced', () => {
+    const w = checkPublishGate({ versions: stamp, ...plan(A) }, { versions: stamp, ...plan(B) }, false, 'RI', false);
+    expect(w).toMatch(/^RI: the map changed .*not enforced before the 1\.0 release/);
+    expect(checkPublishGate({ versions: stamp, ...plan(A) }, { versions: stamp, ...plan(A) }, false, 'RI', false)).toBeUndefined();
+  });
   it('refuses a changed map under the same engine major and census input', () => {
     expect(() => checkPublishGate({ versions: stamp, ...plan(A) }, { versions: stamp, ...plan(B) }, false, 'RI')).toThrow(
       'RI: the map changed but the engine major and the census input did not; bump the engine major (npm run release)',

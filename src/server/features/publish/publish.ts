@@ -7,7 +7,7 @@ import { gzipSync } from 'node:zlib';
 import { join } from 'node:path';
 import { blocksFileName, loadBlockPolygons, loadStateBlocks, type Block } from '../../entities/census-block/index.js';
 import { STATES, type StateInfo } from '../../shared/apportionment/index.js';
-import { LINE_SEARCH, formatVersions, pinnedSha256, stampOf, VERSIONS, VersionsSchema, type PublishConfig, type VersionStamp, type Versions } from '../../shared/config/index.js';
+import { LINE_SEARCH, formatVersions, pinnedSha256, stampOf, VERSIONS, VersionsSchema, type PublishConfig, type VersionStamp, type Versions, VERSIONS_ENFORCED } from '../../shared/config/index.js';
 import { DataError } from '../../shared/errors/index.js';
 import { crossesAntimeridian, unwrapCoordinates, unwrapFeatures, unwrapLon } from './antimeridian.js';
 import { districtArcs } from './arcs.js';
@@ -385,7 +385,8 @@ export async function publishData(cfg: PublishConfig): Promise<void> {
     const { finished, before } = await readCheckedPlans(s, cfg.outDir);
     checked.set(s.abbr, { finished, before });
     const next = { versions, sha: finished.assignmentSha256, beforeSha: before.assignmentSha256, inputSha256: finished.inputSha256 };
-    checkPublishGate(await readPublishedState(join(cfg.publicDir, s.abbr, 'stats.json')), next, cfg.baseline, s.abbr);
+    const warning = checkPublishGate(await readPublishedState(join(cfg.publicDir, s.abbr, 'stats.json')), next, cfg.baseline, s.abbr, VERSIONS_ENFORCED);
+    if (warning) console.log(`warning: ${warning}`);
   }
   await mkdir(cfg.publicDir, { recursive: true });
 

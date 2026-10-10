@@ -10,6 +10,7 @@ export { ENACTED_CONFIG, EnactedConfigSchema, enactedFileName, parseEnactedFileN
 export type { EnactedConfig } from './enacted.js';
 export { VERSIONS, VersionsSchema, engineMajor, formatVersions, inputSha256Of, stampOf } from './versions.js';
 export type { VersionStamp, Versions } from './versions.js';
+export { VERSIONS_ENFORCED } from './release.js';
 
 /**
  * How the cut search chooses among straight lines; recorded in every plan's metrics. 'exact' is the exact

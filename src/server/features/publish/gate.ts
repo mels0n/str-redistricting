@@ -21,14 +21,17 @@ export interface PublishedPlan {
  * before-balancing assignment, so a change the balancing step absorbs still counts. A change to the enacted districts
  * alone moves the input revision but never reopens the gate: it cannot change an assignment. The release script
  * records the bump; the gate accepts either an engine major or a census change. `baseline` skips the check for
- * unstamped states only, for the one-time stamping of data published before versioning existed.
+ * unstamped states only, for the one-time stamping of data published before versioning existed. While the version
+ * rules are not enforced (config/release.json, before the 1.0 release) a changed map under the same engine major is
+ * allowed and the returned warning says so; once they are enforced it is refused.
  */
 export function checkPublishGate(
   existing: PublishedPlan | null,
   next: PublishedPlan & { versions: VersionStamp },
   baseline: boolean,
   state = 'state',
-): void {
+  enforced = true,
+): string | undefined {
   // --baseline only stamps data published before versioning; a state that already carries a stamp is still gated.
   if (existing === null || (baseline && existing.versions === undefined)) return;
   if (existing.versions === undefined) {
@@ -39,8 +42,11 @@ export function checkPublishGate(
   const engineMoved = engineMajor(existing.versions.engine) !== engineMajor(next.versions.engine);
   const censusMoved = existing.versions.input.vintage !== next.versions.input.vintage || existing.inputSha256 !== next.inputSha256;
   if (!engineMoved && !censusMoved) {
-    throw new DataError(`${state}: the map changed but the engine major and the census input did not; bump the engine major (npm run release)`);
+    const message = `${state}: the map changed but the engine major and the census input did not; bump the engine major (npm run release)`;
+    if (enforced) throw new DataError(message);
+    return `${message} (allowed: version rules are not enforced before the 1.0 release)`;
   }
+  return undefined;
 }
 
 /**

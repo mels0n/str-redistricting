@@ -23,6 +23,10 @@ function big(x: number): bigint {
 
 const sign = (v: bigint): number => (v > 0n ? 1 : v < 0n ? -1 : 0);
 
+/** Times signOfDifference fell back to integers, in this thread since it started. Observation only. */
+let fallbacks = 0;
+export const exactFallbacks = (): number => fallbacks;
+
 /**
  * Exact sign of (a - b)(c - d) - (e - f)(g - h). The float filter bound is about three times the standard error
  * bound for this expression ((3 + 16u)u with u = 2^-53); magnitudes small enough to reach subnormal numbers always
@@ -37,6 +41,7 @@ export function signOfDifference(a: number, b: number, c: number, d: number, e: 
     if (r > bound) return 1;
     if (-r > bound) return -1;
   }
+  fallbacks++;
   return sign((big(a) - big(b)) * (big(c) - big(d)) - (big(e) - big(f)) * (big(g) - big(h)));
 }
 

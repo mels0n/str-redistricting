@@ -1,4 +1,4 @@
-import { signOfDifference } from '../../shared/exact/index.js';
+import { exactFallbacks, signOfDifference } from '../../shared/exact/index.js';
 import { atan2, cos, sin } from '../../shared/detmath/index.js';
 import { Chain } from './chain.js';
 import type { Piece } from './scan.js';
@@ -125,7 +125,7 @@ export function sweepChunk(piece: Piece, seats: number, lowSeats: number, aDeg: 
  * only there can the same line slid from the other end give different sides.
  */
 export function sweepSpan(piece: Piece, seats: number, lowSeats: number, start: Dir, end: Dir, aDeg: number, bDeg: number, endIsPi: boolean, keep: number, findTies: boolean): ChunkResult {
-  const t0 = performance.now();
+  const t0 = performance.now(), f0 = exactFallbacks();
   const g = geoFor(piece, start, end, endIsPi);
   const chain = new Chain(piece, g, seats, lowSeats);
   chain.start(-4, -2);
@@ -180,7 +180,7 @@ export function sweepSpan(piece: Piece, seats: number, lowSeats: number, start: 
   return {
     lowSeats, aDeg, bDeg, top, first: first!, last: last!, unresolvedBelow, splitChanges, resultRanges, ties,
     unresolvedRanges: unresolvedRanges.filter((u) => u.lengthUm < best).sort(compareRanges),
-    stats: { ...chain.stats, ms: performance.now() - t0 },
+    stats: { ...chain.stats, exactFallbacks: exactFallbacks() - f0, ms: performance.now() - t0 },
   };
 }
 

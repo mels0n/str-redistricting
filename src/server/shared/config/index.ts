@@ -1,4 +1,4 @@
-import { availableParallelism } from 'node:os';
+import { availableParallelism, freemem } from 'node:os';
 import { parseArgs } from 'node:util';
 import { z } from 'zod';
 import { stateByAbbr, type StateInfo } from '../apportionment/index.js';
@@ -27,6 +27,14 @@ export interface Config {
   readonly force: boolean;
 }
 
+/** Memory one cut search thread may need on the largest states. */
+const BYTES_PER_THREAD = 400 * 1024 * 1024;
+
+/** Default threads: the hardware threads minus two, no more than free memory allows, at least one. */
+export function defaultThreads(cpus = availableParallelism(), freeBytes = freemem()): number {
+  return Math.max(1, Math.min(cpus - 2, Math.floor(freeBytes / BYTES_PER_THREAD)));
+}
+
 const STATES_REQUIRED = '--states is required (two-letter abbreviations, comma separated, for example CO or RI,CT)';
 
 const Raw = z.object({
@@ -44,7 +52,7 @@ export function parseConfig(argv: readonly string[]): Config {
       states: { type: 'string' },
       'cache-dir': { type: 'string', default: 'data/raw' },
       'out-dir': { type: 'string', default: 'out' },
-      threads: { type: 'string', default: String(Math.max(1, availableParallelism() - 2)) },
+      threads: { type: 'string', default: String(defaultThreads()) },
       force: { type: 'boolean', default: false },
     },
     strict: true,
@@ -143,7 +151,7 @@ export function parseRuleExamplesConfig(argv: readonly string[]): RuleExamplesCo
       'repeat-dir': { type: 'string', default: 'out-repeat' },
       'raw-dir': { type: 'string', default: 'data/raw' },
       dest: { type: 'string', default: 'public/data/how/rule-examples.json' },
-      threads: { type: 'string', default: String(Math.max(1, availableParallelism() - 2)) },
+      threads: { type: 'string', default: String(defaultThreads()) },
     },
     strict: true,
   });

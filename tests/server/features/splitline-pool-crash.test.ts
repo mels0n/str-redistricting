@@ -1,6 +1,7 @@
 import { afterEach, describe, expect, it } from 'vitest';
 import { createContext, findCut, PoolSlot, ScanPool, splitState } from '../../../src/server/features/splitline/index.js';
 import { WorkerPoolError } from '../../../src/server/shared/errors/index.js';
+import { planWithoutCounters, withoutCounters } from '../../helpers/counters.js';
 import { gridBlocks } from '../../helpers/grid.js';
 
 const dyingUrl = new URL('../../helpers/dying-scan-worker.ts', import.meta.url);
@@ -51,7 +52,7 @@ describe('pool with a dying worker', () => {
     const empty = { m: -1, total: 0, ids: new Int32Array(0), pops: new Float64Array(0), px: new Float64Array(0), py: new Float64Array(0), lOff: new Int32Array(0), lAdj: new Int32Array(0), lLen: new Float64Array(0) };
     expect(() => pool.scan(empty, { seats: 2, orientations: [1], chunks: 2, keep: 6 })).toThrow(/length/i);
     expect(pool.broken).toBe(false);
-    expect(search(pool)).toEqual(findCut(ctx, all(36), 2));
+    expect(withoutCounters(search(pool))).toEqual(withoutCounters(findCut(ctx, all(36), 2)));
     await pool.close();
   });
 });
@@ -64,7 +65,7 @@ describe('PoolSlot', () => {
     slot.refresh();
     expect(made).toHaveLength(2);
     expect(slot.pool).toBe(made[1]);
-    expect(splitState(ctx, 3, { pool: slot.pool })).toEqual(splitState(ctx, 3));
+    expect(planWithoutCounters(splitState(ctx, 3, { pool: slot.pool }))).toEqual(planWithoutCounters(splitState(ctx, 3)));
     await settle();
     expect(uncaught).toEqual([]);
     await slot.close();
@@ -78,7 +79,7 @@ describe('PoolSlot', () => {
     expect(() => search(dead)).toThrow(WorkerPoolError);
     slot.refresh();
     expect(slot.pool).toBeUndefined();
-    expect(splitState(ctx, 3, { pool: slot.pool })).toEqual(splitState(ctx, 3));
+    expect(planWithoutCounters(splitState(ctx, 3, { pool: slot.pool }))).toEqual(planWithoutCounters(splitState(ctx, 3)));
     await slot.close();
   }, 30_000);
 

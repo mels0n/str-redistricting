@@ -2,7 +2,7 @@ import { MessageChannel, receiveMessageOnPort, Worker, type MessagePort } from '
 import { DataError, WorkerPoolError } from '../../shared/errors/index.js';
 import type { Piece } from './scan.js';
 import type { ChunkResult } from './sweep.js';
-import { taskCount, type SweepJob } from './tasks.js';
+import { taskCount, type PoolJob } from './tasks.js';
 
 /** Control words shared with the workers: next chunk to take, and how many workers have finished. */
 const NEXT = 0, DONE = 1;
@@ -15,7 +15,7 @@ export interface ScanRequest {
   /** Identifies the request, so a reply that belongs to an earlier one is never taken for this one's. */
   readonly id: number;
   readonly piece: Piece;
-  readonly job: SweepJob;
+  readonly job: PoolJob;
   readonly ctrl: Int32Array;
 }
 
@@ -67,8 +67,8 @@ export class ScanPool {
     return this.reason !== undefined;
   }
 
-  /** Sweep every chunk of `job` on `piece`; returns the chunk results in task order. */
-  scan(piece: Piece, job: SweepJob): ChunkResult[] {
+  /** Sweep every task of `job` (chunks, or tie stretches) on `piece`; returns the results in task order. */
+  scan(piece: Piece, job: PoolJob): ChunkResult[] {
     if (this.reason !== undefined) throw new WorkerPoolError(`cut search pool is unusable: ${this.reason}`);
     try {
       return this.run(piece, job);
@@ -79,7 +79,7 @@ export class ScanPool {
     }
   }
 
-  private run(piece: Piece, job: SweepJob): ChunkResult[] {
+  private run(piece: Piece, job: PoolJob): ChunkResult[] {
     // Fresh control words per request: a worker that is somehow still on an older request cannot touch this one's.
     const ctrl = new Int32Array(new SharedArrayBuffer(8));
     const req: ScanRequest = {

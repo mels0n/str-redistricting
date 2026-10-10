@@ -1,10 +1,10 @@
 import { parentPort, workerData, type MessagePort } from 'node:worker_threads';
 import { DataError } from '../../shared/errors/index.js';
 import type { ScanReply, ScanRequest } from './pool.js';
-import { sweepChunk, type ChunkResult } from './sweep.js';
-import { sweepTask, taskCount } from './tasks.js';
+import type { ChunkResult } from './sweep.js';
+import { runTask, taskCount } from './tasks.js';
 
-/** One worker of ScanPool: claims chunks from the shared counter until none are left, then reports. */
+/** One worker of ScanPool: claims tasks (chunks, or tie stretches) from the shared counter until none are left, then reports. */
 const { port, health } = workerData as { port: MessagePort; health: Int32Array };
 const NEXT = 0, DONE = 1;
 const DEAD = 0, CLOSING = 1;
@@ -25,8 +25,7 @@ parentPort!.on('message', (req: ScanRequest) => {
   let reply: ScanReply;
   try {
     for (let t = Atomics.add(req.ctrl, NEXT, 1); t < total; t = Atomics.add(req.ctrl, NEXT, 1)) {
-      const task = sweepTask(req.job, t);
-      results.push({ task: t, result: sweepChunk(req.piece, req.job.seats, task.lowSeats, task.aDeg, task.bDeg, req.job.keep) });
+      results.push({ task: t, result: runTask(req.piece, req.job, t) });
     }
     reply = { ok: true, id: req.id, results };
   } catch (err) {

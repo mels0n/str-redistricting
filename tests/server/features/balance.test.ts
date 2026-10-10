@@ -98,6 +98,21 @@ describe('balance', () => {
     const r = balance(blocks, buildTopology(blocks), Int32Array.from([2, 0, 1, 0, 0, 0]), 3);
     expect(r.moves[0]).toMatchObject({ block: 1, from: 0, to: 2 });
   });
+  it('gives a district that starts in two pieces the full connectivity check', () => {
+    // 4x2 grid. District 0 is blocks 0, 4, 5 plus block 3, cut off from them by District 1 (1, 2, 6, 7).
+    // Block 3 and block 5 tie on gain, and moving block 3 shortens the border more, so it ranks first. Block 3
+    // has no neighbour in District 0, so a check that looks only around the block would call that move a split
+    // and move block 5 instead; the full check sees the rest (0, 4, 5) is one piece and moves block 3.
+    const pops = [3, 1, 1, 1, 1, 1, 1, 1];
+    const blocks = gridBlocks(4, 2, { pop: (x, y) => pops[y * 4 + x]! });
+    const topo = buildTopology(blocks);
+    const r = balance(blocks, topo, Int32Array.from([0, 1, 1, 0, 0, 0, 1, 1]), 2);
+    expect(r.moves[0]).toMatchObject({ block: 3, from: 0, to: 1 });
+    for (const d of [0, 1]) {
+      const members = Int32Array.from([...r.assignment.keys()].filter((i) => r.assignment[i] === d));
+      expect(isConnected(topo, members)).toBe(true);
+    }
+  });
   it('tries equally far districts in the order of their first block, not their number', () => {
     // District 1 holds block 0 (5 people) and District 0 block 1 (1 person): both are 2 from the ideal of 3.
     const pops = [5, 1, 3];

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { boundarySegments, buildTopology, forEachEdge, isConnected, type Block } from '../../../src/server/entities/census-block/index.js';
+import { boundarySegments, buildTopology, forEachEdge, isConnected, keepsConnectedWithout, type Block } from '../../../src/server/entities/census-block/index.js';
 import { DataError } from '../../../src/server/shared/errors/index.js';
 import { greatCircleDistance, type LonLat } from '../../../src/server/shared/geo/index.js';
 import { gridBlocks } from '../../helpers/grid.js';
@@ -369,5 +369,56 @@ describe('typed-array edge matching', () => {
     let shared = 0;
     forEachEdge(topo, (_a, _b, owners) => { if (owners.length === 2) shared++; });
     expect(shared).toBe(7);
+  });
+});
+
+describe('keepsConnectedWithout', () => {
+  /** Small deterministic generator, so a failure names a reproducible case. */
+  const rng = (seed: number) => () => ((seed = (Math.imul(seed, 1103515245) + 12345) >>> 0) / 2 ** 32);
+
+  it('gives the same answer as isConnected on the group without the block, for every block of every connected group', () => {
+    let checked = 0, splits = 0;
+    for (let seed = 1; seed <= 60; seed++) {
+      const rand = rng(seed);
+      const [w, h] = [6 + Math.floor(rand() * 5), 5 + Math.floor(rand() * 5)];
+      const holes = new Set<number>();
+      for (let i = 0; i < w * h; i++) if (rand() < 0.12) holes.add(i);
+      const blocks = gridBlocks(w, h, { skip: (x, y) => holes.has(y * w + x) });
+      const topo = buildTopology(blocks);
+      // Grow 2 to 5 groups from random seeds, one block at a time, so most groups are connected and many are thin.
+      const k = 2 + Math.floor(rand() * 4);
+      const group = new Int32Array(blocks.length).fill(-1);
+      const frontier: number[] = [];
+      for (let g = 0; g < k; g++) { const b = Math.floor(rand() * blocks.length); if (group[b] === -1) { group[b] = g; frontier.push(b); } }
+      while (frontier.length) {
+        const u = frontier.splice(Math.floor(rand() * frontier.length), 1)[0]!;
+        for (let a = topo.adjOffsets[u]!; a < topo.adjOffsets[u + 1]!; a++) {
+          const v = topo.adjList[a]!;
+          if (group[v] === -1) { group[v] = group[u]!; frontier.push(v); }
+        }
+      }
+      for (let g = 0; g < k; g++) {
+        const members = [...group.keys()].filter((i) => group[i] === g);
+        if (members.length === 0 || !isConnected(topo, Int32Array.from(members))) continue;
+        for (const b of members) {
+          const rest = Int32Array.from(members.filter((i) => i !== b));
+          const want = rest.length > 0 && isConnected(topo, rest);
+          expect(keepsConnectedWithout(topo, group, b), `seed ${seed}, group ${g}, block ${b}`).toBe(want);
+          checked++;
+          if (!want) splits++;
+        }
+      }
+    }
+    // Not vacuous: many blocks checked, and both answers occur often.
+    expect(checked).toBeGreaterThan(1000);
+    expect(splits).toBeGreaterThan(100);
+    expect(checked - splits).toBeGreaterThan(100);
+  });
+  it('is false for a group of one block and true for a tip', () => {
+    const blocks = gridBlocks(3, 1);
+    const topo = buildTopology(blocks);
+    expect(keepsConnectedWithout(topo, [0, 1, 1], 0)).toBe(false);
+    expect(keepsConnectedWithout(topo, [0, 0, 0], 2)).toBe(true);
+    expect(keepsConnectedWithout(topo, [0, 0, 0], 1)).toBe(false);
   });
 });

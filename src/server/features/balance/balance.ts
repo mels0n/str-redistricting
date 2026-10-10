@@ -1,4 +1,4 @@
-import { isConnected, type Block, type Topology } from '../../entities/census-block/index.js';
+import { isConnected, keepsConnectedWithout, type Block, type Topology } from '../../entities/census-block/index.js';
 
 /** One accepted balancing move: block index, its GEOID, 0-based districts, the block's population and the exact gain. */
 export interface BalanceMove {
@@ -107,8 +107,16 @@ export function balance(blocks: readonly Block[], topo: Topology, input: Int32Ar
     return lo;
   };
 
+  // Districts that are one connected piece. A whole district stays whole: it only gives a block when the rest stays
+  // connected, and only gains a block that touches it. So the cheap local check applies to it for the whole pass;
+  // any district not in one piece in the input (the cut never makes one, but balance() accepts any plan) gets the full
+  // check, and is re-checked after each move it is part of, so it switches to the quick check once it is whole.
+  const wholeNow = (d: number): number => (isConnected(topo, Int32Array.from(lists[d]!)) ? 1 : 0);
+  const whole = Uint8Array.from({ length: seats }, (_, d) => wholeNow(d));
+
   /** The giving district stays one connected piece (and keeps at least one block) without the block. */
   const leavesConnected = (c: Move): boolean => {
+    if (whole[c.from]) return keepsConnectedWithout(topo, assignment, c.block);
     const rest = members(c.from).filter((i) => i !== c.block);
     return rest.length > 0 && isConnected(topo, Int32Array.from(rest));
   };
@@ -182,6 +190,8 @@ export function balance(blocks: readonly Block[], topo: Topology, input: Int32Ar
       const fromList = lists[c.from]!, toList = lists[c.to]!;
       fromList.splice(lowerBound(fromList, c.block), 1);
       toList.splice(lowerBound(toList, c.block), 0, c.block);
+      if (!whole[c.from]) whole[c.from] = wholeNow(c.from);
+      if (!whole[c.to]) whole[c.to] = wholeNow(c.to);
       exhausted.fill(0);
     } else exhausted[d] = 1;
   }

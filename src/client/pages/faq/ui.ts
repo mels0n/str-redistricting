@@ -60,11 +60,12 @@ const ANSWERS: Record<FaqQuestion, () => HTMLElement[]> = {
       li(h('strong', null, 'Which piece keeps its side.'), ' When a cut leaves a side in more than one piece, the piece with the most people stays, then the one with the most blocks, then the one holding the block that comes first in GEOID order. The others are stray pieces and join the side around them.'),
       li(h('strong', null, 'Which district balances first.'), ' If two districts are equally far from the ideal population, the lower district number goes first.'),
       li(h('strong', null, 'Two equally good balancing moves.'), ' The block that comes first in GEOID order moves, and if it could go to two districts, it goes to the lower-numbered one.'),
+      li(h('strong', null, 'Two island links the same length.'), ' The link between the blocks that come first in GEOID order is added.'),
     ),
     p('Each of these is spelled out under “The exact rule” in ', howLink('cut', 'One cut'), ', ', howLink('strays', 'Stray pieces'), ' and ', howLink('balancing', 'Balancing'), '.'),
   ],
   data: () => [
-    p('No. Three facts about each census block go in: how many people the census counted there, where its edges are, and one point inside it used to put blocks in order. Each state’s number of House seats goes in too. Nothing else does.'),
+    p('No. Three facts about each census block go in: how many people the census counted there, where its edges are, and one point inside it, used to put blocks in order and to measure island links. Each state’s number of House seats goes in too. Nothing else does.'),
     p('Party registration, election results, where officeholders or candidates live, current or past district lines, and race, ethnicity, age or income never go in. See ', howLink('inputs', 'What goes in'), '.'),
   ],
   counties: () => [
@@ -104,7 +105,7 @@ const ANSWERS: Record<FaqQuestion, () => HTMLElement[]> = {
 const TERMS: readonly (readonly [string, string])[] = [
   ['Census block', 'The smallest area the Census Bureau counts people in. Every person is counted in exactly one. More under “What is a census block?” above.'],
   ['GEOID', 'The identifier the Census Bureau gives every block: a 15-digit number made of its state, county, tract and block codes. Sorting by it gives one fixed order, which settles ties.'],
-  ['Internal point', 'One point inside each block, published by the Census Bureau. It is used only to put blocks in order across a guide line.'],
+  ['Internal point', 'One point inside each block, published by the Census Bureau. It is used to put blocks in order across a guide line and to measure island links.'],
   ['Apportionment', 'How the 435 House seats are shared out among the states after each census. These maps use the 2020 apportionment.'],
   ['Seat', 'One member of the House. A state gets one district per seat.'],
   ['Cut', 'One split of a piece of the state into two sides, each with its share of the seats and the people. A state with N seats takes N minus 1 cuts.'],

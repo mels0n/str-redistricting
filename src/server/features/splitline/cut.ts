@@ -243,7 +243,7 @@ function buildPiece(ctx: SplitContext, members: Int32Array): Piece {
     for (let k = topo.adjOffsets[g]!; k < topo.adjOffsets[g + 1]!; k++) {
       const j = localOf[topo.adjList[k]!]!;
       // Whole micrometers, so every sum of edge lengths is exact whatever the order of addition.
-      if (j >= 0) { lAdj[w] = j; lLen[w] = Math.round(topo.adjLength[k]! * 1e6); w++; }
+      if (j >= 0) { lAdj[w] = j; lLen[w] = topo.adjLengthUm[k]!; w++; }
     }
   }
   const px = new Float64Array(m), py = new Float64Array(m);

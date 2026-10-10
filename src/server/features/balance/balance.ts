@@ -17,6 +17,7 @@ export interface BalanceResult {
   readonly moves: readonly BalanceMove[];
 }
 
+/** `border` is the change in total border length in whole micrometers (see borderChange). */
 interface Move { block: number; from: number; to: number; gain: number; border: number }
 
 /** Why a border move was not allowed: the block has no people, the move would not narrow the gap, or the giving district would not stay one connected piece. */
@@ -32,7 +33,7 @@ export interface RoundCandidate {
   /**
    * Ranked moves only (gain above zero): the change in total border length, in meters, if the move were made. The
    * length the block shares with the district it leaves minus the length it shares with the district it joins, so
-   * negative when the border shortens.
+   * negative when the border shortens. Measured in whole micrometers, as ranked, then divided by a million.
    */
   readonly border?: number;
   readonly allowed: boolean;
@@ -65,7 +66,7 @@ export interface BalanceOptions {
  * Each round takes the non-exhausted district furthest from the ideal population; districts equally far go in the
  * order of their first block (lowest block index). Candidates are the moves across that district's border, its
  * blocks moving out and neighbouring blocks moving in, kept only when the gain is positive, ranked by gain
- * descending, then by the change in total border length ascending (compared exactly), then block, then the
+ * descending, then by the change in total border length ascending (compared exactly, in whole micrometers), then block, then the
  * receiving district's first block. The first candidate that leaves the giving district connected (and non-empty)
  * is made. If none can be, that district is marked exhausted and the next furthest is tried. After any move the
  * exhausted marks are cleared, since populations and borders changed.
@@ -87,16 +88,16 @@ export function balance(blocks: readonly Block[], topo: Topology, input: Int32Ar
   /** A district's first block in GEOID order (an empty district, which no cut makes, sorts last). */
   const first = (d: number): number => lists[d]![0] ?? blocks.length;
   /**
-   * Change in the total border length if `block` moves from `from` to `to`: its shared length with `from` becomes
-   * border and its shared length with `to` stops being border. Both sums are added in the block's fixed neighbour
-   * order, so the same move always gets exactly the same number.
+   * Change in the total border length, in whole micrometers, if `block` moves from `from` to `to`: its shared length
+   * with `from` becomes border and its shared length with `to` stops being border. The lengths are the per-pair
+   * integers the cut uses, so the sums are exact and two moves tie exactly when their changes are equal.
    */
   const borderChange = (block: number, from: number, to: number): number => {
     let leaves = 0, joins = 0;
     for (let k = topo.adjOffsets[block]!; k < topo.adjOffsets[block + 1]!; k++) {
       const e = assignment[topo.adjList[k]!]!;
-      if (e === from) leaves += topo.adjLength[k]!;
-      else if (e === to) joins += topo.adjLength[k]!;
+      if (e === from) leaves += topo.adjLengthUm[k]!;
+      else if (e === to) joins += topo.adjLengthUm[k]!;
     }
     return leaves - joins;
   };
@@ -176,7 +177,8 @@ export function balance(blocks: readonly Block[], topo: Topology, input: Int32Ar
       cands.forEach((c, i) => {
         // Ranked ahead of the move made: the generator found them disconnecting. After it: checked here, the same way.
         const allowed = i === chosen || (chosen >= 0 && i > chosen && leavesConnected(c));
-        seenInRound.push(allowed ? { ...c, allowed, district } : { ...c, allowed, reason: 'disconnects', district });
+        const inMeters = { ...c, border: c.border / 1e6 };
+        seenInRound.push(allowed ? { ...inMeters, allowed, district } : { ...inMeters, allowed, reason: 'disconnects', district });
       });
       seenInRound.push(...ruledOut!);
     }

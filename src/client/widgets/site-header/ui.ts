@@ -1,4 +1,4 @@
-import { h, formatHash, howRoute, stateRoute, NATIONAL, CHAMBERS, type Route } from '../../shared';
+import { h, formatHash, faqRoute, howRoute, stateRoute, NATIONAL, CHAMBERS, type Route } from '../../shared';
 
 /**
  * Which body the maps are drawn for, for the state on screen. Chambers without maps yet show as coming soon and
@@ -34,6 +34,7 @@ export function createSiteHeader(): HTMLElement {
       'nav',
       { class: 'strv-masthead__nav', 'aria-label': 'Site' },
       h('a', { href: formatHash(howRoute()), class: 'strv-masthead__link', 'data-nav': 'how' }, 'How it works'),
+      h('a', { href: formatHash(faqRoute()), class: 'strv-masthead__link', 'data-nav': 'faq' }, 'FAQ'),
     ),
     h('p', { class: 'strv-masthead__credit' }, 'by Chris Melson'),
   );

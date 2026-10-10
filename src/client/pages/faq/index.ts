@@ -1,0 +1,1 @@
+export { createFaqPage } from './ui';

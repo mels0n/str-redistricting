@@ -3,6 +3,7 @@ import { createNationalPage } from '../pages/national';
 import { createStatePage } from '../pages/state';
 import { createHowPage } from '../pages/how';
 import { createChangelogPage } from '../pages/changelog';
+import { createFaqPage } from '../pages/faq';
 import { syncChamberSwitch } from '../widgets/site-header';
 
 /**
@@ -54,7 +55,7 @@ export function startRouter(outlet: HTMLElement): void {
     }
   };
 
-  /** The masthead's How it works link says when it is the page showing. */
+  /** The masthead's How it works and FAQ links say when their page is showing. */
   const markNav = (route: Route): void => {
     const mark = (nav: string, on: boolean): void => {
       const link = document.querySelector(`.strv-masthead [data-nav="${nav}"]`);
@@ -62,6 +63,7 @@ export function startRouter(outlet: HTMLElement): void {
       else link?.removeAttribute('aria-current');
     };
     mark('how', route.page === 'how');
+    mark('faq', route.page === 'faq');
     syncChamberSwitch(route);
   };
 
@@ -72,7 +74,7 @@ export function startRouter(outlet: HTMLElement): void {
     clear(outlet);
     // A pinch-zoom from the last page would otherwise carry over (no reload between pages).
     if (!initial) resetPageZoom();
-    page = route.page === 'national' ? createNationalPage(navigate) : route.page === 'how' ? createHowPage(route) : route.page === 'changelog' ? createChangelogPage() : createStatePage(route, navigate);
+    page = route.page === 'national' ? createNationalPage(navigate) : route.page === 'how' ? createHowPage(route) : route.page === 'faq' ? createFaqPage(route) : route.page === 'changelog' ? createChangelogPage() : createStatePage(route, navigate);
     outlet.append(page.el);
     // On the first load the browser owns focus; after that, move it to the new page's heading.
     if (!initial) {

@@ -6,6 +6,8 @@
  *   #/how                       how the maps are drawn
  *   #/changelog                release notes for maps, engine and input
  *   #/how/balancing             the same page, at one of its sections
+ *   #/faq                       common questions
+ *   #/faq/ties                  the same page, at one question
  *   #/CO                        Colorado, finished map
  *   #/CO/d/3                    Colorado, district 3 selected
  *   #/CO/cut/4                  Colorado, cut sequence at cut 4
@@ -18,12 +20,17 @@
 export type Plan = 'finished' | 'before';
 
 /** Sections of the How it works page, in page order. */
-export const HOW_SECTIONS = ['inputs', 'cut', 'strays', 'recursion', 'balancing', 'fingerprint', 'sources', 'strange'] as const;
+export const HOW_SECTIONS = ['inputs', 'cut', 'strays', 'recursion', 'balancing', 'fingerprint', 'sources'] as const;
 export type HowSection = (typeof HOW_SECTIONS)[number];
+
+/** Questions on the FAQ page, in page order. */
+export const FAQ_QUESTIONS = ['strange', 'block', 'ties', 'data', 'counties', 'equal', 'current', 'water', 'one-seat', 'check', 'terms'] as const;
+export type FaqQuestion = (typeof FAQ_QUESTIONS)[number];
 
 export type Route =
   | { page: 'national' }
   | { page: 'how'; section: HowSection | null }
+  | { page: 'faq'; question: FaqQuestion | null }
   | { page: 'changelog' }
   | {
       page: 'state';
@@ -42,6 +49,10 @@ export const CHANGELOG: Route = { page: 'changelog' };
 
 export function howRoute(section: HowSection | null = null): Route {
   return { page: 'how', section };
+}
+
+export function faqRoute(question: FaqQuestion | null = null): Route {
+  return { page: 'faq', question };
 }
 
 export function stateRoute(abbr: string, patch: Partial<StateRoute> = {}): StateRoute {
@@ -65,7 +76,13 @@ export function parseHash(hash: string): Route {
   const segs = pathPart.split('/').filter(Boolean);
   if (segs[0]?.toLowerCase() === 'how') {
     const section = segs[1]?.toLowerCase();
+    // Why a district looks strange was a How it works section before it moved to the FAQ; old links still land on it.
+    if (section === 'strange') return faqRoute('strange');
     return howRoute((HOW_SECTIONS as readonly string[]).includes(section ?? '') ? (section as HowSection) : null);
+  }
+  if (segs[0]?.toLowerCase() === 'faq') {
+    const question = segs[1]?.toLowerCase();
+    return faqRoute((FAQ_QUESTIONS as readonly string[]).includes(question ?? '') ? (question as FaqQuestion) : null);
   }
   if (segs[0]?.toLowerCase() === 'changelog') return CHANGELOG;
   const abbr = segs[0]?.toUpperCase();
@@ -97,6 +114,7 @@ export function formatHash(route: Route): string {
   if (route.page === 'national') return '#/';
   if (route.page === 'changelog') return '#/changelog';
   if (route.page === 'how') return route.section ? `#/how/${route.section}` : '#/how';
+  if (route.page === 'faq') return route.question ? `#/faq/${route.question}` : '#/faq';
   let path = `#/${route.abbr}`;
   if (route.district !== null) path += `/d/${route.district}`;
   if (route.cut !== null) path += `/cut/${route.cut}`;

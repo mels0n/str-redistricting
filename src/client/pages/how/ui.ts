@@ -10,6 +10,7 @@ import {
   fetchJson,
   formatHash,
   formatInt,
+  faqRoute,
   howRoute,
   iconArrowLeft,
   iconChevronDown,
@@ -49,7 +50,6 @@ const TITLES: Record<HowSection, string> = {
   balancing: 'Balancing, and why it is needed',
   fingerprint: 'Same data, same map',
   sources: 'Data sources and limits',
-  strange: 'Why does my district look strange?',
 };
 
 const sectionId = (s: HowSection): string => `strv-how-${s}`;
@@ -308,7 +308,7 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
             { class: 'strv-how__ledger-list' },
             li('how many people the census counted there'),
             li('where its edges are'),
-            li('one point inside it, used only to put blocks in order'),
+            li('one point inside it, used to put blocks in order and to measure island links'),
           ),
           h('p', { class: 'strv-how__ledger-note' }, 'Plus one number per state: its House seats from the 2020 apportionment.'),
         ),
@@ -334,7 +334,7 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
         { class: 'strv-how__list' },
         li('the number of people counted in the block,'),
         li('the block’s shape on the ground, and'),
-        li('the block’s internal point, a point inside the block that the Census Bureau publishes (', code('INTPTLAT20'), ' and ', code('INTPTLON20'), '). It is used only to put blocks in order across a guide line.'),
+        li('the block’s internal point, a point inside the block that the Census Bureau publishes (', code('INTPTLAT20'), ' and ', code('INTPTLON20'), '). It is used to put blocks in order across a guide line and to measure island links.'),
       ),
       figure('Each block brings its shape, its count of people and its internal point. Example numbers.', inputsDiagram()),
       p('Current district lines are shown on the map for comparison only. The generator never reads them. County and city boundaries are not used to draw anything. Counties are only counted afterwards, for reporting. People are counted where the census counted them, with no adjustments, so a person in a prison is counted at the prison.'),
@@ -421,7 +421,7 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
           exactItem('strays.no-rejoin', h('strong', null, 'A piece that cannot rejoin.'), ' If a pass moves nothing but a fixed piece is still cut off from its side, it cannot move back. That line’s sides are not each one connected piece, so it fails the check that each side is one connected piece, and the next shortest line is considered.'),
           exactItem('strays.outline', h('strong', null, 'Crossing the outline.'), ' A line may cross the piece’s outline any number of times.'),
           exactItem('strays.connected', h('strong', null, 'Connected.'), ' Two blocks are connected when they share an edge; touching at a single corner does not count. Census blocks cover lakes, bays and coastal water, and a water block is a block like any other. Land on two shores is therefore connected when blocks of the same district, water blocks included, join them.'),
-          exactItem('strays.islands', h('strong', null, 'Islands.'), ' Land that no block reaches, even across water, is connected the way cuts are chosen: of every possible link from the connected land to a detached piece, measured between internal points, the shortest is added, and this repeats until every piece is connected. A link often goes to another island rather than the mainland, so a state with islands can still be cut. The map draws these links as dashed lines. Keep in mind that a link joins pieces, not single islands: the Census Bureau sometimes draws one block around a cluster of small islands, and those islands are already one block, so no link is drawn between them. To see this, click a district to select it and zoom in. Zoomed in, the map is drawn block by block, and the selected district’s links stay on screen as dashed lines.'),
+          exactItem('strays.islands', h('strong', null, 'Islands.'), ' Land that no block reaches, even across water, is connected the way cuts are chosen: of every possible link from the connected land to a detached piece, measured between internal points, the shortest is added, and this repeats until every piece is connected. If two links are exactly the same length, the one between the blocks that come first in GEOID order is added. A link often goes to another island rather than the mainland, so a state with islands can still be cut. The map draws these links as dashed lines. Keep in mind that a link joins pieces, not single islands: the Census Bureau sometimes draws one block around a cluster of small islands, and those islands are already one block, so no link is drawn between them. To see this, click a district to select it and zoom in. Zoomed in, the map is drawn block by block, and the selected district’s links stay on screen as dashed lines.'),
         ),
       ),
     ),
@@ -522,24 +522,12 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
         li('Address search asks the Census Bureau which census block the address is in. When the Census Bureau names the block, address search reads that block’s district from the map file, so the answer is exact. Otherwise it uses the drawn shapes.'),
       ),
     ),
-    section(
-      'strange',
-      8,
-      p('A strange shape is not a mistake. The generator runs the same steps in every state, and the map is whatever those steps produce. Nobody looks at the result and fixes it.'),
-      p('The generator doesn’t know what a town, a county, a river, a highway or a neighborhood is. All it sees is how many people live in each census block and the block’s shape. So a line can run through a city, split a county or cross a bay. Bays are made of census blocks too.'),
-      p('“It looks wrong” usually means it doesn’t match a picture you already have, like the old district lines, the county map, or where you feel your area ends. People drew those pictures. Making the map match them would mean adding back the human choices this method leaves out.'),
-      h('h3', { class: 'strv-how__h3' }, 'Where odd edges come from'),
-      h(
-        'ul',
-        { class: 'strv-how__list' },
-        li(h('strong', null, 'Stair steps.'), ' The line follows census block edges and keeps every block whole, so a straight guide line becomes a ragged border.'),
-        li(h('strong', null, 'Notches and small bumps.'), ' The balancing pass moves single blocks across borders to even out the population, one block at a time.'),
-        li(h('strong', null, 'Across water.'), ' Water is census blocks like any other, so a district can join two shores, and an island link can join land no block reaches.'),
-        li(h('strong', null, 'Long or thin pieces.'), ' The shortest border wins each cut, and the people, not a neat outline, decide where that is. Sometimes it leaves a long piece.'),
-      ),
-      h('h3', { class: 'strv-how__h3' }, 'Check it yourself'),
-      p('Every border traces back to a cut or a balancing move, and both can be replayed on the state’s map, ', h('a', { href: formatHash(stateRoute('CO', { cut: 1 })) }, 'starting with Colorado’s first cut'), '. Anyone who reruns the generator gets the same map and the same fingerprint.'),
-      p('The rules themselves, shortest border and equal population, were chosen once and up front. They apply to every state alike and were fixed before any map existed. Nobody chose any single line.'),
+    h(
+      'p',
+      { class: 'strv-how__next' },
+      'Why does a district look strange? How are ties settled? Short answers to common questions are on the ',
+      h('a', { href: formatHash(faqRoute()) }, 'FAQ page'),
+      '.',
     ),
   );
 

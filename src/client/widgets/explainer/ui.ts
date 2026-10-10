@@ -1,4 +1,4 @@
-import { h, formatHash, howRoute } from '../../shared';
+import { h, formatHash, faqRoute, howRoute } from '../../shared';
 
 /**
  * "How this map was drawn": the method in plain language. It matches the
@@ -16,7 +16,7 @@ export function createExplainer(opts: { seats?: number } = {}): HTMLElement {
       'p',
       { class: 'strv-explain__note' },
       h('strong', null, 'Only people and shapes.'),
-      ' For each 2020 census block the generator reads the number of people, the block’s shape, and its center point (the internal point the Census Bureau publishes), which it uses only to put blocks in order across a guide line. It never reads party registration or voter records, election results or turnout, where officeholders or candidates live, current or past district lines, or race, ethnicity, age, income or anything else about people besides how many there are.',
+      ' For each 2020 census block the generator reads the number of people, the block’s shape, and its center point (the internal point the Census Bureau publishes), which it uses to put blocks in order across a guide line and to measure island links. It never reads party registration or voter records, election results or turnout, where officeholders or candidates live, current or past district lines, or race, ethnicity, age, income or anything else about people besides how many there are.',
     ),
     h(
       'ol',
@@ -43,6 +43,6 @@ export function createExplainer(opts: { seats?: number } = {}): HTMLElement {
       ' There is no randomness and no human choice. Anyone who runs the generator on the same census files gets the same map, down to the fingerprint.',
     ),
     h('p', { class: 'strv-explain__more' }, h('a', { href: formatHash(howRoute()) }, 'How it works: every stage, with drawings')),
-    h('p', { class: 'strv-explain__more strv-explain__more--next' }, h('a', { href: formatHash(howRoute('strange')) }, 'District look strange? Here’s why')),
+    h('p', { class: 'strv-explain__more strv-explain__more--next' }, h('a', { href: formatHash(faqRoute('strange')) }, 'District look strange? Here’s why')),
   );
 }

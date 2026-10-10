@@ -3677,10 +3677,33 @@ html:has(> body > #str-viewer) {
 
 .strv-how__section > p,
 .strv-how__worked > p,
-.strv-how__real {
+.strv-how__real,
+.strv-how__next {
   max-width: 68ch;
   line-height: 1.6;
   margin-bottom: var(--s-3);
+}
+
+.strv-how__next {
+  padding-top: var(--s-6);
+}
+
+.strv .strv-faq__terms {
+  max-width: 68ch;
+  margin: 0 0 var(--s-3);
+  line-height: 1.6;
+}
+
+.strv-faq__terms dt {
+  font-weight: 700;
+}
+
+.strv-faq__terms dt:not(:first-child) {
+  margin-top: var(--s-3);
+}
+
+.strv-faq__terms dd {
+  margin: 0;
 }
 
 .strv .strv-how__list,

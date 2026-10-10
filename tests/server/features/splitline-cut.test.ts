@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import type { Block } from '../../../src/server/entities/census-block/index.js';
 import { isConnected } from '../../../src/server/entities/census-block/index.js';
-import { createContext, findCut } from '../../../src/server/features/splitline/index.js';
+import { compareCandidates, createContext, findCut } from '../../../src/server/features/splitline/index.js';
 import { DataError } from '../../../src/server/shared/errors/index.js';
 import { gridBlocks } from '../../helpers/grid.js';
 
@@ -13,16 +13,20 @@ const withPoints = (blocks: Block[], pts: readonly (readonly [number, number])[]
 
 describe('findCut', () => {
   it('cuts a 4x2 grid with the short north-south line', () => {
-    const ctx = createContext(gridBlocks(4, 2), 1);
+    const ctx = createContext(gridBlocks(4, 2));
     const r = findCut(ctx, all(8), 2);
-    expect(r.angleDeg).toBe(0);
+    // The winning range starts at north-south and the line is drawn at its middle.
+    expect(r.fromDeg).toBe(0);
+    expect(r.angleDeg).toBeCloseTo((r.fromDeg + r.toDeg) / 2, 12);
+    expect(r.angleDeg).toBeGreaterThan(r.fromDeg);
+    expect(r.angleDeg).toBeLessThan(r.toDeg);
     expect(sorted(r.low)).toEqual([0, 1, 4, 5]);
     expect(r.lengthM).toBeCloseTo(2 * 0.01 * 111_195.08, -1);
     expect(r.skipped).toBe(0);
   });
 
   it('measures the real block-edge border between the sides', () => {
-    const ctx = createContext(gridBlocks(4, 2), 1);
+    const ctx = createContext(gridBlocks(4, 2));
     const r = findCut(ctx, all(8), 2);
     expect(Math.abs(r.lengthM - 2 * 0.01 * 111_195.08)).toBeLessThan(1);
     expect(r.strayBlocksMoved).toBe(0);
@@ -47,13 +51,13 @@ describe('findCut', () => {
       blk(4, 0, [1.5, 1.75], [[1.25, 1.5], [1.75, 1.5], [1.75, 2], [1.25, 2], [1.25, 1.5]]),
       blk(5, 1, [2.5, 1.5], [...sq(2, 1)]),
     ];
-    const ctx = createContext(blocks, 1);
+    const ctx = createContext(blocks);
     const r = findCut(ctx, all(6), 2);
     const sideOf = (i: number) => (r.low.includes(i) ? 'low' : 'high');
     expect(sideOf(4)).toBe(sideOf(1));
     expect(isConnected(ctx.topo, r.low)).toBe(true);
     expect(isConnected(ctx.topo, r.high)).toBe(true);
-    expect(r.angleDeg).toBe(0);
+    expect(r.fromDeg).toBe(0);
     expect(sorted(r.low)).toEqual([0, 3]);
     expect(r.strayBlocksMoved).toBe(1);
     expect(r.strayPopMoved).toBe(0);
@@ -77,9 +81,9 @@ describe('findCut', () => {
       blk(4, 0, [1.5, 1.75], [[1.25, 1.5], [1.75, 1.5], [1.75, 2], [1.25, 2], [1.25, 1.5]]),
       blk(5, 2, [2.5, 1.5], sq(2, 1)),
     ];
-    const ctx = createContext(blocks, 1);
+    const ctx = createContext(blocks);
     const r = findCut(ctx, all(6), 2);
-    expect(r.angleDeg).toBe(0);
+    expect(r.fromDeg).toBe(0);
     expect(sorted(r.low)).toEqual([0, 1, 3, 4]);
     expect(sorted(r.high)).toEqual([2, 5]);
     expect(r.strayBlocksMoved).toBe(1);
@@ -93,7 +97,7 @@ describe('findCut', () => {
     const run = (n: number, pops: readonly number[]) => {
       const base = gridBlocks(n, 1, { pop: (x) => pops[x] ?? 0 });
       const blocks = withPoints(base, base.map((_, i) => (i === 2 ? ([-0.05, 0.1] as const) : ([0.01 * i + 0.1, -0.1] as const))));
-      return findCut(createContext(blocks, 90), all(n), 2);
+      return findCut(createContext(blocks), all(n), 2);
     };
 
     it('is the group with the most people', () => {
@@ -124,7 +128,7 @@ describe('findCut', () => {
     // A real piece is always connected (through bridges if needed). Strip of 7 with blocks 2 and 4
     // left out: {0,1}, {3} and {5,6}. The lone block 3 touches nothing, so it is a stray on whichever
     // side it lands; it moves once and is fixed, so every candidate ends, unresolved.
-    const ctx = createContext(gridBlocks(7, 1), 1);
+    const ctx = createContext(gridBlocks(7, 1));
     const run = () => findCut(ctx, Int32Array.from([0, 1, 3, 5, 6]), 2);
     expect(run).toThrow(DataError);
     expect(run).toThrow(/two connected sides/);
@@ -138,9 +142,9 @@ describe('findCut', () => {
     // one-edge border wins.
     const pop = (x: number, y: number) => (x >= 4 ? (y === 2 ? 5 : 0) : 1);
     const blocks = gridBlocks(6, 3, { skip: (x, y) => x >= 2 && y === 1, pop });
-    const ctx = createContext(blocks, 1);
+    const ctx = createContext(blocks);
     const r = findCut(ctx, all(blocks.length), 2);
-    expect(r.angleDeg).toBe(0);
+    expect(r.fromDeg).toBe(0);
     expect(sorted(r.high)).toEqual([12, 13]);
     expect(r.spans).toHaveLength(2);
     expect(r.strayBlocksMoved).toBe(2);
@@ -151,38 +155,62 @@ describe('findCut', () => {
   it('breaks a length tie toward north-south', () => {
     // Centered on the equator, the east-west border runs along it and is exactly as long as the north-south one.
     // North of the equator the east-west border would be a hair shorter and win outright.
-    const ctx = createContext(gridBlocks(2, 2, { origin: [0, -0.01] }), 1);
+    const ctx = createContext(gridBlocks(2, 2, { origin: [0, -0.01] }));
     const r = findCut(ctx, all(4), 2);
-    expect(r.angleDeg).toBe(0);
+    expect(r.fromDeg).toBe(0);
     expect(sorted(r.low)).toEqual([0, 2]);
   });
 
   it('splits population, not block count', () => {
     // 4x1 strip; the first block holds half the people.
-    const ctx = createContext(gridBlocks(4, 1, { pop: (x) => (x === 0 ? 3 : 1) }), 1);
+    const ctx = createContext(gridBlocks(4, 1, { pop: (x) => (x === 0 ? 3 : 1) }));
     const r = findCut(ctx, all(4), 2);
     expect(sorted(r.low)).toEqual([0]);
   });
 
   it('gives an odd seat count the floor/ceil ratio', () => {
-    const ctx = createContext(gridBlocks(3, 1), 1);
+    const ctx = createContext(gridBlocks(3, 1));
     const r = findCut(ctx, all(3), 3);
     expect([r.lowSeats, r.highSeats].sort()).toEqual([1, 2]);
     expect(r.low.length).toBe(r.lowSeats);
   });
 
-  it('skips the shortest line when its sides fail validation and takes the next', () => {
-    const ctx = createContext(gridBlocks(4, 2), 1);
+  it('skips the shortest range when its sides fail validation and takes the next', () => {
+    const ctx = createContext(gridBlocks(4, 2));
     let calls = 0;
     const r = findCut(ctx, all(8), 2, () => ++calls > 1);
     expect(r.skipped).toBe(1);
-    expect(r.angleDeg).not.toBe(0);
+    const [first, second] = r.candidates;
+    expect(first!.fromDeg).toBe(0);
+    expect([r.fromDeg, r.toDeg, r.lowSeats]).toEqual([second!.fromDeg, second!.toDeg, second!.lowSeats]);
+    expect(r.lengthM).toBeGreaterThanOrEqual(first!.lengthM);
+  });
+
+  it('reports the candidate ranges in the generator order, the winner first', () => {
+    const ctx = createContext(gridBlocks(6, 5, { pop: (x, y) => 1 + ((x * 7 + y * 3) % 5) }));
+    const r = findCut(ctx, all(30), 3);
+    expect(r.candidates.length).toBeGreaterThan(1);
+    expect(r.candidateRanges).toBeGreaterThanOrEqual(r.candidates.length);
+    expect([r.fromDeg, r.toDeg, r.lowSeats, r.lengthM]).toEqual([r.candidates[0]!.fromDeg, r.candidates[0]!.toDeg, r.candidates[0]!.lowSeats, r.candidates[0]!.lengthM]);
+    for (let i = 1; i < r.candidates.length; i++) expect(compareCandidates(r.candidates[i - 1]!, r.candidates[i]!)).toBeLessThanOrEqual(0);
+    for (const c of r.candidates) {
+      expect(c.fromDeg).toBeLessThan(c.toDeg);
+      expect(c.nearestNorthSouthDeg === c.fromDeg || c.nearestNorthSouthDeg === c.toDeg || c.toDeg === 180).toBe(true);
+    }
+  });
+
+  it('draws the guide line at the middle of the winning range', () => {
+    const r = findCut(createContext(gridBlocks(5, 4, { pop: (x, y) => 1 + ((x * 3 + y * 5) % 4) })), all(20), 2);
+    expect(r.angleDeg).toBeCloseTo((r.fromDeg + r.toDeg) / 2, 12);
+    expect(r.fromDeg).toBeLessThan(r.toDeg);
+    expect(r.fromDeg).toBeGreaterThanOrEqual(0);
+    expect(r.toDeg).toBeLessThanOrEqual(180);
   });
 
   it('is deterministic', () => {
     const blocks = gridBlocks(6, 5, { pop: (x, y) => 1 + ((x * 7 + y * 3) % 5) });
-    const a = findCut(createContext(blocks, 0.5), all(30), 3);
-    const b = findCut(createContext(blocks, 0.5), all(30), 3);
+    const a = findCut(createContext(blocks), all(30), 3);
+    const b = findCut(createContext(blocks), all(30), 3);
     expect(sorted(a.low)).toEqual(sorted(b.low));
     expect(a.angleDeg).toBe(b.angleDeg);
     expect(a.lengthM).toBe(b.lengthM);

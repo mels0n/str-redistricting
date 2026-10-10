@@ -6,7 +6,7 @@ import { gridBlocks } from '../../helpers/grid.js';
 const dyingUrl = new URL('../../helpers/dying-scan-worker.ts', import.meta.url);
 const wrongIdUrl = new URL('../../helpers/wrong-id-scan-worker.ts', import.meta.url);
 const all = (n: number) => Int32Array.from({ length: n }, (_, i) => i);
-const ctx = createContext(gridBlocks(6, 6), 1);
+const ctx = createContext(gridBlocks(6, 6));
 const search = (pool: ScanPool) => findCut(ctx, all(36), 2, undefined, { pool });
 const settle = () => new Promise((r) => setTimeout(r, 300));
 
@@ -49,7 +49,7 @@ describe('pool with a dying worker', () => {
   it('stays usable after a failure the workers reported themselves', async () => {
     const pool = new ScanPool(2);
     const empty = { m: -1, total: 0, ids: new Int32Array(0), pops: new Float64Array(0), px: new Float64Array(0), py: new Float64Array(0), lOff: new Int32Array(0), lAdj: new Int32Array(0), lLen: new Float64Array(0) };
-    expect(() => pool.scan(empty, { angleCount: 4, seats: 2, orientations: [1] })).toThrow(/length/i);
+    expect(() => pool.scan(empty, { seats: 2, orientations: [1], chunks: 2, keep: 6 })).toThrow(/length/i);
     expect(pool.broken).toBe(false);
     expect(search(pool)).toEqual(findCut(ctx, all(36), 2));
     await pool.close();

@@ -6,7 +6,7 @@ import { join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { blocksFileName } from '../../../src/server/entities/census-block/index.js';
 import { stateByAbbr } from '../../../src/server/shared/apportionment/index.js';
-import { DEFAULT_ANGLE_STEP_DEG, pinnedSha256, stampOf, VERSIONS } from '../../../src/server/shared/config/index.js';
+import { LINE_SEARCH, pinnedSha256, stampOf, VERSIONS } from '../../../src/server/shared/config/index.js';
 import { DataError } from '../../../src/server/shared/errors/index.js';
 
 const { assertGatedAssignments, publishData } = await import('../../../src/server/features/publish/index.js');
@@ -16,9 +16,9 @@ const { parsePublishConfig } = await import('../../../src/server/shared/config/i
 const metricsOf = (abbr: string, sha: string, over: Record<string, unknown> = {}) => {
   const published = JSON.parse(readFileSync(new URL(`../../../public/data/${abbr}/stats.json`, import.meta.url), 'utf8')) as { finished: { metrics: object } };
   return {
-    ...published.finished.metrics, districts: [], assignmentSha256: sha, engine: VERSIONS.engine, angleStepDeg: DEFAULT_ANGLE_STEP_DEG,
+    ...published.finished.metrics, districts: [], assignmentSha256: sha, engine: VERSIONS.engine, lineSearch: LINE_SEARCH,
     inputSha256: pinnedSha256(blocksFileName(stateByAbbr(abbr)!)),
-    cuts: 1, angleCount: 1800, directionsPerCut: [1800], candidateLinesEvaluated: 1, strayBlocksMoved: 0, strayPopMoved: 0, recounts: 0, recountsMaxPerCut: 0,
+    cuts: 1, candidateRangesPerCut: [1], candidateRangesEvaluated: 1, strayBlocksMoved: 0, strayPopMoved: 0, recounts: 0, recountsMaxPerCut: 0,
     balanceMoves: 0, peopleMovedByBalancing: 0, rangeBeforeBalancing: 0, rangeAfterBalancing: 0, ...over,
   };
 };
@@ -85,7 +85,7 @@ describe('publishData provenance', () => {
   it('refuses a plan with no engine field', () => refused({ engine: undefined }, undefined, /RI: the plan cannot be published, it records no engine version; re-run `npm run explore -- --states RI`/));
   it('refuses a plan from another engine major', () => refused({ engine: '99.0.0' }, undefined, /RI: .*engine 99\.0\.0.*different major/));
   it('refuses a plan drawn from a census file other than the pinned one', () => refused({ inputSha256: B }, undefined, /not the pinned one/));
-  it('refuses a plan drawn at another angle step', () => refused({ angleStepDeg: 0.5 }, undefined, /angle step is 0.5/));
+  it('refuses a plan drawn with another line search', () => refused({ lineSearch: 'grid' }, undefined, /line search is grid/));
   it('checks the before-balancing plan too', () => refused({}, { engine: '99.0.0' }, /RI before-balancing: .*different major/));
 });
 

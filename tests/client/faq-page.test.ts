@@ -23,7 +23,7 @@ describe('FAQ page', () => {
     expect(strange.querySelector('a[href="#/CO/cut/1"]')?.textContent).toBe('starting with Colorado’s first cut');
     expect(strange.textContent).toContain('Nobody chose any single line.');
     const ties = page.el.querySelector('#strv-faq-ties')!;
-    expect(ties.textContent).toContain('closest to north-south');
+    expect(ties.textContent).toContain('nearer their fair shares of people');
     expect(ties.textContent).toContain('GEOID order');
     expect(ties.querySelector('a[href="#/how/balancing"]')).not.toBeNull();
   });

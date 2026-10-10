@@ -54,12 +54,12 @@ const ANSWERS: Record<FaqQuestion, () => HTMLElement[]> = {
   ties: () => [
     p('Every tie has a fixed tiebreak, written down before any map was drawn. Nothing is left to chance or to a person. Where a tiebreak uses GEOID order, that is the census block identifier, a number the Census Bureau gives every block.'),
     list(
-      li(h('strong', null, 'Two borders the same length.'), ' Lengths are compared exactly as measured, so two borders tie only when they are exactly equal. The tie goes to the line closest to north-south, then to the smaller angle, then to the line whose first side has fewer seats.'),
-      li(h('strong', null, 'Where a cut stops.'), ' A cut adds up people block by block until one side has its share. If stopping just before a block and just after it land equally close to the share, it stops just before.'),
-      li(h('strong', null, 'Blocks side by side.'), ' Blocks the same distance across a guide line are put in GEOID order.'),
-      li(h('strong', null, 'Which piece keeps its side.'), ' When a cut leaves a side in more than one piece, the piece with the most people stays, then the one with the most blocks, then the one holding the block that comes first in GEOID order. The others are stray pieces and join the side around them.'),
-      li(h('strong', null, 'Which district balances first.'), ' If two districts are equally far from the ideal population, the lower district number goes first.'),
-      li(h('strong', null, 'Two equally good balancing moves.'), ' The block that comes first in GEOID order moves, and if it could go to two districts, it goes to the lower-numbered one.'),
+      li(h('strong', null, 'Two borders the same length.'), ' Lengths are compared exactly as measured, so two borders tie only when they are exactly equal. When two different cuts tie, the one whose sides are nearer their fair shares of people is used, and if that is equal too, GEOID decides. No direction is preferred. Exact ties are rare.'),
+      li(h('strong', null, 'Where a cut stops.'), ' A cut adds up people block by block until one side has its share. If stopping just before a block and just after it land equally close to the share, both stopping points are kept as candidates and the border rules above choose between them.'),
+      li(h('strong', null, 'Blocks side by side.'), ' Blocks whose internal points are in exactly the same place are put in GEOID order.'),
+      li(h('strong', null, 'Which piece keeps its side.'), ' When a cut leaves a side in more than one piece, the piece with the most people stays, then the one holding the lower GEOID. The others are stray pieces and join the side around them.'),
+      li(h('strong', null, 'Which district balances first.'), ' If two districts are equally far from the ideal population, the one whose first block comes first in GEOID order goes first.'),
+      li(h('strong', null, 'Two equally good balancing moves.'), ' The move that leaves the shorter total border wins, then the block that comes first in GEOID order, then the receiving district whose first block comes first in GEOID order.'),
       li(h('strong', null, 'Two island links the same length.'), ' The link between the blocks that come first in GEOID order is added.'),
     ),
     p('Each of these is spelled out under “The exact rule” in ', howLink('cut', 'One cut'), ', ', howLink('strays', 'Stray pieces'), ' and ', howLink('balancing', 'Balancing'), '.'),

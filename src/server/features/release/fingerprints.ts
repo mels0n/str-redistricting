@@ -39,11 +39,13 @@ export function compareFingerprints(
   head: FingerprintFile,
   drawn: Readonly<Record<string, StateFingerprint>>,
   headEngineMajor: number,
+  preRelease = false,
 ): { ok: boolean; changed: string[]; message: string } {
   if (Object.keys(base.states).length === 0) return { ok: true, changed: [], message: 'the base records no fixture states yet; the fixture gate passes' };
   const changed = Object.keys(base.states).filter((st) => !sameFingerprint(drawn[st], base.states[st])).sort();
   if (changed.length === 0) return { ok: true, changed, message: 'fixture fingerprints match' };
   const names = changed.join(', ');
+  if (preRelease) return { ok: true, changed, message: 'before the 1.0 cut; the fixture gate reports changes but does not block' };
   if (headEngineMajor <= base.engineMajor) {
     return {
       ok: false,

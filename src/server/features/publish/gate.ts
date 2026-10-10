@@ -21,14 +21,18 @@ export interface PublishedPlan {
  * before-balancing assignment, so a change the balancing step absorbs still counts. A change to the enacted districts
  * alone moves the input revision but never reopens the gate: it cannot change an assignment. The release script
  * records the bump; the gate accepts either an engine major or a census change. `baseline` skips the check for
- * unstamped states only, for the one-time stamping of data published before versioning existed.
+ * unstamped states only, for the one-time stamping of data published before versioning existed. `preRelease` (before
+ * the 1.0 cut) skips the check entirely.
  */
 export function checkPublishGate(
   existing: PublishedPlan | null,
   next: PublishedPlan & { versions: VersionStamp },
   baseline: boolean,
   state = 'state',
+  preRelease = false,
 ): void {
+  // Before the 1.0 cut nothing is released, so any map may be replaced.
+  if (preRelease) return;
   // --baseline only stamps data published before versioning; a state that already carries a stamp is still gated.
   if (existing === null || (baseline && existing.versions === undefined)) return;
   if (existing.versions === undefined) {

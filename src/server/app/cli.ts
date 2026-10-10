@@ -1,12 +1,12 @@
-import { createHash } from 'node:crypto';
-import { readFile } from 'node:fs/promises';
-import { join } from 'node:path';
-import { buildTopology, ensureZip, loadStateBlocks } from '../entities/census-block/index.js';
+import { join, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { blocksFileName, buildTopology, loadStateBlocks } from '../entities/census-block/index.js';
 import { balance, balanceLog, peopleMoved } from '../features/balance/index.js';
 import { bordersGeoJson, bridgesJson, cutsGeoJson, districtsGeoJson, writePlan } from '../features/export/index.js';
 import { assignmentCsv, computeMetrics } from '../features/metrics/index.js';
+import { clearStamp, codeFingerprint, staleReason, writeStamp, type RunKey } from '../features/run-stamp/index.js';
 import { createContext, PoolSlot, splitState, type SplitResult } from '../features/splitline/index.js';
-import { LINE_SEARCH, parseConfig, VERSIONS } from '../shared/config/index.js';
+import { engineMajor, LINE_SEARCH, parseConfig, pinnedSha256, VERSIONS } from '../shared/config/index.js';
 import { exitCodeFor } from '../shared/errors/index.js';
 
 type Cut = SplitResult['cuts'][number];
@@ -32,13 +32,31 @@ async function main(): Promise<void> {
   const config = parseConfig(process.argv.slice(2));
   const summary: Record<string, unknown>[] = [];
   let firstError: unknown;
+  // Everything this run executes; a change to any of it redraws every state.
+  const self = fileURLToPath(import.meta.url);
+  const codeSha256 = codeFingerprint([self], resolve(self, '../../../..'));
   const slot = new PoolSlot(config.threads);
   for (const state of config.states) {
     // A worker that died while idle between states must not fail this one; a no-op unless the pool is broken.
     slot.refresh();
     try {
+      const dir = join(config.outDir, state.abbr);
+      // The pinned hash, not a fresh one: loading the blocks refuses a file that does not match it.
+      const inputSha256 = pinnedSha256(blocksFileName(state));
+      const key: RunKey = { inputSha256, seats: state.seats, engineMajor: engineMajor(VERSIONS.engine), codeSha256 };
+      const why = config.force ? '--force' : await staleReason(dir, key);
+      if (why === undefined) {
+        summary.push({ state: state.abbr, status: 'unchanged, skipped (--force redraws it)', seats: state.seats });
+        continue;
+      }
+      console.log(`${state.abbr}: drawing (${why})`);
+      await clearStamp(dir);
+      const written: string[] = [];
+      const write = async (sub: string, files: Record<string, string>): Promise<void> => {
+        await writePlan(join(dir, sub), files);
+        for (const name of Object.keys(files)) written.push(sub ? `${sub}/${name}` : name);
+      };
       const t0 = performance.now();
-      const inputSha256 = createHash('sha256').update(await readFile(await ensureZip(state, config.cacheDir))).digest('hex');
       const blocks = await loadStateBlocks(state, config.cacheDir);
       const topo = buildTopology(blocks);
       const ctx = createContext(blocks, topo);
@@ -61,11 +79,11 @@ async function main(): Promise<void> {
       const range = { rangeBeforeBalancing: before.rangePersons, rangeAfterBalancing: official.rangePersons };
       const moved = peopleMoved(balanced.moves);
       const plans = [
-        { dir: join(config.outDir, state.abbr, 'before-balancing'), assignment: split.assignment, metrics: before, moves: 0, moved: 0 },
-        { dir: join(config.outDir, state.abbr), assignment: balanced.assignment, metrics: official, moves: balanced.moves.length, moved },
+        { sub: 'before-balancing', assignment: split.assignment, metrics: before, moves: 0, moved: 0 },
+        { sub: '', assignment: balanced.assignment, metrics: official, moves: balanced.moves.length, moved },
       ];
       for (const p of plans) {
-        await writePlan(p.dir, {
+        await write(p.sub, {
           'assignment.csv': assignmentCsv(blocks, p.assignment),
           'metrics.json': JSON.stringify({ ...common, balanceMoves: p.moves, peopleMovedByBalancing: p.moved, ...range, runtimeMs, ...p.metrics }, null, 2),
           'borders.geojson': JSON.stringify(bordersGeoJson(topo, p.assignment, state.seats)),
@@ -73,13 +91,14 @@ async function main(): Promise<void> {
           'cuts.geojson': JSON.stringify(cutsGeoJson(split.cuts)),
         });
       }
-      await writePlan(join(config.outDir, state.abbr), {
+      await write('', {
         'bridges.json': JSON.stringify(bridgesJson(topo, blocks)),
         'balance.json': JSON.stringify(balanceLog(balanced.moves, before.districts.map((d) => d.pop))),
         // Debug only, not published: what each cut's search saw.
         'cut-stats.json': JSON.stringify({ threads: config.threads, cuts: split.cuts.map(cutStats) }, null, 1),
         'candidates.json': JSON.stringify(candidateRows(split.cuts)),
       });
+      await writeStamp(dir, { ...key, files: written });
       summary.push({
         state: state.abbr, status: 'ok', seats: state.seats, blocks: blocks.length,
         rangePersons: official.rangePersons, rangePct: Number(official.rangePct.toFixed(4)),

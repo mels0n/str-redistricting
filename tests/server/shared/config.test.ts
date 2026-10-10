@@ -10,6 +10,10 @@ describe('parseConfig', () => {
     expect(c.cacheDir).toBe('data/raw');
     expect(c.outDir).toBe('out');
   });
+  it('redraws unchanged states only with --force', () => {
+    expect(parseConfig(['--states', 'CO']).force).toBe(false);
+    expect(parseConfig(['--states', 'CO', '--force']).force).toBe(true);
+  });
   it('rejects unknown states', () => {
     expect(() => parseConfig(['--states', 'XX'])).toThrow(ConfigError);
   });

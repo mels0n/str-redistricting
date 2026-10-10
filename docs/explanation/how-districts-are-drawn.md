@@ -172,7 +172,7 @@ Every border traces back to a cut or a balancing move, both of which can be repl
 
 The finished map is in `out/<state>/`. The plan as it stood after the cuts and before the balancing pass is written to `out/<state>/before-balancing/` with the same files, so the effect of the balancing pass can be read directly from the numbers.
 
-Each plan directory holds five files (the finished map's directory also holds `balance.json`, described below, and two diagnostic files):
+Each plan directory holds five files (the finished map's directory also holds `balance.json` and `inputs.json`, described below, and two diagnostic files):
 
 - `assignment.csv` lists every block with its GEOID and the district number it belongs to. This is the map itself.
 - `metrics.json` holds the following:
@@ -194,7 +194,19 @@ Each plan directory holds five files (the finished map's directory also holds `b
 - `districts.geojson` holds each district's shape.
 - `balance.json` (finished map only) lists every balancing move in the order it was made, as the block's index and GEOID, the district it left and the one it joined (numbered from 1), its population and its gain, together with the district populations before the first move.
 - `cut-stats.json` and `candidates.json` (finished map only) are diagnostic files, not used by the viewer or needed to reproduce a map. `cut-stats.json` records what each cut's search saw, including `threads`, the number of threads that ran the search, `fromDeg` and `toDeg`, the winning range of directions, `candidateRanges`, how many ranges were evaluated (including those walked from the other end), and `splitChanges`, how many times the split changed during the sweep, and `reversed`, true when the winning line is the one slid from the other end of the order, and `tiedRanges` and `tiedCuts`, the ranges at the winning length whose sides passed and the distinct cuts among them (2 or more means the tie rules decided). `candidates.json` lists each cut's leading candidate ranges (the best few from each part of the half turn, resolved ranges only, at most 200, in the order the generator tries them, with the winning range first among those of its length; `lengthM` there is exact to the micrometer, while `cut-stats.json` rounds it to the meter), each with `lowSeats`, `fromDeg`, `toDeg`, `lengthM`, `lowPop` and `reversed` (1 when the line was slid from the other end, otherwise 0).
+- `inputs.json` (finished map only) records what the state's plans were drawn from: `inputSha256`, the pinned SHA-256 of its Census block file, `seats`, `engineMajor`, `codeSha256`, a fingerprint of the generator's code, and `files`, every file the run wrote for the state. It is written after all of them, so a run that stops partway leaves a state without one.
 - `cuts.geojson` holds the straight guide line chosen for each cut, after its re-counts, with its direction and the length of the real border it produced, so the recursive splitting can be followed step by step. Each cut also records how many seats it divides (`seats`, `lowSeats`, `highSeats`), `firstDistrict`, the 0-based number of the first district in its range, so each cut can be tied to the districts it separates, and `strayBlocks`, `strayPop` and `recounts`, the stray blocks and people that cut moved and the re-counts it made.
+
+### Running a state again
+
+`explore` skips a state whose folder already holds plans drawn from the same inputs. It compares the state's `inputs.json` with what this run would use and draws the state again when any of these differ, naming the reason as it starts:
+
+- the pinned Census block file (a new file pinned in `config/census-sha256.json`),
+- the number of seats,
+- the engine major version,
+- the code: every source file `explore` loads, including the cut search worker, and every installed package those files use, with its own dependencies. A change to any of them draws every state again, whether or not it would have changed a map. JSON configuration is not part of this fingerprint; the parts of it that decide a map are the pinned Census hash and the seat counts above.
+
+A state is also drawn again when `inputs.json` is missing or unreadable, or when any file it lists is gone. The thread count is not compared, since it never changes a map. `--force` draws every listed state regardless.
 
 ## Data for the map viewer
 

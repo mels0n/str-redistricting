@@ -66,7 +66,7 @@ npm run dev            # serves the viewer locally
 npm run build          # builds the static site into dist/, with public/data copied in
 ```
 
-`explore` flags. `--states` is required and takes two-letter state abbreviations, comma separated (for example `RI,CT,CO`). A state that fails is reported in the summary table and the run continues with the others. `--out-dir` sets the output directory (default `out`). `--cache-dir` sets where downloaded Census files are kept (default `data/raw`). `--threads` sets how many threads sweep the directions for each cut (default: the computer's hardware threads minus two; `1` uses a single thread). The thread count never changes a map.
+`explore` flags. `--states` is required and takes two-letter state abbreviations, comma separated (for example `RI,CT,CO`). A state that fails is reported in the summary table and the run continues with the others. `--out-dir` sets the output directory (default `out`). `--cache-dir` sets where downloaded Census files are kept (default `data/raw`). `--threads` sets how many threads sweep the directions for each cut (default: the computer's hardware threads minus two; `1` uses a single thread). The thread count never changes a map. A state whose folder already holds plans drawn from the same Census file, seat count, engine major and code is skipped and reported as unchanged; `--force` draws it again anyway. `docs/explanation/how-districts-are-drawn.md` lists exactly what is compared.
 
 The finished map for each state is written to `out/<state>/`. The same files for the plan before the balancing pass are written to `out/<state>/before-balancing/`. `docs/explanation/how-districts-are-drawn.md` explains the three steps and every output file.
 

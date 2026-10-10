@@ -50,7 +50,7 @@ afterEach(() => {
   rmSync(root, { recursive: true, force: true });
 });
 
-const run = (out: string, pub: string, states: string) => publishData(parsePublishConfig(['--out-dir', out, '--public-dir', pub, '--states', states]));
+const run = (out: string, pub: string, states: string) => publishData(parsePublishConfig(['--out-dir', out, '--public-dir', pub, '--states', states]), { planStale: async () => undefined });
 
 describe('publishData gate', () => {
   it('refuses before writing anything when a later state is refused', async () => {

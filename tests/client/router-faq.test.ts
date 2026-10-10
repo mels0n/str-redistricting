@@ -28,19 +28,20 @@ describe('router: the FAQ', () => {
     expect(faq.hasAttribute('aria-current')).toBe(false);
   });
 
-  it('scrolls to the question without throwing where scrollIntoView does not exist', async () => {
+  it('scrolls the requested question to the top', async () => {
     vi.stubGlobal('fetch', vi.fn(async () => new Response('{}', { status: 404 })));
-    // Run the frame callback at once, so a throw inside it surfaces here instead of as an unhandled error after the test.
     vi.stubGlobal('requestAnimationFrame', (cb: FrameRequestCallback) => {
       cb(0);
       return 0;
     });
-    expect(typeof Element.prototype.scrollIntoView).not.toBe('function');
+    const scroll = vi.spyOn(Element.prototype, 'scrollIntoView');
     const { startRouter } = await import('../../src/client/app/router');
     const outlet = document.createElement('div');
     document.body.append(outlet);
     history.replaceState(null, '', '#/faq/ties');
-    expect(() => startRouter(outlet)).not.toThrow();
-    expect(outlet.querySelector('#strv-faq-ties')).not.toBeNull();
+    startRouter(outlet);
+    expect(scroll).toHaveBeenCalledTimes(1);
+    expect(scroll.mock.contexts[0]).toBe(outlet.querySelector('#strv-faq-ties-h'));
+    scroll.mockRestore();
   });
 });

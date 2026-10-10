@@ -166,8 +166,7 @@ export function createFaqPage(initial: Extract<Route, { page: 'faq' }>): Page {
     const target = headingOf(q);
     if (!target) return;
     requestAnimationFrame(() => {
-      // jsdom has no scrollIntoView.
-      if (typeof target.scrollIntoView === 'function') target.scrollIntoView({ block: 'start', behavior: animate && !prefersReducedMotion() ? 'smooth' : 'auto' });
+      target.scrollIntoView({ block: 'start', behavior: animate && !prefersReducedMotion() ? 'smooth' : 'auto' });
       if (focus) target.focus({ preventScroll: true });
     });
   }

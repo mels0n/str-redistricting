@@ -76,11 +76,15 @@ describe('shortestTwo', () => {
 });
 
 describe('furthestOf', () => {
-  it('picks the largest distance whichever side it is on, the lower number on an exact tie', () => {
+  it('picks the largest distance whichever side it is on, the first block on an exact tie', () => {
     expect(furthestOf([-91.25, -175.25, 11.75, 185.75])).toBe(3);
     expect(furthestOf([35.5, -35.5])).toBe(0);
     expect(furthestOf([-35.5, 35.5])).toBe(0);
     expect(furthestOf([1, -9, 9, 2])).toBe(1);
+    // With first blocks given, an exact tie goes to the district whose first block comes first, not the lower number.
+    expect(furthestOf([35.5, -35.5], [7, 3])).toBe(1);
+    expect(furthestOf([35.5, -35.5], [3, 7])).toBe(0);
+    expect(furthestOf([1, -9, 9, 2], [0, 5, 4, 1])).toBe(2);
   });
 });
 

@@ -164,11 +164,20 @@ export interface Trade {
   readonly people: number;
   readonly from: number;
   readonly to: number;
+  /** Change in total border length if made (negative when the border gets shorter). Breaks a tie in improvement. */
+  readonly border?: number;
+  /** Position of the block in GEOID order. Breaks a tie in improvement and border. */
+  readonly block?: number;
 }
 
+/** Position of each district's first block in GEOID order, by district number (lower comes first). */
+export type FirstBlocks = Readonly<Record<number, number>>;
+
 /** District 3 is furthest from even; its three trades that help. Every other district is already even. */
-export const BALANCE_EXAMPLE: { readonly start: Deviations; readonly trades: readonly Trade[] } = {
+export const BALANCE_EXAMPLE: { readonly start: Deviations; readonly firstBlocks: FirstBlocks; readonly trades: readonly Trade[] } = {
   start: { 1: -300, 3: 400, 5: -100 },
+  // District 5's first block comes before District 3's in GEOID order, so District 5 wins a tie for furthest.
+  firstBlocks: { 1: 2, 3: 3, 5: 1 },
   trades: [
     { id: 'A', people: 250, from: 3, to: 1 },
     { id: 'B', people: 300, from: 3, to: 1 },
@@ -194,16 +203,22 @@ export function improvement(dev: Deviations, t: Trade): number {
   return 2 * t.people * ((dev[t.from] ?? 0) - (dev[t.to] ?? 0) - t.people);
 }
 
-/** The district furthest from the ideal; a tie goes to the lower number. */
-export function furthest(dev: Deviations): number {
+/** The district furthest from the ideal; a tie goes to the district whose first block comes first in GEOID order. */
+export function furthest(dev: Deviations, firstBlocks: FirstBlocks = BALANCE_EXAMPLE.firstBlocks): number {
   let best = -1;
-  for (const k of Object.keys(dev).map(Number).sort((a, b) => a - b)) {
-    if (best === -1 || Math.abs(dev[k]!) > Math.abs(dev[best]!)) best = k;
+  for (const k of Object.keys(dev).map(Number)) {
+    const far = Math.abs(dev[k]!);
+    if (best === -1 || far > Math.abs(dev[best]!) || (far === Math.abs(dev[best]!) && (firstBlocks[k] ?? Infinity) < (firstBlocks[best] ?? Infinity))) best = k;
   }
   return best;
 }
 
-/** The best trade: the largest improvement (the example's trades are all allowed and their blocks distinct). */
+/**
+ * The best trade: the largest improvement; a tie goes to the shorter total border, then to the block that comes
+ * first in GEOID order (the example's trades are all allowed and their blocks distinct).
+ */
 export function bestTrade(dev: Deviations, trades: readonly Trade[]): Trade {
-  return [...trades].filter((t) => improvement(dev, t) > 0).sort((a, b) => improvement(dev, b) - improvement(dev, a))[0]!;
+  return [...trades]
+    .filter((t) => improvement(dev, t) > 0)
+    .sort((a, b) => improvement(dev, b) - improvement(dev, a) || (a.border ?? 0) - (b.border ?? 0) || (a.block ?? 0) - (b.block ?? 0))[0]!;
 }

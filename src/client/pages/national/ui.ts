@@ -102,7 +102,7 @@ export function createNationalPage(nav: Navigate): Page {
       });
   };
   load();
-  document.title = 'Fair House Maps: voters pick politicians, not the other way around';
+  document.title = 'Fair Maps: voters pick politicians, not the other way around';
 
   return {
     el,

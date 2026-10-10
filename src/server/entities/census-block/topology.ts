@@ -572,6 +572,68 @@ export function isConnected(topo: Topology, members: Int32Array): boolean {
   return count === members.length;
 }
 
+/** Per-topology scratch for keepsConnectedWithout: mark[v] === gen means v was reached in the current call, by group label[v]. */
+const removals = new WeakMap<Topology, { mark: Int32Array; label: Int32Array; gen: number }>();
+
+/**
+ * PRECONDITION: the group must be one connected piece WITH the block; on any other group the answer means nothing.
+ * Check that once with isConnected and keep it true across changes.
+ *
+ * Whether block `block`'s group (the blocks sharing its value in `group`) stays one connected piece without it.
+ * Same answer as isConnected on the group minus the block, including false when the block is the group's only
+ * one, but it only looks near the block.
+ *
+ * Removing the block can only cut paths that ran through it, and each such path enters and leaves through two of its
+ * neighbours in the group. So the group stays connected exactly when those neighbours still reach each other
+ * without the block. A search starts from every such neighbour at once, one block per search in turn; searches that
+ * meet merge. All merged: connected. A search that runs out of blocks before meeting the rest has found a piece
+ * cut off from them: not connected. So a success costs about the size of the loop around the block, and a failure
+ * about the size of the smaller piece left behind.
+ */
+export function keepsConnectedWithout(topo: Topology, group: ArrayLike<number>, block: number): boolean {
+  let s = removals.get(topo);
+  if (!s) { s = { mark: new Int32Array(topo.n), label: new Int32Array(topo.n), gen: 0 }; removals.set(topo, s); }
+  if (s.gen > 0x7ffffff0) { s.mark.fill(0); s.gen = 0; }
+  const gen = ++s.gen, { mark, label } = s, g = group[block]!;
+  mark[block] = gen;
+  label[block] = -1;
+  const queues: number[][] = [];
+  for (let k = topo.adjOffsets[block]!; k < topo.adjOffsets[block + 1]!; k++) {
+    const v = topo.adjList[k]!;
+    if (group[v] !== g || mark[v] === gen) continue;
+    mark[v] = gen;
+    label[v] = queues.length;
+    queues.push([v]);
+  }
+  // No neighbour in the group: the block was its only block. One: removing a tip strands nothing.
+  if (queues.length <= 1) return queues.length === 1;
+  const parent = queues.map((_, i) => i);
+  const find = (i: number): number => { while (parent[i] !== i) i = parent[i] = parent[parent[i]!]!; return i; };
+  const heads = queues.map(() => 0);
+  let open = queues.length;
+  for (;;) {
+    for (let q = 0; q < queues.length; q++) {
+      if (parent[q] !== q) continue;
+      const queue = queues[q]!;
+      if (heads[q] === queue.length) return false;
+      const u = queue[heads[q]!++]!;
+      for (let k = topo.adjOffsets[u]!; k < topo.adjOffsets[u + 1]!; k++) {
+        const v = topo.adjList[k]!;
+        if (group[v] !== g) continue;
+        if (mark[v] !== gen) { mark[v] = gen; label[v] = q; queue.push(v); continue; }
+        if (label[v]! < 0) continue;
+        const r = find(label[v]!);
+        if (r === q) continue;
+        // The searches met: fold r's unexplored blocks into q's queue and carry on as one.
+        parent[r] = q;
+        const other = queues[r]!;
+        for (let i = heads[r]!; i < other.length; i++) queue.push(other[i]!);
+        if (--open === 1) return true;
+      }
+    }
+  }
+}
+
 export function boundarySegments(topo: Topology, members: Int32Array): BoundarySegments {
   const inSet = new Uint8Array(topo.n);
   for (const m of members) inSet[m] = 1;

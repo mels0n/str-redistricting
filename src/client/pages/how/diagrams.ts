@@ -106,7 +106,7 @@ export function inputsDiagram(): SVGSVGElement {
     line([116, 104], [212, 106], 'strv-dg__leader'),
     text(216, 102, ['People', 'counted: 64'], 'strv-dg__t'),
     line([108, 114], [212, 164], 'strv-dg__leader'),
-    text(216, 160, ['Internal point,', 'for ordering only'], 'strv-dg__t'),
+    text(216, 160, ['Internal point,', 'inside the block'], 'strv-dg__t'),
   );
 }
 

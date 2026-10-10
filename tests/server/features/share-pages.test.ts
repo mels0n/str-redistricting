@@ -3,6 +3,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { sharePageHtml, writeSharePages } from '../../../build/share-pages.js';
+import { TAGLINE } from '../../../src/server/features/publish/site.js';
 
 describe('sharePageHtml', () => {
   const html = sharePageHtml({ abbr: 'CO', name: 'Colorado', seats: 8 }, 'https://fairmaps.melson.us', true);
@@ -10,8 +11,9 @@ describe('sharePageHtml', () => {
     expect(html.startsWith('<!doctype html>')).toBe(true);
     expect(html).toContain('<meta charset="utf-8" />');
     expect(html).toContain('<meta name="viewport" content="width=device-width, initial-scale=1" />');
-    expect(html).toContain('<title>Colorado: districts drawn by Fair House Maps</title>');
+    expect(html).toContain('<title>Colorado: districts drawn by Fair Maps</title>');
     expect(html).toContain("Colorado's 8 congressional districts, drawn from 2020 Census counts by three fixed steps nobody can steer.");
+    expect(html).toContain(`<meta property="og:description" content="Colorado's 8 congressional districts, drawn from 2020 Census counts by three fixed steps nobody can steer. ${TAGLINE}" />`);
     expect(html).toContain('<link rel="canonical" href="https://fairmaps.melson.us/CO/" />');
     expect(html).toContain('<meta property="og:url" content="https://fairmaps.melson.us/CO/" />');
     expect(html).toContain('<meta property="og:image" content="https://fairmaps.melson.us/data/CO/og.png" />');

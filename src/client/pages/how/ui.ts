@@ -10,6 +10,7 @@ import {
   fetchJson,
   formatHash,
   formatInt,
+  faqRoute,
   howRoute,
   iconArrowLeft,
   iconChevronDown,
@@ -50,7 +51,6 @@ const TITLES: Record<HowSection, string> = {
   balancing: 'Balancing, and why it is needed',
   fingerprint: 'Same data, same map',
   sources: 'Data sources and limits',
-  strange: 'Why does my district look strange?',
 };
 
 const sectionId = (s: HowSection): string => `strv-how-${s}`;
@@ -425,7 +425,7 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
           exactItem('strays.no-rejoin', h('strong', null, 'A piece that cannot rejoin.'), ' If a pass moves nothing but a fixed piece is still cut off from its side, it cannot move back. That line’s sides are not each one connected piece, so it fails the check that each side is one connected piece, and the next shortest line is considered.'),
           exactItem('strays.outline', h('strong', null, 'Crossing the outline.'), ' A line may cross the piece’s outline any number of times.'),
           exactItem('strays.connected', h('strong', null, 'Connected.'), ' Two blocks are connected when they share an edge; touching at a single corner does not count. Census blocks cover lakes, bays and coastal water, and a water block is a block like any other. Land on two shores is therefore connected when blocks of the same district, water blocks included, join them.'),
-          exactItem('strays.islands', h('strong', null, 'Islands.'), ' Land that no block reaches, even across water, is connected the way cuts are chosen: of every possible link from the connected land to a detached piece, measured between internal points, the shortest is added, and this repeats until every piece is connected. A link often goes to another island rather than the mainland, so a state with islands can still be cut. The map draws these links as dashed lines. Keep in mind that a link joins pieces, not single islands: the Census Bureau sometimes draws one block around a cluster of small islands, and those islands are already one block, so no link is drawn between them. To see this, click a district to select it and zoom in. Zoomed in, the map is drawn block by block, and the selected district’s links stay on screen as dashed lines.'),
+          exactItem('strays.islands', h('strong', null, 'Islands.'), ' Land that no block reaches, even across water, is connected the way cuts are chosen: of every possible link from the connected land to a detached piece, measured between internal points, the shortest is added, and this repeats until every piece is connected. If two links are exactly the same length, the one between the blocks that come first in GEOID order is added. A link often goes to another island rather than the mainland, so a state with islands can still be cut. The map draws these links as dashed lines. Keep in mind that a link joins pieces, not single islands: the Census Bureau sometimes draws one block around a cluster of small islands, and those islands are already one block, so no link is drawn between them. To see this, click a district to select it and zoom in. Zoomed in, the map is drawn block by block, and the selected district’s links stay on screen as dashed lines.'),
         ),
       ),
     ),
@@ -449,10 +449,10 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
       h(
         'ol',
         { class: 'strv-how__steps' },
-        li(h('strong', null, 'Find the district furthest from the ideal.'), ' Distance is counted from the ideal population, so 400 people over and 400 people under are equally far. If two districts are equally far, the lower district number goes first.'),
-        li(h('strong', null, 'List every single-block trade involving it.'), ' That means each of its own blocks that touches a neighboring district, moving out to that neighbor, and each neighbor’s block that touches it, moving in. Blocks with no people never move.'),
+        li(h('strong', null, 'Find the district furthest from the ideal.'), ' Distance is counted from the ideal population, so 400 people over and 400 people under are equally far. If two districts are equally far, the one whose first block comes first in GEOID order goes first.'),
+        li(h('strong', null, 'List every single-block trade involving it.'), ' That means each of its own blocks that touches a neighboring district, moving out to that neighbor, and each neighbor’s block that touches it, moving in. A trade is allowed only if it strictly narrows the population gap between the two districts, so a block with no people never moves.'),
         li(h('strong', null, 'Score each trade.'), ' The score is how much the trade brings the whole state closer to even, measured as the sum of squared distances from the ideal: square each district’s distance and add them up. Squaring makes a big miss count far more than a small one. One district 400 off adds 160,000; four districts 100 off add only 40,000 between them. A trade that does not strictly lower the sum is dropped.'),
-        li(h('strong', null, 'Take the best trade that keeps the giving district in one piece.'), ' If two trades score the same, the block that comes first in GEOID order wins, then the lower-numbered district receiving it.'),
+        li(h('strong', null, 'Take the best trade that keeps the giving district in one piece.'), ' If two trades score the same, the one that leaves the shorter total border wins, then the block that comes first in GEOID order.'),
         li(h('strong', null, 'Start over.'), ' Go back to step 1 with the new populations. If the furthest district has no trade allowed, try the next furthest.'),
         li(h('strong', null, 'Stop when no trade helps anywhere.')),
       ),
@@ -471,7 +471,7 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
         `Trade ${exBest.id} wins: it leaves the state closest to even overall, a sum of ${formatInt(sumOfSquares(exAfter))}. Trade A also helps a lot, but leaves District ${exD} ${formatInt(applyTrade(exStart, BALANCE_EXAMPLE.trades[0]!)[exD]!)} over. Trade C leaves District 1 ${formatInt(-exStart[1]!)} short.`,
       ),
       p(
-        `Then the process starts over from whichever district is now furthest off. After trade ${exBest.id}, District ${exD} is ${formatInt(exAfter[exD]!)} over and District 5 is ${formatInt(-exAfter[5]!)} under. They are equally far, so the tie goes to the lower number and the next round starts from District ${furthest(exAfter)}.`,
+        `Then the process starts over from whichever district is now furthest off. After trade ${exBest.id}, District ${exD} is ${formatInt(exAfter[exD]!)} over and District 5 is ${formatInt(-exAfter[5]!)} under. They are equally far, so the tie goes to the district whose first block comes first in GEOID order, and the next round starts from District ${furthest(exAfter)}.`,
       ),
       p('In the replay, each move is one of these choices; the readout shows the block, its people, and the two districts’ new gap.'),
       exact(
@@ -479,9 +479,9 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
         h(
           'ol',
           { class: 'strv-how__steps' },
-          exactItem('balance.furthest', 'Start with the district whose population is furthest from the ideal, measured as the absolute difference. A tie goes to the lower district number.'),
-          exactItem('balance.allowed', 'Look at the blocks along its border: its own blocks that touch a neighboring district, and the neighbors’ blocks that touch it. A block may move to the district on the other side only if it has people, if the move strictly narrows the gap between the two districts, and if the district it leaves stays one connected piece. The district it joins stays connected too, because the block touches it.'),
-          exactItem('balance.score', 'Of the moves allowed, make the one that brings the districts closest to equal overall, measured as the sum of the squared differences between each district’s population and the ideal. Only the two districts in a move change, so moving p people from a district a people above the ideal to one b people above it (a negative number when below) lowers the sum by exactly 2 × p × (a − b − p). That is above zero exactly when the gap between the two narrows. A tie goes to the block that comes first in GEOID order, then to the lower-numbered district it would join. A move that would leave the giving district with no blocks is never made.'),
+          exactItem('balance.furthest', 'Start with the district whose population is furthest from the ideal, measured as the absolute difference. A tie goes to the district whose first block comes first in GEOID order.'),
+          exactItem('balance.allowed', 'Look at the blocks along its border: its own blocks that touch a neighboring district, and the neighbors’ blocks that touch it. A block may move to the district on the other side only if the move strictly narrows the gap between the two districts (so a block with no people never moves) and the district it leaves stays one connected piece. The district it joins stays connected too, because the block touches it.'),
+          exactItem('balance.score', 'Of the moves allowed, make the one that brings the districts closest to equal overall, measured as the sum of the squared differences between each district’s population and the ideal. Only the two districts in a move change, so moving p people from a district a people above the ideal to one b people above it (a negative number when below) lowers the sum by exactly 2 × p × (a − b − p). That is above zero exactly when the gap between the two narrows. A tie goes to the trade that leaves the shorter total border: the length the block shares with the district it leaves minus the length it shares with the district it joins, compared exactly, each sum added in the block’s fixed neighbor order. A further tie goes to the block that comes first in GEOID order, then to the receiving district whose first block comes first in GEOID order. A move that would leave the giving district with no blocks is never made.'),
           exactItem('balance.next-furthest', 'If that district has no allowed move, try the next furthest. After every move, start again from the district now furthest from the ideal.'),
           exactItem('balance.stop', 'Stop when no move helps. Every move lowers the sum of the squared differences, so the pass always stops.'),
         ),
@@ -526,24 +526,12 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
         li('Address search asks the Census Bureau which census block the address is in. When the Census Bureau names the block, address search reads that block’s district from the map file, so the answer is exact. Otherwise it uses the drawn shapes.'),
       ),
     ),
-    section(
-      'strange',
-      8,
-      p('A strange shape is not a mistake. The generator runs the same steps in every state, and the map is whatever those steps produce. Nobody looks at the result and fixes it.'),
-      p('The generator doesn’t know what a town, a county, a river, a highway or a neighborhood is. All it sees is how many people live in each census block and the block’s shape. So a line can run through a city, split a county or cross a bay. Bays are made of census blocks too.'),
-      p('“It looks wrong” usually means it doesn’t match a picture you already have, like the old district lines, the county map, or where you feel your area ends. People drew those pictures. Making the map match them would mean adding back the human choices this method leaves out.'),
-      h('h3', { class: 'strv-how__h3' }, 'Where odd edges come from'),
-      h(
-        'ul',
-        { class: 'strv-how__list' },
-        li(h('strong', null, 'Stair steps.'), ' The line follows census block edges and keeps every block whole, so a straight guide line becomes a ragged border.'),
-        li(h('strong', null, 'Notches and small bumps.'), ' The balancing pass moves single blocks across borders to even out the population, one block at a time.'),
-        li(h('strong', null, 'Across water.'), ' Water is census blocks like any other, so a district can join two shores, and an island link can join land no block reaches.'),
-        li(h('strong', null, 'Long or thin pieces.'), ' The shortest border wins each cut, and the people, not a neat outline, decide where that is. Sometimes it leaves a long piece.'),
-      ),
-      h('h3', { class: 'strv-how__h3' }, 'Check it yourself'),
-      p('Every border traces back to a cut or a balancing move, and both can be replayed on the state’s map, ', h('a', { href: formatHash(stateRoute('CO', { cut: 1 })) }, 'starting with Colorado’s first cut'), '. Anyone who reruns the generator gets the same map and the same fingerprint.'),
-      p('The rules themselves, shortest border and equal population, were chosen once and up front. They apply to every state alike and were fixed before any map existed. Nobody chose any single line.'),
+    h(
+      'p',
+      { class: 'strv-how__next' },
+      'Why does a district look strange? How are ties settled? Short answers to common questions are on the ',
+      h('a', { href: formatHash(faqRoute()) }, 'FAQ page'),
+      '.',
     ),
   );
 
@@ -668,7 +656,7 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
   void loadNumbers();
   void loadFollow();
   void loadRecipe();
-  document.title = 'How the districts are drawn | Fair House Maps';
+  document.title = 'How the districts are drawn | Fair Maps';
   markToc(initial.section);
   // On arrival there is nothing to scroll from, so jump; a smooth scroll would still be running when the late tables land.
   scrollTo(initial.section, false, false);

@@ -47,7 +47,7 @@ On the site:
 - `#/changelog` lists what changed in each release, per component.
 - Each state's proof panel shows the engine version and the maps release that drew it, and its "reproduce" command checks out the matching tag (`git clone --branch maps-<n> --depth 1 ...`), so you rebuild that state with exactly the code that drew it.
 - Every map carries a small credit line with the site address, the maps release, the engine and the first characters of the map's fingerprint, so a screenshot says where it came from.
-- `/<ST>/` (for example `/CO/`) is a share link for one state. It shows a preview image of the state's districts (`public/data/<ST>/og.png`) when pasted into a chat or social post, and sends people to the map.
+- `/<ST>/` (for example `/CO/`) is a share link for one state. It shows a preview image of the state's districts (`public/data/<ST>/og.png`) when pasted into a chat or social post, and sends people to the map. The image and the page description carry the line "Drawn by a rule, not by politicians." The Share button on each state page shares this link (the phone's share sheet on touch screens, the clipboard elsewhere).
 
 ## Run locally
 Runs on Node.js 24. The maps depend only on the census data and the method: the same inputs give the same map on any computer.

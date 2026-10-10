@@ -22,10 +22,16 @@ const TIE_STATE = 'HI';
 const round2 = (n: number): number => Math.round(n * 100) / 100;
 const axisLabel = (id: string, x: number, text: string): Label => ({ id, x, y: AXIS_Y, text });
 
-/** The 0-based index of the value furthest from zero on either side; the lower index when two are equally far. */
-export function furthestOf(devs: readonly number[]): number {
+/**
+ * The 0-based index of the value furthest from zero on either side. When two are equally far, the one with the
+ * smaller `firsts` entry (the district whose first block comes first in GEOID order) wins; without `firsts`, the lower index.
+ */
+export function furthestOf(devs: readonly number[], firsts?: readonly number[]): number {
   let best = 0;
-  devs.forEach((d, i) => { if (Math.abs(d) > Math.abs(devs[best]!)) best = i; });
+  devs.forEach((d, i) => {
+    const [far, farthest] = [Math.abs(d), Math.abs(devs[best]!)];
+    if (far > farthest || (far === farthest && firsts !== undefined && firsts[i]! < firsts[best]!)) best = i;
+  });
   return best;
 }
 
@@ -264,7 +270,7 @@ export async function tiesCase(ctx: ExtractContext): Promise<RuleCase> {
 /** balance.furthest: each district's distance from the ideal before balancing, and the one the pass starts with. */
 export async function furthestCase(ctx: ExtractContext): Promise<RuleCase> {
   const abbr = BALANCE_STATE;
-  const [out, hi] = await Promise.all([ctx.state(abbr), ctx.state(TIE_STATE)]);
+  const [out, hi, hiBlocks] = await Promise.all([ctx.state(abbr), ctx.state(TIE_STATE), ctx.blocks(TIE_STATE)]);
   const { ideal } = out.metrics;
   const devs = out.balance.before.map((p) => p - ideal);
   const worst = furthestOf(devs);
@@ -278,6 +284,14 @@ export async function furthestCase(ctx: ExtractContext): Promise<RuleCase> {
 
   const hiDevs = hi.balance.before.map((p) => p - hi.metrics.ideal);
   if (hiDevs.length !== 2 || Math.abs(hiDevs[0]!) !== Math.abs(hiDevs[1]!)) throw new DataError(`${TIE_STATE}: its two districts are not equally far from the ideal`);
+  // The tied district whose first block (lowest block index, GEOID order) comes first goes first.
+  const hiFirsts = hiDevs.map(() => Infinity);
+  for (let i = hiBlocks.blocks.length - 1; i >= 0; i--) {
+    const d = hi.before.get(hiBlocks.blocks[i]!.geoid);
+    if (d === undefined) throw new DataError(`${TIE_STATE}: block ${hiBlocks.blocks[i]!.geoid} is not in the plan before balancing`);
+    hiFirsts[d - 1] = i;
+  }
+  const hiFirst = furthestOf(hiDevs, hiFirsts);
   const side = (d: number): string => (d > 0 ? 'over' : 'under');
   const dist = (i: number): string => `District ${i + 1} is ${people(Math.abs(devs[i]!))} ${side(devs[i]!)}`;
   const name = nameOf(abbr);
@@ -297,7 +311,7 @@ export async function furthestCase(ctx: ExtractContext): Promise<RuleCase> {
         show: ['chart', 'chart-furthest'],
       },
       {
-        caption: `If two districts are exactly as far, the lower number goes first. ${nameOf(TIE_STATE)}'s two districts are each ${people(Math.abs(hiDevs[0]!))} people from its ideal of ${people(hi.metrics.ideal)}, one over and one under, so District 1 goes first.`,
+        caption: `If two districts are exactly as far, the one whose first block comes first in GEOID order goes first. ${nameOf(TIE_STATE)}'s two districts are each ${people(Math.abs(hiDevs[0]!))} people from its ideal of ${people(hi.metrics.ideal)}, one over and one under, so District ${hiFirst + 1} goes first.`,
         show: [],
       },
     ],

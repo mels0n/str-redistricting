@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { loadOgFonts, OG_PALETTE, ogCredit, ogSvg, renderOgPng } from '../../../src/server/features/publish/index.js';
+import { TAGLINE } from '../../../src/server/features/publish/site.js';
 import { stampOf, VERSIONS } from '../../../src/server/shared/config/index.js';
 
 /** Two unit squares side by side, as quantized TopoJSON with a shared arc. */
@@ -43,12 +44,17 @@ describe('ogSvg', () => {
     for (const f of fills) expect(OG_PALETTE.map((p) => p.toUpperCase())).toContain(f!.toUpperCase());
   });
   it('carries the headline, the escaped name with the district count, and the credit', () => {
-    expect(svg).toContain('Fair House Maps');
+    expect(svg).toContain('Fair Maps');
     expect(svg).toContain('Testland &amp; Co: 2 districts');
     expect(svg).toContain('Maps release 1');
     expect(svg).toContain('01234567');
     expect(svg).toContain('width="1200"');
     expect(svg).toContain('height="630"');
+  });
+  it('carries the tagline, wrapped to the column', () => {
+    const lines = [...svg.matchAll(/font-size="34"[^>]*>([^<]*)</g)].map((m) => m[1]);
+    expect(lines.length).toBeGreaterThan(0);
+    expect(lines.join(' ')).toBe(TAGLINE);
   });
   it('says 1 district for a single seat, and has no em dash', () => {
     const one = ogSvg({ name: 'Alaska', abbr: 'AK', seats: 1, topo: TOPO, credit, palette: OG_PALETTE });

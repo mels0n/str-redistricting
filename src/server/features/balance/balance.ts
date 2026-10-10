@@ -1,4 +1,4 @@
-import { isConnected, type Block, type Topology } from '../../entities/census-block/index.js';
+import { isConnected, keepsConnectedWithout, type Block, type Topology } from '../../entities/census-block/index.js';
 
 /** One accepted balancing move: block index, its GEOID, 0-based districts, the block's population and the exact gain. */
 export interface BalanceMove {
@@ -17,7 +17,7 @@ export interface BalanceResult {
   readonly moves: readonly BalanceMove[];
 }
 
-interface Move { block: number; from: number; to: number; gain: number }
+interface Move { block: number; from: number; to: number; gain: number; border: number }
 
 /** Why a border move was not allowed: the block has no people, the move would not narrow the gap, or the giving district would not stay one connected piece. */
 export type MoveReason = 'no-people' | 'widens' | 'disconnects';
@@ -29,6 +29,12 @@ export interface RoundCandidate {
   readonly to: number;
   /** Exact decrease in the sum of squared district deviations; 0 for a block with no people. */
   readonly gain: number;
+  /**
+   * Ranked moves only (gain above zero): the change in total border length, in meters, if the move were made. The
+   * length the block shares with the district it leaves minus the length it shares with the district it joins, so
+   * negative when the border shortens.
+   */
+  readonly border?: number;
   readonly allowed: boolean;
   readonly reason?: MoveReason;
   /** The tried district on whose border the move was found. */
@@ -53,19 +59,21 @@ export interface BalanceOptions {
 
 /**
  * Greedy population balancing of a district map: repeatedly move one border block from a district to a neighbour
- * while that lowers the sum of squared deviations from the ideal population. Deterministic, every tie is broken
- * by index.
+ * while that lowers the sum of squared deviations from the ideal population. Deterministic, and no tie is ever
+ * broken by district number: only by border length and block index (GEOID order).
  *
- * Each round takes the non-exhausted district furthest from the ideal population (ties to the lowest district
- * index: the strict `>` keeps the first). Candidates are the moves across that district's border, its blocks
- * moving out and neighbouring blocks moving in, kept only when the gain is positive, ranked by gain descending,
- * then block, then destination district. The first candidate that leaves the giving district connected (and
- * non-empty) is made. If none can be, that district is marked exhausted and the next furthest is tried. After any
- * move the exhausted marks are cleared, since populations and borders changed.
+ * Each round takes the non-exhausted district furthest from the ideal population; districts equally far go in the
+ * order of their first block (lowest block index). Candidates are the moves across that district's border, its
+ * blocks moving out and neighbouring blocks moving in, kept only when the gain is positive, ranked by gain
+ * descending, then by the change in total border length ascending (compared exactly), then block, then the
+ * receiving district's first block. The first candidate that leaves the giving district connected (and non-empty)
+ * is made. If none can be, that district is marked exhausted and the next furthest is tried. After any move the
+ * exhausted marks are cleared, since populations and borders changed.
  *
  * It terminates: populations are integers, so a move's gain is a positive integer, the sum of squared deviations
  * is bounded below by 0 and strictly decreases with every move, so only finitely many moves exist; between
- * moves each district is exhausted at most once. The loop ends when every district is exhausted.
+ * moves each district is exhausted at most once. The loop ends when every district is exhausted. The tie rules
+ * only reorder moves of equal gain, so they do not change this.
  */
 export function balance(blocks: readonly Block[], topo: Topology, input: Int32Array, seats: number, opts: BalanceOptions = {}): BalanceResult {
   const assignment = Int32Array.from(input);
@@ -76,6 +84,22 @@ export function balance(blocks: readonly Block[], topo: Topology, input: Int32Ar
   const lists: number[][] = Array.from({ length: seats }, () => []);
   for (let i = 0; i < assignment.length; i++) lists[assignment[i]!]!.push(i);
   const members = (d: number): readonly number[] => lists[d]!;
+  /** A district's first block in GEOID order (an empty district, which no cut makes, sorts last). */
+  const first = (d: number): number => lists[d]![0] ?? blocks.length;
+  /**
+   * Change in the total border length if `block` moves from `from` to `to`: its shared length with `from` becomes
+   * border and its shared length with `to` stops being border. Both sums are added in the block's fixed neighbour
+   * order, so the same move always gets exactly the same number.
+   */
+  const borderChange = (block: number, from: number, to: number): number => {
+    let leaves = 0, joins = 0;
+    for (let k = topo.adjOffsets[block]!; k < topo.adjOffsets[block + 1]!; k++) {
+      const e = assignment[topo.adjList[k]!]!;
+      if (e === from) leaves += topo.adjLength[k]!;
+      else if (e === to) joins += topo.adjLength[k]!;
+    }
+    return leaves - joins;
+  };
   /** Position of `block` in an ascending list, or where it would be inserted. */
   const lowerBound = (list: readonly number[], block: number): number => {
     let lo = 0, hi = list.length;
@@ -83,8 +107,16 @@ export function balance(blocks: readonly Block[], topo: Topology, input: Int32Ar
     return lo;
   };
 
+  // Districts that are one connected piece. A whole district stays whole: it only gives a block when the rest stays
+  // connected, and only gains a block that touches it. So the cheap local check applies to it for the whole pass;
+  // any district not in one piece in the input (the cut never makes one, but balance() accepts any plan) gets the full
+  // check, and is re-checked after each move it is part of, so it switches to the quick check once it is whole.
+  const wholeNow = (d: number): number => (isConnected(topo, Int32Array.from(lists[d]!)) ? 1 : 0);
+  const whole = Uint8Array.from({ length: seats }, (_, d) => wholeNow(d));
+
   /** The giving district stays one connected piece (and keeps at least one block) without the block. */
   const leavesConnected = (c: Move): boolean => {
+    if (whole[c.from]) return keepsConnectedWithout(topo, assignment, c.block);
     const rest = members(c.from).filter((i) => i !== c.block);
     return rest.length > 0 && isConnected(topo, Int32Array.from(rest));
   };
@@ -98,7 +130,9 @@ export function balance(blocks: readonly Block[], topo: Topology, input: Int32Ar
     let d = -1;
     for (let k = 0; k < seats; k++) {
       if (exhausted[k]) continue;
-      if (d === -1 || Math.abs(pop[k]! - ideal) > Math.abs(pop[d]! - ideal)) d = k;
+      if (d === -1) { d = k; continue; }
+      const far = Math.abs(pop[k]! - ideal), farthest = Math.abs(pop[d]! - ideal);
+      if (far > farthest || (far === farthest && first(k) < first(d))) d = k;
     }
     if (d === -1) break;
     const district = d;
@@ -118,7 +152,7 @@ export function balance(blocks: readonly Block[], topo: Topology, input: Int32Ar
       // and ideal I, moving p changes (a-I)^2 + (b-I)^2 into (a-p-I)^2 + (b+p-I)^2; the difference is
       // 2p(a-I) - p^2 - 2p(b-I) - p^2 = 2p(a - b - p), so I cancels.
       const gain = 2 * p * (pop[from]! - pop[to]! - p);
-      if (gain > 0) cands.push({ block, from, to, gain });
+      if (gain > 0) cands.push({ block, from, to, gain, border: borderChange(block, from, to) });
       else ruledOut?.push({ block, from, to, gain, allowed: false, reason: 'widens', district });
     };
     // Only the border of district d: its blocks moving out, and neighbouring blocks moving in.
@@ -131,7 +165,7 @@ export function balance(blocks: readonly Block[], topo: Topology, input: Int32Ar
         consider(j, e, d);
       }
     }
-    cands.sort((x, y) => y.gain - x.gain || x.block - y.block || x.to - y.to);
+    cands.sort((x, y) => y.gain - x.gain || (x.border < y.border ? -1 : x.border > y.border ? 1 : 0) || x.block - y.block || first(x.to) - first(y.to));
 
     let chosen = -1;
     for (let i = 0; i < cands.length; i++) {
@@ -156,6 +190,8 @@ export function balance(blocks: readonly Block[], topo: Topology, input: Int32Ar
       const fromList = lists[c.from]!, toList = lists[c.to]!;
       fromList.splice(lowerBound(fromList, c.block), 1);
       toList.splice(lowerBound(toList, c.block), 0, c.block);
+      if (!whole[c.from]) whole[c.from] = wholeNow(c.from);
+      if (!whole[c.to]) whole[c.to] = wholeNow(c.to);
       exhausted.fill(0);
     } else exhausted[d] = 1;
   }

@@ -62,7 +62,6 @@ export function startRouter(outlet: HTMLElement): void {
       else link?.removeAttribute('aria-current');
     };
     mark('how', route.page === 'how');
-    mark('states', route.page === 'national');
     syncChamberSwitch(route);
   };
 

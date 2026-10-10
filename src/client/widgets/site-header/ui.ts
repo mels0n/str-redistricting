@@ -2,7 +2,7 @@ import { h, formatHash, howRoute, stateRoute, NATIONAL, CHAMBERS, type Route } f
 
 /**
  * Which body the maps are drawn for, for the state on screen. Chambers without maps yet show as coming soon and
- * are not links; the title and All states are the way home.
+ * are not links; the title is the way home.
  */
 function createChamberSwitch(): HTMLElement {
   return h(
@@ -33,7 +33,6 @@ export function createSiteHeader(): HTMLElement {
     h(
       'nav',
       { class: 'strv-masthead__nav', 'aria-label': 'Site' },
-      h('a', { href: formatHash(NATIONAL), class: 'strv-masthead__link', 'data-nav': 'states' }, 'All states'),
       h('a', { href: formatHash(howRoute()), class: 'strv-masthead__link', 'data-nav': 'how' }, 'How it works'),
     ),
     h('p', { class: 'strv-masthead__credit' }, 'by Chris Melson'),

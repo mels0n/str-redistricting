@@ -14,6 +14,14 @@ describe('site header', () => {
     expect(title.getAttribute('href')).toBe(formatHash(NATIONAL));
   });
 
+  it('has one way home: the title, not a second All states link', () => {
+    const header = createSiteHeader();
+    const homeLinks = [...header.querySelectorAll('a')].filter((a) => a.getAttribute('href') === formatHash(NATIONAL) && !a.hasAttribute('data-chamber'));
+    expect(homeLinks).toHaveLength(1);
+    expect(header.textContent).not.toContain('All states');
+    expect([...header.querySelectorAll('.strv-masthead__nav a')].map((a) => a.textContent)).toEqual(['How it works']);
+  });
+
   it('lists every chamber in order; only the live one is a link, and it is the current one', () => {
     const items = [...createSiteHeader().querySelectorAll('.strv-chamber__item')];
     expect(items.map((i) => i.getAttribute('data-chamber'))).toEqual(CHAMBERS.map((c) => c.key));

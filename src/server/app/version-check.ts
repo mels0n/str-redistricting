@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { COMPONENTS, ReleaseConfigSchema, componentsFor, mapsDataChanged, versionProblems, type Component } from '../features/release/index.js';
 import { VersionsSchema, parseVersionCheckArgs } from '../shared/config/index.js';
-import { DataError, exitCodeFor } from '../shared/errors/index.js';
+import { CheckFailedError, DataError, exitCodeFor } from '../shared/errors/index.js';
 import { FINGERPRINT_PATH, parseFingerprintFile } from './fixtures.js';
 import { changedFiles, commitsSince, mergeBase, showFile } from './git.js';
 
@@ -57,7 +57,7 @@ function check(): void {
   }
   const level = cfg.enforce ? 'error' : 'warning';
   for (const p of problems) console.log(`::${level}::${p}`);
-  if (cfg.enforce) process.exit(1);
+  if (cfg.enforce) process.exit(exitCodeFor(new CheckFailedError(problems.join('; '))));
 }
 
 try {

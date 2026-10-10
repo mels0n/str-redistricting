@@ -3,10 +3,9 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { setTimeout as delay } from 'node:timers/promises';
 import { DownloadError } from '../../shared/errors/index.js';
-import { downloadForPinning, type DownloadOptions } from '../../shared/http/index.js';
+import { CENSUS_USER_AGENT, HEAD_TIMEOUT_MS, retryAfterMs, retryWaitMs, downloadForPinning, type DownloadOptions } from '../../shared/http/index.js';
 import type { Source } from './diff.js';
 
-const HEAD_TIMEOUT_MS = 30_000;
 const HEAD_RETRIES = 2;
 const HEAD_BACKOFF_MS = 2_000;
 
@@ -22,8 +21,8 @@ export async function probeSource(url: string, opts: ProbeOptions = {}): Promise
   let backoff = HEAD_BACKOFF_MS;
   for (let attempt = 0; ; attempt++) {
     try {
-      const res = await fetchFn(url, { method: 'HEAD', signal: AbortSignal.timeout(HEAD_TIMEOUT_MS) });
-      if (!res.ok) throw new DownloadError(`HEAD ${url}: HTTP ${res.status}`, res.status);
+      const res = await fetchFn(url, { method: 'HEAD', headers: { 'User-Agent': CENSUS_USER_AGENT }, signal: AbortSignal.timeout(HEAD_TIMEOUT_MS) });
+      if (!res.ok) throw new DownloadError(`HEAD ${url}: HTTP ${res.status}`, res.status, retryAfterMs(res));
       const etag = res.headers.get('etag');
       const lastModified = res.headers.get('last-modified');
       const length = res.headers.get('content-length');
@@ -37,7 +36,7 @@ export async function probeSource(url: string, opts: ProbeOptions = {}): Promise
     } catch (err) {
       const retryable = !(err instanceof DownloadError) || err.status === undefined || err.status >= 500 || err.status === 429;
       if (!retryable || attempt >= HEAD_RETRIES) throw err;
-      await sleep(backoff);
+      await sleep(retryWaitMs(backoff, err instanceof DownloadError ? err.retryAfterMs : undefined));
       backoff *= 2;
     }
   }

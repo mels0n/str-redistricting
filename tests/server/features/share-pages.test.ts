@@ -10,7 +10,7 @@ describe('sharePageHtml', () => {
     expect(html.startsWith('<!doctype html>')).toBe(true);
     expect(html).toContain('<meta charset="utf-8" />');
     expect(html).toContain('<meta name="viewport" content="width=device-width, initial-scale=1" />');
-    expect(html).toContain('<title>Colorado: districts drawn by Fair House Maps</title>');
+    expect(html).toContain('<title>Colorado: districts drawn by Fair Maps</title>');
     expect(html).toContain("Colorado's 8 congressional districts, drawn from 2020 Census counts by three fixed steps nobody can steer.");
     expect(html).toContain('<link rel="canonical" href="https://fairmaps.melson.us/CO/" />');
     expect(html).toContain('<meta property="og:url" content="https://fairmaps.melson.us/CO/" />');

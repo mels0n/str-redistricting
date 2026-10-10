@@ -52,6 +52,7 @@ import { afterArrivalLoad, finishWhenLoaded, lookupDistricts } from './lookup';
 import { createAddressSearch, describeResolution, resolveAddress } from '../../features/address-search';
 import { createCutScrubber, type CutScrubber, type BalanceLogState } from '../../features/cut-scrubber';
 import { createPlanOptions, type PlanOptions } from '../../features/plan-options';
+import { createShareButton } from '../../features/share-map';
 import { createDistrictMap, type DistrictMapView } from '../../widgets/district-map';
 import { createDistrictTicket } from '../../widgets/district-ticket';
 import { createDistrictList } from '../../widgets/district-list';
@@ -92,7 +93,8 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
   const back = h('a', { href: formatHash(NATIONAL), class: 'strv-back' }, iconArrowLeft(), 'All states');
   const howLink = h('a', { href: formatHash(howRoute()), class: 'strv-back strv-state__how' }, 'How it works');
   const meta = h('dl', { class: 'strv-state__meta' });
-  const head = h('header', { class: 'strv-state__head' }, h('div', { class: 'strv-state__links' }, back, howLink), h1, meta);
+  const share = createShareButton();
+  const head = h('header', { class: 'strv-state__head' }, h('div', { class: 'strv-state__links' }, back, h('span', { class: 'strv-state__actions' }, share.el, howLink)), h1, meta);
 
   // Spoken through announce(); a hidden element cannot be a live region.
   const notice = h('p', { class: 'strv-notice', hidden: true });
@@ -205,6 +207,7 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
   }
 
   function showError(err: unknown, opts: { retry?: () => void; link?: boolean } = {}): void {
+    share.set(null);
     clear(mapEl);
     mapEl.removeAttribute('aria-busy');
     el.dataset.empty = 'true';
@@ -235,8 +238,9 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
   }
 
   function showNotGenerated(name: string): void {
+    share.set(null);
     h1.textContent = name;
-    document.title = `${name}: map not generated | Fair House Maps`;
+    document.title = `${name}: map not generated | Fair Maps`;
     el.dataset.empty = 'true';
     clear(mapEl);
     mapEl.removeAttribute('aria-busy');
@@ -291,7 +295,7 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
     const entry = findState(index, route.abbr);
     if (!entry) {
       h1.textContent = 'State not found';
-      document.title = 'State not found | Fair House Maps';
+      document.title = 'State not found | Fair Maps';
       showError(new UnknownStateError(route.abbr), { link: true });
       return;
     }
@@ -301,9 +305,10 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
       return;
     }
     h1.textContent = entry.name;
+    share.set({ abbr: entry.abbr, name: entry.name, seats: entry.seats, chamber: 'federal-house' });
     mapEl.setAttribute('aria-label', `Map of ${entry.name}’s ${districtCount(entry.seats)}. Every district is also listed in the Districts table.`);
     setMeta(entry);
-    document.title = `${entry.name}: ${districtCount(entry.seats)} | Fair House Maps`;
+    document.title = `${entry.name}: ${districtCount(entry.seats)} | Fair Maps`;
     clear(mapEl);
     const loadingState = h('p', { class: 'strv-loading', tabindex: -1 }, `Loading the map of ${entry.name}…`);
     mapEl.append(loadingState);

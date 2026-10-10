@@ -17,14 +17,14 @@ describe('page titles share the site suffix', () => {
   it('changelog', async () => {
     const { createChangelogPage } = await import('../../src/client/pages/changelog');
     createChangelogPage({ maps: '# Maps\n', engine: '# Engine\n', input: '# Input\n' });
-    expect(document.title).toBe('Changelog | Fair House Maps');
+    expect(document.title).toBe('Changelog | Fair Maps');
   });
 
   it('how it works', async () => {
     const { createHowPage } = await import('../../src/client/pages/how');
     const page = createHowPage({ page: 'how', section: null });
     await settle();
-    expect(document.title).toBe('How the districts are drawn | Fair House Maps');
+    expect(document.title).toBe('How the districts are drawn | Fair Maps');
     page.destroy();
   });
 });

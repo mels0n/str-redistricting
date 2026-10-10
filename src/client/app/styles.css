@@ -3047,6 +3047,89 @@ html:has(> body > #str-viewer) {
   }
 }
 
+/* ---------- Chamber switch: which body the maps are drawn for ---------- */
+
+/* The title keeps its own width so the switch sits right beside it; the switch takes the slack before the nav. */
+.strv .strv-masthead__title {
+  flex: 0 1 auto;
+}
+
+.strv-chamber {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  gap: var(--s-1);
+}
+
+.strv .strv-chamber__item {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.375em;
+  min-height: 2.75rem;
+  padding: 0 var(--s-1);
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 2.75rem;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.strv .strv-chamber__item[aria-current='true'],
+.strv a.strv-chamber__item:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-decoration-color: var(--signal);
+}
+
+/* Not drawn yet: shown so the plan is visible, but not a link and not focusable. */
+.strv-chamber__item[aria-disabled='true'] {
+  color: var(--on-ink-2);
+  cursor: default;
+}
+
+.strv-chamber__soon {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* Too narrow for one row: the switch drops to a second row under the title, and the strip's height says so. */
+@media (max-width: 52rem) {
+  .strv {
+    --mast-h: calc(5.75rem + max(var(--s-1), env(safe-area-inset-top, 0px)));
+  }
+
+  html:has(> body > #str-viewer) {
+    scroll-padding-top: calc(6.75rem + env(safe-area-inset-top, 0px));
+  }
+
+  .strv-masthead {
+    flex-wrap: wrap;
+    row-gap: 0;
+  }
+
+  .strv .strv-masthead__title {
+    flex: 1 1 0;
+  }
+
+  .strv-chamber {
+    order: 1;
+    flex-basis: 100%;
+    margin-left: calc(-1 * var(--s-1));
+  }
+}
+
+@media (max-width: 30rem) {
+  .strv-chamber {
+    gap: 0;
+  }
+
+  .strv .strv-chamber__item {
+    font-size: 0.8125rem;
+  }
+}
+
 /* ---------- Shared inline pieces ---------- */
 
 .strv-nowrap {
@@ -4860,4 +4943,49 @@ html:has(> body > #str-viewer) {
   .strv-rule-demo__svg [data-district][data-state='hot'] {
     fill: Highlight;
   }
+}
+
+/* ---------- Share: the state's link, through the share sheet or the clipboard ---------- */
+
+.strv-state__actions {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-3);
+}
+
+.strv-share {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+}
+
+.strv-share[hidden] {
+  display: none;
+}
+
+.strv .strv-share__button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  min-height: 2.75rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.strv .strv-share__button:hover {
+  text-decoration: underline;
+}
+
+/* Shown only when the browser refused the copy: the link, selected, to copy by hand. */
+.strv-share__manual {
+  width: 14rem;
+  max-width: 50vw;
+  font: inherit;
+  font-size: 0.8125rem;
 }

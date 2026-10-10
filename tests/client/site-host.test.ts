@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { config, creditLine, type VersionStamp } from '../../src/client/shared';
-import { SITE_HOST } from '../../src/server/features/publish/site';
+import { SITE_HOST, TAGLINE } from '../../src/server/features/publish/site';
 import { ogCredit } from '../../src/server/features/publish/og-credit';
 
 // The client config repeats the server's site host, and the map credit strip repeats the link preview's
@@ -8,6 +8,10 @@ import { ogCredit } from '../../src/server/features/publish/og-credit';
 describe('site host and credit line', () => {
   it('the client and server name the same host', () => {
     expect(config.siteHost).toBe(SITE_HOST);
+  });
+
+  it('the client and server share one tagline', () => {
+    expect(config.tagline).toBe(TAGLINE);
   });
 
   it('the full map credit equals the link preview credit', () => {

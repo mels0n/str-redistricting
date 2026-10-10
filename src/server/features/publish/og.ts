@@ -10,6 +10,7 @@ import type { GeometryCollection, Topology } from 'topojson-specification';
 import wawoff2 from 'wawoff2';
 import { z } from 'zod';
 import { DataError } from '../../shared/errors/index.js';
+import { TAGLINE } from './site.js';
 
 export const OG_WIDTH = 1200;
 export const OG_HEIGHT = 630;
@@ -62,6 +63,24 @@ function wrapCredit(credit: string, maxChars: number): string[] {
   return lines;
 }
 
+/** Word wrap to a line width in characters; a line that has to break breaks after its commas first, so each line reads as a phrase. */
+function wrapWords(text: string, maxChars: number): string[] {
+  if (text.length <= maxChars) return [text];
+  return text.split(/(?<=,) /).flatMap((phrase) => wrapGreedy(phrase, maxChars));
+}
+
+function wrapGreedy(text: string, maxChars: number): string[] {
+  const lines: string[] = [];
+  for (const word of text.split(' ')) {
+    const last = lines[lines.length - 1];
+    if (last !== undefined && last.length + 1 + word.length <= maxChars) lines[lines.length - 1] = `${last} ${word}`;
+    else lines.push(word);
+  }
+  return lines;
+}
+
+const TAGLINE_SIZE = 34;
+
 /** The 1200x630 link preview of a state: its districts on the left, the headline, count and credit on the right. */
 export function ogSvg(p: { name: string; abbr: string; seats: number; topo: string; credit: string; palette: readonly string[] }): string {
   const parsed = TopoShape.safeParse(JSON.parse(p.topo));
@@ -86,12 +105,18 @@ export function ogSvg(p: { name: string; abbr: string; seats: number; topo: stri
   const creditTop = OG_HEIGHT - 48 - (creditLines.length - 1) * 24;
   const credit = creditLines.map((l, i) => `<text x="${COLUMN_X}" y="${creditTop + i * 24}" font-family="IBM Plex Mono" font-size="16" fill="${INK}" fill-opacity="0.72">${escapeXml(l)}</text>`).join('');
 
+  // Public Sans averages about 0.5em a character at this weight; wrap so the line never runs off the column.
+  const tagline = wrapWords(TAGLINE, Math.floor(COLUMN_WIDTH / (TAGLINE_SIZE * 0.5)))
+    .map((l, i) => `<text x="${COLUMN_X}" y="${336 + i * Math.round(TAGLINE_SIZE * 1.25)}" font-family="Public Sans" font-weight="600" font-size="${TAGLINE_SIZE}" fill="${INK}">${escapeXml(l)}</text>`)
+    .join('');
+
   return [
     `<svg xmlns="http://www.w3.org/2000/svg" width="${OG_WIDTH}" height="${OG_HEIGHT}" viewBox="0 0 ${OG_WIDTH} ${OG_HEIGHT}">`,
     `<rect width="${OG_WIDTH}" height="${OG_HEIGHT}" fill="${GROUND}"/>`,
     shapes,
-    `<text x="${COLUMN_X}" y="196" font-family="Public Sans" font-weight="800" font-size="58" fill="${INK}">Fair House Maps</text>`,
+    `<text x="${COLUMN_X}" y="196" font-family="Public Sans" font-weight="800" font-size="58" fill="${INK}">Fair Maps</text>`,
     `<text x="${COLUMN_X}" y="260" font-family="Public Sans" font-weight="600" font-size="${countSize}" fill="${INK}">${escapeXml(count)}</text>`,
+    tagline,
     credit,
     '</svg>',
   ].join('');

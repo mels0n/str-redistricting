@@ -51,14 +51,17 @@ export function sweepTask(job: SweepJob, t: number): SweepTask {
 
 export const taskCount = (job: PoolJob): number => (job.kind === 'tieSpan' ? job.spans.length : job.orientations.length * job.chunks);
 
-/** Run task t of a job on `piece`; the same on the calling thread and on a worker. */
-export function runTask(piece: Piece, job: PoolJob, t: number): ChunkResult {
+/**
+ * Run task t of a job on `piece`; the same on the calling thread and on a worker. `beat` is the worker's heartbeat
+ * (see sweepSpan); it never changes the result.
+ */
+export function runTask(piece: Piece, job: PoolJob, t: number, beat?: () => void): ChunkResult {
   if (job.kind === 'tieSpan') {
     const s = job.spans[t]!;
-    return sweepSpan(piece, job.seats, s.lowSeats, s.s, s.e, s.sDeg, s.eDeg, s.endIsPi, job.keep, false);
+    return sweepSpan(piece, job.seats, s.lowSeats, s.s, s.e, s.sDeg, s.eDeg, s.endIsPi, job.keep, false, beat);
   }
   const task = sweepTask(job, t);
-  return sweepChunk(piece, job.seats, task.lowSeats, task.aDeg, task.bDeg, job.keep);
+  return sweepChunk(piece, job.seats, task.lowSeats, task.aDeg, task.bDeg, job.keep, beat);
 }
 
 function stride(total: number): number {

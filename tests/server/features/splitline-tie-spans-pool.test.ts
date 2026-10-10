@@ -1,10 +1,11 @@
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { createContext, findCut, ScanPool, splitState, type CutResult } from '../../../src/server/features/splitline/index.js';
 import type { Piece } from '../../../src/server/features/splitline/scan.js';
-import type { PoolJob } from '../../../src/server/features/splitline/tasks.js';
+import { chunksFor, runTask, taskCount, type PoolJob } from '../../../src/server/features/splitline/tasks.js';
 import { WorkerPoolError } from '../../../src/server/shared/errors/index.js';
 import { planWithoutCounters, withoutCounters } from '../../helpers/counters.js';
 import { gridBlocks } from '../../helpers/grid.js';
+import { pieceOf } from '../../helpers/piece.js';
 
 const all = (n: number) => Int32Array.from({ length: n }, (_, i) => i);
 const tieDyingUrl = new URL('../../helpers/tie-dying-scan-worker.ts', import.meta.url);
@@ -86,12 +87,30 @@ describe('tie stretches swept in the worker pool', () => {
     const { tieSpanMs: _a, ...counted1 } = one.scan, { tieSpanMs: _b, ...countedN } = many.scan;
     expect(countedN).toEqual(counted1);
   });
+
+  it('counts the tie stretches\' own sweeps, not only the chunks', () => {
+    // A ragged outline with points off the lattice strands strays, so passes re-count and trackers are derived.
+    const rnd = lcg(4);
+    const pops = Array.from({ length: 48 }, () => (rnd() < 0.3 ? 0 : 1 + Math.floor(rnd() * 3)));
+    const ctx = createContext(gridBlocks(8, 6, {
+      pop: (x, y) => pops[y * 8 + x]!,
+      skip: (x, y) => (x > 3 && x < 6 && y > 1) || (y === 4 && x > 6),
+    }).map((b, i) => ({ ...b, point: [b.point[0] + ((i * 37) % 17 - 8) * 0.0004, b.point[1] + ((i * 53) % 19 - 9) * 0.0004] as const })));
+    const n = ctx.blocks.length;
+    const r = findCut(ctx, all(n), 2, undefined, { pool: pools.get(2)! });
+    expect(r.tieSpans).toBeGreaterThan(0);
+    const job = { seats: 2, orientations: [1], chunks: chunksFor(n), keep: 6 }, piece = pieceOf(ctx);
+    let chunkOnly = 0;
+    for (let t = 0; t < taskCount(job); t++) chunkOnly += runTask(piece, job, t).stats['derivedBuilds'] ?? 0;
+    expect(chunkOnly).toBeGreaterThan(0);
+    expect(r.scan.derivedBuilds).toBeGreaterThan(chunkOnly);
+  });
 });
 
 describe('a worker lost while sweeping tie stretches', () => {
   it('fails as a pool error, and a fresh pool then gives the same cut as one thread', async () => {
     const { ctx, n, seats } = withTies();
-    const dying = new ScanPool(2, tieDyingUrl);
+    const dying = new ScanPool(2, { workerUrl: tieDyingUrl });
     expect(() => findCut(ctx, all(n), seats, undefined, { pool: dying })).toThrow(WorkerPoolError);
     expect(dying.broken).toBe(true);
     await settle();

@@ -3,9 +3,13 @@ import { createContext, findCut, PoolSlot, ScanPool, splitState } from '../../..
 import { WorkerPoolError } from '../../../src/server/shared/errors/index.js';
 import { planWithoutCounters, withoutCounters } from '../../helpers/counters.js';
 import { gridBlocks } from '../../helpers/grid.js';
+import { HOLD_MS } from '../../helpers/slow-scan-worker.js';
 
 const dyingUrl = new URL('../../helpers/dying-scan-worker.ts', import.meta.url);
 const wrongIdUrl = new URL('../../helpers/wrong-id-scan-worker.ts', import.meta.url);
+const beatingSlowUrl = new URL('../../helpers/beating-slow-scan-worker.ts', import.meta.url);
+const silentSlowUrl = new URL('../../helpers/silent-slow-scan-worker.ts', import.meta.url);
+const failingUrl = new URL('../../helpers/failing-scan-worker.ts', import.meta.url);
 const all = (n: number) => Int32Array.from({ length: n }, (_, i) => i);
 const ctx = createContext(gridBlocks(6, 6));
 const search = (pool: ScanPool) => findCut(ctx, all(36), 2, undefined, { pool });
@@ -18,7 +22,7 @@ afterEach(() => { uncaught.length = 0; });
 
 describe('pool with a dying worker', () => {
   it('throws promptly, reports broken, and never raises an unhandled error event', async () => {
-    const pool = new ScanPool(2, dyingUrl);
+    const pool = new ScanPool(2, { workerUrl: dyingUrl });
     const t0 = Date.now();
     expect(() => search(pool)).toThrow(WorkerPoolError);
     expect(Date.now() - t0).toBeLessThan(15_000); // the stall limit is 15 minutes
@@ -33,7 +37,7 @@ describe('pool with a dying worker', () => {
   }, 30_000);
 
   it('breaks the pool when a worker answers a different request', async () => {
-    const pool = new ScanPool(2, wrongIdUrl);
+    const pool = new ScanPool(2, { workerUrl: wrongIdUrl });
     expect(() => search(pool)).toThrow(WorkerPoolError);
     expect(pool.broken).toBe(true);
     expect(() => search(pool)).toThrow(/unusable/);
@@ -57,10 +61,38 @@ describe('pool with a dying worker', () => {
   });
 });
 
+describe('several failed tasks', () => {
+  it('reports the lowest-numbered one, as a single thread would meet it first', async () => {
+    const pool = new ScanPool(4, { workerUrl: failingUrl });
+    expect(() => search(pool)).toThrow(/^task 0 failed$/);
+    expect(pool.broken).toBe(false);
+    await pool.close();
+  }, 30_000);
+});
+
+describe('the stall limit', () => {
+  // The stand-ins hold task 0 for three times this limit.
+  const stallMs = HOLD_MS / 3;
+
+  it('is not reached by one long task whose worker keeps beating', async () => {
+    const pool = new ScanPool(1, { workerUrl: beatingSlowUrl, stallMs });
+    expect(withoutCounters(search(pool))).toEqual(withoutCounters(findCut(ctx, all(36), 2)));
+    expect(pool.broken).toBe(false);
+    await pool.close();
+  }, 30_000);
+
+  it('is reached by a task whose worker neither claims nor beats', async () => {
+    const pool = new ScanPool(1, { workerUrl: silentSlowUrl, stallMs });
+    expect(() => search(pool)).toThrow(WorkerPoolError);
+    expect(() => search(pool)).toThrow(/unusable: cut search workers stopped making progress/);
+    await pool.close();
+  }, 30_000);
+});
+
 describe('PoolSlot', () => {
   it('replaces a broken pool so the next state searches with workers again', async () => {
     const made: ScanPool[] = [];
-    const slot = new PoolSlot(2, (n) => { const p = new ScanPool(n, made.length === 0 ? dyingUrl : undefined); made.push(p); return p; });
+    const slot = new PoolSlot(2, (n) => { const p = new ScanPool(n, { workerUrl: made.length === 0 ? dyingUrl : undefined }); made.push(p); return p; });
     expect(() => splitState(ctx, 3, { pool: slot.pool })).toThrow(WorkerPoolError);
     slot.refresh();
     expect(made).toHaveLength(2);
@@ -74,7 +106,7 @@ describe('PoolSlot', () => {
 
   it('falls back to one thread when a fresh pool cannot be made', async () => {
     let calls = 0;
-    const slot = new PoolSlot(2, (n) => { if (calls++ > 0) throw new Error('no threads'); return new ScanPool(n, dyingUrl); });
+    const slot = new PoolSlot(2, (n) => { if (calls++ > 0) throw new Error('no threads'); return new ScanPool(n, { workerUrl: dyingUrl }); });
     const dead = slot.pool!;
     expect(() => search(dead)).toThrow(WorkerPoolError);
     slot.refresh();

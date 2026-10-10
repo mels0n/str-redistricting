@@ -45,7 +45,7 @@ export function signOfDifference(a: number, b: number, c: number, d: number, e: 
   return sign((big(a) - big(b)) * (big(c) - big(d)) - (big(e) - big(f)) * (big(g) - big(h)));
 }
 
-/** Exact sign of |a - b| |c - d| - |e - f| |g - h|. */
+/** Exact sign of |a - b| |c - d| - |e - f| |g - h|. Always computed in integers, and not counted by exactFallbacks. */
 export function signOfAbsDifference(a: number, b: number, c: number, d: number, e: number, f: number, g: number, h: number): number {
   const abs = (v: bigint) => (v < 0n ? -v : v);
   return sign(abs(big(a) - big(b)) * abs(big(c) - big(d)) - abs(big(e) - big(f)) * abs(big(g) - big(h)));

@@ -1,6 +1,6 @@
 import { availableParallelism } from 'node:os';
 import { describe, expect, it } from 'vitest';
-import { defaultThreads, LINE_SEARCH, parseConfig } from '../../../src/server/shared/config/index.js';
+import { defaultThreads, LINE_SEARCH, parseConfig, parseRuleExamplesConfig } from '../../../src/server/shared/config/index.js';
 import { CheckFailedError, ConfigError, DataError, exitCodeFor, WorkerPoolError } from '../../../src/server/shared/errors/index.js';
 
 describe('parseConfig', () => {
@@ -27,9 +27,16 @@ describe('parseConfig', () => {
     expect(LINE_SEARCH).toBe('exact');
   });
   it('defaults threads to the hardware threads minus two, at most one per 400 MiB free, at least one', () => {
-    const t = parseConfig(['--states', 'CO']).threads;
-    expect(t).toBeGreaterThanOrEqual(1);
-    expect(t).toBeLessThanOrEqual(Math.max(1, availableParallelism() - 2));
+    // Free memory moves between reads, so the default lies between the values read just before and just after.
+    const within = (read: () => number) => {
+      const before = defaultThreads(), t = read(), after = defaultThreads();
+      expect(t).toBeGreaterThanOrEqual(Math.min(before, after));
+      expect(t).toBeLessThanOrEqual(Math.max(before, after));
+      expect(t).toBeLessThanOrEqual(Math.max(1, availableParallelism() - 2));
+    };
+    within(() => parseConfig(['--states', 'CO']).threads);
+    within(() => parseRuleExamplesConfig([]).threads);
+    expect(parseConfig(['--states', 'CO', '--threads', '1']).threadsLimitedByMemory).toBe(false);
     const MiB = 1024 * 1024;
     expect(defaultThreads(16, 100 * 1024 * MiB)).toBe(14);
     expect(defaultThreads(16, 10 * 400 * MiB)).toBe(10);

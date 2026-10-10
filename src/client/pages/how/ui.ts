@@ -570,7 +570,8 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
     const target = headingOf(section);
     if (!target) return;
     requestAnimationFrame(() => {
-      target.scrollIntoView({ block: 'start', behavior: animate && !prefersReducedMotion() ? 'smooth' : 'auto' });
+      // jsdom has no scrollIntoView.
+      if (typeof target.scrollIntoView === 'function') target.scrollIntoView({ block: 'start', behavior: animate && !prefersReducedMotion() ? 'smooth' : 'auto' });
       if (focus) target.focus({ preventScroll: true });
     });
   }
@@ -581,7 +582,7 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
     const target = headingOf(anchor);
     if (!target) return;
     requestAnimationFrame(() => {
-      if (alive && !userMoved) target.scrollIntoView({ block: 'start', behavior: 'auto' });
+      if (alive && !userMoved && typeof target.scrollIntoView === 'function') target.scrollIntoView({ block: 'start', behavior: 'auto' });
     });
   }
 

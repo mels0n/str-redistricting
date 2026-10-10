@@ -23,7 +23,10 @@ export async function writeRuleExamples(dest: string, cases: readonly RuleCase[]
   if (!parsed.success) throw new DataError(`rule examples invalid: ${parsed.error.issues.map((i) => `${i.path.join('.')} ${i.message}`).join('; ')}`);
   const text = `${JSON.stringify(sortKeys(parsed.data))}\n`;
   const bytes = Buffer.byteLength(text);
-  if (bytes > MAX_BYTES) throw new DataError(`rule examples are ${bytes} bytes, over the ${MAX_BYTES} byte budget`);
+  if (bytes > MAX_BYTES) {
+    const largest = parsed.data.cases.map((c) => [c.id, Buffer.byteLength(JSON.stringify(c))] as const).sort((x, y) => y[1] - x[1]).slice(0, 6);
+    throw new DataError(`rule examples are ${bytes} bytes, over the ${MAX_BYTES} byte budget; largest: ${largest.map(([id, n]) => `${id} ${n}`).join(', ')}`);
+  }
   await mkdir(dirname(dest), { recursive: true });
   // Write beside the target and rename over it, so an interrupted run never leaves a cut-off file.
   const tmp = `${dest}.tmp`;

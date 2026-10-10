@@ -18,7 +18,7 @@ export const DistrictStatsSchema = z.object({
 
 export const MetricsSchema = z.looseObject({
   state: z.string(),
-  angleStepDeg: z.number().positive(),
+  lineSearch: z.string(),
   inputSha256: z.string().regex(/^[0-9a-f]{64}$/),
   seats: z.number().int().positive(),
   population: z.number().int().nonnegative(),
@@ -32,8 +32,8 @@ export const MetricsSchema = z.looseObject({
   rangeBeforeBalancing: z.number().nonnegative(),
   rangeAfterBalancing: z.number().nonnegative(),
   cuts: z.number().int().nonnegative(),
-  angleCount: z.number().int().positive(),
-  candidateLinesEvaluated: z.number().int().nonnegative(),
+  candidateRangesPerCut: z.array(z.number().int().nonnegative()),
+  candidateRangesEvaluated: z.number().int().nonnegative(),
   strayBlocksMoved: z.number().int().nonnegative(),
   strayPopMoved: z.number().int().nonnegative(),
   recounts: z.number().int().nonnegative(),

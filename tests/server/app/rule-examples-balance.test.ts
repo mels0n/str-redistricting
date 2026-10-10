@@ -53,29 +53,28 @@ async function rounds(): Promise<{ rounds: BalanceRound[]; geoids: string[] }> {
 }
 
 describe('balancing move panels (CO)', () => {
-  it.skipIf(!haveCO)('score case shows 2 × 74 × (a − b − 74) = 14,800', async () => {
+  it.skipIf(!haveCO)('score case shows the first move\'s score as 2 × p × (a − b − p)', async () => {
     const c = await scoreCase(ctx);
     shape(c);
     const log = json<Log>('out/CO/balance.json');
     const { ideal } = json<{ ideal: number }>('out/CO/metrics.json');
     const m = log.moves[0]!;
-    expect(m).toMatchObject({ geoid: '080470138012029', pop: 74, from: 4, to: 3, gain: 14800 });
     const a = log.before[m.from - 1]! - ideal, b = log.before[m.to - 1]! - ideal;
-    expect(2 * 74 * (a - b - 74)).toBe(14800);
+    expect(2 * m.pop * (a - b - m.pop)).toBe(m.gain);
     const text = c.steps.map((s) => s.caption).join('\n');
-    expect(text).toContain(`2 × 74 × (${people(a)} − ${people(b)} − 74) = 14,800`);
+    expect(text).toContain(`2 × ${whole(m.pop)} × (${people(a)} − ${people(b)} − ${whole(m.pop)}) = ${whole(m.gain)}`);
     expect(text).toContain(`${people(a)} over`);
-    // The block is drawn in District 4, and a copy in District 3 appears only when the move is made.
+    // The block is drawn in its old district, and a copy in its new district appears only when the move is made.
     const orig = c.blocks!.filter((x) => x.geoid === m.geoid);
-    expect(orig.map((x) => x.district).sort()).toEqual([3, 4]);
-    const copy = orig.find((x) => x.district === 3)!;
+    expect(orig.map((x) => x.district ?? 0).sort((x, y) => x - y)).toEqual([m.from, m.to].sort((x, y) => x - y));
+    const copy = orig.find((x) => x.district === m.to)!;
     const last = c.steps.length - 1;
     expect(c.steps.slice(0, last).some((s) => s.show.includes(copy.id))).toBe(false);
     expect(c.steps[last]!.show).toContain(copy.id);
-    // The populations after the move are the before figures with 74 people moved.
+    // The populations after the move are the before figures with the block's people moved.
     const labels = (c.labels ?? []).map((l) => l.text).join('\n');
-    expect(labels).toContain(whole(log.before[3]! - 74));
-    expect(labels).toContain(whole(log.before[2]! + 74));
+    expect(labels).toContain(whole(log.before[m.from - 1]! - m.pop));
+    expect(labels).toContain(whole(log.before[m.to - 1]! + m.pop));
     expect(c.blocks!.length).toBeLessThanOrEqual(25);
     expect(c.source.move).toBe(1);
     for (let i = 1; i < c.steps.length; i++) expect(changesAt(c, i).length, `step ${i + 1}`).toBeGreaterThan(0);

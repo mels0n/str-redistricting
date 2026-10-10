@@ -8,11 +8,10 @@ export interface SplitContext {
   readonly proj: Gnomonic;
   readonly px: Float64Array;
   readonly py: Float64Array;
-  readonly angleCount: number;
 }
 
 /** Projection center = center of the bounding box of all block internal points. */
-export function createContext(blocks: readonly Block[], angleStepDeg: number, topo?: Topology): SplitContext {
+export function createContext(blocks: readonly Block[], topo?: Topology): SplitContext {
   let minLon = Infinity, maxLon = -Infinity, minLat = Infinity, maxLat = -Infinity;
   for (const b of blocks) {
     minLon = Math.min(minLon, b.point[0]); maxLon = Math.max(maxLon, b.point[0]);
@@ -30,5 +29,5 @@ export function createContext(blocks: readonly Block[], angleStepDeg: number, to
       throw err;
     }
   });
-  return { blocks, topo: topo ?? buildTopology(blocks), proj, px, py, angleCount: Math.round(180 / angleStepDeg) };
+  return { blocks, topo: topo ?? buildTopology(blocks), proj, px, py };
 }

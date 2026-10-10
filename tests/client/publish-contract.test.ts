@@ -49,10 +49,10 @@ const SHA_B = 'b'.repeat(64);
 
 /** A plan's metrics.json with every field the viewer requires, plus the generator-only extras. */
 const metricsFor = (seats: number, sha: string) => PlanMetricsSchema.parse({
-  state: 'XX', angleStepDeg: 0.1, nodeVersion: 'v24.0.0', inputSha256: SHA_A, seats, population: 200, ideal: 200 / seats,
+  state: 'XX', lineSearch: 'exact', nodeVersion: 'v24.0.0', inputSha256: SHA_A, seats, population: 200, ideal: 200 / seats,
   districts: Array.from({ length: seats }, (_, i) => ({ district: i + 1, pop: 200 / seats, dev: 0, devPct: 0, contiguous: true })),
   rangePersons: 0, rangePct: 0, allContiguous: true, assignmentSha256: sha,
-  cuts: seats - 1, angleCount: 1800, directionsPerCut: Array.from({ length: seats - 1 }, () => 1800), candidateLinesEvaluated: 1800 * (seats - 1),
+  cuts: seats - 1, candidateRangesPerCut: Array.from({ length: seats - 1 }, () => 40), candidateRangesEvaluated: 40 * (seats - 1),
   strayBlocksMoved: 0, strayPopMoved: 0, recounts: 0, recountsMaxPerCut: 0, balanceMoves: 1, peopleMovedByBalancing: 3,
   rangeBeforeBalancing: 3, rangeAfterBalancing: 0, runtimeMs: 12, countiesSplit: 1, countiesTotal: 2, blocks: 4,
 });
@@ -78,7 +78,7 @@ describe('index.json', () => {
     expect(parsed.states).toHaveLength(50);
     const ri = parsed.states.find((s) => s.abbr === 'RI')!;
     expect(ri.hasData).toBe(true);
-    expect(ri.summary).toMatchObject({ assignmentSha256: SHA_A, inputSha256: SHA_A, population: 200, angleStepDeg: 0.1, versions: stampOf(VERSIONS) });
+    expect(ri.summary).toMatchObject({ assignmentSha256: SHA_A, inputSha256: SHA_A, population: 200, lineSearch: 'exact', versions: stampOf(VERSIONS) });
     expect(parsed.states.find((s) => s.abbr === 'TX')!.summary).toBeUndefined();
   });
 });
@@ -126,7 +126,7 @@ ${B},${b}
 });
 
 describe('cuts.json', () => {
-  const props = (order: number) => ({ order, depth: order - 1, seats: 2, lowSeats: 1, highSeats: 1, firstDistrict: 0, angleDeg: 69.4, lengthM: 61953, strayBlocks: 0, strayPop: 0, recounts: 0 });
+  const props = (order: number) => ({ order, depth: order - 1, seats: 2, lowSeats: 1, highSeats: 1, firstDistrict: 0, angleDeg: 69.4237, lengthM: 61953, strayBlocks: 0, strayPop: 0, recounts: 0 });
   const raw = { features: [{ properties: props(1), geometry: { coordinates: [[[-71.1234567, 41.7654321], [-71.2, 41.8]]] } }] };
 
   it('written by buildCuts parses with the viewer cuts schema', () => {

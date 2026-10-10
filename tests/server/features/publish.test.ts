@@ -47,7 +47,7 @@ describe('cuts', () => {
 
 describe('index assembly', () => {
   const metrics = PlanMetricsSchema.parse({
-    state: 'RI', angleStepDeg: 0.1, nodeVersion: 'v24.12.0', inputSha256: 'a', seats: 2, population: 10, ideal: 5,
+    state: 'RI', lineSearch: 'exact', nodeVersion: 'v24.12.0', inputSha256: 'a', seats: 2, population: 10, ideal: 5,
     districts: [{ district: 1, pop: 5, dev: 0, devPct: 0, contiguous: true }], rangePersons: 1, rangePct: 0.1, allContiguous: true,
     assignmentSha256: 'b', balanceMoves: 1,
   });
@@ -72,10 +72,11 @@ describe('index assembly', () => {
     expect(() => planStats(metrics, [], [])).toThrow(DataError);
     expect(() => planStats(metrics, [], [])).toThrow(/missing land-parts entry for district 1/);
   });
-  it('publishes the per-cut counts as candidateLinesPerCut and the finished plan as finished', () => {
-    const s = planStats(PlanMetricsSchema.parse({ ...metrics, directionsPerCut: [3600, 1800] }), []);
-    expect(s.metrics).toMatchObject({ candidateLinesPerCut: [3600, 1800] });
+  it('publishes the per-cut counts as candidateRangesPerCut and the finished plan as finished', () => {
+    const s = planStats(PlanMetricsSchema.parse({ ...metrics, candidateRangesPerCut: [3600, 1800] }), []);
+    expect(s.metrics).toMatchObject({ candidateRangesPerCut: [3600, 1800], lineSearch: 'exact' });
     expect(s.metrics).not.toHaveProperty('directionsPerCut');
+    expect(s.metrics).not.toHaveProperty('angleStepDeg');
     const stats = buildStats(s, s, 'src', stampOf(VERSIONS));
     expect(Object.keys(stats)).toEqual(['enactedSource', 'versions', 'finished', 'beforeBalancing']);
     expect(stats.versions).toEqual(stampOf(VERSIONS));
@@ -119,7 +120,7 @@ describe('balance.json', () => {
     expect(() => BalanceLogSchema.parse({ before: [1], moves: [{ block: 1, geoid: 'x', from: 1, to: 2, pop: 1, gain: 1 }] })).toThrow();
   });
   it('checks the process numbers a plan reports', () => {
-    const ok = { cuts: 1, angleCount: 1800, directionsPerCut: [1800], candidateLinesEvaluated: 1800, strayBlocksMoved: 0, strayPopMoved: 0, recounts: 0, recountsMaxPerCut: 0, balanceMoves: 0, peopleMovedByBalancing: 0, rangeBeforeBalancing: 3, rangeAfterBalancing: 1 };
+    const ok = { cuts: 1, candidateRangesPerCut: [3], candidateRangesEvaluated: 3, strayBlocksMoved: 0, strayPopMoved: 0, recounts: 0, recountsMaxPerCut: 0, balanceMoves: 0, peopleMovedByBalancing: 0, rangeBeforeBalancing: 3, rangeAfterBalancing: 1 };
     expect(ProcessNumbersSchema.parse(ok).cuts).toBe(1);
     expect(() => ProcessNumbersSchema.parse({ ...ok, cuts: undefined })).toThrow();
   });
@@ -188,7 +189,7 @@ describe('published index', () => {
   const dir = mkdtempSync(join(tmpdir(), 'str-publish-'));
   afterAll(() => rmSync(dir, { recursive: true, force: true }));
   const { districts: _d, ...published } = PlanMetricsSchema.parse({
-    state: 'RI', angleStepDeg: 0.1, nodeVersion: 'v24.12.0', inputSha256: 'a', seats: 2, population: 10, ideal: 5,
+    state: 'RI', lineSearch: 'exact', nodeVersion: 'v24.12.0', inputSha256: 'a', seats: 2, population: 10, ideal: 5,
     districts: [{ district: 1, pop: 5, dev: 0, devPct: 0, contiguous: true }], rangePersons: 1, rangePct: 0.1, allContiguous: true,
     assignmentSha256: 'b',
   });
@@ -214,6 +215,6 @@ describe('published index', () => {
 describe('published Rhode Island plan', () => {
   it('keeps the finished assignment hash the generator is pinned to', () => {
     const stats = JSON.parse(readFileSync(new URL('../../../public/data/RI/stats.json', import.meta.url), 'utf8')) as { finished: { metrics: { assignmentSha256: string } } };
-    expect(stats.finished.metrics.assignmentSha256.startsWith('1f64bc2dbea6')).toBe(true);
+    expect(stats.finished.metrics.assignmentSha256.startsWith('55301f72dccf')).toBe(true);
   });
 });

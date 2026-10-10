@@ -148,7 +148,7 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
   }
   /** Enlarged text makes numbers, chips and the key bigger; the boxes used for placement grow with it. */
   const textScale = (): number => Math.max(1, (parseFloat(getComputedStyle(document.documentElement).fontSize) || 16) / 16);
-  /** The key's box in the map's own coordinates (centre and size), when it lies over the map. */
+  /** The key's box in the map's own coordinates (center and size), when it lies over the map. */
   function keyBox(): Box | null {
     const key = container.parentElement?.querySelector('.strv-legend');
     if (!key) return null;

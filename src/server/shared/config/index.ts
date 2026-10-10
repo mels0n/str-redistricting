@@ -11,12 +11,14 @@ export type { EnactedConfig } from './enacted.js';
 export { VERSIONS, VersionsSchema, engineMajor, formatVersions, inputSha256Of, stampOf } from './versions.js';
 export type { VersionStamp, Versions } from './versions.js';
 
-/** The guide line step, in degrees, the published maps are drawn with. */
-export const DEFAULT_ANGLE_STEP_DEG = 0.1;
+/**
+ * How the cut search chooses among straight lines; recorded in every plan's metrics. 'exact' is the exact
+ * rotational sweep: every straight line is considered, through the ranges of directions that give the same sides.
+ */
+export const LINE_SEARCH = 'exact';
 
 export interface Config {
   readonly states: StateInfo[];
-  readonly angleStepDeg: number;
   readonly cacheDir: string;
   readonly outDir: string;
   /** Threads for the cut search; 1 searches on the main thread only. */
@@ -27,8 +29,6 @@ const STATES_REQUIRED = '--states is required (two-letter abbreviations, comma s
 
 const Raw = z.object({
   states: z.string(STATES_REQUIRED).min(1, STATES_REQUIRED),
-  angleStep: z.coerce.number().positive().max(10)
-    .refine((v) => Math.abs(180 / v - Math.round(180 / v)) < 1e-9, 'angle step must divide 180 exactly'),
   cacheDir: z.string().min(1),
   outDir: z.string().min(1),
   threads: z.string().regex(/^\d+$/, 'threads must be a whole number').transform(Number).pipe(z.number().int().min(1, 'threads must be at least 1')),
@@ -40,7 +40,6 @@ export function parseConfig(argv: readonly string[]): Config {
     args: [...argv],
     options: {
       states: { type: 'string' },
-      'angle-step': { type: 'string', default: String(DEFAULT_ANGLE_STEP_DEG) },
       'cache-dir': { type: 'string', default: 'data/raw' },
       'out-dir': { type: 'string', default: 'out' },
       threads: { type: 'string', default: String(Math.max(1, availableParallelism() - 2)) },
@@ -49,7 +48,6 @@ export function parseConfig(argv: readonly string[]): Config {
   });
   const parsed = Raw.safeParse({
     states: values.states,
-    angleStep: values['angle-step'],
     cacheDir: values['cache-dir'],
     outDir: values['out-dir'],
     threads: values.threads,
@@ -60,7 +58,7 @@ export function parseConfig(argv: readonly string[]): Config {
     if (!info) throw new ConfigError(`unknown state: ${abbr}`);
     return info;
   });
-  return { states, angleStepDeg: parsed.data.angleStep, cacheDir: parsed.data.cacheDir, outDir: parsed.data.outDir, threads: parsed.data.threads };
+  return { states, cacheDir: parsed.data.cacheDir, outDir: parsed.data.outDir, threads: parsed.data.threads };
 }
 
 export interface PublishConfig {

@@ -11,9 +11,7 @@ export interface PlanStats {
 
 /** One plan's published stats: every metrics.json field, with each district carrying the counties it touches. */
 export function planStats(m: PlanMetrics, counties: readonly (readonly CountyRef[])[], landParts?: readonly number[]): PlanStats {
-  const { districts, directionsPerCut, ...rest } = m;
-  // The generator's internal name for the per-cut counts is `directionsPerCut`; the published name says what they count.
-  const metrics = directionsPerCut === undefined ? rest : { ...rest, candidateLinesPerCut: directionsPerCut };
+  const { districts, ...metrics } = m;
   return {
     metrics,
     districts: districts.map((d) => {

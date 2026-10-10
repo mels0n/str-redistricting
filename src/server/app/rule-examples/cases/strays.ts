@@ -1,9 +1,9 @@
 import { boundarySegments, forEachEdge, type Block, type BlockPolygons } from '../../../entities/census-block/index.js';
 import {
-  chosenCandidate, generatedStates, loadMetricsIfPresent, projectWindow, simplifyRing,
-  type CaseBuilder, type ExtractContext, type RuleCase, type StateOutput,
+  generatedStates, loadCutStats, loadMetricsIfPresent, numberField, projectWindow, simplifyRing,
+  type CaseBuilder, type ExtractContext, type RuleCase,
 } from '../../../features/rule-examples/index.js';
-import type { CandidateTrace, CandidateTraceRequest, TraceGroup, TraceSweep } from '../../../features/splitline/index.js';
+import type { CandidateTrace, CandidateTraceRequest, CutResult, TraceGroup, TraceSweep } from '../../../features/splitline/index.js';
 import { DataError } from '../../../shared/errors/index.js';
 import { greatCircleDistance, type LonLat } from '../../../shared/geo/index.js';
 import { blockList, blockPanel, guideLines, nearest, ranks, type BlockPanel } from './cut.js';
@@ -42,74 +42,90 @@ function missingCase(id: string, abbr: string, why: string, caption: string): Ru
   return { id, state: abbr, stateName: nameOf(abbr), source: {}, link: { state: abbr }, view: { w: W, h: 200 }, missing: why, steps: [{ caption, show: [] }] };
 }
 
-/** A cut's candidate rows as records keyed by candidates.json's fields. */
-function rowsOf(out: StateOutput, at: number): Record<string, number>[] {
-  const rows = out.candidates.cuts[at];
-  if (!rows) throw new DataError(`${out.metrics.state}: no cut ${at + 1} in candidates.json`);
-  for (const f of ['k', 'lowSeats', 'iterations', 'unresolved', 'offsetShiftM']) {
-    if (!out.candidates.fields.includes(f)) throw new DataError(`candidates.json has no ${f} column`);
-  }
-  return rows.map((r) => Object.fromEntries(out.candidates.fields.map((f, i) => [f, r[i] ?? 0])));
+/** A range of directions the generator passed over because its sides were not each connected (see unresolvedLines). */
+interface SkippedRange { readonly lowSeats: number; readonly fromDeg: number; readonly toDeg: number }
+
+/** The passed-over ranges a cut's search reports, or undefined when the engine does not report them. */
+const skippedRangesOf = (r: CutResult): readonly SkippedRange[] | undefined => (r as { skippedRanges?: readonly SkippedRange[] }).skippedRanges;
+
+/** Cuts looked at, and passed-over lines traced per cut, when searching for unresolved lines. */
+const SKIP_CUTS = 6;
+const SKIP_LINES = 12;
+
+export interface UnresolvedCut {
+  readonly t: CutTrace;
+  /** The passed-over lines of the cut, traced at the middle of their ranges, in the generator's order. */
+  readonly traces: readonly CandidateTrace[];
 }
-const byK = (p: Record<string, number>, q: Record<string, number>): number => p.k! - q.k! || p.lowSeats! - q.lowSeats!;
+
+const unresolvedCache = new WeakMap<ExtractContext, Promise<UnresolvedCut[]>>();
 
 /**
- * Colorado's cut 1, re-run once with three candidates traced: the line it chose, the resolved line with the most
- * passes (lowest k on a tie), and the first unresolved line by k (when there is one).
+ * Lines the generator tried and passed over because their sides were not each connected, traced: for the cuts that
+ * passed some over (cut-stats `skipped`), the fewest-ranges cuts first. Empty when no cut did, or when the cut
+ * search does not report which ranges it passed over.
  */
-async function cutOne(ctx: ExtractContext) {
-  const out = await ctx.state(ABBR);
-  const at = out.cutStats.cuts.findIndex((c) => c.order === 1);
-  if (at < 0) throw new DataError(`${ABBR}: no cut 1 in cut-stats.json`);
-  const rows = rowsOf(out, at);
-  const chosen = chosenCandidate(out, at);
-  const resolved = rows.filter((r) => r.unresolved === 0);
-  if (!resolved.length) throw new DataError(`${ABBR} cut 1: no resolved candidate`);
-  const most = Math.max(...resolved.map((r) => r.iterations!));
-  const ends = resolved.filter((r) => r.iterations === most).sort(byK)[0]!;
-  // Every unresolved line, by k: the first is the no-rejoin case, and they are searched for a mixed group.
-  const unresolved = rows.filter((r) => r.unresolved === 1).sort(byK);
-  const noRejoin = unresolved[0];
-  const asks: CandidateTraceRequest[] = [{ k: chosen.k!, lowSeats: chosen.lowSeats! }, { k: ends.k!, lowSeats: ends.lowSeats! }];
-  for (const r of unresolved) asks.push({ k: r.k!, lowSeats: r.lowSeats! });
-  const t = await cutTrace(ctx, ABBR, 1, asks);
-  return { t, out, chosen, ends, noRejoin, traces: t.traces, unresolvedTraces: t.traces.slice(2) };
+export function unresolvedLines(ctx: ExtractContext): Promise<UnresolvedCut[]> {
+  let hit = unresolvedCache.get(ctx);
+  if (!hit) {
+    hit = (async () => {
+      const found: { abbr: string; order: number; ranges: number }[] = [];
+      for (const abbr of generatedStates(ctx.cfg.outDir)) {
+        const stats = await loadCutStats(ctx.cfg.outDir, abbr);
+        for (const c of stats.cuts) if (numberField(c, 'skipped', abbr) >= 1) found.push({ abbr, order: c.order, ranges: numberField(c, 'candidateRanges', abbr) });
+      }
+      found.sort((p, q) => p.ranges - q.ranges || (p.abbr < q.abbr ? -1 : p.abbr > q.abbr ? 1 : p.order - q.order));
+      const out: UnresolvedCut[] = [];
+      for (const { abbr, order } of found.slice(0, SKIP_CUTS)) {
+        const skipped = skippedRangesOf((await cutTrace(ctx, abbr, order)).result);
+        if (!skipped) return [];
+        if (!skipped.length) continue;
+        const asks: CandidateTraceRequest[] = skipped.slice(0, SKIP_LINES).map((r) => ({ angleDeg: (r.fromDeg + r.toDeg) / 2, lowSeats: r.lowSeats }));
+        const t = await cutTrace(ctx, abbr, order, asks);
+        out.push({ t, traces: t.traces.filter((tr) => tr.unresolved) });
+      }
+      return out;
+    })();
+    unresolvedCache.set(ctx, hit);
+  }
+  return hit;
 }
 
-/** The line a cut used, traced: cut 1 comes from the shared re-run so it is not searched twice. */
-async function winning(ctx: ExtractContext, order: number): Promise<{ t: CutTrace; tr: CandidateTrace; row: Record<string, number> }> {
-  if (order === 1) {
-    const one = await cutOne(ctx);
-    return { t: one.t, tr: one.traces[0]!, row: one.chosen };
-  }
+/** The line a cut used, traced, and how far its re-counts slid the guide line (meters). */
+async function winning(ctx: ExtractContext, order: number): Promise<{ t: CutTrace; tr: CandidateTrace; shiftM: number }> {
   const t = await cutTrace(ctx, ABBR, order);
-  const at = t.out.cutStats.cuts.findIndex((c) => c.order === order);
-  return { t, tr: t.traces[0]!, row: chosenCandidate(t.out, at) };
+  return { t, tr: t.traces[0]!, shiftM: t.result.offsetShiftM };
 }
 
 export interface GroupPick {
   readonly t: CutTrace;
   readonly tr: CandidateTrace;
-  /** Chosen candidate's candidates.json row. */
-  readonly row: Record<string, number>;
+  /** How far the re-counts slid the cut's guide line, in meters. */
+  readonly shiftM: number;
   /** 0-based pass in which the group was cut off. */
   readonly pass: number;
   readonly sweep: TraceSweep;
   readonly group: TraceGroup;
 }
 
-/** The first cut (by order) whose line's first pass cuts off a group of two or more free blocks matching `want`, with that group. */
+/**
+ * The smallest group of two or more free blocks that a cut's first pass cuts off, matching `want`, over every cut
+ * (ties go to the earlier cut, then the earlier sweep and group). Smallest, so the example stays readable and small.
+ */
 async function firstGroup(ctx: ExtractContext, want: (s: TraceSweep) => boolean): Promise<GroupPick | undefined> {
   const out = await ctx.state(ABBR);
+  let best: GroupPick | undefined;
   for (const order of out.cutStats.cuts.map((c) => c.order).sort((a, b) => a - b)) {
-    const { t, tr, row } = await winning(ctx, order);
+    const { t, tr, shiftM } = await winning(ctx, order);
     for (const sweep of tr.passes[0]?.sweeps ?? []) {
       if (!want(sweep)) continue;
-      const group = sweep.groups.find((g) => !g.main && g.blocks.length >= 2 && g.fixed.length === 0);
-      if (group) return { t, tr, row, pass: 0, sweep, group };
+      for (const group of sweep.groups) {
+        if (group.main || group.blocks.length < 2 || group.fixed.length > 0) continue;
+        if (!best || group.blocks.length < best.group.blocks.length) best = { t, tr, shiftM, pass: 0, sweep, group };
+      }
     }
   }
-  return undefined;
+  return best;
 }
 
 /** which-stays and fixed: the first group of two or more blocks cut off in a first pass, on either side. */
@@ -222,8 +238,8 @@ export async function whichStaysCase(ctx: ExtractContext): Promise<RuleCase> {
       },
       {
         caption: tie
-          ? `This group has ${people(group.pop)} people in ${whole(group.blocks.length)} blocks. Another group ties the main body on people, so the block count, then the lowest GEOID, picks the main body.`
-          : `This group has ${people(group.pop)} people in ${whole(group.blocks.length)} blocks, so it is not the main body. The block count, and then the lowest GEOID, would only decide a tie in people.`,
+          ? `This group has ${people(group.pop)} people in ${whole(group.blocks.length)} blocks. Another group ties the main body on people, so the lower GEOID picks the main body.`
+          : `This group has ${people(group.pop)} people in ${whole(group.blocks.length)} blocks, so it is not the main body. The lower GEOID would only decide a tie in people.`,
         show: [...base, 'main', 'group'],
       },
       {
@@ -272,12 +288,13 @@ const sweepMoves = (sw: TraceSweep): number[] =>
 const isMixed = (g: TraceGroup): boolean => !g.main && g.fixed.length > 0 && g.fixed.length < g.blocks.length;
 
 /**
- * The first group, over cut 1's unresolved lines by k, then passes, sweeps and groups in the generator's order,
- * that is cut off from its side's main body while holding both fixed and free blocks.
+ * The smallest group, over the passed-over lines of the cuts that passed some over, that is cut off from its side's
+ * main body while holding both fixed and free blocks (ties go to the first in the generator's order).
  */
 export async function mixedGroup(ctx: ExtractContext): Promise<MixedPick | undefined> {
-  const one = await cutOne(ctx);
-  for (const tr of one.unresolvedTraces) {
+  let best: MixedPick | undefined;
+  for (const one of await unresolvedLines(ctx)) {
+   for (const tr of one.traces) {
     for (let p = 0; p < tr.passes.length; p++) {
       const pass = tr.passes[p]!;
       const sweepAt = pass.sweeps.findIndex((sw) => sw.groups.some(isMixed));
@@ -285,7 +302,7 @@ export async function mixedGroup(ctx: ExtractContext): Promise<MixedPick | undef
       // Sides as the sweeps leave them: a block flips in the sweep that moves it.
       const flips = pass.sweeps.map(sweepMoves);
       const all = new Set(flips.flat());
-      if (all.size !== pass.moved.length || [...pass.moved].some((b) => !all.has(b))) throw new DataError(`${ABBR} cut 1: sweep moves do not add up to the pass's moved blocks`);
+      if (all.size !== pass.moved.length || [...pass.moved].some((b) => !all.has(b))) throw new DataError(`${one.t.abbr} cut ${one.t.cut.order}: sweep moves do not add up to the pass's moved blocks`);
       const walk = walkSide(tr, p);
       const flippedBy = (n: number): Set<number> => new Set(flips.slice(0, n).flat());
       const sideAfter = (n: number) => {
@@ -293,12 +310,14 @@ export async function mixedGroup(ctx: ExtractContext): Promise<MixedPick | undef
         return (b: number): 0 | 1 => (f.has(b) ? (1 - walk(b)) as 0 | 1 : walk(b));
       };
       const sweep = pass.sweeps[sweepAt]!;
-      const group = sweep.groups.find(isMixed)!;
+      const group = sweep.groups.filter(isMixed).reduce((a, g) => (g.blocks.length < a.blocks.length ? g : a));
+      if (best && group.blocks.length >= best.group.blocks.length) continue;
       const held = new Set([...pass.fixedLow, ...pass.fixedHigh, ...flippedBy(sweepAt)]);
-      return { t: one.t, tr, pass: p, sweepAt, sweep, group, before: sideAfter(sweepAt), after: sideAfter(sweepAt + 1), held };
+      best = { t: one.t, tr, pass: p, sweepAt, sweep, group, before: sideAfter(sweepAt), after: sideAfter(sweepAt + 1), held };
     }
+   }
   }
-  return undefined;
+  return best;
 }
 
 /** strays.fixed: a group that moves is fixed at once and keeps its new side through the re-count. */
@@ -340,7 +359,7 @@ export async function fixedCase(ctx: ExtractContext): Promise<RuleCase> {
     const fb = (k: number): string => plural(k, 'block', 'blocks');
     mixSteps.push(
       {
-        caption: `Fixed blocks count toward their side's groups like any other block. On a line tried for cut 1 at ${deg(mix.tr.angleDeg)}, this group on the ${sideWord(sw)} side holds ${fb(fixedIn.length)} fixed there (dotted) and ${fb(freeIn.length)} still free, and it is cut off from the side's main body.`,
+        caption: `Fixed blocks count toward their side's groups like any other block. On a line tried for cut ${mix.t.cut.order} in ${nameOf(mix.t.abbr)} at ${deg(mix.tr.angleDeg)}, this group on the ${sideWord(sw)} side holds ${fb(fixedIn.length)} fixed there (dotted) and ${fb(freeIn.length)} still free, and it is cut off from the side's main body.`,
         show: mShow,
         set: mw.paint(mix.before, g),
       },
@@ -352,7 +371,7 @@ export async function fixedCase(ctx: ExtractContext): Promise<RuleCase> {
     );
   } else {
     mixSteps.push({
-      caption: `Fixed blocks count toward their side's groups like any other block. No line tried for cut 1 in ${name} cuts off a group holding both fixed and free blocks, so that case is not shown here.`,
+      caption: `Fixed blocks count toward their side's groups like any other block. None of the passed-over lines traced for these examples cuts off a group holding both fixed and free blocks, so that case is not shown here.`,
       show: withPins,
     });
   }
@@ -397,7 +416,7 @@ export async function fixedCase(ctx: ExtractContext): Promise<RuleCase> {
 export async function recountCase(ctx: ExtractContext): Promise<RuleCase> {
   const pick = await fixedOnFirst(ctx);
   if (!pick) return missingCase('strays.recount', ABBR, 'no group of two or more blocks moves onto the first side in a first pass', `No cut in ${nameOf(ABBR)} moves a group of two or more blocks onto the first side in its first pass.`);
-  const { t, tr, row, group } = pick;
+  const { t, tr, shiftM, group } = pick;
   const name = nameOf(t.abbr);
   const next = tr.passes[1];
   if (!next) throw new DataError(`${t.abbr} cut ${t.cut.order}: strays moved but no re-count followed`);
@@ -423,7 +442,7 @@ export async function recountCase(ctx: ExtractContext): Promise<RuleCase> {
     { id: 'target', x: Math.round(x(target)), y: BAR_Y + 22, text: `target ${people(target)}` },
   ];
   const elsewhere = next.fixedLow.length - group.blocks.length;
-  const shift = Math.round(row.offsetShiftM!);
+  const shift = Math.round(shiftM);
   const base = [...ids(win.blocks), ...ids(guide), ...ids(pins)];
   const bar = ['track', 'fill', 'mark', 'share'];
   return {
@@ -459,7 +478,7 @@ export async function recountCase(ctx: ExtractContext): Promise<RuleCase> {
         tween: [{ id: 'fill', to: [[16, BAR_Y], round1([x(target), BAR_Y])] }],
       },
       {
-        caption: `The walk stops by the same rule, and the guide line moves to halfway between the last free block of each side: here ${shift === 0 ? 'by less than a meter' : `by ${plural(shift < 0 ? -shift : shift, 'meter', 'meters')}`}.`,
+        caption: `The walk stops by the same rule, and the guide line moves to between the last free block of the first side and the first free block of the second: here ${shift === 0 ? 'by less than a meter' : `by ${plural(shift < 0 ? -shift : shift, 'meter', 'meters')}`}.`,
         show: [...base, ...bar, 'fixed', 'target'],
         set: win.paint(walkSide(tr, 1)),
       },
@@ -467,10 +486,14 @@ export async function recountCase(ctx: ExtractContext): Promise<RuleCase> {
   };
 }
 
-/** strays.ends: the cut 1 line with the most passes, the blocks each pass moves, and the pass that moves none. */
+/** strays.ends: the line chosen for the Colorado cut that settled in the most passes, the blocks each pass moves, and the pass that moves none. */
 export async function endsTrace(ctx: ExtractContext) {
-  const one = await cutOne(ctx);
-  return { t: one.t, tr: one.traces[1]!, row: one.ends };
+  const out = await ctx.state(ABBR);
+  const most = Math.max(...out.cutStats.cuts.map((c) => numberField(c, 'iterations', ABBR)));
+  const cut = out.cutStats.cuts.filter((c) => numberField(c, 'iterations', ABBR) === most).sort((p, q) => p.order - q.order)[0];
+  if (!cut) throw new DataError(`${ABBR}: no cuts in cut-stats.json`);
+  const { t, tr, shiftM } = await winning(ctx, cut.order);
+  return { t, tr, shiftM };
 }
 
 /** Blocks of `bs` within `m` meters of the one with the most such neighbors (lowest block index on a tie). */
@@ -487,11 +510,11 @@ function cluster(t: CutTrace, bs: readonly number[], m: number): number[] {
 const CLUSTER_M = 2000;
 
 export async function endsCase(ctx: ExtractContext): Promise<RuleCase> {
-  const { t, tr, row } = await endsTrace(ctx);
+  const { t, tr, shiftM } = await endsTrace(ctx);
   const name = nameOf(t.abbr);
   const n = tr.passes.length;
-  if (n < 3 || n > 6) throw new DataError(`${t.abbr} cut 1: the line with the most passes has ${n}, outside the 3 to 6 a panel shows`);
-  if (tr.passes.at(-1)!.moved.length !== 0) throw new DataError(`${t.abbr} cut 1: the last pass moved blocks`);
+  if (n < 3 || n > 6) throw new DataError(`${t.abbr} cut ${t.cut.order}: the line with the most passes has ${n}, outside the 3 to 6 a panel shows`);
+  if (tr.passes.at(-1)!.moved.length !== 0) throw new DataError(`${t.abbr} cut ${t.cut.order}: the last pass moved blocks`);
   const outline = await stateOutline(ctx.cfg.rawDir, t.abbr, 120);
   const proj = (p: LonLat) => t.split.proj.forward(p);
   const H = 204, MAP_H = 176;
@@ -529,7 +552,7 @@ export async function endsCase(ctx: ExtractContext): Promise<RuleCase> {
     fixed += p.moved.length;
     return { id: `count${i + 1}`, x: W / 2, y: H - 6, text: `pass ${i + 1}: ${whole(p.moved.length)} moved, ${whole(fixed)} fixed in all` };
   });
-  const shift = Math.round(row.offsetShiftM!);
+  const shift = Math.round(shiftM);
   const m = t.members.length;
   const captionOf = (i: number): string => {
     const moved = tr.passes[i]!.moved.length;
@@ -553,7 +576,7 @@ export async function endsCase(ctx: ExtractContext): Promise<RuleCase> {
     labels,
     steps: [
       {
-        caption: `A line tried for cut 1 in ${name}, ${deg(tr.angleDeg)} from north-south. Its strays take ${whole(n)} passes to settle; each dot is a block that moves in one of them.`,
+        caption: `The line chosen for cut ${t.cut.order} in ${name}, ${deg(tr.angleDeg)} from north-south. Its strays take ${whole(n)} passes to settle; each dot is a block that moves in one of them.`,
         show: ['outline', ...ids(guide), ...dots.flatMap(ids)],
       },
       ...tr.passes.map((_, i) => (i < n - 1
@@ -567,26 +590,27 @@ export async function endsCase(ctx: ExtractContext): Promise<RuleCase> {
   };
 }
 
-/** strays.no-rejoin: the first unresolved line of cut 1, and the fixed group it leaves cut off. */
+/** strays.no-rejoin: the first passed-over line that leaves a fixed group cut off, and that group. */
 export async function noRejoinTrace(ctx: ExtractContext) {
-  const one = await cutOne(ctx);
-  if (!one.noRejoin) return undefined;
-  const tr = one.traces[2]!;
-  const group = tr.passes.at(-1)!.sweeps.flatMap((s) => s.groups).find((g) => !g.main && g.fixed.length > 0);
-  if (!group) throw new DataError(`${ABBR} cut 1: the unresolved line leaves no fixed group cut off`);
-  return { t: one.t, tr, row: one.noRejoin, group };
+  for (const one of await unresolvedLines(ctx)) {
+    for (const tr of one.traces) {
+      const group = tr.passes.at(-1)!.sweeps.flatMap((sw) => sw.groups).find((g) => !g.main && g.fixed.length > 0);
+      if (group) return { t: one.t, tr, group };
+    }
+  }
+  return undefined;
 }
 
 export async function noRejoinCase(ctx: ExtractContext): Promise<RuleCase> {
   const pick = await noRejoinTrace(ctx);
-  if (!pick) return missingCase('strays.no-rejoin', ABBR, 'every line of cut 1 resolves', `Every line tried for cut 1 in ${nameOf(ABBR)} settles its strays, so none is left cut off.`);
+  if (!pick) return missingCase('strays.no-rejoin', ABBR, 'no passed-over line leaves a fixed group cut off', 'None of the passed-over lines traced for these examples is left with a side in more than one piece after settling its strays, so no example is shown here.');
   const { t, tr, group } = pick;
   const name = nameOf(t.abbr);
   const n = tr.passes.length;
   const g = [...group.blocks];
   // The pass in which the group moved, and the sides it moved between.
   const pm = tr.passes.findIndex((p) => g.every((b) => p.moved.includes(b)));
-  if (pm < 0) throw new DataError(`${t.abbr} cut 1: the stranded group did not move in one pass`);
+  if (pm < 0) throw new DataError(`${t.abbr} cut ${t.cut.order}: the stranded group did not move in one pass`);
   const from = walkSide(tr, pm)(g[0]!), to = (1 - from) as 0 | 1;
   const win = windowOf(t, tr, groupWindow(t, group.blocks), MAP_H);
   const guide = guideLines(tr.passes[pm]!.spans, win.panel.project, MAP_H, 'guide');
@@ -608,7 +632,7 @@ export async function noRejoinCase(ctx: ExtractContext): Promise<RuleCase> {
     lines: [...guide, ...pins],
     steps: [
       {
-        caption: `A line tried for cut 1 in ${name}, ${deg(tr.angleDeg)} from north-south. After ${pm === 0 ? 'its first walk' : `walk ${pm + 1}`}, these ${nG} blocks are on the ${sideWord(from)} side, cut off from it.`,
+        caption: `A line tried for cut ${t.cut.order} in ${name}, ${deg(tr.angleDeg)} from north-south. After ${pm === 0 ? 'its first walk' : `walk ${pm + 1}`}, these ${nG} blocks are on the ${sideWord(from)} side, cut off from it.`,
         show: base,
         set: win.paint(walkSide(tr, pm), g),
       },
@@ -668,12 +692,21 @@ function chain(segs: readonly (readonly [P, P])[], key: (p: P) => string): P[][]
   return out;
 }
 
-/** strays.outline: cut 2's line leaves its piece and comes back, crossing the outline at every span end. */
+/** The first Colorado cut, by order, whose line leaves its piece and comes back (two or more spans inside the piece). */
+async function leavingCut(ctx: ExtractContext): Promise<{ t: CutTrace; tr: CandidateTrace; spans: CandidateTrace['passes'][number]['spans'] }> {
+  const out = await ctx.state(ABBR);
+  for (const order of out.cutStats.cuts.map((c) => c.order).sort((a, b) => a - b)) {
+    const t = await cutTrace(ctx, ABBR, order);
+    const tr = t.traces[0]!;
+    const spans = tr.passes.at(-1)!.spans;
+    if (spans.length >= 2) return { t, tr, spans };
+  }
+  throw new DataError(`${ABBR}: no cut's line leaves its piece and comes back; the outline panel needs one that does`);
+}
+
+/** strays.outline: a cut's line leaves its piece and comes back, crossing the outline at every span end. */
 export async function outlineCase(ctx: ExtractContext): Promise<RuleCase> {
-  const t = await cutTrace(ctx, ABBR, 2);
-  const tr = t.traces[0]!;
-  const spans = tr.passes.at(-1)!.spans;
-  if (spans.length < 2) throw new DataError(`${ABBR} cut 2: its line lies in one span; the outline panel needs one that leaves the piece`);
+  const { t, tr, spans } = await leavingCut(ctx);
   const name = nameOf(t.abbr);
   const proj = (p: LonLat): P => { const [x, y] = t.split.proj.forward(p); return [x, y]; };
   const segs = boundarySegments(t.topo, t.members);
@@ -724,7 +757,7 @@ export async function outlineCase(ctx: ExtractContext): Promise<RuleCase> {
   // The stretch of the line outside the piece, dashed, with its length beside it when close up.
   const gap: Line = { id: 'gap', pts: [round1(big(proj(gapA))), round1(big(proj(gapB)))], tag: 'guide' };
   const zGap = clip(zoom(proj(gapA)), zoom(proj(gapB)), W, MAP_H);
-  if (!zGap) throw new DataError(`${ABBR} cut 2: the stretch outside the piece misses the close-up`);
+  if (!zGap) throw new DataError(`${ABBR} cut ${t.cut.order}: the stretch outside the piece misses the close-up`);
   tween.push({ id: 'gap', to: zGap.map(round1) });
   const zMid: P = [(zGap[0][0] + zGap[1][0]) / 2, (zGap[0][1] + zGap[1][1]) / 2];
   const labels: Label[] = [{

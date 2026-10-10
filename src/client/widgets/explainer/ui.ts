@@ -16,7 +16,7 @@ export function createExplainer(opts: { seats?: number } = {}): HTMLElement {
       'p',
       { class: 'strv-explain__note' },
       h('strong', null, 'Only people and shapes.'),
-      ' For each 2020 census block the generator reads the number of people, the block’s shape, and its center point (the internal point the Census Bureau publishes), which it uses to put blocks in order across a guide line and to measure island links. It never reads party registration or voter records, election results or turnout, where officeholders or candidates live, current or past district lines, or race, ethnicity, age, income or anything else about people besides how many there are.',
+      ' For each 2020 census block the generator reads the number of people, the block’s shape, and its internal point (a point inside the block that the Census Bureau publishes), which it uses to put blocks in order across a guide line and to measure island links. It never reads party registration or voter records, election results or turnout, where officeholders or candidates live, current or past district lines, or race, ethnicity, age, income or anything else about people besides how many there are.',
     ),
     h(
       'ol',
@@ -25,7 +25,7 @@ export function createExplainer(opts: { seats?: number } = {}): HTMLElement {
         'Cut.',
         n === 1
           ? 'This state has one seat, so it needs no cut: the whole state is its one district.'
-          : `A piece with several seats is split in two, with the seats shared as evenly as possible (7 seats become 3 and 4). Straight guide lines are tried in every direction, one every 0.1 degrees, each placed so the people on each side match that side’s seats. The line whose real border is shortest wins. Each piece is cut again until every piece is one district. That takes ${cuts}.`,
+          : `A piece with several seats is split in two, with the seats shared as evenly as possible (7 seats become 3 and 4). Every straight guide line is considered, each placed so the people on each side match that side’s seats. Of the lines that leave each side in one connected piece, the one whose real border is shortest wins. Each piece is cut again until every piece is one district. That takes ${cuts}.`,
       ),
       step(
         'Keep blocks whole.',

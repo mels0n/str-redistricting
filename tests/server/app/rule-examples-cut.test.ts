@@ -110,14 +110,11 @@ describe('stage 2 block-window cases', () => {
     expect(c.steps.at(-1)!.caption).toContain('Water inside the state counts as part of the state');
   }, SLOW);
 
-  it.skipIf(!(haveAL && land))('cut.both-ways shows two lengths that match candidates.json for AL cut 1 and keeps the shorter', async () => {
+  it.skipIf(!(haveAL && land))('cut.both-ways shows the two traced lengths for AL cut 1 and keeps the shorter', async () => {
     const c = await cutBothWaysCase(ctx);
     shape(c);
-    const out = await ctx.state('AL');
-    const cut = out.cutStats.cuts[0]!;
-    const k = Math.round(cut.angleDeg / out.metrics.angleStepDeg);
-    const f = out.candidates.fields;
-    const len = (low: number) => out.candidates.cuts[0]!.find((r) => r[f.indexOf('k')] === k && r[f.indexOf('lowSeats')] === low)![f.indexOf('lengthM')]!;
+    const t = await cutTrace(ctx, 'AL', 1, [3, 4]);
+    const len = (low: number) => Math.round(t.traces.find((x) => x.lowSeats === low)!.lengthM);
     expect(numberIn(label(c, 'len3'))).toBe(len(3));
     expect(numberIn(label(c, 'len4'))).toBe(len(4));
     const shorter = len(3) <= len(4) ? 3 : 4;

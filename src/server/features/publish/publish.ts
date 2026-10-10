@@ -7,7 +7,7 @@ import { gzipSync } from 'node:zlib';
 import { join } from 'node:path';
 import { blocksFileName, loadBlockPolygons, loadStateBlocks, type Block } from '../../entities/census-block/index.js';
 import { STATES, type StateInfo } from '../../shared/apportionment/index.js';
-import { DEFAULT_ANGLE_STEP_DEG, formatVersions, pinnedSha256, stampOf, VERSIONS, VersionsSchema, type PublishConfig, type VersionStamp, type Versions } from '../../shared/config/index.js';
+import { LINE_SEARCH, formatVersions, pinnedSha256, stampOf, VERSIONS, VersionsSchema, type PublishConfig, type VersionStamp, type Versions } from '../../shared/config/index.js';
 import { DataError } from '../../shared/errors/index.js';
 import { crossesAntimeridian, unwrapCoordinates, unwrapFeatures, unwrapLon } from './antimeridian.js';
 import { districtArcs } from './arcs.js';
@@ -57,12 +57,22 @@ const PublishedStatsSchema = z.object({
 });
 
 /**
+ * The part of a published stats.json the publish gate reads: the stamp and the fingerprints. Kept separate from the
+ * full schema so data published under an older metrics layout can still be compared and replaced.
+ */
+const GateStatsSchema = z.looseObject({
+  versions: PublishedStampSchema.optional(),
+  finished: z.looseObject({ metrics: z.looseObject({ assignmentSha256: z.string(), inputSha256: z.string() }) }),
+  beforeBalancing: z.looseObject({ metrics: z.looseObject({ assignmentSha256: z.string() }) }).optional(),
+});
+
+/**
  * Read both plans of a state from the output directory and refuse any not drawn by the current engine major, from the
- * pinned census file, at the published angle step. Nothing is published from a plan this refuses.
+ * pinned census file, with the current line search. Nothing is published from a plan this refuses.
  */
 async function readCheckedPlans(state: StateInfo, outDir: string): Promise<{ finished: PlanMetrics; before: PlanMetrics }> {
   const dir = join(outDir, state.abbr);
-  const expected = { engine: VERSIONS.engine, inputSha256: pinnedSha256(blocksFileName(state)), angleStepDeg: DEFAULT_ANGLE_STEP_DEG };
+  const expected = { engine: VERSIONS.engine, inputSha256: pinnedSha256(blocksFileName(state)), lineSearch: LINE_SEARCH };
   const finished = await readMetrics(dir);
   checkPlanProvenance(finished, state.abbr, state.abbr, expected);
   const before = await readMetrics(join(dir, 'before-balancing'));
@@ -216,7 +226,7 @@ async function publishState(state: StateInfo, cfg: PublishConfig, shared: Shared
 /** The stamp and fingerprint of a state already in the public directory, or null when nothing is published. */
 async function readPublishedState(statsPath: string): Promise<PublishedPlan | null> {
   if (!existsSync(statsPath)) return null;
-  const parsed = PublishedStatsSchema.safeParse(await readJson(statsPath));
+  const parsed = GateStatsSchema.safeParse(await readJson(statsPath));
   if (!parsed.success) throw new DataError(`${statsPath}: ${parsed.error.issues.map((i) => `${i.path.join('.')} ${i.message}`).join('; ')}`);
   const { finished, beforeBalancing, versions } = parsed.data;
   return {

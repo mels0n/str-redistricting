@@ -127,25 +127,32 @@ describe('pieceMembers', () => {
 });
 
 describe('chosenCandidate', () => {
-  const fields = ['k', 'lowSeats', 'lengthM'];
+  const fields = ['lowSeats', 'fromDeg', 'toDeg', 'lengthM'];
   const out = (rows: number[][], cut: { lowSeats?: number; lengthM: number }): StateOutput => ({
-    metrics: { state: 'XX', angleStepDeg: 0.1 },
+    metrics: { state: 'XX', lineSearch: 'exact' },
     candidates: { fields, cuts: [rows] },
-    cutStats: { cuts: [{ order: 1, depth: 0, seats: 7, firstDistrict: 0, angleDeg: 85, ...cut }] },
+    cutStats: { cuts: [{ order: 1, depth: 0, seats: 7, firstDistrict: 0, angleDeg: 85.05, fromDeg: 85, toDeg: 85.1, ...cut }] },
   } as unknown as StateOutput);
 
-  it('tells apart two sides of one direction that round to the same meter', () => {
-    const rows = [[850, 3, 1000], [850, 4, 1000]];
+  it('tells apart two sides of one range of directions with the same length', () => {
+    const rows = [[3, 85, 85.1, 1000], [4, 85, 85.1, 1000]];
     expect(chosenCandidate(out(rows, { lowSeats: 4, lengthM: 1000 }), 0).lowSeats).toBe(4);
     expect(chosenCandidate(out(rows, { lowSeats: 3, lengthM: 1000 }), 0).lowSeats).toBe(3);
     expect(chosenCandidate(out([...rows].reverse(), { lowSeats: 4, lengthM: 1000 }), 0).lowSeats).toBe(4);
   });
 
   it('throws rather than guess when the side is unknown, absent or the length disagrees', () => {
-    const rows = [[850, 3, 1000], [850, 4, 1000]];
+    const rows = [[3, 85, 85.1, 1000], [4, 85, 85.1, 1000]];
     expect(() => chosenCandidate(out(rows, { lengthM: 1000 }), 0)).toThrow(DataError);
     expect(() => chosenCandidate(out(rows, { lowSeats: 2, lengthM: 1000 }), 0)).toThrow(DataError);
     expect(() => chosenCandidate(out(rows, { lowSeats: 4, lengthM: 999 }), 0)).toThrow(DataError);
+    // A range other than the cut's winning one does not match.
+    expect(() => chosenCandidate(out([[4, 86, 86.1, 1000]], { lowSeats: 4, lengthM: 1000 }), 0)).toThrow(DataError);
+  });
+
+  it('matches a length that cut-stats rounds to the meter', () => {
+    const rows = [[3, 85, 85.1, 1000.4]];
+    expect(chosenCandidate(out(rows, { lowSeats: 3, lengthM: 1000 }), 0).lengthM).toBe(1000.4);
   });
 });
 
@@ -154,15 +161,15 @@ const HASH = 'a'.repeat(64);
 function fakeCtx(opts: { repeatHash?: string | undefined; chosenLowSeats?: number } = {}): ExtractContext {
   const hasRepeat = !('repeatHash' in opts) || opts.repeatHash !== undefined;
   const metrics = (state: string, seats: number, population: number, ideal: number, hash: string, pops: number[]) => ({
-    state, angleStepDeg: 0.1, nodeVersion: 'v24', inputSha256: 'x', seats, population, ideal,
+    state, lineSearch: 'exact', nodeVersion: 'v24', inputSha256: 'x', seats, population, ideal,
     districts: pops.map((pop, i) => ({ district: i + 1, pop, dev: 0, devPct: 0, contiguous: true })),
     rangePersons: 1, rangePct: 0, allContiguous: true, assignmentSha256: hash,
   });
   const outputs: Record<string, StateOutput> = {
     AL: {
       metrics: metrics('AL', 7, 5024279, 5024279 / 7, HASH, [717754, 717754]),
-      candidates: { fields: ['k', 'lowSeats', 'lengthM'], cuts: [[[850, 3, 479246], [850, 4, 642462], [851, 4, 111]]] },
-      cutStats: { cuts: [{ order: 1, depth: 0, seats: 7, firstDistrict: 0, angleDeg: 85, lengthM: opts.chosenLowSeats === 4 ? 642462 : 479246, lowSeats: opts.chosenLowSeats ?? 3 }] },
+      candidates: { fields: ['lowSeats', 'fromDeg', 'toDeg', 'lengthM'], cuts: [[[3, 85, 85.1, 479246], [4, 85, 85.1, 642462], [4, 86, 86.1, 111]]] },
+      cutStats: { cuts: [{ order: 1, depth: 0, seats: 7, firstDistrict: 0, angleDeg: 85.05, fromDeg: 85, toDeg: 85.1, lengthM: opts.chosenLowSeats === 4 ? 642462 : 479246, lowSeats: opts.chosenLowSeats ?? 3 }] },
       balance: { before: [1], moves: [] }, assignment: new Map(), before: new Map(),
     },
     CO: {

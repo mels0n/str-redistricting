@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { checkPlanProvenance, checkPublishGate, staleStamps } from '../../../src/server/features/publish/index.js';
 import { PlanMetricsSchema } from '../../../src/server/entities/plan-output/index.js';
-import { DEFAULT_ANGLE_STEP_DEG, stampOf, VERSIONS } from '../../../src/server/shared/config/index.js';
+import { LINE_SEARCH, stampOf, VERSIONS } from '../../../src/server/shared/config/index.js';
 import { DataError } from '../../../src/server/shared/errors/index.js';
 
 const A = 'a'.repeat(64);
@@ -65,15 +65,15 @@ describe('checkPublishGate', () => {
 });
 
 describe('checkPlanProvenance', () => {
-  const expected = { engine: VERSIONS.engine, inputSha256: A, angleStepDeg: DEFAULT_ANGLE_STEP_DEG };
+  const expected = { engine: VERSIONS.engine, inputSha256: A, lineSearch: LINE_SEARCH };
   const metrics = (over: Record<string, unknown> = {}) =>
     PlanMetricsSchema.parse({
-      state: 'RI', angleStepDeg: DEFAULT_ANGLE_STEP_DEG, nodeVersion: 'v24', inputSha256: A, engine: VERSIONS.engine, seats: 2, population: 10, ideal: 5,
+      state: 'RI', lineSearch: LINE_SEARCH, nodeVersion: 'v24', inputSha256: A, engine: VERSIONS.engine, seats: 2, population: 10, ideal: 5,
       districts: [], rangePersons: 1, rangePct: 0.1, allContiguous: true, assignmentSha256: B, ...over,
     });
   const major = Number(VERSIONS.engine.split('.')[0]);
 
-  it('accepts a plan from this engine, the pinned census and the default step', () => {
+  it('accepts a plan from this engine, the pinned census and the current line search', () => {
     expect(() => checkPlanProvenance(metrics(), 'RI', 'RI', expected)).not.toThrow();
   });
   it('accepts a different minor or patch of the same major', () => {
@@ -91,11 +91,11 @@ describe('checkPlanProvenance', () => {
   it('refuses a census hash other than the pinned one', () => {
     expect(() => checkPlanProvenance(metrics({ inputSha256: C }), 'RI', 'RI', expected)).toThrow(/census input sha256 is not the pinned one/);
   });
-  it('refuses a non-default angle step', () => {
-    expect(() => checkPlanProvenance(metrics({ angleStepDeg: 0.5 }), 'RI', 'RI', expected)).toThrow(/angle step is 0.5 degrees/);
+  it('refuses a plan drawn with another line search', () => {
+    expect(() => checkPlanProvenance(metrics({ lineSearch: 'grid' }), 'RI', 'RI', expected)).toThrow(/line search is grid and the published search is exact/);
   });
   it('names the before-balancing plan and lists every mismatch', () => {
-    expect(() => checkPlanProvenance(metrics({ inputSha256: C, angleStepDeg: 1 }), 'RI', 'RI before-balancing', expected)).toThrow(/^RI before-balancing: .*pinned one; its angle step/);
+    expect(() => checkPlanProvenance(metrics({ inputSha256: C, lineSearch: 'grid' }), 'RI', 'RI before-balancing', expected)).toThrow(/^RI before-balancing: .*pinned one; its line search/);
   });
 });
 

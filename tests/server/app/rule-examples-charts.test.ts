@@ -1,19 +1,21 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import {
-  chartCases, furthestCase, furthestOf, gapWords, orderOfChecksCase, shortestTwo, stopCase, tieRule, tiesCase,
+  chartCases, furthestCase, furthestOf, gapUm, gapWords, orderOfChecksCase, shortestTwo, stopCase, tieRuleText, tiesCase,
+  type Cand,
 } from '../../../src/server/app/rule-examples/cases/charts.js';
-import { cutTrace } from '../../../src/server/app/rule-examples/cases/trace.js';
 import { createExtractContext, RuleCaseSchema, type RuleCase } from '../../../src/server/features/rule-examples/index.js';
 import { parseRuleExamplesConfig } from '../../../src/server/shared/config/index.js';
 
 // These read the generated plans (out/) and, for the tie, the cached census files; without them they skip.
 const ctx = createExtractContext(parseRuleExamplesConfig([]));
-const haveMS = existsSync('out/MS/candidates.json') && existsSync('out/MS/cut-stats.json');
+const haveOrder = existsSync('out/MS/candidates.json') && existsSync('out/MS/cut-stats.json');
 const haveCO = existsSync('out/CO/balance.json') && existsSync('out/CO/metrics.json');
 const haveHI = existsSync('out/HI/balance.json');
 const haveTie = existsSync('out/NJ/candidates.json') && existsSync('data/raw/tl_2020_34_tabblock20.zip');
 const SLOW = 300_000;
+// The captions say nothing about a fixed step size.
+const STALE = [/1,800/, /0\.1°/, /every 0\.1/, /angle step/i];
 const whole = (n: number): string => n.toLocaleString('en-US');
 
 const shape = (c: RuleCase): void => {
@@ -23,6 +25,7 @@ const shape = (c: RuleCase): void => {
   expect(c.steps.length).toBeLessThanOrEqual(7);
   const text = [...c.steps.map((s) => s.caption), ...(c.labels ?? []).map((l) => l.text), ...(c.chart?.labels ?? [])].join('\n');
   expect(text).not.toContain('—');
+  for (const re of STALE) expect(text).not.toMatch(re);
   const ids = [...(c.blocks ?? []), ...(c.lines ?? []), ...(c.labels ?? [])].map((x) => x.id);
   expect(new Set(ids).size).toBe(ids.length);
   const marks = Object.keys(c.chart?.marks ?? {}).map((m) => `chart-${m}`);
@@ -32,31 +35,43 @@ const shape = (c: RuleCase): void => {
 
 const json = <T>(path: string): T => JSON.parse(readFileSync(path, 'utf8').replace(/^﻿/, '')) as T;
 interface Cands { fields: string[]; cuts: number[][][] }
-interface Stats { cuts: { angleDeg: number; lengthM: number; skipped: number; seats: number }[] }
+interface Stats { cuts: { angleDeg: number; fromDeg: number; toDeg: number; lengthM: number; skipped: number; seats: number; candidateRanges: number }[] }
 const col = (c: Cands, f: string): number => c.fields.indexOf(f);
 
-describe('tieRule', () => {
-  it('orders by closeness to north-south, then smaller angle, then fewer first-side seats', () => {
-    // 1,800 directions: k=0 and k=1800 are both north-south.
-    expect(tieRule({ k: 187, lowSeats: 2 }, { k: 188, lowSeats: 2 }, 1800)).toEqual({ first: 'a', rule: 1 });
-    expect(tieRule({ k: 1433, lowSeats: 1 }, { k: 1434, lowSeats: 1 }, 1800)).toEqual({ first: 'b', rule: 1 });
-    // 0.1 degrees and 179.9 degrees lean equally from north-south: the smaller angle goes first.
-    expect(tieRule({ k: 1799, lowSeats: 1 }, { k: 1, lowSeats: 1 }, 1800)).toEqual({ first: 'b', rule: 2 });
-    // Same direction, two ways of splitting the seats: the first side with fewer seats goes first.
-    expect(tieRule({ k: 300, lowSeats: 3 }, { k: 300, lowSeats: 2 }, 1800)).toEqual({ first: 'b', rule: 3 });
+const cand = (fromDeg: number, toDeg: number, lowSeats = 1): Cand => ({ lowSeats, fromDeg, toDeg, lengthM: 100 });
+
+describe('tieRuleText', () => {
+  it('says equal borders from the same two sides are one cut, drawn in the first stretch', () => {
+    const t = tieRuleText(cand(10, 11), 'same');
+    expect(t).toContain('same two sides');
+    expect(t).toContain('one cut');
+    expect(t).toContain('first stretch clockwise from north-south, 10° to 11°');
+    expect(t).not.toMatch(/fewer seats|nearer/);
+  });
+  it('says different cuts of equal border go by fair shares of people, then GEOID', () => {
+    const t = tieRuleText(cand(10, 11), 'geoid');
+    expect(t).toContain('GEOID decides');
+    expect(t).toContain("piece's lowest GEOID");
+    expect(t).not.toMatch(/north-south|clockwise|fewer seats/);
   });
 });
 
 describe('shortestTwo', () => {
-  const fields = ['k', 'lowSeats', 'lengthM', 'unresolved'];
-  it('takes the two shortest resolved candidates in the generator order and ignores unresolved ones', () => {
-    const rows = [[5, 1, 100, 0], [6, 1, 90, 1], [7, 1, 100, 0], [1790, 1, 100, 0], [9, 1, 120, 0]];
-    const [a, b] = shortestTwo(rows, fields, 1800)!;
-    expect([a.k, b.k]).toEqual([5, 7]);
-    expect(b.lengthM - a.lengthM).toBe(0);
+  const fields = ['lowSeats', 'fromDeg', 'toDeg', 'lengthM', 'lowPop'];
+  it('takes the first two rows in the generator order', () => {
+    const rows = [[1, 5, 6, 100, 0], [1, 7, 8, 100.000001, 0], [1, 9, 10, 120, 0]];
+    const [a, b] = shortestTwo(rows, fields)!;
+    expect([a.fromDeg, b.fromDeg]).toEqual([5, 7]);
+    expect(gapUm(a.lengthM, b.lengthM)).toBe(1);
   });
-  it('is undefined when fewer than two candidates are resolved', () => {
-    expect(shortestTwo([[1, 1, 5, 0], [2, 1, 6, 1]], fields, 1800)).toBeUndefined();
+  it('still reads files that carry the old nearestNorthSouthDeg column, looking columns up by name', () => {
+    const old = ['lowSeats', 'fromDeg', 'toDeg', 'nearestNorthSouthDeg', 'lengthM', 'lowPop'];
+    const [a, b] = shortestTwo([[1, 5, 6, 5, 100, 0], [1, 7, 8, 7, 101, 0]], old)!;
+    expect([a.fromDeg, a.lengthM, b.toDeg, b.lengthM]).toEqual([5, 100, 8, 101]);
+  });
+  it('is undefined with fewer than two rows and refuses rows out of order', () => {
+    expect(shortestTwo([[1, 1, 2, 5, 0]], fields)).toBeUndefined();
+    expect(() => shortestTwo([[1, 1, 2, 6, 0], [1, 3, 4, 5, 0]], fields)).toThrow();
   });
 });
 
@@ -73,51 +88,36 @@ describe('furthestOf', () => {
   });
 });
 
-describe('cut.order-of-checks (MS cut 1)', () => {
-  it.skipIf(!haveMS)('draws every direction in angle order; the winner is the shortest resolved line and equals cut-stats', async () => {
+describe('cut.order-of-checks', () => {
+  it.skipIf(!haveOrder)('draws the leading ranges by direction, sorts them by length, and ends on the cut in cut-stats', async () => {
     const c = await orderOfChecksCase(ctx);
     shape(c);
     expect(c.id).toBe('cut.order-of-checks');
     expect(c.chart!.kind).toBe('strip');
-    const cands = json<Cands>('out/MS/candidates.json');
-    const stats = json<Stats>('out/MS/cut-stats.json');
-    const rows = cands.cuts[0]!;
-    const cut = stats.cuts[0]!;
-    expect(c.chart!.values).toHaveLength(1800);
-    const km = (r: number[]): number => r[col(cands, 'lengthM')]! / 1000;
-    for (const r of rows) expect(c.chart!.values[r[col(cands, 'k')]!]).toBeCloseTo(km(r), 6);
-    const { unresolved, skipped, winner } = c.chart!.marks!;
-    expect(unresolved).toEqual(rows.filter((r) => r[col(cands, 'unresolved')] === 1).map((r) => r[col(cands, 'k')]!).sort((x, y) => x - y));
-    // The winner is the shortest resolved line, at the length cut-stats.json records.
-    const resolved = rows.filter((r) => r[col(cands, 'unresolved')] === 0);
-    const shortest = resolved.reduce((m, r) => (r[col(cands, 'lengthM')]! < m[col(cands, 'lengthM')]! ? r : m));
-    expect(winner).toEqual([shortest[col(cands, 'k')]!]);
-    expect(shortest[col(cands, 'lengthM')]).toBe(cut.lengthM);
-    expect(shortest[col(cands, 'k')]! / 10).toBe(cut.angleDeg);
-    expect(c.chart!.values[winner![0]!]).toBeCloseTo(cut.lengthM / 1000, 6);
-    // The lines skipped are exactly the unresolved ones shorter than the winner, as many as cut-stats counts.
-    expect(skipped).toHaveLength(cut.skipped);
-    for (const k of skipped!) {
-      expect(unresolved).toContain(k);
-      expect(c.chart!.values[k]!).toBeLessThan(c.chart!.values[winner![0]!]!);
-    }
-    expect(c.link).toEqual({ state: 'MS', cut: 1 });
+    const cands = json<Cands>(`out/${c.state}/candidates.json`);
+    const stats = json<Stats>(`out/${c.state}/cut-stats.json`);
+    const rows = cands.cuts[c.source.cut! - 1]!;
+    const cut = stats.cuts[c.source.cut! - 1]!;
+    expect(c.chart!.values).toHaveLength(rows.length);
+    const lens = rows.map((r) => r[col(cands, 'lengthM')]! / 1000);
+    expect([...c.chart!.values].sort((x, y) => x - y)).toEqual([...lens].sort((x, y) => x - y));
+    // The winner is the first row in the generator's order, the shortest of the leading ranges, and is the cut on disk.
+    const [winner] = c.chart!.marks!.winner!;
+    expect(c.chart!.values[winner!]).toBeCloseTo(lens[0]!, 9);
+    expect(Math.min(...c.chart!.values)).toBeCloseTo(lens[0]!, 9);
+    expect(rows[0]![col(cands, 'fromDeg')]).toBe(cut.fromDeg);
+    expect(rows[0]![col(cands, 'toDeg')]).toBe(cut.toDeg);
+    expect(cut.skipped).toBeGreaterThanOrEqual(1);
+    expect(c.link).toEqual({ state: c.state, cut: c.source.cut });
     const text = c.steps.map((s) => s.caption).join(' ');
-    expect(text).toContain(whole(unresolved!.length));
-    expect(text).toContain(whole(cut.lengthM));
-    // The order follows the bullet: settle each line, then measure its border, then mark the unconnected ones, sort, pick.
-    const first = c.steps[0]!.caption;
-    expect(first.indexOf('settled')).toBeGreaterThan(-1);
-    expect(first.indexOf('settled')).toBeLessThan(first.indexOf('measured'));
-    expect(c.steps[1]!.caption).toContain('connected');
-    expect(c.steps[1]!.show).toContain('chart-unresolved');
+    expect(text).toContain(whole(cut.candidateRanges));
+    expect(text).toContain(whole(Math.round(cut.lengthM)));
+    expect(text).toContain('every straight line');
+    expect(text).toContain('Each stretch is checked once');
+    expect(c.steps[1]!.caption.indexOf('settled')).toBeLessThan(c.steps[1]!.caption.indexOf('measured'));
     expect(c.steps[2]!.show).toContain('chart-sorted');
-    // The steps show the chart, then the unresolved marks, then the sort, then the skipped line, then the winner.
-    const shows = c.steps.map((s) => s.show.filter((id) => id.startsWith('chart')));
-    expect(shows[0]).toEqual(['chart']);
-    expect(shows.some((s) => s.includes('chart-unresolved'))).toBe(true);
-    expect(shows.some((s) => s.includes('chart-sorted'))).toBe(true);
-    expect(shows.at(-1)).toContain('chart-winner');
+    expect(c.steps.at(-1)!.show).toContain('chart-winner');
+    expect(c.steps[0]!.show).not.toContain('chart-sorted');
   });
 });
 
@@ -131,30 +131,28 @@ describe('gapWords', () => {
 });
 
 describe('cut.ties', () => {
-  it.skipIf(!haveTie)('is a true tie settled by the documented order, or says it is not a tie', async () => {
+  it.skipIf(!haveTie)('shows the closest call with exact lengths, and says honestly whether it is a tie', async () => {
     const c = await tiesCase(ctx);
     shape(c);
     expect(c.id).toBe('cut.ties');
     expect(c.chart!.kind).toBe('bars');
     const text = c.steps.map((s) => s.caption).join(' ');
-    // The chart rounds to the centimeter for display, so whether it is a tie comes from the full-precision re-run.
-    const t = await cutTrace(ctx, c.state, c.source.cut!);
-    const pair = [...t.result.candidateStats].filter((s) => s.lengthM === t.result.lengthM);
-    if (pair.length < 2) {
-      expect(text).toContain('Not a tie');
-      return;
-    }
-    // A true tie: the two lines are exactly the same length and the cut took the one the documented order puts first.
-    const order = pair.sort((x, y) => {
-      const r = tieRule({ k: x.k, lowSeats: x.lowSeats }, { k: y.k, lowSeats: y.lowSeats }, t.out.metrics.angleCount as number);
-      return r.first === 'a' ? -1 : 1;
-    });
-    expect((order[0]!.k * 180) / (t.out.metrics.angleCount as number)).toBe(t.cut.angleDeg);
-    expect(c.chart!.labels![0]).toBe(`${t.cut.angleDeg}°`);
+    const cands = json<Cands>(`out/${c.state}/candidates.json`);
+    const rows = cands.cuts[c.source.cut! - 1]!;
+    const [x, y] = [rows[0]![col(cands, 'lengthM')]!, rows[1]![col(cands, 'lengthM')]!];
+    expect(c.chart!.values).toEqual([Math.round(x * 100) / 100, Math.round(y * 100) / 100]);
     expect(c.chart!.marks!.winner).toEqual([0]);
-    expect(text).toContain('tied');
-    expect(text).toContain('exactly the same length');
-    expect(c.source.angleDeg).toBe(t.cut.angleDeg);
+    expect(text).toContain('to the micrometer');
+    if (gapUm(x, y) === 0) {
+      expect(text).toContain('exactly the same border length');
+      expect(text).toContain('shortest border, then the sides nearer their fair shares of people, then GEOID');
+      expect(c.chart!.marks!.tied).toEqual([0, 1]);
+    } else {
+      expect(text).toContain('Not a tie');
+      expect(text).toContain('shortest border, then the sides nearer their fair shares of people, then GEOID');
+      expect(text).toContain('GEOID would decide');
+      expect(c.chart!.marks!.close).toEqual([0, 1]);
+    }
   }, SLOW);
 });
 
@@ -191,7 +189,7 @@ describe('balance.stop (CO)', () => {
     const sq = (pops: number[]): number => pops.reduce((s, p) => s + (p - m.ideal) * (p - m.ideal), 0);
     const v = c.chart!.values;
     expect(v).toHaveLength(b.moves.length + 1);
-    expect(b.moves).toHaveLength(20);
+    expect(b.moves).toHaveLength(json<{ balanceMoves: number }>('out/CO/metrics.json').balanceMoves);
     expect(v[0]).toBe(sq(b.before));
     b.moves.forEach((mv, i) => expect(v[i]! - v[i + 1]!).toBe(mv.gain));
     expect(v.at(-1)).toBe(sq(m.districts.map((d) => d.pop)));
@@ -202,7 +200,7 @@ describe('balance.stop (CO)', () => {
     const text = c.steps.map((s) => s.caption).join(' ');
     expect(text).toContain(whole(m.rangeAfterBalancing));
     expect(text).toContain(whole(m.rangeBeforeBalancing));
-    expect(text).toContain('20 moves');
+    expect(text).toContain(`${b.moves.length} moves`);
     expect(c.chart!.marks!.first).toEqual([0]);
     expect(c.chart!.marks!.last).toEqual([20]);
   });

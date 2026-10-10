@@ -6,30 +6,25 @@ import { balance, balanceLog, peopleMoved } from '../features/balance/index.js';
 import { bordersGeoJson, bridgesJson, cutsGeoJson, districtsGeoJson, writePlan } from '../features/export/index.js';
 import { assignmentCsv, computeMetrics } from '../features/metrics/index.js';
 import { createContext, PoolSlot, splitState, type SplitResult } from '../features/splitline/index.js';
-import { parseConfig, VERSIONS } from '../shared/config/index.js';
+import { LINE_SEARCH, parseConfig, VERSIONS } from '../shared/config/index.js';
 import { exitCodeFor } from '../shared/errors/index.js';
 
 type Cut = SplitResult['cuts'][number];
 
-/** Per-cut summary of the search, including the spread of re-count iterations over every candidate. */
+/** Per-cut summary of the search. */
 function cutStats(c: Cut, i: number) {
-  const its = c.candidateStats.map((s) => s.iterations);
   return {
-    order: i + 1, depth: c.depth, seats: c.seats, firstDistrict: c.firstDistrict, angleDeg: c.angleDeg, lengthM: Math.round(c.lengthM),
-    skipped: c.skipped, strayBlocksMoved: c.strayBlocksMoved, strayPopMoved: c.strayPopMoved,
-    iterations: c.iterations, offsetShiftM: Math.round(c.offsetShiftM),
-    candidateIterationsMax: Math.max(...its), candidateIterationsMean: its.reduce((s, v) => s + v, 0) / its.length,
-    unresolvedCandidates: c.candidateStats.filter((s) => s.unresolved).length,
+    order: i + 1, depth: c.depth, seats: c.seats, firstDistrict: c.firstDistrict, angleDeg: c.angleDeg, fromDeg: c.fromDeg, toDeg: c.toDeg,
+    lengthM: Math.round(c.lengthM), skipped: c.skipped, strayBlocksMoved: c.strayBlocksMoved, strayPopMoved: c.strayPopMoved,
+    iterations: c.iterations, offsetShiftM: Math.round(c.offsetShiftM), candidateRanges: c.candidateRanges, reversedRanges: c.reversedRanges, tieSpans: c.tieSpans, reversed: c.reversed, tiedRanges: c.tiedRanges, tiedCuts: c.tiedCuts, splitChanges: c.splitChanges,
   };
 }
 
-/** Every candidate of every cut as compact rows. */
+/** The leading candidates of every cut, in the generator's order, as compact rows. */
 function candidateRows(cuts: readonly Cut[]) {
   return {
-    fields: ['k', 'lowSeats', 'lengthM', 'strayBlocks', 'strayPop', 'iterations', 'offsetShiftM', 'lowPop', 'unresolved'],
-    cuts: cuts.map((c) => c.candidateStats.map((s) => [
-      s.k, s.lowSeats, Math.round(s.lengthM), s.strayBlocks, s.strayPop, s.iterations, Math.round(s.offsetShiftM), s.lowPop, s.unresolved ? 1 : 0,
-    ])),
+    fields: ['lowSeats', 'fromDeg', 'toDeg', 'lengthM', 'lowPop', 'reversed'],
+    cuts: cuts.map((c) => c.candidates.map((r) => [r.lowSeats, r.fromDeg, r.toDeg, r.lengthM, r.lowPop, r.reversed ? 1 : 0])),
   };
 }
 
@@ -46,20 +41,20 @@ async function main(): Promise<void> {
       const inputSha256 = createHash('sha256').update(await readFile(await ensureZip(state, config.cacheDir))).digest('hex');
       const blocks = await loadStateBlocks(state, config.cacheDir);
       const topo = buildTopology(blocks);
-      const ctx = createContext(blocks, config.angleStepDeg, topo);
+      const ctx = createContext(blocks, topo);
       const split = splitState(ctx, state.seats, { pool: slot.pool });
       const balanced = balance(blocks, topo, split.assignment, state.seats);
       const runtimeMs = Math.round(performance.now() - t0);
       const sum = (f: (c: (typeof split.cuts)[number]) => number): number => split.cuts.reduce((s, c) => s + f(c), 0);
       // Stray counts are net per block, both directions summed over all cuts.
       const common = {
-        state: state.abbr, angleStepDeg: config.angleStepDeg, bridges: topo.bridges.length, nodeVersion: process.version, inputSha256, engine: VERSIONS.engine,
+        state: state.abbr, lineSearch: LINE_SEARCH, bridges: topo.bridges.length, nodeVersion: process.version, inputSha256, engine: VERSIONS.engine,
         cutsSkipped: sum((c) => c.skipped),
         strayBlocksMoved: sum((c) => c.strayBlocksMoved), strayPopMoved: sum((c) => c.strayPopMoved),
         // Re-counts: how many times a chosen line was slid again after strays moved, in total and at most for one cut.
         recounts: sum((c) => c.iterations - 1), recountsMaxPerCut: Math.max(0, ...split.cuts.map((c) => c.iterations - 1)),
-        // Work done: one entry per cut (angles x seat orientations), then their total.
-        cuts: split.cuts.length, angleCount: ctx.angleCount, directionsPerCut: split.cuts.map((c) => c.candidateLines), candidateLinesEvaluated: sum((c) => c.candidateLines),
+        // Work done: the candidates each cut considered (ranges of directions with a distinct result), then their total.
+        cuts: split.cuts.length, candidateRangesPerCut: split.cuts.map((c) => c.candidateRanges), candidateRangesEvaluated: sum((c) => c.candidateRanges),
       };
       const before = computeMetrics(blocks, topo, split.assignment, state.seats);
       const official = computeMetrics(blocks, topo, balanced.assignment, state.seats);

@@ -86,6 +86,18 @@ export function loadCandidates(outDir: string, abbr: string): Promise<Candidates
   return readJson(join(outDir, abbr, 'candidates.json'), CandidatesSchema);
 }
 
+/** Just a state's cut-stats.json (without the first-side seat counts), without loading the rest of its output. */
+export function loadCutStats(outDir: string, abbr: string): Promise<CutStats> {
+  return readJson(join(outDir, abbr, 'cut-stats.json'), CutStatsSchema);
+}
+
+/** A numeric field of a record whose schema passes extra fields through. */
+export function numberField(rec: object, key: string, what: string): number {
+  const v = (rec as Record<string, unknown>)[key];
+  if (typeof v !== 'number' || !Number.isFinite(v)) throw new DataError(`${what}: no number "${key}"`);
+  return v;
+}
+
 /** Metrics of a plan directory, or undefined when it has not been generated. */
 export async function loadMetricsIfPresent(outDir: string, abbr: string): Promise<PlanMetrics | undefined> {
   const path = join(outDir, abbr, 'metrics.json');
@@ -102,21 +114,22 @@ export function pieceMembers(before: ReadonlyMap<string, number>, firstDistrict:
 }
 
 /**
- * The candidate row of the line a cut chose. An odd seat count gives each direction two rows (one per side), and both
- * can round to the same meter, so the row is found by direction index and first-side seat count, never by length.
+ * The candidates.json row of the range a cut chose. A range is told apart by its first-side seat count, whether it
+ * is a line slid from the other end, and its bounding directions (the same pair of directions can come up once per way of splitting the seats).
  */
 export function chosenCandidate(out: StateOutput, cutIndex: number): Record<string, number> {
   const cut = out.cutStats.cuts[cutIndex];
   const rows = out.candidates.cuts[cutIndex];
   if (!cut || !rows) throw new DataError(`${out.metrics.state}: no cut ${cutIndex + 1} in the cut data`);
   if (cut.lowSeats === undefined) throw new DataError(`${out.metrics.state}: cut ${cut.order} has no first-side seat count`);
-  const k = Math.round(cut.angleDeg / out.metrics.angleStepDeg);
   const { fields } = out.candidates;
-  const kAt = fields.indexOf('k'), lowAt = fields.indexOf('lowSeats'), lenAt = fields.indexOf('lengthM');
-  if (kAt < 0 || lowAt < 0 || lenAt < 0) throw new DataError(`${out.metrics.state}: candidates.json is missing the k, lowSeats or lengthM column`);
-  const matches = rows.filter((r) => r[kAt] === k && r[lowAt] === cut.lowSeats);
-  if (matches.length !== 1) throw new DataError(`${out.metrics.state}: cut ${cut.order} matches ${matches.length} rows of candidates.json for k=${k}, lowSeats=${cut.lowSeats}`);
+  const lowAt = fields.indexOf('lowSeats'), fromAt = fields.indexOf('fromDeg'), toAt = fields.indexOf('toDeg'), lenAt = fields.indexOf('lengthM');
+  if (lowAt < 0 || fromAt < 0 || toAt < 0 || lenAt < 0) throw new DataError(`${out.metrics.state}: candidates.json is missing the lowSeats, fromDeg, toDeg or lengthM column`);
+  // A line slid from the other end can bound the same directions as an ordinary one; older files have no such column.
+  const revAt = fields.indexOf('reversed'), rev = cut.reversed === true ? 1 : 0;
+  const matches = rows.filter((r) => r[lowAt] === cut.lowSeats && r[fromAt] === cut.fromDeg && r[toAt] === cut.toDeg && (revAt < 0 || (r[revAt] ?? 0) === rev));
+  if (matches.length !== 1) throw new DataError(`${out.metrics.state}: cut ${cut.order} matches ${matches.length} rows of candidates.json for ${cut.fromDeg} to ${cut.toDeg}, lowSeats=${cut.lowSeats}`);
   const row = matches[0]!;
-  if (row[lenAt] !== cut.lengthM) throw new DataError(`${out.metrics.state}: cut ${cut.order} length ${cut.lengthM} differs from its candidate row (${row[lenAt]})`);
+  if (Math.round(row[lenAt]!) !== Math.round(cut.lengthM)) throw new DataError(`${out.metrics.state}: cut ${cut.order} length ${cut.lengthM} differs from its candidate row (${row[lenAt]})`);
   return Object.fromEntries(fields.map((f, i) => [f, row[i] ?? 0]));
 }

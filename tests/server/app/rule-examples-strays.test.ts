@@ -48,6 +48,7 @@ const shape = (c: RuleCase): void => {
   expect(c.steps.length).toBeLessThanOrEqual(7);
   const text = [...c.steps.map((s) => s.caption), ...(c.labels ?? []).map((l) => l.text)].join('\n');
   expect(text).not.toContain('—');
+  for (const re of [/1,800/, /0\.1°/, /every 0\.1/]) expect(text).not.toMatch(re);
   const ids = [...(c.blocks ?? []), ...(c.lines ?? []), ...(c.labels ?? [])].map((x) => x.id);
   expect(new Set(ids).size).toBe(ids.length);
   for (const s of c.steps) for (const id of [...s.show, ...(s.hide ?? []), ...Object.keys(s.set ?? {}), ...(s.tween ?? []).map((t) => t.id)]) expect(ids).toContain(id);
@@ -104,7 +105,11 @@ describe('stage 3 stray-piece cases', () => {
     const c = await fixedCase(ctx);
     shape(c);
     const mix = await mixedGroup(ctx);
-    expect(mix).toBeDefined();
+    if (!mix) {
+      // No passed-over line in any state cuts off a mixed group: the panel says so instead.
+      expect(c.steps.at(-1)!.caption).toContain('not shown here');
+      return;
+    }
     const { t, tr, pass, sweep, group, before, after } = mix!;
     expect(tr.unresolved).toBe(true);
     expect(group.main).toBe(false);
@@ -145,14 +150,13 @@ describe('stage 3 stray-piece cases', () => {
   it.skipIf(!(haveCO && land))('ends shows exactly iterations passes and the last moves nothing', async () => {
     const c = await endsCase(ctx);
     shape(c);
-    const { t, tr, row } = await endsTrace(ctx);
-    const cands = json<Cands>('out/CO/candidates.json');
-    const f = (n: string) => cands.fields.indexOf(n);
-    const resolved = cands.cuts[0]!.filter((r) => r[f('unresolved')] === 0);
-    const most = Math.max(...resolved.map((r) => r[f('iterations')]!));
-    const pick = resolved.filter((r) => r[f('iterations')] === most).sort((p, q) => p[f('k')]! - q[f('k')]! || p[f('lowSeats')]! - q[f('lowSeats')]!)[0]!;
-    expect([row.k, row.lowSeats]).toEqual([pick[f('k')], pick[f('lowSeats')]]);
+    const { t, tr } = await endsTrace(ctx);
+    // The Colorado cut that settled in the most passes (the lowest cut on a tie), its chosen line.
+    const stats = json<{ cuts: { order: number; iterations: number }[] }>('out/CO/cut-stats.json');
+    const most = Math.max(...stats.cuts.map((x) => x.iterations));
+    expect(t.cut.order).toBe(stats.cuts.find((x) => x.iterations === most)!.order);
     expect(tr.passes.length).toBe(most);
+    expect(c.source.cut).toBe(t.cut.order);
     // An overview step, then one step per pass.
     expect(c.steps.length).toBe(most + 1);
     c.steps.slice(1).forEach((s, i) => expect(s.caption.startsWith(`Pass ${i + 1}`)).toBe(true));
@@ -181,14 +185,16 @@ describe('stage 3 stray-piece cases', () => {
     expect(Object.keys(prev).filter((id) => prev[id] === 'hot' && (end[id] === 'low' || end[id] === 'high')).length).toBeGreaterThan(0);
   }, SLOW);
 
-  it.skipIf(!haveCO)('no-rejoin candidate is unresolved in candidates.json', async () => {
+  it.skipIf(!haveCO)('no-rejoin is a passed-over line with a fixed group cut off, or says no example exists', async () => {
     const c = await noRejoinCase(ctx);
+    const pick = await noRejoinTrace(ctx);
+    if (!pick) {
+      RuleCaseSchema.parse(c);
+      expect(c.missing).toBeDefined();
+      return;
+    }
     shape(c);
-    const { t, tr, row, group } = (await noRejoinTrace(ctx))!;
-    const cands = json<Cands>('out/CO/candidates.json');
-    const f = (n: string) => cands.fields.indexOf(n);
-    const first = cands.cuts[0]!.filter((r) => r[f('unresolved')] === 1).sort((p, q) => p[f('k')]! - q[f('k')]! || p[f('lowSeats')]! - q[f('lowSeats')]!)[0]!;
-    expect([row.k, row.lowSeats]).toEqual([first[f('k')], first[f('lowSeats')]]);
+    const { t, tr, group } = pick;
     expect(tr.unresolved).toBe(true);
     expect(c.source.angleDeg).toBeCloseTo(tr.angleDeg, 9);
     // The stranded group is fixed, cut off in the last pass, and nothing moved in that pass.
@@ -205,8 +211,8 @@ describe('stage 3 stray-piece cases', () => {
     const c = await outlineCase(ctx);
     shape(c);
     const cuts = json<{ order: number; lines: [number, number][][] }[]>('public/data/CO/cuts.json');
-    const cut2 = cuts.find((x) => x.order === 2)!;
-    expect(cut2.lines.length).toBe(2);
+    const cut2 = cuts.find((x) => x.order === c.source.cut)!;
+    expect(cut2.lines.length).toBeGreaterThanOrEqual(2);
     const crossings = (c.lines ?? []).filter((l) => l.tag === 'crossing');
     expect(crossings.length).toBe(2 * cut2.lines.length);
     // Each mark sits where a drawn span of the line meets the drawn outline of the piece.

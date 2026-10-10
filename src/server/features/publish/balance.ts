@@ -9,9 +9,8 @@ export type { BalanceLog };
 /** The process numbers every plan's metrics.json reports; they pass through to stats.json. */
 export const ProcessNumbersSchema = z.object({
   cuts: z.number().int().nonnegative(),
-  angleCount: z.number().int().positive(),
-  directionsPerCut: z.array(z.number().int().positive()),
-  candidateLinesEvaluated: z.number().int().nonnegative(),
+  candidateRangesPerCut: z.array(z.number().int().positive()),
+  candidateRangesEvaluated: z.number().int().nonnegative(),
   strayBlocksMoved: z.number().int().nonnegative(),
   strayPopMoved: z.number().int().nonnegative(),
   recounts: z.number().int().nonnegative(),

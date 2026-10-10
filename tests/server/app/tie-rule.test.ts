@@ -1,6 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { compareCandidates, decidingTieRule } from '../../../src/server/features/splitline/index.js';
-import { tieRule } from '../../../src/server/app/rule-examples/cases/charts.js';
+import { compareCutSides, cutSides, type CutSides } from '../../../src/server/features/splitline/index.js';
 
 /** A small deterministic generator, so a failure reproduces. */
 function lcg(seed: number): () => number {
@@ -8,55 +7,90 @@ function lcg(seed: number): () => number {
   return () => ((s = (Math.imul(s, 1664525) + 1013904223) >>> 0) / 2 ** 32);
 }
 
-describe('decidingTieRule', () => {
-  it('names the rule that compareCandidates decides a tie by, over many tied pairs', () => {
+const sides = (blocks: number[], seats = 1, gap = 0): CutSides => ({ gap, side: Int32Array.from(blocks), seats });
+
+describe('compareCutSides', () => {
+  it('first uses the cut whose sides are nearer their fair shares of people, before any GEOID', () => {
+    // [0, 2] would win on GEOID, but [0, 1] is nearer its share.
+    expect(compareCutSides(sides([0, 1], 1, 4), sides([0, 2], 1, 6))).toBeLessThan(0);
+    expect(compareCutSides(sides([0, 2], 1, 6), sides([0, 1], 1, 4))).toBeGreaterThan(0);
+  });
+
+  it('uses the cut whose list has the lower GEOID where the two lists first differ', () => {
+    // Block indices are in GEOID order. Both lists start with the piece's lowest block, 0.
+    expect(compareCutSides(sides([0, 1, 5]), sides([0, 2, 3]))).toBeLessThan(0);
+    expect(compareCutSides(sides([0, 2, 3]), sides([0, 1, 5]))).toBeGreaterThan(0);
+    // Later agreement does not matter once an earlier GEOID differs.
+    expect(compareCutSides(sides([0, 1, 9]), sides([0, 2, 3, 4]))).toBeLessThan(0);
+  });
+
+  it('makes a list that ends first lose', () => {
+    expect(compareCutSides(sides([0, 1]), sides([0, 1, 4]))).toBeGreaterThan(0);
+    expect(compareCutSides(sides([0, 1, 4]), sides([0, 1]))).toBeLessThan(0);
+  });
+
+  it('treats equal lists as the same cut, and then prefers fewer seats on that side', () => {
+    expect(compareCutSides(sides([0, 3], 2), sides([0, 3], 2))).toBe(0);
+    expect(compareCutSides(sides([0, 3], 2), sides([0, 3], 3))).toBeLessThan(0);
+    expect(compareCutSides(sides([0, 3], 3), sides([0, 3], 2))).toBeGreaterThan(0);
+  });
+
+  it('is antisymmetric and transitive over many random lists', () => {
     const rnd = lcg(7);
-    for (const angleCount of [2, 3, 10, 1800]) {
-      const cmp = compareCandidates(angleCount);
-      const decide = decidingTieRule(angleCount);
-      for (let i = 0; i < 4000; i++) {
-        // Small ranges make every rule, and full equality, come up often.
-        const spread = i % 2 ? angleCount : Math.min(angleCount, 4);
-        const a = { k: Math.floor(rnd() * (spread + 1)), lowSeats: Math.floor(rnd() * 3), lengthM: 1234.5 };
-        const b = { k: Math.floor(rnd() * (spread + 1)), lowSeats: Math.floor(rnd() * 3), lengthM: 1234.5 };
-        const sign = Math.sign(cmp(a, b));
-        const { first, rule } = decide(a, b);
-        if (sign === 0) {
-          expect(rule, 'equal on every key').toBe(3);
-        } else {
-          expect(first === 'a' ? -1 : 1, `${JSON.stringify(a)} vs ${JSON.stringify(b)} at ${angleCount}`).toBe(sign);
-        }
-        // Swapping the pair swaps the winner, unless the two are identical on every key.
-        if (sign !== 0) expect(decide(b, a).first).toBe(first === 'a' ? 'b' : 'a');
-        expect(tieRule(a, b, angleCount)).toEqual({ first, rule });
-      }
+    const list = (): CutSides => {
+      // Always holds block 0 (the piece's lowest GEOID), plus a random increasing set of small indices.
+      const set = new Set<number>([0]);
+      const n = Math.floor(rnd() * 5);
+      for (let i = 0; i < n; i++) set.add(1 + Math.floor(rnd() * 6));
+      return sides([...set].sort((a, b) => a - b), 1 + Math.floor(rnd() * 3));
+    };
+    let different = 0;
+    for (let i = 0; i < 6000; i++) {
+      const [a, b, c] = [list(), list(), list()];
+      expect(Math.sign(compareCutSides(a, b)) + Math.sign(compareCutSides(b, a))).toBe(0);
+      if (compareCutSides(a, b) !== 0) different++;
+      if (compareCutSides(a, b) <= 0 && compareCutSides(b, c) <= 0) expect(compareCutSides(a, c)).toBeLessThanOrEqual(0);
+    }
+    expect(different).toBeGreaterThan(1000);
+  });
+});
+
+describe('cutSides', () => {
+  const lowSide = Int32Array.from([9, 4, 6]);
+  const highSide = Int32Array.from([8, 2, 7]);
+
+  it('takes the side holding the lowest block, whichever side is listed first, in block order', () => {
+    const a = cutSides(lowSide, highSide, 2, 5, 0, 0);
+    expect([...a.side]).toEqual([2, 7, 8]);
+    expect(a.seats).toBe(3);
+    // |first side's people x seats - piece people x first side's seats|: 30 people on 2 of 5 seats out of 100.
+    expect(cutSides(lowSide, highSide, 2, 5, 30, 100).gap).toBe(50);
+    const b = cutSides(highSide, lowSide, 3, 5, 0, 0);
+    expect([...b.side]).toEqual([2, 7, 8]);
+    expect(b.seats).toBe(3);
+    const c = cutSides(Int32Array.from([1, 5]), Int32Array.from([3, 4]), 2, 5, 0, 0);
+    expect([...c.side]).toEqual([1, 5]);
+    expect(c.seats).toBe(2);
+  });
+
+  it('gives the same sides for the same two groups however they are named', () => {
+    const rnd = lcg(11);
+    for (let i = 0; i < 500; i++) {
+      const all = Array.from({ length: 12 }, (_, k) => k).sort(() => rnd() - 0.5);
+      const cut = 1 + Math.floor(rnd() * 11);
+      const [x, y] = [all.slice(0, cut), all.slice(cut)];
+      const seats = 2 + Math.floor(rnd() * 5);
+      // One person per block, so the first side's people is its block count; the gap is the same from either side.
+      const p = cutSides(Int32Array.from(x), Int32Array.from(y), 1, seats, x.length, 12);
+      const q = cutSides(Int32Array.from(y), Int32Array.from(x), seats - 1, seats, y.length, 12);
+      expect(compareCutSides(p, q)).toBe(0);
+      expect(p.side[0]).toBe(0);
     }
   });
 
-  it('reports the rule by its place in the order', () => {
-    const decide = decidingTieRule(1800);
-    expect(decide({ k: 187, lowSeats: 2 }, { k: 188, lowSeats: 2 }).rule).toBe(1);
-    expect(decide({ k: 1799, lowSeats: 1 }, { k: 1, lowSeats: 1 }).rule).toBe(2);
-    expect(decide({ k: 300, lowSeats: 3 }, { k: 300, lowSeats: 2 })).toEqual({ first: 'b', rule: 3 });
+  it('does not change the lists it is given', () => {
+    const low = Int32Array.from([3, 1]);
+    cutSides(low, Int32Array.from([0, 2]), 1, 2, 0, 0);
+    expect([...low]).toEqual([3, 1]);
   });
 });
-
-describe('compareCandidates', () => {
-  it('orders by exact length, with no rounding unit, before any tie rule', () => {
-    const cmp = compareCandidates(1800);
-    // k = 0 is north-south and would win every tie rule; the other line is 4 mm shorter, so it goes first.
-    const ns = { k: 0, lowSeats: 1, lengthM: 10.004 };
-    const leaning = { k: 900, lowSeats: 2, lengthM: 10 };
-    expect(cmp(leaning, ns)).toBeLessThan(0);
-    expect(cmp(ns, leaning)).toBeGreaterThan(0);
-    // A difference far below a millimeter still decides.
-    expect(cmp({ ...leaning, lengthM: 10 + 1e-9 }, { ...ns, lengthM: 10 + 2e-9 })).toBeLessThan(0);
-  });
-
-  it('leaves exactly equal lengths to the tie rules', () => {
-    const cmp = compareCandidates(1800);
-    expect(cmp({ k: 0, lowSeats: 1, lengthM: 10 }, { k: 900, lowSeats: 1, lengthM: 10 })).toBeLessThan(0);
-    expect(cmp({ k: 900, lowSeats: 1, lengthM: 10 }, { k: 0, lowSeats: 1, lengthM: 10 })).toBeGreaterThan(0);
-  });
-});
-

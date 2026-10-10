@@ -181,7 +181,7 @@ function seriesOf(g: SVGGElement, chart: Chart, names: readonly string[], box: B
 /**
  * A case's chart as one group (`data-id="chart"`). Its mark classes switch on with the ids `chart-<name>`; on a
  * strip, the id `chart-sorted` puts the marks in order of value. A strip draws one path per class, not one
- * element per mark, so 1,800 marks stay light and the sort glide only rewrites those paths.
+ * element per mark, so a strip of 1,800 marks stays light and the sort glide only rewrites those paths.
  */
 export function drawChart(chart: Chart, view: View): SVGGElement {
   const g = svg('g', { class: 'strv-chart strv-rule-demo__off', 'data-id': 'chart', 'data-kind': chart.kind });

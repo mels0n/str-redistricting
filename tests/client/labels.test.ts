@@ -117,8 +117,8 @@ describe('cut timetable rows', () => {
   it('formats each cut for display, in order', () => {
     const rows = cutRows([cut(2, { seats: 4, lowSeats: 2, highSeats: 2, angleDeg: 90, lengthM: 19_369 }), cut(1)]);
     expect(rows).toEqual([
-      { order: 1, seats: 8, split: '4 + 4', direction: '154.1°', border: '339.3 km' },
-      { order: 2, seats: 4, split: '2 + 2', direction: '90.0°', border: '19.4 km' },
+      { order: 1, seats: 8, split: '4 + 4', direction: '154.14°', border: '339.3 km' },
+      { order: 2, seats: 4, split: '2 + 2', direction: '90.00°', border: '19.4 km' },
     ]);
   });
 

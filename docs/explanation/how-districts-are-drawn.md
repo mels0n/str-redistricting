@@ -18,10 +18,10 @@ The number of districts for each state is the number of House seats the state re
 
 Start with the whole state.
 
-1. Suppose the piece in hand has `n` seats. Split it into two sides that hold `floor(n/2)` and `ceil(n/2)` seats. A piece with 7 seats is split 3 and 4. A piece with 2 seats is split 1 and 1.
-2. Try a straight guide line in every direction, one every 0.1 degrees, starting with north-south. For each direction, the position of the line is set so that the people on one side match that side's share of the seats. When the two shares differ (an odd number of seats), each direction is tried twice: once with the smaller share on one side of the line and once with it on the other.
-3. Turn each guide line into a real border made of block edges. Any stray pieces join the side around them, and the line is slid so the people still split evenly (both described below). Then measure that border.
-4. Pick the guide line whose real border is shortest, among those whose two sides are each one connected piece.
+1. Suppose the piece in hand has `n` seats. Split it into two sides that hold `floor(n/2)` and `ceil(n/2)` seats. A piece with 7 seats is split 3 and 4. A piece with 2 seats is split 1 and 1. The side the sliding guide line reaches first is the first side, and it gets its share of the seats; the other is the second side.
+2. Consider a straight guide line in every possible direction. For each direction, the position of the line is set so that the people on one side match that side's share of the seats. When the two shares differ (an odd number of seats), each direction is considered twice: once with the smaller share on one side of the line and once with it on the other. There are infinitely many directions, but they fall into a limited number of ranges that give the same split, and each range is evaluated once (see [Every direction is covered](#every-direction-is-covered)).
+3. Turn each candidate into a real border made of block edges. Any stray pieces join the side around them, and the line is slid so the people still split evenly (both described below). Then measure that border.
+4. Pick the candidate whose real border is shortest, among those whose two sides are each one connected piece.
 5. Repeat on each side until every piece has exactly one seat. Each piece becomes one district.
 
 A state with N seats takes exactly N minus 1 cuts. Each piece is cut on its own, so the order in which pieces are processed does not change the result.
@@ -30,22 +30,22 @@ A state with N seats takes exactly N minus 1 cuts. Each piece is cut on its own,
 
 A "straight line" here is a great circle, the path a plane through the center of the Earth traces on its surface. A line like that has no distortion to argue about.
 
-The 1,800 guide lines are defined in a gnomonic projection, a map projection in which every great circle is a straight line. The projection is centered on the center of the bounding box of all the blocks' internal points in the state. "North-south" (direction 0) is the meridian through that center. Directions are every 0.1 degrees (`k` times 0.1 degrees) measured in that flat plane. A block's position across a line is the distance of its projected internal point from the line, and blocks at equal distance go in GEOID order.
+Guide lines are defined in a gnomonic projection, a map projection in which every great circle is a straight line. The projection is centered on the center of the bounding box of all the blocks' internal points in the state. "North-south" (direction 0) is the meridian through that center. A direction is an angle measured clockwise from north-south in that flat plane, from 0 up to but not including 180 degrees (a half turn, since a line has no front or back). A block's position across a line is the distance of its projected internal point from the line, and two blocks sit at exactly the same distance only at the one direction where they swap places, which every range is checked between. Blocks whose internal points coincide go in GEOID order, the census block identifier, so the order is fixed.
 
 ### Blocks are never split
 
-A census block is the smallest unit and is always kept whole. Once a guide line's direction is chosen, the blocks of the piece are ordered by how far their projected internal points sit across the line. The generator walks along that order, adding up population, until the low side holds as close to its share as whole blocks allow. If stopping just before or just after the block that crosses the target gets closer, it picks whichever is closer, and a tie goes to stopping just before. Blocks at the same distance are taken in GEOID order, the census block identifier, so the order is fixed. Each side always holds at least one block.
+A census block is the smallest unit and is always kept whole. Once a guide line's direction is chosen, the blocks of the piece are ordered by how far their projected internal points sit across the line. The generator walks along that order, adding up population, until the first side holds as close to its share as whole blocks allow. If stopping just before or just after the block that crosses the target gets closer, it picks whichever is closer. If both are exactly equally close, or an empty block sits next to a side that is exactly on its share, the walk from one end of the order and the walk from the other end can stop in different places. Both stopping points are candidates, and the rules under [Ties](#ties) choose between them. The generator walks from the other end only where such a tie happens. Each side always holds at least one block.
 
 The guide line only decides who goes on which side. The real border follows block edges, because every block belongs entirely to one side.
 
 ### Stray pieces and the re-count
 
-Because blocks are assigned whole, a large block that straddles the guide line can leave a smaller block cut off from the rest of its side, such as a median strip inside a big lot. A block, or a connected group of blocks, cut off like this is a stray piece. For each candidate guide line:
+Because blocks are assigned whole, a large block that straddles the guide line can leave a smaller block cut off from the rest of its side, such as a median strip inside a big lot. A block, or a connected group of blocks, cut off like this is a stray piece. For each candidate:
 
 1. Place the blocks by their internal points, as above.
-2. Settle the strays. On each side, every connected group of blocks other than the side's main body joins the other side, the side around it. The main body is the group with the most people, then the most blocks, then the lowest block position in GEOID order. The low side is settled, then the high side, and this is repeated until nothing moves.
+2. Settle the strays. On each side, every connected group of blocks other than the side's main body joins the other side, the side around it. The main body is the group with the most people; if two groups have exactly as many, the one holding the lower GEOID. Each round settles first the side that holds the piece's lowest GEOID, then the other side, and this is repeated until nothing moves.
 3. A block that moves is fixed to its new side at once, and stays there for the rest of that cut: it never moves again, in a later pass or after a re-count. Fixed blocks count toward their side's groups like any other block. If a group cut off from its side's main body contains fixed blocks, its free blocks still join the other side, and its fixed blocks stay where they are.
-4. Re-count. Redo the walk over the free blocks only, in the same order. The fixed blocks' people already count on their sides, so the low side's target is its share minus the people fixed on it. The stopping rule is the same: whichever total is closer, and a tie stops just before the block. A side with no fixed blocks keeps at least one free block. The guide line moves to halfway between the last free block of the low side and the first free block of the high side.
+4. Re-count. Redo the walk over the free blocks only, in the same order. The fixed blocks' people already count on their sides, so the first side's target is its share minus the people fixed on it. The stopping rule is the same: whichever total is closer, with both stopping points kept as candidates when they are exactly equally close. A side with no fixed blocks keeps at least one free block. The guide line moves to between the last free block of the first side and the first free block of the second side.
 5. Repeat steps 2 to 4 until a strays pass moves no free block.
 
 Every re-count follows at least one newly fixed block, and fixed blocks never become free, so a piece of `m` blocks needs at most `m` walks and the process always ends. If it ends with a fixed piece still cut off from its side (it cannot move back), that line's sides are not each one connected piece, so it fails the connectivity check below and the next shortest line is considered.
@@ -59,10 +59,12 @@ The length of a candidate is the length of the real border between its two final
 The Census Bureau publishes each block's outline as a list of corner points in longitude and latitude, to at most six decimal places of a degree (about 11 cm north-south). It publishes no lengths. Every length is computed from those corner points, in three steps:
 
 1. **One stretch of outline.** Where two blocks share their outline, each straight stretch between two corner points is measured as the shortest path between those points over a sphere of radius 6,371,008.8 meters, the Earth's mean radius (the haversine formula). The shared stretch is measured once, from the corner points as published, so both blocks see the same number.
-2. **One pair of neighbors.** All the stretches two blocks share are added together, giving one length for that pair. Island links (below) have length zero.
-3. **One border.** The border of a candidate is the sum of the lengths of every pair of neighboring blocks that ended up on different sides. The pairs are added in a fixed order: by the first block's position in GEOID order, then by the second block's.
+2. **One pair of neighbors.** All the stretches two blocks share are added together, giving one length for that pair, stored once as a whole number of micrometers. Island links (below) have length zero.
+3. **One border.** The border of a candidate is the sum of the stored lengths of every pair of neighboring blocks that ended up on different sides.
 
-The fixed order in step 3 matters because a computer rounds the last digit of every addition, so adding the same numbers in a different order can change the total by a few billionths of a meter. Two candidate lines often reach the same final border by different routes, for example after moving different stray pieces. Adding in a fixed order gives the same border exactly the same length every time, however it was reached.
+The census gives block outlines to about 11 cm (six decimal places of a degree). Lengths are kept in whole micrometers only so that adding them up always gives exactly the same total; that unit is far finer than the outlines themselves.
+
+Whole numbers add exactly, in any order. Two candidates often reach the same final border by different routes, for example after moving different stray pieces, and because the sum is exact they get exactly the same length every time, however the border was reached. Lengths are compared as these exact whole numbers.
 
 The sine, cosine and arcsine in step 1 are computed by the generator's own code from basic arithmetic, not by the computer's math library, so every length comes out the same to the last digit on any computer.
 
@@ -71,7 +73,7 @@ The sine, cosine and arcsine in step 1 are computed by the generator's own code 
 Two blocks are connected when they share an edge, and touching at a single corner does not count. A cut is accepted only if both of its sides are each one connected piece. If a cut would leave a side in two or more parts, the next shortest candidate is tried. Census blocks cover lakes, bays and coastal water, and a water block is a block like any other, so land on two shores is connected when blocks of the same district, water blocks included, join them. Some land is reached by no block at all, such as an island beyond the coastal water blocks. It is connected by island links, and links are chosen the way cuts are: measure every option and take the shortest. A block stands at its internal point, and a link's length is the distance along the surface of the Earth between the internal points of its two blocks.
 
 1. Find every piece of the state that shared edges alone hold together. The piece with the most blocks is the connected land to start from.
-2. Of every possible link between a block of the connected land and a block of a piece not yet connected, take the shortest. If two are exactly the same length, the one between lower block positions in GEOID order wins.
+2. Of every possible link between a block of the connected land and a block of a piece not yet connected, take the shortest. If two are exactly the same length, the one that joins the lower GEOID wins (the lowest GEOID on the connected land, then the lowest on the other piece).
 3. That piece is now part of the connected land. Repeat step 2 until no piece is left.
 
 Each link is the shortest one available, so together the links are the shortest set that connects every piece. An island links to whatever land is nearest, which is often another island rather than the mainland. The order the blocks are numbered in does not change which links are made, except where two possible links are exactly the same length (step 2).
@@ -82,13 +84,34 @@ A link adds nothing to any border's length, and it counts toward connection only
 
 ### Ties
 
-Lengths are compared exactly as computed. The data gives corner points in degrees, not lengths, so there is no unit to round them to. Two borders are tied only when their lengths are exactly equal, which in practice means two lines that produce the same border. A shorter border always wins, however small the difference.
+Borders are compared by their exact lengths, the sums of the stored whole-micrometer lengths described above. Two borders are tied only when those sums are exactly equal. Any shorter border wins, however small the difference; the stored unit is a bookkeeping choice, not a claim about how precisely the census outlines are known (about 11 cm).
 
-A tie goes to the guide line closest to north-south. If two tied lines are equally close to north-south, the one with the smaller angle wins, and then the one whose low side has fewer seats.
+The rule for choosing a cut is: the shortest border, then the sides nearer their fair shares of people, then GEOID. Ranges that give the same two sides are the same cut, so there is nothing to decide between them. Usually that is what a tie of exactly equal borders is. When two different cuts have exactly equal borders, two rules decide in turn.
 
-### Which angles are tested
+1. Fair shares. A cut's fair share for its first side is the piece's people times the first side's seats, divided by the piece's seats. The cut whose first side has people nearer that share is used. Measured from the second side the distance is the same.
+2. GEOID. If the distances are exactly equal too, for each cut take the side that holds the piece's lowest GEOID and list its blocks in GEOID order. Read the two lists together. At the first GEOID where they differ, the cut whose list has that GEOID (the lower one there) is used, and a list that ends first loses. In plain words: the lowest GEOID on which the two cuts disagree goes with the piece's lowest GEOID. If the lists are identical the cuts have the same two sides, and then the one with fewer seats on that side is used. That never happens in practice.
 
-Guide lines are tested at every angle in a fixed step across a half turn. The default step is 0.1 degrees, which gives 1,800 directions. The step must divide 180 degrees exactly and can be changed with `--angle-step`. A different step can produce a different map, so the step is part of the recipe for reproducing a map and is recorded in `metrics.json`.
+The candidates include the lines found by walking from the other end of the order (see [Blocks are never split](#blocks-are-never-split)), so the same rules choose between a line walked from one end and a line walked from the other. No direction is preferred over another. Exact ties between different cuts are rare on real census lengths.
+
+Which range is drawn is a separate matter. Of the ranges that give the winning cut, the guide line is drawn at the middle of the first one in the generator's listing order: shortest border, then the earliest start direction clockwise from north-south (a range across north-south counts as starting at north-south), then fewer seats on the first side. This is a choice about drawing, not a rule for choosing the cut.
+
+### Every direction is covered
+
+The generator does not sample directions. It evaluates every straight line, which it can do because the problem has a simple structure.
+
+Turn the guide line slowly through the half turn. The order in which the blocks are walked changes only at the moments when the line becomes parallel to the segment joining two blocks' internal points: at that moment those two blocks swap places. Between two such moments the order, and therefore the split, cannot change. The first side is the first part of the walk, so it can change only when the last block on the first side or the first block on the second side changes.
+
+The generator follows this as the line turns. It keeps the first side in one ordered structure and the rest in another, together with the direction at which each pair of neighbors in the order would next swap, and it processes those swaps in order of direction. After a swap that touches the boundary between the two sides, it applies the stopping rule from above again, locally, to see whether the best stopping point moved. The same is done for every re-count, each of which has its own tracker over the free blocks.
+
+Between two consecutive directions where anything changes, every pass produces the same split, hence the same strays, the same re-counts and the same border. So the half turn falls into ranges, and each range gives exactly one candidate, which is evaluated once. A range is a stretch of directions that give the same final sides. A state's first cut has roughly one range per block, and the shortest border is always in one of them.
+
+Evaluating a range does not start from nothing. Each pass keeps its connected groups (blocks on the same side with the same fixed or free status) up to date as blocks move. When a block joins a side, the groups it touches merge. When a block leaves, a search runs outward from each of its neighbors in turn until only one search is still running, which shows whether the group split in two. The stray rule runs on this list of groups, and the blocks fixed by one pass are handed to the next pass as a short list. None of this changes a result, since each shortcut is exact; it only avoids repeating work.
+
+### Why the result is exact and reproducible
+
+No angle is ever computed to make a decision. A direction is the vector between two internal points, and "which swap comes first" or "which side of the line is this block on" is the sign of a small product of coordinate differences. The generator computes each sign with ordinary floating-point arithmetic when that is safe, and falls back to exact integer arithmetic when it cannot be sure (every double-precision number is a whole multiple of 2 to the power -1074, so exact integer arithmetic is always available). There is no tolerance, so the answer is the same on every computer.
+
+The half turn is cut into chunks, handed to worker threads. A range that continues across the edge of a chunk is joined to its neighbor, so neither the number of chunks nor the number of threads can change a result. The number of chunks depends only on the size of the piece being cut.
 
 ## Step 3: balance
 
@@ -110,7 +133,7 @@ The map in `out/<state>/` is the finished map: the cuts above followed by the ba
 
 ## Same data, same map
 
-The generator has no random numbers and no seed. Blocks are processed in GEOID order. Given the same census files and the same angle step, it produces byte-identical `assignment.csv` and GeoJSON files on any computer. The number of threads used for the search does not change them either. `metrics.json` is identical except for `runtimeMs` and `nodeVersion`, which record how long the run took and what ran it.
+The generator has no random numbers and no seed. Blocks are processed in GEOID order. Given the same census files, it produces byte-identical `assignment.csv` and GeoJSON files on any computer. The number of threads used for the search does not change them either. `metrics.json` is identical except for `runtimeMs` and `nodeVersion`, which record how long the run took and what ran it.
 
 This holds because every number the generator computes comes from operations that give the same result everywhere. Addition, subtraction, multiplication, division and square root are rounded exactly the same way on every computer, and whole-number operations, comparisons and rounding to whole numbers are exact. Functions such as sine, cosine and arctangent are different: each JavaScript engine computes them its own way, so their last digit can differ from one engine or version to the next. The generator therefore never uses the engine's versions of those functions. It computes the sines, cosines, arctangents and arcsines it needs with its own code, built only from the exactly rounded operations above and accurate to within one unit in the last place, and a test fails if any of the engine's own versions appears in the generator's code. Each run writes a SHA-256 hash of the final assignment file into `metrics.json`, so two people can compare a single value to confirm they got the same map.
 
@@ -131,7 +154,7 @@ git clone --branch maps-<n> --depth 1 https://github.com/mels0n/str-redistrictin
 
 Replace `<n>` with the Maps release number shown on the state's page, then run the same commands. The tag pins both the engine version and the Census file checksums (`config/census-sha256.json`), so the same inputs go through the same code. Maps published before versioning began have no release number; for those the latest code is the nearest match. Release tags start with the 1.0 release. What changed in each release is on the site's changelog page.
 
-`--states` is required. The state is given by its two-letter abbreviation. A list such as `--states CO,NC` runs several states in turn. `--threads` sets how many threads search the guide lines for each cut; the default is the computer's hardware threads minus two, and `--threads 1` searches on a single thread. The census block file for each state is downloaded from the U.S. Census Bureau the first time it is needed and kept in `data/raw/` (`--cache-dir` changes that, and `--out-dir` changes where the plans are written; the defaults are `data/raw` and `out`). If one state fails in a multi-state run, the command reports the error in the summary table, continues with the remaining states, and exits with a non-zero code at the end.
+`--states` is required. The state is given by its two-letter abbreviation. A list such as `--states CO,NC` runs several states in turn. `--threads` sets how many threads sweep the directions for each cut; the default is the computer's hardware threads minus two, and `--threads 1` searches on a single thread. The census block file for each state is downloaded from the U.S. Census Bureau the first time it is needed and kept in `data/raw/` (`--cache-dir` changes that, and `--out-dir` changes where the plans are written; the defaults are `data/raw` and `out`). If one state fails in a multi-state run, the command reports the error in the summary table, continues with the remaining states, and exits with a non-zero code at the end.
 
 ## Why a district can look strange
 
@@ -158,20 +181,20 @@ Each plan directory holds five files (the finished map's directory also holds `b
   - `allContiguous`, whether every district is one connected piece.
   - `countiesSplit` and `countiesTotal`, for reporting only.
   - `bridges`, the number of joins made to connect detached land.
-  - `cutsSkipped`, the number of candidate lines ranked ahead of the chosen one but skipped because their sides were not each one connected piece, over all cuts.
+  - `cutsSkipped`, the number of distinct border lengths, shorter than the chosen one, that belonged only to ranges whose sides were not each one connected piece, over all cuts.
   - `strayBlocksMoved` and `strayPopMoved`, the blocks and people that joined the other side as strays on the chosen lines, over all cuts. A stray moves once and stays, so each block is counted once.
   - `recounts`, the number of re-counts made on the chosen lines over all cuts, and `recountsMaxPerCut`, the most made for any one cut. A cut with no strays has none.
   - `balanceMoves`, the number of blocks the balancing pass moved, and `peopleMovedByBalancing`, the total population of those blocks. Both are 0 in `before-balancing/`. `rangeBeforeBalancing` and `rangeAfterBalancing` give the gap between the largest and smallest district in people before and after the pass, in both plans.
-  - `cuts`, the number of cuts, `angleCount`, the number of directions tested per cut, `directionsPerCut`, the number of candidate lines each cut evaluated (every angle, once per way of splitting the seats), and `candidateLinesEvaluated`, their total.
-  - `angleStepDeg`, the angle step used.
+  - `cuts`, the number of cuts, `candidateRangesPerCut`, the number of candidate ranges each cut evaluated (every range of directions, once per way of splitting the seats), and `candidateRangesEvaluated`, their total.
+  - `lineSearch`, how the cut lines were searched; always `"exact"`.
   - `runtimeMs`, the run time of the whole state.
   - `assignmentSha256`, the SHA-256 hash of `assignment.csv`.
   - `nodeVersion`, the Node.js version that ran the generator, recorded for information only. `inputSha256`, the SHA-256 hash of the state's Census zip file, so a reader can confirm they started from the same data. Neither feeds into `assignmentSha256`.
 - `borders.geojson` holds the lines where districts meet, ready to draw on a map.
 - `districts.geojson` holds each district's shape.
 - `balance.json` (finished map only) lists every balancing move in the order it was made, as the block's index and GEOID, the district it left and the one it joined (numbered from 1), its population and its gain, together with the district populations before the first move.
-- `cut-stats.json` and `candidates.json` (finished map only) are diagnostic files, not used by the viewer or needed to reproduce a map. `cut-stats.json` records what each cut's search saw, including `threads`, the number of threads that ran the search. `candidates.json` lists the candidate lines each cut evaluated.
-- `cuts.geojson` holds the straight guide line chosen for each cut, after its re-counts, with its angle and the length of the real border it produced, so the recursive splitting can be followed step by step. Each cut also records how many seats it divides (`seats`, `lowSeats`, `highSeats`), `firstDistrict`, the 0-based number of the first district in its range, so each cut can be tied to the districts it separates, and `strayBlocks`, `strayPop` and `recounts`, the stray blocks and people that cut moved and the re-counts it made.
+- `cut-stats.json` and `candidates.json` (finished map only) are diagnostic files, not used by the viewer or needed to reproduce a map. `cut-stats.json` records what each cut's search saw, including `threads`, the number of threads that ran the search, `fromDeg` and `toDeg`, the winning range of directions, `candidateRanges`, how many ranges were evaluated (including those walked from the other end), and `splitChanges`, how many times the split changed during the sweep, and `reversed`, true when the winning line is the one slid from the other end of the order, and `tiedRanges` and `tiedCuts`, the ranges at the winning length whose sides passed and the distinct cuts among them (2 or more means the tie rules decided). `candidates.json` lists each cut's leading candidate ranges (the best few from each part of the half turn, resolved ranges only, at most 200, in the order the generator tries them, with the winning range first among those of its length; `lengthM` there is exact to the micrometer, while `cut-stats.json` rounds it to the meter), each with `lowSeats`, `fromDeg`, `toDeg`, `lengthM`, `lowPop` and `reversed` (1 when the line was slid from the other end, otherwise 0).
+- `cuts.geojson` holds the straight guide line chosen for each cut, after its re-counts, with its direction and the length of the real border it produced, so the recursive splitting can be followed step by step. Each cut also records how many seats it divides (`seats`, `lowSeats`, `highSeats`), `firstDistrict`, the 0-based number of the first district in its range, so each cut can be tied to the districts it separates, and `strayBlocks`, `strayPop` and `recounts`, the stray blocks and people that cut moved and the re-counts it made.
 
 ## Data for the map viewer
 
@@ -181,12 +204,12 @@ npm run publish-data
 
 This reads the plans in `out/` and writes web-ready files to `public/data/` (`--states` limits it to some states; `--cache-dir`, `--out-dir` and `--public-dir` change the three directories): an `index.json` listing all 50 states with a summary for each state that has a plan, a `states.topo.json` of state outlines, and for each state with a plan:
 
-- `districts.topo.json` and `before.topo.json`, the finished and before-balancing districts as simplified TopoJSON. Simplification runs along shared borders, so neighbouring districts still meet exactly. These are the overview shapes, drawn when the whole state is in view, and are slightly coarser than the block-level `districts.geojson`.
+- `districts.topo.json` and `before.topo.json`, the finished and before-balancing districts as simplified TopoJSON. Simplification runs along shared borders, so neighboring districts still meet exactly. These are the overview shapes, drawn when the whole state is in view, and are slightly coarser than the block-level `districts.geojson`.
 - `detail.pmtiles`, the full-detail districts and the borders between them as vector tiles (zoom 7 to 13), for both plans. The viewer draws them in place of the overview shapes as the map is zoomed in, and they are never simplified at the deepest zoom.
 - `blocks.json`, every block's district in both plans, which address search uses to name the exact district for an address.
 - `blocks.pmtiles`, the Census blocks that touch a district line under either plan, at full resolution, as vector tiles in one layer named `blocks` at zoom 13 only. Each block carries its `geoid`, its population (`pop`), and its district under each plan (`finished` and `before`). The viewer shows these blocks at the highest zoom.
-- `cuts.json`, the ordered guide lines with their angle, length, seat split, strays and re-counts.
-- `stats.json`, the metrics for both plans (under `finished` and `beforeBalancing`) plus, for each district, the counties it touches and `landParts`, the number of separate pieces of land in the district, after clipping to the shoreline, that have people living on them. `landParts` is for display only. It carries the per-cut counts from `metrics.json` as `candidateLinesPerCut` (the generator's own file calls them `directionsPerCut`).
+- `cuts.json`, the ordered guide lines with their direction, length, seat split, strays and re-counts.
+- `stats.json`, the metrics for both plans (under `finished` and `beforeBalancing`) plus, for each district, the counties it touches and `landParts`, the number of separate pieces of land in the district, after clipping to the shoreline, that have people living on them. `landParts` is for display only. It carries the per-cut counts from `metrics.json` as `candidateRangesPerCut`.
 - `balance.json`, the balancing moves in order, with each moved block's outline taken unsimplified from the Census block file (rounded to six decimals) and the district populations before the first move, so the pass can be replayed move by move.
 - `enacted.topo.json`, the enacted districts for the state (the Congress named in `config/enacted.json`), for comparison only.
 - `bridges.json`, the island links of the state. Each link lists its two end points and, for each end, the district it belongs to in the finished map and before balancing. The list is empty when the state has no links. The viewer draws a link as a dashed line when the selected district holds both ends.

@@ -84,7 +84,7 @@ export function cutRows(cuts: readonly Cut[]): CutRow[] {
       order: c.order,
       seats: c.seats,
       split: `${c.lowSeats} + ${c.highSeats}`,
-      direction: `${c.angleDeg.toFixed(1)}°`,
+      direction: `${c.angleDeg.toFixed(2)}°`,
       border: formatKm(c.lengthM),
     }));
 }

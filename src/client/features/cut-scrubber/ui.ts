@@ -466,7 +466,7 @@ export function createCutScrubber(opts: CutScrubberOptions): CutScrubber {
       detail.append(
         pair('Splits', `${c.seats} seats: ${c.lowSeats} + ${c.highSeats}`),
         pair('Districts', `${r(low)} | ${r(high)}`),
-        pair('Direction', `${c.angleDeg.toFixed(1)}°`),
+        pair('Direction', `${c.angleDeg.toFixed(2)}°`),
         pair('Border', formatKm(c.lengthM)),
       );
       return;

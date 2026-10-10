@@ -2,7 +2,7 @@ import type { Block, Topology } from '../../../entities/census-block/index.js';
 import type { CutStats } from '../../../entities/plan-output/index.js';
 import { chosenCandidate, pieceMembers, type ExtractContext, type StateOutput } from '../../../features/rule-examples/index.js';
 import {
-  createContext, findCut, ScanPool, type CandidateTrace, type CandidateTraceRequest, type CutResult, type SplitContext,
+  createContext, cutTraceRequest, findCut, ScanPool, type CandidateTrace, type CandidateTraceRequest, type CutResult, type SplitContext,
 } from '../../../features/splitline/index.js';
 import { DataError } from '../../../shared/errors/index.js';
 
@@ -11,8 +11,6 @@ export interface CutTrace {
   readonly abbr: string;
   readonly out: StateOutput;
   readonly cut: CutStats['cuts'][number];
-  /** Direction index of the cut's line. */
-  readonly k: number;
   readonly blocks: readonly Block[];
   readonly topo: Topology;
   /** The generator's context for the whole state, projection included. */
@@ -40,24 +38,27 @@ export function splitContextOf(ctx: ExtractContext, abbr: string): Promise<Split
   if (!hit) {
     hit = (async () => {
       const [out, sb] = await Promise.all([ctx.state(abbr), ctx.blocks(abbr)]);
-      return createContext(sb.blocks, out.metrics.angleStepDeg, sb.topo);
+      return createContext(sb.blocks, sb.topo);
     })();
     cache.set(abbr, hit);
   }
   return hit;
 }
 
-/** A candidate to trace: a first-side seat count on the cut's own direction, or any direction and seat count. */
+/**
+ * A candidate to trace: a first-side seat count at the cut's own drawn direction, or any direction and seat count.
+ * A range of directions is traced at an angle strictly inside it (its middle), which gives that range's sides.
+ */
 export type TraceAsk = number | CandidateTraceRequest;
 
 /**
  * Re-run cut `order` (1-based) of a state exactly as the generator did, tracing the given candidates: a number is
- * a first-side seat count on the cut's winning direction (default: the seat count the cut chose). Fails if the
+ * a first-side seat count at the cut's drawn direction (the middle of its winning range) (default: the seat count the cut chose). Fails if the
  * re-run does not reproduce the cut on disk, so a stale out/ never ships.
  */
 export function cutTrace(ctx: ExtractContext, abbr: string, order: number, lowSeats?: readonly TraceAsk[]): Promise<CutTrace> {
   const cache = cacheOf(traced, ctx);
-  const key = `${abbr}:${order}:${lowSeats?.map((l) => (typeof l === 'number' ? l : `${l.k}/${l.lowSeats}`)).join(',') ?? ''}`;
+  const key = `${abbr}:${order}:${lowSeats?.map((l) => (typeof l === 'number' ? l : `${l.angleDeg}/${l.lowSeats}`)).join(',') ?? ''}`;
   let hit = cache.get(key);
   if (!hit) {
     hit = run(ctx, abbr, order, lowSeats);
@@ -71,7 +72,6 @@ async function run(ctx: ExtractContext, abbr: string, order: number, lowSeats: r
   const at = out.cutStats.cuts.findIndex((c) => c.order === order);
   const cut = out.cutStats.cuts[at];
   if (!cut) throw new DataError(`${abbr}: no cut ${order} in cut-stats.json`);
-  const k = Math.round(cut.angleDeg / out.metrics.angleStepDeg);
   const chosen = chosenCandidate(out, at).lowSeats;
   if (chosen === undefined) throw new DataError(`${abbr}: candidates.json has no lowSeats column`);
   const lows = lowSeats ?? [chosen];
@@ -84,13 +84,19 @@ async function run(ctx: ExtractContext, abbr: string, order: number, lowSeats: r
   }).sort();
   const pool = ctx.cfg.threads > 1 ? new ScanPool(ctx.cfg.threads) : undefined;
   let result: CutResult;
+  // The cut's own line is traced in the frame of its drawn direction; where that swaps the sides, they are swapped back.
+  const own = cutTraceRequest({ ...cut, lowSeats: chosen });
   try {
-    result = findCut(split, members, cut.seats, undefined, { pool, trace: lows.map((l) => (typeof l === 'number' ? { k, lowSeats: l } : l)) });
+    result = findCut(split, members, cut.seats, undefined, { pool, trace: lows.map((l) => (typeof l !== 'number' ? l : l === chosen ? own.request : { angleDeg: cut.angleDeg, lowSeats: l })) });
   } finally {
     await pool?.close();
   }
-  if (Math.abs(result.angleDeg - cut.angleDeg) > 1e-9 || Math.round(result.lengthM) !== Math.round(cut.lengthM)) {
-    throw new DataError(`${abbr}: re-running cut ${order} gives ${result.angleDeg}° and ${Math.round(result.lengthM)} m, not the ${cut.angleDeg}° and ${cut.lengthM} m on disk (stale out/?)`);
+  if (own.swapped) {
+    const traces = result.traces.map((t, i) => (lows[i] === chosen ? { ...t, low: t.high, high: t.low } : t));
+    result = { ...result, traces };
   }
-  return { abbr, out, cut, k, blocks: sb.blocks, topo: sb.topo, split, members, result, traces: result.traces };
+  if (result.fromDeg !== cut.fromDeg || result.toDeg !== cut.toDeg || result.reversed !== (cut.reversed === true) || Math.round(result.lengthM) !== Math.round(cut.lengthM)) {
+    throw new DataError(`${abbr}: re-running cut ${order} gives ${result.fromDeg} to ${result.toDeg}° and ${result.lengthM} m, not the ${cut.fromDeg} to ${cut.toDeg}° and ${cut.lengthM} m on disk (stale out/?)`);
+  }
+  return { abbr, out, cut, blocks: sb.blocks, topo: sb.topo, split, members, result, traces: result.traces };
 }

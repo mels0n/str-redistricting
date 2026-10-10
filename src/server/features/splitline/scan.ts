@@ -5,7 +5,7 @@ import { DataError } from '../../shared/errors/index.js';
  * A piece of the state in local positions 0..m-1, as plain typed arrays so worker threads can share it.
  * px/py are the blocks' internal points in gnomonic coordinates on the unit sphere (dimensionless; multiply by
  * EARTH_RADIUS_M for meters near the center). lOff/lAdj/lLen the adjacency inside the piece (CSR layout) with
- * shared border lengths lLen in meters.
+ * shared border lengths lLen in whole micrometers.
  */
 export interface Piece {
   readonly m: number;
@@ -19,20 +19,15 @@ export interface Piece {
   readonly lLen: Float64Array;
 }
 
-/** What to evaluate for one cut: every direction k < angleCount, once per low-side seat count. */
+/** What a scanner needs to know about its cut. */
 export interface ScanJob {
-  readonly angleCount: number;
   readonly seats: number;
-  readonly orientations: readonly number[];
 }
-
-/** Per-candidate fields in a scan result buffer; candidate (k, o) starts at (k * orientations + o) * FIELDS. */
-export const FIELDS = 8;
-export const F_OFFSET = 0, F_LENGTH = 1, F_BLOCKS = 2, F_POP = 3, F_ITER = 4, F_SHIFT = 5, F_LOWPOP = 6, F_UNRESOLVED = 7;
 
 export interface Evaluation {
   /** Guide-line offset of the final population split, in projection units (unit-sphere radii, not meters). */
   offset: number;
+  /** Border length in whole micrometers (not meters), as summed by borderLength. */
   lengthM: number;
   /** Blocks (and their people) that changed side as strays. */
   movedBlocks: number;
@@ -50,10 +45,9 @@ export interface Evaluation {
 const RAD = Math.PI / 180;
 
 /**
- * Total length of the border pairs `border` (indices into a, b, len; reordered in place). The lengths are added in
- * block order, lower position a then higher position b, never in the order the pairs were found: floating-point
- * addition depends on order, so this is what makes the same border sum to the same number however a candidate
- * reached it. Each (a, b) appears once, so the order is fixed.
+ * Total length of the border pairs `border` (indices into a, b, len; reordered in place), in whole micrometers.
+ * The lengths are exact integers, so the sum is the same in any order; the pairs are still sorted into block order
+ * (lower position a then higher position b) so the loop is deterministic. Each (a, b) appears once.
  */
 export function borderLength(border: Int32Array, a: Int32Array, b: Int32Array, len: Float64Array): number {
   border.sort((x, y) => a[x]! - a[y]! || b[x]! - b[y]!);
@@ -63,7 +57,7 @@ export function borderLength(border: Int32Array, a: Int32Array, b: Int32Array, l
 }
 
 /** Graph for the strays rule: node v is on side[v] (0 = low, 1 = high) with population, block count and lowest block index. */
-interface StrayGraph {
+export interface StrayGraph {
   readonly n: number;
   readonly off: Int32Array;
   readonly adj: Int32Array;
@@ -77,19 +71,25 @@ interface StrayGraph {
 type SweepObserver = (side: number, nodeComp: Int32Array, main: number, pop: readonly number[]) => void;
 
 /**
- * Strays rule, in place: on the low side and then the high side, every connected component other than
- * the side's main one (most population, then most blocks, then lowest block index) joins the other side;
+ * Strays rule, in place: on the side holding the lowest GEOID and then the other, every connected component other than
+ * the side's main one (most population, then the lowest GEOID: block indices are in GEOID order) joins the other side;
  * repeat until nothing moves. Pinned nodes never move and a node that moves is pinned at once, so every
  * continuing pass pins another node and the passes always end. Returns whether a pinned node was left
  * off its side's main component.
  */
-function settleStrays(g: StrayGraph, pinned: Uint8Array, observe?: SweepObserver): boolean {
+export function settleStrays(g: StrayGraph, pinned: Uint8Array, observe?: SweepObserver): boolean {
   const comp = new Int32Array(g.n);
   const stack = new Int32Array(g.n);
   const cPop: number[] = [], cCnt: number[] = [], cMin: number[] = [];
   for (;;) {
     let moved = false, stranded = false;
-    for (let s = 0; s < 2; s++) {
+    // Each round settles first the side holding the piece's lowest GEOID, then the other (never by which side a
+    // line reaches first, so a line and the same line slid from the other end settle alike).
+    let lowest = 0;
+    for (let v = 1; v < g.n; v++) if (g.minIdx[v]! < g.minIdx[lowest]!) lowest = v;
+    const firstSide = g.n > 0 ? g.side[lowest]! : 0;
+    for (let k = 0; k < 2; k++) {
+      const s = k === 0 ? firstSide : 1 - firstSide;
       comp.fill(-1);
       cPop.length = 0; cCnt.length = 0; cMin.length = 0;
       for (let v = 0; v < g.n; v++) {
@@ -111,8 +111,7 @@ function settleStrays(g: StrayGraph, pinned: Uint8Array, observe?: SweepObserver
       if (cPop.length < 2) continue;
       let main = 0;
       for (let c = 1; c < cPop.length; c++) {
-        if (cPop[c]! > cPop[main]! || (cPop[c] === cPop[main] &&
-          (cCnt[c]! > cCnt[main]! || (cCnt[c] === cCnt[main] && cMin[c]! < cMin[main]!)))) main = c;
+        if (cPop[c]! > cPop[main]! || (cPop[c] === cPop[main] && cMin[c]! < cMin[main]!)) main = c;
       }
       observe?.(s, comp, main, cPop);
       for (let v = 0; v < g.n; v++) {
@@ -219,8 +218,8 @@ export interface PassObservation {
 }
 
 export interface Scanner {
-  /** Point the guide line in direction k (k * 180 / angleCount degrees from north-south); returns the angle in radians. */
-  setDirection(k: number): number;
+  /** Point the guide line `deg` degrees clockwise from north-south; returns the angle in radians. */
+  setAngle(deg: number): number;
   /** Split for the current direction with lowSeats on the low side, apply the stray rule, and measure the border. Final sides (0 = low) go to `out` when given; `onPass` sees each split and its settling. */
   evaluate(lowSeats: number, out?: Uint8Array, onPass?: (p: PassObservation) => void): Evaluation;
   /** Local positions in the current direction's walk order: by key, then block id. */
@@ -362,8 +361,8 @@ export function createScanner(piece: Piece, job: ScanJob): Scanner {
   };
 
   return {
-    setDirection(k: number): number {
-      const th = (k * 180 * RAD) / job.angleCount;
+    setAngle(deg: number): number {
+      const th = deg * RAD;
       const nx = cos(th), ny = -sin(th);
       for (let i = 0; i < m; i++) keys[i] = px[i]! * nx + py[i]! * ny;
       return th;
@@ -399,21 +398,4 @@ export function createScanner(piece: Piece, job: ScanJob): Scanner {
       }
     },
   };
-}
-
-/** Evaluate directions from `next()` until it passes the last one, writing each candidate's fields into `res`. */
-export function scanDirections(piece: Piece, job: ScanJob, res: Float64Array, next: () => number): void {
-  const scanner = createScanner(piece, job);
-  const no = job.orientations.length;
-  for (let k = next(); k < job.angleCount; k = next()) {
-    scanner.setDirection(k);
-    for (let o = 0; o < no; o++) {
-      const e = scanner.evaluate(job.orientations[o]!);
-      const at = (k * no + o) * FIELDS;
-      res[at + F_OFFSET] = e.offset; res[at + F_LENGTH] = e.lengthM;
-      res[at + F_BLOCKS] = e.movedBlocks; res[at + F_POP] = e.movedPop;
-      res[at + F_ITER] = e.iterations; res[at + F_SHIFT] = e.offsetShift;
-      res[at + F_LOWPOP] = e.lowPop; res[at + F_UNRESOLVED] = e.unresolved ? 1 : 0;
-    }
-  }
 }

@@ -10,9 +10,9 @@ import type { Metrics } from '../../src/client/entities/plan';
 import type { StateIndex } from '../../src/client/entities/state';
 
 const metrics = {
-  state: 'AK', angleStepDeg: 0.1, inputSha256: 'a'.repeat(64), seats: 1, population: 733391, ideal: 733391, rangePersons: 0, rangePct: 0,
+  state: 'AK', lineSearch: 'exact', inputSha256: 'a'.repeat(64), seats: 1, population: 733391, ideal: 733391, rangePersons: 0, rangePct: 0,
   allContiguous: true, assignmentSha256: 'b'.repeat(64), balanceMoves: 0, peopleMovedByBalancing: 0, rangeBeforeBalancing: 0, rangeAfterBalancing: 0,
-  cuts: 0, angleCount: 1800, candidateLinesEvaluated: 0, strayBlocksMoved: 0, strayPopMoved: 0, recounts: 0, recountsMaxPerCut: 0, runtimeMs: 7151,
+  cuts: 0, candidateRangesPerCut: [], candidateRangesEvaluated: 0, strayBlocksMoved: 0, strayPopMoved: 0, recounts: 0, recountsMaxPerCut: 0, runtimeMs: 7151,
   countiesSplit: 0, countiesTotal: 30, blocks: 28568,
 } as unknown as Metrics;
 
@@ -48,7 +48,7 @@ describe('a state with one seat', () => {
     const p = createProofPanel();
     p.update({ metrics, plan: 'finished', abbr: 'AK' });
     expect(p.el.textContent).toContain('The district is one connected piece.');
-    expect(p.el.textContent).not.toMatch(/1 districts|directions tried/);
+    expect(p.el.textContent).not.toMatch(/1 districts|stretches of directions/);
     expect(p.el.textContent).toContain('nothing to balance');
     noDash(p.el);
   });
@@ -74,7 +74,7 @@ describe('a state with one seat', () => {
 });
 
 describe('the state list with every state mapped', () => {
-  const summary = { population: 1, ideal: 1, rangePersons: 0, rangePct: 0, allContiguous: true, assignmentSha256: 'a'.repeat(64), inputSha256: 'b'.repeat(64), angleStepDeg: 0.1 };
+  const summary = { population: 1, ideal: 1, rangePersons: 0, rangePct: 0, allContiguous: true, assignmentSha256: 'a'.repeat(64), inputSha256: 'b'.repeat(64), lineSearch: 'exact' };
   const index = { states: [{ abbr: 'WY', name: 'Wyoming', seats: 1, hasData: true, summary }, { abbr: 'AK', name: 'Alaska', seats: 1, hasData: true, summary }] } as StateIndex;
   it('lists them alphabetically and says all of them have maps', () => {
     const el = createStateIndex(index);

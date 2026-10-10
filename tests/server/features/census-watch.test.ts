@@ -54,6 +54,15 @@ describe('affectedBy', () => {
 });
 
 describe('probeSource', () => {
+  it('sends the project User-Agent and honors Retry-After', async () => {
+    const sleeps: number[] = [];
+    const f = vi.fn<typeof fetch>()
+      .mockResolvedValueOnce(new Response(null, { status: 429, headers: { 'retry-after': '5' } }))
+      .mockResolvedValueOnce(new Response(null, { status: 200 }));
+    await probeSource('https://x.test/a.zip', { fetchFn: f, sleep: async (ms) => void sleeps.push(ms) });
+    expect(sleeps).toEqual([5000]);
+    expect((f.mock.calls[0]?.[1]?.headers as Record<string, string>)['User-Agent']).toBe('str-redistricting (+https://github.com/mels0n/str-redistricting)');
+  });
   it('reads etag, last-modified and content-length from a HEAD response', async () => {
     const fetchFn = vi.fn<typeof fetch>(async () => new Response(null, { status: 200, headers: { etag: '"e"', 'last-modified': 'L', 'content-length': '12' } }));
     expect(await probeSource('https://x.test/a.zip', { fetchFn, sleep: async () => undefined })).toEqual({ url: 'https://x.test/a.zip', etag: '"e"', lastModified: 'L', contentLength: 12 });

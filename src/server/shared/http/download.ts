@@ -4,6 +4,7 @@ import { mkdir, open, rename, rm } from 'node:fs/promises';
 import { basename, dirname } from 'node:path';
 import { setTimeout as delay } from 'node:timers/promises';
 import { CENSUS_HOSTS } from '../config/index.js';
+import { CENSUS_USER_AGENT, retryAfterMs } from './limits.js';
 import { ChecksumError, DownloadError, DownloadRefusedError } from '../errors/index.js';
 
 /** A download is abandoned when no byte (headers included) arrives for this long. Block zips run to about 260 MB. */
@@ -74,7 +75,7 @@ async function fetchToPart(url: string, path: string, part: string, label: strin
   try {
     // Redirects are followed here, one hop at a time, so an address off the allowlist is refused before it is requested.
     let current = url;
-    let res = await o.fetchFn(current, { signal, redirect: 'manual' });
+    let res = await o.fetchFn(current, { signal, redirect: 'manual', headers: { 'User-Agent': CENSUS_USER_AGENT } });
     for (let hops = 0; res.status >= 300 && res.status < 400 && res.headers.has('location'); hops++) {
       await res.body?.cancel().catch(() => undefined);
       if (hops >= MAX_REDIRECTS) throw new DownloadRefusedError(`download for ${label} refused: more than ${MAX_REDIRECTS} redirects`);
@@ -84,11 +85,11 @@ async function fetchToPart(url: string, path: string, part: string, label: strin
         throw new DownloadRefusedError(`download for ${label} refused: redirect to an invalid address`);
       }
       assertAllowedUrl(current, label, o.allowedHosts);
-      res = await o.fetchFn(current, { signal, redirect: 'manual' });
+      res = await o.fetchFn(current, { signal, redirect: 'manual', headers: { 'User-Agent': CENSUS_USER_AGENT } });
     }
     if (!res.ok) {
       await res.body?.cancel().catch(() => undefined);
-      throw new DownloadError(`download failed for ${label}: HTTP ${res.status}`, res.status);
+      throw new DownloadError(`download failed for ${label}: HTTP ${res.status}`, res.status, retryAfterMs(res));
     }
     if (res.body === null) throw new DownloadError(`download for ${label} had no body`);
     const declared = res.headers.get('content-length');
@@ -155,7 +156,7 @@ async function fetchWithRetries(url: string, path: string, label: string, sha256
       if (attempt > MAX_RETRIES) {
         throw new DownloadError(`download failed for ${label} after ${attempt} attempts: ${reason}`, err instanceof DownloadError ? err.status : undefined);
       }
-      await o.sleep(backoff);
+      await o.sleep(err instanceof DownloadError && err.retryAfterMs !== undefined ? err.retryAfterMs : backoff);
       backoff *= 2;
     }
   }

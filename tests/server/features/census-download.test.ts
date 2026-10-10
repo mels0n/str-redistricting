@@ -45,6 +45,19 @@ describe('downloadCached retries', () => {
     expect(await readFile(path, 'utf8')).toBe(BODY);
     expect(await partFiles()).toEqual([]);
   });
+  it('sends the project User-Agent', async () => {
+    const f = vi.fn<typeof fetch>(async () => ok());
+    await run(f);
+    expect((f.mock.calls[0]?.[1]?.headers as Record<string, string>)['User-Agent']).toBe('str-redistricting (+https://github.com/mels0n/str-redistricting)');
+  });
+  it('waits for Retry-After seconds on a 429, capped at 60 s', async () => {
+    const f = vi.fn<typeof fetch>()
+      .mockResolvedValueOnce(new Response('x', { status: 429, headers: { 'retry-after': '5' } }))
+      .mockResolvedValueOnce(new Response('x', { status: 503, headers: { 'retry-after': '9999' } }))
+      .mockResolvedValueOnce(ok());
+    await run(f);
+    expect(sleeps).toEqual([5000, 60_000]);
+  });
   it('gives up after three retries and names the file and attempts', async () => {
     const f = vi.fn<typeof fetch>(async () => new Response('x', { status: 500 }));
     const err = await run(f).catch((e: unknown) => e);

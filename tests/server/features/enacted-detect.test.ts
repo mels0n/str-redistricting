@@ -122,6 +122,33 @@ describe('isServed safety', () => {
   });
 });
 
+describe('isServed identity and Retry-After', () => {
+  const UA = 'str-redistricting (+https://github.com/mels0n/str-redistricting)';
+  const zip = (): Response => new Response(null, { status: 200, headers: { 'content-type': 'application/zip' } });
+
+  it('names itself in the User-Agent, on HEAD and on the ranged GET', async () => {
+    const f = server(['a'], { noHead: true });
+    await isServed(URL_OF('a'), { fetchFn: f, sleep: noSleep });
+    for (const [, init] of f.mock.calls) expect((init?.headers as Record<string, string>)['User-Agent']).toBe(UA);
+  });
+  it('waits for Retry-After seconds instead of the fixed backoff', async () => {
+    const sleeps: number[] = [];
+    const f = vi.fn<typeof fetch>()
+      .mockResolvedValueOnce(new Response(null, { status: 429, headers: { 'retry-after': '5' } }))
+      .mockResolvedValueOnce(zip());
+    expect(await isServed(URL_OF('a'), { fetchFn: f, sleep: async (ms) => void sleeps.push(ms) })).toBe(true);
+    expect(sleeps).toEqual([5000]);
+  });
+  it('caps Retry-After at 60 seconds', async () => {
+    const sleeps: number[] = [];
+    const f = vi.fn<typeof fetch>()
+      .mockResolvedValueOnce(new Response(null, { status: 503, headers: { 'retry-after': '3600' } }))
+      .mockResolvedValueOnce(zip());
+    await isServed(URL_OF('a'), { fetchFn: f, sleep: async (ms) => void sleeps.push(ms) });
+    expect(sleeps).toEqual([60_000]);
+  });
+});
+
 describe('detectUpdate', () => {
   it('reports no update when nothing newer is served', async () => {
     expect(await detectUpdate(pinned, 2026, URL_OF, { fetchFn: server(['cb_2025_us_cd119_500k']), sleep: noSleep })).toEqual({ update: false });

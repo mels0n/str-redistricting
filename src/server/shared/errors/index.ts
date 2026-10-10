@@ -19,7 +19,8 @@ export class DataError extends AppError {
 
 /** A download that did not complete; `status` is the HTTP status when there was a response. */
 export class DownloadError extends DataError {
-  constructor(message: string, readonly status?: number) {
+  /** `retryAfterMs` is the wait the server asked for with Retry-After, already capped. */
+  constructor(message: string, readonly status?: number, readonly retryAfterMs?: number) {
     super(message);
   }
 }

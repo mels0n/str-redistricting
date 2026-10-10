@@ -1,7 +1,7 @@
 import { setTimeout as delay } from 'node:timers/promises';
 import { CENSUS_HOSTS, enactedFileName, parseEnactedFileName, type EnactedConfig } from '../../shared/config/index.js';
 import { ConfigError, DownloadError, DownloadRefusedError } from '../../shared/errors/index.js';
-import { HEAD_TIMEOUT_MS } from '../../shared/http/index.js';
+import { CENSUS_USER_AGENT, HEAD_TIMEOUT_MS, retryAfterMs } from '../../shared/http/index.js';
 
 /** Retries after the first probe of one URL; waits double each time. */
 export const PROBE_RETRIES = 3;
@@ -47,12 +47,12 @@ async function probeOnce(
   method: 'HEAD' | 'GET',
   fetchFn: typeof fetch,
   hosts: ReadonlySet<string>,
-): Promise<boolean | { status: number }> {
+): Promise<boolean | { status: number; retryAfterMs?: number }> {
   const res = await fetchFn(url, {
     method,
     redirect: 'follow',
     signal: AbortSignal.timeout(HEAD_TIMEOUT_MS),
-    ...(method === 'GET' ? { headers: { Range: 'bytes=0-0' } } : {}),
+    headers: { 'User-Agent': CENSUS_USER_AGENT, ...(method === 'GET' ? { Range: 'bytes=0-0' } : {}) },
   });
   // A redirect off the Census hosts is refused, not read as "served". (A response with no url is not from a real fetch.)
   if (res.url !== '' && !hosts.has(new URL(res.url).hostname)) {
@@ -63,7 +63,8 @@ async function probeOnce(
   await res.body?.cancel().catch(() => undefined);
   if (res.status === 404) return false;
   if (res.status >= 200 && res.status < 300) return looksLikeFile(res);
-  return { status: res.status };
+  const wait = retryAfterMs(res);
+  return { status: res.status, ...(wait !== undefined ? { retryAfterMs: wait } : {}) };
 }
 
 /**
@@ -78,7 +79,7 @@ export async function isServed(url: string, opts: ProbeOptions = {}): Promise<bo
   let method: 'HEAD' | 'GET' = 'HEAD';
   let backoff = PROBE_BACKOFF_MS;
   for (let attempt = 1; ; attempt++) {
-    let outcome: boolean | { status: number } | { error: string };
+    let outcome: boolean | { status: number; retryAfterMs?: number } | { error: string };
     try {
       outcome = await probeOnce(url, method, fetchFn, hosts);
     } catch (err) {
@@ -97,7 +98,7 @@ export async function isServed(url: string, opts: ProbeOptions = {}): Promise<bo
     if (attempt > PROBE_RETRIES) {
       throw new DownloadError(`probe of ${url} failed after ${attempt} attempts: ${reason}`, 'status' in outcome ? outcome.status : undefined);
     }
-    await sleep(backoff);
+    await sleep('status' in outcome && outcome.retryAfterMs !== undefined ? outcome.retryAfterMs : backoff);
     backoff *= 2;
   }
 }

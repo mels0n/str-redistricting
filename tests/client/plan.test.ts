@@ -91,8 +91,20 @@ describe('cut sequence', () => {
   });
 
   it('names the districts on each side of a cut', () => {
-    expect(cutSides(cut(1, 0, 7, 3))).toEqual({ low: [1, 3], high: [4, 7] });
-    expect(cutSides(cut(5, 3, 2, 1))).toEqual({ low: [4, 4], high: [5, 5] });
+    expect(cutSides(seven[0]!, seven)).toEqual({ low: [1, 3], high: [4, 7] });
+    expect(cutSides(seven[4]!, seven)).toEqual({ low: [4, 4], high: [5, 5] });
+  });
+
+  // The same 7 seats where the line's first side holds the higher numbers: 4 | 3 with the 3-seat side numbered first,
+  // and 2 | 1 with the 1-seat side numbered first.
+  const swapped = [cut(1, 0, 7, 4), cut(2, 0, 3, 2), cut(3, 1, 2, 1), cut(4, 3, 4, 2), cut(5, 3, 2, 1), cut(6, 5, 2, 1)];
+
+  it('splits a piece where its lower-numbered part is the second side of the line', () => {
+    expect(piecesAfter(swapped, 1, 7)).toEqual([0, 0, 0, 3, 3, 3, 3]);
+    expect(piecesAfter(swapped, 2, 7)).toEqual([0, 1, 1, 3, 3, 3, 3]);
+    expect(piecesAfter(swapped, 6, 7)).toEqual([0, 1, 2, 3, 4, 5, 6]);
+    expect(cutSides(swapped[0]!, swapped)).toEqual({ low: [4, 7], high: [1, 3] });
+    expect(cutSides(swapped[1]!, swapped)).toEqual({ low: [2, 3], high: [1, 1] });
   });
 
   it('clamps the scrubber position', () => {

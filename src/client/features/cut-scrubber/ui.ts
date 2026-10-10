@@ -58,7 +58,7 @@ const plural = (n: number, one: string, many: string): string => `${formatInt(n)
 function describeCut(k: number, cuts: readonly Cut[]): string {
   if (k === 0) return `Before the first cut. The whole state, ${cuts.length + 1} seats.`;
   const c = cuts[k - 1]!;
-  const { low, high } = cutSides(c);
+  const { low, high } = cutSides(c, cuts);
   const range = (r: [number, number]): string => (r[0] === r[1] ? `district ${r[0]}` : `districts ${r[0]} to ${r[1]}`);
   return `Cut ${k} of ${cuts.length}. Splits ${c.seats} seats into ${c.lowSeats} and ${c.highSeats}: ${range(low)} on one side, ${range(high)} on the other.`;
 }
@@ -461,7 +461,7 @@ export function createCutScrubber(opts: CutScrubberOptions): CutScrubber {
         return;
       }
       const c = opts.cuts[at - 1]!;
-      const { low, high } = cutSides(c);
+      const { low, high } = cutSides(c, opts.cuts);
       const r = (x: [number, number]): string => (x[0] === x[1] ? `${x[0]}` : `${x[0]}–${x[1]}`);
       detail.append(
         pair('Splits', `${c.seats} seats: ${c.lowSeats} + ${c.highSeats}`),

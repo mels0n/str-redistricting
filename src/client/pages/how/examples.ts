@@ -47,9 +47,10 @@ export interface SplitWalk {
 
 /**
  * The cut rule's walk: add up people in order until the total reaches the
- * share, then stop just before or just after that block, whichever is closer;
- * an exact tie is not reached in the example (the generator keeps both stopping
- * points as candidates; this walk stops just before). Each side keeps at least one block.
+ * share, then stop just before or just after that block, whichever is closer.
+ * The worked example does not hit an exact tie; given one, this walk stops just
+ * before, while the generator keeps both stopping points as candidates. Each side
+ * keeps at least one block.
  */
 export function walkSplit(people: readonly number[], seats: number, lowSeats: number): SplitWalk {
   const total = people.reduce((s, p) => s + p, 0);

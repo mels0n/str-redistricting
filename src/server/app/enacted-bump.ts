@@ -7,7 +7,7 @@ import { applyBump, checkCoverage, planVersionBump } from '../features/enacted/i
 import { boundaryUrl, parseCdRecord, readBoundaryZip } from '../features/publish/index.js';
 import { formatVersions, inputSha256Of, parseEnactedBumpConfig, VersionsSchema, type EnactedBumpConfig } from '../shared/config/index.js';
 import { DataError, exitCodeFor } from '../shared/errors/index.js';
-import { downloadForPinning } from '../shared/http/index.js';
+import { adoptIfAccepted, downloadForPinning } from '../shared/http/index.js';
 
 const VERSIONS_JSON = 'versions.json';
 
@@ -40,10 +40,14 @@ async function bumpVersions(configDir: string, file: string, congress: number): 
 }
 
 async function bump(cfg: EnactedBumpConfig): Promise<void> {
-  const { path, sha256 } = await downloadForPinning(boundaryUrl(cfg.file), join(cfg.cacheDir, `${cfg.file}.zip`), cfg.file);
-  // The archive must parse and hold districts for every state, or it is not pinned.
-  checkCoverage((await readBoundaryZip(path, cfg.file)).map((f) => parseCdRecord(f.properties).stateFp), cfg.file);
-  const plan = await applyBump(cfg.configDir, cfg.file, sha256);
+  const cachePath = join(cfg.cacheDir, `${cfg.file}.zip`);
+  const { path, sha256 } = await downloadForPinning(boundaryUrl(cfg.file), cachePath, cfg.file);
+  // The download replaces the cached zip only once the bump is accepted, so a refused one keeps the copy the manifest pins.
+  const plan = await adoptIfAccepted(path, cachePath, async () => {
+    // The archive must parse and hold districts for every state, or it is not pinned.
+    checkCoverage((await readBoundaryZip(path, cfg.file)).map((f) => parseCdRecord(f.properties).stateFp), cfg.file);
+    return applyBump(cfg.configDir, cfg.file, sha256);
+  });
   console.log(`adopted ${plan.config.file} (Congress ${plan.config.congress}), sha256 ${sha256}`);
   await bumpVersions(cfg.configDir, cfg.file, plan.config.congress);
   if (cfg.skipPublish) return;

@@ -4,6 +4,9 @@ import { DataLoadError, DataShapeError } from '../lib/errors';
 /** A data file that has not arrived after this long counts as a failed load. */
 const TIMEOUT_MS = 60_000;
 
+/** The cache keeps this many URLs, dropping the oldest first. */
+const MAX_ENTRIES = 32;
+
 const cache = new Map<string, Promise<unknown>>();
 
 async function fetchRaw(url: string): Promise<unknown> {
@@ -43,15 +46,21 @@ export function clearFetchCache(): void {
 export function fetchJson<S extends z.ZodType>(url: string, schema: S): Promise<z.infer<S>> {
   let raw = cache.get(url);
   if (!raw) {
-    raw = fetchRaw(url);
-    raw.catch(() => cache.delete(url));
-    cache.set(url, raw);
+    const fresh = fetchRaw(url);
+    raw = fresh;
+    // Only forget the entry this request made; the cache may have been cleared and refilled since.
+    fresh.catch(() => {
+      if (cache.get(url) === fresh) cache.delete(url);
+    });
+    if (cache.size >= MAX_ENTRIES) cache.delete(cache.keys().next().value as string);
+    cache.set(url, fresh);
   }
-  return raw.then((data) => {
+  const current = raw;
+  return current.then((data) => {
     const parsed = schema.safeParse(data);
     if (!parsed.success) {
       // Drop the bad copy so a retry fetches again.
-      cache.delete(url);
+      if (cache.get(url) === current) cache.delete(url);
       const issue = parsed.error.issues[0];
       throw new DataShapeError(url, issue ? `${issue.path.join('.')}: ${issue.message}` : 'invalid');
     }

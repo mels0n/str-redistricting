@@ -23,6 +23,8 @@ export interface Config {
   readonly outDir: string;
   /** Threads for the cut search; 1 searches on the main thread only. */
   readonly threads: number;
+  /** Redraw every listed state, even one whose folder already holds plans drawn from the same inputs and code. */
+  readonly force: boolean;
 }
 
 const STATES_REQUIRED = '--states is required (two-letter abbreviations, comma separated, for example CO or RI,CT)';
@@ -43,6 +45,7 @@ export function parseConfig(argv: readonly string[]): Config {
       'cache-dir': { type: 'string', default: 'data/raw' },
       'out-dir': { type: 'string', default: 'out' },
       threads: { type: 'string', default: String(Math.max(1, availableParallelism() - 2)) },
+      force: { type: 'boolean', default: false },
     },
     strict: true,
   });
@@ -58,7 +61,7 @@ export function parseConfig(argv: readonly string[]): Config {
     if (!info) throw new ConfigError(`unknown state: ${abbr}`);
     return info;
   });
-  return { states, cacheDir: parsed.data.cacheDir, outDir: parsed.data.outDir, threads: parsed.data.threads };
+  return { states, cacheDir: parsed.data.cacheDir, outDir: parsed.data.outDir, threads: parsed.data.threads, force: values.force === true };
 }
 
 export interface PublishConfig {

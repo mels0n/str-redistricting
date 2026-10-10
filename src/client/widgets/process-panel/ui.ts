@@ -77,7 +77,7 @@ export function createProcessPanel(opts: ProcessPanelOptions): HTMLElement {
       { class: 'strv-process__rows' },
       row('Cuts', 'recursion', formatInt(m.cuts), `${m.seats} seats take ${count(m.cuts, 'cut', 'cuts')}. Each cut splits one piece of ${opts.stateName} in two.`),
       row(
-        'Guide lines checked',
+        'Stretches checked',
         'cut',
         formatInt(m.candidateRangesEvaluated),
         `Stretches of directions checked, so every straight line is covered. ${perCut(m.candidateRangesPerCut)}`,

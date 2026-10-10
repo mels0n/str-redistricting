@@ -408,13 +408,15 @@ export async function nextFurthestCase(ctx: ExtractContext): Promise<RuleCase> {
   const toWord = move.from - 1 === next ? `out of ${D(next)} into District ${move.to}` : `into ${D(next)} from District ${move.from}`;
 
   const marks: Record<string, number[]> = { furthest: [f], border: neighbors, runnerUp: [f], winner: [next] };
-  if (tie.length > 1 || (tie.length === 1 && tie[0] !== next)) marks.tie = [...new Set([next, ...tie])].sort((x, y) => x - y);
+  const realTie = tie.length > 1 || (tie.length === 1 && tie[0] !== next);
+  // The district tried next is picked out before its move is made (as a tie when it is one), so each step changes the chart.
+  marks.tie = realTie ? [...new Set([next, ...tie])].sort((x, y) => x - y) : [next];
   const hasNextMove = k + 1 < run.result.moves.length;
   const [f2, next2] = [after.tried[0]!, after.tried[after.tried.length - 1]!];
   if (hasNextMove) { marks.again = [n + f2]; if (next2 !== f2) marks.next = [n + next2]; }
   const chart = ['chart', 'g1', 'g2'];
   const held = [...chart, 'chart-furthest', 'chart-runnerUp'];
-  const tieWords = marks.tie
+  const tieWords = realTie
     ? `${Ds(marks.tie)} are each ${side(devs[next]!)}, and the lower number, ${D(next)}, goes first.`
     : `That is ${D(next)}, ${side(devs[next]!)}.`;
   const lastCaption = !hasNextMove
@@ -426,7 +428,7 @@ export async function nextFurthestCase(ctx: ExtractContext): Promise<RuleCase> {
   if (splits) reasons.push(`${whole(splits)} would split a district`);
   const steps: RuleCase['steps'] = [
     {
-      caption: `Each bar is a district's distance from ${name}'s ideal of ${people(ideal)}, before move ${moveNo} (left) and move ${moveNo + 1} (right). Before move ${moveNo}, ${D(f)} is furthest, ${side(devs[f]!)}, so it is tried first.`,
+      caption: `Each bar is a district's distance from ${name}'s ideal of ${people(ideal)}, before move ${moveNo} (left) and ${hasNextMove ? `before move ${moveNo + 1}` : `after it, in the final plan`} (right). Before move ${moveNo}, ${D(f)} is furthest, ${side(devs[f]!)}, so it is tried first.`,
       show: [...chart, 'chart-furthest'],
     },
     {
@@ -439,21 +441,19 @@ export async function nextFurthestCase(ctx: ExtractContext): Promise<RuleCase> {
     },
     {
       caption: `So the pass tries the next furthest district. ${tieWords}`,
-      show: [...held, ...(marks.tie ? ['chart-tie'] : ['chart-winner'])],
-    },
-    {
-      caption: `${D(next)} has ${plural(allowedNext, 'allowed move', 'allowed moves')}. The best moves ${plural(move.pop, 'person', 'people')} ${toWord}: that is move ${moveNo}.`,
-      show: [...held, 'chart-winner'],
-    },
-    {
-      caption: lastCaption,
-      show: [...held, 'chart-winner', ...(marks.again ? ['chart-again'] : []), ...(marks.next ? ['chart-next'] : [])],
+      show: [...held, 'chart-tie'],
     },
   ];
+  const moveCaption = `${D(next)} has ${plural(allowedNext, 'allowed move', 'allowed moves')}. The best moves ${plural(move.pop, 'person', 'people')} ${toWord}: that is move ${moveNo}.`;
+  // After the last move there is nothing new to show, so the stop is said with the move.
+  if (hasNextMove) {
+    steps.push({ caption: moveCaption, show: [...held, 'chart-tie', 'chart-winner'] });
+    steps.push({ caption: lastCaption, show: [...held, 'chart-tie', 'chart-winner', ...(marks.again ? ['chart-again'] : []), ...(marks.next ? ['chart-next'] : [])] });
+  } else steps.push({ caption: `${moveCaption} ${lastCaption}`, show: [...held, 'chart-tie', 'chart-winner'] });
   if (worst !== far(f)) throw new DataError(`${run.abbr}: District ${f + 1} is not the furthest before move ${moveNo}`);
   const labels: Label[] = [
     { id: 'g1', x: 84, y: 11, text: `before move ${moveNo}` },
-    { id: 'g2', x: 236, y: 11, text: `before move ${moveNo + 1}` },
+    { id: 'g2', x: 236, y: 11, text: hasNextMove ? `before move ${moveNo + 1}` : `after move ${moveNo}` },
   ];
   return {
     id: 'balance.next-furthest',

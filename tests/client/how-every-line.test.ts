@@ -18,7 +18,7 @@ describe('How it works: every straight line', () => {
   it('explains the exact search without the old grid, and uses no em dashes', () => {
     const page = createHowPage({ page: 'how', section: null } as never);
     const text = page.el.textContent ?? '';
-    expect(text).toContain('every possible straight line');
+    expect(text).toContain('every direction, with none skipped');
     expect(text).not.toMatch(/1,800|0\.1°|0\.1 degree|angle step/);
     expect(text).not.toContain('—');
     page.destroy();

@@ -3,6 +3,7 @@ import { cos, sin } from '../../shared/detmath/index.js';
 import { DataError } from '../../shared/errors/index.js';
 import { EARTH_RADIUS_M, greatCircleDistance, type LonLat } from '../../shared/geo/index.js';
 import { Chain } from './chain.js';
+import { zob, zob2 } from './hash.js';
 import type { SplitContext } from './context.js';
 import type { ScanPool } from './pool.js';
 import { createScanner, type Piece, type ScanJob } from './scan.js';
@@ -21,7 +22,7 @@ export interface CutResult {
   readonly highSeats: number;
   /** The direction the guide line is drawn at: the middle of the winning range, in degrees clockwise from north-south. */
   readonly angleDeg: number;
-  /** The winning range: every direction in [fromDeg, toDeg) gives these sides. */
+  /** The winning range: every direction in [fromDeg, toDeg) gives these sides (toDeg below fromDeg: it runs across north-south). */
   readonly fromDeg: number;
   readonly toDeg: number;
   /** Great-circle length of the block-edge border between the two final sides (whole micrometers, as meters). */
@@ -61,6 +62,8 @@ export interface CandidateRange {
   /** The exact directions bounding the range, for exact comparisons. */
   readonly from: Dir;
   readonly to: Dir;
+  /** The range runs across north-south (from before 180 degrees on past 0), so it contains north-south. */
+  readonly wraps: boolean;
 }
 
 /** A candidate line to trace: a direction (degrees clockwise from north-south) and the seats on its first (low) side. */
@@ -124,13 +127,15 @@ export interface CutOptions {
   readonly trace?: readonly CandidateTraceRequest[];
 }
 
-type TieKey = Pick<CandidateRange, 'from' | 'to' | 'lowSeats'>;
-const nearest = (c: TieKey): Dir => (compareNorthSouth(c.from, c.to) <= 0 ? c.from : c.to);
+type TieKey = Pick<CandidateRange, 'from' | 'to' | 'lowSeats'> & { readonly wraps?: boolean };
+const NORTH: Dir = [0, 0, 0, 1];
+const nearest = (c: TieKey): Dir => (c.wraps ? NORTH : compareNorthSouth(c.from, c.to) <= 0 ? c.from : c.to);
+const start = (c: TieKey): Dir => (c.wraps ? NORTH : c.from);
 
 /** The tie-break rules in the order they apply, each as a signed difference (negative: p goes first). */
 const tieDifferences = (p: TieKey, q: TieKey): [number, number, number] => [
   compareNorthSouth(nearest(p), nearest(q)),
-  compareDirections(p.from, q.from),
+  compareDirections(start(p), start(q)),
   p.lowSeats - q.lowSeats,
 ];
 
@@ -156,9 +161,12 @@ export function compareCandidates(p: TieKey & { lengthM: number }, q: TieKey & {
   return (p.lengthM < q.lengthM ? -1 : p.lengthM > q.lengthM ? 1 : 0) || d[0] || d[1] || d[2];
 }
 
+/** Where a range ends, in [0, 180]; below its start when the range runs across north-south. */
+const endDeg = (r: Range): number => (r.wraps ? r.eDeg - 180 : r.eDeg);
+
 const toCandidate = (r: Range): CandidateRange => ({
-  lowSeats: r.lowSeats, fromDeg: r.sDeg, toDeg: r.eDeg, nearestNorthSouthDeg: directionDeg(nearestNorthSouth(r)),
-  lengthM: r.lengthUm / 1e6, lowPop: r.lowPop, from: r.s, to: r.e,
+  lowSeats: r.lowSeats, fromDeg: r.sDeg, toDeg: endDeg(r), nearestNorthSouthDeg: directionDeg(nearestNorthSouth(r)),
+  lengthM: r.lengthUm / 1e6, lowPop: r.lowPop, from: r.s, to: r.e, wraps: r.wraps === true,
 });
 
 /** The piece for one cut: local positions, adjacency inside the piece, shared edge lengths in whole micrometers. */
@@ -230,7 +238,10 @@ export function findCut(ctx: SplitContext, members: Int32Array, seats: number, v
       chunks.push(sweepChunk(piece, seats, task.lowSeats, task.aDeg, task.bDeg, KEEP));
     }
   }
-  const merged = mergeChunks(chunks);
+  // Fingerprints of every block, so the two ends of the half turn can be recognised as one range (sides swapped).
+  let h1 = 0, h2 = 0;
+  for (let i = 0; i < m; i++) { h1 ^= zob(i); h2 ^= zob2(i); }
+  const merged = mergeChunks(chunks, { h1: h1 >>> 0, h2: h2 >>> 0 });
   const ranges = merged.ranges;
   const candidates = ranges.map(toCandidate);
 
@@ -238,7 +249,7 @@ export function findCut(ctx: SplitContext, members: Int32Array, seats: number, v
   let refused = 0;
   for (let ri = 0; ri < ranges.length; ri++) {
     const r = ranges[ri]!;
-    const chain = evaluateAt(piece, seats, r.lowSeats, r.s);
+    const chain = evaluateAt(piece, seats, r.lowSeats, r.at ?? r.s);
     if (chain.lengthUm !== r.lengthUm || chain.h1 !== r.h1 || chain.h2 !== r.h2 || chain.unresolved) {
       throw new DataError(`the range from ${r.sDeg} degrees re-evaluates to different sides`);
     }
@@ -254,8 +265,12 @@ export function findCut(ctx: SplitContext, members: Int32Array, seats: number, v
     const shorterUnresolved = new Set<number>();
     for (const c of chunks) for (const u of c.unresolvedBelow) if (u < r.lengthUm) shorterUnresolved.add(u);
     const { sx, sy } = boundaryInPlane(ctx, members);
-    const angleDeg = (r.sDeg + r.eDeg) / 2;
-    const th = (angleDeg * Math.PI) / 180;
+    // The middle of the range; for a range across north-south, measured on through 180 degrees and reported in [0, 180).
+    const midDeg = (r.sDeg + r.eDeg) / 2;
+    const angleDeg = midDeg >= 180 ? midDeg - 180 : midDeg;
+    // The offset is measured in the frame the sides were evaluated in: for a range across north-south that is the part
+    // after 0 degrees, so the middle is taken 180 degrees back (the same line, with the sides the right way round).
+    const th = ((r.wraps ? midDeg - 180 : midDeg) * Math.PI) / 180;
     const last = chain.passes[chain.passes.length - 1]!, first = chain.passes[0]!;
     const offset = splitOffset(piece, th, (i) => last.fixedBefore[i]! < 0, (i) => side[i] === 0);
     const offset0 = splitOffset(piece, th, () => true, (i) => first.side[i] === 0);
@@ -264,7 +279,7 @@ export function findCut(ctx: SplitContext, members: Int32Array, seats: number, v
     const traces = (opts.trace ?? []).map((t) => traceCandidate(ctx, piece, seats, members, sx, sy, t));
     return {
       low, high, lowSeats: r.lowSeats, highSeats: seats - r.lowSeats,
-      angleDeg, fromDeg: r.sDeg, toDeg: r.eDeg, lengthM: r.lengthUm / 1e6,
+      angleDeg, fromDeg: r.sDeg, toDeg: endDeg(r), lengthM: r.lengthUm / 1e6,
       candidateRanges: merged.count, splitChanges: chunks.reduce((s, c) => s + c.splitChanges, 0),
       spans: spanLength(ctx, sx, sy, th, offset).spans, skipped: shorterUnresolved.size + refused, skippedRanges,
       strayBlocksMoved: chain.movedBlocks, strayPopMoved: movedPop,

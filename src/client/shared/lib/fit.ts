@@ -1,4 +1,4 @@
-/** A box by its centre and size, in pixels inside the map frame. */
+/** A box by its center and size, in pixels inside the map frame. */
 export interface FitBox {
   x: number;
   y: number;

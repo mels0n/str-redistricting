@@ -17,7 +17,7 @@ type RuleBlock = NonNullable<RuleCase['blocks']>[number];
 const W = 320;
 /** Blocks shown in a window. */
 const WINDOW = 20;
-/** The one-cut panels use Colorado's third cut (two seats around Denver's northern suburbs) and Alabama's first. */
+/** The one-cut panels use Colorado's third cut (a two-seat piece) and Alabama's first. */
 const CO_CUT = 3;
 
 /** Walk position of every block of the piece (-1 outside it). */
@@ -93,11 +93,11 @@ async function orderWindow(ctx: ExtractContext) {
 
 /**
  * Counts the places in a walk order where two blocks have exactly the same key, using the generator's walk key
- * for the cut's direction (as features/splitline/scan.ts computes it). Throws if the order is not sorted by that key
+ * for the traced direction (as features/splitline/scan.ts computes it). Throws if the order is not sorted by that key
  * with block index breaking ties, so this copy of the formula cannot drift from the generator unnoticed.
  */
-export function walkTies(t: CutTrace, order: Int32Array): number {
-  const th = (t.k * 180 * (Math.PI / 180)) / t.split.angleCount;
+export function walkTies(t: CutTrace, order: Int32Array, angleDeg: number = t.cut.angleDeg): number {
+  const th = angleDeg * (Math.PI / 180);
   const nx = cos(th), ny = -sin(th);
   const key = (b: number) => t.split.px[b]! * nx + t.split.py[b]! * ny;
   let ties = 0;
@@ -334,7 +334,9 @@ export async function cutWalkStopCase(ctx: ExtractContext): Promise<RuleCase> {
         set: settled,
       },
       {
-        caption: 'The guide line on the map sits halfway between the last block of the first side and the first block of the second, measured across the line.',
+        caption: tr.passes.length === 1
+          ? 'The guide line on the map sits halfway between the last block of the first side and the first block of the second, measured across the line.'
+          : 'The guide line on the map sits between the last free block of the first side and the first free block of the second, measured across the line.',
         show: [...B, ...bar, 'cp', 'after', ...ids(guide)],
       },
     ],
@@ -350,17 +352,16 @@ export async function cutBothWaysCase(ctx: ExtractContext): Promise<RuleCase> {
   const a = Math.floor(cut.seats / 2), b = cut.seats - a;
   if (a === b) throw new DataError(`${abbr}: cut 1 has an even seat count`);
   const t = await cutTrace(ctx, abbr, cut.order, [a, b]);
-  const { fields } = out.candidates;
-  const kAt = fields.indexOf('k'), lowAt = fields.indexOf('lowSeats'), lenAt = fields.indexOf('lengthM');
+  // Both ways at the direction cut 1 is drawn at, each traced on its own; the lengths are exact, shown to the meter.
   const len = (low: number): number => {
     const tr = t.traces.find((x) => x.lowSeats === low)!;
-    const row = out.candidates.cuts[0]!.find((r) => r[kAt] === t.k && r[lowAt] === low);
-    if (!row || row[lenAt] !== Math.round(tr.lengthM)) throw new DataError(`${abbr} cut 1: traced length for ${low} seats does not match candidates.json`);
-    return row[lenAt]!;
+    if (tr.unresolved) throw new DataError(`${abbr} cut 1: the ${low}-seat way has sides that are not each connected, so it cannot be compared`);
+    return tr.lengthM;
   };
   const lens = new Map([[a, len(a)], [b, len(b)]]);
   const shorter = lens.get(a)! <= lens.get(b)! ? a : b, longer = shorter === a ? b : a;
-  if (shorter !== t.result.lowSeats) throw new DataError(`${abbr} cut 1: the shorter way is not the one the cut used`);
+  if (shorter !== t.result.lowSeats || lens.get(shorter) !== t.result.lengthM) throw new DataError(`${abbr} cut 1: the shorter way is not the one the cut used`);
+  const meters = (low: number): number => Math.round(lens.get(low)!);
 
   const outline = await stateOutline(ctx.cfg.rawDir, abbr, 120);
   const proj = (p: LonLat) => t.split.proj.forward(p);
@@ -399,7 +400,7 @@ export async function cutBothWaysCase(ctx: ExtractContext): Promise<RuleCase> {
     labels.push(
       { id: `s${s}a`, x: Math.round(lo[0]), y: Math.round(lo[1]), text: `${s} seats` },
       { id: `s${s}b`, x: Math.round(hi[0]), y: Math.round(hi[1]), text: `${cut.seats - s} seats` },
-      { id: `len${s}`, x: Math.round(mid[0]), y: Math.round(mid[1] + (other[1] < mid[1] ? 16 : -6)), text: `${whole(lens.get(s)!)} m`, tag: 'length' },
+      { id: `len${s}`, x: Math.round(mid[0]), y: Math.round(mid[1] + (other[1] < mid[1] ? 16 : -6)), text: `${whole(meters(s))} m`, tag: 'length' },
     );
   }
   const L = (s: number) => lineIds.get(s)!;
@@ -414,18 +415,18 @@ export async function cutBothWaysCase(ctx: ExtractContext): Promise<RuleCase> {
     lines,
     labels,
     steps: [
-      { caption: `${nameOf(abbr)} has ${cut.seats} seats, so its first cut splits them ${a} and ${b}. Take the direction cut 1 used, ${cut.angleDeg.toFixed(1)}° from north-south.`, show: ['outline'] },
+      { caption: `${nameOf(abbr)} has ${cut.seats} seats, so its first cut splits them ${a} and ${b}. Take the direction cut 1 is drawn at, ${cut.angleDeg.toFixed(1)}° from north-south.`, show: ['outline'] },
       {
-        caption: `First with the ${a} seats ${first.get(a)} of the line and ${b} ${opposite[first.get(a)!]}: the line falls here, and its border is ${whole(lens.get(a)!)} m long.`,
+        caption: `First with the ${a} seats ${first.get(a)} of the line and ${b} ${opposite[first.get(a)!]}: the line falls here, and its border is ${whole(meters(a))} m long.`,
         show: ['outline', ...L(a), `s${a}a`, `s${a}b`, `len${a}`],
       },
       {
-        caption: `Then the same direction with the ${a} seats ${opposite[first.get(b)!]} of the line and ${b} ${first.get(b)}: the line moves, and its border is ${whole(lens.get(b)!)} m long.`,
+        caption: `Then the same direction with the ${a} seats ${opposite[first.get(b)!]} of the line and ${b} ${first.get(b)}: the line moves, and its border is ${whole(meters(b))} m long.`,
         show: ['outline', ...L(a), ...L(b), `s${b}a`, `s${b}b`, `len${b}`],
         set: mark(a, 'dim'),
       },
       {
-        caption: `The shorter way is kept, with the ${shorter} seats ${first.get(shorter)} of the line: ${whole(lens.get(shorter)!)} m against ${whole(lens.get(longer)!)} m.`,
+        caption: `The shorter way is kept, with the ${shorter} seats ${first.get(shorter)} of the line: ${whole(meters(shorter))} m against ${whole(meters(longer))} m.`,
         show: ['outline', ...L(a), ...L(b), `len${shorter}`],
         set: { ...mark(shorter, 'kept'), ...mark(longer, 'dim') },
       },

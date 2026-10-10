@@ -44,7 +44,7 @@ export async function shareCase(ctx: ExtractContext): Promise<RuleCase> {
   };
 }
 
-/** balance.ideal: the ideal district size is rarely whole, so the targets are the two neighbouring whole numbers. */
+/** balance.ideal: the ideal district size is rarely whole, so the targets are the two neighboring whole numbers. */
 export async function idealCase(ctx: ExtractContext): Promise<RuleCase> {
   const abbr = 'CO';
   const { metrics } = await ctx.state(abbr);
@@ -65,7 +65,7 @@ export async function idealCase(ctx: ExtractContext): Promise<RuleCase> {
     steps: [
       { caption: `${nameOf(abbr)} has ${whole(pop)} people and ${seats} seats.`, show: [] },
       { caption: `${whole(pop)} / ${seats} = ${twoDecimals(ideal)} people per district, which no district can hit exactly.`, show: ['ideal', 'chart'] },
-      { caption: `So the target is the two neighbouring whole numbers: ${whole(floor)} and ${whole(ceil)}. Each bar is a district's final distance from the ideal, and ${onTarget.length} of ${seats} are within one person of it.`, show: ['ideal', 'targets', 'chart', 'chart-onTarget'] },
+      { caption: `So the target is the two neighboring whole numbers: ${whole(floor)} and ${whole(ceil)}. Each bar is a district's final distance from the ideal, and ${onTarget.length} of ${seats} are within one person of it.`, show: ['ideal', 'targets', 'chart', 'chart-onTarget'] },
     ],
     chart: { kind: 'bars', values: metrics.districts.map((d) => d.pop), baseline: ideal, marks: { onTarget } },
   };

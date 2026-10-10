@@ -173,7 +173,7 @@ describe('balance.stop (CO)', () => {
     const sq = (pops: number[]): number => pops.reduce((s, p) => s + (p - m.ideal) * (p - m.ideal), 0);
     const v = c.chart!.values;
     expect(v).toHaveLength(b.moves.length + 1);
-    expect(b.moves).toHaveLength(20);
+    expect(b.moves).toHaveLength(json<{ balanceMoves: number }>('out/CO/metrics.json').balanceMoves);
     expect(v[0]).toBe(sq(b.before));
     b.moves.forEach((mv, i) => expect(v[i]! - v[i + 1]!).toBe(mv.gain));
     expect(v.at(-1)).toBe(sq(m.districts.map((d) => d.pop)));
@@ -184,7 +184,7 @@ describe('balance.stop (CO)', () => {
     const text = c.steps.map((s) => s.caption).join(' ');
     expect(text).toContain(whole(m.rangeAfterBalancing));
     expect(text).toContain(whole(m.rangeBeforeBalancing));
-    expect(text).toContain('20 moves');
+    expect(text).toContain(`${b.moves.length} moves`);
     expect(c.chart!.marks!.first).toEqual([0]);
     expect(c.chart!.marks!.last).toEqual([20]);
   });

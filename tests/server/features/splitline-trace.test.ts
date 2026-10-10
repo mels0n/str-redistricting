@@ -2,6 +2,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import type { Block } from '../../../src/server/entities/census-block/index.js';
 import { compareCandidates, createContext, findCut, ScanPool, type CutResult } from '../../../src/server/features/splitline/index.js';
 import { gridBlocks } from '../../helpers/grid.js';
+import { containsNorthSouth } from '../../helpers/ranges.js';
 
 const u = 0.01;
 const all = (n: number) => Int32Array.from({ length: n }, (_, i) => i);
@@ -70,7 +71,7 @@ describe('candidate trace', () => {
     expect(p!.fromDeg).not.toBe(q!.fromDeg);
     expect(p!.lengthM).toBe(q!.lengthM);
     expect(compareCandidates(p!, q!)).toBeLessThan(0);
-    expect(sqPlain.fromDeg).toBe(0);
+    expect(containsNorthSouth(sqPlain)).toBe(true);
   });
 
   it('trace of the winning candidate matches the result', () => {

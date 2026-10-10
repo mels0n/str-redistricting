@@ -27,7 +27,7 @@ describe('What happened in this state', () => {
     const el = createProcessPanel({ stateName: 'California', metrics, onWatch: () => undefined });
     expect(links(el)).toEqual({
       Cuts: '#/how/recursion',
-      'Guide lines checked': '#/how/cut',
+      'Stretches checked': '#/how/cut',
       'Strays moved': '#/how/strays',
       'Re-counts': '#/how/strays',
       'Balancing moves': '#/how/balancing',

@@ -36,7 +36,7 @@ export function fadeIn(value: Opacity): ExpressionSpecification {
  * Fill opacity depends on feature state (hover, dim), and MapLibre evaluates such an expression only at whole zoom
  * levels, so a fractional-zoom fade does not happen where it says. Crossfading two translucent fills would also stack
  * them (a dimmed district would read as barely dimmed). The fills therefore swap outright at DETAIL_ZOOM: exactly one
- * of the two is drawn at any zoom. Their colours are identical, so the swap shows only as the edge shift. The detail
+ * of the two is drawn at any zoom. Their colors are identical, so the swap shows only as the edge shift. The detail
  * fill's layer starts a level earlier, so its tiles are loaded (at opacity 0) before the swap. The opaque water cover
  * swaps the same way: crossfading two opaque covers would let the borders beneath show through mid-fade.
  */

@@ -76,7 +76,7 @@ export function peopleNoun(n: number): string {
   return Math.abs(n) === 1 ? 'person' : 'people';
 }
 
-/** 19369 metres -> "19.4 km"; 712836 -> "712.8 km". */
+/** 19369 meters -> "19.4 km"; 712836 -> "712.8 km". */
 export function formatKm(m: number): string {
   return `${(m / 1000).toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} km`;
 }

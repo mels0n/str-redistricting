@@ -16,7 +16,7 @@ export interface Range {
   readonly e: Dir;
   readonly sDeg: number;
   readonly eDeg: number;
-  /** Border length in whole micrometres (exact) and in meters (for reporting). */
+  /** Border length in whole micrometers (exact) and in meters (for reporting). */
   readonly lengthUm: number;
   readonly lowPop: number;
   readonly h1: number;
@@ -25,6 +25,16 @@ export interface Range {
   readonly lowSeats: number;
   /** 1 when this range starts at its chunk's start, 2 when it ends at its chunk's end (3 for both). */
   readonly edge: number;
+  /**
+   * The range runs across north-south: it starts before 180 degrees (sDeg) and continues past 0 degrees, where the
+   * same line has its sides the other way round, to eDeg - 180. Such a range contains north-south itself.
+   */
+  readonly wraps?: boolean;
+  /**
+   * Where to evaluate the range for its sides. For a range across north-south this is its part after 0 degrees, so
+   * its first side is the one a line just past north-south has first (as for any range that starts at 0 degrees).
+   */
+  readonly at?: Dir;
 }
 
 export interface ChunkResult {
@@ -35,11 +45,11 @@ export interface ChunkResult {
   readonly top: readonly Range[];
   readonly first: Range;
   readonly last: Range;
-  /** Distinct lengths (whole micrometres) of the chunk's unresolved ranges shorter than its best resolved range, ascending. */
+  /** Distinct lengths (whole micrometers) of the chunk's unresolved ranges shorter than its best resolved range, ascending. */
   readonly unresolvedBelow: readonly number[];
   /** The unresolved ranges behind unresolvedBelow, in generator order (a range cut by a chunk edge appears once per chunk). */
   readonly unresolvedRanges: readonly Range[];
-  /** Directions where some pass's split changed, and where the final sides changed. */
+  /** Directions where some pass's split changed (only changes to which blocks sit on each side are counted). */
   readonly splitChanges: number;
   readonly resultRanges: number;
   readonly stats: Readonly<Record<string, number>>;
@@ -65,7 +75,11 @@ export function directionDeg(d: Dir): number {
   return a;
 }
 /** The end of a range nearer north-south; a range is as near north-south as its nearer end. */
-export const nearestNorthSouth = (r: Range): Dir => (compareNorthSouth(r.s, r.e) <= 0 ? r.s : r.e);
+const NORTH: Dir = [0, 0, 0, 1];
+/** The end of a range nearer north-south (north-south itself for a range that runs across it). */
+export const nearestNorthSouth = (r: Range): Dir => (r.wraps ? NORTH : compareNorthSouth(r.s, r.e) <= 0 ? r.s : r.e);
+/** Where a range starts for the tie rule: a range that runs across north-south starts at north-south. */
+const startOf = (r: Range): Dir => (r.wraps ? NORTH : r.s);
 
 /**
  * The generator's order for candidates: shorter border (exact), then nearer north-south, then the earlier start
@@ -73,7 +87,7 @@ export const nearestNorthSouth = (r: Range): Dir => (compareNorthSouth(r.s, r.e)
  */
 export function compareRanges(p: Range, q: Range): number {
   if (p.lengthUm !== q.lengthUm) return p.lengthUm < q.lengthUm ? -1 : 1;
-  return compareNorthSouth(nearestNorthSouth(p), nearestNorthSouth(q)) || compareDirections(p.s, q.s) || p.lowSeats - q.lowSeats;
+  return compareNorthSouth(nearestNorthSouth(p), nearestNorthSouth(q)) || compareDirections(startOf(p), startOf(q)) || p.lowSeats - q.lowSeats;
 }
 
 /** The direction at `deg` degrees clockwise from north, as (0, 0) to (sin, cos). */
@@ -148,17 +162,24 @@ const sameResult = (a: Range, b: Range) => a.lengthUm === b.lengthUm && a.h1 ===
  * Every candidate the chunks found, with ranges that continue across chunk boundaries joined back into one range,
  * so the way the half turn was cut into chunks can never change a range's extent or a tie-break. `chunks` must
  * cover [0, 180) for each first-side seat count, in any order.
+ *
+ * The half turn is a loop: the line at 180 degrees is the line at 0 degrees with its sides the other way round. So
+ * the range that reaches 180 degrees for one first-side seat count continues into the range that starts at 0 degrees
+ * for the other count (the same count when both sides have the same seats) when it gives the same two sides,
+ * swapped: same length, and its first side is the other's second side. `whole` holds the fingerprints of every
+ * block of the piece, which is how "the other's second side" is recognised; without it the ends are not joined.
  */
-export function mergeChunks(chunks: readonly ChunkResult[]): { ranges: Range[]; count: number } {
+export function mergeChunks(chunks: readonly ChunkResult[], whole?: { readonly h1: number; readonly h2: number }): { ranges: Range[]; count: number } {
   const out = new Set<Range>();
   let joins = 0;
+  const joined = new Map<Range, Range>();
+  const ends = new Map<number, { first: Range; last: Range }>();
   const byOrientation = new Map<number, ChunkResult[]>();
   for (const c of chunks) byOrientation.set(c.lowSeats, [...(byOrientation.get(c.lowSeats) ?? []), c]);
-  for (const list of byOrientation.values()) {
+  for (const [lowSeats, list] of byOrientation) {
     list.sort((a, b) => a.aDeg - b.aDeg);
     // A range that reaches the end of its chunk continues into the next chunk's first range when the result is the
     // same (same length, same sides, same resolution); the members of each run are replaced by one joined range.
-    const joined = new Map<Range, Range>();
     const run: { open: Range | null; members: Range[] } = { open: null, members: [] };
     const flush = () => { const o = run.open; if (o) for (const m of run.members) joined.set(m, o); run.open = null; run.members = []; };
     for (const c of list) {
@@ -168,6 +189,26 @@ export function mergeChunks(chunks: readonly ChunkResult[]): { ranges: Range[]; 
       if (f !== c.last) { flush(); run.open = c.last; run.members = [c.last]; }
     }
     flush();
+    ends.set(lowSeats, { first: joined.get(list[0]!.first)!, last: joined.get(list[list.length - 1]!.last)! });
+  }
+  if (whole) {
+    // Join each orientation's last range to the mirror orientation's first range across 180 / 0 degrees.
+    const seats = [...ends.keys()];
+    const mirror = (o: number): number => (seats.length === 1 ? o : seats.find((x) => x !== o)!);
+    const wrapped = new Map<Range, Range>();
+    for (const o of seats) {
+      const a = ends.get(o)!.last, b = ends.get(mirror(o))!.first;
+      if (a === b || wrapped.has(a) || wrapped.has(b)) continue;
+      const swapped = a.lengthUm === b.lengthUm && a.unresolved === b.unresolved && (a.h1 ^ b.h1) >>> 0 === whole.h1 >>> 0 && (a.h2 ^ b.h2) >>> 0 === whole.h2 >>> 0;
+      if (!swapped) continue;
+      // Sides, seat count and fingerprints from the part after 0 degrees; extent from a's start on past 180 to b's end.
+      const w: Range = { ...b, s: a.s, sDeg: a.sDeg, e: b.e, eDeg: b.eDeg + 180, wraps: true, at: b.s };
+      wrapped.set(a, w); wrapped.set(b, w);
+      joins++;
+    }
+    for (const [m, j] of joined) { const w = wrapped.get(j); if (w) joined.set(m, w); }
+  }
+  for (const list of byOrientation.values()) {
     for (const c of list) {
       for (const r of [c.first, c.last, ...c.top]) {
         const j = joined.get(r) ?? r;

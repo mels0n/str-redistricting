@@ -5,7 +5,7 @@ import { DataError } from '../../shared/errors/index.js';
  * A piece of the state in local positions 0..m-1, as plain typed arrays so worker threads can share it.
  * px/py are the blocks' internal points in gnomonic coordinates on the unit sphere (dimensionless; multiply by
  * EARTH_RADIUS_M for meters near the center). lOff/lAdj/lLen the adjacency inside the piece (CSR layout) with
- * shared border lengths lLen in meters.
+ * shared border lengths lLen in whole micrometers.
  */
 export interface Piece {
   readonly m: number;
@@ -27,6 +27,7 @@ export interface ScanJob {
 export interface Evaluation {
   /** Guide-line offset of the final population split, in projection units (unit-sphere radii, not meters). */
   offset: number;
+  /** Border length in whole micrometers (not meters), as summed by borderLength. */
   lengthM: number;
   /** Blocks (and their people) that changed side as strays. */
   movedBlocks: number;
@@ -44,10 +45,9 @@ export interface Evaluation {
 const RAD = Math.PI / 180;
 
 /**
- * Total length of the border pairs `border` (indices into a, b, len; reordered in place). The lengths are added in
- * block order, lower position a then higher position b, never in the order the pairs were found: floating-point
- * addition depends on order, so this is what makes the same border sum to the same number however a candidate
- * reached it. Each (a, b) appears once, so the order is fixed.
+ * Total length of the border pairs `border` (indices into a, b, len; reordered in place), in whole micrometers.
+ * The lengths are exact integers, so the sum is the same in any order; the pairs are still sorted into block order
+ * (lower position a then higher position b) so the loop is deterministic. Each (a, b) appears once.
  */
 export function borderLength(border: Int32Array, a: Int32Array, b: Int32Array, len: Float64Array): number {
   border.sort((x, y) => a[x]! - a[y]! || b[x]! - b[y]!);

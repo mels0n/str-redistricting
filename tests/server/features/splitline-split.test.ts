@@ -3,6 +3,7 @@ import { isConnected } from '../../../src/server/entities/census-block/index.js'
 import { createContext, splitState } from '../../../src/server/features/splitline/index.js';
 import { DataError } from '../../../src/server/shared/errors/index.js';
 import { gridBlocks } from '../../helpers/grid.js';
+import { crossesNorthSouth } from '../../helpers/ranges.js';
 
 const districtPops = (assignment: Int32Array, pops: number[], seats: number) => {
   const out = new Array<number>(seats).fill(0);
@@ -41,7 +42,7 @@ describe('splitState', () => {
     // A candidate is a range of directions: from before to, inside the half turn.
     for (const c of odd.candidates) {
       expect(c.fromDeg).toBeGreaterThanOrEqual(0);
-      expect(c.fromDeg).toBeLessThan(c.toDeg);
+      if (!crossesNorthSouth(c)) expect(c.fromDeg).toBeLessThan(c.toDeg);
       expect(c.toDeg).toBeLessThanOrEqual(180);
     }
   });

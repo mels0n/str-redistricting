@@ -1,5 +1,5 @@
 import {
-  chosenCandidate, generatedStates, loadCandidates, loadMetricsIfPresent, type CaseBuilder, type ExtractContext, type RuleCase,
+  chosenCandidate, generatedStates, loadCandidates, loadMetricsIfPresent, numberField, type CaseBuilder, type ExtractContext, type RuleCase,
 } from '../../../features/rule-examples/index.js';
 import { compareCandidates, decidingTieRule } from '../../../features/splitline/index.js';
 import { DataError } from '../../../shared/errors/index.js';
@@ -14,56 +14,14 @@ const AXIS_Y = 170;
 const AXIS_L = 24;
 const AXIS_R = 296;
 
-/** The cut that shows the order of the checks: its shortest line is skipped for stray pieces it could not settle. */
+/** The preferred cut for the order of the checks (orderCut looks elsewhere when it no longer skips a range). */
 const ORDER = { abbr: 'MS', cut: 1 } as const;
 const BALANCE_STATE = 'CO';
 /** A two-district state, where the two districts are always exactly as far from the ideal as each other. */
 const TIE_STATE = 'HI';
 
 const round2 = (n: number): number => Math.round(n * 100) / 100;
-/** An angle for display: one decimal, no trailing zero. */
-const deg = (angle: number): string => `${Number(angle.toFixed(1))}°`;
 const axisLabel = (id: string, x: number, text: string): Label => ({ id, x, y: AXIS_Y, text });
-
-/** A numeric field of a record whose schema passes extra fields through. */
-function numberField(rec: object, key: string, what: string): number {
-  const v = (rec as Record<string, unknown>)[key];
-  if (typeof v !== 'number' || !Number.isFinite(v)) throw new DataError(`${what}: no number "${key}"`);
-  return v;
-}
-
-/** One candidate line, as the generator ranks them. */
-export interface Cand {
-  readonly k: number;
-  readonly lowSeats: number;
-  readonly lengthM: number;
-}
-
-/**
- * Candidate rows of one cut by the generator's order: border length, then closeness to north-south, then angle, then
- * first-side seats. candidates.json holds whole meters, so lines within a meter of each other may rank differently here
- * than in the generator, which compares exact lengths; tiesCase re-runs the cut to check.
- */
-function ranked(rows: readonly number[][], fields: readonly string[], angleCount: number): { cand: Cand; unresolved: boolean }[] {
-  const at = (f: string): number => fields.indexOf(f);
-  const [kAt, lowAt, lenAt, unAt] = [at('k'), at('lowSeats'), at('lengthM'), at('unresolved')];
-  if (kAt < 0 || lowAt < 0 || lenAt < 0 || unAt < 0) throw new DataError('candidates.json is missing a column the charts read');
-  const cmp = compareCandidates(angleCount);
-  return rows
-    .map((r) => ({ cand: { k: r[kAt]!, lowSeats: r[lowAt]!, lengthM: r[lenAt]! }, unresolved: r[unAt] === 1 }))
-    .sort((p, q) => cmp(p.cand, q.cand));
-}
-
-/** The two shortest resolved candidates of a cut in the generator's order, or undefined when fewer than two are resolved. */
-export function shortestTwo(rows: readonly number[][], fields: readonly string[], angleCount: number): [Cand, Cand] | undefined {
-  const ok = ranked(rows, fields, angleCount).filter((r) => !r.unresolved);
-  return ok.length < 2 ? undefined : [ok[0]!.cand, ok[1]!.cand];
-}
-
-/** Which of two equally long candidates goes first, and by which rule: 1 closer to north-south, 2 smaller angle, 3 fewer first-side seats. */
-export function tieRule(a: Pick<Cand, 'k' | 'lowSeats'>, b: Pick<Cand, 'k' | 'lowSeats'>, angleCount: number): { first: 'a' | 'b'; rule: 1 | 2 | 3 } {
-  return decidingTieRule(angleCount)(a, b);
-}
 
 /** The 0-based index of the value furthest from zero on either side; the lower index when two are equally far. */
 export function furthestOf(devs: readonly number[]): number {
@@ -71,123 +29,6 @@ export function furthestOf(devs: readonly number[]): number {
   devs.forEach((d, i) => { if (Math.abs(d) > Math.abs(devs[best]!)) best = i; });
   return best;
 }
-
-/** cut.order-of-checks: every direction's settled border, the unresolved ones, the sort, the first usable line. */
-export async function orderOfChecksCase(ctx: ExtractContext): Promise<RuleCase> {
-  const { abbr, cut: order } = ORDER;
-  const out = await ctx.state(abbr);
-  const at = out.cutStats.cuts.findIndex((c) => c.order === order);
-  const cut = out.cutStats.cuts[at];
-  const all = out.candidates.cuts[at];
-  if (!cut || !all) throw new DataError(`${abbr}: no cut ${order} in the cut data`);
-  const step = out.metrics.angleStepDeg;
-  const skippedCount = numberField(cut, 'skipped', `${abbr} cut ${order}`);
-  if (skippedCount < 1) throw new DataError(`${abbr} cut ${order}: no line was skipped, so this cut no longer shows the order of the checks`);
-
-  // One row per direction: a cut with an even seat count has a single way to split the seats.
-  const { lowSeats } = chosenCandidate(out, at);
-  const lowAt = out.candidates.fields.indexOf('lowSeats');
-  const rows = all.filter((r) => r[lowAt] === lowSeats);
-  const n = rows.length;
-  const angleCount = Math.round(180 / step);
-  if (n !== angleCount) throw new DataError(`${abbr} cut ${order}: ${n} candidates for ${angleCount} directions`);
-  const list = ranked(rows, out.candidates.fields, angleCount);
-  const values = new Array<number>(n).fill(-1);
-  for (const { cand } of list) values[cand.k] = cand.lengthM / 1000;
-  if (values.some((v) => v < 0)) throw new DataError(`${abbr} cut ${order}: a direction has no candidate row`);
-
-  const unresolved = list.filter((r) => r.unresolved).map((r) => r.cand.k).sort((a, b) => a - b);
-  // Lines ahead of the one that was used, in the generator's order: all of them unresolved, as many as cut-stats counts.
-  const used = list.findIndex((r) => !r.unresolved);
-  const skipped = list.slice(0, used).map((r) => r.cand.k);
-  const winner = list[used]!.cand;
-  if (skipped.length !== skippedCount) throw new DataError(`${abbr} cut ${order}: ${skipped.length} lines ahead of the winner, cut-stats counts ${skippedCount}`);
-  if (winner.lengthM !== cut.lengthM || (winner.k * 180) / angleCount !== cut.angleDeg) throw new DataError(`${abbr} cut ${order}: the shortest resolved line is not the cut on disk`);
-
-  const km = (m: number): string => (m / 1000).toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
-  const name = nameOf(abbr);
-  const top = values.reduce((a, v) => Math.max(a, v), 0);
-  const shortest = list[0]!.cand;
-  const lastAngle = ((n - 1) * 180) / angleCount;
-  const one = skipped.length === 1;
-  const base = ['chart', 'ymax'];
-  const angles = [...base, 'x-angle-l', 'x-angle-r'];
-  const byLength = [...base, 'x-sorted-l', 'x-sorted-r', 'chart-sorted'];
-  return {
-    id: 'cut.order-of-checks',
-    state: abbr,
-    stateName: name,
-    source: { cut: cut.order, angleDeg: cut.angleDeg },
-    link: { state: abbr, cut: cut.order },
-    view: VIEW,
-    labels: [
-      { id: 'ymax', x: 44, y: 11, text: `${whole(Math.round(top))} km` },
-      axisLabel('x-angle-l', AXIS_L, '0°'),
-      axisLabel('x-angle-r', AXIS_R, deg(lastAngle)),
-      axisLabel('x-sorted-l', AXIS_L, 'shortest'),
-      axisLabel('x-sorted-r', AXIS_R, 'longest'),
-    ],
-    steps: [
-      { caption: `${name}'s first cut tries ${whole(n)} straight lines, one every ${step}° from 0° to ${deg(lastAngle)}. Each line is first settled for stray pieces, and only then is its real border measured. Each tick is that measured length.`, show: angles },
-      { caption: `Settling cannot fix every line. For ${whole(unresolved.length)} of the ${whole(n)}, the two sides are still not each one connected piece. They are marked.`, show: [...angles, 'chart-unresolved'] },
-      { caption: `Now the lines are sorted by border length, shortest first.`, show: [...byLength, 'chart-unresolved'] },
-      { caption: `The shortest line, ${deg((shortest.k * 180) / angleCount)} at ${km(shortest.lengthM)} km, is one of the unresolved ones. ${one ? 'It is' : 'They are'} skipped.`, show: [...byLength, 'chart-unresolved', 'chart-skipped'] },
-      {
-        caption: `The next line, ${deg(cut.angleDeg)} at ${km(winner.lengthM)} km, has two connected sides, so it is the cut. It is the ${deg(cut.angleDeg)} and ${whole(cut.lengthM)} m of cut ${cut.order} on the real map.`,
-        show: [...byLength, 'chart-unresolved', 'chart-skipped', 'chart-winner'],
-      },
-    ],
-    chart: { kind: 'strip', values, marks: { unresolved, skipped, winner: [winner.k] } },
-  };
-}
-
-interface Close {
-  readonly abbr: string;
-  readonly blocks: number;
-  readonly order: number;
-  readonly angleCount: number;
-  readonly gapM: number;
-  readonly pair: [Cand, Cand];
-}
-
-interface CloseCalls {
-  readonly states: number;
-  readonly cuts: number;
-  /** Cuts whose two shortest borders are equal to the meter. */
-  readonly equal: number;
-  readonly closest: Close;
-}
-
-/**
- * The search behind cut.ties: for every cut of every generated state, the two shortest resolved borders and how
- * far apart they are (candidates.json holds whole meters). The closest pair, on the fewest blocks, is the example.
- */
-export async function closeCalls(ctx: ExtractContext): Promise<CloseCalls> {
-  const { outDir } = ctx.cfg;
-  const abbrs = generatedStates(outDir);
-  let cuts = 0, equal = 0;
-  let closest: Close | undefined;
-  for (const abbr of abbrs) {
-    const [metrics, cands] = await Promise.all([loadMetricsIfPresent(outDir, abbr), loadCandidates(outDir, abbr)]);
-    if (!metrics) continue;
-    const angleCount = numberField(metrics, 'angleCount', abbr);
-    const blocks = numberField(metrics, 'blocks', abbr);
-    cands.cuts.forEach((rows, i) => {
-      const pair = shortestTwo(rows, cands.fields, angleCount);
-      if (!pair) return;
-      cuts++;
-      const gapM = pair[1].lengthM - pair[0].lengthM;
-      if (gapM === 0) equal++;
-      const here: Close = { abbr, blocks, order: i + 1, angleCount, gapM, pair };
-      if (!closest || gapM < closest.gapM || (gapM === closest.gapM && blocks < closest.blocks)) closest = here;
-    });
-  }
-  if (!closest) throw new DataError(`${outDir}: no cuts to search for ties`);
-  return { states: abbrs.length, cuts, equal, closest };
-}
-
-/** The distance of a line at `angle` degrees from north-south, 0 to 90. */
-const fromNorthSouth = (angle: number): number => Math.min(angle, 180 - angle);
 
 /** How far apart two lengths are, in words: meters from a meter up, centimeters from a centimeter, millimeters down to a micrometer. */
 export function gapWords(m: number): string {
@@ -197,40 +38,199 @@ export function gapWords(m: number): string {
   return 'less than a thousandth of a millimeter';
 }
 
-/** cut.ties: the closest call in any state, re-run at full precision to say whether the two lengths are exactly equal. */
+/** One candidate (a range of directions that all give the same sides), as candidates.json lists it. */
+export interface Cand {
+  readonly lowSeats: number;
+  readonly fromDeg: number;
+  readonly toDeg: number;
+  readonly nearestNorthSouthDeg: number;
+  readonly lengthM: number;
+}
+
+/** A cut's candidate rows as records, in the order the generator tries them. */
+function candidatesOf(rows: readonly number[][], fields: readonly string[]): Cand[] {
+  const at = (f: string): number => fields.indexOf(f);
+  const [lowAt, fromAt, toAt, nsAt, lenAt] = [at('lowSeats'), at('fromDeg'), at('toDeg'), at('nearestNorthSouthDeg'), at('lengthM')];
+  if (lowAt < 0 || fromAt < 0 || toAt < 0 || nsAt < 0 || lenAt < 0) throw new DataError('candidates.json is missing a column the charts read');
+  return rows.map((r) => ({ lowSeats: r[lowAt]!, fromDeg: r[fromAt]!, toDeg: r[toAt]!, nearestNorthSouthDeg: r[nsAt]!, lengthM: r[lenAt]! }));
+}
+
+/** The two best candidates of a cut in the generator's order, or undefined when the cut lists fewer than two. */
+export function shortestTwo(rows: readonly number[][], fields: readonly string[]): [Cand, Cand] | undefined {
+  const list = candidatesOf(rows, fields);
+  for (let i = 1; i < list.length; i++) {
+    if (list[i]!.lengthM < list[i - 1]!.lengthM) throw new DataError("candidates.json rows are not in the generator's order (a later row is shorter)");
+  }
+  return list.length < 2 ? undefined : [list[0]!, list[1]!];
+}
+
+/** Whole micrometers between two lengths in meters. */
+export const gapUm = (a: number, b: number): number => Math.round((b - a) * 1e6);
+
+/** A direction for display: up to four decimals, no trailing zeros. */
+const degExact = (angle: number): string => `${Number(angle.toFixed(4))}°`;
+/** A range of directions for display. */
+const rangeOf = (c: Pick<Cand, 'fromDeg' | 'toDeg'>): string => `${degExact(c.fromDeg)} to ${degExact(c.toDeg)}`;
+/** Meters as kilometers to one decimal. */
+const km = (m: number): string => (m / 1000).toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+/** Fewest leading ranges the order-of-checks chart needs to be worth drawing. */
+const MIN_RANGES = 12;
+
+/** The cut that shows the order of the checks: shorter ranges are skipped for sides that are not each connected. */
+async function orderCut(ctx: ExtractContext): Promise<{ abbr: string; order: number }> {
+  const fits = async (abbr: string, order: number): Promise<boolean> => {
+    const out = await ctx.state(abbr);
+    const at = out.cutStats.cuts.findIndex((c) => c.order === order);
+    const cut = out.cutStats.cuts[at];
+    return !!cut && numberField(cut, 'skipped', abbr) >= 1 && (out.candidates.cuts[at]?.length ?? 0) >= MIN_RANGES;
+  };
+  if (await fits(ORDER.abbr, ORDER.cut)) return { abbr: ORDER.abbr, order: ORDER.cut };
+  // The preferred cut no longer shows it: the first cut 1, by state, that does.
+  for (const abbr of generatedStates(ctx.cfg.outDir)) if (await fits(abbr, 1)) return { abbr, order: 1 };
+  throw new DataError('no cut 1 in any state skips a range and lists enough candidates to show the order of the checks');
+}
+
+/** cut.order-of-checks: every straight line falls into ranges of directions; each range is checked once, shortest border first. */
+export async function orderOfChecksCase(ctx: ExtractContext): Promise<RuleCase> {
+  const { abbr, order } = await orderCut(ctx);
+  const out = await ctx.state(abbr);
+  const at = out.cutStats.cuts.findIndex((c) => c.order === order);
+  const cut = out.cutStats.cuts[at];
+  const all = out.candidates.cuts[at];
+  if (!cut || !all) throw new DataError(`${abbr}: no cut ${order} in the cut data`);
+  const skipped = numberField(cut, 'skipped', `${abbr} cut ${order}`);
+  const ranges = numberField(cut, 'candidateRanges', `${abbr} cut ${order}`);
+  const list = candidatesOf(all, out.candidates.fields);
+  const n = list.length;
+  chosenCandidate(out, at);
+  const first = list[0]!;
+  if (first.fromDeg !== cut.fromDeg || first.toDeg !== cut.toDeg || first.lowSeats !== cut.lowSeats) throw new DataError(`${abbr} cut ${order}: the first candidate is not the cut on disk`);
+  if (skipped < 1) throw new DataError(`${abbr} cut ${order}: no range was skipped, so this cut no longer shows the order of the checks`);
+
+  // The leading ranges in direction order (ties by seats), so sorting them by length is a visible step.
+  const byDirection = list.map((c, i) => ({ c, i })).sort((p, q) => p.c.fromDeg - q.c.fromDeg || p.c.lowSeats - q.c.lowSeats);
+  const values = byDirection.map(({ c }) => c.lengthM / 1000);
+  const winnerAt = byDirection.findIndex(({ i }) => i === 0);
+
+  const name = nameOf(abbr);
+  const top = values.reduce((a, v) => Math.max(a, v), 0);
+  const base = ['chart', 'ymax'];
+  const angles = [...base, 'x-angle-l', 'x-angle-r'];
+  const byLength = [...base, 'x-sorted-l', 'x-sorted-r', 'chart-sorted'];
+  const skippedWords = skipped === 1 ? 'One shorter border length belongs' : `${whole(skipped)} shorter border lengths belong`;
+  return {
+    id: 'cut.order-of-checks',
+    state: abbr,
+    stateName: name,
+    source: { cut: cut.order, angleDeg: cut.angleDeg },
+    link: { state: abbr, cut: cut.order },
+    view: VIEW,
+    labels: [
+      { id: 'ymax', x: 44, y: 11, text: `${whole(Math.round(top))} km` },
+      axisLabel('x-angle-l', AXIS_L, 'smaller angle'),
+      axisLabel('x-angle-r', AXIS_R, 'larger angle'),
+      axisLabel('x-sorted-l', AXIS_L, 'shortest'),
+      axisLabel('x-sorted-r', AXIS_R, 'longest'),
+    ],
+    steps: [
+      { caption: `${name}'s first cut tries every straight line. Turning the line, the directions fall into stretches: every direction inside one stretch splits the people the same way. Cut ${cut.order} has ${whole(ranges)} such stretches${cut.seats % 2 === 1 ? ', counting each way of splitting the seats' : ''}. Each tick is one of the ${whole(n)} leading stretches (the best few from every part of the half turn), in order of direction, at the length of its border.`, show: angles },
+      { caption: 'Each stretch is checked once, however wide it is. Its line is first settled for stray pieces, and only then is its real border measured. Each tick is that measured length.', show: angles },
+      { caption: 'Now the stretches are sorted by border length, shortest first.', show: byLength },
+      { caption: `Not every stretch can be used. ${skippedWords} to stretches that are shorter still but whose two sides are not each one connected piece. They are skipped, and are not drawn here.`, show: byLength },
+      {
+        caption: `The shortest stretch left, ${rangeOf(first)} from north-south at ${km(first.lengthM)} km, has two connected sides, so it is the cut. The guide line is drawn through its middle, ${degExact(cut.angleDeg)}. It is the ${degExact(cut.angleDeg)} and ${whole(Math.round(cut.lengthM))} m of cut ${cut.order} on the real map.`,
+        show: [...byLength, 'chart-winner'],
+      },
+    ],
+    chart: { kind: 'strip', values, marks: { winner: [winnerAt] } },
+  };
+}
+
+interface Close {
+  readonly abbr: string;
+  readonly blocks: number;
+  readonly order: number;
+  readonly gapUm: number;
+  readonly pair: [Cand, Cand];
+}
+
+interface CloseCalls {
+  readonly states: number;
+  readonly cuts: number;
+  /** Cuts whose two best borders are exactly equal, to the micrometer. */
+  readonly equal: number;
+  readonly closest: Close;
+}
+
+/**
+ * The search behind cut.ties: for every cut of every generated state, the two best candidates and how far apart their
+ * borders are (exact, in whole micrometers). The closest pair, on the fewest blocks, is the example.
+ */
+export async function closeCalls(ctx: ExtractContext): Promise<CloseCalls> {
+  const { outDir } = ctx.cfg;
+  const abbrs = generatedStates(outDir);
+  let cuts = 0, equal = 0;
+  let closest: Close | undefined;
+  for (const abbr of abbrs) {
+    const [metrics, cands] = await Promise.all([loadMetricsIfPresent(outDir, abbr), loadCandidates(outDir, abbr)]);
+    if (!metrics) continue;
+    const blocks = numberField(metrics, 'blocks', abbr);
+    cands.cuts.forEach((rows, i) => {
+      const pair = shortestTwo(rows, cands.fields);
+      if (!pair) return;
+      cuts++;
+      const gap = gapUm(pair[0].lengthM, pair[1].lengthM);
+      if (gap === 0) equal++;
+      const here: Close = { abbr, blocks, order: i + 1, gapUm: gap, pair };
+      if (!closest || gap < closest.gapUm || (gap === closest.gapUm && blocks < closest.blocks)) closest = here;
+    });
+  }
+  if (!closest) throw new DataError(`${outDir}: no cuts to search for ties`);
+  return { states: abbrs.length, cuts, equal, closest };
+}
+
+/** The distance of a direction at `angle` degrees from north-south, 0 to 90. */
+const fromNorthSouth = (angle: number): number => Math.min(angle, 180 - angle);
+
+/** The rule that decides between two equally long candidates, in words; `a` goes first. */
+export function tieRuleText(a: Cand, b: Cand, rule: 1 | 2 | 3): string {
+  const [na, nb] = [fromNorthSouth(a.nearestNorthSouthDeg), fromNorthSouth(b.nearestNorthSouthDeg)];
+  if (rule === 1) {
+    return `the stretch nearer north-south goes first (a stretch is as near as its nearer end). The stretch ${rangeOf(a)} comes within ${degExact(na)} of north-south and ${rangeOf(b)} within ${degExact(nb)}, so ${rangeOf(a)} goes first.`;
+  }
+  if (rule === 2) {
+    return `both stretches come equally near north-south, so the one that starts first, turning clockwise from north-south, goes first: ${rangeOf(a)} before ${rangeOf(b)}.`;
+  }
+  return `both stretches start in the same direction, so the one whose first side has fewer seats goes first: ${a.lowSeats} before ${b.lowSeats}.`;
+}
+
+/** cut.ties: the closest call in any state, with exact lengths, and the rule that would decide a tie. */
 export async function tiesCase(ctx: ExtractContext): Promise<RuleCase> {
   const found = await closeCalls(ctx);
-  const { abbr, order, angleCount } = found.closest;
+  const { abbr, order } = found.closest;
   const t = await cutTrace(ctx, abbr, order);
-  const lengthOf = (c: Cand): number => {
-    const s = t.result.candidateStats.find((x) => x.k === c.k && x.lowSeats === c.lowSeats);
-    if (!s) throw new DataError(`${abbr} cut ${order}: no candidate k=${c.k} in the re-run`);
-    return s.lengthM;
-  };
-  // candidates.json holds whole meters, so order the pair again by the full lengths of the re-run, as the generator does.
-  const [first, second] = found.closest.pair
-    .map((c) => ({ ...c, lengthM: lengthOf(c) }))
-    .sort(compareCandidates(angleCount)) as [Cand, Cand];
-  const [lenFirst, lenSecond] = [first.lengthM, second.lengthM];
-  const tied = lenFirst === lenSecond;
-  if ((first.k * 180) / angleCount !== t.cut.angleDeg) {
-    throw new DataError(`${abbr} cut ${order}: the shortest resolved line is not the cut on disk (its sides were not connected?)`);
+  const [x, y] = t.result.candidates;
+  if (!x || !y) throw new DataError(`${abbr} cut ${order}: the re-run lists fewer than two candidates`);
+  const [first, second] = found.closest.pair;
+  if (x.fromDeg !== first.fromDeg || x.toDeg !== first.toDeg || y.fromDeg !== second.fromDeg || y.toDeg !== second.toDeg) {
+    throw new DataError(`${abbr} cut ${order}: the re-run's two best candidates are not the ones on disk (stale out/?)`);
   }
+  if (compareCandidates(x, y) >= 0) throw new DataError(`${abbr} cut ${order}: the two best candidates are not in the generator's order`);
+  if (first.fromDeg !== t.cut.fromDeg || first.toDeg !== t.cut.toDeg) throw new DataError(`${abbr} cut ${order}: the best candidate is not the cut on disk`);
+  const [lenFirst, lenSecond] = [first.lengthM, second.lengthM];
+  const tied = found.closest.gapUm === 0;
   const name = nameOf(abbr);
-  const angle = (c: Cand): number => (c.k * 180) / angleCount;
-  const [a, b] = [deg(angle(first)), deg(angle(second))];
+  const [a, b] = [rangeOf(first), rangeOf(second)];
   const meters = (m: number): string => people(round2(m));
   const mark = tied ? 'tied' : 'close';
-  const decided = tieRule(first, second, angleCount);
+  // The rule is only consulted when the lengths are exactly equal; `first` of the pair says which range would go first.
+  const decided = decidingTieRule(x, y);
+  const [ahead, behind] = decided.first === 'a' ? [first, second] : [second, first];
+  const rule = tieRuleText(ahead, behind, decided.rule);
 
   const search = found.equal > 0
-    ? `Searching every cut in all ${found.states} states: in ${found.equal} of ${whole(found.cuts)} cuts the two shortest settled borders agree to the meter. The one on the fewest blocks is ${name}'s cut ${order}, measured in full below.`
-    : `Searching every cut in all ${found.states} states: none of ${whole(found.cuts)} cuts has two shortest settled borders that agree to the meter. The closest is ${name}'s cut ${order}.`;
-  const rule = decided.rule === 1
-    ? `A tie goes to the line closest to north-south. ${a} leans ${deg(fromNorthSouth(angle(first)))} from north-south and ${b} leans ${deg(fromNorthSouth(angle(second)))}, so ${a} goes first.`
-    : decided.rule === 2
-      ? `Both lines lean ${deg(fromNorthSouth(angle(first)))} from north-south, so the smaller angle goes first: ${a} before ${b}.`
-      : `Both lines have the same angle, so the one whose first side has fewer seats goes first: ${first.lowSeats} before ${second.lowSeats}.`;
+    ? `Searching every cut in all ${found.states} states: in ${found.equal} of ${whole(found.cuts)} cuts the two best borders are exactly equal, because two stretches of directions give the same two sides. The one on the fewest blocks is ${name}'s cut ${order}.`
+    : `Searching every cut in all ${found.states} states: in none of ${whole(found.cuts)} cuts are the two best borders exactly equal. The closest call is ${name}'s cut ${order}.`;
 
   return {
     id: 'cut.ties',
@@ -241,19 +241,23 @@ export async function tiesCase(ctx: ExtractContext): Promise<RuleCase> {
     view: VIEW,
     steps: [
       { caption: search, show: [] },
-      { caption: `${name}'s cut ${order} splits ${t.cut.seats} seats. Its two shortest borders run at ${a} and ${b}.`, show: ['chart'] },
+      { caption: `${name}'s cut ${order} splits ${t.cut.seats} seats. Its two best borders belong to the stretches of directions ${a} and ${b} from north-south.`, show: ['chart'] },
       {
         caption: tied
-          ? `Both borders are ${meters(lenFirst)} m, exactly the same length when measured in full, so they are tied.`
-          : `The closest call in any state: ${a} and ${b}, ${gapWords(lenSecond - lenFirst)} apart when measured in full. Not a tie.`,
+          ? `Both stretches give exactly the same border (the same two sides), so they are tied.`
+          : lenSecond - lenFirst < 0.11
+            ? `The closest call in any state: the borders differ by ${gapWords(lenSecond - lenFirst)}, less than the census outlines can resolve (about 11 cm), but the rule only calls a tie when the stored lengths are exactly equal. Not a tie.`
+            : `The closest call in any state: the borders differ by ${gapWords(lenSecond - lenFirst)}. Not a tie.`,
         show: ['chart', `chart-${mark}`],
       },
       {
-        caption: tied ? rule : `Not a tie, so the shorter border, at ${a}, is the one used.`,
+        caption: tied
+          ? `A tie is decided by this order: ${rule}`
+          : `Not a tie, so the shorter border, the stretch ${a}, is the one used. Had they been exactly equal, ${rule}`,
         show: ['chart', `chart-${mark}`],
       },
       {
-        caption: `So the cut is the line at ${a}. On the real map, ${name} cut ${order} is ${deg(t.cut.angleDeg)} and ${whole(t.cut.lengthM)} m.`,
+        caption: `So the cut is the stretch ${a}. Its guide line is drawn through the middle, ${degExact(t.cut.angleDeg)}. On the real map, ${name} cut ${order} is ${degExact(t.cut.angleDeg)} and ${whole(Math.round(t.cut.lengthM))} m.`,
         show: ['chart', `chart-${mark}`, 'chart-winner'],
       },
     ],

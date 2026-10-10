@@ -267,7 +267,7 @@ export function directionLengths(): number[] {
   });
 }
 
-/** Three directions for the same piece, each with its border length; the shortest is the one used. */
+/** Three directions for the same piece, each with its border length; the shortest is marked. */
 export function directionsDiagram(): SVGSVGElement {
   const shortest = Math.min(...DIRECTION_EXAMPLE.map((d) => d.km));
   const cells = DIRECTION_EXAMPLE.map(({ angle, km }, i) => {
@@ -284,14 +284,14 @@ export function directionsDiagram(): SVGSVGElement {
       line(a, b, won ? 'strv-dg__won' : 'strv-dg__cand-line'),
       text(c[0], 122, `${angle}°`, 'strv-dg__t strv-dg__t--small', 'middle'),
       text(c[0], 140, `${km} km`, won ? 'strv-dg__t strv-dg__t--strong' : 'strv-dg__t', 'middle'),
-      won ? text(c[0], 156, 'Shortest: used', 'strv-dg__t strv-dg__t--small strv-dg__t--strong', 'middle') : null,
+      won ? text(c[0], 156, 'Shortest of these', 'strv-dg__t strv-dg__t--small strv-dg__t--strong', 'middle') : null,
     );
   });
   const [a, b, c] = DIRECTION_EXAMPLE;
   return panel(
     166,
     'Three directions compared',
-    `The same piece drawn three times, each split by a line in a different direction, with the length of the real border it makes: ${a.angle} degrees, ${a.km} km; ${b.angle} degrees, ${b.km} km; ${c.angle} degrees, ${c.km} km. The shortest, ${shortest} km, is the one used.`,
+    `The same piece drawn three times, each split by a line in a different direction, with the length of the real border it makes: ${a.angle} degrees, ${a.km} km; ${b.angle} degrees, ${b.km} km; ${c.angle} degrees, ${c.km} km. The border at ${DIRECTION_EXAMPLE.find((d) => d.km === shortest)!.angle} degrees is the shortest of the three, ${shortest} km.`,
     ...cells,
   );
 }

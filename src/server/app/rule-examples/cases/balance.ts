@@ -329,8 +329,12 @@ export async function scoreCase(ctx: ExtractContext): Promise<RuleCase> {
     if (w0.border === undefined || w1.border === undefined) throw new DataError(`${run.abbr}: a ranked move has no border change`);
     if (w0.border > w1.border || (w0.border === w1.border && w0.block > w1.block)) throw new DataError(`${run.abbr}: the tied moves are not ranked by border, then GEOID order`);
     const [g0, g1] = [run.sb.blocks[w0.block]!.geoid, run.sb.blocks[w1.block]!.geoid];
-    /** Meters of border change, one decimal and no trailing zero. */
-    const meters = (v: number): string => `${Number(Math.abs(v).toFixed(1))} m`;
+    // Decimals for the meters: one, or more until the two changes (and any nonzero change) no longer print alike.
+    const shown = (v: number, d: number): string => String(Number(Math.abs(v).toFixed(d)));
+    let digits = 1;
+    while (digits < 9 && (shown(w0.border, digits) === shown(w1.border, digits) || [w0.border, w1.border].some((v) => v !== 0 && shown(v, digits) === '0'))) digits++;
+    /** Meters of border change, no trailing zero. */
+    const meters = (v: number): string => `${shown(v, digits)} m`;
     const effect = (v: number): string => (v < 0 ? `shortens the border by ${meters(v)}` : v > 0 ? `adds ${meters(v)} of border` : 'leaves the border as it is');
     const tieWords = w0.border < w1.border
       ? `A tie goes to the move that leaves the shorter border. Moving ${g0} ${effect(w0.border)}, while moving ${g1} ${effect(w1.border)}, so ${g0} ranks ahead.`

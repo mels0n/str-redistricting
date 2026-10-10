@@ -74,6 +74,22 @@ describe('balance', () => {
     expect(ranked[0]!.border!).toBeLessThan(ranked[1]!.border!);
     expect(r.moves[0]!.block).toBe(7);
   });
+  it('breaks a tie in gain and border by GEOID order before the receiving district', () => {
+    // 4x2 grid: District 1 is the left column, District 2 the right column, District 0 the four blocks between.
+    // Blocks 2 and 5 can each leave District 0 with the same gain and exactly the same border change (each shares
+    // one vertical and one horizontal edge with District 0 and one vertical edge with its receiver). Block 2 would
+    // join District 2, whose first block is 3; block 5 would join District 1, whose first block is 0. Block 2 still
+    // goes first: the block decides before the receiving district.
+    const pops = [0, 0, 1, 0, 1, 1, 1, 1];
+    const blocks = gridBlocks(4, 2, { pop: (x, y) => pops[y * 4 + x]! });
+    const rounds: BalanceRound[] = [];
+    const r = balance(blocks, buildTopology(blocks), Int32Array.from([1, 0, 0, 2, 1, 0, 0, 2]), 3, { onRound: (x) => rounds.push(x) });
+    const ranked = rounds[0]!.candidates.filter((c) => c.gain > 0);
+    const [b2, b5] = [ranked.find((c) => c.block === 2)!, ranked.find((c) => c.block === 5)!];
+    expect(b2.gain).toBe(b5.gain);
+    expect(b2.border).toBe(b5.border);
+    expect(r.moves[0]).toMatchObject({ block: 2, from: 0, to: 2 });
+  });
   it('sends a block to the neighbor whose first block comes first in GEOID order when everything else ties', () => {
     // 3x2 grid: District 2 is block 0, District 1 is block 2, District 0 the rest. Block 1 touches both one-block
     // districts along edges of the same length and both hold one person, so only the receiving district can decide.

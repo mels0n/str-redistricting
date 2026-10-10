@@ -37,6 +37,8 @@ export interface ChunkResult {
   readonly last: Range;
   /** Distinct lengths (whole micrometres) of the chunk's unresolved ranges shorter than its best resolved range, ascending. */
   readonly unresolvedBelow: readonly number[];
+  /** The unresolved ranges behind unresolvedBelow, in generator order (a range cut by a chunk edge appears once per chunk). */
+  readonly unresolvedRanges: readonly Range[];
   /** Directions where some pass's split changed, and where the final sides changed. */
   readonly splitChanges: number;
   readonly resultRanges: number;
@@ -100,6 +102,7 @@ export function sweepChunk(piece: Piece, seats: number, lowSeats: number, aDeg: 
   const dir = (i: number, j: number): Dir => [X(g, i), Y(g, i), X(g, j), Y(g, j)];
   const top: Range[] = [];
   const unresolved: number[] = [];
+  const unresolvedRanges: Range[] = [];
   let first: Range | undefined, last: Range | undefined;
   let resultRanges = 0, splitChanges = 0;
   let cur = { s: start, sDeg: aDeg, atStart: true };
@@ -110,7 +113,7 @@ export function sweepChunk(piece: Piece, seats: number, lowSeats: number, aDeg: 
     const r: Range = { s: cur.s, e, sDeg: cur.sDeg, eDeg, ...res, lowSeats, edge: (cur.atStart ? 1 : 0) | (atEnd ? 2 : 0) };
     if (cur.atStart) first = r;
     if (atEnd) last = r;
-    if (r.unresolved) { unresolved.push(r.lengthUm); return; }
+    if (r.unresolved) { unresolved.push(r.lengthUm); unresolvedRanges.push(r); return; }
     if (top.length < keep || compareRanges(r, top[top.length - 1]!) < 0) {
       let i = top.length;
       while (i > 0 && compareRanges(r, top[i - 1]!) < 0) i--;
@@ -134,6 +137,7 @@ export function sweepChunk(piece: Piece, seats: number, lowSeats: number, aDeg: 
   const unresolvedBelow = [...new Set(unresolved.filter((u) => u < best))].sort((x, y) => x - y);
   return {
     lowSeats, aDeg, bDeg, top, first: first!, last: last!, unresolvedBelow, splitChanges, resultRanges,
+    unresolvedRanges: unresolvedRanges.filter((u) => u.lengthUm < best).sort(compareRanges),
     stats: { ...chain.stats, ms: performance.now() - t0 },
   };
 }

@@ -6,7 +6,7 @@ import { Chain } from './chain.js';
 import type { SplitContext } from './context.js';
 import type { ScanPool } from './pool.js';
 import { createScanner, type Piece, type ScanJob } from './scan.js';
-import { compareNorthSouth, compareDirections, directionDeg, geoFor, mergeChunks, nearestNorthSouth, sweepChunk, type ChunkResult, type Dir, type Range } from './sweep.js';
+import { compareNorthSouth, compareDirections, compareRanges, directionDeg, geoFor, mergeChunks, nearestNorthSouth, sweepChunk, type ChunkResult, type Dir, type Range } from './sweep.js';
 import { chunksFor, sweepTask, taskCount, type SweepJob } from './tasks.js';
 
 export { selectLow } from './scan.js';
@@ -41,6 +41,8 @@ export interface CutResult {
   readonly iterations: number;
   /** How far the re-counts moved the drawn guide line, in meters at the projection center. */
   readonly offsetShiftM: number;
+  /** Shorter ranges passed over because their sides were not each connected, in the generator's order. */
+  readonly skippedRanges: readonly CandidateRange[];
   /** The leading candidates in the generator's order (the best few of every chunk, joined across chunk edges). */
   readonly candidates: readonly CandidateRange[];
   /** The candidates asked for in `CutOptions.trace`, in request order; empty when none were asked for. */
@@ -248,6 +250,7 @@ export function findCut(ctx: SplitContext, members: Int32Array, seats: number, v
     if (!check(low, high)) { refused++; continue; }
 
     // Shorter unresolved ranges, counted once per distinct length (a range cut by a chunk edge has one length).
+    const skippedRanges = chunks.flatMap((c) => c.unresolvedRanges.filter((u) => u.lengthUm < r.lengthUm)).sort(compareRanges).map(toCandidate);
     const shorterUnresolved = new Set<number>();
     for (const c of chunks) for (const u of c.unresolvedBelow) if (u < r.lengthUm) shorterUnresolved.add(u);
     const { sx, sy } = boundaryInPlane(ctx, members);
@@ -263,7 +266,7 @@ export function findCut(ctx: SplitContext, members: Int32Array, seats: number, v
       low, high, lowSeats: r.lowSeats, highSeats: seats - r.lowSeats,
       angleDeg, fromDeg: r.sDeg, toDeg: r.eDeg, lengthM: r.lengthUm / 1e6,
       candidateRanges: merged.count, splitChanges: chunks.reduce((s, c) => s + c.splitChanges, 0),
-      spans: spanLength(ctx, sx, sy, th, offset).spans, skipped: shorterUnresolved.size + refused,
+      spans: spanLength(ctx, sx, sy, th, offset).spans, skipped: shorterUnresolved.size + refused, skippedRanges,
       strayBlocksMoved: chain.movedBlocks, strayPopMoved: movedPop,
       iterations: chain.passes.length, offsetShiftM: (offset - offset0) * EARTH_RADIUS_M, candidates: candidates.slice(0, 200), traces,
     };

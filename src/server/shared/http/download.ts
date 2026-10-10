@@ -181,8 +181,20 @@ export async function downloadCached(url: string, path: string, label: string, s
  * The same download for a file that is not pinned yet (a new Census release the maintainer is about to adopt):
  * no hash is checked, and the file's SHA-256 is returned for the manifest. Every later read goes through
  * `downloadCached`, which checks the cached file against that hash.
+ * A file already at `path` is never trusted, since the hash returned here becomes the pin: the file is always
+ * fetched again to a name of its own and then replaces the cached one.
  */
 export async function downloadForPinning(url: string, path: string, label: string, opts: DownloadOptions = {}): Promise<{ path: string; sha256: string }> {
-  if (existsSync(path)) return { path, sha256: await sha256File(path) };
-  return { path, sha256: await fetchWithRetries(url, path, label, null, opts) };
+  const fresh = `${path}.${process.pid}.${randomUUID()}.fresh`;
+  try {
+    const sha256 = await fetchWithRetries(url, fresh, label, null, opts);
+    if (existsSync(path)) {
+      const cached = await sha256File(path);
+      if (cached !== sha256) console.warn(`${label}: the cached copy at ${path} (sha256 ${cached}) differs from the file just downloaded (sha256 ${sha256}); the cached copy is replaced`);
+    }
+    await rename(fresh, path);
+    return { path, sha256 };
+  } finally {
+    await rm(fresh, { force: true });
+  }
 }

@@ -142,7 +142,26 @@ describe('publish-data --enacted-only on stamped data', () => {
 });
 
 describe('downloadForPinning', () => {
-  it('downloads without a pinned hash and returns the hash of what it got, then reuses the cached file', async () => {
+  it('does not trust a cached file: it downloads fresh, hashes that, replaces the cache and says the old copy differed', async () => {
+    const tmp = mkdtempSync(join(tmpdir(), 'pin-'));
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+    try {
+      const path = join(tmp, 'f.zip');
+      writeFileSync(path, 'stale bytes');
+      const fetchFn = vi.fn<typeof fetch>(async () => new Response('new census bytes', { status: 200 }));
+      const want = createHash('sha256').update('new census bytes').digest('hex');
+      expect(await downloadForPinning('https://www2.census.gov/f.zip', path, 'f', { fetchFn })).toEqual({ path, sha256: want });
+      expect(fetchFn).toHaveBeenCalledTimes(1);
+      expect(readFileSync(path, 'utf8')).toBe('new census bytes');
+      expect(warn).toHaveBeenCalledWith(expect.stringContaining('differs'));
+      expect(readdirSync(tmp)).toEqual(['f.zip']);
+    } finally {
+      warn.mockRestore();
+      rmSync(tmp, { recursive: true, force: true });
+    }
+  });
+
+  it('downloads without a pinned hash and returns the hash of what it got, then downloads again rather than trust the cached file', async () => {
     const tmp = mkdtempSync(join(tmpdir(), 'pin-'));
     try {
       const path = join(tmp, 'f.zip');
@@ -150,7 +169,7 @@ describe('downloadForPinning', () => {
       const want = createHash('sha256').update('new census bytes').digest('hex');
       expect(await downloadForPinning('https://www2.census.gov/f.zip', path, 'f', { fetchFn })).toEqual({ path, sha256: want });
       expect(await downloadForPinning('https://www2.census.gov/f.zip', path, 'f', { fetchFn })).toEqual({ path, sha256: want });
-      expect(fetchFn).toHaveBeenCalledTimes(1);
+      expect(fetchFn).toHaveBeenCalledTimes(2);
     } finally {
       rmSync(tmp, { recursive: true, force: true });
     }

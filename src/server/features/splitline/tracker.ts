@@ -78,7 +78,8 @@ export class Tracker {
     this.ver = new Int32Array(m + 1);
     this.tog = new Uint8Array(m);
     const n = free.length;
-    this.hA = new Int32Array(n); this.hB = new Int32Array(n);
+    // Sized for every block of the piece: a tracker reused for another pass (reconfigure, applyDelta) can take more free blocks than it started with.
+    this.hA = new Int32Array(m); this.hB = new Int32Array(m);
     const cap = 2 * (n + 1) + 64;
     this.qI = new Int32Array(cap); this.qJ = new Int32Array(cap); this.qS = new Int32Array(cap); this.qV = new Int32Array(cap);
     const su = nsign(g, curI, curJ);

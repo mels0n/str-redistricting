@@ -279,6 +279,29 @@ describe('lines slid from the other end', () => {
     // The fixtures reach cuts where the line from the other end is the one used.
     expect(reversedSeen).toBeGreaterThan(0);
   }, 120_000);
+
+  it('does not depend on how the half turn is cut into chunks', () => {
+    const rnd = lcg(5);
+    let spans = 0;
+    for (let k = 0; k < 25; k++) {
+      const w = 3 + Math.floor(rnd() * 3), h = 2 + Math.floor(rnd() * 3);
+      const pops: number[] = Array.from({ length: w * h }, () => Math.floor(rnd() * 4));
+      if (!pops.some((p) => p > 0)) pops[0] = 1;
+      const ctx = createContext(gridBlocks(w, h, { pop: (x, y) => pops[y * w + x]! }));
+      for (const seats of [2, 3]) {
+        const key = (chunks: number) => {
+          try {
+            const r = findCut(ctx, all(w * h), seats, undefined, { chunks });
+            spans += r.tieSpans;
+            return JSON.stringify([sorted(r.low), r.fromDeg, r.toDeg, r.angleDeg, r.reversed, r.candidateRanges, r.reversedRanges, r.tiedCuts]);
+          } catch { return 'none'; }
+        };
+        const one = key(1);
+        for (const chunks of [3, 7, 64]) expect(key(chunks), `grid ${k}, ${seats} seats, ${chunks} chunks`).toBe(one);
+      }
+    }
+    expect(spans).toBeGreaterThan(0);
+  }, 180_000);
 });
 
 describe('the trace of a cut', () => {

@@ -35,6 +35,9 @@ export interface CutResult {
   readonly candidateRanges: number;
   /** Of those, ranges of lines slid from the other end, swept only where a stopping-rule tie made them differ. */
   readonly reversedRanges: number;
+  /** Stretches swept again from the other end, and the time that took (on the calling thread); for measuring. */
+  readonly tieSpans: number;
+  readonly reversedMs: number;
   /** Directions where some population split changed. */
   readonly splitChanges: number;
   /** The guide line's portion inside the piece. */
@@ -142,6 +145,8 @@ export interface CutOptions {
    * A check that the ties found are all there are: the cut must come out the same. Slow; for tests.
    */
   readonly reverseEverywhere?: boolean;
+  /** Cut the half turn into this many chunks instead of chunksFor(m). The cut must not change; for tests. */
+  readonly chunks?: number;
   /** Candidates to record in full on the calling thread after the scan; observation only. */
   readonly trace?: readonly CandidateTraceRequest[];
 }
@@ -276,7 +281,7 @@ export function findCut(ctx: SplitContext, members: Int32Array, seats: number, v
     }
   }
 
-  const job: SweepJob = { seats, orientations, chunks: chunksFor(m), keep: KEEP };
+  const job: SweepJob = { seats, orientations, chunks: opts.chunks ?? chunksFor(m), keep: KEEP };
   let chunks: ChunkResult[];
   if (opts.pool) chunks = opts.pool.scan(piece, job);
   else {
@@ -303,13 +308,17 @@ export function findCut(ctx: SplitContext, members: Int32Array, seats: number, v
   const spans = opts.reverseEverywhere
     ? orientations.map((o) => ({ lowSeats: o, ties: [{ s: directionAt(0), e: directionAt(180), sDeg: 0, eDeg: 180, endIsPi: true }] }))
     : joinTieSpans(chunks);
+  const t0 = performance.now();
+  let tieSpans = 0;
   for (const c of spans) {
     for (const t of c.ties) {
+      tieSpans++;
       const res = sweepSpan(flippedPiece(), seats, seats - c.lowSeats, t.s, t.e, t.sDeg, t.eDeg, t.endIsPi, KEEP, false);
       reversedCount += res.resultRanges;
       for (const r of new Set([res.first, res.last, ...res.top])) if (!r.unresolved) reversed.push({ ...r, reversed: true });
     }
   }
+  const reversedMs = performance.now() - t0;
   // Listing order is stable, so a reversed range starting where an ordinary one does stays behind it.
   const ranges = [...merged.ranges, ...reversed].sort(compareRanges);
 
@@ -375,7 +384,7 @@ export function findCut(ctx: SplitContext, members: Int32Array, seats: number, v
     return {
       low, high, lowSeats: r.lowSeats, highSeats: seats - r.lowSeats,
       angleDeg, fromDeg: r.sDeg, toDeg: endDeg(r), wraps: r.wraps === true, reversed: r.reversed === true, lengthM: r.lengthUm / 1e6,
-      candidateRanges: merged.count + reversedCount, reversedRanges: reversedCount, splitChanges: chunks.reduce((s, c) => s + c.splitChanges, 0),
+      candidateRanges: merged.count + reversedCount, reversedRanges: reversedCount, tieSpans, reversedMs, splitChanges: chunks.reduce((s, c) => s + c.splitChanges, 0),
       spans: spanLength(ctx, sx, sy, th, offset).spans, skipped: shorterUnresolved.size + refused, skippedRanges,
       strayBlocksMoved: chain.movedBlocks, strayPopMoved: movedPop,
       iterations: chain.passes.length, offsetShiftM: (offset - offset0) * EARTH_RADIUS_M, candidates, traces,

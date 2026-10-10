@@ -109,7 +109,8 @@ export function balance(blocks: readonly Block[], topo: Topology, input: Int32Ar
 
   // Districts that are one connected piece. A whole district stays whole: it only gives a block when the rest stays
   // connected, and only gains a block that touches it. So the cheap local check applies to it for the whole pass;
-  // any other district (no cut produces one) gets the full check, and is re-checked after each move it is part of.
+  // any district not in one piece in the input (the cut never makes one, but balance() accepts any plan) gets the full
+  // check, and is re-checked after each move it is part of, so it switches to the quick check once it is whole.
   const wholeNow = (d: number): number => (isConnected(topo, Int32Array.from(lists[d]!)) ? 1 : 0);
   const whole = Uint8Array.from({ length: seats }, (_, d) => wholeNow(d));
 

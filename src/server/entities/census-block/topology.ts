@@ -576,9 +576,12 @@ export function isConnected(topo: Topology, members: Int32Array): boolean {
 const removals = new WeakMap<Topology, { mark: Int32Array; label: Int32Array; gen: number }>();
 
 /**
- * Whether block `block`'s group (the blocks sharing its value in `group`) stays one connected piece without it,
- * GIVEN that the group is one connected piece with it. Same answer as isConnected on the group minus the block,
- * including false when the block is the group's only one, but it only looks near the block.
+ * PRECONDITION: the group must be one connected piece WITH the block; on any other group the answer means nothing.
+ * Check that once with isConnected and keep it true across changes.
+ *
+ * Whether block `block`'s group (the blocks sharing its value in `group`) stays one connected piece without it.
+ * Same answer as isConnected on the group minus the block, including false when the block is the group's only
+ * one, but it only looks near the block.
  *
  * Removing the block can only cut paths that ran through it, and each such path enters and leaves through two of its
  * neighbours in the group. So the group stays connected exactly when those neighbours still reach each other
@@ -618,7 +621,7 @@ export function keepsConnectedWithout(topo: Topology, group: ArrayLike<number>, 
         const v = topo.adjList[k]!;
         if (group[v] !== g) continue;
         if (mark[v] !== gen) { mark[v] = gen; label[v] = q; queue.push(v); continue; }
-        if (label[v] < 0) continue;
+        if (label[v]! < 0) continue;
         const r = find(label[v]!);
         if (r === q) continue;
         // The searches met: fold r's unexplored blocks into q's queue and carry on as one.

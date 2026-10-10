@@ -88,6 +88,26 @@ describe('metrics.json', () => {
     expect(MetricsSchema.parse(written()).assignmentSha256).toBe(SHA_B);
     expect(ProcessNumbersSchema.parse(written()).cuts).toBe(1);
   });
+  it('keeps the field order of the file', () => {
+    const common = { state: 'XX', cuts: 1 };
+    const metrics = { seats: 2, population: 200 };
+    const out = buildMetricsJson({ common, range: { rangeBeforeBalancing: 3, rangeAfterBalancing: 0 }, plan: { moves: 1, moved: 3 }, runtimeMs: 12, metrics });
+    expect(Object.keys(out)).toEqual([
+      ...Object.keys(common), 'balanceMoves', 'peopleMovedByBalancing', 'rangeBeforeBalancing', 'rangeAfterBalancing', 'runtimeMs', ...Object.keys(metrics),
+    ]);
+  });
+  it.each([
+    ['population', 1.5], ['population', -1], ['ideal', 0], ['rangePersons', -1], ['rangePct', -1], ['assignmentSha256', 'xyz'],
+    ['runtimeMs', -1], ['countiesSplit', 1.5], ['countiesSplit', -1], ['countiesTotal', -1], ['blocks', 0.5], ['blocks', -1],
+  ])('rejects %s = %s at the server gate as the viewer does', (key, value) => {
+    const bad = { ...(written() as object), [key]: value };
+    expect(MetricsSchema.safeParse(bad).success).toBe(false);
+    expect(ProcessNumbersSchema.safeParse(bad).success).toBe(false);
+  });
+  it('rejects a file missing runtimeMs', () => {
+    const { runtimeMs: _r, ...rest } = written() as Record<string, unknown>;
+    expect(() => ProcessNumbersSchema.parse(rest)).toThrow();
+  });
   it('the server gate names every field the viewer requires', () => {
     const checked = new Set([...Object.keys(PlanMetricsSchema.shape), ...Object.keys(ProcessNumbersSchema.shape)]);
     expect(Object.keys(MetricsSchema.shape).filter((k) => !checked.has(k))).toEqual([]);

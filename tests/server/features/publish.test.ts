@@ -120,7 +120,7 @@ describe('balance.json', () => {
     expect(() => BalanceLogSchema.parse({ before: [1], moves: [{ block: 1, geoid: 'x', from: 1, to: 2, pop: 1, gain: 1 }] })).toThrow();
   });
   it('checks the process numbers a plan reports', () => {
-    const ok = { cuts: 1, candidateRangesPerCut: [3], candidateRangesEvaluated: 3, strayBlocksMoved: 0, strayPopMoved: 0, recounts: 0, recountsMaxPerCut: 0, balanceMoves: 0, peopleMovedByBalancing: 0, rangeBeforeBalancing: 3, rangeAfterBalancing: 1, runtimeMs: 5, countiesSplit: 0, countiesTotal: 1, blocks: 2 };
+    const ok = { cuts: 1, candidateRangesPerCut: [3], candidateRangesEvaluated: 3, strayBlocksMoved: 0, strayPopMoved: 0, recounts: 0, recountsMaxPerCut: 0, balanceMoves: 0, peopleMovedByBalancing: 0, rangeBeforeBalancing: 3, rangeAfterBalancing: 1, runtimeMs: 5, countiesSplit: 0, countiesTotal: 1, blocks: 2, population: 10, ideal: 5, rangePersons: 1, rangePct: 20, assignmentSha256: 'a'.repeat(64) };
     expect(ProcessNumbersSchema.parse(ok).cuts).toBe(1);
     expect(() => ProcessNumbersSchema.parse({ ...ok, cuts: undefined })).toThrow();
   });

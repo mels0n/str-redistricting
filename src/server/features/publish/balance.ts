@@ -8,6 +8,11 @@ export type { BalanceLog };
 
 /** The process numbers every plan's metrics.json reports; they pass through to stats.json. */
 export const ProcessNumbersSchema = z.object({
+  population: z.number().int().nonnegative(),
+  ideal: z.number().positive(),
+  rangePersons: z.number().nonnegative(),
+  rangePct: z.number().nonnegative(),
+  assignmentSha256: z.string().regex(/^[0-9a-f]{64}$/),
   cuts: z.number().int().nonnegative(),
   candidateRangesPerCut: z.array(z.number().int().positive()),
   candidateRangesEvaluated: z.number().int().nonnegative(),

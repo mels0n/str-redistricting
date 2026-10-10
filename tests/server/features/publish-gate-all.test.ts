@@ -50,7 +50,7 @@ afterEach(() => {
   rmSync(root, { recursive: true, force: true });
 });
 
-const run = (out: string, pub: string, states: string) => publishData(parsePublishConfig(['--out-dir', out, '--public-dir', pub, '--states', states]));
+const run = (out: string, pub: string, states: string) => publishData(parsePublishConfig(['--out-dir', out, '--public-dir', pub, '--states', states]), { planStale: async () => undefined });
 
 describe('publishData gate', () => {
   it('refuses before writing anything when a later state is refused', async () => {
@@ -69,6 +69,20 @@ describe('publishData gate', () => {
     const pub = join(root, 'public');
     state(out, pub, 'RI', { published: [A, A], generated: [A, B] });
     await expect(run(out, pub, 'RI')).rejects.toThrow(/RI: the map changed/);
+  });
+});
+
+describe('publishData pre-release flag', () => {
+  it('lets a changed stamped map through only when preRelease is true', async () => {
+    const out = join(root, 'out');
+    const pub = join(root, 'public');
+    state(out, pub, 'RI', { published: [A, A], generated: [B, B] });
+    const cfg = () => parsePublishConfig(['--out-dir', out, '--public-dir', pub, '--states', 'RI']);
+    const planStale = async () => undefined;
+    await expect(publishData(cfg(), { planStale, preRelease: false })).rejects.toThrow(/RI: the map changed/);
+    // Past the gate the run goes on to the heavy publish steps (census boundary files), which this fixture does not have.
+    const err = await publishData(cfg(), { planStale, preRelease: true }).catch((e: unknown) => e);
+    expect((err as Error).message).not.toMatch(/the map changed/);
   });
 });
 

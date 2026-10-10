@@ -1,14 +1,14 @@
-import { join, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { join } from 'node:path';
 import { blocksFileName, buildTopology, loadStateBlocks } from '../entities/census-block/index.js';
 import { balance, balanceLog, peopleMoved } from '../features/balance/index.js';
 import { bordersGeoJson, bridgesJson, cutsGeoJson, districtsGeoJson, writePlan } from '../features/export/index.js';
 import { assignmentCsv, computeMetrics } from '../features/metrics/index.js';
-import { codeFingerprint, drawOrSkip, type RunKey, type WriteFiles } from '../features/run-stamp/index.js';
+import { drawOrSkip, type WriteFiles } from '../features/run-stamp/index.js';
 import { createContext, PoolSlot, splitState, type SplitResult } from '../features/splitline/index.js';
-import { engineMajor, LINE_SEARCH, parseConfig, pinnedSha256, VERSIONS, type Config } from '../shared/config/index.js';
+import { LINE_SEARCH, parseConfig, pinnedSha256, VERSIONS, type Config } from '../shared/config/index.js';
 import type { StateInfo } from '../shared/apportionment/index.js';
 import { exitCodeFor } from '../shared/errors/index.js';
+import { exploreCodeSha256, runKeyFor } from './run-key.js';
 
 type Cut = SplitResult['cuts'][number];
 
@@ -91,15 +91,14 @@ async function main(): Promise<void> {
   const summary: Record<string, unknown>[] = [];
   let firstError: unknown;
   // Everything this run executes; a change to any of it redraws every state.
-  const self = fileURLToPath(import.meta.url);
-  const codeSha256 = codeFingerprint([self], resolve(self, '../../../..'));
+  const codeSha256 = exploreCodeSha256();
   const slot = new PoolSlot(config.threads);
   for (const state of config.states) {
     // A worker that died while idle between states must not fail this one; a no-op unless the pool is broken.
     slot.refresh();
     try {
       const dir = join(config.outDir, state.abbr);
-      const key: RunKey = { inputSha256: pinnedSha256(blocksFileName(state)), seats: state.seats, engineMajor: engineMajor(VERSIONS.engine), codeSha256 };
+      const key = runKeyFor(state, codeSha256);
       let row: Record<string, unknown> = {};
       const outcome = await drawOrSkip(
         { dir, key, force: config.force, writeDir: writePlan, onDraw: (why) => console.log(`${state.abbr}: drawing (${why})`) },

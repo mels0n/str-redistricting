@@ -379,8 +379,18 @@ export async function publishBlocksOnly(cfg: PublishConfig): Promise<void> {
   }
 }
 
+/** Why a state's plans are not a finished draw by the current code (undefined when they are). Supplied by the caller, which owns the run stamp. */
+export type PlanStaleCheck = (state: StateInfo, dir: string) => Promise<string | undefined>;
+
+export interface PublishOptions {
+  /** Asked about every selected state before anything is written. */
+  readonly planStale: PlanStaleCheck;
+  /** Before the 1.0 cut a changed map may replace a published one. */
+  readonly preRelease?: boolean;
+}
+
 /** Write the web-ready data for the selected states (default: every state with a generated plan), plus the national files and the index. */
-export async function publishData(cfg: PublishConfig): Promise<void> {
+export async function publishData(cfg: PublishConfig, { planStale, preRelease = false }: PublishOptions): Promise<void> {
   if (cfg.enactedOnly) return publishEnactedOnly(cfg);
   if (cfg.blocksOnly) return publishBlocksOnly(cfg);
   const withData = statesWithData(cfg.outDir);
@@ -391,11 +401,16 @@ export async function publishData(cfg: PublishConfig): Promise<void> {
   // change when the engine major or the census input moves. One refused state refuses the run.
   const versions = stampOf(VERSIONS);
   const checked = new Map<string, GatedPlans>();
+  // Stamps first: a plan that was never finished by the current code is not worth reading.
+  for (const s of selected) {
+    const stale = await planStale(s, join(cfg.outDir, s.abbr));
+    if (stale !== undefined) throw new DataError(`${s.abbr}: ${stale}; re-run explore for it`);
+  }
   for (const s of selected) {
     const { finished, before } = await readCheckedPlans(s, cfg.outDir);
     checked.set(s.abbr, { finished, before });
     const next = { versions, sha: finished.assignmentSha256, beforeSha: before.assignmentSha256, inputSha256: finished.inputSha256 };
-    checkPublishGate(await readPublishedState(join(cfg.publicDir, s.abbr, 'stats.json')), next, cfg.baseline, s.abbr);
+    checkPublishGate(await readPublishedState(join(cfg.publicDir, s.abbr, 'stats.json')), next, cfg.baseline, s.abbr, preRelease);
   }
   await mkdir(cfg.publicDir, { recursive: true });
 

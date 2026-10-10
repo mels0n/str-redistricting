@@ -1,7 +1,7 @@
 import { availableParallelism } from 'node:os';
 import { describe, expect, it } from 'vitest';
 import { defaultThreads, LINE_SEARCH, parseConfig } from '../../../src/server/shared/config/index.js';
-import { ConfigError, DataError, exitCodeFor, WorkerPoolError } from '../../../src/server/shared/errors/index.js';
+import { CheckFailedError, ConfigError, DataError, exitCodeFor, WorkerPoolError } from '../../../src/server/shared/errors/index.js';
 
 describe('parseConfig', () => {
   it('parses states', () => {
@@ -53,6 +53,7 @@ describe('exitCodeFor', () => {
     expect(exitCodeFor(new DataError('x'))).toBe(3);
     // A lost worker pool is the run's own fault, not a configuration or data problem.
     expect(exitCodeFor(new WorkerPoolError('x'))).toBe(1);
+    expect(exitCodeFor(new CheckFailedError('x'))).toBe(1);
     expect(exitCodeFor(new Error('x'))).toBe(1);
   });
 });

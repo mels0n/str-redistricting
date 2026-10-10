@@ -1,7 +1,7 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { ReleaseConfigSchema, baseEngineMajor, compareFingerprints } from '../features/release/index.js';
 import { VERSIONS, parseFingerprintArgs } from '../shared/config/index.js';
-import { exitCodeFor } from '../shared/errors/index.js';
+import { CheckFailedError, exitCodeFor } from '../shared/errors/index.js';
 import { FINGERPRINT_PATH, drawFingerprints, readFingerprintFile, readFingerprintFileAt } from './fixtures.js';
 import { showFile } from './git.js';
 
@@ -33,7 +33,7 @@ function main(): void {
   }
   const result = compareFingerprints(base, head, drawFingerprints(Object.keys(base.states), args.cacheDir), engineMajor);
   console.log(result.message);
-  if (!result.ok) process.exit(1);
+  if (!result.ok) process.exit(exitCodeFor(new CheckFailedError(result.message)));
 }
 
 try {

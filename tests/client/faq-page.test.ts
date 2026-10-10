@@ -25,6 +25,9 @@ describe('FAQ page', () => {
     const ties = page.el.querySelector('#strv-faq-ties')!;
     expect(ties.textContent).toContain('closest to north-south');
     expect(ties.textContent).toContain('GEOID order');
+    // Balancing ties go to the shorter border, then GEOID order; no district number settles one.
+    expect(ties.textContent).toContain('shorter total border');
+    expect(ties.textContent).not.toMatch(/lower[- ]?(district )?number|lower-numbered/i);
     expect(ties.querySelector('a[href="#/how/balancing"]')).not.toBeNull();
   });
 

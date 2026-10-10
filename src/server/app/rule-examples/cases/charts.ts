@@ -1,7 +1,6 @@
 import {
   chosenCandidate, generatedStates, loadCandidates, loadMetricsIfPresent, numberField, type CaseBuilder, type ExtractContext, type RuleCase,
 } from '../../../features/rule-examples/index.js';
-import { compareCandidates, decidingTieRule } from '../../../features/splitline/index.js';
 import { DataError } from '../../../shared/errors/index.js';
 import { nameOf, people, whole } from './panel.js';
 import { cutTrace } from './trace.js';
@@ -43,16 +42,15 @@ export interface Cand {
   readonly lowSeats: number;
   readonly fromDeg: number;
   readonly toDeg: number;
-  readonly nearestNorthSouthDeg: number;
   readonly lengthM: number;
 }
 
-/** A cut's candidate rows as records, in the order the generator tries them. */
+/** A cut's candidate rows as records, in the order the generator tries them. Columns are found by name, so older files with extra columns still read. */
 function candidatesOf(rows: readonly number[][], fields: readonly string[]): Cand[] {
   const at = (f: string): number => fields.indexOf(f);
-  const [lowAt, fromAt, toAt, nsAt, lenAt] = [at('lowSeats'), at('fromDeg'), at('toDeg'), at('nearestNorthSouthDeg'), at('lengthM')];
-  if (lowAt < 0 || fromAt < 0 || toAt < 0 || nsAt < 0 || lenAt < 0) throw new DataError('candidates.json is missing a column the charts read');
-  return rows.map((r) => ({ lowSeats: r[lowAt]!, fromDeg: r[fromAt]!, toDeg: r[toAt]!, nearestNorthSouthDeg: r[nsAt]!, lengthM: r[lenAt]! }));
+  const [lowAt, fromAt, toAt, lenAt] = [at('lowSeats'), at('fromDeg'), at('toDeg'), at('lengthM')];
+  if (lowAt < 0 || fromAt < 0 || toAt < 0 || lenAt < 0) throw new DataError('candidates.json is missing a column the charts read');
+  return rows.map((r) => ({ lowSeats: r[lowAt]!, fromDeg: r[fromAt]!, toDeg: r[toAt]!, lengthM: r[lenAt]! }));
 }
 
 /** The two best candidates of a cut in the generator's order, or undefined when the cut lists fewer than two. */
@@ -189,22 +187,22 @@ export async function closeCalls(ctx: ExtractContext): Promise<CloseCalls> {
   return { states: abbrs.length, cuts, equal, closest };
 }
 
-/** The distance of a direction at `angle` degrees from north-south, 0 to 90. */
-const fromNorthSouth = (angle: number): number => Math.min(angle, 180 - angle);
+/** The tie rules in plain words: they settle two different cuts whose borders are exactly equal. */
+const RULE_ORDER = 'shortest border, then the sides nearer their fair shares of people, then GEOID';
+const GEOID_HOW = "find the lowest GEOID among the blocks the two cuts put on different sides, and use the cut that puts that block on the same side as the piece's lowest GEOID.";
 
-/** The rule that decides between two equally long candidates, in words; `a` goes first. */
-export function tieRuleText(a: Cand, b: Cand, rule: 1 | 2 | 3): string {
-  const [na, nb] = [fromNorthSouth(a.nearestNorthSouthDeg), fromNorthSouth(b.nearestNorthSouthDeg)];
-  if (rule === 1) {
-    return `the stretch nearer north-south goes first (a stretch is as near as its nearer end). The stretch ${rangeOf(a)} comes within ${degExact(na)} of north-south and ${rangeOf(b)} within ${degExact(nb)}, so ${rangeOf(a)} goes first.`;
+/**
+ * What happens when two borders are exactly equal, in words. `same`: both stretches give the same two sides, so they
+ * are one cut and nothing is decided. Otherwise the cuts differ and the people rule, then the GEOID rule, picks one.
+ */
+export function tieRuleText(first: Cand, kind: 'same' | 'geoid'): string {
+  if (kind === 'same') {
+    return `Both stretches give the same two sides, so they are one cut and nothing needs deciding. The guide line is drawn in the first stretch clockwise from north-south, ${rangeOf(first)}.`;
   }
-  if (rule === 2) {
-    return `both stretches come equally near north-south, so the one that starts first, turning clockwise from north-south, goes first: ${rangeOf(a)} before ${rangeOf(b)}.`;
-  }
-  return `both stretches start in the same direction, so the one whose first side has fewer seats goes first: ${a.lowSeats} before ${b.lowSeats}.`;
+  return `The cut whose sides are nearer their fair shares of people is used. If that is exactly equal too, GEOID decides: ${GEOID_HOW}`;
 }
 
-/** cut.ties: the closest call in any state, with exact lengths, and the rule that would decide a tie. */
+/** cut.ties: the closest call in any state, with exact lengths, and the rule for choosing between cuts of equal border. */
 export async function tiesCase(ctx: ExtractContext): Promise<RuleCase> {
   const found = await closeCalls(ctx);
   const { abbr, order } = found.closest;
@@ -215,7 +213,7 @@ export async function tiesCase(ctx: ExtractContext): Promise<RuleCase> {
   if (x.fromDeg !== first.fromDeg || x.toDeg !== first.toDeg || y.fromDeg !== second.fromDeg || y.toDeg !== second.toDeg) {
     throw new DataError(`${abbr} cut ${order}: the re-run's two best candidates are not the ones on disk (stale out/?)`);
   }
-  if (compareCandidates(x, y) >= 0) throw new DataError(`${abbr} cut ${order}: the two best candidates are not in the generator's order`);
+  if (x.lengthM > y.lengthM) throw new DataError(`${abbr} cut ${order}: the two best candidates are not in the generator's order`);
   if (first.fromDeg !== t.cut.fromDeg || first.toDeg !== t.cut.toDeg) throw new DataError(`${abbr} cut ${order}: the best candidate is not the cut on disk`);
   const [lenFirst, lenSecond] = [first.lengthM, second.lengthM];
   const tied = found.closest.gapUm === 0;
@@ -223,14 +221,12 @@ export async function tiesCase(ctx: ExtractContext): Promise<RuleCase> {
   const [a, b] = [rangeOf(first), rangeOf(second)];
   const meters = (m: number): string => people(round2(m));
   const mark = tied ? 'tied' : 'close';
-  // The rule is only consulted when the lengths are exactly equal; `first` of the pair says which range would go first.
-  const decided = decidingTieRule(x, y);
-  const [ahead, behind] = decided.first === 'a' ? [first, second] : [second, first];
-  const rule = tieRuleText(ahead, behind, decided.rule);
+  // Equal borders from stretches with the same two sides are one cut; only different sides at an equal border go to GEOID.
+  const rule = tieRuleText(first, tied && t.result.tiedCuts >= 2 ? 'geoid' : 'same');
 
   const search = found.equal > 0
-    ? `Searching every cut in all ${found.states} states: in ${found.equal} of ${whole(found.cuts)} cuts the two best borders are exactly equal, because two stretches of directions give the same two sides. The one on the fewest blocks is ${name}'s cut ${order}.`
-    : `Searching every cut in all ${found.states} states: in none of ${whole(found.cuts)} cuts are the two best borders exactly equal. The closest call is ${name}'s cut ${order}.`;
+    ? `Searching every cut in all ${found.states} states: in ${found.equal} of ${whole(found.cuts)} cuts the two best borders are exactly equal, to the micrometer. The one on the fewest blocks is ${name}'s cut ${order}.`
+    : `Searching every cut in all ${found.states} states: in none of ${whole(found.cuts)} cuts are the two best borders exactly equal, to the micrometer. The closest call is ${name}'s cut ${order}.`;
 
   return {
     id: 'cut.ties',
@@ -244,7 +240,7 @@ export async function tiesCase(ctx: ExtractContext): Promise<RuleCase> {
       { caption: `${name}'s cut ${order} splits ${t.cut.seats} seats. Its two best borders belong to the stretches of directions ${a} and ${b} from north-south.`, show: ['chart'] },
       {
         caption: tied
-          ? `Both stretches give exactly the same border (the same two sides), so they are tied.`
+          ? `Both stretches give exactly the same border length, so they are tied.`
           : lenSecond - lenFirst < 0.11
             ? `The closest call in any state: the borders differ by ${gapWords(lenSecond - lenFirst)}, less than the census outlines can resolve (about 11 cm), but the rule only calls a tie when the stored lengths are exactly equal. Not a tie.`
             : `The closest call in any state: the borders differ by ${gapWords(lenSecond - lenFirst)}. Not a tie.`,
@@ -252,8 +248,8 @@ export async function tiesCase(ctx: ExtractContext): Promise<RuleCase> {
       },
       {
         caption: tied
-          ? `A tie is decided by this order: ${rule}`
-          : `Not a tie, so the shorter border, the stretch ${a}, is the one used. Had they been exactly equal, ${rule}`,
+          ? `The rule is ${RULE_ORDER}. ${rule}`
+          : `Not a tie, so the shorter border, the stretch ${a}, is the one used. The rule is ${RULE_ORDER}. Had two different cuts had exactly equal borders, the one nearer its fair shares of people would be used, and if that were equal too, GEOID would decide: ${GEOID_HOW}`,
         show: ['chart', `chart-${mark}`],
       },
       {

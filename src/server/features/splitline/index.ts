@@ -6,9 +6,9 @@
 // Projection context shared by every cut of a state.
 export { createContext } from './context.js';
 export type { SplitContext } from './context.js';
-// One cut: candidate ordering and tie rules, and the cut search itself.
-export { compareCandidates, decidingTieRule, findCut } from './cut.js';
-export type { CandidateRange, CandidateTrace, CandidateTraceRequest, CutOptions, CutResult, SideValidator, TraceGroup, TracePass, TraceSweep } from './cut.js';
+// One cut: the tie rules (people, then GEOID), and the cut search itself.
+export { compareCutSides, compareGeoidSides, cutSides, findCut, traceLine } from './cut.js';
+export type { CandidateRange, CandidateTrace, CandidateTraceRequest, CutOptions, CutResult, CutSides, SideValidator, TraceGroup, TracePass, TraceSweep } from './cut.js';
 // Worker threads that sweep chunks of directions.
 export { ScanPool } from './pool.js';
 export { PoolSlot } from './pool-slot.js';

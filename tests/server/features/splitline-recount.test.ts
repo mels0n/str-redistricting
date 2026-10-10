@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { isConnected, type Block } from '../../../src/server/entities/census-block/index.js';
-import { createContext, findCut, splitState, type CutResult, type SplitContext } from '../../../src/server/features/splitline/index.js';
+import { createContext, findCut, splitState, traceLine, type CutResult, type SplitContext } from '../../../src/server/features/splitline/index.js';
 import { gridBlocks } from '../../helpers/grid.js';
 
 
@@ -13,7 +13,7 @@ const popOf = (blocks: readonly Block[], members: Int32Array) => Array.from(memb
 interface Stat { iterations: number; strayBlocks: number; strayPop: number; lowPop: number; unresolved: boolean; lengthM: number; low: Int32Array }
 /** What the generator makes of the line at `angleDeg` with one seat on its first side, from its trace. */
 const stat = (ctx: SplitContext, seats: number, angleDeg: number): Stat => {
-  const [t] = findCut(ctx, all(ctx.blocks.length), seats, () => true, { trace: [{ angleDeg, lowSeats: 1 }] }).traces;
+  const t = traceLine(ctx, all(ctx.blocks.length), seats, { angleDeg, lowSeats: 1 });
   const moved = t!.passes.flatMap((p) => Array.from(p.moved));
   return {
     iterations: t!.passes.length, strayBlocks: moved.length, strayPop: moved.reduce((s, b) => s + ctx.blocks[b]!.pop, 0),
@@ -187,10 +187,9 @@ describe('strays and the re-count', () => {
       expect(s.strayBlocks).toBe(9);
       expect(s.iterations).toBe(2);
     }
-    // Neither of these lines leaves two connected sides, so the cut is a different, resolved range: the sides are whole, and the unresolved lines are never taken.
-    const r = findCut(ctx, all(blocks.length), 2);
-    expect(isConnected(ctx.topo, r.low)).toBe(true);
-    expect(isConnected(ctx.topo, r.high)).toBe(true);
+    // Neither of these lines leaves two connected sides, and they are never taken. On this grid no other line does
+    // either (each side's strays are settled starting with the side holding the lowest GEOID), so there is no cut.
+    expect(() => findCut(ctx, all(blocks.length), 2)).toThrow('no straight line produces two connected sides');
   });
 
   it('ends every cut within one population split per block, and a whole plan stays connected', () => {

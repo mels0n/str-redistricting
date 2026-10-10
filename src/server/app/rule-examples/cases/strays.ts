@@ -238,8 +238,8 @@ export async function whichStaysCase(ctx: ExtractContext): Promise<RuleCase> {
       },
       {
         caption: tie
-          ? `This group has ${people(group.pop)} people in ${whole(group.blocks.length)} blocks. Another group ties the main body on people, so the block count, then the lowest GEOID, picks the main body.`
-          : `This group has ${people(group.pop)} people in ${whole(group.blocks.length)} blocks, so it is not the main body. The block count, and then the lowest GEOID, would only decide a tie in people.`,
+          ? `This group has ${people(group.pop)} people in ${whole(group.blocks.length)} blocks. Another group ties the main body on people, so the lower GEOID picks the main body.`
+          : `This group has ${people(group.pop)} people in ${whole(group.blocks.length)} blocks, so it is not the main body. The lower GEOID would only decide a tie in people.`,
         show: [...base, 'main', 'group'],
       },
       {

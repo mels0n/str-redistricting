@@ -56,6 +56,8 @@ const CutStat = z.object({
   lengthM: z.number(),
   /** Seats on the first side. cut-stats.json does not record it; the loader fills it in from cuts.geojson. */
   lowSeats: z.number().int().positive().optional(),
+  /** The winning line is slid from the other end (absent in files made before it was recorded). */
+  reversed: z.boolean().optional(),
 }).passthrough();
 
 /** out/<ST>/cut-stats.json: one record per cut, in cut order. */

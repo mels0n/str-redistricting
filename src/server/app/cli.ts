@@ -16,15 +16,15 @@ function cutStats(c: Cut, i: number) {
   return {
     order: i + 1, depth: c.depth, seats: c.seats, firstDistrict: c.firstDistrict, angleDeg: c.angleDeg, fromDeg: c.fromDeg, toDeg: c.toDeg,
     lengthM: Math.round(c.lengthM), skipped: c.skipped, strayBlocksMoved: c.strayBlocksMoved, strayPopMoved: c.strayPopMoved,
-    iterations: c.iterations, offsetShiftM: Math.round(c.offsetShiftM), candidateRanges: c.candidateRanges, splitChanges: c.splitChanges,
+    iterations: c.iterations, offsetShiftM: Math.round(c.offsetShiftM), candidateRanges: c.candidateRanges, reversed: c.reversed, tiedRanges: c.tiedRanges, tiedCuts: c.tiedCuts, splitChanges: c.splitChanges,
   };
 }
 
 /** The leading candidates of every cut, in the generator's order, as compact rows. */
 function candidateRows(cuts: readonly Cut[]) {
   return {
-    fields: ['lowSeats', 'fromDeg', 'toDeg', 'nearestNorthSouthDeg', 'lengthM', 'lowPop'],
-    cuts: cuts.map((c) => c.candidates.map((r) => [r.lowSeats, r.fromDeg, r.toDeg, r.nearestNorthSouthDeg, r.lengthM, r.lowPop])),
+    fields: ['lowSeats', 'fromDeg', 'toDeg', 'lengthM', 'lowPop', 'reversed'],
+    cuts: cuts.map((c) => c.candidates.map((r) => [r.lowSeats, r.fromDeg, r.toDeg, r.lengthM, r.lowPop, r.reversed ? 1 : 0])),
   };
 }
 

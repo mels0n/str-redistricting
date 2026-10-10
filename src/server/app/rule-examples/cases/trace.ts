@@ -85,11 +85,11 @@ async function run(ctx: ExtractContext, abbr: string, order: number, lowSeats: r
   const pool = ctx.cfg.threads > 1 ? new ScanPool(ctx.cfg.threads) : undefined;
   let result: CutResult;
   try {
-    result = findCut(split, members, cut.seats, undefined, { pool, trace: lows.map((l) => (typeof l === 'number' ? { angleDeg: cut.angleDeg, lowSeats: l } : l)) });
+    result = findCut(split, members, cut.seats, undefined, { pool, trace: lows.map((l) => (typeof l === 'number' ? { angleDeg: cut.angleDeg, lowSeats: l, reversed: cut.reversed === true && l === chosen } : l)) });
   } finally {
     await pool?.close();
   }
-  if (result.fromDeg !== cut.fromDeg || result.toDeg !== cut.toDeg || Math.round(result.lengthM) !== Math.round(cut.lengthM)) {
+  if (result.fromDeg !== cut.fromDeg || result.toDeg !== cut.toDeg || result.reversed !== (cut.reversed === true) || Math.round(result.lengthM) !== Math.round(cut.lengthM)) {
     throw new DataError(`${abbr}: re-running cut ${order} gives ${result.fromDeg} to ${result.toDeg}° and ${result.lengthM} m, not the ${cut.fromDeg} to ${cut.toDeg}° and ${cut.lengthM} m on disk (stale out/?)`);
   }
   return { abbr, out, cut, blocks: sb.blocks, topo: sb.topo, split, members, result, traces: result.traces };

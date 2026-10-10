@@ -38,30 +38,40 @@ interface Cands { fields: string[]; cuts: number[][][] }
 interface Stats { cuts: { angleDeg: number; fromDeg: number; toDeg: number; lengthM: number; skipped: number; seats: number; candidateRanges: number }[] }
 const col = (c: Cands, f: string): number => c.fields.indexOf(f);
 
-const cand = (fromDeg: number, toDeg: number, nearestNorthSouthDeg: number, lowSeats = 1): Cand => ({ lowSeats, fromDeg, toDeg, nearestNorthSouthDeg, lengthM: 100 });
+const cand = (fromDeg: number, toDeg: number, lowSeats = 1): Cand => ({ lowSeats, fromDeg, toDeg, lengthM: 100 });
 
 describe('tieRuleText', () => {
-  it('names the rule that decides between two equally long candidates', () => {
-    expect(tieRuleText(cand(10, 11, 10), cand(12, 13, 12), 1)).toContain('nearer north-south');
-    expect(tieRuleText(cand(10, 11, 10), cand(12, 13, 12), 1)).toContain('10° to 11° goes first');
-    expect(tieRuleText(cand(170, 171, 170), cand(10, 11, 10), 2)).toContain('starts earlier');
-    expect(tieRuleText(cand(10, 11, 10, 2), cand(10, 11, 10, 3), 3)).toContain('fewer seats');
-    // Distance from north-south is the smaller of the angle and its supplement.
-    expect(tieRuleText(cand(170, 171, 171), cand(12, 13, 12), 1)).toContain('within 9°');
+  it('says equal borders from the same two sides are one cut, drawn in the first stretch', () => {
+    const t = tieRuleText(cand(10, 11), 'same');
+    expect(t).toContain('same two sides');
+    expect(t).toContain('one cut');
+    expect(t).toContain('first stretch clockwise from north-south, 10° to 11°');
+    expect(t).not.toMatch(/fewer seats|nearer/);
+  });
+  it('says different cuts of equal border go by fair shares of people, then GEOID', () => {
+    const t = tieRuleText(cand(10, 11), 'geoid');
+    expect(t).toContain('GEOID decides');
+    expect(t).toContain("piece's lowest GEOID");
+    expect(t).not.toMatch(/north-south|clockwise|fewer seats/);
   });
 });
 
 describe('shortestTwo', () => {
-  const fields = ['lowSeats', 'fromDeg', 'toDeg', 'nearestNorthSouthDeg', 'lengthM', 'lowPop'];
+  const fields = ['lowSeats', 'fromDeg', 'toDeg', 'lengthM', 'lowPop'];
   it('takes the first two rows in the generator order', () => {
-    const rows = [[1, 5, 6, 5, 100, 0], [1, 7, 8, 7, 100.000001, 0], [1, 9, 10, 9, 120, 0]];
+    const rows = [[1, 5, 6, 100, 0], [1, 7, 8, 100.000001, 0], [1, 9, 10, 120, 0]];
     const [a, b] = shortestTwo(rows, fields)!;
     expect([a.fromDeg, b.fromDeg]).toEqual([5, 7]);
     expect(gapUm(a.lengthM, b.lengthM)).toBe(1);
   });
+  it('still reads files that carry the old nearestNorthSouthDeg column, looking columns up by name', () => {
+    const old = ['lowSeats', 'fromDeg', 'toDeg', 'nearestNorthSouthDeg', 'lengthM', 'lowPop'];
+    const [a, b] = shortestTwo([[1, 5, 6, 5, 100, 0], [1, 7, 8, 7, 101, 0]], old)!;
+    expect([a.fromDeg, a.lengthM, b.toDeg, b.lengthM]).toEqual([5, 100, 8, 101]);
+  });
   it('is undefined with fewer than two rows and refuses rows out of order', () => {
-    expect(shortestTwo([[1, 1, 2, 1, 5, 0]], fields)).toBeUndefined();
-    expect(() => shortestTwo([[1, 1, 2, 1, 6, 0], [1, 3, 4, 3, 5, 0]], fields)).toThrow();
+    expect(shortestTwo([[1, 1, 2, 5, 0]], fields)).toBeUndefined();
+    expect(() => shortestTwo([[1, 1, 2, 6, 0], [1, 3, 4, 5, 0]], fields)).toThrow();
   });
 });
 
@@ -99,7 +109,7 @@ describe('cut.order-of-checks', () => {
     expect(text).toContain(whole(cut.candidateRanges));
     expect(text).toContain(whole(Math.round(cut.lengthM)));
     expect(text).toContain('every straight line');
-    expect(text).toContain('Each range is checked once');
+    expect(text).toContain('Each stretch is checked once');
     expect(c.steps[1]!.caption.indexOf('settled')).toBeLessThan(c.steps[1]!.caption.indexOf('measured'));
     expect(c.steps[2]!.show).toContain('chart-sorted');
     expect(c.steps.at(-1)!.show).toContain('chart-winner');
@@ -130,11 +140,13 @@ describe('cut.ties', () => {
     expect(c.chart!.marks!.winner).toEqual([0]);
     expect(text).toContain('to the micrometer');
     if (gapUm(x, y) === 0) {
-      expect(text).toContain('exactly the same length');
+      expect(text).toContain('exactly the same border length');
+      expect(text).toContain('shortest border, then the sides nearer their fair shares of people, then GEOID');
       expect(c.chart!.marks!.tied).toEqual([0, 1]);
     } else {
       expect(text).toContain('Not a tie');
-      expect(text).toContain('Had they been exactly equal');
+      expect(text).toContain('shortest border, then the sides nearer their fair shares of people, then GEOID');
+      expect(text).toContain('GEOID would decide');
       expect(c.chart!.marks!.close).toEqual([0, 1]);
     }
   }, SLOW);

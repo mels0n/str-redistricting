@@ -1,6 +1,6 @@
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import type { Block } from '../../../src/server/entities/census-block/index.js';
-import { compareCandidates, createContext, findCut, ScanPool, type CutResult } from '../../../src/server/features/splitline/index.js';
+import { createContext, findCut, ScanPool, type CutResult } from '../../../src/server/features/splitline/index.js';
 import { gridBlocks } from '../../helpers/grid.js';
 import { containsNorthSouth } from '../../helpers/ranges.js';
 
@@ -26,7 +26,7 @@ const field = () => gridBlocks(7, 6, { pop: (x, y) => 1 + ((x * 3 + y * 5) % 7) 
 // Two separate stray arms on the east side: the east-west line (90 degrees) needs three strays passes.
 const twoArms = () => nudged(4, 7, (x, y) => (x === 1 && (y === 1 || y === 4) ? 3 : 1), (x, y) => x >= 2 && ((y >= 1 && y <= 2) || (y >= 4 && y <= 5)));
 // A uniform square centered on the equator: the east-west border runs along the equator, so it is exactly as long as
-// the north-south one and the tie-break decides. (North of the equator the east-west border would be a hair shorter.)
+// the north-south one and the GEOID tie rule decides. (North of the equator the east-west border would be a hair shorter.)
 const square = () => gridBlocks(4, 4, { origin: [0, -0.02] });
 // A range of directions narrower than this cannot be told from its neighbours by a direction given in degrees: the
 // lines of a grid are parallel to within rounding, so the recorded line at the middle of such a range is not the
@@ -34,7 +34,7 @@ const square = () => gridBlocks(4, 4, { origin: [0, -0.02] });
 const NARROW_DEG = 1e-6;
 const wide = (r: CutResult) => r.candidates.filter((c) => c.toDeg - c.fromDeg > NARROW_DEG);
 /** One trace request per candidate range wide enough to name, at the middle of its directions. */
-const every = (r: CutResult) => wide(r).map((c) => ({ angleDeg: (c.fromDeg + c.toDeg) / 2, lowSeats: c.lowSeats }));
+const every = (r: CutResult) => wide(r).map((c) => ({ angleDeg: (c.fromDeg + c.toDeg) / 2, lowSeats: c.lowSeats, reversed: c.reversed }));
 const sameResult = (a: CutResult, b: CutResult) => {
   expect(sorted(a.low)).toEqual(sorted(b.low));
   expect(sorted(a.high)).toEqual(sorted(b.high));
@@ -67,11 +67,11 @@ describe('candidate trace', () => {
     const sqCtx = createContext(sq);
     const sqPlain = findCut(sqCtx, all(sq.length), 2);
     const [p, q] = sqPlain.candidates;
-    // Different ranges of directions, exactly the same length: only the tie-break orders them.
+    // Different ranges of directions, exactly the same length, different sides: GEOID decides (east-west here).
     expect(p!.fromDeg).not.toBe(q!.fromDeg);
     expect(p!.lengthM).toBe(q!.lengthM);
-    expect(compareCandidates(p!, q!)).toBeLessThan(0);
-    expect(containsNorthSouth(sqPlain)).toBe(true);
+    expect(sqPlain.tiedCuts).toBe(2);
+    expect(containsNorthSouth(sqPlain)).toBe(false);
   });
 
   it('trace of the winning candidate matches the result', () => {

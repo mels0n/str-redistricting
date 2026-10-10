@@ -3,7 +3,7 @@ import { isConnected } from '../../../src/server/entities/census-block/index.js'
 import { createContext, splitState } from '../../../src/server/features/splitline/index.js';
 import { DataError } from '../../../src/server/shared/errors/index.js';
 import { gridBlocks } from '../../helpers/grid.js';
-import { crossesNorthSouth } from '../../helpers/ranges.js';
+import { crossesNorthSouth, middleDeg } from '../../helpers/ranges.js';
 
 const districtPops = (assignment: Int32Array, pops: number[], seats: number) => {
   const out = new Array<number>(seats).fill(0);
@@ -48,7 +48,7 @@ describe('splitState', () => {
   });
   it('records the winning range of each cut, drawn at its middle', () => {
     for (const c of splitState(createContext(gridBlocks(6, 5, { pop: (x, y) => 1 + ((x * 3 + y) % 4) })), 5).cuts) {
-      expect(c.angleDeg).toBeCloseTo((c.fromDeg + c.toDeg) / 2, 12);
+      expect(c.angleDeg).toBeCloseTo(middleDeg(c), 9);
       expect(c.candidates[0]).toMatchObject({ fromDeg: c.fromDeg, toDeg: c.toDeg, lowSeats: c.lowSeats, lengthM: c.lengthM });
     }
   });

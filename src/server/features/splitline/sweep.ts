@@ -1,4 +1,4 @@
-import { signOfAbsDifference, signOfDifference } from '../../shared/exact/index.js';
+import { signOfDifference } from '../../shared/exact/index.js';
 import { atan2, cos, sin } from '../../shared/detmath/index.js';
 import { Chain } from './chain.js';
 import type { Piece } from './scan.js';
@@ -35,13 +35,23 @@ export interface Range {
    * its first side is the one a line just past north-south has first (as for any range that starts at 0 degrees).
    */
   readonly at?: Dir;
+  /**
+   * The range is the line slid from the other end: swept on the piece turned half way round (every point negated),
+   * which is the same line at the same direction with the stopping rule's exact ties decided the other way.
+   */
+  readonly reversed?: boolean;
 }
+
+/** A stretch of directions [s, e) where some pass of the sweep sat on an exact tie of its stopping rule. */
+export interface TieSpan { readonly s: Dir; readonly e: Dir; readonly sDeg: number; readonly eDeg: number; readonly endIsPi: boolean }
 
 export interface ChunkResult {
   readonly lowSeats: number;
+  /** Stretches where the line slid from the other end may give different sides (sweepSpan with findTies). */
+  readonly ties: readonly TieSpan[];
   readonly aDeg: number;
   readonly bDeg: number;
-  /** The chunk's best resolved ranges in generator order, plus its first and last range (which may continue in a neighbouring chunk). */
+  /** The chunk's best resolved ranges in listing order (every range as long as the last kept one, so ties are never cut), plus its first and last range (which may continue in a neighbouring chunk). */
   readonly top: readonly Range[];
   readonly first: Range;
   readonly last: Range;
@@ -64,8 +74,6 @@ const sgn = (d: Dir): number => {
 };
 /** Negative when direction a comes first in the half turn (clockwise from north). */
 export const compareDirections = (a: Dir, b: Dir): number => sgn(a) * sgn(b) * signOfDifference(a[2], a[0], b[3], b[1], a[3], a[1], b[2], b[0]);
-/** Negative when a is nearer north-south than b (smaller acute angle with the north-south axis). */
-export const compareNorthSouth = (a: Dir, b: Dir): number => signOfAbsDifference(a[2], a[0], b[3], b[1], b[2], b[0], a[3], a[1]);
 /** Degrees clockwise from north in [0, 180), for reporting and drawing only. */
 export function directionDeg(d: Dir): number {
   const s = sgn(d);
@@ -74,20 +82,19 @@ export function directionDeg(d: Dir): number {
   if (a >= 180) a -= 180;
   return a;
 }
-/** The end of a range nearer north-south; a range is as near north-south as its nearer end. */
 const NORTH: Dir = [0, 0, 0, 1];
-/** The end of a range nearer north-south (north-south itself for a range that runs across it). */
-export const nearestNorthSouth = (r: Range): Dir => (r.wraps ? NORTH : compareNorthSouth(r.s, r.e) <= 0 ? r.s : r.e);
-/** Where a range starts for the tie rule: a range that runs across north-south starts at north-south. */
+/** Where a range starts, for listing: a range that runs across north-south starts at north-south. */
 const startOf = (r: Range): Dir => (r.wraps ? NORTH : r.s);
 
 /**
- * The generator's order for candidates: shorter border (exact), then nearer north-south, then the earlier start
- * direction in the half turn, then fewer seats on the first side.
+ * The order ranges are listed and tried in: shorter border (exact), then the earlier start direction in the half
+ * turn clockwise from north, then fewer seats on the first side. Only the length is a rule. Ranges of equal length
+ * are all evaluated, and the cut among them is chosen by GEOID (cut.ts); this order only decides which of several
+ * ranges giving that same cut has its middle drawn as the guide line.
  */
 export function compareRanges(p: Range, q: Range): number {
   if (p.lengthUm !== q.lengthUm) return p.lengthUm < q.lengthUm ? -1 : 1;
-  return compareNorthSouth(nearestNorthSouth(p), nearestNorthSouth(q)) || compareDirections(startOf(p), startOf(q)) || p.lowSeats - q.lowSeats;
+  return compareDirections(startOf(p), startOf(q)) || p.lowSeats - q.lowSeats;
 }
 
 /** The direction at `deg` degrees clockwise from north, as (0, 0) to (sin, cos). */
@@ -107,9 +114,16 @@ export function geoFor(piece: Piece, start: Dir, end: Dir, endIsPi: boolean): Ge
 
 /** Sweep directions [aDeg, bDeg) for one first-side seat count, keeping the best `keep` resolved ranges. */
 export function sweepChunk(piece: Piece, seats: number, lowSeats: number, aDeg: number, bDeg: number, keep: number): ChunkResult {
+  return sweepSpan(piece, seats, lowSeats, directionAt(aDeg), directionAt(bDeg), aDeg, bDeg, bDeg >= 180, keep, true);
+}
+
+/**
+ * Sweep directions [start, end) (degrees aDeg, bDeg for reporting) for one first-side seat count. With `findTies`,
+ * the stretches where some pass sits on an exact tie of its stopping rule are listed in `ties` (Tracker.atTie):
+ * only there can the same line slid from the other end give different sides.
+ */
+export function sweepSpan(piece: Piece, seats: number, lowSeats: number, start: Dir, end: Dir, aDeg: number, bDeg: number, endIsPi: boolean, keep: number, findTies: boolean): ChunkResult {
   const t0 = performance.now();
-  const endIsPi = bDeg >= 180;
-  const start = directionAt(aDeg), end = directionAt(bDeg);
   const g = geoFor(piece, start, end, endIsPi);
   const chain = new Chain(piece, g, seats, lowSeats);
   chain.start(-4, -2);
@@ -122,35 +136,44 @@ export function sweepChunk(piece: Piece, seats: number, lowSeats: number, aDeg: 
   let cur = { s: start, sDeg: aDeg, atStart: true };
   const snap = () => ({ lengthUm: chain.lengthUm, lowPop: chain.lowPop, h1: chain.h1, h2: chain.h2, unresolved: chain.unresolved });
   let res = snap();
+  const ties: TieSpan[] = [];
+  let tied = findTies && chain.atTie;
   const close = (e: Dir, eDeg: number, atEnd: boolean) => {
     resultRanges++;
+    if (tied) {
+      const prev = ties[ties.length - 1];
+      if (prev && prev.eDeg === cur.sDeg && prev.e === cur.s) ties[ties.length - 1] = { ...prev, e, eDeg, endIsPi: atEnd && endIsPi };
+      else ties.push({ s: cur.s, e, sDeg: cur.sDeg, eDeg, endIsPi: atEnd && endIsPi });
+    }
     const r: Range = { s: cur.s, e, sDeg: cur.sDeg, eDeg, ...res, lowSeats, edge: (cur.atStart ? 1 : 0) | (atEnd ? 2 : 0) };
     if (cur.atStart) first = r;
     if (atEnd) last = r;
     if (r.unresolved) { unresolved.push(r.lengthUm); unresolvedRanges.push(r); return; }
-    if (top.length < keep || compareRanges(r, top[top.length - 1]!) < 0) {
+    if (top.length < keep || r.lengthUm <= top[keep - 1]!.lengthUm) {
       let i = top.length;
       while (i > 0 && compareRanges(r, top[i - 1]!) < 0) i--;
       top.splice(i, 0, r);
-      if (top.length > keep) top.pop();
+      // Never drop a range as long as the last one kept: ranges of equal length are decided by their sides, not this order.
+      while (top.length > keep && top[top.length - 1]!.lengthUm > top[keep - 1]!.lengthUm) top.pop();
     }
   };
   for (;;) {
     const st = chain.step();
     if (!st) break;
     if (st.changedSets) splitChanges++;
-    if (!st.changedResult) continue;
+    if (!st.changedResult) { if (findTies && !tied) tied = chain.atTie; continue; }
     const at = dir(st.ci, st.cj), atDeg = directionDeg(at);
     close(at, atDeg, false);
     cur = { s: at, sDeg: atDeg, atStart: false };
     res = snap();
+    tied = findTies && chain.atTie;
   }
   close(end, bDeg, true);
   // Only unresolved ranges shorter than this chunk's best could be shorter than the cut's winner.
   const best = top[0]?.lengthUm ?? Infinity;
   const unresolvedBelow = [...new Set(unresolved.filter((u) => u < best))].sort((x, y) => x - y);
   return {
-    lowSeats, aDeg, bDeg, top, first: first!, last: last!, unresolvedBelow, splitChanges, resultRanges,
+    lowSeats, aDeg, bDeg, top, first: first!, last: last!, unresolvedBelow, splitChanges, resultRanges, ties,
     unresolvedRanges: unresolvedRanges.filter((u) => u.lengthUm < best).sort(compareRanges),
     stats: { ...chain.stats, ms: performance.now() - t0 },
   };

@@ -71,8 +71,8 @@ export interface StrayGraph {
 type SweepObserver = (side: number, nodeComp: Int32Array, main: number, pop: readonly number[]) => void;
 
 /**
- * Strays rule, in place: on the low side and then the high side, every connected component other than
- * the side's main one (most population, then most blocks, then lowest block index) joins the other side;
+ * Strays rule, in place: on the side holding the lowest GEOID and then the other, every connected component other than
+ * the side's main one (most population, then the lowest GEOID: block indices are in GEOID order) joins the other side;
  * repeat until nothing moves. Pinned nodes never move and a node that moves is pinned at once, so every
  * continuing pass pins another node and the passes always end. Returns whether a pinned node was left
  * off its side's main component.
@@ -83,7 +83,13 @@ export function settleStrays(g: StrayGraph, pinned: Uint8Array, observe?: SweepO
   const cPop: number[] = [], cCnt: number[] = [], cMin: number[] = [];
   for (;;) {
     let moved = false, stranded = false;
-    for (let s = 0; s < 2; s++) {
+    // Each round settles first the side holding the piece's lowest GEOID, then the other (never by which side a
+    // line reaches first, so a line and the same line slid from the other end settle alike).
+    let lowest = 0;
+    for (let v = 1; v < g.n; v++) if (g.minIdx[v]! < g.minIdx[lowest]!) lowest = v;
+    const firstSide = g.n > 0 ? g.side[lowest]! : 0;
+    for (let k = 0; k < 2; k++) {
+      const s = k === 0 ? firstSide : 1 - firstSide;
       comp.fill(-1);
       cPop.length = 0; cCnt.length = 0; cMin.length = 0;
       for (let v = 0; v < g.n; v++) {
@@ -105,8 +111,7 @@ export function settleStrays(g: StrayGraph, pinned: Uint8Array, observe?: SweepO
       if (cPop.length < 2) continue;
       let main = 0;
       for (let c = 1; c < cPop.length; c++) {
-        if (cPop[c]! > cPop[main]! || (cPop[c] === cPop[main] &&
-          (cCnt[c]! > cCnt[main]! || (cCnt[c] === cCnt[main] && cMin[c]! < cMin[main]!)))) main = c;
+        if (cPop[c]! > cPop[main]! || (cPop[c] === cPop[main] && cMin[c]! < cMin[main]!)) main = c;
       }
       observe?.(s, comp, main, cPop);
       for (let v = 0; v < g.n; v++) {

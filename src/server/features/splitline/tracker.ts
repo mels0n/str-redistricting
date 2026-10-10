@@ -344,6 +344,17 @@ export class Tracker {
     this.needValidate = false;
   }
 
+  /**
+   * The split sits on an exact tie of the stopping rule: taking the next block onto the first side would leave it
+   * no farther from its target (an equal distance, or an empty block when the side is exactly on target). The same
+   * line slid from the other end decides that tie the other way, so it can give different sides here, and only here.
+   */
+  atTie(): boolean {
+    if (this.nB === 0 || this.nA >= this.maxC) return false;
+    const W = this.W, T = this.T, pb = this.g.pops[this.hB[0]!]!;
+    return W <= T && Math.abs(W + pb - T) <= Math.abs(W - T);
+  }
+
   /** Process every event in the direction of the next one; the current direction becomes it. */
   processGroup(): void {
     if (!this.hasNext()) return;

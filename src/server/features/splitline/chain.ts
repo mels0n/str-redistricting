@@ -55,6 +55,9 @@ export class Chain {
     this.scratch = new Scratch(piece.m);
   }
 
+  /** Some pass sits on an exact tie of its stopping rule (Tracker.atTie). */
+  get atTie(): boolean { for (const P of this.passes) if (P.tr.atTie()) return true; return false; }
+
   get movedBlocks(): number { let s = 0; for (let q = 0; q < this.passes.length - 1; q++) s += this.passes[q]!.newlyCount; return s; }
 
   private target(P: Pass) {

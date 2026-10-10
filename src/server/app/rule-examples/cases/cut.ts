@@ -329,7 +329,7 @@ export async function cutWalkStopCase(ctx: ExtractContext): Promise<RuleCase> {
         tween: [{ id: 'fill', to: [[16, BAR_Y], round1([x(after), BAR_Y])] }],
       },
       {
-        caption: `Before it the total is ${short} short of the share; after it, ${over} over. ${joins ? 'After is strictly closer, so the block joins the first side.' : 'After is not strictly closer, so the block starts the second side.'}`,
+        caption: `Before it the total is ${short} short of the share; after it, ${over} over. ${joins ? 'After is strictly closer, so the block joins the first side.' : share - before === after - share ? 'Both are exactly as close, so walking from this end the block starts the second side; the same line walked from the other end puts it on the first side, and both are candidates.' : 'After is not strictly closer, so the block starts the second side.'}`,
         show: [...B, ...bar, 'cp', 'after'],
         set: settled,
       },

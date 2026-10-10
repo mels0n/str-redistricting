@@ -203,7 +203,7 @@ const GEOID_HOW = "find the lowest GEOID among the blocks the two cuts put on di
  */
 export function tieRuleText(first: Cand, kind: 'same' | 'geoid'): string {
   if (kind === 'same') {
-    return `Both stretches give the same two sides, so they are one cut and nothing needs deciding. The guide line is drawn in the first stretch clockwise from north-south, ${rangeOf(first)}.`;
+    return `Both stretches give the same two sides, so they are one cut and nothing needs deciding. The guide line is drawn in the first stretch clockwise from north, ${rangeOf(first)}.`;
   }
   return `The cut whose sides are nearer their fair shares of people is used. If that is exactly equal too, GEOID decides: ${GEOID_HOW}`;
 }

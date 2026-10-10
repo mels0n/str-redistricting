@@ -23,11 +23,15 @@ describe('FAQ page', () => {
     expect(strange.querySelector('a[href="#/CO/cut/1"]')?.textContent).toBe('starting with Colorado’s first cut');
     expect(strange.textContent).toContain('Nobody chose any single line.');
     const ties = page.el.querySelector('#strv-faq-ties')!;
-    expect(ties.textContent).toContain('closest to north-south');
+    expect(ties.textContent).toContain('nearer their fair shares of people');
     expect(ties.textContent).toContain('GEOID order');
     // Balancing ties go to the shorter border, then GEOID order; no district number settles one.
     expect(ties.textContent).toContain('shorter total border');
     expect(ties.textContent).not.toMatch(/lower[- ]?(district )?number|lower-numbered/i);
+    // The cut rules as the generator applies them, and none of the direction preferences it does not have.
+    expect(ties.textContent).toContain('both stopping points are kept as candidates');
+    expect(ties.textContent).toContain('the lower GEOID');
+    expect(ties.textContent).not.toMatch(/north-south|smaller angle|most blocks/);
     expect(ties.querySelector('a[href="#/how/balancing"]')).not.toBeNull();
   });
 

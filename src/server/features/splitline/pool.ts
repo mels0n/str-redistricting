@@ -50,6 +50,7 @@ export class ScanPool {
     if (!Number.isInteger(size) || size < 1) throw new RangeError(`pool size must be a positive integer, got ${size}`);
     this.size = size;
     const ts = import.meta.url.endsWith('.ts');
+    // Keep the worker named by a './…' string literal: explore's code fingerprint (run-stamp) finds the worker that way.
     const url = workerUrl ?? new URL(ts ? './scan-worker.ts' : './scan-worker.js', import.meta.url);
     for (let i = 0; i < size; i++) {
       const { port1, port2 } = new MessageChannel();

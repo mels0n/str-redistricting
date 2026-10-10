@@ -16,7 +16,7 @@ export function createExplainer(opts: { seats?: number } = {}): HTMLElement {
       'p',
       { class: 'strv-explain__note' },
       h('strong', null, 'Only people and shapes.'),
-      ' For each 2020 census block the generator reads the number of people, the block’s shape, and its center point (the internal point the Census Bureau publishes), which it uses to put blocks in order across a guide line and to measure island links. It never reads party registration or voter records, election results or turnout, where officeholders or candidates live, current or past district lines, or race, ethnicity, age, income or anything else about people besides how many there are.',
+      ' For each 2020 census block the generator reads the number of people, the block’s shape, and its internal point (a point inside the block that the Census Bureau publishes), which it uses to put blocks in order across a guide line and to measure island links. It never reads party registration or voter records, election results or turnout, where officeholders or candidates live, current or past district lines, or race, ethnicity, age, income or anything else about people besides how many there are.',
     ),
     h(
       'ol',

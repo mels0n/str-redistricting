@@ -81,15 +81,16 @@ describe('balancing move panels (CO)', () => {
     for (let i = 1; i < c.steps.length; i++) expect(changesAt(c, i).length, `step ${i + 1}`).toBeGreaterThan(0);
   }, SLOW);
 
-  it.skipIf(!haveCO)('score case ranks a real tie by GEOID, as the generator did', async () => {
+  it.skipIf(!haveCO)('score case ranks a real tie by border, then GEOID, as the generator did', async () => {
     const c = await scoreCase(ctx);
     const { rounds: rs, geoids } = await rounds();
     const shown = new Set(c.blocks!.map((b) => b.geoid));
     const ranked = rs[0]!.candidates.filter((x) => x.allowed && shown.has(geoids[x.block]!));
-    // The generator's order: best score first, then GEOID.
+    // The generator's order: best score first, then the shorter border, then GEOID.
     for (let i = 1; i < ranked.length; i++) {
       const p = ranked[i - 1]!, q = ranked[i]!;
-      expect(p.gain > q.gain || (p.gain === q.gain && geoids[p.block]! < geoids[q.block]!)).toBe(true);
+      expect(p.border).toBeDefined();
+      expect(p.gain > q.gain || (p.gain === q.gain && (p.border! < q.border! || (p.border === q.border && geoids[p.block]! < geoids[q.block]!)))).toBe(true);
     }
     const tie = ranked.find((x, i) => ranked.some((y, j) => j !== i && y.gain === x.gain));
     if (tie) expect(c.steps.map((s) => s.caption).join('\n')).toContain(`${whole(tie.gain)}`);

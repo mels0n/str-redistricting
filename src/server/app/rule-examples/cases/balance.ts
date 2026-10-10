@@ -110,6 +110,13 @@ function windowOf(run: BalanceRun, around: readonly number[], h: number): Window
   };
 }
 
+/** Each district's first block (lowest block index, which is GEOID order) in `assignment`; a district with no block is absent. */
+function firstBlocks(assignment: ArrayLike<number>, seats: number): number[] {
+  const first = new Array<number>(seats).fill(Infinity);
+  for (let i = assignment.length - 1; i >= 0; i--) first[assignment[i]!] = i;
+  return first;
+}
+
 /** A round's candidates grouped by block. */
 function byBlock(cands: readonly RoundCandidate[]): Map<number, RoundCandidate[]> {
   const m = new Map<number, RoundCandidate[]>();
@@ -318,9 +325,18 @@ export async function scoreCase(ctx: ExtractContext): Promise<RuleCase> {
     },
   ];
   if (tie.length > 1) {
-    const [w0] = tie;
+    const [w0, w1] = tie as [RoundCandidate, RoundCandidate, ...RoundCandidate[]];
+    if (w0.border === undefined || w1.border === undefined) throw new DataError(`${run.abbr}: a ranked move has no border change`);
+    if (w0.border > w1.border || (w0.border === w1.border && w0.block > w1.block)) throw new DataError(`${run.abbr}: the tied moves are not ranked by border, then GEOID order`);
+    const [g0, g1] = [run.sb.blocks[w0.block]!.geoid, run.sb.blocks[w1.block]!.geoid];
+    /** Meters of border change, one decimal and no trailing zero. */
+    const meters = (v: number): string => `${Number(Math.abs(v).toFixed(1))} m`;
+    const effect = (v: number): string => (v < 0 ? `shortens the border by ${meters(v)}` : v > 0 ? `adds ${meters(v)} of border` : 'leaves the border as it is');
+    const tieWords = w0.border < w1.border
+      ? `A tie goes to the move that leaves the shorter border. Moving ${g0} ${effect(w0.border)}, while moving ${g1} ${effect(w1.border)}, so ${g0} ranks ahead.`
+      : `A tie goes to the move that leaves the shorter border, and these leave the same. Then the block that comes first in GEOID order, ${g0}, ranks ahead.`;
     steps.push({
-      caption: `Of these, ${whole(tie.length)} tie at ${whole(tieGain!)}. A tie goes to the block that comes first in GEOID order, ${run.sb.blocks[w0!.block]!.geoid}, so it ranks ahead.`,
+      caption: `Of these, ${whole(tie.length)} tie at ${whole(tieGain!)}. ${tieWords}`,
       show: before,
       set: { ...kept, ...mark(tie.map((c) => c.block), 'hot') },
     });
@@ -393,7 +409,7 @@ export async function nextFurthestCase(ctx: ExtractContext): Promise<RuleCase> {
   const count = (r: string): number => mine.filter((c) => c.reason === r).length;
   const [noPeople, widens, splits] = [count('no-people'), count('widens'), count('disconnects')];
 
-  // Districts as far from the ideal as the one tried next, besides it: a tie the lower number wins.
+  // Districts as far from the ideal as the one tried next, besides it: a tie goes to the district whose first block comes first.
   const far = (i: number): number => Math.abs(devs[i]!);
   const tie = devs.map((_, i) => i).filter((i) => i !== f && far(i) === far(next));
   const othersFirst = round.tried.slice(1, -1);
@@ -407,15 +423,22 @@ export async function nextFurthestCase(ctx: ExtractContext): Promise<RuleCase> {
   const worst = devs.reduce((m, v) => Math.max(m, Math.abs(v)), 0);
   const toWord = move.from - 1 === next ? `out of ${D(next)} into District ${move.to}` : `into ${D(next)} from District ${move.from}`;
 
+  // Each district's first block just before move k, from the plan with the first k moves made.
+  const assigned = Int32Array.from(run.input);
+  const blockOf = new Map(run.sb.blocks.map((b, i) => [b.geoid, i] as const));
+  for (const m of run.result.moves.slice(0, k)) assigned[blockOf.get(m.geoid)!] = m.to;
+  const firsts = firstBlocks(assigned, n);
+
   const marks: Record<string, number[]> = { furthest: [f], border: neighbors, runnerUp: [f], winner: [next] };
   if (tie.length > 1 || (tie.length === 1 && tie[0] !== next)) marks.tie = [...new Set([next, ...tie])].sort((x, y) => x - y);
+  if (marks.tie && marks.tie.some((i) => firsts[i]! < firsts[next]!)) throw new DataError(`${run.abbr}: round ${moveNo} tried a district whose first block is not first among the districts equally far`);
   const hasNextMove = k + 1 < run.result.moves.length;
   const [f2, next2] = [after.tried[0]!, after.tried[after.tried.length - 1]!];
   if (hasNextMove) { marks.again = [n + f2]; if (next2 !== f2) marks.next = [n + next2]; }
   const chart = ['chart', 'g1', 'g2'];
   const held = [...chart, 'chart-furthest', 'chart-runnerUp'];
   const tieWords = marks.tie
-    ? `${Ds(marks.tie)} are each ${side(devs[next]!)}, and the lower number, ${D(next)}, goes first.`
+    ? `${Ds(marks.tie)} are each ${side(devs[next]!)}, and ${D(next)}, whose first block comes first in GEOID order, goes first.`
     : `That is ${D(next)}, ${side(devs[next]!)}.`;
   const lastCaption = !hasNextMove
     ? `After that move no district has an allowed move, so the pass stops.`

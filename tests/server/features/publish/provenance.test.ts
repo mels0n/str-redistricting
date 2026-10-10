@@ -50,12 +50,16 @@ describe('publishData run stamp', () => {
     await expect(run(out, join(root, 'pub'), 'RI', KEY)).rejects.toThrow(/RI: code changed/);
   });
 
-  it('lets a valid stamp through the check', async () => {
+  it('asks the check about the state and its folder, and a valid stamp moves on to reading the plan', async () => {
     const out = join(root, 'out');
     await plan(out, 'RI', KEY);
-    // The stub plan is not a real one, so publish stops at the plan checks after the stamp check passed.
-    const err = await run(out, join(root, 'pub'), 'RI', KEY).catch((e: unknown) => e);
-    expect((err as Error).message).not.toMatch(/earlier run|code changed|re-run explore for it/);
+    const planStale = vi.fn((_s: unknown, dir: string) => staleReason(dir, KEY));
+    const err = await publishData(parsePublishConfig(['--out-dir', out, '--public-dir', join(root, 'pub'), '--states', 'RI']), { planStale }).catch((e: unknown) => e);
+    expect(planStale).toHaveBeenCalledTimes(1);
+    expect(planStale.mock.calls[0]![0]).toMatchObject({ abbr: 'RI' });
+    expect(planStale.mock.calls[0]![1]).toBe(join(out, 'RI'));
+    // The stub metrics.json is not a real plan, so the run stops reading it, after the stamp check passed.
+    expect((err as Error).message).toMatch(/metrics\.json: .*Invalid input/);
   });
 
   it('writes nothing when one of two states is refused', async () => {

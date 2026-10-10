@@ -72,6 +72,20 @@ describe('publishData gate', () => {
   });
 });
 
+describe('publishData pre-release flag', () => {
+  it('lets a changed stamped map through only when preRelease is true', async () => {
+    const out = join(root, 'out');
+    const pub = join(root, 'public');
+    state(out, pub, 'RI', { published: [A, A], generated: [B, B] });
+    const cfg = () => parsePublishConfig(['--out-dir', out, '--public-dir', pub, '--states', 'RI']);
+    const planStale = async () => undefined;
+    await expect(publishData(cfg(), { planStale, preRelease: false })).rejects.toThrow(/RI: the map changed/);
+    // Past the gate the run goes on to the heavy publish steps (census boundary files), which this fixture does not have.
+    const err = await publishData(cfg(), { planStale, preRelease: true }).catch((e: unknown) => e);
+    expect((err as Error).message).not.toMatch(/the map changed/);
+  });
+});
+
 describe('publishData provenance', () => {
   const refused = async (over: Record<string, unknown>, beforeOver: Record<string, unknown> | undefined, pattern: RegExp): Promise<void> => {
     const out = join(root, 'out');

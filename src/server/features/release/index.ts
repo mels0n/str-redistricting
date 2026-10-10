@@ -8,5 +8,5 @@ export type { Commit, Component, ReleaseConfig } from './components.js';
 export { FingerprintFileSchema, baseEngineMajor, compareFingerprints } from './fingerprints.js';
 export type { FingerprintFile, StateFingerprint } from './fingerprints.js';
 export { mapsDataChanged } from './maps.js';
-export { isPreRelease } from './pre-release.js';
+export { isPreRelease, preReleaseForBase } from './pre-release.js';
 export { newestTag, tagsFor, taggedVersions } from './tags.js';

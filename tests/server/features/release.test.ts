@@ -9,6 +9,7 @@ import {
   bumpSemver,
   compareFingerprints,
   isPreRelease,
+  preReleaseForBase,
   componentsFor,
   mapsDataChanged,
   newestTag,
@@ -418,6 +419,23 @@ describe('isPreRelease', () => {
   });
   it('ignores tags that are not release tags', () => {
     expect(isPreRelease({ ...cfg, enforce: false }, ['v1.2.3', 'feat-x'])).toBe(true);
+  });
+});
+
+describe('preReleaseForBase', () => {
+  const text = (enforce: boolean): string => JSON.stringify({ ...cfg, enforce });
+  it('is strict when the base enforces, even if the head config does not', () => {
+    expect(preReleaseForBase(text(true), { ...cfg, enforce: false }, [])).toBe(false);
+  });
+  it('is pre-release when the base does not enforce and no release tag exists', () => {
+    expect(preReleaseForBase(text(false), { ...cfg, enforce: true }, [])).toBe(true);
+  });
+  it('is strict when the base does not enforce but a component tag exists', () => {
+    expect(preReleaseForBase(text(false), { ...cfg, enforce: false }, ['maps-1'])).toBe(false);
+  });
+  it('treats a base without config/release.json as not enforcing: pre-release with no tags, strict with a tag', () => {
+    expect(preReleaseForBase(null, { ...cfg, enforce: true }, [])).toBe(true);
+    expect(preReleaseForBase(null, { ...cfg, enforce: true }, ['engine-v1.0.0'])).toBe(false);
   });
 });
 

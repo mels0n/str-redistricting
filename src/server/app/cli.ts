@@ -1,7 +1,7 @@
 import { join } from 'node:path';
 import { blocksFileName, buildTopology, loadStateBlocks } from '../entities/census-block/index.js';
 import { balance, balanceLog, peopleMoved } from '../features/balance/index.js';
-import { bordersGeoJson, bridgesJson, cutsGeoJson, districtsGeoJson, writePlan } from '../features/export/index.js';
+import { bordersGeoJson, bridgesJson, buildMetricsJson, cutsGeoJson, districtsGeoJson, writePlan } from '../features/export/index.js';
 import { assignmentCsv, computeMetrics } from '../features/metrics/index.js';
 import { drawOrSkip, type WriteFiles } from '../features/run-stamp/index.js';
 import { createContext, PoolSlot, splitState, type SplitResult } from '../features/splitline/index.js';
@@ -62,7 +62,7 @@ async function drawState(state: StateInfo, config: Config, slot: PoolSlot, write
   for (const p of plans) {
     await write(p.sub, {
       'assignment.csv': assignmentCsv(blocks, p.assignment),
-      'metrics.json': JSON.stringify({ ...common, balanceMoves: p.moves, peopleMovedByBalancing: p.moved, ...range, runtimeMs, ...p.metrics }, null, 2),
+      'metrics.json': JSON.stringify(buildMetricsJson({ common, range, plan: { moves: p.moves, moved: p.moved }, runtimeMs, metrics: p.metrics }), null, 2),
       'borders.geojson': JSON.stringify(bordersGeoJson(topo, p.assignment, state.seats)),
       'districts.geojson': JSON.stringify(districtsGeoJson(topo, p.assignment, state.seats)),
       'cuts.geojson': JSON.stringify(cutsGeoJson(split.cuts)),

@@ -19,6 +19,10 @@ export const ProcessNumbersSchema = z.object({
   peopleMovedByBalancing: z.number().int().nonnegative(),
   rangeBeforeBalancing: z.number().nonnegative(),
   rangeAfterBalancing: z.number().nonnegative(),
+  runtimeMs: z.number().nonnegative(),
+  countiesSplit: z.number().int().nonnegative(),
+  countiesTotal: z.number().int().nonnegative(),
+  blocks: z.number().int().nonnegative(),
 });
 
 const round6 = (x: number): number => Math.round(x * 1e6) / 1e6;

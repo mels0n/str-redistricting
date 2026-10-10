@@ -19,8 +19,9 @@ import type { Feature, Polygon } from 'geojson';
 import { afterAll, describe, expect, it } from 'vitest';
 import {
   BalanceLogSchema, buildBalance, buildCuts, buildIndex, buildStats, buildWater, checkBlocks, encodeBlocks, mergeLand,
-  PlanMetricsSchema, planStats, publishedSummaries, toTopology,
+  PlanMetricsSchema, planStats, ProcessNumbersSchema, publishedSummaries, toTopology,
 } from '../../src/server/features/publish/index.js';
+import { buildMetricsJson } from '../../src/server/features/export/index.js';
 import { unwrapCoordinates, unwrapFeatures } from '../../src/server/features/publish/antimeridian.js';
 import { buildDetailTiles } from '../../src/server/features/publish/tiles.js';
 import {
@@ -33,7 +34,7 @@ import { parseRuleExamplesConfig } from '../../src/server/shared/config/index.js
 import { BalanceSchema } from '../../src/client/entities/plan/balance';
 import { BlocksSchema } from '../../src/client/entities/plan/blocks';
 import { BridgesSchema } from '../../src/client/entities/plan/model';
-import { CutsSchema, DistrictTopoSchema, EnactedTopoSchema, StatsSchema, WaterTopoSchema } from '../../src/client/entities/plan/model';
+import { CutsSchema, DistrictTopoSchema, EnactedTopoSchema, MetricsSchema, StatsSchema, WaterTopoSchema } from '../../src/client/entities/plan/model';
 import { RuleExamplesSchema } from '../../src/client/entities/rule-example/model';
 import { OutlineTopoSchema } from '../../src/client/entities/state/outlines';
 import { StateIndexSchema } from '../../src/client/entities/state/model';
@@ -67,6 +68,31 @@ const square = (district: number, x0: number): Feature<Polygon> => ({
   geometry: { type: 'Polygon', coordinates: [[[x0, 10], [x0 + 0.1, 10], [x0 + 0.1, 10.1], [x0, 10.1], [x0, 10]]] },
 });
 const districts = { features: [square(1, -100), square(2, -99.9)] };
+
+describe('metrics.json', () => {
+  /** What the CLI writes for a plan: the real builder, serialized. */
+  const written = (): unknown => roundTrip(buildMetricsJson({
+    common: {
+      state: 'XX', lineSearch: 'exact', bridges: 0, nodeVersion: 'v24.0.0', inputSha256: SHA_A, engine: '1.0.0', cutsSkipped: 0,
+      strayBlocksMoved: 0, strayPopMoved: 0, recounts: 0, recountsMaxPerCut: 0, cuts: 1, candidateRangesPerCut: [40], candidateRangesEvaluated: 40,
+    },
+    range: { rangeBeforeBalancing: 3, rangeAfterBalancing: 0 },
+    plan: { moves: 1, moved: 3 },
+    runtimeMs: 12,
+    metrics: {
+      seats: 2, blocks: 4, population: 200, ideal: 100, rangePersons: 0, rangePct: 0, countiesSplit: 1, countiesTotal: 2, allContiguous: true, assignmentSha256: SHA_B,
+      districts: [1, 2].map((district) => ({ district, pop: 100, dev: 0, devPct: 0, contiguous: true })),
+    },
+  }));
+  it('the writer output parses with the viewer schema and the server gate', () => {
+    expect(MetricsSchema.parse(written()).assignmentSha256).toBe(SHA_B);
+    expect(ProcessNumbersSchema.parse(written()).cuts).toBe(1);
+  });
+  it('the server gate names every field the viewer requires', () => {
+    const checked = new Set([...Object.keys(PlanMetricsSchema.shape), ...Object.keys(ProcessNumbersSchema.shape)]);
+    expect(Object.keys(MetricsSchema.shape).filter((k) => !checked.has(k))).toEqual([]);
+  });
+});
 
 describe('index.json', () => {
   it('written by publishedSummaries + buildIndex parses with the viewer index schema', async () => {

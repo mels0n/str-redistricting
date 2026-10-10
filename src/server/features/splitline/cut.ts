@@ -7,7 +7,7 @@ import { zob, zob2 } from './hash.js';
 import type { SplitContext } from './context.js';
 import type { ScanPool } from './pool.js';
 import { createScanner, type Piece, type ScanJob } from './scan.js';
-import { compareRanges, directionAt, geoFor, mergeChunks, sweepChunk, sweepSpan, type ChunkResult, type Dir, type Range } from './sweep.js';
+import { compareRanges, directionAt, geoFor, mergeChunks, sweepChunk, sweepSpan, type ChunkResult, type Dir, type Range, type TieSpan } from './sweep.js';
 import { chunksFor, sweepTask, taskCount, type SweepJob } from './tasks.js';
 
 export { selectLow } from './scan.js';
@@ -193,6 +193,25 @@ const toCandidate = (r: Range): CandidateRange => ({
   lengthM: r.lengthUm / 1e6, lowPop: r.lowPop, from: r.s, to: r.e, wraps: r.wraps === true, reversed: r.reversed === true,
 });
 
+/**
+ * Tie stretches of all chunks, per first-side seat count, with the pieces a chunk edge split joined back together, so
+ * the stretches (and the ranges swept again inside them) do not depend on how the half turn was cut into chunks.
+ */
+function joinTieSpans(chunks: readonly ChunkResult[]): { lowSeats: number; ties: TieSpan[] }[] {
+  const by = new Map<number, TieSpan[]>();
+  for (const c of chunks) by.set(c.lowSeats, [...(by.get(c.lowSeats) ?? []), ...c.ties]);
+  const same = (a: Dir, b: Dir) => a[0] === b[0] && a[1] === b[1] && a[2] === b[2] && a[3] === b[3];
+  return [...by].sort((p, q) => p[0] - q[0]).map(([lowSeats, list]) => {
+    const ties: TieSpan[] = [];
+    for (const t of [...list].sort((p, q) => p.sDeg - q.sDeg)) {
+      const prev = ties[ties.length - 1];
+      if (prev && prev.eDeg === t.sDeg && same(prev.e, t.s)) ties[ties.length - 1] = { ...prev, e: t.e, eDeg: t.eDeg, endIsPi: t.endIsPi };
+      else ties.push(t);
+    }
+    return { lowSeats, ties };
+  });
+}
+
 /** The piece turned half way round: every point negated (exact), so a sweep of it slides each line from the other end. */
 function mirrorPiece(piece: Piece): Piece {
   return { ...piece, px: piece.px.map((v) => -v), py: piece.py.map((v) => -v) };
@@ -276,15 +295,17 @@ export function findCut(ctx: SplitContext, members: Int32Array, seats: number, v
   // near the share, or an empty block next to a side exactly on its share) is decided the other way. That is only
   // possible where some pass sat on such a tie, so only those stretches are swept again, on the piece turned half way
   // round (every point negated, exact) with the other side first: the line from the other end.
-  const flipped = mirrorPiece(piece);
+  // Built only when some stretch needs the line from the other end (sidesOf and the winner read it only then).
+  let turned: Piece | undefined;
+  const flippedPiece = (): Piece => (turned ??= mirrorPiece(piece));
   const reversed: Range[] = [];
   let reversedCount = 0;
   const spans = opts.reverseEverywhere
     ? orientations.map((o) => ({ lowSeats: o, ties: [{ s: directionAt(0), e: directionAt(180), sDeg: 0, eDeg: 180, endIsPi: true }] }))
-    : chunks;
+    : joinTieSpans(chunks);
   for (const c of spans) {
     for (const t of c.ties) {
-      const res = sweepSpan(flipped, seats, seats - c.lowSeats, t.s, t.e, t.sDeg, t.eDeg, t.endIsPi, KEEP, false);
+      const res = sweepSpan(flippedPiece(), seats, seats - c.lowSeats, t.s, t.e, t.sDeg, t.eDeg, t.endIsPi, KEEP, false);
       reversedCount += res.resultRanges;
       for (const r of new Set([res.first, res.last, ...res.top])) if (!r.unresolved) reversed.push({ ...r, reversed: true });
     }
@@ -295,7 +316,7 @@ export function findCut(ctx: SplitContext, members: Int32Array, seats: number, v
   const check: SideValidator = validate ?? ((lo, hi) => isConnected(topo, lo) && isConnected(topo, hi));
   /** The sides every direction of range `r` gives, re-evaluated exactly and checked against the sweep's fingerprints. */
   const sidesOf = (r: Range) => {
-    const chain = evaluateAt(r.reversed ? flipped : piece, seats, r.lowSeats, r.at ?? r.s);
+    const chain = evaluateAt(r.reversed ? flippedPiece() : piece, seats, r.lowSeats, r.at ?? r.s);
     if (chain.lengthUm !== r.lengthUm || chain.h1 !== r.h1 || chain.h2 !== r.h2 || chain.unresolved) {
       throw new DataError(`the range from ${r.sDeg} degrees re-evaluates to different sides`);
     }
@@ -330,7 +351,7 @@ export function findCut(ctx: SplitContext, members: Int32Array, seats: number, v
     const listed = [...ranges];
     listed.splice(win.at, 1);
     listed.splice(group0, 0, r);
-    const candidates = listed.map(toCandidate);
+    const candidates = listed.slice(0, 200).map(toCandidate);
 
     // Shorter unresolved ranges, counted once per distinct length (a range cut by a chunk edge has one length).
     const skippedRanges = chunks.flatMap((c) => c.unresolvedRanges.filter((u) => u.lengthUm < r.lengthUm)).sort(compareRanges).map(toCandidate);
@@ -345,23 +366,35 @@ export function findCut(ctx: SplitContext, members: Int32Array, seats: number, v
     const th = ((r.wraps ? midDeg - 180 : midDeg) * Math.PI) / 180;
     const last = chain.passes[chain.passes.length - 1]!, first = chain.passes[0]!;
     // A reversed range was evaluated on the piece turned half way round, so its offsets come back negated.
-    const [frame, sign] = r.reversed ? [flipped, -1] : [piece, 1];
+    const [frame, sign] = r.reversed ? [flippedPiece(), -1] : [piece, 1];
     const offset = sign * splitOffset(frame, th, (i) => last.fixedBefore[i]! < 0, (i) => side[i] === 0);
     const offset0 = sign * splitOffset(frame, th, () => true, (i) => first.side[i] === 0);
     let movedPop = 0;
     for (let i = 0; i < m; i++) if (last.fixedBefore[i]! >= 0) movedPop += piece.pops[i]!;
-    const traces = (opts.trace ?? []).map((t) => traceCandidate(ctx, t.reversed ? flipped : piece, t.reversed ? -1 : 1, seats, members, sx, sy, t));
+    const traces = (opts.trace ?? []).map((t) => traceCandidate(ctx, t.reversed ? flippedPiece() : piece, t.reversed ? -1 : 1, seats, members, sx, sy, t));
     return {
       low, high, lowSeats: r.lowSeats, highSeats: seats - r.lowSeats,
       angleDeg, fromDeg: r.sDeg, toDeg: endDeg(r), wraps: r.wraps === true, reversed: r.reversed === true, lengthM: r.lengthUm / 1e6,
       candidateRanges: merged.count + reversedCount, reversedRanges: reversedCount, splitChanges: chunks.reduce((s, c) => s + c.splitChanges, 0),
       spans: spanLength(ctx, sx, sy, th, offset).spans, skipped: shorterUnresolved.size + refused, skippedRanges,
       strayBlocksMoved: chain.movedBlocks, strayPopMoved: movedPop,
-      iterations: chain.passes.length, offsetShiftM: (offset - offset0) * EARTH_RADIUS_M, candidates: candidates.slice(0, 200), traces,
+      iterations: chain.passes.length, offsetShiftM: (offset - offset0) * EARTH_RADIUS_M, candidates, traces,
       tiedRanges: passed.length, tiedCuts: distinct.length,
     };
   }
   throw new DataError('no straight line produces two connected sides');
+}
+
+/**
+ * The trace request for a cut's own line, and whether the trace's sides come out swapped. A range across north-south
+ * (toDeg below fromDeg) takes its sides, and its first-side seats, from its part after 0 degrees. Its drawn middle can
+ * lie in its part before 180, where the same line has its sides the other way round: that line is traced there with
+ * the mirror seat count, and its first side is the cut's second side. (Tracing 180 degrees back instead would slide
+ * the line from the other end, which differs on a stopping-rule tie.)
+ */
+export function cutTraceRequest(c: { readonly angleDeg: number; readonly fromDeg: number; readonly toDeg: number; readonly seats: number; readonly lowSeats: number; readonly wraps?: boolean; readonly reversed?: boolean }): { request: CandidateTraceRequest; swapped: boolean } {
+  const swapped = (c.wraps ?? c.toDeg < c.fromDeg) && c.angleDeg >= c.fromDeg;
+  return { request: { angleDeg: c.angleDeg, lowSeats: swapped ? c.seats - c.lowSeats : c.lowSeats, reversed: c.reversed === true }, swapped };
 }
 
 /** One line traced in full without searching for the cut (as CutOptions.trace records it); observation only. */

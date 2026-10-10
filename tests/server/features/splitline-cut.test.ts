@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import type { Block } from '../../../src/server/entities/census-block/index.js';
 import { isConnected } from '../../../src/server/entities/census-block/index.js';
-import { compareCutSides, createContext, cutSides, findCut, traceLine, type CutResult } from '../../../src/server/features/splitline/index.js';
+import { compareCutSides, createContext, cutSides, cutTraceRequest, findCut, traceLine, type CutResult } from '../../../src/server/features/splitline/index.js';
 import { DataError } from '../../../src/server/shared/errors/index.js';
 import { gridBlocks } from '../../helpers/grid.js';
 import { containsNorthSouth, crossesNorthSouth, middleDeg } from '../../helpers/ranges.js';
@@ -22,6 +22,9 @@ describe('findCut', () => {
     // The winning range starts at north-south and the line is drawn at its middle.
     // On this grid the stretch runs across north-south (from 135 degrees on past 0 to 45), drawn at its middle.
     expect(containsNorthSouth(r)).toBe(true);
+    // The two ends of the half turn are joined into one stretch across north-south.
+    expect(r.wraps).toBe(true);
+    expect(r.toDeg).toBeLessThan(r.fromDeg);
     expect(r.angleDeg).toBeCloseTo(middleDeg(r), 9);
     expect(sorted(r.low)).toEqual([0, 1, 4, 5]);
     expect(r.lengthM).toBeCloseTo(2 * 0.01 * 111_195.08, -1);
@@ -275,5 +278,36 @@ describe('lines slid from the other end', () => {
     }
     // The fixtures reach cuts where the line from the other end is the one used.
     expect(reversedSeen).toBeGreaterThan(0);
+  }, 120_000);
+});
+
+describe('the trace of a cut', () => {
+  it('traces the part before 180 of a range across north-south with the mirror seats, sides swapped', () => {
+    expect(cutTraceRequest({ angleDeg: 172.5, fromDeg: 150, toDeg: 5, seats: 3, lowSeats: 2 })).toEqual({ request: { angleDeg: 172.5, lowSeats: 1, reversed: false }, swapped: true });
+    expect(cutTraceRequest({ angleDeg: 2.5, fromDeg: 170, toDeg: 15, seats: 3, lowSeats: 2 })).toEqual({ request: { angleDeg: 2.5, lowSeats: 2, reversed: false }, swapped: false });
+    expect(cutTraceRequest({ angleDeg: 40, fromDeg: 30, toDeg: 50, seats: 2, lowSeats: 1, reversed: true })).toEqual({ request: { angleDeg: 40, lowSeats: 1, reversed: true }, swapped: false });
+  });
+
+  it('reproduces the cut from its drawn direction and seats, across north-south and with odd seats', () => {
+    const lcg = (seed: number) => { let s = seed >>> 0; return () => ((s = (Math.imul(s, 1664525) + 1013904223) >>> 0) / 2 ** 32); };
+    const rnd = lcg(9);
+    let wrapped = 0;
+    for (let k = 0; k < 60; k++) {
+      const w = 2 + Math.floor(rnd() * 4), h = 2 + Math.floor(rnd() * 3);
+      const pops: number[] = Array.from({ length: w * h }, () => 1 + Math.floor(rnd() * 5));
+      const blocks = gridBlocks(w, h, { pop: (x, y) => pops[y * w + x]! });
+      const ctx = createContext(blocks);
+      for (const seats of [2, 3]) {
+        let r: CutResult;
+        try { r = findCut(ctx, all(blocks.length), seats); } catch { continue; }
+        // A direction in degrees cannot pick out a range narrower than rounding (see the trace tests), so skip those.
+        if (!r.wraps && r.toDeg - r.fromDeg < 1e-6) continue;
+        if (r.wraps) wrapped++;
+        const { request, swapped } = cutTraceRequest({ ...r, seats });
+        const t = traceLine(ctx, all(blocks.length), seats, request);
+        expect(sorted(swapped ? t.high : t.low)).toEqual(sorted(r.low));
+      }
+    }
+    expect(wrapped).toBeGreaterThan(0);
   }, 120_000);
 });

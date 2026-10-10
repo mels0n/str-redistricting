@@ -7,7 +7,7 @@
 export { createContext } from './context.js';
 export type { SplitContext } from './context.js';
 // One cut: the tie rules (people, then GEOID), and the cut search itself.
-export { compareCutSides, compareGeoidSides, cutSides, findCut, traceLine } from './cut.js';
+export { compareCutSides, compareGeoidSides, cutSides, cutTraceRequest, findCut, traceLine } from './cut.js';
 export type { CandidateRange, CandidateTrace, CandidateTraceRequest, CutOptions, CutResult, CutSides, SideValidator, TraceGroup, TracePass, TraceSweep } from './cut.js';
 // Worker threads that sweep chunks of directions.
 export { ScanPool } from './pool.js';

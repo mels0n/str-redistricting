@@ -2,7 +2,7 @@ import type { Block, Topology } from '../../../entities/census-block/index.js';
 import type { CutStats } from '../../../entities/plan-output/index.js';
 import { chosenCandidate, pieceMembers, type ExtractContext, type StateOutput } from '../../../features/rule-examples/index.js';
 import {
-  createContext, findCut, ScanPool, type CandidateTrace, type CandidateTraceRequest, type CutResult, type SplitContext,
+  createContext, cutTraceRequest, findCut, ScanPool, type CandidateTrace, type CandidateTraceRequest, type CutResult, type SplitContext,
 } from '../../../features/splitline/index.js';
 import { DataError } from '../../../shared/errors/index.js';
 
@@ -84,10 +84,16 @@ async function run(ctx: ExtractContext, abbr: string, order: number, lowSeats: r
   }).sort();
   const pool = ctx.cfg.threads > 1 ? new ScanPool(ctx.cfg.threads) : undefined;
   let result: CutResult;
+  // The cut's own line is traced in the frame of its drawn direction; where that swaps the sides, they are swapped back.
+  const own = cutTraceRequest({ ...cut, lowSeats: chosen });
   try {
-    result = findCut(split, members, cut.seats, undefined, { pool, trace: lows.map((l) => (typeof l === 'number' ? { angleDeg: cut.angleDeg, lowSeats: l, reversed: cut.reversed === true && l === chosen } : l)) });
+    result = findCut(split, members, cut.seats, undefined, { pool, trace: lows.map((l) => (typeof l !== 'number' ? l : l === chosen ? own.request : { angleDeg: cut.angleDeg, lowSeats: l })) });
   } finally {
     await pool?.close();
+  }
+  if (own.swapped) {
+    const traces = result.traces.map((t, i) => (lows[i] === chosen ? { ...t, low: t.high, high: t.low } : t));
+    result = { ...result, traces };
   }
   if (result.fromDeg !== cut.fromDeg || result.toDeg !== cut.toDeg || result.reversed !== (cut.reversed === true) || Math.round(result.lengthM) !== Math.round(cut.lengthM)) {
     throw new DataError(`${abbr}: re-running cut ${order} gives ${result.fromDeg} to ${result.toDeg}° and ${result.lengthM} m, not the ${cut.fromDeg} to ${cut.toDeg}° and ${cut.lengthM} m on disk (stale out/?)`);

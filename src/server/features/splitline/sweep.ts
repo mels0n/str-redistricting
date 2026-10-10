@@ -79,7 +79,9 @@ export function directionDeg(d: Dir): number {
   const s = sgn(d);
   let a = (atan2(s * (d[2] - d[0]), s * (d[3] - d[1])) * 180) / Math.PI;
   if (a < 0) a += 180;
-  if (a >= 180) a -= 180;
+  // Only north-south itself is 0. A direction just short of a half turn can round to 180; it stays at the end of the
+  // half turn (the largest double below 180), never at its start, so ranges and their middles keep their order.
+  if (a >= 180) a = s * (d[2] - d[0]) === 0 ? 0 : 180 - 180 * Number.EPSILON;
   return a;
 }
 const NORTH: Dir = [0, 0, 0, 1];
@@ -136,15 +138,13 @@ export function sweepSpan(piece: Piece, seats: number, lowSeats: number, start: 
   let cur = { s: start, sDeg: aDeg, atStart: true };
   const snap = () => ({ lengthUm: chain.lengthUm, lowPop: chain.lowPop, h1: chain.h1, h2: chain.h2, unresolved: chain.unresolved });
   let res = snap();
+  // Stretches where some pass sits on a stopping-rule tie, from the event where the tie starts to the event where it
+  // ends: events are the same however the half turn is cut into chunks, so the stretches are too (a chunk edge only
+  // splits one, and findCut joins the pieces back).
   const ties: TieSpan[] = [];
-  let tied = findTies && chain.atTie;
+  let tieFrom: { s: Dir; sDeg: number } | null = findTies && chain.atTie ? { s: start, sDeg: aDeg } : null;
   const close = (e: Dir, eDeg: number, atEnd: boolean) => {
     resultRanges++;
-    if (tied) {
-      const prev = ties[ties.length - 1];
-      if (prev && prev.eDeg === cur.sDeg && prev.e === cur.s) ties[ties.length - 1] = { ...prev, e, eDeg, endIsPi: atEnd && endIsPi };
-      else ties.push({ s: cur.s, e, sDeg: cur.sDeg, eDeg, endIsPi: atEnd && endIsPi });
-    }
     const r: Range = { s: cur.s, e, sDeg: cur.sDeg, eDeg, ...res, lowSeats, edge: (cur.atStart ? 1 : 0) | (atEnd ? 2 : 0) };
     if (cur.atStart) first = r;
     if (atEnd) last = r;
@@ -161,14 +161,19 @@ export function sweepSpan(piece: Piece, seats: number, lowSeats: number, start: 
     const st = chain.step();
     if (!st) break;
     if (st.changedSets) splitChanges++;
-    if (!st.changedResult) { if (findTies && !tied) tied = chain.atTie; continue; }
+    if (findTies && chain.atTie !== (tieFrom !== null)) {
+      const at = dir(st.ci, st.cj), atDeg = directionDeg(at);
+      if (tieFrom) { ties.push({ s: tieFrom.s, e: at, sDeg: tieFrom.sDeg, eDeg: atDeg, endIsPi: false }); tieFrom = null; }
+      else tieFrom = { s: at, sDeg: atDeg };
+    }
+    if (!st.changedResult) continue;
     const at = dir(st.ci, st.cj), atDeg = directionDeg(at);
     close(at, atDeg, false);
     cur = { s: at, sDeg: atDeg, atStart: false };
     res = snap();
-    tied = findTies && chain.atTie;
   }
   close(end, bDeg, true);
+  if (tieFrom) ties.push({ s: tieFrom.s, e: end, sDeg: tieFrom.sDeg, eDeg: bDeg, endIsPi });
   // Only unresolved ranges shorter than this chunk's best could be shorter than the cut's winner.
   const best = top[0]?.lengthUm ?? Infinity;
   const unresolvedBelow = [...new Set(unresolved.filter((u) => u < best))].sort((x, y) => x - y);

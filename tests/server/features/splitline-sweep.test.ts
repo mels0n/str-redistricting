@@ -247,3 +247,18 @@ describe('chunk independence', () => {
     }
   });
 });
+
+describe('ranges of equal length are never cut from a chunk', () => {
+  it('keeps every range as long as the last one kept, so the tie rules see them all', () => {
+    // Centered on the equator, the north-south and east-west borders of a uniform square are exactly equal and give
+    // different sides. Keeping a single range must still keep both.
+    const piece = pieceOf(gridBlocks(4, 4, { origin: [0, -0.02] }));
+    const c = sweepChunk(piece, 2, 1, 0, 180, 1);
+    const best = c.top[0]!.lengthUm;
+    const tied = c.top.filter((r) => r.lengthUm === best);
+    expect(tied.length).toBeGreaterThanOrEqual(2);
+    expect(new Set(tied.map((r) => `${r.h1}:${r.h2}`)).size).toBeGreaterThanOrEqual(2);
+    // And nothing longer than the last kept range is kept beyond the one asked for.
+    expect(c.top.every((r) => r.lengthUm === best)).toBe(true);
+  });
+});

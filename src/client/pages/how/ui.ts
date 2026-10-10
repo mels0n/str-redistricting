@@ -497,7 +497,7 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
       p('The map itself is a file that lists every block and the district it belongs to. Its fingerprint is a 64-character code worked out from that file. The code changes completely if even one block is assigned differently, so two people can compare that one value to confirm they got the same map. Each state’s fingerprint is printed under “Check this map” in its view.'),
       figure('The same inputs always give the same assignment file, and so the same fingerprint.', fingerprintDiagram()),
       exact(
-        exactPara('fingerprint.repeat', 'Blocks are always processed in GEOID order. Given the same census files, the generator writes a byte-identical assignment file and identical district shapes on any computer: No cut depends on a computed angle; the angles shown are worked out by the generator’s own code, so they match everywhere too. The fingerprint is the SHA-256 hash of that assignment file.'),
+        exactPara('fingerprint.repeat', 'Blocks are always processed in GEOID order. Given the same census files, the generator writes a byte-identical assignment file and identical district shapes on any computer. No cut depends on a computed angle; the angles shown are worked out by the generator’s own code, so they match everywhere too. The fingerprint is the SHA-256 hash of that assignment file.'),
       ),
       h('h3', { class: 'strv-how__h3' }, 'To reproduce a state’s map'),
       p('The generator, this viewer and the published data are all in ', h('a', { href: config.repoUrl }, 'the project’s GitHub repository'), '. Get the code and run it:'),

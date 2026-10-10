@@ -249,7 +249,7 @@ export async function tiesCase(ctx: ExtractContext): Promise<RuleCase> {
       {
         caption: tied
           ? `The rule is ${RULE_ORDER}. ${rule}`
-          : `Not a tie, so the shorter border, the stretch ${a}, is the one used. The rule is ${RULE_ORDER}. Had two different cuts had exactly equal borders, the one nearer its fair shares of people would be used, and if that were equal too, GEOID would decide: ${GEOID_HOW}`,
+          : `Not a tie, so the shorter border, the stretch ${a}, is the one used. The rule is ${RULE_ORDER}. If two different cuts had exactly equal borders, the one nearer its fair shares of people would be used, and if that were equal too, GEOID would decide: ${GEOID_HOW}`,
         show: ['chart', `chart-${mark}`],
       },
       {

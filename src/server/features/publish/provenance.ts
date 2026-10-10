@@ -21,7 +21,7 @@ export function checkPlanProvenance(plan: PlanMetrics, abbr: string, label: stri
   if (plan.engine === undefined) problems.push('it records no engine version');
   else if (engineMajor(plan.engine) !== engineMajor(expected.engine)) problems.push(`it was drawn by engine ${plan.engine} and the current engine is ${expected.engine} (different major)`);
   if (plan.inputSha256 !== expected.inputSha256) problems.push('its census input sha256 is not the pinned one');
-  if (plan.lineSearch !== expected.lineSearch) problems.push(`its line search is ${plan.lineSearch ?? 'a fixed angle grid'} and the published search is ${expected.lineSearch}`);
+  if (plan.lineSearch !== expected.lineSearch) problems.push(`its line search is ${plan.lineSearch} and the published search is ${expected.lineSearch}`);
   if (problems.length > 0) {
     throw new DataError(`${label}: the plan cannot be published, ${problems.join('; ')}; re-run \`npm run explore -- --states ${abbr}\``);
   }

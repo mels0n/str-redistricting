@@ -2,7 +2,7 @@ import { MessageChannel, receiveMessageOnPort, Worker, type MessagePort } from '
 import { DataError, WorkerPoolError } from '../../shared/errors/index.js';
 import type { Piece } from './scan.js';
 import type { ChunkResult } from './sweep.js';
-import type { SweepJob } from './tasks.js';
+import { taskCount, type SweepJob } from './tasks.js';
 
 /** Control words shared with the workers: next chunk to take, and how many workers have finished. */
 const NEXT = 0, DONE = 1;
@@ -116,6 +116,10 @@ export class ScanPool {
       else for (const r of msg.results) results[r.task] = r.result;
     }
     if (failure) throw new ReportedFailure(failure.data ? new DataError(failure.message) : new Error(failure.message));
+    // Every chunk is claimed exactly once; a missing one is a pool fault, reported as such rather than as a crash later.
+    const total = taskCount(job);
+    for (let t = 0; t < total; t++) if (!results[t]) throw new WorkerPoolError('a cut search worker lost a chunk');
+    if (results.length !== total) throw new WorkerPoolError('a cut search worker reported a chunk that does not exist');
     return results;
   }
 

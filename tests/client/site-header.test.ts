@@ -19,7 +19,7 @@ describe('site header', () => {
     const homeLinks = [...header.querySelectorAll('a')].filter((a) => a.getAttribute('href') === formatHash(NATIONAL) && !a.hasAttribute('data-chamber'));
     expect(homeLinks).toHaveLength(1);
     expect(header.textContent).not.toContain('All states');
-    expect([...header.querySelectorAll('.strv-masthead__nav a')].map((a) => a.textContent)).toEqual(['How it works']);
+    expect([...header.querySelectorAll('.strv-masthead__nav a')].map((a) => a.textContent)).toEqual(['How it works', 'FAQ']);
   });
 
   it('lists every chamber in order; only the live one is a link, and it is the current one', () => {

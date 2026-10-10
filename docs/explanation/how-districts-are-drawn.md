@@ -93,7 +93,7 @@ The rule for choosing a cut is: the shortest border, then the sides nearer their
 
 The candidates include the lines found by walking from the other end of the order (see [Blocks are never split](#blocks-are-never-split)), so the same rules choose between a line walked from one end and a line walked from the other. No direction is preferred over another. Exact ties between different cuts are rare on real census lengths.
 
-Which range is drawn is a separate matter. Of the ranges that give the winning cut, the guide line is drawn at the middle of the first one in the generator's listing order: shortest border, then the earliest start direction clockwise from north-south (a range across north-south counts as starting at north-south), then fewer seats on the first side. This is a choice about drawing, not a rule for choosing the cut.
+Which range is drawn is a separate matter. Of the ranges that give the winning cut, the guide line is drawn at the middle of the first one going clockwise from north. This is a choice about drawing, not a rule for choosing the cut.
 
 ### Every direction is covered
 

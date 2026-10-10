@@ -45,7 +45,7 @@ describe('tieRuleText', () => {
     const t = tieRuleText(cand(10, 11), 'same');
     expect(t).toContain('same two sides');
     expect(t).toContain('one cut');
-    expect(t).toContain('first stretch clockwise from north-south, 10° to 11°');
+    expect(t).toContain('first stretch clockwise from north, 10° to 11°');
     expect(t).not.toMatch(/fewer seats|nearer/);
   });
   it('says different cuts of equal border go by fair shares of people, then GEOID', () => {

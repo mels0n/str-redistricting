@@ -385,7 +385,7 @@ export async function publishData(cfg: PublishConfig): Promise<void> {
     const { finished, before } = await readCheckedPlans(s, cfg.outDir);
     checked.set(s.abbr, { finished, before });
     const next = { versions, sha: finished.assignmentSha256, beforeSha: before.assignmentSha256, inputSha256: finished.inputSha256 };
-    const warning = checkPublishGate(await readPublishedState(join(cfg.publicDir, s.abbr, 'stats.json')), next, cfg.baseline, s.abbr, VERSIONS_ENFORCED);
+    const warning = checkPublishGate(await readPublishedState(join(cfg.publicDir, s.abbr, 'stats.json')), next, cfg.baseline, s.abbr, cfg.enforceVersions ?? VERSIONS_ENFORCED);
     if (warning) console.log(`warning: ${warning}`);
   }
   await mkdir(cfg.publicDir, { recursive: true });

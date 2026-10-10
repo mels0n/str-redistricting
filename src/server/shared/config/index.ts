@@ -74,6 +74,8 @@ export interface PublishConfig {
   readonly blocksOnly: boolean;
   /** Skip the publish gate once, to stamp data published before versioning existed. */
   readonly baseline: boolean;
+  /** Refuse a changed map under the same engine major; defaults to config/release.json `enforce` (tests set it). */
+  readonly enforceVersions?: boolean;
 }
 
 const RawPublish = z.object({

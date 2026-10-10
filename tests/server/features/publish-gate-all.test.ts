@@ -50,7 +50,8 @@ afterEach(() => {
   rmSync(root, { recursive: true, force: true });
 });
 
-const run = (out: string, pub: string, states: string) => publishData(parsePublishConfig(['--out-dir', out, '--public-dir', pub, '--states', states]));
+// These tests exercise the gate as it behaves once the version rules are enforced.
+const run = (out: string, pub: string, states: string) => publishData({ ...parsePublishConfig(['--out-dir', out, '--public-dir', pub, '--states', states]), enforceVersions: true });
 
 describe('publishData gate', () => {
   it('refuses before writing anything when a later state is refused', async () => {

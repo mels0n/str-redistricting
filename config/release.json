@@ -4,7 +4,15 @@
     "engine": ["src/server/**"],
     "input": ["config/census-sha256.json", "config/enacted.json"],
     "maps": [],
-    "schema": ["src/server/entities/plan-output/schema.ts", "src/server/features/publish/**", "src/server/features/export/**"],
+    "schema": [
+      "src/server/entities/plan-output/schema.ts",
+      "src/server/features/publish/**",
+      "src/server/features/export/**",
+      "src/server/features/rule-examples/**",
+      "src/server/app/rule-examples.ts",
+      "src/server/app/rule-examples/**",
+      "src/server/features/metrics/**"
+    ],
     "web": ["src/client/**", "index.html", "public/*"],
     "docs": ["docs/**", "README.md"]
   },

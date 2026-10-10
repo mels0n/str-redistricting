@@ -30,6 +30,12 @@ describe('checkPublishGate', () => {
       'RI: the map changed but the engine major and the census input did not; bump the engine major (npm run release)',
     );
   });
+  it('stands aside before the 1.0 cut', () => {
+    const existing = { versions: stamp, ...plan(A) };
+    const next = { versions: stamp, ...plan(B) };
+    expect(() => checkPublishGate(existing, next, false, 'RI', true)).not.toThrow();
+    expect(() => checkPublishGate(existing, next, false, 'RI', false)).toThrow(/bump the engine major/);
+  });
   it('allows an identical map under the same versions', () => {
     expect(() => checkPublishGate({ versions: stamp, ...plan(A) }, same, false, 'RI')).not.toThrow();
   });

@@ -380,7 +380,7 @@ export async function publishBlocksOnly(cfg: PublishConfig): Promise<void> {
 }
 
 /** Write the web-ready data for the selected states (default: every state with a generated plan), plus the national files and the index. */
-export async function publishData(cfg: PublishConfig): Promise<void> {
+export async function publishData(cfg: PublishConfig, preRelease = false): Promise<void> {
   if (cfg.enactedOnly) return publishEnactedOnly(cfg);
   if (cfg.blocksOnly) return publishBlocksOnly(cfg);
   const withData = statesWithData(cfg.outDir);
@@ -395,7 +395,7 @@ export async function publishData(cfg: PublishConfig): Promise<void> {
     const { finished, before } = await readCheckedPlans(s, cfg.outDir);
     checked.set(s.abbr, { finished, before });
     const next = { versions, sha: finished.assignmentSha256, beforeSha: before.assignmentSha256, inputSha256: finished.inputSha256 };
-    checkPublishGate(await readPublishedState(join(cfg.publicDir, s.abbr, 'stats.json')), next, cfg.baseline, s.abbr);
+    checkPublishGate(await readPublishedState(join(cfg.publicDir, s.abbr, 'stats.json')), next, cfg.baseline, s.abbr, preRelease);
   }
   await mkdir(cfg.publicDir, { recursive: true });
 

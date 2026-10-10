@@ -1,9 +1,17 @@
 import { readFileSync, writeFileSync } from 'node:fs';
-import { ReleaseConfigSchema, baseEngineMajor, compareFingerprints } from '../features/release/index.js';
+import { ReleaseConfigSchema, baseEngineMajor, compareFingerprints, isPreRelease } from '../features/release/index.js';
 import { VERSIONS, parseFingerprintArgs } from '../shared/config/index.js';
 import { exitCodeFor } from '../shared/errors/index.js';
 import { FINGERPRINT_PATH, drawFingerprints, readFingerprintFile, readFingerprintFileAt } from './fixtures.js';
-import { showFile } from './git.js';
+import { listTags, showFile } from './git.js';
+
+function tagsOrNone(): string[] {
+  try {
+    return listTags();
+  } catch {
+    return [];
+  }
+}
 
 // Reads config/ and tests/ relative to the current directory.
 function main(): void {
@@ -31,7 +39,13 @@ function main(): void {
     console.log(`::notice::${args.base ?? 'the working copy'} records no fixture states in ${FINGERPRINT_PATH} yet, so the fixture gate passes vacuously (the 1.0 cut records them)`);
     return;
   }
-  const result = compareFingerprints(base, head, drawFingerprints(Object.keys(base.states), args.cacheDir), engineMajor);
+  // Pre-release is judged by the base ref's config (a missing file counts as not enforcing), so a pull request cannot
+  // switch the gate off by editing its own config/release.json.
+  const baseReleaseText = args.base === undefined ? null : showFile(args.base, 'config/release.json');
+  const baseRelease = baseReleaseText === null ? { ...release, enforce: false } : ReleaseConfigSchema.parse(JSON.parse(baseReleaseText));
+  const preRelease = isPreRelease(args.base === undefined ? release : baseRelease, tagsOrNone());
+  const result = compareFingerprints(base, head, drawFingerprints(Object.keys(base.states), args.cacheDir), engineMajor, preRelease);
+  if (result.changed.length > 0) console.log(`changed fixture states: ${result.changed.join(', ')}`);
   console.log(result.message);
   if (!result.ok) process.exit(1);
 }

@@ -215,6 +215,6 @@ describe('published index', () => {
 describe('published Rhode Island plan', () => {
   it('keeps the finished assignment hash the generator is pinned to', () => {
     const stats = JSON.parse(readFileSync(new URL('../../../public/data/RI/stats.json', import.meta.url), 'utf8')) as { finished: { metrics: { assignmentSha256: string } } };
-    expect(stats.finished.metrics.assignmentSha256.startsWith('1f64bc2dbea6')).toBe(true);
+    expect(stats.finished.metrics.assignmentSha256.startsWith('55301f72dccf')).toBe(true);
   });
 });

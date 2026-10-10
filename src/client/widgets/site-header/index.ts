@@ -1,1 +1,1 @@
-export { createSiteHeader } from './ui';
+export { createSiteHeader, syncChamberSwitch } from './ui';

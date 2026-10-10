@@ -3,7 +3,7 @@ import { join } from 'node:path';
 import type { Plugin } from 'vite';
 import { z } from 'zod';
 // Imported from the file, not the publish slice's index, so the Vite config does not load the image renderer.
-import { SITE_HOST } from '../src/server/features/publish/site.js';
+import { SITE_HOST, TAGLINE } from '../src/server/features/publish/site.js';
 
 const SITE = `https://${SITE_HOST}`;
 
@@ -24,9 +24,9 @@ export function sharePageHtml(entry: ShareEntry, site: string, hasImage = true):
   const name = esc(entry.name);
   const url = `${site}/${entry.abbr}/`;
   const image = hasImage ? `${site}/data/${entry.abbr}/og.png` : `${site}/og-image.png`;
-  const title = `${name}: districts drawn by Fair House Maps`;
-  const description = `${name}'s ${entry.seats} congressional ${entry.seats === 1 ? 'district' : 'districts'}, drawn from 2020 Census counts by three fixed steps nobody can steer.`;
-  const alt = `${name}'s congressional districts drawn by Fair House Maps.`;
+  const title = `${name}: districts drawn by Fair Maps`;
+  const description = `${name}'s ${entry.seats} congressional ${entry.seats === 1 ? 'district' : 'districts'}, drawn from 2020 Census counts by three fixed steps nobody can steer. ${TAGLINE}`;
+  const alt = `${name}'s congressional districts drawn by Fair Maps.`;
   return `<!doctype html>
 <html lang="en">
   <head>
@@ -37,7 +37,7 @@ export function sharePageHtml(entry: ShareEntry, site: string, hasImage = true):
     <link rel="canonical" href="${url}" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="${url}" />
-    <meta property="og:site_name" content="Fair House Maps" />
+    <meta property="og:site_name" content="Fair Maps" />
     <meta property="og:title" content="${title}" />
     <meta property="og:description" content="${description}" />
     <meta property="og:image" content="${image}" />

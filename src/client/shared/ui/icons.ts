@@ -22,3 +22,6 @@ export const iconZoomIn = (): SVGSVGElement => arrow('M7 2.75a4.25 4.25 0 1 1 0 
 export function arrowTo(): HTMLElement {
   return h('span', { class: 'strv-to' }, iconArrowRight(), h('span', { class: 'strv-visually-hidden' }, ' to '));
 }
+
+/** Share: a box with an arrow leaving it upward. */
+export const iconShare = (): SVGSVGElement => arrow('M8 10V2.5M4.75 5.5L8 2.25l3.25 3.25M5 7.5H3v6h10v-6h-2');

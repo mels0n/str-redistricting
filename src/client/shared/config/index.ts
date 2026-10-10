@@ -32,6 +32,8 @@ const ConfigSchema = z.object({
   repoUrl: z.url(),
   /** The public host the site is served from; named on the maps' credit strip. */
   siteHost: z.string().min(1),
+  /** The line on every share image and in share text. */
+  tagline: z.string().min(1),
 });
 
 const EnactedSchema = z.looseObject({ congress: z.number().int().positive(), file: z.string().min(1) });
@@ -103,6 +105,7 @@ function load(): ViewerConfig {
     movePlayMinMs: 120,
     repoUrl: 'https://github.com/mels0n/str-redistricting',
     siteHost: 'fairmaps.melson.us',
+    tagline: 'Drawn by a rule, not by politicians.',
   });
 }
 

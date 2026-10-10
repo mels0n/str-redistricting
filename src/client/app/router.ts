@@ -3,6 +3,7 @@ import { createNationalPage } from '../pages/national';
 import { createStatePage } from '../pages/state';
 import { createHowPage } from '../pages/how';
 import { createChangelogPage } from '../pages/changelog';
+import { syncChamberSwitch } from '../widgets/site-header';
 
 /**
  * Hash router. A route for the page already showing is handed to that page
@@ -62,6 +63,7 @@ export function startRouter(outlet: HTMLElement): void {
     };
     mark('how', route.page === 'how');
     mark('states', route.page === 'national');
+    syncChamberSwitch(route);
   };
 
   function show(route: Route): void {

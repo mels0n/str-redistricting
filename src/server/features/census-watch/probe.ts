@@ -3,10 +3,9 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { setTimeout as delay } from 'node:timers/promises';
 import { DownloadError } from '../../shared/errors/index.js';
-import { downloadForPinning, type DownloadOptions } from '../../shared/http/index.js';
+import { HEAD_TIMEOUT_MS, downloadForPinning, type DownloadOptions } from '../../shared/http/index.js';
 import type { Source } from './diff.js';
 
-const HEAD_TIMEOUT_MS = 30_000;
 const HEAD_RETRIES = 2;
 const HEAD_BACKOFF_MS = 2_000;
 

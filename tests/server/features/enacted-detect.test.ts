@@ -1,6 +1,6 @@
-import { describe, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { candidateFiles, describeFile, detectUpdate, isServed } from '../../../src/server/features/enacted/index.js';
-import { ConfigError, DownloadError } from '../../../src/server/shared/errors/index.js';
+import { ConfigError, DownloadError, DownloadRefusedError } from '../../../src/server/shared/errors/index.js';
 
 const URL_OF = (file: string): string => `https://example.test/${file}.zip`;
 const pinned = { congress: 119, file: 'cb_2025_us_cd119_500k' };
@@ -83,6 +83,42 @@ describe('isServed', () => {
     expect(err).toBeInstanceOf(DownloadError);
     expect((err as DownloadError).status).toBe(403);
     expect(f).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('isServed safety', () => {
+  afterEach(() => vi.restoreAllMocks());
+
+  it('gives every request a timeout and fails with a DownloadError when a request never answers', async () => {
+    // AbortSignal.timeout runs on node internals that fake timers do not reach, so the signal is driven by hand.
+    const gate = new AbortController();
+    const spy = vi.spyOn(AbortSignal, 'timeout').mockReturnValue(gate.signal);
+    const f = vi.fn<typeof fetch>(
+      (_input, init) =>
+        new Promise<Response>((_resolve, reject) => {
+          const fail = (): void => reject(new DOMException('timed out', 'TimeoutError'));
+          if (init?.signal?.aborted) fail();
+          else init?.signal?.addEventListener('abort', fail);
+        }),
+    );
+    const pending = isServed(URL_OF('a'), { fetchFn: f, sleep: noSleep }).catch((e: unknown) => e);
+    gate.abort();
+    expect(await pending).toBeInstanceOf(DownloadError);
+    expect(spy).toHaveBeenCalledWith(30_000);
+  });
+  it('refuses a redirect that ends off the Census hosts', async () => {
+    const res = new Response(null, { status: 200, headers: { 'content-type': 'application/zip' } });
+    Object.defineProperty(res, 'url', { value: 'https://example.com/a.zip' });
+    const f = vi.fn<typeof fetch>(async () => res);
+    const err = await isServed('https://www2.census.gov/a.zip', { fetchFn: f, sleep: noSleep }).catch((e: unknown) => e);
+    expect(err).toBeInstanceOf(DownloadRefusedError);
+    expect(f).toHaveBeenCalledTimes(1);
+  });
+  it('accepts a response that ends on an allowed host', async () => {
+    const res = new Response(null, { status: 200, headers: { 'content-type': 'application/zip' } });
+    Object.defineProperty(res, 'url', { value: 'https://www2.census.gov/a.zip' });
+    const f = vi.fn<typeof fetch>(async () => res);
+    expect(await isServed('https://www2.census.gov/a.zip', { fetchFn: f, sleep: noSleep, allowedHosts: new Set(['www2.census.gov']) })).toBe(true);
   });
 });
 

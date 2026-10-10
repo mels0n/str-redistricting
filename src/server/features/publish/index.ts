@@ -16,7 +16,7 @@ export { assertGatedAssignments, publishData, publishBlocksOnly, publishEnactedO
 export { buildEnactedTopology } from './enacted.js';
 export { checkPublishGate, staleStamps } from './gate.js';
 export type { PublishedPlan } from './gate.js';
-export type { GatedPlans } from './publish.js';
+export type { GatedPlans, PlanStaleCheck, PublishOptions } from './publish.js';
 export { checkPlanProvenance } from './provenance.js';
 export type { PlanExpectation } from './provenance.js';
 export { buildStats, planStats } from './stats.js';

@@ -29,7 +29,7 @@ export interface StateSummary {
   readonly beforeAssignmentSha256?: string;
   readonly inputSha256: string;
   readonly nodeVersion: string;
-  readonly angleStepDeg: number;
+  readonly lineSearch: string;
   readonly versions?: VersionStamp;
 }
 
@@ -45,7 +45,7 @@ export function summarize(m: PublishedMetrics, versions?: VersionStamp, beforeAs
   return {
     population: m.population, ideal: m.ideal, rangePersons: m.rangePersons, rangePct: m.rangePct,
     allContiguous: m.allContiguous, assignmentSha256: m.assignmentSha256, inputSha256: m.inputSha256,
-    nodeVersion: m.nodeVersion, angleStepDeg: m.angleStepDeg,
+    nodeVersion: m.nodeVersion, lineSearch: m.lineSearch,
     ...(beforeAssignmentSha256 ? { beforeAssignmentSha256 } : {}),
     ...(versions ? { versions } : {}),
   };

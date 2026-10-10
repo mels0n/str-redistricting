@@ -11,7 +11,8 @@ const District = z.object({
 /** The fields of a plan's metrics.json that readers rely on; any others pass through. */
 export const PlanMetricsSchema = z.object({
   state: z.string(),
-  angleStepDeg: z.number(),
+  /** How the cut search chose among straight lines: 'exact' (every straight line, by the exact rotational sweep). */
+  lineSearch: z.string(),
   nodeVersion: z.string(),
   inputSha256: z.string(),
   /** The engine version (config/versions.json) that drew the plan; absent from metrics written before it was recorded. */
@@ -48,7 +49,10 @@ const CutStat = z.object({
   seats: z.number().int(),
   /** 0-based index of the first district the piece becomes. */
   firstDistrict: z.number().int(),
+  /** Drawn guide-line direction (middle of the winning range) and the winning range [fromDeg, toDeg), degrees from north-south. */
   angleDeg: z.number(),
+  fromDeg: z.number(),
+  toDeg: z.number(),
   lengthM: z.number(),
   /** Seats on the first side. cut-stats.json does not record it; the loader fills it in from cuts.geojson. */
   lowSeats: z.number().int().positive().optional(),
@@ -63,7 +67,7 @@ export const CutsGeoSchema = z.object({
   features: z.array(z.object({ properties: z.object({ order: z.number().int(), lowSeats: z.number().int().positive() }).passthrough() })),
 });
 
-/** out/<ST>/candidates.json: per cut, one row per candidate line and side; `fields` names the columns. */
+/** out/<ST>/candidates.json: per cut, the leading candidates (ranges of directions) in the generator's order; `fields` names the columns. */
 export const CandidatesSchema = z.object({
   fields: z.array(z.string()),
   cuts: z.array(z.array(z.array(z.number()))),

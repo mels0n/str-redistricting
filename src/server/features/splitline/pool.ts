@@ -1,25 +1,26 @@
 import { MessageChannel, receiveMessageOnPort, Worker, type MessagePort } from 'node:worker_threads';
 import { DataError, WorkerPoolError } from '../../shared/errors/index.js';
-import { FIELDS, type Piece, type ScanJob } from './scan.js';
+import type { Piece } from './scan.js';
+import type { ChunkResult } from './sweep.js';
+import type { SweepJob } from './tasks.js';
 
-/** Control words shared with the workers: next direction to take, and how many workers have finished. */
+/** Control words shared with the workers: next chunk to take, and how many workers have finished. */
 const NEXT = 0, DONE = 1;
 /** Pool-wide flags the workers can set: one of them died unexpectedly, and the pool is being shut down on purpose. */
 const DEAD = 0, CLOSING = 1;
-/** Give up when no worker has taken a new direction for this long (a worker killed without a trace never reports). */
+/** Give up when no worker has taken a new chunk for this long (a worker killed without a trace never reports). */
 const STALL_MS = 15 * 60_000;
 
 export interface ScanRequest {
   /** Identifies the request, so a reply that belongs to an earlier one is never taken for this one's. */
   readonly id: number;
   readonly piece: Piece;
-  readonly job: ScanJob;
-  readonly res: Float64Array;
+  readonly job: SweepJob;
   readonly ctrl: Int32Array;
 }
 
 export type ScanReply =
-  | { readonly ok: true; readonly id: number }
+  | { readonly ok: true; readonly id: number; readonly results: readonly { readonly task: number; readonly result: ChunkResult }[] }
   | { readonly ok: false; readonly id: number; readonly message: string; readonly data: boolean };
 
 function shared<T extends Float64Array | Int32Array>(src: T): T {
@@ -30,10 +31,9 @@ function shared<T extends Float64Array | Int32Array>(src: T): T {
 }
 
 /**
- * Worker threads that evaluate a cut's candidate directions in parallel. Each worker takes the next
- * unclaimed direction and writes that direction's results into its own slots of a shared buffer, so the
- * buffer's contents do not depend on which worker evaluated what or when. The calling thread blocks
- * until every worker has finished, which keeps the cut search synchronous.
+ * Worker threads that sweep a cut's chunks of directions in parallel. Each worker takes the next unclaimed chunk
+ * and reports each chunk's result under that chunk's number, so the results do not depend on which worker swept
+ * what or when. The calling thread blocks until every worker has finished, which keeps the cut search synchronous.
  *
  * A pool that lost a worker, or gave up waiting for one, is broken for good: its workers are terminated and
  * every later scan throws at once. Callers replace it. Reusing it could mix a late worker's output into a new request.
@@ -66,8 +66,8 @@ export class ScanPool {
     return this.reason !== undefined;
   }
 
-  /** Evaluate every candidate of `job` on `piece`; returns FIELDS numbers per candidate, laid out as scanDirections does. */
-  scan(piece: Piece, job: ScanJob): Float64Array {
+  /** Sweep every chunk of `job` on `piece`; returns the chunk results in task order. */
+  scan(piece: Piece, job: SweepJob): ChunkResult[] {
     if (this.reason !== undefined) throw new WorkerPoolError(`cut search pool is unusable: ${this.reason}`);
     try {
       return this.run(piece, job);
@@ -78,7 +78,7 @@ export class ScanPool {
     }
   }
 
-  private run(piece: Piece, job: ScanJob): Float64Array {
+  private run(piece: Piece, job: SweepJob): ChunkResult[] {
     // Fresh control words per request: a worker that is somehow still on an older request cannot touch this one's.
     const ctrl = new Int32Array(new SharedArrayBuffer(8));
     const req: ScanRequest = {
@@ -88,7 +88,6 @@ export class ScanPool {
         lOff: shared(piece.lOff), lAdj: shared(piece.lAdj), lLen: shared(piece.lLen),
       },
       job,
-      res: new Float64Array(new SharedArrayBuffer(job.angleCount * job.orientations.length * FIELDS * 8)),
       ctrl,
     };
     for (const w of this.workers) w.worker.postMessage(req);
@@ -105,6 +104,7 @@ export class ScanPool {
       else if (Date.now() - lastProgress > STALL_MS) throw new WorkerPoolError('cut search workers stopped making progress');
     }
     let failure: Extract<ScanReply, { ok: false }> | undefined;
+    const results: ChunkResult[] = [];
     const nap = new Int32Array(new SharedArrayBuffer(4));
     for (const w of this.workers) {
       let got = receiveMessageOnPort(w.port);
@@ -113,9 +113,10 @@ export class ScanPool {
       const msg = got.message as ScanReply;
       if (msg.id !== req.id) throw new WorkerPoolError('a cut search worker answered a different request');
       if (!msg.ok) failure ??= msg;
+      else for (const r of msg.results) results[r.task] = r.result;
     }
     if (failure) throw new ReportedFailure(failure.data ? new DataError(failure.message) : new Error(failure.message));
-    return req.res;
+    return results;
   }
 
   /** Mark the pool unusable and stop its workers. Safe to repeat; the first reason wins. */

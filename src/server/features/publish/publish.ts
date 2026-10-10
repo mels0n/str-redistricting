@@ -57,6 +57,16 @@ const PublishedStatsSchema = z.object({
 });
 
 /**
+ * The part of a published stats.json the publish gate reads: the stamp and the fingerprints. Kept separate from the
+ * full schema so data published under an older metrics layout can still be compared and replaced.
+ */
+const GateStatsSchema = z.looseObject({
+  versions: PublishedStampSchema.optional(),
+  finished: z.looseObject({ metrics: z.looseObject({ assignmentSha256: z.string(), inputSha256: z.string() }) }),
+  beforeBalancing: z.looseObject({ metrics: z.looseObject({ assignmentSha256: z.string() }) }).optional(),
+});
+
+/**
  * Read both plans of a state from the output directory and refuse any not drawn by the current engine major, from the
  * pinned census file, with the current line search. Nothing is published from a plan this refuses.
  */
@@ -216,7 +226,7 @@ async function publishState(state: StateInfo, cfg: PublishConfig, shared: Shared
 /** The stamp and fingerprint of a state already in the public directory, or null when nothing is published. */
 async function readPublishedState(statsPath: string): Promise<PublishedPlan | null> {
   if (!existsSync(statsPath)) return null;
-  const parsed = PublishedStatsSchema.safeParse(await readJson(statsPath));
+  const parsed = GateStatsSchema.safeParse(await readJson(statsPath));
   if (!parsed.success) throw new DataError(`${statsPath}: ${parsed.error.issues.map((i) => `${i.path.join('.')} ${i.message}`).join('; ')}`);
   const { finished, beforeBalancing, versions } = parsed.data;
   return {

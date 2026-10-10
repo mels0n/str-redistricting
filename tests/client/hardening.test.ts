@@ -70,7 +70,7 @@ const summary = {
   allContiguous: true,
   assignmentSha256: 'a'.repeat(64),
   inputSha256: 'b'.repeat(64),
-  angleStepDeg: 1,
+  lineSearch: 'exact',
 };
 const index: StateIndex = {
   states: [

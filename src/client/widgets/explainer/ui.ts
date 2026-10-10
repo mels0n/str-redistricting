@@ -25,7 +25,7 @@ export function createExplainer(opts: { seats?: number } = {}): HTMLElement {
         'Cut.',
         n === 1
           ? 'This state has one seat, so it needs no cut: the whole state is its one district.'
-          : `A piece with several seats is split in two, with the seats shared as evenly as possible (7 seats become 3 and 4). Straight guide lines are tried in every direction, one every 0.1 degrees, each placed so the people on each side match that side’s seats. The line whose real border is shortest wins. Each piece is cut again until every piece is one district. That takes ${cuts}.`,
+          : `A piece with several seats is split in two, with the seats shared as evenly as possible (7 seats become 3 and 4). Every straight guide line is considered, each placed so the people on each side match that side’s seats. The line whose real border is shortest wins. Each piece is cut again until every piece is one district. That takes ${cuts}.`,
       ),
       step(
         'Keep blocks whole.',

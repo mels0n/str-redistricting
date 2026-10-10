@@ -2,7 +2,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 const stamp = { engine: '1.0.0', input: { vintage: 'census-2020', revision: 1, sha256: 'c'.repeat(64) }, maps: 4, schema: '1.0.0' };
-const summary = { population: 100, ideal: 12.5, rangePersons: 1, rangePct: 0, allContiguous: true, assignmentSha256: 'a'.repeat(64), inputSha256: 'b'.repeat(64), angleStepDeg: 0.1 };
+const summary = { population: 100, ideal: 12.5, rangePersons: 1, rangePct: 0, allContiguous: true, assignmentSha256: 'a'.repeat(64), inputSha256: 'b'.repeat(64), lineSearch: 'exact' };
 const index = (versions: unknown) => ({ states: [{ abbr: 'CO', name: 'Colorado', seats: 8, hasData: true, summary: { ...summary, ...(versions ? { versions } : {}) } }] });
 
 const serve = (body: unknown | null) =>

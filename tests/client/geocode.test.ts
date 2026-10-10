@@ -78,7 +78,7 @@ describe('geocoder response', () => {
 describe('resolving an address by its census block', () => {
   const summary = {
     population: 1, ideal: 1, rangePersons: 0, rangePct: 0, allContiguous: true,
-    assignmentSha256: 'a'.repeat(64), inputSha256: 'b'.repeat(64), angleStepDeg: 1,
+    assignmentSha256: 'a'.repeat(64), inputSha256: 'b'.repeat(64), lineSearch: 'exact',
   };
   const index: StateIndex = {
     states: [

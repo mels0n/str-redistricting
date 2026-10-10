@@ -126,11 +126,43 @@ export function fanDiagram(): SVGSVGElement {
   return panel(
     224,
     'Guide lines in every direction',
-    'The outline of a piece of a state with twelve straight guide lines through it, one every 15 degrees, starting with north-south. The generator tries 1,800 directions, one every 0.1 degrees.',
+    'The outline of a piece of a state with twelve straight guide lines through it, one every 15 degrees, starting with north-south. These are only examples. The generator considers every direction.',
     poly(outline, 'strv-dg__piece'),
     ...lines,
     text(157, 15, '0°: north-south', 'strv-dg__t strv-dg__t--small'),
-    text(278, 120, ['1,800', 'directions,', '12 drawn'], 'strv-dg__t strv-dg__t--small'),
+    text(278, 120, ['Every', 'direction;', '12 drawn'], 'strv-dg__t strv-dg__t--small'),
+  );
+}
+
+/**
+ * A strip of directions from 0 to 180 degrees, cut at the angles where the split changes. Inside each
+ * stretch every direction gives the same two sides, so one check covers the whole stretch.
+ */
+export function rangesDiagram(): SVGSVGElement {
+  const x0 = 20;
+  const w = 280;
+  const cuts = [0, 38, 71, 96, 133, 180];
+  const xs = cuts.map((d) => x0 + (d / 180) * w);
+  const names = ['A', 'B', 'C', 'D', 'E'];
+  const parts: SVGElement[] = [];
+  for (let i = 0; i < names.length; i++) {
+    const a = xs[i]!;
+    const b = xs[i + 1]!;
+    parts.push(rect(a, 40, b - a, 28, `strv-dg__block ${FILL[i % 2 === 0 ? 0 : 1]}`));
+    parts.push(text((a + b) / 2, 59, names[i]!, 'strv-dg__t strv-dg__t--strong', 'middle'));
+  }
+  const ticks = xs.slice(1, -1).map((x) => line([x, 32], [x, 76], 'strv-dg__leader'));
+  return panel(
+    150,
+    'Stretches of directions with the same split',
+    'A strip of all directions from 0 to 180 degrees, cut at four angles into five stretches labeled A to E. Every direction inside one stretch splits the blocks the same way, so one check covers the whole stretch.',
+    ...parts,
+    ...ticks,
+    text(x0, 28, '0°', 'strv-dg__t strv-dg__t--small'),
+    text(x0 + w, 28, '180°', 'strv-dg__t strv-dg__t--small', 'end'),
+    text(160, 98, 'The split changes only at the cut marks.', 'strv-dg__t strv-dg__t--small', 'middle'),
+    text(160, 114, 'Inside a stretch the two sides never change,', 'strv-dg__t strv-dg__t--small', 'middle'),
+    text(160, 130, 'so each stretch is checked once.', 'strv-dg__t strv-dg__t--small', 'middle'),
   );
 }
 
@@ -574,9 +606,9 @@ export function fingerprintDiagram(): SVGSVGElement {
   return panel(
     268,
     'Same inputs, same fingerprint',
-    'Two inputs, the 2020 Census block file and the angle step of the guide lines, go into the generator, which has no random numbers. It writes the assignment file, every block and its district. The SHA-256 hash of that file is the map’s fingerprint, 64 characters long. Any computer gets the same file.',
+    'Two inputs, the 2020 Census block file and the rule that every straight line is tried, go into the generator, which has no random numbers. It writes the assignment file, every block and its district. The SHA-256 hash of that file is the map’s fingerprint, 64 characters long. Any computer gets the same file.',
     ...box(30, 10, 120, 44, ['2020 Census', 'block file']),
-    ...box(170, 10, 120, 44, ['Guide lines', 'every 0.1°']),
+    ...box(170, 10, 120, 44, ['Guide lines:', 'every straight line']),
     arrow([90, 54], [130, 80]),
     arrow([230, 54], [190, 80]),
     ...box(40, 82, 240, 40, ['The rule: no random numbers'], true),

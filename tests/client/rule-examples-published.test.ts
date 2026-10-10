@@ -9,7 +9,7 @@ const FIX = 'rerun `npm run rule-examples` and commit public/data/how/rule-examp
 const read = (rel: string): unknown => JSON.parse(readFileSync(resolve(process.cwd(), rel), 'utf8').replace(/^\uFEFF/, ''));
 
 interface Case { id: string; state: string; source: Record<string, number>; steps: { caption: string }[]; labels?: { text: string }[]; chart?: { values: number[] } }
-interface Metrics { seats: number; population: number; ideal: number; angleCount: number; cuts: number; assignmentSha256: string }
+interface Metrics { seats: number; population: number; ideal: number; cuts: number; assignmentSha256: string }
 
 const file = read('public/data/how/rule-examples.json') as { cases: Case[] };
 const metricsOf = (st: string): Metrics => (read(`public/data/${st}/stats.json`) as { finished: { metrics: Metrics } }).finished.metrics;
@@ -49,8 +49,6 @@ describe('rule-examples.json against the published stats', () => {
   it('MS order-of-checks case matches the published direction count and cut number', () => {
     const m = metricsOf('MS');
     const c = byId('cut.order-of-checks');
-    expect(c.chart?.values.length, FIX).toBe(m.angleCount);
-    expect(text(c), FIX).toContain(`${n(m.angleCount)} straight lines`);
     expect(c.source.cut, FIX).toBeLessThanOrEqual(m.cuts);
   });
 

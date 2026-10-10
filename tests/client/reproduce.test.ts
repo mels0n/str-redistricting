@@ -7,9 +7,9 @@ import type { Metrics } from '../../src/client/entities/plan';
 const REPO = 'https://github.com/mels0n/str-redistricting';
 
 const metrics = {
-  state: 'CO', angleStepDeg: 0.1, inputSha256: 'a'.repeat(64), seats: 8, population: 5773714, ideal: 721714, rangePersons: 1, rangePct: 0,
+  state: 'CO', lineSearch: 'exact', inputSha256: 'a'.repeat(64), seats: 8, population: 5773714, ideal: 721714, rangePersons: 1, rangePct: 0,
   allContiguous: true, assignmentSha256: 'b'.repeat(64), balanceMoves: 3, peopleMovedByBalancing: 40, rangeBeforeBalancing: 90, rangeAfterBalancing: 1,
-  cuts: 7, angleCount: 1800, candidateLinesEvaluated: 0, strayBlocksMoved: 0, strayPopMoved: 0, recounts: 0, recountsMaxPerCut: 0, runtimeMs: 1000,
+  cuts: 7, candidateRangesPerCut: [], candidateRangesEvaluated: 0, strayBlocksMoved: 0, strayPopMoved: 0, recounts: 0, recountsMaxPerCut: 0, runtimeMs: 1000,
   countiesSplit: 0, countiesTotal: 64, blocks: 140000,
 } as unknown as Metrics;
 

@@ -37,7 +37,6 @@ export function createProofPanel(): ProofPanel {
     el,
     update({ metrics: m, plan, abbr, versions }) {
       clear(body);
-      const steps = Math.round(180 / m.angleStepDeg);
       const before = plan === 'before';
       const single = m.seats === 1;
       body.append(
@@ -85,7 +84,7 @@ export function createProofPanel(): ProofPanel {
             : []),
           single
             ? row('Guide lines', 'None', 'A state with one seat needs no cut, so no guide line is drawn.')
-            : row('Guide lines', `Every ${m.angleStepDeg}°`, `${formatInt(steps)} directions tried for each cut.`),
+            : row('Guide lines', 'Every straight line', `${formatInt(m.candidateRangesEvaluated)} stretches of directions checked in all, each with its own split.`),
         ),
         h(
           'div',

@@ -146,7 +146,7 @@ export const STRANDED_EXAMPLE = {
 // ---------------------------------------------------------------------------
 // One cut: comparing directions
 
-/** Three of the 1,800 directions for one piece, with example border lengths. */
+/** Three directions for one piece, with example border lengths. */
 export const DIRECTION_EXAMPLE = [
   { angle: 0, km: 123 },
   { angle: 60, km: 101 },

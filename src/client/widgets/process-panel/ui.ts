@@ -9,6 +9,14 @@ export interface ProcessPanelOptions {
   onWatch(part: 'cuts' | 'balance'): void;
 }
 
+/** "12 to 340 for each cut." */
+function perCut(per: readonly number[]): string {
+  if (per.length === 0) return '';
+  const lo = Math.min(...per);
+  const hi = Math.max(...per);
+  return lo === hi ? `${formatInt(lo)} for each cut.` : `${formatInt(lo)} to ${formatInt(hi)} for each cut.`;
+}
+
 const count = (n: number, one: string, many: string): string => `${formatInt(n)} ${n === 1 ? one : many}`;
 
 /** "35.2 seconds", "1 minute 50 seconds" (rounded to the tenth of a second under a minute). */
@@ -28,7 +36,6 @@ export function formatRunTime(ms: number): string {
  */
 export function createProcessPanel(opts: ProcessPanelOptions): HTMLElement {
   const m = opts.metrics;
-  const unevenTries = m.candidateLinesEvaluated - m.angleCount * m.cuts;
   // Each label opens the stage of How it works that explains the figure, so a reader who meets a
   // word like "re-count" here can jump straight to its worked example.
   const row = (term: string, section: HowSection, fig: Node | string, sub: string): HTMLElement =>
@@ -70,10 +77,10 @@ export function createProcessPanel(opts: ProcessPanelOptions): HTMLElement {
       { class: 'strv-process__rows' },
       row('Cuts', 'recursion', formatInt(m.cuts), `${m.seats} seats take ${count(m.cuts, 'cut', 'cuts')}. Each cut splits one piece of ${opts.stateName} in two.`),
       row(
-        'Guide lines tested',
+        'Guide lines checked',
         'cut',
-        formatInt(m.candidateLinesEvaluated),
-        `${formatInt(m.angleCount)} directions for each cut${unevenTries > 0 ? ', tried both ways round where a piece’s seats split unevenly' : ''}.`,
+        formatInt(m.candidateRangesEvaluated),
+        `Stretches of directions checked, so every straight line is covered. ${perCut(m.candidateRangesPerCut)}`,
       ),
       row(
         'Strays moved',

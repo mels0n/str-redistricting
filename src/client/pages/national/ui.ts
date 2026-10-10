@@ -25,7 +25,7 @@ export function createNationalPage(nav: Navigate): Page {
       h(
         'ol',
         { class: 'strv-national__steps' },
-        step('Cut.', 'Split the state along the shortest line that divides its people by seats. Repeat until each piece is one district.'),
+        step('Cut.', 'Split the state along the shortest straight line that divides its people by seats and leaves each side in one connected piece. Repeat until each piece is one district.'),
         step('Keep blocks whole.', 'The census counts people in blocks: areas bounded by streets, streams, rail lines and similar edges. There is no count for part of a block, so lines follow block edges.'),
         step('Balance.', 'Blocks along each border shift only when that brings two districts closer to equal population.'),
       ),

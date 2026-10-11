@@ -34,8 +34,8 @@ const noChangelog = Object.fromEntries(COMPONENTS.map((c) => [c, `# ${c} changel
 const byComponent = (entries: [Component, Commit[]][]): Map<Component, Commit[]> => new Map(entries);
 
 describe('release config', () => {
-  it('parses, and does not enforce yet', () => {
-    expect(cfg.enforce).toBe(false);
+  it('parses, and enforces versions', () => {
+    expect(cfg.enforce).toBe(true);
     expect(cfg.docsTypes).toEqual(['copy', 'docs']);
   });
 });

@@ -67,4 +67,13 @@ describe('site header', () => {
     expect(document.querySelector('[data-chamber="state-senate"]')!.getAttribute('aria-current')).toBe('true');
     expect(document.querySelector('[data-chamber="federal-house"]')!.hasAttribute('aria-current')).toBe(false);
   });
+
+  it('marks the chamber on screen as current before the index says what is live', () => {
+    document.body.append(createSiteHeader());
+    syncChamberSwitch(stateRoute('CO', { chamber: 'state-senate' }));
+    const senate = document.querySelector('[data-chamber="state-senate"]')!;
+    expect(senate.getAttribute('aria-current')).toBe('true');
+    expect(document.querySelector('[data-chamber="federal-house"]')!.hasAttribute('aria-current')).toBe(false);
+    expect(document.querySelector('[data-chamber="state-house"]')!.hasAttribute('aria-current')).toBe(false);
+  });
 });

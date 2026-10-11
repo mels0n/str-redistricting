@@ -64,7 +64,7 @@ describe('chamber wording and paths', () => {
   });
 
   it('labels districts and the enacted overlay by chamber', () => {
-    expect(districtLabel('federal-house', 3)).toBe('Congressional district 3');
+    expect(districtLabel('federal-house', 3)).toBe('District 3');
     expect(districtLabel('state-senate', 12)).toBe('State Senate district 12');
     expect(districtLabel('state-house', 40)).toBe('State House district 40');
     expect(enactedDistrictsName('federal-house', 'cb_2025_us_cd119_500k')).toBe('119th Congress districts');

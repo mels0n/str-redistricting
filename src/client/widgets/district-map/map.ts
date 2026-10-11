@@ -523,7 +523,7 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
     const key = `${info.geoid}|${plan}`;
     if (blockTipEl.hidden || key !== tipKey) {
       blockTipEl.hidden = false;
-      blockTipEl.replaceChildren(...blockTip(info, plan).map((line, i) => {
+      blockTipEl.replaceChildren(...blockTip(info, plan, opts.bundle.chamber).map((line, i) => {
         const row = document.createElement('div');
         if (i === 0) row.className = 'strv-block-tip__head';
         row.textContent = line;

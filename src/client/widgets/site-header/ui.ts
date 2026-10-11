@@ -15,7 +15,8 @@ function chamberHref(route: Route, chamber: Chamber): string {
 function chamberItems(route: Route, live: ReadonlySet<Chamber>): HTMLElement[] {
   const current = routeChamber(route);
   return CHAMBERS.map((c) =>
-    live.has(c.key)
+    // The chamber on screen stays a link (and the current item) even before the index says whether it is live.
+    live.has(c.key) || c.key === current
       ? h('a', { href: chamberHref(route, c.key), class: 'strv-chamber__item', ...(c.key === current && { 'aria-current': 'true' }), 'data-chamber': c.key }, c.label)
       : h('span', { class: 'strv-chamber__item strv-chamber__item--soon', 'data-chamber': c.key }, c.label, h('span', { class: 'strv-chamber__soon' }, ' Soon')),
   );
@@ -39,7 +40,8 @@ export function syncChamberSwitch(route: Route, live: ReadonlySet<Chamber> = FED
   // Keep focus on the link the visitor used: rebuild only when the set of links changed, otherwise update in place.
   const items = [...group.querySelectorAll<HTMLElement>('[data-chamber]')];
   const shape = items.map((i) => `${i.getAttribute('data-chamber')}:${i.tagName}`).join();
-  const wanted = CHAMBERS.map((c) => `${c.key}:${live.has(c.key) ? 'A' : 'SPAN'}`).join();
+  const onScreen = routeChamber(route);
+  const wanted = CHAMBERS.map((c) => `${c.key}:${live.has(c.key) || c.key === onScreen ? 'A' : 'SPAN'}`).join();
   if (shape !== wanted) {
     group.replaceChildren(...chamberItems(route, live));
     return;

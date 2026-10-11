@@ -35,9 +35,9 @@ export function chamberOfSegment(segment: string | undefined): Chamber | null {
   return found ? found.key : null;
 }
 
-/** "Congressional district 3", "State Senate district 12", "State House district 40". */
+/** "District 3" for the federal House, "State Senate district 12", "State House district 40". */
 export function districtLabel(chamber: Chamber, n: number): string {
-  return chamber === 'federal-house' ? `Congressional district ${n}` : `${chamberLabel(chamber)} district ${n}`;
+  return chamber === 'federal-house' ? `District ${n}` : `${chamberLabel(chamber)} district ${n}`;
 }
 
 /** The chamber's districts as a count: "435 House seats" is the federal wording; chambers say "N State Senate districts". */

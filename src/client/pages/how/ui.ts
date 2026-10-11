@@ -338,7 +338,7 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
         li('the block’s internal point, a point inside the block that the Census Bureau publishes (', code('INTPTLAT20'), ' and ', code('INTPTLON20'), '). It is used to put blocks in order across a guide line and to measure island links.'),
       ),
       figure('Each block brings its shape, its count of people and its internal point. Example numbers.', inputsDiagram()),
-      p('Current district lines are shown on the map for comparison only. The generator never reads them. County and city boundaries are not used to draw anything. Counties are only counted afterwards, for reporting. People are counted where the census counted them, with no adjustments, so a person in a prison is counted at the prison.'),
+      p('Current district lines are shown on the map for comparison only. The generator never reads their shapes; for a state chamber it reads the current district files only to count how many districts to draw. County and city boundaries are not used to draw anything. Counties are only counted afterwards, for reporting. People are counted where the census counted them, with no adjustments, so a person in a prison is counted at the prison.'),
       p('The number of districts for each state is the number of House seats the state received in the 2020 apportionment.'),
     ),
     section(

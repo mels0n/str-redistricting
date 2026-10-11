@@ -9,6 +9,7 @@ import {
   formatInt,
   districtCount,
   chamberLabel,
+  districtLabel,
   enactedDistrictsName,
   nationalRoute,
   toStateFrame,
@@ -428,8 +429,8 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
     seats = entry.seats;
     moveCount = finishedMetrics.balanceMoves;
     route = fitRoute(route);
-    const ticket = createDistrictTicket();
-    const list = createDistrictList({ onSelect: (d) => go({ district: d === route.district ? null : d }) });
+    const ticket = createDistrictTicket(bundle.chamber);
+    const list = createDistrictList({ chamber: bundle.chamber, onSelect: (d) => go({ district: d === route.district ? null : d }) });
     const proof = createProofPanel();
     options = createPlanOptions({
       enactedSource: bundle.stats.enactedSource,
@@ -438,6 +439,7 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
       onEnacted: (on) => go({ enacted: on }),
     });
     scrubber = createCutScrubber({
+      chamber: bundle.chamber,
       cuts: bundle.cuts,
       seats: entry.seats,
       moves: finishedMetrics.balanceMoves,
@@ -498,7 +500,7 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
             return `${result.matchedAddress} falls just outside the simplified district shapes. It is in ${entry.name}; check the district list near that spot.`;
           }
           go({ district: here });
-          return `${result.matchedAddress} is in District ${here}.`;
+          return `${result.matchedAddress} is in ${districtLabel(bundle.chamber, here)}.`;
         };
         if (result.block === null || blocks) return finish();
         return finishWhenLoaded(loadBlocks(entry.abbr, bundle.chamber), {
@@ -536,7 +538,7 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
             onclick: () => ticketBox.scrollIntoView({ block: 'start', behavior: prefersReducedMotion() ? 'auto' : 'smooth' }),
           },
           h('span', { class: 'strv-pick__swatch', style: `background:${color ?? 'transparent'}`, 'aria-hidden': 'true' }),
-          h('span', { class: 'strv-pick__text' }, h('strong', null, `District ${d.district}`), ` ${formatInt(d.pop)} people`),
+          h('span', { class: 'strv-pick__text' }, h('strong', null, districtLabel(bundle.chamber, d.district)), ` ${formatInt(d.pop)} people`),
           h('span', { class: 'strv-pick__more' }, 'Full ticket', iconArrowDown()),
         ),
       );
@@ -643,7 +645,7 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
         locatedNote.hidden = false;
         const here = locatedDistrict(plan);
         locatedNote.textContent = here
-          ? `Your address, ${located.matchedAddress}, is in District ${here}.${located.exact ? '' : ' Shapes are simplified for display; close to a border, the block assignment file is the final word.'}`
+          ? `Your address, ${located.matchedAddress}, is in ${districtLabel(bundle.chamber, here)}.${located.exact ? '' : ' Shapes are simplified for display; close to a border, the block assignment file is the final word.'}`
           : `Your address, ${located.matchedAddress}, is marked on the map.`;
       }
       const liveMove = partway && balance.status === 'ready' ? route.move : null;

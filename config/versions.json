@@ -1,12 +1,12 @@
 {
-  "engine": "1.0.0",
+  "engine": "1.1.0",
   "input": {
     "vintage": "census-2020",
-    "revision": 1,
-    "sha256": "d7652dfcde7b8d9cb971b14505fae8106089fda7f920bf4cded20c187570b4ea"
+    "revision": 2,
+    "sha256": "d2dd9d5adca6f5cfd48801050961406bf691b33528859845b2f1d4ab0a2e56d1"
   },
-  "maps": 1,
-  "schema": "1.0.0",
-  "web": "1.0.0",
-  "docs": "1.0.0"
+  "maps": 2,
+  "schema": "1.1.0",
+  "web": "1.1.0",
+  "docs": "1.0.1"
 }

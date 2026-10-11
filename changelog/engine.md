@@ -1,5 +1,13 @@
 # Engine changelog
 
+## 1.1.0 (2026-10-11)
+
+- feat: watch and adopt new Census legislative district files
+- feat: publish maps per chamber
+- feat: draw maps per chamber
+- feat: pin Census state legislative districts and count seats from them
+- feat: add chamber option and per-chamber seat counts
+
 ## 1.0.0 (2026-10-11)
 
 - First release. Each state is cut, again and again, along the straight line on the globe whose real border is shortest among those that split its people in the required ratio and leave both sides in one piece, until every piece holds one seat.

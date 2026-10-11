@@ -2,6 +2,9 @@ import { join } from 'node:path';
 import AdmZip from 'adm-zip';
 import * as shapefile from 'shapefile';
 import { z } from 'zod';
+import { legislativeFileName } from '../../entities/legislative-boundary/index.js';
+import type { StateInfo } from '../../shared/apportionment/index.js';
+import type { Chamber } from '../../shared/chamber/index.js';
 import { ENACTED_CONFIG, pinnedSha256 } from '../../shared/config/index.js';
 import { DataError, DownloadError } from '../../shared/errors/index.js';
 import { downloadCached, readZipEntry } from '../../shared/http/index.js';
@@ -106,8 +109,38 @@ export interface EnactedFile {
   readonly features: { record: CdRecord; geometry: unknown }[];
 }
 
-/** All enacted districts of the pinned Congress. Never falls back to another Congress: if no vintage is served, publishing fails. */
-export async function loadEnacted(cacheDir: string): Promise<EnactedFile> {
+/** The attribute holding a district's code in each state chamber's Census file. */
+const SLD_CODE_FIELD = { 'state-house': 'SLDLST', 'state-senate': 'SLDUST' } as const;
+
+/** The Census code for the area that belongs to no district (water and similar). */
+const NO_DISTRICT = 'ZZZ';
+
+const SldRaw = z.object({ NAMELSAD: z.string().min(1) }).passthrough();
+
+/** A state chamber's districts from its pinned Census file; the file name is the enacted source. */
+async function loadStateChamberEnacted(cacheDir: string, chamber: 'state-house' | 'state-senate', state: StateInfo): Promise<EnactedFile> {
+  const source = legislativeFileName(state, chamber, ENACTED_CONFIG.legislative.vintage);
+  const field = SLD_CODE_FIELD[chamber];
+  const features: EnactedFile['features'] = [];
+  for (const f of await fetchBoundary(source, cacheDir)) {
+    const raw = SldRaw.parse(f.properties);
+    const code = z.string().min(1).parse((raw as Record<string, unknown>)[field]);
+    if (code === NO_DISTRICT) continue;
+    features.push({ record: { stateFp: state.fips, label: raw.NAMELSAD, code }, geometry: f.geometry });
+  }
+  return { source, features };
+}
+
+/**
+ * The enacted districts to compare against. The Federal House reads all states from the national file of the pinned
+ * Congress and never falls back to another Congress: if no vintage is served, publishing fails. A state chamber reads the
+ * state's own pinned legislative file, so it needs the state.
+ */
+export async function loadEnacted(cacheDir: string, chamber: Chamber = 'federal-house', state?: StateInfo): Promise<EnactedFile> {
+  if (chamber !== 'federal-house') {
+    if (state === undefined) throw new DataError(`the enacted ${chamber} districts are read per state; no state given`);
+    return loadStateChamberEnacted(cacheDir, chamber, state);
+  }
   for (const source of ENACTED_CANDIDATES) {
     try {
       const features = (await fetchBoundary(source, cacheDir)).map((f) => ({ record: parseCdRecord(f.properties), geometry: f.geometry }));

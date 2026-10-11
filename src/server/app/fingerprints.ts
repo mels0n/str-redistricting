@@ -14,7 +14,11 @@ function main(): void {
 
   if (args.mode === 'record') {
     const got = drawFingerprints(states, args.cacheDir);
-    writeFileSync(FINGERPRINT_PATH, `${JSON.stringify({ engineMajor, states: got }, null, 2)}\n`);
+    // Recording some fixtures keeps the others recorded at this major; a new engine major starts over.
+    const kept = readFingerprintFile();
+    const merged = kept.engineMajor === engineMajor ? { ...kept.states, ...got } : got;
+    const sorted = Object.fromEntries(Object.entries(merged).sort(([x], [y]) => (x < y ? -1 : 1)));
+    writeFileSync(FINGERPRINT_PATH, `${JSON.stringify({ engineMajor, states: sorted }, null, 2)}\n`);
     console.log(`recorded ${states.join(', ')} at engine major ${engineMajor}`);
     return;
   }

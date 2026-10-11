@@ -47,5 +47,5 @@
   },
   "ignore": ["public/data/**", "tests/**", ".github/**", "config/versions.json", "config/release.json", "changelog/**"],
   "docsTypes": ["copy", "docs"],
-  "fixtureStates": ["CT", "NV", "RI", "VT"]
+  "fixtureStates": ["CT", "NV", "RI", "VT", "VT:state-senate"]
 }

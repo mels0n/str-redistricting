@@ -1,6 +1,9 @@
 import { z } from 'zod';
 import { VersionsSchema } from '../../shared/config/index.js';
 
+/** A fixture id: a state (Federal House) or a state's chamber, e.g. `VT` or `VT:state-senate`. */
+export const FIXTURE_ID = /^[A-Z]{2}(:state-(house|senate))?$/;
+
 const Sha = z.string().regex(/^[0-9a-f]{64}$/);
 
 /** One fixture state: the assignment sha of the plan before balancing (the cuts alone) and of the finished plan. */
@@ -10,7 +13,7 @@ export type StateFingerprint = z.infer<typeof StateFingerprintSchema>;
 /** tests/fingerprints/engine.json: the fingerprints of each fixture state at a given engine major. */
 export const FingerprintFileSchema = z.strictObject({
   engineMajor: z.number().int().min(1),
-  states: z.record(z.string().regex(/^[A-Z]{2}$/), StateFingerprintSchema),
+  states: z.record(z.string().regex(FIXTURE_ID), StateFingerprintSchema),
 });
 
 function sameFingerprint(a: StateFingerprint | undefined, b: StateFingerprint | undefined): boolean {

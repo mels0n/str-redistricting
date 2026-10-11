@@ -5,6 +5,7 @@ import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { z } from 'zod';
 import { FingerprintFileSchema, type FingerprintFile, type StateFingerprint } from '../features/release/index.js';
+import { parseChamber, planDir, type Chamber } from '../shared/chamber/index.js';
 import { DataError } from '../shared/errors/index.js';
 import { showFile } from './git.js';
 
@@ -38,28 +39,45 @@ export function parseFingerprintFile(text: string, label: string): FingerprintFi
 
 const Metrics = z.object({ assignmentSha256: z.string().regex(/^[0-9a-f]{64}$/) });
 
-function readSha(out: string, st: string, ...plan: string[]): string {
-  const metrics = Metrics.safeParse(JSON.parse(readFileSync(join(out, st, ...plan, 'metrics.json'), 'utf8')));
-  if (!metrics.success) throw new DataError(`${st}: ${join(...plan, 'metrics.json')} has no assignmentSha256`);
+function readSha(out: string, abbr: string, chamber: Chamber, ...plan: string[]): string {
+  const file = join(out, planDir(abbr, chamber), ...plan, 'metrics.json');
+  const metrics = Metrics.safeParse(JSON.parse(readFileSync(file, 'utf8')));
+  if (!metrics.success) throw new DataError(`${abbr} ${chamber}: ${join(...plan, 'metrics.json')} has no assignmentSha256`);
   return metrics.data.assignmentSha256;
 }
 
+/** `VT` is the Federal House; `VT:state-senate` is that state's chamber. */
+function splitFixtureId(id: string): { abbr: string; chamber: Chamber } {
+  const [abbr = '', chamber] = id.split(':');
+  return { abbr, chamber: chamber === undefined ? 'federal-house' : parseChamber(chamber) };
+}
+
 /**
- * Draws each state with `explore` into a temporary directory and returns its fingerprints: the assignment sha before
- * balancing and of the finished plan. Keys come back sorted so the recorded file is deterministic.
+ * Draws each fixture with `explore` into a temporary directory (one run per chamber) and returns its fingerprints: the
+ * assignment sha before balancing and of the finished plan. Keys come back sorted so the recorded file is deterministic.
  */
-export function drawFingerprints(states: readonly string[], cacheDir: string): Record<string, StateFingerprint> {
+export function drawFingerprints(ids: readonly string[], cacheDir: string): Record<string, StateFingerprint> {
   const out = mkdtempSync(join(tmpdir(), 'fixture-gate-'));
   try {
     const cli = fileURLToPath(new URL('./cli.ts', import.meta.url));
-    const run = spawnSync(
-      process.execPath,
-      ['--max-old-space-size=8192', '--import', 'tsx', cli, '--states', states.join(','), '--cache-dir', cacheDir, '--out-dir', out],
-      { stdio: 'inherit' },
-    );
-    if (run.status !== 0) throw new DataError(`explore failed for the fixture states (exit ${String(run.status)})`);
+    const byChamber = new Map<Chamber, string[]>();
+    for (const id of ids) {
+      const { abbr, chamber } = splitFixtureId(id);
+      byChamber.set(chamber, [...(byChamber.get(chamber) ?? []), abbr]);
+    }
+    for (const [chamber, abbrs] of byChamber) {
+      const run = spawnSync(
+        process.execPath,
+        ['--max-old-space-size=8192', '--import', 'tsx', cli, '--states', abbrs.join(','), '--chamber', chamber, '--cache-dir', cacheDir, '--out-dir', out],
+        { stdio: 'inherit' },
+      );
+      if (run.status !== 0) throw new DataError(`explore failed for the ${chamber} fixture states (exit ${String(run.status)})`);
+    }
     const got: Record<string, StateFingerprint> = {};
-    for (const st of [...states].sort()) got[st] = { before: readSha(out, st, 'before-balancing'), finished: readSha(out, st) };
+    for (const id of [...ids].sort()) {
+      const { abbr, chamber } = splitFixtureId(id);
+      got[id] = { before: readSha(out, abbr, chamber, 'before-balancing'), finished: readSha(out, abbr, chamber) };
+    }
     return got;
   } finally {
     rmSync(out, { recursive: true, force: true });

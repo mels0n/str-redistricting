@@ -8,6 +8,11 @@ export type Chamber = 'federal-house' | 'state-house' | 'state-senate';
 export const CHAMBERS: readonly Chamber[] = ['federal-house', 'state-house', 'state-senate'];
 export const ChamberSchema = z.enum(['federal-house', 'state-house', 'state-senate']);
 
+/** The chamber's name as shown to readers. */
+export function chamberLabel(chamber: Chamber): string {
+  return { 'federal-house': 'US House', 'state-house': 'State House', 'state-senate': 'State Senate' }[chamber];
+}
+
 /** Read once at the command line; anything else is a ConfigError. */
 export function parseChamber(s: string): Chamber {
   const parsed = ChamberSchema.safeParse(s);

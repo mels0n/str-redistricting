@@ -16,6 +16,10 @@
     "VT": {
       "before": "d221e7eba65998b2fb4d94b95e73785e60113a14a7cd8637793b75ce1d1b56e3",
       "finished": "d221e7eba65998b2fb4d94b95e73785e60113a14a7cd8637793b75ce1d1b56e3"
+    },
+    "VT:state-senate": {
+      "before": "15e7da116f5ec19ee0e7e4c433b5b0730336c2dc69a6bf2313ee8ded7ed695c8",
+      "finished": "b2857fc028d2fcdce94a056c145bf4f4c7136ae11caa181282c82dade921f8ed"
     }
   }
 }

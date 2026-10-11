@@ -141,7 +141,7 @@ export interface CandidateTrace {
   readonly angleDeg: number;
   /** The first side's target population: piece population x lowSeats / seats. */
   readonly share: number;
-  /** The piece's blocks in walk order for this direction (block-id tie-break). */
+  /** The piece's blocks in walk order for this direction: by distance across the guide line, then block id (GEOID order). */
   readonly order: Int32Array;
   /** One per population split; the last is the one after which nothing moved (or the candidate stopped unresolved). */
   readonly passes: readonly TracePass[];
@@ -186,7 +186,7 @@ export function cutSides(low: Int32Array, high: Int32Array, lowSeats: number, se
 }
 
 /**
- * The tie rules between two cuts with exactly equal borders (negative: p is used). First the sides nearer their fair
+ * The tie rules between two cuts with exactly equal borders (negative: p is used; docs: "Ties"). First the sides nearer their fair
  * shares of people (smaller `gap`). Then GEOID: each cut's side holding the piece's lowest GEOID is listed in GEOID
  * order and the two lists are read together; at the first GEOID where they differ, the cut whose list has that GEOID
  * (the lower one there) is used; a list that ends first loses, since the other holds a GEOID it lacks. Equivalently,
@@ -294,6 +294,10 @@ function evaluateAt(piece: Piece, seats: number, lowSeats: number, s: Dir): Chai
  * evaluated once. The ranges are tried shortest border first; of those with the shortest border whose sides pass
  * `validate`, the cut is chosen by people, then GEOID (compareCutSides) (by default both sides must be connected, which every resolved range already is). Throws a
  * DataError up front for fewer than two seats or two blocks, and when no range passes.
+ *
+ * In order: sweep every direction into ranges (in chunks, on the pool), evaluate the ranges of the shortest border
+ * length, keep those whose sides pass `validate`, choose among them by the tie rules, then trace and report the
+ * winner. Where a tie needs it, the tie stretches are swept again from the other end.
  */
 export function findCut(ctx: SplitContext, members: Int32Array, seats: number, validate?: SideValidator, opts: CutOptions = {}): CutResult {
   const m = members.length;

@@ -5,6 +5,7 @@ import type { Piece } from './scan.js';
 import { X, Y, type Geo } from './tracker.js';
 
 /**
+ * (Docs: "Every direction is covered" and "Why the result is exact and reproducible".)
  * A direction as the two points that define it, (x2 - x1, y2 - y1): the original doubles, so comparisons stay
  * exact. A range's start is either an event (the segment between two blocks' points) or a chunk boundary.
  */

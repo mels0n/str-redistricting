@@ -64,6 +64,11 @@ export function runTask(piece: Piece, job: PoolJob, t: number, beat?: () => void
   return sweepChunk(piece, job.seats, task.lowSeats, task.aDeg, task.bDeg, job.keep, beat);
 }
 
+/**
+ * A step through the task list that shares no factor with its length, so walking it visits every task once. Starts
+ * at 37 (an arbitrary odd number) and moves by 2 to the first one coprime with the total. It spreads neighbouring
+ * chunks across threads; speed only, never changes a map.
+ */
 function stride(total: number): number {
   const gcd = (x: number, y: number): number => (y === 0 ? x : gcd(y, x % y));
   let s = 37;
@@ -71,5 +76,9 @@ function stride(total: number): number {
   return s;
 }
 
-/** Chunks for a piece of m blocks: each chunk starts by building its trackers (work about m), so few, large chunks. */
+/**
+ * Chunks for a piece of m blocks: each chunk starts by building its trackers (work about m), so few, large chunks.
+ * One chunk per 2500 blocks, never fewer than 64 (enough to keep every thread busy) or more than 1440 (so the setup
+ * cost stays small). Speed only, never changes a map: chunk edges are joined, so no result depends on the count.
+ */
 export const chunksFor = (m: number): number => Math.min(1440, Math.max(64, Math.ceil(m / 2500)));

@@ -37,6 +37,7 @@ export function signOfDifference(a: number, b: number, c: number, d: number, e: 
   const r = t1 - t2;
   const mag = Math.abs(t1) + Math.abs(t2);
   const bound = 1e-15 * mag;
+  // 1e-280 keeps the products far from the subnormal range (below about 2e-308), where the relative bound fails.
   if (mag > 1e-280) {
     if (r > bound) return 1;
     if (-r > bound) return -1;

@@ -8,13 +8,16 @@ import type { Block } from './model.js';
  * Edge e runs from (edgeA[2e], edgeA[2e+1]) to (edgeB[2e], edgeB[2e+1]) in lon/lat degrees and is
  * shared by blocks edgeBlockList[edgeBlockOffsets[e] .. edgeBlockOffsets[e+1]). Edges appear in the
  * order they are first met walking blocks, rings and segments. adjLength[k] is the great-circle length
- * in meters of the border shared by block u and adjList[k] (0 for bridges).
+ * in meters of the border shared by block u and adjList[k] (0 for bridges), and adjLengthUm[k] the same length
+ * rounded to whole micrometers: integers, so sums of them are exact in any order. The cut and balancing compare
+ * these.
  */
 export interface Topology {
   readonly n: number;
   readonly adjOffsets: Int32Array;
   readonly adjList: Int32Array;
   readonly adjLength: Float64Array;
+  readonly adjLengthUm: Float64Array;
   readonly edgeCount: number;
   readonly edgeA: Float64Array;
   readonly edgeB: Float64Array;
@@ -329,6 +332,7 @@ export function buildTopology(blocks: readonly Block[]): Topology {
     adjOffsets: adj.offsets,
     adjList: adj.list,
     adjLength: adj.length,
+    adjLengthUm: Float64Array.from(adj.length, (m) => Math.round(m * 1e6)),
     edgeCount: edges.count,
     edgeA: edges.edgeA,
     edgeB: edges.edgeB,

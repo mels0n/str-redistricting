@@ -8,8 +8,8 @@ import type { Cut } from './model';
  *
  * Cuts are in the pre-order of the recursion, so when a cut is applied its
  * range [firstDistrict, firstDistrict + seats) is exactly one existing piece:
- * the low side keeps the piece's name and the high side starts at
- * firstDistrict + lowSeats.
+ * the lower-numbered part keeps the piece's name and the upper part starts
+ * after it (see lowerSeats).
  */
 export function piecesAfter(cuts: readonly Cut[], k: number, seats: number): number[] {
   const piece = new Array<number>(seats).fill(0);
@@ -17,10 +17,23 @@ export function piecesAfter(cuts: readonly Cut[], k: number, seats: number): num
   const n = Math.max(0, Math.min(k, ordered.length));
   for (let i = 0; i < n; i++) {
     const c = ordered[i]!;
-    const high = c.firstDistrict + c.lowSeats;
-    for (let d = high; d < c.firstDistrict + c.seats && d < seats; d++) piece[d] = high;
+    const upper = c.firstDistrict + lowerSeats(ordered, c);
+    for (let d = upper; d < c.firstDistrict + c.seats && d < seats; d++) piece[d] = upper;
   }
   return piece;
+}
+
+/**
+ * Seats in the lower-numbered part of a cut's range. The side holding the
+ * piece's lowest GEOID is numbered first, and that can be either side of the
+ * line, so the size is read from the cuts: in pre-order the next cut splits
+ * the lower part when it starts at the same district and holds fewer seats;
+ * otherwise the lower part is a single district.
+ */
+function lowerSeats(cuts: readonly Cut[], cut: Cut): number {
+  if (cut.lowSeats === cut.highSeats) return cut.lowSeats;
+  const next = cuts.find((c) => c.order === cut.order + 1);
+  return next && next.firstDistrict === cut.firstDistrict && next.seats < cut.seats ? next.seats : 1;
 }
 
 /** Sizes of the pieces, keyed by piece name. */
@@ -30,13 +43,13 @@ export function pieceSizes(piece: readonly number[]): Map<number, number> {
   return sizes;
 }
 
-/** Districts (1-based) on each side of a cut. */
-export function cutSides(cut: Cut): { low: [number, number]; high: [number, number] } {
+/** Districts (1-based) on each side of a cut: `low` holds lowSeats of them, `high` the rest. `cuts` is the state's whole list. */
+export function cutSides(cut: Cut, cuts: readonly Cut[]): { low: [number, number]; high: [number, number] } {
   const f = cut.firstDistrict + 1;
-  return {
-    low: [f, f + cut.lowSeats - 1],
-    high: [f + cut.lowSeats, f + cut.seats - 1],
-  };
+  const n = lowerSeats(cuts, cut);
+  const lower: [number, number] = [f, f + n - 1];
+  const upper: [number, number] = [f + n, f + cut.seats - 1];
+  return n === cut.lowSeats ? { low: lower, high: upper } : { low: upper, high: lower };
 }
 
 /**

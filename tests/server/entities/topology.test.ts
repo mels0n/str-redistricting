@@ -363,6 +363,15 @@ describe('typed-array edge matching', () => {
     expect(topo.adjLength[topo.adjOffsets[1]!]).toBeCloseTo(want, 2);
   });
 
+  it('keeps every shared length in whole micrometers too, beside the meters', () => {
+    const topo = buildTopology(gridBlocks(12, 9, { size: 0.0137, skip: (x, y) => (x * 5 + y * 3) % 7 === 0 }));
+    expect(topo.adjLengthUm).toHaveLength(topo.adjLength.length);
+    for (let k = 0; k < topo.adjLength.length; k++) {
+      expect(Number.isInteger(topo.adjLengthUm[k])).toBe(true);
+      expect(topo.adjLengthUm[k]).toBe(Math.round(topo.adjLength[k]! * 1e6));
+    }
+  });
+
   it('counts every distinct edge of a grid once, with its owners', () => {
     const topo = buildTopology(gridBlocks(3, 2));
     expect(topo.edgeCount).toBe(17);

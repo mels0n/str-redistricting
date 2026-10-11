@@ -16,7 +16,7 @@ export function pieceOf(blocksOrCtx: readonly Block[] | SplitContext, members?: 
     for (let k = topo.adjOffsets[g]!; k < topo.adjOffsets[g + 1]!; k++) {
       const j = localOf[topo.adjList[k]!]!;
       // Whole micrometers, as in the engine.
-      if (j >= 0) { adj.push(j); len.push(Math.round(topo.adjLength[k]! * 1e6)); }
+      if (j >= 0) { adj.push(j); len.push(topo.adjLengthUm[k]!); }
     }
     lOff[i + 1] = adj.length;
   }

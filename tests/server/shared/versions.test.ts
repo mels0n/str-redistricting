@@ -7,14 +7,11 @@ const enactedText = readFileSync('config/enacted.json', 'utf8');
 const legislativeText = readFileSync('config/legislative-districts.json', 'utf8');
 
 describe('versions config', () => {
-  it('parses and holds the baseline values', () => {
-    expect(VERSIONS.engine).toBe('1.0.0');
-    expect(VERSIONS.maps).toBe(1);
-    expect(VERSIONS.input.revision).toBe(1);
-    expect(VERSIONS.input.vintage).toBe('census-2020');
-    expect(VERSIONS.schema).toBe('1.0.0');
-    expect(VERSIONS.web).toBe('1.0.0');
-    expect(VERSIONS.docs).toBe('1.0.0');
+  it('parses and holds well-formed values', () => {
+    expect(VersionsSchema.parse(VERSIONS)).toEqual(VERSIONS);
+    expect(VERSIONS.maps).toBeGreaterThanOrEqual(1);
+    expect(VERSIONS.input.revision).toBeGreaterThanOrEqual(1);
+    expect(VERSIONS.input.vintage).toMatch(/^census-\d{4}$/);
   });
 
   it('keeps input.sha256 in step with the census manifest and enacted config', () => {

@@ -12,8 +12,9 @@ restate the code itself.
 - Test: `npm test`
 - Run the viewer: `npm run dev`
 - Build the viewer into `dist/`: `npm run build`
-- Generate maps: `npm run explore -- --states CO` (`--states` is required; `--threads N` sets the threads that search each cut, default hardware threads minus two, at most one per 400 MiB of free memory; a state drawn earlier from the same inputs and code is skipped, `--force` redraws it)
-- Publish web-ready data to `public/data/`: `npm run publish-data`
+- Generate maps: `npm run explore -- --states CO` (`--states` is required; `--chamber federal-house|state-house|state-senate` picks the chamber, default `federal-house`; `--threads N` sets the threads that search each cut, default hardware threads minus two, at most one per 400 MiB of free memory; a state drawn earlier from the same inputs and code is skipped, `--force` redraws it)
+- Publish web-ready data to `public/data/`: `npm run publish-data` (`-- --chamber state-house|state-senate` for a state chamber)
+- Count state chamber districts from the pinned Census files: `npm run legislative:count` (`-- --check` fails if `config/legislative-districts.json` disagrees). Pin the per-state legislative files: `npm run legislative:pin`
 - Look for a newer enacted districts file: `npm run enacted:check`; adopt one: `npm run enacted:bump -- --file cb_2027_us_cd120_500k` (rebuilds only the overlay files: `npm run publish-data -- --enacted-only`)
 - Extract the How it works examples: `npm run rule-examples`
 - Propose and commit the next component versions: `npm run release` (`-- --dry-run` to preview). Check a branch against its base: `npm run version:check -- --base origin/main`. Tags a commit introduces: `npm run release:tags -- --before <sha> --after <sha>`

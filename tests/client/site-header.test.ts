@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import { afterEach, describe, expect, it } from 'vitest';
-import { CHAMBERS, formatHash, stateRoute, NATIONAL } from '../../src/client/shared';
+import { CHAMBERS, config, formatHash, stateRoute, NATIONAL } from '../../src/client/shared';
 import { createSiteHeader, syncChamberSwitch } from '../../src/client/widgets/site-header';
 
 describe('site header', () => {
@@ -19,7 +19,15 @@ describe('site header', () => {
     const homeLinks = [...header.querySelectorAll('a')].filter((a) => a.getAttribute('href') === formatHash(NATIONAL) && !a.hasAttribute('data-chamber'));
     expect(homeLinks).toHaveLength(1);
     expect(header.textContent).not.toContain('All states');
-    expect([...header.querySelectorAll('.strv-masthead__nav a')].map((a) => a.textContent)).toEqual(['How it works', 'FAQ']);
+    expect([...header.querySelectorAll('.strv-masthead__nav a')].map((a) => a.textContent || a.getAttribute('aria-label'))).toEqual(['FAQ', 'How it works', 'Source code on GitHub']);
+  });
+
+  it('links the source code on GitHub, after the page links and before the credit', () => {
+    const header = createSiteHeader();
+    const repo = header.querySelector('.strv-masthead__repo')!;
+    expect(repo.getAttribute('href')).toBe(config.repoUrl);
+    expect(repo.querySelector('svg')?.getAttribute('aria-hidden')).toBe('true');
+    expect(header.lastElementChild?.previousElementSibling?.lastElementChild).toBe(repo);
   });
 
   it('lists every chamber in order; only the live one is a link, and it is the current one', () => {

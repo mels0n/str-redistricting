@@ -6,14 +6,15 @@ const manifestText = readFileSync('config/census-sha256.json', 'utf8');
 const enactedText = readFileSync('config/enacted.json', 'utf8');
 
 describe('versions config', () => {
-  it('parses and holds the baseline values', () => {
-    expect(VERSIONS.engine).toBe('1.0.0');
-    expect(VERSIONS.maps).toBe(1);
-    expect(VERSIONS.input.revision).toBe(1);
+  it('parses, with every version at or past the first release', () => {
+    const semver = /^(\d+)\.\d+\.\d+$/;
+    for (const v of [VERSIONS.engine, VERSIONS.schema, VERSIONS.web, VERSIONS.docs]) {
+      expect(v).toMatch(semver);
+      expect(Number(semver.exec(v)![1])).toBeGreaterThanOrEqual(1);
+    }
+    expect(VERSIONS.maps).toBeGreaterThanOrEqual(1);
+    expect(VERSIONS.input.revision).toBeGreaterThanOrEqual(1);
     expect(VERSIONS.input.vintage).toBe('census-2020');
-    expect(VERSIONS.schema).toBe('1.0.0');
-    expect(VERSIONS.web).toBe('1.0.0');
-    expect(VERSIONS.docs).toBe('1.0.0');
   });
 
   it('keeps input.sha256 in step with the census manifest and enacted config', () => {

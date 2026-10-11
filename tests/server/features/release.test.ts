@@ -29,7 +29,8 @@ const cfg = ReleaseConfigSchema.parse(JSON.parse(readFileSync('config/release.js
 function commit(subject: string, files: string[]): Commit {
   return { sha: 'abc1234', ...parseCommitSubject(subject), subject, files };
 }
-const base: Versions = VERSIONS;
+// The first release, not today's config/versions.json, so a real release never changes what these tests expect.
+const base: Versions = { ...VERSIONS, engine: '1.0.0', maps: 1, schema: '1.0.0', web: '1.0.0', docs: '1.0.0' };
 const noChangelog = Object.fromEntries(COMPONENTS.map((c) => [c, `# ${c} changelog\n\n`])) as Record<Component, string>;
 const byComponent = (entries: [Component, Commit[]][]): Map<Component, Commit[]> => new Map(entries);
 
@@ -507,7 +508,7 @@ describe('compareFingerprints', () => {
     expect(compareFingerprints({ engineMajor: 1, states: {} }, baseFile, states, 1).ok).toBe(true);
   });
   it('takes the major to beat from the base versions.json, not the base fingerprint file', () => {
-    const versionsAt = (engine: string): string => JSON.stringify({ ...VERSIONS, engine });
+    const versionsAt = (engine: string): string => JSON.stringify({ ...base, engine });
     expect(baseEngineMajor(versionsAt('2.3.1'), 1)).toBe(2);
     expect(baseEngineMajor(null, 1)).toBe(1);
     // Base released engine 2.0.0 but its fingerprint file still says major 1. A pull request changes the output and

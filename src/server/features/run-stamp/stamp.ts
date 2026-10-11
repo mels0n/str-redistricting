@@ -2,6 +2,7 @@ import { createHash } from 'node:crypto';
 import { readFile, rename, rm, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { z } from 'zod';
+import { ChamberSchema } from '../../shared/chamber/index.js';
 
 /** The file in a state's output folder that records what its plans were drawn from. Written last, so it also means "complete". */
 export const STAMP_FILE = 'inputs.json';
@@ -11,6 +12,8 @@ const SHA256 = z.string().regex(/^[0-9a-f]{64}$/);
 export const RunStampSchema = z.object({
   /** Pinned sha256 of the state's census block file. */
   inputSha256: SHA256,
+  /** The body the plans are for; stamps written before chambers existed are Federal House. */
+  chamber: ChamberSchema.default('federal-house'),
   seats: z.number().int().positive(),
   /** Major of the engine version, which plans are published under. */
   engineMajor: z.string().min(1),
@@ -37,6 +40,7 @@ export async function staleReason(dir: string, key: RunKey): Promise<string | un
     return 'no complete earlier run';
   }
   if (stamp.inputSha256 !== key.inputSha256) return 'census file changed';
+  if (stamp.chamber !== key.chamber) return 'chamber changed';
   if (stamp.seats !== key.seats) return 'seat count changed';
   if (stamp.engineMajor !== key.engineMajor) return 'engine major changed';
   if (stamp.codeSha256 !== key.codeSha256) return 'code changed';

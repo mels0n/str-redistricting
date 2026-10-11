@@ -2,10 +2,13 @@ import { availableParallelism, freemem } from 'node:os';
 import { parseArgs } from 'node:util';
 import { z } from 'zod';
 import { stateByAbbr, type StateInfo } from '../apportionment/index.js';
+import { parseChamber, type Chamber } from '../chamber/index.js';
 import { ConfigError } from '../errors/index.js';
 
 export { CENSUS_HOSTS } from './census-hosts.js';
 export { CENSUS_SHA256, ManifestSchema, pinnedSha256 } from './census-manifest.js';
+export { LegislativeDistrictsSchema, legislativeDistricts } from './legislative-districts.js';
+export type { LegislativeDistricts } from './legislative-districts.js';
 export { ENACTED_CONFIG, EnactedConfigSchema, enactedFileName, parseEnactedFileName } from './enacted.js';
 export type { EnactedConfig } from './enacted.js';
 export { VERSIONS, VersionsSchema, engineMajor, formatVersions, inputSha256Of, stampOf } from './versions.js';
@@ -19,6 +22,8 @@ export const LINE_SEARCH = 'exact';
 
 export interface Config {
   readonly states: StateInfo[];
+  /** Which body's districts to draw. */
+  readonly chamber: Chamber;
   readonly cacheDir: string;
   readonly outDir: string;
   /** Threads for the cut search; 1 searches on the main thread only. */
@@ -53,6 +58,7 @@ export function parseConfig(argv: readonly string[]): Config {
     args: [...argv],
     options: {
       states: { type: 'string' },
+      chamber: { type: 'string', default: 'federal-house' },
       'cache-dir': { type: 'string', default: 'data/raw' },
       'out-dir': { type: 'string', default: 'out' },
       threads: { type: 'string' },
@@ -73,7 +79,7 @@ export function parseConfig(argv: readonly string[]): Config {
     return info;
   });
   return {
-    states, cacheDir: parsed.data.cacheDir, outDir: parsed.data.outDir, threads: parsed.data.threads, force: values.force === true,
+    states, chamber: parseChamber(values.chamber), cacheDir: parsed.data.cacheDir, outDir: parsed.data.outDir, threads: parsed.data.threads, force: values.force === true,
     threadsLimitedByMemory: values.threads === undefined && dflt < defaultThreads(availableParallelism(), Infinity),
   };
 }
@@ -81,6 +87,8 @@ export function parseConfig(argv: readonly string[]): Config {
 export interface PublishConfig {
   /** Limit the heavy work to these states; undefined means every state with a generated plan. */
   readonly states: StateInfo[] | undefined;
+  /** Which body's published files to build. */
+  readonly chamber: Chamber;
   readonly cacheDir: string;
   readonly outDir: string;
   readonly publicDir: string;
@@ -108,6 +116,7 @@ export function parsePublishConfig(argv: readonly string[]): PublishConfig {
     args: [...argv],
     options: {
       states: { type: 'string' },
+      chamber: { type: 'string', default: 'federal-house' },
       'cache-dir': { type: 'string', default: 'data/raw' },
       'out-dir': { type: 'string', default: 'out' },
       'public-dir': { type: 'string', default: 'public/data' },
@@ -128,7 +137,7 @@ export function parsePublishConfig(argv: readonly string[]): PublishConfig {
     if (!info) throw new ConfigError(`unknown state: ${abbr}`);
     return info;
   });
-  return { states, cacheDir: parsed.data.cacheDir, outDir: parsed.data.outDir, publicDir: parsed.data.publicDir, enactedOnly: parsed.data.enactedOnly, blocksOnly: parsed.data.blocksOnly, baseline: parsed.data.baseline };
+  return { states, chamber: parseChamber(values.chamber), cacheDir: parsed.data.cacheDir, outDir: parsed.data.outDir, publicDir: parsed.data.publicDir, enactedOnly: parsed.data.enactedOnly, blocksOnly: parsed.data.blocksOnly, baseline: parsed.data.baseline };
 }
 
 export interface RuleExamplesConfig {
@@ -290,11 +299,23 @@ export function parseReleaseTagsArgs(argv: readonly string[]): ReleaseTagsArgs {
 
 export interface FingerprintArgs {
   readonly mode: 'check' | 'record';
-  /** Two-letter abbreviations; undefined means the fixtureStates of config/release.json. */
+  /** Fixture ids, `ST` (Federal House) or `ST:state-house` / `ST:state-senate`; undefined means the fixtureStates of config/release.json. */
   readonly states: string[] | undefined;
   readonly cacheDir: string;
   /** The ref whose tests/fingerprints/engine.json the draw is compared against; undefined means the working copy. */
   readonly base: string | undefined;
+}
+
+/** `CO` or `CO:state-senate` to its normalised id; the Federal House is the bare abbreviation, never `CO:federal-house`. */
+export function parseFixtureId(id: string): string {
+  const [abbr = '', chamber, ...rest] = id.split(':');
+  const info = stateByAbbr(abbr);
+  if (!info) throw new ConfigError(`unknown state: ${abbr}`);
+  if (chamber === undefined) return info.abbr;
+  if (rest.length > 0 || (chamber !== 'state-house' && chamber !== 'state-senate')) {
+    throw new ConfigError(`bad fixture id: ${id} (expected ST, ST:state-house or ST:state-senate)`);
+  }
+  return `${info.abbr}:${chamber}`;
 }
 
 /** Read once at boot from the command line. */
@@ -311,11 +332,7 @@ export function parseFingerprintArgs(argv: readonly string[]): FingerprintArgs {
     strict: true,
   });
   if (values.check === values.record) throw new ConfigError('pass exactly one of --check or --record');
-  const states = values.states?.split(',').map((s) => s.trim()).filter(Boolean).map((abbr) => {
-    const info = stateByAbbr(abbr);
-    if (!info) throw new ConfigError(`unknown state: ${abbr}`);
-    return info.abbr;
-  });
+  const states = values.states?.split(',').map((s) => s.trim()).filter(Boolean).map(parseFixtureId);
   if (states?.length === 0) throw new ConfigError('--states must name at least one state');
   if (values['cache-dir'] === '') throw new ConfigError('--cache-dir must not be empty');
   const base = values.base === undefined ? undefined : GitRef.safeParse(values.base);

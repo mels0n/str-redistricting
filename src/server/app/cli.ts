@@ -90,7 +90,7 @@ async function main(): Promise<void> {
     slot.refresh();
     try {
       const dir = join(config.outDir, state.abbr);
-      const key = runKeyFor(state, codeSha256);
+      const key = runKeyFor(state, config.chamber, codeSha256);
       let row: Record<string, unknown> = {};
       const outcome = await drawOrSkip(
         { dir, key, force: config.force, writeDir: writePlan, onDraw: (why) => console.log(`${state.abbr}: drawing (${why})`) },

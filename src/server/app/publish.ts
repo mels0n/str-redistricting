@@ -19,7 +19,7 @@ async function main(): Promise<void> {
   const release = ReleaseConfigSchema.parse(JSON.parse(readFileSync('config/release.json', 'utf8')));
   const codeSha256 = exploreCodeSha256();
   await publishData(cfg, {
-    planStale: (state, dir) => staleReason(dir, runKeyFor(state, codeSha256)),
+    planStale: (state, dir) => staleReason(dir, runKeyFor(state, cfg.chamber, codeSha256)),
     preRelease: isPreRelease(release, listTags()),
   });
 }

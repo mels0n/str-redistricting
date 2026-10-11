@@ -171,7 +171,7 @@ describe('topology', () => {
 
 describe('publish config', () => {
   it('defaults to every state and the standard directories', () => {
-    expect(parsePublishConfig([])).toEqual({ states: undefined, cacheDir: 'data/raw', outDir: 'out', publicDir: 'public/data', enactedOnly: false, blocksOnly: false, baseline: false });
+    expect(parsePublishConfig([])).toEqual({ states: undefined, chamber: 'federal-house', cacheDir: 'data/raw', outDir: 'out', publicDir: 'public/data', enactedOnly: false, blocksOnly: false, baseline: false });
   });
   it('parses --blocks-only, and refuses it with --enacted-only', () => {
     expect(parsePublishConfig(['--blocks-only']).blocksOnly).toBe(true);

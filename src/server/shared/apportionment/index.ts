@@ -1,3 +1,4 @@
+// House seats per state from the 2020 Census apportionment (U.S. Census Bureau, April 2021): 435 seats across the 50 states.
 export interface StateInfo {
   readonly abbr: string;
   readonly fips: string;

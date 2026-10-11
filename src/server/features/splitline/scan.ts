@@ -71,7 +71,7 @@ export interface StrayGraph {
 type SweepObserver = (side: number, nodeComp: Int32Array, main: number, pop: readonly number[]) => void;
 
 /**
- * Strays rule, in place: on the side holding the lowest GEOID and then the other, every connected component other than
+ * Strays rule (docs: "Stray pieces and the re-count"), in place: on the side holding the lowest GEOID and then the other, every connected component other than
  * the side's main one (most population, then the lowest GEOID: block indices are in GEOID order) joins the other side;
  * repeat until nothing moves. Pinned nodes never move and a node that moves is pinned at once, so every
  * continuing pass pins another node and the passes always end. Returns whether a pinned node was left
@@ -226,7 +226,11 @@ export interface Scanner {
   walkOrder(): Int32Array;
 }
 
-/** Candidate evaluation for one piece; holds scratch space, so each thread needs its own. */
+/**
+ * Candidate evaluation for one piece; holds scratch space, so each thread needs its own. In order: build the
+ * walk order for a direction, split by population, settle strays, re-count over the free blocks until nothing moves,
+ * then report the sides and the border.
+ */
 export function createScanner(piece: Piece, job: ScanJob): Scanner {
   const { m, ids, pops, total, px, py, lOff, lAdj, lLen } = piece;
   const keys = new Float64Array(m);

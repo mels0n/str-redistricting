@@ -1,6 +1,7 @@
 /**
- * One candidate's evaluation, kept up to date as the direction turns: the same passes as the engine's original
- * evaluate() (a whole-block split, the strays rule, re-counts over the free blocks until a settle moves nothing),
+ * One candidate's evaluation, kept up to date as the direction turns: the passes described in the docs under
+ * "Stray pieces and the re-count" (a whole-block split, the strays rule, re-counts over the free blocks until a
+ * settle moves nothing),
  * with every pass's split taken from its own exact Tracker and every pass's connected groups kept by Groups.
  *
  * When a tracker moves blocks across its split:

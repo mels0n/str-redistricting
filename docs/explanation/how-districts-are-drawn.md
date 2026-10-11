@@ -28,7 +28,7 @@ A state with N seats takes exactly N minus 1 cuts. Each piece is cut on its own,
 
 ### Straight lines on a globe
 
-A "straight line" here is a great circle, the path a plane through the center of the Earth traces on its surface. A line like that has no distortion to argue about.
+A "straight line" here is a great circle, the path a plane through the center of the Earth traces on its surface. Where the projection is centered is part of the method, fixed by rule: the midpoint of the bounding box of the state's internal points. A different center would give the same straight lines on the globe but could, through whole-block rounding, offer slightly different candidate lines, so the center is not left to choice.
 
 Guide lines are defined in a gnomonic projection, a map projection in which every great circle is a straight line. The projection is centered on the center of the bounding box of all the blocks' internal points in the state. "North-south" (direction 0) is the meridian through that center. A direction is an angle measured clockwise from north-south in that flat plane, from 0 up to but not including 180 degrees (a half turn, since a line has no front or back). A block's position across a line is the distance of its projected internal point from the line, and two blocks sit at exactly the same distance only at the one direction where they swap places, which every range is checked between. Blocks whose internal points coincide go in GEOID order, the census block identifier, so the order is fixed.
 
@@ -49,6 +49,18 @@ Because blocks are assigned whole, a large block that straddles the guide line c
 5. Repeat steps 2 to 4 until a strays pass moves no free block.
 
 Every re-count follows at least one newly fixed block, and fixed blocks never become free, so a piece of `m` blocks needs at most `m` walks and the process always ends. If it ends with a fixed piece still cut off from its side (it cannot move back), that line's sides are not each one connected piece, so it fails the connectivity check below and the next shortest line is considered.
+
+### Why a shorter line can be rejected
+
+Sometimes the line that wins is not the shortest one. A shorter line is passed over for one reason only: its re-counts ended with a fixed stray piece cut off from its side. Every other cut-off piece joins the side around it, so a fixed piece left behind is the only way a line's sides can end up in more than one piece. The number of border lengths passed over is reported as `cutsSkipped`.
+
+Nobody chooses to reject these lines. It follows from three rules working together:
+
+1. Blocks are whole, so a block near the line can end up cut off from its own side.
+2. A cut-off block joins the side around it and is fixed there. If fixed blocks could move back, blocks could keep swapping sides and the two sides would drift away from their shares.
+3. The re-count then slides the line to make up for the people who moved. After the slide, the blocks around a fixed block can land on the other side of the new line, and the fixed block cannot follow them.
+
+The line is then judged on the result: the fixed block is surrounded by the other side, one side is in two pieces, and the line fails the connectivity check. The next shortest line is considered, and wins if it leaves nothing cut off.
 
 There is no limit on how many people a stray piece holds. A line that strands a big region still has to win on border length like every other line, and its border is measured after the strays have joined and the line has slid. A line may cross the piece's outline any number of times.
 
@@ -112,6 +124,8 @@ Evaluating a range does not start from nothing. Each pass keeps its connected gr
 No angle is ever computed to make a decision. A direction is the vector between two internal points, and "which swap comes first" or "which side of the line is this block on" is the sign of a small product of coordinate differences. The generator computes each sign with ordinary floating-point arithmetic when that is safe, and falls back to exact integer arithmetic when it cannot be sure (every double-precision number is a whole multiple of 2 to the power -1074, so exact integer arithmetic is always available). There is no tolerance, so the answer is the same on every computer.
 
 The half turn is cut into chunks, handed to worker threads. A range that continues across the edge of a chunk is joined to its neighbor, so neither the number of chunks nor the number of threads can change a result. The number of chunks depends only on the size of the piece being cut.
+
+Two limits on that exactness are worth stating. First, it is relative to the projected coordinates: the projection itself is computed in double-precision floating point, and every decision afterward is exact about those projected points. Second, where ranges are joined across a chunk edge or the end of the half turn, a range is identified by its length together with a 64-bit fingerprint of the blocks on its sides, not by comparing the sides block by block. Two different ranges would have to match in both for them to be taken as one. The check that each side is one connected piece is always the default one: the code can accept a different side check, but no map is drawn with one.
 
 ## Step 3: balance
 

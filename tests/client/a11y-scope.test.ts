@@ -16,7 +16,7 @@ afterEach(() => vi.unstubAllGlobals());
 describe('page titles share the site suffix', () => {
   it('changelog', async () => {
     const { createChangelogPage } = await import('../../src/client/pages/changelog');
-    createChangelogPage({ maps: '# Maps\n', engine: '# Engine\n', input: '# Input\n' });
+    createChangelogPage({ engine: '# Engine\n', input: '# Input\n', maps: '# Maps\n', schema: '# Schema\n', web: '# Web\n', docs: '# Docs\n' });
     expect(document.title).toBe('Changelog | Fair Maps');
   });
 

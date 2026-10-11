@@ -188,7 +188,7 @@ describe('workflow write tokens never reach dependency code', () => {
     const text = readFileSync(new URL('enacted-update.yml', dir), 'utf8');
     const lines = text.replace(/\r\n/g, '\n').split('\n');
     const writers = parseJobs(lines).filter((j) => WRITES.test(j.permissions ?? ''));
-    expect(writers.map((j) => j.name)).toEqual(['open-pr']);
+    expect(writers.map((j) => j.name)).toEqual(['open-pr', 'open-pr-legislative']);
     expect(writers[0]!.steps.length).toBeGreaterThan(2);
   });
 

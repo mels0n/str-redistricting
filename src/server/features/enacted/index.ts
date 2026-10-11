@@ -3,3 +3,5 @@ export { applyBump, formatEnacted, formatManifest, planBump, planVersionBump } f
 export type { BumpPlan } from './bump.js';
 export { candidateFiles, describeFile, detectUpdate, isServed } from './detect.js';
 export type { Candidate, Detection, ProbeOptions } from './detect.js';
+export { applyLegislativeBump, detectLegislative, planLegislativeBump, redrawLines } from './legislative.js';
+export type { LegislativeDetection } from './legislative.js';

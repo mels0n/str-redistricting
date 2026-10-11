@@ -177,9 +177,7 @@ export function parseRuleExamplesConfig(argv: readonly string[]): RuleExamplesCo
   return parsed.data;
 }
 
-export interface EnactedBumpConfig {
-  /** The enacted-districts file to adopt, e.g. cb_2027_us_cd120_500k. */
-  readonly file: string;
+interface EnactedBumpDirs {
   readonly cacheDir: string;
   readonly publicDir: string;
   readonly configDir: string;
@@ -187,8 +185,22 @@ export interface EnactedBumpConfig {
   readonly skipPublish: boolean;
 }
 
+/** Adopt a new enacted congressional districts file (`--file`) or a new legislative vintage (`--legislative`), never both. */
+export type EnactedBumpConfig =
+  | (EnactedBumpDirs & {
+      /** The enacted-districts file to adopt, e.g. cb_2027_us_cd120_500k. */
+      readonly file: string;
+    })
+  | (EnactedBumpDirs & {
+      /** The Census vintage of the State House and State Senate files to adopt, e.g. 2026. */
+      readonly legislative: number;
+    });
+
+const BUMP_USAGE = 'usage: enacted:bump --file <cb_YYYY_us_cdNNN_500k> | --legislative <YYYY>';
+
 const RawBump = z.object({
-  file: z.string().regex(/^cb_\d{4}_us_cd\d+_500k$/, 'file must look like cb_2027_us_cd120_500k (no .zip)'),
+  file: z.string().regex(/^cb_\d{4}_us_cd\d+_500k$/, 'file must look like cb_2027_us_cd120_500k (no .zip)').optional(),
+  legislative: z.string().regex(/^\d{4}$/, 'legislative must be a four-digit year').transform(Number).optional(),
   cacheDir: z.string().min(1),
   publicDir: z.string().min(1),
   configDir: z.string().min(1),
@@ -201,6 +213,7 @@ export function parseEnactedBumpConfig(argv: readonly string[]): EnactedBumpConf
     args: [...argv],
     options: {
       file: { type: 'string' },
+      legislative: { type: 'string' },
       'cache-dir': { type: 'string', default: 'data/raw' },
       'public-dir': { type: 'string', default: 'public/data' },
       'config-dir': { type: 'string', default: 'config' },
@@ -209,10 +222,13 @@ export function parseEnactedBumpConfig(argv: readonly string[]): EnactedBumpConf
     strict: true,
   });
   const parsed = RawBump.safeParse({
-    file: values.file, cacheDir: values['cache-dir'], publicDir: values['public-dir'], configDir: values['config-dir'], skipPublish: values['skip-publish'],
+    file: values.file, legislative: values.legislative, cacheDir: values['cache-dir'], publicDir: values['public-dir'], configDir: values['config-dir'], skipPublish: values['skip-publish'],
   });
   if (!parsed.success) throw new ConfigError(parsed.error.issues.map((i) => `${i.path.join('.')} ${i.message}`).join('; '));
-  return parsed.data;
+  const { file, legislative, ...dirs } = parsed.data;
+  if (file !== undefined && legislative === undefined) return { file, ...dirs };
+  if (legislative !== undefined && file === undefined) return { legislative, ...dirs };
+  throw new ConfigError(BUMP_USAGE);
 }
 
 export type CensusWatchConfig =

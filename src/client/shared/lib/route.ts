@@ -8,7 +8,9 @@
  *   #/how/balancing             the same page, at one of its sections
  *   #/faq                       common questions
  *   #/faq/ties                  the same page, at one question
+ *   #/house  #/senate           national index for the State House or State Senate
  *   #/CO                        Colorado, finished map
+ *   #/CO/senate/d/12            Colorado State Senate, district 12 (also /house)
  *   #/CO/d/3                    Colorado, district 3 selected
  *   #/CO/cut/4                  Colorado, cut sequence at cut 4
  *   #/CO/balance/12             Colorado, balancing replay after move 12
@@ -17,6 +19,8 @@
  * `plan=finished` and the older `plan=official` both open the finished map,
  * which is also what a link without `plan` shows.
  */
+import { chamberOfSegment, CHAMBERS, type Chamber } from './chamber';
+
 export type Plan = 'finished' | 'before';
 
 /** Sections of the How it works page, in page order. */
@@ -24,17 +28,18 @@ export const HOW_SECTIONS = ['inputs', 'cut', 'strays', 'recursion', 'balancing'
 export type HowSection = (typeof HOW_SECTIONS)[number];
 
 /** Questions on the FAQ page, in page order. */
-export const FAQ_QUESTIONS = ['strange', 'block', 'ties', 'data', 'counties', 'equal', 'current', 'water', 'one-seat', 'check', 'terms'] as const;
+export const FAQ_QUESTIONS = ['strange', 'block', 'ties', 'data', 'counties', 'equal', 'current', 'water', 'one-seat', 'state-laws', 'check', 'terms'] as const;
 export type FaqQuestion = (typeof FAQ_QUESTIONS)[number];
 
 export type Route =
-  | { page: 'national' }
+  | { page: 'national'; chamber: Chamber }
   | { page: 'how'; section: HowSection | null }
   | { page: 'faq'; question: FaqQuestion | null }
   | { page: 'changelog' }
   | {
       page: 'state';
       abbr: string;
+      chamber: Chamber;
       district: number | null;
       /** null unless the cut sequence is open; 0..N-1 in the cut sequence. */
       cut: number | null;
@@ -44,7 +49,11 @@ export type Route =
       enacted: boolean;
     };
 
-export const NATIONAL: Route = { page: 'national' };
+export const NATIONAL: Route = { page: 'national', chamber: 'federal-house' };
+
+export function nationalRoute(chamber: Chamber = 'federal-house'): Route {
+  return { page: 'national', chamber };
+}
 export const CHANGELOG: Route = { page: 'changelog' };
 
 export function howRoute(section: HowSection | null = null): Route {
@@ -56,7 +65,7 @@ export function faqRoute(question: FaqQuestion | null = null): Route {
 }
 
 export function stateRoute(abbr: string, patch: Partial<StateRoute> = {}): StateRoute {
-  return { page: 'state', abbr, district: null, cut: null, move: null, plan: 'finished', enacted: false, ...patch };
+  return { page: 'state', abbr, chamber: 'federal-house', district: null, cut: null, move: null, plan: 'finished', enacted: false, ...patch };
 }
 
 function positiveInt(s: string | undefined, min: number, digits = 3): number | null {
@@ -85,13 +94,19 @@ export function parseHash(hash: string): Route {
     return faqRoute((FAQ_QUESTIONS as readonly string[]).includes(question ?? '') ? (question as FaqQuestion) : null);
   }
   if (segs[0]?.toLowerCase() === 'changelog') return CHANGELOG;
+  const nationalChamber = chamberOfSegment(segs[0]);
+  if (nationalChamber) return nationalRoute(nationalChamber);
   const abbr = segs[0]?.toUpperCase();
   if (!abbr || !/^[A-Z]{2}$/.test(abbr)) return NATIONAL;
+
+  // A chamber segment may follow the state; without one the route is the federal House, as every older link is.
+  const chamber = chamberOfSegment(segs[1]);
+  const rest = chamber ? 2 : 1;
 
   let district: number | null = null;
   let cut: number | null = null;
   let move: number | null = null;
-  for (let i = 1; i < segs.length; i += 2) {
+  for (let i = rest; i < segs.length; i += 2) {
     const key = segs[i];
     const value = segs[i + 1];
     if (key === 'd') district = positiveInt(value, 1);
@@ -102,6 +117,7 @@ export function parseHash(hash: string): Route {
   if (cut !== null) move = null;
   const q = new URLSearchParams(queryPart);
   return stateRoute(abbr, {
+    chamber: chamber ?? 'federal-house',
     district,
     cut,
     move,
@@ -110,12 +126,17 @@ export function parseHash(hash: string): Route {
   });
 }
 
+function chamberSegment(chamber: Chamber): string {
+  return CHAMBERS.find((c) => c.key === chamber)?.segment ?? '';
+}
+
 export function formatHash(route: Route): string {
-  if (route.page === 'national') return '#/';
+  if (route.page === 'national') return `#/${chamberSegment(route.chamber)}`;
   if (route.page === 'changelog') return '#/changelog';
   if (route.page === 'how') return route.section ? `#/how/${route.section}` : '#/how';
   if (route.page === 'faq') return route.question ? `#/faq/${route.question}` : '#/faq';
   let path = `#/${route.abbr}`;
+  if (route.chamber !== 'federal-house') path += `/${chamberSegment(route.chamber)}`;
   if (route.district !== null) path += `/d/${route.district}`;
   if (route.cut !== null) path += `/cut/${route.cut}`;
   else if (route.move !== null) path += `/balance/${route.move}`;

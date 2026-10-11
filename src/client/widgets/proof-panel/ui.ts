@@ -1,9 +1,9 @@
-import { h, clear, chunkDigest, censusLabel, config, reproduceCommands, formatInt, formatPeople, formatPct, peopleNoun, type Plan, type VersionStamp } from '../../shared';
+import { h, clear, chunkDigest, censusLabel, config, reproduceCommands, formatInt, formatPeople, formatPct, peopleNoun, type Plan, type Chamber, type VersionStamp } from '../../shared';
 import { evenSplitSentence, type Metrics } from '../../entities/plan';
 
 export interface ProofPanel {
   el: HTMLElement;
-  update(data: { metrics: Metrics; plan: Plan; abbr: string; versions?: VersionStamp }): void;
+  update(data: { metrics: Metrics; plan: Plan; abbr: string; chamber?: Chamber; versions?: VersionStamp }): void;
 }
 
 function digestBlock(hex: string, label: string): HTMLElement {
@@ -35,7 +35,7 @@ export function createProofPanel(): ProofPanel {
 
   return {
     el,
-    update({ metrics: m, plan, abbr, versions }) {
+    update({ metrics: m, plan, abbr, chamber, versions }) {
       clear(body);
       const before = plan === 'before';
       const single = m.seats === 1;
@@ -90,7 +90,7 @@ export function createProofPanel(): ProofPanel {
           'div',
           { class: 'strv-proof__recipe' },
           h('p', null, 'To reproduce this map, get the generator’s code from ', h('a', { href: config.repoUrl }, 'its GitHub repository'), ' and run it on the same Census file:'),
-          h('pre', { class: 'strv-code', tabindex: 0, role: 'group', 'aria-label': 'Commands to run' }, h('code', null, reproduceCommands(abbr, versions?.maps ?? null))),
+          h('pre', { class: 'strv-code', tabindex: 0, role: 'group', 'aria-label': 'Commands to run' }, h('code', null, reproduceCommands(abbr, versions?.maps ?? null, chamber))),
           h('p', null, 'The same code release and the same Census files give a byte-identical map with the same fingerprint, on any computer. No random numbers are used.'),
         ),
       );

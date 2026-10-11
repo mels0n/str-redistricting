@@ -115,10 +115,10 @@ export const config: ViewerConfig = load();
  * The shell commands that fetch the code and regenerate one state's map. With a maps release number the clone is
  * pinned to that release's tag; null (data published before versioning) clones the default branch.
  */
-export function reproduceCommands(abbr: string, mapsRelease: number | null): string {
+export function reproduceCommands(abbr: string, mapsRelease: number | null, chamber = 'federal-house'): string {
   const dir = new URL(config.repoUrl).pathname.split('/').filter(Boolean).pop() ?? '';
   const clone = mapsRelease === null ? `git clone ${config.repoUrl}` : `git clone --branch maps-${mapsRelease} --depth 1 ${config.repoUrl}`;
-  return `${clone}\ncd ${dir}\nnpm install\nnpm run explore -- --states ${abbr}`;
+  return `${clone}\ncd ${dir}\nnpm install\nnpm run explore -- --states ${abbr}${chamber === 'federal-house' ? '' : ` --chamber ${chamber}`}`;
 }
 
 let dataRelease: number | null = null;

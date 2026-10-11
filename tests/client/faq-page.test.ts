@@ -16,6 +16,14 @@ describe('FAQ page', () => {
     expect(document.title).toBe('FAQ | Fair Maps');
   });
 
+  it('explains why state rules are not followed, with no em dash', () => {
+    const page = createFaqPage({ page: 'faq', question: null });
+    const q = page.el.querySelector('#strv-faq-state-laws')!;
+    expect(q.querySelector('h2')?.textContent).toContain('redistricting laws');
+    expect(q.textContent).toContain('the number of districts');
+    expect(page.el.textContent).not.toContain('\u2014');
+  });
+
   it('carries the strange-shape answer and the tiebreaks', () => {
     const page = createFaqPage({ page: 'faq', question: null });
     const strange = page.el.querySelector('#strv-faq-strange')!;

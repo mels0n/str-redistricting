@@ -26,6 +26,12 @@ export function congressName(source: string): string {
   return n === null ? 'enacted' : `${ordinal(n)} Congress`;
 }
 
+/** The enacted districts in the key and the compare box: "119th Congress districts", or "Current State Senate districts". */
+export function enactedDistrictsName(chamber: 'federal-house' | 'state-house' | 'state-senate', source: string): string {
+  if (chamber === 'federal-house') return `${congressName(source)} districts`;
+  return `Current ${chamber === 'state-senate' ? 'State Senate' : 'State House'} districts`;
+}
+
 /** "census-2020" -> "2020 Census"; any other id is shown as it is. */
 export function censusLabel(vintage: string): string {
   const m = /^census-(\d{4})$/.exec(vintage);

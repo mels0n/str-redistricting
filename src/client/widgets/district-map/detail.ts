@@ -1,6 +1,6 @@
 import { addProtocol, type ExpressionSpecification, type VectorSourceSpecification, type FilterSpecification, type LayerSpecification, type Map as MlMap } from 'maplibre-gl';
 import { Protocol } from 'pmtiles';
-import { tokens, dataUrl, WATER_VEIL } from '../../shared';
+import { tokens, dataUrl, WATER_VEIL, chamberDataPath, type Chamber } from '../../shared';
 import type { Plan } from '../../shared';
 
 /**
@@ -97,8 +97,8 @@ export function selFillVisibility(shown: boolean, replay: boolean): 'visible' | 
   return shown && !replay ? 'visible' : 'none';
 }
 
-export function detailUrl(abbr: string): string {
-  return `pmtiles://${dataUrl(`${abbr}/detail.pmtiles`)}`;
+export function detailUrl(abbr: string, chamber: Chamber = 'federal-house'): string {
+  return `pmtiles://${dataUrl(`${chamberDataPath(abbr, chamber)}/detail.pmtiles`)}`;
 }
 
 /**
@@ -106,10 +106,10 @@ export function detailUrl(abbr: string): string {
  * them to the real world, which drops Alaska's tiles west of -180 (the Aleutians, drawn on the far world copy).
  * The zoom range is the tileset's own (7 to 13).
  */
-export function detailSource(abbr: string): VectorSourceSpecification {
+export function detailSource(abbr: string, chamber: Chamber = 'federal-house'): VectorSourceSpecification {
   return {
     type: 'vector',
-    tiles: [`${detailUrl(abbr)}/{z}/{x}/{y}`],
+    tiles: [`${detailUrl(abbr, chamber)}/{z}/{x}/{y}`],
     // Must match TILE_MINZOOM and TILE_MAXZOOM in src/server/features/publish/tiles.ts (a test checks it).
     minzoom: 7,
     maxzoom: 13,

@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import type { MultiPolygon } from 'geojson';
-import { dataUrl, fetchJson, DataShapeError, bboxOf, labelPoint, type LonLat } from '../../shared';
+import { dataUrl, fetchJson, DataShapeError, bboxOf, labelPoint, chamberDataPath, type Chamber, type LonLat } from '../../shared';
 import type { Stats } from './model';
 import { populationsAfter, type BalanceMove } from './replay';
 
@@ -51,10 +51,11 @@ const logs = new Map<string, Promise<BalanceLog>>();
  * checked against the state's numbers: it must start from the populations
  * before balancing and end on the finished map's populations.
  */
-export function loadBalance(abbr: string, stats: Stats): Promise<BalanceLog> {
-  let p = logs.get(abbr);
+export function loadBalance(abbr: string, stats: Stats, chamber: Chamber = 'federal-house'): Promise<BalanceLog> {
+  const dir = chamberDataPath(abbr, chamber);
+  let p = logs.get(dir);
   if (!p) {
-    const url = dataUrl(`${abbr}/balance.json`);
+    const url = dataUrl(`${dir}/balance.json`);
     p = fetchJson(url, BalanceSchema).then((raw) => {
       const moves = [...raw.moves].sort((a, b) => a.order - b.order);
       checkLog(url, raw.before, moves, stats);
@@ -72,8 +73,8 @@ export function loadBalance(abbr: string, stats: Stats): Promise<BalanceLog> {
       }
       return { before: raw.before, moves, blocks, blockByGeoid };
     });
-    p.catch(() => logs.delete(abbr));
-    logs.set(abbr, p);
+    p.catch(() => logs.delete(dir));
+    logs.set(dir, p);
   }
   return p;
 }

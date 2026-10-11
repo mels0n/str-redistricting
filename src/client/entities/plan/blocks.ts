@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { dataUrl, fetchJson } from '../../shared';
+import { dataUrl, fetchJson, chamberDataPath, type Chamber } from '../../shared';
 import type { PlanDistricts } from './locate';
 
 const District = z.number().int().min(1);
@@ -36,12 +36,13 @@ export function districtsForBlock(blocks: Blocks, geoid: string): PlanDistricts 
 const cache = new Map<string, Promise<Blocks>>();
 
 /** Loads a state's block lookup once; a failed load is forgotten so a retry fetches again. */
-export function loadBlocks(abbr: string): Promise<Blocks> {
-  let p = cache.get(abbr);
+export function loadBlocks(abbr: string, chamber: Chamber = 'federal-house'): Promise<Blocks> {
+  const dir = chamberDataPath(abbr, chamber);
+  let p = cache.get(dir);
   if (!p) {
-    p = fetchJson(dataUrl(`${abbr}/blocks.json`), BlocksSchema);
-    p.catch(() => cache.delete(abbr));
-    cache.set(abbr, p);
+    p = fetchJson(dataUrl(`${dir}/blocks.json`), BlocksSchema);
+    p.catch(() => cache.delete(dir));
+    cache.set(dir, p);
   }
   return p;
 }

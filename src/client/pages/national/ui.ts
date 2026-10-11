@@ -1,10 +1,10 @@
-import { h, clear, describeError, setLocated, stateRoute, formatHash, howRoute, type Navigate, type Page } from '../../shared';
+import { h, clear, describeError, setLocated, stateRoute, formatHash, howRoute, type Chamber, type Navigate, type Page } from '../../shared';
 import { loadIndex, loadOutlines } from '../../entities/state';
 import { createAddressSearch, describeResolution, resolveAddress } from '../../features/address-search';
 import { createUsMap, type UsMap } from '../../widgets/us-map';
 import { createStateIndex } from '../../widgets/state-index';
 
-export function createNationalPage(nav: Navigate): Page {
+export function createNationalPage(nav: Navigate, chamber: Chamber = 'federal-house'): Page {
   const h1 = h(
     'h1',
     { class: 'strv-national__h1', tabindex: -1 },
@@ -45,7 +45,7 @@ export function createNationalPage(nav: Navigate): Page {
       if (where.kind === 'here') return undefined;
       if (where.kind === 'open') {
         setLocated({ state: where.state.abbr, lonLat: result.lonLat, matchedAddress: result.matchedAddress, ...(result.block !== null && { block: result.block }) });
-        nav(stateRoute(where.state.abbr));
+        nav(stateRoute(where.state.abbr, { chamber }));
       }
       return describeResolution(where, result);
     },
@@ -87,10 +87,10 @@ export function createNationalPage(nav: Navigate): Page {
         clear(mapSlot);
         mapSlot.removeAttribute('aria-busy');
         usMap?.destroy();
-        usMap = createUsMap({ outlines, index });
+        usMap = createUsMap({ outlines, index, chamber });
         mapSlot.append(usMap.el);
         clear(indexSlot);
-        indexSlot.append(createStateIndex(index));
+        indexSlot.append(createStateIndex(index, chamber));
       })
       .catch((err: unknown) => {
         if (!alive) return;

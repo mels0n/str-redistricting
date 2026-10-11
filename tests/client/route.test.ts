@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { fitRouteToState, describeRouteIssue, faqRoute, formatHash, howRoute, CHANGELOG, parseHash, stateRoute, NATIONAL } from '../../src/client/shared/lib/route';
+import { chamberDataPath } from '../../src/client/shared/lib/chamber';
+import { fitRouteToState, nationalRoute, describeRouteIssue, faqRoute, formatHash, howRoute, CHANGELOG, parseHash, stateRoute, NATIONAL } from '../../src/client/shared/lib/route';
 
 describe('hash routes', () => {
   it('parses the national index', () => {
@@ -15,6 +16,31 @@ describe('hash routes', () => {
     expect(parseHash('#/CO/d/3/cut/4?plan=before&compare=enacted')).toEqual(
       stateRoute('CO', { district: 3, cut: 4, plan: 'before', enacted: true }),
     );
+  });
+
+  it('reads the chamber segment, and every older link stays federal', () => {
+    expect(parseHash('#/CO/senate/d/12')).toEqual(stateRoute('CO', { chamber: 'state-senate', district: 12 }));
+    expect(formatHash(parseHash('#/CO/senate/d/12'))).toBe('#/CO/senate/d/12');
+    expect(parseHash('#/house')).toEqual(nationalRoute('state-house'));
+    expect(parseHash('#/senate')).toEqual(nationalRoute('state-senate'));
+    expect(formatHash(nationalRoute('state-house'))).toBe('#/house');
+    expect(parseHash('#/CO/d/3?compare=enacted')).toEqual(stateRoute('CO', { district: 3, enacted: true }));
+    expect(formatHash(stateRoute('CO', { chamber: 'state-house', cut: 4, plan: 'before' }))).toBe('#/CO/house/cut/4?plan=before');
+    for (const chamber of ['state-house', 'state-senate'] as const) {
+      for (const r of [stateRoute('NE', { chamber }), stateRoute('TX', { chamber, move: 9 }), stateRoute('CO', { chamber, district: 2, enacted: true })]) {
+        expect(parseHash(formatHash(r))).toEqual(r);
+      }
+    }
+    // Every hash that existed before chambers formats back to itself.
+    for (const h of ['#/', '#/CO', '#/CO/d/3', '#/TX/cut/0', '#/CO/balance/12', '#/CO/d/3/cut/4?plan=before&compare=enacted', '#/CO/d/3?compare=enacted', '#/how', '#/faq/ties', '#/changelog']) {
+      expect(formatHash(parseHash(h))).toBe(h);
+    }
+  });
+
+  it('names where a chamber keeps its files', () => {
+    expect(chamberDataPath('CO', 'federal-house')).toBe('CO');
+    expect(chamberDataPath('CO', 'state-house')).toBe('CO/state-house');
+    expect(chamberDataPath('CO', 'state-senate')).toBe('CO/state-senate');
   });
 
   it('ignores invalid numbers', () => {

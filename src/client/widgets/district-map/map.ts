@@ -565,8 +565,8 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
       });
     }
     registerPmtiles();
-    map.addSource(DETAIL_SOURCE, detailSource(bundle.abbr));
-    if (hasBlocks) map.addSource(BLOCKS_SOURCE, blocksSource(bundle.abbr));
+    map.addSource(DETAIL_SOURCE, detailSource(bundle.abbr, bundle.chamber));
+    if (hasBlocks) map.addSource(BLOCKS_SOURCE, blocksSource(bundle.abbr, bundle.chamber));
     map.addSource('water', { type: 'geojson', data: bundle.water ?? { type: 'FeatureCollection', features: [] } });
     map.addSource('borders', { type: 'geojson', data: asFeature(EMPTY_LINES) });
     map.addSource('outline', { type: 'geojson', data: asFeature(bundle.finished.outline) });

@@ -10,6 +10,7 @@ const TITLES: Record<FaqQuestion, string> = {
   current: 'Is this my district today?',
   water: 'Why does a district cross water, or show dashed lines?',
   'one-seat': 'Why does my state have only one district, and where is D.C.?',
+  'state-laws': 'Why don’t these maps follow my state’s redistricting laws?',
   check: 'How can I check a map myself?',
   terms: 'What do the other terms mean?',
 };
@@ -86,6 +87,11 @@ const ANSWERS: Record<FaqQuestion, () => HTMLElement[]> = {
   'one-seat': () => [
     p('Each state gets the number of House seats from the 2020 apportionment. A state with one seat is one district covering the whole state, so there is nothing to cut.'),
     p('Washington, D.C. and the U.S. territories elect non-voting delegates to the House, so they have no districts to draw.'),
+  ],
+  'state-laws': () => [
+    p('Every map on this site, Federal House, State House and State Senate, is drawn by the same rule. We ignore requirements that individual states add on top, such as building senate districts out of whole house districts or keeping particular counties and towns together.'),
+    p('Those requirements were written by people with a stake in how the lines fall, and each one is another place where judgment can tilt a map. A single rule applied the same way everywhere leaves no such place, so we recommend that states adopt this method in place of their own rules.'),
+    p('We do keep one thing from each state: the number of districts. Each chamber gets the same number of districts it has today, and every district holds an equal share of the people.'),
   ],
   check: () => [
     p('Every map has a fingerprint, a 64-character code worked out from the file that lists every block and its district. It is printed under “Check this map” on each state’s page. Change one block and the code changes completely.'),

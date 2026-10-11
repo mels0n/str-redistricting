@@ -7,8 +7,10 @@ import {
   fitRouteToState,
   formatHash,
   formatInt,
-  congressName,
   districtCount,
+  chamberLabel,
+  enactedDistrictsName,
+  nationalRoute,
   toStateFrame,
   formatPeople,
   getLocated,
@@ -29,7 +31,7 @@ import {
   type StateRoute,
   type LonLat,
 } from '../../shared';
-import { loadIndex, loadOutlines, findState, isGenerated, type GeneratedState } from '../../entities/state';
+import { loadIndex, loadOutlines, findState, chamberView, type GeneratedState } from '../../entities/state';
 import {
   loadStateBundle,
   loadEnacted,
@@ -90,7 +92,7 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
   let blocks: Blocks | null = null;
 
   const h1 = h('h1', { class: 'strv-state__h1', tabindex: -1 }, initial.abbr);
-  const back = h('a', { href: formatHash(NATIONAL), class: 'strv-back' }, iconArrowLeft(), 'All states');
+  const back = h('a', { href: formatHash(nationalRoute(initial.chamber)), class: 'strv-back' }, iconArrowLeft(), 'All states');
   const howLink = h('a', { href: formatHash(howRoute()), class: 'strv-back strv-state__how' }, 'How it works');
   const meta = h('dl', { class: 'strv-state__meta' });
   const share = createShareButton();
@@ -249,9 +251,20 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
         'div',
         { class: 'strv-empty' },
         h('p', { class: 'strv-empty__big' }, `The map for ${name} has not been generated.`),
-        h('p', null, h('a', { href: formatHash(NATIONAL) }, 'Choose another state')),
+        h('p', null, h('a', { href: formatHash(nationalRoute(route.chamber)) }, 'Choose another state')),
       ),
     );
+  }
+
+  /** A state chamber with no map to show: the state has no such chamber, or its map is not drawn yet. */
+  function showChamberEmpty(name: string, big: string, link: { href: string; text: string }): void {
+    share.set(null);
+    h1.textContent = name;
+    document.title = `${name}: ${chamberLabel(route.chamber)} | Fair Maps`;
+    el.dataset.empty = 'true';
+    clear(mapEl);
+    mapEl.removeAttribute('aria-busy');
+    mapEl.append(h('div', { class: 'strv-empty' }, h('p', { class: 'strv-empty__big' }, big), h('p', null, h('a', { href: link.href }, link.text))));
   }
 
   /** Empty slots with the same shape as the real row, so the header does not change height when the numbers arrive. */
@@ -300,15 +313,37 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
       return;
     }
     stateName = entry.name;
-    if (!isGenerated(entry)) {
+    const chamber = route.chamber;
+    const view = chamberView(entry, chamber);
+    if (chamber !== 'federal-house') {
+      const other = chamber === 'state-house' ? 'state-senate' : 'state-house';
+      // An index that lists chambers and gives this one no districts: the state does not have it (Nebraska's legislature has one).
+      if (entry.chambers !== undefined && view.seats === 0) {
+        const have = chamberView(entry, other).seats > 0;
+        const word = (c: typeof chamber): string => chamberLabel(c).replace('State ', '');
+        showChamberEmpty(
+          entry.name,
+          have ? `${entry.name} has one legislative chamber, its ${word(other)}. There is no ${chamberLabel(chamber)} to draw.` : `${entry.name} has no ${chamberLabel(chamber)} to draw.`,
+          have ? { href: formatHash(stateRoute(entry.abbr, { chamber: other })), text: `See the ${chamberLabel(other)} map` } : { href: formatHash(stateRoute(entry.abbr)), text: 'See the Federal House map' },
+        );
+        return;
+      }
+      if (!view.hasData || view.summary === undefined) {
+        showChamberEmpty(entry.name, `${chamberLabel(chamber)} maps for ${entry.name} are not drawn yet.`, { href: formatHash(stateRoute(entry.abbr)), text: 'See the Federal House map' });
+        return;
+      }
+    } else if (!view.hasData || view.summary === undefined) {
       showNotGenerated(entry.name);
       return;
     }
+    // The entry as this chamber sees it: its district count and summary.
+    const shown: GeneratedState = { ...entry, seats: view.seats, hasData: true, summary: view.summary! };
     h1.textContent = entry.name;
-    share.set({ abbr: entry.abbr, name: entry.name, seats: entry.seats, chamber: 'federal-house' });
-    mapEl.setAttribute('aria-label', `Map of ${entry.name}’s ${districtCount(entry.seats)}. Every district is also listed in the Districts table.`);
-    setMeta(entry);
-    document.title = `${entry.name}: ${districtCount(entry.seats)} | Fair Maps`;
+    share.set({ abbr: entry.abbr, name: entry.name, seats: shown.seats, chamber });
+    const which = chamber === 'federal-house' ? '' : ` for the ${chamberLabel(chamber)}`;
+    mapEl.setAttribute('aria-label', `Map of ${entry.name}’s ${districtCount(shown.seats)}${which}. Every district is also listed in the Districts table.`);
+    setMeta(shown);
+    document.title = chamber === 'federal-house' ? `${entry.name}: ${districtCount(shown.seats)} | Fair Maps` : `${entry.name} ${chamberLabel(chamber)}: ${districtCount(shown.seats)} | Fair Maps`;
     clear(mapEl);
     const loadingState = h('p', { class: 'strv-loading', tabindex: -1 }, `Loading the map of ${entry.name}…`);
     mapEl.append(loadingState);
@@ -317,7 +352,7 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
     let bundle: StateBundle;
     let outlines;
     try {
-      [bundle, outlines] = await Promise.all([loadStateBundle(entry.abbr), loadOutlines()]);
+      [bundle, outlines] = await Promise.all([loadStateBundle(entry.abbr, chamber), loadOutlines()]);
     } catch (err) {
       if (alive) showError(err, { retry });
       return;
@@ -327,7 +362,7 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
       // What the panel holds before build adds to it, so a failed build is trimmed back to exactly that.
       const panelBase = panel.childElementCount;
       try {
-        build(entry, bundle, index);
+        build(shown, bundle, index);
         built = true;
       } catch (err) {
         unbuild(panelBase);
@@ -398,6 +433,7 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
     const proof = createProofPanel();
     options = createPlanOptions({
       enactedSource: bundle.stats.enactedSource,
+      chamber: bundle.chamber,
       onPlan: (plan) => go({ plan }),
       onEnacted: (on) => go({ enacted: on }),
     });
@@ -420,7 +456,7 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
     const needBalance = (): void => {
       if (balance.status !== 'idle') return;
       balance = { status: 'loading' };
-      loadBalance(entry.abbr, bundle.stats)
+      loadBalance(entry.abbr, bundle.stats, bundle.chamber)
         .then((log) => {
           balance = { status: 'ready', log };
         })
@@ -448,7 +484,7 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
         if (where.kind !== 'here') {
           if (where.kind === 'open') {
             setLocated({ state: where.state.abbr, lonLat: result.lonLat, matchedAddress: result.matchedAddress, ...(result.block !== null && { block: result.block }) });
-            nav(stateRoute(where.state.abbr));
+            nav(stateRoute(where.state.abbr, { chamber: bundle.chamber }));
           }
           return describeResolution(where, result);
         }
@@ -465,7 +501,7 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
           return `${result.matchedAddress} is in District ${here}.`;
         };
         if (result.block === null || blocks) return finish();
-        return finishWhenLoaded(loadBlocks(entry.abbr), {
+        return finishWhenLoaded(loadBlocks(entry.abbr, bundle.chamber), {
           alive: () => alive,
           setBlocks: (b) => {
             blocks = b;
@@ -534,7 +570,7 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
       const shapeAnswer = locatedDistrict();
       // Near a border the exact district differs from the shape answer already selected; follow it unless the visitor moved on.
       void afterArrivalLoad({
-        load: loadBlocks(entry.abbr),
+        load: loadBlocks(entry.abbr, bundle.chamber),
         alive: () => alive,
         setBlocks: (b) => {
           blocks = b;
@@ -628,7 +664,7 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
       }
       if (plan !== proofKey) {
         proofKey = plan;
-        proof.update({ metrics: planStats.metrics, plan, abbr: entry.abbr, versions: bundle.stats.versions });
+        proof.update({ metrics: planStats.metrics, plan, abbr: entry.abbr, chamber: bundle.chamber, versions: bundle.stats.versions });
       }
       options!.update({
         plan: route.plan,
@@ -651,7 +687,7 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
         cutMode ? h('span', { class: 'strv-legend__item' }, sample('strv-legend__cut'), 'Newest cut') : null,
         cutMode ? h('span', { class: 'strv-legend__item' }, sample('strv-legend__past'), 'Earlier cuts') : null,
         balanceMode && (route.move ?? 0) > 0 ? h('span', { class: 'strv-legend__item' }, sample('strv-legend__move'), 'Block moved') : null,
-        route.enacted ? h('span', { class: 'strv-legend__item' }, sample('strv-legend__dash'), `${congressName(bundle.stats.enactedSource)} districts`) : null,
+        route.enacted ? h('span', { class: 'strv-legend__item' }, sample('strv-legend__dash'), enactedDistrictsName(bundle.chamber, bundle.stats.enactedSource)) : null,
       ];
       legendList.append(...legendItems.filter((x): x is HTMLElement => x !== null));
 
@@ -659,7 +695,7 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
       else if (!enacted && !enactedFailed && !enactedLoading) {
         // One attempt at a time; after a failure the visitor unchecks and checks the box to try again.
         enactedLoading = true;
-        loadEnacted(entry.abbr)
+        loadEnacted(entry.abbr, bundle.chamber)
           .then((e) => {
             enacted = e;
           })
@@ -709,7 +745,7 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
     el,
     focusTarget: () => h1,
     update(next) {
-      if (next.page !== 'state' || next.abbr !== route.abbr) return false;
+      if (next.page !== 'state' || next.abbr !== route.abbr || next.chamber !== route.chamber) return false;
       route = fitRoute(next);
       // A notice about a bad link goes away once the visitor moves on.
       if (formatHash(route) !== noticeHash) setNotice(null);

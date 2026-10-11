@@ -124,7 +124,7 @@ jobs:
             exit 0
           fi
           unexpected=$(git status --porcelain --untracked-files=all | cut -c4- \
-            | grep -Ev '^(config/(enacted|census-sha256|versions)\.json|changelog/(input|maps)\.md|public/data/(index|versions)\.json|public/data/[A-Z]{2}/(enacted\.topo|stats)\.json)$' || true)
+            | grep -Ev '^(config/(enacted|census-sha256|versions)\.json|changelog/(input|maps)\.md|public/data/(index|versions)\.json|public/data/[A-Z]{2}/(state-(house|senate)/)?(enacted\.topo|stats)\.json)$' || true)
           if [ -n "$unexpected" ]; then
             echo "::error::The update touched files it should not have:"
             echo "$unexpected"
@@ -166,6 +166,10 @@ jobs:
             public/data/versions.json
             public/data/*/enacted.topo.json
             public/data/*/stats.json
+            public/data/*/state-house/enacted.topo.json
+            public/data/*/state-house/stats.json
+            public/data/*/state-senate/enacted.topo.json
+            public/data/*/state-senate/stats.json
 
   open-pr:
     needs: build
@@ -202,7 +206,7 @@ jobs:
             echo "::error::Unexpected source address: $URL"
             exit 1
           fi
-          allowed='^(config/(enacted|census-sha256|versions)\.json|changelog/(input|maps)\.md|public/data/(index|versions)\.json|public/data/[A-Z]{2}/(enacted\.topo|stats)\.json)$'
+          allowed='^(config/(enacted|census-sha256|versions)\.json|changelog/(input|maps)\.md|public/data/(index|versions)\.json|public/data/[A-Z]{2}/(state-(house|senate)/)?(enacted\.topo|stats)\.json)$'
           dir="$ARTIFACT"
           files=()
           while IFS= read -r -d '' entry; do
@@ -299,11 +303,12 @@ jobs:
 
   # The same two-job shape for a new State House and State Senate vintage. It runs after the congressional jobs and
   # has its own branch (auto/legislative-<vintage>), pull request and artifact, so the two updates never mix. Its
-  # allowlist is the congressional one plus the files only this update changes.
+  # allowlist is the congressional one plus the files only this update changes (a bump restamps all three chambers, so each allowlist spans them).
   build-legislative:
     needs: [build, open-pr]
-    # The congressional jobs may have nothing to do (open-pr skipped); only a cancelled run stops this one.
-    if: ${{ !cancelled() }}
+    # Runs only when the congressional build found nothing to change (open-pr skipped), so the two updates never bump
+    # the same config and published files in one run. A failed or cancelled congressional build stops it too.
+    if: ${{ needs.build.result == 'success' && needs.build.outputs.changed != 'true' }}
     runs-on: ubuntu-latest
     timeout-minutes: 60
     permissions:
@@ -383,7 +388,7 @@ jobs:
             exit 0
           fi
           unexpected=$(git status --porcelain --untracked-files=all | cut -c4- \
-            | grep -Ev '^(config/(enacted|census-sha256|census-sources|legislative-districts|versions)\.json|changelog/(input|maps)\.md|public/data/(index|versions)\.json|public/data/[A-Z]{2}/state-(house|senate)/(enacted\.topo|stats)\.json)$' || true)
+            | grep -Ev '^(config/(enacted|census-sha256|census-sources|legislative-districts|versions)\.json|changelog/(input|maps)\.md|public/data/(index|versions)\.json|public/data/[A-Z]{2}/(state-(house|senate)/)?(enacted\.topo|stats)\.json)$' || true)
           if [ -n "$unexpected" ]; then
             echo "::error::The update touched files it should not have:"
             echo "$unexpected"
@@ -425,6 +430,8 @@ jobs:
             changelog/maps.md
             public/data/index.json
             public/data/versions.json
+            public/data/*/enacted.topo.json
+            public/data/*/stats.json
             public/data/*/state-house/enacted.topo.json
             public/data/*/state-house/stats.json
             public/data/*/state-senate/enacted.topo.json
@@ -432,7 +439,7 @@ jobs:
 
   open-pr-legislative:
     needs: build-legislative
-    if: ${{ !cancelled() && needs.build-legislative.outputs.changed == 'true' }}
+    if: ${{ needs.build-legislative.result == 'success' && needs.build-legislative.outputs.changed == 'true' }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
@@ -460,7 +467,7 @@ jobs:
             echo "::error::Unexpected vintage: $VINTAGE"
             exit 1
           fi
-          allowed='^(config/(enacted|census-sha256|census-sources|legislative-districts|versions)\.json|changelog/(input|maps)\.md|public/data/(index|versions)\.json|public/data/[A-Z]{2}/state-(house|senate)/(enacted\.topo|stats)\.json)$'
+          allowed='^(config/(enacted|census-sha256|census-sources|legislative-districts|versions)\.json|changelog/(input|maps)\.md|public/data/(index|versions)\.json|public/data/[A-Z]{2}/(state-(house|senate)/)?(enacted\.topo|stats)\.json)$'
           dir="$ARTIFACT"
           files=()
           while IFS= read -r -d '' entry; do
@@ -540,7 +547,7 @@ jobs:
             echo "The Census Bureau has published the ${VINTAGE} State House and State Senate boundary files. This adopts them: every file is pinned in \`config/census-sha256.json\` by its SHA-256, the district counts in \`config/legislative-districts.json\` are recounted from them, and the dashed comparison overlays of the State House and State Senate maps are rebuilt. The input revision and maps release in \`config/versions.json\` moved up by one, with entries in \`changelog/input.md\` and \`changelog/maps.md\`."
             echo
             if [ -n "$redraw" ]; then
-              echo "These states have a different number of districts than before. Their maps need a redraw (\`explore\` then \`publish-data\` for each) after this is merged, and the publish gate refuses their stale maps until then:"
+              echo "These states have a different number of districts than before. Their maps keep the old stamp until they are redrawn (\`explore\` then \`publish-data\` for each, after this is merged); the dataset-wide versions file does not move until then:"
               echo
               echo "$redraw"
             else

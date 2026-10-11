@@ -84,7 +84,7 @@ const PublishedStatsSchema = z.object({
  */
 const GateStatsSchema = z.looseObject({
   versions: PublishedStampSchema.optional(),
-  finished: z.looseObject({ metrics: z.looseObject({ assignmentSha256: z.string(), inputSha256: z.string() }) }),
+  finished: z.looseObject({ metrics: z.looseObject({ assignmentSha256: z.string(), inputSha256: z.string(), seats: z.number().int().optional() }) }),
   beforeBalancing: z.looseObject({ metrics: z.looseObject({ assignmentSha256: z.string() }) }).optional(),
 });
 
@@ -264,6 +264,7 @@ async function readPublishedState(statsPath: string): Promise<PublishedPlan | nu
     sha: finished.metrics.assignmentSha256,
     beforeSha: beforeBalancing?.metrics.assignmentSha256,
     inputSha256: finished.metrics.inputSha256,
+    seats: finished.metrics.seats,
   };
 }
 
@@ -300,13 +301,38 @@ function selectPublished(cfg: PublishConfig): StateInfo[] {
   return requested;
 }
 
-const EnactedStatsSchema = z.looseObject({ enactedSource: z.string(), versions: PublishedStampSchema.optional() });
+const EnactedStatsSchema = z.looseObject({
+  enactedSource: z.string(),
+  versions: PublishedStampSchema.optional(),
+  finished: z.looseObject({ metrics: z.looseObject({ seats: z.number().int().optional() }) }).optional(),
+});
+
+const StampOnlySchema = z.looseObject({ versions: PublishedStampSchema.optional() });
+
+/** The stamp of every published map in every chamber, named by its folder. */
+async function publishedStamps(publicDir: string): Promise<{ abbr: string; versions?: VersionStamp }[]> {
+  const published: { abbr: string; versions?: VersionStamp }[] = [];
+  for (const s of STATES) {
+    for (const c of ['federal-house', ...STATE_CHAMBERS] as const) {
+      const path = join(publicDir, planDir(s.abbr, c), 'stats.json');
+      if (!existsSync(path)) continue;
+      // Only the stamp is read, so data published under an older layout still counts.
+      const parsed = StampOnlySchema.safeParse(await readJson(path));
+      if (!parsed.success) throw new DataError(`${path}: ${parsed.error.issues.map((i) => `${i.path.join('.')} ${i.message}`).join('; ')}`);
+      published.push({ abbr: planDir(s.abbr, c), ...(parsed.data.versions ? { versions: parsed.data.versions } : {}) });
+    }
+  }
+  return published;
+}
 
 /**
  * Rebuild only what depends on the enacted-districts file, from the files already published: each state's
  * `enacted.topo.json` and the `enactedSource` in its `stats.json`. It needs no generated plans, and writes a file
  * only when its bytes change, so a run against the file the data was built from touches nothing. The index and
- * every other file are left alone: none of them depends on the enacted districts.
+ * every other file are left alone: none of them depends on the enacted districts. A chamber is run at a time
+ * (`--chamber`); an update that touches every chamber runs all three. A chamber whose published district count is not
+ * the current Census count keeps its old stamp (its map needs a redraw), and the dataset-wide versions file moves
+ * only when no published map in any chamber still carries an older stamp.
  */
 export async function publishEnactedOnly(cfg: PublishConfig): Promise<void> {
   const selected = selectPublished(cfg);
@@ -329,15 +355,23 @@ export async function publishEnactedOnly(cfg: PublishConfig): Promise<void> {
     const changed = [await writeIfChanged(join(b.dir, 'enacted.topo.json'), b.topo)];
     // Parsing keeps key order, and the file is written with JSON.stringify, so only these values can change. The
     // assignments are untouched, so no gate: a stamped state takes the current maps release and input revision.
-    const stamped = b.stats.versions !== undefined;
+    const stale = b.stats.finished?.metrics.seats !== undefined && b.stats.finished.metrics.seats !== b.state.seats;
+    if (stale) console.log(`  ${b.state.abbr}: published with ${String(b.stats.finished?.metrics.seats)} districts, the Census count is ${b.state.seats}; needs redraw, stamp kept`);
+    const stamped = b.stats.versions !== undefined && !stale;
     changed.push(await writeIfChanged(b.statsPath, JSON.stringify({ ...b.stats, enactedSource: b.enacted.source, ...(stamped ? { versions: restamped(b.stats.versions!, stamp) } : {}) })));
     console.log(`  ${b.state.abbr}: ${changed.some(Boolean) ? 'updated' : 'unchanged'}`);
   }
-  const stampedStates = built.filter((b) => b.stats.versions !== undefined);
+  const stampedStates = built.filter((b) => b.stats.versions !== undefined && !(b.stats.finished?.metrics.seats !== undefined && b.stats.finished.metrics.seats !== b.state.seats));
   if (stampedStates.length > 0) {
     await restampIndex(join(cfg.publicDir, 'index.json'), cfg.chamber, new Map(stampedStates.map((b) => [b.state.abbr, restamped(b.stats.versions!, stamp)])));
-    await writeIfChanged(join(cfg.publicDir, 'versions.json'), formatVersions(await restampedVersions(join(cfg.publicDir, 'versions.json'))));
   }
+  // The versions file speaks for every published map in every chamber, so it moves only when none carries an older stamp.
+  const published = await publishedStamps(cfg.publicDir);
+  // No map was regenerated, so a stamp is current when its maps release and input match; engine and schema stay as drawn.
+  const olderStamps = staleStamps(published.map((p) => (p.versions ? { abbr: p.abbr, versions: { ...p.versions, engine: stamp.engine, schema: stamp.schema } } : p)), stamp);
+  if (published.length > 0 && olderStamps.length === 0) {
+    await writeIfChanged(join(cfg.publicDir, 'versions.json'), formatVersions(await restampedVersions(join(cfg.publicDir, 'versions.json'))));
+  } else if (olderStamps.length > 0) console.log(`versions.json kept: ${olderStamps.join(', ')} still carry an older stamp`);
 }
 
 /**
@@ -460,7 +494,7 @@ export async function publishData(cfg: PublishConfig, { planStale, preRelease = 
   for (const s of selected) {
     const { finished, before } = await readCheckedPlans(s, cfg.outDir, cfg.chamber);
     checked.set(s.abbr, { finished, before });
-    const next = { versions, sha: finished.assignmentSha256, beforeSha: before.assignmentSha256, inputSha256: finished.inputSha256 };
+    const next = { versions, sha: finished.assignmentSha256, beforeSha: before.assignmentSha256, inputSha256: finished.inputSha256, seats: finished.seats };
     checkPublishGate(await readPublishedState(join(cfg.publicDir, planDir(s.abbr, cfg.chamber), 'stats.json')), next, cfg.baseline, cfg.chamber === 'federal-house' ? s.abbr : `${s.abbr} ${cfg.chamber}`, preRelease);
   }
   await mkdir(cfg.publicDir, { recursive: true });
@@ -486,14 +520,7 @@ export async function publishData(cfg: PublishConfig, { planStale, preRelease = 
   await write(join(cfg.publicDir, 'index.json'), JSON.stringify(buildIndex(STATES, await publishedSummaries(cfg.publicDir), chambers)));
   // The versions file speaks for the whole published dataset, so it moves to the current versions only when every
   // published state now carries the current stamp; after a partial run that left older stamps it stays as it was.
-  const published: { abbr: string; versions?: VersionStamp }[] = [];
-  for (const s of STATES) {
-    for (const c of ['federal-house', ...STATE_CHAMBERS] as const) {
-      const state = await readPublishedState(join(cfg.publicDir, planDir(s.abbr, c), 'stats.json'));
-      if (state !== null) published.push({ abbr: planDir(s.abbr, c), ...(state.versions ? { versions: state.versions } : {}) });
-    }
-  }
-  const stale = staleStamps(published, versions);
+  const stale = staleStamps(await publishedStamps(cfg.publicDir), versions);
   if (stale.length === 0) await write(join(cfg.publicDir, 'versions.json'), formatVersions(VERSIONS));
   else console.log(`versions.json kept: ${stale.join(', ')} still carry an older stamp`);
 }

@@ -3,7 +3,7 @@ import { existsSync } from 'node:fs';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { applyBump, applyLegislativeBump, checkCoverage, planVersionBump, redrawLines } from '../features/enacted/index.js';
+import { applyBump, applyLegislativeBump, checkCoverage, checkNoChamberLost, planVersionBump, redrawLines } from '../features/enacted/index.js';
 import { boundaryUrl, parseCdRecord, readBoundaryZip } from '../features/publish/index.js';
 import {
   formatVersions, inputSha256Of, LegislativeDistrictsSchema, parseEnactedBumpConfig, VersionsSchema,
@@ -32,7 +32,8 @@ async function prependChangelog(path: string, title: string, version: string, li
 async function bumpVersions(configDir: string, inputLines: readonly string[], mapsLines: readonly string[]): Promise<void> {
   const versionsPath = join(configDir, VERSIONS_JSON);
   const current = VersionsSchema.parse(JSON.parse(await readFile(versionsPath, 'utf8')) as unknown);
-  const sha = inputSha256Of(await readFile(join(configDir, 'census-sha256.json'), 'utf8'), await readFile(join(configDir, 'enacted.json'), 'utf8'));
+  const read = (name: string): Promise<string> => readFile(join(configDir, name), 'utf8');
+  const sha = inputSha256Of(await read('census-sha256.json'), await read('enacted.json'), await read('legislative-districts.json'));
   if (sha === current.input.sha256) return;
   const next = planVersionBump(current, sha);
   await writeFile(versionsPath, formatVersions(next));
@@ -55,6 +56,16 @@ function publishEnactedOnly(cfg: EnactedBumpConfig, chamber?: string): void {
   }
 }
 
+/**
+ * Every bump moves the input revision and maps release, so every published chamber is restamped, not just the one whose
+ * overlay changed. The versions file moves with the last run, once no chamber carries an older stamp.
+ */
+function publishEnactedAllChambers(cfg: EnactedBumpConfig): void {
+  publishEnactedOnly(cfg);
+  publishEnactedOnly(cfg, 'state-house');
+  publishEnactedOnly(cfg, 'state-senate');
+}
+
 async function bumpFile(cfg: EnactedBumpConfig & { readonly file: string }): Promise<void> {
   const cachePath = join(cfg.cacheDir, `${cfg.file}.zip`);
   const { path, sha256 } = await downloadForPinning(boundaryUrl(cfg.file), cachePath, cfg.file);
@@ -70,7 +81,7 @@ async function bumpFile(cfg: EnactedBumpConfig & { readonly file: string }): Pro
     [`Comparison districts updated to Congress ${plan.config.congress} (${cfg.file}).`],
     [`Comparison districts updated to Congress ${plan.config.congress}. No district lines changed.`],
   );
-  if (!cfg.skipPublish) publishEnactedOnly(cfg);
+  if (!cfg.skipPublish) publishEnactedAllChambers(cfg);
 }
 
 const readCounts = async (configDir: string): Promise<LegislativeDistricts['states']> =>
@@ -88,16 +99,16 @@ async function bumpLegislative(cfg: EnactedBumpConfig & { readonly legislative: 
   const pin = fileURLToPath(new URL('./legislative-pin.ts', import.meta.url));
   const run = spawnSync(process.execPath, ['--import', 'tsx', pin, '--cache-dir', cfg.cacheDir, '--config-dir', cfg.configDir], { stdio: 'inherit' });
   if (run.status !== 0) throw new DataError(`legislative:pin failed (exit ${String(run.status)})`);
-  const redraw = redrawLines(before, await readCounts(cfg.configDir));
+  const after = await readCounts(cfg.configDir);
+  checkNoChamberLost(before, after);
+  const redraw = redrawLines(before, after);
   for (const line of redraw) console.log(line);
   await bumpVersions(
     cfg.configDir,
     [`State House and State Senate districts updated to the ${cfg.legislative} Census files.`, ...redraw],
     [`State House and State Senate comparison districts updated to the ${cfg.legislative} Census files. No district lines changed.`],
   );
-  if (cfg.skipPublish) return;
-  publishEnactedOnly(cfg, 'state-house');
-  publishEnactedOnly(cfg, 'state-senate');
+  if (!cfg.skipPublish) publishEnactedAllChambers(cfg);
 }
 
 const bump = (cfg: EnactedBumpConfig): Promise<void> => ('legislative' in cfg ? bumpLegislative(cfg) : bumpFile(cfg));

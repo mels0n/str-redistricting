@@ -25,6 +25,9 @@ const hashTree = (dir: string): string[] =>
     .map((e) => `${join(e.parentPath, e.name)}:${createHash('sha256').update(readFileSync(join(e.parentPath, e.name))).digest('hex')}`)
     .sort();
 
+// Drawing a real state reads the cached Vermont block file; without it (CI has no cache) the test skips rather than download.
+const haveVT = existsSync('data/raw/tl_2020_50_tabblock20.zip');
+
 describe('explore per chamber', () => {
   it('writes nothing for a state without that chamber (NE has no State House)', () => {
     const out = mkdtempSync(join(tmpdir(), 'explore-chamber-'));
@@ -35,7 +38,7 @@ describe('explore per chamber', () => {
     expect(existsSync(join(out, 'NE'))).toBe(false);
   });
 
-  it('draws a state chamber beside the Federal House without touching its files', { timeout: 600_000 }, () => {
+  it.skipIf(!haveVT)('draws a state chamber beside the Federal House without touching its files', { timeout: 600_000 }, () => {
     const out = mkdtempSync(join(tmpdir(), 'explore-chamber-'));
     dirs.push(out);
     expect(explore(out, 'VT', 'federal-house').status).toBe(0);

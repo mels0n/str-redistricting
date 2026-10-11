@@ -6,7 +6,7 @@ import { countAll, formatCounts, readCountsText, writeCounts } from './legislati
 // config/legislative-districts.json. With `--check` it writes nothing and fails when the file differs from a fresh count.
 async function main(): Promise<void> {
   const cfg = parseLegislativeConfig(process.argv.slice(2));
-  const counts = await countAll(cfg.cacheDir);
+  const counts = await countAll(cfg.cacheDir, cfg.configDir);
   if (cfg.check) {
     if ((await readCountsText(cfg.configDir)) !== formatCounts(counts)) {
       throw new CheckFailedError('config/legislative-districts.json does not match the pinned Census files; run npm run legislative:count');

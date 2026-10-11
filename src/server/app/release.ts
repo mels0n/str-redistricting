@@ -92,7 +92,7 @@ function release(): void {
     engineOutputChanged = !result.ok;
   }
 
-  const inputSha256 = inputSha256Of(readText('config/census-sha256.json'), readText('config/enacted.json'));
+  const inputSha256 = inputSha256Of(readText('config/census-sha256.json'), readText('config/enacted.json'), readText('config/legislative-districts.json'));
   // Published hashes that moved since the last maps release (a republish) need a maps release even with no engine bump.
   const mapsRef = newest.maps;
   // Data stamped with the Maps release that is already declared (the tag's number equals the current one) is covered.

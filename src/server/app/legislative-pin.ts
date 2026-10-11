@@ -4,9 +4,10 @@ import { join } from 'node:path';
 import { isAbsentUpstream, isLegislativeFile, legislativeFileName, legislativeUrl, type LegislativeChamber } from '../entities/legislative-boundary/index.js';
 import { probeSource, SourcesSchema, type Source } from '../features/census-watch/index.js';
 import { STATES } from '../shared/apportionment/index.js';
-import { ENACTED_CONFIG, ManifestSchema, parseLegislativeConfig } from '../shared/config/index.js';
+import { ManifestSchema, parseLegislativeConfig } from '../shared/config/index.js';
 import { exitCodeFor } from '../shared/errors/index.js';
 import { adoptIfAccepted, downloadForPinning } from '../shared/http/index.js';
+import { readLegislativePins } from './legislative.js';
 
 // `legislative:pin` downloads every State House and State Senate file of the configured vintage, pins its hash in
 // config/census-sha256.json, records where it is served in config/census-sources.json, then writes the counts file.
@@ -24,7 +25,7 @@ async function readJson(path: string): Promise<unknown> {
 
 async function main(): Promise<void> {
   const cfg = parseLegislativeConfig(process.argv.slice(2));
-  const vintage = ENACTED_CONFIG.legislative.vintage;
+  const { vintage } = await readLegislativePins(cfg.configDir);
   const manifestPath = join(cfg.configDir, 'census-sha256.json');
   const sourcesPath = join(cfg.configDir, 'census-sources.json');
   const manifest = { ...ManifestSchema.parse(await readJson(manifestPath)) };

@@ -3,18 +3,28 @@ import { join } from 'node:path';
 import { countChamber } from '../entities/legislative-boundary/index.js';
 import { probeSource } from '../features/census-watch/index.js';
 import { STATES } from '../shared/apportionment/index.js';
-import { ENACTED_CONFIG, LegislativeDistrictsSchema, type LegislativeDistricts } from '../shared/config/index.js';
+import { EnactedConfigSchema, LegislativeDistrictsSchema, ManifestSchema, type LegislativeDistricts } from '../shared/config/index.js';
 
 export const COUNTS_FILE = 'legislative-districts.json';
 
-/** The counts for every state, each read from its pinned Census files. */
-export async function countAll(cacheDir: string): Promise<LegislativeDistricts> {
-  const vintage = ENACTED_CONFIG.legislative.vintage;
+const readJson = async (path: string): Promise<unknown> => JSON.parse((await readFile(path, 'utf8')).replace(/^\uFEFF/, '')) as unknown;
+
+/** The legislative vintage and the pinned hashes in `configDir`, not the checked-in config the process booted with. */
+export async function readLegislativePins(configDir: string): Promise<{ vintage: number; manifest: Readonly<Record<string, string>> }> {
+  return {
+    vintage: EnactedConfigSchema.parse(await readJson(join(configDir, 'enacted.json'))).legislative.vintage,
+    manifest: ManifestSchema.parse(await readJson(join(configDir, 'census-sha256.json'))),
+  };
+}
+
+/** The counts for every state, each read from its pinned Census files (the vintage and pins of `configDir`). */
+export async function countAll(cacheDir: string, configDir: string): Promise<LegislativeDistricts> {
+  const { vintage, manifest } = await readLegislativePins(configDir);
   const states: LegislativeDistricts['states'] = {};
   for (const state of STATES) {
     const [house, senate] = await Promise.all([
-      countChamber(state, 'state-house', vintage, cacheDir, probeSource),
-      countChamber(state, 'state-senate', vintage, cacheDir, probeSource),
+      countChamber(state, 'state-house', vintage, cacheDir, probeSource, manifest),
+      countChamber(state, 'state-senate', vintage, cacheDir, probeSource, manifest),
     ]);
     states[state.abbr] = { 'state-house': house, 'state-senate': senate };
   }

@@ -25,6 +25,21 @@ export async function detectLegislative(current: Pick<EnactedConfig, 'legislativ
   return served ? { update: true, vintage } : { update: false, vintage: current.legislative.vintage };
 }
 
+/**
+ * `detectLegislative` for a caller that also reports the congressional result: a failed probe is reported as
+ * `{update: false, error: 'probe failed'}` instead of throwing, so it cannot take the congressional detection down with it.
+ */
+export async function detectLegislativeSafely(
+  current: Pick<EnactedConfig, 'legislative'>,
+  opts: ProbeOptions = {},
+): Promise<LegislativeDetection & { readonly error?: string }> {
+  try {
+    return await detectLegislative(current, opts);
+  } catch {
+    return { update: false, vintage: current.legislative.vintage, error: 'probe failed' };
+  }
+}
+
 /** The enacted config after adopting legislative `vintage`; an equal or older one is refused. */
 export function planLegislativeBump(current: EnactedConfig, vintage: number): EnactedConfig {
   if (vintage <= current.legislative.vintage) {
@@ -46,6 +61,20 @@ export function redrawLines(before: Counts, after: Counts): string[] {
     }
   }
   return lines;
+}
+
+/**
+ * Refuses a vintage in which a chamber that had districts has none: a state does not lose a whole chamber between
+ * releases, so an empty count means the files were read wrongly (a bad download or a changed layout), not a real change.
+ */
+export function checkNoChamberLost(before: Counts, after: Counts): void {
+  for (const abbr of Object.keys(before).sort()) {
+    for (const chamber of CHAMBERS) {
+      const was = before[abbr]?.[chamber] ?? 0;
+      const now = after[abbr]?.[chamber] ?? 0;
+      if (was > 0 && now === 0) throw new DataError(`${abbr} ${chamber}: ${was} districts before, 0 in the new files; refusing the update, check the downloaded files`);
+    }
+  }
 }
 
 /** Read config/enacted.json from `configDir`, adopt legislative `vintage` and write it back. */

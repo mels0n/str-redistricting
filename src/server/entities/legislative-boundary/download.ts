@@ -3,7 +3,7 @@ import { join } from 'node:path';
 import AdmZip from 'adm-zip';
 import * as shapefile from 'shapefile';
 import type { StateInfo } from '../../shared/apportionment/index.js';
-import { CENSUS_SHA256, pinnedSha256 } from '../../shared/config/index.js';
+import { CENSUS_SHA256 } from '../../shared/config/index.js';
 import { DataError, DownloadError } from '../../shared/errors/index.js';
 import { downloadCached, readZipEntry } from '../../shared/http/index.js';
 import { countDistricts, legislativeFileName, legislativeUrl, type LegislativeChamber } from './count.js';
@@ -35,6 +35,7 @@ export async function isAbsentUpstream(url: string, probe: (url: string) => Prom
 /**
  * The number of districts a state's chamber has, counted from its pinned Census file. A chamber with no pinned file
  * counts 0 only when `probe` shows the Census Bureau serves none; a file that exists but is not pinned is an error.
+ * `manifest` is the pin list to read (the checked-in one by default; a command given another config directory passes its own).
  */
 export async function countChamber(
   state: StateInfo,
@@ -42,13 +43,15 @@ export async function countChamber(
   vintage: number,
   cacheDir: string,
   probe: (url: string) => Promise<unknown>,
+  manifest: Readonly<Record<string, string>> = CENSUS_SHA256,
 ): Promise<number> {
   const file = legislativeFileName(state, chamber, vintage);
   const label = `${state.abbr} ${chamber}`;
-  if (!Object.hasOwn(CENSUS_SHA256, `${file}.zip`)) {
+  const pinned = Object.hasOwn(manifest, `${file}.zip`) ? manifest[`${file}.zip`] : undefined;
+  if (pinned === undefined) {
     if (await isAbsentUpstream(legislativeUrl(file), probe)) return 0;
     throw new DataError(`${label}: ${file}.zip is served but not pinned in config/census-sha256.json; run npm run legislative:pin`);
   }
-  const path = await downloadCached(legislativeUrl(file), join(cacheDir, `${file}.zip`), label, pinnedSha256(`${file}.zip`));
+  const path = await downloadCached(legislativeUrl(file), join(cacheDir, `${file}.zip`), label, pinned);
   return countDistricts(await readRecords(path, label), chamber);
 }

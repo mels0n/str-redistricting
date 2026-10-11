@@ -16,7 +16,7 @@ export const VersionsSchema = z.strictObject({
     vintage: z.string().regex(/^census-\d{4}$/, 'must look like census-2020'),
     /** Counts every change to the pinned input files within a vintage. */
     revision: z.number().int().min(1),
-    /** Fingerprint of config/census-sha256.json and config/enacted.json (see inputSha256Of). */
+    /** Fingerprint of config/census-sha256.json, config/enacted.json and config/legislative-districts.json (see inputSha256Of). */
     sha256: z.string().regex(/^[0-9a-f]{64}$/, 'must be 64 lowercase hex characters'),
   }),
   maps: z.number().int().min(1),
@@ -56,13 +56,14 @@ function sortKeys(value: unknown): unknown {
 }
 
 /**
- * sha256 of the two input files, independent of whitespace: the census manifest with its keys sorted, and the enacted
- * config as written.
+ * sha256 of the three input files, independent of whitespace: the census manifest with its keys sorted, the enacted
+ * config as written, and the legislative district counts with their keys sorted (a changed count is a changed input).
  */
-export function inputSha256Of(censusManifestText: string, enactedText: string): string {
+export function inputSha256Of(censusManifestText: string, enactedText: string, legislativeText: string): string {
   const census = sortKeys(JSON.parse(censusManifestText));
   const enacted: unknown = JSON.parse(enactedText);
-  return createHash('sha256').update(JSON.stringify({ census, enacted })).digest('hex');
+  const legislative = sortKeys(JSON.parse(legislativeText));
+  return createHash('sha256').update(JSON.stringify({ census, enacted, legislative })).digest('hex');
 }
 
 export function formatVersions(v: Versions): string {

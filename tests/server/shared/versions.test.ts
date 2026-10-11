@@ -4,6 +4,7 @@ import { VERSIONS, VersionsSchema, formatVersions, inputSha256Of, stampOf } from
 
 const manifestText = readFileSync('config/census-sha256.json', 'utf8');
 const enactedText = readFileSync('config/enacted.json', 'utf8');
+const legislativeText = readFileSync('config/legislative-districts.json', 'utf8');
 
 describe('versions config', () => {
   it('parses and holds the baseline values', () => {
@@ -18,21 +19,27 @@ describe('versions config', () => {
 
   it('keeps input.sha256 in step with the census manifest and enacted config', () => {
     expect(
-      inputSha256Of(manifestText, enactedText),
-      'config/census-sha256.json or config/enacted.json changed: bump input.revision and update input.sha256 in config/versions.json (npm run release does both)',
+      inputSha256Of(manifestText, enactedText, legislativeText),
+      'config/census-sha256.json, config/enacted.json or config/legislative-districts.json changed: bump input.revision and update input.sha256 in config/versions.json (npm run release does both)',
     ).toBe(VERSIONS.input.sha256);
   });
 
   it('ignores whitespace and changes with a hash value', () => {
-    const base = inputSha256Of(manifestText, enactedText);
+    const base = inputSha256Of(manifestText, enactedText, legislativeText);
     const compactManifest = JSON.stringify(JSON.parse(manifestText));
     const spacedEnacted = JSON.stringify(JSON.parse(enactedText), null, 8);
-    expect(inputSha256Of(compactManifest, spacedEnacted)).toBe(base);
+    const spacedLegislative = JSON.stringify(JSON.parse(legislativeText), null, 8);
+    expect(inputSha256Of(compactManifest, spacedEnacted, spacedLegislative)).toBe(base);
 
     const manifest = JSON.parse(manifestText) as Record<string, string>;
     const first = Object.keys(manifest)[0]!;
     manifest[first] = (manifest[first]![0] === '0' ? '1' : '0') + manifest[first]!.slice(1);
-    expect(inputSha256Of(JSON.stringify(manifest), enactedText)).not.toBe(base);
+    expect(inputSha256Of(JSON.stringify(manifest), enactedText, legislativeText)).not.toBe(base);
+
+    // A changed district count moves the fingerprint, so a recount cannot pass as "no input change".
+    const counts = JSON.parse(legislativeText) as { states: Record<string, Record<string, number>> };
+    counts.states.CO!['state-house'] = counts.states.CO!['state-house']! + 1;
+    expect(inputSha256Of(manifestText, enactedText, JSON.stringify(counts))).not.toBe(base);
   });
 
   it('stampOf drops web and docs', () => {

@@ -225,6 +225,7 @@ describe('release', () => {
     write('tests/fingerprints/engine.json', noFixtures);
     write('config/census-sha256.json', readFileSync('config/census-sha256.json', 'utf8'));
     write('config/enacted.json', readFileSync('config/enacted.json', 'utf8'));
+    write('config/legislative-districts.json', readFileSync('config/legislative-districts.json', 'utf8'));
     commitAll('chore: inputs');
     for (const tag of ['engine-v1.0.0', 'input-census-2020-r1', 'maps-1', 'schema-v1.0.0', 'web-v1.0.0', 'docs-v1.0.0']) git('tag', tag);
     write('src/client/a.ts', 'x');
@@ -245,7 +246,7 @@ describe('release (repeat runs and measuring)', () => {
     }
     seed(false);
     write('tests/fingerprints/engine.json', noFixtures);
-    for (const f of ['config/census-sha256.json','config/enacted.json']) write(f, readFileSync(f, 'utf8'));
+    for (const f of ['config/census-sha256.json', 'config/enacted.json', 'config/legislative-districts.json']) write(f, readFileSync(f, 'utf8'));
     commitAll('chore: inputs');
     for (const tag of baselineTags) git('tag', tag);
   }

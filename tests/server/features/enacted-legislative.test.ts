@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
-import { detectLegislative, planLegislativeBump, redrawLines } from '../../../src/server/features/enacted/index.js';
+import { checkNoChamberLost, detectLegislative, detectLegislativeSafely, planLegislativeBump, redrawLines } from '../../../src/server/features/enacted/index.js';
 import { EnactedConfigSchema, parseEnactedBumpConfig } from '../../../src/server/shared/config/index.js';
-import { ConfigError } from '../../../src/server/shared/errors/index.js';
+import { ConfigError, DataError } from '../../../src/server/shared/errors/index.js';
 
 const current = EnactedConfigSchema.parse({ congress: 119, file: 'cb_2025_us_cd119_500k', candidates: ['cb_2025_us_cd119_500k'], legislative: { vintage: 2025 } });
 
@@ -20,6 +20,25 @@ describe('redrawLines', () => {
       'CO state-senate: 35 to 36 districts; redraw needed',
       'WY state-senate: 30 to 31 districts; redraw needed',
     ]);
+  });
+});
+
+describe('checkNoChamberLost', () => {
+  it('refuses a chamber that goes from districts to none, naming the state and chamber', () => {
+    expect(() => checkNoChamberLost({ CO: { 'state-house': 65, 'state-senate': 35 } }, { CO: { 'state-house': 65, 'state-senate': 0 } })).toThrow(
+      new DataError('CO state-senate: 35 districts before, 0 in the new files; refusing the update, check the downloaded files'),
+    );
+  });
+  it('allows a chamber that had none, a changed count, and a count that stays', () => {
+    expect(() => checkNoChamberLost({ NE: { 'state-house': 0, 'state-senate': 49 }, CO: { 'state-house': 65 } }, { NE: { 'state-house': 0, 'state-senate': 49 }, CO: { 'state-house': 66 } })).not.toThrow();
+  });
+});
+
+describe('detectLegislativeSafely', () => {
+  it('reports a failed probe instead of throwing', async () => {
+    const fetchFn = vi.fn<typeof fetch>(async () => new Response('x', { status: 500 }));
+    const got = await detectLegislativeSafely(current, { fetchFn, sleep: async () => undefined });
+    expect(got).toEqual({ update: false, vintage: 2025, error: 'probe failed' });
   });
 });
 

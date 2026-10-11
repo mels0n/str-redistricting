@@ -107,3 +107,17 @@ describe('planVersionBump', () => {
     expect([next.input.revision, next.maps, next.engine]).toEqual([2, 2, '1.0.0']);
   });
 });
+
+describe('enacted:bump publishes every chamber', () => {
+  // The bump script runs at import and shells out, so its two paths are checked in the source: both must go through
+  // the helper that restamps the Federal House, the State House and the State Senate.
+  const source = readFileSync('src/server/app/enacted-bump.ts', 'utf8');
+  it('restamps all three chambers from a file bump and from a legislative bump', () => {
+    const helper = /function publishEnactedAllChambers[\s\S]*?\n\}/.exec(source)?.[0] ?? '';
+    expect(helper).toContain('publishEnactedOnly(cfg);');
+    expect(helper).toContain("publishEnactedOnly(cfg, 'state-house');");
+    expect(helper).toContain("publishEnactedOnly(cfg, 'state-senate');");
+    expect(source.match(/publishEnactedAllChambers\(cfg\)/g)).toHaveLength(2);
+    expect(source.match(/publishEnactedOnly\(/g)).toHaveLength(4);
+  });
+});

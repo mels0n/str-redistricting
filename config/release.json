@@ -2,7 +2,7 @@
   "enforce": true,
   "paths": {
     "engine": ["src/server/**"],
-    "input": ["config/census-sha256.json", "config/enacted.json"],
+    "input": ["config/census-sha256.json", "config/enacted.json", "config/legislative-districts.json"],
     "maps": [],
     "schema": [
       "src/server/entities/plan-output/schema.ts",

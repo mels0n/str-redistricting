@@ -36,7 +36,7 @@ export function planBump(current: EnactedConfig, manifest: Readonly<Record<strin
 
   const kept = next.congress === now.congress ? current.candidates.filter((c) => c !== file) : [];
   const candidates = [file, ...kept].slice(0, MAX_CANDIDATES);
-  const config = EnactedConfigSchema.parse({ congress: next.congress, file, candidates });
+  const config = EnactedConfigSchema.parse({ congress: next.congress, file, candidates, legislative: current.legislative });
 
   const out: Record<string, string> = {};
   for (const [name, hash] of Object.entries(manifest)) {
@@ -56,7 +56,7 @@ export const planVersionBump = (current: Versions, newInputSha: string): Version
 
 /** The exact layout of config/enacted.json, so a bump changes only the lines whose values changed. */
 export const formatEnacted = (c: EnactedConfig): string =>
-  `{\n  "congress": ${c.congress},\n  "file": ${JSON.stringify(c.file)},\n  "candidates": [${c.candidates.map((x) => JSON.stringify(x)).join(', ')}]\n}\n`;
+  `{\n  "congress": ${c.congress},\n  "file": ${JSON.stringify(c.file)},\n  "candidates": [${c.candidates.map((x) => JSON.stringify(x)).join(', ')}],\n  "legislative": { "vintage": ${c.legislative.vintage} }\n}\n`;
 
 export const formatManifest = (m: Readonly<Record<string, string>>): string => `${JSON.stringify(m, null, 2)}\n`;
 

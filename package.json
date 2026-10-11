@@ -18,6 +18,8 @@
     "explore": "node --max-old-space-size=8192 --import tsx src/server/app/cli.ts",
     "publish-data": "node --max-old-space-size=8192 --import tsx src/server/app/publish.ts",
     "census:watch": "node --import tsx src/server/app/census-watch.ts",
+    "legislative:count": "node --import tsx src/server/app/legislative-count.ts",
+    "legislative:pin": "node --import tsx src/server/app/legislative-pin.ts",
     "enacted:check": "node --import tsx src/server/app/enacted-check.ts",
     "enacted:bump": "node --max-old-space-size=8192 --import tsx src/server/app/enacted-bump.ts",
     "rule-examples": "node --max-old-space-size=8192 --import tsx src/server/app/rule-examples.ts",

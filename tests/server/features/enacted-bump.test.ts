@@ -7,7 +7,7 @@ import { CENSUS_SHA256, ENACTED_CONFIG, EnactedConfigSchema, parseEnactedBumpCon
 import { ConfigError, DataError } from '../../../src/server/shared/errors/index.js';
 
 const HASH = 'ab'.repeat(32);
-const current = EnactedConfigSchema.parse({ congress: 119, file: 'cb_2025_us_cd119_500k', candidates: ['cb_2025_us_cd119_500k', 'cb_2024_us_cd119_500k'] });
+const current = EnactedConfigSchema.parse({ congress: 119, file: 'cb_2025_us_cd119_500k', candidates: ['cb_2025_us_cd119_500k', 'cb_2024_us_cd119_500k'], legislative: { vintage: 2025 } });
 const manifest = { ...CENSUS_SHA256 };
 
 describe('the committed config files', () => {
@@ -20,14 +20,14 @@ describe('the committed config files', () => {
 describe('planBump', () => {
   it('adopts a newer release of the same Congress and keeps the previous one as a fallback', () => {
     const plan = planBump(current, manifest, 'cb_2026_us_cd119_500k', HASH);
-    expect(plan.config).toEqual({ congress: 119, file: 'cb_2026_us_cd119_500k', candidates: ['cb_2026_us_cd119_500k', 'cb_2025_us_cd119_500k'] });
+    expect(plan.config).toEqual({ congress: 119, file: 'cb_2026_us_cd119_500k', candidates: ['cb_2026_us_cd119_500k', 'cb_2025_us_cd119_500k'], legislative: { vintage: 2025 } });
     expect(plan.manifest['cb_2026_us_cd119_500k.zip']).toBe(HASH);
     expect(plan.manifest['cb_2025_us_cd119_500k.zip']).toBe(manifest['cb_2025_us_cd119_500k.zip']);
     expect(plan.manifest).not.toHaveProperty(['cb_2024_us_cd119_500k.zip']);
   });
   it('moves to the next Congress, dropping every old enacted file from the manifest', () => {
     const plan = planBump(current, manifest, 'cb_2027_us_cd120_500k', HASH);
-    expect(plan.config).toEqual({ congress: 120, file: 'cb_2027_us_cd120_500k', candidates: ['cb_2027_us_cd120_500k'] });
+    expect(plan.config).toEqual({ congress: 120, file: 'cb_2027_us_cd120_500k', candidates: ['cb_2027_us_cd120_500k'], legislative: { vintage: 2025 } });
     expect(Object.keys(plan.manifest).filter((k) => /_cd\d+_500k\.zip$/.test(k))).toEqual(['cb_2027_us_cd120_500k.zip']);
   });
   it('leaves every other manifest entry untouched and keeps the keys sorted', () => {
@@ -62,7 +62,7 @@ describe('applyBump on a temp copy of the config', () => {
   it('rewrites both files and leaves them valid', async () => {
     await applyBump(dir, 'cb_2027_us_cd120_500k', HASH);
     expect(readFileSync(join(dir, 'enacted.json'), 'utf8')).toBe(
-      '{\n  "congress": 120,\n  "file": "cb_2027_us_cd120_500k",\n  "candidates": ["cb_2027_us_cd120_500k"]\n}\n',
+      '{\n  "congress": 120,\n  "file": "cb_2027_us_cd120_500k",\n  "candidates": ["cb_2027_us_cd120_500k"],\n  "legislative": { "vintage": 2025 }\n}\n',
     );
     const written = JSON.parse(readFileSync(join(dir, 'census-sha256.json'), 'utf8')) as Record<string, string>;
     expect(written['cb_2027_us_cd120_500k.zip']).toBe(HASH);

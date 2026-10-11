@@ -108,3 +108,8 @@ jobs:
           else
             echo "::notice::Root commit: there is no base to compare the fixture fingerprints with."
           fi
+
+      # The district counts in config/legislative-districts.json must match the pinned Census State House and State
+      # Senate files they are counted from (the files come from the same cache as the fingerprints).
+      - name: Legislative district counts
+        run: npm run legislative:count -- --check

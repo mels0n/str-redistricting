@@ -242,6 +242,30 @@ export function parseCensusWatchConfig(argv: readonly string[]): CensusWatchConf
   return parsed.data;
 }
 
+export interface LegislativeConfig {
+  /** `--check`: compare the counts file with a fresh count instead of writing it. */
+  readonly check: boolean;
+  readonly cacheDir: string;
+  readonly configDir: string;
+}
+
+/** Read once at boot from the command line (legislative:count and legislative:pin). */
+export function parseLegislativeConfig(argv: readonly string[]): LegislativeConfig {
+  const { values } = parseArgs({
+    args: [...argv],
+    options: {
+      check: { type: 'boolean', default: false },
+      'cache-dir': { type: 'string', default: 'data/raw' },
+      'config-dir': { type: 'string', default: 'config' },
+    },
+    strict: true,
+  });
+  const parsed = z.object({ check: z.boolean(), cacheDir: z.string().min(1), configDir: z.string().min(1) })
+    .safeParse({ check: values.check, cacheDir: values['cache-dir'], configDir: values['config-dir'] });
+  if (!parsed.success) throw new ConfigError(parsed.error.issues.map((i) => i.message).join('; '));
+  return parsed.data;
+}
+
 export interface ReleaseArgs {
   /** Print the proposal; change nothing. */
   readonly dryRun: boolean;

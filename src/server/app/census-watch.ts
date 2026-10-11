@@ -3,6 +3,7 @@ import { join } from 'node:path';
 import { affectedBy, diffSources, hashRemote, probeSource, SourcesSchema, type Source } from '../features/census-watch/index.js';
 import { boundaryUrl } from '../features/publish/index.js';
 import { blocksUrl } from '../entities/census-block/index.js';
+import { isLegislativeFile, legislativeUrl } from '../entities/legislative-boundary/index.js';
 import { CENSUS_SHA256, parseCensusWatchConfig } from '../shared/config/index.js';
 import { DataError, exitCodeFor } from '../shared/errors/index.js';
 
@@ -16,6 +17,7 @@ const CONCURRENCY = 4;
 function sourceUrl(file: string): string {
   const block = /^tl_2020_(\d{2})_tabblock20\.zip$/.exec(file)?.[1];
   if (block !== undefined) return blocksUrl(block);
+  if (isLegislativeFile(file)) return legislativeUrl(file.replace(/\.zip$/, ''));
   if (/^cb_\d{4}_us_[a-z0-9_]+\.zip$/.test(file)) return boundaryUrl(file.slice(0, -'.zip'.length));
   throw new DataError(`${file}: no known Census address for this manifest entry`);
 }

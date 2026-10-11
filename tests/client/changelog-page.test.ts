@@ -32,16 +32,22 @@ describe('renderChangelog', () => {
 });
 
 describe('changelog page', () => {
-  it('shows the h1, intro and three section headings in order', () => {
+  it('shows the h1, intro and six section headings in README order', () => {
     const page = createChangelogPage();
     expect(page.el.querySelector('h1')?.textContent).toBe('Changelog');
-    expect(page.el.textContent).toContain('What changed in each release of the maps, the code that draws them, and the Census files they are drawn from.');
-    expect([...page.el.querySelectorAll('h2')].map((x) => x.textContent)).toEqual(['Maps changelog', 'Engine changelog', 'Input changelog']);
+    expect(page.el.textContent).toContain('What changed in each release of the code that draws the maps, the Census files they are drawn from, the maps, the file formats, this site and the documentation.');
+    expect([...page.el.querySelectorAll('h2')].map((x) => x.textContent)).toEqual([
+      'Engine changelog', 'Input changelog', 'Maps changelog', 'Schema changelog', 'Web changelog', 'Docs changelog',
+    ]);
     expect(page.focusTarget()).toBe(page.el.querySelector('h1'));
   });
 
   it('says so when a section has no releases', () => {
-    const page = createChangelogPage({ maps: '# Maps changelog\n\n', engine: '# Engine changelog\n\n## 1.0.0\n\n- x\n', input: '# Input changelog\n\n' });
-    expect(page.el.textContent?.match(/No releases yet\./g)?.length).toBe(2);
+    const empty = (t: string): string => `# ${t} changelog\n\n`;
+    const page = createChangelogPage({
+      engine: '# Engine changelog\n\n## 1.0.0\n\n- x\n', input: empty('Input'), maps: empty('Maps'),
+      schema: '# Schema changelog\n\n## 1.0.0\n\n- y\n', web: empty('Web'), docs: empty('Docs'),
+    });
+    expect(page.el.textContent?.match(/No releases yet\./g)?.length).toBe(4);
   });
 });

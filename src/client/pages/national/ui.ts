@@ -29,7 +29,13 @@ export function createNationalPage(nav: Navigate, chamber: Chamber = 'federal-ho
         step('Keep blocks whole.', 'The census counts people in blocks: areas bounded by streets, streams, rail lines and similar edges. There is no count for part of a block, so lines follow block edges.'),
         step('Balance.', 'Blocks along each border shift only when that brings two districts closer to equal population.'),
       ),
-      h('p', { class: 'strv-national__scope' }, 'These maps cover the 50 states. Washington, D.C. and the U.S. territories elect non-voting delegates to the House, so they have no districts to draw.'),
+      h(
+        'p',
+        { class: 'strv-national__scope' },
+        chamber === 'federal-house'
+          ? 'These maps cover the 50 states. Washington, D.C. and the U.S. territories elect non-voting delegates to the House, so they have no districts to draw.'
+          : "These maps cover the 50 states. A chamber a state does not have, such as Nebraska's State House, has no map.",
+      ),
     ),
     h('p', { class: 'strv-national__more' }, h('a', { href: formatHash(howRoute()) }, 'How it works: every stage, with drawings')),
   );

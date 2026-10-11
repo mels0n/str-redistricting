@@ -35,3 +35,23 @@ describe('scrubber axis labels', () => {
     expect(collidingTicks(7, 3, 0).size).toBe(0);
   });
 });
+
+describe('long cut axes', () => {
+  const labelled = (total: number): number[] => Array.from({ length: total + 1 }, (_, i) => i).filter((i) => isMajorTick(i, total));
+
+  it('keeps today\'s every-fifth labels while they fit', () => {
+    expect(labelled(37)).toEqual([0, 5, 10, 15, 20, 25, 30, 35, 37]);
+    expect(labelled(5)).toEqual([0, 1, 2, 3, 4, 5]);
+  });
+
+  it('widens the step so 163 cuts carry few, well-spaced labels', () => {
+    const l = labelled(163);
+    expect(l.length).toBeLessThanOrEqual(15);
+    expect(l[l.length - 1]).toBe(163);
+    for (let i = 1; i < l.length; i++) expect(l[i]! - l[i - 1]!).toBeGreaterThanOrEqual(10);
+  });
+
+  it('never crowds for any count', () => {
+    for (let total = 17; total <= 1200; total++) expect(labelled(total).length).toBeLessThanOrEqual(15);
+  });
+});

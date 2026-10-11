@@ -3,9 +3,23 @@ const DIGIT_PX = 7;
 const CURRENT_PAD_PX = 6;
 const GAP_PX = 3;
 
-/** True for ticks that always show their number: every tick on a short axis, every fifth and the last on a long one. */
+/** Most labels a long cut axis carries before the step grows past 5. */
+const MAX_CUT_LABELS = 14;
+const CUT_STEPS = [5, 10, 20, 25, 50, 100, 200, 250, 500, 1000];
+
+/** Spacing of the numbered ticks: every tick on a short axis, every fifth on a long one, a rounder step when fifths would crowd. */
+export function majorStep(total: number): number {
+  if (total <= 16) return 1;
+  return CUT_STEPS.find((s) => total / s <= MAX_CUT_LABELS) ?? Math.ceil(total / MAX_CUT_LABELS);
+}
+
+/** True for ticks that always show their number: every tick on a short axis, every step and the last on a long one. */
 export function isMajorTick(i: number, total: number): boolean {
-  return total <= 16 || i % 5 === 0 || i === total;
+  const step = majorStep(total);
+  if (step <= 5) return total <= 16 || i % 5 === 0 || i === total;
+  if (i === total) return true;
+  // A round number too close to the last would run into it.
+  return i % step === 0 && total - i >= step / 2;
 }
 
 /** Round steps for a long axis, smallest first. */

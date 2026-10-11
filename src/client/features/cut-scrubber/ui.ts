@@ -1,5 +1,5 @@
 import { h, clear, formatKm, formatInt, districtLabel, type Chamber, formatSignedPeople, peopleNoun, prefersReducedMotion, config, iconChevronDown, iconZoomIn, arrowTo } from '../../shared';
-import { collidingTicks, sparseTicks } from './ticks';
+import { collidingTicks, isMajorTick, sparseTicks } from './ticks';
 import {
   cutRows,
   cutSides,
@@ -129,7 +129,7 @@ export function createCutScrubber(opts: CutScrubberOptions): CutScrubber {
       ticks.dataset.dense = String(dense);
       ticks.dataset.sparse = 'false';
       for (let i = 0; i <= n; i++) {
-        const li = h('li', { 'data-k': i, 'data-major': String(!dense || i % 5 === 0 || i === n) }, String(i));
+        const li = h('li', { 'data-k': i, 'data-major': String(!dense || isMajorTick(i, n)) }, String(i));
         li.style.setProperty('--i', String(i));
         ticks.append(li);
       }

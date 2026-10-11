@@ -199,7 +199,7 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
   const finishedSha = bundle.stats.finished.metrics.assignmentSha256;
   const beforeSha = bundle.stats.beforeBalancing.metrics.assignmentSha256;
   let creditSha = finishedSha;
-  const credit = mountCreditStrip(container, () => ({ abbr: bundle.abbr, name: opts.stateName, versions: bundle.stats.versions, sha: creditSha }));
+  const credit = mountCreditStrip(container, () => ({ abbr: bundle.abbr, name: opts.stateName, chamber: bundle.chamber, versions: bundle.stats.versions, sha: creditSha }));
   fittedPad = JSON.stringify(framePadding());
   map.touchZoomRotate.disableRotation();
   map.keyboard.disableRotation();

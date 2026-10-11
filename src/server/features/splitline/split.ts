@@ -1,5 +1,5 @@
 import type { SplitContext } from './context.js';
-import { findCut, type CandidateRange, type CutOptions, type CutResult } from './cut.js';
+import { findCut, type CandidateRange, type CutOptions, type CutResult, type ScanCounters } from './cut.js';
 
 export interface CutRecord {
   readonly depth: number;
@@ -34,6 +34,8 @@ export interface CutRecord {
   readonly offsetShiftM: number;
   readonly candidates: readonly CandidateRange[];
   readonly spans: CutResult['spans'];
+  /** What the cut's search did, for profiling only (see CutResult.scan). */
+  readonly scan: ScanCounters;
 }
 
 export interface SplitResult {
@@ -47,7 +49,7 @@ export function splitState(ctx: SplitContext, seats: number, opts: CutOptions = 
   const visit = (members: Int32Array, n: number, first: number, depth: number): void => {
     if (n === 1) { for (const i of members) assignment[i] = first; return; }
     const c = findCut(ctx, members, n, undefined, opts);
-    cuts.push({ depth, seats: n, firstDistrict: first, lowSeats: c.lowSeats, highSeats: c.highSeats, angleDeg: c.angleDeg, fromDeg: c.fromDeg, toDeg: c.toDeg, wraps: c.wraps, reversed: c.reversed, reversedRanges: c.reversedRanges, tieSpans: c.tieSpans, lengthM: c.lengthM, candidateRanges: c.candidateRanges, tiedRanges: c.tiedRanges, tiedCuts: c.tiedCuts, splitChanges: c.splitChanges, skipped: c.skipped, strayBlocksMoved: c.strayBlocksMoved, strayPopMoved: c.strayPopMoved, iterations: c.iterations, offsetShiftM: c.offsetShiftM, candidates: c.candidates, spans: c.spans });
+    cuts.push({ depth, seats: n, firstDistrict: first, lowSeats: c.lowSeats, highSeats: c.highSeats, angleDeg: c.angleDeg, fromDeg: c.fromDeg, toDeg: c.toDeg, wraps: c.wraps, reversed: c.reversed, reversedRanges: c.reversedRanges, tieSpans: c.tieSpans, lengthM: c.lengthM, candidateRanges: c.candidateRanges, tiedRanges: c.tiedRanges, tiedCuts: c.tiedCuts, splitChanges: c.splitChanges, skipped: c.skipped, strayBlocksMoved: c.strayBlocksMoved, strayPopMoved: c.strayPopMoved, iterations: c.iterations, offsetShiftM: c.offsetShiftM, candidates: c.candidates, spans: c.spans, scan: c.scan });
     visit(c.low, c.lowSeats, first, depth + 1);
     visit(c.high, c.highSeats, first + c.lowSeats, depth + 1);
   };

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { signOfAbsDifference, signOfDifference } from '../../../src/server/shared/exact/index.js';
+import { exactFallbacks, signOfAbsDifference, signOfDifference } from '../../../src/server/shared/exact/index.js';
 
 const view = new DataView(new ArrayBuffer(8));
 
@@ -148,6 +148,14 @@ describe('signOfDifference', () => {
       expect(sign(v)).toBe(reference(v));
     }
     expect(clear).toBeGreaterThan(2500);
+  });
+
+  it('counts the times the integer fallback decides', () => {
+    const f0 = exactFallbacks();
+    expect(signOfDifference(3, 1, 2, 0, 1, 0, 1, 0)).toBe(1); // 4 - 1: the filter decides
+    expect(exactFallbacks()).toBe(f0);
+    expect(signOfDifference(2, 0, 3, 0, 3, 0, 2, 0)).toBe(0); // 6 - 6: an exact tie needs the integers
+    expect(exactFallbacks()).toBe(f0 + 1);
   });
 });
 

@@ -202,7 +202,7 @@ describe('balance.stop (CO)', () => {
     expect(text).toContain(whole(m.rangeBeforeBalancing));
     expect(text).toContain(`${b.moves.length} moves`);
     expect(c.chart!.marks!.first).toEqual([0]);
-    expect(c.chart!.marks!.last).toEqual([20]);
+    expect(c.chart!.marks!.last).toEqual([b.moves.length]);
   });
 });
 

@@ -1,5 +1,5 @@
 {
-  "enforce": false,
+  "enforce": true,
   "paths": {
     "engine": ["src/server/**"],
     "input": ["config/census-sha256.json", "config/enacted.json"],

@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest';
-import { createContext, splitState } from '../../../src/server/features/splitline/index.js';
-import { cutsGeoJson } from '../../../src/server/features/export/write.js';
-import { cutSides, piecesAfter, type Cut } from '../../../src/client/entities/plan/index.js';
-import { gridBlocks } from '../../helpers/grid.js';
+import { createContext, splitState } from '../../src/server/features/splitline/index.js';
+import { cutsGeoJson } from '../../src/server/features/export/write.js';
+import { cutSides, piecesAfter, type Cut } from '../../src/client/entities/plan/index.js';
+import { gridBlocks } from '../helpers/grid.js';
 
 type Records = ReturnType<typeof splitState>['cuts'];
 

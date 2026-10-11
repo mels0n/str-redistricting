@@ -8,6 +8,11 @@ export type { BalanceLog };
 
 /** The process numbers every plan's metrics.json reports; they pass through to stats.json. */
 export const ProcessNumbersSchema = z.object({
+  population: z.number().int().nonnegative(),
+  ideal: z.number().positive(),
+  rangePersons: z.number().nonnegative(),
+  rangePct: z.number().nonnegative(),
+  assignmentSha256: z.string().regex(/^[0-9a-f]{64}$/),
   cuts: z.number().int().nonnegative(),
   candidateRangesPerCut: z.array(z.number().int().positive()),
   candidateRangesEvaluated: z.number().int().nonnegative(),
@@ -19,6 +24,10 @@ export const ProcessNumbersSchema = z.object({
   peopleMovedByBalancing: z.number().int().nonnegative(),
   rangeBeforeBalancing: z.number().nonnegative(),
   rangeAfterBalancing: z.number().nonnegative(),
+  runtimeMs: z.number().nonnegative(),
+  countiesSplit: z.number().int().nonnegative(),
+  countiesTotal: z.number().int().nonnegative(),
+  blocks: z.number().int().nonnegative(),
 });
 
 const round6 = (x: number): number => Math.round(x * 1e6) / 1e6;

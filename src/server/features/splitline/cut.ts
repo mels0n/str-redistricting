@@ -7,8 +7,8 @@ import { zob, zob2 } from './hash.js';
 import type { SplitContext } from './context.js';
 import type { ScanPool } from './pool.js';
 import { createScanner, type Piece, type ScanJob } from './scan.js';
-import { compareRanges, directionAt, geoFor, mergeChunks, sweepChunk, sweepSpan, type ChunkResult, type Dir, type Range, type TieSpan } from './sweep.js';
-import { chunksFor, sweepTask, taskCount, type SweepJob } from './tasks.js';
+import { compareRanges, directionAt, geoFor, mergeChunks, type ChunkResult, type Dir, type Range, type TieSpan } from './sweep.js';
+import { chunksFor, runTask, taskCount, type PoolJob, type SweepJob, type TieSpanJob } from './tasks.js';
 
 export { selectLow } from './scan.js';
 
@@ -59,6 +59,23 @@ export interface CutResult {
   readonly tiedCuts: number;
   /** The candidates asked for in `CutOptions.trace`, in request order; empty when none were asked for. */
   readonly traces: readonly CandidateTrace[];
+  /** What the search did, for profiling only: never part of a plan. */
+  readonly scan: ScanCounters;
+}
+
+/**
+ * Work counters of one cut's search, summed over every chunk and tie stretch swept. The counts are the same on any
+ * number of threads; `tieSpanMs` is wall-clock time and is not.
+ */
+export interface ScanCounters {
+  /** Wall-clock time spent sweeping the tie stretches again from the other end. */
+  readonly tieSpanMs: number;
+  /** Trackers derived from a neighbouring pass instead of built from scratch. */
+  readonly derivedBuilds: number;
+  /** Trackers re-aimed at a new target in place. */
+  readonly reconfigs: number;
+  /** Signs the exact arithmetic decided in integers because rounded arithmetic was too close to call. */
+  readonly exactFallbacks: number;
 }
 
 /** One candidate: a range of directions that all give the same sides. */
@@ -216,6 +233,17 @@ function joinTieSpans(chunks: readonly ChunkResult[]): { lowSeats: number; ties:
   });
 }
 
+/** Every task of a job, in task order: on the pool when there is one, otherwise on the calling thread. */
+function runAll(piece: Piece, job: PoolJob, pool: ScanPool | undefined): ChunkResult[] {
+  if (pool) return pool.scan(piece, job);
+  const out: ChunkResult[] = [];
+  for (let t = 0; t < taskCount(job); t++) out.push(runTask(piece, job, t));
+  return out;
+}
+
+/** A work counter summed over the sweeps' stats (0 where a sweep did not count it). */
+const statSum = (sweeps: readonly ChunkResult[], key: string): number => sweeps.reduce((s, c) => s + (c.stats[key] ?? 0), 0);
+
 /** The piece turned half way round: every point negated (exact), so a sweep of it slides each line from the other end. */
 function mirrorPiece(piece: Piece): Piece {
   return { ...piece, px: piece.px.map((v) => -v), py: piece.py.map((v) => -v) };
@@ -281,15 +309,7 @@ export function findCut(ctx: SplitContext, members: Int32Array, seats: number, v
   }
 
   const job: SweepJob = { seats, orientations, chunks: opts.chunks ?? chunksFor(m), keep: KEEP };
-  let chunks: ChunkResult[];
-  if (opts.pool) chunks = opts.pool.scan(piece, job);
-  else {
-    chunks = [];
-    for (let t = 0; t < taskCount(job); t++) {
-      const task = sweepTask(job, t);
-      chunks.push(sweepChunk(piece, seats, task.lowSeats, task.aDeg, task.bDeg, KEEP));
-    }
-  }
+  const chunks = runAll(piece, job, opts.pool);
   // Fingerprints of every block, so the two ends of the half turn can be recognised as one range (sides swapped).
   let h1 = 0, h2 = 0;
   for (let i = 0; i < m; i++) { h1 ^= zob(i); h2 ^= zob2(i); }
@@ -307,15 +327,20 @@ export function findCut(ctx: SplitContext, members: Int32Array, seats: number, v
   const spans = opts.reverseEverywhere
     ? orientations.map((o) => ({ lowSeats: o, ties: [{ s: directionAt(0), e: directionAt(180), sDeg: 0, eDeg: 180, endIsPi: true }] }))
     : joinTieSpans(chunks);
-  let tieSpans = 0;
-  for (const c of spans) {
-    for (const t of c.ties) {
-      tieSpans++;
-      const res = sweepSpan(flippedPiece(), seats, seats - c.lowSeats, t.s, t.e, t.sDeg, t.eDeg, t.endIsPi, KEEP, false);
-      reversedCount += res.resultRanges;
-      for (const r of new Set([res.first, res.last, ...res.top])) if (!r.unresolved) reversed.push({ ...r, reversed: true });
-    }
+  // Each stretch is one task, whole, swept on the pool when there is one; the results are taken in stretch order.
+  const tieJob: TieSpanJob = {
+    kind: 'tieSpan', seats, keep: KEEP,
+    spans: spans.flatMap((c) => c.ties.map((t) => ({ lowSeats: seats - c.lowSeats, s: t.s, e: t.e, sDeg: t.sDeg, eDeg: t.eDeg, endIsPi: t.endIsPi }))),
+  };
+  const tieSpans = tieJob.spans.length;
+  const tieT0 = performance.now();
+  const tieResults = tieSpans === 0 ? [] : runAll(flippedPiece(), tieJob, opts.pool);
+  const tieSpanMs = performance.now() - tieT0;
+  for (const res of tieResults) {
+    reversedCount += res.resultRanges;
+    for (const r of new Set([res.first, res.last, ...res.top])) if (!r.unresolved) reversed.push({ ...r, reversed: true });
   }
+  const sweeps = [...chunks, ...tieResults];
   // Listing order is stable, so a reversed range starting where an ordinary one does stays behind it.
   const ranges = [...merged.ranges, ...reversed].sort(compareRanges);
 
@@ -386,6 +411,9 @@ export function findCut(ctx: SplitContext, members: Int32Array, seats: number, v
       strayBlocksMoved: chain.movedBlocks, strayPopMoved: movedPop,
       iterations: chain.passes.length, offsetShiftM: (offset - offset0) * EARTH_RADIUS_M, candidates, traces,
       tiedRanges: passed.length, tiedCuts: distinct.length,
+      scan: {
+        tieSpanMs, derivedBuilds: statSum(sweeps, 'derivedBuilds'), reconfigs: statSum(sweeps, 'reconfigs'), exactFallbacks: statSum(sweeps, 'exactFallbacks'),
+      },
     };
   }
   throw new DataError('no straight line produces two connected sides');

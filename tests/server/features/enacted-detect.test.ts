@@ -1,6 +1,6 @@
-import { describe, expect, it, vi } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { candidateFiles, describeFile, detectUpdate, isServed } from '../../../src/server/features/enacted/index.js';
-import { ConfigError, DownloadError } from '../../../src/server/shared/errors/index.js';
+import { ConfigError, DownloadError, DownloadRefusedError } from '../../../src/server/shared/errors/index.js';
 
 const URL_OF = (file: string): string => `https://example.test/${file}.zip`;
 const pinned = { congress: 119, file: 'cb_2025_us_cd119_500k' };
@@ -83,6 +83,86 @@ describe('isServed', () => {
     expect(err).toBeInstanceOf(DownloadError);
     expect((err as DownloadError).status).toBe(403);
     expect(f).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('isServed safety', () => {
+  afterEach(() => vi.restoreAllMocks());
+
+  it('gives every request a timeout and fails with a DownloadError when a request never answers', async () => {
+    // AbortSignal.timeout runs on node internals that fake timers do not reach, so the signal is driven by hand.
+    const gate = new AbortController();
+    const spy = vi.spyOn(AbortSignal, 'timeout').mockReturnValue(gate.signal);
+    const f = vi.fn<typeof fetch>(
+      (_input, init) =>
+        new Promise<Response>((_resolve, reject) => {
+          const fail = (): void => reject(new DOMException('timed out', 'TimeoutError'));
+          if (init?.signal?.aborted) fail();
+          else init?.signal?.addEventListener('abort', fail);
+        }),
+    );
+    const pending = isServed(URL_OF('a'), { fetchFn: f, sleep: noSleep }).catch((e: unknown) => e);
+    gate.abort();
+    expect(await pending).toBeInstanceOf(DownloadError);
+    expect(spy).toHaveBeenCalledWith(30_000);
+  });
+  it('refuses a redirect that ends off the Census hosts', async () => {
+    const res = new Response(null, { status: 200, headers: { 'content-type': 'application/zip' } });
+    Object.defineProperty(res, 'url', { value: 'https://example.com/a.zip' });
+    const f = vi.fn<typeof fetch>(async () => res);
+    const err = await isServed('https://www2.census.gov/a.zip', { fetchFn: f, sleep: noSleep }).catch((e: unknown) => e);
+    expect(err).toBeInstanceOf(DownloadRefusedError);
+    expect(f).toHaveBeenCalledTimes(1);
+  });
+  it('refuses a redirect that ends on http or on a port, even on a Census host', async () => {
+    for (const end of ['http://www2.census.gov/a.zip', 'https://www2.census.gov:8443/a.zip']) {
+      const res = new Response(null, { status: 200, headers: { 'content-type': 'application/zip' } });
+      Object.defineProperty(res, 'url', { value: end });
+      const f = vi.fn<typeof fetch>(async () => res);
+      const err = await isServed('https://www2.census.gov/a.zip', { fetchFn: f, sleep: noSleep, allowedHosts: new Set(['www2.census.gov']) }).catch((e: unknown) => e);
+      expect(err).toBeInstanceOf(DownloadRefusedError);
+    }
+  });
+  it('accepts a response that ends on an allowed host', async () => {
+    const res = new Response(null, { status: 200, headers: { 'content-type': 'application/zip' } });
+    Object.defineProperty(res, 'url', { value: 'https://www2.census.gov/a.zip' });
+    const f = vi.fn<typeof fetch>(async () => res);
+    expect(await isServed('https://www2.census.gov/a.zip', { fetchFn: f, sleep: noSleep, allowedHosts: new Set(['www2.census.gov']) })).toBe(true);
+  });
+});
+
+describe('isServed identity and Retry-After', () => {
+  const UA = 'str-redistricting (+https://github.com/mels0n/str-redistricting)';
+  const zip = (): Response => new Response(null, { status: 200, headers: { 'content-type': 'application/zip' } });
+
+  it('names itself in the User-Agent, on HEAD and on the ranged GET', async () => {
+    const f = server(['a'], { noHead: true });
+    await isServed(URL_OF('a'), { fetchFn: f, sleep: noSleep });
+    for (const [, init] of f.mock.calls) expect((init?.headers as Record<string, string>)['User-Agent']).toBe(UA);
+  });
+  it('waits for Retry-After seconds instead of the fixed backoff', async () => {
+    const sleeps: number[] = [];
+    const f = vi.fn<typeof fetch>()
+      .mockResolvedValueOnce(new Response(null, { status: 429, headers: { 'retry-after': '5' } }))
+      .mockResolvedValueOnce(zip());
+    expect(await isServed(URL_OF('a'), { fetchFn: f, sleep: async (ms) => void sleeps.push(ms) })).toBe(true);
+    expect(sleeps).toEqual([5000]);
+  });
+  it('still waits the backoff when Retry-After asks for less', async () => {
+    const sleeps: number[] = [];
+    const f = vi.fn<typeof fetch>()
+      .mockResolvedValueOnce(new Response(null, { status: 429, headers: { 'retry-after': '0' } }))
+      .mockResolvedValueOnce(zip());
+    await isServed(URL_OF('a'), { fetchFn: f, sleep: async (ms) => void sleeps.push(ms) });
+    expect(sleeps).toEqual([2000]);
+  });
+  it('caps Retry-After at 60 seconds', async () => {
+    const sleeps: number[] = [];
+    const f = vi.fn<typeof fetch>()
+      .mockResolvedValueOnce(new Response(null, { status: 503, headers: { 'retry-after': '3600' } }))
+      .mockResolvedValueOnce(zip());
+    await isServed(URL_OF('a'), { fetchFn: f, sleep: async (ms) => void sleeps.push(ms) });
+    expect(sleeps).toEqual([60_000]);
   });
 });
 

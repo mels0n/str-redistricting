@@ -1,5 +1,5 @@
 import type { SplitContext } from './context.js';
-import { findCut, type CandidateRange, type CutOptions, type CutResult } from './cut.js';
+import { findCut, type CandidateRange, type CutOptions, type CutResult, type ScanCounters } from './cut.js';
 
 export interface CutRecord {
   readonly depth: number;
@@ -34,6 +34,8 @@ export interface CutRecord {
   readonly offsetShiftM: number;
   readonly candidates: readonly CandidateRange[];
   readonly spans: CutResult['spans'];
+  /** What the cut's search did, for profiling only (see CutResult.scan). */
+  readonly scan: ScanCounters;
 }
 
 export interface SplitResult {
@@ -84,6 +86,7 @@ export function splitState(ctx: SplitContext, seats: number, opts: CutOptions = 
       offsetShiftM: c.offsetShiftM,
       candidates: c.candidates,
       spans: c.spans,
+      scan: c.scan,
     });
     if (lowestBlock(c.low) < lowestBlock(c.high)) {
       visit(c.low, c.lowSeats, first, depth + 1);

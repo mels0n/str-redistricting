@@ -1,25 +1,17 @@
 import { join } from 'node:path';
 import { blocksFileName, buildTopology, loadStateBlocks } from '../entities/census-block/index.js';
 import { balance, balanceLog, peopleMoved } from '../features/balance/index.js';
-import { bordersGeoJson, bridgesJson, cutsGeoJson, districtsGeoJson, writePlan } from '../features/export/index.js';
+import { bordersGeoJson, bridgesJson, buildMetricsJson, cutsGeoJson, districtsGeoJson, writePlan } from '../features/export/index.js';
 import { assignmentCsv, computeMetrics } from '../features/metrics/index.js';
 import { drawOrSkip, type WriteFiles } from '../features/run-stamp/index.js';
 import { createContext, PoolSlot, splitState, type SplitResult } from '../features/splitline/index.js';
 import { LINE_SEARCH, parseConfig, pinnedSha256, VERSIONS, type Config } from '../shared/config/index.js';
 import type { StateInfo } from '../shared/apportionment/index.js';
 import { exitCodeFor } from '../shared/errors/index.js';
+import { cutStats } from './cut-stats.js';
 import { exploreCodeSha256, runKeyFor } from './run-key.js';
 
 type Cut = SplitResult['cuts'][number];
-
-/** Per-cut summary of the search. */
-function cutStats(c: Cut, i: number) {
-  return {
-    order: i + 1, depth: c.depth, seats: c.seats, firstDistrict: c.firstDistrict, angleDeg: c.angleDeg, fromDeg: c.fromDeg, toDeg: c.toDeg,
-    lengthM: Math.round(c.lengthM), skipped: c.skipped, strayBlocksMoved: c.strayBlocksMoved, strayPopMoved: c.strayPopMoved,
-    iterations: c.iterations, offsetShiftM: Math.round(c.offsetShiftM), candidateRanges: c.candidateRanges, reversedRanges: c.reversedRanges, tieSpans: c.tieSpans, reversed: c.reversed, tiedRanges: c.tiedRanges, tiedCuts: c.tiedCuts, splitChanges: c.splitChanges,
-  };
-}
 
 /** The leading candidates of every cut, in the generator's order, as compact rows. */
 function candidateRows(cuts: readonly Cut[]) {
@@ -62,7 +54,7 @@ async function drawState(state: StateInfo, config: Config, slot: PoolSlot, write
   for (const p of plans) {
     await write(p.sub, {
       'assignment.csv': assignmentCsv(blocks, p.assignment),
-      'metrics.json': JSON.stringify({ ...common, balanceMoves: p.moves, peopleMovedByBalancing: p.moved, ...range, runtimeMs, ...p.metrics }, null, 2),
+      'metrics.json': JSON.stringify(buildMetricsJson({ common, range, plan: { moves: p.moves, moved: p.moved }, runtimeMs, metrics: p.metrics }), null, 2),
       'borders.geojson': JSON.stringify(bordersGeoJson(topo, p.assignment, state.seats)),
       'districts.geojson': JSON.stringify(districtsGeoJson(topo, p.assignment, state.seats)),
       'cuts.geojson': JSON.stringify(cutsGeoJson(split.cuts)),
@@ -87,6 +79,7 @@ async function drawState(state: StateInfo, config: Config, slot: PoolSlot, write
 
 async function main(): Promise<void> {
   const config = parseConfig(process.argv.slice(2));
+  if (config.threadsLimitedByMemory) console.error(`threads: ${config.threads} (limited by free memory)`);
   const summary: Record<string, unknown>[] = [];
   let firstError: unknown;
   // Everything this run executes; a change to any of it redraws every state.

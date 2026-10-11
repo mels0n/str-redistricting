@@ -1,12 +1,18 @@
 import { spawnSync } from 'node:child_process';
 import { parseCommitSubject, type Commit } from '../features/release/index.js';
-import { DataError } from '../shared/errors/index.js';
+import { ConfigError, DataError } from '../shared/errors/index.js';
 
 /** Runs git in the current directory; returns stdout, or null when git exits non-zero. */
 function tryGit(args: readonly string[]): string | null {
   const r = spawnSync('git', [...args], { encoding: 'utf8', maxBuffer: 256 * 1024 * 1024 });
   if (r.error !== undefined) throw new DataError(`could not run git: ${r.error.message}`);
   return r.status === 0 ? r.stdout : null;
+}
+
+/** A ref that git could read as an option (`--output=...`) is refused before it reaches a command line. */
+function safeRef(ref: string): string {
+  if (ref.startsWith('-')) throw new ConfigError(`${ref} is not a git ref (it starts with "-")`);
+  return ref;
 }
 
 function git(args: readonly string[]): string {
@@ -17,7 +23,7 @@ function git(args: readonly string[]): string {
 
 /** The text of `path` at `ref`, or null when it does not exist there. */
 export function showFile(ref: string, path: string): string | null {
-  return tryGit(['show', `${ref}:${path}`]);
+  return tryGit(['show', '--end-of-options', `${safeRef(ref)}:${path}`]);
 }
 
 /** Every tag in the repository. */
@@ -27,7 +33,7 @@ export function listTags(): string[] {
 
 /** The best common ancestor of two refs, or null when they share no history. */
 export function mergeBase(a: string, b: string): string | null {
-  const out = tryGit(['merge-base', a, b]);
+  const out = tryGit(['merge-base', '--end-of-options', safeRef(a), safeRef(b)]);
   return out === null ? null : out.trim();
 }
 
@@ -37,13 +43,13 @@ export function tagExists(tag: string): boolean {
 
 /** Files that differ between the merge base of `base` and `head`, and `head`. */
 export function changedFiles(base: string, head: string): string[] {
-  return git(['diff', '--name-only', '--no-renames', `${base}...${head}`]).split('\n').filter(Boolean);
+  return git(['diff', '--name-only', '--no-renames', '--end-of-options', `${safeRef(base)}...${safeRef(head)}`]).split('\n').filter(Boolean);
 }
 
 /** The commits reachable from HEAD and not from `ref` (all of them when `ref` is null), newest first, merges left out. */
 export function commitsSince(ref: string | null): Commit[] {
-  const range = ref === null ? ['HEAD'] : [`${ref}..HEAD`];
-  const out = git(['log', '--no-merges', '--no-renames', '--name-only', '--format=%x1e%H%x1f%s', ...range]);
+  const range = ref === null ? ['HEAD'] : [`${safeRef(ref)}..HEAD`];
+  const out = git(['log', '--no-merges', '--no-renames', '--name-only', '--format=%x1e%H%x1f%s', '--end-of-options', ...range]);
   return out
     .split('\x1e')
     .filter((chunk) => chunk.trim() !== '')

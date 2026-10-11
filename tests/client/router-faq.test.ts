@@ -27,4 +27,21 @@ describe('router: the FAQ', () => {
     expect(outlet.querySelector('#strv-faq-ties')).toBeNull();
     expect(faq.hasAttribute('aria-current')).toBe(false);
   });
+
+  it('scrolls the requested question to the top', async () => {
+    vi.stubGlobal('fetch', vi.fn(async () => new Response('{}', { status: 404 })));
+    vi.stubGlobal('requestAnimationFrame', (cb: FrameRequestCallback) => {
+      cb(0);
+      return 0;
+    });
+    const scroll = vi.spyOn(Element.prototype, 'scrollIntoView');
+    const { startRouter } = await import('../../src/client/app/router');
+    const outlet = document.createElement('div');
+    document.body.append(outlet);
+    history.replaceState(null, '', '#/faq/ties');
+    startRouter(outlet);
+    expect(scroll).toHaveBeenCalledTimes(1);
+    expect(scroll.mock.contexts[0]).toBe(outlet.querySelector('#strv-faq-ties-h'));
+    scroll.mockRestore();
+  });
 });

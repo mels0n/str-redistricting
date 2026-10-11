@@ -1,12 +1,12 @@
 import { createHash } from 'node:crypto';
-import { mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import type { EnactedFile } from '../../../src/server/features/publish/boundary.js';
-import { downloadForPinning } from '../../../src/server/shared/http/index.js';
+import { adoptIfAccepted, downloadForPinning } from '../../../src/server/shared/http/index.js';
 import { stampOf, VERSIONS } from '../../../src/server/shared/config/index.js';
-import { DataError } from '../../../src/server/shared/errors/index.js';
+import { DataError, DownloadError } from '../../../src/server/shared/errors/index.js';
 
 vi.mock('../../../src/server/features/publish/boundary.js', async (orig) => ({
   ...(await orig<typeof import('../../../src/server/features/publish/boundary.js')>()),
@@ -142,17 +142,70 @@ describe('publish-data --enacted-only on stamped data', () => {
 });
 
 describe('downloadForPinning', () => {
-  it('downloads without a pinned hash and returns the hash of what it got, then reuses the cached file', async () => {
-    const tmp = mkdtempSync(join(tmpdir(), 'pin-'));
-    try {
-      const path = join(tmp, 'f.zip');
-      const fetchFn = vi.fn<typeof fetch>(async () => new Response('new census bytes', { status: 200 }));
-      const want = createHash('sha256').update('new census bytes').digest('hex');
-      expect(await downloadForPinning('https://www2.census.gov/f.zip', path, 'f', { fetchFn })).toEqual({ path, sha256: want });
-      expect(await downloadForPinning('https://www2.census.gov/f.zip', path, 'f', { fetchFn })).toEqual({ path, sha256: want });
-      expect(fetchFn).toHaveBeenCalledTimes(1);
-    } finally {
-      rmSync(tmp, { recursive: true, force: true });
-    }
+  const URL_ = 'https://www2.census.gov/f.zip';
+  const sha = (b: string): string => createHash('sha256').update(b).digest('hex');
+  let tmp: string;
+  let path: string;
+  beforeEach(() => {
+    tmp = mkdtempSync(join(tmpdir(), 'pin-'));
+    path = join(tmp, 'f.zip');
+  });
+  afterEach(() => {
+    vi.restoreAllMocks();
+    rmSync(tmp, { recursive: true, force: true });
+  });
+
+  it('downloads to a file of its own and returns the hash of what it got, leaving no cache behind', async () => {
+    const fetchFn = vi.fn<typeof fetch>(async () => new Response('new census bytes', { status: 200 }));
+    const got = await downloadForPinning(URL_, path, 'f', { fetchFn });
+    expect(got.sha256).toBe(sha('new census bytes'));
+    expect(got.path).not.toBe(path);
+    expect(readFileSync(got.path, 'utf8')).toBe('new census bytes');
+    expect(existsSync(path)).toBe(false);
+  });
+  it('does not trust or touch a cached file, and warns when it differs', async () => {
+    writeFileSync(path, 'stale bytes');
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+    const fetchFn = vi.fn<typeof fetch>(async () => new Response('new census bytes', { status: 200 }));
+    const got = await downloadForPinning(URL_, path, 'f', { fetchFn });
+    expect(got.sha256).toBe(sha('new census bytes'));
+    expect(readFileSync(path, 'utf8')).toBe('stale bytes');
+    expect(warn).toHaveBeenCalledWith(expect.stringContaining('differs'));
+  });
+  it('does not warn when the cached file is identical', async () => {
+    writeFileSync(path, 'same bytes');
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+    await downloadForPinning(URL_, path, 'f', { fetchFn: async () => new Response('same bytes', { status: 200 }) });
+    expect(warn).not.toHaveBeenCalled();
+  });
+  it('leaves the cached file intact and no temporary file when the fetch fails', async () => {
+    writeFileSync(path, 'pinned bytes');
+    const fetchFn = vi.fn<typeof fetch>(async () => new Response('gone', { status: 404 }));
+    await expect(downloadForPinning(URL_, path, 'f', { fetchFn, sleep: async () => undefined })).rejects.toBeInstanceOf(DownloadError);
+    expect(readFileSync(path, 'utf8')).toBe('pinned bytes');
+    expect(readdirSync(tmp)).toEqual(['f.zip']);
+  });
+});
+
+describe('adoptIfAccepted', () => {
+  let tmp: string;
+  beforeEach(() => {
+    tmp = mkdtempSync(join(tmpdir(), 'adopt-'));
+  });
+  afterEach(() => rmSync(tmp, { recursive: true, force: true }));
+
+  it('replaces the cache once the bump is accepted', async () => {
+    writeFileSync(join(tmp, 'f.zip'), 'old');
+    writeFileSync(join(tmp, 'f.fresh'), 'new');
+    expect(await adoptIfAccepted(join(tmp, 'f.fresh'), join(tmp, 'f.zip'), async () => 'ok')).toBe('ok');
+    expect(readFileSync(join(tmp, 'f.zip'), 'utf8')).toBe('new');
+    expect(readdirSync(tmp)).toEqual(['f.zip']);
+  });
+  it('keeps the cache and removes the download when the bump is refused', async () => {
+    writeFileSync(join(tmp, 'f.zip'), 'pinned');
+    writeFileSync(join(tmp, 'f.fresh'), 'new');
+    await expect(adoptIfAccepted(join(tmp, 'f.fresh'), join(tmp, 'f.zip'), async () => Promise.reject(new DataError('refused')))).rejects.toThrow('refused');
+    expect(readFileSync(join(tmp, 'f.zip'), 'utf8')).toBe('pinned');
+    expect(readdirSync(tmp)).toEqual(['f.zip']);
   });
 });

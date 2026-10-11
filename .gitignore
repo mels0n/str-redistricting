@@ -1,7 +1,6 @@
 # Local-only working files, never published with the project
 CLAUDE.md
-.claude/*
-!.claude/*.json
+.claude/
 .superpowers/
 docs/superpowers/
 scratch/
@@ -24,3 +23,8 @@ strategy/
 briefs/
 .env.*
 .dev.vars
+
+# Public repo: tool config and strategy working docs stay local
+ACTION-PLAN.md
+*AUDIT-REPORT*.md
+*_STRATEGY.md

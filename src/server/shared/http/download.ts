@@ -4,6 +4,7 @@ import { mkdir, open, rename, rm } from 'node:fs/promises';
 import { basename, dirname } from 'node:path';
 import { setTimeout as delay } from 'node:timers/promises';
 import { CENSUS_HOSTS } from '../config/index.js';
+import { CENSUS_USER_AGENT, retryAfterMs, retryWaitMs } from './limits.js';
 import { ChecksumError, DownloadError, DownloadRefusedError } from '../errors/index.js';
 
 /** A download is abandoned when no byte (headers included) arrives for this long. Block zips run to about 260 MB. */
@@ -32,6 +33,16 @@ export interface DownloadOptions {
   readonly maxBytes?: number;
 }
 
+/** Whether `url` is https, on an allowed host, with no port. */
+export function isAllowedUrl(url: string, hosts: ReadonlySet<string>): boolean {
+  try {
+    const parsed = new URL(url);
+    return parsed.protocol === 'https:' && hosts.has(parsed.hostname) && parsed.port === '';
+  } catch {
+    return false;
+  }
+}
+
 /** Refuse an address that is not https on an allowed host. */
 function assertAllowedUrl(url: string, label: string, hosts: ReadonlySet<string>): void {
   let parsed: URL;
@@ -40,7 +51,7 @@ function assertAllowedUrl(url: string, label: string, hosts: ReadonlySet<string>
   } catch {
     throw new DownloadRefusedError(`download for ${label} refused: not a valid address`);
   }
-  if (parsed.protocol !== 'https:' || !hosts.has(parsed.hostname) || parsed.port !== '') {
+  if (!isAllowedUrl(url, hosts)) {
     throw new DownloadRefusedError(`download for ${label} refused: ${parsed.protocol}//${parsed.host} is not an allowed Census host`);
   }
 }
@@ -74,7 +85,7 @@ async function fetchToPart(url: string, path: string, part: string, label: strin
   try {
     // Redirects are followed here, one hop at a time, so an address off the allowlist is refused before it is requested.
     let current = url;
-    let res = await o.fetchFn(current, { signal, redirect: 'manual' });
+    let res = await o.fetchFn(current, { signal, redirect: 'manual', headers: { 'User-Agent': CENSUS_USER_AGENT } });
     for (let hops = 0; res.status >= 300 && res.status < 400 && res.headers.has('location'); hops++) {
       await res.body?.cancel().catch(() => undefined);
       if (hops >= MAX_REDIRECTS) throw new DownloadRefusedError(`download for ${label} refused: more than ${MAX_REDIRECTS} redirects`);
@@ -84,11 +95,11 @@ async function fetchToPart(url: string, path: string, part: string, label: strin
         throw new DownloadRefusedError(`download for ${label} refused: redirect to an invalid address`);
       }
       assertAllowedUrl(current, label, o.allowedHosts);
-      res = await o.fetchFn(current, { signal, redirect: 'manual' });
+      res = await o.fetchFn(current, { signal, redirect: 'manual', headers: { 'User-Agent': CENSUS_USER_AGENT } });
     }
     if (!res.ok) {
       await res.body?.cancel().catch(() => undefined);
-      throw new DownloadError(`download failed for ${label}: HTTP ${res.status}`, res.status);
+      throw new DownloadError(`download failed for ${label}: HTTP ${res.status}`, res.status, retryAfterMs(res));
     }
     if (res.body === null) throw new DownloadError(`download for ${label} had no body`);
     const declared = res.headers.get('content-length');
@@ -155,7 +166,7 @@ async function fetchWithRetries(url: string, path: string, label: string, sha256
       if (attempt > MAX_RETRIES) {
         throw new DownloadError(`download failed for ${label} after ${attempt} attempts: ${reason}`, err instanceof DownloadError ? err.status : undefined);
       }
-      await o.sleep(backoff);
+      await o.sleep(retryWaitMs(backoff, err instanceof DownloadError ? err.retryAfterMs : undefined));
       backoff *= 2;
     }
   }
@@ -180,8 +191,44 @@ export async function downloadCached(url: string, path: string, label: string, s
  * The same download for a file that is not pinned yet (a new Census release the maintainer is about to adopt):
  * no hash is checked, and the file's SHA-256 is returned for the manifest. Every later read goes through
  * `downloadCached`, which checks the cached file against that hash.
+ * A file already at `path` is never trusted, since the hash returned here becomes the pin, and it is never touched:
+ * the bytes are fetched again to a file beside it, whose path is returned and which the caller owns. Pass it to
+ * `adoptIfAccepted` so it replaces the cached copy only once the pin is accepted.
  */
 export async function downloadForPinning(url: string, path: string, label: string, opts: DownloadOptions = {}): Promise<{ path: string; sha256: string }> {
-  if (existsSync(path)) return { path, sha256: await sha256File(path) };
-  return { path, sha256: await fetchWithRetries(url, path, label, null, opts) };
+  const fresh = `${path}.${process.pid}.${randomUUID()}.fresh`;
+  try {
+    const sha256 = await fetchWithRetries(url, fresh, label, null, opts);
+    if (existsSync(path)) {
+      const cached = await sha256File(path);
+      if (cached !== sha256) console.warn(`${label}: the cached copy at ${path} (sha256 ${cached}) differs from the file just downloaded (sha256 ${sha256})`);
+    }
+    return { path: fresh, sha256 };
+  } catch (err) {
+    await removeQuietly(fresh);
+    throw err;
+  }
+}
+
+/** A cleanup failure (EBUSY on Windows) must not replace the real error. */
+async function removeQuietly(path: string): Promise<void> {
+  try {
+    await rm(path, { force: true });
+  } catch {
+    // Left behind; it has a name of its own.
+  }
+}
+
+/**
+ * Run `accept` on a fresh download (see `downloadForPinning`). If it succeeds the download replaces `cachePath`;
+ * if it throws, the cached file is left exactly as it was. The download is gone either way.
+ */
+export async function adoptIfAccepted<T>(freshPath: string, cachePath: string, accept: () => Promise<T>): Promise<T> {
+  try {
+    const result = await accept();
+    await rename(freshPath, cachePath);
+    return result;
+  } finally {
+    await removeQuietly(freshPath);
+  }
 }

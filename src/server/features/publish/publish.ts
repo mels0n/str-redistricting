@@ -2,7 +2,7 @@ import type { Feature } from 'geojson';
 import { z } from 'zod';
 import { createHash } from 'node:crypto';
 import { existsSync } from 'node:fs';
-import { mkdir, readFile, rm, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, rm } from 'node:fs/promises';
 import { gzipSync } from 'node:zlib';
 import { join } from 'node:path';
 import { blocksFileName, loadBlockPolygons, loadStateBlocks, type Block } from '../../entities/census-block/index.js';
@@ -20,6 +20,7 @@ import { buildStateBorderBlocks } from './border-blocks.js';
 import { buildEnactedTopology } from './enacted.js';
 import { buildCuts } from './cuts.js';
 import { checkPublishGate, staleStamps, type PublishedPlan } from './gate.js';
+import { readJsonRetrying, withDirLock, writeAtomic } from './safe-write.js';
 import { checkPlanProvenance } from './provenance.js';
 import { loadOgFonts, OG_PALETTE, ogSvg, renderOgPng } from './og.js';
 import { ogCredit } from './og-credit.js';
@@ -36,8 +37,9 @@ const TILE_CHECK_SAMPLE = 2000;
 const MAX_MISSES_LISTED = 5;
 const POINTS_PER_BATCH = 500;
 
-const readJson = async (path: string): Promise<unknown> => JSON.parse(await readFile(path, 'utf8'));
-const write = (path: string, body: string | Uint8Array) => writeFile(path, body);
+// A file another run is replacing is read again once, and every write goes through a rename (see safe-write.ts).
+const readJson = (path: string): Promise<unknown> => readJsonRetrying(async () => JSON.parse(await readFile(path, 'utf8')));
+const write = (path: string, body: string | Uint8Array) => writeAtomic(path, body);
 
 async function readMetrics(dir: string): Promise<PlanMetrics> {
   const parsed = PlanMetricsSchema.safeParse(await readJson(join(dir, 'metrics.json')));
@@ -110,15 +112,27 @@ async function readCheckedPlans(state: StateInfo, outDir: string, chamber: Chamb
  * when its stats.json is there (it is the last file written for a state), so the index never lists a state without files.
  */
 export async function publishedSummaries(publicDir: string, states: readonly StateInfo[] = STATES, chamber: Chamber = 'federal-house'): Promise<Map<string, StateSummary>> {
+  return (await publishedChamberData(publicDir, states, chamber)).summaries;
+}
+
+/** The summaries of a chamber's published maps, and the district count each map was drawn with (absent from data published before it was recorded). */
+export async function publishedChamberData(
+  publicDir: string,
+  states: readonly StateInfo[] = STATES,
+  chamber: Chamber = 'federal-house',
+): Promise<{ summaries: Map<string, StateSummary>; seats: Map<string, number> }> {
   const summaries = new Map<string, StateSummary>();
+  const seats = new Map<string, number>();
   for (const s of states) {
     const path = join(publicDir, planDir(s.abbr, chamber), 'stats.json');
     if (!existsSync(path)) continue;
     const parsed = PublishedStatsSchema.safeParse(await readJson(path));
     if (!parsed.success) throw new DataError(`${path}: ${parsed.error.issues.map((i) => `${i.path.join('.')} ${i.message}`).join('; ')}`);
     summaries.set(s.abbr, summarize(parsed.data.finished.metrics, parsed.data.versions, parsed.data.beforeBalancing?.metrics.assignmentSha256));
+    const drawn = parsed.data.finished.metrics.seats;
+    if (drawn !== undefined) seats.set(s.abbr, drawn);
   }
-  return summaries;
+  return { summaries, seats };
 }
 
 interface Shared {
@@ -268,24 +282,40 @@ async function readPublishedState(statsPath: string): Promise<PublishedPlan | nu
   };
 }
 
+/** The most sampled blocks that may be too thin for a tile point check, as a share of those sampled. */
+export const MAX_THIN_SHARE = 0.01;
+
 /**
  * Every 1-in-N block (about TILE_CHECK_SAMPLE) plus every moved block must land in the district the CSVs give, under both
  * plans. Each block is tested at a point at least DEEP_POINT_MARGIN tile units inside its edges (its Census interior point
  * when that is far enough in), since a point closer to a border than tile rounding can land on either side of it.
- * A block too thin to hold such a point anywhere cannot be tested by a point lookup and is counted, not checked.
+ * A block too thin to hold such a point anywhere cannot be tested by a point lookup: it is counted and logged, and the run
+ * is refused when more than MAX_THIN_SHARE of the sampled blocks are thin, or when none could be checked at all. A moved
+ * block is never skipped silently: one that is too thin is named in the log.
  */
-async function verifyTiles(state: StateInfo, all: readonly Block[], tiles: Uint8Array, file: BlocksFile, moved: ReadonlySet<string>, wrapped: boolean): Promise<void> {
+export async function verifyTiles(state: StateInfo, all: readonly Block[], tiles: Uint8Array, file: BlocksFile, moved: ReadonlySet<string>, wrapped: boolean): Promise<void> {
   const stride = Math.max(1, Math.floor(all.length / TILE_CHECK_SAMPLE));
   const lon = (x: number): number => (wrapped ? unwrapLon(x) : x);
   const picked: { geoid: string; point: [number, number] }[] = [];
   let thin = 0;
+  const thinMoved: string[] = [];
   all.forEach((b, i) => {
     if (i % stride !== 0 && !moved.has(b.geoid)) return;
     const point = deepSamplePoint(b.rings.map((r) => r.map((p) => [lon(p[0]), p[1]])), [lon(b.point[0]), b.point[1]]);
     if (point) picked.push({ geoid: b.geoid, point });
-    else thin++;
+    else {
+      thin++;
+      if (moved.has(b.geoid)) thinMoved.push(b.geoid);
+    }
   });
-  if (thin > 0) console.log(`  ${state.abbr}: ${thin} sampled blocks are too thin for a tile point check and were skipped`);
+  if (thin > 0) {
+    const movedNote = thinMoved.length > 0 ? `, ${thinMoved.length} of them moved by balancing (first ${MAX_MISSES_LISTED}: ${thinMoved.slice(0, MAX_MISSES_LISTED).join(', ')})` : '';
+    console.log(`  ${state.abbr}: ${thin} of ${picked.length + thin} sampled blocks are too thin for a tile point check and were skipped${movedNote}`);
+  }
+  if (picked.length === 0) throw new DataError(`${state.abbr}: no sampled block could be checked against the detail tiles (${thin} too thin for a point check)`);
+  if (thin / (picked.length + thin) > MAX_THIN_SHARE) {
+    throw new DataError(`${state.abbr}: ${thin} of ${picked.length + thin} sampled blocks are too thin for a tile point check, more than ${MAX_THIN_SHARE * 100}%; the detail tiles cannot be verified`);
+  }
   const misses: string[] = [];
   for (let i = 0; i < picked.length; i += POINTS_PER_BATCH) {
     const batch = picked.slice(i, i + POINTS_PER_BATCH);
@@ -375,17 +405,20 @@ export async function publishEnactedOnly(cfg: PublishConfig): Promise<void> {
     changed.push(await writeIfChanged(b.statsPath, JSON.stringify({ ...b.stats, enactedSource: b.enacted.source, ...(stamped ? { versions: restamped(b.stats.versions!, stamp) } : {}) })));
     console.log(`  ${b.state.abbr}: ${changed.some(Boolean) ? 'updated' : 'unchanged'}`);
   }
-  const stampedStates = built.filter((b) => b.stats.versions !== undefined && !(b.stats.finished?.metrics.seats !== undefined && b.stats.finished.metrics.seats !== b.state.seats));
-  if (stampedStates.length > 0) {
-    await restampIndex(join(cfg.publicDir, 'index.json'), cfg.chamber, new Map(stampedStates.map((b) => [b.state.abbr, restamped(b.stats.versions!, stamp)])));
-  }
-  // The versions file speaks for every published map in every chamber, so it moves only when none carries an older stamp.
-  const published = await publishedStamps(cfg.publicDir);
-  // No map was regenerated, so a stamp is current when its maps release and input match; engine and schema stay as drawn.
-  const olderStamps = staleStamps(published.map((p) => (p.versions ? { abbr: p.abbr, versions: { ...p.versions, engine: stamp.engine, schema: stamp.schema } } : p)), stamp);
-  if (published.length > 0 && olderStamps.length === 0) {
-    await writeIfChanged(join(cfg.publicDir, 'versions.json'), formatVersions(await restampedVersions(join(cfg.publicDir, 'versions.json'))));
-  } else if (olderStamps.length > 0) console.log(`versions.json kept: ${olderStamps.join(', ')} still carry an older stamp`);
+  // The index and versions file describe every chamber, so they are rebuilt by one run at a time.
+  await withDirLock(cfg.publicDir, async () => {
+    const stampedStates = built.filter((b) => b.stats.versions !== undefined && !(b.stats.finished?.metrics.seats !== undefined && b.stats.finished.metrics.seats !== b.state.seats));
+    if (stampedStates.length > 0) {
+      await restampIndex(join(cfg.publicDir, 'index.json'), cfg.chamber, new Map(stampedStates.map((b) => [b.state.abbr, restamped(b.stats.versions!, stamp)])));
+    }
+    // The versions file speaks for every published map in every chamber, so it moves only when none carries an older stamp.
+    const published = await publishedStamps(cfg.publicDir);
+    // No map was regenerated, so a stamp is current when its maps release and input match; engine and schema stay as drawn.
+    const olderStamps = staleStamps(published.map((p) => (p.versions ? { abbr: p.abbr, versions: { ...p.versions, engine: stamp.engine, schema: stamp.schema } } : p)), stamp);
+    if (published.length > 0 && olderStamps.length === 0) {
+      await writeIfChanged(join(cfg.publicDir, 'versions.json'), formatVersions(await restampedVersions(join(cfg.publicDir, 'versions.json'))));
+    } else if (olderStamps.length > 0) console.log(`versions.json kept: ${olderStamps.join(', ')} still carry an older stamp`);
+  });
 }
 
 /**
@@ -525,16 +558,19 @@ export async function publishData(cfg: PublishConfig, { planStale, preRelease = 
     await publishState(s, cfg, shared, checked.get(s.abbr)!);
   }
 
-  // The index describes what is in the public directory, after this run's states are written.
-  // Every state lists both state chambers, drawn or not, so the viewer can tell "not drawn yet" from "has none".
-  const chambers = {
-    'state-house': await publishedSummaries(cfg.publicDir, STATES, 'state-house'),
-    'state-senate': await publishedSummaries(cfg.publicDir, STATES, 'state-senate'),
-  };
-  await write(join(cfg.publicDir, 'index.json'), JSON.stringify(buildIndex(STATES, await publishedSummaries(cfg.publicDir), chambers)));
-  // The versions file speaks for the whole published dataset, so it moves to the current versions only when every
-  // published state now carries the current stamp; after a partial run that left older stamps it stays as it was.
-  const stale = staleStamps(await publishedStamps(cfg.publicDir), versions);
-  if (stale.length === 0) await write(join(cfg.publicDir, 'versions.json'), formatVersions(VERSIONS));
-  else console.log(`versions.json kept: ${stale.join(', ')} still carry an older stamp`);
+  // The index describes what is in the public directory, after this run's states are written. Another run may be
+  // writing its own states at the same time, so the index and versions are rebuilt by one run at a time.
+  await withDirLock(cfg.publicDir, async () => {
+    // Every state lists both state chambers, drawn or not, so the viewer can tell "not drawn yet" from "has none".
+    const house = await publishedChamberData(cfg.publicDir, STATES, 'state-house');
+    const senate = await publishedChamberData(cfg.publicDir, STATES, 'state-senate');
+    const chambers = { 'state-house': house.summaries, 'state-senate': senate.summaries };
+    const index = buildIndex(STATES, await publishedSummaries(cfg.publicDir), chambers, { 'state-house': house.seats, 'state-senate': senate.seats });
+    await write(join(cfg.publicDir, 'index.json'), JSON.stringify(index));
+    // The versions file speaks for the whole published dataset, so it moves to the current versions only when every
+    // published state now carries the current stamp; after a partial run that left older stamps it stays as it was.
+    const stale = staleStamps(await publishedStamps(cfg.publicDir), versions);
+    if (stale.length === 0) await write(join(cfg.publicDir, 'versions.json'), formatVersions(VERSIONS));
+    else console.log(`versions.json kept: ${stale.join(', ')} still carry an older stamp`);
+  });
 }

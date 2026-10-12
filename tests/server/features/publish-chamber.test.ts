@@ -5,6 +5,7 @@ import { join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { blocksFileName } from '../../../src/server/entities/census-block/index.js';
 import { stateByAbbr, STATES } from '../../../src/server/shared/apportionment/index.js';
+import { seatsFor } from '../../../src/server/shared/chamber/index.js';
 import { LINE_SEARCH, pinnedSha256, stampOf, VERSIONS } from '../../../src/server/shared/config/index.js';
 
 // The geometry, tile and image work is replaced by stand-ins: this file is about where files go and what the index says.
@@ -41,7 +42,7 @@ vi.mock('../../../src/server/features/publish/topo.js', async (orig) => ({
   toTopology: vi.fn(async () => '{"topology":true}'),
 }));
 
-const { buildIndex, publishData, summarize, PlanMetricsSchema } = await import('../../../src/server/features/publish/index.js');
+const { buildIndex, publishData, publishedSummaries, summarize, PlanMetricsSchema } = await import('../../../src/server/features/publish/index.js');
 const { parsePublishConfig } = await import('../../../src/server/shared/config/index.js');
 const { writeSharePages } = await import('../../../build/share-pages.js');
 
@@ -117,6 +118,35 @@ describe('publishing one chamber', () => {
     expect(index.states.find((s) => s.abbr === 'NE')!.chambers['state-house']).toEqual({ seats: 0, hasData: false });
   });
 
+  it('reads the seats a published chamber was drawn with from its stats.json', async () => {
+    const out = join(root, 'out');
+    const pub = join(root, 'public');
+    plan(join(out, 'VT', 'state-senate'), 16);
+    await run(out, pub, '--states', 'VT', '--chamber', 'state-senate');
+    const { publishedChamberData } = await import('../../../src/server/features/publish/publish.js');
+    const data = await publishedChamberData(pub, [stateByAbbr('VT')!], 'state-senate');
+    expect(data.seats.get('VT')).toBe(16);
+    expect(data.summaries.has('VT')).toBe(true);
+  });
+
+  it("keeps every run's states in the index when two chambers publish at the same time", async () => {
+    const out = join(root, 'out');
+    const pub = join(root, 'public');
+    plan(join(out, 'VT'), 1);
+    plan(join(out, 'VT', 'state-senate'), 16);
+    plan(join(out, 'VT', 'state-house'), 109);
+    await Promise.all([
+      run(out, pub, '--states', 'VT'),
+      run(out, pub, '--states', 'VT', '--chamber', 'state-senate'),
+      run(out, pub, '--states', 'VT', '--chamber', 'state-house'),
+    ]);
+    const index = JSON.parse(readFileSync(join(pub, 'index.json'), 'utf8')) as { states: { abbr: string; hasData: boolean; chambers: Record<string, { hasData: boolean }> }[] };
+    const vt = index.states.find((s) => s.abbr === 'VT')!;
+    expect([vt.hasData, vt.chambers['state-house']!.hasData, vt.chambers['state-senate']!.hasData]).toEqual([true, true, true]);
+    expect(existsSync(join(pub, '.publish.lock'))).toBe(false);
+    expect(readdirSync(pub).filter((n) => n.endsWith('.part'))).toEqual([]);
+  });
+
   it('skips a state with no such chamber, also when it is named, without an error', async () => {
     const out = join(root, 'out');
     const pub = join(root, 'public');
@@ -128,6 +158,18 @@ describe('publishing one chamber', () => {
 });
 
 describe('index chambers', () => {
+  it('lists a published chamber with the seats of its map, an undrawn one with the Census count', async () => {
+    const withSummary = new Map([['RI', summarize(PlanMetricsSchema.parse({
+      state: 'RI', lineSearch: 'exact', nodeVersion: 'v24.12.0', inputSha256: 'a', seats: 74, population: 10, ideal: 5,
+      districts: [{ district: 1, pop: 5, dev: 0, devPct: 0, contiguous: true }], rangePersons: 1, rangePct: 0.1, allContiguous: true, assignmentSha256: 'b',
+    }), stampOf(VERSIONS))]]);
+    const index = buildIndex(STATES, new Map(), { 'state-house': withSummary, 'state-senate': new Map() }, { 'state-house': new Map([['RI', 74]]) });
+    const ri = index.states.find((s) => s.abbr === 'RI')!.chambers!;
+    expect(seatsFor(stateByAbbr('RI')!, 'state-house')).toBe(75);
+    expect(ri['state-house']).toMatchObject({ seats: 74, hasData: true });
+    expect(ri['state-senate']).toEqual({ seats: seatsFor(stateByAbbr('RI')!, 'state-senate'), hasData: false });
+  });
+
   const summary = summarize(PlanMetricsSchema.parse({
     state: 'RI', lineSearch: 'exact', nodeVersion: 'v24.12.0', inputSha256: 'a', seats: 2, population: 10, ideal: 5,
     districts: [{ district: 1, pop: 5, dev: 0, devPct: 0, contiguous: true }], rangePersons: 1, rangePct: 0.1, allContiguous: true, assignmentSha256: 'b',

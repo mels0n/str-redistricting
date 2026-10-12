@@ -68,18 +68,23 @@ export function summarize(m: PublishedMetrics, versions?: VersionStamp, beforeAs
 /**
  * index.json: every state in the apportionment table, with a summary where a plan was generated. With `chambers` (each
  * chamber's summaries by state), every state also lists both state chambers, so a viewer can tell "not drawn yet" from "none".
+ * A chamber with data lists the seats of its published map (`publishedSeats`), which can differ from the current Census count.
  */
 export function buildIndex(
   states: readonly StateInfo[],
   summaries: ReadonlyMap<string, StateSummary>,
   chambers?: Readonly<Record<StateChamber, ReadonlyMap<string, StateSummary>>>,
+  /** The district count recorded in each published map, by chamber and state: what a chamber with data lists as its seats. */
+  publishedSeats?: Readonly<Partial<Record<StateChamber, ReadonlyMap<string, number>>>>,
 ): { states: IndexEntry[] } {
   return {
     states: states.map((s) => {
       const summary = summaries.get(s.abbr);
       const entry = (chamber: StateChamber): ChamberEntry => {
         const own = chambers![chamber].get(s.abbr);
-        return { seats: seatsFor(s, chamber), hasData: own !== undefined, ...(own ? { summary: own } : {}) };
+        // A published map is described by the count it was drawn with; the current Census count is only for a chamber not drawn yet.
+        const seats = own === undefined ? seatsFor(s, chamber) : (publishedSeats?.[chamber]?.get(s.abbr) ?? seatsFor(s, chamber));
+        return { seats, hasData: own !== undefined, ...(own ? { summary: own } : {}) };
       };
       return {
         abbr: s.abbr, name: s.name, seats: s.seats, hasData: summary !== undefined, ...(summary ? { summary } : {}),

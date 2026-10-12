@@ -2,8 +2,8 @@
 
 ## 1.2.2 (2026-10-12)
 
-- The balancing replay reads moves of blocks with no people.
-- How it works, the FAQ and the page explainers describe island link lengths in borders and the balancing moves of blocks with no people.
+- The balancing replay reads moves that leave the districts exactly as close to equal, including moves of blocks with no people.
+- How it works, the FAQ and the page explainers describe island link lengths in borders and balancing as people first, then border.
 
 ## 1.2.1 (2026-10-12)
 

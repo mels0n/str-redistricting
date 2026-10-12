@@ -2,7 +2,7 @@
 
 ## 1.0.3 (2026-10-12)
 
-- Described how an island link's length counts in a cut's border, and how balancing moves a block with no people when that shortens the border, including what the metrics count.
+- Described how an island link's length counts in a cut's border, and balancing as people first, then border, including what the metrics count.
 
 ## 1.0.2 (2026-10-12)
 

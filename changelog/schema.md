@@ -2,7 +2,7 @@
 
 ## 1.2.1 (2026-10-12)
 
-- A balancing move in `balance.json` may now record a block with no people (`pop` 0, `gain` 0): such a move leaves every population as it was and shortens the border.
+- A balancing move in `balance.json` may now record a `gain` of 0 (a move that leaves the districts exactly as close to equal and shortens the border), and a `pop` of 0 (a block with no people).
 - The How it works examples describe these moves and island link lengths.
 
 ## 1.2.0 (2026-10-12)

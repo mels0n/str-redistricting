@@ -40,11 +40,56 @@ const versions = read('versions.json') as { engine: string; input: unknown; maps
 const major = (v: string): string => v.split('.')[0]!;
 const fipsOf = (abbr: string): string => Object.keys(STATE_FIPS).find((k) => STATE_FIPS[k] === abbr)!;
 
-// An index made before the state chambers existed has nothing to check.
-const hasChambers = index.states.some((s) => s.chambers !== undefined);
-const suite = hasChambers ? describe : describe.skip;
+// The raw index, for the summary fields the client schema does not keep.
+type RawSummary = {
+  population: number;
+  rangePersons: number;
+  allContiguous: boolean;
+  assignmentSha256: string;
+  beforeAssignmentSha256?: string;
+  versions?: { engine: string; input: unknown; maps: number; schema: string };
+};
+const rawIndex = read('index.json') as { states: { abbr: string; chambers?: Record<string, { seats: number; hasData: boolean; summary?: RawSummary }> }[] };
+// The Census-derived seat counts every state chamber must match.
+const legislative = JSON.parse(readFileSync(join(process.cwd(), 'config', 'legislative-districts.json'), 'utf8')) as { states: Record<string, Record<string, number>> };
 
-suite('the published state chamber data agrees with the index', () => {
+describe('the published state chamber data agrees with the index', () => {
+  it('lists both chambers for every state, with the Census seat count', () => {
+    expect(index.states.length).toBe(Object.keys(legislative.states).length);
+    for (const s of rawIndex.states) {
+      expect(s.chambers, `${s.abbr} lists no chambers`).toBeDefined();
+      for (const { chamber } of CHAMBERS) {
+        expect(s.chambers![chamber]?.seats, `${s.abbr} ${chamber} seats`).toBe(legislative.states[s.abbr]![chamber]);
+      }
+    }
+  });
+
+  it('gives Nebraska no State House', () => {
+    expect(legislative.states.NE!['state-house']).toBe(0);
+    expect(rawIndex.states.find((s) => s.abbr === 'NE')!.chambers!['state-house']!.seats).toBe(0);
+  });
+
+  it('summarises each chamber as its stats.json does', () => {
+    for (const s of rawIndex.states) {
+      for (const { chamber } of CHAMBERS) {
+        const c = s.chambers![chamber]!;
+        if (!c.hasData) continue;
+        const stats = StatsSchema.parse(read(s.abbr, chamber, 'stats.json'));
+        const sum = c.summary!;
+        const m = stats.finished.metrics;
+        const at = `${s.abbr} ${chamber}`;
+        expect(sum.assignmentSha256, `${at} assignmentSha256`).toBe(m.assignmentSha256);
+        if (sum.beforeAssignmentSha256 !== undefined) expect(sum.beforeAssignmentSha256, `${at} beforeAssignmentSha256`).toBe(stats.beforeBalancing.metrics.assignmentSha256);
+        expect(sum.allContiguous, `${at} allContiguous`).toBe(m.allContiguous);
+        expect(sum.rangePersons, `${at} rangePersons`).toBe(m.rangePersons);
+        expect(sum.population, `${at} population`).toBe(m.population);
+        expect(sum.versions, `${at} versions`).toBeDefined();
+        expect(stats.versions, `${at} stats versions`).toBeDefined();
+        for (const k of ['maps', 'input', 'engine', 'schema'] as const) expect(sum.versions![k], `${at} versions.${k}`).toEqual(stats.versions![k]);
+      }
+    }
+  });
+
   it('has a folder for every chamber with data, and none for a chamber a state does not have', () => {
     for (const s of index.states) {
       for (const { chamber } of CHAMBERS) {
@@ -73,17 +118,12 @@ suite('the published state chamber data agrees with the index', () => {
       }
     }
   });
-
-  it('gives Nebraska no State House', () => {
-    const ne = index.states.find((s) => s.abbr === 'NE');
-    if (ne?.chambers) expect(ne.chambers['state-house']?.seats ?? 0).toBe(0);
-  });
 });
 
 for (const { chamber, suffix } of CHAMBERS) {
   const withData = index.states.filter((s) => s.chambers?.[chamber]?.hasData);
 
-  suite(`${chamber}: every published file passes the viewer's checks`, () => {
+  describe(`${chamber}: every published file passes the viewer's checks`, () => {
     it('is published for at least one state', () => {
       expect(withData.length).toBeGreaterThan(0);
     });

@@ -2,12 +2,12 @@ import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import { PMTiles } from 'pmtiles';
 import type { RangeResponse, Source } from 'pmtiles';
-import { feature } from 'topojson-client';
+import { feature, neighbors } from 'topojson-client';
 import type { FeatureCollection, MultiPolygon, Polygon } from 'geojson';
 import { describe, expect, it } from 'vitest';
 import { BlocksSchema } from '../../src/client/entities/plan/blocks';
 import { BalanceSchema } from '../../src/client/entities/plan/balance';
-import { BridgesSchema, CutsSchema, DistrictTopoSchema, EnactedTopoSchema, StatsSchema, WaterTopoSchema } from '../../src/client/entities/plan/model';
+import { BeforeNeighborsSchema, BridgesSchema, CutsSchema, DistrictTopoSchema, EnactedTopoSchema, StatsSchema, WaterTopoSchema } from '../../src/client/entities/plan/model';
 import { STATE_FIPS, StateIndexSchema } from '../../src/client/entities/state';
 import { ENACTED } from '../../src/client/shared/config';
 import { bboxOf } from '../../src/client/shared/lib/geo';
@@ -17,6 +17,14 @@ const read = (...p: string[]): unknown => JSON.parse(readFileSync(join(dir, ...p
 const collection = (topo: unknown, name: string): FeatureCollection<Polygon | MultiPolygon> => {
   const t = topo as { objects: Record<string, never> };
   return feature(t as never, t.objects[name]!) as unknown as FeatureCollection<Polygon | MultiPolygon>;
+};
+
+/** The neighbors the viewer derives from a district topology: geometries sorted by district number, then topojson-client neighbors. */
+const viewerNeighbors = (topo: unknown, seats: number): number[][] => {
+  const t = topo as { objects: { districts: { geometries: { properties: { district: number } }[] } } };
+  const geoms = [...t.objects.districts.geometries].sort((a, b) => a.properties.district - b.properties.district);
+  expect(geoms).toHaveLength(seats);
+  return neighbors(geoms as never).map((l) => [...new Set(l)].sort((a, b) => a - b));
 };
 
 class BufferSource implements Source {
@@ -150,6 +158,7 @@ for (const { chamber, suffix } of CHAMBERS) {
 
         for (const name of ['districts', 'before']) {
           const topo = DistrictTopoSchema.parse(f(`${name}.topo.json`));
+          if (name === 'before') expect(BeforeNeighborsSchema.parse(f('before-neighbors.json')).neighbors, `${s.abbr} ${chamber} before-neighbors.json`).toEqual(viewerNeighbors(topo, seats));
           const fc = collection(topo, 'districts');
           expect(fc.features).toHaveLength(seats);
           // A map frame that spans most of the world means a shape was drawn across the antimeridian.

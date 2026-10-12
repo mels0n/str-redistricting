@@ -10,6 +10,8 @@ export { buildPublishedBridges } from './bridges.js';
 export type { PublishedBridge, PublishedBridges } from './bridges.js';
 export { borderGeoids, buildBorderBlockTiles, buildStateBorderBlocks, verifyBorderBlocks } from './border-blocks.js';
 export type { BorderBlockTiles } from './border-blocks.js';
+export { BeforeNeighborsSchema, buildBeforeNeighbors } from './neighbors.js';
+export type { BeforeNeighbors } from './neighbors.js';
 export { buildCuts } from './cuts.js';
 export type { PublishedCut } from './cuts.js';
 export { assertGatedAssignments, publishData, publishBlocksOnly, publishEnactedOnly, publishedSummaries, statesWithData } from './publish.js';

@@ -24,6 +24,7 @@ import { readJsonRetrying, withDirLock, writeAtomic } from './safe-write.js';
 import { checkPlanProvenance } from './provenance.js';
 import { loadOgFonts, OG_PALETTE, ogSvg, renderOgPng } from './og.js';
 import { ogCredit } from './og-credit.js';
+import { buildBeforeNeighbors } from './neighbors.js';
 import { buildStats, planStats } from './stats.js';
 import { buildIndex, STATE_CHAMBERS, PlanMetricsSchema, PublishedMetricsSchema, PublishedStampSchema, summarize, type PlanMetrics, type StateSummary } from './summary.js';
 import { buildDetailTiles, deepSamplePoint, districtsAtDeepTile } from './tiles.js';
@@ -213,7 +214,9 @@ async function publishState(state: StateInfo, cfg: PublishConfig, shared: Shared
   const credit = ogCredit({ abbr: stateChamber === undefined ? state.abbr : `${state.abbr}/${CHAMBER_SEGMENT[stateChamber]}`, name: imageName, versions, assignmentSha256: official.assignmentSha256 });
   outputs.push(['og.png', renderOgPng(ogSvg({ name: imageName, abbr: state.abbr, seats: state.seats, topo: districtsTopo, credit, palette: OG_PALETTE }), await loadOgFonts())]);
   const beforeDistricts = (await readJson(join(srcBefore, 'districts.geojson'))) as Parameters<typeof toTopology>[0];
-  outputs.push(['before.topo.json', await toTopology({ features: display(beforeDistricts.features) }, 'districts', budget)]);
+  const beforeTopo = await toTopology({ features: display(beforeDistricts.features) }, 'districts', budget);
+  outputs.push(['before.topo.json', beforeTopo]);
+  outputs.push(['before-neighbors.json', buildBeforeNeighbors(beforeTopo, state.seats)]);
 
   // Water is display only: the area the districts cover less the shoreline-clipped land. It gets half the district vertex budget.
   const water = await buildWater(await readFile(join(src, 'districts.geojson'), 'utf8'), shared.land);

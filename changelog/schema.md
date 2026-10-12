@@ -1,8 +1,9 @@
 # Schema changelog
 
-## 1.1.1 (2026-10-12)
+## 1.2.0 (2026-10-12)
 
 - Census names are read as UTF-8, so accented county names such as Doña Ana County publish correctly.
+- Each map now publishes the district neighbors of its before-balancing plan, so the viewer can color districts consistently before that plan loads.
 
 ## 1.1.0 (2026-10-11)
 

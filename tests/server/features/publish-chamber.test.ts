@@ -39,7 +39,8 @@ vi.mock('../../../src/server/features/publish/border-blocks.js', () => ({ buildS
 vi.mock('../../../src/server/features/publish/og.js', () => ({ loadOgFonts: vi.fn(async () => []), ogSvg: vi.fn(() => ''), renderOgPng: vi.fn(() => new Uint8Array([3])), OG_PALETTE: [] }));
 vi.mock('../../../src/server/features/publish/topo.js', async (orig) => ({
   ...(await orig<typeof import('../../../src/server/features/publish/topo.js')>()),
-  toTopology: vi.fn(async () => '{"topology":true}'),
+  // A topology with one empty geometry per feature, so the neighbor list can be built from it.
+  toTopology: vi.fn(async (fc: { features: unknown[] }) => JSON.stringify({ type: 'Topology', arcs: [], objects: { districts: { type: 'GeometryCollection', geometries: fc.features.map((_, i) => ({ type: 'Polygon', arcs: [], properties: { district: i + 1 } })) } } })),
 }));
 
 const { buildIndex, publishData, publishedSummaries, summarize, PlanMetricsSchema } = await import('../../../src/server/features/publish/index.js');
@@ -69,7 +70,7 @@ const plan = (dir: string, seats: number): void => {
   for (const sub of ['', 'before-balancing']) {
     put(join(dir, sub, 'metrics.json'), JSON.stringify(metrics('VT', seats)));
     put(join(dir, sub, 'assignment.csv'), CSV);
-    put(join(dir, sub, 'districts.geojson'), JSON.stringify({ features: [] }));
+    put(join(dir, sub, 'districts.geojson'), JSON.stringify({ features: Array.from({ length: seats }, (_, i) => ({ type: 'Feature', properties: { district: i + 1 }, geometry: null })) }));
   }
   put(join(dir, 'cuts.geojson'), JSON.stringify({ features: [] }));
   put(join(dir, 'balance.json'), JSON.stringify({ before: Array.from({ length: seats }, () => 1), moves: [] }));
@@ -103,7 +104,7 @@ describe('publishing one chamber', () => {
     await run(out, pub, '--states', 'VT', '--chamber', 'state-senate');
     expect(filesIn(join(pub, 'VT'))).toEqual(federal);
     expect(Object.keys(filesIn(join(pub, 'VT', 'state-senate'))).sort()).toEqual(
-      ['balance.json', 'before.topo.json', 'blocks.json', 'blocks.pmtiles', 'bridges.json', 'cuts.json', 'detail.pmtiles', 'districts.topo.json', 'enacted.topo.json', 'og.png', 'stats.json', 'water.topo.json'],
+      ['balance.json', 'before-neighbors.json', 'before.topo.json', 'blocks.json', 'blocks.pmtiles', 'bridges.json', 'cuts.json', 'detail.pmtiles', 'districts.topo.json', 'enacted.topo.json', 'og.png', 'stats.json', 'water.topo.json'],
     );
     const stats = JSON.parse(readFileSync(join(pub, 'VT', 'state-senate', 'stats.json'), 'utf8')) as { enactedSource: string };
     expect(stats.enactedSource).toBe('cb_2025_50_sldu_500k');

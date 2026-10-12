@@ -112,6 +112,10 @@ export const BridgesSchema = z.object({
 export type Bridges = z.infer<typeof BridgesSchema>;
 export type BridgeLink = Bridges['links'][number];
 
+/** The district neighbors of the before-balancing plan: `neighbors[i]` lists the 0-based indexes adjacent to district i + 1. Display only (district colors). */
+export const BeforeNeighborsSchema = z.object({ neighbors: z.array(z.array(z.number().int().nonnegative())) });
+export type BeforeNeighbors = z.infer<typeof BeforeNeighborsSchema>;
+
 /** The water mask: one GeometryCollection named `water`, the part of the districts that lies over water. Display only. */
 export const WaterTopoSchema = z.looseObject({
   type: z.literal('Topology'),

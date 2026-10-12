@@ -8,6 +8,7 @@ import {
   EnactedTopoSchema,
   WaterTopoSchema,
   BridgesSchema,
+  BeforeNeighborsSchema,
   type Bridges,
   StatsSchema,
   type Cut,
@@ -48,8 +49,9 @@ export interface StateBundle {
   /** The island links, or null when the file is missing or unreadable (nothing is then drawn or said about links). */
   bridges: Bridges | null;
   /**
-   * Fill color for each district, by district index (district 1 at 0). Until the before-balancing shapes load, the colors
-   * keep the finished map's neighbors apart; loadBefore then keeps both plans' neighbors apart (usually the same colors).
+   * Fill color for each district, by district index (district 1 at 0). Both plans' neighbors are kept apart from the first
+   * paint when the state publishes before-neighbors.json. For older data the colors keep only the finished map's neighbors
+   * apart until loadBefore has the before-balancing shapes, then keep both plans' apart.
    */
   colors: string[];
 }
@@ -89,6 +91,19 @@ function loadBridges(dir: string): Promise<Bridges | null> {
 }
 
 /**
+ * The before-balancing plan's district neighbors, which fix the district colors from the first paint. A missing or
+ * unreadable file (older data) is not an error: the colors are then worked out once the plan loads.
+ */
+function loadBeforeNeighbors(dir: string): Promise<number[][] | null> {
+  return fetchJson(dataUrl(`${dir}/before-neighbors.json`), BeforeNeighborsSchema)
+    .then((file) => file.neighbors)
+    .catch(() => null);
+}
+
+/** Bundles whose colors already account for both plans, so loadBefore leaves them alone. */
+const colorsFinal = new WeakSet<StateBundle>();
+
+/**
  * A state's numbers alone (both plans, every district), without any shapes. It also checks the state's stamp for
  * release skew (see checkRelease), so loading stats can reload the app when a newer release went out.
  */
@@ -113,14 +128,17 @@ export function loadStateBundle(abbr: string, chamber: Chamber = 'federal-house'
       fetchJson(dataUrl(`${dir}/cuts.json`), CutsSchema),
       loadWater(dir),
       loadBridges(dir),
-    ]).then(([stats, finishedTopo, cuts, water, bridges]) => {
+      loadBeforeNeighbors(dir),
+    ]).then(([stats, finishedTopo, cuts, water, bridges, rawNeighbors]) => {
       const seats = stats.finished.metrics.seats;
       if (cuts.length !== seats - 1) {
         throw new DataShapeError(dataUrl(`${dir}/cuts.json`), `expected ${seats - 1} cuts, found ${cuts.length}`);
       }
       const finished = toShapes(finishedTopo as unknown as DistrictTopology, finishedUrl, seats);
-      const slots = assignColors(finished.neighbors, districtPalette.length);
-      return {
+      // A list of the wrong size is treated as absent: the colors are then worked out after loadBefore.
+      const beforeNeighbors = rawNeighbors && rawNeighbors.length === seats && rawNeighbors.every((l) => l.every((j) => j < seats)) ? rawNeighbors : null;
+      const slots = assignColors(beforeNeighbors ? unionNeighbors(finished.neighbors, beforeNeighbors) : finished.neighbors, districtPalette.length);
+      const bundle: StateBundle = {
         abbr,
         chamber,
         stats,
@@ -131,6 +149,8 @@ export function loadStateBundle(abbr: string, chamber: Chamber = 'federal-house'
         bridges,
         colors: slots.map((s) => districtPalette[s]!.hex),
       };
+      if (beforeNeighbors) colorsFinal.add(bundle);
+      return bundle;
     });
     p.catch(() => bundles.delete(dir));
     bundles.set(dir, p);
@@ -151,8 +171,10 @@ export function loadBefore(abbr: string, chamber: Chamber = 'federal-house'): Pr
     const beforeUrl = dataUrl(`${dir}/before.topo.json`);
     p = Promise.all([loadStateBundle(abbr, chamber), fetchJson(beforeUrl, DistrictTopoSchema)]).then(([bundle, topo]) => {
       const before = toShapes(topo as unknown as DistrictTopology, beforeUrl, bundle.stats.finished.metrics.seats);
-      const slots = assignColors(unionNeighbors(bundle.finished.neighbors, before.neighbors), districtPalette.length);
-      bundle.colors = slots.map((s) => districtPalette[s]!.hex);
+      if (!colorsFinal.has(bundle)) {
+        const slots = assignColors(unionNeighbors(bundle.finished.neighbors, before.neighbors), districtPalette.length);
+        bundle.colors = slots.map((s) => districtPalette[s]!.hex);
+      }
       bundle.before = before;
       return before;
     });

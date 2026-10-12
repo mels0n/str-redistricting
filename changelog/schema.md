@@ -1,5 +1,9 @@
 # Schema changelog
 
+## 1.1.1 (2026-10-12)
+
+- Census names are read as UTF-8, so accented county names such as Doña Ana County publish correctly.
+
 ## 1.1.0 (2026-10-11)
 
 - Published files now describe each chamber separately, so a state has a Federal House, a State House and a State Senate map wherever it has them.

@@ -337,7 +337,7 @@ export function stopCaptions(moves: readonly { gain: number }[]): [string, strin
     ];
   }
   const border = 'A border cannot keep getting shorter either.';
-  const emptyWords = `${empty} of the ${n} moves ${empty === 1 ? 'is' : 'are'} of blocks with no people. They leave the sum unchanged and are made only because they shorten the border.`;
+  const emptyWords = `${whole(empty)} of the ${whole(n)} moves ${empty === 1 ? 'is' : 'are'} of blocks with no people. They leave the sum unchanged and are made only because they shorten the border.`;
   if (withPeople.length === 0) {
     return [
       `No move raises that sum. ${emptyWords} ${dots}`,
@@ -346,7 +346,7 @@ export function stopCaptions(moves: readonly { gain: number }[]): [string, strin
   }
   const lowest = withPeople.reduce((m, x) => Math.min(m, x.gain), Infinity);
   return [
-    `No move raises that sum. The others lower it, the first by ${whole(withPeople[0]!.gain)} and the last by ${whole(withPeople[withPeople.length - 1]!.gain)}. ${emptyWords} ${dots}`,
+    `No move raises that sum. Every move of a block with people lowers it, the first by ${whole(withPeople[0]!.gain)} and the last by ${whole(withPeople[withPeople.length - 1]!.gain)}. ${emptyWords} ${dots}`,
     `No move helps any further, so the pass stops. It always does: every move of a block with people lowers the sum by at least ${whole(lowest)}, and ${ending}. ${border}`,
   ];
 }

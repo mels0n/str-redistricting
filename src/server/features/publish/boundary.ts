@@ -61,7 +61,7 @@ export interface RawFeature {
 
 export async function readBoundaryZip(zipPath: string, file: string): Promise<RawFeature[]> {
   const zip = new AdmZip(zipPath);
-  const source = await shapefile.open(readZipEntry(zip, '.shp', file), readZipEntry(zip, '.dbf', file));
+  const source = await shapefile.open(readZipEntry(zip, '.shp', file), readZipEntry(zip, '.dbf', file), { encoding: 'utf-8' });
   const out: RawFeature[] = [];
   for (;;) {
     const r = await source.read();

@@ -317,7 +317,9 @@ export async function scoreCase(ctx: ExtractContext): Promise<RuleCase> {
   const [gd, rd] = [move.from + 1, move.to + 1];
   const name = nameOf(run.abbr);
   const sign = (v: number): string => `${people(Math.abs(v))} ${v < 0 ? 'under' : 'over'}`;
-  const formula = `2 × ${whole(p)} × (${people(a)} − ${people(b)} − ${whole(p)}) = ${whole(move.gain)}`;
+  // A negative distance is bracketed so the formula never shows two minus signs in a row.
+  const term = (x: number): string => (x < 0 ? `(−${people(-x)})` : people(x));
+  const formula = `2 × ${whole(p)} × (${term(a)} − ${term(b)} − ${whole(p)}) = ${whole(move.gain)}`;
   const moved: RuleBlock = { ...win.blocks.find((x) => x.id === win.idOf(move.block))!, id: 'moved', district: rd };
   const blocks = [...win.blocks, moved];
   const labels: Label[] = [

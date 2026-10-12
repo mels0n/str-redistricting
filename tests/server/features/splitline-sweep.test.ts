@@ -316,6 +316,11 @@ describe('stretches swept in windows', () => {
     // A long run is split so the windows still spread over the threads.
     const run = Array.from({ length: 40 }, (_, i) => at(1, i * 0.01, i * 0.01 + 0.005));
     expect(tieWindows(run)).toEqual([0, 16, 32]);
+    // A cut with very many stretches takes larger windows, so it does not start a chain every 16 stretches.
+    const many = Array.from({ length: 5000 }, (_, i) => at(1, i * 0.03, i * 0.03 + 0.01));
+    const w = tieWindows(many);
+    expect(w).toHaveLength(250);
+    expect(w[1]).toBe(20);
   });
 });
 

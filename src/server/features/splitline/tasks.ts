@@ -74,20 +74,23 @@ export function runPart(piece: Piece, job: SweepJob, t: number, fromDeg: number,
   return sweepChunk(piece, job.seats, sweepTask(job, t).lowSeats, fromDeg, toDeg, job.keep, beat, split);
 }
 
-/** Most tie stretches in one window, so the windows of a cut still spread over the threads. */
+/** Most tie stretches in one window, so the windows of a cut still spread over the threads... */
 export const WINDOW_SPANS = 16;
+/** ...unless a cut has so many stretches that this many windows are plenty: then fewer, larger windows (fewer fresh starts). */
+export const MAX_WINDOWS = 256;
 
 /**
  * Where each window of tie stretches starts (TieSpanJob.windows): runs of up to WINDOW_SPANS stretches of one
- * first-side seat count, in turn order. A window carries one chain from stretch to stretch and gives up a gap that
+ * first-side seat count, in turn order (more per window when a cut has over MAX_WINDOWS x WINDOW_SPANS stretches). A window carries one chain from stretch to stretch and gives up a gap that
  * costs more than a fresh start (sweepSpans), so grouping is speed only, never a change to a map: each stretch gives
  * the same result in any window.
  */
 export function tieWindows(spans: readonly TieSpanTask[]): number[] {
   const out: number[] = [];
+  const cap = Math.max(WINDOW_SPANS, Math.ceil(spans.length / MAX_WINDOWS));
   for (let i = 0; i < spans.length; i++) {
     const p = spans[i - 1], s = spans[i]!;
-    const join = p !== undefined && i - out[out.length - 1]! < WINDOW_SPANS && p.lowSeats === s.lowSeats && !p.endIsPi && compareDirections(p.e, s.s) <= 0;
+    const join = p !== undefined && i - out[out.length - 1]! < cap && p.lowSeats === s.lowSeats && !p.endIsPi && compareDirections(p.e, s.s) <= 0;
     if (!join) out.push(i);
   }
   return out;

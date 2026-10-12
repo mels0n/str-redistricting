@@ -205,8 +205,8 @@ export async function allowedCase(ctx: ExtractContext): Promise<RuleCase> {
   const intoBigger = widenMoves.every((c) => c.to + 1 === bigger);
   const smaller = bigger === gd ? go : gd;
   const widenText = intoBigger
-    ? `A move must narrow the gap between the two districts, here ${plural(gap, 'person', 'people')}. Here ${plural(widen.length, 'move', 'moves')} would take people from District ${smaller} into District ${bigger}, which already has more, so ${widen.length === 1 ? 'it would' : 'they would'} widen it.`
-    : `A move must narrow the gap between the two districts, here ${plural(gap, 'person', 'people')}. Here ${plural(widen.length, 'move', 'moves')} would widen it instead.`;
+    ? `A block with people may move only if that narrows the gap between the two districts, here ${plural(gap, 'person', 'people')}. Here ${plural(widen.length, 'move', 'moves')} would take people from District ${smaller} into District ${bigger}, which already has more, so ${widen.length === 1 ? 'it would' : 'they would'} widen it.`
+    : `A block with people may move only if that narrows the gap between the two districts, here ${plural(gap, 'person', 'people')}. Here ${plural(widen.length, 'move', 'moves')} would widen it instead.`;
 
   // Why a split: the blocks of the giving district that would be cut off, when they are in view.
   const shown = new Set(around);
@@ -254,7 +254,7 @@ export async function allowedCase(ctx: ExtractContext): Promise<RuleCase> {
         set: mark(border, 'kept'),
       },
       {
-        caption: `A block may move only if it has people. ${none.length === 1 ? '1 of them has' : `${whole(none.length)} of them have`} no people.`,
+        caption: `A block with no people may move only if that shortens the border. ${none.length === 1 ? '1 of them has' : `${whole(none.length)} of them have`} no people, and moving ${none.length === 1 ? 'it' : 'them'} would not.`,
         show: base,
         set: mark(none, 'out'),
       },
@@ -451,7 +451,7 @@ export async function nextFurthestCase(ctx: ExtractContext): Promise<RuleCase> {
     : f2 === f && next2 !== f2
       ? `After every move the pass starts again from the furthest district. Before move ${moveNo + 1}, that is ${D(f)} again, ${side(devsNext[f]!)}, still with no allowed move, so ${D(next2)}, the next furthest, makes move ${moveNo + 1}.`
       : `After every move the pass starts again from the furthest district. Before move ${moveNo + 1}, that is ${D(f2)}, ${side(devsNext[f2]!)}, and it makes move ${moveNo + 1}.`;
-  const reasons = [`${whole(noPeople)} ${noPeople === 1 ? 'is a block' : 'are blocks'} with no people`, `${whole(widens)} would widen a gap`];
+  const reasons = [`${whole(noPeople)} ${noPeople === 1 ? 'is a block' : 'are blocks'} with no people that would not shorten the border`, `${whole(widens)} would widen a gap`];
   if (splits) reasons.push(`${whole(splits)} would split a district`);
   const steps: RuleCase['steps'] = [
     {
@@ -463,7 +463,7 @@ export async function nextFurthestCase(ctx: ExtractContext): Promise<RuleCase> {
       show: held,
     },
     {
-      caption: `${Ds(neighbors)} border it, ${under ? 'larger' : 'smaller'} by ${list(gaps.map((g) => whole(g)))} people. A move narrows a gap only if it carries fewer people than the gap, but the smallest blocks with people that could cross ${under ? 'into' : 'out of'} it hold ${list(smallest.map((x) => whole(x)))}.`,
+      caption: `${Ds(neighbors)} border it, ${under ? 'larger' : 'smaller'} by ${list(gaps.map((g) => whole(g)))} people. A block with people narrows a gap only if it carries fewer people than the gap, but the smallest blocks with people that could cross ${under ? 'into' : 'out of'} it hold ${list(smallest.map((x) => whole(x)))}.`,
       show: [...held, 'chart-border'],
     },
     {

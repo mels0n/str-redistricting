@@ -157,6 +157,16 @@ describe('island bridging (water counts as connection)', () => {
     expect(isConnected(topo, Int32Array.from([0, 1, 2, 3]))).toBe(true);
   });
 
+  it('gives a bridge the great-circle length between its blocks, the same number both ways', () => {
+    const at = (u: number, v: number) => topo.adjOffsets[u]! + neighbors(topo, u).indexOf(v);
+    const d = greatCircleDistance(main[2]!.point, island[0]!.point);
+    expect(d).toBeGreaterThan(0);
+    expect(topo.adjLength[at(2, 3)]).toBe(d);
+    expect(topo.adjLength[at(3, 2)]).toBe(d);
+    expect(topo.adjLengthUm[at(2, 3)]).toBe(Math.round(d * 1e6));
+    expect(topo.adjLengthUm[at(3, 2)]).toBe(topo.adjLengthUm[at(2, 3)]);
+  });
+
   it('bridges several islands nearest first, each to the nearest joined block', () => {
     const blocks = [
       ...main,

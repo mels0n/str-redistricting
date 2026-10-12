@@ -34,6 +34,18 @@ describe('balance', () => {
     expect(r.moves.map((m) => m.block)).toEqual([1]);
     expect(Array.from(r.assignment)).toEqual([0, 1, 1, 1]);
   });
+  it('moves a block with no people when that shortens the border, leaving every population as it was', () => {
+    // 3x3. District 0 is the top row and the empty center block 4; District 1 is the rest. Both hold 6 people, so no
+    // move with people narrows a gap. Block 4 shares one edge with District 0 and three with District 1: moving it
+    // shortens the border by two edges.
+    const pops = [2, 2, 2, 1, 0, 1, 2, 1, 1];
+    const blocks = gridBlocks(3, 3, { pop: (x, y) => pops[y * 3 + x]! });
+    const topo = buildTopology(blocks);
+    const r = balance(blocks, topo, Int32Array.from([0, 0, 0, 1, 0, 1, 1, 1, 1]), 2);
+    expect(r.moves).toEqual([expect.objectContaining({ block: 4, from: 0, to: 1, pop: 0, gain: 0 })]);
+    expect(Array.from(r.assignment)).toEqual([0, 0, 0, 1, 1, 1, 1, 1, 1]);
+    for (const d of [0, 1]) expect(isConnected(topo, Int32Array.from([...r.assignment.keys()].filter((i) => r.assignment[i] === d)))).toBe(true);
+  });
   it('leaves an already balanced plan alone', () => {
     const blocks = gridBlocks(2, 1);
     const r = balance(blocks, buildTopology(blocks), Int32Array.from([0, 1]), 2);

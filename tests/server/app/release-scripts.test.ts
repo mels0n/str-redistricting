@@ -10,6 +10,10 @@ import { formatVersions, parseFingerprintArgs, parseReleaseTagsArgs, parseVersio
 import { BASELINE_INPUT_FILES, BASELINE_VERSIONS as VERSIONS } from '../../helpers/baseline-versions.js';
 import { ConfigError } from '../../../src/server/shared/errors/index.js';
 
+// The scratch repositories start from the first release, not from today's config/versions.json, so a real
+// release never changes what these tests expect. input stays live: its hash must match the census manifest.
+const BASELINE = { ...VERSIONS, engine: '1.0.0', maps: 1, schema: '1.0.0', web: '1.0.0', docs: '1.0.0' };
+
 const appDir = fileURLToPath(new URL('../../../src/server/app/', import.meta.url));
 // `--import tsx` resolves from the working directory, which is a temp repo with no node_modules, so name tsx by URL.
 const tsx = pathToFileURL(createRequire(import.meta.url).resolve('tsx')).href;
@@ -47,7 +51,7 @@ function run(script: string, args: string[]): { status: number | null; stdout: s
   return { status: r.status, stdout: r.stdout, stderr: r.stderr };
 }
 function seed(enforce: boolean): string {
-  write('config/versions.json', formatVersions(VERSIONS));
+  write('config/versions.json', formatVersions(BASELINE));
   write('config/release.json', JSON.stringify({ ...JSON.parse(releaseJson), enforce }));
   for (const [path, text] of Object.entries(BASELINE_INPUT_FILES)) write(path, text);
   for (const c of COMPONENTS) write(`changelog/${c}.md`, `# ${c} changelog\n\n`);
@@ -75,7 +79,7 @@ describe('release:tags', () => {
   });
   it('prints maps-2 when only the maps release changed', () => {
     const first = seed(true);
-    write('config/versions.json', formatVersions({ ...VERSIONS, maps: 2 }));
+    write('config/versions.json', formatVersions({ ...BASELINE, maps: 2 }));
     const second = commitAll('release: maps 2');
     const out = run('release-tags.ts', ['--before', first, '--after', second]);
     expect(out.status).toBe(0);
@@ -133,7 +137,7 @@ describe('version:check', () => {
   it('passes when the hashes changed and maps is bumped, with no engine or input bump', () => {
     const base = seedWithData(true);
     write('public/data/index.json', indexJson('b'));
-    write('config/versions.json', formatVersions({ ...VERSIONS, maps: 2 }));
+    write('config/versions.json', formatVersions({ ...BASELINE, maps: 2 }));
     commitAll('fix: redraw');
     const out = run('version-check.ts', ['--base', base]);
     expect(out.status).toBe(0);
@@ -141,7 +145,7 @@ describe('version:check', () => {
   });
   it('passes a republish stamped with the Maps release an earlier change already declared (enforce true)', () => {
     seedWithData(true);
-    write('config/versions.json', formatVersions({ ...VERSIONS, engine: '2.0.0', maps: 2 }));
+    write('config/versions.json', formatVersions({ ...BASELINE, engine: '2.0.0', maps: 2 }));
     write('changelog/engine.md', '# engine changelog\n\n## 2.0.0\n\n- x\n');
     const base = commitAll('release: engine 2.0.0, maps 2');
     write('public/data/index.json', stampedIndexJson('b', 2));
@@ -152,7 +156,7 @@ describe('version:check', () => {
   });
   it('still requires a maps bump when the republished stamps carry an old maps number', () => {
     seedWithData(true);
-    write('config/versions.json', formatVersions({ ...VERSIONS, engine: '2.0.0', maps: 2 }));
+    write('config/versions.json', formatVersions({ ...BASELINE, engine: '2.0.0', maps: 2 }));
     const base = commitAll('release: engine 2.0.0, maps 2');
     write('public/data/index.json', stampedIndexJson('b', 1));
     commitAll('fix: republish CO');
@@ -169,7 +173,7 @@ describe('version:check', () => {
   });
   it('flags a maps bump with unchanged hashes unless the engine or input moved', () => {
     const base = seedWithData(true);
-    write('config/versions.json', formatVersions({ ...VERSIONS, maps: 2 }));
+    write('config/versions.json', formatVersions({ ...BASELINE, maps: 2 }));
     commitAll('chore: bump maps');
     const out = run('version-check.ts', ['--base', base]);
     expect(out.status).toBe(1);
@@ -233,7 +237,7 @@ describe('release', () => {
     expect(out.status, out.stderr).toBe(0);
     expect(out.stdout).toContain('release: web 1.1.0');
     expect(git('status', '--porcelain')).toBe('');
-    expect(readFileSync(join(repo, 'config/versions.json'), 'utf8')).toBe(formatVersions(VERSIONS));
+    expect(readFileSync(join(repo, 'config/versions.json'), 'utf8')).toBe(formatVersions(BASELINE));
   });
 });
 
@@ -304,7 +308,7 @@ describe('release (repeat runs and measuring)', () => {
   });
   it('proposes nothing for a republish stamped with the Maps release already declared and tagged', () => {
     tagged(true);
-    write('config/versions.json', formatVersions({ ...VERSIONS, engine: '2.0.0', maps: 2 }));
+    write('config/versions.json', formatVersions({ ...BASELINE, engine: '2.0.0', maps: 2 }));
     commitAll('release: engine 2.0.0, maps 2');
     git('tag', 'engine-v2.0.0');
     git('tag', 'maps-2');
@@ -316,7 +320,7 @@ describe('release (repeat runs and measuring)', () => {
   });
   it('still proposes maps for a republish whose stamps carry an older maps number', () => {
     tagged(true);
-    write('config/versions.json', formatVersions({ ...VERSIONS, engine: '2.0.0', maps: 2 }));
+    write('config/versions.json', formatVersions({ ...BASELINE, engine: '2.0.0', maps: 2 }));
     commitAll('release: engine 2.0.0, maps 2');
     git('tag', 'engine-v2.0.0');
     git('tag', 'maps-2');

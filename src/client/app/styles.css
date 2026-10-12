@@ -3040,6 +3040,12 @@ html:has(> body > #str-viewer) {
   text-decoration-color: var(--signal);
 }
 
+/* The GitHub link is an icon alone, so hover dims it instead of underlining nothing. */
+.strv .strv-masthead__repo:hover {
+  text-decoration: none;
+  opacity: 0.75;
+}
+
 /* A phone: one compact row; the credit gives way so the strip never grows taller. */
 @media (max-width: 30rem) {
   .strv-masthead__credit {

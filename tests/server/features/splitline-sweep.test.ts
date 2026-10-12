@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import type { Block } from '../../../src/server/entities/census-block/index.js';
 import { Chain } from '../../../src/server/features/splitline/chain.js';
 import { createScanner, type Piece } from '../../../src/server/features/splitline/scan.js';
-import { compareDirections, directionAt, geoFor, mergeChunks, sweepChunk, sweepSpan, sweepSpans, type ChunkResult, type Range, type SpanBounds } from '../../../src/server/features/splitline/sweep.js';
+import { compareDirections, directionAt, geoFor, joinParts, mergeChunks, sweepChunk, sweepSpan, sweepSpans, type ChunkResult, type Range, type SpanBounds, type SplitHook } from '../../../src/server/features/splitline/sweep.js';
 import { chunksFor, sweepTask, taskCount, tieWindows, type SweepJob, type TieSpanTask } from '../../../src/server/features/splitline/tasks.js';
 import { gridBlocks } from '../../helpers/grid.js';
 import { pieceOf } from '../../helpers/piece.js';
@@ -316,6 +316,75 @@ describe('stretches swept in windows', () => {
     // A long run is split so the windows still spread over the threads.
     const run = Array.from({ length: 40 }, (_, i) => at(1, i * 0.01, i * 0.01 + 0.005));
     expect(tieWindows(run)).toEqual([0, 16, 32]);
+  });
+});
+
+describe('a chunk split while it runs', () => {
+  const withoutStats = (r: ChunkResult | null) => { if (!r) return r; const { stats: _s, ...rest } = r; return rest; };
+  /** A hook that splits at the next of `at` (degrees) each time it is asked, recording the parts it hands off. */
+  const splitter = (at: number[], posted: [number, number][]): SplitHook => ({
+    propose: (last, end) => { const d = at.find((x) => x > last && x < end); return d ?? null; },
+    split: (d, end) => { posted.push([d, end]); at.splice(at.indexOf(d), 1); return true; },
+  });
+  /** Sweep [a, b) the way the pool does: the owner cut short at each split, every posted part swept on its own (and split again). */
+  const sweepSplit = (piece: Piece, seats: number, lowSeats: number, a: number, b: number, keep: number, at: number[]): ChunkResult[] => {
+    const posted: [number, number][] = [];
+    const out = [sweepChunk(piece, seats, lowSeats, a, b, keep, undefined, splitter(at, posted))];
+    while (posted.length) { const [x, y] = posted.pop()!; out.push(sweepChunk(piece, seats, lowSeats, x, y, keep, undefined, splitter(at, posted))); }
+    return out.sort((p, q) => p.aDeg - q.aDeg);
+  };
+  for (const f of fixtures) {
+    for (const seats of f.seats) {
+      it(`${f.name}, ${seats} seats: the parts join into exactly the whole chunk's sweep`, () => {
+        const piece = pieceOf(f.blocks);
+        const rnd = lcg(seats * 31 + f.blocks.length);
+        let splits = 0, joins = 0;
+        for (const lowSeats of orientationsOf(seats)) {
+          for (const [a, b] of [[0, 180], [0, 37.5], [61, 133], [140, 180]] as const) {
+            for (const keep of [1, 6, KEEP_ALL]) {
+              const whole = sweepChunk(piece, seats, lowSeats, a, b, keep);
+              // Split points anywhere, also between events close together; the owner takes them as it reaches them.
+              const at = Array.from({ length: 6 }, () => a + (b - a) * rnd()).sort((x, y) => x - y);
+              const parts = sweepSplit(piece, seats, lowSeats, a, b, keep, [...at]);
+              splits += parts.length - 1;
+              for (let k = 1; k < parts.length; k++) expect(parts[k]!.aDeg).toBe(parts[k - 1]!.bDeg);
+              const joined = joinParts(parts, keep);
+              // Points on a lattice line up, so a later part may name a direction by another pair; it is then swept whole.
+              if (joined === null) expect(parts.slice(1).some((p) => p.ambiguous) || parts.some((p) => p.eventAtEnd)).toBe(true);
+              else { joins++; expect(withoutStats(joined), `[${a}, ${b}) keep ${keep}`).toEqual(withoutStats(whole)); }
+            }
+          }
+        }
+        expect(splits).toBeGreaterThan(0);
+        // Jittered points never line up, so their parts always join.
+        if (f.name === 'jittered points') expect(joins).toBe(orientationsOf(seats).length * 12);
+        else expect(joins).toBeGreaterThan(0);
+      });
+    }
+  }
+
+  it('refuses to join parts that meet exactly on an event, so the chunk is swept again whole', () => {
+    // Two blocks whose difference is exactly the direction at 30 degrees: their swap is an event right at the split.
+    const d = directionAt(30);
+    const blocks = gridBlocks(3, 2, { pop: () => 1 });
+    const piece = pieceOf(blocks);
+    const px = Float64Array.from(piece.px), py = Float64Array.from(piece.py);
+    px[0] = 0; py[0] = 0; px[1] = d[2]; py[1] = d[3];
+    for (let i = 2; i < px.length; i++) { px[i] = 3 * (i % 3) - 1.3; py[i] = 2.1 * Math.floor(i / 3) + 0.7; }
+    const odd = { ...piece, px, py };
+    const posted: [number, number][] = [];
+    const first = sweepChunk(odd, 2, 1, 0, 180, 6, undefined, { propose: (l, e) => (l < 30 && e > 30 ? 30 : null), split: (x, e) => { posted.push([x, e]); return true; } });
+    expect(posted).toEqual([[30, 180]]);
+    expect(first.eventAtEnd).toBe(true);
+    expect(joinParts([first, sweepChunk(odd, 2, 1, 30, 180, 6)], 6)).toBeNull();
+  });
+
+  it('keeps going when a split is refused', () => {
+    const piece = pieceOf(fixtures[1]!.blocks);
+    let asked = 0;
+    const r = sweepChunk(piece, 2, 1, 0, 180, 6, undefined, { propose: (l, e) => { asked++; return (l + e) / 2; }, split: () => false });
+    expect(asked).toBeGreaterThan(0);
+    expect(withoutStats(r)).toEqual(withoutStats(sweepChunk(piece, 2, 1, 0, 180, 6)));
   });
 });
 

@@ -1,12 +1,13 @@
 import { MessageChannel, receiveMessageOnPort, Worker, type MessagePort } from 'node:worker_threads';
 import { DataError, WorkerPoolError } from '../../shared/errors/index.js';
 import type { Piece } from './scan.js';
-import type { ChunkResult } from './sweep.js';
-import { taskCount, type PoolJob } from './tasks.js';
+import { ALWAYS, CTRL_WORDS, newPartList } from './steal.js';
+import { joinParts, type ChunkResult } from './sweep.js';
+import { runTask, sweepTask, taskCount, type PoolJob, type SweepJob } from './tasks.js';
 
 /**
  * Control words shared with the workers: next task to take, how many workers have finished, and a heartbeat the
- * workers bump while a long task runs.
+ * workers bump while a long task runs; then the words steal.ts uses to split chunks between them.
  */
 const NEXT = 0, DONE = 1, BEAT = 2;
 /** Pool-wide flags the workers can set: one of them died unexpectedly, and the pool is being shut down on purpose. */
@@ -22,6 +23,8 @@ export interface ScanPoolOptions {
   readonly workerUrl?: URL;
   /** Overrides the stall limit (tests only). */
   readonly stallMs?: number;
+  /** Split running chunks whenever possible, not only when a worker is idle (tests only). */
+  readonly splitAlways?: boolean;
 }
 
 export interface ScanRequest {
@@ -30,6 +33,8 @@ export interface ScanRequest {
   readonly piece: Piece;
   readonly job: PoolJob;
   readonly ctrl: Int32Array;
+  /** Parts of chunks split off for another worker (steal.ts). */
+  readonly parts: Float64Array;
 }
 
 export type ScanReply =
@@ -60,11 +65,13 @@ export class ScanPool {
   private nextId = 0;
   private reason: string | undefined;
   private readonly stallMs: number;
+  private readonly splitAlways: boolean;
 
   constructor(size: number, opts: ScanPoolOptions = {}) {
     if (!Number.isInteger(size) || size < 1) throw new RangeError(`pool size must be a positive integer, got ${size}`);
     this.size = size;
     this.stallMs = opts.stallMs ?? STALL_MS;
+    this.splitAlways = opts.splitAlways === true;
     const ts = import.meta.url.endsWith('.ts');
     // Keep the worker named by a './…' string literal: explore's code fingerprint (run-stamp) finds the worker that way.
     const url = opts.workerUrl ?? new URL(ts ? './scan-worker.ts' : './scan-worker.js', import.meta.url);
@@ -97,7 +104,8 @@ export class ScanPool {
 
   private run(piece: Piece, job: PoolJob): ChunkResult[] {
     // Fresh control words per request: a worker that is somehow still on an older request cannot touch this one's.
-    const ctrl = new Int32Array(new SharedArrayBuffer(12));
+    const ctrl = new Int32Array(new SharedArrayBuffer(4 * CTRL_WORDS));
+    if (this.splitAlways) ctrl[ALWAYS] = 1;
     const req: ScanRequest = {
       id: this.nextId++,
       piece: {
@@ -106,6 +114,7 @@ export class ScanPool {
       },
       job,
       ctrl,
+      parts: newPartList(),
     };
     for (const w of this.workers) w.worker.postMessage(req);
     let lastNext = 0, lastBeat = 0, lastProgress = Date.now();
@@ -123,7 +132,8 @@ export class ScanPool {
       else if (Date.now() - lastProgress > this.stallMs) throw new WorkerPoolError('cut search workers stopped making progress');
     }
     let failure: Extract<ScanReply, { ok: false }> | undefined;
-    const results: (readonly ChunkResult[])[] = [];
+    // A chunk split between workers comes back in parts, from several workers.
+    const results: ChunkResult[][] = [];
     const nap = new Int32Array(new SharedArrayBuffer(4));
     for (const w of this.workers) {
       let got = receiveMessageOnPort(w.port);
@@ -134,14 +144,28 @@ export class ScanPool {
       // Every task below a failed one was claimed before it and ran to its end, so the lowest failed task is the one
       // a single thread would have stopped at.
       if (!msg.ok) { if (!failure || msg.task < failure.task) failure = msg; }
-      else for (const r of msg.results) results[r.task] = r.result;
+      else for (const r of msg.results) (results[r.task] ??= []).push(...r.result);
     }
     if (failure) throw new ReportedFailure(failure.data ? new DataError(failure.message) : new Error(failure.message));
     // Every task is claimed exactly once; a missing one is a pool fault, reported as such rather than as a crash later.
     const total = taskCount(job);
     for (let t = 0; t < total; t++) if (!results[t]) throw new WorkerPoolError('a cut search worker lost a task');
     if (results.length !== total) throw new WorkerPoolError('a cut search worker reported a task that does not exist');
-    return results.flat();
+    if (job.kind === 'tieSpan') return results.flat();
+    return results.map((parts, t) => this.whole(piece, job, t, parts));
+  }
+
+  /**
+   * Chunk t from the parts its sweep was split into, in turn order: joined into the sweep of the whole chunk, or,
+   * where an event lies exactly where two parts meet, the whole chunk swept again on this thread.
+   */
+  private whole(piece: Piece, job: SweepJob, t: number, parts: ChunkResult[]): ChunkResult {
+    const { aDeg, bDeg } = sweepTask(job, t);
+    parts.sort((p, q) => p.aDeg - q.aDeg);
+    if (parts[0]!.aDeg !== aDeg || parts[parts.length - 1]!.bDeg !== bDeg || parts.some((p, k) => k > 0 && p.aDeg !== parts[k - 1]!.bDeg)) {
+      throw new WorkerPoolError('a cut search worker lost part of a chunk');
+    }
+    return joinParts(parts, job.keep) ?? runTask(piece, job, t)[0]!;
   }
 
   /** Mark the pool unusable and stop its workers. Safe to repeat; the first reason wins. */

@@ -1,5 +1,5 @@
 import type { Piece } from './scan.js';
-import { compareDirections, sweepChunk, sweepSpans, type ChunkResult, type Dir } from './sweep.js';
+import { compareDirections, sweepChunk, sweepSpans, type ChunkResult, type Dir, type SplitHook } from './sweep.js';
 
 /** What to sweep for one cut: every chunk of the half turn, once per first-side seat count. */
 export interface SweepJob {
@@ -57,15 +57,21 @@ export const taskCount = (job: PoolJob): number => (job.kind === 'tieSpan' ? job
 
 /**
  * Run task t of a job on `piece`; the same on the calling thread and on a worker. A chunk gives one result, a window
- * of tie stretches one per stretch. `beat` is the worker's heartbeat (see sweepSpan); it never changes the result.
+ * of tie stretches one per stretch. `beat` is the worker's heartbeat (see sweepSpan) and `split` lets a chunk hand
+ * part of its directions to another thread (steal.ts); neither changes a result.
  */
-export function runTask(piece: Piece, job: PoolJob, t: number, beat?: () => void): ChunkResult[] {
+export function runTask(piece: Piece, job: PoolJob, t: number, beat?: () => void, split?: SplitHook): ChunkResult[] {
   if (job.kind === 'tieSpan') {
     const spans = job.spans.slice(job.windows[t], job.windows[t + 1] ?? job.spans.length);
     return sweepSpans(piece, job.seats, spans[0]!.lowSeats, spans, job.keep, beat);
   }
   const task = sweepTask(job, t);
-  return [sweepChunk(piece, job.seats, task.lowSeats, task.aDeg, task.bDeg, job.keep, beat)];
+  return [sweepChunk(piece, job.seats, task.lowSeats, task.aDeg, task.bDeg, job.keep, beat, split)];
+}
+
+/** Directions [fromDeg, toDeg) of chunk t, a part another thread split off (steal.ts). */
+export function runPart(piece: Piece, job: SweepJob, t: number, fromDeg: number, toDeg: number, beat?: () => void, split?: SplitHook): ChunkResult {
+  return sweepChunk(piece, job.seats, sweepTask(job, t).lowSeats, fromDeg, toDeg, job.keep, beat, split);
 }
 
 /** Most tie stretches in one window, so the windows of a cut still spread over the threads. */

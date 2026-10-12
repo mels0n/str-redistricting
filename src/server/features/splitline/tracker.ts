@@ -71,6 +71,8 @@ export class Tracker {
   private toggles: number[] = [];
   private readonly tog: Uint8Array;
   private needValidate = false;
+  /** The last processGroup also took an event of another pair at the same direction (one not lying on the same points). */
+  groupMixed = false;
   private initPhase = true;
   events = 0;
   readonly m: number;
@@ -438,7 +440,9 @@ export class Tracker {
     if (!this.hasNext()) return;
     this.curI = this.qI[0]!; this.curJ = this.qJ[0]!;
     this.cX1 = this.qX1[0]!; this.cY1 = this.qY1[0]!; this.cX2 = this.qX2[0]!; this.cY2 = this.qY2[0]!; this.cN = this.qN[0]!;
+    this.groupMixed = false;
     while (this.hasNext() && this.nextAtCur()) {
+      if (this.qX1[0] !== this.cX1 || this.qY1[0] !== this.cY1 || this.qX2[0] !== this.cX2 || this.qY2[0] !== this.cY2) this.groupMixed = true;
       const s = this.qS[0]!;
       this.qPop();
       this.events++;

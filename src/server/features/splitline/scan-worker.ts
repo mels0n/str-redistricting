@@ -2,9 +2,13 @@ import { parentPort, workerData, type MessagePort } from 'node:worker_threads';
 import { DataError } from '../../shared/errors/index.js';
 import type { ScanReply, ScanRequest } from './pool.js';
 import type { ChunkResult } from './sweep.js';
-import { runTask, taskCount } from './tasks.js';
+import { Stealer } from './steal.js';
+import { runPart, runTask, taskCount } from './tasks.js';
 
-/** One worker of ScanPool: claims tasks (chunks, or tie stretches) from the shared counter until none are left, then reports. */
+/**
+ * One worker of ScanPool: claims tasks (chunks, or windows of tie stretches) from the shared counter until none are
+ * left, then, for chunks, sweeps parts other workers split off their chunks until none can come (steal.ts); then reports.
+ */
 const { port, health } = workerData as { port: MessagePort; health: Int32Array };
 const NEXT = 0, DONE = 1, BEAT = 2;
 const DEAD = 0, CLOSING = 1;
@@ -27,14 +31,24 @@ parentPort!.on('message', (req: ScanRequest) => {
   const beat = () => { Atomics.add(req.ctrl, BEAT, 1); };
   let reply: ScanReply;
   let t = -1;
+  const job = req.job;
+  const stealer = job.kind === 'tieSpan' ? undefined : new Stealer(req.ctrl, req.parts);
   try {
+    stealer?.begin();
     for (t = Atomics.add(req.ctrl, NEXT, 1); t < total; t = Atomics.add(req.ctrl, NEXT, 1)) {
-      results.push({ task: t, result: runTask(req.piece, req.job, t, beat) });
+      results.push({ task: t, result: runTask(req.piece, job, t, beat, stealer?.hook(t)) });
+    }
+    if (stealer && job.kind !== 'tieSpan') {
+      for (let part = stealer.next(); part; part = stealer.next()) {
+        t = part.task;
+        results.push({ task: t, result: [runPart(req.piece, job, t, part.fromDeg, part.toDeg, beat, stealer.hook(t))] });
+      }
     }
     reply = { ok: true, id: req.id, results };
   } catch (err) {
     // Stop the other workers early: nothing they find can be used.
     Atomics.store(req.ctrl, NEXT, total);
+    stealer?.fail();
     reply = { ok: false, id: req.id, task: t, message: err instanceof Error ? err.message : String(err), data: err instanceof DataError };
   }
   // Post before counting in: the caller reads the reply as soon as every worker has counted in.

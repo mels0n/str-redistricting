@@ -64,6 +64,28 @@ export interface ChunkResult {
   readonly splitChanges: number;
   readonly resultRanges: number;
   readonly stats: Readonly<Record<string, number>>;
+  /**
+   * The sweep was cut short at bDeg to hand the rest to another thread (SplitHook), and some event lies exactly at
+   * that direction. The parts then cannot be joined into the sweep of the whole chunk; it is swept again whole.
+   */
+  readonly eventAtEnd?: true;
+  /**
+   * A range or tie stretch of this sweep starts or ends at a direction that events of more than one pair of points
+   * share (Chain.step). The pair recorded for it then depends on where the chain started, so this result is the one a
+   * sweep from the usual start gives only when it was swept from that start (sweepSpans and joinParts check).
+   */
+  readonly ambiguous?: true;
+}
+
+/**
+ * Lets a running chunk sweep hand the rest of its directions to another thread. Every few steps the sweep offers the
+ * direction of its last event and its current end; `propose` answers a direction strictly between them, or null.
+ * When the proposal lies exactly after the last event and before the end, the sweep calls `split` with it and the
+ * old end; when that returns true, [proposed, old end) is another thread's and the sweep ends at the proposed direction.
+ */
+export interface SplitHook {
+  propose(lastDeg: number, endDeg: number): number | null;
+  split(atDeg: number, endDeg: number): boolean;
 }
 
 const sgn = (d: Dir): number => {
@@ -116,8 +138,8 @@ export function geoFor(piece: Piece, start: Dir, end: Dir, endIsPi: boolean): Ge
 }
 
 /** Sweep directions [aDeg, bDeg) for one first-side seat count, keeping the best `keep` resolved ranges. */
-export function sweepChunk(piece: Piece, seats: number, lowSeats: number, aDeg: number, bDeg: number, keep: number, beat?: () => void): ChunkResult {
-  return sweepSpan(piece, seats, lowSeats, directionAt(aDeg), directionAt(bDeg), aDeg, bDeg, bDeg >= 180, keep, true, beat);
+export function sweepChunk(piece: Piece, seats: number, lowSeats: number, aDeg: number, bDeg: number, keep: number, beat?: () => void, split?: SplitHook): ChunkResult {
+  return sweepSpan(piece, seats, lowSeats, directionAt(aDeg), directionAt(bDeg), aDeg, bDeg, bDeg >= 180, keep, true, beat, split);
 }
 
 /**
@@ -126,13 +148,13 @@ export function sweepChunk(piece: Piece, seats: number, lowSeats: number, aDeg: 
  * only there can the same line slid from the other end give different sides. `beat`, when given, is called every
  * 16384 steps to show the sweep is still running (the pool's stall check); nothing in the sweep reads it back.
  */
-export function sweepSpan(piece: Piece, seats: number, lowSeats: number, start: Dir, end: Dir, aDeg: number, bDeg: number, endIsPi: boolean, keep: number, findTies: boolean, beat?: () => void): ChunkResult {
+export function sweepSpan(piece: Piece, seats: number, lowSeats: number, start: Dir, end: Dir, aDeg: number, bDeg: number, endIsPi: boolean, keep: number, findTies: boolean, beat?: () => void, split?: SplitHook): ChunkResult {
   const t0 = performance.now(), f0 = exactFallbacks();
   const g = geoFor(piece, start, end, endIsPi);
   const chain = new Chain(piece, g, seats, lowSeats);
   chain.start(-4, -2);
   const steps = { n: 0 };
-  const res = recordSpan(chain, g, lowSeats, { s: start, e: end, sDeg: aDeg, eDeg: bDeg, endIsPi }, keep, findTies, false, steps, beat);
+  const res = recordSpan(chain, g, lowSeats, { s: start, e: end, sDeg: aDeg, eDeg: bDeg, endIsPi }, keep, findTies, false, steps, beat, split);
   return { ...res, stats: { ...chain.stats, exactFallbacks: exactFallbacks() - f0, ms: performance.now() - t0 } };
 }
 
@@ -153,7 +175,8 @@ export const GAP_BUDGET = 0.006;
  * sweeping its stretches one by one. Each stretch's result is the one sweepSpan gives it alone, since the sides at
  * every direction depend on that direction only, never on where the sweep began; only the work counters differ (each
  * result carries the work done since the one before it, so their sum is the window's). The stretches must be in turn
- * order, each starting at or after the end of the one before; only the last may end at the end of the half turn.
+ * order, each starting at or after the end of the one before; only the last may end at the end of the half turn. A
+ * stretch that records an ambiguous direction (ChunkResult.ambiguous) is swept again alone, as sweepSpan sweeps it.
  */
 export function sweepSpans(piece: Piece, seats: number, lowSeats: number, spans: readonly SpanBounds[], keep: number, beat?: () => void, budget = GAP_BUDGET): ChunkResult[] {
   const last = spans[spans.length - 1]!;
@@ -197,7 +220,14 @@ export function sweepSpans(piece: Piece, seats: number, lowSeats: number, spans:
         ({ g, chain } = fresh(sp.s));
       }
     }
-    const res = recordSpan(chain, g, lowSeats, sp, keep, false, k < spans.length - 1, steps, beat);
+    let res = recordSpan(chain, g, lowSeats, sp, keep, false, k < spans.length - 1, steps, beat);
+    // A chain that did not start at this stretch with its end may name an ambiguous direction by another pair.
+    if (res.ambiguous && spans.length > 1) {
+      const alone = sweepSpan(piece, seats, lowSeats, sp.s, sp.e, sp.sDeg, sp.eDeg, sp.endIsPi, keep, false);
+      for (const [key, v] of Object.entries(alone.stats)) if (key !== 'ms' && key !== 'exactFallbacks') done[key] = (done[key] ?? 0) + v;
+      const { stats: _s, ...rest } = alone;
+      res = rest;
+    }
     const now = counted();
     const stats: Record<string, number> = {};
     for (const key of Object.keys(now)) stats[key] = now[key]! - (before[key] ?? 0);
@@ -210,13 +240,18 @@ export function sweepSpans(piece: Piece, seats: number, lowSeats: number, spans:
 
 const dirOf = (g: Geo, i: number, j: number): Dir => [X(g, i), Y(g, i), X(g, j), Y(g, j)];
 
+/** Steps between two offers to split (SplitHook). */
+const SPLIT_EVERY = 32;
+
 /**
  * Record one stretch on a chain that stands just after its start: every range up to its end. With `stopAtEnd` the
  * chain stops before the first event at or after the end (more stretches follow on it); otherwise it runs out, as the
- * chain's own end direction is the stretch's end.
+ * chain's own end direction is the stretch's end. With `split`, the end can move earlier while the sweep runs.
  */
-function recordSpan(chain: Chain, g: Geo, lowSeats: number, span: SpanBounds, keep: number, findTies: boolean, stopAtEnd: boolean, steps: { n: number }, beat?: () => void): Omit<ChunkResult, 'stats'> {
-  const { s: start, e: end, sDeg: aDeg, eDeg: bDeg, endIsPi } = span;
+function recordSpan(chain: Chain, g: Geo, lowSeats: number, span: SpanBounds, keep: number, findTies: boolean, stopAtEnd: boolean, steps: { n: number }, beat?: () => void, split?: SplitHook): Omit<ChunkResult, 'stats'> {
+  const { s: start, sDeg: aDeg } = span;
+  let { e: end, eDeg: bDeg, endIsPi } = span;
+  let lastDir: Dir = start, lastDeg = aDeg, wasSplit = false, eventAtEnd = false, ambiguous = false;
   const dir = (i: number, j: number): Dir => dirOf(g, i, j);
   const top: Range[] = [];
   const unresolved: number[] = [];
@@ -246,20 +281,36 @@ function recordSpan(chain: Chain, g: Geo, lowSeats: number, span: SpanBounds, ke
     }
   };
   for (;;) {
-    if (beat !== undefined && (++steps.n & 0x3fff) === 0) beat();
+    ++steps.n;
+    if (beat !== undefined && (steps.n & 0x3fff) === 0) beat();
+    if (split !== undefined && steps.n % SPLIT_EVERY === 1) {
+      const at = split.propose(lastDeg, bDeg);
+      if (at !== null && at > lastDeg && at < bDeg) {
+        const d = directionAt(at);
+        // Exactly after the last event swept and before the end (the end of the half turn is after everything).
+        if (compareDirections(lastDir, d) < 0 && (endIsPi || compareDirections(d, end) < 0) && split.split(at, bDeg)) {
+          end = d; bDeg = at; endIsPi = false; stopAtEnd = true; wasSplit = true;
+        }
+      }
+    }
     if (stopAtEnd) {
       const nx = chain.peek();
-      if (!nx || compareDirections(dir(nx.ci, nx.cj), end) >= 0) break;
+      if (!nx) break;
+      const c = compareDirections(dir(nx.ci, nx.cj), end);
+      if (c >= 0) { if (c === 0 && wasSplit) eventAtEnd = true; break; }
     }
     const st = chain.step();
     if (!st) break;
+    if (split !== undefined) { lastDir = dir(st.ci, st.cj); lastDeg = directionDeg(lastDir); }
     if (st.changedSets) splitChanges++;
     if (findTies && chain.atTie !== (tieFrom !== null)) {
+      if (st.ambiguous) ambiguous = true;
       const at = dir(st.ci, st.cj), atDeg = directionDeg(at);
       if (tieFrom) { ties.push({ s: tieFrom.s, e: at, sDeg: tieFrom.sDeg, eDeg: atDeg, endIsPi: false }); tieFrom = null; }
       else tieFrom = { s: at, sDeg: atDeg };
     }
     if (!st.changedResult) continue;
+    if (st.ambiguous) ambiguous = true;
     const at = dir(st.ci, st.cj), atDeg = directionDeg(at);
     close(at, atDeg, false);
     cur = { s: at, sDeg: atDeg, atStart: false };
@@ -273,6 +324,91 @@ function recordSpan(chain: Chain, g: Geo, lowSeats: number, span: SpanBounds, ke
   return {
     lowSeats, aDeg, bDeg, top, first: first!, last: last!, unresolvedBelow, splitChanges, resultRanges, ties,
     unresolvedRanges: unresolvedRanges.filter((u) => u.lengthUm < best).sort(compareRanges),
+    ...(eventAtEnd ? { eventAtEnd: true as const } : {}),
+    ...(ambiguous ? { ambiguous: true as const } : {}),
+  };
+}
+
+const sameDir = (a: Dir, b: Dir) => a[0] === b[0] && a[1] === b[1] && a[2] === b[2] && a[3] === b[3];
+
+/**
+ * The sweep of one chunk put back together from the sweeps of its parts (a chunk split while it ran, SplitHook):
+ * exactly what one sweep of the whole chunk gives, counters aside (they are summed). `parts` are in turn order and
+ * meet end to start. Returns null when they cannot be joined: a part ended exactly on an event (eventAtEnd), the
+ * sides changed where two parts meet, which only an event there can do, or a part after the first (swept from a
+ * split, not from the chunk's start) records an ambiguous direction; the chunk is then swept again whole.
+ *
+ * Without an event where two parts meet, the sides are the same just before and just after that direction, so the
+ * range running into it continues in the next part and the two pieces are joined into one, as are tie stretches
+ * running across it. A chunk keeps every resolved range no longer than its keep-th shortest (sweepSpan's top); each
+ * part keeps at least the ranges of the chunk's top that lie in it, so the chunk's top is recomputed from the
+ * parts' tops, and likewise its unresolved ranges shorter than its best.
+ */
+export function joinParts(parts: readonly ChunkResult[], keep: number): ChunkResult | null {
+  if (parts.length === 1) return parts[0]!;
+  for (let k = 0; k < parts.length; k++) {
+    const p = parts[k]!;
+    if ((p.eventAtEnd && k < parts.length - 1) || (p.ambiguous && k > 0)) return null;
+    if (k > 0 && (p.aDeg !== parts[k - 1]!.bDeg || p.lowSeats !== parts[0]!.lowSeats || !sameResult(parts[k - 1]!.last, p.first))) return null;
+  }
+  const n = parts.length, a = parts[0]!, z = parts[n - 1]!;
+  // Each boundary joins the range running into it with the one running out of it; a part with a single range is
+  // joined on both sides. `joined` maps every piece to its whole range.
+  const joined = new Map<Range, Range>();
+  let open: Range = a.first, members: Range[] = [a.first];
+  const flush = (atEnd: boolean) => {
+    const edge = (members[0] === a.first ? 1 : 0) | (atEnd ? 2 : 0);
+    const whole: Range = { ...open, edge };
+    for (const m of members) joined.set(m, whole);
+  };
+  for (let k = 0; k < n; k++) {
+    const p = parts[k]!;
+    if (k > 0) { open = { ...open, e: p.first.e, eDeg: p.first.eDeg }; members.push(p.first); }
+    if (p.first !== p.last) {
+      flush(false);
+      open = p.last; members = [p.last];
+    }
+  }
+  flush(true);
+  const whole = (r: Range): Range => {
+    const j = joined.get(r);
+    if (j) return j;
+    // A range inside one part keeps its own extent; only its edge flags were the part's.
+    if (r.edge === 0) return r;
+    const w = { ...r, edge: 0 };
+    joined.set(r, w);
+    return w;
+  };
+  const resolved = new Set<Range>(), unresolvedSet = new Set<Range>();
+  for (const p of parts) {
+    for (const r of [p.first, ...p.top, p.last]) { const w = whole(r); if (!w.unresolved) resolved.add(w); }
+    for (const r of p.unresolvedRanges) unresolvedSet.add(whole(r));
+  }
+  const sorted = [...resolved].sort(compareRanges);
+  // sweepSpan's top: every resolved range no longer than the keep-th shortest.
+  const cap = sorted.length >= keep ? sorted[keep - 1]!.lengthUm : Infinity;
+  const top = sorted.filter((r) => r.lengthUm <= cap);
+  const best = top[0]?.lengthUm ?? Infinity;
+  const below = new Set<number>();
+  for (const p of parts) for (const u of p.unresolvedBelow) if (u < best) below.add(u);
+  const ties: TieSpan[] = [];
+  for (const p of parts) {
+    for (const t of p.ties) {
+      const prev = ties[ties.length - 1];
+      if (prev && prev.eDeg === t.sDeg && sameDir(prev.e, t.s) && t.sDeg === p.aDeg) ties[ties.length - 1] = { ...prev, e: t.e, eDeg: t.eDeg, endIsPi: t.endIsPi };
+      else ties.push(t);
+    }
+  }
+  const stats: Record<string, number> = {};
+  for (const p of parts) for (const [k, v] of Object.entries(p.stats)) stats[k] = (stats[k] ?? 0) + v;
+  return {
+    lowSeats: a.lowSeats, aDeg: a.aDeg, bDeg: z.bDeg, top, first: whole(a.first), last: whole(z.last),
+    unresolvedBelow: [...below].sort((x, y) => x - y),
+    splitChanges: parts.reduce((s, p) => s + p.splitChanges, 0),
+    resultRanges: parts.reduce((s, p) => s + p.resultRanges, 0) - (n - 1),
+    ties,
+    unresolvedRanges: [...unresolvedSet].filter((u) => u.lengthUm < best).sort(compareRanges),
+    stats,
   };
 }
 

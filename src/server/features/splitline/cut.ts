@@ -64,8 +64,10 @@ export interface CutResult {
 }
 
 /**
- * Work counters of one cut's search, summed over every chunk and tie stretch swept. The counts are the same on any
- * number of threads; `tieSpanMs` is wall-clock time and is not.
+ * Work counters of one cut's search, summed over every chunk and tie stretch swept. On the calling thread the counts
+ * are the same on every run; on worker threads a chunk can be split between threads while it runs (steal.ts), and
+ * each part starts its own trackers, so the counts can also depend on the number of threads and their timing, as
+ * `tieSpanMs` (wall-clock time) does. The cut never does.
  */
 export interface ScanCounters {
   /** Wall-clock time spent sweeping the tie stretches again from the other end. */

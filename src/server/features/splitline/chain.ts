@@ -263,26 +263,33 @@ export class Chain {
 
   private trackers(): Tracker[] { return [...this.passes.map((P) => P.tr), ...this.spares]; }
 
-  /** Process the next event direction across every tracker. */
-  step(): { changedSets: boolean; changedResult: boolean; ci: number; cj: number } | null {
+  /**
+   * Process the next event direction across every tracker. `ambiguous`: events of more than one pair of points lie
+   * exactly at this direction, so which pair (ci, cj) names it depends on the order the trackers' queues hold them
+   * in, which depends on where the chain started; the direction itself does not.
+   */
+  step(): { changedSets: boolean; changedResult: boolean; ci: number; cj: number; ambiguous: boolean } | null {
     const nt = this.nextTracker();
     if (!nt) return null;
     const all = this.trackers();
     const ci = nt.nextI(), cj = nt.nextJ();
     const [x1, y1, x2, y2, n] = nt.nextPoints();
-    let any = false;
+    let any = false, ambiguous = false;
     for (let q = 0; q < all.length; q++) {
       const tr = all[q]!;
       if (tr.hasNext() && tr.nextVs(ci, cj, x1, y1, x2, y2, n) === 0) {
+        const [a1, b1, a2, b2] = tr.nextPoints();
+        if (a1 !== x1 || b1 !== y1 || a2 !== x2 || b2 !== y2) ambiguous = true;
         const ev = tr.events;
         tr.processGroup();
+        if (tr.groupMixed) ambiguous = true;
         this.stats.trackerEvents += tr.events - ev;
         this.stats.groups++;
         if (q >= this.passes.length) tr.clearToggles();
         else if (tr.netMoved().length) any = true;
       }
     }
-    if (!any) { for (const P of this.passes) P.tr.clearToggles(); return { changedSets: false, changedResult: false, ci, cj }; }
+    if (!any) { for (const P of this.passes) P.tr.clearToggles(); return { changedSets: false, changedResult: false, ci, cj, ambiguous }; }
     this.stats.setChanges++;
     const before = { len: this.lengthUm, h1: this.h1, h2: this.h2, unres: this.unresolved };
     let delta: number[] = [];
@@ -339,7 +346,7 @@ export class Chain {
     this.computeFinal();
     const changedResult = before.len !== this.lengthUm || before.h1 !== this.h1 || before.h2 !== this.h2 || before.unres !== this.unresolved;
     if (changedResult) this.stats.resultChanges++;
-    return { changedSets: true, changedResult, ci, cj };
+    return { changedSets: true, changedResult, ci, cj, ambiguous };
   }
 
   /** Final side of every block (0 = low), from the last pass's groups. */

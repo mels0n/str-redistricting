@@ -28,3 +28,7 @@ briefs/
 ACTION-PLAN.md
 *AUDIT-REPORT*.md
 *_STRATEGY.md
+
+# publish-data temp and lock files (left behind only if a run is killed)
+*.part
+.publish.lock

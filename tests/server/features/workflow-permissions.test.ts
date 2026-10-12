@@ -322,3 +322,18 @@ describe('the Census watch workflow', () => {
     expect(report.steps.some((s) => /\b(npm|npx|node|tsx)\b/.test(s.run))).toBe(false);
   });
 });
+
+describe('the enacted districts update', () => {
+  // GitHub skips a job whose needs include a skipped job unless its if: uses a status function. open-pr is skipped
+  // exactly when the legislative update should run, so the legislative build must not need it.
+  it('runs the legislative build after the congressional build alone, not after open-pr', () => {
+    const lines = readFileSync(new URL('enacted-update.yml', dir), 'utf8').replace(/\r\n/g, '\n').split('\n');
+    const start = lines.findIndex((l) => l === '  build-legislative:');
+    expect(start).toBeGreaterThan(-1);
+    const end = lines.findIndex((l, i) => i > start && /^ {2}\S/.test(l));
+    const job = lines.slice(start, end === -1 ? undefined : end);
+    const needs = job.find((l) => /^ {4}needs:/.test(l));
+    expect(needs).toBe('    needs: build');
+    expect(job.join('\n')).toContain("needs.build.outputs.changed != 'true'");
+  });
+});

@@ -305,9 +305,10 @@ jobs:
   # has its own branch (auto/legislative-<vintage>), pull request and artifact, so the two updates never mix. Its
   # allowlist is the congressional one plus the files only this update changes (a bump restamps all three chambers, so each allowlist spans them).
   build-legislative:
-    needs: [build, open-pr]
-    # Runs only when the congressional build found nothing to change (open-pr skipped), so the two updates never bump
-    # the same config and published files in one run. A failed or cancelled congressional build stops it too.
+    # Depends on build only: a job that needs a skipped job is skipped itself, so needing open-pr (skipped exactly when
+    # this should run) would stop it ever running. Runs only when the congressional build found nothing to change, so
+    # the two updates never bump the same config and published files in one run. A failed or cancelled build stops it.
+    needs: build
     if: ${{ needs.build.result == 'success' && needs.build.outputs.changed != 'true' }}
     runs-on: ubuntu-latest
     timeout-minutes: 60

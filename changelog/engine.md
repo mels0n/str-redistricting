@@ -1,5 +1,10 @@
 # Engine changelog
 
+## 2.0.0 (2026-10-12)
+
+- fix(engine)!: let balancing move a block with no people when that shortens the border
+- fix(engine)!: count an island link's length in the border
+
 ## 1.1.0 (2026-10-11)
 
 - The engine can now draw a State House or a State Senate map as well as a Federal House map. Every chamber is drawn by the same rule and held to the same equal-population standard.

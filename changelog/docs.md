@@ -1,5 +1,9 @@
 # Docs changelog
 
+## 1.0.3 (2026-10-12)
+
+- docs: describe link length in borders and empty-block balancing moves
+
 ## 1.0.2 (2026-10-12)
 
 - Listed `before-neighbors.json` among the published files and explained why the viewer reads it up front.

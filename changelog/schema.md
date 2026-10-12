@@ -1,5 +1,9 @@
 # Schema changelog
 
+## 1.2.1 (2026-10-12)
+
+- fix(engine): describe empty-block balancing moves in the rule examples
+
 ## 1.2.0 (2026-10-12)
 
 - Census names are read as UTF-8, so accented county names such as Doña Ana County publish correctly.

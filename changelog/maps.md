@@ -1,5 +1,9 @@
 # Maps changelog
 
+## 3 (2026-10-12)
+
+- Published maps rebuilt.
+
 ## 2 (2026-10-11)
 
 - Added State House and State Senate maps for every state that has the chamber (Nebraska has no State House).

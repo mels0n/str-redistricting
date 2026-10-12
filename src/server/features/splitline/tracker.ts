@@ -52,12 +52,21 @@ export function orderAfter(g: Geo, x: number, y: number, ci: number, cj: number)
 }
 
 export class Tracker {
-  curI: number; curJ: number;
+  curI = 0; curJ = 0;
+  /**
+   * The current direction's two points and normalising sign, and the end direction's, read once: every order and
+   * event question below compares against them. The values are the coordinates themselves, so each exact sign is
+   * the same one crossDir and orderAfter compute from the indices.
+   */
+  private cX1 = 0; private cY1 = 0; private cX2 = 0; private cY2 = 0; private cN = 0;
+  private readonly eX1: number; private readonly eY1: number; private readonly eX2: number; private readonly eY2: number; private readonly eN: number;
   readonly inA: Uint8Array; // 1 low, 0 high, 2 not in this tracker
   W = 0; nA = 0; nB = 0;
   private readonly hA: Int32Array; private readonly hB: Int32Array;
   private readonly pos: Int32Array; private readonly ver: Int32Array;
   private qI: Int32Array; private qJ: Int32Array; private qS: Int32Array; private qV: Int32Array;
+  /** Each queued event's two points and normalising sign, kept beside its indices (see cX1). */
+  private qX1: Float64Array; private qY1: Float64Array; private qX2: Float64Array; private qY2: Float64Array; private qN: Int8Array;
   private qn = 0;
   private toggles: number[] = [];
   private readonly tog: Uint8Array;
@@ -72,7 +81,9 @@ export class Tracker {
     curI: number, curJ: number,
     initialCount: (free: Int32Array, ux: number, uy: number) => number,
   ) {
-    this.m = m; this.curI = curI; this.curJ = curJ;
+    this.m = m;
+    this.eX1 = X(g, -5); this.eY1 = Y(g, -5); this.eX2 = X(g, -3); this.eY2 = Y(g, -3); this.eN = nsign(g, -5, -3);
+    this.setCur(curI, curJ);
     this.inA = new Uint8Array(m).fill(2);
     this.pos = new Int32Array(m).fill(-1);
     this.ver = new Int32Array(m + 1);
@@ -82,6 +93,7 @@ export class Tracker {
     this.hA = new Int32Array(m); this.hB = new Int32Array(m);
     const cap = 2 * (n + 1) + 64;
     this.qI = new Int32Array(cap); this.qJ = new Int32Array(cap); this.qS = new Int32Array(cap); this.qV = new Int32Array(cap);
+    this.qX1 = new Float64Array(cap); this.qY1 = new Float64Array(cap); this.qX2 = new Float64Array(cap); this.qY2 = new Float64Array(cap); this.qN = new Int8Array(cap);
     const su = nsign(g, curI, curJ);
     const count = initialCount(free, su * (X(g, curJ) - X(g, curI)), su * (Y(g, curJ) - Y(g, curI)));
     for (let i = 0; i < n; i++) {
@@ -102,14 +114,39 @@ export class Tracker {
     this.clearToggles();
   }
 
-  private before(x: number, y: number): boolean { return orderAfter(this.g, x, y, this.curI, this.curJ) > 0; }
+  private setCur(i: number, j: number) {
+    this.curI = i; this.curJ = j;
+    this.cX1 = X(this.g, i); this.cY1 = Y(this.g, i); this.cX2 = X(this.g, j); this.cY2 = Y(this.g, j); this.cN = nsign(this.g, i, j);
+  }
+
+  /** orderAfter(g, x, y, curI, curJ) > 0 for blocks x and y, from the cached current direction. */
+  private before(x: number, y: number): boolean {
+    const { px, py } = this.g, ci = this.curI, cj = this.curJ, su = this.cN;
+    const xx = px[x]!, xy = py[x]!, yx = px[y]!, yy = py[y]!;
+    const samePair = (x === ci && y === cj) || (x === cj && y === ci);
+    const c = samePair ? 0 : su * det(yx, xx, this.cY2, this.cY1, yy, xy, this.cX2, this.cX1);
+    if (c !== 0) return c > 0;
+    const d = su * det(yx, xx, this.cX2, this.cX1, yy, xy, this.cY1, this.cY2);
+    if (d !== 0) return -d > 0;
+    return this.g.ids[x]! < this.g.ids[y]!;
+  }
   /** Event direction of pair (x, y) if it lies strictly after the current direction and strictly before the end. */
   private scheduleFor(x: number, y: number, slot: number, v: number) {
     const i = Math.min(x, y), j = Math.max(x, y);
-    if (nsign(this.g, i, j) === 0) return;
-    if (crossDir(this.g, this.curI, this.curJ, i, j) >= 0) return;
-    if (!this.g.endIsPi && crossDir(this.g, i, j, -5, -3) >= 0) return;
-    this.push(i, j, slot, v);
+    const { px, py } = this.g;
+    const ix = px[i]!, iy = py[i]!, jx = px[j]!, jy = py[j]!;
+    // nsign(g, i, j)
+    const dx = jx - ix;
+    let n = dx > 0 ? 1 : dx < 0 ? -1 : 0;
+    if (n === 0) { const dy = jy - iy; n = dy > 0 ? 1 : dy < 0 ? -1 : 0; }
+    if (n === 0) return;
+    // crossDir(g, curI, curJ, i, j) >= 0
+    const ci = this.curI, cj = this.curJ;
+    if ((ci === i && cj === j) || (ci === j && cj === i)) return;
+    if (this.cN * n * det(this.cX2, this.cX1, jy, iy, this.cY2, this.cY1, jx, ix) >= 0) return;
+    // crossDir(g, i, j, -5, -3) >= 0
+    if (!this.g.endIsPi && n * this.eN * det(jx, ix, this.eY2, this.eY1, jy, iy, this.eX2, this.eX1) >= 0) return;
+    this.push(i, j, slot, v, ix, iy, jx, jy, n);
   }
 
   // ---- heaps ----
@@ -209,7 +246,7 @@ export class Tracker {
    */
   reconfigure(fixed: Int8Array, T: number, minC: number, maxC: number, ci: number, cj: number) {
     // Every event up to (ci, cj) has been processed (the sweep moves all trackers in step), so the state is valid there.
-    this.curI = ci; this.curJ = cj;
+    this.setCur(ci, cj);
     for (let i = 0; i < this.m; i++) {
       const inThis = this.inA[i] !== 2, free = fixed[i]! < 0;
       if (inThis && !free) this.removeAny(i);
@@ -227,7 +264,7 @@ export class Tracker {
    * O(changed blocks x log n).
    */
   applyDelta(blocks: readonly number[], nowFree: readonly boolean[], T: number, minC: number, maxC: number, ci: number, cj: number) {
-    this.curI = ci; this.curJ = cj;
+    this.setCur(ci, cj);
     for (let k = 0; k < blocks.length; k++) {
       const x = blocks[k]!, inThis = this.inA[x] !== 2;
       if (inThis && !nowFree[k]) this.removeAny(x);
@@ -247,7 +284,7 @@ export class Tracker {
     if (i === 0) return;
     const q = H[(i - 1) >> 1]!;
     if (this.ok(a, x, q)) this.scheduleFor(x, q, x, v);
-    else this.push(this.curI, this.curJ, x, v);
+    else this.pushNow(x, v);
   }
   private refreshCross() {
     const s = this.m;
@@ -255,23 +292,44 @@ export class Tracker {
     if (this.nA === 0 || this.nB === 0) return;
     const a = this.hA[0]!, b = this.hB[0]!;
     if (this.before(a, b)) this.scheduleFor(a, b, s, v);
-    else this.push(this.curI, this.curJ, s, v);
+    else this.pushNow(s, v);
+  }
+  /** crossDir of queued events a and b, from their cached points. */
+  private qCross(a: number, b: number): number {
+    const ia = this.qI[a]!, ja = this.qJ[a]!, ib = this.qI[b]!, jb = this.qJ[b]!;
+    if ((ia === ib && ja === jb) || (ia === jb && ja === ib)) return 0;
+    return this.qN[a]! * this.qN[b]! * det(this.qX2[a]!, this.qX1[a]!, this.qY2[b]!, this.qY1[b]!, this.qY2[a]!, this.qY1[a]!, this.qX2[b]!, this.qX1[b]!);
   }
   private qLess(a: number, b: number): boolean {
-    return crossDir(this.g, this.qI[a]!, this.qJ[a]!, this.qI[b]!, this.qJ[b]!) < 0;
+    return this.qCross(a, b) < 0;
   }
-  private push(i: number, j: number, s: number, v: number) {
+  /** Queue an event at the current direction (a certificate that already fails). */
+  private pushNow(s: number, v: number) {
+    this.push(this.curI, this.curJ, s, v, this.cX1, this.cY1, this.cX2, this.cY2, this.cN);
+  }
+  private push(i: number, j: number, s: number, v: number, x1: number, y1: number, x2: number, y2: number, n: number) {
     if (this.qn === this.qI.length) this.compactOrGrow();
     const k = this.qn++;
     this.qI[k] = i; this.qJ[k] = j; this.qS[k] = s; this.qV[k] = v;
+    this.qX1[k] = x1; this.qY1[k] = y1; this.qX2[k] = x2; this.qY2[k] = y2; this.qN[k] = n;
     if (!this.initPhase) this.qUp(k);
   }
+  /** Copy queue entry `from` to slot `to`. */
+  private qCopy(to: number, from: number) {
+    this.qI[to] = this.qI[from]!; this.qJ[to] = this.qJ[from]!; this.qS[to] = this.qS[from]!; this.qV[to] = this.qV[from]!;
+    this.qX1[to] = this.qX1[from]!; this.qY1[to] = this.qY1[from]!; this.qX2[to] = this.qX2[from]!; this.qY2[to] = this.qY2[from]!; this.qN[to] = this.qN[from]!;
+  }
   private qSwap(a: number, b: number) {
-    const { qI, qJ, qS, qV } = this;
+    const { qI, qJ, qS, qV, qX1, qY1, qX2, qY2, qN } = this;
     let t = qI[a]!; qI[a] = qI[b]!; qI[b] = t;
     t = qJ[a]!; qJ[a] = qJ[b]!; qJ[b] = t;
     t = qS[a]!; qS[a] = qS[b]!; qS[b] = t;
     t = qV[a]!; qV[a] = qV[b]!; qV[b] = t;
+    t = qN[a]!; qN[a] = qN[b]!; qN[b] = t;
+    let f = qX1[a]!; qX1[a] = qX1[b]!; qX1[b] = f;
+    f = qY1[a]!; qY1[a] = qY1[b]!; qY1[b] = f;
+    f = qX2[a]!; qX2[a] = qX2[b]!; qX2[b] = f;
+    f = qY2[a]!; qY2[a] = qY2[b]!; qY2[b] = f;
   }
   private qUp(k: number) {
     while (k > 0) { const p = (k - 1) >> 1; if (!this.qLess(k, p)) break; this.qSwap(k, p); k = p; }
@@ -290,20 +348,21 @@ export class Tracker {
   private compactOrGrow() {
     let w = 0;
     for (let i = 0; i < this.qn; i++) {
-      if (this.qV[i] === this.ver[this.qS[i]!]) { this.qI[w] = this.qI[i]!; this.qJ[w] = this.qJ[i]!; this.qS[w] = this.qS[i]!; this.qV[w] = this.qV[i]!; w++; }
+      if (this.qV[i] === this.ver[this.qS[i]!]) { if (w !== i) this.qCopy(w, i); w++; }
     }
     this.qn = w;
     if (w > this.qI.length / 2) {
       const cap = this.qI.length * 2;
-      const grow = (a: Int32Array) => { const b = new Int32Array(cap); b.set(a.subarray(0, w)); return b; };
+      const grow = <T extends Int32Array | Float64Array | Int8Array>(a: T): T => { const b = new (a.constructor as { new (n: number): T })(cap); b.set(a.subarray(0, w) as never); return b; };
       this.qI = grow(this.qI); this.qJ = grow(this.qJ); this.qS = grow(this.qS); this.qV = grow(this.qV);
+      this.qX1 = grow(this.qX1); this.qY1 = grow(this.qY1); this.qX2 = grow(this.qX2); this.qY2 = grow(this.qY2); this.qN = grow(this.qN);
     }
     if (!this.initPhase) for (let i = (w >> 1) - 1; i >= 0; i--) this.qDown(i);
   }
   private qPop() {
     const n = --this.qn;
     if (n > 0) {
-      this.qI[0] = this.qI[n]!; this.qJ[0] = this.qJ[n]!; this.qS[0] = this.qS[n]!; this.qV[0] = this.qV[n]!;
+      this.qCopy(0, n);
       this.qDown(0);
     }
   }
@@ -315,8 +374,27 @@ export class Tracker {
   /** Direction of the next live event (call hasNext first). */
   nextI(): number { return this.qI[0]!; }
   nextJ(): number { return this.qJ[0]!; }
+  /** crossDir(g, next event, curI, curJ) === 0, from the cached points. */
+  private nextAtCur(): boolean {
+    const i = this.qI[0]!, j = this.qJ[0]!, ci = this.curI, cj = this.curJ;
+    if ((i === ci && j === cj) || (i === cj && j === ci)) return true;
+    return this.qN[0]! * this.cN * det(this.qX2[0]!, this.qX1[0]!, this.cY2, this.cY1, this.qY2[0]!, this.qY1[0]!, this.cX2, this.cX1) === 0;
+  }
+  /**
+   * crossDir(g, this tracker's next event, the direction with points (x1, y1), (x2, y2), indices (i, j) and
+   * normalising sign n). Call hasNext first.
+   */
+  nextVs(i: number, j: number, x1: number, y1: number, x2: number, y2: number, n: number): number {
+    const a = this.qI[0]!, b = this.qJ[0]!;
+    if ((a === i && b === j) || (a === j && b === i)) return 0;
+    return this.qN[0]! * n * det(this.qX2[0]!, this.qX1[0]!, y2, y1, this.qY2[0]!, this.qY1[0]!, x2, x1);
+  }
+  /** The next event's points and normalising sign (call hasNext first). */
+  nextPoints(): [x1: number, y1: number, x2: number, y2: number, n: number] {
+    return [this.qX1[0]!, this.qY1[0]!, this.qX2[0]!, this.qY2[0]!, this.qN[0]!];
+  }
   private hasNow(): boolean {
-    return this.hasNext() && crossDir(this.g, this.qI[0]!, this.qJ[0]!, this.curI, this.curJ) === 0;
+    return this.hasNext() && this.nextAtCur();
   }
 
   private toggle(x: number) { if ((this.tog[x]! ^= 1)) this.toggles.push(x); }
@@ -359,7 +437,8 @@ export class Tracker {
   processGroup(): void {
     if (!this.hasNext()) return;
     this.curI = this.qI[0]!; this.curJ = this.qJ[0]!;
-    while (this.hasNext() && crossDir(this.g, this.qI[0]!, this.qJ[0]!, this.curI, this.curJ) === 0) {
+    this.cX1 = this.qX1[0]!; this.cY1 = this.qY1[0]!; this.cX2 = this.qX2[0]!; this.cY2 = this.qY2[0]!; this.cN = this.qN[0]!;
+    while (this.hasNext() && this.nextAtCur()) {
       const s = this.qS[0]!;
       this.qPop();
       this.events++;

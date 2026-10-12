@@ -16,7 +16,7 @@
  */
 import { selectLow, settleStrays, type Piece } from './scan.js';
 import { Groups, Scratch } from './groups.js';
-import { crossDir, Tracker, type Geo } from './tracker.js';
+import { Tracker, type Geo } from './tracker.js';
 
 interface Pass {
   tr: Tracker;
@@ -242,28 +242,38 @@ export class Chain {
 
   /** The next event direction across every tracker, the one step() processes next; null when none is left. */
   peek(): { ci: number; cj: number } | null {
+    const p = this.nextTracker();
+    return p === null ? null : { ci: p.nextI(), cj: p.nextJ() };
+  }
+
+  /** The tracker holding the next event direction (the first of them in tracker order), or null when none is left. */
+  private nextTracker(): Tracker | null {
     const all = this.trackers();
-    let p = -1;
+    let p: Tracker | null = null;
     for (let q = 0; q < all.length; q++) {
       const tr = all[q]!;
       if (!tr.hasNext()) continue;
-      if (p < 0 || crossDir(this.geo, tr.nextI(), tr.nextJ(), all[p]!.nextI(), all[p]!.nextJ()) < 0) p = q;
+      if (p === null) { p = tr; continue; }
+      // crossDir(geo, tr's next, p's next) < 0
+      const [x1, y1, x2, y2, n] = p.nextPoints();
+      if (tr.nextVs(p.nextI(), p.nextJ(), x1, y1, x2, y2, n) < 0) p = tr;
     }
-    return p < 0 ? null : { ci: all[p]!.nextI(), cj: all[p]!.nextJ() };
+    return p;
   }
 
   private trackers(): Tracker[] { return [...this.passes.map((P) => P.tr), ...this.spares]; }
 
   /** Process the next event direction across every tracker. */
   step(): { changedSets: boolean; changedResult: boolean; ci: number; cj: number } | null {
-    const next = this.peek();
-    if (!next) return null;
+    const nt = this.nextTracker();
+    if (!nt) return null;
     const all = this.trackers();
-    const { ci, cj } = next;
+    const ci = nt.nextI(), cj = nt.nextJ();
+    const [x1, y1, x2, y2, n] = nt.nextPoints();
     let any = false;
     for (let q = 0; q < all.length; q++) {
       const tr = all[q]!;
-      if (tr.hasNext() && crossDir(this.geo, tr.nextI(), tr.nextJ(), ci, cj) === 0) {
+      if (tr.hasNext() && tr.nextVs(ci, cj, x1, y1, x2, y2, n) === 0) {
         const ev = tr.events;
         tr.processGroup();
         this.stats.trackerEvents += tr.events - ev;

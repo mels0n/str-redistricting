@@ -489,7 +489,7 @@ export function createCutScrubber(opts: CutScrubberOptions): CutScrubber {
       return;
     }
     if (at === 0) {
-      readoutText.append(`Balancing starts from the plan the cuts left. Each move takes one block across a border, only when it narrows the gap between the two districts.`);
+      readoutText.append(`Balancing starts from the plan the cuts left. Each move takes one block across a border, only when it narrows the gap between the two districts, or, for a block with no people, shortens the border.`);
       detail.append(
         pair('State range', plural(opts.rangeBefore, 'person', 'people'), 'Largest minus smallest'),
         pair('Moves to come', formatInt(n), `${plural(opts.peopleMoved, 'person', 'people')}`, ' in all'),

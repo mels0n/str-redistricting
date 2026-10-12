@@ -33,7 +33,7 @@ export function createExplainer(opts: { seats?: number } = {}): HTMLElement {
       ),
       step(
         'Balance.',
-        'Single blocks along the borders then move to the neighboring district when that narrows the population gap between the two, and only when both stay connected.',
+        'Single blocks along the borders then move to the neighboring district when that narrows the population gap between the two (a block with no people moves when that shortens the border), and only when the district it leaves stays connected.',
       ),
     ),
     h(

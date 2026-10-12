@@ -14,8 +14,9 @@ export const BalanceSchema = z.object({
       geoid: z.string().regex(/^\d{15}$/),
       from: z.number().int().positive(),
       to: z.number().int().positive(),
-      pop: z.number().int().positive(),
-      gain: z.number().positive(),
+      // 0 is a block with no people, moved only because that shortens the border.
+      pop: z.number().int().nonnegative(),
+      gain: z.number().nonnegative(),
     }),
   ),
   blocks: z.record(z.string(), z.array(z.array(Ring).min(1)).min(1)),

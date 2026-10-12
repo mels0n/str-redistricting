@@ -114,6 +114,21 @@ describe('the published balancing logs join the two phases', () => {
   });
 });
 
+describe('a balancing move of a block with no people', () => {
+  const ring = [[0, 0], [1, 0], [1, 1], [0, 0]];
+  const move = { order: 1, geoid: '080000000000001', from: 1, to: 2, pop: 0, gain: 0 };
+  const parse = (m: object): unknown => BalanceSchema.parse({ before: [10, 10], moves: [{ ...move, ...m }], blocks: { [move.geoid]: [[ring]] } });
+  it('is read, and leaves every population as it was', () => {
+    const log = BalanceSchema.parse({ before: [10, 10], moves: [move], blocks: { [move.geoid]: [[ring]] } });
+    expect(log.moves[0]).toEqual(move);
+    expect(populationsAfter(log.before, log.moves, 1)).toEqual([10, 10]);
+  });
+  it('is still rejected when the size or gain is negative', () => {
+    expect(() => parse({ pop: -1 })).toThrow();
+    expect(() => parse({ gain: -1 })).toThrow();
+  });
+});
+
 describe('the sequence: cuts, then balancing', () => {
   const size = { cuts: 7, moves: 22 };
   const at = (p: SeqPos): number => seqIndex(p, size);

@@ -1,5 +1,5 @@
 import type { ExpressionSpecification, FilterSpecification, LayerSpecification, VectorSourceSpecification } from 'maplibre-gl';
-import { tokens, dataUrl, formatInt } from '../../shared';
+import { tokens, dataUrl, formatInt, chamberDataPath, districtLabel, type Chamber } from '../../shared';
 import type { Plan } from '../../shared';
 
 /**
@@ -17,13 +17,13 @@ export const BLOCKS_HOVER_LAYER = 'blocks-hover';
 export const BLOCKS_PICK_LAYER = 'blocks-pick';
 const SOURCE_LAYER = 'blocks';
 
-export function blocksUrl(abbr: string): string {
-  return `pmtiles://${dataUrl(`${abbr}/blocks.pmtiles`)}`;
+export function blocksUrl(abbr: string, chamber: Chamber = 'federal-house'): string {
+  return `pmtiles://${dataUrl(`${chamberDataPath(abbr, chamber)}/blocks.pmtiles`)}`;
 }
 
 /** A tile template, like the detail source, so the file's bounds do not clamp Alaska. One zoom level, 13. */
-export function blocksSource(abbr: string): VectorSourceSpecification {
-  return { type: 'vector', tiles: [`${blocksUrl(abbr)}/{z}/{x}/{y}`], minzoom: BLOCKS_ZOOM, maxzoom: BLOCKS_ZOOM };
+export function blocksSource(abbr: string, chamber: Chamber = 'federal-house'): VectorSourceSpecification {
+  return { type: 'vector', tiles: [`${blocksUrl(abbr, chamber)}/{z}/{x}/{y}`], minzoom: BLOCKS_ZOOM, maxzoom: BLOCKS_ZOOM };
 }
 
 const NO_BLOCK: FilterSpecification = ['==', ['get', 'geoid'], ''];
@@ -87,11 +87,11 @@ export function blockInfo(props: Record<string, unknown> | null | undefined, pla
 }
 
 /** The tooltip's lines: the block, its people, its district in the plan on screen. */
-export function blockTip(info: BlockInfo, plan: Plan): string[] {
+export function blockTip(info: BlockInfo, plan: Plan, chamber: Chamber = 'federal-house'): string[] {
   const where = plan === 'finished' ? 'finished map' : 'before balancing';
   return [
     `Block ${info.geoid}`,
     `${formatInt(info.pop)} ${info.pop === 1 ? 'person' : 'people'}`,
-    info.district === null ? `No district (${where})` : `District ${info.district} (${where})`,
+    info.district === null ? `No district (${where})` : `${districtLabel(chamber, info.district)} (${where})`,
   ];
 }

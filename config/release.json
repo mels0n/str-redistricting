@@ -2,7 +2,7 @@
   "enforce": true,
   "paths": {
     "engine": ["src/server/**"],
-    "input": ["config/census-sha256.json", "config/enacted.json"],
+    "input": ["config/census-sha256.json", "config/enacted.json", "config/legislative-districts.json"],
     "maps": [],
     "schema": [
       "src/server/entities/plan-output/schema.ts",
@@ -23,6 +23,10 @@
       "src/server/features/export/**",
       "src/server/features/enacted/**",
       "src/server/app/enacted-*.ts",
+      "src/server/app/legislative-pin.ts",
+      "src/server/app/legislative-count.ts",
+      "src/server/app/legislative.ts",
+      "src/server/entities/legislative-boundary/**",
       "src/server/app/publish.ts",
       "src/server/features/rule-examples/**",
       "src/server/app/rule-examples.ts",
@@ -47,5 +51,5 @@
   },
   "ignore": ["public/data/**", "tests/**", ".github/**", "config/versions.json", "config/release.json", "changelog/**"],
   "docsTypes": ["copy", "docs"],
-  "fixtureStates": ["CT", "NV", "RI", "VT"]
+  "fixtureStates": ["CT", "NV", "RI", "VT", "VT:state-senate"]
 }

@@ -30,6 +30,13 @@ describe('checkPublishGate', () => {
       'RI: the map changed but the engine major and the census input did not; bump the engine major (npm run release)',
     );
   });
+  it('allows a changed map when the district count changed (a new legislative vintage)', () => {
+    const existing = { versions: stamp, ...plan(A), seats: 65 };
+    expect(() => checkPublishGate(existing, { versions: stamp, ...plan(B), seats: 66 }, false, 'CO state-house')).not.toThrow();
+    // The same count is still gated, and a count the published stats do not record cannot open the gate.
+    expect(() => checkPublishGate(existing, { versions: stamp, ...plan(B), seats: 65 }, false, 'CO state-house')).toThrow('the map changed');
+    expect(() => checkPublishGate({ versions: stamp, ...plan(A) }, { versions: stamp, ...plan(B), seats: 66 }, false, 'CO state-house')).toThrow('the map changed');
+  });
   it('stands aside before the 1.0 cut', () => {
     const existing = { versions: stamp, ...plan(A) };
     const next = { versions: stamp, ...plan(B) };

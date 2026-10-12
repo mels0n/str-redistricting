@@ -141,6 +141,58 @@ describe('publish-data --enacted-only on stamped data', () => {
   });
 });
 
+describe('publish-data --enacted-only per chamber', () => {
+  const OLD_STAMP = { engine: '0.9.0', input: { vintage: 'census-2020', revision: 0, sha256: 'c'.repeat(64) }, maps: 0, schema: '0.8.0' };
+  const SHA = 'd'.repeat(64);
+  const current = { ...stampOf(VERSIONS), engine: OLD_STAMP.engine, schema: OLD_STAMP.schema };
+  // Rhode Island's State House has 75 districts in config/legislative-districts.json.
+  const RI_HOUSE = 75;
+  const stats = (seats?: number) => JSON.stringify({ enactedSource: 'old_file', versions: OLD_STAMP, finished: { metrics: { assignmentSha256: SHA, ...(seats === undefined ? {} : { seats }) } } });
+  const putChamber = (seats?: number): void => put('RI/state-house', 'stats.json', stats(seats));
+  const index = () => JSON.parse(readFileSync(join(dir, 'index.json'), 'utf8')) as { states: { abbr: string; summary?: { versions: unknown }; chambers?: Record<string, { summary: { versions: unknown } }> }[] };
+
+  beforeEach(() => {
+    // Rhode Island only, with a stamped federal map; the unstamped Delaware of the outer setup is not part of these cases.
+    rmSync(join(dir, 'DE'), { recursive: true });
+    put('RI', 'stats.json', stats());
+    put('RI/state-house', 'enacted.topo.json', '{"old":true}');
+    const entry = { seats: 1, hasData: true, summary: { versions: OLD_STAMP } };
+    writeFileSync(join(dir, 'index.json'), JSON.stringify({ states: [{ abbr: 'RI', summary: { versions: OLD_STAMP }, chambers: { 'state-house': entry, 'state-senate': entry } }] }));
+  });
+
+  it('with --chamber restamps that chamber and its entry in the index, and leaves the federal one', async () => {
+    putChamber(RI_HOUSE);
+    await run('--chamber', 'state-house');
+    expect(JSON.parse(get('RI/state-house', 'stats.json')).versions).toEqual(current);
+    expect(JSON.parse(get('RI/state-house', 'stats.json')).enactedSource).toBe('cb_2026_us_cd119_500k');
+    expect(JSON.parse(get('RI', 'stats.json')).versions).toEqual(OLD_STAMP);
+    const ri = index().states[0]!;
+    expect(ri.chambers!['state-house']!.summary.versions).toEqual(current);
+    expect(ri.chambers!['state-senate']!.summary.versions).toEqual(OLD_STAMP);
+    expect(ri.summary!.versions).toEqual(OLD_STAMP);
+  });
+
+  it('writes versions.json only once no chamber carries an older stamp', async () => {
+    putChamber(RI_HOUSE);
+    await run();
+    expect(existsSync(join(dir, 'versions.json'))).toBe(false);
+    await run('--chamber', 'state-house');
+    expect(JSON.parse(readFileSync(join(dir, 'versions.json'), 'utf8'))).toEqual(VERSIONS);
+  });
+
+  it('keeps the stamp of a chamber whose published district count is not the Census count, and so keeps versions.json', async () => {
+    putChamber(RI_HOUSE - 1);
+    await run();
+    await run('--chamber', 'state-house');
+    const house = JSON.parse(get('RI/state-house', 'stats.json')) as { versions: unknown; enactedSource: string };
+    expect(house.versions).toEqual(OLD_STAMP);
+    expect(house.enactedSource).toBe('cb_2026_us_cd119_500k');
+    expect(index().states[0]!.chambers!['state-house']!.summary.versions).toEqual(OLD_STAMP);
+    expect(existsSync(join(dir, 'versions.json'))).toBe(false);
+    expect(vi.mocked(console.log)).toHaveBeenCalledWith(expect.stringContaining('needs redraw'));
+  });
+});
+
 describe('downloadForPinning', () => {
   const URL_ = 'https://www2.census.gov/f.zip';
   const sha = (b: string): string => createHash('sha256').update(b).digest('hex');

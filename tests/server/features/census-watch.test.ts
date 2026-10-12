@@ -51,6 +51,10 @@ describe('affectedBy', () => {
     expect(affectedBy(['tl_2020_08_tabblock20.zip', 'tl_2020_44_tabblock20.zip', 'cb_2025_us_state_20m.zip'])).toEqual({ states: ['CO', 'RI'], display: true });
     expect(affectedBy(['tl_2020_08_tabblock20.zip'])).toEqual({ states: ['CO'], display: false });
   });
+  it('reports a reissued State House or State Senate file as a possible redraw of that state, not as display only', () => {
+    expect(affectedBy(['cb_2025_08_sldl_500k.zip', 'cb_2025_44_sldu_500k.zip'])).toEqual({ states: ['CO', 'RI'], display: false });
+    expect(affectedBy(['cb_2025_08_sldl_500k.zip', 'cb_2025_us_cd119_500k.zip'])).toEqual({ states: ['CO'], display: true });
+  });
 });
 
 describe('probeSource', () => {

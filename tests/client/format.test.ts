@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { censusLabel, chunkDigest, congressOfSource, formatKm, formatPct, formatPeople, formatSignedPeople, ordinal, peopleNoun } from '../../src/client/shared/lib/format';
+import { censusLabel, chunkDigest, congressOfSource, legislativeFileName, formatKm, formatPct, formatPeople, formatSignedPeople, ordinal, peopleNoun } from '../../src/client/shared/lib/format';
 import { enactedSourceLabel } from '../../src/client/features/plan-options';
 
 describe('format', () => {
@@ -74,5 +74,12 @@ describe('censusLabel', () => {
     expect(censusLabel('census-2020')).toBe('2020 Census');
     expect(censusLabel('census-2030')).toBe('2030 Census');
     expect(censusLabel('something-else')).toBe('something-else');
+  });
+});
+
+describe('legislativeFileName', () => {
+  it('names the file for the given vintage', () => {
+    expect(legislativeFileName(2025, 'state-house')).toBe('cb_2025_<fips>_sldl_500k');
+    expect(legislativeFileName(2027, 'state-senate')).toBe('cb_2027_<fips>_sldu_500k');
   });
 });

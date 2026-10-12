@@ -1,10 +1,13 @@
 import { config, type VersionStamp } from '../config';
 import { h } from './dom';
+import { sharePath, chamberLabel, type Chamber } from './chamber';
 
 export interface CreditSubject {
   /** A state's code; absent on the national map. */
   abbr?: string;
   name?: string;
+  /** The chamber drawn; absent or the federal House keeps the original wording and address. */
+  chamber?: Chamber;
   /** What the published data says drew the map (a state's stamp, or the national versions file); absent on data published before versioning. */
   versions?: VersionStamp;
   /** The map's fingerprint (SHA-256 of the assignment file); the first 8 characters are shown. */
@@ -29,12 +32,14 @@ export function creditLine(p: CreditSubject, compact: boolean): string {
     if (!n) return host;
     return compact ? `${host} · Maps ${n.maps} · engine ${n.engine}` : `${host} · Maps release ${n.maps} · engine ${n.engine}`;
   }
-  const address = `${host}/${p.abbr}`;
+  const stateChamber = p.chamber !== undefined && p.chamber !== 'federal-house' ? p.chamber : null;
+  const address = stateChamber ? `${host}${sharePath(p.abbr, stateChamber).replace(/\/$/, '')}` : `${host}/${p.abbr}`;
+  const name = stateChamber && p.name ? `${p.name} ${chamberLabel(stateChamber)}` : p.name;
   const short = p.sha ? p.sha.slice(0, 8) : null;
   const v = p.versions;
-  if (!v) return compact || !p.name ? address : `${address} · ${p.name}`;
+  if (!v) return compact || !name ? address : `${address} · ${name}`;
   if (compact) return [address, `Maps ${v.maps}`, short].filter((x): x is string => x !== null).join(' · ');
-  return [address, p.name, `Maps release ${v.maps}`, `engine ${v.engine}`, short].filter((x): x is string => !!x).join(' · ');
+  return [address, name, `Maps release ${v.maps}`, `engine ${v.engine}`, short].filter((x): x is string => !!x).join(' · ');
 }
 
 export interface CreditStrip {

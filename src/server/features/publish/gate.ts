@@ -13,6 +13,8 @@ export interface PublishedPlan {
   readonly beforeSha?: string | undefined;
   /** The state's census input sha256 recorded with the plan. */
   readonly inputSha256: string;
+  /** Districts in the plan; undefined when the published stats do not record it. A different count is a different map by definition. */
+  readonly seats?: number | undefined;
 }
 
 /**
@@ -22,7 +24,8 @@ export interface PublishedPlan {
  * alone moves the input revision but never reopens the gate: it cannot change an assignment. The release script
  * records the bump; the gate accepts either an engine major or a census change. `baseline` skips the check for
  * unstamped states only, for the one-time stamping of data published before versioning existed. `preRelease` (before
- * the 1.0 cut) skips the check entirely.
+ * the 1.0 cut) skips the check entirely. A changed district count (a new Census legislative vintage) always lets the
+ * map change: the old assignment cannot be kept when the number of districts is different.
  */
 export function checkPublishGate(
   existing: PublishedPlan | null,
@@ -40,6 +43,7 @@ export function checkPublishGate(
   }
   const beforeChanged = existing.beforeSha !== undefined && next.beforeSha !== undefined && existing.beforeSha !== next.beforeSha;
   if (existing.sha === next.sha && !beforeChanged) return;
+  if (existing.seats !== undefined && next.seats !== undefined && existing.seats !== next.seats) return;
   const engineMoved = engineMajor(existing.versions.engine) !== engineMajor(next.versions.engine);
   const censusMoved = existing.versions.input.vintage !== next.versions.input.vintage || existing.inputSha256 !== next.inputSha256;
   if (!engineMoved && !censusMoved) {

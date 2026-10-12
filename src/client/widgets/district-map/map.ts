@@ -6,6 +6,7 @@ import type { FeatureCollection, MultiLineString, MultiPolygon, Polygon, Positio
 import {
   tokens,
   config,
+  chamberLabel,
   bboxOf,
   openingBox,
   crossesAntimeridian,
@@ -199,7 +200,7 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
   const finishedSha = bundle.stats.finished.metrics.assignmentSha256;
   const beforeSha = bundle.stats.beforeBalancing.metrics.assignmentSha256;
   let creditSha = finishedSha;
-  const credit = mountCreditStrip(container, () => ({ abbr: bundle.abbr, name: opts.stateName, versions: bundle.stats.versions, sha: creditSha }));
+  const credit = mountCreditStrip(container, () => ({ abbr: bundle.abbr, name: opts.stateName, chamber: bundle.chamber, versions: bundle.stats.versions, sha: creditSha }));
   fittedPad = JSON.stringify(framePadding());
   map.touchZoomRotate.disableRotation();
   map.keyboard.disableRotation();
@@ -222,7 +223,7 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
   // Zoom buttons sit where a thumb rests on a touch screen.
   map.addControl(new NavigationControl({ showCompass: false }), coarse ? 'bottom-right' : 'top-right');
   // The canvas is described by the region around it; the list is the full text view.
-  map.getCanvas().setAttribute('aria-label', `Map of ${opts.stateName} districts. Arrow keys move the map; plus and minus zoom. To choose a district, use the Districts table.`);
+  map.getCanvas().setAttribute('aria-label', `Map of ${opts.stateName}${bundle.chamber === 'federal-house' ? '' : ` ${chamberLabel(bundle.chamber)}`} districts. Arrow keys move the map; plus and minus zoom. To choose a district, use the Districts table.`);
 
   /** The water mask's polygons: district numbers prefer the land part of a district. */
   const waterPolys: Position[][][] = (bundle.water?.features ?? []).flatMap((f) => (f.geometry.type === 'Polygon' ? [f.geometry.coordinates] : f.geometry.coordinates));
@@ -523,7 +524,7 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
     const key = `${info.geoid}|${plan}`;
     if (blockTipEl.hidden || key !== tipKey) {
       blockTipEl.hidden = false;
-      blockTipEl.replaceChildren(...blockTip(info, plan).map((line, i) => {
+      blockTipEl.replaceChildren(...blockTip(info, plan, opts.bundle.chamber).map((line, i) => {
         const row = document.createElement('div');
         if (i === 0) row.className = 'strv-block-tip__head';
         row.textContent = line;
@@ -565,8 +566,8 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
       });
     }
     registerPmtiles();
-    map.addSource(DETAIL_SOURCE, detailSource(bundle.abbr));
-    if (hasBlocks) map.addSource(BLOCKS_SOURCE, blocksSource(bundle.abbr));
+    map.addSource(DETAIL_SOURCE, detailSource(bundle.abbr, bundle.chamber));
+    if (hasBlocks) map.addSource(BLOCKS_SOURCE, blocksSource(bundle.abbr, bundle.chamber));
     map.addSource('water', { type: 'geojson', data: bundle.water ?? { type: 'FeatureCollection', features: [] } });
     map.addSource('borders', { type: 'geojson', data: asFeature(EMPTY_LINES) });
     map.addSource('outline', { type: 'geojson', data: asFeature(bundle.finished.outline) });

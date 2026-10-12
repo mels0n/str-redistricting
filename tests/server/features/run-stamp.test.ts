@@ -12,7 +12,7 @@ beforeEach(() => { dir = mkdtempSync(join(tmpdir(), 'run-stamp-')); });
 afterEach(() => { rmSync(dir, { recursive: true, force: true }); });
 
 const sha = (text: string): string => createHash('sha256').update(text).digest('hex');
-const key: RunKey = { inputSha256: 'a'.repeat(64), seats: 8, engineMajor: '1', codeSha256: 'c'.repeat(64) };
+const key: RunKey = { chamber: 'federal-house', inputSha256: 'a'.repeat(64), seats: 8, engineMajor: '1', codeSha256: 'c'.repeat(64) };
 
 describe('staleReason', () => {
   async function drawn(paths = ['metrics.json', 'before-balancing/metrics.json']): Promise<void> {
@@ -34,6 +34,7 @@ describe('staleReason', () => {
   it('names what changed', async () => {
     await drawn();
     expect(await staleReason(dir, { ...key, inputSha256: 'b'.repeat(64) })).toBe('census file changed');
+    expect(await staleReason(dir, { ...key, chamber: 'state-senate' })).toBe('chamber changed');
     expect(await staleReason(dir, { ...key, seats: 9 })).toBe('seat count changed');
     expect(await staleReason(dir, { ...key, engineMajor: '2' })).toBe('engine major changed');
     expect(await staleReason(dir, { ...key, codeSha256: 'd'.repeat(64) })).toBe('code changed');
@@ -54,6 +55,14 @@ describe('staleReason', () => {
     expect(RunStampSchema.safeParse({ ...key, files: [] }).success).toBe(false);
     expect(RunStampSchema.safeParse({ ...key, files: [{ ...file, path: '../x.json' }] }).success).toBe(false);
     expect(RunStampSchema.safeParse({ ...key, files: [{ ...file, path: '/x.json' }] }).success).toBe(false);
+  });
+  it('reads a stamp written before chambers existed as Federal House', async () => {
+    await drawn();
+    const { chamber: _chamber, ...old } = JSON.parse(readFileSync(join(dir, STAMP_FILE), 'utf8'));
+    writeFileSync(join(dir, STAMP_FILE), JSON.stringify(old));
+    expect(RunStampSchema.parse(old).chamber).toBe('federal-house');
+    expect(await staleReason(dir, key)).toBeUndefined();
+    expect(await staleReason(dir, { ...key, chamber: 'state-house' })).toBe('chamber changed');
   });
   it('treats an unreadable stamp as no run', async () => {
     writeFileSync(join(dir, STAMP_FILE), '{ not json');

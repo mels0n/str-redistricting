@@ -36,7 +36,11 @@ const ConfigSchema = z.object({
   tagline: z.string().min(1),
 });
 
-const EnactedSchema = z.looseObject({ congress: z.number().int().positive(), file: z.string().min(1) });
+const EnactedSchema = z.looseObject({
+  congress: z.number().int().positive(),
+  file: z.string().min(1),
+  legislative: z.looseObject({ vintage: z.number().int().positive() }),
+});
 const enacted = EnactedSchema.parse(enactedJson);
 
 /**
@@ -44,7 +48,7 @@ const enacted = EnactedSchema.parse(enactedJson);
  * config/enacted.json, the same file the publisher reads, so the two cannot drift; `npm run enacted:bump` rewrites
  * it, and a test checks the published data against it.
  */
-export const ENACTED = { congress: enacted.congress, file: enacted.file } as const;
+export const ENACTED = { congress: enacted.congress, file: enacted.file, legislativeVintage: enacted.legislative.vintage } as const;
 
 export const VersionsSchema = z.looseObject({
   engine: z.string().min(1),
@@ -115,10 +119,10 @@ export const config: ViewerConfig = load();
  * The shell commands that fetch the code and regenerate one state's map. With a maps release number the clone is
  * pinned to that release's tag; null (data published before versioning) clones the default branch.
  */
-export function reproduceCommands(abbr: string, mapsRelease: number | null): string {
+export function reproduceCommands(abbr: string, mapsRelease: number | null, chamber = 'federal-house'): string {
   const dir = new URL(config.repoUrl).pathname.split('/').filter(Boolean).pop() ?? '';
   const clone = mapsRelease === null ? `git clone ${config.repoUrl}` : `git clone --branch maps-${mapsRelease} --depth 1 ${config.repoUrl}`;
-  return `${clone}\ncd ${dir}\nnpm install\nnpm run explore -- --states ${abbr}`;
+  return `${clone}\ncd ${dir}\nnpm install\nnpm run explore -- --states ${abbr}${chamber === 'federal-house' ? '' : ` --chamber ${chamber}`}`;
 }
 
 let dataRelease: number | null = null;

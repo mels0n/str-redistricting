@@ -1,9 +1,11 @@
 import { readFileSync, writeFileSync } from 'node:fs';
-import { ReleaseConfigSchema, baseEngineMajor, compareFingerprints, isPreRelease, preReleaseForBase } from '../features/release/index.js';
+import { ReleaseConfigSchema, baseEngineMajor, compareFingerprints, fixturesWithNewCounts, isPreRelease, preReleaseForBase } from '../features/release/index.js';
 import { VERSIONS, parseFingerprintArgs } from '../shared/config/index.js';
 import { CheckFailedError, exitCodeFor } from '../shared/errors/index.js';
 import { FINGERPRINT_PATH, drawFingerprints, readFingerprintFile, readFingerprintFileAt } from './fixtures.js';
 import { listTags, showFile } from './git.js';
+
+const COUNTS_PATH = 'config/legislative-districts.json';
 
 // Reads config/ and tests/ relative to the current directory.
 function main(): void {
@@ -14,7 +16,11 @@ function main(): void {
 
   if (args.mode === 'record') {
     const got = drawFingerprints(states, args.cacheDir);
-    writeFileSync(FINGERPRINT_PATH, `${JSON.stringify({ engineMajor, states: got }, null, 2)}\n`);
+    // Recording some fixtures keeps the others recorded at this major; a new engine major starts over.
+    const kept = readFingerprintFile();
+    const merged = kept.engineMajor === engineMajor ? { ...kept.states, ...got } : got;
+    const sorted = Object.fromEntries(Object.entries(merged).sort(([x], [y]) => (x < y ? -1 : 1)));
+    writeFileSync(FINGERPRINT_PATH, `${JSON.stringify({ engineMajor, states: sorted }, null, 2)}\n`);
     console.log(`recorded ${states.join(', ')} at engine major ${engineMajor}`);
     return;
   }
@@ -34,7 +40,12 @@ function main(): void {
   // Pre-release is judged by the base ref's config (a missing file counts as not enforcing), so a pull request cannot
   // switch the gate off by editing its own config/release.json.
   const preRelease = args.base === undefined ? isPreRelease(release, listTags()) : preReleaseForBase(showFile(args.base, 'config/release.json'), release, listTags());
-  const result = compareFingerprints(base, head, drawFingerprints(Object.keys(base.states), args.cacheDir), engineMajor, preRelease);
+  // A state chamber whose district count changed since the base is a new input: its map may change without an engine major.
+  const inputChanged = args.base === undefined
+    ? new Set<string>()
+    : fixturesWithNewCounts(showFile(args.base, COUNTS_PATH), readFileSync(COUNTS_PATH, 'utf8'), Object.keys(base.states));
+  if (inputChanged.size > 0) console.log(`district count changed since ${args.base ?? ''} for: ${[...inputChanged].sort().join(', ')}`);
+  const result = compareFingerprints(base, head, drawFingerprints(Object.keys(base.states), args.cacheDir), engineMajor, preRelease, inputChanged);
   if (result.changed.length > 0) console.log(`changed fixture states: ${result.changed.join(', ')}`);
   console.log(result.message);
   if (!result.ok) process.exit(exitCodeFor(new CheckFailedError(result.message)));

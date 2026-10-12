@@ -5,6 +5,7 @@ import {
   CHANGELOG,
   ENACTED,
   ordinal,
+  legislativeFileName,
   dataUrl,
   describeError,
   fetchJson,
@@ -110,7 +111,7 @@ function balancingTable(rows: { abbr: string; name: string; m: Metrics }[]): HTM
     h(
       'table',
       { class: 'strv-how__table' },
-      h('caption', { class: 'strv-list__caption' }, 'Balancing in every state with a map. Range: the largest district minus the smallest, in people.'),
+      h('caption', { class: 'strv-list__caption' }, 'Balancing in every Federal House map. Range: the largest district minus the smallest, in people.'),
       h(
         'thead',
         null,
@@ -154,7 +155,7 @@ function followCutsTable(rows: readonly CutRow[]): HTMLElement {
     h(
       'table',
       { class: 'strv-how__table' },
-      h('caption', { class: 'strv-list__caption' }, 'Colorado, cut by cut. Seats: the seats in the piece being cut. Border: the length of the real border the cut made.'),
+      h('caption', { class: 'strv-list__caption' }, 'Colorado’s Federal House map, cut by cut. Seats: the seats in the piece being cut. Border: the length of the real border the cut made.'),
       h('thead', null, h('tr', null, colHead('Cut', false), colHead('Seats'), colHead('Split'), colHead('Border'))),
       h(
         'tbody',
@@ -299,7 +300,7 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
       h(
         'div',
         { class: 'strv-how__ledger' },
-        h('p', { class: 'strv-how__ledger-lead' }, 'Three facts about each census block go in, plus each state’s seat count. Nothing else does.'),
+        h('p', { class: 'strv-how__ledger-lead' }, 'Three facts about each census block go in, plus each chamber’s district count in each state. Nothing else does.'),
         h(
           'div',
           { class: 'strv-how__ledger-col strv-how__ledger-col--in' },
@@ -311,7 +312,7 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
             li('where its edges are'),
             li('one point inside it, used to put blocks in order and to measure island links'),
           ),
-          h('p', { class: 'strv-how__ledger-note' }, 'Plus one number per state: its House seats from the 2020 apportionment.'),
+          h('p', { class: 'strv-how__ledger-note' }, 'Plus one number per state and chamber: its House seats from the 2020 apportionment, or its number of State House or State Senate districts.'),
         ),
         h(
           'div',
@@ -323,7 +324,7 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
             li('party registration or voter records'),
             li('election results or turnout'),
             li('where officeholders or candidates live'),
-            li('current or past district lines'),
+            li('the shapes of current or past district lines (for a State House or State Senate map, only the number of districts in the Census Bureau’s file is used)'),
             li('race, ethnicity, age, income or anything else about people besides the count'),
             li('county and city lines'),
           ),
@@ -338,8 +339,8 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
         li('the block’s internal point, a point inside the block that the Census Bureau publishes (', code('INTPTLAT20'), ' and ', code('INTPTLON20'), '). It is used to put blocks in order across a guide line and to measure island links.'),
       ),
       figure('Each block brings its shape, its count of people and its internal point. Example numbers.', inputsDiagram()),
-      p('Current district lines are shown on the map for comparison only. The generator never reads them. County and city boundaries are not used to draw anything. Counties are only counted afterwards, for reporting. People are counted where the census counted them, with no adjustments, so a person in a prison is counted at the prison.'),
-      p('The number of districts for each state is the number of House seats the state received in the 2020 apportionment.'),
+      p('Current district lines are shown on the map for comparison only. The generator never reads their shapes; for a state chamber it reads the current district files only to count how many districts to draw. County and city boundaries are not used to draw anything. Counties are only counted afterwards, for reporting. People are counted where the census counted them, with no adjustments, so a person in a prison is counted at the prison.'),
+      p('The number of districts in a Federal House map is the number of House seats the state received in the 2020 apportionment. The number of districts in a State House or State Senate map is the number of distinct districts in the Census Bureau’s ' + ENACTED.legislativeVintage + ' state legislative district file for that chamber. Nebraska has one chamber, so it has no State House map. Each chamber is drawn separately, by the same rule.'),
     ),
     section(
       'cut',
@@ -442,7 +443,7 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
     section(
       'balancing',
       5,
-      p('U.S. House districts must be as nearly equal in population as practicable. That is the standard the Supreme Court applied to congressional districts in Karcher v. Daggett (1983). Each cut stops at the block that brings its sides closest to their shares, but whole blocks rarely land exactly on a share, and the small differences add up across many cuts.'),
+      p('U.S. House districts must be as nearly equal in population as practicable. That is the standard the Supreme Court applied to congressional districts in Karcher v. Daggett (1983). State legislative districts are usually allowed more variation in law, but these maps hold every chamber to the same standard: as equal as whole blocks allow. Each cut stops at the block that brings its sides closest to their shares, but whole blocks rarely land exactly on a share, and the small differences add up across many cuts.'),
       p('So after the cuts, the districts are close to equal but not exactly. To finish the job, districts trade single blocks along their shared borders, one at a time. A trade is only made if it brings the two districts closer to equal and keeps both in one piece. When no trade helps any more, it stops.'),
       figure('Gap: the difference between the two districts’ populations. A block may move only if that gap gets strictly smaller. Example numbers.', ...balanceDiagrams()),
       h('h3', { class: 'strv-how__h3' }, 'How the next block is chosen'),
@@ -494,7 +495,7 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
       'fingerprint',
       6,
       p('Run the generator again on the same data and you get the same map, down to the last block. There are no random numbers and no seed, and nobody chooses a starting point or a preferred outcome.'),
-      p('The map itself is a file that lists every block and the district it belongs to. Its fingerprint is a 64-character code worked out from that file. The code changes completely if even one block is assigned differently, so two people can compare that one value to confirm they got the same map. Each state’s fingerprint is printed under “Check this map” in its view.'),
+      p('The map itself is a file that lists every block and the district it belongs to. Its fingerprint is a 64-character code worked out from that file. The code changes completely if even one block is assigned differently, so two people can compare that one value to confirm they got the same map. Each map’s fingerprint is printed under “Check this map” in its view.'),
       figure('The same inputs always give the same assignment file, and so the same fingerprint.', fingerprintDiagram()),
       exact(
         exactPara('fingerprint.repeat', 'Blocks are always processed in GEOID order. Given the same census files, the generator writes a byte-identical assignment file and identical district shapes on any computer. No cut depends on a computed angle; the angles shown are worked out by the generator’s own code, so they match everywhere too. The fingerprint is the SHA-256 hash of that assignment file.'),
@@ -503,7 +504,7 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
       p('The generator, this viewer and the published data are all in ', h('a', { href: config.repoUrl }, 'the project’s GitHub repository'), '. Get the code and run it:'),
       h('pre', { class: 'strv-code', tabindex: 0, role: 'group', 'aria-label': 'Commands to run' }, recipeCode),
       p('Every map names the engine and Census input version that drew it. Same versions, same districts, every time. See what changed in each release on the ', h('a', { href: formatHash(CHANGELOG) }, 'changelog page'), '.'),
-      p('The state is given by its two-letter abbreviation. The census block file for the state is downloaded from the U.S. Census Bureau the first time it is needed.'),
+      p('The state is given by its two-letter abbreviation. Add --chamber state-house or --chamber state-senate for a state chamber. The census block file for the state is downloaded from the U.S. Census Bureau the first time it is needed.'),
     ),
     section(
       'sources',
@@ -511,12 +512,13 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
       h(
         'ul',
         { class: 'strv-how__list' },
-        li(h('strong', null, '2020 Census blocks'), ', from the U.S. Census Bureau: people, shapes and internal points. The only data that draws the maps.'),
+        li(h('strong', null, '2020 Census blocks'), ', from the U.S. Census Bureau: people, shapes and internal points. With the number of districts in each chamber, the only data that draws the maps.'),
         li(h('strong', null, `${ordinal(ENACTED.congress)} Congress districts`), ', from the Census Bureau’s cartographic boundary file ', code(ENACTED.file), '. Shown for comparison only and never read by the generator. A state that adopted a new map after that file was made is not reflected in it.'),
+        li(h('strong', null, 'State legislative districts'), ', from the Census Bureau’s cartographic boundary files for state legislative districts (' + ENACTED.legislativeVintage + '), ', code(legislativeFileName(ENACTED.legislativeVintage, 'state-house')), ' and ', code(legislativeFileName(ENACTED.legislativeVintage, 'state-senate')), '. Used only for the number of districts in each state chamber and for the comparison lines. The generator never reads their shapes.'),
         li(h('strong', null, 'State outlines and county names'), ', from the Census Bureau’s cartographic boundary files. Used for display and for counting the counties a district touches. The state outlines clipped to the shoreline (', code('cb_2020_us_state_500k'), ') also show where land ends and water begins.'),
         li(h('strong', null, 'Address search'), ' uses the U.S. Census Bureau geocoder. The address you type is sent to that service.'),
       ),
-      figure('Only the census blocks draw the map. Everything else is display.', sourcesDiagram()),
+      figure('Only the census blocks and each chamber’s number of districts draw the map. Everything else is display.', sourcesDiagram()),
       h('h3', { class: 'strv-how__h3' }, 'Limits'),
       h(
         'ul',
@@ -543,7 +545,7 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
       { class: 'strv-how__head' },
       h('a', { href: formatHash(NATIONAL), class: 'strv-back' }, iconArrowLeft(), 'All states'),
       h1,
-      h('p', { class: 'strv-how__lede' }, 'Every map in this viewer comes from 2020 Census counts and three fixed steps: cut, keep blocks whole, balance. Here is each stage in plain language, with a drawing. Numbers in the drawings are examples unless they name a state. The maps cover the 50 states. Washington, D.C. and the U.S. territories elect non-voting delegates to the House, so they have no districts to draw.'),
+      h('p', { class: 'strv-how__lede' }, 'Every map in this viewer comes from 2020 Census counts and three fixed steps: cut, keep blocks whole, balance. Here is each stage in plain language, with a drawing. Numbers in the drawings are examples unless they name a state. The maps cover the 50 states. Washington, D.C. and the U.S. territories are not drawn. They elect non-voting delegates to the House, and their local legislatures are not covered.'),
     ),
     // The wrapper measures the room: the stage list sits beside the text only when the text keeps a readable measure.
     h('div', { class: 'strv-how__room' }, h('div', { class: 'strv-how__grid' }, toc, body)),
@@ -639,7 +641,7 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
       const seats = rows[0]?.seats ?? 0;
       clear(followSentence);
       followSentence.append(
-        `Colorado has ${formatInt(seats)} seats, so it takes ${formatInt(rows.length)} cuts. The first splits the whole state ${rows[0]?.split.replace(' + ', ' and ') ?? ''}; each side is then cut again, in the order below, until every piece has one seat. Each row opens Colorado’s map at that cut.`,
+        `Colorado’s Federal House map has ${formatInt(seats)} seats, so it takes ${formatInt(rows.length)} cuts. The first splits the whole state ${rows[0]?.split.replace(' + ', ' and ') ?? ''}; each side is then cut again, in the order below, until every piece has one seat. Each row opens Colorado’s map at that cut.`,
       );
       clear(followTable);
       followTable.append(followCutsTable(rows));

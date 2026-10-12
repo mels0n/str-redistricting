@@ -1,7 +1,26 @@
 import { availableParallelism } from 'node:os';
 import { describe, expect, it } from 'vitest';
-import { defaultThreads, LINE_SEARCH, parseConfig, parseRuleExamplesConfig } from '../../../src/server/shared/config/index.js';
+import { defaultThreads, LINE_SEARCH, parseConfig, parseFingerprintArgs, parsePublishConfig, parseRuleExamplesConfig } from '../../../src/server/shared/config/index.js';
 import { CheckFailedError, ConfigError, DataError, exitCodeFor, WorkerPoolError } from '../../../src/server/shared/errors/index.js';
+
+describe('chamber option', () => {
+  it('defaults to the Federal House and accepts the state chambers', () => {
+    expect(parseConfig(['--states', 'CO']).chamber).toBe('federal-house');
+    expect(parseConfig(['--states', 'CO', '--chamber', 'state-house']).chamber).toBe('state-house');
+    expect(parsePublishConfig([]).chamber).toBe('federal-house');
+    expect(parsePublishConfig(['--chamber', 'state-senate']).chamber).toBe('state-senate');
+  });
+  it('rejects an unknown chamber', () => {
+    expect(() => parseConfig(['--states', 'CO', '--chamber', 'bogus'])).toThrow(ConfigError);
+    expect(() => parsePublishConfig(['--chamber', 'senate'])).toThrow(ConfigError);
+  });
+  it('takes fingerprint fixtures as ST or ST:chamber', () => {
+    expect(parseFingerprintArgs(['--check', '--states', 'co,VT:state-senate,NE:state-house']).states).toEqual(['CO', 'VT:state-senate', 'NE:state-house']);
+    for (const bad of ['VT:senate', 'VT:federal-house', 'VT:state-senate:x', 'XX:state-house']) {
+      expect(() => parseFingerprintArgs(['--check', '--states', bad])).toThrow(ConfigError);
+    }
+  });
+});
 
 describe('parseConfig', () => {
   it('parses states', () => {

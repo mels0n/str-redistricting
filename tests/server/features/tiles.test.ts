@@ -8,7 +8,9 @@ import {
   DEEP_EXTENT,
   TILE_MAXZOOM,
   TILE_MINZOOM,
+  DEEP_POINT_MARGIN,
   buildDetailTiles,
+  deepSamplePoint,
   districtAtDeepTile,
   districtsAtDeepTile,
 } from '../../../src/server/features/publish/tiles.js';
@@ -137,5 +139,43 @@ describe('districtAtDeepTile', () => {
     expect(await districtAtDeepTile(bytes, 'finished', [-100, 30])).toBeNull();
     const pts: [number, number][] = [[-105.1, 39.8], [-104.7, 39.6], [-100, 30], sample(jagVertices[3]!, -1)];
     expect(await districtsAtDeepTile(bytes, 'finished', pts)).toEqual([1, 2, null, 1]);
+  });
+});
+
+describe('deepSamplePoint', () => {
+  // A border whose tile-unit x has fractional part .45, so it rounds down a whole 0.45 units at the deepest zoom.
+  const units = 2 ** TILE_MAXZOOM * DEEP_EXTENT;
+  const lonAt = (x: number): number => (x / units) * 360 - 180;
+  const xOf = (lon: number): number => ((lon + 180) / 360) * units;
+  const borderX = Math.floor(xOf(-104.9)) + 0.45;
+  const border = lonAt(borderX);
+  const d1 = poly(1, [[-105.3, 39.5], [border, 39.5], [border, 39.9], [-105.3, 39.9]]);
+  const d2 = poly(2, [[border, 39.5], [-104.5, 39.5], [-104.5, 39.9], [border, 39.9]]);
+  const tiles = buildDetailTiles({ finished: [d1, d2] }, { finished: 'a'.repeat(64), before: 'b'.repeat(64) });
+  // A block of district 1 about 400 m wide whose east edge is the border, like a block the balancer moved across it.
+  const west = lonAt(borderX - 800);
+  const block = [[[west, 39.69], [border, 39.69], [border, 39.71], [west, 39.69 + 0.04 / 2], [west, 39.69]]];
+  // Its Census interior point 0.3 tile units (about 0.12 m) inside the border, as FL block 120990059541000 had.
+  const nearBorder: [number, number] = [lonAt(borderX - 0.3), 39.7];
+
+  it('finds a block point the tiles can answer when the interior point is within rounding of a border', async () => {
+    // The precision artifact itself: rounded onto the border, the point reads as the neighbouring district.
+    expect(await districtAtDeepTile(tiles, 'finished', nearBorder)).toBe(2);
+    const p = deepSamplePoint(block, nearBorder);
+    expect(p).not.toBeNull();
+    expect(borderX - xOf(p![0])).toBeGreaterThanOrEqual(DEEP_POINT_MARGIN);
+    expect(await districtAtDeepTile(tiles, 'finished', p!)).toBe(1);
+  });
+
+  it('keeps an interior point that is well inside its block', () => {
+    const inside: [number, number] = [lonAt(borderX - 400), 39.7];
+    expect(deepSamplePoint(block, inside)).toEqual(inside);
+  });
+
+  it('gives up only on a block too thin to hold a point that far from its edges', () => {
+    const sliver = [[[lonAt(borderX - 3), 39.69], [border, 39.69], [border, 39.71], [lonAt(borderX - 3), 39.71], [lonAt(borderX - 3), 39.69]]];
+    expect(deepSamplePoint(sliver, [lonAt(borderX - 1.5), 39.7])).toBeNull();
+    const narrow = [[[lonAt(borderX - 5), 39.69], [border, 39.69], [border, 39.71], [lonAt(borderX - 5), 39.71], [lonAt(borderX - 5), 39.69]]];
+    expect(deepSamplePoint(narrow, [lonAt(borderX - 0.3), 39.7])).not.toBeNull();
   });
 });

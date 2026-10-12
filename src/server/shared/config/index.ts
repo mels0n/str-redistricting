@@ -2,10 +2,13 @@ import { availableParallelism, freemem } from 'node:os';
 import { parseArgs } from 'node:util';
 import { z } from 'zod';
 import { stateByAbbr, type StateInfo } from '../apportionment/index.js';
+import { parseChamber, type Chamber } from '../chamber/index.js';
 import { ConfigError } from '../errors/index.js';
 
 export { CENSUS_HOSTS } from './census-hosts.js';
 export { CENSUS_SHA256, ManifestSchema, pinnedSha256 } from './census-manifest.js';
+export { LegislativeDistrictsSchema, legislativeDistricts } from './legislative-districts.js';
+export type { LegislativeDistricts } from './legislative-districts.js';
 export { ENACTED_CONFIG, EnactedConfigSchema, enactedFileName, parseEnactedFileName } from './enacted.js';
 export type { EnactedConfig } from './enacted.js';
 export { VERSIONS, VersionsSchema, engineMajor, formatVersions, inputSha256Of, stampOf } from './versions.js';
@@ -19,6 +22,8 @@ export const LINE_SEARCH = 'exact';
 
 export interface Config {
   readonly states: StateInfo[];
+  /** Which body's districts to draw. */
+  readonly chamber: Chamber;
   readonly cacheDir: string;
   readonly outDir: string;
   /** Threads for the cut search; 1 searches on the main thread only. */
@@ -53,6 +58,7 @@ export function parseConfig(argv: readonly string[]): Config {
     args: [...argv],
     options: {
       states: { type: 'string' },
+      chamber: { type: 'string', default: 'federal-house' },
       'cache-dir': { type: 'string', default: 'data/raw' },
       'out-dir': { type: 'string', default: 'out' },
       threads: { type: 'string' },
@@ -73,7 +79,7 @@ export function parseConfig(argv: readonly string[]): Config {
     return info;
   });
   return {
-    states, cacheDir: parsed.data.cacheDir, outDir: parsed.data.outDir, threads: parsed.data.threads, force: values.force === true,
+    states, chamber: parseChamber(values.chamber), cacheDir: parsed.data.cacheDir, outDir: parsed.data.outDir, threads: parsed.data.threads, force: values.force === true,
     threadsLimitedByMemory: values.threads === undefined && dflt < defaultThreads(availableParallelism(), Infinity),
   };
 }
@@ -81,6 +87,8 @@ export function parseConfig(argv: readonly string[]): Config {
 export interface PublishConfig {
   /** Limit the heavy work to these states; undefined means every state with a generated plan. */
   readonly states: StateInfo[] | undefined;
+  /** Which body's published files to build. */
+  readonly chamber: Chamber;
   readonly cacheDir: string;
   readonly outDir: string;
   readonly publicDir: string;
@@ -108,6 +116,7 @@ export function parsePublishConfig(argv: readonly string[]): PublishConfig {
     args: [...argv],
     options: {
       states: { type: 'string' },
+      chamber: { type: 'string', default: 'federal-house' },
       'cache-dir': { type: 'string', default: 'data/raw' },
       'out-dir': { type: 'string', default: 'out' },
       'public-dir': { type: 'string', default: 'public/data' },
@@ -128,7 +137,7 @@ export function parsePublishConfig(argv: readonly string[]): PublishConfig {
     if (!info) throw new ConfigError(`unknown state: ${abbr}`);
     return info;
   });
-  return { states, cacheDir: parsed.data.cacheDir, outDir: parsed.data.outDir, publicDir: parsed.data.publicDir, enactedOnly: parsed.data.enactedOnly, blocksOnly: parsed.data.blocksOnly, baseline: parsed.data.baseline };
+  return { states, chamber: parseChamber(values.chamber), cacheDir: parsed.data.cacheDir, outDir: parsed.data.outDir, publicDir: parsed.data.publicDir, enactedOnly: parsed.data.enactedOnly, blocksOnly: parsed.data.blocksOnly, baseline: parsed.data.baseline };
 }
 
 export interface RuleExamplesConfig {
@@ -168,9 +177,7 @@ export function parseRuleExamplesConfig(argv: readonly string[]): RuleExamplesCo
   return parsed.data;
 }
 
-export interface EnactedBumpConfig {
-  /** The enacted-districts file to adopt, e.g. cb_2027_us_cd120_500k. */
-  readonly file: string;
+interface EnactedBumpDirs {
   readonly cacheDir: string;
   readonly publicDir: string;
   readonly configDir: string;
@@ -178,8 +185,22 @@ export interface EnactedBumpConfig {
   readonly skipPublish: boolean;
 }
 
+/** Adopt a new enacted congressional districts file (`--file`) or a new legislative vintage (`--legislative`), never both. */
+export type EnactedBumpConfig =
+  | (EnactedBumpDirs & {
+      /** The enacted-districts file to adopt, e.g. cb_2027_us_cd120_500k. */
+      readonly file: string;
+    })
+  | (EnactedBumpDirs & {
+      /** The Census vintage of the State House and State Senate files to adopt, e.g. 2026. */
+      readonly legislative: number;
+    });
+
+const BUMP_USAGE = 'usage: enacted:bump --file <cb_YYYY_us_cdNNN_500k> | --legislative <YYYY>';
+
 const RawBump = z.object({
-  file: z.string().regex(/^cb_\d{4}_us_cd\d+_500k$/, 'file must look like cb_2027_us_cd120_500k (no .zip)'),
+  file: z.string().regex(/^cb_\d{4}_us_cd\d+_500k$/, 'file must look like cb_2027_us_cd120_500k (no .zip)').optional(),
+  legislative: z.string().regex(/^\d{4}$/, 'legislative must be a four-digit year').transform(Number).optional(),
   cacheDir: z.string().min(1),
   publicDir: z.string().min(1),
   configDir: z.string().min(1),
@@ -192,6 +213,7 @@ export function parseEnactedBumpConfig(argv: readonly string[]): EnactedBumpConf
     args: [...argv],
     options: {
       file: { type: 'string' },
+      legislative: { type: 'string' },
       'cache-dir': { type: 'string', default: 'data/raw' },
       'public-dir': { type: 'string', default: 'public/data' },
       'config-dir': { type: 'string', default: 'config' },
@@ -200,10 +222,13 @@ export function parseEnactedBumpConfig(argv: readonly string[]): EnactedBumpConf
     strict: true,
   });
   const parsed = RawBump.safeParse({
-    file: values.file, cacheDir: values['cache-dir'], publicDir: values['public-dir'], configDir: values['config-dir'], skipPublish: values['skip-publish'],
+    file: values.file, legislative: values.legislative, cacheDir: values['cache-dir'], publicDir: values['public-dir'], configDir: values['config-dir'], skipPublish: values['skip-publish'],
   });
   if (!parsed.success) throw new ConfigError(parsed.error.issues.map((i) => `${i.path.join('.')} ${i.message}`).join('; '));
-  return parsed.data;
+  const { file, legislative, ...dirs } = parsed.data;
+  if (file !== undefined && legislative === undefined) return { file, ...dirs };
+  if (legislative !== undefined && file === undefined) return { legislative, ...dirs };
+  throw new ConfigError(BUMP_USAGE);
 }
 
 export type CensusWatchConfig =
@@ -229,6 +254,30 @@ export function parseCensusWatchConfig(argv: readonly string[]): CensusWatchConf
   });
   if (values.record === values.check) throw new ConfigError('usage: census:watch --record | --check --report <path>');
   const parsed = RawCensusWatch.safeParse({ mode: values.record ? 'record' : 'check', configDir: values['config-dir'], report: values.report });
+  if (!parsed.success) throw new ConfigError(parsed.error.issues.map((i) => i.message).join('; '));
+  return parsed.data;
+}
+
+export interface LegislativeConfig {
+  /** `--check`: compare the counts file with a fresh count instead of writing it. */
+  readonly check: boolean;
+  readonly cacheDir: string;
+  readonly configDir: string;
+}
+
+/** Read once at boot from the command line (legislative:count and legislative:pin). */
+export function parseLegislativeConfig(argv: readonly string[]): LegislativeConfig {
+  const { values } = parseArgs({
+    args: [...argv],
+    options: {
+      check: { type: 'boolean', default: false },
+      'cache-dir': { type: 'string', default: 'data/raw' },
+      'config-dir': { type: 'string', default: 'config' },
+    },
+    strict: true,
+  });
+  const parsed = z.object({ check: z.boolean(), cacheDir: z.string().min(1), configDir: z.string().min(1) })
+    .safeParse({ check: values.check, cacheDir: values['cache-dir'], configDir: values['config-dir'] });
   if (!parsed.success) throw new ConfigError(parsed.error.issues.map((i) => i.message).join('; '));
   return parsed.data;
 }
@@ -290,11 +339,23 @@ export function parseReleaseTagsArgs(argv: readonly string[]): ReleaseTagsArgs {
 
 export interface FingerprintArgs {
   readonly mode: 'check' | 'record';
-  /** Two-letter abbreviations; undefined means the fixtureStates of config/release.json. */
+  /** Fixture ids, `ST` (Federal House) or `ST:state-house` / `ST:state-senate`; undefined means the fixtureStates of config/release.json. */
   readonly states: string[] | undefined;
   readonly cacheDir: string;
   /** The ref whose tests/fingerprints/engine.json the draw is compared against; undefined means the working copy. */
   readonly base: string | undefined;
+}
+
+/** `CO` or `CO:state-senate` to its normalised id; the Federal House is the bare abbreviation, never `CO:federal-house`. */
+export function parseFixtureId(id: string): string {
+  const [abbr = '', chamber, ...rest] = id.split(':');
+  const info = stateByAbbr(abbr);
+  if (!info) throw new ConfigError(`unknown state: ${abbr}`);
+  if (chamber === undefined) return info.abbr;
+  if (rest.length > 0 || (chamber !== 'state-house' && chamber !== 'state-senate')) {
+    throw new ConfigError(`bad fixture id: ${id} (expected ST, ST:state-house or ST:state-senate)`);
+  }
+  return `${info.abbr}:${chamber}`;
 }
 
 /** Read once at boot from the command line. */
@@ -311,11 +372,7 @@ export function parseFingerprintArgs(argv: readonly string[]): FingerprintArgs {
     strict: true,
   });
   if (values.check === values.record) throw new ConfigError('pass exactly one of --check or --record');
-  const states = values.states?.split(',').map((s) => s.trim()).filter(Boolean).map((abbr) => {
-    const info = stateByAbbr(abbr);
-    if (!info) throw new ConfigError(`unknown state: ${abbr}`);
-    return info.abbr;
-  });
+  const states = values.states?.split(',').map((s) => s.trim()).filter(Boolean).map(parseFixtureId);
   if (states?.length === 0) throw new ConfigError('--states must name at least one state');
   if (values['cache-dir'] === '') throw new ConfigError('--cache-dir must not be empty');
   const base = values.base === undefined ? undefined : GitRef.safeParse(values.base);

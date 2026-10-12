@@ -7,6 +7,7 @@ import { PMTiles } from 'pmtiles';
 import type { RangeResponse, Source } from 'pmtiles';
 import { fromGeojsonVt } from 'vt-pbf';
 import { gzipSync } from 'node:zlib';
+import { cos, sin } from '../../shared/detmath/index.js';
 import { DataError } from '../../shared/errors/index.js';
 import { writePmtiles } from './pmtiles.js';
 
@@ -206,6 +207,113 @@ export async function districtsAtDeepTile(pmtiles: Uint8Array, layer: string, po
     result[i] = hit?.district ?? null;
   }
   return result;
+}
+
+/**
+ * How far, in TILE_MAXZOOM tile units, a test point must stay from every edge of its block for a deep-tile lookup to be
+ * exact. Tiles store integer coordinates: rounding moves the point by up to sqrt(0.5) units and each border vertex by up
+ * to sqrt(0.5), so a border can shift past a point closer than sqrt(2) (about 0.75 m at the equator). Two units leaves room.
+ */
+export const DEEP_POINT_MARGIN = 2;
+
+/** Tile units per radian of longitude at TILE_MAXZOOM (the whole world is 2^TILE_MAXZOOM tiles of DEEP_EXTENT units). */
+const UNITS_PER_RADIAN = ((1 << TILE_MAXZOOM) * DEEP_EXTENT) / (2 * Math.PI);
+const RAD = Math.PI / 180;
+
+type Frame = (p: readonly number[]) => [number, number];
+
+/**
+ * Unrounded TILE_MAXZOOM tile units (web mercator, x east, y south) relative to a center point. Mercator y is the
+ * integral of sec(latitude); a series to the cubic term about the center keeps distances near the center far below a
+ * hundredth of a unit, and those near distances are the only ones the margin test depends on.
+ */
+function frameAt(center: readonly number[]): Frame {
+  const c = cos(center[1]! * RAD);
+  const sec = 1 / c;
+  const tan = sin(center[1]! * RAD) / c;
+  const k1 = sec;
+  const k2 = (sec * tan) / 2;
+  const k3 = (sec * (2 * tan * tan + 1)) / 6;
+  return (p) => {
+    const d = (p[1]! - center[1]!) * RAD;
+    return [(p[0]! - center[0]!) * RAD * UNITS_PER_RADIAN, -(k1 * d + k2 * d * d + k3 * d * d * d) * UNITS_PER_RADIAN];
+  };
+}
+
+/** Distance from (px, py) to the nearest edge of the rings, positive inside (even-odd) and negative outside. */
+function signedEdgeDistance(rings: readonly (readonly [number, number][])[], px: number, py: number): number {
+  let odd = false;
+  let best = Infinity;
+  for (const ring of rings) {
+    for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+      const [ax, ay] = ring[i]!;
+      const [bx, by] = ring[j]!;
+      if (ay > py !== by > py && px < ((bx - ax) * (py - ay)) / (by - ay) + ax) odd = !odd;
+      const dx = bx - ax;
+      const dy = by - ay;
+      const len = dx * dx + dy * dy;
+      const t = len === 0 ? 0 : Math.max(0, Math.min(1, ((px - ax) * dx + (py - ay) * dy) / len));
+      const ex = px - ax - t * dx;
+      const ey = py - ay - t * dy;
+      best = Math.min(best, Math.sqrt(ex * ex + ey * ey));
+    }
+  }
+  return odd ? best : -best;
+}
+
+/** Signed distance of a longitude/latitude point to the block's edges, in tile units measured in a frame centered on it. */
+const clearance = (rings: readonly (readonly (readonly number[])[])[], p: readonly number[]): number => {
+  const frame = frameAt(p);
+  return signedEdgeDistance(rings.map((r) => r.map(frame)), 0, 0);
+};
+
+/**
+ * A point of a block that a deep-tile lookup answers exactly: the block's own interior point when it lies at least
+ * DEEP_POINT_MARGIN tile units inside every edge, otherwise a point well inside the block (found by the polylabel
+ * cell search), or null when the block is too thin anywhere to hold such a point. District borders run along block
+ * edges, so a point that far inside its block is that far from every district border.
+ */
+export function deepSamplePoint(rings: readonly (readonly (readonly number[])[])[], point: readonly number[]): [number, number] | null {
+  if (clearance(rings, point) >= DEEP_POINT_MARGIN) return [point[0]!, point[1]!];
+
+  // Search in one frame centered on the interior point; the point found is then judged in a frame centered on itself.
+  const frame = frameAt(point);
+  const projected = rings.map((r) => r.map(frame));
+  let [x0, y0, x1, y1] = [Infinity, Infinity, -Infinity, -Infinity];
+  for (const r of projected) for (const [x, y] of r) [x0, y0, x1, y1] = [Math.min(x0, x), Math.min(y0, y), Math.max(x1, x), Math.max(y1, y)];
+  const size = Math.min(x1 - x0, y1 - y0);
+  if (!(size >= 2 * DEEP_POINT_MARGIN)) return null;
+  interface Cell { x: number; y: number; h: number; d: number; max: number }
+  const cell = (x: number, y: number, h: number): Cell => {
+    const d = signedEdgeDistance(projected, x, y);
+    return { x, y, h, d, max: d + h * Math.sqrt(2) };
+  };
+  const queue: Cell[] = [];
+  for (let x = x0; x < x1; x += size) for (let y = y0; y < y1; y += size) queue.push(cell(x + size / 2, y + size / 2, size / 2));
+  let best = cell((x0 + x1) / 2, (y0 + y1) / 2, 0);
+  // Stop once a point is comfortably inside: the lookup needs DEEP_POINT_MARGIN, not the true pole.
+  const enough = 4 * DEEP_POINT_MARGIN;
+  for (let steps = 0; queue.length > 0 && best.d < enough && steps < 10_000; steps++) {
+    let top = 0;
+    for (let i = 1; i < queue.length; i++) if (queue[i]!.max > queue[top]!.max) top = i;
+    const c = queue[top]!;
+    queue[top] = queue[queue.length - 1]!;
+    queue.pop();
+    if (c.d > best.d) best = c;
+    if (c.max - best.d <= 0.25) continue;
+    const h = c.h / 2;
+    queue.push(cell(c.x - h, c.y - h, h), cell(c.x + h, c.y - h, h), cell(c.x - h, c.y + h, h), cell(c.x + h, c.y + h, h));
+  }
+  if (best.d < DEEP_POINT_MARGIN) return null;
+  // Back to longitude and latitude by the same series, inverted with two Newton steps (the frame is near linear).
+  const lon = point[0]! + best.x / UNITS_PER_RADIAN / RAD;
+  let lat = point[1]! - (best.y * cos(point[1]! * RAD)) / UNITS_PER_RADIAN / RAD;
+  for (let i = 0; i < 2; i++) {
+    const [, y] = frame([lon, lat]);
+    lat -= ((y - best.y) * -cos(lat * RAD)) / UNITS_PER_RADIAN / RAD;
+  }
+  const found: [number, number] = [lon, lat];
+  return clearance(rings, found) >= DEEP_POINT_MARGIN ? found : null;
 }
 
 export async function districtAtDeepTile(pmtiles: Uint8Array, layer: string, lonLat: [number, number]): Promise<number | null> {

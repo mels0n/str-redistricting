@@ -1,10 +1,10 @@
-import { h, clear, describeError, setLocated, stateRoute, formatHash, howRoute, type Navigate, type Page } from '../../shared';
+import { h, clear, chamberLabel, describeError, setLocated, stateRoute, formatHash, howRoute, type Chamber, type Navigate, type Page } from '../../shared';
 import { loadIndex, loadOutlines } from '../../entities/state';
 import { createAddressSearch, describeResolution, resolveAddress } from '../../features/address-search';
 import { createUsMap, type UsMap } from '../../widgets/us-map';
 import { createStateIndex } from '../../widgets/state-index';
 
-export function createNationalPage(nav: Navigate): Page {
+export function createNationalPage(nav: Navigate, chamber: Chamber = 'federal-house'): Page {
   const h1 = h(
     'h1',
     { class: 'strv-national__h1', tabindex: -1 },
@@ -17,7 +17,7 @@ export function createNationalPage(nav: Navigate): Page {
     'div',
     { class: 'strv-national__lede' },
     h('p', null, 'People, usually politicians, draw the lines. They see your party, your race, your income, and use that to pick their voters. That is gerrymandering.'),
-    h('p', { class: 'strv-national__closing' }, 'So we removed the human. Code draws these maps from census headcounts and block shapes alone. No human, no gerrymandering.'),
+    h('p', { class: 'strv-national__closing' }, 'So we removed the human. Code draws these maps from census headcounts and block shapes alone. It draws a Federal House map for every state and a State House and State Senate map for every state that has the chamber, and the only other input is how many districts each chamber has. No human, no gerrymandering.'),
     h(
       'div',
       { class: 'strv-national__how' },
@@ -29,7 +29,13 @@ export function createNationalPage(nav: Navigate): Page {
         step('Keep blocks whole.', 'The census counts people in blocks: areas bounded by streets, streams, rail lines and similar edges. There is no count for part of a block, so lines follow block edges.'),
         step('Balance.', 'Blocks along each border shift only when that brings two districts closer to equal population.'),
       ),
-      h('p', { class: 'strv-national__scope' }, 'These maps cover the 50 states. Washington, D.C. and the U.S. territories elect non-voting delegates to the House, so they have no districts to draw.'),
+      h(
+        'p',
+        { class: 'strv-national__scope' },
+        chamber === 'federal-house'
+          ? 'These maps cover the 50 states. Washington, D.C. and the U.S. territories are not drawn. They elect non-voting delegates to the House, and their local legislatures are not covered.'
+          : `These are ${chamberLabel(chamber)} maps. They cover the 50 states. A chamber a state does not have, such as Nebraska's State House, has no map.`,
+      ),
     ),
     h('p', { class: 'strv-national__more' }, h('a', { href: formatHash(howRoute()) }, 'How it works: every stage, with drawings')),
   );
@@ -45,7 +51,7 @@ export function createNationalPage(nav: Navigate): Page {
       if (where.kind === 'here') return undefined;
       if (where.kind === 'open') {
         setLocated({ state: where.state.abbr, lonLat: result.lonLat, matchedAddress: result.matchedAddress, ...(result.block !== null && { block: result.block }) });
-        nav(stateRoute(where.state.abbr));
+        nav(stateRoute(where.state.abbr, { chamber }));
       }
       return describeResolution(where, result);
     },
@@ -87,10 +93,10 @@ export function createNationalPage(nav: Navigate): Page {
         clear(mapSlot);
         mapSlot.removeAttribute('aria-busy');
         usMap?.destroy();
-        usMap = createUsMap({ outlines, index });
+        usMap = createUsMap({ outlines, index, chamber });
         mapSlot.append(usMap.el);
         clear(indexSlot);
-        indexSlot.append(createStateIndex(index));
+        indexSlot.append(createStateIndex(index, chamber));
       })
       .catch((err: unknown) => {
         if (!alive) return;

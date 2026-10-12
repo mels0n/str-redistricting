@@ -1,7 +1,9 @@
-import { h, clear, formatInt } from '../../shared';
+import { h, clear, formatInt, districtLabel, type Chamber } from '../../shared';
 import { fromEven, type DistrictStats } from '../../entities/plan';
 
 export interface DistrictListOptions {
+  /** Which body the districts belong to; names them for the reader. Federal House when absent. */
+  chamber?: Chamber;
   onSelect(district: number): void;
 }
 
@@ -77,7 +79,7 @@ export function createDistrictList(opts: DistrictListOptions): DistrictList {
             class: 'strv-list__pick',
             'data-district': d.district,
             'aria-pressed': String(isSel),
-            'aria-label': `District ${d.district}${located === d.district ? ', your address' : ''}`,
+            'aria-label': `${districtLabel(opts.chamber ?? 'federal-house', d.district)}${located === d.district ? ', your address' : ''}`,
             onclick: () => opts.onSelect(d.district),
           },
           h('span', { class: 'strv-list__swatch', style: `background:${colors[d.district - 1] ?? 'transparent'}`, 'aria-hidden': 'true' }),

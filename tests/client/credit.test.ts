@@ -48,3 +48,17 @@ describe('map credit line', () => {
     expect(strip?.textContent).toContain('eaffe5a8');
   });
 });
+
+describe('map credit line per chamber', () => {
+  it('names the chamber and its share path for a state chamber', () => {
+    expect(creditLine({ abbr: 'CO', name: 'Colorado', chamber: 'state-senate', versions: stamp, sha }, false)).toBe(
+      'fairmaps.melson.us/CO/senate · Colorado State Senate · Maps release 1 · engine 1.0.0 · eaffe5a8',
+    );
+    expect(creditLine({ abbr: 'CO', name: 'Colorado', chamber: 'state-house', versions: stamp, sha }, true)).toBe('fairmaps.melson.us/CO/house · Maps 1 · eaffe5a8');
+  });
+
+  it('leaves the federal credit unchanged', () => {
+    const federal = creditLine({ abbr: 'CO', name: 'Colorado', versions: stamp, sha }, false);
+    expect(creditLine({ abbr: 'CO', name: 'Colorado', chamber: 'federal-house', versions: stamp, sha }, false)).toBe(federal);
+  });
+});

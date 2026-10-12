@@ -1,7 +1,7 @@
 import { feature, mesh, neighbors } from 'topojson-client';
 import type { GeometryCollection, Topology } from 'topojson-specification';
 import type { Feature, FeatureCollection, MultiLineString, MultiPolygon, Polygon } from 'geojson';
-import { dataUrl, fetchJson, checkRelease, DataShapeError, districtPalette } from '../../shared';
+import { dataUrl, fetchJson, checkRelease, DataShapeError, districtPalette, chamberDataPath, type Chamber } from '../../shared';
 import {
   CutsSchema,
   DistrictTopoSchema,
@@ -37,6 +37,7 @@ export type WaterShapes = FeatureCollection<Polygon | MultiPolygon>;
 
 export interface StateBundle {
   abbr: string;
+  chamber: Chamber;
   stats: Stats;
   finished: PlanShapes;
   before: PlanShapes;
@@ -69,8 +70,8 @@ function toShapes(topo: DistrictTopology, url: string, seats: number): PlanShape
 }
 
 /** The water mask for a state. A missing or unreadable file is not an error: the map just has no water wash. */
-function loadWater(abbr: string): Promise<WaterShapes | null> {
-  return fetchJson(dataUrl(`${abbr}/water.topo.json`), WaterTopoSchema)
+function loadWater(dir: string): Promise<WaterShapes | null> {
+  return fetchJson(dataUrl(`${dir}/water.topo.json`), WaterTopoSchema)
     .then((raw) => {
       const topo = raw as unknown as Topology<{ water: GeometryCollection }>;
       return feature(topo, topo.objects.water) as unknown as WaterShapes;
@@ -79,16 +80,16 @@ function loadWater(abbr: string): Promise<WaterShapes | null> {
 }
 
 /** The island links for a state. A missing or unreadable file is not an error: the map just has no links. */
-function loadBridges(abbr: string): Promise<Bridges | null> {
-  return fetchJson(dataUrl(`${abbr}/bridges.json`), BridgesSchema).catch(() => null);
+function loadBridges(dir: string): Promise<Bridges | null> {
+  return fetchJson(dataUrl(`${dir}/bridges.json`), BridgesSchema).catch(() => null);
 }
 
 /**
  * A state's numbers alone (both plans, every district), without any shapes. It also checks the state's stamp for
  * release skew (see checkRelease), so loading stats can reload the app when a newer release went out.
  */
-export function loadStats(abbr: string): Promise<Stats> {
-  return fetchJson(dataUrl(`${abbr}/stats.json`), StatsSchema).then((stats) => {
+export function loadStats(abbr: string, chamber: Chamber = 'federal-house'): Promise<Stats> {
+  return fetchJson(dataUrl(`${chamberDataPath(abbr, chamber)}/stats.json`), StatsSchema).then((stats) => {
     void checkRelease(stats.versions);
     return stats;
   });
@@ -97,28 +98,30 @@ export function loadStats(abbr: string): Promise<Stats> {
 const bundles = new Map<string, Promise<StateBundle>>();
 
 /** Loads everything a state view needs except the enacted districts. */
-export function loadStateBundle(abbr: string): Promise<StateBundle> {
-  let p = bundles.get(abbr);
+export function loadStateBundle(abbr: string, chamber: Chamber = 'federal-house'): Promise<StateBundle> {
+  const dir = chamberDataPath(abbr, chamber);
+  let p = bundles.get(dir);
   if (!p) {
-    const finishedUrl = dataUrl(`${abbr}/districts.topo.json`);
-    const beforeUrl = dataUrl(`${abbr}/before.topo.json`);
+    const finishedUrl = dataUrl(`${dir}/districts.topo.json`);
+    const beforeUrl = dataUrl(`${dir}/before.topo.json`);
     p = Promise.all([
-      loadStats(abbr),
+      loadStats(abbr, chamber),
       fetchJson(finishedUrl, DistrictTopoSchema),
       fetchJson(beforeUrl, DistrictTopoSchema),
-      fetchJson(dataUrl(`${abbr}/cuts.json`), CutsSchema),
-      loadWater(abbr),
-      loadBridges(abbr),
+      fetchJson(dataUrl(`${dir}/cuts.json`), CutsSchema),
+      loadWater(dir),
+      loadBridges(dir),
     ]).then(([stats, finishedTopo, beforeTopo, cuts, water, bridges]) => {
       const seats = stats.finished.metrics.seats;
       if (cuts.length !== seats - 1) {
-        throw new DataShapeError(dataUrl(`${abbr}/cuts.json`), `expected ${seats - 1} cuts, found ${cuts.length}`);
+        throw new DataShapeError(dataUrl(`${dir}/cuts.json`), `expected ${seats - 1} cuts, found ${cuts.length}`);
       }
       const finished = toShapes(finishedTopo as unknown as DistrictTopology, finishedUrl, seats);
       const before = toShapes(beforeTopo as unknown as DistrictTopology, beforeUrl, seats);
       const slots = assignColors(unionNeighbors(finished.neighbors, before.neighbors), districtPalette.length);
       return {
         abbr,
+        chamber,
         stats,
         finished,
         before,
@@ -128,8 +131,8 @@ export function loadStateBundle(abbr: string): Promise<StateBundle> {
         colors: slots.map((s) => districtPalette[s]!.hex),
       };
     });
-    p.catch(() => bundles.delete(abbr));
-    bundles.set(abbr, p);
+    p.catch(() => bundles.delete(dir));
+    bundles.set(dir, p);
   }
   return p;
 }
@@ -142,16 +145,17 @@ export interface EnactedShapes {
 const enacted = new Map<string, Promise<EnactedShapes>>();
 
 /** The enacted Congress's districts, for display only. Loaded when first shown. */
-export function loadEnacted(abbr: string): Promise<EnactedShapes> {
-  let p = enacted.get(abbr);
+export function loadEnacted(abbr: string, chamber: Chamber = 'federal-house'): Promise<EnactedShapes> {
+  const dir = chamberDataPath(abbr, chamber);
+  let p = enacted.get(dir);
   if (!p) {
-    p = fetchJson(dataUrl(`${abbr}/enacted.topo.json`), EnactedTopoSchema).then((raw) => {
+    p = fetchJson(dataUrl(`${dir}/enacted.topo.json`), EnactedTopoSchema).then((raw) => {
       const topo = raw as unknown as Topology<{ enacted: GeometryCollection<{ label: string; code: string }> }>;
       const fc = feature(topo, topo.objects.enacted) as FeatureCollection<Polygon | MultiPolygon, { label: string; code: string }>;
       return { lines: mesh(topo, topo.objects.enacted), features: fc.features };
     });
-    p.catch(() => enacted.delete(abbr));
-    enacted.set(abbr, p);
+    p.catch(() => enacted.delete(dir));
+    enacted.set(dir, p);
   }
   return p;
 }

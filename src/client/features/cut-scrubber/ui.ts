@@ -1,5 +1,5 @@
-import { h, clear, formatKm, formatInt, formatSignedPeople, peopleNoun, prefersReducedMotion, config, iconChevronDown, iconZoomIn, arrowTo } from '../../shared';
-import { collidingTicks, sparseTicks } from './ticks';
+import { h, clear, formatKm, formatInt, districtLabel, type Chamber, formatSignedPeople, peopleNoun, prefersReducedMotion, config, iconChevronDown, iconZoomIn, arrowTo } from '../../shared';
+import { collidingTicks, isMajorTick, sparseTicks } from './ticks';
 import {
   cutRows,
   cutSides,
@@ -27,6 +27,8 @@ export type BalanceLogState =
   | { status: 'ready'; log: BalanceLog };
 
 export interface CutScrubberOptions {
+  /** Which body the districts belong to; names them for the reader. Federal House when absent. */
+  chamber?: Chamber;
   cuts: readonly Cut[];
   seats: number;
   /** Number of balancing moves, and what they did, from the state's numbers (known before the log itself loads). */
@@ -63,12 +65,12 @@ function describeCut(k: number, cuts: readonly Cut[]): string {
   return `Cut ${k} of ${cuts.length}. Splits ${c.seats} seats into ${c.lowSeats} and ${c.highSeats}: ${range(low)} on one side, ${range(high)} on the other.`;
 }
 
-function describeMove(m: number, total: number, log: BalanceLog | null, rangeBefore: number): string {
+function describeMove(m: number, total: number, log: BalanceLog | null, rangeBefore: number, chamber: Chamber): string {
   if (!log) return `Balancing move ${m} of ${total}. The list of moves is loading.`;
   if (m === 0) return `Balancing, before the first move. The largest and smallest districts are ${plural(rangeBefore, 'person', 'people')} apart.`;
   const d = moveDetail(log.before, log.moves, m)!;
   const range = rangeOf(populationsAfter(log.before, log.moves, m));
-  return `Balancing move ${m} of ${total}. Block ${d.move.geoid}, ${plural(d.move.pop, 'person', 'people')}, from District ${d.move.from} to District ${d.move.to}. Gap between them from ${formatInt(d.gapBefore)} to ${plural(d.gapAfter, 'person', 'people')}. State range ${plural(range, 'person', 'people')}.`;
+  return `Balancing move ${m} of ${total}. Block ${d.move.geoid}, ${plural(d.move.pop, 'person', 'people')}, from ${districtLabel(chamber, d.move.from)} to ${districtLabel(chamber, d.move.to)}. Gap between them from ${formatInt(d.gapBefore)} to ${plural(d.gapAfter, 'person', 'people')}. State range ${plural(range, 'person', 'people')}.`;
 }
 
 /** What stands in for the scrubber on a one-seat state: there is nothing to step through. */
@@ -79,7 +81,7 @@ function createSingleSeatNote(): CutScrubber {
     h(
       'div',
       { class: 'strv-scrub__intro' },
-      h('p', { class: 'strv-scrub__summary' }, h('strong', null, 'Finished map.'), ' This state has one seat, so there is nothing to cut or balance. The whole state is the one district.'),
+      h('p', { class: 'strv-scrub__summary' }, h('strong', null, 'Finished map.'), ' A map with one district needs no cut, so there is nothing to cut or balance. The whole state is that district.'),
     ),
   );
   return { el, update: () => undefined, start: () => undefined, destroy: () => undefined };
@@ -87,6 +89,7 @@ function createSingleSeatNote(): CutScrubber {
 
 export function createCutScrubber(opts: CutScrubberOptions): CutScrubber {
   if (opts.cuts.length === 0 && opts.moves === 0) return createSingleSeatNote();
+  const chamber = opts.chamber ?? 'federal-house';
   const size: SeqSize = { cuts: opts.cuts.length, moves: opts.moves };
   const total = size.cuts;
   const replayPace = { baseMs: config.movePlayIntervalMs, totalMs: config.movePlayTotalMs, minMs: config.movePlayMinMs };
@@ -126,7 +129,7 @@ export function createCutScrubber(opts: CutScrubberOptions): CutScrubber {
       ticks.dataset.dense = String(dense);
       ticks.dataset.sparse = 'false';
       for (let i = 0; i <= n; i++) {
-        const li = h('li', { 'data-k': i, 'data-major': String(!dense || i % 5 === 0 || i === n) }, String(i));
+        const li = h('li', { 'data-k': i, 'data-major': String(!dense || isMajorTick(i, n)) }, String(i));
         li.style.setProperty('--i', String(i));
         ticks.append(li);
       }
@@ -163,7 +166,7 @@ export function createCutScrubber(opts: CutScrubberOptions): CutScrubber {
     renderPlay();
     // A long log plays quietly; the move it stops on is the one read out, so a screen reader knows where the replay ended.
     if (wasPlaying && active && pos.phase === 'balance') {
-      const text = describeMove(pos.m, size.moves, log(), opts.rangeBefore);
+      const text = describeMove(pos.m, size.moves, log(), opts.rangeBefore, chamber);
       if (live.textContent !== text) live.textContent = text;
     }
   };
@@ -498,14 +501,14 @@ export function createCutScrubber(opts: CutScrubberOptions): CutScrubber {
     const stateRange = rangeOf(pops);
     readoutText.append(
       h('strong', null, `Move ${formatInt(at)}:`),
-      ` block ${d.move.geoid}, ${plural(d.move.pop, 'person', 'people')}, from District ${d.move.from} to District ${d.move.to}. Gap between them: `,
+      ` block ${d.move.geoid}, ${plural(d.move.pop, 'person', 'people')}, from ${districtLabel(chamber, d.move.from)} to ${districtLabel(chamber, d.move.to)}. Gap between them: `,
       h('span', { class: 'strv-nowrap' }, formatInt(d.gapBefore), arrowTo(), `${plural(d.gapAfter, 'person', 'people')}.`),
     );
     if (at === n) readoutText.append(h('span', { class: 'strv-scrub__done' }, ' Balancing is done: this is the finished map.'));
     zoom.hidden = !canZoom;
     detail.append(
-      pair(`District ${d.move.from}`, formatInt(d.fromAfter), formatSignedPeople(-d.move.pop), ' this move'),
-      pair(`District ${d.move.to}`, formatInt(d.toAfter), formatSignedPeople(d.move.pop), ' this move'),
+      pair(districtLabel(chamber, d.move.from), formatInt(d.fromAfter), formatSignedPeople(-d.move.pop), ' this move'),
+      pair(districtLabel(chamber, d.move.to), formatInt(d.toAfter), formatSignedPeople(d.move.pop), ' this move'),
       pair('State range', plural(stateRange, 'person', 'people'), `was ${formatInt(opts.rangeBefore)}`, ' before balancing'),
     );
   }
@@ -571,7 +574,7 @@ export function createCutScrubber(opts: CutScrubberOptions): CutScrubber {
     range.max = String(n);
     range.value = String(at);
     range.setAttribute('aria-label', pos.phase === 'cut' ? 'Cut' : 'Balancing move');
-    const text = pos.phase === 'cut' ? describeCut(at, opts.cuts) : describeMove(at, n, log(), opts.rangeBefore);
+    const text = pos.phase === 'cut' ? describeCut(at, opts.cuts) : describeMove(at, n, log(), opts.rangeBefore, chamber);
     range.setAttribute('aria-valuetext', text);
     cutsTab.setAttribute('aria-pressed', String(pos.phase === 'cut'));
     balanceTab.setAttribute('aria-pressed', String(pos.phase === 'balance'));

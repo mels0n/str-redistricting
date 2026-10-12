@@ -2,6 +2,7 @@ import { z } from 'zod';
 import { PlanMetricsSchema, type PlanMetrics } from '../../entities/plan-output/index.js';
 import type { VersionStamp } from '../../shared/config/index.js';
 import type { StateInfo } from '../../shared/apportionment/index.js';
+import { seatsFor } from '../../shared/chamber/index.js';
 
 export { PlanMetricsSchema };
 export type { PlanMetrics };
@@ -33,12 +34,25 @@ export interface StateSummary {
   readonly versions?: VersionStamp;
 }
 
+/** The two state chambers an index entry describes. */
+export const STATE_CHAMBERS = ['state-house', 'state-senate'] as const;
+export type StateChamber = (typeof STATE_CHAMBERS)[number];
+
+/** One state chamber in the index: its district count (0 when the state has no such chamber) and, once drawn, its summary. */
+export interface ChamberEntry {
+  readonly seats: number;
+  readonly hasData: boolean;
+  readonly summary?: StateSummary;
+}
+
 export interface IndexEntry {
   readonly abbr: string;
   readonly name: string;
   readonly seats: number;
   readonly hasData: boolean;
   readonly summary?: StateSummary;
+  /** Both state chambers, when the index was built with them; the federal fields above are the same either way. */
+  readonly chambers?: Record<StateChamber, ChamberEntry>;
 }
 
 export function summarize(m: PublishedMetrics, versions?: VersionStamp, beforeAssignmentSha256?: string): StateSummary {
@@ -51,12 +65,31 @@ export function summarize(m: PublishedMetrics, versions?: VersionStamp, beforeAs
   };
 }
 
-/** index.json: every state in the apportionment table, with a summary where a plan was generated. */
-export function buildIndex(states: readonly StateInfo[], summaries: ReadonlyMap<string, StateSummary>): { states: IndexEntry[] } {
+/**
+ * index.json: every state in the apportionment table, with a summary where a plan was generated. With `chambers` (each
+ * chamber's summaries by state), every state also lists both state chambers, so a viewer can tell "not drawn yet" from "none".
+ * A chamber with data lists the seats of its published map (`publishedSeats`), which can differ from the current Census count.
+ */
+export function buildIndex(
+  states: readonly StateInfo[],
+  summaries: ReadonlyMap<string, StateSummary>,
+  chambers?: Readonly<Record<StateChamber, ReadonlyMap<string, StateSummary>>>,
+  /** The district count recorded in each published map, by chamber and state: what a chamber with data lists as its seats. */
+  publishedSeats?: Readonly<Partial<Record<StateChamber, ReadonlyMap<string, number>>>>,
+): { states: IndexEntry[] } {
   return {
     states: states.map((s) => {
       const summary = summaries.get(s.abbr);
-      return { abbr: s.abbr, name: s.name, seats: s.seats, hasData: summary !== undefined, ...(summary ? { summary } : {}) };
+      const entry = (chamber: StateChamber): ChamberEntry => {
+        const own = chambers![chamber].get(s.abbr);
+        // A published map is described by the count it was drawn with; the current Census count is only for a chamber not drawn yet.
+        const seats = own === undefined ? seatsFor(s, chamber) : (publishedSeats?.[chamber]?.get(s.abbr) ?? seatsFor(s, chamber));
+        return { seats, hasData: own !== undefined, ...(own ? { summary: own } : {}) };
+      };
+      return {
+        abbr: s.abbr, name: s.name, seats: s.seats, hasData: summary !== undefined, ...(summary ? { summary } : {}),
+        ...(chambers ? { chambers: { 'state-house': entry('state-house'), 'state-senate': entry('state-senate') } } : {}),
+      };
     }),
   };
 }

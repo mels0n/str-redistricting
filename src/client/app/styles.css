@@ -189,15 +189,6 @@ html:has(> body > #str-viewer) {
   text-decoration: underline;
 }
 
-.strv-masthead__credit {
-  font-size: 0.8125rem;
-  color: var(--on-ink-2);
-  line-height: 1.2;
-  text-align: right;
-  flex: 0 1 auto;
-  max-width: 50%;
-}
-
 .strv-masthead :focus-visible {
   outline-color: var(--paper);
 }
@@ -2171,10 +2162,6 @@ html:has(> body > #str-viewer) {
     font-size: 0.8125rem;
   }
 
-  .strv-masthead__credit {
-    font-size: 0.6875rem;
-  }
-
   .strv-state__meta dd {
     font-size: 0.875rem;
   }
@@ -3044,13 +3031,6 @@ html:has(> body > #str-viewer) {
 .strv .strv-masthead__repo:hover {
   text-decoration: none;
   opacity: 0.75;
-}
-
-/* A phone: one compact row; the credit gives way so the strip never grows taller. */
-@media (max-width: 30rem) {
-  .strv-masthead__credit {
-    display: none;
-  }
 }
 
 /* ---------- Chamber switch: which body the maps are drawn for ---------- */

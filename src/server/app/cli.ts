@@ -5,6 +5,7 @@ import { bordersGeoJson, bridgesJson, buildMetricsJson, cutsGeoJson, districtsGe
 import { assignmentCsv, computeMetrics } from '../features/metrics/index.js';
 import { drawOrSkip, type WriteFiles } from '../features/run-stamp/index.js';
 import { createContext, PoolSlot, splitState, type SplitResult } from '../features/splitline/index.js';
+import { chamberLabel, planDir, stateForChamber } from '../shared/chamber/index.js';
 import { LINE_SEARCH, parseConfig, pinnedSha256, VERSIONS, type Config } from '../shared/config/index.js';
 import type { StateInfo } from '../shared/apportionment/index.js';
 import { exitCodeFor } from '../shared/errors/index.js';
@@ -85,12 +86,18 @@ async function main(): Promise<void> {
   // Everything this run executes; a change to any of it redraws every state.
   const codeSha256 = exploreCodeSha256();
   const slot = new PoolSlot(config.threads);
-  for (const state of config.states) {
+  for (const federal of config.states) {
+    // The state with the chamber's district count as its seats; everything below reads `state.seats`.
+    const state = stateForChamber(federal, config.chamber);
     // A worker that died while idle between states must not fail this one; a no-op unless the pool is broken.
     slot.refresh();
     try {
-      const dir = join(config.outDir, state.abbr);
-      const key = runKeyFor(state, codeSha256);
+      if (state.seats === 0) {
+        summary.push({ state: state.abbr, status: `no ${chamberLabel(config.chamber)} to draw`, seats: 0 });
+        continue;
+      }
+      const dir = join(config.outDir, planDir(state.abbr, config.chamber));
+      const key = runKeyFor(state, config.chamber, codeSha256);
       let row: Record<string, unknown> = {};
       const outcome = await drawOrSkip(
         { dir, key, force: config.force, writeDir: writePlan, onDraw: (why) => console.log(`${state.abbr}: drawing (${why})`) },

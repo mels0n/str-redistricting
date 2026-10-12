@@ -13,6 +13,9 @@ name: Enacted districts update
 #            only, names on an exact allowlist), and only then are those files copied to their fixed places. Nothing from
 #            the artifact can reach .git/ or any other path. The checkout keeps no credentials; the token is handed only
 #            to the one push and the one gh call that need it.
+#
+# The same two jobs run again for the State House and State Senate boundary files (build-legislative, open-pr-legislative),
+# with their own branch, artifact and pull request, after the congressional ones.
 
 on:
   schedule:
@@ -121,7 +124,7 @@ jobs:
             exit 0
           fi
           unexpected=$(git status --porcelain --untracked-files=all | cut -c4- \
-            | grep -Ev '^(config/(enacted|census-sha256|versions)\.json|changelog/(input|maps)\.md|public/data/(index|versions)\.json|public/data/[A-Z]{2}/(enacted\.topo|stats)\.json)$' || true)
+            | grep -Ev '^(config/(enacted|census-sha256|versions)\.json|changelog/(input|maps)\.md|public/data/(index|versions)\.json|public/data/[A-Z]{2}/(state-(house|senate)/)?(enacted\.topo|stats)\.json)$' || true)
           if [ -n "$unexpected" ]; then
             echo "::error::The update touched files it should not have:"
             echo "$unexpected"
@@ -163,6 +166,10 @@ jobs:
             public/data/versions.json
             public/data/*/enacted.topo.json
             public/data/*/stats.json
+            public/data/*/state-house/enacted.topo.json
+            public/data/*/state-house/stats.json
+            public/data/*/state-senate/enacted.topo.json
+            public/data/*/state-senate/stats.json
 
   open-pr:
     needs: build
@@ -199,7 +206,7 @@ jobs:
             echo "::error::Unexpected source address: $URL"
             exit 1
           fi
-          allowed='^(config/(enacted|census-sha256|versions)\.json|changelog/(input|maps)\.md|public/data/(index|versions)\.json|public/data/[A-Z]{2}/(enacted\.topo|stats)\.json)$'
+          allowed='^(config/(enacted|census-sha256|versions)\.json|changelog/(input|maps)\.md|public/data/(index|versions)\.json|public/data/[A-Z]{2}/(state-(house|senate)/)?(enacted\.topo|stats)\.json)$'
           dir="$ARTIFACT"
           files=()
           while IFS= read -r -d '' entry; do
@@ -289,6 +296,294 @@ jobs:
           Typecheck, the dependency rules, the tests and the build all passed in the workflow run that opened this pull request. Review the changed Census file and the overlay, then merge. This workflow never approves or merges a pull request.
           EOF
           if ! gh pr create --base "$BASE" --head "$BRANCH" --title "Update enacted districts to ${FILE}" --body-file "$RUNNER_TEMP/body.md"; then
+            git -c http.https://github.com/.extraheader="AUTHORIZATION: basic $(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w0)" push origin --delete "$BRANCH" || true
+            echo "::error::Could not open the pull request. The likely cause is that the repository setting \"Allow GitHub Actions to create and approve pull requests\" (Settings > Actions > General) is off. The branch was deleted so the next run can try again."
+            exit 1
+          fi
+
+  # The same two-job shape for a new State House and State Senate vintage. It runs after the congressional jobs and
+  # has its own branch (auto/legislative-<vintage>), pull request and artifact, so the two updates never mix. Its
+  # allowlist is the congressional one plus the files only this update changes (a bump restamps all three chambers, so each allowlist spans them).
+  build-legislative:
+    # Depends on build only: a job that needs a skipped job is skipped itself, so needing open-pr (skipped exactly when
+    # this should run) would stop it ever running. Runs only when the congressional build found nothing to change, so
+    # the two updates never bump the same config and published files in one run. A failed or cancelled build stops it.
+    needs: build
+    if: ${{ needs.build.result == 'success' && needs.build.outputs.changed != 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      update: ${{ steps.detect.outputs.update }}
+      vintage: ${{ steps.existing.outputs.vintage }}
+      changed: ${{ steps.changes.outputs.changed }}
+
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Look for a newer legislative vintage
+        id: detect
+        run: |
+          set -euo pipefail
+          result=$(npm run -s enacted:check)
+          echo "$result"
+          # A failed probe fails this job (it cannot affect the congressional jobs, which already ran), so it is seen, not mistaken for "nothing new".
+          probe_error=$(echo "$result" | jq -r '.legislative.error // empty')
+          if [ -n "$probe_error" ]; then
+            echo "::warning::The State House and State Senate vintage check failed: $probe_error"
+            exit 1
+          fi
+          if [ "$(echo "$result" | jq -r '.legislative.update')" != "true" ]; then
+            echo "update=false" >> "$GITHUB_OUTPUT"
+            echo "No newer State House and State Senate vintage. Nothing to do."
+            exit 0
+          fi
+          # Every served vintage newer than the pinned one, newest first.
+          vintages=$(echo "$result" | jq -r '.legislative.vintages | map(tostring) | join(" ")')
+          for vintage in $vintages; do
+            if ! [[ "$vintage" =~ ^[0-9]{4}$ ]]; then
+              echo "::error::Unexpected vintage: $vintage"
+              exit 1
+            fi
+          done
+          {
+            echo "update=true"
+            echo "vintages=$vintages"
+          } >> "$GITHUB_OUTPUT"
+
+      # A pull request in any state, closed included, means that vintage was handled (a closed one declined it). The
+      # newest served vintage without one is adopted, so a declined vintage does not block a newer one.
+      - name: Pick the newest vintage that has no pull request
+        id: existing
+        if: steps.detect.outputs.update == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          VINTAGES: ${{ steps.detect.outputs.vintages }}
+        run: |
+          set -euo pipefail
+          for vintage in $VINTAGES; do
+            if ! [[ "$vintage" =~ ^[0-9]{4}$ ]]; then
+              echo "::error::Unexpected vintage: $vintage"
+              exit 1
+            fi
+            prs=$(gh pr list --head "auto/legislative-$vintage" --state all --json number --jq 'length')
+            if [ "$prs" = "0" ]; then
+              {
+                echo "skip=false"
+                echo "vintage=$vintage"
+              } >> "$GITHUB_OUTPUT"
+              echo "Adopting vintage $vintage."
+              exit 0
+            fi
+            echo "A pull request for auto/legislative-$vintage already exists."
+          done
+          echo "skip=true" >> "$GITHUB_OUTPUT"
+          echo "Every newer vintage already has a pull request. Nothing to do."
+
+      - name: Download the files, recount the districts and rebuild the overlays
+        if: steps.detect.outputs.update == 'true' && steps.existing.outputs.skip == 'false'
+        env:
+          VINTAGE: ${{ steps.existing.outputs.vintage }}
+        run: npm run enacted:bump -- --legislative "$VINTAGE"
+
+      - name: Only the expected files changed
+        id: changes
+        if: steps.detect.outputs.update == 'true' && steps.existing.outputs.skip == 'false'
+        run: |
+          set -euo pipefail
+          if [ -z "$(git status --porcelain --untracked-files=all)" ]; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "The update changed nothing. Nothing to do."
+            exit 0
+          fi
+          unexpected=$(git status --porcelain --untracked-files=all | cut -c4- \
+            | grep -Ev '^(config/(enacted|census-sha256|census-sources|legislative-districts|versions)\.json|changelog/(input|maps)\.md|public/data/(index|versions)\.json|public/data/[A-Z]{2}/(state-(house|senate)/)?(enacted\.topo|stats)\.json|tests/fingerprints/engine\.json)$' || true)
+          if [ -n "$unexpected" ]; then
+            echo "::error::The update touched files it should not have:"
+            echo "$unexpected"
+            exit 1
+          fi
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Typecheck
+        if: steps.changes.outputs.changed == 'true'
+        run: npm run typecheck
+
+      - name: Layer direction and public-API rules
+        if: steps.changes.outputs.changed == 'true'
+        run: npm run depcruise
+
+      - name: Test
+        if: steps.changes.outputs.changed == 'true'
+        run: npm test
+
+      - name: Build the viewer
+        if: steps.changes.outputs.changed == 'true'
+        run: npm run build
+
+      # Only the files the update may change leave this job.
+      - name: Hand over the changed files
+        if: steps.changes.outputs.changed == 'true'
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: legislative-update
+          if-no-files-found: error
+          retention-days: 1
+          path: |
+            config/enacted.json
+            config/census-sha256.json
+            config/census-sources.json
+            config/legislative-districts.json
+            config/versions.json
+            changelog/input.md
+            changelog/maps.md
+            tests/fingerprints/engine.json
+            public/data/index.json
+            public/data/versions.json
+            public/data/*/enacted.topo.json
+            public/data/*/stats.json
+            public/data/*/state-house/enacted.topo.json
+            public/data/*/state-house/stats.json
+            public/data/*/state-senate/enacted.topo.json
+            public/data/*/state-senate/stats.json
+
+  open-pr-legislative:
+    needs: build-legislative
+    if: ${{ needs.build-legislative.result == 'success' && needs.build-legislative.outputs.changed == 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      # Outside the workspace, so nothing in it can land on .git/ or a tracked path before it has been checked.
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: legislative-update
+          path: ${{ runner.temp }}/legislative-artifact
+
+      - name: Check the artifact and copy in the expected files
+        env:
+          VINTAGE: ${{ needs.build-legislative.outputs.vintage }}
+          ARTIFACT: ${{ runner.temp }}/legislative-artifact
+        run: |
+          set -euo pipefail
+          if ! [[ "$VINTAGE" =~ ^[0-9]{4}$ ]]; then
+            echo "::error::Unexpected vintage: $VINTAGE"
+            exit 1
+          fi
+          allowed='^(config/(enacted|census-sha256|census-sources|legislative-districts|versions)\.json|changelog/(input|maps)\.md|public/data/(index|versions)\.json|public/data/[A-Z]{2}/(state-(house|senate)/)?(enacted\.topo|stats)\.json|tests/fingerprints/engine\.json)$'
+          dir="$ARTIFACT"
+          files=()
+          while IFS= read -r -d '' entry; do
+            rel="${entry#"$dir"/}"
+            if [ -L "$entry" ]; then
+              echo "::error::The artifact holds a symbolic link: $rel"
+              exit 1
+            fi
+            if [ -d "$entry" ]; then
+              continue
+            fi
+            if ! [ -f "$entry" ]; then
+              echo "::error::The artifact holds something other than a directory or a regular file: $rel"
+              exit 1
+            fi
+            if ! [[ "$rel" =~ $allowed ]]; then
+              echo "::error::The artifact holds a file the update should not touch: $rel"
+              exit 1
+            fi
+            files+=("$rel")
+          done < <(find "$dir" -mindepth 1 -print0)
+          if [ "${#files[@]}" -eq 0 ]; then
+            echo "::error::The artifact holds no files."
+            exit 1
+          fi
+          for rel in "${files[@]}"; do
+            parent=$(dirname "$rel")
+            test -d "$parent" || { echo "::error::No such directory in the checkout: $parent"; exit 1; }
+            cp -- "$dir/$rel" "$rel"
+          done
+          # A second check, on what git now sees.
+          unexpected=$(git status --porcelain --untracked-files=all | cut -c4- \
+            | grep -Ev "$allowed" || true)
+          if [ -n "$unexpected" ]; then
+            echo "::error::The copied files include ones the update should not touch:"
+            echo "$unexpected"
+            exit 1
+          fi
+          if [ -z "$(git status --porcelain --untracked-files=all)" ]; then
+            echo "::error::The downloaded files change nothing."
+            exit 1
+          fi
+
+      # The branch belongs to this workflow and has no pull request (the first job checked), so replacing it is safe.
+      - name: Commit and push a branch
+        env:
+          BRANCH: auto/legislative-${{ needs.build-legislative.outputs.vintage }}
+          VINTAGE: ${{ needs.build-legislative.outputs.vintage }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$BRANCH"
+          git add config/enacted.json config/census-sha256.json config/census-sources.json config/legislative-districts.json config/versions.json changelog/input.md changelog/maps.md public/data tests/fingerprints/engine.json
+          git commit -m "chore(data): update State House and State Senate districts to the $VINTAGE Census files" \
+            -m "Pins the new Census legislative files in config/census-sha256.json, recounts the districts in config/legislative-districts.json, rebuilds the published enacted overlays for the State House and State Senate, and bumps the input revision and maps release in config/versions.json. Display only: no generated district changes."
+          git -c http.https://github.com/.extraheader="AUTHORIZATION: basic $(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w0)" push --force origin "$BRANCH"
+
+      - name: Open the pull request
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          BRANCH: auto/legislative-${{ needs.build-legislative.outputs.vintage }}
+          VINTAGE: ${{ needs.build-legislative.outputs.vintage }}
+          BASE: ${{ github.event.repository.default_branch }}
+        run: |
+          set -euo pipefail
+          if ! [[ "$VINTAGE" =~ ^[0-9]{4}$ ]]; then
+            echo "::error::Unexpected vintage: $VINTAGE"
+            exit 1
+          fi
+          # The redraw lines were written by the build job, so only lines of exactly this shape are used.
+          redraw=$(awk '/^## /{n++} n==1' changelog/input.md \
+            | sed -n -E 's/^- ([A-Z]{2} state-(house|senate): [0-9]+ to [0-9]+ districts; redraw needed)$/- \1/p' || true)
+          {
+            echo "The Census Bureau has published the ${VINTAGE} State House and State Senate boundary files. This adopts them: every file is pinned in \`config/census-sha256.json\` by its SHA-256, the district counts in \`config/legislative-districts.json\` are recounted from them, and the dashed comparison overlays of the State House and State Senate maps are rebuilt. The input revision and maps release in \`config/versions.json\` moved up by one, with entries in \`changelog/input.md\` and \`changelog/maps.md\`."
+            echo
+            if [ -n "$redraw" ]; then
+              echo "These states have a different number of districts than before. Their maps keep the old stamp until they are redrawn (\`explore\` then \`publish-data\` for each, after this is merged); the dataset-wide versions file does not move until then:"
+              echo
+              echo "$redraw"
+            else
+              echo "No state's district count changed, so no redraw is needed."
+            fi
+            echo
+            echo "A test fixture whose district count changed has its fingerprint re-recorded in \`tests/fingerprints/engine.json\`, because a new count is a new input, not a change to the engine."
+            echo
+            echo "The overlay is display only. It never affects how districts are drawn."
+            echo
+            echo "Typecheck, the dependency rules, the tests and the build all passed in the workflow run that opened this pull request. Review the changed Census files and the counts, then merge. This workflow never approves or merges a pull request."
+          } > "$RUNNER_TEMP/body.md"
+          if ! gh pr create --base "$BASE" --head "$BRANCH" --title "Update State House and State Senate districts to the ${VINTAGE} Census files" --body-file "$RUNNER_TEMP/body.md"; then
             git -c http.https://github.com/.extraheader="AUTHORIZATION: basic $(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w0)" push origin --delete "$BRANCH" || true
             echo "::error::Could not open the pull request. The likely cause is that the repository setting \"Allow GitHub Actions to create and approve pull requests\" (Settings > Actions > General) is off. The branch was deleted so the next run can try again."
             exit 1

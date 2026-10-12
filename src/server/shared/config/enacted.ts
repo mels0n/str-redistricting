@@ -24,6 +24,8 @@ export const EnactedConfigSchema = z
     file: z.string(),
     /** Vintages of that Congress, newest first; the first one the Census Bureau serves is the enacted source. */
     candidates: z.array(z.string()).min(1),
+    /** The Census vintage of the State House and State Senate boundary files (cb_<vintage>_<fips>_sldl_500k). */
+    legislative: z.strictObject({ vintage: z.number().int().positive() }),
   })
   .superRefine((c, ctx) => {
     if (c.candidates[0] !== c.file) ctx.addIssue({ code: 'custom', message: 'file must be the first candidate' });

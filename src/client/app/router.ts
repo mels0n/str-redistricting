@@ -1,4 +1,5 @@
-import { clear, formatHash, parseHash, resetPageZoom, type Page, type Route } from '../shared';
+import { clear, formatHash, parseHash, resetPageZoom, type Chamber, type Page, type Route } from '../shared';
+import { loadIndex, liveChambers } from '../entities/state';
 import { createNationalPage } from '../pages/national';
 import { createStatePage } from '../pages/state';
 import { createHowPage } from '../pages/how';
@@ -20,6 +21,9 @@ export function startRouter(outlet: HTMLElement): void {
   let initial = true;
   let pending: Route | null = null;
   let frame: number | null = null;
+  let shown: Route | null = null;
+  /** The chambers that have maps, once the index is in; until then only the federal House. */
+  let live: ReadonlySet<Chamber> | undefined;
 
   /** Rewrites the address bar without adding history. Some browsers throttle this call or forbid it in a sandboxed frame; the page still works without it. */
   const replaceHash = (hash: string): void => {
@@ -64,17 +68,18 @@ export function startRouter(outlet: HTMLElement): void {
     };
     mark('how', route.page === 'how');
     mark('faq', route.page === 'faq');
-    syncChamberSwitch(route);
+    syncChamberSwitch(route, live);
   };
 
   function show(route: Route): void {
+    shown = route;
     markNav(route);
     if (page?.update?.(route)) return;
     page?.destroy();
     clear(outlet);
     // A pinch-zoom from the last page would otherwise carry over (no reload between pages).
     if (!initial) resetPageZoom();
-    page = route.page === 'national' ? createNationalPage(navigate) : route.page === 'how' ? createHowPage(route) : route.page === 'faq' ? createFaqPage(route) : route.page === 'changelog' ? createChangelogPage() : createStatePage(route, navigate);
+    page = route.page === 'national' ? createNationalPage(navigate, route.chamber) : route.page === 'how' ? createHowPage(route) : route.page === 'faq' ? createFaqPage(route) : route.page === 'changelog' ? createChangelogPage() : createStatePage(route, navigate);
     outlet.append(page.el);
     // On the first load the browser owns focus; after that, move it to the new page's heading.
     if (!initial) {
@@ -101,4 +106,11 @@ export function startRouter(outlet: HTMLElement): void {
   const firstHash = formatHash(first);
   if (location.hash !== '' && location.hash !== firstHash) replaceHash(firstHash);
   show(first);
+  // The header can only offer a chamber once the index says it has maps. A failed load leaves the federal House alone.
+  loadIndex()
+    .then((index) => {
+      live = liveChambers(index);
+      if (shown) syncChamberSwitch(shown, live);
+    })
+    .catch(() => undefined);
 }

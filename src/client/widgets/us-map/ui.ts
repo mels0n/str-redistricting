@@ -1,11 +1,13 @@
 import { geoAlbersUsa, geoPath } from 'd3-geo';
 import type { FeatureCollection, MultiPolygon, Polygon } from 'geojson';
-import { svg, mountCreditStrip, loadPublishedVersions, type Versions, formatHash, stateRoute, labelPoint, pointInPolygonRings, districtCount } from '../../shared';
-import { isGenerated, type StateIndex } from '../../entities/state';
+import { svg, mountCreditStrip, loadPublishedVersions, type Versions, formatHash, stateRoute, labelPoint, pointInPolygonRings, districtCount, chamberLabel, type Chamber } from '../../shared';
+import { chamberView, isGeneratedIn, type StateIndex } from '../../entities/state';
 
 export interface UsMapOptions {
   outlines: FeatureCollection<Polygon | MultiPolygon, { abbr: string; name: string }>;
   index: StateIndex;
+  /** The chamber whose maps are shown; the federal House when omitted. */
+  chamber?: Chamber;
 }
 
 const W = 960;
@@ -84,6 +86,7 @@ function buildUsMap(opts: UsMapOptions, compact: boolean): SVGSVGElement {
     opts.outlines,
   );
   const path = geoPath(projection);
+  const chamber = opts.chamber ?? 'federal-house';
   const byAbbr = new Map(opts.index.states.map((s) => [s.abbr, s]));
 
   const quiet = svg('g', { class: 'strv-us__quiet', 'aria-hidden': 'true' });
@@ -95,7 +98,7 @@ function buildUsMap(opts: UsMapOptions, compact: boolean): SVGSVGElement {
     const d = path(f);
     if (!d) continue;
     const entry = byAbbr.get(f.properties.abbr);
-    if (!entry || !isGenerated(entry)) {
+    if (!entry || !isGeneratedIn(entry, chamber)) {
       quiet.append(svg('path', { d }));
       continue;
     }
@@ -104,9 +107,10 @@ function buildUsMap(opts: UsMapOptions, compact: boolean): SVGSVGElement {
     const [cx, cy] = project(labelPoint(f.geometry) as [number, number]) ?? path.centroid(f);
     const abbrSize = compact ? abbrUnits : 13;
     const seatsSize = compact ? seatsUnits : 24;
-    const href = formatHash(stateRoute(entry.abbr));
-    const label = `${entry.name}, ${districtCount(entry.seats)}`;
-    const labelW = Math.max(abbrSize * 1.6, String(entry.seats).length * seatsSize * 0.62) + 4;
+    const seats = chamberView(entry, chamber).seats;
+    const href = formatHash(stateRoute(entry.abbr, { chamber }));
+    const label = `${entry.name}, ${districtCount(seats)}`;
+    const labelW = Math.max(abbrSize * 1.6, String(seats).length * seatsSize * 0.62) + 4;
     // On a phone the labels are large against the drawing: a label may run past a state's edge there (its ink outline keeps it
     // readable on the ground), as long as the middle of it is inside. A long leader across the country would read worse.
     const k = compact ? 0.72 : 1;
@@ -117,13 +121,13 @@ function buildUsMap(opts: UsMapOptions, compact: boolean): SVGSVGElement {
           'text',
           { x: cx, y: cy, class: 'strv-us__label', 'text-anchor': 'middle', 'aria-hidden': 'true' },
           svg('tspan', { x: cx, dy: compact ? '-0.2em' : '-0.35em', class: 'strv-us__abbr' }, entry.abbr),
-          svg('tspan', { x: cx, dy: compact ? '1.05em' : '1.15em', class: 'strv-us__seats' }, String(entry.seats)),
+          svg('tspan', { x: cx, dy: compact ? '1.05em' : '1.15em', class: 'strv-us__seats' }, String(seats)),
         )
       : null;
     active.append(svg('a', { href, 'aria-label': label, class: 'strv-us__state' }, svg('title', null, label), svg('path', { d }), inside));
     if (!fits) {
       const [ax, ay] = eastEdge(f.geometry, (p) => projection(p)) ?? [cx, cy];
-      callouts.push({ y: ay, cx: ax, cy: ay, abbr: entry.abbr, seats: entry.seats });
+      callouts.push({ y: ay, cx: ax, cy: ay, abbr: entry.abbr, seats });
     }
   }
 
@@ -140,7 +144,7 @@ function buildUsMap(opts: UsMapOptions, compact: boolean): SVGSVGElement {
       // A larger click target for small states; the state shape itself is the keyboard stop.
       svg(
         'a',
-        { href: formatHash(stateRoute(c.abbr)), tabindex: -1, class: 'strv-us__callout-link' },
+        { href: formatHash(stateRoute(c.abbr, { chamber })), tabindex: -1, class: 'strv-us__callout-link' },
         svg('rect', { x: colX - 8, y: y - (compact ? 18 : 12), width: compact ? 116 : 78, height: compact ? 36 : 24, class: 'strv-us__hit' }),
         svg('text', { x: colX, y, class: 'strv-us__callout', 'dominant-baseline': 'middle' }, svg('tspan', { class: 'strv-us__abbr-ink' }, c.abbr), svg('tspan', { dx: compact ? 10 : 6, class: 'strv-us__seats-ink' }, String(c.seats))),
       ),
@@ -154,7 +158,7 @@ function buildUsMap(opts: UsMapOptions, compact: boolean): SVGSVGElement {
       style: compact ? `--us-abbr:${abbrUnits}px;--us-seats:${seatsUnits}px` : null,
       viewBox: `0 0 ${W} ${H}`,
       role: 'group',
-      'aria-label': 'Map of the United States. States with a generated map are links, labeled with their number of House seats.',
+      'aria-label': chamber === 'federal-house' ? 'Map of the United States. States with a generated map are links, labeled with their number of districts.' : `Map of the United States. States with a generated ${chamberLabel(chamber)} map are links, labeled with their number of districts.`,
     },
     quiet,
     active,

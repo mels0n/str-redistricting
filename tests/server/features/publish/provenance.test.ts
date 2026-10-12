@@ -9,7 +9,7 @@ const { publishData } = await import('../../../../src/server/features/publish/in
 const { parsePublishConfig } = await import('../../../../src/server/shared/config/index.js');
 
 const HEX = (c: string): string => c.repeat(64);
-const KEY: RunKey = { inputSha256: HEX('1'), seats: 2, engineMajor: '1', codeSha256: HEX('2') };
+const KEY: RunKey = { chamber: 'federal-house', inputSha256: HEX('1'), seats: 2, engineMajor: '1', codeSha256: HEX('2') };
 
 let root: string;
 beforeEach(() => {

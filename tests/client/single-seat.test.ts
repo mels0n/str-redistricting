@@ -27,7 +27,7 @@ describe('a state with one seat', () => {
 
   it('replaces the scrubber with a plain note', () => {
     const s = createCutScrubber({ cuts: [], seats: 1, moves: 0, peopleMoved: 0, rangeBefore: 0, onStep: () => undefined, onFinish: () => undefined, onZoomToMove: () => undefined });
-    expect(s.el.textContent).toContain('one seat, so there is nothing to cut or balance');
+    expect(s.el.textContent).toContain('A map with one district needs no cut, so there is nothing to cut or balance');
     expect(s.el.querySelector('input[type="range"]')).toBeNull();
     expect(s.el.querySelector('button')).toBeNull();
     s.update(null, { log: { status: 'idle' }, canZoom: false });
@@ -38,7 +38,7 @@ describe('a state with one seat', () => {
 
   it('explains the process without cuts to watch', () => {
     const el = createProcessPanel({ stateName: 'Alaska', metrics, onWatch: () => undefined });
-    expect(el.textContent).toContain('Alaska has one seat');
+    expect(el.textContent).toContain('This map has one district, so the whole state is that district');
     expect(el.textContent).not.toMatch(/\b1 seats\b|\b0 cuts\b/);
     expect(el.querySelector('button')).toBeNull();
     noDash(el);

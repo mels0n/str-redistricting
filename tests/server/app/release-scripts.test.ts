@@ -6,7 +6,8 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import { createRequire } from 'node:module';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { COMPONENTS } from '../../../src/server/features/release/index.js';
-import { VERSIONS, formatVersions, parseFingerprintArgs, parseReleaseTagsArgs, parseVersionCheckArgs } from '../../../src/server/shared/config/index.js';
+import { formatVersions, parseFingerprintArgs, parseReleaseTagsArgs, parseVersionCheckArgs } from '../../../src/server/shared/config/index.js';
+import { BASELINE_INPUT_FILES, BASELINE_VERSIONS as VERSIONS } from '../../helpers/baseline-versions.js';
 import { ConfigError } from '../../../src/server/shared/errors/index.js';
 
 // The scratch repositories start from the first release, not from today's config/versions.json, so a real
@@ -52,6 +53,7 @@ function run(script: string, args: string[]): { status: number | null; stdout: s
 function seed(enforce: boolean): string {
   write('config/versions.json', formatVersions(BASELINE));
   write('config/release.json', JSON.stringify({ ...JSON.parse(releaseJson), enforce }));
+  for (const [path, text] of Object.entries(BASELINE_INPUT_FILES)) write(path, text);
   for (const c of COMPONENTS) write(`changelog/${c}.md`, `# ${c} changelog\n\n`);
   return commitAll('chore: baseline');
 }
@@ -227,8 +229,6 @@ describe('release', () => {
   it('proposes a web minor for a feat since the tags, and writes nothing on --dry-run', () => {
     seed(false);
     write('tests/fingerprints/engine.json', noFixtures);
-    write('config/census-sha256.json', readFileSync('config/census-sha256.json', 'utf8'));
-    write('config/enacted.json', readFileSync('config/enacted.json', 'utf8'));
     commitAll('chore: inputs');
     for (const tag of ['engine-v1.0.0', 'input-census-2020-r1', 'maps-1', 'schema-v1.0.0', 'web-v1.0.0', 'docs-v1.0.0']) git('tag', tag);
     write('src/client/a.ts', 'x');
@@ -249,7 +249,6 @@ describe('release (repeat runs and measuring)', () => {
     }
     seed(false);
     write('tests/fingerprints/engine.json', noFixtures);
-    for (const f of ['config/census-sha256.json','config/enacted.json']) write(f, readFileSync(f, 'utf8'));
     commitAll('chore: inputs');
     for (const tag of baselineTags) git('tag', tag);
   }

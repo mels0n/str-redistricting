@@ -1,4 +1,4 @@
-import { h, clear, announce, formatInt, peopleNoun, type Plan } from '../../shared';
+import { h, clear, announce, formatInt, peopleNoun, districtLabel, chamberLabel, type Chamber, type Plan } from '../../shared';
 import { fromEven, describeFromEven, evenSplitSentence, type DistrictStats } from '../../entities/plan';
 
 export interface TicketData {
@@ -36,15 +36,15 @@ export function connectionText(d: Pick<DistrictStats, 'contiguous' | 'landParts'
   return 'One connected piece';
 }
 
-function describeDistrict(d: DistrictStats, total: number, seats: number): string {
-  return `District ${d.district}. Population ${formatInt(d.pop)}, ${describeFromEven(fromEven(d.pop, total, seats).delta)}. Touches ${d.counties.length} ${d.counties.length === 1 ? 'county' : 'counties'}.`;
+function describeDistrict(d: DistrictStats, total: number, seats: number, chamber: Chamber): string {
+  return `${districtLabel(chamber, d.district)}. Population ${formatInt(d.pop)}, ${describeFromEven(fromEven(d.pop, total, seats).delta)}. Touches ${d.counties.length} ${d.counties.length === 1 ? 'county' : 'counties'}.`;
 }
 
 /**
  * The district ticket: one district's numbers as a segmented strip, every
  * figure tabular so tickets line up when compared.
  */
-export function createDistrictTicket(): DistrictTicket {
+export function createDistrictTicket(chamber: Chamber = 'federal-house'): DistrictTicket {
   // Not a live region: the numbers change as the pointer passes over districts. A chosen district is announced once, below.
   const el = h('section', { class: 'strv-ticket', 'aria-label': 'Selected district' });
   let announced: string | null | undefined;
@@ -55,7 +55,7 @@ export function createDistrictTicket(): DistrictTicket {
     // Say what a visitor chose (not what the pointer passes over). The first render is the page opening, not a choice.
     const chosen = data.preview || !d ? null : `${d.district}|${data.plan}`;
     if (!data.preview && chosen !== announced) {
-      if (announced !== undefined && d) announce(describeDistrict(d, data.total, data.seats));
+      if (announced !== undefined && d) announce(describeDistrict(d, data.total, data.seats, chamber));
       announced = chosen;
     }
     el.dataset.empty = String(!d);
@@ -75,7 +75,7 @@ export function createDistrictTicket(): DistrictTicket {
         'div',
         { class: 'strv-ticket__seg strv-ticket__seg--id' },
         h('span', { class: 'strv-ticket__swatch', style: `background:${data.color ?? 'transparent'}`, 'aria-hidden': 'true' }),
-        h('span', { class: 'strv-ticket__k' }, 'District'),
+        h('span', { class: 'strv-ticket__k' }, chamber === 'federal-house' ? 'District' : `${chamberLabel(chamber)} district`),
         h('span', { class: 'strv-ticket__no' }, String(d.district)),
         data.located ? h('span', { class: 'strv-ticket__flag' }, 'Your address') : null,
       ),
@@ -104,7 +104,7 @@ export function createDistrictTicket(): DistrictTicket {
                 'data-long': String(long),
                 tabindex: long ? 0 : null,
                 role: long ? 'group' : null,
-                'aria-label': long ? 'All ' + counties.length + ' counties in District ' + d.district : null,
+                'aria-label': long ? 'All ' + counties.length + ' counties in ' + districtLabel(chamber, d.district) : null,
               },
               counties.join(', '),
             ),

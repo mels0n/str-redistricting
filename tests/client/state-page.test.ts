@@ -58,7 +58,7 @@ afterEach(() => {
 });
 
 function route(patch: Partial<StateRoute>): StateRoute {
-  return { page: 'state', abbr: 'AK', district: null, cut: null, move: null, plan: 'finished', enacted: false, ...patch };
+  return { page: 'state', abbr: 'AK', chamber: 'federal-house', district: null, cut: null, move: null, plan: 'finished', enacted: false, ...patch };
 }
 
 async function mount(initial: StateRoute) {

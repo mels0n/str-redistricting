@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
-import { VERSIONS, type Versions } from '../../../src/server/shared/config/index.js';
+import type { Versions } from '../../../src/server/shared/config/index.js';
+import { BASELINE_VERSIONS } from '../../helpers/baseline-versions.js';
 import {
   COMPONENTS,
   FingerprintFileSchema,
@@ -8,6 +9,7 @@ import {
   ReleaseConfigSchema,
   bumpSemver,
   compareFingerprints,
+  fixturesWithNewCounts,
   isPreRelease,
   preReleaseForBase,
   componentsFor,
@@ -29,8 +31,7 @@ const cfg = ReleaseConfigSchema.parse(JSON.parse(readFileSync('config/release.js
 function commit(subject: string, files: string[]): Commit {
   return { sha: 'abc1234', ...parseCommitSubject(subject), subject, files };
 }
-// The first release, not today's config/versions.json, so a real release never changes what these tests expect.
-const base: Versions = { ...VERSIONS, engine: '1.0.0', maps: 1, schema: '1.0.0', web: '1.0.0', docs: '1.0.0' };
+const base: Versions = BASELINE_VERSIONS;
 const noChangelog = Object.fromEntries(COMPONENTS.map((c) => [c, `# ${c} changelog\n\n`])) as Record<Component, string>;
 const byComponent = (entries: [Component, Commit[]][]): Map<Component, Commit[]> => new Map(entries);
 
@@ -498,6 +499,43 @@ describe('compareFingerprints', () => {
     expect(compareFingerprints(baseFile, recorded(2, stale), drawn, 2).ok).toBe(false);
     expect(compareFingerprints(baseFile, recorded(2, drawn), drawn, 2).ok).toBe(true);
   });
+  describe('a state chamber whose district count changed', () => {
+    const chamberStates = { RI: fp('a'), 'VT:state-senate': fp('b') };
+    const chamberBase = FingerprintFileSchema.parse({ engineMajor: 1, states: chamberStates });
+    const counts = (vt: number): string => JSON.stringify({ vintage: 2025, states: { RI: { 'state-house': 75, 'state-senate': 38 }, VT: { 'state-house': 150, 'state-senate': vt } } });
+    const ids = Object.keys(chamberStates);
+
+    it('finds only the chamber fixtures whose count differs between base and head', () => {
+      expect([...fixturesWithNewCounts(counts(30), counts(31), ids)]).toEqual(['VT:state-senate']);
+      expect([...fixturesWithNewCounts(counts(30), counts(30), ids)]).toEqual([]);
+      expect([...fixturesWithNewCounts(null, counts(31), ids)]).toEqual([]);
+      // The Federal House fixture is never excused, even if its state's chambers changed.
+      expect(fixturesWithNewCounts(counts(30), counts(31), ['VT']).size).toBe(0);
+    });
+    it('accepts a changed fingerprint as an input change, without an engine major bump', () => {
+      const drawn = { ...chamberStates, 'VT:state-senate': fp('c') };
+      const strict = compareFingerprints(chamberBase, chamberBase, drawn, 1);
+      expect(strict.ok).toBe(false);
+      const r = compareFingerprints(chamberBase, chamberBase, drawn, 1, false, new Set(['VT:state-senate']));
+      expect(r.ok).toBe(true);
+      expect(r.changed).toEqual(['VT:state-senate']);
+      expect(r.message).toContain('input change');
+    });
+    it('stays strict for a federal fixture that changed alongside it, and for a chamber whose count did not change', () => {
+      const drawn = { RI: fp('c'), 'VT:state-senate': fp('d') };
+      const mixed = compareFingerprints(chamberBase, chamberBase, drawn, 1, false, new Set(['VT:state-senate']));
+      expect(mixed.ok).toBe(false);
+      expect(mixed.message).toContain('RI');
+      expect(mixed.message).not.toContain('VT:state-senate');
+      expect(compareFingerprints(chamberBase, chamberBase, { ...chamberStates, 'VT:state-senate': fp('d') }, 1, false, new Set()).ok).toBe(false);
+    });
+    it('still requires the major bump and a recording for the fixtures it does not excuse', () => {
+      const drawn = { RI: fp('c'), 'VT:state-senate': fp('d') };
+      const inputChanged = new Set(['VT:state-senate']);
+      expect(compareFingerprints(chamberBase, chamberBase, drawn, 2, false, inputChanged).ok).toBe(false);
+      expect(compareFingerprints(chamberBase, recorded(2, drawn), drawn, 2, false, inputChanged).ok).toBe(true);
+    });
+  });
   it('rejects the old single-sha file format', () => {
     expect(FingerprintFileSchema.safeParse({ engineMajor: 1, states: { RI: sha('a') } }).success).toBe(false);
   });
@@ -508,7 +546,7 @@ describe('compareFingerprints', () => {
     expect(compareFingerprints({ engineMajor: 1, states: {} }, baseFile, states, 1).ok).toBe(true);
   });
   it('takes the major to beat from the base versions.json, not the base fingerprint file', () => {
-    const versionsAt = (engine: string): string => JSON.stringify({ ...base, engine });
+    const versionsAt = (engine: string): string => JSON.stringify({ ...BASELINE_VERSIONS, engine });
     expect(baseEngineMajor(versionsAt('2.3.1'), 1)).toBe(2);
     expect(baseEngineMajor(null, 1)).toBe(1);
     // Base released engine 2.0.0 but its fingerprint file still says major 1. A pull request changes the output and

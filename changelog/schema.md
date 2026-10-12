@@ -2,7 +2,8 @@
 
 ## 1.2.1 (2026-10-12)
 
-- fix(engine): describe empty-block balancing moves in the rule examples
+- A balancing move in `balance.json` may now record a block with no people (`pop` 0, `gain` 0): such a move leaves every population as it was and shortens the border.
+- The How it works examples describe these moves and island link lengths.
 
 ## 1.2.0 (2026-10-12)
 

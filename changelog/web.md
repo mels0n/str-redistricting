@@ -2,7 +2,8 @@
 
 ## 1.2.2 (2026-10-12)
 
-- fix(web): describe link length in borders and empty-block balancing moves
+- The balancing replay reads moves of blocks with no people.
+- How it works, the FAQ and the page explainers describe island link lengths in borders and the balancing moves of blocks with no people.
 
 ## 1.2.1 (2026-10-12)
 

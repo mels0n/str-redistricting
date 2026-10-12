@@ -23,12 +23,14 @@ describe('site header', () => {
     expect([...header.querySelectorAll('.strv-masthead__nav a')].map((a) => a.textContent || a.getAttribute('aria-label'))).toEqual(['FAQ', 'How it works', 'Source code on GitHub']);
   });
 
-  it('links the source code on GitHub, after the page links and before the credit', () => {
+  it('links the source code on GitHub, after the page links, with no byline', () => {
     const header = createSiteHeader();
     const repo = header.querySelector('.strv-masthead__repo')!;
     expect(repo.getAttribute('href')).toBe(config.repoUrl);
     expect(repo.querySelector('svg')?.getAttribute('aria-hidden')).toBe('true');
-    expect(header.lastElementChild?.previousElementSibling?.lastElementChild).toBe(repo);
+    expect(header.lastElementChild?.lastElementChild).toBe(repo);
+    expect(header.textContent).not.toContain('Chris Melson');
+    expect(header.querySelector('.strv-masthead__credit')).toBeNull();
   });
 
   it('lists every chamber in order; before the index is in only the federal House is a link, and it is the current one', () => {

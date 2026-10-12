@@ -84,6 +84,5 @@ export function createSiteHeader(): HTMLElement {
         githubMark(),
       ),
     ),
-    h('p', { class: 'strv-masthead__credit' }, 'by Chris Melson'),
   );
 }

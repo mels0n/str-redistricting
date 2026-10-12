@@ -5,3 +5,4 @@ export { candidateFiles, describeFile, detectUpdate, isServed } from './detect.j
 export type { Candidate, Detection, ProbeOptions } from './detect.js';
 export { applyLegislativeBump, checkNoChamberLost, detectLegislative, detectLegislativeSafely, planLegislativeBump, redrawLines } from './legislative.js';
 export type { LegislativeDetection } from './legislative.js';
+export { fixturesWithChangedCounts, LEGISLATIVE_CONFIG_FILES, publishAllChambers, withConfigRestored } from './steps.js';

@@ -1,6 +1,7 @@
 import { execFileSync } from 'node:child_process';
 import { readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { isAbsentUpstream, isLegislativeFile, legislativeFileName, legislativeUrl, type LegislativeChamber } from '../entities/legislative-boundary/index.js';
 import { probeSource, SourcesSchema, type Source } from '../features/census-watch/index.js';
 import { STATES } from '../shared/apportionment/index.js';
@@ -59,7 +60,8 @@ async function main(): Promise<void> {
   await writeFile(sourcesPath, sortedJson(SourcesSchema.parse(sources)), 'utf8');
   console.log(`pinned ${Object.keys(manifest).filter(isLegislativeFile).length} files; no file served for: ${absent.sort().join(', ') || 'none'}`);
   // The counter reads the manifest when it starts, so it runs as a fresh process now that the pins are written.
-  execFileSync(process.execPath, ['--import', 'tsx', 'src/server/app/legislative-count.ts', '--cache-dir', cfg.cacheDir, '--config-dir', cfg.configDir], { stdio: 'inherit' });
+  const count = fileURLToPath(new URL('./legislative-count.ts', import.meta.url));
+  execFileSync(process.execPath, ['--import', 'tsx', count, '--cache-dir', cfg.cacheDir, '--config-dir', cfg.configDir], { stdio: 'inherit' });
 }
 
 main().catch((err: unknown) => {

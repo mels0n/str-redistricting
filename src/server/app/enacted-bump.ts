@@ -3,7 +3,10 @@ import { existsSync } from 'node:fs';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { applyBump, applyLegislativeBump, checkCoverage, checkNoChamberLost, planVersionBump, redrawLines } from '../features/enacted/index.js';
+import {
+  applyBump, applyLegislativeBump, checkCoverage, checkNoChamberLost, fixturesWithChangedCounts, LEGISLATIVE_CONFIG_FILES, planVersionBump, publishAllChambers,
+  redrawLines, withConfigRestored,
+} from '../features/enacted/index.js';
 import { boundaryUrl, parseCdRecord, readBoundaryZip } from '../features/publish/index.js';
 import {
   formatVersions, inputSha256Of, LegislativeDistrictsSchema, parseEnactedBumpConfig, VersionsSchema,
@@ -11,6 +14,7 @@ import {
 } from '../shared/config/index.js';
 import { DataError, exitCodeFor } from '../shared/errors/index.js';
 import { adoptIfAccepted, downloadForPinning } from '../shared/http/index.js';
+import { readFingerprintFile } from './fixtures.js';
 
 const VERSIONS_JSON = 'versions.json';
 
@@ -56,14 +60,15 @@ function publishEnactedOnly(cfg: EnactedBumpConfig, chamber?: string): void {
   }
 }
 
-/**
- * Every bump moves the input revision and maps release, so every published chamber is restamped, not just the one whose
- * overlay changed. The versions file moves with the last run, once no chamber carries an older stamp.
- */
-function publishEnactedAllChambers(cfg: EnactedBumpConfig): void {
-  publishEnactedOnly(cfg);
-  publishEnactedOnly(cfg, 'state-house');
-  publishEnactedOnly(cfg, 'state-senate');
+const publishEnactedAllChambers = (cfg: EnactedBumpConfig): void => publishAllChambers((chamber) => publishEnactedOnly(cfg, chamber));
+
+/** `fingerprints --record` for the fixtures named, in a fresh process so the draw reads the counts just written. */
+function recordChangedFixtures(cfg: EnactedBumpConfig, ids: readonly string[]): void {
+  if (ids.length === 0) return;
+  const fingerprints = fileURLToPath(new URL('./fingerprints.ts', import.meta.url));
+  console.log(`re-recording fixture fingerprints for ${ids.join(', ')}: their district count changed`);
+  const run = spawnSync(process.execPath, ['--max-old-space-size=8192', '--import', 'tsx', fingerprints, '--record', '--states', ids.join(','), '--cache-dir', cfg.cacheDir], { stdio: 'inherit' });
+  if (run.status !== 0) throw new DataError(`fingerprints --record failed (exit ${String(run.status)})`);
 }
 
 async function bumpFile(cfg: EnactedBumpConfig & { readonly file: string }): Promise<void> {
@@ -93,14 +98,18 @@ const readCounts = async (configDir: string): Promise<LegislativeDistricts['stat
  */
 async function bumpLegislative(cfg: EnactedBumpConfig & { readonly legislative: number }): Promise<void> {
   const before = await readCounts(cfg.configDir);
-  const next = await applyLegislativeBump(cfg.configDir, cfg.legislative);
-  console.log(`legislative vintage ${next.legislative.vintage}`);
-  // A fresh process: the pin and count commands read the vintage from the config that was just written.
-  const pin = fileURLToPath(new URL('./legislative-pin.ts', import.meta.url));
-  const run = spawnSync(process.execPath, ['--import', 'tsx', pin, '--cache-dir', cfg.cacheDir, '--config-dir', cfg.configDir], { stdio: 'inherit' });
-  if (run.status !== 0) throw new DataError(`legislative:pin failed (exit ${String(run.status)})`);
-  const after = await readCounts(cfg.configDir);
-  checkNoChamberLost(before, after);
+  // Until the new files are pinned, counted and checked, a failure puts the config files back as they were.
+  const after = await withConfigRestored(cfg.configDir, LEGISLATIVE_CONFIG_FILES, async () => {
+    const next = await applyLegislativeBump(cfg.configDir, cfg.legislative);
+    console.log(`legislative vintage ${next.legislative.vintage}`);
+    // A fresh process: the pin and count commands read the vintage from the config that was just written.
+    const pin = fileURLToPath(new URL('./legislative-pin.ts', import.meta.url));
+    const run = spawnSync(process.execPath, ['--import', 'tsx', pin, '--cache-dir', cfg.cacheDir, '--config-dir', cfg.configDir], { stdio: 'inherit' });
+    if (run.status !== 0) throw new DataError(`legislative:pin failed (exit ${String(run.status)})`);
+    const counted = await readCounts(cfg.configDir);
+    checkNoChamberLost(before, counted);
+    return counted;
+  });
   const redraw = redrawLines(before, after);
   for (const line of redraw) console.log(line);
   await bumpVersions(
@@ -108,6 +117,8 @@ async function bumpLegislative(cfg: EnactedBumpConfig & { readonly legislative: 
     [`State House and State Senate districts updated to the ${cfg.legislative} Census files.`, ...redraw],
     [`State House and State Senate comparison districts updated to the ${cfg.legislative} Census files. No district lines changed.`],
   );
+  // A fixture whose district count changed is drawn differently because its input changed, so its recorded fingerprint moves with it.
+  if (!cfg.skipPublish) recordChangedFixtures(cfg, fixturesWithChangedCounts(before, after, Object.keys(readFingerprintFile().states)));
   if (!cfg.skipPublish) publishEnactedAllChambers(cfg);
 }
 

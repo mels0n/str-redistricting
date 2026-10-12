@@ -9,6 +9,7 @@ import {
   ReleaseConfigSchema,
   bumpSemver,
   compareFingerprints,
+  fixturesWithNewCounts,
   isPreRelease,
   preReleaseForBase,
   componentsFor,
@@ -497,6 +498,43 @@ describe('compareFingerprints', () => {
     const stale = { ...states, RI: { before: states.RI.before, finished: sha('d') } };
     expect(compareFingerprints(baseFile, recorded(2, stale), drawn, 2).ok).toBe(false);
     expect(compareFingerprints(baseFile, recorded(2, drawn), drawn, 2).ok).toBe(true);
+  });
+  describe('a state chamber whose district count changed', () => {
+    const chamberStates = { RI: fp('a'), 'VT:state-senate': fp('b') };
+    const chamberBase = FingerprintFileSchema.parse({ engineMajor: 1, states: chamberStates });
+    const counts = (vt: number): string => JSON.stringify({ vintage: 2025, states: { RI: { 'state-house': 75, 'state-senate': 38 }, VT: { 'state-house': 150, 'state-senate': vt } } });
+    const ids = Object.keys(chamberStates);
+
+    it('finds only the chamber fixtures whose count differs between base and head', () => {
+      expect([...fixturesWithNewCounts(counts(30), counts(31), ids)]).toEqual(['VT:state-senate']);
+      expect([...fixturesWithNewCounts(counts(30), counts(30), ids)]).toEqual([]);
+      expect([...fixturesWithNewCounts(null, counts(31), ids)]).toEqual([]);
+      // The Federal House fixture is never excused, even if its state's chambers changed.
+      expect(fixturesWithNewCounts(counts(30), counts(31), ['VT']).size).toBe(0);
+    });
+    it('accepts a changed fingerprint as an input change, without an engine major bump', () => {
+      const drawn = { ...chamberStates, 'VT:state-senate': fp('c') };
+      const strict = compareFingerprints(chamberBase, chamberBase, drawn, 1);
+      expect(strict.ok).toBe(false);
+      const r = compareFingerprints(chamberBase, chamberBase, drawn, 1, false, new Set(['VT:state-senate']));
+      expect(r.ok).toBe(true);
+      expect(r.changed).toEqual(['VT:state-senate']);
+      expect(r.message).toContain('input change');
+    });
+    it('stays strict for a federal fixture that changed alongside it, and for a chamber whose count did not change', () => {
+      const drawn = { RI: fp('c'), 'VT:state-senate': fp('d') };
+      const mixed = compareFingerprints(chamberBase, chamberBase, drawn, 1, false, new Set(['VT:state-senate']));
+      expect(mixed.ok).toBe(false);
+      expect(mixed.message).toContain('RI');
+      expect(mixed.message).not.toContain('VT:state-senate');
+      expect(compareFingerprints(chamberBase, chamberBase, { ...chamberStates, 'VT:state-senate': fp('d') }, 1, false, new Set()).ok).toBe(false);
+    });
+    it('still requires the major bump and a recording for the fixtures it does not excuse', () => {
+      const drawn = { RI: fp('c'), 'VT:state-senate': fp('d') };
+      const inputChanged = new Set(['VT:state-senate']);
+      expect(compareFingerprints(chamberBase, chamberBase, drawn, 2, false, inputChanged).ok).toBe(false);
+      expect(compareFingerprints(chamberBase, recorded(2, drawn), drawn, 2, false, inputChanged).ok).toBe(true);
+    });
   });
   it('rejects the old single-sha file format', () => {
     expect(FingerprintFileSchema.safeParse({ engineMajor: 1, states: { RI: sha('a') } }).success).toBe(false);

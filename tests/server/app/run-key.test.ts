@@ -11,6 +11,10 @@ describe('run key', () => {
   });
   it('differs by chamber', () => {
     const state = stateByAbbr('RI')!;
-    expect(runKeyFor(state, 'state-senate', 'c'.repeat(64)).chamber).toBe('state-senate');
+    const code = 'c'.repeat(64);
+    const chambers = ['federal-house', 'state-house', 'state-senate'] as const;
+    const keys = chambers.map((c) => JSON.stringify(runKeyFor(state, c, code)));
+    expect(new Set(keys).size).toBe(3);
+    expect(runKeyFor(state, 'state-senate', code).chamber).toBe('state-senate');
   });
 });

@@ -1,5 +1,6 @@
 import { z } from 'zod';
-import { VersionsSchema } from '../../shared/config/index.js';
+import { LegislativeDistrictsSchema, VersionsSchema } from '../../shared/config/index.js';
+import { DataError } from '../../shared/errors/index.js';
 
 /** A fixture id: a state (Federal House) or a state's chamber, e.g. `VT` or `VT:state-senate`. */
 export const FIXTURE_ID = /^[A-Z]{2}(:state-(house|senate))?$/;
@@ -31,11 +32,45 @@ export function baseEngineMajor(baseVersionsText: string | null, fingerprintEngi
   return Number(VersionsSchema.parse(JSON.parse(baseVersionsText)).engine.split('.')[0]);
 }
 
+function countsOf(text: string, label: string): Record<string, Record<string, number>> {
+  let json: unknown;
+  try {
+    json = JSON.parse(text.replace(/^﻿/, ''));
+  } catch {
+    throw new DataError(`${label}: not valid JSON`);
+  }
+  const parsed = LegislativeDistrictsSchema.safeParse(json);
+  if (!parsed.success) throw new DataError(`${label}: ${parsed.error.issues.map((i) => `${i.path.join('.')} ${i.message}`).join('; ')}`);
+  return parsed.data.states;
+}
+
+/**
+ * The state chamber fixtures (`ST:state-house`, `ST:state-senate`) whose district count differs between the base's
+ * config/legislative-districts.json and the head's. A new count is a new input, so a fixture drawn differently for that
+ * reason is not an engine change. The Federal House fixtures are never in this set. A base with no counts file has none.
+ */
+export function fixturesWithNewCounts(baseText: string | null, headText: string, ids: readonly string[]): Set<string> {
+  if (baseText === null) return new Set();
+  const base = countsOf(baseText, 'config/legislative-districts.json at the base');
+  const head = countsOf(headText, 'config/legislative-districts.json');
+  const changed = new Set<string>();
+  for (const id of ids) {
+    const [abbr = '', chamber] = id.split(':');
+    if (chamber !== 'state-house' && chamber !== 'state-senate') continue;
+    const was = base[abbr]?.[chamber];
+    const now = head[abbr]?.[chamber];
+    if (was !== undefined && now !== undefined && was !== now) changed.add(id);
+  }
+  return changed;
+}
+
 /**
  * The fixture gate. `base` is the fingerprint file on the branch being merged into (never the pull request's own
  * copy), `head` is the pull request's file, `drawn` is what the engine draws now.
  * Passes when the engine draws what the base recorded, or when it draws something else, the engine major was raised
  * past the base's, and the head file records exactly the drawn fingerprints at that major.
+ * A fixture in `inputChanged` (its district count changed since the base) may draw something else without a major bump:
+ * that is an input change, not an engine change. Every other fixture stays as strict as before.
  */
 export function compareFingerprints(
   base: FingerprintFile,
@@ -43,11 +78,17 @@ export function compareFingerprints(
   drawn: Readonly<Record<string, StateFingerprint>>,
   headEngineMajor: number,
   preRelease = false,
+  inputChanged: ReadonlySet<string> = new Set(),
 ): { ok: boolean; changed: string[]; message: string } {
   if (Object.keys(base.states).length === 0) return { ok: true, changed: [], message: 'the base records no fixture states yet; the fixture gate passes' };
   const changed = Object.keys(base.states).filter((st) => !sameFingerprint(drawn[st], base.states[st])).sort();
   if (changed.length === 0) return { ok: true, changed, message: 'fixture fingerprints match' };
-  const names = changed.join(', ');
+  // Only a state chamber whose district count changed is excused; every other change needs the engine major.
+  const engineChanged = changed.filter((st) => !inputChanged.has(st));
+  if (engineChanged.length === 0) {
+    return { ok: true, changed, message: `fixture fingerprints changed for ${changed.join(', ')}; their district count changed, which is an input change, so the engine major stays` };
+  }
+  const names = engineChanged.join(', ');
   if (preRelease) return { ok: true, changed, message: 'before the 1.0 cut; the fixture gate reports changes but does not block' };
   if (headEngineMajor <= base.engineMajor) {
     return {

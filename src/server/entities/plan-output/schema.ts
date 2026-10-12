@@ -35,9 +35,9 @@ const Move = z.object({
   geoid: z.string().regex(/^[0-9]{15}$/),
   from: z.number().int().positive(),
   to: z.number().int().positive(),
-  /** People in the block; 0 is a block with no people, moved only because that shortens the border. */
+  /** People in the block (0 for a block with no people). */
   pop: z.number().int().nonnegative(),
-  /** Decrease in the sum of squared district deviations; 0 for a block with no people. */
+  /** Decrease in the sum of squared district deviations; 0 for a move that leaves the districts exactly as close and shortens the border. */
   gain: z.number().nonnegative(),
 });
 

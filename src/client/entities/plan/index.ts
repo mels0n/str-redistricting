@@ -2,7 +2,7 @@
 // reads them. Public API of the slice.
 
 // Loading the published files of a state.
-export { loadStateBundle, loadEnacted, loadStats } from './api';
+export { loadStateBundle, loadBefore, loadEnacted, loadStats } from './api';
 export type { StateBundle, PlanShapes, DistrictFeature, EnactedShapes, WaterShapes } from './api';
 // The cut sequence: pieces and sides after each step.
 export { piecesAfter, pieceSizes, cutSides, cutRows, cutStep, stepBy, isLastStep } from './pieces';

@@ -20,9 +20,10 @@ export interface PlanDistricts {
 export function districtsAt(
   plans: {
     finished: { features: readonly Feature<Polygon | MultiPolygon, { district: number }>[] };
-    before: { features: readonly Feature<Polygon | MultiPolygon, { district: number }>[] };
+    /** Null while the plan before balancing has not loaded; its district is then null too. */
+    before: { features: readonly Feature<Polygon | MultiPolygon, { district: number }>[] } | null;
   },
   pt: LonLat,
 ): PlanDistricts {
-  return { finished: districtAt(plans.finished.features, pt), before: districtAt(plans.before.features, pt) };
+  return { finished: districtAt(plans.finished.features, pt), before: plans.before ? districtAt(plans.before.features, pt) : null };
 }

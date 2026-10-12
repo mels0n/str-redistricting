@@ -36,6 +36,7 @@ import {
 import { loadIndex, loadOutlines, findState, chamberView, type GeneratedState } from '../../entities/state';
 import {
   loadStateBundle,
+  loadBefore,
   loadEnacted,
   loadBalance,
   loadBlocks,
@@ -86,6 +87,8 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
     if (route.move !== null) return balancePlanAt(route.move, moveCount ?? 0);
     return route.cut !== null ? 'before' : route.plan;
   };
+  /** Whether the route reads the plan before balancing: that plan itself, or either replay (they start from it). Its shapes are fetched only then. */
+  const needsBefore = (): boolean => route.plan === 'before' || route.cut !== null || route.move !== null;
   /** The number of balancing moves, once the state's numbers are in. */
   let moveCount: number | undefined;
   /** The balancing log: fetched only when the replay opens. */
@@ -359,7 +362,8 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
     let bundle: StateBundle;
     let outlines;
     try {
-      [bundle, outlines] = await Promise.all([loadStateBundle(entry.abbr, chamber), loadOutlines()]);
+      // A link that opens on the plan before balancing or a replay loads its shapes along with the rest.
+      [bundle, outlines] = await Promise.all([loadStateBundle(entry.abbr, chamber), loadOutlines(), needsBefore() ? loadBefore(entry.abbr, chamber) : undefined]);
     } catch (err) {
       if (alive) showError(err, { retry });
       return;
@@ -480,6 +484,28 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
         })
         .finally(() => {
           if (alive) render();
+        });
+    };
+    /** Fetches the plan before balancing the first time it is shown; the page draws again when it lands. */
+    let beforeLoading = false;
+    const needBefore = (): void => {
+      if (beforeLoading) return;
+      beforeLoading = true;
+      if (map) mapEl.setAttribute('aria-busy', 'true');
+      loadBefore(entry.abbr, bundle.chamber)
+        .then(() => locate(bundle))
+        .catch(() => {
+          // Fall back to the finished map rather than leave the visitor on a view that cannot draw.
+          const fallback = { ...route, plan: 'finished' as const, cut: null, move: null };
+          noticeHash = formatHash(fallback);
+          setNotice('The map before balancing could not be loaded. The finished map is shown.');
+          go({ plan: 'finished', cut: null, move: null }, true);
+        })
+        .finally(() => {
+          beforeLoading = false;
+          if (!alive) return;
+          if (map) mapEl.removeAttribute('aria-busy');
+          render();
         });
     };
     const search = createAddressSearch({
@@ -618,6 +644,11 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
       const cutMode = route.cut !== null;
       const balanceMode = route.move !== null;
       const seqMode = cutMode || balanceMode;
+      // The plan before balancing is fetched when first shown; until it lands the page keeps showing what it had.
+      if (needsBefore() && !bundle.before) {
+        needBefore();
+        return;
+      }
       if (balanceMode) needBalance();
       const plan = shownPlan();
       const planStats = plan === 'finished' ? bundle.stats.finished : bundle.stats.beforeBalancing;

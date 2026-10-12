@@ -6,6 +6,7 @@ import type { FeatureCollection, MultiLineString, MultiPolygon, Polygon, Positio
 import {
   tokens,
   config,
+  chamberLabel,
   bboxOf,
   openingBox,
   crossesAntimeridian,
@@ -222,7 +223,7 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
   // Zoom buttons sit where a thumb rests on a touch screen.
   map.addControl(new NavigationControl({ showCompass: false }), coarse ? 'bottom-right' : 'top-right');
   // The canvas is described by the region around it; the list is the full text view.
-  map.getCanvas().setAttribute('aria-label', `Map of ${opts.stateName} districts. Arrow keys move the map; plus and minus zoom. To choose a district, use the Districts table.`);
+  map.getCanvas().setAttribute('aria-label', `Map of ${opts.stateName}${bundle.chamber === 'federal-house' ? '' : ` ${chamberLabel(bundle.chamber)}`} districts. Arrow keys move the map; plus and minus zoom. To choose a district, use the Districts table.`);
 
   /** The water mask's polygons: district numbers prefer the land part of a district. */
   const waterPolys: Position[][][] = (bundle.water?.features ?? []).flatMap((f) => (f.geometry.type === 'Polygon' ? [f.geometry.coordinates] : f.geometry.coordinates));

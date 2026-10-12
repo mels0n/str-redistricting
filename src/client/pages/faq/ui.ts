@@ -67,7 +67,7 @@ const ANSWERS: Record<FaqQuestion, () => HTMLElement[]> = {
   ],
   data: () => [
     p('No. Three facts about each census block go in: how many people the census counted there, where its edges are, and one point inside it, used to put blocks in order and to measure island links. Each chamber’s number of districts in each state goes in too. Nothing else does.'),
-    p('Party registration, election results, where officeholders or candidates live, current or past district lines, and race, ethnicity, age or income never go in. See ', howLink('inputs', 'What goes in'), '.'),
+    p('Party registration, election results, where officeholders or candidates live, the shapes of current or past district lines, and race, ethnicity, age or income never go in. For a State House or State Senate map, only the number of districts in the Census Bureau’s file is used. See ', howLink('inputs', 'What goes in'), '.'),
   ],
   counties: () => [
     p('County and city lines are never used to draw anything. The generator only knows people and block shapes, so a district border can split a county or a city when that gives the shortest border.'),
@@ -78,15 +78,16 @@ const ANSWERS: Record<FaqQuestion, () => HTMLElement[]> = {
     p('Each cut stops at the block that brings its sides closest to their shares. Then a balancing pass trades single blocks between neighboring districts, one at a time, as long as a trade narrows the gap and keeps both districts in one piece. It stops when no single-block trade helps. Blocks are never split, so a small difference can remain. See ', howLink('balancing', 'Balancing, and why it is needed'), ', which lists the result in every state.'),
   ],
   current: () => [
-    p('No. These maps are drawn by the generator and are not the districts in use. To see the current lines, turn on “Compare with” on a state’s map: they are drawn as dashed lines, for comparison only. For the Federal House they come from the Census Bureau’s file of ', `${ordinal(ENACTED.congress)} Congress districts`, ', so a state that adopted a new map after that file was made is not reflected.'),
+    p('No. These maps are drawn by the generator and are not the districts in use. To see the current lines, turn on “Compare with” on a state’s map: they are drawn as dashed lines, for comparison only. For the Federal House they come from the Census Bureau’s file of ', `${ordinal(ENACTED.congress)} Congress districts`, ', so a state that adopted a new map after that file was made is not reflected. For the State House and State Senate they come from the Census Bureau’s 2025 state legislative district files (the sldl and sldu files), which also supply each chamber’s number of districts. Their shapes are never used to draw, and a state that adopted a new map after a file was made is not reflected.'),
   ],
   water: () => [
     p('Census blocks cover lakes, bays and coastal water out to the state’s legal boundary, and a water block is a block like any other. So a district can join two shores across water. The map shows water paler so the land stands out, and shows the selected district’s water in full color.'),
     p('Some land is not reached by any block, even across water, such as some islands. The generator joins it with an island link: the shortest link between internal points, added until every piece is connected. When you select a district, its links show as dashed lines. See the island rule under “The exact rule” in ', howLink('strays', 'Stray pieces and the re-count'), '.'),
   ],
   'one-seat': () => [
-    p('Each state gets the number of House seats from the 2020 apportionment. A state with one seat is one district covering the whole state, so there is nothing to cut. The same holds for a state chamber with one district. Nebraska has a single legislative chamber, so it has a State Senate map and no State House map.'),
-    p('Washington, D.C. and the U.S. territories elect non-voting delegates to the House, so they have no districts to draw.'),
+    p('A Federal House map has one district for each House seat the state received in the 2020 apportionment. A State House or State Senate map has one district for each distinct district in the Census Bureau’s 2025 state legislative district files. A map with one district needs no cut, because the whole state is that district.'),
+    p('Nebraska has a single legislative chamber, so it has a State Senate map and no State House map.'),
+    p('Washington, D.C. and the U.S. territories are not drawn. They elect non-voting delegates to the House, and their local legislatures are not covered.'),
   ],
   'state-laws': () => [
     p('Every map on this site, Federal House, State House and State Senate, is drawn by the same rule. We ignore requirements that individual states add on top, such as building senate districts out of whole house districts or keeping particular counties and towns together.'),
@@ -94,7 +95,7 @@ const ANSWERS: Record<FaqQuestion, () => HTMLElement[]> = {
     p('We do keep one thing from each state: the number of districts. Each chamber gets the same number of districts it has today, and every district holds an equal share of the people.'),
   ],
   check: () => [
-    p('Every map has a fingerprint, a 64-character code worked out from the file that lists every block and its district. It is printed under “Check this map” on each state’s page. Change one block and the code changes completely.'),
+    p('Every map has a fingerprint, a 64-character code worked out from the file that lists every block and its district. It is printed under “Check this map” on each map’s page. Change one block and the code changes completely.'),
     p('The generator, this viewer and the published data are in ', h('a', { href: config.repoUrl }, 'the project’s GitHub repository'), '. Run it on the same Census data and you get the same map and the same fingerprint, on any computer. See ', howLink('fingerprint', 'Same data, same map'), '.'),
   ],
   terms: () => [
@@ -114,7 +115,7 @@ const TERMS: readonly (readonly [string, string])[] = [
   ['Internal point', 'One point inside each block, published by the Census Bureau. It is used to put blocks in order across a guide line and to measure island links.'],
   ['Chamber', 'One of the bodies a map is drawn for: the Federal House, the State House or the State Senate. Each is drawn separately, by the same rule.'],
   ['Apportionment', 'How the 435 House seats are shared out among the states after each census. The Federal House maps use the 2020 apportionment.'],
-  ['Seat', 'One member of a chamber. A map has one district per seat. A state’s Federal House seats come from the apportionment; its State House and State Senate seats are the number of districts in the Census Bureau’s 2025 state legislative district files.'],
+  ['Seat', 'The unit a map is divided into: one district. A Federal House map has one district for each House seat the state received. A State House or State Senate map has one district for each distinct district in the Census Bureau’s 2025 state legislative district files. Where a state elects more than one member from a district, the map still draws one district, because how many members a district elects is not modelled.'],
   ['Cut', 'One split of a piece of the state into two sides, each with its share of the seats and the people. A state with N seats takes N minus 1 cuts.'],
   ['Guide line', 'A straight line tried during a cut. It only decides which side each block joins; the real border then follows block edges.'],
   ['Share', 'The number of people one side of a cut should hold: the piece’s people times that side’s seats, divided by the piece’s seats.'],
@@ -127,7 +128,7 @@ const TERMS: readonly (readonly [string, string])[] = [
   ['Even split', 'The ideal rounded down or up to whole people. The map shows how far each district is from it.'],
   ['Balancing', 'The last step: single blocks move between neighboring districts, one at a time, while that brings the districts closer to equal.'],
   ['Fingerprint', 'A 64-character code worked out from the file that assigns every block to a district. The same map always gives the same code.'],
-  ['Current districts', 'The districts in use today, from the Census Bureau’s file. Shown as dashed lines for comparison only, never used to draw.'],
+  ['Current districts', 'The districts in use today, from the Census Bureau’s files: the Congress districts file for the Federal House, and the 2025 state legislative district files for the State House and State Senate. Shown as dashed lines for comparison only. Their shapes are never used to draw.'],
 ];
 
 /** Common questions, each answered briefly and linked to the How it works stage that explains it in full. */

@@ -17,7 +17,7 @@ export function createNationalPage(nav: Navigate, chamber: Chamber = 'federal-ho
     'div',
     { class: 'strv-national__lede' },
     h('p', null, 'People, usually politicians, draw the lines. They see your party, your race, your income, and use that to pick their voters. That is gerrymandering.'),
-    h('p', { class: 'strv-national__closing' }, 'So we removed the human. Code draws these maps from census headcounts and block shapes alone. It draws Federal House, State House and State Senate maps for every state, and the only other input is how many districts each chamber has. No human, no gerrymandering.'),
+    h('p', { class: 'strv-national__closing' }, 'So we removed the human. Code draws these maps from census headcounts and block shapes alone. It draws a Federal House map for every state and a State House and State Senate map for every state that has the chamber, and the only other input is how many districts each chamber has. No human, no gerrymandering.'),
     h(
       'div',
       { class: 'strv-national__how' },
@@ -33,7 +33,7 @@ export function createNationalPage(nav: Navigate, chamber: Chamber = 'federal-ho
         'p',
         { class: 'strv-national__scope' },
         chamber === 'federal-house'
-          ? 'These maps cover the 50 states. Washington, D.C. and the U.S. territories elect non-voting delegates to the House, so they have no districts to draw.'
+          ? 'These maps cover the 50 states. Washington, D.C. and the U.S. territories are not drawn. They elect non-voting delegates to the House, and their local legislatures are not covered.'
           : `These are ${chamberLabel(chamber)} maps. They cover the 50 states. A chamber a state does not have, such as Nebraska's State House, has no map.`,
       ),
     ),

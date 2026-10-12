@@ -6,7 +6,7 @@ import { h, formatHash, faqRoute, howRoute } from '../../shared';
  */
 export function createExplainer(opts: { seats?: number } = {}): HTMLElement {
   const n = opts.seats;
-  const cuts = n !== undefined ? `${n - 1} ${n - 1 === 1 ? 'cut' : 'cuts'} for ${n} ${n === 1 ? 'seat' : 'seats'}` : 'one cut fewer than the number of seats';
+  const cuts = n !== undefined ? `${n - 1} ${n - 1 === 1 ? 'cut' : 'cuts'} for ${n} ${n === 1 ? 'district' : 'districts'}` : 'one cut fewer than the number of districts';
   const step = (title: string, text: string): HTMLElement => h('li', null, h('strong', null, title), ' ', text);
   return h(
     'section',
@@ -16,7 +16,7 @@ export function createExplainer(opts: { seats?: number } = {}): HTMLElement {
       'p',
       { class: 'strv-explain__note' },
       h('strong', null, 'Only people and shapes.'),
-      ' For each 2020 census block the generator reads the number of people, the block’s shape, and its internal point (a point inside the block that the Census Bureau publishes), which it uses to put blocks in order across a guide line and to measure island links. It never reads party registration or voter records, election results or turnout, where officeholders or candidates live, current or past district lines, or race, ethnicity, age, income or anything else about people besides how many there are.',
+      ' For each 2020 census block the generator reads the number of people, the block’s shape, and its internal point (a point inside the block that the Census Bureau publishes), which it uses to put blocks in order across a guide line and to measure island links. It never reads party registration or voter records, election results or turnout, where officeholders or candidates live, the shapes of current or past district lines (for a State House or State Senate map, only the number of districts in the Census Bureau’s file is used), or race, ethnicity, age, income or anything else about people besides how many there are.',
     ),
     h(
       'ol',
@@ -24,7 +24,7 @@ export function createExplainer(opts: { seats?: number } = {}): HTMLElement {
       step(
         'Cut.',
         n === 1
-          ? 'This state has one seat, so it needs no cut: the whole state is its one district.'
+          ? 'A map with one district needs no cut. The whole state is that district.'
           : `A piece with several seats is split in two, with the seats shared as evenly as possible (7 seats become 3 and 4). Every straight guide line is considered, each placed so the people on each side match that side’s seats. Of the lines that leave each side in one connected piece, the one whose real border is shortest wins. Each piece is cut again until every piece is one district. That takes ${cuts}.`,
       ),
       step(

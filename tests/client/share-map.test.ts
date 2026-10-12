@@ -29,6 +29,7 @@ describe('shareContent', () => {
   it('says district for a single seat and names a state chamber', () => {
     expect(shareContent({ abbr: 'VT', name: 'Vermont', seats: 1, chamber: 'federal-house' }).text).toContain("Vermont's 1 congressional district.");
     expect(shareContent({ abbr: 'CO', name: 'Colorado', seats: 35, chamber: 'state-senate' }).text).toContain('35 state senate districts');
+    expect(shareContent({ abbr: 'CO', name: 'Colorado', seats: 35, chamber: 'state-senate' }).title).toBe('Colorado State Senate: districts drawn by Fair Maps');
   });
 });
 

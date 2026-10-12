@@ -2,11 +2,10 @@
 
 ## 1.1.0 (2026-10-11)
 
-- feat: watch and adopt new Census legislative district files
-- feat: publish maps per chamber
-- feat: draw maps per chamber
-- feat: pin Census state legislative districts and count seats from them
-- feat: add chamber option and per-chamber seat counts
+- The engine can now draw a State House or a State Senate map as well as a Federal House map. Every chamber is drawn by the same rule and held to the same equal-population standard.
+- A chamber's number of districts is the number of distinct districts in the Census Bureau's 2025 state legislative district files. Those files are pinned and their shapes are never used to draw.
+- Maps are published for each chamber, and a newer Census legislative district file can be checked for and adopted.
+- Federal House maps are drawn exactly as before.
 
 ## 1.0.0 (2026-10-11)
 

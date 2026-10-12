@@ -30,6 +30,7 @@ import {
   type Navigate,
   type Page,
   type StateRoute,
+  type Chamber,
   type LonLat,
 } from '../../shared';
 import { loadIndex, loadOutlines, findState, chamberView, type GeneratedState } from '../../entities/state';
@@ -62,6 +63,11 @@ import { createDistrictList } from '../../widgets/district-list';
 import { createProofPanel } from '../../widgets/proof-panel';
 import { createExplainer } from '../../widgets/explainer';
 import { createProcessPanel } from '../../widgets/process-panel';
+
+/** The page heading: the state, and for a State House or State Senate map the chamber too. */
+function pageTitle(name: string, chamber: Chamber): string {
+  return chamber === 'federal-house' ? name : `${name} ${chamberLabel(chamber)}`;
+}
 
 export function createStatePage(initial: StateRoute, nav: Navigate): Page {
   let route = initial;
@@ -242,7 +248,7 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
 
   function showNotGenerated(name: string): void {
     share.set(null);
-    h1.textContent = name;
+    h1.textContent = pageTitle(name, route.chamber);
     document.title = `${name}: map not generated | Fair Maps`;
     el.dataset.empty = 'true';
     clear(mapEl);
@@ -260,7 +266,7 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
   /** A state chamber with no map to show: the state has no such chamber, or its map is not drawn yet. */
   function showChamberEmpty(name: string, big: string, link: { href: string; text: string }): void {
     share.set(null);
-    h1.textContent = name;
+    h1.textContent = pageTitle(name, route.chamber);
     document.title = `${name}: ${chamberLabel(route.chamber)} | Fair Maps`;
     el.dataset.empty = 'true';
     clear(mapEl);
@@ -339,7 +345,7 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
     }
     // The entry as this chamber sees it: its district count and summary.
     const shown: GeneratedState = { ...entry, seats: view.seats, hasData: true, summary: view.summary! };
-    h1.textContent = entry.name;
+    h1.textContent = pageTitle(entry.name, chamber);
     share.set({ abbr: entry.abbr, name: entry.name, seats: shown.seats, chamber });
     const which = chamber === 'federal-house' ? '' : ` for the ${chamberLabel(chamber)}`;
     mapEl.setAttribute('aria-label', `Map of ${entry.name}’s ${districtCount(shown.seats)}${which}. Every district is also listed in the Districts table.`);

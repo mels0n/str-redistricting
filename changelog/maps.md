@@ -2,7 +2,8 @@
 
 ## 2 (2026-10-11)
 
-- Published maps rebuilt.
+- Added State House and State Senate maps for every state that has the chamber (Nebraska has no State House).
+- Federal House maps rebuilt; every one is unchanged.
 
 ## 1 (2026-10-11)
 

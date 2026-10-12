@@ -158,7 +158,7 @@ function buildUsMap(opts: UsMapOptions, compact: boolean): SVGSVGElement {
       style: compact ? `--us-abbr:${abbrUnits}px;--us-seats:${seatsUnits}px` : null,
       viewBox: `0 0 ${W} ${H}`,
       role: 'group',
-      'aria-label': chamber === 'federal-house' ? 'Map of the United States. States with a generated map are links, labeled with their number of House seats.' : `Map of the United States. States with a generated ${chamberLabel(chamber)} map are links, labeled with their number of districts.`,
+      'aria-label': chamber === 'federal-house' ? 'Map of the United States. States with a generated map are links, labeled with their number of districts.' : `Map of the United States. States with a generated ${chamberLabel(chamber)} map are links, labeled with their number of districts.`,
     },
     quiet,
     active,

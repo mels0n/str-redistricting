@@ -81,7 +81,7 @@ function createSingleSeatNote(): CutScrubber {
     h(
       'div',
       { class: 'strv-scrub__intro' },
-      h('p', { class: 'strv-scrub__summary' }, h('strong', null, 'Finished map.'), ' This state has one seat, so there is nothing to cut or balance. The whole state is the one district.'),
+      h('p', { class: 'strv-scrub__summary' }, h('strong', null, 'Finished map.'), ' A map with one district needs no cut, so there is nothing to cut or balance. The whole state is that district.'),
     ),
   );
   return { el, update: () => undefined, start: () => undefined, destroy: () => undefined };

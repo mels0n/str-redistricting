@@ -1,4 +1,4 @@
-import { h, announce, config, iconShare, sharePath, type Chamber } from '../../shared';
+import { h, announce, config, iconShare, sharePath, chamberLabel, type Chamber } from '../../shared';
 
 /** The map being shared: one state, one chamber. */
 export interface ShareTarget {
@@ -19,7 +19,7 @@ export function shareContent(t: ShareTarget): ShareContent {
   const body = t.chamber === 'federal-house' ? 'congressional' : t.chamber === 'state-senate' ? 'state senate' : 'state house';
   return {
     url: `https://${config.siteHost}${sharePath(t.abbr, t.chamber)}`,
-    title: `${t.name}: districts drawn by Fair Maps`,
+    title: `${t.chamber === 'federal-house' ? t.name : `${t.name} ${chamberLabel(t.chamber)}`}: districts drawn by Fair Maps`,
     text: `${t.name}'s ${t.seats} ${body} ${t.seats === 1 ? 'district' : 'districts'}. ${config.tagline}`,
   };
 }

@@ -56,11 +56,11 @@ export function createProcessPanel(opts: ProcessPanelOptions): HTMLElement {
       'section',
       { class: 'strv-process', 'aria-labelledby': 'strv-process-h' },
       h('h2', { id: 'strv-process-h', class: 'strv-h2' }, 'What happened in this state'),
-      h('p', null, `${opts.stateName} has one seat, so the whole state is the one district. There was nothing to cut and nothing to balance.`),
+      h('p', null, `This map has one district, so the whole state is that district. There was nothing to cut and nothing to balance.`),
       h(
         'dl',
         { class: 'strv-process__rows' },
-        row('Cuts', 'recursion', '0', 'A state with one seat needs no cut.'),
+        row('Cuts', 'recursion', '0', 'A map with one district needs no cut.'),
         row('Balancing moves', 'balancing', '0', 'One district has no neighbor to balance against.'),
         row('Run time', 'fingerprint', formatRunTime(m.runtimeMs), 'To read the census file and check the district.'),
       ),

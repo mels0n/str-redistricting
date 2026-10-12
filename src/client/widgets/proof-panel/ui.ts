@@ -83,7 +83,7 @@ export function createProofPanel(): ProofPanel {
               ]
             : []),
           single
-            ? row('Guide lines', 'None', 'A state with one seat needs no cut, so no guide line is drawn.')
+            ? row('Guide lines', 'None', 'A map with one district needs no cut, so no guide line is drawn.')
             : row('Guide lines', 'Every straight line', `${formatInt(m.candidateRangesEvaluated)} stretches of directions checked in all; inside each, every direction gives the same two sides.`),
         ),
         h(

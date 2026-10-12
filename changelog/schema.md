@@ -2,8 +2,8 @@
 
 ## 1.1.0 (2026-10-11)
 
-- fix: restamp every chamber on overlay updates and allow seat-count redraws
-- feat: publish maps per chamber
+- Published files now describe each chamber separately, so a state has a Federal House, a State House and a State Senate map wherever it has them.
+- When the comparison overlay is updated, every chamber is stamped again. Federal House files keep their format and paths.
 
 ## 1.0.0 (2026-10-11)
 

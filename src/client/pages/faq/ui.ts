@@ -123,7 +123,7 @@ const TERMS: readonly (readonly [string, string])[] = [
   ['Stray piece', 'A block, or a group of blocks, cut off from the rest of its side by a guide line. It joins the side around it.'],
   ['Re-count', 'After stray pieces move, the people are counted again and the line slides so each side still holds its share.'],
   ['Connected', 'In one piece. Two blocks are connected when they share an edge; touching at a single corner does not count.'],
-  ['Island link', 'A link added between land that no block reaches, such as an island, and the rest of the state, so the state can still be cut. Shown as a dashed line on a selected district.'],
+  ['Island link', 'A link added between land that no block reaches, such as an island, and the rest of the state, so the state can still be cut. Its length, the distance between its two blocks’ internal points, counts toward a cut’s border when the cut’s sides meet across it. Shown as a dashed line on a selected district.'],
   ['Ideal population', 'A state’s population divided by its number of seats: what each district would hold if people divided evenly.'],
   ['Even split', 'The ideal rounded down or up to whole people. The map shows how far each district is from it.'],
   ['Balancing', 'The last step: single blocks move between neighboring districts, one at a time, while that brings the districts closer to equal, or shortens the border for a block with no people.'],

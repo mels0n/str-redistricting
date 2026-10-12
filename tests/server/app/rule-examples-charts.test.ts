@@ -185,20 +185,21 @@ describe('balance.stop captions', () => {
     expect(each).toContain('Each of the 3 moves lowers that sum, the first by 50 and the last by 7');
     expect(why).toContain('every move lowers the sum by at least 7');
   });
-  it('say the sum never rises and name the moves of blocks with no people, without claiming a gain of at least 0', () => {
+  it('say the sum never rises and name the moves that leave the districts exactly as close, without claiming a gain of at least 0', () => {
     const moves = [{ gain: 50 }, { gain: 12 }, { gain: 0 }, { gain: 0 }];
     const [each, why] = stopCaptions(moves);
     expect(each).toMatch(/No move raises that sum/);
-    expect(each).toContain('2 of the 4 moves are of blocks with no people');
-    expect(each).toMatch(/unchanged/);
+    expect(each).toContain('2 of the 4 moves leave the districts exactly as close to equal');
+    expect(each).not.toMatch(/no people|with people/);
+    expect(each).toMatch(/stays the same/);
     expect(each).toMatch(/border/);
     expect(each).toContain('the first by 50');
     expect(each).toContain('the last by 12');
-    expect(why).toContain('at least 12');
+    expect(why).toContain('lowers it by at least 12');
     expect(why).toMatch(/border/);
     expect(`${each} ${why}`).not.toMatch(/at least 0/);
   });
-  it('cope with a plan whose every move is of a block with no people', () => {
+  it('cope with a plan whose every move leaves the districts exactly as close', () => {
     const [each, why] = stopCaptions([{ gain: 0 }]);
     expect(each).toMatch(/No move raises that sum/);
     expect(`${each} ${why}`).not.toMatch(/NaN|Infinity|at least 0/);

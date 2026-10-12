@@ -307,7 +307,9 @@ export async function furthestCase(ctx: ExtractContext): Promise<RuleCase> {
       { caption: `${name}'s ideal is ${people(ideal)} people per district. Each bar is how far a district is from it before balancing: above the line is over, below is under.`, show: ['chart'] },
       { caption: `Distance counts either way. ${dist(worst)} and ${dist(rival)}, so District ${worst + 1} is further.`, show: ['chart', 'chart-runnerUp', 'chart-furthest'] },
       {
-        caption: `District ${worst + 1} goes first. The first real move takes ${whole(out.balance.moves[0]!.pop)} people out of District ${move.from} and into District ${move.to}.`,
+        caption: `District ${worst + 1} goes first. ${move.gain === 0
+          ? `The first move takes ${move.pop === 0 ? 'a block with no people' : `${whole(move.pop)} people`} out of District ${move.from} and into District ${move.to}, leaving the districts exactly as close to equal and shortening the border.`
+          : `The first move takes ${whole(move.pop)} people out of District ${move.from} and into District ${move.to}.`}`,
         show: ['chart', 'chart-furthest'],
       },
       {
@@ -320,34 +322,34 @@ export async function furthestCase(ctx: ExtractContext): Promise<RuleCase> {
 }
 
 /**
- * The captions for the second and last steps of balance.stop. A move of a block with people lowers the sum by its gain; a move of a block with no people has
- * gain 0, leaves the sum as it was and is made only because it shortens the border.
+ * The captions for the second and last steps of balance.stop. A move with a gain above 0 brings the districts closer to equal and lowers the sum
+ * by its gain; a move with gain 0 leaves them exactly as close, so the sum is unchanged, and is made only because it shortens the border.
  */
 export function stopCaptions(moves: readonly { gain: number }[]): [string, string] {
   const n = moves.length;
-  const withPeople = moves.filter((m) => m.gain > 0);
-  const empty = n - withPeople.length;
+  const closer = moves.filter((m) => m.gain > 0);
+  const equal = n - closer.length;
   const dots = 'Each dot is the sum after a move.';
   const ending = 'a sum of squares never goes below zero';
-  if (empty === 0) {
-    const lowest = withPeople.reduce((m, x) => Math.min(m, x.gain), Infinity);
+  if (equal === 0) {
+    const lowest = closer.reduce((m, x) => Math.min(m, x.gain), Infinity);
     return [
       `Each of the ${n} moves lowers that sum, the first by ${whole(moves[0]!.gain)} and the last by ${whole(moves[n - 1]!.gain)}. ${dots}`,
       `No move lowers the sum any further, so the pass stops. It always does: every move lowers the sum by at least ${whole(lowest)}, and ${ending}.`,
     ];
   }
   const border = 'A border cannot keep getting shorter either.';
-  const emptyWords = `${whole(empty)} of the ${whole(n)} moves ${empty === 1 ? 'is' : 'are'} of blocks with no people. They leave the sum unchanged and are made only because they shorten the border.`;
-  if (withPeople.length === 0) {
+  const equalWords = `${whole(equal)} of the ${whole(n)} moves ${equal === 1 ? 'leaves' : 'leave'} the districts exactly as close to equal, so the sum stays the same, and ${equal === 1 ? 'is' : 'are'} made only because ${equal === 1 ? 'it shortens' : 'they shorten'} the border.`;
+  if (closer.length === 0) {
     return [
-      `No move raises that sum. ${emptyWords} ${dots}`,
+      `No move raises that sum. ${equalWords} ${dots}`,
       `No move helps any further, so the pass stops. It always does: the sum never goes up, and a border cannot keep getting shorter.`,
     ];
   }
-  const lowest = withPeople.reduce((m, x) => Math.min(m, x.gain), Infinity);
+  const lowest = closer.reduce((m, x) => Math.min(m, x.gain), Infinity);
   return [
-    `No move raises that sum. Every move of a block with people lowers it, the first by ${whole(withPeople[0]!.gain)} and the last by ${whole(withPeople[withPeople.length - 1]!.gain)}. ${emptyWords} ${dots}`,
-    `No move helps any further, so the pass stops. It always does: every move of a block with people lowers the sum by at least ${whole(lowest)}, and ${ending}. ${border}`,
+    `No move raises that sum. The other moves bring the districts closer to equal and lower it, the first by ${whole(closer[0]!.gain)} and the last by ${whole(closer[closer.length - 1]!.gain)}. ${equalWords} ${dots}`,
+    `No move helps any further, so the pass stops. It always does: every move that lowers the sum lowers it by at least ${whole(lowest)}, and ${ending}. ${border}`,
   ];
 }
 

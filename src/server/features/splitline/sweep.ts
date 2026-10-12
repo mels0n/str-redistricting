@@ -131,7 +131,93 @@ export function sweepSpan(piece: Piece, seats: number, lowSeats: number, start: 
   const g = geoFor(piece, start, end, endIsPi);
   const chain = new Chain(piece, g, seats, lowSeats);
   chain.start(-4, -2);
-  const dir = (i: number, j: number): Dir => [X(g, i), Y(g, i), X(g, j), Y(g, j)];
+  const steps = { n: 0 };
+  const res = recordSpan(chain, g, lowSeats, { s: start, e: end, sDeg: aDeg, eDeg: bDeg, endIsPi }, keep, findTies, false, steps, beat);
+  return { ...res, stats: { ...chain.stats, exactFallbacks: exactFallbacks() - f0, ms: performance.now() - t0 } };
+}
+
+/** One stretch of directions [s, e) to sweep (degrees sDeg, eDeg for reporting); `endIsPi` when e is the end of the half turn. */
+export interface SpanBounds { readonly s: Dir; readonly e: Dir; readonly sDeg: number; readonly eDeg: number; readonly endIsPi: boolean }
+
+/**
+ * Work (tracker events) a window may spend sweeping one gap before it gives up on it and starts afresh at the next
+ * stretch, per block of the piece per pass of the chain: about what a fresh start costs. Speed only: a stretch gives
+ * the same result either way.
+ */
+export const GAP_BUDGET = 0.006;
+
+/**
+ * Sweep several stretches [s, e) of one first-side seat count in order, carrying one chain through the directions
+ * between them (swept, nothing recorded), so a stretch after the first costs its gap instead of a fresh start. A gap
+ * that runs past GAP_BUDGET is left and the next stretch starts afresh, so a window never costs much more than
+ * sweeping its stretches one by one. Each stretch's result is the one sweepSpan gives it alone, since the sides at
+ * every direction depend on that direction only, never on where the sweep began; only the work counters differ (each
+ * result carries the work done since the one before it, so their sum is the window's). The stretches must be in turn
+ * order, each starting at or after the end of the one before; only the last may end at the end of the half turn.
+ */
+export function sweepSpans(piece: Piece, seats: number, lowSeats: number, spans: readonly SpanBounds[], keep: number, beat?: () => void, budget = GAP_BUDGET): ChunkResult[] {
+  const last = spans[spans.length - 1]!;
+  for (let k = 0; k < spans.length; k++) {
+    const sp = spans[k]!;
+    if ((sp.endIsPi && k < spans.length - 1) || (k > 0 && compareDirections(spans[k - 1]!.e, sp.s) > 0)) {
+      throw new Error('tie stretches must be in turn order and only the last may end at the end of the half turn');
+    }
+  }
+  let t0 = performance.now(), f0 = exactFallbacks();
+  // Every chain's end is the window's end, so a stretch's last range ends where sweepSpan's would.
+  const fresh = (from: Dir) => {
+    const geo = geoFor(piece, from, last.e, last.endIsPi);
+    const c = new Chain(piece, geo, seats, lowSeats);
+    c.start(-4, -2);
+    return { g: geo, chain: c };
+  };
+  let { g, chain } = fresh(spans[0]!.s);
+  // Counters of the chains already left behind, so each result's counters are the work since the result before it.
+  const done: Record<string, number> = {};
+  const counted = (): Record<string, number> => {
+    const now: Record<string, number> = { ...done };
+    for (const [key, v] of Object.entries(chain.stats)) now[key] = (now[key] ?? 0) + v;
+    return now;
+  };
+  const steps = { n: 0 };
+  const out: ChunkResult[] = [];
+  let before: Record<string, number> = {};
+  for (let k = 0; k < spans.length; k++) {
+    const sp = spans[k]!;
+    if (k > 0) {
+      // The gap: every event up to and including this stretch's start, so the chain stands just after it, as a fresh one would.
+      const limit = chain.stats.trackerEvents + budget * piece.m * chain.passes.length;
+      let nx = chain.peek();
+      for (; nx && compareDirections(dirOf(g, nx.ci, nx.cj), sp.s) <= 0 && chain.stats.trackerEvents <= limit; nx = chain.peek()) {
+        if (beat !== undefined && (++steps.n & 0x3fff) === 0) beat();
+        chain.step();
+      }
+      if (nx && compareDirections(dirOf(g, nx.ci, nx.cj), sp.s) <= 0) {
+        for (const [key, v] of Object.entries(chain.stats)) done[key] = (done[key] ?? 0) + v;
+        ({ g, chain } = fresh(sp.s));
+      }
+    }
+    const res = recordSpan(chain, g, lowSeats, sp, keep, false, k < spans.length - 1, steps, beat);
+    const now = counted();
+    const stats: Record<string, number> = {};
+    for (const key of Object.keys(now)) stats[key] = now[key]! - (before[key] ?? 0);
+    before = now;
+    out.push({ ...res, stats: { ...stats, exactFallbacks: exactFallbacks() - f0, ms: performance.now() - t0 } });
+    t0 = performance.now(); f0 = exactFallbacks();
+  }
+  return out;
+}
+
+const dirOf = (g: Geo, i: number, j: number): Dir => [X(g, i), Y(g, i), X(g, j), Y(g, j)];
+
+/**
+ * Record one stretch on a chain that stands just after its start: every range up to its end. With `stopAtEnd` the
+ * chain stops before the first event at or after the end (more stretches follow on it); otherwise it runs out, as the
+ * chain's own end direction is the stretch's end.
+ */
+function recordSpan(chain: Chain, g: Geo, lowSeats: number, span: SpanBounds, keep: number, findTies: boolean, stopAtEnd: boolean, steps: { n: number }, beat?: () => void): Omit<ChunkResult, 'stats'> {
+  const { s: start, e: end, sDeg: aDeg, eDeg: bDeg, endIsPi } = span;
+  const dir = (i: number, j: number): Dir => dirOf(g, i, j);
   const top: Range[] = [];
   const unresolved: number[] = [];
   const unresolvedRanges: Range[] = [];
@@ -159,9 +245,12 @@ export function sweepSpan(piece: Piece, seats: number, lowSeats: number, start: 
       while (top.length > keep && top[top.length - 1]!.lengthUm > top[keep - 1]!.lengthUm) top.pop();
     }
   };
-  let steps = 0;
   for (;;) {
-    if (beat !== undefined && (++steps & 0x3fff) === 0) beat();
+    if (beat !== undefined && (++steps.n & 0x3fff) === 0) beat();
+    if (stopAtEnd) {
+      const nx = chain.peek();
+      if (!nx || compareDirections(dir(nx.ci, nx.cj), end) >= 0) break;
+    }
     const st = chain.step();
     if (!st) break;
     if (st.changedSets) splitChanges++;
@@ -184,7 +273,6 @@ export function sweepSpan(piece: Piece, seats: number, lowSeats: number, start: 
   return {
     lowSeats, aDeg, bDeg, top, first: first!, last: last!, unresolvedBelow, splitChanges, resultRanges, ties,
     unresolvedRanges: unresolvedRanges.filter((u) => u.lengthUm < best).sort(compareRanges),
-    stats: { ...chain.stats, exactFallbacks: exactFallbacks() - f0, ms: performance.now() - t0 },
   };
 }
 

@@ -2,8 +2,8 @@ import { describe, expect, it } from 'vitest';
 import type { Block } from '../../../src/server/entities/census-block/index.js';
 import { Chain } from '../../../src/server/features/splitline/chain.js';
 import { createScanner, type Piece } from '../../../src/server/features/splitline/scan.js';
-import { compareDirections, directionAt, geoFor, mergeChunks, sweepChunk, type ChunkResult, type Range } from '../../../src/server/features/splitline/sweep.js';
-import { chunksFor, sweepTask, taskCount, type SweepJob } from '../../../src/server/features/splitline/tasks.js';
+import { compareDirections, directionAt, geoFor, mergeChunks, sweepChunk, sweepSpan, sweepSpans, type ChunkResult, type Range, type SpanBounds } from '../../../src/server/features/splitline/sweep.js';
+import { chunksFor, sweepTask, taskCount, tieWindows, type SweepJob, type TieSpanTask } from '../../../src/server/features/splitline/tasks.js';
 import { gridBlocks } from '../../helpers/grid.js';
 import { pieceOf } from '../../helpers/piece.js';
 
@@ -245,6 +245,77 @@ describe('chunk independence', () => {
       expect(spans[63]![1]).toBe(180);
       for (let i = 1; i < spans.length; i++) expect(spans[i]![0]).toBe(spans[i - 1]![1]);
     }
+  });
+});
+
+describe('stretches swept in windows', () => {
+  const withoutStats = (r: ChunkResult) => { const { stats: _s, ...rest } = r; return rest; };
+  /** The piece turned half way round, as findCut sweeps tie stretches. */
+  const turned = (p: Piece): Piece => ({ ...p, px: p.px.map((v) => -v), py: p.py.map((v) => -v) });
+  /** Stretches from a sweep's own ranges: every range starts at an event (or 0), so they start where tie stretches do. */
+  const stretchesOf = (piece: Piece, seats: number, lowSeats: number, pick: (i: number) => boolean): SpanBounds[] => {
+    const c = sweepChunk(piece, seats, lowSeats, 0, 180, KEEP_ALL);
+    const all = [...new Set([c.first, ...c.top, ...c.unresolvedRanges, c.last])].sort((p, q) => compareDirections(p.s, q.s));
+    return all.filter((_, i) => pick(i)).map((r) => ({ s: r.s, e: r.e, sDeg: r.sDeg, eDeg: r.eDeg, endIsPi: r === c.last }));
+  };
+  const cases = [
+    { name: 'jittered points', blocks: fixtures[1]!.blocks, seats: [2, 3, 5] },
+    { name: 'U shape with a stray arm', blocks: fixtures[2]!.blocks, seats: [2] },
+    { name: 'two stray arms', blocks: fixtures[4]!.blocks, seats: [2] },
+    // Even populations and empty blocks: stopping-rule ties, so the turned piece decides them the other way.
+    { name: 'empty blocks', blocks: gridBlocks(6, 4, { pop: (x, y) => ((x * 3 + y * 5) % 4 === 0 ? 0 : 2 * ((x + y) % 3)) }), seats: [2, 3, 4] },
+  ];
+  for (const f of cases) {
+    for (const seats of f.seats) {
+      it(`${f.name}, ${seats} seats: every stretch gives in a window what it gives alone`, () => {
+        const piece = turned(pieceOf(f.blocks));
+        for (const lowSeats of orientationsOf(seats)) {
+          for (const [label, pick] of [['every other', (i: number) => i % 2 === 0], ['touching', (i: number) => i % 3 !== 2], ['all', () => true]] as const) {
+            const spans = stretchesOf(piece, seats, lowSeats, pick);
+            if (spans.length === 0) continue;
+            const alone = spans.map((s) => withoutStats(sweepSpan(piece, seats, lowSeats, s.s, s.e, s.sDeg, s.eDeg, s.endIsPi, 6, false)));
+            for (const size of [1, 2, 3, spans.length]) {
+              const got: ChunkResult[] = [];
+              for (let i = 0; i < spans.length; i += size) got.push(...sweepSpans(piece, seats, lowSeats, spans.slice(i, i + size), 6));
+              expect(got.map(withoutStats), `${label}, windows of ${size}`).toEqual(alone);
+            }
+            // A gap given up part way (or at once, or never) starts the next stretch afresh: the same results.
+            for (const budget of [0, 0.01, Infinity]) {
+              expect(sweepSpans(piece, seats, lowSeats, spans, 6, undefined, budget).map(withoutStats), `${label}, budget ${budget}`).toEqual(alone);
+            }
+          }
+        }
+      });
+    }
+  }
+
+  it('carries the work counters over so a window sums to its whole sweep', () => {
+    const piece = turned(pieceOf(fixtures[4]!.blocks));
+    const spans = stretchesOf(piece, 2, 1, (i) => i % 2 === 0);
+    const got = sweepSpans(piece, 2, 1, spans, 6);
+    expect(got).toHaveLength(spans.length);
+    const sum = got.reduce((s, r) => s + (r.stats['trackerEvents'] ?? 0), 0);
+    expect(sum).toBeGreaterThan(0);
+    for (const r of got) expect(r.stats['trackerEvents']).toBeGreaterThanOrEqual(0);
+  });
+
+  it('refuses stretches out of turn order', () => {
+    const piece = pieceOf(fixtures[1]!.blocks);
+    const spans = stretchesOf(piece, 2, 1, () => true);
+    expect(spans.length).toBeGreaterThan(2);
+    expect(() => sweepSpans(piece, 2, 1, [spans[2]!, spans[0]!], 6)).toThrow(/turn order/);
+  });
+
+  it('groups neighbouring stretches of one seat count, never across a seat count or the end of the half turn', () => {
+    const at = (lowSeats: number, a: number, b: number, endIsPi = false): TieSpanTask => ({ lowSeats, s: directionAt(a), e: directionAt(b), sDeg: a, eDeg: b, endIsPi });
+    const list = [at(1, 0, 1), at(1, 1.1, 2), at(1, 50, 51), at(1, 179, 180, true), at(2, 0.1, 0.2), at(2, 0.3, 0.4), at(2, 0.35, 0.5)];
+    // A new window at a new seat count and after the stretch that ends the half turn; never two stretches out of turn order.
+    expect(tieWindows(list.slice(0, 6))).toEqual([0, 4]);
+    expect(tieWindows(list)).toEqual([0, 4, 6]);
+    expect(tieWindows([])).toEqual([]);
+    // A long run is split so the windows still spread over the threads.
+    const run = Array.from({ length: 40 }, (_, i) => at(1, i * 0.01, i * 0.01 + 0.005));
+    expect(tieWindows(run)).toEqual([0, 16, 32]);
   });
 });
 

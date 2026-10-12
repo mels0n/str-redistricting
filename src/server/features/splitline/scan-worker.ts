@@ -22,7 +22,7 @@ process.on('exit', () => {
 parentPort!.on('message', (req: ScanRequest) => {
   current = req.ctrl;
   const total = taskCount(req.job);
-  const results: { task: number; result: ChunkResult }[] = [];
+  const results: { task: number; result: readonly ChunkResult[] }[] = [];
   // The heartbeat: a long task shows it is still running, so the caller does not take it for a stall.
   const beat = () => { Atomics.add(req.ctrl, BEAT, 1); };
   let reply: ScanReply;

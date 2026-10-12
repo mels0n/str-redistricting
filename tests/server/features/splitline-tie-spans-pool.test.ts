@@ -101,7 +101,7 @@ describe('tie stretches swept in the worker pool', () => {
     expect(r.tieSpans).toBeGreaterThan(0);
     const job = { seats: 2, orientations: [1], chunks: chunksFor(n), keep: 6 }, piece = pieceOf(ctx);
     let chunkOnly = 0;
-    for (let t = 0; t < taskCount(job); t++) chunkOnly += runTask(piece, job, t).stats['derivedBuilds'] ?? 0;
+    for (let t = 0; t < taskCount(job); t++) for (const r of runTask(piece, job, t)) chunkOnly += r.stats['derivedBuilds'] ?? 0;
     expect(chunkOnly).toBeGreaterThan(0);
     expect(r.scan.derivedBuilds).toBeGreaterThan(chunkOnly);
   });

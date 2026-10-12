@@ -33,7 +33,7 @@ export interface ScanRequest {
 }
 
 export type ScanReply =
-  | { readonly ok: true; readonly id: number; readonly results: readonly { readonly task: number; readonly result: ChunkResult }[] }
+  | { readonly ok: true; readonly id: number; readonly results: readonly { readonly task: number; readonly result: readonly ChunkResult[] }[] }
   | { readonly ok: false; readonly id: number; readonly task: number; readonly message: string; readonly data: boolean };
 
 function shared<T extends Float64Array | Int32Array>(src: T): T {
@@ -83,7 +83,7 @@ export class ScanPool {
     return this.reason !== undefined;
   }
 
-  /** Sweep every task of `job` (chunks, or tie stretches) on `piece`; returns the results in task order. */
+  /** Sweep every task of `job` (chunks, or windows of tie stretches) on `piece`; returns the results in task order, a window's one per stretch. */
   scan(piece: Piece, job: PoolJob): ChunkResult[] {
     if (this.reason !== undefined) throw new WorkerPoolError(`cut search pool is unusable: ${this.reason}`);
     try {
@@ -123,7 +123,7 @@ export class ScanPool {
       else if (Date.now() - lastProgress > this.stallMs) throw new WorkerPoolError('cut search workers stopped making progress');
     }
     let failure: Extract<ScanReply, { ok: false }> | undefined;
-    const results: ChunkResult[] = [];
+    const results: (readonly ChunkResult[])[] = [];
     const nap = new Int32Array(new SharedArrayBuffer(4));
     for (const w of this.workers) {
       let got = receiveMessageOnPort(w.port);
@@ -141,7 +141,7 @@ export class ScanPool {
     const total = taskCount(job);
     for (let t = 0; t < total; t++) if (!results[t]) throw new WorkerPoolError('a cut search worker lost a task');
     if (results.length !== total) throw new WorkerPoolError('a cut search worker reported a task that does not exist');
-    return results;
+    return results.flat();
   }
 
   /** Mark the pool unusable and stop its workers. Safe to repeat; the first reason wins. */

@@ -240,17 +240,26 @@ export class Chain {
     return false;
   }
 
-  /** Process the next event direction across every tracker. */
-  step(): { changedSets: boolean; changedResult: boolean; ci: number; cj: number } | null {
-    const all = [...this.passes.map((P) => P.tr), ...this.spares];
+  /** The next event direction across every tracker, the one step() processes next; null when none is left. */
+  peek(): { ci: number; cj: number } | null {
+    const all = this.trackers();
     let p = -1;
     for (let q = 0; q < all.length; q++) {
       const tr = all[q]!;
       if (!tr.hasNext()) continue;
       if (p < 0 || crossDir(this.geo, tr.nextI(), tr.nextJ(), all[p]!.nextI(), all[p]!.nextJ()) < 0) p = q;
     }
-    if (p < 0) return null;
-    const ci = all[p]!.nextI(), cj = all[p]!.nextJ();
+    return p < 0 ? null : { ci: all[p]!.nextI(), cj: all[p]!.nextJ() };
+  }
+
+  private trackers(): Tracker[] { return [...this.passes.map((P) => P.tr), ...this.spares]; }
+
+  /** Process the next event direction across every tracker. */
+  step(): { changedSets: boolean; changedResult: boolean; ci: number; cj: number } | null {
+    const next = this.peek();
+    if (!next) return null;
+    const all = this.trackers();
+    const { ci, cj } = next;
     let any = false;
     for (let q = 0; q < all.length; q++) {
       const tr = all[q]!;

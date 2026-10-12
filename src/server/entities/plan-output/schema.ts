@@ -35,8 +35,10 @@ const Move = z.object({
   geoid: z.string().regex(/^[0-9]{15}$/),
   from: z.number().int().positive(),
   to: z.number().int().positive(),
-  pop: z.number().int().positive(),
-  gain: z.number().positive(),
+  /** People in the block; 0 is a block with no people, moved only because that shortens the border. */
+  pop: z.number().int().nonnegative(),
+  /** Decrease in the sum of squared district deviations; 0 for a block with no people. */
+  gain: z.number().nonnegative(),
 });
 
 /** out/<ST>/balance.json as the generator writes it: districts 1-based, populations before the first move. */

@@ -110,9 +110,17 @@ describe('balance.json', () => {
     expect(() => buildBalance(2, bad({}), new Map())).toThrow(DataError);
     expect(() => buildBalance(3, bad({}), polygons)).toThrow(DataError);
   });
-  it('rejects a move of zero people and a fractional or negative starting population', () => {
-    const move = { block: 1, geoid: '440010301001000', from: 1, to: 2, pop: 0, gain: 1 };
-    expect(() => BalanceLogSchema.parse({ before: [1, 1], moves: [move] })).toThrow();
+  it('accepts a move of a block with no people, which gains nothing and only shortens the border', () => {
+    const move = { block: 1, geoid: '440010301001000', from: 1, to: 2, pop: 0, gain: 0 };
+    expect(BalanceLogSchema.parse({ before: [1, 1], moves: [move] }).moves[0]).toEqual(move);
+    const b = buildBalance(2, BalanceLogSchema.parse({ before: [1, 1], moves: [move] }), polygons);
+    expect(b.moves[0]).toEqual({ order: 1, geoid: '440010301001000', from: 1, to: 2, pop: 0, gain: 0 });
+  });
+  it('rejects a negative move size or gain and a fractional or negative starting population', () => {
+    const move = { block: 1, geoid: '440010301001000', from: 1, to: 2, pop: 0, gain: 0 };
+    expect(() => BalanceLogSchema.parse({ before: [1, 1], moves: [{ ...move, pop: -1 }] })).toThrow();
+    expect(() => BalanceLogSchema.parse({ before: [1, 1], moves: [{ ...move, gain: -1 }] })).toThrow();
+    expect(() => BalanceLogSchema.parse({ before: [1, 1], moves: [{ ...move, pop: 1.5 }] })).toThrow();
     expect(() => BalanceLogSchema.parse({ before: [1.5, 1], moves: [] })).toThrow();
     expect(() => BalanceLogSchema.parse({ before: [-1, 1], moves: [] })).toThrow();
   });

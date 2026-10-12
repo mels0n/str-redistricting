@@ -319,6 +319,38 @@ export async function furthestCase(ctx: ExtractContext): Promise<RuleCase> {
   };
 }
 
+/**
+ * The captions for the second and last steps of balance.stop. A move of a block with people lowers the sum by its gain; a move of a block with no people has
+ * gain 0, leaves the sum as it was and is made only because it shortens the border.
+ */
+export function stopCaptions(moves: readonly { gain: number }[]): [string, string] {
+  const n = moves.length;
+  const withPeople = moves.filter((m) => m.gain > 0);
+  const empty = n - withPeople.length;
+  const dots = 'Each dot is the sum after a move.';
+  const ending = 'a sum of squares never goes below zero';
+  if (empty === 0) {
+    const lowest = withPeople.reduce((m, x) => Math.min(m, x.gain), Infinity);
+    return [
+      `Each of the ${n} moves lowers that sum, the first by ${whole(moves[0]!.gain)} and the last by ${whole(moves[n - 1]!.gain)}. ${dots}`,
+      `No move lowers the sum any further, so the pass stops. It always does: every move lowers the sum by at least ${whole(lowest)}, and ${ending}.`,
+    ];
+  }
+  const border = 'A border cannot keep getting shorter either.';
+  const emptyWords = `${empty} of the ${n} moves ${empty === 1 ? 'is' : 'are'} of blocks with no people. They leave the sum unchanged and are made only because they shorten the border.`;
+  if (withPeople.length === 0) {
+    return [
+      `No move raises that sum. ${emptyWords} ${dots}`,
+      `No move helps any further, so the pass stops. It always does: the sum never goes up, and a border cannot keep getting shorter.`,
+    ];
+  }
+  const lowest = withPeople.reduce((m, x) => Math.min(m, x.gain), Infinity);
+  return [
+    `No move raises that sum. The others lower it, the first by ${whole(withPeople[0]!.gain)} and the last by ${whole(withPeople[withPeople.length - 1]!.gain)}. ${emptyWords} ${dots}`,
+    `No move helps any further, so the pass stops. It always does: every move of a block with people lowers the sum by at least ${whole(lowest)}, and ${ending}. ${border}`,
+  ];
+}
+
 /** balance.stop: the sum of squared distances falls with every move until none helps. */
 export async function stopCase(ctx: ExtractContext): Promise<RuleCase> {
   const abbr = BALANCE_STATE;
@@ -334,7 +366,7 @@ export async function stopCase(ctx: ExtractContext): Promise<RuleCase> {
   const [rangeBefore, rangeAfter] = [numberField(out.metrics, 'rangeBeforeBalancing', abbr), numberField(out.metrics, 'rangeAfterBalancing', abbr)];
   if (range(before) !== rangeBefore || range(districts.map((d) => d.pop)) !== rangeAfter) throw new DataError(`${abbr}: the ranges in metrics.json do not match the populations`);
   const n = moves.length;
-  const lowest = moves.reduce((m, x) => Math.min(m, x.gain), Infinity);
+  const [each, why] = stopCaptions(moves);
   const name = nameOf(abbr);
   const chart = ['chart', 'x-start', 'x-end'];
 
@@ -351,9 +383,9 @@ export async function stopCase(ctx: ExtractContext): Promise<RuleCase> {
         caption: `Before balancing, ${name}'s districts run from ${whole(Math.min(...before))} to ${whole(Math.max(...before))} people, a range of ${whole(rangeBefore)}. Squaring each district's distance from the ideal ${people(ideal)} and adding up gives ${people(values[0]!)}.`,
         show: [...chart, 'chart-first'],
       },
-      { caption: `Each of the ${n} moves lowers that sum, the first by ${whole(moves[0]!.gain)} and the last by ${whole(moves[n - 1]!.gain)}. Each dot is the sum after a move.`, show: chart },
+      { caption: each, show: chart },
       { caption: `After ${n} moves the sum is ${people(final)} and the range is ${whole(rangeAfter)}.`, show: [...chart, 'chart-last'] },
-      { caption: `No move lowers the sum any further, so the pass stops. It always does: every move lowers the sum by at least ${whole(lowest)}, and a sum of squares never goes below zero.`, show: [...chart, 'chart-last'] },
+      { caption: why, show: [...chart, 'chart-last'] },
     ],
     chart: { kind: 'series', values, marks: { first: [0], last: [n] } },
   };

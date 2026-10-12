@@ -245,6 +245,7 @@ describe('stage 3 stray-piece cases', () => {
   it.skipIf(!haveAK)('islands bridge endpoints are the island block and its nearest main-body block', async () => {
     const c = await islandsCase(ctx);
     shape(c);
+    expect(c.steps.map((x) => x.caption).join(' ')).toMatch(/length[^.]*border|border[^.]*length/);
     const pick = await islandBridge(ctx);
     expect(pick).toBeDefined();
     const { abbr, island, islandBlock, mainBlock } = pick!;

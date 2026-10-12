@@ -1001,7 +1001,7 @@ export async function islandsCase(ctx: ExtractContext): Promise<RuleCase> {
         show: [...I, ...M, 'pi', 'pm'],
       },
       {
-        caption: `The two blocks are joined as if they shared an edge, so the island counts as connected to the rest of ${name}.`,
+        caption: `The two blocks are joined as if they shared an edge, so the island counts as connected to the rest of ${name}. The link has a length, the distance between the two internal points, and it counts toward the border of a cut whose sides meet across it.`,
         show: [...I, ...M, 'pi', 'pm', 'bridge', 'dist'],
       },
       {

@@ -20,6 +20,11 @@ export function congressOfSource(source: string): number | null {
   return m ? Number(m[2]) : null;
 }
 
+/** The name pattern of a state legislative districts file for a vintage: (2025, 'state-house') -> "cb_2025_<fips>_sldl_500k". */
+export function legislativeFileName(vintage: number, chamber: 'state-house' | 'state-senate'): string {
+  return `cb_${vintage}_<fips>_${chamber === 'state-house' ? 'sldl' : 'sldu'}_500k`;
+}
+
 /** "119th Congress" from a file name like cb_2025_us_cd119_500k, or "enacted" when the name is not recognised. */
 export function congressName(source: string): string {
   const n = congressOfSource(source);

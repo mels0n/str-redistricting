@@ -36,7 +36,11 @@ const ConfigSchema = z.object({
   tagline: z.string().min(1),
 });
 
-const EnactedSchema = z.looseObject({ congress: z.number().int().positive(), file: z.string().min(1) });
+const EnactedSchema = z.looseObject({
+  congress: z.number().int().positive(),
+  file: z.string().min(1),
+  legislative: z.looseObject({ vintage: z.number().int().positive() }),
+});
 const enacted = EnactedSchema.parse(enactedJson);
 
 /**
@@ -44,7 +48,7 @@ const enacted = EnactedSchema.parse(enactedJson);
  * config/enacted.json, the same file the publisher reads, so the two cannot drift; `npm run enacted:bump` rewrites
  * it, and a test checks the published data against it.
  */
-export const ENACTED = { congress: enacted.congress, file: enacted.file } as const;
+export const ENACTED = { congress: enacted.congress, file: enacted.file, legislativeVintage: enacted.legislative.vintage } as const;
 
 export const VersionsSchema = z.looseObject({
   engine: z.string().min(1),

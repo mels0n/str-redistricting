@@ -64,3 +64,19 @@ describe('FAQ page', () => {
     expect(page.update?.({ page: 'how', section: null })).toBe(false);
   });
 });
+
+describe('legislative vintage in the copy', () => {
+  it('names the vintage from config/enacted.json on the FAQ and How pages', async () => {
+    const { ENACTED } = await import('../../src/client/shared');
+    const { default: enactedJson } = await import('../../config/enacted.json');
+    expect(ENACTED.legislativeVintage).toBe(enactedJson.legislative.vintage);
+    const v = String(ENACTED.legislativeVintage);
+    const faq = createFaqPage({ page: 'faq', question: null }).el.textContent ?? '';
+    expect(faq).toContain(`Census Bureau’s ${v} state legislative district files`);
+    expect(faq).toContain(`distinct district in the Census Bureau’s ${v} state legislative district files`);
+    const { createHowPage } = await import('../../src/client/pages/how');
+    const how = createHowPage({ page: 'how', section: null }).el.textContent ?? '';
+    expect(how).toContain(`state legislative districts (${v}), cb_${v}_<fips>_sldl_500k and cb_${v}_<fips>_sldu_500k`);
+    expect(how).toContain(`Census Bureau’s ${v} state legislative district file for that chamber`);
+  });
+});

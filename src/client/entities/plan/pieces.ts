@@ -101,3 +101,8 @@ export function cutRows(cuts: readonly Cut[]): CutRow[] {
       border: formatKm(c.lengthM),
     }));
 }
+
+/** Whether a view reads the plan before balancing: that plan itself, or either replay (they start from it). Its shapes are fetched only then. */
+export function planNeedsBefore(view: { plan: 'finished' | 'before'; cut: number | null; move: number | null }): boolean {
+  return view.plan === 'before' || view.cut !== null || view.move !== null;
+}

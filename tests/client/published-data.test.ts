@@ -2,12 +2,12 @@ import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { PMTiles } from 'pmtiles';
 import type { RangeResponse, Source } from 'pmtiles';
-import { feature } from 'topojson-client';
+import { feature, neighbors } from 'topojson-client';
 import type { Feature, FeatureCollection, MultiPolygon, Polygon } from 'geojson';
 import { describe, expect, it } from 'vitest';
 import { BlocksSchema } from '../../src/client/entities/plan/blocks';
 import { BalanceSchema } from '../../src/client/entities/plan/balance';
-import { BridgesSchema } from '../../src/client/entities/plan/model';
+import { BeforeNeighborsSchema, BridgesSchema } from '../../src/client/entities/plan/model';
 import { CutsSchema, DistrictTopoSchema, EnactedTopoSchema, StatsSchema, WaterTopoSchema } from '../../src/client/entities/plan/model';
 import { STATE_FIPS, StateIndexSchema } from '../../src/client/entities/state';
 import { ENACTED } from '../../src/client/shared/config';
@@ -19,6 +19,14 @@ const read = (...p: string[]): unknown => JSON.parse(readFileSync(join(dir, ...p
 const collection = (topo: unknown, name: string): FeatureCollection<Polygon | MultiPolygon> => {
   const t = topo as { objects: Record<string, never> };
   return feature(t as never, t.objects[name]!) as unknown as FeatureCollection<Polygon | MultiPolygon>;
+};
+
+/** The neighbors the viewer derives from a district topology: geometries sorted by district number, then topojson-client neighbors. */
+const viewerNeighbors = (topo: unknown, seats: number): number[][] => {
+  const t = topo as { objects: { districts: { geometries: { properties: { district: number } }[] } } };
+  const geoms = [...t.objects.districts.geometries].sort((a, b) => a.properties.district - b.properties.district);
+  expect(geoms).toHaveLength(seats);
+  return neighbors(geoms as never).map((l) => [...new Set(l)].sort((a, b) => a - b));
 };
 
 class BufferSource implements Source {
@@ -57,6 +65,7 @@ describe('the published data covers all 50 states', () => {
       for (const plan of [stats.finished, stats.beforeBalancing]) for (const d of plan.districts) expect(d.landParts, `${s.abbr} district ${d.district}`).toBeGreaterThanOrEqual(1);
       for (const f of ['districts', 'before']) {
         const topo = DistrictTopoSchema.parse(read(s.abbr, `${f}.topo.json`));
+        if (f === 'before') expect(BeforeNeighborsSchema.parse(read(s.abbr, 'before-neighbors.json')).neighbors, `${s.abbr} before-neighbors.json`).toEqual(viewerNeighbors(topo, s.seats));
         const fc = collection(topo, 'districts');
         expect(fc.features).toHaveLength(s.seats);
         // A map frame that spans most of the world means a shape was drawn across the antimeridian.

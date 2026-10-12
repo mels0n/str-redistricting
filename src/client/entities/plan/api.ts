@@ -8,6 +8,7 @@ import {
   EnactedTopoSchema,
   WaterTopoSchema,
   BridgesSchema,
+  BeforeNeighborsSchema,
   type Bridges,
   StatsSchema,
   type Cut,
@@ -40,13 +41,18 @@ export interface StateBundle {
   chamber: Chamber;
   stats: Stats;
   finished: PlanShapes;
-  before: PlanShapes;
+  /** The plan before balancing, or null until loadBefore has fetched it (only that plan and the replays read it). */
+  before: PlanShapes | null;
   cuts: Cut[];
   /** The water mask, or null when the state has none (the map is then drawn without it). */
   water: WaterShapes | null;
   /** The island links, or null when the file is missing or unreadable (nothing is then drawn or said about links). */
   bridges: Bridges | null;
-  /** Fill color for each district, by district index (district 1 at 0). */
+  /**
+   * Fill color for each district, by district index (district 1 at 0). Both plans' neighbors are kept apart from the first
+   * paint when the state publishes before-neighbors.json. For older data the colors keep only the finished map's neighbors
+   * apart until loadBefore has the before-balancing shapes, then keep both plans' apart.
+   */
   colors: string[];
 }
 
@@ -85,6 +91,19 @@ function loadBridges(dir: string): Promise<Bridges | null> {
 }
 
 /**
+ * The before-balancing plan's district neighbors, which fix the district colors from the first paint. A missing or
+ * unreadable file (older data) is not an error: the colors are then worked out once the plan loads.
+ */
+function loadBeforeNeighbors(dir: string): Promise<number[][] | null> {
+  return fetchJson(dataUrl(`${dir}/before-neighbors.json`), BeforeNeighborsSchema)
+    .then((file) => file.neighbors)
+    .catch(() => null);
+}
+
+/** Bundles whose colors already account for both plans, so loadBefore leaves them alone. */
+const colorsFinal = new WeakSet<StateBundle>();
+
+/**
  * A state's numbers alone (both plans, every district), without any shapes. It also checks the state's stamp for
  * release skew (see checkRelease), so loading stats can reload the app when a newer release went out.
  */
@@ -103,36 +122,64 @@ export function loadStateBundle(abbr: string, chamber: Chamber = 'federal-house'
   let p = bundles.get(dir);
   if (!p) {
     const finishedUrl = dataUrl(`${dir}/districts.topo.json`);
-    const beforeUrl = dataUrl(`${dir}/before.topo.json`);
     p = Promise.all([
       loadStats(abbr, chamber),
       fetchJson(finishedUrl, DistrictTopoSchema),
-      fetchJson(beforeUrl, DistrictTopoSchema),
       fetchJson(dataUrl(`${dir}/cuts.json`), CutsSchema),
       loadWater(dir),
       loadBridges(dir),
-    ]).then(([stats, finishedTopo, beforeTopo, cuts, water, bridges]) => {
+      loadBeforeNeighbors(dir),
+    ]).then(([stats, finishedTopo, cuts, water, bridges, rawNeighbors]) => {
       const seats = stats.finished.metrics.seats;
       if (cuts.length !== seats - 1) {
         throw new DataShapeError(dataUrl(`${dir}/cuts.json`), `expected ${seats - 1} cuts, found ${cuts.length}`);
       }
       const finished = toShapes(finishedTopo as unknown as DistrictTopology, finishedUrl, seats);
-      const before = toShapes(beforeTopo as unknown as DistrictTopology, beforeUrl, seats);
-      const slots = assignColors(unionNeighbors(finished.neighbors, before.neighbors), districtPalette.length);
-      return {
+      // A list of the wrong size is treated as absent: the colors are then worked out after loadBefore.
+      const beforeNeighbors = rawNeighbors && rawNeighbors.length === seats && rawNeighbors.every((l) => l.every((j) => j < seats)) ? rawNeighbors : null;
+      const slots = assignColors(beforeNeighbors ? unionNeighbors(finished.neighbors, beforeNeighbors) : finished.neighbors, districtPalette.length);
+      const bundle: StateBundle = {
         abbr,
         chamber,
         stats,
         finished,
-        before,
+        before: null,
         cuts: [...cuts].sort((a, b) => a.order - b.order),
         water,
         bridges,
         colors: slots.map((s) => districtPalette[s]!.hex),
       };
+      if (beforeNeighbors) colorsFinal.add(bundle);
+      return bundle;
     });
     p.catch(() => bundles.delete(dir));
     bundles.set(dir, p);
+  }
+  return p;
+}
+
+const befores = new Map<string, Promise<PlanShapes>>();
+
+/**
+ * Fetches the plan before balancing, once per chamber's data, and sets it on the state's bundle (loading the bundle first
+ * if needed). Only the "Before balancing" view and the cut and balancing replays read it, so the finished map does not wait for it.
+ */
+export function loadBefore(abbr: string, chamber: Chamber = 'federal-house'): Promise<PlanShapes> {
+  const dir = chamberDataPath(abbr, chamber);
+  let p = befores.get(dir);
+  if (!p) {
+    const beforeUrl = dataUrl(`${dir}/before.topo.json`);
+    p = Promise.all([loadStateBundle(abbr, chamber), fetchJson(beforeUrl, DistrictTopoSchema)]).then(([bundle, topo]) => {
+      const before = toShapes(topo as unknown as DistrictTopology, beforeUrl, bundle.stats.finished.metrics.seats);
+      if (!colorsFinal.has(bundle)) {
+        const slots = assignColors(unionNeighbors(bundle.finished.neighbors, before.neighbors), districtPalette.length);
+        bundle.colors = slots.map((s) => districtPalette[s]!.hex);
+      }
+      bundle.before = before;
+      return before;
+    });
+    p.catch(() => befores.delete(dir));
+    befores.set(dir, p);
   }
   return p;
 }

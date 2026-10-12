@@ -1,5 +1,10 @@
 # Web changelog
 
+## 1.2.1 (2026-10-12)
+
+- The map before balancing now loads only when it is shown, so state chamber pages open faster.
+- District colors are fixed from the first paint.
+
 ## 1.2.0 (2026-10-11)
 
 - The viewer now shows State House and State Senate maps alongside the Federal House map, with the same cut-by-cut walkthrough and comparison.

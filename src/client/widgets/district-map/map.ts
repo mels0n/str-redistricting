@@ -72,7 +72,7 @@ import {
   blockTip,
   type BlockInfo,
 } from './blocks';
-import { linksIn, linksFeatures, piecesAfter, pieceSizes, movedBlocksAt, balancePlanAt, type StateBundle, type PlanShapes, type EnactedShapes, type BalanceLog } from '../../entities/plan';
+import { planNeedsBefore, linksIn, linksFeatures, piecesAfter, pieceSizes, movedBlocksAt, balancePlanAt, type StateBundle, type PlanShapes, type EnactedShapes, type BalanceLog } from '../../entities/plan';
 
 export interface MapViewState {
   plan: Plan;
@@ -231,8 +231,7 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
   const labelsFor = (plan: Plan): LonLat[] => {
     let l = labelCache.get(plan);
     if (!l) {
-      const shapes = plan === 'finished' ? bundle.finished : bundle.before;
-      l = shapes.features.map((f) => (waterPolys.length > 0 ? landLabelPoint(f.geometry, waterPolys) : labelPoint(f.geometry)));
+      l = shapesOf(plan).features.map((f) => (waterPolys.length > 0 ? landLabelPoint(f.geometry, waterPolys) : labelPoint(f.geometry)));
       labelCache.set(plan, l);
     }
     return l;
@@ -461,7 +460,14 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
   let leaders: SVGSVGElement | null = null;
   let resizeObs: ResizeObserver | null = null;
 
-  const shapesOf = (plan: Plan): PlanShapes => (plan === 'finished' ? bundle.finished : bundle.before);
+  const shapesOf = (plan: Plan): PlanShapes => {
+    if (plan === 'finished') return bundle.finished;
+    // The page loads the plan before balancing before it asks for that view (see planNeedsBefore).
+    if (!bundle.before) throw new Error('The plan before balancing is not loaded');
+    return bundle.before;
+  };
+  /** Whether the "before" source holds the plan's shapes yet (it starts empty when the bundle has none). */
+  let beforeSent = bundle.before !== null;
 
   /** What the island-link sources hold now, so hovering does not rewrite them. */
   let linksKey = '';
@@ -561,7 +567,7 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
     for (const plan of ['finished', 'before'] as const) {
       map.addSource(plan, {
         type: 'geojson',
-        data: { type: 'FeatureCollection', features: shapesOf(plan).features },
+        data: { type: 'FeatureCollection', features: plan === 'finished' || bundle.before ? shapesOf(plan).features : [] },
         promoteId: 'district',
       });
     }
@@ -859,6 +865,14 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
   }
 
   function apply(next: MapViewState): void {
+    if (bundle.before && !beforeSent) {
+      src('before').setData({ type: 'FeatureCollection', features: bundle.before.features });
+      beforeSent = true;
+    }
+    // Not drawn until the plan before balancing has loaded; the page draws again when it has.
+    if (planNeedsBefore(next) && !bundle.before) return;
+    creditSha = next.cut === null && next.move === null && next.plan === 'before' ? beforeSha : finishedSha;
+    credit.update();
     const prev = current;
     current = next;
     // A replay opening changes the frame a lot (the controls come up under the map): show the whole state again, even if it was zoomed.
@@ -1000,8 +1014,6 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
     });
     resolve({
       set(state) {
-        creditSha = state.cut === null && state.move === null && state.plan === 'before' ? beforeSha : finishedSha;
-        credit.update();
         if (ready) apply(state);
         else pending = state;
       },

@@ -72,7 +72,7 @@ import {
   blockTip,
   type BlockInfo,
 } from './blocks';
-import { linksIn, linksFeatures, piecesAfter, pieceSizes, movedBlocksAt, balancePlanAt, type StateBundle, type PlanShapes, type EnactedShapes, type BalanceLog } from '../../entities/plan';
+import { planNeedsBefore, linksIn, linksFeatures, piecesAfter, pieceSizes, movedBlocksAt, balancePlanAt, type StateBundle, type PlanShapes, type EnactedShapes, type BalanceLog } from '../../entities/plan';
 
 export interface MapViewState {
   plan: Plan;
@@ -462,12 +462,10 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
 
   const shapesOf = (plan: Plan): PlanShapes => {
     if (plan === 'finished') return bundle.finished;
-    // The page loads the plan before balancing before it asks for that view (see usesBefore).
+    // The page loads the plan before balancing before it asks for that view (see planNeedsBefore).
     if (!bundle.before) throw new Error('The plan before balancing is not loaded');
     return bundle.before;
   };
-  /** Whether a view reads the plan before balancing: that plan itself, or either replay (they start from it). */
-  const usesBefore = (s: MapViewState): boolean => s.plan === 'before' || s.cut !== null || s.move !== null;
   /** Whether the "before" source holds the plan's shapes yet (it starts empty when the bundle has none). */
   let beforeSent = bundle.before !== null;
 
@@ -872,7 +870,9 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
       beforeSent = true;
     }
     // Not drawn until the plan before balancing has loaded; the page draws again when it has.
-    if (usesBefore(next) && !bundle.before) return;
+    if (planNeedsBefore(next) && !bundle.before) return;
+    creditSha = next.cut === null && next.move === null && next.plan === 'before' ? beforeSha : finishedSha;
+    credit.update();
     const prev = current;
     current = next;
     // A replay opening changes the frame a lot (the controls come up under the map): show the whole state again, even if it was zoomed.
@@ -1014,8 +1014,6 @@ export function mountDistrictMap(opts: DistrictMapOptions): Promise<DistrictMapV
     });
     resolve({
       set(state) {
-        creditSha = state.cut === null && state.move === null && state.plan === 'before' ? beforeSha : finishedSha;
-        credit.update();
         if (ready) apply(state);
         else pending = state;
       },

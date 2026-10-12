@@ -14,16 +14,22 @@ const flush = async (): Promise<void> => {
 
 let fetched: string[];
 let failBefore: boolean;
+/** When set, the before file's answer waits for this promise. */
+let holdBefore: Promise<void> | null;
 
 beforeEach(() => {
   vi.resetModules();
   fetched = [];
   failBefore = false;
+  holdBefore = null;
   // Serve the published data files straight from public/data, and note each one asked for.
   vi.stubGlobal('fetch', (url: string) => {
     const path = new URL(String(url)).pathname.replace(/^.*\/data\//, '');
     fetched.push(path);
-    if (failBefore && path.endsWith('before.topo.json')) return Promise.resolve(new Response('no', { status: 404 }));
+    if (path.endsWith('before.topo.json') && (failBefore || holdBefore)) {
+      const answer = (): Response => (failBefore ? new Response('no', { status: 404 }) : new Response(readFileSync(`public/data/${path}`)));
+      return holdBefore ? holdBefore.then(answer) : Promise.resolve(answer());
+    }
     try {
       return Promise.resolve(new Response(readFileSync(`public/data/${path}`)));
     } catch {
@@ -109,6 +115,48 @@ describe('the plan before balancing', () => {
     expect(corrected.plan).toBe('finished');
     expect(opts?.replace).toBe(true);
     expect(page.el.querySelector('.strv-notice')!.textContent).toMatch(/before balancing could not be loaded/);
+    page.destroy();
+  });
+
+  it('is fetched once across a page re-mount: the loaded plan is kept', async () => {
+    const first = await mount(route({ plan: 'before' }));
+    first.page.destroy();
+    const second = await mount(route({ plan: 'before' }));
+    expect(beforeFetches()).toHaveLength(1);
+    expect(second.page.el.querySelector<HTMLElement>('.strv-notice')!.hidden).toBe(true);
+    second.page.destroy();
+  });
+
+  it('is fetched with the page for a link into the balancing replay', async () => {
+    const { page } = await mount(route({ move: 1 }));
+    expect(beforeFetches()).toEqual(['CO/before.topo.json']);
+    expect(page.el.dataset.cutMode).toBe('true');
+    page.destroy();
+  });
+
+  it('is asked for once, not in a loop, when the file cannot be fetched', async () => {
+    const { page, navs } = await mount(route({}));
+    failBefore = true;
+    page.update!(route({ plan: 'before' }));
+    await flush();
+    expect(beforeFetches()).toHaveLength(1);
+    expect(navs.filter(([r]) => r.plan === 'finished')).toHaveLength(1);
+    page.destroy();
+  });
+
+  it('does not navigate or show a notice when a failure lands after the visitor is back on the finished map', async () => {
+    let release!: () => void;
+    holdBefore = new Promise<void>((r) => (release = r));
+    failBefore = true;
+    const { page, navs } = await mount(route({}));
+    page.update!(route({ plan: 'before' }));
+    await flush();
+    page.update!(route({ plan: 'finished' }));
+    navs.length = 0;
+    release();
+    await flush();
+    expect(navs).toEqual([]);
+    expect(page.el.querySelector<HTMLElement>('.strv-notice')!.hidden).toBe(true);
     page.destroy();
   });
 });

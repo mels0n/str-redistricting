@@ -5,7 +5,7 @@
 export { loadStateBundle, loadBefore, loadEnacted, loadStats } from './api';
 export type { StateBundle, PlanShapes, DistrictFeature, EnactedShapes, WaterShapes } from './api';
 // The cut sequence: pieces and sides after each step.
-export { piecesAfter, pieceSizes, cutSides, cutRows, cutStep, stepBy, isLastStep } from './pieces';
+export { piecesAfter, planNeedsBefore, pieceSizes, cutSides, cutRows, cutStep, stepBy, isLastStep } from './pieces';
 export type { CutStep, CutRow } from './pieces';
 // District colors, and finding the district at a point.
 export { assignColors, unionNeighbors } from './coloring';

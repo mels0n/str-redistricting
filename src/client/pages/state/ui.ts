@@ -38,6 +38,7 @@ import {
   loadStateBundle,
   loadBefore,
   loadEnacted,
+  planNeedsBefore,
   loadBalance,
   loadBlocks,
   populationsAfter,
@@ -87,8 +88,8 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
     if (route.move !== null) return balancePlanAt(route.move, moveCount ?? 0);
     return route.cut !== null ? 'before' : route.plan;
   };
-  /** Whether the route reads the plan before balancing: that plan itself, or either replay (they start from it). Its shapes are fetched only then. */
-  const needsBefore = (): boolean => route.plan === 'before' || route.cut !== null || route.move !== null;
+  /** Whether the route reads the plan before balancing; its shapes are fetched only then. */
+  const needsBefore = (): boolean => planNeedsBefore(route);
   /** The number of balancing moves, once the state's numbers are in. */
   let moveCount: number | undefined;
   /** The balancing log: fetched only when the replay opens. */
@@ -495,7 +496,9 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
       loadBefore(entry.abbr, bundle.chamber)
         .then(() => locate(bundle))
         .catch(() => {
-          // Fall back to the finished map rather than leave the visitor on a view that cannot draw.
+          // Fall back to the finished map rather than leave the visitor on a view that cannot draw,
+          // unless they have already moved on (or left) while the file was loading.
+          if (!alive || !needsBefore()) return;
           const fallback = { ...route, plan: 'finished' as const, cut: null, move: null };
           noticeHash = formatHash(fallback);
           setNotice('The map before balancing could not be loaded. The finished map is shown.');

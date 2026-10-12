@@ -337,3 +337,56 @@ describe('the enacted districts update', () => {
     expect(job.join('\n')).toContain("needs.build.outputs.changed != 'true'");
   });
 });
+
+describe('the legislative update jobs', () => {
+  const lines = readFileSync(new URL('enacted-update.yml', dir), 'utf8').replace(/\r\n/g, '\n').split('\n');
+  /** The lines of one top-level job. */
+  const jobText = (name: string): string[] => {
+    const start = lines.findIndex((l) => l === `  ${name}:`);
+    expect(start, `job ${name}`).toBeGreaterThan(-1);
+    const end = lines.findIndex((l, i) => i > start && /^ {2}\S/.test(l));
+    return lines.slice(start, end === -1 ? undefined : end);
+  };
+  const needsOf = (name: string): string | undefined => jobText(name).find((l) => /^ {4}needs:/.test(l))?.trim();
+
+  it('has exactly the four jobs, so none of these checks is vacuous', () => {
+    const names = lines.flatMap((l) => /^ {2}([\w-]+):\s*$/.exec(l)?.[1] ?? []);
+    expect(names.filter((n) => ['build', 'open-pr', 'build-legislative', 'open-pr-legislative'].includes(n))).toEqual(['build', 'open-pr', 'build-legislative', 'open-pr-legislative']);
+  });
+  it('opens the legislative pull request after the legislative build alone', () => {
+    expect(needsOf('open-pr-legislative')).toBe('needs: build-legislative');
+    expect(needsOf('open-pr')).toBe('needs: build');
+  });
+  it('lets no legislative job depend on the congressional open-pr', () => {
+    for (const name of ['build-legislative', 'open-pr-legislative']) {
+      const needs = jobText(name).filter((l) => !l.trim().startsWith('#') && /\bneeds\b/.test(l)).join('\n');
+      expect(needs, name).not.toMatch(/\bopen-pr\b(?!-legislative)/);
+    }
+  });
+  it('fails the job, with a warning, when the vintage probe failed', () => {
+    const text = jobText('build-legislative').join('\n');
+    const detect = text.slice(text.indexOf('Look for a newer legislative vintage'), text.indexOf('Pick the newest vintage'));
+    expect(detect).toContain('.legislative.error // empty');
+    expect(detect).toMatch(/::warning::[^\n]*\$probe_error[\s\S]*?exit 1/);
+    // The error check comes before the "nothing new" exit, so a failed probe is never read as no update.
+    expect(detect.indexOf('.legislative.error')).toBeLessThan(detect.indexOf('update=false'));
+  });
+  it('adopts the newest served vintage that has no pull request in any state, in a step that runs no package runner', () => {
+    const text = jobText('build-legislative').join('\n');
+    const pick = text.slice(text.indexOf('Pick the newest vintage'), text.indexOf('Download the files'));
+    expect(pick).toContain('for vintage in $VINTAGES');
+    expect(pick).toContain('--state all');
+    expect(pick).toContain('echo "vintage=$vintage"');
+    expect(pick).not.toMatch(/\b(npm|npx|node|tsx)\b/);
+    expect(text).toContain('vintage: ${{ steps.existing.outputs.vintage }}');
+    expect(text).not.toContain('steps.detect.outputs.vintage }}');
+  });
+  it('lets the re-recorded fixture fingerprints through the allowlists, the artifact and the commit', () => {
+    const build = jobText('build-legislative').join('\n');
+    const open = jobText('open-pr-legislative').join('\n');
+    expect(build).toContain('tests/fingerprints/engine\.json');
+    expect(build).toContain('            tests/fingerprints/engine.json');
+    expect(open).toContain('tests/fingerprints/engine\.json');
+    expect(open).toContain('public/data tests/fingerprints/engine.json');
+  });
+});

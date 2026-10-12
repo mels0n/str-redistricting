@@ -4,9 +4,10 @@ import { ENACTED_CONFIG } from '../shared/config/index.js';
 import { ConfigError, exitCodeFor } from '../shared/errors/index.js';
 
 // Prints one JSON line on stdout: {"update":false,"legislative":{...}}, or {"update":true,"file":...,"congress":...,"year":...,"url":...,"legislative":{...}}.
-// `legislative` is {"update":bool,"vintage":N}: whether the next State House and State Senate vintage is served, and
-// the vintage to adopt (the pinned one when there is nothing new). When that probe fails it is
-// {"update":false,"vintage":N,"error":"probe failed"} and the congressional result stands.
+// `legislative` is {"update":bool,"vintage":N,"vintages":[N,...]}: whether a newer State House and State Senate vintage
+// is served, the newest one (the pinned one when there is nothing new) and every served vintage newer than the pinned
+// one, newest first. When that probe fails it is {"update":false,"vintage":N,"vintages":[],"error":"probe failed"} and
+// the congressional result stands.
 // With `--file <name>` it skips the probe and reports that file instead (the workflow's manual override); the
 // legislative vintage is not probed then.
 const args = process.argv.slice(2);
@@ -17,9 +18,10 @@ if (args.length > 0 && (forced === undefined || args.length !== 2)) {
   process.exit(exitCodeFor(usage));
 }
 (async () => {
-  if (forced !== undefined) return { ...describeFile(forced, boundaryUrl), legislative: { update: false, vintage: ENACTED_CONFIG.legislative.vintage } };
-  const congressional = await detectUpdate(ENACTED_CONFIG, new Date().getUTCFullYear(), boundaryUrl);
-  return { ...congressional, legislative: await detectLegislativeSafely(ENACTED_CONFIG) };
+  if (forced !== undefined) return { ...describeFile(forced, boundaryUrl), legislative: { update: false, vintage: ENACTED_CONFIG.legislative.vintage, vintages: [] } };
+  const nowYear = new Date().getUTCFullYear();
+  const congressional = await detectUpdate(ENACTED_CONFIG, nowYear, boundaryUrl);
+  return { ...congressional, legislative: await detectLegislativeSafely(ENACTED_CONFIG, nowYear) };
 })()
   .then((result) => {
     console.log(JSON.stringify(result));

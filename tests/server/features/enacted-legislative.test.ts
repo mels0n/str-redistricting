@@ -37,8 +37,8 @@ describe('checkNoChamberLost', () => {
 describe('detectLegislativeSafely', () => {
   it('reports a failed probe instead of throwing', async () => {
     const fetchFn = vi.fn<typeof fetch>(async () => new Response('x', { status: 500 }));
-    const got = await detectLegislativeSafely(current, { fetchFn, sleep: async () => undefined });
-    expect(got).toEqual({ update: false, vintage: 2025, error: 'probe failed' });
+    const got = await detectLegislativeSafely(current, 2026, { fetchFn, sleep: async () => undefined });
+    expect(got).toEqual({ update: false, vintage: 2025, vintages: [], error: 'probe failed' });
   });
 });
 
@@ -58,12 +58,30 @@ describe('detectLegislative', () => {
       urls.includes(String(input))
         ? new Response(null, { status: 200, headers: { 'content-type': 'application/zip' } })
         : new Response('<html></html>', { status: 404, headers: { 'content-type': 'text/html' } }));
+  const alUrl = (year: number): string => `https://www2.census.gov/geo/tiger/GENZ${year}/shp/cb_${year}_01_sldu_500k.zip`;
   it('reports the next vintage when its Alabama Senate file is served', async () => {
-    const fetchFn = served(['https://www2.census.gov/geo/tiger/GENZ2026/shp/cb_2026_01_sldu_500k.zip']);
-    expect(await detectLegislative(current, { fetchFn })).toEqual({ update: true, vintage: 2026 });
+    const fetchFn = served([alUrl(2026)]);
+    expect(await detectLegislative(current, 2026, { fetchFn })).toEqual({ update: true, vintage: 2026, vintages: [2026] });
   });
   it('reports no update, at the pinned vintage, when it is not', async () => {
-    expect(await detectLegislative(current, { fetchFn: served([]) })).toEqual({ update: false, vintage: 2025 });
+    expect(await detectLegislative(current, 2026, { fetchFn: served([]) })).toEqual({ update: false, vintage: 2025, vintages: [] });
+  });
+  it('finds a vintage that skips a year', async () => {
+    expect(await detectLegislative(current, 2026, { fetchFn: served([alUrl(2027)]) })).toEqual({ update: true, vintage: 2027, vintages: [2027] });
+  });
+  it('lists every served vintage newer than the pinned one, newest first, so one declined vintage does not hide the rest', async () => {
+    const got = await detectLegislative(current, 2027, { fetchFn: served([alUrl(2026), alUrl(2028)]) });
+    expect(got).toEqual({ update: true, vintage: 2028, vintages: [2028, 2026] });
+  });
+  it('never probes the pinned vintage or older, nor beyond next year', async () => {
+    const fetchFn = served([alUrl(2025), alUrl(2024), alUrl(2029)]);
+    expect(await detectLegislative(current, 2026, { fetchFn })).toEqual({ update: false, vintage: 2025, vintages: [] });
+    const probed = vi.mocked(fetchFn).mock.calls.map((c) => String(c[0]));
+    expect(probed).toEqual([alUrl(2027), alUrl(2026)]);
+  });
+  it('still probes the vintage after a pin that is ahead of the calendar', async () => {
+    const ahead = EnactedConfigSchema.parse({ ...current, legislative: { vintage: 2030 } });
+    expect(await detectLegislative(ahead, 2026, { fetchFn: served([alUrl(2031)]) })).toEqual({ update: true, vintage: 2031, vintages: [2031] });
   });
 });
 

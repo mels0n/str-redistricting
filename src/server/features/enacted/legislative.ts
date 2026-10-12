@@ -14,15 +14,25 @@ const PROBE_STATE = STATES.find((s) => s.abbr === 'AL')!;
 
 export interface LegislativeDetection {
   readonly update: boolean;
-  /** The vintage to adopt when `update`, else the pinned one. */
+  /** The newest served vintage when `update`, else the pinned one. */
   readonly vintage: number;
+  /** Every served vintage newer than the pinned one, newest first; empty when there is nothing new. */
+  readonly vintages: readonly number[];
 }
 
-/** Whether the Census Bureau already serves the next legislative vintage (probed on one state's State Senate file). */
-export async function detectLegislative(current: Pick<EnactedConfig, 'legislative'>, opts: ProbeOptions = {}): Promise<LegislativeDetection> {
-  const vintage = current.legislative.vintage + 1;
-  const served = await isServed(legislativeUrl(legislativeFileName(PROBE_STATE, 'state-senate', vintage)), opts);
-  return served ? { update: true, vintage } : { update: false, vintage: current.legislative.vintage };
+/**
+ * Which legislative vintages newer than the pinned one the Census Bureau serves (probed on one state's State Senate file),
+ * from the year after `nowYear` down to the one after the pinned vintage, newest first. All of them are reported, so a
+ * vintage whose pull request was closed unmerged can be passed over for an older served one without hiding a newer one.
+ */
+export async function detectLegislative(current: Pick<EnactedConfig, 'legislative'>, nowYear: number, opts: ProbeOptions = {}): Promise<LegislativeDetection> {
+  const pinned = current.legislative.vintage;
+  const newest = Math.max(nowYear + 1, pinned + 1);
+  const vintages: number[] = [];
+  for (let vintage = newest; vintage > pinned; vintage--) {
+    if (await isServed(legislativeUrl(legislativeFileName(PROBE_STATE, 'state-senate', vintage)), opts)) vintages.push(vintage);
+  }
+  return vintages.length > 0 ? { update: true, vintage: vintages[0]!, vintages } : { update: false, vintage: pinned, vintages };
 }
 
 /**
@@ -31,12 +41,13 @@ export async function detectLegislative(current: Pick<EnactedConfig, 'legislativ
  */
 export async function detectLegislativeSafely(
   current: Pick<EnactedConfig, 'legislative'>,
+  nowYear: number,
   opts: ProbeOptions = {},
 ): Promise<LegislativeDetection & { readonly error?: string }> {
   try {
-    return await detectLegislative(current, opts);
+    return await detectLegislative(current, nowYear, opts);
   } catch {
-    return { update: false, vintage: current.legislative.vintage, error: 'probe failed' };
+    return { update: false, vintage: current.legislative.vintage, vintages: [], error: 'probe failed' };
   }
 }
 

@@ -25,7 +25,7 @@ import { loadOgFonts, OG_PALETTE, ogSvg, renderOgPng } from './og.js';
 import { ogCredit } from './og-credit.js';
 import { buildStats, planStats } from './stats.js';
 import { buildIndex, STATE_CHAMBERS, PlanMetricsSchema, PublishedMetricsSchema, PublishedStampSchema, summarize, type PlanMetrics, type StateSummary } from './summary.js';
-import { buildDetailTiles, districtsAtDeepTile } from './tiles.js';
+import { buildDetailTiles, deepSamplePoint, districtsAtDeepTile } from './tiles.js';
 import { districtBudget, toTopology } from './topo.js';
 import { buildPublishedBridges, districtsByGeoid } from './bridges.js';
 import { buildWater, countLandParts, mergeLand, type PopulatedPoint } from './water.js';
@@ -268,14 +268,28 @@ async function readPublishedState(statsPath: string): Promise<PublishedPlan | nu
   };
 }
 
-/** Every 1-in-N block (about TILE_CHECK_SAMPLE) plus every moved block must land in the district the CSVs give, under both plans. */
+/**
+ * Every 1-in-N block (about TILE_CHECK_SAMPLE) plus every moved block must land in the district the CSVs give, under both
+ * plans. Each block is tested at a point at least DEEP_POINT_MARGIN tile units inside its edges (its Census interior point
+ * when that is far enough in), since a point closer to a border than tile rounding can land on either side of it.
+ * A block too thin to hold such a point anywhere cannot be tested by a point lookup and is counted, not checked.
+ */
 async function verifyTiles(state: StateInfo, all: readonly Block[], tiles: Uint8Array, file: BlocksFile, moved: ReadonlySet<string>, wrapped: boolean): Promise<void> {
   const stride = Math.max(1, Math.floor(all.length / TILE_CHECK_SAMPLE));
-  const picked = all.filter((b, i) => i % stride === 0 || moved.has(b.geoid));
+  const lon = (x: number): number => (wrapped ? unwrapLon(x) : x);
+  const picked: { geoid: string; point: [number, number] }[] = [];
+  let thin = 0;
+  all.forEach((b, i) => {
+    if (i % stride !== 0 && !moved.has(b.geoid)) return;
+    const point = deepSamplePoint(b.rings.map((r) => r.map((p) => [lon(p[0]), p[1]])), [lon(b.point[0]), b.point[1]]);
+    if (point) picked.push({ geoid: b.geoid, point });
+    else thin++;
+  });
+  if (thin > 0) console.log(`  ${state.abbr}: ${thin} sampled blocks are too thin for a tile point check and were skipped`);
   const misses: string[] = [];
   for (let i = 0; i < picked.length; i += POINTS_PER_BATCH) {
     const batch = picked.slice(i, i + POINTS_PER_BATCH);
-    const points = batch.map((b): [number, number] => (wrapped ? [unwrapLon(b.point[0]), b.point[1]] : [b.point[0], b.point[1]]));
+    const points = batch.map((b) => b.point);
     for (const [layer, which] of [['finished', 0], ['before', 1]] as const) {
       const got = await districtsAtDeepTile(tiles, layer, points);
       batch.forEach((b, j) => {

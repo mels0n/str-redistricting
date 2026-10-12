@@ -10,7 +10,7 @@ import { LINE_SEARCH, pinnedSha256, stampOf, VERSIONS } from '../../../src/serve
 // The geometry, tile and image work is replaced by stand-ins: this file is about where files go and what the index says.
 vi.mock('../../../src/server/entities/census-block/index.js', async (orig) => ({
   ...(await orig<typeof import('../../../src/server/entities/census-block/index.js')>()),
-  loadStateBlocks: vi.fn(async () => [{ geoid: '500010201001000', pop: 1, point: [-72, 44] }]),
+  loadStateBlocks: vi.fn(async () => [{ geoid: '500010201001000', pop: 1, point: [-72, 44], rings: [] }]),
   loadBlockPolygons: vi.fn(async () => new Map()),
 }));
 vi.mock('../../../src/server/features/publish/boundary.js', async (orig) => ({
@@ -32,6 +32,7 @@ vi.mock('../../../src/server/features/publish/arcs.js', () => ({ districtArcs: v
 vi.mock('../../../src/server/features/publish/tiles.js', () => ({
   buildDetailTiles: vi.fn(() => new Uint8Array([1])),
   districtsAtDeepTile: vi.fn(async (_t: unknown, _l: string, points: unknown[]) => points.map(() => 1)),
+  deepSamplePoint: vi.fn((_rings: unknown, point: [number, number]) => point),
 }));
 vi.mock('../../../src/server/features/publish/border-blocks.js', () => ({ buildStateBorderBlocks: vi.fn(async () => new Uint8Array([2])) }));
 vi.mock('../../../src/server/features/publish/og.js', () => ({ loadOgFonts: vi.fn(async () => []), ogSvg: vi.fn(() => ''), renderOgPng: vi.fn(() => new Uint8Array([3])), OG_PALETTE: [] }));

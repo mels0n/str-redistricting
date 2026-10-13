@@ -3,6 +3,7 @@
 ## 1.0.3 (2026-10-12)
 
 - Described how an island link's length counts in a cut's border, and balancing as people first, then border, including what the metrics count.
+- Described the `balanceMovesBorderOnly` and `peopleMovedBorderOnly` fields of `stats.json`.
 
 ## 1.0.2 (2026-10-12)
 

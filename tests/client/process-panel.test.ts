@@ -61,7 +61,7 @@ describe('balancing moves that only shortened the border', () => {
     expect(text({ ...metrics, balanceMovesBorderOnly: 41, peopleMovedBorderOnly: 90 })).toContain('41 of 127 moves only shortened the border.');
   });
   it('says so when none did, and uses the singular for one move', () => {
-    expect(text({ ...metrics, balanceMovesBorderOnly: 0, peopleMovedBorderOnly: 0 })).toContain('No move only shortened the border.');
+    expect(text({ ...metrics, balanceMovesBorderOnly: 0, peopleMovedBorderOnly: 0 })).toContain(`None of the ${metrics.balanceMoves.toLocaleString('en-US')} moves only shortened the border.`);
     expect(text({ ...metrics, balanceMoves: 1, peopleMovedByBalancing: 5, balanceMovesBorderOnly: 1, peopleMovedBorderOnly: 5 })).toContain('1 of 1 move only shortened the border.');
   });
   it('shows nothing when the stats predate the count or no move was made', () => {

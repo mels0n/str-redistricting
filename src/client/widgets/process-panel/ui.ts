@@ -23,7 +23,7 @@ const count = (n: number, one: string, many: string): string => `${formatInt(n)}
 function borderOnlyNote(m: Metrics): string {
   const n = m.balanceMovesBorderOnly;
   if (n === undefined || m.balanceMoves === 0) return '';
-  if (n === 0) return ' No move only shortened the border.';
+  if (n === 0) return m.balanceMoves === 1 ? ' That move did more than shorten the border.' : ` None of the ${formatInt(m.balanceMoves)} moves only shortened the border.`;
   return ` ${formatInt(n)} of ${count(m.balanceMoves, 'move', 'moves')} only shortened the border.`;
 }
 

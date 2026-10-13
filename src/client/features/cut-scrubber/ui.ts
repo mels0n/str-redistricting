@@ -70,7 +70,7 @@ function describeMove(m: number, total: number, log: BalanceLog | null, rangeBef
   if (m === 0) return `Balancing, before the first move. The largest and smallest districts are ${plural(rangeBefore, 'person', 'people')} apart.`;
   const d = moveDetail(log.before, log.moves, m)!;
   const range = rangeOf(populationsAfter(log.before, log.moves, m));
-  return `Balancing move ${m} of ${total}. Block ${d.move.geoid}, ${plural(d.move.pop, 'person', 'people')}, from ${districtLabel(chamber, d.move.from)} to ${districtLabel(chamber, d.move.to)}. Gap between them from ${formatInt(d.gapBefore)} to ${plural(d.gapAfter, 'person', 'people')}. State range ${plural(range, 'person', 'people')}.`;
+  return `Balancing move ${m} of ${total}. Block ${d.move.geoid}, ${plural(d.move.pop, 'person', 'people')}, from ${districtLabel(chamber, d.move.from)} to ${districtLabel(chamber, d.move.to)}. Gap between them from ${formatInt(d.gapBefore)} to ${plural(d.gapAfter, 'person', 'people')}.${d.gapAfter === d.gapBefore ? ' Exactly as close, and the border is shorter.' : ''} State range ${plural(range, 'person', 'people')}.`;
 }
 
 /** What stands in for the scrubber on a one-seat state: there is nothing to step through. */
@@ -503,6 +503,7 @@ export function createCutScrubber(opts: CutScrubberOptions): CutScrubber {
       h('strong', null, `Move ${formatInt(at)}:`),
       ` block ${d.move.geoid}, ${plural(d.move.pop, 'person', 'people')}, from ${districtLabel(chamber, d.move.from)} to ${districtLabel(chamber, d.move.to)}. Gap between them: `,
       h('span', { class: 'strv-nowrap' }, formatInt(d.gapBefore), arrowTo(), `${plural(d.gapAfter, 'person', 'people')}.`),
+      d.gapAfter === d.gapBefore ? ' Exactly as close, and the border is shorter.' : '',
     );
     if (at === n) readoutText.append(h('span', { class: 'strv-scrub__done' }, ' Balancing is done: this is the finished map.'));
     zoom.hidden = !canZoom;

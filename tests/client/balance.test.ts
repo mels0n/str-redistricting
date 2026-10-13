@@ -95,10 +95,12 @@ describe('the published balancing logs join the two phases', () => {
       expect(rangeOf(log.before)).toBe(m.rangeBeforeBalancing);
       expect(rangeOf(populationsAfter(log.before, moves, moves.length))).toBe(m.rangeAfterBalancing);
       expect(moves.reduce((t, x) => t + x.pop, 0)).toBe(m.peopleMovedByBalancing);
-      // Every move strictly narrows the gap between its two districts.
+      // Every move narrows the gap between its two districts, or leaves it exactly as wide (a move made only because it
+      // shortens the border, with gain 0).
       for (let k = 1; k <= moves.length; k++) {
         const d = moveDetail(log.before, moves, k)!;
-        expect(d.gapAfter).toBeLessThan(d.gapBefore);
+        if (d.move.gain === 0) expect(d.gapAfter).toBe(d.gapBefore);
+        else expect(d.gapAfter).toBeLessThan(d.gapBefore);
       }
       // Every moved block has an outline to draw.
       for (const x of moves) expect(log.blocks[x.geoid]).toBeDefined();

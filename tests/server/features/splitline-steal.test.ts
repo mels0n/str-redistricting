@@ -1,5 +1,5 @@
 import { Worker } from 'node:worker_threads';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { ALWAYS, BUSY, CTRL_WORDS, FAILED, IDLE, newPartList, PART_CAP, PENDING, Stealer, type Part } from '../../../src/server/features/splitline/steal.js';
 
 const fresh = () => ({ ctrl: new Int32Array(new SharedArrayBuffer(4 * CTRL_WORDS)), parts: newPartList() });
@@ -52,9 +52,14 @@ describe('Stealer', () => {
     const { ctrl, parts } = fresh();
     const stealer = new Stealer(ctrl, parts);
     stealer.begin();
-    const t0 = Date.now();
-    expect(stealer.next()).toBeNull();
-    expect(Date.now() - t0).toBeLessThan(40);
+    // Waiting is an Atomics.wait on SIGNAL (up to 50 ms a round), so "at once" means that call was never made.
+    const wait = vi.spyOn(Atomics, 'wait');
+    try {
+      expect(stealer.next()).toBeNull();
+      expect(wait).not.toHaveBeenCalled();
+    } finally {
+      wait.mockRestore();
+    }
     expect(Atomics.load(ctrl, BUSY)).toBe(0);
     expect(Atomics.load(ctrl, IDLE)).toBe(0);
   });

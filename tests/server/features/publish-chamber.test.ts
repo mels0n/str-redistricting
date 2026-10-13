@@ -6,6 +6,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { blocksFileName } from '../../../src/server/entities/census-block/index.js';
 import { stateByAbbr, STATES } from '../../../src/server/shared/apportionment/index.js';
 import { seatsFor } from '../../../src/server/shared/chamber/index.js';
+import { DataError } from '../../../src/server/shared/errors/index.js';
 import { LINE_SEARCH, pinnedSha256, stampOf, VERSIONS } from '../../../src/server/shared/config/index.js';
 
 // The geometry, tile and image work is replaced by stand-ins: this file is about where files go and what the index says.
@@ -146,6 +147,18 @@ describe('publishing one chamber', () => {
     expect([vt.hasData, vt.chambers['state-house']!.hasData, vt.chambers['state-senate']!.hasData]).toEqual([true, true, true]);
     expect(existsSync(join(pub, '.publish.lock'))).toBe(false);
     expect(readdirSync(pub).filter((n) => n.endsWith('.part'))).toEqual([]);
+  });
+
+  it('refuses a balance.json whose move count differs from metrics.json and writes nothing for the state', async () => {
+    const out = join(root, 'out');
+    const pub = join(root, 'public');
+    plan(join(out, 'VT'), 1);
+    // metrics.json reports 0 balance moves; the log lists one.
+    put(join(out, 'VT', 'balance.json'), JSON.stringify({ before: [1], moves: [{ block: 0, geoid: GEOID, from: 1, to: 2, pop: 1, gain: 1 }] }));
+    await expect(run(out, pub, '--states', 'VT')).rejects.toThrow(DataError);
+    await expect(run(out, pub, '--states', 'VT')).rejects.toThrow(/1 moves, but metrics\.json reports 0/);
+    expect(existsSync(join(pub, 'VT', 'stats.json'))).toBe(false);
+    expect(existsSync(join(pub, 'VT', 'districts.topo.json'))).toBe(false);
   });
 
   it('skips a state with no such chamber, also when it is named, without an error', async () => {

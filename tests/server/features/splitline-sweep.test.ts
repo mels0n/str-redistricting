@@ -489,6 +489,23 @@ describe('a chunk split while it runs', () => {
     }
   });
 
+  it('carries the ambiguous flag of the first part to the joined sweep, and none when the first part has none', () => {
+    // Jittered points never line up, so no real part is ambiguous; the first part is marked by hand, which joinParts only reads.
+    const piece = pieceOf(fixtures[1]!.blocks);
+    const parts = sweepSplit(piece, 3, 1, 0, 180, 6, [40, 110]);
+    expect(parts.length).toBeGreaterThan(1);
+    expect(parts.some((p) => p.ambiguous)).toBe(false);
+    const plain = joinParts(parts, 6);
+    expect(plain).not.toBeNull();
+    expect(plain!.ambiguous).toBeUndefined();
+    const flagged = joinParts([{ ...parts[0]!, ambiguous: true }, ...parts.slice(1)], 6);
+    expect(flagged).not.toBeNull();
+    expect(flagged!.ambiguous).toBe(true);
+    expect(withoutStats({ ...flagged!, ambiguous: undefined })).toEqual(withoutStats({ ...plain!, ambiguous: undefined }));
+    // An ambiguous part after the first still refuses the join.
+    expect(joinParts([parts[0]!, { ...parts[1]!, ambiguous: true }, ...parts.slice(2)], 6)).toBeNull();
+  });
+
   it('keeps going when a split is refused', () => {
     const piece = pieceOf(fixtures[1]!.blocks);
     let asked = 0;

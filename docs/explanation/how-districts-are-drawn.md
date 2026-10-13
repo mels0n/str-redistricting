@@ -26,7 +26,7 @@ Start with the whole state.
 4. Pick the candidate whose real border is shortest, among those whose two sides are each one connected piece.
 5. Repeat on each side until every piece has exactly one seat. Each piece becomes one district. The side holding the piece's lowest GEOID gets the lower district numbers.
 
-A state with N seats takes exactly N minus 1 cuts. Each piece is cut on its own, so the order in which pieces are processed does not change the result.
+A state with *N* seats takes exactly *N* minus 1 cuts. Each piece is cut on its own, so the order in which pieces are processed does not change the result.
 
 ### Straight lines on a globe
 
@@ -50,7 +50,7 @@ Because blocks are assigned whole, a large block that straddles the guide line c
 4. Re-count. Redo the walk over the free blocks only, in the same order. The fixed blocks' people already count on their sides, so the first side's target is its share minus the people fixed on it. The stopping rule is the same: whichever total is closer, with both stopping points kept as candidates when they are exactly equally close. A side with no fixed blocks keeps at least one free block. The guide line moves to between the last free block of the first side and the first free block of the second side.
 5. Repeat steps 2 to 4 until a strays pass moves no free block.
 
-Every re-count follows at least one newly fixed block, and fixed blocks never become free, so a piece of `m` blocks needs at most `m` walks and the process always ends. If it ends with a fixed piece still cut off from its side (it cannot move back), that line's sides are not each one connected piece, so it fails the connectivity check below and the next shortest line is considered.
+Every re-count follows at least one newly fixed block, and fixed blocks never become free, so a piece of *m* blocks needs at most *m* walks and the process always ends. If it ends with a fixed piece still cut off from its side (it cannot move back), that line's sides are not each one connected piece, so it fails the connectivity check below and the next shortest line is considered.
 
 ### Why a shorter line can be rejected
 

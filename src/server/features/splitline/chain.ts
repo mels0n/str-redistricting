@@ -215,6 +215,11 @@ export class Chain {
     this.lengthUm = len; this.lowPop = lowPop; this.h1 = h1 >>> 0; this.h2 = h2 >>> 0; this.unresolved = P.stranded;
   }
 
+  /** Drop every pass and spare tracker, so their memory can be reclaimed before another chain is built; only the counters stay. */
+  release(): void {
+    this.passes = []; this.spares = []; this.all = null;
+  }
+
   start(ci: number, cj: number) {
     const m = this.piece.m;
     this.passes = [this.buildPass(new Int8Array(m).fill(-1), ci, cj)];

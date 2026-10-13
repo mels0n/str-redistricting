@@ -221,6 +221,8 @@ export function sweepSpans(piece: Piece, seats: number, lowSeats: number, spans:
       }
       if (nx && compareDirections(dirOf(g, nx.ci, nx.cj), sp.s) <= 0) {
         for (const [key, v] of Object.entries(chain.stats)) done[key] = (done[key] ?? 0) + v;
+        // Let the old chain's trackers go before the new one is built, so a thread never holds two at once here.
+        chain.release();
         ({ g, chain } = fresh(sp.s));
       }
     }

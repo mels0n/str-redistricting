@@ -8,7 +8,7 @@ import { DataError } from '../../../shared/errors/index.js';
 import { greatCircleDistance, type LonLat } from '../../../shared/geo/index.js';
 import { blockList, blockPanel, guideLines, nearest, ranks, type BlockPanel } from './cut.js';
 import { clip, dot, fit, nameOf, people, round1, stateOutline, whole, type P } from './panel.js';
-import { cutTrace, type CutTrace } from './trace.js';
+import { cutTrace, releaseState, type CutTrace } from './trace.js';
 
 type Line = NonNullable<RuleCase['lines']>[number];
 type Label = NonNullable<RuleCase['labels']>[number];
@@ -44,7 +44,7 @@ function missingCase(id: string, abbr: string, why: string, caption: string): Ru
   return { id, state: abbr, stateName: nameOf(abbr), source: {}, link: { state: abbr }, view: { w: W, h: 200 }, missing: why, steps: [{ caption, show: [] }] };
 }
 
-/** A range of directions the generator passed over because its sides were not each connected (see unresolvedLines). */
+/** A range of directions the generator passed over because its sides were not each connected (see passedOverPicks). */
 interface SkippedRange { readonly lowSeats: number; readonly fromDeg: number; readonly toDeg: number }
 
 /** The passed-over ranges a cut's search reports, or undefined when the engine does not report them. */
@@ -54,21 +54,22 @@ const skippedRangesOf = (r: CutResult): readonly SkippedRange[] | undefined => (
 const SKIP_CUTS = 6;
 const SKIP_LINES = 12;
 
-export interface UnresolvedCut {
-  readonly t: CutTrace;
-  /** The passed-over lines of the cut, traced at the middle of their ranges, in the generator's order. */
-  readonly traces: readonly CandidateTrace[];
+/** The examples drawn from passed-over lines: strays.fixed's mixed group and strays.no-rejoin's stranded group. */
+interface PassedOverPicks {
+  readonly mixed?: MixedPick;
+  readonly noRejoin?: NoRejoinPick;
 }
 
-const unresolvedCache = new WeakMap<ExtractContext, Promise<UnresolvedCut[]>>();
+const picksCache = new WeakMap<ExtractContext, Promise<PassedOverPicks>>();
 
 /**
- * Lines the generator tried and passed over because their sides were not each connected, traced: for the cuts that
- * passed some over (cut-stats `skipped`), the fewest-ranges cuts first. Empty when no cut did, or when the cut
- * search does not report which ranges it passed over.
+ * Lines the generator tried and passed over because their sides were not each connected, traced, and the examples
+ * picked from them: for the cuts that passed some over (cut-stats `skipped`), the fewest-ranges cuts first. A state
+ * loaded only for this search is released as soon as no pick uses it, so whole states are not held for the rest of
+ * the run. No picks when no cut passed a line over, or when the cut search does not report which ranges it passed over.
  */
-export function unresolvedLines(ctx: ExtractContext): Promise<UnresolvedCut[]> {
-  let hit = unresolvedCache.get(ctx);
+function passedOverPicks(ctx: ExtractContext): Promise<PassedOverPicks> {
+  let hit = picksCache.get(ctx);
   if (!hit) {
     hit = (async () => {
       const found: { abbr: string; order: number; ranges: number }[] = [];
@@ -77,18 +78,36 @@ export function unresolvedLines(ctx: ExtractContext): Promise<UnresolvedCut[]> {
         for (const c of stats.cuts) if (numberField(c, 'skipped', abbr) >= 1) found.push({ abbr, order: c.order, ranges: numberField(c, 'candidateRanges', abbr) });
       }
       found.sort((p, q) => p.ranges - q.ranges || (p.abbr < q.abbr ? -1 : p.abbr > q.abbr ? 1 : p.order - q.order));
-      const out: UnresolvedCut[] = [];
+      // States whose blocks this search loaded itself, released once no pick holds them.
+      const own = new Set<string>();
+      let mixed: MixedPick | undefined, noRejoin: NoRejoinPick | undefined;
+      const releaseUnused = (): void => {
+        for (const abbr of own) {
+          if (abbr === mixed?.t.abbr || abbr === noRejoin?.t.abbr) continue;
+          releaseState(ctx, abbr);
+          own.delete(abbr);
+        }
+      };
       for (const { abbr, order } of found.slice(0, SKIP_CUTS)) {
+        if (!ctx.holdsBlocks(abbr)) own.add(abbr);
         const skipped = skippedRangesOf((await cutTrace(ctx, abbr, order)).result);
-        if (!skipped) return [];
-        if (!skipped.length) continue;
-        const asks: CandidateTraceRequest[] = skipped.slice(0, SKIP_LINES).map((r) => ({ angleDeg: (r.fromDeg + r.toDeg) / 2, lowSeats: r.lowSeats }));
-        const t = await cutTrace(ctx, abbr, order, asks);
-        out.push({ t, traces: t.traces.filter((tr) => tr.unresolved) });
+        if (!skipped) {
+          mixed = noRejoin = undefined;
+          releaseUnused();
+          return {};
+        }
+        if (skipped.length) {
+          const asks: CandidateTraceRequest[] = skipped.slice(0, SKIP_LINES).map((r) => ({ angleDeg: (r.fromDeg + r.toDeg) / 2, lowSeats: r.lowSeats }));
+          const t = await cutTrace(ctx, abbr, order, asks);
+          const traces = t.traces.filter((tr) => tr.unresolved);
+          mixed = mixedIn(t, traces, mixed);
+          noRejoin ??= noRejoinIn(t, traces);
+        }
+        releaseUnused();
       }
-      return out;
+      return { mixed, noRejoin };
     })();
-    unresolvedCache.set(ctx, hit);
+    picksCache.set(ctx, hit);
   }
   return hit;
 }
@@ -294,9 +313,12 @@ const isMixed = (g: TraceGroup): boolean => !g.main && g.fixed.length > 0 && g.f
  * main body while holding both fixed and free blocks (ties go to the first in the generator's order).
  */
 export async function mixedGroup(ctx: ExtractContext): Promise<MixedPick | undefined> {
-  let best: MixedPick | undefined;
-  for (const one of await unresolvedLines(ctx)) {
-   for (const tr of one.traces) {
+  return (await passedOverPicks(ctx)).mixed;
+}
+
+/** `best`, or a smaller such group among one cut's passed-over lines `traces` (in the generator's order). */
+function mixedIn(t: CutTrace, traces: readonly CandidateTrace[], best: MixedPick | undefined): MixedPick | undefined {
+  for (const tr of traces) {
     for (let p = 0; p < tr.passes.length; p++) {
       const pass = tr.passes[p]!;
       const sweepAt = pass.sweeps.findIndex((sw) => sw.groups.some(isMixed));
@@ -304,7 +326,7 @@ export async function mixedGroup(ctx: ExtractContext): Promise<MixedPick | undef
       // Sides as the sweeps leave them: a block flips in the sweep that moves it.
       const flips = pass.sweeps.map(sweepMoves);
       const all = new Set(flips.flat());
-      if (all.size !== pass.moved.length || [...pass.moved].some((b) => !all.has(b))) throw new DataError(`${one.t.abbr} cut ${one.t.cut.order}: sweep moves do not add up to the pass's moved blocks`);
+      if (all.size !== pass.moved.length || [...pass.moved].some((b) => !all.has(b))) throw new DataError(`${t.abbr} cut ${t.cut.order}: sweep moves do not add up to the pass's moved blocks`);
       const walk = walkSide(tr, p);
       const flippedBy = (n: number): Set<number> => new Set(flips.slice(0, n).flat());
       const sideAfter = (n: number) => {
@@ -315,9 +337,8 @@ export async function mixedGroup(ctx: ExtractContext): Promise<MixedPick | undef
       const group = sweep.groups.filter(isMixed).reduce((a, g) => (g.blocks.length < a.blocks.length ? g : a));
       if (best && group.blocks.length >= best.group.blocks.length) continue;
       const held = new Set([...pass.fixedLow, ...pass.fixedHigh, ...flippedBy(sweepAt)]);
-      best = { t: one.t, tr, pass: p, sweepAt, sweep, group, before: sideAfter(sweepAt), after: sideAfter(sweepAt + 1), held };
+      best = { t, tr, pass: p, sweepAt, sweep, group, before: sideAfter(sweepAt), after: sideAfter(sweepAt + 1), held };
     }
-   }
   }
   return best;
 }
@@ -592,13 +613,22 @@ export async function endsCase(ctx: ExtractContext): Promise<RuleCase> {
   };
 }
 
+export interface NoRejoinPick {
+  readonly t: CutTrace;
+  readonly tr: CandidateTrace;
+  readonly group: TraceGroup;
+}
+
 /** strays.no-rejoin: the first passed-over line that leaves a fixed group cut off, and that group. */
-export async function noRejoinTrace(ctx: ExtractContext) {
-  for (const one of await unresolvedLines(ctx)) {
-    for (const tr of one.traces) {
-      const group = tr.passes.at(-1)!.sweeps.flatMap((sw) => sw.groups).find((g) => !g.main && g.fixed.length > 0);
-      if (group) return { t: one.t, tr, group };
-    }
+export async function noRejoinTrace(ctx: ExtractContext): Promise<NoRejoinPick | undefined> {
+  return (await passedOverPicks(ctx)).noRejoin;
+}
+
+/** The first of one cut's passed-over lines `traces` that leaves a fixed group cut off, and that group. */
+function noRejoinIn(t: CutTrace, traces: readonly CandidateTrace[]): NoRejoinPick | undefined {
+  for (const tr of traces) {
+    const group = tr.passes.at(-1)!.sweeps.flatMap((sw) => sw.groups).find((g) => !g.main && g.fixed.length > 0);
+    if (group) return { t, tr, group };
   }
   return undefined;
 }

@@ -182,6 +182,8 @@ function fakeCtx(opts: { repeatHash?: string | undefined; chosenLowSeats?: numbe
     state: async (abbr) => outputs[abbr]!,
     repeatMetrics: async () => (hasRepeat ? metrics('CO', 8, 5773714, 721714.25, opts.repeatHash ?? HASH, []) : undefined),
     blocks: async () => { throw new Error('not needed'); },
+    holdsBlocks: () => true,
+    releaseBlocks: () => {},
   };
 }
 

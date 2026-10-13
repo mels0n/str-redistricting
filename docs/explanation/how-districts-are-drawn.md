@@ -20,7 +20,7 @@ Each chamber is drawn independently by the same rule: a state's House map does n
 
 Start with the whole state.
 
-1. Suppose the piece in hand has `n` seats. Split it into two sides that hold `floor(n/2)` and `ceil(n/2)` seats. A piece with 7 seats is split 3 and 4. A piece with 2 seats is split 1 and 1. The side the sliding guide line reaches first is the first side, and it gets its share of the seats; the other is the second side.
+1. Suppose the piece in hand has *n* seats. Split it into two sides that hold `floor(n/2)` and `ceil(n/2)` seats. A piece with 7 seats is split 3 and 4. A piece with 2 seats is split 1 and 1. The side the sliding guide line reaches first is the first side, and it gets its share of the seats; the other is the second side.
 2. Consider a straight guide line in every possible direction. For each direction, the position of the line is set so that the people on one side match that side's share of the seats. When the two shares differ (an odd number of seats), each direction is considered twice: once with the smaller share on one side of the line and once with it on the other. There are infinitely many directions, but they fall into a limited number of ranges that give the same split, and each range is evaluated once (see [Every direction is covered](#every-direction-is-covered)).
 3. Turn each candidate into a real border made of block edges. Any stray pieces join the side around them, and the line is slid so the people still split evenly (both described below). Then measure that border.
 4. Pick the candidate whose real border is shortest, among those whose two sides are each one connected piece.

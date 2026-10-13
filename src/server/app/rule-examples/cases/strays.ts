@@ -22,6 +22,8 @@ const ABBR = 'CO';
 
 const ids = (xs: readonly { id: string }[]): string[] => xs.map((x) => x.id);
 const sideWord = (s: 0 | 1): string => (s === 0 ? 'first' : 'second');
+/** "this block" or "these 3 blocks". */
+const these = (n: number): string => (n === 1 ? 'this block' : `these ${whole(n)} blocks`);
 const sideState = (s: 0 | 1): string => (s === 0 ? 'low' : 'high');
 const plural = (n: number, one: string, many: string): string => `${whole(n)} ${n === 1 ? one : many}`;
 /** An angle for display: one decimal, no trailing zero. */
@@ -632,24 +634,24 @@ export async function noRejoinCase(ctx: ExtractContext): Promise<RuleCase> {
     lines: [...guide, ...pins],
     steps: [
       {
-        caption: `A line tried for cut ${t.cut.order} in ${name}, ${deg(tr.angleDeg)} from north-south. After ${pm === 0 ? 'its first walk' : `walk ${pm + 1}`}, these ${nG} blocks are on the ${sideWord(from)} side, cut off from it.`,
+        caption: `A line tried for cut ${t.cut.order} in ${name}, ${deg(tr.angleDeg)} from north-south. After ${pm === 0 ? 'its first walk' : `walk ${pm + 1}`}, ${these(g.length)} ${g.length === 1 ? 'is' : 'are'} on the ${sideWord(from)} side, cut off from it.`,
         show: base,
         set: win.paint(walkSide(tr, pm), g),
       },
       {
-        caption: `They join the ${sideWord(to)} side, the side around them, and are fixed there. A dot marks each fixed block.`,
+        caption: `${g.length === 1 ? 'It joins' : 'They join'} the ${sideWord(to)} side, the side around ${g.length === 1 ? 'it' : 'them'}, and ${g.length === 1 ? 'is' : 'are'} fixed there. A dot marks each fixed block.`,
         show: withPins,
         set: win.paint(after),
       },
       {
         caption: changed > 0
-          ? `After the re-count, ${plural(changed, 'free block', 'free blocks')} here ${changed === 1 ? 'is' : 'are'} on the other side, and these ${nG} are cut off from the ${sideWord(to)} side.`
-          : `After the re-count, these ${nG} are cut off from the ${sideWord(to)} side again.`,
+          ? `After the re-count, ${plural(changed, 'free block', 'free blocks')} here ${changed === 1 ? 'is' : 'are'} on the other side, and ${these(g.length)} ${g.length === 1 ? 'is' : 'are'} cut off from the ${sideWord(to)} side.`
+          : `After the re-count, ${these(g.length)} ${g.length === 1 ? 'is' : 'are'} cut off from the ${sideWord(to)} side again.`,
         show: withPins,
         set: win.paint(final),
       },
       {
-        caption: `Pass ${n} moves no free block, and these ${nG} cannot move back: they are fixed. The ${sideWord(to)} side is left in more than one piece.`,
+        caption: `Pass ${n} moves no free block, and ${these(g.length)} cannot move back: ${g.length === 1 ? 'it is' : 'they are'} fixed. The ${sideWord(to)} side is left in more than one piece.`,
         show: withPins,
         set: { ...win.paint(final), ...Object.fromEntries(g.map((b) => [win.idOf(b), 'hot'])) },
       },

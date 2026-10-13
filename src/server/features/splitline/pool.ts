@@ -52,8 +52,10 @@ function shared<T extends Float64Array | Int32Array>(src: T): T {
  * Worker threads that run a cut's sweep tasks in parallel (chunks of directions, or tie stretches). Each worker
  * takes the next unclaimed task and reports each task's result under that task's number, so the results do not
  * depend on which worker ran what or when. The calling thread blocks until every worker has finished, which keeps
- * the cut search synchronous. When tasks fail, the failure of the lowest-numbered task is reported, the one the
- * calling thread alone would have met first.
+ * the cut search synchronous. When tasks fail, the failure of the lowest-numbered task that ran is reported. Without
+ * splitting that is the one the calling thread alone would have met first; once chunks are split between workers, a
+ * failure stops the parts still waiting to be swept, so a lower task's failure in one of them may never be met, and
+ * which failure is reported can then depend on timing. Either way the scan fails.
  *
  * A pool that lost a worker, or gave up waiting for one, is broken for good: its workers are terminated and
  * every later scan throws at once. Callers replace it. Reusing it could mix a late worker's output into a new request.
@@ -66,6 +68,8 @@ export class ScanPool {
   private reason: string | undefined;
   private readonly stallMs: number;
   private readonly splitAlways: boolean;
+  /** Chunks that came back in parts (split between workers while they ran), and of those, the ones swept again whole because their parts could not be joined. */
+  readonly splits = { chunks: 0, reswept: 0 };
 
   constructor(size: number, opts: ScanPoolOptions = {}) {
     if (!Number.isInteger(size) || size < 1) throw new RangeError(`pool size must be a positive integer, got ${size}`);
@@ -141,8 +145,8 @@ export class ScanPool {
       if (!got) throw new WorkerPoolError('a cut search worker finished without reporting');
       const msg = got.message as ScanReply;
       if (msg.id !== req.id) throw new WorkerPoolError('a cut search worker answered a different request');
-      // Every task below a failed one was claimed before it and ran to its end, so the lowest failed task is the one
-      // a single thread would have stopped at.
+      // Every task below a failed one was claimed before it and ran to its end, except for parts of a split chunk
+      // left waiting when the failure stopped the sharing (see the class comment).
       if (!msg.ok) { if (!failure || msg.task < failure.task) failure = msg; }
       else for (const r of msg.results) (results[r.task] ??= []).push(...r.result);
     }
@@ -165,7 +169,12 @@ export class ScanPool {
     if (parts[0]!.aDeg !== aDeg || parts[parts.length - 1]!.bDeg !== bDeg || parts.some((p, k) => k > 0 && p.aDeg !== parts[k - 1]!.bDeg)) {
       throw new WorkerPoolError('a cut search worker lost part of a chunk');
     }
-    return joinParts(parts, job.keep) ?? runTask(piece, job, t)[0]!;
+    if (parts.length === 1) return parts[0]!;
+    this.splits.chunks++;
+    const joined = joinParts(parts, job.keep);
+    if (joined) return joined;
+    this.splits.reswept++;
+    return runTask(piece, job, t)[0]!;
   }
 
   /** Mark the pool unusable and stop its workers. Safe to repeat; the first reason wins. */

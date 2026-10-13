@@ -121,6 +121,9 @@ describe('chunks split between workers while they run', () => {
       const ctx = createContext(gridBlocks(8, 6, { pop: (x, y) => pops[y * 8 + x]! }));
       const one = splitState(ctx, 6);
       for (const pool of pools) expect(planWithoutCounters(splitState(ctx, 6, { pool }))).toEqual(planWithoutCounters(one));
+      // The chunks really were split, not just swept whole.
+      expect(pools.reduce((s, p) => s + p.splits.chunks, 0)).toBeGreaterThan(0);
+      for (const p of pools) expect(p.splits.reswept).toBeLessThanOrEqual(p.splits.chunks);
     } finally {
       for (const p of pools) await p.close();
     }

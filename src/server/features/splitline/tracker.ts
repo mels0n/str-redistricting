@@ -399,9 +399,17 @@ export class Tracker {
     if ((a === i && b === j) || (a === j && b === i)) return 0;
     return this.qN[0]! * n * det(this.qX2[0]!, this.qX1[0]!, y2, y1, this.qY2[0]!, this.qY1[0]!, x2, x1);
   }
-  /** The next event's points and normalising sign (call hasNext first). */
-  nextPoints(): [x1: number, y1: number, x2: number, y2: number, n: number] {
-    return [this.qX1[0]!, this.qY1[0]!, this.qX2[0]!, this.qY2[0]!, this.qN[0]!];
+  /** crossDir(g, this tracker's next event, tracker o's next event). Call hasNext on both first. */
+  nextVsNextOf(o: Tracker): number {
+    return this.nextVs(o.qI[0]!, o.qJ[0]!, o.qX1[0]!, o.qY1[0]!, o.qX2[0]!, o.qY2[0]!, o.qN[0]!);
+  }
+  /** Write the next event's points and normalising sign into out[0..4] (call hasNext first). */
+  nextPointsInto(out: Float64Array): void {
+    out[0] = this.qX1[0]!; out[1] = this.qY1[0]!; out[2] = this.qX2[0]!; out[3] = this.qY2[0]!; out[4] = this.qN[0]!;
+  }
+  /** The next event lies on exactly these two points (call hasNext first). */
+  nextHasPoints(x1: number, y1: number, x2: number, y2: number): boolean {
+    return this.qX1[0] === x1 && this.qY1[0] === y1 && this.qX2[0] === x2 && this.qY2[0] === y2;
   }
   private hasNow(): boolean {
     return this.hasNext() && this.nextAtCur();

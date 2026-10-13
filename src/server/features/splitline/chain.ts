@@ -41,6 +41,10 @@ export interface Stats2 {
 export class Chain {
   passes: Pass[] = [];
   private spares: Tracker[] = [];
+  /** Every pass's tracker, then the spares (trackers()); null after either list changes. */
+  private all: Tracker[] | null = null;
+  /** The points and normalising sign of the direction step() is processing. */
+  private readonly at = new Float64Array(5);
   /** Border length of the current result in whole micrometres, people on its low side, its fingerprints, and whether a pinned stray was left stranded. */
   lengthUm = 0; lowPop = 0; h1 = 0; h2 = 0; unresolved = false;
   readonly stats: Stats2 = {
@@ -214,6 +218,7 @@ export class Chain {
   start(ci: number, cj: number) {
     const m = this.piece.m;
     this.passes = [this.buildPass(new Int8Array(m).fill(-1), ci, cj)];
+    this.all = null;
     for (let q = 0; q < this.passes.length; q++) this.extend(q, ci, cj);
     this.computeFinal();
   }
@@ -224,6 +229,7 @@ export class Chain {
     if (P.newlyCount === 0) {
       if (this.passes.length > q + 1) {
         for (const X of this.passes.splice(q + 1)) if (this.spares.length < 4) this.spares.push(X.tr);
+        this.all = null;
         return true;
       }
       return false;
@@ -235,6 +241,7 @@ export class Chain {
         for (let i = 0; i < fixed.length; i++) if (fixed[i]! < 0 && P.newly[i]! >= 0) fixed[i] = P.newly[i]!;
         this.passes.push(this.buildPass(fixed, ci, cj));
       } else this.passes.push(this.buildPassFrom(P, ci, cj));
+      this.all = null;
       return true;
     }
     return false;
@@ -255,13 +262,12 @@ export class Chain {
       if (!tr.hasNext()) continue;
       if (p === null) { p = tr; continue; }
       // crossDir(geo, tr's next, p's next) < 0
-      const [x1, y1, x2, y2, n] = p.nextPoints();
-      if (tr.nextVs(p.nextI(), p.nextJ(), x1, y1, x2, y2, n) < 0) p = tr;
+      if (tr.nextVsNextOf(p) < 0) p = tr;
     }
     return p;
   }
 
-  private trackers(): Tracker[] { return [...this.passes.map((P) => P.tr), ...this.spares]; }
+  private trackers(): Tracker[] { return (this.all ??= [...this.passes.map((P) => P.tr), ...this.spares]); }
 
   /**
    * Process the next event direction across every tracker. `ambiguous`: events of more than one pair of points lie
@@ -272,14 +278,14 @@ export class Chain {
     const nt = this.nextTracker();
     if (!nt) return null;
     const all = this.trackers();
-    const ci = nt.nextI(), cj = nt.nextJ();
-    const [x1, y1, x2, y2, n] = nt.nextPoints();
+    const ci = nt.nextI(), cj = nt.nextJ(), at = this.at;
+    nt.nextPointsInto(at);
+    const x1 = at[0]!, y1 = at[1]!, x2 = at[2]!, y2 = at[3]!, n = at[4]!;
     let any = false, ambiguous = false;
     for (let q = 0; q < all.length; q++) {
       const tr = all[q]!;
       if (tr.hasNext() && tr.nextVs(ci, cj, x1, y1, x2, y2, n) === 0) {
-        const [a1, b1, a2, b2] = tr.nextPoints();
-        if (a1 !== x1 || b1 !== y1 || a2 !== x2 || b2 !== y2) ambiguous = true;
+        if (!tr.nextHasPoints(x1, y1, x2, y2)) ambiguous = true;
         const ev = tr.events;
         tr.processGroup();
         if (tr.groupMixed) ambiguous = true;

@@ -62,7 +62,9 @@ describe('balancing move panels (CO)', () => {
     const a = log.before[m.from - 1]! - ideal, b = log.before[m.to - 1]! - ideal;
     expect(2 * m.pop * (a - b - m.pop)).toBe(m.gain);
     const text = c.steps.map((s) => s.caption).join('\n');
-    expect(text).toContain(`2 × ${whole(m.pop)} × (${people(a)} − ${people(b)} − ${whole(m.pop)}) = ${whole(m.gain)}`);
+    // A negative distance is shown in brackets, so the formula never has two minus signs in a row.
+    const term = (x: number): string => (x < 0 ? `(−${people(-x)})` : people(x));
+    expect(text).toContain(`2 × ${whole(m.pop)} × (${term(a)} − ${term(b)} − ${whole(m.pop)}) = ${whole(m.gain)}`);
     expect(text).toContain(`${people(a)} over`);
     // The block is drawn in its old district, and a copy in its new district appears only when the move is made.
     const orig = c.blocks!.filter((x) => x.geoid === m.geoid);

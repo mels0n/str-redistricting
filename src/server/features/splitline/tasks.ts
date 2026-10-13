@@ -69,9 +69,13 @@ export function runTask(piece: Piece, job: PoolJob, t: number, beat?: () => void
   return [sweepChunk(piece, job.seats, task.lowSeats, task.aDeg, task.bDeg, job.keep, beat, split)];
 }
 
-/** Directions [fromDeg, toDeg) of chunk t, a part another thread split off (steal.ts). */
+/**
+ * Directions [fromDeg, toDeg) of chunk t, a part another thread split off (steal.ts). A part that ends before its
+ * chunk does ends at a later split, so it reports an event exactly there (eventAtEnd) and is not joined.
+ */
 export function runPart(piece: Piece, job: SweepJob, t: number, fromDeg: number, toDeg: number, beat?: () => void, split?: SplitHook): ChunkResult {
-  return sweepChunk(piece, job.seats, sweepTask(job, t).lowSeats, fromDeg, toDeg, job.keep, beat, split);
+  const task = sweepTask(job, t);
+  return sweepChunk(piece, job.seats, task.lowSeats, fromDeg, toDeg, job.keep, beat, split, toDeg < task.bDeg);
 }
 
 /** Most tie stretches in one window, so the windows of a cut still spread over the threads... */

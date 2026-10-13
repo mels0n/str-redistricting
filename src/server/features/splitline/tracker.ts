@@ -17,6 +17,11 @@ export interface Geo {
   readonly pops: Float64Array;
   /** Start direction = (s2 - s1), end direction = (e2 - e1); the end is ignored for scheduling when endIsPi. */
   s1x: number; s1y: number; sx: number; sy: number; e1x: number; e1y: number; ex: number; ey: number; endIsPi: boolean;
+  /**
+   * Also schedule events lying exactly at the end direction (never past it). A sweep of part of a chunk (SplitHook)
+   * uses this to see whether an event lies exactly where its part ends; no other sweep does.
+   */
+  endEvents?: boolean;
 }
 
 export const X = (g: Geo, i: number) => (i >= 0 ? g.px[i]! : i === -1 ? 0 : i === -2 ? g.sx : i === -3 ? g.ex : i === -4 ? g.s1x : g.e1x);
@@ -60,6 +65,8 @@ export class Tracker {
    */
   private cX1 = 0; private cY1 = 0; private cX2 = 0; private cY2 = 0; private cN = 0;
   private readonly eX1: number; private readonly eY1: number; private readonly eX2: number; private readonly eY2: number; private readonly eN: number;
+  /** An event is scheduled only when its sign against the end direction is below this: 0, or 1 to keep events exactly at the end (Geo.endEvents). */
+  private readonly eCut: number;
   readonly inA: Uint8Array; // 1 low, 0 high, 2 not in this tracker
   W = 0; nA = 0; nB = 0;
   private readonly hA: Int32Array; private readonly hB: Int32Array;
@@ -85,6 +92,7 @@ export class Tracker {
   ) {
     this.m = m;
     this.eX1 = X(g, -5); this.eY1 = Y(g, -5); this.eX2 = X(g, -3); this.eY2 = Y(g, -3); this.eN = nsign(g, -5, -3);
+    this.eCut = g.endEvents ? 1 : 0;
     this.setCur(curI, curJ);
     this.inA = new Uint8Array(m).fill(2);
     this.pos = new Int32Array(m).fill(-1);
@@ -132,7 +140,7 @@ export class Tracker {
     if (d !== 0) return -d > 0;
     return this.g.ids[x]! < this.g.ids[y]!;
   }
-  /** Event direction of pair (x, y) if it lies strictly after the current direction and strictly before the end. */
+  /** Event direction of pair (x, y) if it lies strictly after the current direction and strictly before the end (or at it, Geo.endEvents). */
   private scheduleFor(x: number, y: number, slot: number, v: number) {
     const i = Math.min(x, y), j = Math.max(x, y);
     const { px, py } = this.g;
@@ -146,8 +154,8 @@ export class Tracker {
     const ci = this.curI, cj = this.curJ;
     if ((ci === i && cj === j) || (ci === j && cj === i)) return;
     if (this.cN * n * det(this.cX2, this.cX1, jy, iy, this.cY2, this.cY1, jx, ix) >= 0) return;
-    // crossDir(g, i, j, -5, -3) >= 0
-    if (!this.g.endIsPi && n * this.eN * det(jx, ix, this.eY2, this.eY1, jy, iy, this.eX2, this.eX1) >= 0) return;
+    // crossDir(g, i, j, -5, -3) >= 0 (> 0 when events exactly at the end are kept)
+    if (!this.g.endIsPi && n * this.eN * det(jx, ix, this.eY2, this.eY1, jy, iy, this.eX2, this.eX1) >= this.eCut) return;
     this.push(i, j, slot, v, ix, iy, jx, jy, n);
   }
 

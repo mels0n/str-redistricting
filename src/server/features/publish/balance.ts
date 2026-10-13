@@ -30,6 +30,22 @@ export const ProcessNumbersSchema = z.object({
   blocks: z.number().int().nonnegative(),
 });
 
+/** The two published counts of balancing moves that only shortened the border (gain exactly 0). */
+export const BorderOnlyMovesSchema = z.object({
+  balanceMovesBorderOnly: z.number().int().nonnegative(),
+  peopleMovedBorderOnly: z.number().int().nonnegative(),
+});
+export type BorderOnlyMoves = z.infer<typeof BorderOnlyMovesSchema>;
+
+/** No moves, so none that only shortened the border: the before-balancing plan. */
+export const NO_BORDER_ONLY_MOVES: BorderOnlyMoves = { balanceMovesBorderOnly: 0, peopleMovedBorderOnly: 0 };
+
+/** The moves with gain 0 in a balance log (they leave the districts exactly as close and shorten the border), and the people they carried. */
+export function borderOnlyMoves(log: BalanceLog): BorderOnlyMoves {
+  const only = log.moves.filter((m) => m.gain === 0);
+  return BorderOnlyMovesSchema.parse({ balanceMovesBorderOnly: only.length, peopleMovedBorderOnly: only.reduce((sum, m) => sum + m.pop, 0) });
+}
+
 const round6 = (x: number): number => Math.round(x * 1e6) / 1e6;
 
 export interface PublishedBalance {

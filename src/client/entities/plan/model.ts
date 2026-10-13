@@ -29,6 +29,9 @@ export const MetricsSchema = z.looseObject({
   assignmentSha256: z.string().regex(/^[0-9a-f]{64}$/),
   balanceMoves: z.number().int().nonnegative(),
   peopleMovedByBalancing: z.number().int().nonnegative(),
+  /** Moves with gain 0 (they only shortened the border) and the people they carried; absent from stats published before schema 1.3.0. */
+  balanceMovesBorderOnly: z.number().int().nonnegative().optional(),
+  peopleMovedBorderOnly: z.number().int().nonnegative().optional(),
   rangeBeforeBalancing: z.number().nonnegative(),
   rangeAfterBalancing: z.number().nonnegative(),
   cuts: z.number().int().nonnegative(),

@@ -14,7 +14,7 @@ import { crossesAntimeridian, unwrapCoordinates, unwrapFeatures, unwrapLon } fro
 import { districtArcs } from './arcs.js';
 import { BlocksFileSchema, checkBlocks, checkFingerprints, encodeBlocks, lookup, type BlocksFile } from './blocks.js';
 import { loadCountyNames, loadEnacted, loadLand, loadStates, type EnactedFile } from './boundary.js';
-import { BalanceLogSchema, buildBalance, ProcessNumbersSchema } from './balance.js';
+import { BalanceLogSchema, borderOnlyMoves, buildBalance, ProcessNumbersSchema } from './balance.js';
 import { countiesByDistrict } from './counties.js';
 import { buildStateBorderBlocks } from './border-blocks.js';
 import { buildEnactedTopology } from './enacted.js';
@@ -195,8 +195,11 @@ async function publishState(state: StateInfo, cfg: PublishConfig, shared: Shared
   if (finishedLand.clamped + beforeLand.clamped + finishedLand.outside + beforeLand.outside > 0) {
     console.log(`  ${state.abbr}: landParts clamped to 1 for ${finishedLand.clamped} finished and ${beforeLand.clamped} before-balancing districts; populated points outside the clipped land: ${finishedLand.outside} finished, ${beforeLand.outside} before-balancing`);
   }
+  const log = BalanceLogSchema.safeParse(await readJson(join(src, 'balance.json')));
+  if (!log.success) throw new DataError(`${src}/balance.json: ${log.error.issues.map((i) => `${i.path.join('.')} ${i.message}`).join('; ')}`);
+  if (log.data.moves.length !== official.balanceMoves) throw new DataError(`${src}/balance.json: ${log.data.moves.length} moves, but metrics.json reports ${official.balanceMoves}`);
   const stats = buildStats(
-    planStats(official, countiesByDistrict(officialCsv, state.seats, shared.countyNames), finishedParts),
+    planStats(official, countiesByDistrict(officialCsv, state.seats, shared.countyNames), finishedParts, borderOnlyMoves(log.data)),
     planStats(before, countiesByDistrict(beforeCsv, state.seats, shared.countyNames), beforeParts),
     enacted.source,
     versions,
@@ -230,8 +233,6 @@ async function publishState(state: StateInfo, cfg: PublishConfig, shared: Shared
 
   const cuts = buildCuts(await readJson(join(src, 'cuts.geojson')));
   outputs.push(['cuts.json', JSON.stringify(wrapped ? cuts.map((c) => ({ ...c, lines: unwrapCoordinates(c.lines) })) : cuts)]);
-  const log = BalanceLogSchema.safeParse(await readJson(join(src, 'balance.json')));
-  if (!log.success) throw new DataError(`${src}/balance.json: ${log.error.issues.map((i) => `${i.path.join('.')} ${i.message}`).join('; ')}`);
   const polygons = await loadBlockPolygons(state, cfg.cacheDir, new Set(log.data.moves.map((m) => m.geoid)));
   const balance = buildBalance(state.seats, log.data, polygons);
   const blocks = wrapped ? Object.fromEntries(Object.entries(balance.blocks).map(([g, polys]) => [g, unwrapCoordinates(polys)])) : balance.blocks;

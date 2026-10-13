@@ -5,7 +5,7 @@ import { join } from 'node:path';
 import { afterAll, describe, expect, it } from 'vitest';
 import {
   buildCuts, buildIndex, countiesByDistrict, parseCdRecord, planStats, simplifyPercent, toTopology, vertexCount,
-  boundaryUrl, ENACTED_CANDIDATES, ENACTED_CONGRESS, CountyRecord, PlanMetricsSchema, publishedSummaries, summarize, buildBalance, BalanceLogSchema, ProcessNumbersSchema, buildStats,
+  boundaryUrl, ENACTED_CANDIDATES, ENACTED_CONGRESS, CountyRecord, PlanMetricsSchema, publishedSummaries, summarize, buildBalance, BalanceLogSchema, ProcessNumbersSchema, buildStats, borderOnlyMoves, BorderOnlyMovesSchema, NO_BORDER_ONLY_MOVES,
 } from '../../../src/server/features/publish/index.js';
 import { STATES } from '../../../src/server/shared/apportionment/index.js';
 import { parsePublishConfig } from '../../../src/server/shared/config/index.js';
@@ -115,6 +115,20 @@ describe('balance.json', () => {
     expect(BalanceLogSchema.parse({ before: [1, 1], moves: [move] }).moves[0]).toEqual(move);
     const b = buildBalance(2, BalanceLogSchema.parse({ before: [1, 1], moves: [move] }), polygons);
     expect(b.moves[0]).toEqual({ order: 1, geoid: '440010301001000', from: 1, to: 2, pop: 0, gain: 0 });
+  });
+  it('counts the moves with gain 0 and the people they carried, and none when there are none', () => {
+    const mv = (pop: number, gain: number) => ({ block: 1, geoid: '440010301001000', from: 1, to: 2, pop, gain });
+    const mixed = BalanceLogSchema.parse({ before: [1, 1], moves: [mv(10, 800), mv(4, 0), mv(0, 0), mv(7, 0)] });
+    expect(borderOnlyMoves(mixed)).toEqual({ balanceMovesBorderOnly: 3, peopleMovedBorderOnly: 11 });
+    expect(borderOnlyMoves(BalanceLogSchema.parse({ before: [1, 1], moves: [mv(10, 800)] }))).toEqual({ balanceMovesBorderOnly: 0, peopleMovedBorderOnly: 0 });
+    expect(borderOnlyMoves(BalanceLogSchema.parse({ before: [1, 1], moves: [] }))).toEqual(NO_BORDER_ONLY_MOVES);
+  });
+  it('publishes the border-only counts in the plan metrics, 0 when none are given', () => {
+    const metrics = PlanMetricsSchema.parse({ state: 'RI', lineSearch: 'exact', nodeVersion: 'v24.12.0', inputSha256: 'a', seats: 1, population: 10, ideal: 10, districts: [{ district: 1, pop: 10, dev: 0, devPct: 0, contiguous: true }], rangePersons: 0, rangePct: 0, allContiguous: true, assignmentSha256: 'b', balanceMoves: 1 });
+    expect(planStats(metrics, []).metrics).toMatchObject({ balanceMovesBorderOnly: 0, peopleMovedBorderOnly: 0 });
+    expect(planStats(metrics, [], undefined, { balanceMovesBorderOnly: 3, peopleMovedBorderOnly: 11 }).metrics).toMatchObject({ balanceMovesBorderOnly: 3, peopleMovedBorderOnly: 11 });
+    expect(() => BorderOnlyMovesSchema.parse({ balanceMovesBorderOnly: 1 })).toThrow();
+    expect(() => BorderOnlyMovesSchema.parse({ balanceMovesBorderOnly: -1, peopleMovedBorderOnly: 0 })).toThrow();
   });
   it('rejects a negative move size or gain and a fractional or negative starting population', () => {
     const move = { block: 1, geoid: '440010301001000', from: 1, to: 2, pop: 0, gain: 0 };

@@ -19,7 +19,7 @@ import type { Feature, Polygon } from 'geojson';
 import { afterAll, describe, expect, it } from 'vitest';
 import {
   BalanceLogSchema, buildBalance, buildCuts, buildIndex, buildStats, buildWater, checkBlocks, encodeBlocks, mergeLand,
-  PlanMetricsSchema, planStats, ProcessNumbersSchema, publishedSummaries, toTopology,
+  PlanMetricsSchema, planStats, ProcessNumbersSchema, BorderOnlyMovesSchema, publishedSummaries, toTopology,
 } from '../../src/server/features/publish/index.js';
 import { buildMetricsJson } from '../../src/server/features/export/index.js';
 import { unwrapCoordinates, unwrapFeatures } from '../../src/server/features/publish/antimeridian.js';
@@ -109,7 +109,7 @@ describe('metrics.json', () => {
     expect(() => ProcessNumbersSchema.parse(rest)).toThrow();
   });
   it('the server gate names every field the viewer requires', () => {
-    const checked = new Set([...Object.keys(PlanMetricsSchema.shape), ...Object.keys(ProcessNumbersSchema.shape)]);
+    const checked = new Set([...Object.keys(PlanMetricsSchema.shape), ...Object.keys(ProcessNumbersSchema.shape), ...Object.keys(BorderOnlyMovesSchema.shape)]);
     expect(Object.keys(MetricsSchema.shape).filter((k) => !checked.has(k))).toEqual([]);
   });
 });

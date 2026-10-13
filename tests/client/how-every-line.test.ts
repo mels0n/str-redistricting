@@ -46,7 +46,7 @@ describe('How it works: every straight line', () => {
     const page = createHowPage({ page: 'how', section: null } as never);
     const all = [...page.el.querySelectorAll('var')].map((el) => el.textContent);
     expect(all.filter((t) => t === 'N')).toHaveLength(2);
-    expect(all.filter((t) => t === 'n')).toHaveLength(2);
+    expect(all.filter((t) => t === 'm')).toHaveLength(2);
     expect(page.el.textContent).toContain('A state with N seats takes exactly N minus 1 cuts.');
     page.destroy();
   });

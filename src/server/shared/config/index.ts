@@ -34,7 +34,7 @@ export interface Config {
   readonly threadsLimitedByMemory: boolean;
 }
 
-/** Memory one cut search thread may need on the largest states. */
+/** Memory one cut search thread may need on the largest states (Texas's first cut measured about 290 MiB per thread). */
 const BYTES_PER_THREAD = 400 * 1024 * 1024;
 
 /** Default threads: the hardware threads minus two, no more than free memory allows, at least one. */

@@ -1,11 +1,16 @@
 # Engine changelog
 
-## 2.0.0 (2026-10-12)
+## 2.0.0 (2026-10-13)
 
-- Fixed: an island link added nothing to a border's length, so a cut that separated land only at a link had a border of zero and won however unevenly it split the people. Hawaii's State House split west Oahu from east Kauai that way, 40,898 people against 16,183, and balancing could not repair it. A link now adds its length, the distance between its two blocks' internal points, to the border of any cut whose sides meet across it.
-- Fixed: balancing made a move only when it brought two districts closer to equal, so a move that left them exactly as close was never made, even when it shortened the border. Blocks with no people were left as notches that lengthened borders, and balancing could not reach across an empty block at the end of an island link. Balancing now ranks people first, then border (the opposite order of a cut): a move is made when it brings the districts closer to equal, or leaves them exactly as close and shortens the border. The district a block leaves still stays one connected piece, and the pass still always stops.
+Bug fixes:
+
+- Island links counted as zero length in a cut's border. A cut that separated land only at a link therefore had a border of zero and won however unevenly it split the people: Hawaii's State House split west Oahu from east Kauai that way, 40,898 people against 16,183. A link now adds its length, the distance between its two blocks' internal points, to the border of any cut whose sides meet across it.
+- Balancing ignored moves that shortened the border. A move was made only when it lowered the sum of squared differences (a gain above zero), so a move that left the districts exactly as close (a gain of zero) was never made, even when it gave a shorter border. Blocks with no people were left as notches, and balancing could not reach across an empty block at the end of an island link. A move with a gain of zero is now made when it strictly shortens the border: people first, then border. The district a block leaves still stays one connected piece, and the pass still always stops.
+
+Other changes:
+
 - Maps of states with island links change at the cuts; every balanced map changes.
-- Drawing is faster, with every map otherwise exactly as the rules draw it: neighbouring tie stretches are swept again with one shared start instead of one each, the trackers keep the direction points they reuse, and heavy chunks of a sweep are split between idle threads while they run. Texas's State Senate takes about 16 minutes instead of 42.
+- Drawing is faster, with every map exactly as the rules draw it: neighbouring tie stretches are swept again with one shared start instead of one each, the trackers keep the direction points they reuse, and heavy chunks of a sweep are split between idle threads while they run. Texas's State Senate takes about 16 minutes instead of 42.
 
 ## 1.1.0 (2026-10-11)
 

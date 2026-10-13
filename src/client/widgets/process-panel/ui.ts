@@ -19,6 +19,14 @@ function perCut(per: readonly number[]): string {
 
 const count = (n: number, one: string, many: string): string => `${formatInt(n)} ${n === 1 ? one : many}`;
 
+/** " 141 of 158 moves only shortened the border." (a leading space), or nothing when the file predates the count or no move was made. */
+function borderOnlyNote(m: Metrics): string {
+  const n = m.balanceMovesBorderOnly;
+  if (n === undefined || m.balanceMoves === 0) return '';
+  if (n === 0) return ' No move only shortened the border.';
+  return ` ${formatInt(n)} of ${count(m.balanceMoves, 'move', 'moves')} only shortened the border.`;
+}
+
 /** "35.2 seconds", "1 minute 50 seconds" (rounded to the tenth of a second under a minute). */
 export function formatRunTime(ms: number): string {
   const s = ms / 1000;
@@ -96,7 +104,7 @@ export function createProcessPanel(opts: ProcessPanelOptions): HTMLElement {
           ? 'No line needed sliding again: the people still split evenly after the strays moved.'
           : `Times a line slid again so the people still split evenly after strays moved. At most ${count(m.recountsMaxPerCut, 'time', 'times')} for one cut.`,
       ),
-      row('Balancing moves', 'balancing', formatInt(m.balanceMoves), `${count(m.peopleMovedByBalancing, 'person', 'people')} moved, one block at a time.`),
+      row('Balancing moves', 'balancing', formatInt(m.balanceMoves), `${count(m.peopleMovedByBalancing, 'person', 'people')} moved, one block at a time.${borderOnlyNote(m)}`),
       row(
         'Population range',
         'balancing',

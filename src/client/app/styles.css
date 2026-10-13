@@ -31,6 +31,7 @@
 
   --font: 'Public Sans Variable', 'Public Sans', system-ui, sans-serif;
   --mono: 'IBM Plex Mono', ui-monospace, 'Cascadia Mono', monospace;
+  --math: 'Times New Roman', Georgia, serif;
 
   --s-1: 0.25rem;
   --s-2: 0.5rem;
@@ -4059,6 +4060,13 @@ html:has(> body > #str-viewer) {
   .strv-rule-demo__svg [data-id] {
     transition: none;
   }
+}
+
+/* A letter standing for a number, set the way a formula sets it. Colour is inherited, so it follows any theme. */
+var {
+  font-family: var(--math);
+  font-style: italic;
+  font-weight: inherit;
 }
 
 .strv-how__code {

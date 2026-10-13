@@ -1,4 +1,4 @@
-import { h, config, ENACTED, ordinal, formatHash, howRoute, faqRoute, stateRoute, iconArrowLeft, prefersReducedMotion, NATIONAL, FAQ_QUESTIONS, type FaqQuestion, type Page, type Route } from '../../shared';
+import { h, mv, config, ENACTED, ordinal, formatHash, howRoute, faqRoute, stateRoute, iconArrowLeft, prefersReducedMotion, NATIONAL, FAQ_QUESTIONS, type FaqQuestion, type Page, type Route } from '../../shared';
 
 const TITLES: Record<FaqQuestion, string> = {
   strange: 'Why does my district look strange?',
@@ -103,20 +103,20 @@ const ANSWERS: Record<FaqQuestion, () => HTMLElement[]> = {
     h(
       'dl',
       { class: 'strv-faq__terms' },
-      TERMS.flatMap(([term, meaning]) => [h('dt', null, term), h('dd', null, meaning)]),
+      TERMS.flatMap(([term, meaning]) => [h('dt', null, term), h('dd', null, ...(typeof meaning === 'string' ? [meaning] : meaning))]),
     ),
   ],
 };
 
 /** Plain meanings of the site's terms. */
-const TERMS: readonly (readonly [string, string])[] = [
+const TERMS: readonly (readonly [string, string | readonly (Node | string)[]])[] = [
   ['Census block', 'The smallest area the Census Bureau counts people in. Every person is counted in exactly one. More under “What is a census block?” above.'],
   ['GEOID', 'The identifier the Census Bureau gives every block: a 15-digit number made of its state, county, tract and block codes. Sorting by it gives one fixed order, which settles ties.'],
   ['Internal point', 'One point inside each block, published by the Census Bureau. It is used to put blocks in order across a guide line and to measure island links.'],
   ['Chamber', 'One of the bodies a map is drawn for: the Federal House, the State House or the State Senate. Each is drawn separately, by the same rule.'],
   ['Apportionment', 'How the 435 House seats are shared out among the states after each census. The Federal House maps use the 2020 apportionment.'],
   ['Seat', 'The unit a map is divided into: one district. A Federal House map has one district for each House seat the state received. A State House or State Senate map has one district for each distinct district in the Census Bureau’s ' + ENACTED.legislativeVintage + ' state legislative district files. Where a state elects more than one member from a district, the map still draws one district, because how many members a district elects is not modelled.'],
-  ['Cut', 'One split of a piece of the state into two sides, each with its share of the seats and the people. A state with N seats takes N minus 1 cuts.'],
+  ['Cut', ['One split of a piece of the state into two sides, each with its share of the seats and the people. A state with ', mv('N'), ' seats takes ', mv('N'), ' minus 1 cuts.']],
   ['Guide line', 'A straight line tried during a cut. It only decides which side each block joins; the real border then follows block edges.'],
   ['Share', 'The number of people one side of a cut should hold: the piece’s people times that side’s seats, divided by the piece’s seats.'],
   ['Border length', 'How long a cut’s real border is, measured along block edges. Of all the lines that work, the shortest border wins.'],

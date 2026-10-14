@@ -1,5 +1,9 @@
 # Docs changelog
 
+## 1.0.4 (2026-10-14)
+
+- Described the `splitChunks` and `resweptChunks` fields of `cut-stats.json`.
+
 ## 1.0.3 (2026-10-12)
 
 - Described how an island link's length counts in a cut's border, and balancing as people first, then border, including what the metrics count.

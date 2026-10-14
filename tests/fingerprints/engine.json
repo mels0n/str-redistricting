@@ -1,17 +1,17 @@
 {
-  "engineMajor": 1,
+  "engineMajor": 2,
   "states": {
     "CT": {
       "before": "05a16e596e7b129d51244321f6d6de5079d50ea6f38867a78767b9c28b67ecb9",
-      "finished": "fc7618079fce049c704c208330f3d48661e060045d3a6c2bd1544f84b63d997f"
+      "finished": "e02a64eaa5764c59b77a4e230547a84e09bc4737b72750a91e4d6f1e32bacc02"
     },
     "NV": {
       "before": "b0bf118e122be7491b9e9e8797c45d2ceff1b0a9a8014cab946be5cf38975e4b",
-      "finished": "9e5ef8aa0a23af76a8c7d989726dded03e8593901dd0da731424cec93cb5679a"
+      "finished": "06d980c68e640b9fdffcab4434e1f1f863f3576f2f29efe9aa12b5131d4dcd45"
     },
     "RI": {
       "before": "df75acf65e70dc7be5a1ff9e2156168d1f928e6c1c7fe00b0e17ed66c26bd873",
-      "finished": "b1cd8c706d0392598d4b5ca87821c8f555e6e1f44dc63a596c88de2790815cd2"
+      "finished": "583e75df6303b60a38b87e49c87cb1fd5c2aeaaa44c58205f0035ca633e90219"
     },
     "VT": {
       "before": "d221e7eba65998b2fb4d94b95e73785e60113a14a7cd8637793b75ce1d1b56e3",
@@ -19,7 +19,7 @@
     },
     "VT:state-senate": {
       "before": "15e7da116f5ec19ee0e7e4c433b5b0730336c2dc69a6bf2313ee8ded7ed695c8",
-      "finished": "b2857fc028d2fcdce94a056c145bf4f4c7136ae11caa181282c82dade921f8ed"
+      "finished": "76ca97316596536cf84aa5ebf28dcc89f091e4c7dfcb687d04de88f84c0cd361"
     }
   }
 }

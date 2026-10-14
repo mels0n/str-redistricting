@@ -9,6 +9,9 @@ const B = 'b'.repeat(64);
 const C = 'c'.repeat(64);
 const stamp = stampOf(VERSIONS);
 const bumped = (over: Partial<typeof stamp>) => ({ ...stamp, ...over });
+// Engine versions relative to the current one, so the tests hold whatever the engine version is.
+const [major, minor, patch] = stamp.engine.split('.').map(Number) as [number, number, number];
+const nextMajor = `${major + 1}.0.0`, nextPatch = `${major}.${minor}.${patch + 1}`, nextMinor = `${major}.${minor + 9}.0`;
 const plan = (sha: string, beforeSha = sha, inputSha256 = A) => ({ sha, beforeSha, inputSha256 });
 const same = { versions: stamp, ...plan(A) };
 
@@ -47,11 +50,11 @@ describe('checkPublishGate', () => {
     expect(() => checkPublishGate({ versions: stamp, ...plan(A) }, same, false, 'RI')).not.toThrow();
   });
   it('allows a changed map when the engine major moved', () => {
-    expect(() => checkPublishGate({ versions: stamp, ...plan(A) }, { versions: bumped({ engine: '2.0.0' }), ...plan(B) }, false, 'RI')).not.toThrow();
+    expect(() => checkPublishGate({ versions: stamp, ...plan(A) }, { versions: bumped({ engine: nextMajor }), ...plan(B) }, false, 'RI')).not.toThrow();
   });
   it('refuses a changed map when only the engine minor or patch moved', () => {
-    expect(() => checkPublishGate({ versions: stamp, ...plan(A) }, { versions: bumped({ engine: '1.0.1' }), ...plan(B) }, false, 'RI')).toThrow('the map changed');
-    expect(() => checkPublishGate({ versions: stamp, ...plan(A) }, { versions: bumped({ engine: '1.9.0' }), ...plan(B) }, false, 'RI')).toThrow('the map changed');
+    expect(() => checkPublishGate({ versions: stamp, ...plan(A) }, { versions: bumped({ engine: nextPatch }), ...plan(B) }, false, 'RI')).toThrow('the map changed');
+    expect(() => checkPublishGate({ versions: stamp, ...plan(A) }, { versions: bumped({ engine: nextMinor }), ...plan(B) }, false, 'RI')).toThrow('the map changed');
   });
   it('allows a changed map when the state census file changed', () => {
     expect(() => checkPublishGate({ versions: stamp, ...plan(A, A, A) }, { versions: stamp, ...plan(B, B, C) }, false, 'RI')).not.toThrow();
@@ -69,7 +72,7 @@ describe('checkPublishGate', () => {
   it('refuses a change that only the before-balancing plan shows', () => {
     // Balancing absorbed the difference: the finished fingerprint is unchanged.
     expect(() => checkPublishGate({ versions: stamp, ...plan(A, A) }, { versions: stamp, ...plan(A, B) }, false, 'RI')).toThrow('the map changed');
-    expect(() => checkPublishGate({ versions: stamp, ...plan(A, A) }, { versions: bumped({ engine: '2.0.0' }), ...plan(A, B) }, false, 'RI')).not.toThrow();
+    expect(() => checkPublishGate({ versions: stamp, ...plan(A, A) }, { versions: bumped({ engine: nextMajor }), ...plan(A, B) }, false, 'RI')).not.toThrow();
   });
   it('cannot compare the before-balancing plan when the published stats lack it', () => {
     const old = { versions: stamp, sha: A, inputSha256: A };

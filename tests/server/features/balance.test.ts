@@ -34,6 +34,36 @@ describe('balance', () => {
     expect(r.moves.map((m) => m.block)).toEqual([1]);
     expect(Array.from(r.assignment)).toEqual([0, 1, 1, 1]);
   });
+  it('moves a block with no people when that shortens the border, leaving every population as it was', () => {
+    // 3x3. District 0 is the top row and the empty center block 4; District 1 is the rest. Both hold 6 people, so no
+    // move with people narrows a gap. Block 4 shares one edge with District 0 and three with District 1: moving it
+    // shortens the border by two edges.
+    const pops = [2, 2, 2, 1, 0, 1, 2, 1, 1];
+    const blocks = gridBlocks(3, 3, { pop: (x, y) => pops[y * 3 + x]! });
+    const topo = buildTopology(blocks);
+    const r = balance(blocks, topo, Int32Array.from([0, 0, 0, 1, 0, 1, 1, 1, 1]), 2);
+    expect(r.moves).toEqual([expect.objectContaining({ block: 4, from: 0, to: 1, pop: 0, gain: 0 })]);
+    expect(Array.from(r.assignment)).toEqual([0, 0, 0, 1, 1, 1, 1, 1, 1]);
+    for (const d of [0, 1]) expect(isConnected(topo, Int32Array.from([...r.assignment.keys()].filter((i) => r.assignment[i] === d)))).toBe(true);
+  });
+  it('makes a move with people that leaves the districts exactly as close when it shortens the border', () => {
+    // 1x3 row: District 0 = blocks 0, 1 (1 + 2 people), District 1 = block 2 (1 person). Gap 2. Moving block 1 (2 people)
+    // gives 1 against 3: gap 2 again, so the sum of squares is unchanged (gain 2*2*(3-1-2) = 0). Block 1 shares one
+    // edge with each district, so the border would not shorten: no move.
+    const row = gridBlocks(3, 1, { pop: (x) => [1, 2, 1][x]! });
+    expect(balance(row, buildTopology(row), Int32Array.from([0, 0, 1]), 2).moves).toHaveLength(0);
+    // 3x3, rows top to bottom. District 0 = the left column and the center (2, 0, 2 and 2: 6 people), District 1 =
+    // the other five (1, 1, 1, 1, 0: 4 people). Gap 2. Every border block of District 0 holds 2 people, so each move
+    // out leaves them exactly as close (gain 0) and every move in leaves them further apart. Blocks 0 and 6 share one
+    // edge with each district (border unchanged); the center shares one with District 0 and three with District 1,
+    // so moving it shortens the border by two edges: it is the move made.
+    const pops = [2, 1, 1, 0, 2, 1, 2, 1, 0];
+    const blocks = gridBlocks(3, 3, { pop: (x, y) => pops[y * 3 + x]! });
+    const topo = buildTopology(blocks);
+    const r = balance(blocks, topo, Int32Array.from([0, 1, 1, 0, 0, 1, 0, 1, 1]), 2);
+    expect(r.moves[0]).toMatchObject({ block: 4, from: 0, to: 1, pop: 2, gain: 0 });
+    for (const d of [0, 1]) expect(isConnected(topo, Int32Array.from([...r.assignment.keys()].filter((i) => r.assignment[i] === d)))).toBe(true);
+  });
   it('leaves an already balanced plan alone', () => {
     const blocks = gridBlocks(2, 1);
     const r = balance(blocks, buildTopology(blocks), Int32Array.from([0, 1]), 2);
@@ -207,15 +237,18 @@ describe('balance onRound', () => {
     const [first, second] = rounds as [BalanceRound, BalanceRound];
     expect(first.furthest).toBe(0);
     expect(first.tried).toEqual([0]);
-    // Block 1 holds the top row together; blocks 0 and 2 may go; the empty bottom row has no people.
+    // Block 1 holds the top row together; blocks 0 and 2 may go; the empty bottom row leaves the populations as they
+    // are and would not shorten the border (each bottom block shares one edge with each district).
     expect(reasonOf(first, 1, 1)).toMatchObject({ from: 0, gain: 12, allowed: false, reason: 'disconnects' });
     expect(reasonOf(first, 0, 1)).toMatchObject({ from: 0, gain: 8, allowed: true });
     expect(reasonOf(first, 2, 1)).toMatchObject({ from: 0, gain: 8, allowed: true });
-    for (const b of [3, 4, 5]) expect(reasonOf(first, b, 0)).toMatchObject({ from: 1, allowed: false, reason: 'no-people' });
+    for (const b of [3, 4, 5]) expect(reasonOf(first, b, 0)).toMatchObject({ from: 1, allowed: false, gain: 0, reason: 'not-shorter' });
     expect(first.candidates.every((c) => c.allowed === (c.reason === undefined))).toBe(true);
-    // Next round: 4 against 1. Moving the 3 would leave 1 against 4, no narrower; moving the 1 back would widen it.
-    expect(reasonOf(second, 1, 1)).toMatchObject({ gain: 0, allowed: false, reason: 'widens' });
-    expect(reasonOf(second, 0, 0)).toMatchObject({ from: 1, allowed: false, reason: 'widens' });
+    // Next round: 4 against 1. Moving the 3 would leave 1 against 4, exactly as close, with a shorter border, so it is
+    // allowed but ranked after the gain-4 move; moving the 1 back would leave them further apart.
+    expect(reasonOf(second, 1, 1)).toMatchObject({ gain: 0, allowed: true });
+    expect(reasonOf(second, 1, 1)!.border).toBeLessThan(0);
+    expect(reasonOf(second, 0, 0)).toMatchObject({ from: 1, allowed: false, reason: 'worse' });
     expect(reasonOf(second, 2, 1)).toMatchObject({ gain: 4, allowed: true });
   });
   it('tries the next furthest district when the furthest has no allowed move', () => {

@@ -8,7 +8,7 @@ import type { SplitContext } from './context.js';
 import type { ScanPool } from './pool.js';
 import { createScanner, type Piece, type ScanJob } from './scan.js';
 import { compareRanges, directionAt, geoFor, mergeChunks, type ChunkResult, type Dir, type Range, type TieSpan } from './sweep.js';
-import { chunksFor, runTask, taskCount, type PoolJob, type SweepJob, type TieSpanJob } from './tasks.js';
+import { chunksFor, runTask, taskCount, tieWindows, type PoolJob, type SweepJob, type TieSpanJob } from './tasks.js';
 
 export { selectLow } from './scan.js';
 
@@ -64,8 +64,10 @@ export interface CutResult {
 }
 
 /**
- * Work counters of one cut's search, summed over every chunk and tie stretch swept. The counts are the same on any
- * number of threads; `tieSpanMs` is wall-clock time and is not.
+ * Work counters of one cut's search, summed over every chunk and tie stretch swept. On the calling thread the counts
+ * are the same on every run; on worker threads a chunk can be split between threads while it runs (steal.ts), and
+ * each part starts its own trackers, so the counts can also depend on the number of threads and their timing, as
+ * `tieSpanMs` (wall-clock time) does. The cut never does.
  */
 export interface ScanCounters {
   /** Wall-clock time spent sweeping the tie stretches again from the other end. */
@@ -237,7 +239,7 @@ function joinTieSpans(chunks: readonly ChunkResult[]): { lowSeats: number; ties:
 function runAll(piece: Piece, job: PoolJob, pool: ScanPool | undefined): ChunkResult[] {
   if (pool) return pool.scan(piece, job);
   const out: ChunkResult[] = [];
-  for (let t = 0; t < taskCount(job); t++) out.push(runTask(piece, job, t));
+  for (let t = 0; t < taskCount(job); t++) out.push(...runTask(piece, job, t));
   return out;
 }
 
@@ -331,11 +333,10 @@ export function findCut(ctx: SplitContext, members: Int32Array, seats: number, v
   const spans = opts.reverseEverywhere
     ? orientations.map((o) => ({ lowSeats: o, ties: [{ s: directionAt(0), e: directionAt(180), sDeg: 0, eDeg: 180, endIsPi: true }] }))
     : joinTieSpans(chunks);
-  // Each stretch is one task, whole, swept on the pool when there is one; the results are taken in stretch order.
-  const tieJob: TieSpanJob = {
-    kind: 'tieSpan', seats, keep: KEEP,
-    spans: spans.flatMap((c) => c.ties.map((t) => ({ lowSeats: seats - c.lowSeats, s: t.s, e: t.e, sDeg: t.sDeg, eDeg: t.eDeg, endIsPi: t.endIsPi }))),
-  };
+  // Each stretch is swept whole, neighbouring ones in windows with one chain (tieWindows), on the pool when there is
+  // one; the results are one per stretch, taken in stretch order.
+  const tieList = spans.flatMap((c) => c.ties.map((t) => ({ lowSeats: seats - c.lowSeats, s: t.s, e: t.e, sDeg: t.sDeg, eDeg: t.eDeg, endIsPi: t.endIsPi })));
+  const tieJob: TieSpanJob = { kind: 'tieSpan', seats, keep: KEEP, spans: tieList, windows: tieWindows(tieList) };
   const tieSpans = tieJob.spans.length;
   const tieT0 = performance.now();
   const tieResults = tieSpans === 0 ? [] : runAll(flippedPiece(), tieJob, opts.pool);

@@ -51,6 +51,9 @@ function append(el: Element, children: (Child | Child[])[]): void {
   }
 }
 
+/** A single letter used as a mathematical variable, set in italics (`<var>`). */
+export const mv = (name: string): HTMLElement => h('var', null, name);
+
 export function clear(el: Element): void {
   while (el.firstChild) el.removeChild(el.firstChild);
 }

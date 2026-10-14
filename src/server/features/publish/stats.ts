@@ -1,5 +1,6 @@
 import type { VersionStamp } from '../../shared/config/index.js';
 import { DataError } from '../../shared/errors/index.js';
+import { NO_BORDER_ONLY_MOVES, type BorderOnlyMoves } from './balance.js';
 import type { CountyRef } from './counties.js';
 import type { PlanMetrics } from './summary.js';
 
@@ -10,10 +11,15 @@ export interface PlanStats {
 }
 
 /** One plan's published stats: every metrics.json field, with each district carrying the counties it touches. */
-export function planStats(m: PlanMetrics, counties: readonly (readonly CountyRef[])[], landParts?: readonly number[]): PlanStats {
+export function planStats(
+  m: PlanMetrics,
+  counties: readonly (readonly CountyRef[])[],
+  landParts?: readonly number[],
+  borderOnly: BorderOnlyMoves = NO_BORDER_ONLY_MOVES,
+): PlanStats {
   const { districts, ...metrics } = m;
   return {
-    metrics,
+    metrics: { ...metrics, ...borderOnly },
     districts: districts.map((d) => {
       const parts = landParts?.[d.district - 1];
       if (landParts !== undefined && parts === undefined) throw new DataError(`missing land-parts entry for district ${d.district}`);

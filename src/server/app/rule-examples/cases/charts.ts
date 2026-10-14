@@ -307,7 +307,9 @@ export async function furthestCase(ctx: ExtractContext): Promise<RuleCase> {
       { caption: `${name}'s ideal is ${people(ideal)} people per district. Each bar is how far a district is from it before balancing: above the line is over, below is under.`, show: ['chart'] },
       { caption: `Distance counts either way. ${dist(worst)} and ${dist(rival)}, so District ${worst + 1} is further.`, show: ['chart', 'chart-runnerUp', 'chart-furthest'] },
       {
-        caption: `District ${worst + 1} goes first. The first real move takes ${whole(out.balance.moves[0]!.pop)} people out of District ${move.from} and into District ${move.to}.`,
+        caption: `District ${worst + 1} goes first. ${move.gain === 0
+          ? `The first move takes ${move.pop === 0 ? 'a block with no people' : `${whole(move.pop)} people`} out of District ${move.from} and into District ${move.to}, leaving the districts exactly as close to equal and shortening the border.`
+          : `The first move takes ${whole(move.pop)} people out of District ${move.from} and into District ${move.to}.`}`,
         show: ['chart', 'chart-furthest'],
       },
       {
@@ -317,6 +319,38 @@ export async function furthestCase(ctx: ExtractContext): Promise<RuleCase> {
     ],
     chart: { kind: 'bars', values: devs, labels: devs.map((_, i) => String(i + 1)), marks: { runnerUp: [rival], furthest: [worst] } },
   };
+}
+
+/**
+ * The captions for the second and last steps of balance.stop. A move with a gain above 0 brings the districts closer to equal and lowers the sum
+ * by its gain; a move with gain 0 leaves them exactly as close, so the sum is unchanged, and is made only because it shortens the border.
+ */
+export function stopCaptions(moves: readonly { gain: number }[]): [string, string] {
+  const n = moves.length;
+  const closer = moves.filter((m) => m.gain > 0);
+  const equal = n - closer.length;
+  const dots = 'Each dot is the sum after a move.';
+  const ending = 'a sum of squares never goes below zero';
+  if (equal === 0) {
+    const lowest = closer.reduce((m, x) => Math.min(m, x.gain), Infinity);
+    return [
+      `Each of the ${n} moves lowers that sum, the first by ${whole(moves[0]!.gain)} and the last by ${whole(moves[n - 1]!.gain)}. ${dots}`,
+      `No move lowers the sum any further, so the pass stops. It always does: every move lowers the sum by at least ${whole(lowest)}, and ${ending}.`,
+    ];
+  }
+  const border = 'A border cannot keep getting shorter either.';
+  const equalWords = `${whole(equal)} of the ${whole(n)} moves ${equal === 1 ? 'leaves' : 'leave'} the districts exactly as close to equal, so the sum stays the same, and ${equal === 1 ? 'is' : 'are'} made only because ${equal === 1 ? 'it shortens' : 'they shorten'} the border.`;
+  if (closer.length === 0) {
+    return [
+      `No move raises that sum. ${equalWords} ${dots}`,
+      `No move helps any further, so the pass stops. It always does: the sum never goes up, and a border cannot keep getting shorter.`,
+    ];
+  }
+  const lowest = closer.reduce((m, x) => Math.min(m, x.gain), Infinity);
+  return [
+    `No move raises that sum. The other moves bring the districts closer to equal and lower it, the first by ${whole(closer[0]!.gain)} and the last by ${whole(closer[closer.length - 1]!.gain)}. ${equalWords} ${dots}`,
+    `No move helps any further, so the pass stops. It always does: every move that lowers the sum lowers it by at least ${whole(lowest)}, and ${ending}. ${border}`,
+  ];
 }
 
 /** balance.stop: the sum of squared distances falls with every move until none helps. */
@@ -334,7 +368,7 @@ export async function stopCase(ctx: ExtractContext): Promise<RuleCase> {
   const [rangeBefore, rangeAfter] = [numberField(out.metrics, 'rangeBeforeBalancing', abbr), numberField(out.metrics, 'rangeAfterBalancing', abbr)];
   if (range(before) !== rangeBefore || range(districts.map((d) => d.pop)) !== rangeAfter) throw new DataError(`${abbr}: the ranges in metrics.json do not match the populations`);
   const n = moves.length;
-  const lowest = moves.reduce((m, x) => Math.min(m, x.gain), Infinity);
+  const [each, why] = stopCaptions(moves);
   const name = nameOf(abbr);
   const chart = ['chart', 'x-start', 'x-end'];
 
@@ -351,9 +385,9 @@ export async function stopCase(ctx: ExtractContext): Promise<RuleCase> {
         caption: `Before balancing, ${name}'s districts run from ${whole(Math.min(...before))} to ${whole(Math.max(...before))} people, a range of ${whole(rangeBefore)}. Squaring each district's distance from the ideal ${people(ideal)} and adding up gives ${people(values[0]!)}.`,
         show: [...chart, 'chart-first'],
       },
-      { caption: `Each of the ${n} moves lowers that sum, the first by ${whole(moves[0]!.gain)} and the last by ${whole(moves[n - 1]!.gain)}. Each dot is the sum after a move.`, show: chart },
+      { caption: each, show: chart },
       { caption: `After ${n} moves the sum is ${people(final)} and the range is ${whole(rangeAfter)}.`, show: [...chart, 'chart-last'] },
-      { caption: `No move lowers the sum any further, so the pass stops. It always does: every move lowers the sum by at least ${whole(lowest)}, and a sum of squares never goes below zero.`, show: [...chart, 'chart-last'] },
+      { caption: why, show: [...chart, 'chart-last'] },
     ],
     chart: { kind: 'series', values, marks: { first: [0], last: [n] } },
   };

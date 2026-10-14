@@ -76,16 +76,17 @@ describe('tie stretches swept in the worker pool', () => {
     for (const pool of pools.values()) expect(planWithoutCounters(splitState(ctx, 6, { pool }))).toEqual(planWithoutCounters(one));
   }, 60_000);
 
-  it('reports the scan counters of every cut, the same on any number of threads except the timing', () => {
+  it('reports the scan counters of every cut, the same on every run on the calling thread', () => {
     const { ctx, n, seats } = withTies();
     const one = findCut(ctx, all(n), seats);
+    const again = findCut(ctx, all(n), seats);
     const many = findCut(ctx, all(n), seats, undefined, { pool: pools.get(4)! });
-    for (const r of [one, many]) {
+    for (const r of [one, again, many]) {
       expect(r.scan.tieSpanMs).toBeGreaterThanOrEqual(0);
       for (const k of ['derivedBuilds', 'reconfigs', 'exactFallbacks'] as const) expect(Number.isInteger(r.scan[k]), k).toBe(true);
     }
-    const { tieSpanMs: _a, ...counted1 } = one.scan, { tieSpanMs: _b, ...countedN } = many.scan;
-    expect(countedN).toEqual(counted1);
+    const { tieSpanMs: _a, ...counted1 } = one.scan, { tieSpanMs: _b, ...counted2 } = again.scan;
+    expect(counted2).toEqual(counted1);
   });
 
   it('counts the tie stretches\' own sweeps, not only the chunks', () => {
@@ -101,10 +102,32 @@ describe('tie stretches swept in the worker pool', () => {
     expect(r.tieSpans).toBeGreaterThan(0);
     const job = { seats: 2, orientations: [1], chunks: chunksFor(n), keep: 6 }, piece = pieceOf(ctx);
     let chunkOnly = 0;
-    for (let t = 0; t < taskCount(job); t++) chunkOnly += runTask(piece, job, t).stats['derivedBuilds'] ?? 0;
+    for (let t = 0; t < taskCount(job); t++) for (const r of runTask(piece, job, t)) chunkOnly += r.stats['derivedBuilds'] ?? 0;
     expect(chunkOnly).toBeGreaterThan(0);
     expect(r.scan.derivedBuilds).toBeGreaterThan(chunkOnly);
   });
+});
+
+describe('chunks split between workers while they run', () => {
+  it('gives the same cut and plan as one thread when every chunk is split as often as it can be', async () => {
+    const pools = [new ScanPool(2, { splitAlways: true }), new ScanPool(4, { splitAlways: true })];
+    try {
+      for (const { ctx, n, seats } of tiePieces().slice(0, 12)) {
+        const one = attempt(() => findCut(ctx, all(n), seats));
+        for (const pool of pools) expect(comparable(attempt(() => findCut(ctx, all(n), seats, undefined, { pool }))), `${n} blocks, ${seats} seats`).toEqual(comparable(one));
+      }
+      const rnd = lcg(4);
+      const pops: number[] = Array.from({ length: 48 }, () => (rnd() < 0.3 ? 0 : 1 + Math.floor(rnd() * 3)));
+      const ctx = createContext(gridBlocks(8, 6, { pop: (x, y) => pops[y * 8 + x]! }));
+      const one = splitState(ctx, 6);
+      for (const pool of pools) expect(planWithoutCounters(splitState(ctx, 6, { pool }))).toEqual(planWithoutCounters(one));
+      // The chunks really were split, not just swept whole.
+      expect(pools.reduce((s, p) => s + p.splits.chunks, 0)).toBeGreaterThan(0);
+      for (const p of pools) expect(p.splits.reswept).toBeLessThanOrEqual(p.splits.chunks);
+    } finally {
+      for (const p of pools) await p.close();
+    }
+  }, 120_000);
 });
 
 describe('a worker lost while sweeping tie stretches', () => {

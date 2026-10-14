@@ -18,7 +18,7 @@ export type { PlanDistricts } from './locate';
 export { evenSplit, evenSizes, evenSplitSentence, formatEvenPct, fromEven, describeFromEven } from './even';
 export type { EvenSplit, FromEven } from './even';
 // Schemas and types of the published files, and the water-bridge links.
-export { StatsSchema, VersionStampSchema, CutsSchema, WaterTopoSchema, BridgesSchema, BeforeNeighborsSchema } from './model';
+export { StatsSchema, MetricsSchema, VersionStampSchema, CutsSchema, WaterTopoSchema, BridgesSchema, BeforeNeighborsSchema } from './model';
 export type { Stats, PlanStats, DistrictStats, Metrics, Cut, Bridges, BridgeLink, BeforeNeighbors } from './model';
 export { linksIn, linksFeatures } from './bridges';
 // The balancing log, and replay of its moves.

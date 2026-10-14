@@ -2,8 +2,8 @@ export { CountyRecord, ENACTED_CANDIDATES, ENACTED_CONGRESS, LAND_FILE, STATES_F
 export type { CdRecord } from './boundary.js';
 export { countiesByDistrict } from './counties.js';
 export type { CountyRef } from './counties.js';
-export { BalanceLogSchema, buildBalance, ProcessNumbersSchema } from './balance.js';
-export type { BalanceLog, PublishedBalance } from './balance.js';
+export { BalanceLogSchema, borderOnlyMoves, BorderOnlyMovesSchema, buildBalance, NO_BORDER_ONLY_MOVES, ProcessNumbersSchema } from './balance.js';
+export type { BalanceLog, BorderOnlyMoves, PublishedBalance } from './balance.js';
 export { checkBlocks, encodeBlocks } from './blocks.js';
 export type { BlocksFile, Fingerprints } from './blocks.js';
 export { buildPublishedBridges } from './bridges.js';

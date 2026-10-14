@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 import { describe, expect, it } from 'vitest';
 import { createProcessPanel } from '../../src/client/widgets/process-panel';
-import type { Metrics } from '../../src/client/entities/plan';
+import { MetricsSchema, type Metrics } from '../../src/client/entities/plan';
 
 const metrics = {
   state: 'CA', lineSearch: 'exact', inputSha256: 'a'.repeat(64), seats: 52, population: 39538223, ideal: 760350.4, rangePersons: 12, rangePct: 0,
@@ -52,5 +52,27 @@ describe('What happened in this state', () => {
   it('links the rows of a one-seat state too', () => {
     const el = createProcessPanel({ stateName: 'Alaska', metrics: single, onWatch: () => undefined });
     expect(links(el)).toEqual({ Cuts: '#/how/recursion', 'Balancing moves': '#/how/balancing', 'Run time': '#/how/fingerprint' });
+  });
+});
+
+describe('balancing moves that only shortened the border', () => {
+  const text = (m: Metrics) => createProcessPanel({ stateName: 'California', metrics: m, onWatch: () => undefined }).textContent!;
+  it('reports how many moves only shortened the border', () => {
+    expect(text({ ...metrics, balanceMovesBorderOnly: 41, peopleMovedBorderOnly: 90 })).toContain('41 of 127 moves only shortened the border.');
+  });
+  it('says so when none did, and uses the singular for one move', () => {
+    expect(text({ ...metrics, balanceMovesBorderOnly: 0, peopleMovedBorderOnly: 0 })).toContain(`None of the ${metrics.balanceMoves.toLocaleString('en-US')} moves only shortened the border.`);
+    expect(text({ ...metrics, balanceMoves: 1, peopleMovedByBalancing: 5, balanceMovesBorderOnly: 1, peopleMovedBorderOnly: 5 })).toContain('1 of 1 move only shortened the border.');
+  });
+  it('shows nothing when the stats predate the count or no move was made', () => {
+    expect(text(metrics)).not.toContain('only shortened');
+    expect(text({ ...single, balanceMovesBorderOnly: 0, peopleMovedBorderOnly: 0 })).not.toContain('only shortened');
+  });
+  it('parses stats metrics with and without the fields', () => {
+    const base = { ...metrics } as Record<string, unknown>;
+    expect(MetricsSchema.safeParse(base).success).toBe(true);
+    const withFields = MetricsSchema.safeParse({ ...base, balanceMovesBorderOnly: 41, peopleMovedBorderOnly: 90 });
+    expect(withFields.success && withFields.data.balanceMovesBorderOnly).toBe(41);
+    expect(MetricsSchema.safeParse({ ...base, balanceMovesBorderOnly: -1 }).success).toBe(false);
   });
 });

@@ -1,7 +1,7 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import {
-  chartCases, furthestCase, furthestOf, gapUm, gapWords, orderOfChecksCase, shortestTwo, stopCase, tieRuleText, tiesCase,
+  chartCases, furthestCase, furthestOf, gapUm, gapWords, orderOfChecksCase, shortestTwo, stopCaptions, stopCase, tieRuleText, tiesCase,
   type Cand,
 } from '../../../src/server/app/rule-examples/cases/charts.js';
 import { createExtractContext, RuleCaseSchema, type RuleCase } from '../../../src/server/features/rule-examples/index.js';
@@ -179,6 +179,33 @@ describe('balance.furthest (CO)', () => {
   });
 });
 
+describe('balance.stop captions', () => {
+  it('say every move lowers the sum, by at least the smallest gain, when every block moved has people', () => {
+    const [each, why] = stopCaptions([{ gain: 50 }, { gain: 12 }, { gain: 7 }]);
+    expect(each).toContain('Each of the 3 moves lowers that sum, the first by 50 and the last by 7');
+    expect(why).toContain('every move lowers the sum by at least 7');
+  });
+  it('say the sum never rises and name the moves that leave the districts exactly as close, without claiming a gain of at least 0', () => {
+    const moves = [{ gain: 50 }, { gain: 12 }, { gain: 0 }, { gain: 0 }];
+    const [each, why] = stopCaptions(moves);
+    expect(each).toMatch(/No move raises that sum/);
+    expect(each).toContain('2 of the 4 moves leave the districts exactly as close to equal');
+    expect(each).not.toMatch(/no people|with people/);
+    expect(each).toMatch(/stays the same/);
+    expect(each).toMatch(/border/);
+    expect(each).toContain('the first by 50');
+    expect(each).toContain('the last by 12');
+    expect(why).toContain('lowers it by at least 12');
+    expect(why).toMatch(/border/);
+    expect(`${each} ${why}`).not.toMatch(/at least 0/);
+  });
+  it('cope with a plan whose every move leaves the districts exactly as close', () => {
+    const [each, why] = stopCaptions([{ gain: 0 }]);
+    expect(each).toMatch(/No move raises that sum/);
+    expect(`${each} ${why}`).not.toMatch(/NaN|Infinity|at least 0/);
+  });
+});
+
 describe('balance.stop (CO)', () => {
   it.skipIf(!haveCO)('starts at the sum of squares before the first move and falls by each move\'s gain to the final plan', async () => {
     const c = await stopCase(ctx);
@@ -193,7 +220,7 @@ describe('balance.stop (CO)', () => {
     expect(v[0]).toBe(sq(b.before));
     b.moves.forEach((mv, i) => expect(v[i]! - v[i + 1]!).toBe(mv.gain));
     expect(v.at(-1)).toBe(sq(m.districts.map((d) => d.pop)));
-    for (let i = 1; i < v.length; i++) expect(v[i]!).toBeLessThan(v[i - 1]!);
+    b.moves.forEach((mv, i) => (mv.gain > 0 ? expect(v[i + 1]!).toBeLessThan(v[i]!) : expect(v[i + 1]!).toBe(v[i]!)));
     const pops = m.districts.map((d) => d.pop);
     expect(Math.max(...pops) - Math.min(...pops)).toBe(m.rangeAfterBalancing);
     expect(Math.max(...b.before) - Math.min(...b.before)).toBe(m.rangeBeforeBalancing);

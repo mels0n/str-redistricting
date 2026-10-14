@@ -9,7 +9,7 @@ It draws maps for three chambers: the Federal House, the State House and the Sta
 
 The repository has two parts:
 
-1. **The generator** (`src/server/`) pulls population data directly from the U.S. Census Bureau and draws every district map in three fixed steps: cut (repeatedly split a state with the straight guide line whose real border is shortest, among those that divide its population in the required ratio and leave each side in one connected piece, until each piece is one district), keep census blocks whole, and balance (move single border blocks between neighboring districts when that narrows the population gap). It uses no partisan data, no election results, no incumbent addresses and no race data. Anyone can run it and get the identical maps.
+1. **The generator** (`src/server/`) pulls population data directly from the U.S. Census Bureau and draws every district map in three fixed steps: cut (repeatedly split a state with the straight guide line whose real border is shortest, among those that divide its population in the required ratio and leave each side in one connected piece, until each piece is one district), keep census blocks whole, and balance (move single border blocks between neighboring districts when that brings them closer to equal population, or leaves them exactly as close and shortens the border). It uses no partisan data, no election results, no incumbent addresses and no race data. Anyone can run it and get the identical maps.
 2. **The viewer** (`src/client/`) is a web app for browsing the generated maps.
 
 ### Versions

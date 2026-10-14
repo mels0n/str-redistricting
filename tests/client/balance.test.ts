@@ -95,10 +95,12 @@ describe('the published balancing logs join the two phases', () => {
       expect(rangeOf(log.before)).toBe(m.rangeBeforeBalancing);
       expect(rangeOf(populationsAfter(log.before, moves, moves.length))).toBe(m.rangeAfterBalancing);
       expect(moves.reduce((t, x) => t + x.pop, 0)).toBe(m.peopleMovedByBalancing);
-      // Every move strictly narrows the gap between its two districts.
+      // Every move narrows the gap between its two districts, or leaves it exactly as wide (a move made only because it
+      // shortens the border, with gain 0).
       for (let k = 1; k <= moves.length; k++) {
         const d = moveDetail(log.before, moves, k)!;
-        expect(d.gapAfter).toBeLessThan(d.gapBefore);
+        if (d.move.gain === 0) expect(d.gapAfter).toBe(d.gapBefore);
+        else expect(d.gapAfter).toBeLessThan(d.gapBefore);
       }
       // Every moved block has an outline to draw.
       for (const x of moves) expect(log.blocks[x.geoid]).toBeDefined();
@@ -111,6 +113,21 @@ describe('the published balancing logs join the two phases', () => {
     const bad = log.moves.map((x) => ({ ...x, pop: x.pop + 1 }));
     expect(() => checkLog('RI', log.before, bad, stats)).toThrow(/finished map/);
     expect(() => checkLog('RI', [1, 2], log.moves, stats)).toThrow();
+  });
+});
+
+describe('a balancing move of a block with no people', () => {
+  const ring = [[0, 0], [1, 0], [1, 1], [0, 0]];
+  const move = { order: 1, geoid: '080000000000001', from: 1, to: 2, pop: 0, gain: 0 };
+  const parse = (m: object): unknown => BalanceSchema.parse({ before: [10, 10], moves: [{ ...move, ...m }], blocks: { [move.geoid]: [[ring]] } });
+  it('is read, and leaves every population as it was', () => {
+    const log = BalanceSchema.parse({ before: [10, 10], moves: [move], blocks: { [move.geoid]: [[ring]] } });
+    expect(log.moves[0]).toEqual(move);
+    expect(populationsAfter(log.before, log.moves, 1)).toEqual([10, 10]);
+  });
+  it('is still rejected when the size or gain is negative', () => {
+    expect(() => parse({ pop: -1 })).toThrow();
+    expect(() => parse({ gain: -1 })).toThrow();
   });
 });
 

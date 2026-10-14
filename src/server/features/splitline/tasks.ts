@@ -1,5 +1,5 @@
 import type { Piece } from './scan.js';
-import { sweepChunk, sweepSpan, type ChunkResult, type Dir } from './sweep.js';
+import { compareDirections, sweepChunk, sweepSpans, type ChunkResult, type Dir, type SplitHook } from './sweep.js';
 
 /** What to sweep for one cut: every chunk of the half turn, once per first-side seat count. */
 export interface SweepJob {
@@ -23,14 +23,18 @@ export interface TieSpanTask {
 }
 
 /**
- * The tie stretches of one cut, swept again from the other end. Task t is stretch t, whole: a stretch is never cut
- * into pieces, since its first, last and best ranges are what the cut keeps of it.
+ * The tie stretches of one cut, swept again from the other end. A stretch is never cut into pieces, since its first,
+ * last and best ranges are what the cut keeps of it. Task t is a window of neighbouring stretches, spans[windows[t]]
+ * up to spans[windows[t + 1]] (or the last), swept in order with one chain (sweepSpans); the results are one per
+ * stretch, in stretch order, the same however the stretches are grouped.
  */
 export interface TieSpanJob {
   readonly kind: 'tieSpan';
   readonly seats: number;
   readonly keep: number;
   readonly spans: readonly TieSpanTask[];
+  /** Index of each window's first stretch, ascending from 0. */
+  readonly windows: readonly number[];
 }
 
 export type PoolJob = SweepJob | TieSpanJob;
@@ -49,19 +53,51 @@ export function sweepTask(job: SweepJob, t: number): SweepTask {
   return { lowSeats: job.orientations[o]!, aDeg: (180 * c) / job.chunks, bDeg: c === job.chunks - 1 ? 180 : (180 * (c + 1)) / job.chunks };
 }
 
-export const taskCount = (job: PoolJob): number => (job.kind === 'tieSpan' ? job.spans.length : job.orientations.length * job.chunks);
+export const taskCount = (job: PoolJob): number => (job.kind === 'tieSpan' ? job.windows.length : job.orientations.length * job.chunks);
 
 /**
- * Run task t of a job on `piece`; the same on the calling thread and on a worker. `beat` is the worker's heartbeat
- * (see sweepSpan); it never changes the result.
+ * Run task t of a job on `piece`; the same on the calling thread and on a worker. A chunk gives one result, a window
+ * of tie stretches one per stretch. `beat` is the worker's heartbeat (see sweepSpan) and `split` lets a chunk hand
+ * part of its directions to another thread (steal.ts); neither changes a result.
  */
-export function runTask(piece: Piece, job: PoolJob, t: number, beat?: () => void): ChunkResult {
+export function runTask(piece: Piece, job: PoolJob, t: number, beat?: () => void, split?: SplitHook): ChunkResult[] {
   if (job.kind === 'tieSpan') {
-    const s = job.spans[t]!;
-    return sweepSpan(piece, job.seats, s.lowSeats, s.s, s.e, s.sDeg, s.eDeg, s.endIsPi, job.keep, false, beat);
+    const spans = job.spans.slice(job.windows[t], job.windows[t + 1] ?? job.spans.length);
+    return sweepSpans(piece, job.seats, spans[0]!.lowSeats, spans, job.keep, beat);
   }
   const task = sweepTask(job, t);
-  return sweepChunk(piece, job.seats, task.lowSeats, task.aDeg, task.bDeg, job.keep, beat);
+  return [sweepChunk(piece, job.seats, task.lowSeats, task.aDeg, task.bDeg, job.keep, beat, split)];
+}
+
+/**
+ * Directions [fromDeg, toDeg) of chunk t, a part another thread split off (steal.ts). A part that ends before its
+ * chunk does ends at a later split, so it reports an event exactly there (eventAtEnd) and is not joined.
+ */
+export function runPart(piece: Piece, job: SweepJob, t: number, fromDeg: number, toDeg: number, beat?: () => void, split?: SplitHook): ChunkResult {
+  const task = sweepTask(job, t);
+  return sweepChunk(piece, job.seats, task.lowSeats, fromDeg, toDeg, job.keep, beat, split, toDeg < task.bDeg);
+}
+
+/** Most tie stretches in one window, so the windows of a cut still spread over the threads... */
+export const WINDOW_SPANS = 16;
+/** ...unless a cut has so many stretches that this many windows are plenty: then fewer, larger windows (fewer fresh starts). */
+export const MAX_WINDOWS = 256;
+
+/**
+ * Where each window of tie stretches starts (TieSpanJob.windows): runs of up to WINDOW_SPANS stretches of one
+ * first-side seat count, in turn order (more per window when a cut has over MAX_WINDOWS x WINDOW_SPANS stretches). A window carries one chain from stretch to stretch and gives up a gap that
+ * costs more than a fresh start (sweepSpans), so grouping is speed only, never a change to a map: each stretch gives
+ * the same result in any window.
+ */
+export function tieWindows(spans: readonly TieSpanTask[]): number[] {
+  const out: number[] = [];
+  const cap = Math.max(WINDOW_SPANS, Math.ceil(spans.length / MAX_WINDOWS));
+  for (let i = 0; i < spans.length; i++) {
+    const p = spans[i - 1], s = spans[i]!;
+    const join = p !== undefined && i - out[out.length - 1]! < cap && p.lowSeats === s.lowSeats && !p.endIsPi && compareDirections(p.e, s.s) <= 0;
+    if (!join) out.push(i);
+  }
+  return out;
 }
 
 /**

@@ -21,6 +21,10 @@ export interface ExtractContext {
   /** Metrics of the repeat run in the repeat directory, or undefined when that run is absent. */
   repeatMetrics(abbr: string): Promise<PlanMetrics | undefined>;
   blocks(abbr: string): Promise<StateBlocks>;
+  /** Whether a state's blocks are loaded and held. */
+  holdsBlocks(abbr: string): boolean;
+  /** Stop holding a state's blocks, the largest thing held per state; a later call loads them again. */
+  releaseBlocks(abbr: string): void;
 }
 
 const memo = <T>(cache: Map<string, Promise<T>>, key: string, make: () => Promise<T>): Promise<T> => {
@@ -43,5 +47,7 @@ export function createExtractContext(cfg: RuleExamplesConfig): ExtractContext {
       const blocks = await loadStateBlocks(info, cfg.rawDir);
       return { blocks, topo: buildTopology(blocks), polys: (geoids) => loadBlockPolygons(info, cfg.rawDir, geoids) };
     }),
+    holdsBlocks: (abbr) => blockSets.has(abbr),
+    releaseBlocks: (abbr) => { blockSets.delete(abbr); },
   };
 }

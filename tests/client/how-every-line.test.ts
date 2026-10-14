@@ -31,4 +31,23 @@ describe('How it works: every straight line', () => {
     expect(text).toContain('measured in whole micrometers, from the same stored length for each pair of neighbors, so it is compared exactly');
     page.destroy();
   });
+
+  it('sets the letters of the balance score formula as variables', () => {
+    const page = createHowPage({ page: 'how', section: null } as never);
+    const item = page.el.querySelector('[data-case="balance.score"]')?.closest('li');
+    expect(item).toBeTruthy();
+    const vars = [...item!.querySelectorAll('var')].map((el) => el.textContent);
+    expect(vars).toEqual(['p', 'a', 'b', 'p', 'a', 'b', 'p']);
+    expect(item!.textContent).toContain('lowers the sum by exactly 2 × p × (a − b − p)');
+    page.destroy();
+  });
+
+  it('sets the seat and block counts as variables', () => {
+    const page = createHowPage({ page: 'how', section: null } as never);
+    const all = [...page.el.querySelectorAll('var')].map((el) => el.textContent);
+    expect(all.filter((t) => t === 'N')).toHaveLength(2);
+    expect(all.filter((t) => t === 'm')).toHaveLength(2);
+    expect(page.el.textContent).toContain('A state with N seats takes exactly N minus 1 cuts.');
+    page.destroy();
+  });
 });

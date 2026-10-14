@@ -8,7 +8,8 @@ import type { Block } from './model.js';
  * Edge e runs from (edgeA[2e], edgeA[2e+1]) to (edgeB[2e], edgeB[2e+1]) in lon/lat degrees and is
  * shared by blocks edgeBlockList[edgeBlockOffsets[e] .. edgeBlockOffsets[e+1]). Edges appear in the
  * order they are first met walking blocks, rings and segments. adjLength[k] is the great-circle length
- * in meters of the border shared by block u and adjList[k] (0 for bridges), and adjLengthUm[k] the same length
+ * in meters of the border shared by block u and adjList[k] (for a bridge, the great-circle distance between the two
+ * blocks' internal points, the length the bridge was chosen by), and adjLengthUm[k] the same length
  * rounded to whole micrometers: integers, so sums of them are exact in any order. The cut and balancing compare
  * these.
  */
@@ -299,12 +300,18 @@ function buildAdjacency(n: number, edges: EdgeSet): Adjacency {
   return { offsets, list: rawList.slice(0, w), length: rawLen.slice(0, w) };
 }
 
-/** Add bridge pairs (length 0) to a sorted adjacency. */
-function withBridges(n: number, adj: Adjacency, bridges: readonly (readonly [number, number])[]): Adjacency {
+/**
+ * Add bridge pairs to a sorted adjacency. A bridge's length is the great-circle distance between its blocks' internal
+ * points, the same length it was chosen by, so a border along it counts the water it crosses.
+ */
+function withBridges(blocks: readonly Block[], adj: Adjacency, bridges: readonly (readonly [number, number])[]): Adjacency {
+  const n = blocks.length;
   if (bridges.length === 0) return adj;
   const extra = new Map<number, number[]>();
+  // One length per bridge, measured once, so both directions store exactly the same number.
+  const lengthOf = new Map<string, number>();
   const add = (u: number, v: number) => { const l = extra.get(u); if (l) l.push(v); else extra.set(u, [v]); };
-  for (const [u, v] of bridges) { add(u, v); add(v, u); }
+  for (const [u, v] of bridges) { add(u, v); add(v, u); lengthOf.set(`${Math.min(u, v)},${Math.max(u, v)}`, greatCircleDistance(blocks[u]!.point, blocks[v]!.point)); }
   const offsets = new Int32Array(n + 1);
   for (let u = 0; u < n; u++) offsets[u + 1] = offsets[u]! + (adj.offsets[u + 1]! - adj.offsets[u]!) + (extra.get(u)?.length ?? 0);
   const list = new Int32Array(offsets[n]!);
@@ -312,11 +319,12 @@ function withBridges(n: number, adj: Adjacency, bridges: readonly (readonly [num
   for (let u = 0; u < n; u++) {
     const ex = (extra.get(u) ?? []).sort((a, b) => a - b);
     let w = offsets[u]!, x = 0;
+    const bridge = () => { const v = ex[x++]!; list[w] = v; length[w] = lengthOf.get(`${Math.min(u, v)},${Math.max(u, v)}`)!; w++; };
     for (let k = adj.offsets[u]!; k < adj.offsets[u + 1]!; k++) {
-      while (x < ex.length && ex[x]! < adj.list[k]!) { list[w] = ex[x++]!; w++; }
+      while (x < ex.length && ex[x]! < adj.list[k]!) bridge();
       list[w] = adj.list[k]!; length[w] = adj.length[k]!; w++;
     }
-    while (x < ex.length) { list[w] = ex[x++]!; w++; }
+    while (x < ex.length) bridge();
   }
   return { offsets, list, length };
 }
@@ -326,7 +334,7 @@ export function buildTopology(blocks: readonly Block[]): Topology {
   const edges = buildEdges(blocks);
   const rook = buildAdjacency(n, edges);
   const bridges = bridgeComponents(blocks, rook.offsets, rook.list);
-  const adj = withBridges(n, rook, bridges);
+  const adj = withBridges(blocks, rook, bridges);
   return {
     n,
     adjOffsets: adj.offsets,

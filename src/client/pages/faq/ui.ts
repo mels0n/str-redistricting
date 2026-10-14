@@ -1,4 +1,4 @@
-import { h, config, ENACTED, ordinal, formatHash, howRoute, faqRoute, stateRoute, iconArrowLeft, prefersReducedMotion, NATIONAL, FAQ_QUESTIONS, type FaqQuestion, type Page, type Route } from '../../shared';
+import { h, mv, config, ENACTED, ordinal, formatHash, howRoute, faqRoute, stateRoute, iconArrowLeft, prefersReducedMotion, NATIONAL, FAQ_QUESTIONS, type FaqQuestion, type Page, type Route } from '../../shared';
 
 const TITLES: Record<FaqQuestion, string> = {
   strange: 'Why does my district look strange?',
@@ -75,14 +75,14 @@ const ANSWERS: Record<FaqQuestion, () => HTMLElement[]> = {
   ],
   equal: () => [
     p('They are as close as whole census blocks allow. People come whole, and a state’s population rarely divides evenly by its seats, so an even split already differs by one person. Missouri’s 6,154,913 people and 8 seats make an ideal of 769,364.125, so an even split puts each district at 769,364 or 769,365.'),
-    p('Each cut stops at the block that brings its sides closest to their shares. Then a balancing pass trades single blocks between neighboring districts, one at a time, as long as a trade narrows the gap and keeps both districts in one piece. It stops when no single-block trade helps. Blocks are never split, so a small difference can remain. See ', howLink('balancing', 'Balancing, and why it is needed'), ', which lists the result in every state.'),
+    p('Each cut stops at the block that brings its sides closest to their shares. Then a balancing pass trades single blocks between neighboring districts, one at a time, as long as a trade brings the two districts closer to equal (or leaves them exactly as close and shortens the border) and keeps the district it leaves in one piece. It stops when no single-block trade helps. Blocks are never split, so a small difference can remain. See ', howLink('balancing', 'Balancing, and why it is needed'), ', which lists the result in every state.'),
   ],
   current: () => [
     p('No. These maps are drawn by the generator and are not the districts in use. To see the current lines, turn on “Compare with” on a state’s map: they are drawn as dashed lines, for comparison only. For the Federal House they come from the Census Bureau’s file of ', `${ordinal(ENACTED.congress)} Congress districts`, ', so a state that adopted a new map after that file was made is not reflected. For the State House and State Senate they come from the Census Bureau’s ' + ENACTED.legislativeVintage + ' state legislative district files (the sldl and sldu files), which also supply each chamber’s number of districts. Their shapes are never used to draw, and a state that adopted a new map after a file was made is not reflected.'),
   ],
   water: () => [
     p('Census blocks cover lakes, bays and coastal water out to the state’s legal boundary, and a water block is a block like any other. So a district can join two shores across water. The map shows water paler so the land stands out, and shows the selected district’s water in full color.'),
-    p('Some land is not reached by any block, even across water, such as some islands. The generator joins it with an island link: the shortest link between internal points, added until every piece is connected. When you select a district, its links show as dashed lines. See the island rule under “The exact rule” in ', howLink('strays', 'Stray pieces and the re-count'), '.'),
+    p('Some land is not reached by any block, even across water, such as some islands. The generator joins it with an island link: the shortest link between internal points, added until every piece is connected. When a cut separates the two ends of a link, the link’s length counts in that cut’s border, like the water it crosses. When you select a district, its links show as dashed lines. See the island rule under “The exact rule” in ', howLink('strays', 'Stray pieces and the re-count'), '.'),
   ],
   'one-seat': () => [
     p('A Federal House map has one district for each House seat the state received in the 2020 apportionment. A State House or State Senate map has one district for each distinct district in the Census Bureau’s ' + ENACTED.legislativeVintage + ' state legislative district files. A map with one district needs no cut, because the whole state is that district.'),
@@ -103,30 +103,30 @@ const ANSWERS: Record<FaqQuestion, () => HTMLElement[]> = {
     h(
       'dl',
       { class: 'strv-faq__terms' },
-      TERMS.flatMap(([term, meaning]) => [h('dt', null, term), h('dd', null, meaning)]),
+      TERMS.flatMap(([term, meaning]) => [h('dt', null, term), h('dd', null, ...(typeof meaning === 'string' ? [meaning] : meaning))]),
     ),
   ],
 };
 
 /** Plain meanings of the site's terms. */
-const TERMS: readonly (readonly [string, string])[] = [
+const TERMS: readonly (readonly [string, string | readonly (Node | string)[]])[] = [
   ['Census block', 'The smallest area the Census Bureau counts people in. Every person is counted in exactly one. More under “What is a census block?” above.'],
   ['GEOID', 'The identifier the Census Bureau gives every block: a 15-digit number made of its state, county, tract and block codes. Sorting by it gives one fixed order, which settles ties.'],
   ['Internal point', 'One point inside each block, published by the Census Bureau. It is used to put blocks in order across a guide line and to measure island links.'],
   ['Chamber', 'One of the bodies a map is drawn for: the Federal House, the State House or the State Senate. Each is drawn separately, by the same rule.'],
   ['Apportionment', 'How the 435 House seats are shared out among the states after each census. The Federal House maps use the 2020 apportionment.'],
   ['Seat', 'The unit a map is divided into: one district. A Federal House map has one district for each House seat the state received. A State House or State Senate map has one district for each distinct district in the Census Bureau’s ' + ENACTED.legislativeVintage + ' state legislative district files. Where a state elects more than one member from a district, the map still draws one district, because how many members a district elects is not modelled.'],
-  ['Cut', 'One split of a piece of the state into two sides, each with its share of the seats and the people. A state with N seats takes N minus 1 cuts.'],
+  ['Cut', ['One split of a piece of the state into two sides, each with its share of the seats and the people. A state with ', mv('N'), ' seats takes ', mv('N'), ' minus 1 cuts.']],
   ['Guide line', 'A straight line tried during a cut. It only decides which side each block joins; the real border then follows block edges.'],
   ['Share', 'The number of people one side of a cut should hold: the piece’s people times that side’s seats, divided by the piece’s seats.'],
   ['Border length', 'How long a cut’s real border is, measured along block edges. Of all the lines that work, the shortest border wins.'],
   ['Stray piece', 'A block, or a group of blocks, cut off from the rest of its side by a guide line. It joins the side around it.'],
   ['Re-count', 'After stray pieces move, the people are counted again and the line slides so each side still holds its share.'],
   ['Connected', 'In one piece. Two blocks are connected when they share an edge; touching at a single corner does not count.'],
-  ['Island link', 'A link added between land that no block reaches, such as an island, and the rest of the state, so the state can still be cut. Shown as a dashed line on a selected district.'],
+  ['Island link', 'A link added between land that no block reaches, such as an island, and the rest of the state, so the state can still be cut. Its length, the distance between its two blocks’ internal points, counts toward a cut’s border when the cut’s sides meet across it. Shown as a dashed line on a selected district.'],
   ['Ideal population', 'A state’s population divided by its number of seats: what each district would hold if people divided evenly.'],
   ['Even split', 'The ideal rounded down or up to whole people. The map shows how far each district is from it.'],
-  ['Balancing', 'The last step: single blocks move between neighboring districts, one at a time, while that brings the districts closer to equal.'],
+  ['Balancing', 'The last step: single blocks move between neighboring districts, one at a time, while that brings the districts closer to equal, or leaves them exactly as close and shortens the border. Balancing ranks people first, then border.'],
   ['Fingerprint', 'A 64-character code worked out from the file that assigns every block to a district. The same map always gives the same code.'],
   ['Current districts', 'The districts in use today, from the Census Bureau’s files: the Congress districts file for the Federal House, and the ' + ENACTED.legislativeVintage + ' state legislative district files for the State House and State Senate. Shown as dashed lines for comparison only. Their shapes are never used to draw.'],
 ];

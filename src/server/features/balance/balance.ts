@@ -7,7 +7,7 @@ export interface BalanceMove {
   readonly from: number;
   readonly to: number;
   readonly pop: number;
-  /** Exact decrease in the sum of squared district deviations. */
+  /** Exact decrease in the sum of squared district deviations: positive, or 0 for a move that only shortens the border. */
   readonly gain: number;
 }
 
@@ -20,18 +20,22 @@ export interface BalanceResult {
 /** `border` is the change in total border length in whole micrometers (see borderChange). */
 interface Move { block: number; from: number; to: number; gain: number; border: number }
 
-/** Why a border move was not allowed: the block has no people, the move would not narrow the gap, or the giving district would not stay one connected piece. */
-export type MoveReason = 'no-people' | 'widens' | 'disconnects';
+/**
+ * Why a border move was not allowed: it would leave the districts further from equal (`worse`), it would leave them
+ * exactly as close to equal without shortening the border (`not-shorter`; every move of a block with no people is
+ * such a move unless it shortens the border), or the giving district would not stay one connected piece.
+ */
+export type MoveReason = 'worse' | 'not-shorter' | 'disconnects';
 
 /** One move looked at in a round, with the generator's own verdict on it. Districts are 0-based. */
 export interface RoundCandidate {
   readonly block: number;
   readonly from: number;
   readonly to: number;
-  /** Exact decrease in the sum of squared district deviations; 0 for a block with no people. */
+  /** Exact decrease in the sum of squared district deviations; 0 when the move leaves it unchanged (always for a block with no people). */
   readonly gain: number;
   /**
-   * Ranked moves only (gain above zero): the change in total border length, in meters, if the move were made. The
+   * Ranked moves only (gain above zero, or gain zero with a shorter border): the change in total border length, in meters, if the move were made. The
    * length the block shares with the district it leaves minus the length it shares with the district it joins, so
    * negative when the border shortens. Measured in whole micrometers, as ranked, then divided by a million.
    */
@@ -44,7 +48,7 @@ export interface RoundCandidate {
 
 /**
  * One round of the pass: the districts tried, furthest first, until one made a move (the last one tried) or none
- * could. `candidates` lists each tried district's moves: those that narrow the gap in the order they are ranked, then
+ * could. `candidates` lists each tried district's moves: those that may be made in the order they are ranked, then
  * the ones ruled out before ranking. Every candidate is checked, including those ranked after the move made.
  */
 export interface BalanceRound {
@@ -60,21 +64,25 @@ export interface BalanceOptions {
 
 /**
  * Greedy population balancing of a district map: repeatedly move one border block from a district to a neighbour
- * while that lowers the sum of squared deviations from the ideal population. Deterministic, and no tie is ever
- * broken by district number: only by border length and block index (GEOID order).
+ * while that lowers the sum of squared deviations from the ideal population, or leaves it exactly unchanged and
+ * shortens the total border. Deterministic, and no tie is ever broken by district number: only by border length and
+ * block index (GEOID order).
  *
  * Each round takes the non-exhausted district furthest from the ideal population; districts equally far go in the
  * order of their first block (lowest block index). Candidates are the moves across that district's border, its
- * blocks moving out and neighbouring blocks moving in, kept only when the gain is positive, ranked by gain
+ * blocks moving out and neighbouring blocks moving in, kept only when the gain is positive, or the gain is zero
+ * and the border change is negative, ranked by gain
  * descending, then by the change in total border length ascending (compared exactly, in whole micrometers), then block, then the
  * receiving district's first block. The first candidate that leaves the giving district connected (and non-empty)
  * is made. If none can be, that district is marked exhausted and the next furthest is tried. After any move the
  * exhausted marks are cleared, since populations and borders changed.
  *
- * It terminates: populations are integers, so a move's gain is a positive integer, the sum of squared deviations
- * is bounded below by 0 and strictly decreases with every move, so only finitely many moves exist; between
- * moves each district is exhausted at most once. The loop ends when every district is exhausted. The tie rules
- * only reorder moves of equal gain, so they do not change this.
+ * It terminates: populations are integers, so a move's gain is a whole number, and the border lengths are whole
+ * micrometers. Every move either lowers the sum of squared deviations (bounded below by 0), or leaves it unchanged
+ * and lowers the total border length (bounded below by 0), so the pair (sum of squared deviations, total border)
+ * strictly decreases, in that order, with every move, and only finitely many moves exist; between moves each district
+ * is exhausted at most once. The loop ends when every district is exhausted. The tie rules only reorder moves of
+ * equal gain, so they do not change this.
  */
 export function balance(blocks: readonly Block[], topo: Topology, input: Int32Array, seats: number, opts: BalanceOptions = {}): BalanceResult {
   const assignment = Int32Array.from(input);
@@ -144,17 +152,22 @@ export function balance(blocks: readonly Block[], topo: Topology, input: Int32Ar
     const consider = (block: number, from: number, to: number) => {
       const p = blocks[block]!.pop;
       const key = block * seats + to;
-      // Without an observer a block with no people is never a candidate, so skip it before any border work.
-      if (p === 0 && !ruledOut) return;
       if (seen.has(key)) return;
       seen.add(key);
-      if (p === 0) { ruledOut?.push({ block, from, to, gain: 0, allowed: false, reason: 'no-people', district }); return; }
       // Exact decrease in the sum of squared deviations (populations are integers). With a = pop[from], b = pop[to]
       // and ideal I, moving p changes (a-I)^2 + (b-I)^2 into (a-p-I)^2 + (b+p-I)^2; the difference is
-      // 2p(a-I) - p^2 - 2p(b-I) - p^2 = 2p(a - b - p), so I cancels.
-      const gain = 2 * p * (pop[from]! - pop[to]! - p);
-      if (gain > 0) cands.push({ block, from, to, gain, border: borderChange(block, from, to) });
-      else ruledOut?.push({ block, from, to, gain, allowed: false, reason: 'widens', district });
+      // 2p(a-I) - p^2 - 2p(b-I) - p^2 = 2p(a - b - p), so I cancels. It is 0 exactly when p = 0 or p = a - b (the gap
+      // flips to the same size the other way). `+ 0` turns a -0 into 0.
+      const gain = 2 * p * (pop[from]! - pop[to]! - p) + 0;
+      // Closer to equal: a candidate. Exactly as close: a candidate only when it shortens the border.
+      if (gain > 0) { cands.push({ block, from, to, gain, border: borderChange(block, from, to) }); return; }
+      if (gain === 0) {
+        const border = borderChange(block, from, to);
+        if (border < 0) { cands.push({ block, from, to, gain, border }); return; }
+        ruledOut?.push({ block, from, to, gain, allowed: false, reason: 'not-shorter', district });
+        return;
+      }
+      ruledOut?.push({ block, from, to, gain, allowed: false, reason: 'worse', district });
     };
     // Only the border of district d: its blocks moving out, and neighbouring blocks moving in.
     for (const i of members(d)) {

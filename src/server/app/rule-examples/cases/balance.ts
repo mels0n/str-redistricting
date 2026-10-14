@@ -126,7 +126,7 @@ function byBlock(cands: readonly RoundCandidate[]): Map<number, RoundCandidate[]
 
 type Verdict = 'allowed' | NonNullable<RoundCandidate['reason']>;
 const verdictOf = (c: RoundCandidate): Verdict => c.reason ?? 'allowed';
-const VERDICTS: readonly Verdict[] = ['no-people', 'widens', 'disconnects', 'allowed'];
+const VERDICTS: readonly Verdict[] = ['worse', 'not-shorter', 'disconnects', 'allowed'];
 
 /** Blocks of `from` cut off from the rest of it if `block` left: every piece but the one with the most blocks. */
 function stranded(run: BalanceRun, block: number, from: number): number[] {
@@ -153,7 +153,7 @@ function stranded(run: BalanceRun, block: number, from: number): number[] {
 
 /**
  * The window for balance.allowed: centered on a move of the first round that would split the giving district,
- * taken in the generator's ranking, whose 24 nearest blocks hold every verdict (no people, widens, disconnects,
+ * taken in the generator's ranking, whose 24 nearest blocks hold every verdict (worse, not-shorter, disconnects,
  * allowed), give each block one verdict, and lie in just the two districts of a move. The one with the most
  * border blocks wins; ties go to the higher-ranked center.
  */
@@ -181,6 +181,13 @@ function allowedWindow(run: BalanceRun): { around: number[]; verdicts: Map<numbe
   return best;
 }
 
+/** The clause saying how many of a window's allowed moves leave the districts exactly as close to equal (gain 0) and are allowed because they shorten the border; nothing when none do. */
+export function allowedEqualWords(equal: number, allowed: number): string {
+  if (equal === 0) return '';
+  if (equal === allowed) return allowed === 1 ? '. It leaves the districts exactly as close to equal and shortens the border' : '. All leave the districts exactly as close to equal and shorten the border';
+  return `. ${whole(equal)} of them ${equal === 1 ? 'leaves' : 'leave'} the districts exactly as close to equal and ${equal === 1 ? 'shortens' : 'shorten'} the border; the rest bring them closer`;
+}
+
 /** balance.allowed: the border of the furthest district, and the three checks a move must pass. */
 export async function allowedCase(ctx: ExtractContext): Promise<RuleCase> {
   const run = await balanceRun(ctx, ABBR);
@@ -195,18 +202,21 @@ export async function allowedCase(ctx: ExtractContext): Promise<RuleCase> {
   const bigger = pops[d]! > pops[other]! ? gd : go;
   const gap = Math.abs(pops[d]! - pops[other]!);
   const of = (v: Verdict): number[] => around.filter((b) => verdicts.get(b) === v);
-  const [none, widen, split, ok] = [of('no-people'), of('widens'), of('disconnects'), of('allowed')];
+  const [flat, worse, split, ok] = [of('not-shorter'), of('worse'), of('disconnects'), of('allowed')];
   const cands = first.candidates;
   const border = [...verdicts.keys()];
   const mark = (bs: readonly number[], v: string): Record<string, string> => Object.fromEntries(bs.map((b) => [win.idOf(b), v]));
 
-  // Which moves the widening ones are: all from the smaller district into the bigger, or mixed.
-  const widenMoves = cands.filter((c) => widen.includes(c.block));
-  const intoBigger = widenMoves.every((c) => c.to + 1 === bigger);
+  // Which moves the worse ones are: all from the smaller district into the bigger, or mixed.
+  const worseMoves = cands.filter((c) => worse.includes(c.block));
+  const intoBigger = worseMoves.every((c) => c.to + 1 === bigger);
   const smaller = bigger === gd ? go : gd;
-  const widenText = intoBigger
-    ? `A move must narrow the gap between the two districts, here ${plural(gap, 'person', 'people')}. Here ${plural(widen.length, 'move', 'moves')} would take people from District ${smaller} into District ${bigger}, which already has more, so ${widen.length === 1 ? 'it would' : 'they would'} widen it.`
-    : `A move must narrow the gap between the two districts, here ${plural(gap, 'person', 'people')}. Here ${plural(widen.length, 'move', 'moves')} would widen it instead.`;
+  const rule = `A move must bring the two districts closer to equal population, or leave them exactly as close and shorten the border. Here they are ${plural(gap, 'person', 'people')} apart.`;
+  const worseText = intoBigger
+    ? `${rule} ${plural(worse.length, 'move', 'moves')} would take people from District ${smaller} into District ${bigger}, which already has more, so ${worse.length === 1 ? 'it would' : 'they would'} leave them further apart.`
+    : `${rule} ${plural(worse.length, 'move', 'moves')} would leave them further apart.`;
+  const flatEmpty = flat.filter((b) => run.sb.blocks[b]!.pop === 0).length;
+  const flatText = `A move that leaves them exactly as close is made only if it shortens the border. ${plural(flat.length, 'move', 'moves')} here ${flat.length === 1 ? 'leaves' : 'leave'} them exactly as close without shortening it${flatEmpty ? ', and a block with no people always leaves them exactly as close, since moving it changes no population' : ''}.`;
 
   // Why a split: the blocks of the giving district that would be cut off, when they are in view.
   const shown = new Set(around);
@@ -221,6 +231,8 @@ export async function allowedCase(ctx: ExtractContext): Promise<RuleCase> {
   const splitText = `District ${gd} must stay one connected piece. Without ${split.length === 1 ? 'this block' : `either of these ${whole(split.length)} blocks`} it would split${pins.length ? `, cutting off the ${plural(cut.length, 'dotted block', 'dotted blocks')}` : ''}, so ${split.length === 1 ? 'it stays' : 'they stay'}.`;
 
   const allowedAll = cands.filter((c) => c.allowed).length;
+  // An allowed move with gain 0 is allowed because it shortens the border, not because it brings the districts closer.
+  const okEqual = ok.filter((b) => cands.find((c) => c.block === b)!.gain === 0).length;
   const intoOther = ok.every((b) => cands.filter((c) => c.block === b).every((c) => c.to === other));
   const name = nameOf(run.abbr);
   // How far this stretch is from the block move 1 takes, which the panel's link opens.
@@ -253,20 +265,23 @@ export async function allowedCase(ctx: ExtractContext): Promise<RuleCase> {
         show: base,
         set: mark(border, 'kept'),
       },
-      {
-        caption: `A block may move only if it has people. ${none.length === 1 ? '1 of them has' : `${whole(none.length)} of them have`} no people.`,
-        show: base,
-        set: mark(none, 'out'),
-      },
-      { caption: widenText, show: base, set: mark(widen, 'out') },
+      { caption: worseText, show: base, set: mark(worse, 'out') },
+      { caption: flatText, show: base, set: mark(flat, 'out') },
       { caption: splitText, show: [...base, ...ids(pins)], set: mark(split, 'out') },
       {
-        caption: `That leaves ${plural(ok.length, 'allowed move', 'allowed moves')} here${intoOther ? `, all into District ${go}` : ''}. Along District ${gd}'s whole border, ${whole(allowedAll)} of ${whole(cands.length)} moves are allowed.`,
+        caption: `That leaves ${plural(ok.length, 'allowed move', 'allowed moves')} here${intoOther ? `, all into District ${go}` : ''}${allowedEqualWords(okEqual, ok.length)}. Along District ${gd}'s whole border, ${whole(allowedAll)} of ${whole(cands.length)} moves are allowed.`,
         show: base,
         set: mark(ok, 'hot'),
       },
     ],
   };
+}
+
+/** The sentence naming the runner-up's score; an allowed move that scores 0 leaves the sum as it is and ranks after every move that lowers it. */
+export function nextBestWords(district: number, gain: number): string {
+  return gain > 0
+    ? `The next best allowed move anywhere on District ${district}'s border scores ${whole(gain)}.`
+    : `No other allowed move on District ${district}'s border lowers the sum; the rest score 0, leaving it as it is, and rank after every move that lowers it.`;
 }
 
 /** balance.score: the allowed moves near the first move, their scores, and the move made. */
@@ -280,14 +295,15 @@ export async function scoreCase(ctx: ExtractContext): Promise<RuleCase> {
   const a = pops[move.from]! - ideal, b = pops[move.to]! - ideal, p = move.pop;
   if (2 * p * (a - b - p) !== move.gain) throw new DataError(`${run.abbr}: 2 × p × (a − b − p) is not the gain of move 1`);
   const ranked = first.candidates.filter((c) => c.allowed);
+  if (move.gain === 0) throw new DataError(`${run.abbr}: move 1 leaves the sum as it is, so it has no score to show`);
   if (ranked[0]?.block !== move.block) throw new DataError(`${run.abbr}: move 1 is not the best allowed move of its round`);
 
   const MAP_H = 150;
   const around = nearestTo(run, move.block, WINDOW);
   const win = windowOf(run, around, MAP_H);
   const shown = new Set(around);
-  // The allowed moves in view, best first as the generator ranked them.
-  const here = ranked.filter((c) => shown.has(c.block));
+  // The allowed moves in view that lower the sum, best first as the generator ranked them. A move that leaves it as it is scores 0 and ranks after all of them.
+  const here = ranked.filter((c) => shown.has(c.block) && c.gain > 0);
   if (here.some((c) => c.from !== move.from || c.to !== move.to)) throw new DataError(`${run.abbr}: an allowed move in view is not between Districts ${move.from + 1} and ${move.to + 1}`);
   const blockSet = new Set(here.map((c) => c.block));
   if (blockSet.size !== here.length) throw new DataError(`${run.abbr}: a block in view has two allowed moves`);
@@ -301,7 +317,9 @@ export async function scoreCase(ctx: ExtractContext): Promise<RuleCase> {
   const [gd, rd] = [move.from + 1, move.to + 1];
   const name = nameOf(run.abbr);
   const sign = (v: number): string => `${people(Math.abs(v))} ${v < 0 ? 'under' : 'over'}`;
-  const formula = `2 × ${whole(p)} × (${people(a)} − ${people(b)} − ${whole(p)}) = ${whole(move.gain)}`;
+  // A negative distance is bracketed so the formula never shows two minus signs in a row.
+  const term = (x: number): string => (x < 0 ? `(−${people(-x)})` : people(x));
+  const formula = `2 × ${whole(p)} × (${term(a)} − ${term(b)} − ${whole(p)}) = ${whole(move.gain)}`;
   const moved: RuleBlock = { ...win.blocks.find((x) => x.id === win.idOf(move.block))!, id: 'moved', district: rd };
   const blocks = [...win.blocks, moved];
   const labels: Label[] = [
@@ -347,7 +365,7 @@ export async function scoreCase(ctx: ExtractContext): Promise<RuleCase> {
   }
   steps.push(
     {
-      caption: `The best is this block of ${plural(p, 'person', 'people')}: ${formula}. The next best allowed move anywhere on District ${gd}'s border scores ${whole(nextBest?.gain ?? 0)}.`,
+      caption: `The best is this block of ${plural(p, 'person', 'people')}: ${formula}. ${nextBestWords(gd, nextBest?.gain ?? 0)}`,
       show: [...before, 'sum'],
       set: { ...kept, ...mark([move.block], 'hot') },
     },
@@ -411,7 +429,7 @@ export async function nextFurthestCase(ctx: ExtractContext): Promise<RuleCase> {
     }
   });
   const count = (r: string): number => mine.filter((c) => c.reason === r).length;
-  const [noPeople, widens, splits] = [count('no-people'), count('widens'), count('disconnects')];
+  const [worse, notShorter, splits] = [count('worse'), count('not-shorter'), count('disconnects')];
 
   // Districts as far from the ideal as the one tried next, besides it: a tie goes to the district whose first block comes first.
   const far = (i: number): number => Math.abs(devs[i]!);
@@ -451,7 +469,9 @@ export async function nextFurthestCase(ctx: ExtractContext): Promise<RuleCase> {
     : f2 === f && next2 !== f2
       ? `After every move the pass starts again from the furthest district. Before move ${moveNo + 1}, that is ${D(f)} again, ${side(devsNext[f]!)}, still with no allowed move, so ${D(next2)}, the next furthest, makes move ${moveNo + 1}.`
       : `After every move the pass starts again from the furthest district. Before move ${moveNo + 1}, that is ${D(f2)}, ${side(devsNext[f2]!)}, and it makes move ${moveNo + 1}.`;
-  const reasons = [`${whole(noPeople)} ${noPeople === 1 ? 'is a block' : 'are blocks'} with no people`, `${whole(widens)} would widen a gap`];
+  const reasons: string[] = [];
+  if (worse) reasons.push(`${whole(worse)} would leave the districts further from equal`);
+  if (notShorter) reasons.push(`${whole(notShorter)} would leave them exactly as close without shortening the border`);
   if (splits) reasons.push(`${whole(splits)} would split a district`);
   const steps: RuleCase['steps'] = [
     {
@@ -463,7 +483,7 @@ export async function nextFurthestCase(ctx: ExtractContext): Promise<RuleCase> {
       show: held,
     },
     {
-      caption: `${Ds(neighbors)} border it, ${under ? 'larger' : 'smaller'} by ${list(gaps.map((g) => whole(g)))} people. A move narrows a gap only if it carries fewer people than the gap, but the smallest blocks with people that could cross ${under ? 'into' : 'out of'} it hold ${list(smallest.map((x) => whole(x)))}.`,
+      caption: `${Ds(neighbors)} border it, ${under ? 'larger' : 'smaller'} by ${list(gaps.map((g) => whole(g)))} people. A block with people brings the districts closer only if it carries fewer people than the gap, but the smallest blocks with people that could cross ${under ? 'into' : 'out of'} it hold ${list(smallest.map((x) => whole(x)))}.`,
       show: [...held, 'chart-border'],
     },
     {
@@ -471,7 +491,10 @@ export async function nextFurthestCase(ctx: ExtractContext): Promise<RuleCase> {
       show: [...held, 'chart-tie'],
     },
   ];
-  const moveCaption = `${D(next)} has ${plural(allowedNext, 'allowed move', 'allowed moves')}. The best moves ${plural(move.pop, 'person', 'people')} ${toWord}: that is move ${moveNo}.`;
+  const moved = move.pop === 0 ? 'a block with no people' : plural(move.pop, 'person', 'people');
+  const moveCaption = `${D(next)} has ${plural(allowedNext, 'allowed move', 'allowed moves')}. ${move.gain === 0
+    ? `The best moves ${moved} ${toWord}, leaving the districts exactly as close to equal and shortening the border: that is move ${moveNo}.`
+    : `The best moves ${moved} ${toWord}: that is move ${moveNo}.`}`;
   // After the last move there is nothing new to show, so the stop is said with the move.
   if (hasNextMove) {
     steps.push({ caption: moveCaption, show: [...held, 'chart-tie', 'chart-winner'] });

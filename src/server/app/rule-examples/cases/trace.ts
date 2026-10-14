@@ -45,6 +45,14 @@ export function splitContextOf(ctx: ExtractContext, abbr: string): Promise<Split
   return hit;
 }
 
+/** Stop holding a state's blocks, split context and traced cuts; traces already handed out keep what they use. */
+export function releaseState(ctx: ExtractContext, abbr: string): void {
+  cacheOf(splits, ctx).delete(abbr);
+  const cuts = cacheOf(traced, ctx);
+  for (const key of [...cuts.keys()]) if (key.startsWith(`${abbr}:`)) cuts.delete(key);
+  ctx.releaseBlocks(abbr);
+}
+
 /**
  * A candidate to trace: a first-side seat count at the cut's own drawn direction, or any direction and seat count.
  * A range of directions is traced at an angle strictly inside it (its middle), which gives that range's sides.

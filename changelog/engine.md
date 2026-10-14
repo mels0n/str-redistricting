@@ -1,5 +1,16 @@
 # Engine changelog
 
+## 2.0.0 (2026-10-13)
+
+Bug fixes:
+
+- Island links counted as zero length in a cut's border. A cut that separated land only at a link therefore had a border of zero and won however unevenly it split the people. A link now properly adds the distance between its two blocks' internal points (the same measure the link was built with) to the border of any cut whose sides meet across it.
+- Balancing ignored equal moves that shortened the border. A move was made only when it lowered the sum of squared differences (a gain above zero), so a move that left the districts exactly as close (a gain of zero) was never made, even when it gave a shorter border, which for a shortest-border method is clearly an error. A move with a gain of zero is now made when it strictly shortens the border: people first, then border (the opposite of the cut step, which is border first, then people).
+
+Other changes:
+
+- Drawing is faster, with every map exactly as the rules draw it: neighbouring tie stretches are swept again with one shared start instead of one each, the trackers keep the direction points they reuse, and heavy chunks of a sweep are split between idle threads while they run. Texas's State Senate takes about 16 minutes instead of 42.
+
 ## 1.1.0 (2026-10-11)
 
 - The engine can now draw a State House or a State Senate map as well as a Federal House map. Every chamber is drawn by the same rule and held to the same equal-population standard.

@@ -1,6 +1,6 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
-import { allowedCase, balanceCases, nextFurthestCase, scoreCase } from '../../../src/server/app/rule-examples/cases/balance.js';
+import { allowedCase, allowedEqualWords, balanceCases, nextBestWords, nextFurthestCase, scoreCase } from '../../../src/server/app/rule-examples/cases/balance.js';
 import { balance, type BalanceRound } from '../../../src/server/features/balance/index.js';
 import { createExtractContext, RuleCaseSchema, type RuleCase } from '../../../src/server/features/rule-examples/index.js';
 import { parseRuleExamplesConfig } from '../../../src/server/shared/config/index.js';
@@ -62,7 +62,9 @@ describe('balancing move panels (CO)', () => {
     const a = log.before[m.from - 1]! - ideal, b = log.before[m.to - 1]! - ideal;
     expect(2 * m.pop * (a - b - m.pop)).toBe(m.gain);
     const text = c.steps.map((s) => s.caption).join('\n');
-    expect(text).toContain(`2 × ${whole(m.pop)} × (${people(a)} − ${people(b)} − ${whole(m.pop)}) = ${whole(m.gain)}`);
+    // A negative distance is shown in brackets, so the formula never has two minus signs in a row.
+    const term = (x: number): string => (x < 0 ? `(−${people(-x)})` : people(x));
+    expect(text).toContain(`2 × ${whole(m.pop)} × (${term(a)} − ${term(b)} − ${whole(m.pop)}) = ${whole(m.gain)}`);
     expect(text).toContain(`${people(a)} over`);
     // The block is drawn in its old district, and a copy in its new district appears only when the move is made.
     const orig = c.blocks!.filter((x) => x.geoid === m.geoid);
@@ -117,9 +119,9 @@ describe('balancing move panels (CO)', () => {
       expect(reason).toBeDefined();
       order.push(reason!);
       expect(s.caption).toContain(`${greyed.length}`);
-      expect(s.caption).toMatch({ 'no-people': /no people/, widens: /widen/, disconnects: /connected/ }[reason!]!);
+      expect(s.caption).toMatch({ worse: /further apart/, 'not-shorter': /exactly as close/, disconnects: /connected/ }[reason!]!);
     });
-    expect(order).toEqual(['no-people', 'widens', 'disconnects']);
+    expect(order).toEqual(['worse', 'not-shorter', 'disconnects']);
     // The window is one stretch of a long border, chosen to show the checks, and the caption says so.
     expect(c.steps[0]!.caption).toMatch(/one stretch of that border/);
     expect(c.steps[0]!.caption).toMatch(/picked because all three checks show up here/);
@@ -165,6 +167,23 @@ describe('balancing move panels (CO)', () => {
     expect(c.chart!.values.slice(0, pops.length)).toEqual(pops.map((p) => p - ideal));
     for (let i = 1; i < c.steps.length; i++) expect(changesAt(c, i).length, `step ${i + 1}`).toBeGreaterThan(0);
   }, SLOW);
+
+  it('names allowed moves that leave the districts exactly as close as allowed by the border, not by the gap', () => {
+    expect(allowedEqualWords(0, 3)).toBe('');
+    expect(allowedEqualWords(1, 1)).toBe('. It leaves the districts exactly as close to equal and shortens the border');
+    expect(allowedEqualWords(2, 2)).toBe('. All leave the districts exactly as close to equal and shorten the border');
+    expect(allowedEqualWords(1, 4)).toBe('. 1 of them leaves the districts exactly as close to equal and shortens the border; the rest bring them closer');
+    expect(allowedEqualWords(2, 4)).toContain('2 of them leave the districts');
+  });
+
+  it('never calls a runner-up that scores 0 the next best score', () => {
+    expect(nextBestWords(3, 1200)).toBe("The next best allowed move anywhere on District 3's border scores 1,200.");
+    const zero = nextBestWords(3, 0);
+    expect(zero).not.toMatch(/scores 0\.$/);
+    expect(zero).toMatch(/the rest score 0, leaving it as it is/);
+    expect(zero).not.toMatch(/no people/);
+    expect(zero).not.toContain('—');
+  });
 
   it('registers the three balancing builders', () => {
     expect(balanceCases).toEqual([allowedCase, scoreCase, nextFurthestCase]);

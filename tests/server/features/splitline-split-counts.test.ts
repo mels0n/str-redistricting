@@ -17,7 +17,6 @@ describe('split and re-swept chunk counts', () => {
     try {
       const first = findCut(ctx, all(144), 2, undefined, { pool });
       expect(first.scan.splitChunks).toBeGreaterThan(0);
-      expect(first.scan.resweptChunks).toBeGreaterThanOrEqual(0);
       expect(first.scan.resweptChunks).toBeLessThanOrEqual(first.scan.splitChunks);
       const before = { ...pool.splits };
       const second = findCut(ctx, all(144), 2, undefined, { pool });

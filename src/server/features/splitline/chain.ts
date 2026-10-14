@@ -41,7 +41,7 @@ export interface Stats2 {
 export class Chain {
   passes: Pass[] = [];
   private spares: Tracker[] = [];
-  /** Every pass's tracker, then the spares (trackers()); null after either list changes. */
+  /** Every pass's tracker, then the spares (trackers()); set to null wherever either list changes, at the change itself. */
   private all: Tracker[] | null = null;
   /** The points and normalising sign of the direction step() is processing. */
   private readonly at = new Float64Array(5);
@@ -93,6 +93,7 @@ export class Chain {
     for (let i = 0; i < m; i++) { const s = fixed[i]!; if (s < 0) free++; else if (s === 0) { fixedLowPop += pops[i]!; fixedLow++; } else fixedHigh++; }
     const T = this.T0 - fixedLowPop, minC = fixedLow > 0 ? 0 : 1, maxC = free - (fixedHigh > 0 ? 0 : 1);
     let tr = this.spares.shift();
+    this.all = null;
     if (tr) { tr.reconfigure(fixed, T, minC, maxC, ci, cj); this.stats.reconfigs++; }
     else {
       const fr = new Int32Array(free);
@@ -133,6 +134,7 @@ export class Chain {
     }
     const T = this.T0 - fixedLowPop, minC = fixedLow > 0 ? 0 : 1, maxC = free - (fixedHigh > 0 ? 0 : 1);
     let tr = this.spares.shift();
+    this.all = null;
     if (tr) { tr.reconfigure(fixed, T, minC, maxC, ci, cj); this.stats.reconfigs++; }
     else {
       const fr = new Int32Array(free);

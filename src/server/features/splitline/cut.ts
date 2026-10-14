@@ -78,6 +78,10 @@ export interface ScanCounters {
   readonly reconfigs: number;
   /** Signs the exact arithmetic decided in integers because rounded arithmetic was too close to call. */
   readonly exactFallbacks: number;
+  /** Chunks of the main sweep that were split between worker threads while they ran (0 on the calling thread). */
+  readonly splitChunks: number;
+  /** Of those, the chunks whose parts could not be joined and were swept again whole on the calling thread. */
+  readonly resweptChunks: number;
 }
 
 /** One candidate: a range of directions that all give the same sides. */
@@ -315,7 +319,10 @@ export function findCut(ctx: SplitContext, members: Int32Array, seats: number, v
   }
 
   const job: SweepJob = { seats, orientations, chunks: opts.chunks ?? chunksFor(m), keep: KEEP };
+  const splitsBefore = { chunks: opts.pool?.splits.chunks ?? 0, reswept: opts.pool?.splits.reswept ?? 0 };
   const chunks = runAll(piece, job, opts.pool);
+  const splitChunks = (opts.pool?.splits.chunks ?? 0) - splitsBefore.chunks;
+  const resweptChunks = (opts.pool?.splits.reswept ?? 0) - splitsBefore.reswept;
   // Fingerprints of every block, so the two ends of the half turn can be recognised as one range (sides swapped).
   let h1 = 0, h2 = 0;
   for (let i = 0; i < m; i++) { h1 ^= zob(i); h2 ^= zob2(i); }
@@ -417,7 +424,7 @@ export function findCut(ctx: SplitContext, members: Int32Array, seats: number, v
       iterations: chain.passes.length, offsetShiftM: (offset - offset0) * EARTH_RADIUS_M, candidates, traces,
       tiedRanges: passed.length, tiedCuts: distinct.length,
       scan: {
-        tieSpanMs, derivedBuilds: statSum(sweeps, 'derivedBuilds'), reconfigs: statSum(sweeps, 'reconfigs'), exactFallbacks: statSum(sweeps, 'exactFallbacks'),
+        tieSpanMs, derivedBuilds: statSum(sweeps, 'derivedBuilds'), reconfigs: statSum(sweeps, 'reconfigs'), exactFallbacks: statSum(sweeps, 'exactFallbacks'), splitChunks, resweptChunks,
       },
     };
   }

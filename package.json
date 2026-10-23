@@ -10,7 +10,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && node --import tsx build/prerender.ts",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.client.json",
     "depcruise": "depcruise src --config .dependency-cruiser.cjs",

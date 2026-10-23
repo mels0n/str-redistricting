@@ -11,5 +11,5 @@
     "types": ["node"]
   },
   "include": ["src", "tests", "build", "vitest.config.ts", "vite.config.ts"],
-  "exclude": ["src/client", "tests/client"]
+  "exclude": ["src/client", "tests/client", "build/prerender.ts", "build/seo.ts", "build/markdown.ts"]
 }

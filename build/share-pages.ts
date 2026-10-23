@@ -32,10 +32,10 @@ export interface ShareEntry {
   readonly chamber?: ShareChamber;
 }
 
-const esc = (s: string): string => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+export const esc = (s: string): string => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
 /** Swap one tag of the shell for its new text; a shell without the tag is a build error, so an `index.html` edit cannot drop one silently. */
-function swap(shell: string, pattern: RegExp, replacement: string, what: string): string {
+export function swap(shell: string, pattern: RegExp, replacement: string, what: string): string {
   if (!pattern.test(shell)) throw new Error(`share pages: the built index.html has no ${what} tag`);
   return shell.replace(pattern, () => replacement);
 }

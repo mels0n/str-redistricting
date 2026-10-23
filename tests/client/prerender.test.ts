@@ -52,4 +52,13 @@ describe('prerendered pages', () => {
     expect(titleOf(missing)).toBe('Page not found | Fair Maps');
     expect(missing).toContain('<a href="/">Go to Fair Maps</a>');
   });
+
+  it('writes the icons and the full text for language models', () => {
+    expect([...readFileSync('dist/favicon.ico').subarray(0, 6)]).toEqual([0, 0, 1, 0, 1, 0]);
+    expect([...readFileSync('dist/apple-touch-icon.png').subarray(0, 8)]).toEqual([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
+    const full = read('dist/llms-full.txt');
+    expect(full).toContain('## What is gerrymandering?');
+    expect(full).toContain('pack one side’s voters');
+    expect(read('dist/robots.txt')).toContain('Sitemap:');
+  });
 });

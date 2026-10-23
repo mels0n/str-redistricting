@@ -6,7 +6,9 @@ import { JSDOM } from 'jsdom';
 import { PAGE_META } from '../src/client/shared/lib/page-meta';
 import { SITE_HOST } from '../src/server/features/publish/site';
 import { esc, swap } from './share-pages';
-import { jsonLd, jsonLdScript, type FaqEntry, type PageKey } from './seo';
+import { Resvg } from '@resvg/resvg-js';
+import { toMarkdown } from './markdown';
+import { LLMS_SUMMARY, jsonLd, jsonLdScript, llmsTxt, robotsTxt, sitemapXml, type FaqEntry, type PageKey } from './seo';
 
 const DIST = 'dist';
 const KEYS: readonly PageKey[] = ['home', 'how', 'faq', 'changelog'];
@@ -125,13 +127,40 @@ export function notFoundHtml(shell: string): string {
   return withHead.replace(ROOT_TAG, () => body);
 }
 
+/** A single-image ICO file: the PNG behind a 22-byte header. */
+function ico(png48: Buffer): Buffer {
+  const head = Buffer.alloc(22);
+  head.writeUInt16LE(1, 2); // type: icon
+  head.writeUInt16LE(1, 4); // one image
+  head[6] = 48;
+  head[7] = 48;
+  head.writeUInt16LE(1, 10); // planes
+  head.writeUInt16LE(32, 12); // bits per pixel
+  head.writeUInt32LE(png48.length, 14);
+  head.writeUInt32LE(22, 18);
+  return Buffer.concat([head, png48]);
+}
+
 export async function main(): Promise<void> {
   const shell = readFileSync(join(DIST, 'index.html'), 'utf8');
-  const outputs = new Map<string, string>();
+  const site = `https://${SITE_HOST}`;
+  const outputs = new Map<string, string | Buffer>();
+  const markdown = new Map<PageKey, string>();
   for (const key of KEYS) {
     const file = key === 'home' ? join(DIST, 'index.html') : join(DIST, PAGE_META[key].path, 'index.html');
-    outputs.set(file, pageHtml(key, shell, await renderPage(key, shell)));
+    const rendered = await renderPage(key, shell);
+    markdown.set(key, toMarkdown(rendered.html, site));
+    outputs.set(file, pageHtml(key, shell, rendered));
   }
+  outputs.set(join(DIST, 'sitemap.xml'), sitemapXml(site));
+  outputs.set(join(DIST, 'robots.txt'), robotsTxt(site));
+  outputs.set(join(DIST, 'llms.txt'), llmsTxt(site));
+  const sections = (['home', 'faq', 'how'] as const).map((k) => `---\n\n${markdown.get(k) ?? ''}`);
+  outputs.set(join(DIST, 'llms-full.txt'), ['# Fair Maps', LLMS_SUMMARY, ...sections].join('\n\n').trimEnd() + '\n');
+  const svg = readFileSync(join('public', 'favicon.svg'));
+  const png = (width: number): Buffer => Buffer.from(new Resvg(svg, { fitTo: { mode: 'width', value: width } }).render().asPng());
+  outputs.set(join(DIST, 'apple-touch-icon.png'), png(180));
+  outputs.set(join(DIST, 'favicon.ico'), ico(png(48)));
   outputs.set(join(DIST, '404.html'), notFoundHtml(shell));
   for (const [file, html] of outputs) {
     mkdirSync(dirname(file), { recursive: true });

@@ -92,7 +92,7 @@ export function writeSharePages(publicDir: string, distDir: string): string[] {
   return written;
 }
 
-/** After the build, one share page per published state, so a link to /CO/ previews with that state's map. */
+/** After the build, one share page per published state, so a link to /CO previews with that state's map. */
 export function sharePages(): Plugin {
   let publicDir = 'public';
   let outDir = 'dist';

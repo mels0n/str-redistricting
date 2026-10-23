@@ -2,27 +2,15 @@ import './zod-config';
 import '@fontsource-variable/public-sans/wght.css';
 import '@fontsource/ibm-plex-mono/latin-400.css';
 import './styles.css';
-import { h, initDataRelease, setSkewHandler } from '../shared';
-import { createSiteHeader } from '../widgets/site-header';
-import { createSiteFooter } from '../widgets/site-footer';
+import { config, initDataRelease, setRouteMode, setSkewHandler } from '../shared';
+import { mountShell } from './shell';
 import { startRouter } from './router';
 import { reloadOncePerRelease } from './skew-reload';
 
 const root = document.getElementById('str-viewer');
 if (root) {
-  root.classList.add('strv');
-  const outlet = h('div', { class: 'strv-outlet' });
-  root.append(
-    h('a', { href: '#strv-main', class: 'strv-skip', onclick: (ev: Event) => {
-      ev.preventDefault();
-      const main = document.getElementById('strv-main');
-      const target = main?.querySelector<HTMLElement>('h1') ?? main;
-      target?.focus();
-    } }, 'Skip to content'),
-    createSiteHeader(),
-    outlet,
-    createSiteFooter(),
-  );
+  setRouteMode(config.routing);
+  const outlet = mountShell(root);
   // A release went out while this page was open: reload once so no state mixes files from two releases.
   setSkewHandler(reloadOncePerRelease(() => sessionStorage, () => location.reload()));
   void initDataRelease().then(() => startRouter(outlet));

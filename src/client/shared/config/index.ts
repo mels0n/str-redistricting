@@ -5,8 +5,8 @@ import versionsJson from '../../../../config/versions.json';
 /**
  * The one configuration module for the viewer. It is read once, at boot, and
  * validated. A host page that embeds the viewer may set
- * `window.STR_VIEWER_CONFIG = { dataBase: 'https://…/data/' }` before the
- * script loads; everything else is fixed.
+ * `window.STR_VIEWER_CONFIG = { dataBase: 'https://…/data/', routing: 'hash' }`
+ * before the script loads; everything else is fixed.
  */
 const ConfigSchema = z.object({
   /** Base URL of the published map data (index.json, states.topo.json, <ST>/…). */
@@ -34,6 +34,8 @@ const ConfigSchema = z.object({
   siteHost: z.string().min(1),
   /** The line on every share image and in share text. */
   tagline: z.string().min(1),
+  /** How links and the address bar are written: real paths, or hashes when the viewer is embedded in a page it does not own. */
+  routing: z.enum(['path', 'hash']),
 });
 
 const EnactedSchema = z.looseObject({
@@ -75,7 +77,7 @@ export type VersionStamp = z.infer<typeof VersionStampSchema>;
 export type ViewerConfig = z.infer<typeof ConfigSchema>;
 
 const HostOverrides = z
-  .object({ dataBase: z.string().min(1).optional() })
+  .object({ dataBase: z.string().min(1).optional(), routing: z.enum(['path', 'hash']).optional() })
   .partial()
   .optional();
 
@@ -110,6 +112,7 @@ function load(): ViewerConfig {
     repoUrl: 'https://github.com/mels0n/str-redistricting',
     siteHost: 'fairmaps.melson.us',
     tagline: 'Drawn by a rule, not by politicians.',
+    routing: host?.routing ?? 'path',
   });
 }
 

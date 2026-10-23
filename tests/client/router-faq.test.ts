@@ -4,7 +4,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 afterEach(() => {
   vi.unstubAllGlobals();
   document.body.replaceChildren();
-  history.replaceState(null, '', '#/');
+  history.replaceState(null, '', '/');
 });
 
 describe('router: the FAQ', () => {
@@ -14,7 +14,7 @@ describe('router: the FAQ', () => {
     const { startRouter } = await import('../../src/client/app/router');
     const outlet = document.createElement('div');
     document.body.append(createSiteHeader(), outlet);
-    history.replaceState(null, '', '#/faq/ties');
+    history.replaceState(null, '', '/faq/ties');
     startRouter(outlet);
 
     expect(outlet.querySelector('#strv-faq-ties')).not.toBeNull();
@@ -22,8 +22,8 @@ describe('router: the FAQ', () => {
     expect(faq.getAttribute('aria-current')).toBe('page');
     expect(document.querySelector('[data-nav="how"]')?.hasAttribute('aria-current')).toBe(false);
 
-    history.replaceState(null, '', '#/changelog');
-    window.dispatchEvent(new HashChangeEvent('hashchange'));
+    history.replaceState(null, '', '/changelog');
+    window.dispatchEvent(new PopStateEvent('popstate'));
     expect(outlet.querySelector('#strv-faq-ties')).toBeNull();
     expect(faq.hasAttribute('aria-current')).toBe(false);
   });
@@ -38,7 +38,7 @@ describe('router: the FAQ', () => {
     const { startRouter } = await import('../../src/client/app/router');
     const outlet = document.createElement('div');
     document.body.append(outlet);
-    history.replaceState(null, '', '#/faq/ties');
+    history.replaceState(null, '', '/faq/ties');
     startRouter(outlet);
     expect(scroll).toHaveBeenCalledTimes(1);
     expect(scroll.mock.contexts[0]).toBe(outlet.querySelector('#strv-faq-ties-h'));

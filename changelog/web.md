@@ -1,5 +1,15 @@
 # Web changelog
 
+## 1.4.0 (2026-10-23)
+
+- feat(web): serve path URLs on Vercel
+- feat(web): state share pages serve the viewer directly
+- fix(web): place the national questions list in the wide grid
+- feat(web): answer what gerrymandering is and how to stop it; one source for page titles
+- feat(web): history-based routing with old-link redirects and an embedding hash mode
+- feat(web): links use path routes
+- feat(web): path route grammar alongside hash routes
+
 ## 1.3.0 (2026-10-13)
 
 - What happened in this state reports how many balancing moves only shortened the border, when the map's stats include the count.

@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { PAGE_META } from '../../src/client/shared';
 import { createHowPage } from '../../src/client/pages/how';
 import { createFaqPage } from '../../src/client/pages/faq';
@@ -21,5 +21,22 @@ describe('PAGE_META', () => {
     expect(document.title).toBe(PAGE_META.faq.title);
     createChangelogPage();
     expect(document.title).toBe(PAGE_META.changelog.title);
+  });
+
+  it('keeps the literal page titles', () => {
+    createHowPage({ page: 'how', section: null });
+    expect(document.title).toBe('How the districts are drawn | Fair Maps');
+    createChangelogPage();
+    expect(document.title).toBe('Changelog | Fair Maps');
+  });
+
+  it('titles the national page and links its three questions', async () => {
+    vi.stubGlobal('fetch', vi.fn(async () => new Response('{}', { status: 404 })));
+    const { createNationalPage } = await import('../../src/client/pages/national');
+    const page = createNationalPage(() => undefined);
+    expect(document.title).toBe('Fair Maps: districts drawn by a rule');
+    expect([...page.el.querySelectorAll('.strv-national__questions a')].map((a) => a.getAttribute('href'))).toEqual(['/faq/gerrymandering', '/faq/stop', '/faq/today']);
+    page.destroy();
+    vi.unstubAllGlobals();
   });
 });

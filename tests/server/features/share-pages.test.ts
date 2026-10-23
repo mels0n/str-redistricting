@@ -28,11 +28,14 @@ describe('sharePageHtml', () => {
     expect(fallback).toContain('content="https://fairmaps.melson.us/og-image.png"');
     expect(fallback).not.toContain('/data/CO/og.png');
   });
-  it('escapes values, has no script, no em dash', () => {
+  it('escapes values, keeps the shell scripts, no em dash', () => {
     const amp = sharePageHtml({ abbr: 'XX', name: 'A & "B" <c>', seats: 1 }, 'https://fairmaps.melson.us', SHELL, true);
     expect(amp).toContain('A &amp; &quot;B&quot; &lt;c&gt;');
     expect(amp).not.toContain('<c>');
-    expect(html).not.toContain('<script');
+    const scripts = (t: string): number => (t.match(/<script/g) ?? []).length;
+    expect(scripts(SHELL)).toBeGreaterThan(0);
+    expect(scripts(html)).toBe(scripts(SHELL));
+    expect(scripts(amp)).toBe(scripts(SHELL));
     expect(html).not.toContain('Home ');
     expect(html).not.toContain('—');
   });

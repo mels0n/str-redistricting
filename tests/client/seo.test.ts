@@ -1,7 +1,9 @@
 // @vitest-environment node
+import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { toMarkdown } from '../../build/markdown';
-import { jsonLd, jsonLdScript, llmsTxt, robotsTxt, sitemapXml } from '../../build/seo';
+import { PAGE_KEYS, jsonLd, jsonLdScript, llmsTxt, robotsTxt, sitemapXml } from '../../build/seo';
+import { FAQ_QUESTIONS, PAGE_META } from '../../src/client/shared';
 
 describe('structured data builders', () => {
   it('escapes < so a value cannot close the script tag', () => {
@@ -50,5 +52,24 @@ describe('site files', () => {
     expect(toMarkdown('<table><tr><th>H</th><th>I</th></tr><tr><td>a|b</td><td>2</td></tr></table>', site)).toBe('| H | I |\n| --- | --- |\n| a\\|b | 2 |\n');
     expect(toMarkdown('<p>so <strong>bold</strong> move</p>', site)).toBe('so **bold** move\n');
     expect(toMarkdown('<p>E<span class="strv-how__flag">passes</span></p><p class="strv-loading">Loading</p><a class="strv-skip" href="\\m">Skip</a>', site)).toBe('E (passes)\n');
+  });
+});
+
+describe('single sources', () => {
+  it('walks every fixed page once, in PAGE_META order', () => {
+    expect(PAGE_KEYS).toEqual(Object.keys(PAGE_META));
+  });
+  it('names only real FAQ questions in llms.txt', () => {
+    const slugs = [...llmsTxt('https://x.test').matchAll(/https:\/\/x\.test\/faq\/([^)\s]+)/g)].map((m) => m[1]);
+    expect(slugs.length).toBeGreaterThan(0);
+    for (const slug of slugs) expect(FAQ_QUESTIONS as readonly (string | undefined)[]).toContain(slug);
+  });
+  it('keeps the source index.html head equal to PAGE_META.home', () => {
+    const html = readFileSync('index.html', 'utf8');
+    const content = (re: RegExp): string | undefined => re.exec(html)?.[1];
+    expect(content(/<title>([^<]*)<\/title>/)).toBe(PAGE_META.home.title);
+    expect(content(/<meta name="description" content="([^"]*)"/)).toBe(PAGE_META.home.description);
+    expect(content(/<meta property="og:title" content="([^"]*)"/)).toBe(PAGE_META.home.title);
+    expect(content(/<meta property="og:description" content="([^"]*)"/)).toBe(PAGE_META.home.description);
   });
 });

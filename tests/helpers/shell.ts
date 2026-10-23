@@ -17,6 +17,7 @@ export const SHELL = `<!doctype html>
   </head>
   <body>
     <div id="str-viewer"></div>
+    <script type="module" src="./assets/index-test.js"></script>
   </body>
 </html>
 `;

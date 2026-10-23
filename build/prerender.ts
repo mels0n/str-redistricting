@@ -8,10 +8,9 @@ import { SITE_HOST } from '../src/server/features/publish/site';
 import { esc, swap } from './share-pages';
 import { Resvg } from '@resvg/resvg-js';
 import { toMarkdown } from './markdown';
-import { LLMS_SUMMARY, jsonLd, jsonLdScript, llmsTxt, robotsTxt, sitemapXml, type FaqEntry, type PageKey } from './seo';
+import { LLMS_SUMMARY, PAGE_KEYS, jsonLd, jsonLdScript, llmsTxt, robotsTxt, sitemapXml, type FaqEntry, type PageKey } from './seo';
 
 const DIST = 'dist';
-const KEYS: readonly PageKey[] = ['home', 'how', 'faq', 'changelog'];
 const ROOT_TAG = '<div id="str-viewer"></div>';
 
 /** Renders one page with the real page code in jsdom and returns the markup inside `#str-viewer`, plus the FAQ entries for the FAQ page. */
@@ -157,7 +156,7 @@ export async function main(): Promise<void> {
   const site = `https://${SITE_HOST}`;
   const outputs = new Map<string, string | Buffer>();
   const markdown = new Map<PageKey, string>();
-  for (const key of KEYS) {
+  for (const key of PAGE_KEYS) {
     const file = key === 'home' ? join(DIST, 'index.html') : join(DIST, PAGE_META[key].path, 'index.html');
     const rendered = await renderPage(key, shell);
     markdown.set(key, toMarkdown(rendered.html, site));

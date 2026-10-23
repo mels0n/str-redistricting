@@ -2,6 +2,8 @@ import { PAGE_META } from '../src/client/shared/lib/page-meta';
 import { SITE_HOST } from '../src/server/features/publish/site';
 
 export type PageKey = keyof typeof PAGE_META;
+/** Every fixed page, in the order PAGE_META lists them: the one list the sitemap and the prerender both walk. */
+export const PAGE_KEYS = Object.keys(PAGE_META) as PageKey[];
 export interface FaqEntry {
   q: string;
   a: string;
@@ -45,8 +47,6 @@ export function jsonLd(key: PageKey, faq: readonly FaqEntry[]): object[] {
       return [];
   }
 }
-
-const PAGE_KEYS: readonly PageKey[] = ['home', 'how', 'faq', 'changelog'];
 
 export function sitemapXml(site: string): string {
   const urls = PAGE_KEYS.map((k) => `  <url><loc>${site}${PAGE_META[k].path}</loc></url>`);

@@ -2,9 +2,10 @@ import { defineConfig } from 'vite';
 import { sharePages } from './build/share-pages.js';
 import { versionMeta } from './build/version-meta.js';
 
-// Static build for the map viewer. A relative base keeps every asset and data
-// URL relative to the page, so the build works at a domain root, in a
-// subdirectory, or embedded in another site.
+// Static build for the map viewer. Assets and data URLs are relative, but the
+// built pages carry <base href="/">, so they assume the domain root (the
+// prerendered pages sit at /faq, /CO and so on). Embedding in another site
+// still works through window.STR_VIEWER_CONFIG, which sets the data location.
 export default defineConfig({
   base: './',
   publicDir: 'public',

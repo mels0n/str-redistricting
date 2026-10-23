@@ -6,7 +6,10 @@ import versionsJson from '../../../../config/versions.json';
  * The one configuration module for the viewer. It is read once, at boot, and
  * validated. A host page that embeds the viewer may set
  * `window.STR_VIEWER_CONFIG = { dataBase: 'https://…/data/', routing: 'hash' }`
- * before the script loads; everything else is fixed.
+ * before the script loads; everything else is fixed. `dataBase` points at another
+ * copy of the published data. `routing: 'hash'` keeps links and the address bar
+ * in `#/` form so the host page's own path is never rewritten (the default is
+ * real paths).
  */
 const ConfigSchema = z.object({
   /** Base URL of the published map data (index.json, states.topo.json, <ST>/…). */

@@ -9,15 +9,20 @@ interface Rewrite {
 }
 const config = JSON.parse(readFileSync('vercel.json', 'utf8')) as { trailingSlash?: boolean; rewrites: Rewrite[] };
 
-/** A small stand-in for the host's path matcher: `:name(re)`, `:name+`, `:name*` and `:name`. */
+/**
+ * A small stand-in for the host's path matcher: `:name(re)`, `:name+`, `:name*` and `:name`. It is NOT Vercel's matcher
+ * (that is path-to-regexp plus the platform's own rules, such as real files winning over rewrites); it only checks that
+ * the rules in vercel.json say what we mean. A rewrite match for a path that also has a built file is shadowed by the file.
+ */
 function compile(source: string): { re: RegExp; names: string[] } {
   const names: string[] = [];
-  const pattern = source.replace(/:(\w+)(\([^)]*\))?([+*])?/g, (_m, name: string, group?: string, mod?: string) => {
+  // `/:name*` makes the slash optional too, as in path-to-regexp: /Co matches `/:st(...)/:rest*`.
+  const pattern = source.replace(/(\/?):(\w+)(\([^)]*\))?([+*])?/g, (_m, slash: string, name: string, group?: string, mod?: string) => {
     names.push(name);
-    if (group) return group;
-    if (mod === '+') return '(.+)';
-    if (mod === '*') return '(.*)';
-    return '([^/]+)';
+    if (mod === '*') return `(?:${slash}(.*))?`;
+    if (group) return `${slash}${group}`;
+    if (mod === '+') return `${slash}(.+)`;
+    return `${slash}([^/]+)`;
   });
   return { re: new RegExp(`^${pattern}$`), names };
 }
@@ -38,6 +43,25 @@ describe('hosting routes for path URLs', () => {
   });
 
   it.each([
+    // bare fixed pages and states are static files: no rewrite touches them
+    ['/how', null],
+    ['/faq', null],
+    ['/changelog', null],
+    ['/changelog/x', null],
+    ['/CO', null],
+    // files, assets and data are never rewritten
+    ['/data/CO/og.png', null],
+    ['/data/index.json', null],
+    ['/assets/x.js', null],
+    // case and length of the state segment
+    ['/CO/house', '/CO/index.html'],
+    ['/CO/senate', '/CO/index.html'],
+    ['/Co/x', '/index.html'],
+    ['/Co', '/index.html'],
+    ['/ab/x', '/index.html'],
+    ['/XX/x', '/XX/index.html'],
+    ['/X/x', null],
+    ['/COL/x', null],
     ['/how/balancing', '/how/index.html'],
     ['/faq/ties', '/faq/index.html'],
     ['/house', '/index.html'],
@@ -49,9 +73,55 @@ describe('hosting routes for path URLs', () => {
     expect(route(path)).toBe(expected);
   });
 
-  it('has a prerendered file for every fixed page', () => {
-    for (const { path } of Object.values(PAGE_META)) {
-      expect(existsSync(`dist${path === '/' ? '' : path}/index.html`)).toBe(true);
+  it('has a prerendered file for every fixed page, with its title, canonical link and one viewer root', () => {
+    for (const [key, { path, title }] of Object.entries(PAGE_META)) {
+      const file = `dist${path === '/' ? '' : path}/index.html`;
+      expect(existsSync(file)).toBe(true);
+      const html = readFileSync(file, 'utf8');
+      expect(/<title>([^<]*)<\/title>/.exec(html)?.[1]).toBe(title);
+      expect(html).toContain(`<link rel="canonical" href="https://fairmaps.melson.us${path === '/' ? '/' : path}" />`);
+      expect(html.match(/id="str-viewer"/g), key).toHaveLength(1);
+      if (key === 'how' || key === 'changelog') expect(html).not.toContain('FAQPage');
     }
+  });
+
+  describe('_redirects', () => {
+    // vercel.json rules written the way a _redirects file writes them: a constrained group becomes a bare name, a
+    // trailing :rest+ or :rest* becomes `*`, and a word alternation becomes one line per word.
+    function asRedirects(rule: Rewrite): string[] {
+      const alt = /:(\w+)\((\w+(?:\|\w+)+)\)/.exec(rule.source);
+      if (alt) {
+        return alt[2]!.split('|').flatMap((word) =>
+          asRedirects({ source: rule.source.replace(alt[0], word), destination: rule.destination.replace(`:${alt[1]}`, word) }),
+        );
+      }
+      const source = rule.source.replace(/(:\w+)\([^)]*\)/g, '$1').replace(/\/:\w+[+*]$/, '/*');
+      return [`${source} ${rule.destination}`];
+    }
+
+    const lines = readFileSync('public/_redirects', 'utf8')
+      .split('\n')
+      .map((l) => l.trim())
+      .filter((l) => l !== '' && !l.startsWith('#'))
+      .map((l) => l.split(/\s+/));
+    const redirects = lines.map(([from, to]) => `${from} ${to}`);
+
+    // Documented difference: _redirects cannot tell a mixed-case code from a state code, so the client-side lowercase
+    // route rule has no counterpart there (the catch-all /:st/* serves that case from the state page).
+    const NO_COUNTERPART = new Set(['/:st([a-z][a-zA-Z]|[A-Z][a-z])/:rest*']);
+
+    it('serves every line with status 200', () => {
+      for (const l of lines) expect(l[2]).toBe('200');
+    });
+    it('has a line for every vercel.json rewrite', () => {
+      for (const rule of config.rewrites) {
+        if (NO_COUNTERPART.has(rule.source)) continue;
+        for (const expected of asRedirects(rule)) expect(redirects, rule.source).toContain(expected);
+      }
+    });
+    it('has no line without a rewrite behind it', () => {
+      const known = new Set(config.rewrites.filter((r) => !NO_COUNTERPART.has(r.source)).flatMap(asRedirects));
+      for (const r of redirects) expect(known.has(r), r).toBe(true);
+    });
   });
 });

@@ -14,10 +14,10 @@ export const CHAMBERS: readonly ChamberInfo[] = [
   { key: 'state-senate', label: 'State Senate', segment: 'senate' },
 ];
 
-/** The share page of one state's map for one chamber: /CO/ for the federal House, /CO/senate/ and /CO/house/ for the state chambers. */
+/** The share page of one state's map for one chamber: /CO for the federal House, /CO/senate and /CO/house for the state chambers. */
 export function sharePath(abbr: string, chamber: Chamber): string {
   const segment = CHAMBERS.find((c) => c.key === chamber)?.segment ?? '';
-  return segment ? `/${abbr}/${segment}/` : `/${abbr}/`;
+  return segment ? `/${abbr}/${segment}` : `/${abbr}`;
 }
 
 /** Where a chamber's published files live under the data folder: `CO`, `CO/state-house`, `CO/state-senate`. Mirrors the publisher. */

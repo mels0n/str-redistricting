@@ -1,4 +1,4 @@
-import { h, mv, config, ENACTED, ordinal, formatHash, howRoute, faqRoute, stateRoute, iconArrowLeft, prefersReducedMotion, NATIONAL, FAQ_QUESTIONS, type FaqQuestion, type Page, type Route } from '../../shared';
+import { h, mv, config, ENACTED, ordinal, routeHref, howRoute, faqRoute, stateRoute, iconArrowLeft, prefersReducedMotion, NATIONAL, FAQ_QUESTIONS, type FaqQuestion, type Page, type Route } from '../../shared';
 
 const TITLES: Record<FaqQuestion, string> = {
   strange: 'Why does my district look strange?',
@@ -20,7 +20,7 @@ const questionId = (q: FaqQuestion): string => `strv-faq-${q}`;
 const p = (...children: (Node | string)[]): HTMLElement => h('p', null, ...children);
 const li = (...children: (Node | string)[]): HTMLElement => h('li', null, ...children);
 const list = (...items: HTMLElement[]): HTMLElement => h('ul', { class: 'strv-how__list' }, items);
-const howLink = (section: Parameters<typeof howRoute>[0], text: string): HTMLElement => h('a', { href: formatHash(howRoute(section)) }, text);
+const howLink = (section: Parameters<typeof howRoute>[0], text: string): HTMLElement => h('a', { href: routeHref(howRoute(section)) }, text);
 
 function question(id: FaqQuestion, n: number, ...body: HTMLElement[]): HTMLElement {
   return h(
@@ -44,7 +44,7 @@ const ANSWERS: Record<FaqQuestion, () => HTMLElement[]> = {
       li(h('strong', null, 'Long or thin pieces.'), ' The shortest border wins each cut, and the people, not a neat outline, decide where that is. Sometimes it leaves a long piece.'),
     ),
     h('h3', { class: 'strv-how__h3' }, 'Check it yourself'),
-    p('Every border traces back to a cut or a balancing move, and both can be replayed on the state’s map, ', h('a', { href: formatHash(stateRoute('CO', { cut: 1 })) }, 'starting with Colorado’s first cut'), '. Anyone who reruns the generator gets the same map and the same fingerprint.'),
+    p('Every border traces back to a cut or a balancing move, and both can be replayed on the state’s map, ', h('a', { href: routeHref(stateRoute('CO', { cut: 1 })) }, 'starting with Colorado’s first cut'), '. Anyone who reruns the generator gets the same map and the same fingerprint.'),
     p('The rules themselves, shortest border and equal population, were chosen once and up front. They apply to every state alike and were fixed before any map existed. Nobody chose any single line.'),
   ],
   block: () => [
@@ -146,7 +146,7 @@ export function createFaqPage(initial: Extract<Route, { page: 'faq' }>): Page {
         'ol',
         { class: 'strv-how__toc-list' },
         FAQ_QUESTIONS.map((q, i) =>
-          h('li', null, h('a', { href: formatHash(faqRoute(q)), 'data-question': q }, h('span', { class: 'strv-how__toc-no', 'aria-hidden': 'true' }, String(i + 1)), TITLES[q])),
+          h('li', null, h('a', { href: routeHref(faqRoute(q)), 'data-question': q }, h('span', { class: 'strv-how__toc-no', 'aria-hidden': 'true' }, String(i + 1)), TITLES[q])),
         ),
       ),
     ),
@@ -160,9 +160,9 @@ export function createFaqPage(initial: Extract<Route, { page: 'faq' }>): Page {
     h(
       'header',
       { class: 'strv-how__head' },
-      h('a', { href: formatHash(NATIONAL), class: 'strv-back' }, iconArrowLeft(), 'All states'),
+      h('a', { href: routeHref(NATIONAL), class: 'strv-back' }, iconArrowLeft(), 'All states'),
       h1,
-      h('p', { class: 'strv-how__lede' }, 'Short answers to the questions people ask most. Each links to the part of ', h('a', { href: formatHash(howRoute()) }, 'How it works'), ' that explains it in full.'),
+      h('p', { class: 'strv-how__lede' }, 'Short answers to the questions people ask most. Each links to the part of ', h('a', { href: routeHref(howRoute()) }, 'How it works'), ' that explains it in full.'),
     ),
     h('div', { class: 'strv-how__room' }, h('div', { class: 'strv-how__grid' }, toc, body)),
   );

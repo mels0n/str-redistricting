@@ -158,7 +158,7 @@ describe('rule demo widget', () => {
   it('link opens the state at the case cut', () => {
     const d = createRuleDemo(base());
     const a = d.el.querySelector('a')!;
-    expect(a.getAttribute('href')).toBe('#/CO/cut/3');
+    expect(a.getAttribute('href')).toBe('/CO/cut/3');
     expect(a.textContent).toBe('Open Colorado at cut 3');
     d.destroy();
   });

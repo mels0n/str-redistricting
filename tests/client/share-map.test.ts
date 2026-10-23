@@ -9,16 +9,16 @@ const flush = (): Promise<void> => new Promise((r) => setTimeout(r, 0));
 
 describe('sharePath', () => {
   it('keeps the federal House at the original state path and gives each state chamber its own', () => {
-    expect(sharePath('CO', 'federal-house')).toBe('/CO/');
-    expect(sharePath('CO', 'state-senate')).toBe('/CO/senate/');
-    expect(sharePath('CO', 'state-house')).toBe('/CO/house/');
+    expect(sharePath('CO', 'federal-house')).toBe('/CO');
+    expect(sharePath('CO', 'state-senate')).toBe('/CO/senate');
+    expect(sharePath('CO', 'state-house')).toBe('/CO/house');
   });
 });
 
 describe('shareContent', () => {
   it('links the state share page and carries the count and the tagline', () => {
     const c = shareContent({ abbr: 'CO', name: 'Colorado', seats: 8, chamber: 'federal-house' });
-    expect(c.url).toBe(`https://${config.siteHost}/CO/`);
+    expect(c.url).toBe(`https://${config.siteHost}/CO`);
     expect(c.title).toBe('Colorado: districts drawn by Fair Maps');
     expect(c.text).toBe(`Colorado's 8 congressional districts. ${config.tagline}`);
   });
@@ -56,7 +56,7 @@ describe('createShareButton', () => {
     b.el.querySelector('button')!.click();
     await Promise.resolve();
     await Promise.resolve();
-    expect(writeText).toHaveBeenCalledWith(`https://${config.siteHost}/CO/`);
+    expect(writeText).toHaveBeenCalledWith(`https://${config.siteHost}/CO`);
     expect(b.el.textContent).toContain('Link copied');
   });
 
@@ -69,7 +69,7 @@ describe('createShareButton', () => {
     await new Promise((r) => setTimeout(r, 0));
     const input = b.el.querySelector('input')!;
     expect(input.hidden).toBe(false);
-    expect(input.value).toBe(`https://${config.siteHost}/CO/`);
+    expect(input.value).toBe(`https://${config.siteHost}/CO`);
     b.el.remove();
   });
 
@@ -93,7 +93,7 @@ describe('createShareButton', () => {
     b.el.querySelector('button')!.click();
     await flush();
     expect(share).not.toHaveBeenCalled();
-    expect(writeText).toHaveBeenCalledWith(`https://${config.siteHost}/CO/`);
+    expect(writeText).toHaveBeenCalledWith(`https://${config.siteHost}/CO`);
   });
 
   it('does nothing more when the share sheet is closed', async () => {
@@ -116,7 +116,7 @@ describe('createShareButton', () => {
     b.set(CO);
     b.el.querySelector('button')!.click();
     await flush();
-    expect(writeText).toHaveBeenCalledWith(`https://${config.siteHost}/CO/`);
+    expect(writeText).toHaveBeenCalledWith(`https://${config.siteHost}/CO`);
   });
 
   it('ignores a second tap while the share sheet is open', async () => {

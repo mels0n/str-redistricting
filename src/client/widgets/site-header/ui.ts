@@ -1,4 +1,4 @@
-import { h, svg, config, formatHash, faqRoute, howRoute, stateRoute, nationalRoute, NATIONAL, CHAMBERS, type Chamber, type Route } from '../../shared';
+import { h, svg, config, routeHref, faqRoute, howRoute, stateRoute, nationalRoute, NATIONAL, CHAMBERS, type Chamber, type Route } from '../../shared';
 
 const FEDERAL_ONLY: ReadonlySet<Chamber> = new Set<Chamber>(['federal-house']);
 
@@ -9,7 +9,7 @@ function routeChamber(route: Route): Chamber {
 
 /** Where a chamber's link goes: the same state in that chamber, or that chamber's national map. */
 function chamberHref(route: Route, chamber: Chamber): string {
-  return formatHash(route.page === 'state' ? stateRoute(route.abbr, { chamber }) : nationalRoute(chamber));
+  return routeHref(route.page === 'state' ? stateRoute(route.abbr, { chamber }) : nationalRoute(chamber));
 }
 
 function chamberItems(route: Route, live: ReadonlySet<Chamber>): HTMLElement[] {
@@ -71,13 +71,13 @@ export function createSiteHeader(): HTMLElement {
   return h(
     'header',
     { class: 'strv-masthead' },
-    h('a', { href: formatHash(NATIONAL), class: 'strv-masthead__title' }, 'Fair Maps'),
+    h('a', { href: routeHref(NATIONAL), class: 'strv-masthead__title' }, 'Fair Maps'),
     createChamberSwitch(),
     h(
       'nav',
       { class: 'strv-masthead__nav', 'aria-label': 'Site' },
-      h('a', { href: formatHash(faqRoute()), class: 'strv-masthead__link', 'data-nav': 'faq' }, 'FAQ'),
-      h('a', { href: formatHash(howRoute()), class: 'strv-masthead__link', 'data-nav': 'how' }, 'How it works'),
+      h('a', { href: routeHref(faqRoute()), class: 'strv-masthead__link', 'data-nav': 'faq' }, 'FAQ'),
+      h('a', { href: routeHref(howRoute()), class: 'strv-masthead__link', 'data-nav': 'how' }, 'How it works'),
       h(
         'a',
         { href: config.repoUrl, class: 'strv-masthead__link strv-masthead__repo', 'aria-label': 'Source code on GitHub', title: 'Source code on GitHub' },

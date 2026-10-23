@@ -114,7 +114,7 @@ describe('the state page for a chamber', () => {
   it('says a state with one legislative chamber has no State House, and draws no map', async () => {
     const page = await mount({ chamber: 'state-house' });
     expect(page.el.textContent).toContain('Nebraska has one legislative chamber, its Senate. There is no State House to draw.');
-    expect(page.el.querySelector('a[href="#/NE/senate"]')).not.toBeNull();
+    expect(page.el.querySelector('a[href="/NE/senate"]')).not.toBeNull();
     expect(page.el.textContent).not.toContain(String.fromCharCode(0x2014));
     expect(requested.filter((p) => p.startsWith('NE/'))).toEqual([]);
     page.destroy();
@@ -123,7 +123,7 @@ describe('the state page for a chamber', () => {
   it('says a chamber that is not drawn yet is not drawn yet, and loads none of its files', async () => {
     const page = await mount({ chamber: 'state-senate' });
     expect(page.el.textContent).toContain('State Senate maps for Nebraska are not drawn yet.');
-    expect(page.el.querySelector('a[href="#/NE"]')).not.toBeNull();
+    expect(page.el.querySelector('a[href="/NE"]')).not.toBeNull();
     expect(requested.filter((p) => p.startsWith('NE/'))).toEqual([]);
     page.destroy();
   });

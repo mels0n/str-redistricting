@@ -33,7 +33,7 @@ export function creditLine(p: CreditSubject, compact: boolean): string {
     return compact ? `${host} · Maps ${n.maps} · engine ${n.engine}` : `${host} · Maps release ${n.maps} · engine ${n.engine}`;
   }
   const stateChamber = p.chamber !== undefined && p.chamber !== 'federal-house' ? p.chamber : null;
-  const address = stateChamber ? `${host}${sharePath(p.abbr, stateChamber).replace(/\/$/, '')}` : `${host}/${p.abbr}`;
+  const address = stateChamber ? `${host}${sharePath(p.abbr, stateChamber)}` : `${host}/${p.abbr}`;
   const name = stateChamber && p.name ? `${p.name} ${chamberLabel(stateChamber)}` : p.name;
   const short = p.sha ? p.sha.slice(0, 8) : null;
   const v = p.versions;

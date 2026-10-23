@@ -272,6 +272,6 @@ describe('How page: points to the FAQ', () => {
     stubFetch(() => true);
     const page = await newPage();
     expect(page.el.querySelector('#strv-how-strange')).toBeNull();
-    expect(page.el.querySelector('.strv-how__next a[href="#/faq"]')?.textContent).toBe('FAQ page');
+    expect(page.el.querySelector('.strv-how__next a[href="/faq"]')?.textContent).toBe('FAQ page');
   });
 });

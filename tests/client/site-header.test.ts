@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import { afterEach, describe, expect, it } from 'vitest';
-import { CHAMBERS, config, formatHash, stateRoute, nationalRoute, NATIONAL } from '../../src/client/shared';
+import { CHAMBERS, config, routeHref, stateRoute, nationalRoute, NATIONAL } from '../../src/client/shared';
 import type { Chamber } from '../../src/client/shared';
 import { createSiteHeader, syncChamberSwitch } from '../../src/client/widgets/site-header';
 
@@ -12,12 +12,12 @@ describe('site header', () => {
   it('names the site and links home', () => {
     const title = createSiteHeader().querySelector('.strv-masthead__title')!;
     expect(title.textContent).toBe('Fair Maps');
-    expect(title.getAttribute('href')).toBe(formatHash(NATIONAL));
+    expect(title.getAttribute('href')).toBe(routeHref(NATIONAL));
   });
 
   it('has one way home: the title, not a second All states link', () => {
     const header = createSiteHeader();
-    const homeLinks = [...header.querySelectorAll('a')].filter((a) => a.getAttribute('href') === formatHash(NATIONAL) && !a.hasAttribute('data-chamber'));
+    const homeLinks = [...header.querySelectorAll('a')].filter((a) => a.getAttribute('href') === routeHref(NATIONAL) && !a.hasAttribute('data-chamber'));
     expect(homeLinks).toHaveLength(1);
     expect(header.textContent).not.toContain('All states');
     expect([...header.querySelectorAll('.strv-masthead__nav a')].map((a) => a.textContent || a.getAttribute('aria-label'))).toEqual(['FAQ', 'How it works', 'Source code on GitHub']);
@@ -55,9 +55,9 @@ describe('site header', () => {
     document.body.append(createSiteHeader());
     const live = document.querySelector('[data-chamber="federal-house"]')!;
     syncChamberSwitch(stateRoute('CO', { district: 3 }));
-    expect(live.getAttribute('href')).toBe(formatHash(stateRoute('CO')));
+    expect(live.getAttribute('href')).toBe(routeHref(stateRoute('CO')));
     syncChamberSwitch({ page: 'how', section: null });
-    expect(live.getAttribute('href')).toBe(formatHash(NATIONAL));
+    expect(live.getAttribute('href')).toBe(routeHref(NATIONAL));
   });
 
   it('turns a chamber into a link to the same state once the index says it has maps', () => {
@@ -69,11 +69,11 @@ describe('site header', () => {
     expect(house.tagName).toBe('SPAN');
     expect(house.textContent).toBe('State House Soon');
     expect(senate.tagName).toBe('A');
-    expect(senate.getAttribute('href')).toBe('#/CO/senate');
-    expect(document.querySelector('[data-chamber="federal-house"]')!.getAttribute('href')).toBe('#/CO');
+    expect(senate.getAttribute('href')).toBe('/CO/senate');
+    expect(document.querySelector('[data-chamber="federal-house"]')!.getAttribute('href')).toBe('/CO');
     // Off a state page the links open that chamber's national map, and the current chamber is marked.
     syncChamberSwitch(nationalRoute('state-senate'), live);
-    expect(document.querySelector('[data-chamber="state-senate"]')!.getAttribute('href')).toBe('#/senate');
+    expect(document.querySelector('[data-chamber="state-senate"]')!.getAttribute('href')).toBe('/senate');
     expect(document.querySelector('[data-chamber="state-senate"]')!.getAttribute('aria-current')).toBe('true');
     expect(document.querySelector('[data-chamber="federal-house"]')!.hasAttribute('aria-current')).toBe(false);
   });

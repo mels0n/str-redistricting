@@ -1,4 +1,4 @@
-import { h, formatHash, iconArrowLeft, renderChangelog, NATIONAL, type Page } from '../../shared';
+import { h, routeHref, iconArrowLeft, renderChangelog, NATIONAL, type Page } from '../../shared';
 import engine from '../../../../changelog/engine.md?raw';
 import input from '../../../../changelog/input.md?raw';
 import maps from '../../../../changelog/maps.md?raw';
@@ -36,7 +36,7 @@ export function createChangelogPage(sources: ChangelogSources = DEFAULT_SOURCES)
     h(
       'header',
       { class: 'strv-how__head' },
-      h('a', { href: formatHash(NATIONAL), class: 'strv-back' }, iconArrowLeft(), 'All states'),
+      h('a', { href: routeHref(NATIONAL), class: 'strv-back' }, iconArrowLeft(), 'All states'),
       h1,
       h('p', { class: 'strv-how__lede' }, 'What changed in each release of the code that draws the maps, the Census files they are drawn from, the maps, the file formats, this site and the documentation.'),
     ),

@@ -1,6 +1,6 @@
 import { geoAlbersUsa, geoPath } from 'd3-geo';
 import type { FeatureCollection, MultiPolygon, Polygon } from 'geojson';
-import { svg, mountCreditStrip, loadPublishedVersions, type Versions, formatHash, stateRoute, labelPoint, pointInPolygonRings, districtCount, chamberLabel, type Chamber } from '../../shared';
+import { svg, mountCreditStrip, loadPublishedVersions, type Versions, routeHref, stateRoute, labelPoint, pointInPolygonRings, districtCount, chamberLabel, type Chamber } from '../../shared';
 import { chamberView, isGeneratedIn, type StateIndex } from '../../entities/state';
 
 export interface UsMapOptions {
@@ -108,7 +108,7 @@ function buildUsMap(opts: UsMapOptions, compact: boolean): SVGSVGElement {
     const abbrSize = compact ? abbrUnits : 13;
     const seatsSize = compact ? seatsUnits : 24;
     const seats = chamberView(entry, chamber).seats;
-    const href = formatHash(stateRoute(entry.abbr, { chamber }));
+    const href = routeHref(stateRoute(entry.abbr, { chamber }));
     const label = `${entry.name}, ${districtCount(seats)}`;
     const labelW = Math.max(abbrSize * 1.6, String(seats).length * seatsSize * 0.62) + 4;
     // On a phone the labels are large against the drawing: a label may run past a state's edge there (its ink outline keeps it
@@ -144,7 +144,7 @@ function buildUsMap(opts: UsMapOptions, compact: boolean): SVGSVGElement {
       // A larger click target for small states; the state shape itself is the keyboard stop.
       svg(
         'a',
-        { href: formatHash(stateRoute(c.abbr, { chamber })), tabindex: -1, class: 'strv-us__callout-link' },
+        { href: routeHref(stateRoute(c.abbr, { chamber })), tabindex: -1, class: 'strv-us__callout-link' },
         svg('rect', { x: colX - 8, y: y - (compact ? 18 : 12), width: compact ? 116 : 78, height: compact ? 36 : 24, class: 'strv-us__hit' }),
         svg('text', { x: colX, y, class: 'strv-us__callout', 'dominant-baseline': 'middle' }, svg('tspan', { class: 'strv-us__abbr-ink' }, c.abbr), svg('tspan', { dx: compact ? 10 : 6, class: 'strv-us__seats-ink' }, String(c.seats))),
       ),

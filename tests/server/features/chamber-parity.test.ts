@@ -41,7 +41,7 @@ describe('chamber naming agrees across the generator, the viewer and the share p
       writeFileSync(join(pub, 'data', 'index.json'), JSON.stringify({ states: [
         { abbr: 'CO', name: 'Colorado', seats: 8, hasData: true, chambers: { 'state-house': { seats: 65, hasData: true }, 'state-senate': { seats: 35, hasData: true } } },
       ] }));
-      const written = writeSharePages(pub, dist).map((p) => `/${p}/`).sort();
+      const written = writeSharePages(pub, dist).map((p) => `/${p}`).sort();
       const linked = CHAMBERS.map((c) => sharePath('CO', c)).sort();
       expect(written).toEqual(linked);
     });

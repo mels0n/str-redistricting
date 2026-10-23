@@ -1,4 +1,4 @@
-import { h, clear, chamberLabel, describeError, setLocated, stateRoute, formatHash, howRoute, type Chamber, type Navigate, type Page } from '../../shared';
+import { h, clear, chamberLabel, describeError, setLocated, stateRoute, routeHref, howRoute, type Chamber, type Navigate, type Page } from '../../shared';
 import { loadIndex, loadOutlines } from '../../entities/state';
 import { createAddressSearch, describeResolution, resolveAddress } from '../../features/address-search';
 import { createUsMap, type UsMap } from '../../widgets/us-map';
@@ -37,7 +37,7 @@ export function createNationalPage(nav: Navigate, chamber: Chamber = 'federal-ho
           : `These are ${chamberLabel(chamber)} maps. They cover the 50 states. A chamber a state does not have, such as Nebraska's State House, has no map.`,
       ),
     ),
-    h('p', { class: 'strv-national__more' }, h('a', { href: formatHash(howRoute()) }, 'How it works: every stage, with drawings')),
+    h('p', { class: 'strv-national__more' }, h('a', { href: routeHref(howRoute()) }, 'How it works: every stage, with drawings')),
   );
 
   const search = createAddressSearch({

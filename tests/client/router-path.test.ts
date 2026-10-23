@@ -66,6 +66,23 @@ describe('router: path mode', () => {
     expect(outlet.querySelector('h1')).not.toBeNull();
   });
 
+  it('follows a click on an SVG link, and leaves a modified click to the browser', async () => {
+    await start('/');
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    const a = document.createElementNS('http://www.w3.org/2000/svg', 'a');
+    a.setAttribute('href', '/CO');
+    svg.append(a);
+    document.body.append(svg);
+    const modified = clickEvent({ ctrlKey: true });
+    a.dispatchEvent(modified);
+    expect(modified.defaultPrevented).toBe(false);
+    expect(location.pathname).toBe('/');
+    const ev = clickEvent();
+    a.dispatchEvent(ev);
+    expect(ev.defaultPrevented).toBe(true);
+    expect(location.pathname).toBe('/CO');
+  });
+
   it('sets the canonical address on the first page too', async () => {
     await start('/CO/d/3?plan=before');
     expect(canonical()).toBe('https://fairmaps.melson.us/CO');

@@ -167,7 +167,9 @@ export function startRouter(outlet: HTMLElement): void {
       (ev) => {
         if (ev.defaultPrevented || ev.button !== 0 || ev.ctrlKey || ev.metaKey || ev.shiftKey || ev.altKey) return;
         const link = (ev.target as Element | null)?.closest?.('a[href]');
-        if (!(link instanceof HTMLAnchorElement) || link.hasAttribute('target') || link.hasAttribute('download')) return;
+        // The home map's state links are SVG <a> elements, whose .href is an SVGAnimatedString: read the attribute instead.
+        const isAnchor = link instanceof HTMLAnchorElement || (link?.namespaceURI === 'http://www.w3.org/2000/svg' && link.localName === 'a');
+        if (!link || !isAnchor || link.hasAttribute('target') || link.hasAttribute('download')) return;
         const raw = link.getAttribute('href') ?? '';
         if (raw.startsWith('#')) {
           // <base href="/"> makes a bare fragment resolve to the home page, so it is never left to the browser.
@@ -176,7 +178,7 @@ export function startRouter(outlet: HTMLElement): void {
           else document.getElementById(decodeURIComponent(raw.slice(1)))?.scrollIntoView();
           return;
         }
-        const url = new URL(link.href, location.href);
+        const url = new URL(raw, document.baseURI);
         if (url.origin !== location.origin || !isPageLink(url)) return;
         ev.preventDefault();
         navigate(parsePath(url.pathname, url.search));

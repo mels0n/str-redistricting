@@ -42,4 +42,12 @@ describe('site files', () => {
     const html = '<h2>Q<span class="strv-how__no" aria-hidden="true">1</span></h2><p>See <a href="/how">How</a></p><svg></svg>';
     expect(toMarkdown(html, 'https://x.test')).toBe('## Q\n\nSee [How](https://x.test/how)\n');
   });
+
+  it('converts lists, tables, strong text and badges', () => {
+    const site = 'https://x.test';
+    expect(toMarkdown('<ul><li>a</li><li>b</li></ul><ol><li>c</li><li>d</li></ol>', site)).toBe('- a\n- b\n\n1. c\n2. d\n');
+    expect(toMarkdown('<table><tr><th>H</th><th>I</th></tr><tr><td>a|b</td><td>2</td></tr></table>', site)).toBe('| H | I |\n| --- | --- |\n| a\\|b | 2 |\n');
+    expect(toMarkdown('<p>so <strong>bold</strong> move</p>', site)).toBe('so **bold** move\n');
+    expect(toMarkdown('<p>E<span class="strv-how__flag">passes</span></p><p class="strv-loading">Loading</p><a class="strv-skip" href="\\m">Skip</a>', site)).toBe('E (passes)\n');
+  });
 });

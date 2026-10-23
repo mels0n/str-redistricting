@@ -59,6 +59,14 @@ describe('prerendered pages', () => {
     const full = read('dist/llms-full.txt');
     expect(full).toContain('## What is gerrymandering?');
     expect(full).toContain('pack one side’s voters');
+    expect(full).not.toContain('Skip to content');
+    expect(full).not.toContain('Loading');
+    expect(full).not.toContain('Epasses');
+    expect(full).not.toContain('1chosen');
+    expect(full).toContain('(passes the share)');
+    const ico = readFileSync('dist/favicon.ico');
+    expect([ico[6], ico[7], ico.readUInt16LE(10), ico.readUInt16LE(12), ico.readUInt32LE(14), ico.readUInt32LE(18)]).toEqual([48, 48, 1, 32, ico.length - 22, 22]);
+    expect(readFileSync('dist/apple-touch-icon.png').readUInt32BE(16)).toBe(180);
     expect(read('dist/robots.txt')).toContain('Sitemap:');
   });
 });

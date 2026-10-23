@@ -1,6 +1,6 @@
 import { JSDOM } from 'jsdom';
 
-const DROP = 'svg, canvas, button, input, form, nav, header, footer, [aria-hidden="true"], .strv-how__no';
+const DROP = 'svg, canvas, button, input, form, nav, header, footer, [aria-hidden="true"], .strv-how__no, .strv-skip, .strv-loading, .strv-how__real, [aria-busy="true"]';
 
 /** Converts prerendered page markup to markdown for llms-full.txt. */
 export function toMarkdown(html: string, site: string): string {
@@ -26,6 +26,9 @@ function inline(node: Node, site: string): string {
     case 'strong':
     case 'b':
       return inner.trim() === '' ? inner : `**${inner.trim()}**`;
+    case 'span':
+      // A badge sits flush against its neighbours in the page; in text it is set off in parentheses.
+      return el.classList.contains('strv-how__flag') ? ` (${inner.trim()})` : inner;
     case 'br':
       return ' ';
     default:

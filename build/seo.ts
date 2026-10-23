@@ -49,7 +49,7 @@ export function jsonLd(key: PageKey, faq: readonly FaqEntry[]): object[] {
 const PAGE_KEYS: readonly PageKey[] = ['home', 'how', 'faq', 'changelog'];
 
 export function sitemapXml(site: string): string {
-  const urls = PAGE_KEYS.map((k) => `  <url><loc>${site}${PAGE_META[k].path === '/' ? '' : PAGE_META[k].path}</loc></url>`);
+  const urls = PAGE_KEYS.map((k) => `  <url><loc>${site}${PAGE_META[k].path}</loc></url>`);
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join('\n')}\n</urlset>\n`;
 }
 

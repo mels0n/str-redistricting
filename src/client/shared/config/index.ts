@@ -7,9 +7,10 @@ import versionsJson from '../../../../config/versions.json';
  * validated. A host page that embeds the viewer may set
  * `window.STR_VIEWER_CONFIG = { dataBase: 'https://…/data/', routing: 'hash' }`
  * before the script loads; everything else is fixed. `dataBase` points at another
- * copy of the published data. `routing: 'hash'` keeps links and the address bar
- * in `#/` form so the host page's own path is never rewritten (the default is
- * real paths).
+ * copy of the published data. The site itself sets no host config and uses real
+ * paths. A host that sets any config without `routing` stays in `#/` form, so the
+ * host page's own path is never rewritten; set `routing: 'path'` to opt in to
+ * real paths.
  */
 const ConfigSchema = z.object({
   /** Base URL of the published map data (index.json, states.topo.json, <ST>/…). */
@@ -115,7 +116,7 @@ function load(): ViewerConfig {
     repoUrl: 'https://github.com/mels0n/str-redistricting',
     siteHost: 'fairmaps.melson.us',
     tagline: 'Drawn by a rule, not by politicians.',
-    routing: host?.routing ?? 'path',
+    routing: host?.routing ?? (host ? 'hash' : 'path'),
   });
 }
 

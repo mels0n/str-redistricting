@@ -1,7 +1,6 @@
 // @vitest-environment node
-import { execSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
-import { beforeAll, describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { renderPage } from '../../build/prerender';
 import { PAGE_META } from '../../src/client/shared/lib/page-meta';
 
@@ -9,10 +8,6 @@ const read = (p: string): string => readFileSync(p, 'utf8');
 const titleOf = (html: string): string => /<title>([^<]*)<\/title>/.exec(html)?.[1] ?? '';
 
 describe('prerendered pages', () => {
-  beforeAll(() => {
-    execSync('npm run build', { stdio: 'ignore' });
-  }, 120_000);
-
   it('renders the FAQ with its first answer and no inline styles', async () => {
     const { html, faq } = await renderPage('faq');
     expect(html).toContain('What is gerrymandering?');

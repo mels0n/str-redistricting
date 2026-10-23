@@ -1,7 +1,6 @@
 // @vitest-environment node
-import { execSync } from 'node:child_process';
 import { existsSync, readFileSync } from 'node:fs';
-import { beforeAll, describe, expect, it } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import { PAGE_META } from '../../src/client/shared/lib/page-meta';
 
 interface Rewrite {
@@ -34,11 +33,6 @@ function route(path: string): string | null {
 }
 
 describe('hosting routes for path URLs', () => {
-  beforeAll(() => {
-    // Another suite builds into dist/ too; building at the same time would race, so build only when it is missing.
-    if (!existsSync('dist/index.html')) execSync('npm run build', { stdio: 'ignore' });
-  }, 120_000);
-
   it('drops trailing slashes', () => {
     expect(config.trailingSlash).toBe(false);
   });

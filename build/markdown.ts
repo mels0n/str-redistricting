@@ -46,6 +46,18 @@ function list(el: Element, site: string): string {
     .join('\n');
 }
 
+/** A definition list: one `- **term**: definition` line per pair. */
+function definitions(el: Element, site: string): string {
+  const lines: string[] = [];
+  let term = '';
+  for (const child of el.children) {
+    const tag = child.tagName.toLowerCase();
+    if (tag === 'dt') term = text(child, site);
+    else if (tag === 'dd') lines.push(`- **${term}**: ${text(child, site)}`);
+  }
+  return lines.join('\n');
+}
+
 function table(el: Element, site: string): string {
   const rows = [...el.querySelectorAll('tr')].map((tr) => [...tr.children].map((c) => text(c, site).replace(/\|/g, '\\|')));
   const [head, ...rest] = rows;
@@ -79,6 +91,9 @@ function walk(parent: Element, out: string[], site: string): void {
     } else if (tag === 'ul' || tag === 'ol') {
       flush();
       out.push(list(el, site));
+    } else if (tag === 'dl') {
+      flush();
+      out.push(definitions(el, site));
     } else if (tag === 'table') {
       flush();
       out.push(table(el, site));

@@ -84,7 +84,18 @@ function faqEntries(root: Element): FaqEntry[] {
   return [...root.querySelectorAll('section.strv-how__section')].map((section) => {
     const h2 = section.querySelector('h2')?.cloneNode(true) as HTMLElement | undefined;
     h2?.querySelector('.strv-how__no')?.remove();
-    const a = [...section.querySelectorAll('p, li')].map((n) => (n.textContent ?? '').trim()).filter((t) => t !== '').join('\n\n');
+    let term = '';
+    const a = [...section.querySelectorAll('p, li, dt, dd')]
+      .map((n) => {
+        const t = (n.textContent ?? '').trim();
+        if (n.tagName === 'DT') {
+          term = t;
+          return '';
+        }
+        return n.tagName === 'DD' ? `${term}: ${t}` : t;
+      })
+      .filter((t) => t !== '')
+      .join('\n\n');
     return { q: (h2?.textContent ?? '').trim(), a };
   });
 }
@@ -123,7 +134,7 @@ export function notFoundHtml(shell: string): string {
     // A missing page must not boot the app, which would route the unknown address to the home page.
     .replace(/<script type="module"[^>]*><\/script>\s*/, () => '')
     .replace('<meta charset="utf-8" />', () => `<meta charset="utf-8" />\n    <meta name="robots" content="noindex">`);
-  const body = '<div id="str-viewer"><p>That page doesn’t exist. <a href="/">Go to Fair Maps</a></p></div>';
+  const body = '<div id="str-viewer" class="strv"><p>That page doesn’t exist. <a href="/">Go to Fair Maps</a></p></div>';
   return withHead.replace(ROOT_TAG, () => body);
 }
 

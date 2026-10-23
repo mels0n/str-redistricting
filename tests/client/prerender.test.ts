@@ -22,6 +22,13 @@ describe('prerendered pages', () => {
     expect(faq).toHaveLength(15);
   });
 
+  it('keeps every glossary term in the answer to the terms question', async () => {
+    const { faq } = await renderPage('faq');
+    const terms = faq.find((f) => f.q === 'What do the other terms mean?');
+    expect(terms?.a).toContain('Census block: The smallest area');
+    expect(terms?.a.length).toBeGreaterThan(300);
+  });
+
   it('renders the home page headline and a link into the FAQ', async () => {
     const { html } = await renderPage('home');
     expect(html).toContain('Voters should pick their politicians.');
@@ -51,6 +58,8 @@ describe('prerendered pages', () => {
     expect(missing).toContain('<meta name="robots" content="noindex">');
     expect(titleOf(missing)).toBe('Page not found | Fair Maps');
     expect(missing).toContain('<a href="/">Go to Fair Maps</a>');
+    expect(missing).toContain('<div id="str-viewer" class="strv">');
+    expect(missing).not.toMatch(/type="module"/);
   });
 
   it('writes the icons and the full text for language models', () => {
@@ -64,6 +73,8 @@ describe('prerendered pages', () => {
     expect(full).not.toContain('Epasses');
     expect(full).not.toContain('1chosen');
     expect(full).toContain('(passes the share)');
+    expect(full).not.toContain('Census blockThe');
+    expect(full).toContain('- **Census block**: The smallest area');
     const ico = readFileSync('dist/favicon.ico');
     expect([ico[6], ico[7], ico.readUInt16LE(10), ico.readUInt16LE(12), ico.readUInt32LE(14), ico.readUInt32LE(18)]).toEqual([48, 48, 1, 32, ico.length - 22, 22]);
     expect(readFileSync('dist/apple-touch-icon.png').readUInt32BE(16)).toBe(180);

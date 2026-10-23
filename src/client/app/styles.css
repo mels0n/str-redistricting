@@ -421,8 +421,14 @@ html:has(> body > #str-viewer) {
 }
 
 .strv .strv-national__lede > p + p,
-.strv .strv-national__lede > .strv-national__more {
+.strv .strv-national__lede > .strv-national__more,
+.strv .strv-national__lede > .strv-national__questions {
   margin-top: var(--s-3);
+}
+
+.strv .strv-national__questions {
+  list-style: none;
+  padding: 0;
 }
 
 .strv-national__how {

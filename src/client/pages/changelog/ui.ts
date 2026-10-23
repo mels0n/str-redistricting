@@ -1,4 +1,4 @@
-import { h, routeHref, iconArrowLeft, renderChangelog, NATIONAL, type Page } from '../../shared';
+import { h, PAGE_META, routeHref, iconArrowLeft, renderChangelog, NATIONAL, type Page } from '../../shared';
 import engine from '../../../../changelog/engine.md?raw';
 import input from '../../../../changelog/input.md?raw';
 import maps from '../../../../changelog/maps.md?raw';
@@ -42,6 +42,6 @@ export function createChangelogPage(sources: ChangelogSources = DEFAULT_SOURCES)
     ),
     h('div', { class: 'strv-changelog__body' }, sections),
   );
-  document.title = 'Changelog | Fair Maps';
+  document.title = PAGE_META.changelog.title;
   return { el, focusTarget: () => h1, destroy() {} };
 }

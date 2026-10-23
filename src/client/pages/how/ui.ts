@@ -1,6 +1,7 @@
 import {
   h,
   mv,
+  PAGE_META,
   clear,
   config,
   CHANGELOG,
@@ -659,7 +660,7 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
   void loadNumbers();
   void loadFollow();
   void loadRecipe();
-  document.title = 'How the districts are drawn | Fair Maps';
+  document.title = PAGE_META.how.title;
   markToc(initial.section);
   // On arrival there is nothing to scroll from, so jump; a smooth scroll would still be running when the late tables land.
   scrollTo(initial.section, false, false);

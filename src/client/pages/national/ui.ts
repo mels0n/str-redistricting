@@ -1,4 +1,4 @@
-import { h, clear, chamberLabel, describeError, setLocated, stateRoute, routeHref, howRoute, type Chamber, type Navigate, type Page } from '../../shared';
+import { h, clear, PAGE_META, faqRoute, chamberLabel, describeError, setLocated, stateRoute, routeHref, howRoute, type Chamber, type Navigate, type Page } from '../../shared';
 import { loadIndex, loadOutlines } from '../../entities/state';
 import { createAddressSearch, describeResolution, resolveAddress } from '../../features/address-search';
 import { createUsMap, type UsMap } from '../../widgets/us-map';
@@ -38,6 +38,13 @@ export function createNationalPage(nav: Navigate, chamber: Chamber = 'federal-ho
       ),
     ),
     h('p', { class: 'strv-national__more' }, h('a', { href: routeHref(howRoute()) }, 'How it works: every stage, with drawings')),
+    h(
+      'ul',
+      { class: 'strv-national__questions' },
+      h('li', null, h('a', { href: routeHref(faqRoute('gerrymandering')) }, 'What is gerrymandering?')),
+      h('li', null, h('a', { href: routeHref(faqRoute('stop')) }, 'How do you stop gerrymandering?')),
+      h('li', null, h('a', { href: routeHref(faqRoute('today')) }, 'How are districts drawn today?')),
+    ),
   );
 
   const search = createAddressSearch({
@@ -108,7 +115,7 @@ export function createNationalPage(nav: Navigate, chamber: Chamber = 'federal-ho
       });
   };
   load();
-  document.title = 'Fair Maps: voters pick politicians, not the other way around';
+  document.title = PAGE_META.home.title;
 
   return {
     el,

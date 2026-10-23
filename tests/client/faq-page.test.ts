@@ -16,6 +16,20 @@ describe('FAQ page', () => {
     expect(document.title).toBe('FAQ | Fair Maps');
   });
 
+  it('opens with the three gerrymandering questions', () => {
+    const page = createFaqPage({ page: 'faq', question: null });
+    const sections = [...page.el.querySelectorAll('section.strv-how__section')];
+    expect(sections).toHaveLength(15);
+    const titles = sections.slice(0, 3).map((s) => {
+      const h2 = s.querySelector('h2')!.cloneNode(true) as HTMLElement;
+      h2.querySelector('.strv-how__no')?.remove();
+      return h2.textContent;
+    });
+    expect(titles).toEqual(['What is gerrymandering?', 'How do you stop gerrymandering?', 'How are districts drawn today?']);
+    expect(sections[0]!.textContent).toContain('pack one side’s voters');
+    expect(sections[1]!.querySelector('a[href="/how"]')?.textContent).toBe('How it works');
+  });
+
   it('explains why state rules are not followed, with no em dash', () => {
     const page = createFaqPage({ page: 'faq', question: null });
     const q = page.el.querySelector('#strv-faq-state-laws')!;

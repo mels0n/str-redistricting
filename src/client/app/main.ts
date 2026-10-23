@@ -14,6 +14,8 @@ if (root) {
   const kept = [...(root.querySelector(':scope > .strv-outlet')?.childNodes ?? [])];
   const outlet = mountShell(root);
   outlet.append(...kept);
+  // Until the router replaces them the kept nodes are inert: a prerendered <form> would otherwise submit natively and reload the page.
+  for (const form of outlet.querySelectorAll('form')) form.setAttribute('inert', '');
   // A release went out while this page was open: reload once so no state mixes files from two releases.
   setSkewHandler(reloadOncePerRelease(() => sessionStorage, () => location.reload()));
   void initDataRelease().then(() => startRouter(outlet, root));

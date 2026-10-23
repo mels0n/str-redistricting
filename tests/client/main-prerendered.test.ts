@@ -30,4 +30,13 @@ describe('booting over a prerendered page', () => {
     expect(root.querySelectorAll('.strv-outlet')).toHaveLength(1);
     expect(document.activeElement).toBe(document.body);
   });
+
+  it('makes a kept form inert so a native submit cannot reload the page', async () => {
+    vi.stubGlobal('fetch', vi.fn(() => new Promise<Response>(() => undefined)));
+    document.body.innerHTML =
+      '<div id="str-viewer" class="strv"><div class="strv-outlet"><main id="strv-main"><form action="/"><input name="q"><button>Go</button></form></main></div></div>';
+    await import('../../src/client/app/main');
+    const form = document.querySelector<HTMLFormElement>('.strv-outlet form')!;
+    expect(form.hasAttribute('inert')).toBe(true);
+  });
 });

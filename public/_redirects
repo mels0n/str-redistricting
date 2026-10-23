@@ -1,0 +1,11 @@
+# The same path rewrites as vercel.json, for static hosts that read a
+# _redirects file (the production deploy on Vercel uses vercel.json).
+# Real files win, so /how, /faq, /changelog, /CO and /CO/senate are served
+# from their prerendered pages. Anything else gets 404.html.
+/how/*               /how/index.html           200
+/faq/*               /faq/index.html           200
+/house               /index.html               200
+/senate              /index.html               200
+/:st/house/*         /:st/house/index.html     200
+/:st/senate/*        /:st/senate/index.html    200
+/:st/*               /:st/index.html           200

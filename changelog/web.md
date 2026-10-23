@@ -2,13 +2,13 @@
 
 ## 1.4.0 (2026-10-23)
 
-- feat(web): serve path URLs on Vercel
-- feat(web): state share pages serve the viewer directly
-- fix(web): place the national questions list in the wide grid
-- feat(web): answer what gerrymandering is and how to stop it; one source for page titles
-- feat(web): history-based routing with old-link redirects and an embedding hash mode
-- feat(web): links use path routes
-- feat(web): path route grammar alongside hash routes
+- Addresses are now real paths, such as /CO, /CO/d/3, /how and /faq, instead of #/ links. Old #/ links still work and are rewritten to the path form when they open.
+- Embedders that set only dataBase in STR_VIEWER_CONFIG stay in hash mode, so a host page's own address is never rewritten. Setting routing to path opts in to real paths.
+- The home, How it works, FAQ and changelog pages are built ahead of time with their text and structured data, so search engines and link previews can read them without running the viewer.
+- The site now publishes a sitemap, robots.txt, llms.txt and llms-full.txt, along with a favicon and a touch icon.
+- State share pages open the viewer directly.
+- The home page answers what gerrymandering is and how to stop it.
+- The national questions list sits in the wide grid.
 
 ## 1.3.0 (2026-10-13)
 

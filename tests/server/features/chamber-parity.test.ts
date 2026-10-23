@@ -3,6 +3,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { writeSharePages, sharePageHtml } from '../../../build/share-pages.js';
+import { SHELL } from '../../helpers/shell.js';
 import { CHAMBERS as CLIENT_CHAMBERS, chamberDataPath, chamberLabel as clientLabel, sharePath } from '../../../src/client/shared/lib/chamber.js';
 import { CHAMBERS, chamberLabel, planDir } from '../../../src/server/shared/chamber/index.js';
 
@@ -22,7 +23,7 @@ describe('chamber naming agrees across the generator, the viewer and the share p
     for (const chamber of CHAMBERS) {
       if (chamber === 'federal-house') continue;
       expect(clientLabel(chamber)).toBe(chamberLabel(chamber));
-      const html = sharePageHtml({ abbr: 'CO', name: 'Colorado', seats: 10, chamber }, 'https://example.test');
+      const html = sharePageHtml({ abbr: 'CO', name: 'Colorado', seats: 10, chamber }, 'https://example.test', SHELL);
       expect(html).toContain(`Colorado ${clientLabel(chamber)}`);
     }
   });
@@ -38,6 +39,8 @@ describe('chamber naming agrees across the generator, the viewer and the share p
       const pub = join(root, 'public');
       const dist = join(root, 'dist');
       mkdirSync(join(pub, 'data'), { recursive: true });
+      mkdirSync(dist, { recursive: true });
+      writeFileSync(join(dist, 'index.html'), SHELL);
       writeFileSync(join(pub, 'data', 'index.json'), JSON.stringify({ states: [
         { abbr: 'CO', name: 'Colorado', seats: 8, hasData: true, chambers: { 'state-house': { seats: 65, hasData: true }, 'state-senate': { seats: 35, hasData: true } } },
       ] }));

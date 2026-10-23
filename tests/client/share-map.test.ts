@@ -3,6 +3,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { config, sharePath } from '../../src/client/shared';
 import { createShareButton, shareContent } from '../../src/client/features/share-map';
 import { sharePageHtml } from '../../build/share-pages';
+import { SHELL } from '../helpers/shell';
 
 const CO = { abbr: 'CO', name: 'Colorado', seats: 8, chamber: 'federal-house' } as const;
 const flush = (): Promise<void> => new Promise((r) => setTimeout(r, 0));
@@ -23,8 +24,9 @@ describe('shareContent', () => {
     expect(c.text).toBe(`Colorado's 8 congressional districts. ${config.tagline}`);
   });
   it('gives the share sheet the same title the share page shows link previews', () => {
-    const page = sharePageHtml({ abbr: 'CO', name: 'Colorado', seats: 8 }, `https://${config.siteHost}`);
+    const page = sharePageHtml({ abbr: 'CO', name: 'Colorado', seats: 8 }, `https://${config.siteHost}`, SHELL);
     expect(page).toContain(`<title>${shareContent(CO).title}</title>`);
+    expect(page).toContain(`<link rel="canonical" href="${shareContent(CO).url}" />`);
   });
   it('says district for a single seat and names a state chamber', () => {
     expect(shareContent({ abbr: 'VT', name: 'Vermont', seats: 1, chamber: 'federal-house' }).text).toContain("Vermont's 1 congressional district.");

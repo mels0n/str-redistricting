@@ -19,6 +19,10 @@ describe('default routing', () => {
   it('stays in hash mode for an embedder that sets only dataBase', async () => {
     expect(await routingWith({ dataBase: 'https://x.test/data/' })).toBe('hash');
   });
+  it('stays in hash mode when the host config is present but invalid', async () => {
+    expect(await routingWith({ routing: 'Hash' })).toBe('hash');
+    expect(await routingWith('nonsense')).toBe('hash');
+  });
   it('lets an embedder opt in to paths', async () => {
     expect(await routingWith({ routing: 'path' })).toBe('path');
   });

@@ -91,6 +91,10 @@ function readHostOverrides(): z.infer<typeof HostOverrides> {
   return parsed.success ? parsed.data : undefined;
 }
 
+function hostConfigPresent(): boolean {
+  return (globalThis as { STR_VIEWER_CONFIG?: unknown }).STR_VIEWER_CONFIG !== undefined;
+}
+
 function resolveDataBase(override: string | undefined): string {
   const base = override ?? `${import.meta.env.BASE_URL ?? './'}data/`;
   const withSlash = base.endsWith('/') ? base : `${base}/`;
@@ -116,7 +120,8 @@ function load(): ViewerConfig {
     repoUrl: 'https://github.com/mels0n/str-redistricting',
     siteHost: 'fairmaps.melson.us',
     tagline: 'Drawn by a rule, not by politicians.',
-    routing: host?.routing ?? (host ? 'hash' : 'path'),
+    // Any host config object, valid or not, means an embedder: fail toward hash mode, which never rewrites the host page's path.
+    routing: host?.routing ?? (hostConfigPresent() ? 'hash' : 'path'),
   });
 }
 

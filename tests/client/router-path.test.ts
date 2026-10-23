@@ -160,6 +160,44 @@ describe('router: path mode', () => {
     expect(ev.defaultPrevented).toBe(true);
     expect(here()).toBe('/faq/strange');
   });
+
+  describe('links outside the viewer root', () => {
+    async function startInRoot() {
+      const { startRouter } = await import('../../src/client/app/router');
+      const root = document.createElement('div');
+      const outlet = document.createElement('div');
+      root.append(outlet);
+      const inside = document.createElement('a');
+      inside.setAttribute('href', '/how');
+      root.append(inside);
+      const outside = document.createElement('a');
+      outside.setAttribute('href', '/how');
+      const outsideHash = document.createElement('a');
+      outsideHash.setAttribute('href', '#top');
+      document.body.append(root, outside, outsideHash);
+      history.replaceState(null, '', '/');
+      startRouter(outlet, root);
+      return { inside, outside, outsideHash };
+    }
+
+    it('leaves a same-origin link and a fragment link outside the root to the browser', async () => {
+      const { outside, outsideHash } = await startInRoot();
+      for (const a of [outside, outsideHash]) {
+        const ev = clickEvent();
+        a.dispatchEvent(ev);
+        expect(ev.defaultPrevented).toBe(false);
+      }
+      expect(here()).toBe('/');
+    });
+
+    it('still follows a link inside the root', async () => {
+      const { inside } = await startInRoot();
+      const ev = clickEvent();
+      inside.dispatchEvent(ev);
+      expect(ev.defaultPrevented).toBe(true);
+      expect(here()).toBe('/how');
+    });
+  });
 });
 
 describe('router: hash mode (embedded)', () => {

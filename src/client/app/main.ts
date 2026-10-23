@@ -16,5 +16,5 @@ if (root) {
   outlet.append(...kept);
   // A release went out while this page was open: reload once so no state mixes files from two releases.
   setSkewHandler(reloadOncePerRelease(() => sessionStorage, () => location.reload()));
-  void initDataRelease().then(() => startRouter(outlet));
+  void initDataRelease().then(() => startRouter(outlet, root));
 }

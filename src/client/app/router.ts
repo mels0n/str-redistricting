@@ -46,8 +46,11 @@ function setCanonical(route: Route): void {
  * Replacing navigations (the cut scrubber) are applied once per animation
  * frame, so dragging the scrubber fast does the map work for the latest cut
  * only and never floods the History API.
+ *
+ * Link clicks are taken over only inside `root` (the viewer's element; by default the outlet's parent, which the
+ * shell fills), so links elsewhere on a host page are left to the browser.
  */
-export function startRouter(outlet: HTMLElement): void {
+export function startRouter(outlet: HTMLElement, root: HTMLElement = outlet.parentElement ?? outlet): void {
   previous?.abort();
   previous = new AbortController();
   const { signal } = previous;
@@ -168,6 +171,7 @@ export function startRouter(outlet: HTMLElement): void {
         if (ev.defaultPrevented || ev.button !== 0 || ev.ctrlKey || ev.metaKey || ev.shiftKey || ev.altKey) return;
         const link = (ev.target as Element | null)?.closest?.('a[href]');
         // The home map's state links are SVG <a> elements, whose .href is an SVGAnimatedString: read the attribute instead.
+        if (!link || !root.contains(link)) return;
         const isAnchor = link instanceof HTMLAnchorElement || (link?.namespaceURI === 'http://www.w3.org/2000/svg' && link.localName === 'a');
         if (!link || !isAnchor || link.hasAttribute('target') || link.hasAttribute('download')) return;
         const raw = link.getAttribute('href') ?? '';

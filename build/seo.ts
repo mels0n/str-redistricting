@@ -1,6 +1,5 @@
 import { PAGE_META } from '../src/client/shared/lib/page-meta';
-import { REPO_URL } from '../src/server/features/publish/site';
-import { CODE_LICENSE_NAME, CREDIT_TEXT, DATA_LICENSE_NAME, jsonLd, jsonLdScript, type FaqEntry, type PageKey } from './structured-data';
+import { CODE_LICENSE_NAME, CREDIT_TEXT, DATA_LICENSE_NAME, REPO_URL, jsonLd, jsonLdScript, type FaqEntry, type PageKey } from './structured-data';
 
 export { jsonLd, jsonLdScript };
 export type { FaqEntry, PageKey };

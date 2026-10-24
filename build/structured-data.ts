@@ -2,7 +2,10 @@ import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { PAGE_META } from '../src/client/shared/lib/page-meta.js';
 // Imported from the file, not the publish slice's index, so the Vite config does not load the image renderer.
-import { REPO_URL, SITE_HOST } from '../src/server/features/publish/site.js';
+import { SITE_HOST } from '../src/server/features/publish/site.js';
+
+/** The project's public source repository (the client config repeats it and tests/client/site-host.test.ts keeps the two equal). */
+export const REPO_URL = 'https://github.com/mels0n/str-redistricting';
 
 export type PageKey = keyof typeof PAGE_META;
 export interface FaqEntry {

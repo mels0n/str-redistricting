@@ -4,10 +4,14 @@ name: Code Standards
 # These are FAILING gates, not advisory: a rule nobody has seen fail is a rule
 # nobody knows is wired up.
 #
-# Pull requests only. The main ruleset requires both jobs and requires the branch to be up to date with main before it
-# merges, so the pull request run has already checked exactly what lands; a second run on the push to main would repeat it.
+# Pull requests only. The main ruleset requires both jobs and requires the branch to be up to date with main, so a pull
+# request merged through those checks was checked as it lands, and a second run on the push to main would repeat it. That
+# holds only while the ruleset keeps both rules (add merge_group here if a merge queue is turned on); otherwise bring back a
+# push trigger. Nothing checks a commit that reaches main another way: a direct push, or a merge by someone allowed to
+# bypass the ruleset.
 # A pull request opened with GITHUB_TOKEN (enacted-update.yml) triggers no workflow, so its required checks never start:
-# close and reopen it, or press "Update branch", to run them.
+# a person must close and reopen it, or press "Update branch", to run them.
+# The Census files the fixture gate downloads are cached on main by census-cache.yml, which must use the same cache key.
 
 on:
   pull_request:

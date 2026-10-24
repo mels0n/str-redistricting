@@ -60,8 +60,8 @@ describe('tag-release workflow', () => {
 describe('standards workflow', () => {
   const text = read('standards.yml');
   it('runs on pull requests only, including reopened ones', () => {
-    expect(text).not.toMatch(/^ {2}push:/m);
-    expect(text).toMatch(/types: \[opened, synchronize, reopened\]/);
+    expect(text).toMatch(/^on:\n {2}pull_request:\n {4}types: \[opened, synchronize, reopened\]\n\npermissions:/m);
+    expect(text).not.toContain('github.event_name');
   });
   it('checks out full history and runs the version check against the base branch', () => {
     expect(text).toMatch(/fetch-depth: 0/);
@@ -73,5 +73,19 @@ describe('standards workflow', () => {
     expect(text).toContain('path: data/raw');
     expect(text).toContain('npm run fingerprints -- --check --base "origin/$BASE_REF"');
     expect(text).toMatch(/timeout-minutes: 30/);
+  });
+});
+
+describe('census cache workflow', () => {
+  const text = read('census-cache.yml');
+  const key = (workflow: string): string | undefined => /key: (census-.*)/.exec(workflow)?.[1];
+  it('saves the Census files under the same key the fixture gate restores', () => {
+    expect(key(text)).toBeDefined();
+    expect(key(text)).toBe(key(read('standards.yml')));
+    expect(text).toContain('path: data/raw');
+  });
+  it('runs on main when the manifest changes and on a schedule that beats the 7-day eviction', () => {
+    expect(text).toMatch(/push:\n {4}branches: \[main\]\n {4}paths: \[config\/census-sha256\.json\]/);
+    expect(text).toMatch(/cron: '17 6 \* \* 1,4'/);
   });
 });

@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { config, creditLine, type VersionStamp } from '../../src/client/shared';
+import { REPO_URL } from '../../build/structured-data';
 import { SITE_HOST, TAGLINE } from '../../src/server/features/publish/site';
 import { ogCredit } from '../../src/server/features/publish/og-credit';
 
@@ -8,6 +9,10 @@ import { ogCredit } from '../../src/server/features/publish/og-credit';
 describe('site host and credit line', () => {
   it('the client and server name the same host', () => {
     expect(config.siteHost).toBe(SITE_HOST);
+  });
+
+  it('the client and server name the same repository', () => {
+    expect(config.repoUrl).toBe(REPO_URL);
   });
 
   it('the client and server share one tagline', () => {

@@ -11,3 +11,4 @@ export * from './page-zoom';
 export * from './markdown';
 export * from './credit';
 export * from './chamber';
+export * from './page-meta';

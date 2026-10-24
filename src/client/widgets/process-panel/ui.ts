@@ -1,4 +1,4 @@
-import { h, arrowTo, formatHash, formatInt, howRoute, peopleNoun, type HowSection } from '../../shared';
+import { h, arrowTo, routeHref, formatInt, howRoute, peopleNoun, type HowSection } from '../../shared';
 import type { Metrics } from '../../entities/plan';
 
 export interface ProcessPanelOptions {
@@ -50,7 +50,7 @@ export function createProcessPanel(opts: ProcessPanelOptions): HTMLElement {
     h(
       'div',
       { class: 'strv-process__row' },
-      h('dt', null, h('a', { class: 'strv-process__term', href: formatHash(howRoute(section)), 'aria-label': `${term}: how this stage works` }, term)),
+      h('dt', null, h('a', { class: 'strv-process__term', href: routeHref(howRoute(section)), 'aria-label': `${term}: how this stage works` }, term)),
       h('dd', { class: 'strv-process__fig' }, fig),
       h('dd', { class: 'strv-process__sub' }, sub),
     );
@@ -72,7 +72,7 @@ export function createProcessPanel(opts: ProcessPanelOptions): HTMLElement {
         row('Balancing moves', 'balancing', '0', 'One district has no neighbor to balance against.'),
         row('Run time', 'fingerprint', formatRunTime(m.runtimeMs), 'To read the census file and check the district.'),
       ),
-      h('p', { class: 'strv-process__how' }, h('a', { href: formatHash(howRoute()) }, 'How each stage works')),
+      h('p', { class: 'strv-process__how' }, h('a', { href: routeHref(howRoute()) }, 'How each stage works')),
     );
   }
 
@@ -119,6 +119,6 @@ export function createProcessPanel(opts: ProcessPanelOptions): HTMLElement {
       watch('cuts', `Watch the ${count(m.cuts, 'cut', 'cuts')}`, true),
       m.balanceMoves > 0 ? watch('balance', `Watch the ${count(m.balanceMoves, 'balancing move', 'balancing moves')}`, false) : null,
     ),
-    h('p', { class: 'strv-process__how' }, h('a', { href: formatHash(howRoute()) }, 'How each stage works')),
+    h('p', { class: 'strv-process__how' }, h('a', { href: routeHref(howRoute()) }, 'How each stage works')),
   );
 }

@@ -5,8 +5,12 @@ import versionsJson from '../../../../config/versions.json';
 /**
  * The one configuration module for the viewer. It is read once, at boot, and
  * validated. A host page that embeds the viewer may set
- * `window.STR_VIEWER_CONFIG = { dataBase: 'https://…/data/' }` before the
- * script loads; everything else is fixed.
+ * `window.STR_VIEWER_CONFIG = { dataBase: 'https://…/data/', routing: 'hash' }`
+ * before the script loads; everything else is fixed. `dataBase` points at another
+ * copy of the published data. The site itself sets no host config and uses real
+ * paths. A host that sets any config without `routing` stays in `#/` form, so the
+ * host page's own path is never rewritten; set `routing: 'path'` to opt in to
+ * real paths.
  */
 const ConfigSchema = z.object({
   /** Base URL of the published map data (index.json, states.topo.json, <ST>/…). */
@@ -34,6 +38,8 @@ const ConfigSchema = z.object({
   siteHost: z.string().min(1),
   /** The line on every share image and in share text. */
   tagline: z.string().min(1),
+  /** How links and the address bar are written: real paths, or hashes when the viewer is embedded in a page it does not own. */
+  routing: z.enum(['path', 'hash']),
 });
 
 const EnactedSchema = z.looseObject({
@@ -75,7 +81,7 @@ export type VersionStamp = z.infer<typeof VersionStampSchema>;
 export type ViewerConfig = z.infer<typeof ConfigSchema>;
 
 const HostOverrides = z
-  .object({ dataBase: z.string().min(1).optional() })
+  .object({ dataBase: z.string().min(1).optional(), routing: z.enum(['path', 'hash']).optional() })
   .partial()
   .optional();
 
@@ -83,6 +89,10 @@ function readHostOverrides(): z.infer<typeof HostOverrides> {
   const raw = (globalThis as { STR_VIEWER_CONFIG?: unknown }).STR_VIEWER_CONFIG;
   const parsed = HostOverrides.safeParse(raw);
   return parsed.success ? parsed.data : undefined;
+}
+
+function hostConfigPresent(): boolean {
+  return (globalThis as { STR_VIEWER_CONFIG?: unknown }).STR_VIEWER_CONFIG !== undefined;
 }
 
 function resolveDataBase(override: string | undefined): string {
@@ -110,6 +120,8 @@ function load(): ViewerConfig {
     repoUrl: 'https://github.com/mels0n/str-redistricting',
     siteHost: 'fairmaps.melson.us',
     tagline: 'Drawn by a rule, not by politicians.',
+    // Any host config object, valid or not, means an embedder: fail toward hash mode, which never rewrites the host page's path.
+    routing: host?.routing ?? (hostConfigPresent() ? 'hash' : 'path'),
   });
 }
 

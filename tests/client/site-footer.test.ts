@@ -20,7 +20,7 @@ describe('site footer', () => {
     expect(el.textContent).toBe('Changelog');
     const links = el.querySelectorAll('a');
     expect(links).toHaveLength(1);
-    expect(links[0]!.getAttribute('href')).toBe('#/changelog');
+    expect(links[0]!.getAttribute('href')).toBe('/changelog');
   });
 
   it('stays a bare link when the published versions file is invalid', async () => {
@@ -39,7 +39,7 @@ describe('site footer', () => {
     await settle();
     const expected = `Maps release 7 · Engine 1.2.3 · ${censusLabel('census-2020')} (r3) · Site ${VERSIONS.web}`;
     expect(el.textContent).toBe(expected);
-    expect(el.querySelectorAll('a')[0]!.getAttribute('href')).toBe('#/changelog');
+    expect(el.querySelectorAll('a')[0]!.getAttribute('href')).toBe('/changelog');
     expect(expected).not.toContain('—');
   });
 });

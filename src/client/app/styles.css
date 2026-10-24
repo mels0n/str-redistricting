@@ -421,8 +421,14 @@ html:has(> body > #str-viewer) {
 }
 
 .strv .strv-national__lede > p + p,
-.strv .strv-national__lede > .strv-national__more {
+.strv .strv-national__lede > .strv-national__more,
+.strv .strv-national__lede > .strv-national__questions {
   margin-top: var(--s-3);
+}
+
+.strv .strv-national__questions {
+  list-style: none;
+  padding: 0;
 }
 
 .strv-national__how {
@@ -595,12 +601,13 @@ html:has(> body > #str-viewer) {
 @media (min-width: 75rem) {
   .strv-national__grid {
     grid-template-columns: var(--col) minmax(0, 3fr) minmax(0, 2fr);
-    grid-template-rows: auto auto auto auto minmax(0, 1fr);
+    grid-template-rows: auto auto auto auto auto minmax(0, 1fr);
     grid-template-areas:
       'rail head steps'
       'rail lede steps'
       'rail closing steps'
       'rail more steps'
+      'rail questions steps'
       'rail map map';
   }
 
@@ -635,7 +642,13 @@ html:has(> body > #str-viewer) {
   .strv .strv-national__lede > .strv-national__more {
     grid-area: more;
     margin-top: var(--s-2);
-    padding-bottom: var(--s-3);
+  }
+
+  .strv .strv-national__lede > .strv-national__questions {
+    grid-area: questions;
+    margin-top: var(--s-2);
+    padding: 0 var(--s-5) var(--s-3) var(--s-6);
+    max-width: calc(62ch + var(--s-6) + var(--s-5));
   }
 
   .strv-national__how {

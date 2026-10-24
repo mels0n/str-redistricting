@@ -1,20 +1,24 @@
 /**
- * Hash routes. Everything a visitor can share lives in the hash, so the viewer
- * works on any static host and inside an embedding page:
+ * Routes. Everything a visitor can share lives in the address, as a path:
  *
- *   #/                          national index
- *   #/how                       how the maps are drawn
- *   #/changelog                release notes for maps, engine and input
- *   #/how/balancing             the same page, at one of its sections
- *   #/faq                       common questions
- *   #/faq/ties                  the same page, at one question
- *   #/house  #/senate           national index for the State House or State Senate
- *   #/CO                        Colorado, finished map
- *   #/CO/senate/d/12            Colorado State Senate, district 12 (also /house)
- *   #/CO/d/3                    Colorado, district 3 selected
- *   #/CO/cut/4                  Colorado, cut sequence at cut 4
- *   #/CO/balance/12             Colorado, balancing replay after move 12
- *   #/CO/d/3?plan=before&compare=enacted
+ *   /                          national index
+ *   /how                       how the maps are drawn
+ *   /changelog                 release notes for maps, engine and input
+ *   /how/balancing             the same page, at one of its sections
+ *   /faq                       common questions
+ *   /faq/ties                  the same page, at one question
+ *   /house  /senate            national index for the State House or State Senate
+ *   /CO                        Colorado, finished map
+ *   /CO/senate/d/12            Colorado State Senate, district 12 (also /house)
+ *   /CO/d/3                    Colorado, district 3 selected
+ *   /CO/cut/4                  Colorado, cut sequence at cut 4
+ *   /CO/balance/12             Colorado, balancing replay after move 12
+ *   /CO/d/3?plan=before&compare=enacted
+ *
+ * Hash routes (`#/CO/d/3`) use the same grammar behind a `#`. They are the
+ * embedding mode: inside a host page the viewer cannot own the path, so it
+ * switches to hash links with `setRouteMode('hash')`, and old hash links
+ * keep working everywhere.
  *
  * `plan=finished` and the older `plan=official` both open the finished map,
  * which is also what a link without `plan` shows.
@@ -28,7 +32,7 @@ export const HOW_SECTIONS = ['inputs', 'cut', 'strays', 'recursion', 'balancing'
 export type HowSection = (typeof HOW_SECTIONS)[number];
 
 /** Questions on the FAQ page, in page order. */
-export const FAQ_QUESTIONS = ['strange', 'block', 'ties', 'data', 'counties', 'equal', 'current', 'water', 'one-seat', 'state-laws', 'check', 'terms'] as const;
+export const FAQ_QUESTIONS = ['gerrymandering', 'stop', 'today', 'strange', 'block', 'ties', 'data', 'counties', 'equal', 'current', 'water', 'one-seat', 'state-laws', 'check', 'terms'] as const;
 export type FaqQuestion = (typeof FAQ_QUESTIONS)[number];
 
 export type Route =
@@ -79,10 +83,8 @@ export function parsePlan(value: string | null): Plan {
   return value === 'before' ? 'before' : 'finished';
 }
 
-export function parseHash(hash: string): Route {
-  const raw = hash.replace(/^#/, '');
-  const [pathPart = '', queryPart = ''] = raw.split('?', 2);
-  const segs = pathPart.split('/').filter(Boolean);
+export function parsePath(pathname: string, search: string): Route {
+  const segs = pathname.split('/').filter(Boolean);
   if (segs[0]?.toLowerCase() === 'how') {
     const section = segs[1]?.toLowerCase();
     // Why a district looks strange was a How it works section before it moved to the FAQ; old links still land on it.
@@ -115,7 +117,7 @@ export function parseHash(hash: string): Route {
   }
   // The two phases of the sequence never show at once; the cuts come first.
   if (cut !== null) move = null;
-  const q = new URLSearchParams(queryPart);
+  const q = new URLSearchParams(search);
   return stateRoute(abbr, {
     chamber: chamber ?? 'federal-house',
     district,
@@ -126,16 +128,22 @@ export function parseHash(hash: string): Route {
   });
 }
 
+export function parseHash(hash: string): Route {
+  const raw = hash.replace(/^#/, '');
+  const i = raw.indexOf('?');
+  return i < 0 ? parsePath(raw, '') : parsePath(raw.slice(0, i), raw.slice(i));
+}
+
 function chamberSegment(chamber: Chamber): string {
   return CHAMBERS.find((c) => c.key === chamber)?.segment ?? '';
 }
 
-export function formatHash(route: Route): string {
-  if (route.page === 'national') return `#/${chamberSegment(route.chamber)}`;
-  if (route.page === 'changelog') return '#/changelog';
-  if (route.page === 'how') return route.section ? `#/how/${route.section}` : '#/how';
-  if (route.page === 'faq') return route.question ? `#/faq/${route.question}` : '#/faq';
-  let path = `#/${route.abbr}`;
+export function formatPath(route: Route): string {
+  if (route.page === 'national') return `/${chamberSegment(route.chamber)}`;
+  if (route.page === 'changelog') return '/changelog';
+  if (route.page === 'how') return route.section ? `/how/${route.section}` : '/how';
+  if (route.page === 'faq') return route.question ? `/faq/${route.question}` : '/faq';
+  let path = `/${route.abbr}`;
   if (route.chamber !== 'federal-house') path += `/${chamberSegment(route.chamber)}`;
   if (route.district !== null) path += `/d/${route.district}`;
   if (route.cut !== null) path += `/cut/${route.cut}`;
@@ -145,6 +153,37 @@ export function formatHash(route: Route): string {
   if (route.enacted) q.set('compare', 'enacted');
   const qs = q.toString();
   return qs ? `${path}?${qs}` : path;
+}
+
+export function formatHash(route: Route): string {
+  return '#' + formatPath(route);
+}
+
+/** How links are written: real paths, or hashes when the viewer is embedded in a page it does not own. */
+export type RouteMode = 'path' | 'hash';
+let routeMode: RouteMode = 'path';
+
+export function setRouteMode(mode: RouteMode): void {
+  routeMode = mode;
+}
+
+export function getRouteMode(): RouteMode {
+  return routeMode;
+}
+
+/** The href for a link to a route, in the current route mode. */
+export function routeHref(route: Route): string {
+  return routeMode === 'hash' ? formatHash(route) : formatPath(route);
+}
+
+/** The page's indexable address: no query, district, cut or move. */
+export function canonicalPath(route: Route): string {
+  if (route.page === 'how') return '/how';
+  if (route.page === 'faq') return '/faq';
+  if (route.page === 'changelog') return '/changelog';
+  if (route.page === 'national') return `/${chamberSegment(route.chamber)}`;
+  const chamber = route.chamber === 'federal-house' ? '' : `/${chamberSegment(route.chamber)}`;
+  return `/${route.abbr}${chamber}`;
 }
 
 export function sameState(a: Route, b: Route): boolean {

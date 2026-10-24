@@ -26,13 +26,13 @@ describe('What happened in this state', () => {
   it('links every row to the stage of How it works that explains it', () => {
     const el = createProcessPanel({ stateName: 'California', metrics, onWatch: () => undefined });
     expect(links(el)).toEqual({
-      Cuts: '#/how/recursion',
-      'Stretches checked': '#/how/cut',
-      'Strays moved': '#/how/strays',
-      'Re-counts': '#/how/strays',
-      'Balancing moves': '#/how/balancing',
-      'Population range': '#/how/balancing',
-      'Run time': '#/how/fingerprint',
+      Cuts: '/how/recursion',
+      'Stretches checked': '/how/cut',
+      'Strays moved': '/how/strays',
+      'Re-counts': '/how/strays',
+      'Balancing moves': '/how/balancing',
+      'Population range': '/how/balancing',
+      'Run time': '/how/fingerprint',
     });
   });
 
@@ -51,7 +51,7 @@ describe('What happened in this state', () => {
 
   it('links the rows of a one-seat state too', () => {
     const el = createProcessPanel({ stateName: 'Alaska', metrics: single, onWatch: () => undefined });
-    expect(links(el)).toEqual({ Cuts: '#/how/recursion', 'Balancing moves': '#/how/balancing', 'Run time': '#/how/fingerprint' });
+    expect(links(el)).toEqual({ Cuts: '/how/recursion', 'Balancing moves': '/how/balancing', 'Run time': '/how/fingerprint' });
   });
 });
 

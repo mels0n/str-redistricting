@@ -2,7 +2,8 @@ name: Enacted districts update
 
 # Looks for a newer enacted congressional districts file from the Census Bureau and, when there is one, opens a
 # pull request that updates the comparison overlay. The checks run here, before the pull request exists, because a
-# pull request opened with GITHUB_TOKEN does not trigger the other workflows. Needs the repository setting
+# pull request opened with GITHUB_TOKEN does not trigger the other workflows (so Code Standards, standards.yml, does not
+# start on it until a person closes and reopens it). Needs the repository setting
 # "Allow GitHub Actions to create and approve pull requests" (Settings > Actions > General), which is what lets a
 # workflow open one. This workflow only ever opens a pull request; a person reviews and merges it.
 #
@@ -293,7 +294,7 @@ jobs:
 
           The overlay is display only. It never affects how districts are drawn, and no generated district, population or statistic depends on it.
 
-          Typecheck, the dependency rules, the tests and the build all passed in the workflow run that opened this pull request. Review the changed Census file and the overlay, then merge. This workflow never approves or merges a pull request.
+          Typecheck, the dependency rules, the tests and the build all passed in the workflow run that opened this pull request. Review the changed Census file and the overlay, then merge. This workflow never approves or merges a pull request. The required checks do not start by themselves on a pull request a workflow opened: close and reopen it to run them before merging.
           EOF
           if ! gh pr create --base "$BASE" --head "$BRANCH" --title "Update enacted districts to ${FILE}" --body-file "$RUNNER_TEMP/body.md"; then
             git -c http.https://github.com/.extraheader="AUTHORIZATION: basic $(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w0)" push origin --delete "$BRANCH" || true
@@ -581,7 +582,7 @@ jobs:
             echo
             echo "The overlay is display only. It never affects how districts are drawn."
             echo
-            echo "Typecheck, the dependency rules, the tests and the build all passed in the workflow run that opened this pull request. Review the changed Census files and the counts, then merge. This workflow never approves or merges a pull request."
+            echo "Typecheck, the dependency rules, the tests and the build all passed in the workflow run that opened this pull request. Review the changed Census files and the counts, then merge. This workflow never approves or merges a pull request. The required checks do not start by themselves on a pull request a workflow opened: close and reopen it to run them before merging."
           } > "$RUNNER_TEMP/body.md"
           if ! gh pr create --base "$BASE" --head "$BRANCH" --title "Update State House and State Senate districts to the ${VINTAGE} Census files" --body-file "$RUNNER_TEMP/body.md"; then
             git -c http.https://github.com/.extraheader="AUTHORIZATION: basic $(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w0)" push origin --delete "$BRANCH" || true

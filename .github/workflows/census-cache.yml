@@ -1,0 +1,59 @@
+name: Census cache
+
+# Keeps the Census files the fixture gate downloads in a cache saved on main. A pull request run can restore caches saved
+# on its base branch, but not ones saved by other pull requests, and Code Standards (standards.yml) runs on pull requests
+# only, so without this every pull request would download the files from the Census Bureau again. An unused cache is
+# evicted after 7 days, hence the run twice a week: a cache hit only restores, which keeps the entry alive. The key must
+# match the one in standards.yml.
+
+on:
+  push:
+    branches: [main]
+    paths: [config/census-sha256.json]
+  schedule:
+    - cron: '17 6 * * 1,4'
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: census-cache
+  cancel-in-progress: false
+
+jobs:
+  fill:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+
+    steps:
+      # Full history and tags: the fingerprint check reads the release tags.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+          cache: npm
+
+      - id: census
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: data/raw
+          key: census-${{ hashFiles('config/census-sha256.json') }}
+
+      # On a miss, the same two commands as the fixture gate download exactly the files it needs.
+      - name: Install
+        if: steps.census.outputs.cache-hit != 'true'
+        run: npm ci
+
+      - name: Fixture fingerprints
+        if: steps.census.outputs.cache-hit != 'true'
+        run: npm run fingerprints -- --check
+
+      - name: Legislative district counts
+        if: steps.census.outputs.cache-hit != 'true'
+        run: npm run legislative:count -- --check

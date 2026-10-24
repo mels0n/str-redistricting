@@ -59,17 +59,19 @@ describe('tag-release workflow', () => {
 
 describe('standards workflow', () => {
   const text = read('standards.yml');
-  it('checks out full history and runs the version check on pull requests', () => {
+  it('runs on pull requests only, including reopened ones', () => {
+    expect(text).not.toMatch(/^ {2}push:/m);
+    expect(text).toMatch(/types: \[opened, synchronize, reopened\]/);
+  });
+  it('checks out full history and runs the version check against the base branch', () => {
     expect(text).toMatch(/fetch-depth: 0/);
     expect(text).toContain('npm run version:check -- --base "origin/$BASE_REF"');
-    expect(text).toMatch(/github\.event_name == 'pull_request'/);
   });
   it('has a fixture gate that caches the Census files by manifest hash', () => {
     expect(text).toMatch(/^ {2}fixture-gate:/m);
     expect(text).toContain("key: census-${{ hashFiles('config/census-sha256.json') }}");
     expect(text).toContain('path: data/raw');
     expect(text).toContain('npm run fingerprints -- --check --base "origin/$BASE_REF"');
-    expect(text).toContain('npm run fingerprints -- --check --base "HEAD^"');
     expect(text).toMatch(/timeout-minutes: 30/);
   });
 });

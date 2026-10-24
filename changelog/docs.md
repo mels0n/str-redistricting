@@ -1,5 +1,9 @@
 # Docs changelog
 
+## 1.0.6 (2026-10-24)
+
+- Listed the Census cache workflow and said the code standards checks run on pull requests.
+
 ## 1.0.5 (2026-10-24)
 
 - Described the `splitChunks` and `resweptChunks` fields of `cut-stats.json`.

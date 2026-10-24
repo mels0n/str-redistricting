@@ -1,6 +1,6 @@
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it } from 'vitest';
 import { chamberDataPath } from '../../src/client/shared/lib/chamber';
-import { fitRouteToState, nationalRoute, describeRouteIssue, faqRoute, formatHash, howRoute, CHANGELOG, parseHash, stateRoute, NATIONAL } from '../../src/client/shared/lib/route';
+import { fitRouteToState, nationalRoute, describeRouteIssue, faqRoute, formatHash, howRoute, CHANGELOG, parseHash, stateRoute, NATIONAL, formatPath, parsePath, canonicalPath, routeHref, setRouteMode, getRouteMode } from '../../src/client/shared/lib/route';
 
 describe('hash routes', () => {
   it('parses the national index', () => {
@@ -127,5 +127,45 @@ describe('hash routes', () => {
     }
     // Cut 0 stays valid where there are cuts.
     expect(fitRouteToState(stateRoute('CO', { cut: 0 }), 8, 22).issues).toHaveLength(0);
+  });
+});
+
+describe('path routes', () => {
+  afterEach(() => setRouteMode('path'));
+
+  it('round-trips every example', () => {
+    const cases: [string, string][] = [
+      ['/', ''], ['/house', ''], ['/senate', ''], ['/how', ''], ['/how/balancing', ''], ['/faq', ''], ['/faq/ties', ''], ['/changelog', ''],
+      ['/CO', ''], ['/CO/senate/d/12', ''], ['/CO/cut/4', ''], ['/CO/balance/12', ''], ['/CO/d/3', '?plan=before&compare=enacted'],
+    ];
+    for (const [p, q] of cases) expect(formatPath(parsePath(p, q))).toBe(p + q);
+  });
+
+  it('reads paths case-insensitively, keeps old links, and falls back to the national index', () => {
+    expect(parsePath('/co/d/3', '')).toEqual(stateRoute('CO', { district: 3 }));
+    expect(parsePath('/how/strange', '')).toEqual(faqRoute('strange'));
+    expect(parsePath('/nope/really', '')).toEqual(NATIONAL);
+  });
+
+  it('parseHash is parsePath of the part after the hash', () => {
+    expect(parseHash('#/CO/d/3?plan=before')).toEqual(parsePath('/CO/d/3', '?plan=before'));
+  });
+
+  it('names the indexable address of a page', () => {
+    expect(canonicalPath(stateRoute('CO', { chamber: 'state-senate', district: 12, plan: 'before' }))).toBe('/CO/senate');
+    expect(canonicalPath(stateRoute('CO', { cut: 3 }))).toBe('/CO');
+    expect(canonicalPath(stateRoute('CO', { chamber: 'state-house' }))).toBe('/CO/house');
+    expect(canonicalPath(howRoute('balancing'))).toBe('/how');
+    expect(canonicalPath(faqRoute('ties'))).toBe('/faq');
+    expect(canonicalPath(CHANGELOG)).toBe('/changelog');
+    expect(canonicalPath(NATIONAL)).toBe('/');
+    expect(canonicalPath(nationalRoute('state-senate'))).toBe('/senate');
+  });
+
+  it('routeHref follows the route mode', () => {
+    expect(getRouteMode()).toBe('path');
+    expect(routeHref(howRoute())).toBe('/how');
+    setRouteMode('hash');
+    expect(routeHref(howRoute())).toBe('#/how');
   });
 });

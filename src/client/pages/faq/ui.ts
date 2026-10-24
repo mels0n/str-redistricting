@@ -1,6 +1,9 @@
-import { h, mv, config, ENACTED, ordinal, formatHash, howRoute, faqRoute, stateRoute, iconArrowLeft, prefersReducedMotion, NATIONAL, FAQ_QUESTIONS, type FaqQuestion, type Page, type Route } from '../../shared';
+import { h, mv, PAGE_META, config, ENACTED, ordinal, routeHref, howRoute, faqRoute, stateRoute, iconArrowLeft, prefersReducedMotion, NATIONAL, FAQ_QUESTIONS, type FaqQuestion, type Page, type Route } from '../../shared';
 
 const TITLES: Record<FaqQuestion, string> = {
+  gerrymandering: 'What is gerrymandering?',
+  stop: 'How do you stop gerrymandering?',
+  today: 'How are districts drawn today?',
   strange: 'Why does my district look strange?',
   block: 'What is a census block?',
   ties: 'How are ties settled?',
@@ -20,7 +23,7 @@ const questionId = (q: FaqQuestion): string => `strv-faq-${q}`;
 const p = (...children: (Node | string)[]): HTMLElement => h('p', null, ...children);
 const li = (...children: (Node | string)[]): HTMLElement => h('li', null, ...children);
 const list = (...items: HTMLElement[]): HTMLElement => h('ul', { class: 'strv-how__list' }, items);
-const howLink = (section: Parameters<typeof howRoute>[0], text: string): HTMLElement => h('a', { href: formatHash(howRoute(section)) }, text);
+const howLink = (section: Parameters<typeof howRoute>[0], text: string): HTMLElement => h('a', { href: routeHref(howRoute(section)) }, text);
 
 function question(id: FaqQuestion, n: number, ...body: HTMLElement[]): HTMLElement {
   return h(
@@ -32,6 +35,18 @@ function question(id: FaqQuestion, n: number, ...body: HTMLElement[]): HTMLEleme
 }
 
 const ANSWERS: Record<FaqQuestion, () => HTMLElement[]> = {
+  gerrymandering: () => [
+    p('Gerrymandering is drawing election districts to decide who wins before anyone votes. Whoever draws the map can see where each party’s voters live and shape districts around them: pack one side’s voters into a few districts they win by huge margins, or crack them across many districts where they always fall just short. Every vote is counted honestly, but the result was settled when the lines were drawn.'),
+    p('It isn’t one party’s trick. Anyone who draws the lines while seeing where voters live can do it, and the same tools can protect incumbents or split a community so its voice is lost.'),
+  ],
+  stop: () => [
+    p('Take the choice of lines away from people. If nobody picks where a line goes, nobody can pick it to help a party. Fair Maps does this with one fixed rule: split the state along the shortest line that divides its people evenly, repeat until each piece is one district, then even out the population block by block.'),
+    p('The rule sees only census headcounts and the shapes of census blocks. It never sees party, past votes, race, or where officeholders live, so it can’t favor anyone. It runs the same way in every state, and anyone can rerun the code and get the identical map. See ', howLink(null, 'How it works'), '.'),
+  ],
+  today: () => [
+    p('In most states the state legislature draws new lines after each census, and the governor can usually sign or veto the map. Some states give the job to a commission. Either way, people choose where every line goes, and they can see where voters live while they do it. That is the opening gerrymandering needs.'),
+    p('Fair Maps shows the alternative side by side. Turn on “Compare with” on any state’s map to see today’s lines over the rule-drawn ones.'),
+  ],
   strange: () => [
     p('A strange shape is not a mistake. The generator runs the same steps in every state, and the map is whatever those steps produce. Nobody looks at the result and fixes it.'),
     p('The generator doesn’t know what a town, a county, a river, a highway or a neighborhood is. All it sees is how many people live in each census block and the block’s shape. So a line can run through a city, split a county or cross a bay. Bays are made of census blocks too.'),
@@ -44,7 +59,7 @@ const ANSWERS: Record<FaqQuestion, () => HTMLElement[]> = {
       li(h('strong', null, 'Long or thin pieces.'), ' The shortest border wins each cut, and the people, not a neat outline, decide where that is. Sometimes it leaves a long piece.'),
     ),
     h('h3', { class: 'strv-how__h3' }, 'Check it yourself'),
-    p('Every border traces back to a cut or a balancing move, and both can be replayed on the state’s map, ', h('a', { href: formatHash(stateRoute('CO', { cut: 1 })) }, 'starting with Colorado’s first cut'), '. Anyone who reruns the generator gets the same map and the same fingerprint.'),
+    p('Every border traces back to a cut or a balancing move, and both can be replayed on the state’s map, ', h('a', { href: routeHref(stateRoute('CO', { cut: 1 })) }, 'starting with Colorado’s first cut'), '. Anyone who reruns the generator gets the same map and the same fingerprint.'),
     p('The rules themselves, shortest border and equal population, were chosen once and up front. They apply to every state alike and were fixed before any map existed. Nobody chose any single line.'),
   ],
   block: () => [
@@ -146,7 +161,7 @@ export function createFaqPage(initial: Extract<Route, { page: 'faq' }>): Page {
         'ol',
         { class: 'strv-how__toc-list' },
         FAQ_QUESTIONS.map((q, i) =>
-          h('li', null, h('a', { href: formatHash(faqRoute(q)), 'data-question': q }, h('span', { class: 'strv-how__toc-no', 'aria-hidden': 'true' }, String(i + 1)), TITLES[q])),
+          h('li', null, h('a', { href: routeHref(faqRoute(q)), 'data-question': q }, h('span', { class: 'strv-how__toc-no', 'aria-hidden': 'true' }, String(i + 1)), TITLES[q])),
         ),
       ),
     ),
@@ -160,9 +175,9 @@ export function createFaqPage(initial: Extract<Route, { page: 'faq' }>): Page {
     h(
       'header',
       { class: 'strv-how__head' },
-      h('a', { href: formatHash(NATIONAL), class: 'strv-back' }, iconArrowLeft(), 'All states'),
+      h('a', { href: routeHref(NATIONAL), class: 'strv-back' }, iconArrowLeft(), 'All states'),
       h1,
-      h('p', { class: 'strv-how__lede' }, 'Short answers to the questions people ask most. Each links to the part of ', h('a', { href: formatHash(howRoute()) }, 'How it works'), ' that explains it in full.'),
+      h('p', { class: 'strv-how__lede' }, 'Short answers to the questions people ask most. Each links to the part of ', h('a', { href: routeHref(howRoute()) }, 'How it works'), ' that explains it in full.'),
     ),
     h('div', { class: 'strv-how__room' }, h('div', { class: 'strv-how__grid' }, toc, body)),
   );
@@ -186,7 +201,7 @@ export function createFaqPage(initial: Extract<Route, { page: 'faq' }>): Page {
     }
   }
 
-  document.title = 'FAQ | Fair Maps';
+  document.title = PAGE_META.faq.title;
   markToc(initial.question);
   scrollTo(initial.question, false, false);
 

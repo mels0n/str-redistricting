@@ -4,6 +4,15 @@
   "installCommand": "npm ci --ignore-scripts",
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/how/:rest+", "destination": "/how/index.html" },
+    { "source": "/faq/:rest+", "destination": "/faq/index.html" },
+    { "source": "/:chamber(house|senate)", "destination": "/index.html" },
+    { "source": "/:st([A-Z]{2})/:ch(house|senate)/:rest+", "destination": "/:st/:ch/index.html" },
+    { "source": "/:st([A-Z]{2})/:rest+", "destination": "/:st/index.html" },
+    { "source": "/:st([a-z][a-zA-Z]|[A-Z][a-z])/:rest*", "destination": "/index.html" }
+  ],
   "headers": [
     {
       "source": "/(.*)",

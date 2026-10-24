@@ -1,4 +1,4 @@
-import { h, formatHash, censusLabel, CHANGELOG, VERSIONS, loadPublishedVersions, type Versions } from '../../shared';
+import { h, routeHref, censusLabel, CHANGELOG, VERSIONS, loadPublishedVersions, type Versions } from '../../shared';
 
 const line = (v: Versions): string => `Maps release ${v.maps} · Engine ${v.engine} · ${censusLabel(v.input.vintage)} (r${v.input.revision}) · Site ${VERSIONS.web}`;
 
@@ -7,7 +7,7 @@ const line = (v: Versions): string => `Maps release ${v.maps} · Engine ${v.engi
  * what they are (public/data/versions.json); until then it claims nothing. The site's own version is the code's.
  */
 export function createSiteFooter(): HTMLElement {
-  const link = h('a', { href: formatHash(CHANGELOG), class: 'strv-footer__link' }, 'Changelog');
+  const link = h('a', { href: routeHref(CHANGELOG), class: 'strv-footer__link' }, 'Changelog');
   void loadPublishedVersions().then((v) => {
     if (v !== null) link.textContent = line(v);
   });

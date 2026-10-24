@@ -5,7 +5,8 @@ import {
   describeError,
   describeRouteIssue,
   fitRouteToState,
-  formatHash,
+  routeHref,
+  formatPath,
   formatInt,
   districtCount,
   chamberLabel,
@@ -103,8 +104,8 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
   let blocks: Blocks | null = null;
 
   const h1 = h('h1', { class: 'strv-state__h1', tabindex: -1 }, initial.abbr);
-  const back = h('a', { href: formatHash(nationalRoute(initial.chamber)), class: 'strv-back' }, iconArrowLeft(), 'All states');
-  const howLink = h('a', { href: formatHash(howRoute()), class: 'strv-back strv-state__how' }, 'How it works');
+  const back = h('a', { href: routeHref(nationalRoute(initial.chamber)), class: 'strv-back' }, iconArrowLeft(), 'All states');
+  const howLink = h('a', { href: routeHref(howRoute()), class: 'strv-back strv-state__how' }, 'How it works');
   const meta = h('dl', { class: 'strv-state__meta' });
   const share = createShareButton();
   const head = h('header', { class: 'strv-state__head' }, h('div', { class: 'strv-state__links' }, back, h('span', { class: 'strv-state__actions' }, share.el, howLink)), h1, meta);
@@ -213,7 +214,7 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
     const fit = fitRouteToState(next, seats, moveCount);
     if (fit.issues.length === 0) return fit.route;
     setNotice(fit.issues.map((i) => describeRouteIssue(i, stateName)).join(' '));
-    noticeHash = formatHash(fit.route);
+    noticeHash = formatPath(fit.route);
     // Make the address bar match what is shown.
     nav(fit.route, { replace: true });
     return fit.route;
@@ -230,7 +231,7 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
         { class: 'strv-error', role: 'alert' },
         h('p', null, describeError(err)),
         opts.retry ? h('button', { type: 'button', class: 'strv-button', onclick: opts.retry }, 'Try again') : null,
-        opts.link ? h('p', null, h('a', { href: formatHash(NATIONAL) }, 'Choose a state')) : null,
+        opts.link ? h('p', null, h('a', { href: routeHref(NATIONAL) }, 'Choose a state')) : null,
       ),
     );
   }
@@ -262,7 +263,7 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
         'div',
         { class: 'strv-empty' },
         h('p', { class: 'strv-empty__big' }, `The map for ${name} has not been generated.`),
-        h('p', null, h('a', { href: formatHash(nationalRoute(route.chamber)) }, 'Choose another state')),
+        h('p', null, h('a', { href: routeHref(nationalRoute(route.chamber)) }, 'Choose another state')),
       ),
     );
   }
@@ -335,12 +336,12 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
         showChamberEmpty(
           entry.name,
           have ? `${entry.name} has one legislative chamber, its ${word(other)}. There is no ${chamberLabel(chamber)} to draw.` : `${entry.name} has no ${chamberLabel(chamber)} to draw.`,
-          have ? { href: formatHash(stateRoute(entry.abbr, { chamber: other })), text: `See the ${chamberLabel(other)} map` } : { href: formatHash(stateRoute(entry.abbr)), text: 'See the Federal House map' },
+          have ? { href: routeHref(stateRoute(entry.abbr, { chamber: other })), text: `See the ${chamberLabel(other)} map` } : { href: routeHref(stateRoute(entry.abbr)), text: 'See the Federal House map' },
         );
         return;
       }
       if (!view.hasData || view.summary === undefined) {
-        showChamberEmpty(entry.name, `${chamberLabel(chamber)} maps for ${entry.name} are not drawn yet.`, { href: formatHash(stateRoute(entry.abbr)), text: 'See the Federal House map' });
+        showChamberEmpty(entry.name, `${chamberLabel(chamber)} maps for ${entry.name} are not drawn yet.`, { href: routeHref(stateRoute(entry.abbr)), text: 'See the Federal House map' });
         return;
       }
     } else if (!view.hasData || view.summary === undefined) {
@@ -500,7 +501,7 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
           // unless they have already moved on (or left) while the file was loading.
           if (!alive || !needsBefore()) return;
           const fallback = { ...route, plan: 'finished' as const, cut: null, move: null };
-          noticeHash = formatHash(fallback);
+          noticeHash = formatPath(fallback);
           setNotice('The map before balancing could not be loaded. The finished map is shown.');
           go({ plan: 'finished', cut: null, move: null }, true);
         })
@@ -790,7 +791,7 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
       if (next.page !== 'state' || next.abbr !== route.abbr || next.chamber !== route.chamber) return false;
       route = fitRoute(next);
       // A notice about a bad link goes away once the visitor moves on.
-      if (formatHash(route) !== noticeHash) setNotice(null);
+      if (formatPath(route) !== noticeHash) setNotice(null);
       hovered = null;
       render();
       return true;

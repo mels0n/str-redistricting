@@ -3,6 +3,7 @@ import { existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, 
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { SHELL } from '../../helpers/shell.js';
 import { blocksFileName } from '../../../src/server/entities/census-block/index.js';
 import { stateByAbbr, STATES } from '../../../src/server/shared/apportionment/index.js';
 import { seatsFor } from '../../../src/server/shared/chamber/index.js';
@@ -211,6 +212,7 @@ describe('share pages for chambers', () => {
   it('writes /ST/house/ and /ST/senate/ only for a chamber with data', () => {
     const pub = join(root, 'public');
     const dist = join(root, 'dist');
+    put(join(dist, 'index.html'), SHELL);
     put(join(pub, 'data', 'VT', 'state-senate', 'og.png'), 'x');
     put(join(pub, 'data', 'index.json'), JSON.stringify({ states: [
       { abbr: 'VT', name: 'Vermont', seats: 1, hasData: true, chambers: { 'state-house': { seats: 109, hasData: false }, 'state-senate': { seats: 16, hasData: true } } },
@@ -218,9 +220,9 @@ describe('share pages for chambers', () => {
     ] }));
     expect(writeSharePages(pub, dist)).toEqual(['VT', 'VT/senate', 'NE']);
     const html = readFileSync(join(dist, 'VT', 'senate', 'index.html'), 'utf8');
-    expect(html).toContain('content="0; url=../../#/VT/senate"');
+    expect(html).not.toContain('http-equiv="refresh"');
     expect(html).toContain('/data/VT/state-senate/og.png');
-    expect(html).toContain('<link rel="canonical" href="https://fairmaps.melson.us/VT/senate/" />');
+    expect(html).toContain('<link rel="canonical" href="https://fairmaps.melson.us/VT/senate" />');
     expect(html).toContain('Vermont State Senate');
     expect(html).not.toContain('—');
     expect(existsSync(join(dist, 'VT', 'house'))).toBe(false);

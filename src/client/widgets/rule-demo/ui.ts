@@ -1,4 +1,4 @@
-import { h, svg, formatHash, prefersReducedMotion, stateRoute } from '../../shared';
+import { h, svg, routeHref, prefersReducedMotion, stateRoute } from '../../shared';
 import type { RuleCase } from '../../entities/rule-example';
 import { drawChart, updateChart } from './chart';
 import { createPlayer } from './player';
@@ -56,7 +56,7 @@ function linkOf(c: RuleCase): HTMLAnchorElement {
   if (cut !== undefined) patch.cut = cut;
   else if (move !== undefined) patch.move = move;
   const what = cut !== undefined ? ` at cut ${cut}` : move !== undefined ? ` at balancing move ${move}` : '';
-  return h('a', { class: 'strv-rule-demo__link', href: formatHash(stateRoute(state, patch)) }, `Open ${name}${what}`);
+  return h('a', { class: 'strv-rule-demo__link', href: routeHref(stateRoute(state, patch)) }, `Open ${name}${what}`);
 }
 
 interface Shape {

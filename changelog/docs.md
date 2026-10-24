@@ -1,8 +1,12 @@
 # Docs changelog
 
-## 1.0.4 (2026-10-14)
+## 1.0.5 (2026-10-24)
 
 - Described the `splitChunks` and `resweptChunks` fields of `cut-stats.json`.
+
+## 1.0.4 (2026-10-23)
+
+- docs: path URLs and embedding hash mode
 
 ## 1.0.3 (2026-10-12)
 

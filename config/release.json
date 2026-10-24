@@ -13,7 +13,7 @@
       "src/server/app/rule-examples/**",
       "src/server/features/metrics/**"
     ],
-    "web": ["src/client/**", "index.html", "public/*"],
+    "web": ["src/client/**", "index.html", "public/*", "build/**", "vercel.json"],
     "docs": ["docs/**", "README.md"]
   },
   "exclude": {

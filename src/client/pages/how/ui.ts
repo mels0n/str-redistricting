@@ -1,6 +1,7 @@
 import {
   h,
   mv,
+  PAGE_META,
   clear,
   config,
   CHANGELOG,
@@ -10,7 +11,7 @@ import {
   dataUrl,
   describeError,
   fetchJson,
-  formatHash,
+  routeHref,
   formatInt,
   faqRoute,
   howRoute,
@@ -133,7 +134,7 @@ function balancingTable(rows: { abbr: string; name: string; m: Metrics }[]): HTM
           h(
             'tr',
             null,
-            h('th', { scope: 'row' }, h('a', { href: formatHash(stateRoute(r.abbr, { move: 0 })), 'aria-label': `${r.name}: watch the balancing` }, r.name)),
+            h('th', { scope: 'row' }, h('a', { href: routeHref(stateRoute(r.abbr, { move: 0 })), 'aria-label': `${r.name}: watch the balancing` }, r.name)),
             num(formatInt(r.m.balanceMoves)),
             num(formatInt(r.m.peopleMovedByBalancing), { class: 'strv-how__num strv-how__col-opt' }),
             num(formatInt(r.m.rangeBeforeBalancing)),
@@ -165,7 +166,7 @@ function followCutsTable(rows: readonly CutRow[]): HTMLElement {
           h(
             'tr',
             null,
-            h('th', { scope: 'row' }, h('a', { href: formatHash(stateRoute('CO', { cut: r.order })), 'aria-label': `Cut ${r.order}: open Colorado’s map at this cut` }, `Cut ${r.order}`)),
+            h('th', { scope: 'row' }, h('a', { href: routeHref(stateRoute('CO', { cut: r.order })), 'aria-label': `Cut ${r.order}: open Colorado’s map at this cut` }, `Cut ${r.order}`)),
             num(formatInt(r.seats)),
             num(r.split.replace(' + ', ' and ')),
             num(r.border),
@@ -286,7 +287,7 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
         'ol',
         { class: 'strv-how__toc-list' },
         HOW_SECTIONS.map((s, i) =>
-          h('li', null, h('a', { href: formatHash(howRoute(s)), 'data-section': s }, h('span', { class: 'strv-how__toc-no', 'aria-hidden': 'true' }, String(i + 1)), TITLES[s])),
+          h('li', null, h('a', { href: routeHref(howRoute(s)), 'data-section': s }, h('span', { class: 'strv-how__toc-no', 'aria-hidden': 'true' }, String(i + 1)), TITLES[s])),
         ),
       ),
     ),
@@ -504,7 +505,7 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
       h('h3', { class: 'strv-how__h3' }, 'To reproduce a state’s map'),
       p('The generator, this viewer and the published data are all in ', h('a', { href: config.repoUrl }, 'the project’s GitHub repository'), '. Get the code and run it:'),
       h('pre', { class: 'strv-code', tabindex: 0, role: 'group', 'aria-label': 'Commands to run' }, recipeCode),
-      p('Every map names the engine and Census input version that drew it. Same versions, same districts, every time. See what changed in each release on the ', h('a', { href: formatHash(CHANGELOG) }, 'changelog page'), '.'),
+      p('Every map names the engine and Census input version that drew it. Same versions, same districts, every time. See what changed in each release on the ', h('a', { href: routeHref(CHANGELOG) }, 'changelog page'), '.'),
       p('The state is given by its two-letter abbreviation. Add --chamber state-house or --chamber state-senate for a state chamber. The census block file for the state is downloaded from the U.S. Census Bureau the first time it is needed.'),
     ),
     section(
@@ -533,7 +534,7 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
       'p',
       { class: 'strv-how__next' },
       'Why does a district look strange? How are ties settled? Short answers to common questions are on the ',
-      h('a', { href: formatHash(faqRoute()) }, 'FAQ page'),
+      h('a', { href: routeHref(faqRoute()) }, 'FAQ page'),
       '.',
     ),
   );
@@ -544,7 +545,7 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
     h(
       'header',
       { class: 'strv-how__head' },
-      h('a', { href: formatHash(NATIONAL), class: 'strv-back' }, iconArrowLeft(), 'All states'),
+      h('a', { href: routeHref(NATIONAL), class: 'strv-back' }, iconArrowLeft(), 'All states'),
       h1,
       h('p', { class: 'strv-how__lede' }, 'Every map in this viewer comes from 2020 Census counts and three fixed steps: cut, keep blocks whole, balance. Here is each stage in plain language, with a drawing. Numbers in the drawings are examples unless they name a state. The maps cover the 50 states. Washington, D.C. and the U.S. territories are not drawn. They elect non-voting delegates to the House, and their local legislatures are not covered.'),
     ),
@@ -610,7 +611,7 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
           `In ${lead.name}, ${formatInt(m.balanceMoves)} ${m.balanceMoves === 1 ? 'move' : 'moves'} shifted ${formatInt(m.peopleMovedByBalancing)} ${m.peopleMovedByBalancing === 1 ? 'person' : 'people'} and cut the range between the largest and smallest district from `,
           `${formatInt(m.rangeBeforeBalancing)} to ${formatInt(m.rangeAfterBalancing)} ${m.rangeAfterBalancing === 1 ? 'person' : 'people'}.`,
         );
-        balanceSentence.after(h('p', { class: 'strv-how__watch' }, h('a', { href: formatHash(stateRoute(lead.abbr, { move: 0 })) }, `Watch the balancing in ${lead.name}`)));
+        balanceSentence.after(h('p', { class: 'strv-how__watch' }, h('a', { href: routeHref(stateRoute(lead.abbr, { move: 0 })) }, `Watch the balancing in ${lead.name}`)));
       }
       clear(balanceTable);
       balanceTable.append(balancingTable(rows));
@@ -659,7 +660,7 @@ export function createHowPage(initial: Extract<Route, { page: 'how' }>): Page {
   void loadNumbers();
   void loadFollow();
   void loadRecipe();
-  document.title = 'How the districts are drawn | Fair Maps';
+  document.title = PAGE_META.how.title;
   markToc(initial.section);
   // On arrival there is nothing to scroll from, so jump; a smooth scroll would still be running when the late tables land.
   scrollTo(initial.section, false, false);

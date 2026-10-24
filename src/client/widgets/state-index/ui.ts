@@ -1,4 +1,4 @@
-import { h, formatHash, stateRoute, formatInt, formatPeople, peopleNoun, chamberSeatsNoun, type Chamber } from '../../shared';
+import { h, routeHref, stateRoute, formatInt, formatPeople, peopleNoun, chamberSeatsNoun, type Chamber } from '../../shared';
 import { byName, chamberView, isGeneratedIn, type StateIndex } from '../../entities/state';
 
 /**
@@ -23,7 +23,7 @@ export function createStateIndex(index: StateIndex, chamber: Chamber = 'federal-
         { class: 'strv-index__row', 'data-generated': 'true' },
         h(
           'a',
-          { href: formatHash(stateRoute(s.abbr, { chamber })), class: 'strv-index__link' },
+          { href: routeHref(stateRoute(s.abbr, { chamber })), class: 'strv-index__link' },
           h('span', { class: 'strv-index__n' }, n),
           h('span', { class: 'strv-index__code' }, s.abbr),
           h('span', { class: 'strv-index__name' }, s.name),

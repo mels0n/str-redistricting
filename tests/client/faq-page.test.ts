@@ -12,8 +12,22 @@ describe('FAQ page', () => {
     const page = createFaqPage({ page: 'faq', question: null });
     const ids = [...page.el.querySelectorAll('section.strv-how__section')].map((s) => s.id);
     expect(ids).toEqual(FAQ_QUESTIONS.map((q) => `strv-faq-${q}`));
-    expect([...page.el.querySelectorAll('.strv-how__toc a')].map((a) => a.getAttribute('href'))).toEqual(FAQ_QUESTIONS.map((q) => `#/faq/${q}`));
+    expect([...page.el.querySelectorAll('.strv-how__toc a')].map((a) => a.getAttribute('href'))).toEqual(FAQ_QUESTIONS.map((q) => `/faq/${q}`));
     expect(document.title).toBe('FAQ | Fair Maps');
+  });
+
+  it('opens with the three gerrymandering questions', () => {
+    const page = createFaqPage({ page: 'faq', question: null });
+    const sections = [...page.el.querySelectorAll('section.strv-how__section')];
+    expect(sections).toHaveLength(15);
+    const titles = sections.slice(0, 3).map((s) => {
+      const h2 = s.querySelector('h2')!.cloneNode(true) as HTMLElement;
+      h2.querySelector('.strv-how__no')?.remove();
+      return h2.textContent;
+    });
+    expect(titles).toEqual(['What is gerrymandering?', 'How do you stop gerrymandering?', 'How are districts drawn today?']);
+    expect(sections[0]!.textContent).toContain('pack one side’s voters');
+    expect(sections[1]!.querySelector('a[href="/how"]')?.textContent).toBe('How it works');
   });
 
   it('explains why state rules are not followed, with no em dash', () => {
@@ -28,7 +42,7 @@ describe('FAQ page', () => {
     const page = createFaqPage({ page: 'faq', question: null });
     const strange = page.el.querySelector('#strv-faq-strange')!;
     expect(strange.querySelector('h2')?.textContent).toContain('Why does my district look strange?');
-    expect(strange.querySelector('a[href="#/CO/cut/1"]')?.textContent).toBe('starting with Colorado’s first cut');
+    expect(strange.querySelector('a[href="/CO/cut/1"]')?.textContent).toBe('starting with Colorado’s first cut');
     expect(strange.textContent).toContain('Nobody chose any single line.');
     const ties = page.el.querySelector('#strv-faq-ties')!;
     expect(ties.textContent).toContain('nearer their fair shares of people');
@@ -40,7 +54,7 @@ describe('FAQ page', () => {
     expect(ties.textContent).toContain('both stopping points are kept as candidates');
     expect(ties.textContent).toContain('the lower GEOID');
     expect(ties.textContent).not.toMatch(/north-south|smaller angle|most blocks/);
-    expect(ties.querySelector('a[href="#/how/balancing"]')).not.toBeNull();
+    expect(ties.querySelector('a[href="/how/balancing"]')).not.toBeNull();
   });
 
   it('explains the jargon: census blocks first, then a glossary', () => {

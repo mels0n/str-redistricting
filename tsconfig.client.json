@@ -11,5 +11,5 @@
     "isolatedModules": true,
     "types": ["vite/client", "node"]
   },
-  "include": ["src/client", "tests/client"]
+  "include": ["src/client", "tests/client", "build/prerender.ts", "build/seo.ts", "build/markdown.ts"]
 }

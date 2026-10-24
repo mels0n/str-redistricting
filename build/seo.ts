@@ -1,14 +1,11 @@
 import { PAGE_META } from '../src/client/shared/lib/page-meta';
-import { FAQ_QUESTIONS } from '../src/client/shared/lib/route';
-import { jsonLd as graphFor, jsonLdScript, type FaqEntry, type PageKey } from './structured-data';
+import { REPO_URL } from '../src/server/features/publish/site';
+import { CODE_LICENSE_NAME, CREDIT_TEXT, DATA_LICENSE_NAME, jsonLd, jsonLdScript, type FaqEntry, type PageKey } from './structured-data';
 
-export { jsonLdScript };
+export { jsonLd, jsonLdScript };
 export type { FaqEntry, PageKey };
 
 /** Every fixed page, in the order PAGE_META lists them: the one list the sitemap and the prerender both walk. */
-/** The structured data each prerendered page carries; the FAQ entries feed the FAQ page's `FAQPage`, matched to the questions by position. */
-export const jsonLd = (key: PageKey, faq: readonly FaqEntry[]): ReturnType<typeof graphFor> => graphFor(key, faq, FAQ_QUESTIONS);
-
 export const PAGE_KEYS = Object.keys(PAGE_META) as PageKey[];
 
 export function sitemapXml(site: string): string {
@@ -51,10 +48,10 @@ Gerrymandering is drawing election districts to decide who wins before anyone vo
 
 ## Maps
 - [Every state's map](${site}/): Federal House for all 50 states, State House and State Senate where the chamber exists; find your district by address
-- [Map data index](${site}/data/index.json): published district plans, CC BY 4.0, credit "Chris Melson, fairmaps.melson.us"
+- [Map data index](${site}/data/index.json): published district plans, ${DATA_LICENSE_NAME}, credit "${CREDIT_TEXT}"
 
 ## Source
-- [Source code](https://github.com/mels0n/str-redistricting): Apache-2.0; reproduce any state's map
+- [Source code](${REPO_URL}): ${CODE_LICENSE_NAME}; reproduce any state's map
 - [Full text for language models](${site}/llms-full.txt)
 `;
 }

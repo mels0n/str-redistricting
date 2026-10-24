@@ -2,7 +2,7 @@ import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { PAGE_META } from '../src/client/shared/lib/page-meta.js';
 // Imported from the file, not the publish slice's index, so the Vite config does not load the image renderer.
-import { SITE_HOST } from '../src/server/features/publish/site.js';
+import { REPO_URL, SITE_HOST } from '../src/server/features/publish/site.js';
 
 export type PageKey = keyof typeof PAGE_META;
 export interface FaqEntry {
@@ -17,9 +17,46 @@ export interface Graph {
 }
 
 const SITE = `https://${SITE_HOST}`;
-const REPO = 'https://github.com/mels0n/str-redistricting';
 const CENSUS_URL = 'https://www.census.gov/programs-surveys/decennial-census/about/rdo.html';
 const OG_IMAGE = { '@type': 'ImageObject', url: `${SITE}/og-image.png`, width: 1200, height: 630 };
+
+/** The author's facts, copied from his own site (chris.melson.us) on 2026-10-24. Add a fact here only once it is published there. */
+const AUTHOR = {
+  name: 'Chris Melson',
+  alternateName: 'Christopher Melson',
+  url: 'https://chris.melson.us',
+  description: 'Operational Architect for the Agentic Age',
+  jobTitle: 'Transformation Executive & Operational Architect',
+  sameAs: ['https://chris.melson.us', 'https://www.linkedin.com/in/chris-melson/', 'https://github.com/mels0n'],
+  homeLocation: { '@type': 'Place', name: 'Saint Louis, MO', address: { '@type': 'PostalAddress', addressLocality: 'Saint Louis', addressRegion: 'MO', addressCountry: 'US' } },
+  alumniOf: [
+    { '@type': 'CollegeOrUniversity', name: 'Webster University' },
+    { '@type': 'CollegeOrUniversity', name: 'Ranken Technical College' },
+  ],
+  knowsAbout: [
+    'Target Operating Model design',
+    'Organizational transformation and change management',
+    'Post-merger integration',
+    'AI strategy and agentic workflow governance',
+    'Technical due diligence',
+    'Data strategy',
+    'Digital transformation and cloud migration',
+    'Enterprise risk management',
+    'Regulatory compliance and governance',
+    'Operational excellence',
+    'Cybersecurity strategy',
+    'Strategic performance management',
+    'Redistricting and gerrymandering reform',
+  ],
+} as const;
+
+/** The terms the published data and the code are offered under, and how the data is credited. */
+export const DATA_LICENSE_URL = 'https://creativecommons.org/licenses/by/4.0/';
+export const DATA_LICENSE_NAME = 'CC BY 4.0';
+export const CODE_LICENSE_URL = 'https://www.apache.org/licenses/LICENSE-2.0';
+export const CODE_LICENSE_NAME = 'Apache-2.0';
+export const CREDIT_TEXT = `${AUTHOR.name}, ${SITE_HOST}`;
+export const METHOD = 'Shortest splitline algorithm';
 
 /** The stable `@id` of each entity every page can point at. */
 export const ID = {
@@ -32,79 +69,91 @@ export const ID = {
 } as const;
 const ref = (id: string): { '@id': string } => ({ '@id': id });
 
-/** Release dates, read from the changelogs the release script writes: the first and latest dated release overall and for the maps. */
-export interface Release {
+interface Dated {
+  label: string;
+  date: string;
+}
+interface Span {
   published: string;
   modified: string;
-  mapsPublished: string;
-  mapsModified: string;
-  mapsVersion: string;
 }
 
-let release: Release | null = null;
+/** Release dates, read from the changelogs the release script writes. */
+export interface Release {
+  /** First and latest dated release of any component (the changelog page). */
+  all: Span;
+  /** The website's own releases (home, FAQ). */
+  web: Span;
+  /** The website and the engine, which defines the method the How page explains. */
+  how: Span;
+  /** Every dated maps release, oldest first. */
+  maps: Dated[];
+}
 
-function datesIn(file: string): string[] {
-  let text: string;
+const releases = new Map<string, Release>();
+
+/** Forgets what `readRelease` read; for tests that change the files. */
+export function resetRelease(): void {
+  releases.clear();
+}
+
+function read(file: string): string {
   try {
-    text = readFileSync(file, 'utf8');
+    return readFileSync(file, 'utf8');
   } catch {
     throw new Error(`structured data: cannot read ${file}`);
   }
-  return [...text.matchAll(/^## .*\((\d{4}-\d{2}-\d{2})\)\s*$/gm)].map((m) => m[1]!);
 }
 
-/** Reads the changelogs and `config/versions.json` from the working directory; an unreadable or undated file fails the build. */
-export function readRelease(): Release {
-  if (release !== null) return release;
-  const files = readdirSync('changelog').filter((f) => f.endsWith('.md'));
-  const all = files.flatMap((f) => datesIn(join('changelog', f))).sort();
-  const maps = datesIn(join('changelog', 'maps.md')).sort();
-  if (all.length === 0 || maps.length === 0) throw new Error('structured data: the changelogs hold no dated release');
-  let versions: { maps?: unknown };
+function headings(file: string): Dated[] {
+  const found = [...read(file).matchAll(/^## (.*?) ?\((\d{4}-\d{2}-\d{2})\)\s*$/gm)].map((m) => ({ label: m[1]!, date: m[2]! }));
+  if (found.length === 0) throw new Error(`structured data: ${file} holds no dated release`);
+  return found.sort((a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : 0));
+}
+
+const span = (items: readonly Dated[]): Span => ({ published: items[0]!.date, modified: items[items.length - 1]!.date });
+
+/** Reads the changelogs under `root` (default: the working directory); an unreadable or undated file fails the build. */
+export function readRelease(root = '.'): Release {
+  const cached = releases.get(root);
+  if (cached !== undefined) return cached;
+  const dir = join(root, 'changelog');
+  let names: string[];
   try {
-    versions = JSON.parse(readFileSync(join('config', 'versions.json'), 'utf8')) as { maps?: unknown };
+    names = readdirSync(dir).filter((f) => f.endsWith('.md'));
   } catch {
-    throw new Error('structured data: cannot read config/versions.json');
+    throw new Error(`structured data: cannot read ${dir}`);
   }
-  if (typeof versions.maps !== 'number') throw new Error('structured data: config/versions.json has no maps version');
-  release = { published: all[0]!, modified: all[all.length - 1]!, mapsPublished: maps[0]!, mapsModified: maps[maps.length - 1]!, mapsVersion: String(versions.maps) };
-  return release;
+  const byFile = (f: string): Dated[] => headings(join(dir, f));
+  const web = byFile('web.md');
+  const engine = byFile('engine.md');
+  const all = names.flatMap(byFile).sort((a, b) => (a.date < b.date ? -1 : 1));
+  const built: Release = { all: span(all), web: span(web), how: span([...web, ...engine].sort((a, b) => (a.date < b.date ? -1 : 1))), maps: byFile('maps.md') };
+  releases.set(root, built);
+  return built;
+}
+
+/** The maps release the published data carries (`public/data/versions.json`, which publish keeps honest), or null when it is absent or unreadable. */
+export function publishedMapsVersion(root = '.'): number | null {
+  try {
+    const v = (JSON.parse(readFileSync(join(root, 'public', 'data', 'versions.json'), 'utf8')) as { maps?: unknown }).maps;
+    return typeof v === 'number' ? v : null;
+  } catch {
+    return null;
+  }
+}
+
+/** The `version` and `dateModified` of a maps release, or nothing when none is stamped; the date is that release's changelog heading. */
+function mapsStamp(version: number | null | undefined): Node {
+  if (version === null || version === undefined) return {};
+  const heading = readRelease().maps.find((m) => m.label === String(version));
+  return { version: String(version), ...(heading === undefined ? {} : { dateModified: heading.date }) };
 }
 
 /** The author (also the publisher) and website every page's graph carries, so each page can point at them by `@id`. */
 export function siteNodes(): Node[] {
   return [
-    {
-      '@type': 'Person',
-      '@id': ID.author,
-      name: 'Chris Melson',
-      alternateName: 'Christopher Melson',
-      url: 'https://chris.melson.us',
-      description: 'Operational Architect for the Agentic Age',
-      jobTitle: 'Transformation Executive & Operational Architect',
-      // Profiles confirmed on the author's own site. Add others here only once they are verified.
-      sameAs: ['https://chris.melson.us', 'https://www.linkedin.com/in/chris-melson/', 'https://github.com/mels0n'],
-      homeLocation: { '@type': 'Place', name: 'Saint Louis, MO', address: { '@type': 'PostalAddress', addressLocality: 'Saint Louis', addressRegion: 'MO', addressCountry: 'US' } },
-      alumniOf: [
-        { '@type': 'CollegeOrUniversity', name: 'Webster University' },
-        { '@type': 'CollegeOrUniversity', name: 'Ranken Technical College' },
-      ],
-      knowsAbout: [
-        'Target Operating Model design',
-        'Organizational transformation and change management',
-        'Post-merger integration',
-        'AI strategy and agentic workflow governance',
-        'Technical due diligence',
-        'Data strategy',
-        'Digital transformation and cloud migration',
-        'Enterprise risk management',
-        'Regulatory compliance and governance',
-        'Operational excellence',
-        'Cybersecurity strategy',
-        'Strategic performance management',
-        'Redistricting and gerrymandering reform',
-      ],
-    },
+    { '@type': 'Person', '@id': ID.author, ...AUTHOR },
     {
       '@type': 'WebSite',
       '@id': ID.website,
@@ -120,7 +169,14 @@ export function siteNodes(): Node[] {
 
 /** The Census Bureau data the maps are drawn from. */
 export function censusNode(): Node {
-  return { '@type': 'Dataset', '@id': ID.census, name: 'Census Bureau 2020 Census redistricting data', url: CENSUS_URL, publisher: { '@type': 'Organization', name: 'U.S. Census Bureau' } };
+  return {
+    '@type': 'Dataset',
+    '@id': ID.census,
+    name: 'Census Bureau 2020 Census redistricting data',
+    description: 'The 2020 Census population counts and block shapes the Census Bureau publishes for redistricting.',
+    url: CENSUS_URL,
+    publisher: { '@type': 'Organization', name: 'U.S. Census Bureau' },
+  };
 }
 
 /** The open-source generator that draws the maps. */
@@ -130,11 +186,29 @@ export function sourceNode(): Node {
     '@id': ID.source,
     name: 'str-redistricting',
     description: 'The open-source shortest splitline district generator behind the Fair Maps district plans.',
-    codeRepository: REPO,
-    url: REPO,
+    codeRepository: REPO_URL,
+    url: REPO_URL,
     programmingLanguage: 'TypeScript',
-    license: 'https://www.apache.org/licenses/LICENSE-2.0',
+    license: CODE_LICENSE_URL,
     author: ref(ID.author),
+  };
+}
+
+/** The fields every Fair Maps dataset shares; `extra` adds or overrides. */
+function datasetBase(extra: Node): Node {
+  return {
+    '@type': 'Dataset',
+    license: DATA_LICENSE_URL,
+    creator: ref(ID.author),
+    publisher: ref(ID.author),
+    copyrightHolder: ref(ID.author),
+    creditText: CREDIT_TEXT,
+    isAccessibleForFree: true,
+    inLanguage: 'en-US',
+    measurementTechnique: METHOD,
+    temporalCoverage: '2020',
+    isPartOf: ref(ID.website),
+    ...extra,
   };
 }
 
@@ -157,15 +231,20 @@ const HOME_URL = `${SITE}/`;
 const PAGE_NAMES: Record<PageKey, string> = { home: 'Fair Maps', how: 'How it works', faq: 'FAQ', changelog: 'Changelog' };
 const pageUrl = (key: PageKey): string => (key === 'home' ? HOME_URL : `${SITE}${PAGE_META[key].path}`);
 
-/** The crumbs of a fixed page: Home, then the page itself unless it is Home. */
-function pageCrumbs(key: PageKey): { name: string; url: string }[] {
-  return key === 'home' ? [{ name: 'Home', url: HOME_URL }] : [{ name: 'Home', url: HOME_URL }, { name: PAGE_NAMES[key], url: pageUrl(key) }];
+/** The crumbs of a page below Home. The home page has none: a trail of one item is not worth marking up. */
+function pageCrumbs(key: Exclude<PageKey, 'home'>): { name: string; url: string }[] {
+  return [{ name: 'Home', url: HOME_URL }, { name: PAGE_NAMES[key], url: pageUrl(key) }];
+}
+
+/** The dates a fixed page reports: its own source's releases (the changelog page covers every component). */
+function datesOf(key: PageKey, r: Release): Span {
+  return key === 'changelog' ? r.all : key === 'how' ? r.how : r.web;
 }
 
 /** The fields every fixed page's `WebPage` shares. */
 function webPage(key: PageKey, types: string | string[], extra: Node): Node {
   const url = pageUrl(key);
-  const { published, modified } = readRelease();
+  const { published, modified } = datesOf(key, readRelease());
   return {
     '@type': types,
     '@id': `${url}#webpage`,
@@ -175,7 +254,7 @@ function webPage(key: PageKey, types: string | string[], extra: Node): Node {
     inLanguage: 'en-US',
     isPartOf: ref(ID.website),
     publisher: ref(ID.author),
-    breadcrumb: ref(`${url}#breadcrumb`),
+    ...(key === 'home' ? {} : { breadcrumb: ref(`${url}#breadcrumb`) }),
     datePublished: published,
     dateModified: modified,
     ...extra,
@@ -183,45 +262,32 @@ function webPage(key: PageKey, types: string | string[], extra: Node): Node {
 }
 
 function homeNodes(): Node[] {
-  const r = readRelease();
   const url = pageUrl('home');
+  const maps = readRelease().maps;
   return [
     ...siteNodes(),
     censusNode(),
     sourceNode(),
     gerrymanderingNode(),
     webPage('home', ['WebPage', 'CollectionPage'], { about: [ref(ID.dataset), ref(ID.gerrymandering)], primaryImageOfPage: OG_IMAGE }),
-    breadcrumbNode(`${url}#breadcrumb`, pageCrumbs('home')),
-    {
-      '@type': 'Dataset',
+    datasetBase({
       '@id': ID.dataset,
       name: 'Fair Maps district plans',
       description: PAGE_META.home.description,
       url,
       keywords: ['gerrymandering', 'redistricting', 'shortest splitline', 'congressional districts', 'state legislative districts', 'census blocks'],
-      license: 'https://creativecommons.org/licenses/by/4.0/',
-      creator: ref(ID.author),
-      publisher: ref(ID.author),
-      copyrightHolder: ref(ID.author),
-      creditText: `Chris Melson, ${SITE_HOST}`,
-      isAccessibleForFree: true,
-      inLanguage: 'en-US',
       isBasedOn: [ref(ID.census), ref(ID.source)],
-      measurementTechnique: 'Shortest splitline algorithm',
       spatialCoverage: 'United States',
-      temporalCoverage: '2020',
-      version: r.mapsVersion,
-      datePublished: r.mapsPublished,
-      dateModified: r.mapsModified,
-      isPartOf: ref(ID.website),
+      datePublished: maps[0]!.date,
+      ...mapsStamp(publishedMapsVersion()),
       distribution: [{ '@type': 'DataDownload', contentUrl: `${SITE}/data/index.json`, encodingFormat: 'application/json' }],
-    },
+    }),
   ];
 }
 
 function howNodes(): Node[] {
   const url = pageUrl('how');
-  const { published, modified } = readRelease();
+  const { published, modified } = datesOf('how', readRelease());
   return [
     ...siteNodes(),
     gerrymanderingNode(),
@@ -248,11 +314,9 @@ function howNodes(): Node[] {
   ];
 }
 
-function faqNodes(faq: readonly FaqEntry[], questionSlugs: readonly string[]): Node[] {
+function faqNodes(faq: readonly FaqEntry[]): Node[] {
   const url = pageUrl('faq');
-  // The page lists its answers in question order, so the slug of each is its position; any other length is not mapped.
-  const slugs = faq.length === questionSlugs.length ? questionSlugs : null;
-  const { published, modified } = readRelease();
+  const { published, modified } = datesOf('faq', readRelease());
   return [
     ...siteNodes(),
     gerrymanderingNode(),
@@ -272,12 +336,7 @@ function faqNodes(faq: readonly FaqEntry[], questionSlugs: readonly string[]): N
       about: ref(ID.gerrymandering),
       breadcrumb: ref(`${url}#breadcrumb`),
       mainEntityOfPage: ref(`${url}#webpage`),
-      mainEntity: faq.map((f, i) => ({
-        '@type': 'Question',
-        name: f.q,
-        ...(slugs === null ? {} : { url: `${url}/${slugs[i]}` }),
-        acceptedAnswer: { '@type': 'Answer', text: f.a, author: ref(ID.author), datePublished: published, dateModified: modified },
-      })),
+      mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a, author: ref(ID.author) } })),
     },
     breadcrumbNode(`${url}#breadcrumb`, pageCrumbs('faq')),
   ];
@@ -294,14 +353,14 @@ function changelogNodes(): Node[] {
 }
 
 /** The structured data each prerendered page carries, as one `@graph`; the FAQ entries feed the FAQ page's `FAQPage`. */
-export function jsonLd(key: PageKey, faq: readonly FaqEntry[], questionSlugs: readonly string[]): Graph[] {
+export function jsonLd(key: PageKey, faq: readonly FaqEntry[]): Graph[] {
   switch (key) {
     case 'home':
       return [graph(homeNodes())];
     case 'how':
       return [graph(howNodes())];
     case 'faq':
-      return [graph(faqNodes(faq, questionSlugs))];
+      return [graph(faqNodes(faq))];
     case 'changelog':
       return [graph(changelogNodes())];
   }
@@ -316,10 +375,11 @@ export function sharePageGraph(p: {
   /** The chamber's label, such as "State Senate"; absent for the federal House. */
   chamber: string | undefined;
   stateUrl: string;
+  /** The maps release this plan is stamped with in the published index; absent when it has no stamp. */
+  mapsVersion: number | undefined;
   /** Published data files of this plan that exist, as absolute URLs with their media type. */
   files: readonly { url: string; encodingFormat: string; name: string }[];
 }): Graph {
-  const r = readRelease();
   const kind = p.chamber ?? 'congressional';
   const crumbs = [{ name: 'Home', url: HOME_URL }, { name: p.state, url: p.stateUrl }, ...(p.chamber === undefined ? [] : [{ name: p.chamber, url: p.url }])];
   const place = `${p.stateUrl}#place`;
@@ -341,27 +401,16 @@ export function sharePageGraph(p: {
     },
     breadcrumbNode(`${p.url}#breadcrumb`, crumbs),
     { '@type': 'State', '@id': place, name: p.state, containedInPlace: { '@type': 'Country', name: 'United States' } },
-    {
-      '@type': 'Dataset',
+    datasetBase({
       '@id': datasetId,
       name: `${p.state} ${kind} districts drawn by Fair Maps`,
       description: p.description,
       url: p.url,
-      license: 'https://creativecommons.org/licenses/by/4.0/',
-      creator: ref(ID.author),
-      publisher: ref(ID.author),
-      copyrightHolder: ref(ID.author),
-      creditText: `Chris Melson, ${SITE_HOST}`,
-      isAccessibleForFree: true,
-      inLanguage: 'en-US',
       isBasedOn: ref(ID.census),
-      measurementTechnique: 'Shortest splitline algorithm',
       spatialCoverage: ref(place),
-      temporalCoverage: '2020',
-      version: r.mapsVersion,
-      isPartOf: ref(ID.website),
+      ...mapsStamp(p.mapsVersion),
       ...(p.files.length === 0 ? {} : { distribution: p.files.map((f) => ({ '@type': 'DataDownload', name: f.name, contentUrl: f.url, encodingFormat: f.encodingFormat })) }),
-    },
+    }),
   ];
   return graph(nodes);
 }

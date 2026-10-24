@@ -14,11 +14,14 @@ const DATA_FILES = [
   { file: 'stats.json', encodingFormat: 'application/json', name: 'District statistics' },
 ] as const;
 
-const ChamberSchema = z.object({ seats: z.number().int().nonnegative(), hasData: z.boolean() });
+/** The maps release a plan was stamped with, when its summary carries one. */
+const SummarySchema = z.object({ versions: z.object({ maps: z.number().int() }).optional() }).optional();
+
+const ChamberSchema = z.object({ seats: z.number().int().nonnegative(), hasData: z.boolean(), summary: SummarySchema });
 
 const IndexSchema = z.object({
   states: z.array(z.object({
-    abbr: z.string().regex(/^[A-Z]{2}$/), name: z.string(), seats: z.number().int().positive(), hasData: z.boolean(),
+    abbr: z.string().regex(/^[A-Z]{2}$/), name: z.string(), seats: z.number().int().positive(), hasData: z.boolean(), summary: SummarySchema,
     chambers: z.object({ 'state-house': ChamberSchema.optional(), 'state-senate': ChamberSchema.optional() }).optional(),
   })),
 });
@@ -35,6 +38,8 @@ export interface ShareEntry {
   readonly abbr: string;
   readonly name: string;
   readonly seats: number;
+  /** The maps release the plan is stamped with in the published index; absent when it has none. */
+  readonly mapsVersion?: number;
   /** A state chamber's page; absent for the federal House. */
   readonly chamber?: ShareChamber;
 }
@@ -49,14 +54,17 @@ export function swap(shell: string, pattern: RegExp, replacement: string, what: 
 
 /** The app shell for one state's map, with that state's link-preview tags. It loads the viewer directly; no redirect. */
 export function sharePageHtml(entry: ShareEntry, site: string, shell: string, hasImage = true, dataFiles: readonly string[] = []): string {
-  const name = esc(entry.name);
   const info = CHAMBERS.find((c) => c.key === entry.chamber);
   // The federal House keeps /CO and its original wording; a state chamber lives one folder deeper.
   const url = info === undefined ? `${site}/${entry.abbr}` : `${site}/${entry.abbr}/${info.segment}`;
   const image = hasImage ? `${site}/data/${info === undefined ? entry.abbr : `${entry.abbr}/${info.key}`}/og.png` : `${site}/og-image.png`;
-  const title = info === undefined ? `${name}: districts drawn by Fair Maps` : `${name} ${info.label}: districts drawn by Fair Maps`;
   const kind = info === undefined ? 'congressional' : info.label;
-  const description = `${name}'s ${entry.seats} ${kind} ${entry.seats === 1 ? 'district' : 'districts'}, drawn from 2020 Census counts by three fixed steps nobody can steer. ${TAGLINE}`;
+  // Built from a name once raw (for the structured data) and once escaped (for the tags).
+  const titleOf = (n: string): string => (info === undefined ? `${n}: districts drawn by Fair Maps` : `${n} ${info.label}: districts drawn by Fair Maps`);
+  const descriptionOf = (n: string): string => `${n}'s ${entry.seats} ${kind} ${entry.seats === 1 ? 'district' : 'districts'}, drawn from 2020 Census counts by three fixed steps nobody can steer. ${TAGLINE}`;
+  const name = esc(entry.name);
+  const title = titleOf(name);
+  const description = descriptionOf(name);
   const alt = `${name}'s ${kind.toLowerCase()} districts drawn by Fair Maps.`;
   const meta = (attr: 'name' | 'property', key: string, value: string): [RegExp, string, string] =>
     [new RegExp(`<meta ${attr}="${key}" content="[^"]*" ?/?>`), `<meta ${attr}="${key}" content="${value}" />`, `${key} meta`];
@@ -75,8 +83,9 @@ export function sharePageHtml(entry: ShareEntry, site: string, shell: string, ha
   const script = jsonLdScript([
     sharePageGraph({
       url,
-      title: title.replace(name, () => entry.name),
-      description: description.replace(name, () => entry.name),
+      title: titleOf(entry.name),
+      description: descriptionOf(entry.name),
+      mapsVersion: entry.mapsVersion,
       state: entry.name,
       chamber: info?.label,
       stateUrl: `${site}/${entry.abbr}`,
@@ -86,6 +95,8 @@ export function sharePageHtml(entry: ShareEntry, site: string, shell: string, ha
   return swap(head, /<\/head>/, `    ${script}
   </head>`, 'head close');
 }
+
+const stamped = <T extends object>(entry: T, maps: number | undefined): T & { mapsVersion?: number } => (maps === undefined ? entry : { ...entry, mapsVersion: maps });
 
 const presentFiles = (dir: string): string[] => DATA_FILES.filter((f) => existsSync(join(dir, f.file))).map((f) => f.file);
 
@@ -101,14 +112,14 @@ export function writeSharePages(publicDir: string, distDir: string): string[] {
     if (!s.hasData) continue;
     const dir = join(distDir, s.abbr);
     mkdirSync(dir, { recursive: true });
-    writeFileSync(join(dir, 'index.html'), sharePageHtml(s, SITE, shell, existsSync(join(publicDir, 'data', s.abbr, 'og.png')), presentFiles(join(publicDir, 'data', s.abbr))));
+    writeFileSync(join(dir, 'index.html'), sharePageHtml(stamped(s, s.summary?.versions?.maps), SITE, shell, existsSync(join(publicDir, 'data', s.abbr, 'og.png')), presentFiles(join(publicDir, 'data', s.abbr))));
     written.push(s.abbr);
     for (const c of CHAMBERS) {
       const own = s.chambers?.[c.key];
       if (own === undefined || !own.hasData || own.seats === 0) continue;
       const chamberDir = join(dir, c.segment);
       mkdirSync(chamberDir, { recursive: true });
-      writeFileSync(join(chamberDir, 'index.html'), sharePageHtml({ ...s, seats: own.seats, chamber: c.key }, SITE, shell, existsSync(join(publicDir, 'data', s.abbr, c.key, 'og.png')), presentFiles(join(publicDir, 'data', s.abbr, c.key))));
+      writeFileSync(join(chamberDir, 'index.html'), sharePageHtml(stamped({ ...s, seats: own.seats, chamber: c.key }, own.summary?.versions?.maps), SITE, shell, existsSync(join(publicDir, 'data', s.abbr, c.key, 'og.png')), presentFiles(join(publicDir, 'data', s.abbr, c.key))));
       written.push(`${s.abbr}/${c.segment}`);
     }
   }

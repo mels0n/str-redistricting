@@ -1,5 +1,12 @@
 # Engine changelog
 
+## 2.0.1 (2026-10-14)
+
+Every map is drawn exactly as in 2.0.0.
+
+- Each cut's record in `cut-stats.json` now counts the chunks of its main sweep that were split between threads while they ran (`splitChunks`), and of those, the chunks swept again whole on the calling thread (`resweptChunks`).
+- The cached list of a chain's trackers is now cleared at the moment a spare tracker is taken into a pass, so it can never be read out of date.
+
 ## 2.0.0 (2026-10-13)
 
 Bug fixes:

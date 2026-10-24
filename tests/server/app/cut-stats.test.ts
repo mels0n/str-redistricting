@@ -11,7 +11,7 @@ describe('cut-stats.json records', () => {
     cuts.forEach((c, i) => {
       const rec = cutStats(c, i);
       expect(rec.order).toBe(i + 1);
-      for (const k of ['tieSpanMs', 'derivedBuilds', 'reconfigs', 'exactFallbacks'] as const) {
+      for (const k of ['tieSpanMs', 'derivedBuilds', 'reconfigs', 'exactFallbacks', 'splitChunks', 'resweptChunks'] as const) {
         expect(typeof rec[k], k).toBe('number');
         expect(Number.isInteger(rec[k]), k).toBe(true);
         expect(rec[k], k).toBeGreaterThanOrEqual(0);

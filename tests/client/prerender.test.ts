@@ -41,9 +41,9 @@ describe('prerendered pages', () => {
     expect(html.match(/id="str-viewer"/g)).toHaveLength(1);
     const scripts = [...html.matchAll(/<script type="application\/ld\+json">([^<]*)<\/script>/g)];
     expect(scripts).toHaveLength(1);
-    const data = JSON.parse(scripts[0]![1]!) as { '@type': string; mainEntity: unknown[] };
-    expect(data['@type']).toBe('FAQPage');
-    expect(data.mainEntity).toHaveLength(15);
+    const data = JSON.parse(scripts[0]![1]!) as { '@graph': { '@type': string; mainEntity?: unknown }[] };
+    const faqPage = data['@graph'].find((n) => n['@type'] === 'FAQPage');
+    expect(faqPage?.mainEntity).toHaveLength(15);
     expect(html).not.toMatch(/<[^>]* style="/);
   });
 

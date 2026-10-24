@@ -34,8 +34,9 @@ describe('sharePageHtml', () => {
     expect(amp).not.toContain('<c>');
     const scripts = (t: string): number => (t.match(/<script/g) ?? []).length;
     expect(scripts(SHELL)).toBeGreaterThan(0);
-    expect(scripts(html)).toBe(scripts(SHELL));
-    expect(scripts(amp)).toBe(scripts(SHELL));
+    // The shell scripts stay, plus the one structured-data script.
+    expect(scripts(html)).toBe(scripts(SHELL) + 1);
+    expect(scripts(amp)).toBe(scripts(SHELL) + 1);
     expect(html).not.toContain('Home ');
     expect(html).not.toContain('—');
   });

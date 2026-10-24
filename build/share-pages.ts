@@ -4,8 +4,15 @@ import type { Plugin } from 'vite';
 import { z } from 'zod';
 // Imported from the file, not the publish slice's index, so the Vite config does not load the image renderer.
 import { SITE_HOST, TAGLINE } from '../src/server/features/publish/site.js';
+import { jsonLdScript, sharePageGraph } from './structured-data.js';
 
 const SITE = `https://${SITE_HOST}`;
+
+/** The published files of a plan that the structured data may link, with their media types. */
+const DATA_FILES = [
+  { file: 'districts.topo.json', encodingFormat: 'application/json', name: 'District boundaries (TopoJSON)' },
+  { file: 'stats.json', encodingFormat: 'application/json', name: 'District statistics' },
+] as const;
 
 const ChamberSchema = z.object({ seats: z.number().int().nonnegative(), hasData: z.boolean() });
 
@@ -41,7 +48,7 @@ export function swap(shell: string, pattern: RegExp, replacement: string, what: 
 }
 
 /** The app shell for one state's map, with that state's link-preview tags. It loads the viewer directly; no redirect. */
-export function sharePageHtml(entry: ShareEntry, site: string, shell: string, hasImage = true): string {
+export function sharePageHtml(entry: ShareEntry, site: string, shell: string, hasImage = true, dataFiles: readonly string[] = []): string {
   const name = esc(entry.name);
   const info = CHAMBERS.find((c) => c.key === entry.chamber);
   // The federal House keeps /CO and its original wording; a state chamber lives one folder deeper.
@@ -63,8 +70,24 @@ export function sharePageHtml(entry: ShareEntry, site: string, shell: string, ha
     meta('property', 'og:image', image),
     meta('property', 'og:image:alt', alt),
   ];
-  return swaps.reduce((html, [pattern, replacement, what]) => swap(html, pattern, replacement, what), shell);
+  const head = swaps.reduce((html, [pattern, replacement, what]) => swap(html, pattern, replacement, what), shell);
+  const dataBase = `${site}/data/${info === undefined ? entry.abbr : `${entry.abbr}/${info.key}`}`;
+  const script = jsonLdScript([
+    sharePageGraph({
+      url,
+      title: title.replace(name, () => entry.name),
+      description: description.replace(name, () => entry.name),
+      state: entry.name,
+      chamber: info?.label,
+      stateUrl: `${site}/${entry.abbr}`,
+      files: DATA_FILES.filter((f) => dataFiles.includes(f.file)).map((f) => ({ url: `${dataBase}/${f.file}`, encodingFormat: f.encodingFormat, name: f.name })),
+    }),
+  ]);
+  return swap(head, /<\/head>/, `    ${script}
+  </head>`, 'head close');
 }
+
+const presentFiles = (dir: string): string[] => DATA_FILES.filter((f) => existsSync(join(dir, f.file))).map((f) => f.file);
 
 /** Write `<distDir>/<ST>/index.html` for every state with published data, and `<ST>/house/` and `<ST>/senate/` for each state chamber that has data; returns the paths written. */
 export function writeSharePages(publicDir: string, distDir: string): string[] {
@@ -78,14 +101,14 @@ export function writeSharePages(publicDir: string, distDir: string): string[] {
     if (!s.hasData) continue;
     const dir = join(distDir, s.abbr);
     mkdirSync(dir, { recursive: true });
-    writeFileSync(join(dir, 'index.html'), sharePageHtml(s, SITE, shell, existsSync(join(publicDir, 'data', s.abbr, 'og.png'))));
+    writeFileSync(join(dir, 'index.html'), sharePageHtml(s, SITE, shell, existsSync(join(publicDir, 'data', s.abbr, 'og.png')), presentFiles(join(publicDir, 'data', s.abbr))));
     written.push(s.abbr);
     for (const c of CHAMBERS) {
       const own = s.chambers?.[c.key];
       if (own === undefined || !own.hasData || own.seats === 0) continue;
       const chamberDir = join(dir, c.segment);
       mkdirSync(chamberDir, { recursive: true });
-      writeFileSync(join(chamberDir, 'index.html'), sharePageHtml({ ...s, seats: own.seats, chamber: c.key }, SITE, shell, existsSync(join(publicDir, 'data', s.abbr, c.key, 'og.png'))));
+      writeFileSync(join(chamberDir, 'index.html'), sharePageHtml({ ...s, seats: own.seats, chamber: c.key }, SITE, shell, existsSync(join(publicDir, 'data', s.abbr, c.key, 'og.png')), presentFiles(join(publicDir, 'data', s.abbr, c.key))));
       written.push(`${s.abbr}/${c.segment}`);
     }
   }

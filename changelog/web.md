@@ -1,5 +1,9 @@
 # Web changelog
 
+## 1.6.0 (2026-10-27)
+
+- The FAQ answers what fair means here, set beside equal, proportional and equitable, and its terms add Fair and Proportional.
+
 ## 1.5.0 (2026-10-27)
 
 - The home page is less crowded: the second paragraph is shorter, How it works and the three questions share one row of links, and the note on Washington, D.C. and the territories now lives only in the FAQ.

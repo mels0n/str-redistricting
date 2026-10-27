@@ -21,6 +21,8 @@ describe('prerendered pages', () => {
     const { faq } = await renderPage('faq');
     const terms = faq.find((f) => f.q === 'What do the other terms mean?');
     expect(terms?.a).toContain('Census block: The smallest area');
+    expect(terms?.a).toContain('Fair: Made by a rule nobody can aim');
+    expect(terms?.a).toContain('Proportional: Seats shared out');
     expect(terms?.a.length).toBeGreaterThan(300);
   });
 

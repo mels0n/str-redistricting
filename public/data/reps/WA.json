@@ -1,0 +1,2177 @@
+{
+  "state": "WA",
+  "generatedFrom": {
+    "legislators-current.json": "ae8cb9477c48715df71a7d860854229d799dc90a254d61badc1efb770f892b2c",
+    "legislators-social-media.json": "c6eca1fcdb3a89901335eed51ca061daa4b60ad3243969a127e913bb9657fbc5",
+    "wa.csv": "6178873de8fb5c5d634043a4992493124171853973e7401085318cf685a79453"
+  },
+  "byKey": {
+    "WA:us-senate:00": [
+      {
+        "id": "C000127",
+        "name": "Maria Cantwell",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.cantwell.senate.gov/public/index.cfm/email-maria",
+        "email": null,
+        "phone": "202-224-3441",
+        "address": "511 Hart Senate Office Building Washington DC 20510",
+        "website": "https://www.cantwell.senate.gov",
+        "social": {
+          "x": "SenatorCantwell",
+          "facebook": "senatorcantwell"
+        }
+      },
+      {
+        "id": "M001111",
+        "name": "Patty Murray",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.murray.senate.gov/write-to-patty/",
+        "email": null,
+        "phone": "202-224-2621",
+        "address": "154 Russell Senate Office Building Washington DC 20510",
+        "website": "https://www.murray.senate.gov",
+        "social": {
+          "x": "PattyMurray",
+          "instagram": "senpattymurray"
+        }
+      }
+    ],
+    "WA:us-house:02": [
+      {
+        "id": "L000560",
+        "name": "Rick Larsen",
+        "office": "us-house",
+        "districtCode": "02",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2605",
+        "address": "2163 Rayburn House Office Building Washington DC 20515-4702",
+        "website": "https://larsen.house.gov",
+        "social": {
+          "x": "RepRickLarsen",
+          "facebook": "RepRickLarsen",
+          "instagram": "repricklarsen"
+        }
+      }
+    ],
+    "WA:us-house:09": [
+      {
+        "id": "S000510",
+        "name": "Adam Smith",
+        "office": "us-house",
+        "districtCode": "09",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-8901",
+        "address": "2264 Rayburn House Office Building Washington DC 20515-4709",
+        "website": "https://adamsmith.house.gov",
+        "social": {
+          "x": "RepAdamSmith",
+          "facebook": "RepAdamSmith",
+          "instagram": "repadamsmith"
+        }
+      }
+    ],
+    "WA:us-house:01": [
+      {
+        "id": "D000617",
+        "name": "Suzan K. DelBene",
+        "office": "us-house",
+        "districtCode": "01",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-6311",
+        "address": "2311 Rayburn House Office Building Washington DC 20515-4701",
+        "website": "https://delbene.house.gov",
+        "social": {
+          "x": "RepDelBene",
+          "facebook": "RepDelBene",
+          "instagram": "repdelbene"
+        }
+      }
+    ],
+    "WA:us-house:04": [
+      {
+        "id": "N000189",
+        "name": "Dan Newhouse",
+        "office": "us-house",
+        "districtCode": "04",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5816",
+        "address": "460 Cannon House Office Building Washington DC 20515-4704",
+        "website": "https://newhouse.house.gov",
+        "social": {
+          "x": "RepNewhouse",
+          "facebook": "RepNewhouse",
+          "instagram": "repnewhouse"
+        }
+      }
+    ],
+    "WA:us-house:07": [
+      {
+        "id": "J000298",
+        "name": "Pramila Jayapal",
+        "office": "us-house",
+        "districtCode": "07",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-3106",
+        "address": "2346 Rayburn House Office Building Washington DC 20515-4707",
+        "website": "https://jayapal.house.gov",
+        "social": {
+          "x": "RepJayapal",
+          "facebook": "RepJayapal",
+          "instagram": "repjayapal"
+        }
+      }
+    ],
+    "WA:us-house:08": [
+      {
+        "id": "S001216",
+        "name": "Kim Schrier",
+        "office": "us-house",
+        "districtCode": "08",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-7761",
+        "address": "1110 Longworth House Office Building Washington DC 20515-4708",
+        "website": "https://schrier.house.gov",
+        "social": {
+          "x": "RepKimSchrier",
+          "facebook": "repkimschrier"
+        }
+      }
+    ],
+    "WA:us-house:10": [
+      {
+        "id": "S001159",
+        "name": "Marilyn Strickland",
+        "office": "us-house",
+        "districtCode": "10",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-9740",
+        "address": "1724 Longworth House Office Building Washington DC 20515-4710",
+        "website": "https://strickland.house.gov",
+        "social": {
+          "x": "RepStricklandWA",
+          "facebook": "RepStricklandWA",
+          "instagram": "repstricklandwa"
+        }
+      }
+    ],
+    "WA:us-house:03": [
+      {
+        "id": "G000600",
+        "name": "Marie Gluesenkamp Perez",
+        "office": "us-house",
+        "districtCode": "03",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-3536",
+        "address": "1431 Longworth House Office Building Washington DC 20515-4703",
+        "website": "https://gluesenkampperez.house.gov",
+        "social": {
+          "x": "RepMGP",
+          "facebook": "RepMGP",
+          "instagram": "repmgp"
+        }
+      }
+    ],
+    "WA:us-house:05": [
+      {
+        "id": "B001322",
+        "name": "Michael Baumgartner",
+        "office": "us-house",
+        "districtCode": "05",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2006",
+        "address": "124 Cannon House Office Building Washington DC 20515-4705",
+        "website": "https://baumgartner.house.gov",
+        "social": {
+          "x": "repbaumgartner",
+          "facebook": "RepBaumgartner",
+          "instagram": "repbaumgartner"
+        }
+      }
+    ],
+    "WA:us-house:06": [
+      {
+        "id": "R000621",
+        "name": "Emily Randall",
+        "office": "us-house",
+        "districtCode": "06",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5916",
+        "address": "1531 Longworth House Office Building Washington DC 20515-4706",
+        "website": "https://randall.house.gov",
+        "social": {}
+      }
+    ],
+    "WA:state-house:024": [
+      {
+        "id": "ocd-person/9eddb3cd-868e-42ba-831a-b415fd7ed445",
+        "name": "Adam Bernbaum",
+        "office": "state-house",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "adam.bernbaum@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedemocrats.wa.gov/bernbaum/",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/a7654dc1-5240-437e-9579-48640c8564d8",
+        "name": "Steve Tharinger",
+        "office": "state-house",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "steve.tharinger@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedemocrats.wa.gov/legislators/Steve-Tharinger/",
+        "social": {}
+      }
+    ],
+    "WA:state-house:026": [
+      {
+        "id": "ocd-person/bae1dc2d-8fd6-48cb-b1d8-afa86f205a3c",
+        "name": "Adison Richards",
+        "office": "state-house",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "adison.richards@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedemocrats.wa.gov/richards/",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/fdd79a57-f6f9-4435-84f6-92708c65b716",
+        "name": "Michelle Valdez",
+        "office": "state-house",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "michelle.valdez@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://houserepublicans.wa.gov/Michelle-Caldier/",
+        "social": {}
+      }
+    ],
+    "WA:state-house:040": [
+      {
+        "id": "ocd-person/193dce49-ab25-4608-b4d2-65d80fd3d46c",
+        "name": "Alex Ramel",
+        "office": "state-house",
+        "districtCode": "040",
+        "contactUrl": null,
+        "email": "alex.ramel@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedemocrats.wa.gov/Ramel/",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/5f974a76-f712-4412-89c9-a35919dcc11e",
+        "name": "Debra Lekanoff",
+        "office": "state-house",
+        "districtCode": "040",
+        "contactUrl": null,
+        "email": "debra.lekanoff@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedemocrats.wa.gov/legislators/Debra-Lekanoff/",
+        "social": {}
+      }
+    ],
+    "WA:state-house:013": [
+      {
+        "id": "ocd-person/ad28df67-a1bf-4580-b55f-f0917c6e69b2",
+        "name": "Alex Ybarra",
+        "office": "state-house",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "alex.ybarra@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://AlexYbarra.houserepublicans.wa.gov/",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/a954dff9-39d6-4340-8070-5ef437438cda",
+        "name": "Tom Dent",
+        "office": "state-house",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "tom.dent@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://houserepublicans.wa.gov/Tom-Dent/",
+        "social": {}
+      }
+    ],
+    "WA:state-house:042": [
+      {
+        "id": "ocd-person/b735531c-ec99-4e19-9f43-967d951f8010",
+        "name": "Alicia Rule",
+        "office": "state-house",
+        "districtCode": "042",
+        "contactUrl": null,
+        "email": "alicia.rule@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedemocrats.wa.gov/Rule/",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/ea2c1a95-5b70-4068-8135-8166147bafa9",
+        "name": "Joe Timmons",
+        "office": "state-house",
+        "districtCode": "042",
+        "contactUrl": null,
+        "email": "joe.timmons@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedemocrats.wa.gov/Timmons/",
+        "social": {}
+      }
+    ],
+    "WA:state-house:048": [
+      {
+        "id": "ocd-person/80548fd7-06a0-44f1-b121-7caae4819ed6",
+        "name": "Amy Walen",
+        "office": "state-house",
+        "districtCode": "048",
+        "contactUrl": null,
+        "email": "amy.walen@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedemocrats.wa.gov/legislators/Amy-Walen/",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/428b31d6-ada0-4312-827a-61eab8a622f5",
+        "name": "Osman Salahuddin",
+        "office": "state-house",
+        "districtCode": "048",
+        "contactUrl": null,
+        "email": "osman.salahuddin@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedemocrats.wa.gov/salahuddin/",
+        "social": {}
+      }
+    ],
+    "WA:state-house:002": [
+      {
+        "id": "ocd-person/9c1fefff-fa5a-49aa-90ca-a9ca80b6f669",
+        "name": "Andrew Barkis",
+        "office": "state-house",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "andrew.barkis@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://AndrewBarkis.houserepublicans.wa.gov/",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/fc46a3d0-79cc-4e93-a205-71c79f3d07ef",
+        "name": "Matt Marshall",
+        "office": "state-house",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "matt.marshall@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.wa.gov/legislators/member/matt-marshall",
+        "social": {}
+      }
+    ],
+    "WA:state-house:007": [
+      {
+        "id": "ocd-person/9a2a700c-9c13-4cc5-ab56-7e62327f0c19",
+        "name": "Andrew Engell",
+        "office": "state-house",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "andrew.engell@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://andrewengell.houserepublicans.wa.gov/",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/ea5ab101-aa06-49f0-95b7-81bf9f96967f",
+        "name": "Hunter Abell",
+        "office": "state-house",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "hunter.abell@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://hunterabell.houserepublicans.wa.gov/",
+        "social": {}
+      }
+    ],
+    "WA:state-house:044": [
+      {
+        "id": "ocd-person/aebe068c-accc-4740-9e0d-97d20404ee95",
+        "name": "April Berg",
+        "office": "state-house",
+        "districtCode": "044",
+        "contactUrl": null,
+        "email": "april.berg@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedemocrats.wa.gov/Berg/",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/0f60580f-c121-4661-ae02-5acdfb3923d8",
+        "name": "Brandy Donaghy",
+        "office": "state-house",
+        "districtCode": "044",
+        "contactUrl": null,
+        "email": "brandy.donaghy@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedemocrats.wa.gov/Donaghy/",
+        "social": {}
+      }
+    ],
+    "WA:state-house:008": [
+      {
+        "id": "ocd-person/ee68f6b7-3cb2-4269-90df-ce11e4027c52",
+        "name": "April Connors",
+        "office": "state-house",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "april.connors@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://AprilConnors.houserepublicans.wa.gov/",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/fed97a36-088f-46e6-9b96-ca2d679c955b",
+        "name": "Stephanie Barnard",
+        "office": "state-house",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "stephanie.barnard@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.wa.gov/legislators/member/stephanie-barnard",
+        "social": {}
+      }
+    ],
+    "WA:state-house:022": [
+      {
+        "id": "ocd-person/0bbe7652-d8a7-46aa-bdbc-90b411347343",
+        "name": "Beth Doglio",
+        "office": "state-house",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "beth.doglio@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedemocrats.wa.gov/Doglio/",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/dddbc05c-06fa-4e62-9c7b-96d58cf73aa1",
+        "name": "Lisa Parshley",
+        "office": "state-house",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "lisa.parshley@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedemocrats.wa.gov/parshley/",
+        "social": {}
+      }
+    ],
+    "WA:state-house:012": [
+      {
+        "id": "ocd-person/0bf66a0a-3341-406f-83b8-000c9f4e0176",
+        "name": "Brian Burnett",
+        "office": "state-house",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "brian.burnett@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://brianburnett.houserepublicans.wa.gov/",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/816e7215-dcff-46c3-b1a5-f3c3387b14be",
+        "name": "Mike Steele",
+        "office": "state-house",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "mike.steele@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://houserepublicans.wa.gov/Mike-Steele/",
+        "social": {}
+      }
+    ],
+    "WA:state-house:034": [
+      {
+        "id": "ocd-person/d3e64eee-6a6f-45e4-b47a-bf22e8279670",
+        "name": "Brianna Thomas",
+        "office": "state-house",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "brianna.thomas@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedemocrats.wa.gov/thomas/",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/c9f41cc2-815d-4a97-b354-b6ef3383c1e1",
+        "name": "Joe Fitzgibbon",
+        "office": "state-house",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "joe.fitzgibbon@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedemocrats.wa.gov/Fitzgibbon/",
+        "social": {}
+      }
+    ],
+    "WA:state-house:039": [
+      {
+        "id": "ocd-person/b8603b1c-5df7-4c4d-a785-ed3f5b2284e4",
+        "name": "Carolyn Eslick",
+        "office": "state-house",
+        "districtCode": "039",
+        "contactUrl": null,
+        "email": "carolyn.eslick@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://CarolynEslick.houserepublicans.wa.gov/",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/d3783097-d29a-46e1-a0da-ed7d8cab5a04",
+        "name": "Sam Low",
+        "office": "state-house",
+        "districtCode": "039",
+        "contactUrl": null,
+        "email": "sam.low@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.wa.gov/legislators/member/sam-low",
+        "social": {}
+      }
+    ],
+    "WA:state-house:037": [
+      {
+        "id": "ocd-person/84aaed1c-e50a-4bbc-8f63-afd22e825ec2",
+        "name": "Chipalo Street",
+        "office": "state-house",
+        "districtCode": "037",
+        "contactUrl": null,
+        "email": "chipalo.street@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedemocrats.wa.gov/Street/",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/50800e36-5c44-43d0-b786-7828523e92cd",
+        "name": "Sharon Tomiko Santos",
+        "office": "state-house",
+        "districtCode": "037",
+        "contactUrl": null,
+        "email": "sharontomiko.santos@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedemocrats.wa.gov/legislators/Sharon-Tomiko-Santos/",
+        "social": {}
+      }
+    ],
+    "WA:state-house:015": [
+      {
+        "id": "ocd-person/a0a48572-259f-4a6c-b035-a85b80e187d6",
+        "name": "Chris Corry",
+        "office": "state-house",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "chris.corry@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ChrisCorry.houserepublicans.wa.gov/",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/2dce9967-a2fc-4211-9b1a-bce3b4f32a09",
+        "name": "Jeremie Dufault",
+        "office": "state-house",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "jeremie.dufault@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://houserepublicans.wa.gov/Jeremie-Dufault/",
+        "social": {}
+      }
+    ],
+    "WA:state-house:047": [
+      {
+        "id": "ocd-person/248654b7-4166-4d2d-8578-cbb6d9210e06",
+        "name": "Chris Stearns",
+        "office": "state-house",
+        "districtCode": "047",
+        "contactUrl": null,
+        "email": "chris.stearns@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedemocrats.wa.gov/Stearns/",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/76f7fe2c-a48e-4f55-9607-29c89fe3d203",
+        "name": "Debra Entenman",
+        "office": "state-house",
+        "districtCode": "047",
+        "contactUrl": null,
+        "email": "debra.entenman@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedemocrats.wa.gov/entenman/",
+        "social": {}
+      }
+    ],
+    "WA:state-house:032": [
+      {
+        "id": "ocd-person/c7438b67-c6a5-4048-8a13-a8bc2d99cba6",
+        "name": "Cindy Ryu",
+        "office": "state-house",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "cindy.ryu@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedemocrats.wa.gov/legislators/Cindy-Ryu/",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/f972f883-deca-43fb-9367-52d8878d6234",
+        "name": "Lauren Davis",
+        "office": "state-house",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "lauren.davis@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedemocrats.wa.gov/davis/",
+        "social": {}
+      }
+    ],
+    "WA:state-house:010": [
+      {
+        "id": "ocd-person/9fd9a839-0414-46a4-84b8-7ee0d2f2f09a",
+        "name": "Clyde Shavers",
+        "office": "state-house",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "clyde.shavers@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedemocrats.wa.gov/Shavers/",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/7ab5a10d-3d4a-4187-ac98-9afa60e34b61",
+        "name": "Dave Paul",
+        "office": "state-house",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "dave.paul@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedemocrats.wa.gov/legislators/Dave-Paul/",
+        "social": {}
+      }
+    ],
+    "WA:state-house:025": [
+      {
+        "id": "ocd-person/faa48cee-18ae-434e-8079-c8137dfd4acf",
+        "name": "Cyndy Jacobsen",
+        "office": "state-house",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "cyndy.jacobsen@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://CyndyJacobsen.houserepublicans.wa.gov/",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/cfdb1888-6cdb-459d-bc1a-e8eac9c9c680",
+        "name": "Michael Keaton",
+        "office": "state-house",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "michael.keaton@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.wa.gov/legislators/member/michael-keaton",
+        "social": {}
+      }
+    ],
+    "WA:state-house:028": [
+      {
+        "id": "ocd-person/ff625fe2-be44-459e-8361-73af49b48fbc",
+        "name": "Dan Bronoske",
+        "office": "state-house",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "dan.bronoske@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedemocrats.wa.gov/Bronoske/",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/a203698b-5fe6-4a54-b939-5341937c57ec",
+        "name": "Mari Leavitt",
+        "office": "state-house",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "mari.leavitt@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedemocrats.wa.gov/Leavitt/",
+        "social": {}
+      }
+    ],
+    "WA:state-house:035": [
+      {
+        "id": "ocd-person/6a94e7b0-0c19-4377-ac1d-468d2bd3e892",
+        "name": "Dan Griffey",
+        "office": "state-house",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "dan.griffey@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://DanGriffey.houserepublicans.wa.gov/",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/d1fd0f7b-a1d2-4af6-a9b7-3212e9fadc72",
+        "name": "Travis Couture",
+        "office": "state-house",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "travis.couture@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.wa.gov/legislators/member/travis-couture",
+        "social": {}
+      }
+    ],
+    "WA:state-house:046": [
+      {
+        "id": "ocd-person/1effdaf6-73b9-413e-8161-8d2e7080d8df",
+        "name": "Darya Farivar",
+        "office": "state-house",
+        "districtCode": "046",
+        "contactUrl": null,
+        "email": "darya.farivar@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedemocrats.wa.gov/Farivar/",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/7f883cd5-f6d1-499c-b14f-0fa2774a0c5c",
+        "name": "Gerry Pollet",
+        "office": "state-house",
+        "districtCode": "046",
+        "contactUrl": null,
+        "email": "gerry.pollet@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedemocrats.wa.gov/legislators/Gerry-Pollet/",
+        "social": {}
+      }
+    ],
+    "WA:state-house:017": [
+      {
+        "id": "ocd-person/962ff818-cdb3-4874-9918-9bd4c6da84a9",
+        "name": "Dave Stuebe",
+        "office": "state-house",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "david.stuebe@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://davidstuebe.houserepublicans.wa.gov/",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/8310a7ed-ce79-4b0e-b13a-7857230bfcde",
+        "name": "Kevin Waters",
+        "office": "state-house",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "kevin.waters@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://KevinWaters.houserepublicans.wa.gov/",
+        "social": {}
+      }
+    ],
+    "WA:state-house:011": [
+      {
+        "id": "ocd-person/c6f2fa42-706f-41eb-a9bd-b664b593f5a2",
+        "name": "David Hackney",
+        "office": "state-house",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "david.hackney@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedemocrats.wa.gov/Hackney/",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/89960b3d-2697-4941-8682-9a4888b70ff0",
+        "name": "Steve Bergquist",
+        "office": "state-house",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "steve.bergquist@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedemocrats.wa.gov/Bergquist/",
+        "social": {}
+      }
+    ],
+    "WA:state-house:001": [
+      {
+        "id": "ocd-person/5fd91c2d-1223-47e4-8133-ef0da7ef1898",
+        "name": "Davina Duerr",
+        "office": "state-house",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "davina.duerr@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedemocrats.wa.gov/Duerr/",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/e802bd51-458a-4976-b7ad-25ba4ceb0581",
+        "name": "Shelley Kloba",
+        "office": "state-house",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "shelley.kloba@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedemocrats.wa.gov/Kloba/",
+        "social": {}
+      }
+    ],
+    "WA:state-house:014": [
+      {
+        "id": "ocd-person/ec21159d-30a2-4a4c-9053-c0a5f446258d",
+        "name": "Deb Manjarrez",
+        "office": "state-house",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "deb.manjarrez@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://debmanjarrez.houserepublicans.wa.gov/",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/6dbc3b79-02db-49cf-af23-b9a01ee86c7c",
+        "name": "Gloria Mendoza",
+        "office": "state-house",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "gloria.mendoza@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gloriamendoza.houserepublicans.wa.gov/",
+        "social": {}
+      }
+    ],
+    "WA:state-house:031": [
+      {
+        "id": "ocd-person/d6399a90-9938-429f-a433-1dd9755de1f6",
+        "name": "Drew Stokesbary",
+        "office": "state-house",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "drew.stokesbary@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://DrewStokesbary.houserepublicans.wa.gov/",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/e42edd00-010a-4144-8df0-5da6088095d7",
+        "name": "Josh Penner",
+        "office": "state-house",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "joshua.penner@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://joshuapenner.houserepublicans.wa.gov/",
+        "social": {}
+      }
+    ],
+    "WA:state-house:020": [
+      {
+        "id": "ocd-person/afd768fd-c4fc-4ee9-a845-2183793ebe0e",
+        "name": "Ed Orcutt",
+        "office": "state-house",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "ed.orcutt@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://EdOrcutt.houserepublicans.wa.gov/",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/e227d7d6-49f5-4c75-a754-e54f2447e664",
+        "name": "Peter Abbarno",
+        "office": "state-house",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "peter.abbarno@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.wa.gov/legislators/member/peter-abbarno",
+        "social": {}
+      }
+    ],
+    "WA:state-house:033": [
+      {
+        "id": "ocd-person/1080a635-b37e-459b-89ed-8137d4c8f2dc",
+        "name": "Edwin Obras",
+        "office": "state-house",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "edwin.obras@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedemocrats.wa.gov/obras/",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/e9244579-d4da-4320-bbae-a1c604a17c75",
+        "name": "Mia Gregerson",
+        "office": "state-house",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "mia.gregerson@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedemocrats.wa.gov/Gregerson/",
+        "social": {}
+      }
+    ],
+    "WA:state-house:023": [
+      {
+        "id": "ocd-person/e7caacff-8129-4f34-805a-abc2265e868d",
+        "name": "Greg Nance",
+        "office": "state-house",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "greg.nance@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedemocrats.wa.gov/Nance/",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/b6b3538a-d8ce-409f-a0e8-8f517037d748",
+        "name": "Tarra Simmons",
+        "office": "state-house",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "tarra.simmons@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedemocrats.wa.gov/Simmons/",
+        "social": {}
+      }
+    ],
+    "WA:state-house:027": [
+      {
+        "id": "ocd-person/4ed1ee96-ea0f-4fc6-9c74-14cea6328716",
+        "name": "Jake Fey",
+        "office": "state-house",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "jake.fey@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedemocrats.wa.gov/Fey/",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/072af7b6-1fdb-44c5-a6b9-3e3383873231",
+        "name": "Laurie Jinkins",
+        "office": "state-house",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "laurie.jinkins@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedemocrats.wa.gov/Jinkins/",
+        "social": {}
+      }
+    ],
+    "WA:state-house:030": [
+      {
+        "id": "ocd-person/9ed4e759-d24a-48f1-a691-635984357174",
+        "name": "Jamila Taylor",
+        "office": "state-house",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "jamila.taylor@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedemocrats.wa.gov/Taylor/",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/93110c28-de58-4b9c-8681-85ee5ad9c339",
+        "name": "Kristine Reeves",
+        "office": "state-house",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "kristine.reeves@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedemocrats.wa.gov/legislators/Kristine-Reeves/",
+        "social": {}
+      }
+    ],
+    "WA:state-house:041": [
+      {
+        "id": "ocd-person/25b3a4f1-c767-49db-9d8a-217592e5b3a0",
+        "name": "Janice Zahn",
+        "office": "state-house",
+        "districtCode": "041",
+        "contactUrl": null,
+        "email": "janice.zahn@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedemocrats.wa.gov/zahn/",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/581f4e17-5947-4df8-8440-6f267ef7b528",
+        "name": "My-Linh Thai",
+        "office": "state-house",
+        "districtCode": "041",
+        "contactUrl": null,
+        "email": "my-linh.thai@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedemocrats.wa.gov/legislators/My-Linh-Thai/",
+        "social": {}
+      }
+    ],
+    "WA:state-house:006": [
+      {
+        "id": "ocd-person/591e8fb8-a660-4769-a9b1-3c085281b5c5",
+        "name": "Jenny Graham",
+        "office": "state-house",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "jenny.graham@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://houserepublicans.wa.gov/Jenny-Graham/",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/54f84d93-982c-4028-8c94-ccd250ae6896",
+        "name": "Mike Volz",
+        "office": "state-house",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "mike.volz@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://houserepublicans.wa.gov/Mike-Volz/",
+        "social": {}
+      }
+    ],
+    "WA:state-house:019": [
+      {
+        "id": "ocd-person/3c66c8e4-ae7a-4297-99e9-618336e215ea",
+        "name": "Jim Walsh",
+        "office": "state-house",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "jim.walsh@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://houserepublicans.wa.gov/Jim-Walsh/",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/dcc383e0-945d-4580-b8fd-e0914e1af1f0",
+        "name": "Joel McEntire",
+        "office": "state-house",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "joel.mcentire@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://JoelMcEntire.houserepublicans.wa.gov/",
+        "social": {}
+      }
+    ],
+    "WA:state-house:009": [
+      {
+        "id": "ocd-person/eedeb2a4-a7f1-414c-b9d0-504c4450f3f6",
+        "name": "Joe Schmick",
+        "office": "state-house",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "joe.schmick@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://houserepublicans.wa.gov/Joe-Schmick/",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/69c32c6a-707c-4789-823c-30462b054bcf",
+        "name": "Mary Dye",
+        "office": "state-house",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "mary.dye@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://houserepublicans.wa.gov/Mary-Dye/",
+        "social": {}
+      }
+    ],
+    "WA:state-house:018": [
+      {
+        "id": "ocd-person/24366911-f15b-48a4-a8e8-b1e30a3d0d24",
+        "name": "John Ley",
+        "office": "state-house",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "john.ley@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://johnley.houserepublicans.wa.gov/",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/4b9b64c6-60eb-4d41-8b52-2f0b3f1ce2a8",
+        "name": "Stephanie McClintock",
+        "office": "state-house",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "stephanie.mcclintock@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.wa.gov/legislators/member/stephanie-mcclintock",
+        "social": {}
+      }
+    ],
+    "WA:state-house:036": [
+      {
+        "id": "ocd-person/f99df1f1-a5ee-4fba-b497-e04ac6e4972d",
+        "name": "Julia Reed",
+        "office": "state-house",
+        "districtCode": "036",
+        "contactUrl": null,
+        "email": "julia.reed@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedemocrats.wa.gov/Reed/",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/1c9235d6-a9c2-420e-991c-94281108df59",
+        "name": "Liz Berry",
+        "office": "state-house",
+        "districtCode": "036",
+        "contactUrl": null,
+        "email": "liz.berry@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedemocrats.wa.gov/Berry/",
+        "social": {}
+      }
+    ],
+    "WA:state-house:038": [
+      {
+        "id": "ocd-person/0805e7bc-f274-4f20-81b4-e8e86951eaba",
+        "name": "Julio Cortes",
+        "office": "state-house",
+        "districtCode": "038",
+        "contactUrl": null,
+        "email": "julio.cortes@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedemocrats.wa.gov/Cortes/",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/0f013ac8-914a-4ade-acbd-de309228f174",
+        "name": "Mary Fosse",
+        "office": "state-house",
+        "districtCode": "038",
+        "contactUrl": null,
+        "email": "mary.fosse@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedemocrats.wa.gov/Fosse/",
+        "social": {}
+      }
+    ],
+    "WA:state-house:045": [
+      {
+        "id": "ocd-person/a677ddb3-2d16-479d-aeaf-7d90e7c17509",
+        "name": "Larry Springer",
+        "office": "state-house",
+        "districtCode": "045",
+        "contactUrl": null,
+        "email": "larry.springer@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedemocrats.wa.gov/legislators/Larry-Springer/",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/c9908a1e-4d33-45e2-9caa-ace8a8232d7e",
+        "name": "Roger Goodman",
+        "office": "state-house",
+        "districtCode": "045",
+        "contactUrl": null,
+        "email": "roger.goodman@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedemocrats.wa.gov/Goodman/",
+        "social": {}
+      }
+    ],
+    "WA:state-house:021": [
+      {
+        "id": "ocd-person/09d83bae-b84b-436e-8d7f-5cebc05e74a3",
+        "name": "Lillian Ortiz-Self",
+        "office": "state-house",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "lillian.ortiz-self@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedemocrats.wa.gov/legislators/Lillian-Ortiz-Self/",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/361c95de-b7b2-434f-bdea-89fbb3896fea",
+        "name": "Strom Peterson",
+        "office": "state-house",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "strom.peterson@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedemocrats.wa.gov/legislators/Strom-Peterson/",
+        "social": {}
+      }
+    ],
+    "WA:state-house:005": [
+      {
+        "id": "ocd-person/c1457fe8-6e6a-4fc8-96e9-63b23fc90ef8",
+        "name": "Lisa Callan",
+        "office": "state-house",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "lisa.callan@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedemocrats.wa.gov/Callan/",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/f3102335-786a-43e1-a941-af86138a9fd1",
+        "name": "Zach Hall",
+        "office": "state-house",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "zach.hall@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedemocrats.wa.gov/Hall/",
+        "social": {}
+      }
+    ],
+    "WA:state-house:016": [
+      {
+        "id": "ocd-person/db28a021-1409-4f8f-8d2b-4a2f8c2243ef",
+        "name": "Mark Klicker",
+        "office": "state-house",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "mark.klicker@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.wa.gov/legislators/member/mark-klicker",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/43c0e02f-19f5-4c29-bcb7-e9975baa0e61",
+        "name": "Skyler Rude",
+        "office": "state-house",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "skyler.rude@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://houserepublicans.wa.gov/Skyler-Rude/",
+        "social": {}
+      }
+    ],
+    "WA:state-house:029": [
+      {
+        "id": "ocd-person/4929d403-f712-4fe4-9e99-ed62ad22b44f",
+        "name": "Melanie Morgan",
+        "office": "state-house",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "melanie.morgan@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedemocrats.wa.gov/legislators/Melanie-Morgan/",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/bae8eb88-3355-400e-82d6-f60101b8daed",
+        "name": "Sharlett Mena",
+        "office": "state-house",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "sharlett.mena@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedemocrats.wa.gov/Mena/",
+        "social": {}
+      }
+    ],
+    "WA:state-house:049": [
+      {
+        "id": "ocd-person/fabb9834-0e6d-476b-ba0f-50d4ecf74a43",
+        "name": "Monica Stonier",
+        "office": "state-house",
+        "districtCode": "049",
+        "contactUrl": null,
+        "email": "monica.stonier@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedemocrats.wa.gov/legislators/Monica-Jurado-Stonier/",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/6f15e225-ea56-4f95-90c6-64627f367424",
+        "name": "Sharon Wylie",
+        "office": "state-house",
+        "districtCode": "049",
+        "contactUrl": null,
+        "email": "sharon.wylie@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedemocrats.wa.gov/legislators/Sharon-Wylie/",
+        "social": {}
+      }
+    ],
+    "WA:state-house:003": [
+      {
+        "id": "ocd-person/80b680f5-3fef-4c62-9064-4a8b516deb0f",
+        "name": "Natasha Hill",
+        "office": "state-house",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "natasha.hill@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedemocrats.wa.gov/hill/",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/77fe53b5-3ed7-48b2-9c9a-1b59d5faf50f",
+        "name": "Timm Ormsby",
+        "office": "state-house",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "timm.ormsby@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedemocrats.wa.gov/legislators/Timm-Ormsby/",
+        "social": {}
+      }
+    ],
+    "WA:state-house:043": [
+      {
+        "id": "ocd-person/989733b9-6846-465f-9ed6-44b1b823e7c4",
+        "name": "Nicole Macri",
+        "office": "state-house",
+        "districtCode": "043",
+        "contactUrl": null,
+        "email": "nicole.macri@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedemocrats.wa.gov/legislators/Nicole-Macri/",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/a9d8dd35-6335-42b6-a93b-66be8bd92a56",
+        "name": "Shaun Scott",
+        "office": "state-house",
+        "districtCode": "043",
+        "contactUrl": null,
+        "email": "shaun.scott@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedemocrats.wa.gov/scott/",
+        "social": {}
+      }
+    ],
+    "WA:state-house:004": [
+      {
+        "id": "ocd-person/359ededd-b78a-4d25-98f7-6bc5b01876bc",
+        "name": "Rob Chase",
+        "office": "state-house",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "rob.chase@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.wa.gov/legislators/member/rob-chase",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/31197273-764c-4520-b5dc-bc85695bf36f",
+        "name": "Suzanne Schmidt",
+        "office": "state-house",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "suzanne.schmidt@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.wa.gov/legislators/member/suzanne-schmidt",
+        "social": {}
+      }
+    ],
+    "WA:state-senate:018": [
+      {
+        "id": "ocd-person/3f71f11c-c231-4661-af2a-629d2eb32580",
+        "name": "Adrian Cortes",
+        "office": "state-senate",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "adrian.cortes@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.wa.gov/legislators/member/adrian-cortes",
+        "social": {}
+      }
+    ],
+    "WA:state-senate:049": [
+      {
+        "id": "ocd-person/50c73eec-2f66-450b-b8b4-b8bce995e221",
+        "name": "Annette Cleveland",
+        "office": "state-senate",
+        "districtCode": "049",
+        "contactUrl": null,
+        "email": "annette.cleveland@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.wa.gov/legislators/member/annette-cleveland",
+        "social": {}
+      }
+    ],
+    "WA:state-senate:011": [
+      {
+        "id": "ocd-person/86f82668-8d68-45c5-bbcd-a5557b4dad54",
+        "name": "Bob Hasegawa",
+        "office": "state-senate",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "bob.hasegawa@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.wa.gov/legislators/member/bob-hasegawa",
+        "social": {}
+      }
+    ],
+    "WA:state-senate:025": [
+      {
+        "id": "ocd-person/1e20aaf3-ffbb-4666-82c2-374b232b41ac",
+        "name": "Chris Gildon",
+        "office": "state-senate",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "chris.gildon@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ChrisGildon.src.wastateleg.org/",
+        "social": {}
+      }
+    ],
+    "WA:state-senate:030": [
+      {
+        "id": "ocd-person/d2d282e4-8f73-46f9-8cb1-3beadd003b44",
+        "name": "Claire Wilson",
+        "office": "state-senate",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "claire.wilson@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.wa.gov/legislators/member/claire-wilson",
+        "social": {}
+      }
+    ],
+    "WA:state-senate:047": [
+      {
+        "id": "ocd-person/04ed2bc3-648f-4924-8183-1e593572e894",
+        "name": "Claudia Kauffman",
+        "office": "state-senate",
+        "districtCode": "047",
+        "contactUrl": null,
+        "email": "claudia.kauffman@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.wa.gov/legislators/member/claudia-kauffman",
+        "social": {}
+      }
+    ],
+    "WA:state-senate:014": [
+      {
+        "id": "ocd-person/a8e7617c-7cbb-45ed-a577-3dd7341a3bd7",
+        "name": "Curtis King",
+        "office": "state-senate",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "curtis.king@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://CurtisKing.src.wastateleg.org/",
+        "social": {}
+      }
+    ],
+    "WA:state-senate:026": [
+      {
+        "id": "ocd-person/acfe43e5-6535-4c75-b38b-66322c90f54f",
+        "name": "Deb Krishnadasan",
+        "office": "state-senate",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "deborah.krishnadasan@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.wa.gov/legislators/member/deborah-krishnadasan",
+        "social": {}
+      }
+    ],
+    "WA:state-senate:001": [
+      {
+        "id": "ocd-person/25ac8674-b208-4d11-a579-c58c004f825e",
+        "name": "Derek Stanford",
+        "office": "state-senate",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "derek.stanford@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.wa.gov/legislators/member/derek-stanford",
+        "social": {}
+      }
+    ],
+    "WA:state-senate:023": [
+      {
+        "id": "ocd-person/25a5746b-d7c3-425c-a5b4-a942f86576f2",
+        "name": "Drew Hansen",
+        "office": "state-senate",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "drew.hansen@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedemocrats.wa.gov/Hansen/",
+        "social": {}
+      }
+    ],
+    "WA:state-senate:035": [
+      {
+        "id": "ocd-person/908379de-8759-4a6f-97ee-7dbcf2f32fcc",
+        "name": "Drew MacEwen",
+        "office": "state-senate",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "drew.macewen@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://DrewMacEwen.houserepublicans.wa.gov/",
+        "social": {}
+      }
+    ],
+    "WA:state-senate:034": [
+      {
+        "id": "ocd-person/950b27fd-99cb-43a2-b594-9f721e1b1844",
+        "name": "Emily Alvarado",
+        "office": "state-senate",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "emily.alvarado@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.wa.gov/legislators/member/emily-alvarado",
+        "social": {}
+      }
+    ],
+    "WA:state-senate:043": [
+      {
+        "id": "ocd-person/f6d8dcb4-c212-4f2b-a043-a541e47dede0",
+        "name": "Jamie Pedersen",
+        "office": "state-senate",
+        "districtCode": "043",
+        "contactUrl": null,
+        "email": "jamie.pedersen@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.wa.gov/legislators/member/jamie-pedersen",
+        "social": {}
+      }
+    ],
+    "WA:state-senate:046": [
+      {
+        "id": "ocd-person/aba2c522-236c-4553-bda2-c02d72e79981",
+        "name": "Javier Valdez",
+        "office": "state-senate",
+        "districtCode": "046",
+        "contactUrl": null,
+        "email": "javier.valdez@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.wa.gov/legislators/member/javier-valdez",
+        "social": {}
+      }
+    ],
+    "WA:state-senate:006": [
+      {
+        "id": "ocd-person/0396b4de-01b1-4784-a604-aafc516f5e39",
+        "name": "Jeff Holy",
+        "office": "state-senate",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "jeff.holy@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://JeffHoly.src.wastateleg.org/",
+        "social": {}
+      }
+    ],
+    "WA:state-senate:019": [
+      {
+        "id": "ocd-person/7f7dab20-f60b-494e-a8b1-6527165777fb",
+        "name": "Jeff Wilson",
+        "office": "state-senate",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "jeff.wilson@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://JeffWilson.src.wastateleg.org/",
+        "social": {}
+      }
+    ],
+    "WA:state-senate:032": [
+      {
+        "id": "ocd-person/f2eae839-31f5-4f33-be94-b532774da896",
+        "name": "Jesse Salomon",
+        "office": "state-senate",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "jesse.salomon@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.wa.gov/legislators/member/jesse-salomon",
+        "social": {}
+      }
+    ],
+    "WA:state-senate:022": [
+      {
+        "id": "ocd-person/ea4e5e77-aa55-421f-8ac5-48c65fbc2ab0",
+        "name": "Jess Bateman",
+        "office": "state-senate",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "jessica.bateman@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.wa.gov/legislators/member/17117",
+        "social": {}
+      }
+    ],
+    "WA:state-senate:002": [
+      {
+        "id": "ocd-person/fc68fcd2-66ca-481a-b699-7a4ba113d4d7",
+        "name": "Jim McCune",
+        "office": "state-senate",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "jim.mccune@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://JimMcCune.src.wastateleg.org/",
+        "social": {}
+      }
+    ],
+    "WA:state-senate:020": [
+      {
+        "id": "ocd-person/b4856c5b-d3e0-4227-a4c0-ff6abe81fda7",
+        "name": "John Braun",
+        "office": "state-senate",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "john.braun@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://JohnBraun.src.wastateleg.org/",
+        "social": {}
+      }
+    ],
+    "WA:state-senate:044": [
+      {
+        "id": "ocd-person/9849a792-2307-40c8-97ae-388d731fa89b",
+        "name": "John Lovick",
+        "office": "state-senate",
+        "districtCode": "044",
+        "contactUrl": null,
+        "email": "john.lovick@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.wa.gov/legislators/member/john-lovick",
+        "social": {}
+      }
+    ],
+    "WA:state-senate:013": [
+      {
+        "id": "ocd-person/cce36d0b-a3d8-4375-bf70-06760a2eebc3",
+        "name": "Judy Warnick",
+        "office": "state-senate",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "judy.warnick@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://JudyWarnick.src.wastateleg.org/",
+        "social": {}
+      }
+    ],
+    "WA:state-senate:038": [
+      {
+        "id": "ocd-person/4f14e499-9199-43c4-a4c0-9d7320b9d769",
+        "name": "June Robinson",
+        "office": "state-senate",
+        "districtCode": "038",
+        "contactUrl": null,
+        "email": "june.robinson@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedemocrats.wa.gov/legislators/June-Robinson/",
+        "social": {}
+      }
+    ],
+    "WA:state-senate:012": [
+      {
+        "id": "ocd-person/f1d29afa-f381-46f2-a6e4-17ab801b3fdb",
+        "name": "Keith Goehner",
+        "office": "state-senate",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "keith.goehner@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://houserepublicans.wa.gov/Keith-Goehner/",
+        "social": {}
+      }
+    ],
+    "WA:state-senate:039": [
+      {
+        "id": "ocd-person/71e64843-6301-40ba-bafc-633ee347c482",
+        "name": "Keith Wagoner",
+        "office": "state-senate",
+        "districtCode": "039",
+        "contactUrl": null,
+        "email": "keith.wagoner@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://KeithWagoner.src.wastateleg.org/",
+        "social": {}
+      }
+    ],
+    "WA:state-senate:004": [
+      {
+        "id": "ocd-person/4d01a3aa-64e5-439d-9574-c1b749c1d52a",
+        "name": "Leonard Christian",
+        "office": "state-senate",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "leonard.christian@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.wa.gov/legislators/member/leonard-christian",
+        "social": {}
+      }
+    ],
+    "WA:state-senate:041": [
+      {
+        "id": "ocd-person/0c274c6c-6813-4a77-b7ed-5576e9989493",
+        "name": "Lisa Wellman",
+        "office": "state-senate",
+        "districtCode": "041",
+        "contactUrl": null,
+        "email": "lisa.wellman@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.wa.gov/legislators/member/lisa-wellman",
+        "social": {}
+      }
+    ],
+    "WA:state-senate:040": [
+      {
+        "id": "ocd-person/f82a6162-120e-4bf2-90c4-02e22278d96e",
+        "name": "Liz Lovelett",
+        "office": "state-senate",
+        "districtCode": "040",
+        "contactUrl": null,
+        "email": "liz.lovelett@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.wa.gov/legislators/member/liz-lovelett",
+        "social": {}
+      }
+    ],
+    "WA:state-senate:045": [
+      {
+        "id": "ocd-person/92192e1a-e86f-4605-9d7d-ce4a922681f0",
+        "name": "Manka Dhingra",
+        "office": "state-senate",
+        "districtCode": "045",
+        "contactUrl": null,
+        "email": "manka.dhingra@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.wa.gov/legislators/member/manka-dhingra",
+        "social": {}
+      }
+    ],
+    "WA:state-senate:003": [
+      {
+        "id": "ocd-person/1ecc75cc-95c9-4ae6-a8a4-1a0f87a10d0e",
+        "name": "Marcus Riccelli",
+        "office": "state-senate",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "marcus.riccelli@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.wa.gov/legislators/member/marcus-riccelli",
+        "social": {}
+      }
+    ],
+    "WA:state-senate:009": [
+      {
+        "id": "ocd-person/1f837050-2dca-48fa-b429-a562d1c858f8",
+        "name": "Mark Schoesler",
+        "office": "state-senate",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "mark.schoesler@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.wa.gov/legislators/member/mark-schoesler",
+        "social": {}
+      }
+    ],
+    "WA:state-senate:021": [
+      {
+        "id": "ocd-person/3aa56ec5-a087-40b1-960a-acb9426ccb2a",
+        "name": "Marko Liias",
+        "office": "state-senate",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "marko.liias@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.wa.gov/legislators/member/marko-liias",
+        "social": {}
+      }
+    ],
+    "WA:state-senate:008": [
+      {
+        "id": "ocd-person/bfbe4a83-bf2f-45da-83c6-5ac1225ff0b8",
+        "name": "Matt Boehnke",
+        "office": "state-senate",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "matt.boehnke@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://houserepublicans.wa.gov/Matt-Boehnke/",
+        "social": {}
+      }
+    ],
+    "WA:state-senate:024": [
+      {
+        "id": "ocd-person/ea005988-0e0d-4fd2-9960-91083ae8ab25",
+        "name": "Mike Chapman",
+        "office": "state-senate",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "mike.chapman@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.wa.gov/legislators/member/mike-chapman",
+        "social": {}
+      }
+    ],
+    "WA:state-senate:015": [
+      {
+        "id": "ocd-person/10ad8a88-bd96-4a0d-9b8f-099b8cdfa35b",
+        "name": "Nikki Torres",
+        "office": "state-senate",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "nikki.torres@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.wa.gov/legislators/member/nikki-torres",
+        "social": {}
+      }
+    ],
+    "WA:state-senate:036": [
+      {
+        "id": "ocd-person/e9b85600-e33e-4a0a-af9f-bbcb98c0153f",
+        "name": "Noel Frame",
+        "office": "state-senate",
+        "districtCode": "036",
+        "contactUrl": null,
+        "email": "noel.frame@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.wa.gov/legislators/member/noel-frame",
+        "social": {}
+      }
+    ],
+    "WA:state-senate:017": [
+      {
+        "id": "ocd-person/053234a7-c97e-41f7-8b71-c96cf19c80d7",
+        "name": "Paul Harris",
+        "office": "state-senate",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "paul.harris@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://houserepublicans.wa.gov/Paul-Harris/",
+        "social": {}
+      }
+    ],
+    "WA:state-senate:016": [
+      {
+        "id": "ocd-person/b7caabda-31e5-48b5-a4b1-82d2bffae0ae",
+        "name": "Perry Dozier",
+        "office": "state-senate",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "perry.dozier@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.wa.gov/legislators/member/perry-dozier",
+        "social": {}
+      }
+    ],
+    "WA:state-senate:031": [
+      {
+        "id": "ocd-person/2d0faef3-45a8-489c-84bd-9491c8ce0315",
+        "name": "Phil Fortunato",
+        "office": "state-senate",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "phil.fortunato@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.wa.gov/legislators/member/phil-fortunato",
+        "social": {}
+      }
+    ],
+    "WA:state-senate:037": [
+      {
+        "id": "ocd-person/1d4a95b2-4a4f-4acb-b5c6-64850b8e34b9",
+        "name": "Rebecca Saldaña",
+        "office": "state-senate",
+        "districtCode": "037",
+        "contactUrl": null,
+        "email": "rebecca.saldana@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.wa.gov/legislators/member/rebecca-salda%C3%B1a",
+        "social": {}
+      }
+    ],
+    "WA:state-senate:010": [
+      {
+        "id": "ocd-person/57efa2de-d8dc-4d0b-92a3-7ca12549c339",
+        "name": "Ron Muzzall",
+        "office": "state-senate",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "ron.muzzall@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.wa.gov/legislators/member/ron-muzzall",
+        "social": {}
+      }
+    ],
+    "WA:state-senate:042": [
+      {
+        "id": "ocd-person/d95d04c7-e3d0-4120-91c6-2bbeba4c8acb",
+        "name": "Sharon Shewmake",
+        "office": "state-senate",
+        "districtCode": "042",
+        "contactUrl": null,
+        "email": "sharon.shewmake@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.wa.gov/legislators/member/sharon-shewmake",
+        "social": {}
+      }
+    ],
+    "WA:state-senate:007": [
+      {
+        "id": "ocd-person/a45d8fe7-d052-4d18-bc5f-b5911948d42c",
+        "name": "Shelly Short",
+        "office": "state-senate",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "shelly.short@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.wa.gov/legislators/member/shelly-short",
+        "social": {}
+      }
+    ],
+    "WA:state-senate:029": [
+      {
+        "id": "ocd-person/0999a0d6-1c62-47cf-aa0d-8250967d3a10",
+        "name": "Steve Conway",
+        "office": "state-senate",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "steve.conway@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.wa.gov/legislators/member/steve-conway",
+        "social": {}
+      }
+    ],
+    "WA:state-senate:033": [
+      {
+        "id": "ocd-person/ef711ad1-b4e6-44c9-a971-7d57e8140f04",
+        "name": "Tina Orwall",
+        "office": "state-senate",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "tina.orwall@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.wa.gov/legislators/member/tina-orwall",
+        "social": {}
+      }
+    ],
+    "WA:state-senate:028": [
+      {
+        "id": "ocd-person/dd5d76ce-7efe-4c95-aae3-a59a4676fe78",
+        "name": "T'wina Nobles",
+        "office": "state-senate",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "t'wina.nobles@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.wa.gov/legislators/member/t'wina-nobles",
+        "social": {}
+      }
+    ],
+    "WA:state-senate:048": [
+      {
+        "id": "ocd-person/22583293-d377-4c51-84ca-d00ba4d7e944",
+        "name": "Vandana Slatter",
+        "office": "state-senate",
+        "districtCode": "048",
+        "contactUrl": null,
+        "email": "vandana.slatter@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.wa.gov/legislators/member/vandana-slatter",
+        "social": {}
+      }
+    ],
+    "WA:state-senate:005": [
+      {
+        "id": "ocd-person/74dcb0ee-cec8-4a8f-be68-954b2c0fa5f7",
+        "name": "Victoria Hunt",
+        "office": "state-senate",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "victoria.hunt@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.wa.gov/legislators/member/victoria-hunt",
+        "social": {}
+      }
+    ],
+    "WA:state-senate:027": [
+      {
+        "id": "ocd-person/28de7c48-9b66-4597-a15f-ce7b132fba5a",
+        "name": "Yasmin Trudeau",
+        "office": "state-senate",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "yasmin.trudeau@leg.wa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.wa.gov/legislators/member/yasmin-trudeau",
+        "social": {}
+      }
+    ]
+  }
+}

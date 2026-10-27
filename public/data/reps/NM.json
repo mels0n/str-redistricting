@@ -1,0 +1,1779 @@
+{
+  "state": "NM",
+  "generatedFrom": {
+    "legislators-current.json": "ae8cb9477c48715df71a7d860854229d799dc90a254d61badc1efb770f892b2c",
+    "legislators-social-media.json": "c6eca1fcdb3a89901335eed51ca061daa4b60ad3243969a127e913bb9657fbc5",
+    "nm.csv": "25b4ec994db7c039c958a552f282d8a658f47ccc89432681659a57d40cc0724c"
+  },
+  "byKey": {
+    "NM:us-senate:00": [
+      {
+        "id": "H001046",
+        "name": "Martin Heinrich",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.heinrich.senate.gov/contact",
+        "email": null,
+        "phone": "202-224-5521",
+        "address": "709 Hart Senate Office Building Washington DC 20510",
+        "website": "https://www.heinrich.senate.gov",
+        "social": {
+          "x": "MartinHeinrich",
+          "facebook": "MartinHeinrich",
+          "instagram": "senatormartinheinrich"
+        }
+      },
+      {
+        "id": "L000570",
+        "name": "Ben Ray Luján",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.lujan.senate.gov/contact/",
+        "email": null,
+        "phone": "202-224-6621",
+        "address": "498 Russell Senate Office Building Washington DC 20510",
+        "website": "https://www.lujan.senate.gov",
+        "social": {
+          "x": "SenatorLujan",
+          "facebook": "SenatorLujan",
+          "instagram": "senatorlujan"
+        }
+      }
+    ],
+    "NM:us-house:03": [
+      {
+        "id": "L000273",
+        "name": "Teresa Leger Fernandez",
+        "office": "us-house",
+        "districtCode": "03",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-6190",
+        "address": "2417 Rayburn House Office Building Washington DC 20515-3103",
+        "website": "https://fernandez.house.gov",
+        "social": {
+          "x": "RepTeresaLF",
+          "facebook": "RepTeresaLF",
+          "instagram": "repteresalf"
+        }
+      }
+    ],
+    "NM:us-house:01": [
+      {
+        "id": "S001218",
+        "name": "Melanie A. Stansbury",
+        "office": "us-house",
+        "districtCode": "01",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-6316",
+        "address": "1421 Longworth House Office Building Washington DC 20515-3101",
+        "website": "https://stansbury.house.gov",
+        "social": {
+          "x": "Rep_Stansbury",
+          "facebook": "RepStansbury"
+        }
+      }
+    ],
+    "NM:us-house:02": [
+      {
+        "id": "V000136",
+        "name": "Gabe Vasquez",
+        "office": "us-house",
+        "districtCode": "02",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2365",
+        "address": "322 Cannon House Office Building Washington DC 20515-3102",
+        "website": "https://vasquez.house.gov",
+        "social": {
+          "x": "RepGabeVasquez",
+          "facebook": "100089328694464",
+          "instagram": "RepGabeVasquez"
+        }
+      }
+    ],
+    "NM:state-house:023": [
+      {
+        "id": "ocd-person/be61f240-c0ad-4a98-8ad5-d30f4c5f4a06",
+        "name": "Alan Martinez",
+        "office": "state-house",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "alan.martinez@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HMAAL",
+        "social": {}
+      }
+    ],
+    "NM:state-house:064": [
+      {
+        "id": "ocd-person/c4caca3c-faa3-445f-91e0-cce9edd53a5a",
+        "name": "Andi Reeb",
+        "office": "state-house",
+        "districtCode": "064",
+        "contactUrl": null,
+        "email": "andrea.reeb@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HREEB",
+        "social": {}
+      }
+    ],
+    "NM:state-house:046": [
+      {
+        "id": "ocd-person/ed0ba54a-4fc3-4c50-aa0d-f74b1f0e86f6",
+        "name": "Andrea Romero",
+        "office": "state-house",
+        "districtCode": "046",
+        "contactUrl": null,
+        "email": "andrea@andrearomero.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.linkedin.com/in/andreadromero/",
+        "social": {
+          "x": "aromero_nm",
+          "facebook": "andrearomeronm46",
+          "instagram": "andrearomero_nm46"
+        }
+      }
+    ],
+    "NM:state-house:035": [
+      {
+        "id": "ocd-person/ea2a9403-248c-4474-aea0-47b45265e0be",
+        "name": "Angelica Rubio",
+        "office": "state-house",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "angelica.rubio@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.linkedin.com/in/angelicarubio/",
+        "social": {
+          "x": "anrubio",
+          "facebook": "RubioNM35",
+          "instagram": "roguerubio"
+        }
+      }
+    ],
+    "NM:state-house:058": [
+      {
+        "id": "ocd-person/75986bbd-3629-4520-a770-f86c46f423ab",
+        "name": "Angelita Mejia",
+        "office": "state-house",
+        "districtCode": "058",
+        "contactUrl": null,
+        "email": "angelita.mejia@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HMEAN",
+        "social": {}
+      }
+    ],
+    "NM:state-house:070": [
+      {
+        "id": "ocd-person/ee127909-55b5-4854-b3c6-2e45e19b7156",
+        "name": "Anita Gonzales",
+        "office": "state-house",
+        "districtCode": "070",
+        "contactUrl": null,
+        "email": "anita.gonzales@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HGOAN",
+        "social": {}
+      }
+    ],
+    "NM:state-house:012": [
+      {
+        "id": "ocd-person/057c7d79-a168-4b7b-ae96-66cf41e4f115",
+        "name": "Art De La Cruz",
+        "office": "state-house",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "art.delacruz@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HDELA",
+        "social": {}
+      }
+    ],
+    "NM:state-house:003": [
+      {
+        "id": "ocd-person/e0e4fcc9-1e0c-49f8-894d-223c863d61f8",
+        "name": "Bill Hall",
+        "office": "state-house",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "bill.hall@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HHABI",
+        "social": {}
+      }
+    ],
+    "NM:state-house:008": [
+      {
+        "id": "ocd-person/05f3609c-c2a6-42fc-bf6a-5141f8050ff8",
+        "name": "Brian Baca",
+        "office": "state-house",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "brian.baca@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HBACB",
+        "social": {}
+      }
+    ],
+    "NM:state-house:057": [
+      {
+        "id": "ocd-person/35f36593-4252-4205-b123-cc7236e96954",
+        "name": "Catherine Cullen",
+        "office": "state-house",
+        "districtCode": "057",
+        "contactUrl": null,
+        "email": "catherine.cullen@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HCUCA",
+        "social": {}
+      }
+    ],
+    "NM:state-house:055": [
+      {
+        "id": "ocd-person/8b51e39c-5f4c-48dd-affd-b97c6062d87e",
+        "name": "Cathrynn Brown",
+        "office": "state-house",
+        "districtCode": "055",
+        "contactUrl": null,
+        "email": "c.brown.nm55@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.linkedin.com/in/cathrynnbrown/",
+        "social": {
+          "x": "cathrynnbrown",
+          "facebook": "RepCathrynnBrown"
+        }
+      }
+    ],
+    "NM:state-house:068": [
+      {
+        "id": "ocd-person/052e06cd-7f58-4c3c-8640-be1d8842a19b",
+        "name": "Charlotte Little",
+        "office": "state-house",
+        "districtCode": "068",
+        "contactUrl": null,
+        "email": "charlotte.little@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HLITC",
+        "social": {}
+      }
+    ],
+    "NM:state-house:043": [
+      {
+        "id": "ocd-person/6ecab682-9ccf-4777-940d-afa418b601b8",
+        "name": "Chris Chandler",
+        "office": "state-house",
+        "districtCode": "043",
+        "contactUrl": null,
+        "email": "christine.chandler@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.linkedin.com/in/christine-chandler-b567865a/",
+        "social": {
+          "x": "Christine4nm",
+          "facebook": "Christine4NM",
+          "instagram": "christine4nm"
+        }
+      }
+    ],
+    "NM:state-house:025": [
+      {
+        "id": "ocd-person/8819e763-061e-4f30-9828-af635428b41a",
+        "name": "Cristina Parajón",
+        "office": "state-house",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "cristina.parajon@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HPARA",
+        "social": {}
+      }
+    ],
+    "NM:state-house:017": [
+      {
+        "id": "ocd-person/2e2ecadf-7236-48c5-8145-e7fea6fcd393",
+        "name": "Cynthia Borrego",
+        "office": "state-house",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "cynthia.borrego@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HBORR",
+        "social": {}
+      }
+    ],
+    "NM:state-house:005": [
+      {
+        "id": "ocd-person/69fcccf7-9cfb-4c8f-978a-c85fbd55922d",
+        "name": "Wonda Johnson",
+        "office": "state-house",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "dwonda.johnson@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HJOHD",
+        "social": {
+          "facebook": "DoreenWondaJohnson"
+        }
+      }
+    ],
+    "NM:state-house:015": [
+      {
+        "id": "ocd-person/124f1c82-12f1-45ab-b21e-67cc4a529d18",
+        "name": "Day Hochman-Vigil",
+        "office": "state-house",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "dayan.hochman-vigil@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.linkedin.com/in/day-hochman-vigil-3536a036/",
+        "social": {
+          "x": "dayhochmanvigil",
+          "facebook": "DayHochmanVigil",
+          "instagram": "dayhochmanvigil"
+        }
+      }
+    ],
+    "NM:state-house:021": [
+      {
+        "id": "ocd-person/8cb27ec7-dc78-49b1-bc3f-18ad2beb76b6",
+        "name": "Debbie Sariñana",
+        "office": "state-house",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "debbie.sarinana@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.linkedin.com/in/debra-sarinana-05a362141/",
+        "social": {
+          "x": "SarinanaDebbie",
+          "facebook": "debsarinana"
+        }
+      }
+    ],
+    "NM:state-house:065": [
+      {
+        "id": "ocd-person/0421351b-6a8c-4731-bf93-5029d6b4feab",
+        "name": "Derrick Lente",
+        "office": "state-house",
+        "districtCode": "065",
+        "contactUrl": null,
+        "email": "derrick.lente@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HLENT",
+        "social": {
+          "facebook": "derrickjlentefornmhousedistrict65",
+          "instagram": "djlente"
+        }
+      }
+    ],
+    "NM:state-house:030": [
+      {
+        "id": "ocd-person/c8e6de13-632b-4e09-8d1f-ff8ab2431acc",
+        "name": "Diane Torres-Velásquez",
+        "office": "state-house",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "diane.torres-velasquez@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HTOLE",
+        "social": {}
+      }
+    ],
+    "NM:state-house:052": [
+      {
+        "id": "ocd-person/6563f869-64f5-42fb-9707-263fee6f59dc",
+        "name": "Doreen Gallegos",
+        "office": "state-house",
+        "districtCode": "052",
+        "contactUrl": null,
+        "email": "doreen.gallegos@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HGADO",
+        "social": {
+          "x": "doreen4staterep",
+          "facebook": "doreen.gallegos.9"
+        }
+      }
+    ],
+    "NM:state-house:062": [
+      {
+        "id": "ocd-person/810e1619-ebae-4139-be1e-778e252a09b0",
+        "name": "Elaine Sena Cortez",
+        "office": "state-house",
+        "districtCode": "062",
+        "contactUrl": null,
+        "email": "elaine.senacortez@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HSEEL",
+        "social": {}
+      }
+    ],
+    "NM:state-house:026": [
+      {
+        "id": "ocd-person/19ad7971-bfe4-49e2-bc0f-c5416df1f241",
+        "name": "Eleanor Chávez",
+        "office": "state-house",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "eleanor.chavez@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HCHAL",
+        "social": {}
+      }
+    ],
+    "NM:state-house:024": [
+      {
+        "id": "ocd-person/13ad8eb1-a64f-4a08-8c68-a1488466128f",
+        "name": "Liz Thomson",
+        "office": "state-house",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "liz.thomson@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HTHOE",
+        "social": {
+          "x": "lizthomsonnm",
+          "facebook": "lizthomsonnm"
+        }
+      }
+    ],
+    "NM:state-house:010": [
+      {
+        "id": "ocd-person/5cf6976d-e616-4579-a194-ec3c37260ebd",
+        "name": "Andrés Romero",
+        "office": "state-house",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "andres.romero@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HROMA",
+        "social": {
+          "x": "andresromeronm",
+          "facebook": "RomeroForDistrict10"
+        }
+      }
+    ],
+    "NM:state-house:049": [
+      {
+        "id": "ocd-person/9564298b-dc55-4037-8205-5eca1c2063dc",
+        "name": "Gail Armstrong",
+        "office": "state-house",
+        "districtCode": "049",
+        "contactUrl": null,
+        "email": "gail@gailfornewmexico.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HARMG",
+        "social": {
+          "x": "gail4nm",
+          "facebook": "Gail4NM",
+          "instagram": "gail4nm"
+        }
+      }
+    ],
+    "NM:state-house:056": [
+      {
+        "id": "ocd-person/e7e8e973-411b-45fd-8fd7-7e4ea7d9f1be",
+        "name": "Harlan Vincent",
+        "office": "state-house",
+        "districtCode": "056",
+        "contactUrl": null,
+        "email": "harlan.vincent@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HVINC",
+        "social": {}
+      }
+    ],
+    "NM:state-house:067": [
+      {
+        "id": "ocd-person/c41b373a-7376-4084-b0de-3648cfce9b05",
+        "name": "Jack Chatfield",
+        "office": "state-house",
+        "districtCode": "067",
+        "contactUrl": null,
+        "email": "jack.chatfield@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HCHAT",
+        "social": {
+          "facebook": "jackchatfieldhd67"
+        }
+      }
+    ],
+    "NM:state-house:019": [
+      {
+        "id": "ocd-person/bc8985ad-c6e6-42cd-b2d5-30688e4616a1",
+        "name": "Janelle Anyanonu",
+        "office": "state-house",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "janelle.anyanonu@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HANYA",
+        "social": {}
+      }
+    ],
+    "NM:state-house:011": [
+      {
+        "id": "ocd-person/221a42af-f54f-4e66-b648-9b0028165595",
+        "name": "Javier Martínez",
+        "office": "state-house",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "javier.martinez@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HMARJ",
+        "social": {
+          "x": "javierfornm",
+          "facebook": "javiermartinezfornewmexico",
+          "instagram": "javierfornm"
+        }
+      }
+    ],
+    "NM:state-house:032": [
+      {
+        "id": "ocd-person/6968fa09-cbf8-42a5-a5a6-132b0b663103",
+        "name": "Jenifer Jones",
+        "office": "state-house",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "jenifer.jones@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HJONJ",
+        "social": {}
+      }
+    ],
+    "NM:state-house:066": [
+      {
+        "id": "ocd-person/d92a32b1-e3ef-43d7-8e63-c24e59c52b3d",
+        "name": "Jimmy Mason",
+        "office": "state-house",
+        "districtCode": "066",
+        "contactUrl": null,
+        "email": "jimmy.mason@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HMASO",
+        "social": {}
+      }
+    ],
+    "NM:state-house:051": [
+      {
+        "id": "ocd-person/fd2e3bdc-3ca7-495c-b853-8a4db020e4d0",
+        "name": "John Block",
+        "office": "state-house",
+        "districtCode": "051",
+        "contactUrl": null,
+        "email": "john.block@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HBLOC",
+        "social": {}
+      }
+    ],
+    "NM:state-house:054": [
+      {
+        "id": "ocd-person/3c29303f-1a07-4767-9172-b7f453918d77",
+        "name": "Jon Henry",
+        "office": "state-house",
+        "districtCode": "054",
+        "contactUrl": null,
+        "email": "jonathan.henry@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HHENR",
+        "social": {}
+      }
+    ],
+    "NM:state-house:004": [
+      {
+        "id": "ocd-person/854e0c8a-0093-4282-8544-8d20bafde8f6",
+        "name": "Joseph Hernandez",
+        "office": "state-house",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "joseph.hernandez@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HHEJO",
+        "social": {}
+      }
+    ],
+    "NM:state-house:040": [
+      {
+        "id": "ocd-person/0ed175a3-3c71-4b42-bf53-9435d0f93f52",
+        "name": "Joseph Sanchez",
+        "office": "state-house",
+        "districtCode": "040",
+        "contactUrl": null,
+        "email": "joseph.sanchez@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HSAJO",
+        "social": {
+          "x": "josephsancheznm",
+          "facebook": "josephsanchezfornm"
+        }
+      }
+    ],
+    "NM:state-house:060": [
+      {
+        "id": "ocd-person/71b8feb5-0bbd-45bd-9b25-c6dc7642962b",
+        "name": "Josh Hernandez",
+        "office": "state-house",
+        "districtCode": "060",
+        "contactUrl": null,
+        "email": "joshua.hernandez@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HHERN",
+        "social": {}
+      }
+    ],
+    "NM:state-house:029": [
+      {
+        "id": "ocd-person/930a9ffb-d292-49d5-8c43-c42bdab290ff",
+        "name": "Joy Garratt",
+        "office": "state-house",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "joy.garratt@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.linkedin.com/in/joygarratt/",
+        "social": {
+          "x": "joyousgarratt",
+          "facebook": "Joy4NewMexico",
+          "instagram": "jigarratt"
+        }
+      }
+    ],
+    "NM:state-house:044": [
+      {
+        "id": "ocd-person/73fc9839-619a-4ad5-bbbd-dfaf7f308e09",
+        "name": "Kathleen Cates",
+        "office": "state-house",
+        "districtCode": "044",
+        "contactUrl": null,
+        "email": "kathleen.cates@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HCATE",
+        "social": {}
+      }
+    ],
+    "NM:state-house:042": [
+      {
+        "id": "ocd-person/0dd8a8ff-99c5-4d1a-90fb-3b74398a4141",
+        "name": "Kristina Ortez",
+        "office": "state-house",
+        "districtCode": "042",
+        "contactUrl": null,
+        "email": "kristina.ortez@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HORTE",
+        "social": {}
+      }
+    ],
+    "NM:state-house:045": [
+      {
+        "id": "ocd-person/570bb94a-0500-44de-8983-ca259e0d4a60",
+        "name": "Linda Serrato",
+        "office": "state-house",
+        "districtCode": "045",
+        "contactUrl": null,
+        "email": "linda.serrato@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HSERR",
+        "social": {}
+      }
+    ],
+    "NM:state-house:039": [
+      {
+        "id": "ocd-person/6f02eec7-0afe-4f15-ad56-653148da00c0",
+        "name": "Luis Terrazas",
+        "office": "state-house",
+        "districtCode": "039",
+        "contactUrl": null,
+        "email": "luis.terrazas@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HTERR",
+        "social": {}
+      }
+    ],
+    "NM:state-house:027": [
+      {
+        "id": "ocd-person/c2fb0283-189c-4b0c-9d99-7b70d2f62c40",
+        "name": "Marian Matthews",
+        "office": "state-house",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "marian.matthews@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.linkedin.com/in/marianmatthews/",
+        "social": {
+          "x": "Hd27Marian",
+          "facebook": "MarianMatthewsHD27"
+        }
+      }
+    ],
+    "NM:state-house:018": [
+      {
+        "id": "ocd-person/bc194113-8c8a-4cba-b1f4-25269c72a9fd",
+        "name": "Marianna Anaya",
+        "office": "state-house",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "marianna.anaya@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HANMA",
+        "social": {}
+      }
+    ],
+    "NM:state-house:002": [
+      {
+        "id": "ocd-person/aa8f331c-d541-4acd-b025-e218e01764e2",
+        "name": "Mark Duncan",
+        "office": "state-house",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "mark.duncan@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HDUNC",
+        "social": {}
+      }
+    ],
+    "NM:state-house:059": [
+      {
+        "id": "ocd-person/406c0ab4-c372-42bc-ba14-77181dc7c418",
+        "name": "Mark Murphy",
+        "office": "state-house",
+        "districtCode": "059",
+        "contactUrl": null,
+        "email": "mark.murphy@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HMURP",
+        "social": {}
+      }
+    ],
+    "NM:state-house:006": [
+      {
+        "id": "ocd-person/fb0443f9-b6d7-4b3b-a87e-0d8b143ed64b",
+        "name": "Martha Garcia",
+        "office": "state-house",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "martha.garcia@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/members/Legislator?SponCode=HGAMA",
+        "social": {}
+      }
+    ],
+    "NM:state-house:063": [
+      {
+        "id": "ocd-person/dc968f82-503e-4246-9124-b880fd6ae3ae",
+        "name": "Martin Zamora",
+        "office": "state-house",
+        "districtCode": "063",
+        "contactUrl": null,
+        "email": "martin.zamora@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HZAMO",
+        "social": {
+          "x": "repmartinzamora"
+        }
+      }
+    ],
+    "NM:state-house:050": [
+      {
+        "id": "ocd-person/e3affc46-1790-48ba-ae36-5c00473d6c35",
+        "name": "Matthew McQueen",
+        "office": "state-house",
+        "districtCode": "050",
+        "contactUrl": null,
+        "email": "matthew.mcqueen@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.linkedin.com/in/matthew-mcqueen-86a8322/",
+        "social": {
+          "x": "mcqueenfornm",
+          "facebook": "mcqueenfornm"
+        }
+      }
+    ],
+    "NM:state-house:020": [
+      {
+        "id": "ocd-person/ac49b3cf-9fb8-4fa1-af55-4b35a6570c87",
+        "name": "Meredith Dixon",
+        "office": "state-house",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "meredith.dixon@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HDIXO",
+        "social": {}
+      }
+    ],
+    "NM:state-house:033": [
+      {
+        "id": "ocd-person/5b9af862-0f9f-42b2-a694-f80055129d6c",
+        "name": "Micaela Cadena",
+        "office": "state-house",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "micaela.cadena@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.linkedin.com/in/micaela-cadena-95541a183/",
+        "social": {
+          "facebook": "laracadena4nm"
+        }
+      }
+    ],
+    "NM:state-house:014": [
+      {
+        "id": "ocd-person/3363aa83-2490-4631-b04b-9a52fdbad14b",
+        "name": "Miguel García",
+        "office": "state-house",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "miguel.garcia@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HGAMP",
+        "social": {}
+      }
+    ],
+    "NM:state-house:036": [
+      {
+        "id": "ocd-person/57440e55-06ad-4f1f-8aa5-3bdd31a805dd",
+        "name": "Nathan Small",
+        "office": "state-house",
+        "districtCode": "036",
+        "contactUrl": null,
+        "email": "nathan.small@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.linkedin.com/in/nathan-small-20685816/",
+        "social": {
+          "x": "nathanlcnm",
+          "facebook": "NathanForNM"
+        }
+      }
+    ],
+    "NM:state-house:031": [
+      {
+        "id": "ocd-person/f2ed2dd1-ba2d-48cd-8365-cbb149b459e9",
+        "name": "Nicole Chavez",
+        "office": "state-house",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "nicole.chavez@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HCHNI",
+        "social": {}
+      }
+    ],
+    "NM:state-house:028": [
+      {
+        "id": "ocd-person/800d2a2e-1622-4ab2-b290-3c537b38bdf8",
+        "name": "Pamelya Herndon",
+        "office": "state-house",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "pamelya.herndon@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HHEPA",
+        "social": {}
+      }
+    ],
+    "NM:state-house:009": [
+      {
+        "id": "ocd-person/94eed261-74bb-4f8b-a0ab-62b2a7ff8e98",
+        "name": "Patty Lundstrom",
+        "office": "state-house",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "patricia.lundstrom@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.linkedin.com/in/patty-lundstrom-a47ba450/",
+        "social": {
+          "facebook": "patricia.lundstrom.1"
+        }
+      }
+    ],
+    "NM:state-house:013": [
+      {
+        "id": "ocd-person/20dc90cf-7805-4609-8631-45db1973cd5c",
+        "name": "Pat Roybal Caballero",
+        "office": "state-house",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "pat.roybalcaballero@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.linkedin.com/in/patricia-roybal-caballero-2007b135/",
+        "social": {
+          "x": "proybalcaballer",
+          "facebook": "patricia4nm",
+          "instagram": "state_rep_district_13"
+        }
+      }
+    ],
+    "NM:state-house:069": [
+      {
+        "id": "ocd-person/8cc272e5-bf6a-441e-9b0a-407ed6361afa",
+        "name": "Paulene Abeyta",
+        "office": "state-house",
+        "districtCode": "069",
+        "contactUrl": null,
+        "email": "michelle.abeyta@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/members/Legislator?SponCode=HABMI",
+        "social": {}
+      }
+    ],
+    "NM:state-house:061": [
+      {
+        "id": "ocd-person/a36bdc41-5666-4208-b8f0-8d9012d31f22",
+        "name": "Randy Pettigrew",
+        "office": "state-house",
+        "districtCode": "061",
+        "contactUrl": null,
+        "email": "randall.pettigrew@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HPETT",
+        "social": {}
+      }
+    ],
+    "NM:state-house:034": [
+      {
+        "id": "ocd-person/e8d69d4c-dfd4-4e22-939a-cc356ba7ac05",
+        "name": "Ray Lara",
+        "office": "state-house",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "raymundo.lara@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HLARA",
+        "social": {
+          "facebook": "RayLaraforStateRepresentative"
+        }
+      }
+    ],
+    "NM:state-house:038": [
+      {
+        "id": "ocd-person/2904a9a3-7e21-4c6f-b40a-e79288ca1b49",
+        "name": "Rebecca Dow",
+        "office": "state-house",
+        "districtCode": "038",
+        "contactUrl": null,
+        "email": "rebecca.dow@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.linkedin.com/in/rebecca-dow-43670a15/",
+        "social": {
+          "x": "reprebeccadow",
+          "facebook": "rebeccadowforhouse",
+          "instagram": "rebecca_dow"
+        }
+      }
+    ],
+    "NM:state-house:047": [
+      {
+        "id": "ocd-person/0b7d9451-0462-4064-b28e-6d44123edd1e",
+        "name": "Reena Szczepanski",
+        "office": "state-house",
+        "districtCode": "047",
+        "contactUrl": null,
+        "email": "reena.szczepanski@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HSCZE",
+        "social": {}
+      }
+    ],
+    "NM:state-house:001": [
+      {
+        "id": "ocd-person/948ba2f7-fd71-42ed-a35a-e692b76d2ca2",
+        "name": "Rod Montoya",
+        "office": "state-house",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "rod.montoya@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HMONR",
+        "social": {
+          "facebook": "rod.montoya.186"
+        }
+      }
+    ],
+    "NM:state-house:053": [
+      {
+        "id": "ocd-person/a9377979-b109-4e11-b338-89b203c04527",
+        "name": "Sarah Silva",
+        "office": "state-house",
+        "districtCode": "053",
+        "contactUrl": null,
+        "email": "sarah.silva@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HSISA",
+        "social": {}
+      }
+    ],
+    "NM:state-house:022": [
+      {
+        "id": "ocd-person/eef5df5d-b9da-4ac3-9a3e-7f6ba775e6d7",
+        "name": "Stefani Lord",
+        "office": "state-house",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "stefani.lord@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HLORD",
+        "social": {}
+      }
+    ],
+    "NM:state-house:007": [
+      {
+        "id": "ocd-person/f2394325-2797-4403-8f77-7f4dd3db0bb9",
+        "name": "Tanya Moya",
+        "office": "state-house",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "tanya.mirabalmoya@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HMIRA",
+        "social": {}
+      }
+    ],
+    "NM:state-house:048": [
+      {
+        "id": "ocd-person/a564eb5c-5c29-43ef-a40f-241efb70ef8d",
+        "name": "Tara Luján",
+        "office": "state-house",
+        "districtCode": "048",
+        "contactUrl": null,
+        "email": "tara.lujan@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HLUTA",
+        "social": {}
+      }
+    ],
+    "NM:state-house:016": [
+      {
+        "id": "ocd-person/bc947ac1-c584-4e5f-84a9-ea9f6ac959c6",
+        "name": "Yanira Gurrola",
+        "office": "state-house",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "yanira.gurrola@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HGURR",
+        "social": {}
+      }
+    ],
+    "NM:state-senate:030": [
+      {
+        "id": "ocd-person/948ee9a0-a718-46f1-a1fe-35eb97f01fad",
+        "name": "Angel Charley",
+        "office": "state-senate",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "angel.charley@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=SCHAR",
+        "social": {}
+      }
+    ],
+    "NM:state-senate:019": [
+      {
+        "id": "ocd-person/02d806fd-fb8f-4d66-b9b8-6dacd2bd9656",
+        "name": "Ant Thornton",
+        "office": "state-senate",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "anthony.thornton@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=STHOR",
+        "social": {}
+      }
+    ],
+    "NM:state-senate:016": [
+      {
+        "id": "ocd-person/3dcac810-1d9b-4a4d-9e82-8b6e49eba735",
+        "name": "Antoinette Sedillo Lopez",
+        "office": "state-senate",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "a.sedillolopez@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.linkedin.com/in/antoinette-sedillo-lopez-ab3a5014/",
+        "social": {
+          "x": "asl4justice4all",
+          "facebook": "NMStateSenatorAntoinetteSedilloLopezNMSD16",
+          "instagram": "antoinetteforjustice"
+        }
+      }
+    ],
+    "NM:state-senate:026": [
+      {
+        "id": "ocd-person/2913173a-2bfe-4474-8bdc-d145f868c4de",
+        "name": "Moe Maestas",
+        "office": "state-senate",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "antonio.maestas@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://nmlegis.gov/Members/Legislator?SponCode=smaem",
+        "social": {
+          "x": "RepMoe",
+          "facebook": "repmoe"
+        }
+      }
+    ],
+    "NM:state-senate:022": [
+      {
+        "id": "ocd-person/145aba4a-89ba-4c17-b1ec-2f4b568f5048",
+        "name": "Benny Shendo",
+        "office": "state-senate",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "benny.shendo@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=SSHEN",
+        "social": {
+          "facebook": "BennyShendoforNMSenate"
+        }
+      }
+    ],
+    "NM:state-senate:032": [
+      {
+        "id": "ocd-person/46464f19-1bda-489f-93cf-3772d0445407",
+        "name": "Candy Ezzell",
+        "office": "state-senate",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "csecows@aol.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HEZZE",
+        "social": {
+          "x": "candyezzell",
+          "facebook": "candy.ezzell"
+        }
+      }
+    ],
+    "NM:state-senate:038": [
+      {
+        "id": "ocd-person/83df260f-2110-4d39-8e19-6a2edc33491d",
+        "name": "Carrie Hamblen",
+        "office": "state-senate",
+        "districtCode": "038",
+        "contactUrl": null,
+        "email": "carrie.hamblen@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=SHAMB",
+        "social": {}
+      }
+    ],
+    "NM:state-senate:009": [
+      {
+        "id": "ocd-person/631f715e-754c-4410-a967-1e5a928ae971",
+        "name": "Cindy Nava",
+        "office": "state-senate",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "cindy.nava@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=SNACI",
+        "social": {}
+      }
+    ],
+    "NM:state-senate:040": [
+      {
+        "id": "ocd-person/365e015d-5011-4126-8b07-0b0f90a949c7",
+        "name": "Craig Brandt",
+        "office": "state-senate",
+        "districtCode": "040",
+        "contactUrl": null,
+        "email": "craig.brandt@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.linkedin.com/in/craigbrandtnm/",
+        "social": {
+          "x": "Craig4NM",
+          "facebook": "craig.brandt.31"
+        }
+      }
+    ],
+    "NM:state-senate:035": [
+      {
+        "id": "ocd-person/1ed6a003-54c1-4da3-b297-0cec8ddf4882",
+        "name": "Crystal Brantley",
+        "office": "state-senate",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "crystal.diamond@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=SBRAC",
+        "social": {}
+      }
+    ],
+    "NM:state-senate:041": [
+      {
+        "id": "ocd-person/9d5296b7-b8b1-40c8-a8ce-246f719b8ff0",
+        "name": "David Gallegos",
+        "office": "state-senate",
+        "districtCode": "041",
+        "contactUrl": null,
+        "email": "david@ramirezandsonsinc.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.linkedin.com/in/david-gallegos-02427756/",
+        "social": {
+          "x": "gallegos4nm"
+        }
+      }
+    ],
+    "NM:state-senate:013": [
+      {
+        "id": "ocd-person/e347c564-d1f5-4fb8-a24d-47218fa754e7",
+        "name": "Debbie O'Malley",
+        "office": "state-senate",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "debbie.o'malley@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=SOMAL",
+        "social": {}
+      }
+    ],
+    "NM:state-senate:039": [
+      {
+        "id": "ocd-person/1ed4e059-94c6-4404-b28e-0dc572112d03",
+        "name": "Liz Stefanics",
+        "office": "state-senate",
+        "districtCode": "039",
+        "contactUrl": null,
+        "email": "lstefanics@msn.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.linkedin.com/in/liz-stefanics-140488151/",
+        "social": {
+          "facebook": "SenatorLizStefanics"
+        }
+      }
+    ],
+    "NM:state-senate:028": [
+      {
+        "id": "ocd-person/6677ca7f-f961-44f1-a241-d14280762f5d",
+        "name": "Gabriel Ramos",
+        "office": "state-senate",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "gabriel.ramos@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.linkedin.com/in/gabriel-ramos-a5aa74109/",
+        "social": {
+          "facebook": "NMSenRamos"
+        }
+      }
+    ],
+    "NM:state-senate:004": [
+      {
+        "id": "ocd-person/b4c20aea-b56c-4a19-a89a-788c53d995d7",
+        "name": "George Muñoz",
+        "office": "state-senate",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "george.munoz@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=SMUNO",
+        "social": {
+          "x": "munozfornm",
+          "facebook": "nmsenatormunoz"
+        }
+      }
+    ],
+    "NM:state-senate:023": [
+      {
+        "id": "ocd-person/713e2881-4ecb-4d66-9bd3-6422c898df91",
+        "name": "Harold Pope",
+        "office": "state-senate",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "harold.popejr@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=SPOPE",
+        "social": {}
+      }
+    ],
+    "NM:state-senate:015": [
+      {
+        "id": "ocd-person/e5d44d75-76df-41fc-87ae-27bc4c943d50",
+        "name": "Heather Berghmans",
+        "office": "state-senate",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "heather.berghmans@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=SBERG",
+        "social": {}
+      }
+    ],
+    "NM:state-senate:034": [
+      {
+        "id": "ocd-person/667a8a3c-dbe9-4aba-b768-e90be503df88",
+        "name": "Jim Townsend",
+        "office": "state-senate",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "townsend@pvtn.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.linkedin.com/in/jim-townsend-5897b633/",
+        "social": {
+          "x": "LeaderTownsend",
+          "facebook": "jimandpaula.townsend"
+        }
+      }
+    ],
+    "NM:state-senate:012": [
+      {
+        "id": "ocd-person/ee5fab91-b6eb-43be-bf26-300302eec5d1",
+        "name": "Jay Block",
+        "office": "state-senate",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "jay.block@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=SBLOC",
+        "social": {}
+      }
+    ],
+    "NM:state-senate:036": [
+      {
+        "id": "ocd-person/601202fc-f916-4be1-ae20-8c437293817e",
+        "name": "Jeff Steinborn",
+        "office": "state-senate",
+        "districtCode": "036",
+        "contactUrl": null,
+        "email": "jeff.steinborn@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.linkedin.com/in/jeff-steinborn-57879346/",
+        "social": {
+          "x": "jeff4nm",
+          "facebook": "jeff.steinborn.9"
+        }
+      }
+    ],
+    "NM:state-senate:031": [
+      {
+        "id": "ocd-person/14f0186e-bf9b-46aa-aa00-1ccc8f58490b",
+        "name": "Joe Cervantes",
+        "office": "state-senate",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "joseph.cervantes@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=SCERV",
+        "social": {
+          "x": "senjoecervantes",
+          "facebook": "joe4nm"
+        }
+      }
+    ],
+    "NM:state-senate:029": [
+      {
+        "id": "ocd-person/82528266-9d6a-4fb3-854e-be9ab6a549b7",
+        "name": "Joshua Sanchez",
+        "office": "state-senate",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "jas4nm@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=SSANJ",
+        "social": {}
+      }
+    ],
+    "NM:state-senate:010": [
+      {
+        "id": "ocd-person/cce76180-bf09-413a-9d9d-1cc8ae7cf2db",
+        "name": "Katy Duhigg",
+        "office": "state-senate",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "katy.duhigg@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=SDUHI",
+        "social": {}
+      }
+    ],
+    "NM:state-senate:042": [
+      {
+        "id": "ocd-person/febbd8f4-a85e-476c-b96f-52f4f759f8c7",
+        "name": "Larry Scott",
+        "office": "state-senate",
+        "districtCode": "042",
+        "contactUrl": null,
+        "email": "larry.scott@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HSCOT",
+        "social": {}
+      }
+    ],
+    "NM:state-senate:005": [
+      {
+        "id": "ocd-person/9b0d6912-d333-4ae7-b626-ce643099a43d",
+        "name": "Leo Jaramillo",
+        "office": "state-senate",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "leo.jaramillo@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=SJARA",
+        "social": {}
+      }
+    ],
+    "NM:state-senate:011": [
+      {
+        "id": "ocd-person/ecc60fc8-8598-4650-8a55-6e91d24e991e",
+        "name": "Linda López",
+        "office": "state-senate",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "linda.lopez@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.linkedin.com/in/linda-lopez-018b9111/",
+        "social": {
+          "x": "lopez4gov",
+          "facebook": "linda.m.lopez.39"
+        }
+      }
+    ],
+    "NM:state-senate:024": [
+      {
+        "id": "ocd-person/4cbcf352-3f7a-412d-afc6-568dc4b94400",
+        "name": "Linda Trujillo",
+        "office": "state-senate",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "linda.trujillo@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HTRUL",
+        "social": {
+          "x": "jellybeanlaw4"
+        }
+      }
+    ],
+    "NM:state-senate:020": [
+      {
+        "id": "ocd-person/88fd357f-3fb1-4c2b-b49b-555231011c46",
+        "name": "Martin Hickey",
+        "office": "state-senate",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "martin.hickey@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=SHICK",
+        "social": {}
+      }
+    ],
+    "NM:state-senate:014": [
+      {
+        "id": "ocd-person/ce888eff-62f5-41c0-9114-651c43f77aba",
+        "name": "Michael Padilla",
+        "office": "state-senate",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "michael.padilla@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.linkedin.com/in/michaelpadilla1/",
+        "social": {
+          "x": "SenPadilla",
+          "facebook": "michael.padilla.31",
+          "instagram": "michael.padilla.31"
+        }
+      }
+    ],
+    "NM:state-senate:017": [
+      {
+        "id": "ocd-person/f1144347-0a16-43e4-97b9-01308a890631",
+        "name": "Mimi Stewart",
+        "office": "state-senate",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "mimi.stewart@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=SSTEW",
+        "social": {
+          "x": "Sen_MimiStewart",
+          "facebook": "peopleformimistewart",
+          "instagram": "mimistewart9"
+        }
+      }
+    ],
+    "NM:state-senate:018": [
+      {
+        "id": "ocd-person/48969449-b004-4ca3-a72b-8508e95e0051",
+        "name": "Natalie Figueroa",
+        "office": "state-senate",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "natalie.figueroa@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.linkedin.com/in/natalie-figueroa-150a0670/",
+        "social": {
+          "facebook": "Natalie4NM"
+        }
+      }
+    ],
+    "NM:state-senate:021": [
+      {
+        "id": "ocd-person/daefbf8d-768f-4dab-8f4f-0a272e2cb697",
+        "name": "Nicole Tobiassen",
+        "office": "state-senate",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "nicole.tobiassen@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=STOBI",
+        "social": {}
+      }
+    ],
+    "NM:state-senate:027": [
+      {
+        "id": "ocd-person/4093c9b8-d07a-4a12-b13b-abbd4130b1fe",
+        "name": "Pat Boone",
+        "office": "state-senate",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "pat.boone@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=SBOON",
+        "social": {}
+      }
+    ],
+    "NM:state-senate:007": [
+      {
+        "id": "ocd-person/6a28626b-9919-4d77-9b62-44ad1d45215d",
+        "name": "Pat Woods",
+        "office": "state-senate",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "pat.woods@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.linkedin.com/in/pat-woods-abb44b46/",
+        "social": {}
+      }
+    ],
+    "NM:state-senate:008": [
+      {
+        "id": "ocd-person/e2f7dd70-36fc-4b65-8dfd-19fcc1d63e38",
+        "name": "Pete Campos",
+        "office": "state-senate",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "pete.campos@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://petecampos.com",
+        "social": {
+          "x": "senpetecampos",
+          "facebook": "pete.campos.1426"
+        }
+      }
+    ],
+    "NM:state-senate:025": [
+      {
+        "id": "ocd-person/7595b557-0c70-44e3-a26b-af533d1ca94d",
+        "name": "Peter Wirth",
+        "office": "state-senate",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "peter.wirth@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=SWIRT",
+        "social": {
+          "x": "senatorwirth"
+        }
+      }
+    ],
+    "NM:state-senate:033": [
+      {
+        "id": "ocd-person/0884aac3-cddb-4374-88e1-94bf623410f3",
+        "name": "Rex Wilson",
+        "office": "state-senate",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "rex.wilson@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=SWIRE",
+        "social": {}
+      }
+    ],
+    "NM:state-senate:006": [
+      {
+        "id": "ocd-person/5e9a828c-3dfb-4f88-8dfe-f8fccf11ef78",
+        "name": "Bobby Gonzales",
+        "office": "state-senate",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "roberto.gonzales@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=SGONZ",
+        "social": {}
+      }
+    ],
+    "NM:state-senate:003": [
+      {
+        "id": "ocd-person/fa98430a-5031-4c64-bd6d-8a6f0cc4043e",
+        "name": "Shannon Pinto",
+        "office": "state-senate",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "shannon.pinto@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=SPINS",
+        "social": {
+          "facebook": "Shannon4NM"
+        }
+      }
+    ],
+    "NM:state-senate:002": [
+      {
+        "id": "ocd-person/82ac8832-cb59-4ea3-b6e7-a74e2115f37d",
+        "name": "Steve Lanier",
+        "office": "state-senate",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "steve.lanier@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=SLANI",
+        "social": {}
+      }
+    ],
+    "NM:state-senate:001": [
+      {
+        "id": "ocd-person/7a7be318-78b1-49c6-bd98-f2b9b7476372",
+        "name": "Bill Sharer",
+        "office": "state-senate",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "bill@williamsharer.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.linkedin.com/in/william-sharer-71248033/",
+        "social": {
+          "x": "billsharer",
+          "facebook": "bill.sharer.9"
+        }
+      }
+    ],
+    "NM:state-senate:037": [
+      {
+        "id": "ocd-person/33aa9a6b-b106-4216-8ea5-82d85cd2250a",
+        "name": "Bill Soules",
+        "office": "state-senate",
+        "districtCode": "037",
+        "contactUrl": null,
+        "email": "bill.soules@nmlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=SSOUL",
+        "social": {
+          "x": "senatorsoules",
+          "facebook": "Soules4Senate37",
+          "instagram": "soules_bill"
+        }
+      }
+    ]
+  }
+}

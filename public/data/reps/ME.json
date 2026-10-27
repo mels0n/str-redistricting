@@ -1,0 +1,2681 @@
+{
+  "state": "ME",
+  "generatedFrom": {
+    "legislators-current.json": "ae8cb9477c48715df71a7d860854229d799dc90a254d61badc1efb770f892b2c",
+    "legislators-social-media.json": "c6eca1fcdb3a89901335eed51ca061daa4b60ad3243969a127e913bb9657fbc5",
+    "me.csv": "a7be946d1e922158d028ecb31d2a6f37af9a5c7ca2c438f933b363d2e26871be"
+  },
+  "byKey": {
+    "ME:us-senate:00": [
+      {
+        "id": "C001035",
+        "name": "Susan M. Collins",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.collins.senate.gov/contact",
+        "email": null,
+        "phone": "202-224-2523",
+        "address": "413 Dirksen Senate Office Building Washington DC 20510",
+        "website": "https://www.collins.senate.gov",
+        "social": {
+          "x": "SenatorCollins",
+          "facebook": "susancollins",
+          "instagram": "sensusancollins"
+        }
+      },
+      {
+        "id": "K000383",
+        "name": "Angus S. King, Jr.",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.king.senate.gov/contact",
+        "email": null,
+        "phone": "202-224-5344",
+        "address": "133 Hart Senate Office Building Washington DC 20510",
+        "website": "https://www.king.senate.gov",
+        "social": {
+          "x": "SenAngusKing",
+          "facebook": "SenatorAngusSKingJr"
+        }
+      }
+    ],
+    "ME:us-house:01": [
+      {
+        "id": "P000597",
+        "name": "Chellie Pingree",
+        "office": "us-house",
+        "districtCode": "01",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-6116",
+        "address": "2354 Rayburn House Office Building Washington DC 20515-1901",
+        "website": "https://pingree.house.gov",
+        "social": {
+          "x": "ChelliePingree",
+          "facebook": "ChelliePingree",
+          "instagram": "chelliepingree"
+        }
+      }
+    ],
+    "ME:us-house:02": [
+      {
+        "id": "G000592",
+        "name": "Jared F. Golden",
+        "office": "us-house",
+        "districtCode": "02",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-6306",
+        "address": "1107 Longworth House Office Building Washington DC 20515-1902",
+        "website": "https://golden.house.gov",
+        "social": {
+          "x": "RepGolden"
+        }
+      }
+    ],
+    "ME:state-house:045": [
+      {
+        "id": "ocd-person/b6cdaab7-6aec-4c65-a239-e18c6e839fbc",
+        "name": "Abden Simmons",
+        "office": "state-house",
+        "districtCode": "045",
+        "contactUrl": null,
+        "email": "abden.simmons@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/144",
+        "social": {}
+      }
+    ],
+    "ME:state-house:034": [
+      {
+        "id": "ocd-person/513edd6e-0d85-4ad6-8852-577cd5c0ee02",
+        "name": "Abigail Griffin",
+        "office": "state-house",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "abigail.griffin@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1369",
+        "social": {}
+      }
+    ],
+    "ME:state-house:089": [
+      {
+        "id": "ocd-person/dff0e200-fd8c-4ada-ac3d-e014a529dd59",
+        "name": "Adam Lee",
+        "office": "state-house",
+        "districtCode": "089",
+        "contactUrl": null,
+        "email": "adam.lee@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1491",
+        "social": {}
+      }
+    ],
+    "ME:state-house:061": [
+      {
+        "id": "ocd-person/4bc2b129-52c1-4dfd-99af-dd38f620183a",
+        "name": "Alicia Collins",
+        "office": "state-house",
+        "districtCode": "061",
+        "contactUrl": null,
+        "email": "alicia.collins@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/3119",
+        "social": {}
+      }
+    ],
+    "ME:state-house:049": [
+      {
+        "id": "ocd-person/82b51bea-5f96-46d6-bbcf-4d973f701b27",
+        "name": "Allison Hepler",
+        "office": "state-house",
+        "districtCode": "049",
+        "contactUrl": null,
+        "email": "allison.hepler@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1353",
+        "social": {}
+      }
+    ],
+    "ME:state-house:068": [
+      {
+        "id": "ocd-person/1e7a6a8f-7160-4bee-80d1-b1dc47b3db4f",
+        "name": "Amanda Collamore",
+        "office": "state-house",
+        "districtCode": "068",
+        "contactUrl": null,
+        "email": "amanda.collamore@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1432",
+        "social": {}
+      }
+    ],
+    "ME:state-house:021": [
+      {
+        "id": "ocd-person/8f61f208-cf99-489a-aa36-847438b0ed60",
+        "name": "Ambureen Rana",
+        "office": "state-house",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "ambureen.rana@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1464",
+        "social": {}
+      }
+    ],
+    "ME:state-house:104": [
+      {
+        "id": "ocd-person/20082672-8aa7-4d49-bad7-fe5a92d1720d",
+        "name": "Amy Arata",
+        "office": "state-house",
+        "districtCode": "104",
+        "contactUrl": null,
+        "email": "amy.arata@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1356",
+        "social": {}
+      }
+    ],
+    "ME:state-house:111": [
+      {
+        "id": "ocd-person/d9825f86-280b-4b70-9a6e-2bb7f02e239a",
+        "name": "Amy Kuhn",
+        "office": "state-house",
+        "districtCode": "111",
+        "contactUrl": null,
+        "email": "amy.kuhn@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1474",
+        "social": {}
+      }
+    ],
+    "ME:state-house:023": [
+      {
+        "id": "ocd-person/42c79801-802e-4f3d-8917-f3f956766e50",
+        "name": "Amy Roeder",
+        "office": "state-house",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "amy.roeder@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1437",
+        "social": {}
+      }
+    ],
+    "ME:state-house:143": [
+      {
+        "id": "ocd-person/8646c09c-1d84-4065-bcf2-8be6a8baf494",
+        "name": "Ann Fredericks",
+        "office": "state-house",
+        "districtCode": "143",
+        "contactUrl": null,
+        "email": "ann.fredericks@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1468",
+        "social": {}
+      }
+    ],
+    "ME:state-house:043": [
+      {
+        "id": "ocd-person/187c138c-d84d-4813-884e-553b8a9354f1",
+        "name": "Ann Matlack",
+        "office": "state-house",
+        "districtCode": "043",
+        "contactUrl": null,
+        "email": "ann.matlack@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1364",
+        "social": {}
+      }
+    ],
+    "ME:state-house:142": [
+      {
+        "id": "ocd-person/56960ccd-b154-42ae-9fb3-c323e07c23b1",
+        "name": "Anne-Marie Mastraccio",
+        "office": "state-house",
+        "districtCode": "142",
+        "contactUrl": null,
+        "email": "anne-marie.mastraccio@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/111",
+        "social": {}
+      }
+    ],
+    "ME:state-house:105": [
+      {
+        "id": "ocd-person/2f7e7649-5c68-4f8f-8c9a-7993b66d383a",
+        "name": "Annie Graham",
+        "office": "state-house",
+        "districtCode": "105",
+        "contactUrl": null,
+        "email": "anne.graham@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/259",
+        "social": {}
+      }
+    ],
+    "ME:state-house:103": [
+      {
+        "id": "ocd-person/7777fc5c-d508-4332-aac4-ec4799cf1721",
+        "name": "Art Bell",
+        "office": "state-house",
+        "districtCode": "103",
+        "contactUrl": null,
+        "email": "arthur.bell@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1419",
+        "social": {}
+      }
+    ],
+    "ME:state-house:009": [
+      {
+        "id": "ocd-person/28891c40-a850-4e37-a339-4f60976ab515",
+        "name": "Artie Mingo",
+        "office": "state-house",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "arthur.mingo@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/3107",
+        "social": {}
+      }
+    ],
+    "ME:state-house:106": [
+      {
+        "id": "ocd-person/72cc3b25-8e1e-4095-93be-216ee191572c",
+        "name": "Barbara Bagshaw",
+        "office": "state-house",
+        "districtCode": "106",
+        "contactUrl": null,
+        "email": "barbara.bagshaw@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1473",
+        "social": {}
+      }
+    ],
+    "ME:state-house:038": [
+      {
+        "id": "ocd-person/f52b3788-349b-4b6c-84a3-72d02a953616",
+        "name": "Ben Hymes",
+        "office": "state-house",
+        "districtCode": "038",
+        "contactUrl": null,
+        "email": "benjamin.hymes@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1497",
+        "social": {}
+      }
+    ],
+    "ME:state-house:012": [
+      {
+        "id": "ocd-person/43c2650b-6248-46f9-a553-8c2bd0bab294",
+        "name": "Billy Bob Faulkingham",
+        "office": "state-house",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "william.faulkingham@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1379",
+        "social": {}
+      }
+    ],
+    "ME:state-house:080": [
+      {
+        "id": "ocd-person/cf1f0a32-7107-44ea-96f2-1f3c604d87cc",
+        "name": "Caldwell Jackson",
+        "office": "state-house",
+        "districtCode": "080",
+        "contactUrl": null,
+        "email": "caldwell.jackson@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1485",
+        "social": {}
+      }
+    ],
+    "ME:state-house:065": [
+      {
+        "id": "ocd-person/e1e7623e-aee4-4631-942c-e65c56d514c3",
+        "name": "Cassie Julia",
+        "office": "state-house",
+        "districtCode": "065",
+        "contactUrl": null,
+        "email": "cassie.julia@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/3122",
+        "social": {}
+      }
+    ],
+    "ME:state-house:031": [
+      {
+        "id": "ocd-person/1793f579-da58-422f-bc22-36da20ce246c",
+        "name": "Chad Perkins",
+        "office": "state-house",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "chad.perkins@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1467",
+        "social": {}
+      }
+    ],
+    "ME:state-house:119": [
+      {
+        "id": "ocd-person/d87034c7-fd93-4ba1-a61b-f4ea810506c9",
+        "name": "Charles Skold",
+        "office": "state-house",
+        "districtCode": "119",
+        "contactUrl": null,
+        "email": "charles.skold@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1475",
+        "social": {}
+      }
+    ],
+    "ME:state-house:099": [
+      {
+        "id": "ocd-person/cef7caa9-828c-4272-a694-2aa16a5397ea",
+        "name": "Cheryl Golek",
+        "office": "state-house",
+        "districtCode": "099",
+        "contactUrl": null,
+        "email": "cheryl.golek@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1494",
+        "social": {}
+      }
+    ],
+    "ME:state-house:110": [
+      {
+        "id": "ocd-person/bdb29bb6-c6a2-461a-8527-06ac1ba20049",
+        "name": "Christina Mitchell",
+        "office": "state-house",
+        "districtCode": "110",
+        "contactUrl": null,
+        "email": "christina.mitchell@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/3135",
+        "social": {}
+      }
+    ],
+    "ME:state-house:121": [
+      {
+        "id": "ocd-person/14000c75-b0e9-451c-a081-9121970897de",
+        "name": "Christopher Kessler",
+        "office": "state-house",
+        "districtCode": "121",
+        "contactUrl": null,
+        "email": "christopher.kessler@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1384",
+        "social": {}
+      }
+    ],
+    "ME:state-house:020": [
+      {
+        "id": "ocd-person/49a5c100-0379-4ce8-af49-de4c4f817abc",
+        "name": "Dani O'Halloran",
+        "office": "state-house",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "dani.o'halloran@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/3112",
+        "social": {}
+      }
+    ],
+    "ME:state-house:100": [
+      {
+        "id": "ocd-person/eb5efd36-8020-46f1-a6ef-6dac6873f692",
+        "name": "Dan Ankeles",
+        "office": "state-house",
+        "districtCode": "100",
+        "contactUrl": null,
+        "email": "daniel.ankeles@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1495",
+        "social": {}
+      }
+    ],
+    "ME:state-house:055": [
+      {
+        "id": "ocd-person/43e6cd5d-1e16-4099-b46b-1b6883e679b6",
+        "name": "Dan Shagoury",
+        "office": "state-house",
+        "districtCode": "055",
+        "contactUrl": null,
+        "email": "daniel.shagoury@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1503",
+        "social": {}
+      }
+    ],
+    "ME:state-house:135": [
+      {
+        "id": "ocd-person/f9010476-1b1e-4407-b672-b81cd0ee8ae6",
+        "name": "Dan Sayre",
+        "office": "state-house",
+        "districtCode": "135",
+        "contactUrl": null,
+        "email": "daniel.sayre@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1479",
+        "social": {}
+      }
+    ],
+    "ME:state-house:059": [
+      {
+        "id": "ocd-person/1e9dcfd4-a93c-49e3-9099-fa4a85f732d0",
+        "name": "Dave Rollins",
+        "office": "state-house",
+        "districtCode": "059",
+        "contactUrl": null,
+        "email": "david.rollins@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/3118",
+        "social": {}
+      }
+    ],
+    "ME:state-house:050": [
+      {
+        "id": "ocd-person/8dd63807-ac15-408c-97de-c8e9195a6a42",
+        "name": "David Sinclair",
+        "office": "state-house",
+        "districtCode": "050",
+        "contactUrl": null,
+        "email": "david.sinclair@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1508",
+        "social": {}
+      }
+    ],
+    "ME:state-house:139": [
+      {
+        "id": "ocd-person/30414bf4-13ad-4bd5-a1d9-3cf11be6464d",
+        "name": "Woody Woodsome",
+        "office": "state-house",
+        "districtCode": "139",
+        "contactUrl": null,
+        "email": "david.woodsome@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1480",
+        "social": {}
+      }
+    ],
+    "ME:state-house:087": [
+      {
+        "id": "ocd-person/f338ea4f-b539-450c-bca4-161c427bb81a",
+        "name": "David Boyer",
+        "office": "state-house",
+        "districtCode": "087",
+        "contactUrl": null,
+        "email": "david.boyer@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1489",
+        "social": {}
+      }
+    ],
+    "ME:state-house:069": [
+      {
+        "id": "ocd-person/8bc14822-ff62-4ffe-bf42-4114bd5bd99b",
+        "name": "Dean Cray",
+        "office": "state-house",
+        "districtCode": "069",
+        "contactUrl": null,
+        "email": "dean.cray@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/249",
+        "social": {}
+      }
+    ],
+    "ME:state-house:120": [
+      {
+        "id": "ocd-person/3080d13f-59de-437a-b405-a2313be6ee89",
+        "name": "Deqa Dhalac",
+        "office": "state-house",
+        "districtCode": "120",
+        "contactUrl": null,
+        "email": "deqa.dhalac@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1476",
+        "social": {}
+      }
+    ],
+    "ME:state-house:006": [
+      {
+        "id": "ocd-person/1b986e08-1270-49ba-b6d0-941a950d3008",
+        "name": "Donald Ardell",
+        "office": "state-house",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "donald.ardell@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1457",
+        "social": {}
+      }
+    ],
+    "ME:state-house:126": [
+      {
+        "id": "ocd-person/81123167-ba38-419a-92e5-fe0102d6a553",
+        "name": "Drew Gattine",
+        "office": "state-house",
+        "districtCode": "126",
+        "contactUrl": null,
+        "email": "andrew.gattine@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/68",
+        "social": {}
+      }
+    ],
+    "ME:state-house:114": [
+      {
+        "id": "ocd-person/03370150-e682-4bce-9989-4a8b73f10042",
+        "name": "Dylan Pugh",
+        "office": "state-house",
+        "districtCode": "114",
+        "contactUrl": null,
+        "email": "dylan.pugh@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/3136",
+        "social": {}
+      }
+    ],
+    "ME:state-house:109": [
+      {
+        "id": "ocd-person/65c05666-3d38-4098-b2fc-6a519f21f71f",
+        "name": "Ellie Sato",
+        "office": "state-house",
+        "districtCode": "109",
+        "contactUrl": null,
+        "email": "eleanor.sato@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/3134",
+        "social": {}
+      }
+    ],
+    "ME:state-house:064": [
+      {
+        "id": "ocd-person/1e34b996-ad95-4a32-866c-dd65ee82e3f4",
+        "name": "Flavia DeBrito",
+        "office": "state-house",
+        "districtCode": "064",
+        "contactUrl": null,
+        "email": "flavia.debrito@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/3121",
+        "social": {}
+      }
+    ],
+    "ME:state-house:027": [
+      {
+        "id": "ocd-person/7893adc7-d4fb-42e4-bae0-1258ce673096",
+        "name": "Gary Drinkwater",
+        "office": "state-house",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "gary.drinkwater@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1376",
+        "social": {}
+      }
+    ],
+    "ME:state-house:014": [
+      {
+        "id": "ocd-person/55262df3-ff33-4e9e-a504-912ac2558ede",
+        "name": "Gary Friedmann",
+        "office": "state-house",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "gary.friedmann@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/3109",
+        "social": {}
+      }
+    ],
+    "ME:state-house:113": [
+      {
+        "id": "ocd-person/f6eea224-7845-41b1-8e05-030ef3d8d886",
+        "name": "Grayson Lookner",
+        "office": "state-house",
+        "districtCode": "113",
+        "contactUrl": null,
+        "email": "grayson.lookner@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1416",
+        "social": {}
+      }
+    ],
+    "ME:state-house:007": [
+      {
+        "id": "ocd-person/90989c27-4cd8-409e-8325-9bd50dac9cf4",
+        "name": "Gregg Swallow",
+        "office": "state-house",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "gregory.swallow@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1381",
+        "social": {}
+      }
+    ],
+    "ME:state-house:048": [
+      {
+        "id": "ocd-person/468ba602-86c5-4293-85b2-45e87313c1c3",
+        "name": "Holly Stover",
+        "office": "state-house",
+        "districtCode": "048",
+        "contactUrl": null,
+        "email": "holly.stover@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1363",
+        "social": {}
+      }
+    ],
+    "ME:state-house:015": [
+      {
+        "id": "ocd-person/cd08563e-987c-4c06-9487-4a22015e18a9",
+        "name": "Holly Eaton",
+        "office": "state-house",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "holly.eaton@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1461",
+        "social": {}
+      }
+    ],
+    "ME:state-house:147": [
+      {
+        "id": "ocd-person/82f5c446-4f81-4c54-98ae-7b302003d39d",
+        "name": "Holly Sargent",
+        "office": "state-house",
+        "districtCode": "147",
+        "contactUrl": null,
+        "email": "holly.sargent@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1471",
+        "social": {}
+      }
+    ],
+    "ME:state-house:028": [
+      {
+        "id": "ocd-person/e603c478-27c7-4f68-ba31-4ef3732ab916",
+        "name": "Irene Gifford",
+        "office": "state-house",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "irene.gifford@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1465",
+        "social": {}
+      }
+    ],
+    "ME:state-house:035": [
+      {
+        "id": "ocd-person/e4f0e3da-2e65-4986-96ad-1ef21f9da73d",
+        "name": "Jim Thorne",
+        "office": "state-house",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "jim.thorne@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1431",
+        "social": {}
+      }
+    ],
+    "ME:state-house:026": [
+      {
+        "id": "ocd-person/a3281b8a-e758-4804-a964-e8db96d043a8",
+        "name": "Jim Dill",
+        "office": "state-house",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "james.dill@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/253",
+        "social": {}
+      }
+    ],
+    "ME:state-house:030": [
+      {
+        "id": "ocd-person/54f9af68-0a59-4cd7-a448-40725e8781ab",
+        "name": "Jim White",
+        "office": "state-house",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "james.white@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1466",
+        "social": {}
+      }
+    ],
+    "ME:state-house:039": [
+      {
+        "id": "ocd-person/b7b97724-7abc-44fb-bace-d3606d3fadb2",
+        "name": "Jan Dodge",
+        "office": "state-house",
+        "districtCode": "039",
+        "contactUrl": null,
+        "email": "jan.dodge@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1366",
+        "social": {}
+      }
+    ],
+    "ME:state-house:144": [
+      {
+        "id": "ocd-person/2288cf22-64f4-4f1f-b5e3-b1ada5c72914",
+        "name": "Jeff Adams",
+        "office": "state-house",
+        "districtCode": "144",
+        "contactUrl": null,
+        "email": "jeffrey.adams@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1469",
+        "social": {}
+      }
+    ],
+    "ME:state-house:070": [
+      {
+        "id": "ocd-person/b873e7d2-9103-47e9-8c25-df94056f728d",
+        "name": "Jennifer Poirier",
+        "office": "state-house",
+        "districtCode": "070",
+        "contactUrl": null,
+        "email": "jennifer.poirier@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1433",
+        "social": {}
+      }
+    ],
+    "ME:state-house:071": [
+      {
+        "id": "ocd-person/d72eadfd-23ee-4ecb-9853-e139ea82aec3",
+        "name": "Jack Ducharme",
+        "office": "state-house",
+        "districtCode": "071",
+        "contactUrl": null,
+        "email": "jack.ducharme@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1434",
+        "social": {}
+      }
+    ],
+    "ME:state-house:136": [
+      {
+        "id": "ocd-person/9a9e7eab-5a12-452d-8d3b-57aa2dfa34b4",
+        "name": "John Eder",
+        "office": "state-house",
+        "districtCode": "136",
+        "contactUrl": null,
+        "email": "john.eder@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/490",
+        "social": {}
+      }
+    ],
+    "ME:state-house:005": [
+      {
+        "id": "ocd-person/b6102f7e-216a-4632-901c-25b2b446f080",
+        "name": "Joseph Underwood",
+        "office": "state-house",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "joseph.underwood@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1444",
+        "social": {}
+      }
+    ],
+    "ME:state-house:091": [
+      {
+        "id": "ocd-person/64a07a85-a469-4c9d-9b7c-bf4de46ade74",
+        "name": "Josh Morris",
+        "office": "state-house",
+        "districtCode": "091",
+        "contactUrl": null,
+        "email": "joshua.morris@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1359",
+        "social": {}
+      }
+    ],
+    "ME:state-house:093": [
+      {
+        "id": "ocd-person/ec1a81b6-7c7f-4bac-99d4-ab0677e865d1",
+        "name": "Julie McCabe",
+        "office": "state-house",
+        "districtCode": "093",
+        "contactUrl": null,
+        "email": "julia.mccabe@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/3130",
+        "social": {}
+      }
+    ],
+    "ME:state-house:054": [
+      {
+        "id": "ocd-person/80900bc0-7e26-4195-a0af-ec56b9f34fe0",
+        "name": "Karen Montell",
+        "office": "state-house",
+        "districtCode": "054",
+        "contactUrl": null,
+        "email": "karen.montell@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1502",
+        "social": {}
+      }
+    ],
+    "ME:state-house:062": [
+      {
+        "id": "ocd-person/b07e421b-8c1f-473d-aa7a-10d71e8a443b",
+        "name": "Katrina Smith",
+        "office": "state-house",
+        "districtCode": "062",
+        "contactUrl": null,
+        "email": "katrina.smith@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1505",
+        "social": {}
+      }
+    ],
+    "ME:state-house:125": [
+      {
+        "id": "ocd-person/8abb4c0b-ed96-442e-8483-93a05845dcc5",
+        "name": "Kelly Murphy",
+        "office": "state-house",
+        "districtCode": "125",
+        "contactUrl": null,
+        "email": "kelly.murphy@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1477",
+        "social": {}
+      }
+    ],
+    "ME:state-house:033": [
+      {
+        "id": "ocd-person/1c52b583-18c3-4e12-ae7a-2b07d589f753",
+        "name": "Ken Fredette",
+        "office": "state-house",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "kenneth.fredette@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/65",
+        "social": {}
+      }
+    ],
+    "ME:state-house:098": [
+      {
+        "id": "ocd-person/f905d6bf-dd0b-4637-94ba-381e14083f6e",
+        "name": "Kilton Webb",
+        "office": "state-house",
+        "districtCode": "098",
+        "contactUrl": null,
+        "email": "kilton.webb@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/3131",
+        "social": {}
+      }
+    ],
+    "ME:state-house:036": [
+      {
+        "id": "ocd-person/59048d8e-de6a-4f84-aa27-0ae867742214",
+        "name": "Kim Haggan",
+        "office": "state-house",
+        "districtCode": "036",
+        "contactUrl": null,
+        "email": "kimberly.haggan@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/3113",
+        "social": {}
+      }
+    ],
+    "ME:state-house:085": [
+      {
+        "id": "ocd-person/410a9d92-cdb2-4927-b589-72e32d525883",
+        "name": "Kim Pomerleau",
+        "office": "state-house",
+        "districtCode": "085",
+        "contactUrl": null,
+        "email": "kimberly.pomerleau@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1488",
+        "social": {}
+      }
+    ],
+    "ME:state-house:151": [
+      {
+        "id": "ocd-person/375e5fda-9367-4ce3-a209-1c772c32219f",
+        "name": "Kristi Mathieson",
+        "office": "state-house",
+        "districtCode": "151",
+        "contactUrl": null,
+        "email": "kristi.mathieson@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1406",
+        "social": {}
+      }
+    ],
+    "ME:state-house:022": [
+      {
+        "id": "ocd-person/a65cc42d-ae91-4f47-8269-4673f106682f",
+        "name": "Laura Supica",
+        "office": "state-house",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "laura.supica@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1438",
+        "social": {}
+      }
+    ],
+    "ME:state-house:090": [
+      {
+        "id": "ocd-person/5df4dc20-8fb9-432c-8844-c72a66a325d6",
+        "name": "Laurel Libby",
+        "office": "state-house",
+        "districtCode": "090",
+        "contactUrl": null,
+        "email": "laurel.libby@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1423",
+        "social": {}
+      }
+    ],
+    "ME:state-house:025": [
+      {
+        "id": "ocd-person/051d0089-f1cc-4523-a48d-ae98700165f8",
+        "name": "Laurie Osher",
+        "office": "state-house",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "laurie.osher@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1436",
+        "social": {}
+      }
+    ],
+    "ME:state-house:072": [
+      {
+        "id": "ocd-person/12fc57e0-db0e-4112-a7c0-226b952a11b8",
+        "name": "Liz Caruso",
+        "office": "state-house",
+        "districtCode": "072",
+        "contactUrl": null,
+        "email": "elizabeth.caruso@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/3123",
+        "social": {}
+      }
+    ],
+    "ME:state-house:131": [
+      {
+        "id": "ocd-person/3cdb36ad-77a1-401d-8479-630ae970300b",
+        "name": "Lori Gramlich",
+        "office": "state-house",
+        "districtCode": "131",
+        "contactUrl": null,
+        "email": "lori.gramlich@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1342",
+        "social": {}
+      }
+    ],
+    "ME:state-house:141": [
+      {
+        "id": "ocd-person/85c0e0b8-2654-4da5-96e6-8745ec68d0af",
+        "name": "Lucas Lanigan",
+        "office": "state-house",
+        "districtCode": "141",
+        "contactUrl": null,
+        "email": "lucas.lanigan@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1481",
+        "social": {}
+      }
+    ],
+    "ME:state-house:001": [
+      {
+        "id": "ocd-person/1f33e4be-1228-4c31-9b0f-c79012be9d07",
+        "name": "Lucien Daigle",
+        "office": "state-house",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "lucien.daigle@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/memberprofiles/Details/3106",
+        "social": {}
+      }
+    ],
+    "ME:state-house:046": [
+      {
+        "id": "ocd-person/b795e4ca-6b0d-4101-902d-8db5c1b54485",
+        "name": "Lydia Crafts",
+        "office": "state-house",
+        "districtCode": "046",
+        "contactUrl": null,
+        "email": "lydia.crafts@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1429",
+        "social": {}
+      }
+    ],
+    "ME:state-house:130": [
+      {
+        "id": "ocd-person/61ef08d1-e345-42af-a56e-4fcd5076f0f5",
+        "name": "Lynn Copeland",
+        "office": "state-house",
+        "districtCode": "130",
+        "contactUrl": null,
+        "email": "lynn.copeland@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1410",
+        "social": {}
+      }
+    ],
+    "ME:state-house:095": [
+      {
+        "id": "ocd-person/0bb988f9-6dca-4fd8-ac06-3603af31094f",
+        "name": "Mana Abdi",
+        "office": "state-house",
+        "districtCode": "095",
+        "contactUrl": null,
+        "email": "mana.abdi@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1492",
+        "social": {}
+      }
+    ],
+    "ME:state-house:133": [
+      {
+        "id": "ocd-person/48305a9e-8f2a-4cea-8689-b93491c82ad5",
+        "name": "Marc Malon",
+        "office": "state-house",
+        "districtCode": "133",
+        "contactUrl": null,
+        "email": "marc.malon@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1478",
+        "social": {}
+      }
+    ],
+    "ME:state-house:107": [
+      {
+        "id": "ocd-person/0e9ec0ba-18f6-4dd5-90c2-5893f0216138",
+        "name": "Mark Cooper",
+        "office": "state-house",
+        "districtCode": "107",
+        "contactUrl": null,
+        "email": "mark.cooper@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/3132",
+        "social": {}
+      }
+    ],
+    "ME:state-house:138": [
+      {
+        "id": "ocd-person/134a1697-216a-4761-827f-840f72c640a0",
+        "name": "Mark Blier",
+        "office": "state-house",
+        "districtCode": "138",
+        "contactUrl": null,
+        "email": "mark.blier@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1344",
+        "social": {}
+      }
+    ],
+    "ME:state-house:003": [
+      {
+        "id": "ocd-person/a3a29593-781a-462d-93cc-685be03b3b56",
+        "name": "Mark Babin",
+        "office": "state-house",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "mark.babin@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1455",
+        "social": {}
+      }
+    ],
+    "ME:state-house:084": [
+      {
+        "id": "ocd-person/d16d8ff0-3e6f-4970-9baf-767c9eb09fab",
+        "name": "Mark Walker",
+        "office": "state-house",
+        "districtCode": "084",
+        "contactUrl": null,
+        "email": "mark.walker@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1487",
+        "social": {}
+      }
+    ],
+    "ME:state-house:129": [
+      {
+        "id": "ocd-person/9b3c17b4-3c7a-4f8d-96bb-8215a385fdd2",
+        "name": "Marshall Archer",
+        "office": "state-house",
+        "districtCode": "129",
+        "contactUrl": null,
+        "email": "marshall.archer@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/3139",
+        "social": {}
+      }
+    ],
+    "ME:state-house:083": [
+      {
+        "id": "ocd-person/ef0c0f85-eacc-4f97-9dba-d0781c40f274",
+        "name": "Marygrace Cimino",
+        "office": "state-house",
+        "districtCode": "083",
+        "contactUrl": null,
+        "email": "marygrace.cimino@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/3127",
+        "social": {}
+      }
+    ],
+    "ME:state-house:018": [
+      {
+        "id": "ocd-person/95538c83-57ab-4334-92a9-1991de0c3c9f",
+        "name": "Mathew McIntyre",
+        "office": "state-house",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "mathew.mcintyre@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/3111",
+        "social": {}
+      }
+    ],
+    "ME:state-house:122": [
+      {
+        "id": "ocd-person/dec943c1-07d5-479a-972f-a3c1cc6a2714",
+        "name": "Matt Beck",
+        "office": "state-house",
+        "districtCode": "122",
+        "contactUrl": null,
+        "email": "matthew.beck@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1509",
+        "social": {}
+      }
+    ],
+    "ME:state-house:117": [
+      {
+        "id": "ocd-person/7f03a30f-5a77-49b2-8c92-57f7a4238052",
+        "name": "Matt Moonen",
+        "office": "state-house",
+        "districtCode": "117",
+        "contactUrl": null,
+        "email": "matt.moonen@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/118",
+        "social": {}
+      }
+    ],
+    "ME:state-house:102": [
+      {
+        "id": "ocd-person/efda26eb-c8f7-443c-a963-95419878a856",
+        "name": "Melanie Sachs",
+        "office": "state-house",
+        "districtCode": "102",
+        "contactUrl": null,
+        "email": "melanie.sachs@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1420",
+        "social": {}
+      }
+    ],
+    "ME:state-house:115": [
+      {
+        "id": "ocd-person/b0c25078-ee4b-4638-9523-17997681a6e7",
+        "name": "Michael Brennan",
+        "office": "state-house",
+        "districtCode": "115",
+        "contactUrl": null,
+        "email": "michael.brennan@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1350",
+        "social": {}
+      }
+    ],
+    "ME:state-house:053": [
+      {
+        "id": "ocd-person/feb330d7-8122-4547-b38a-38279732a9ce",
+        "name": "Michael Lemelin",
+        "office": "state-house",
+        "districtCode": "053",
+        "contactUrl": null,
+        "email": "michael.lemelin@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1428",
+        "social": {}
+      }
+    ],
+    "ME:state-house:073": [
+      {
+        "id": "ocd-person/fc107a79-150e-414f-b796-960c96d75eb6",
+        "name": "Mike Soboleski",
+        "office": "state-house",
+        "districtCode": "073",
+        "contactUrl": null,
+        "email": "michael.soboleski@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1482",
+        "social": {}
+      }
+    ],
+    "ME:state-house:096": [
+      {
+        "id": "ocd-person/c3185181-4ae9-42ce-8bf5-9a2f04c2422b",
+        "name": "Mike Lajoie",
+        "office": "state-house",
+        "districtCode": "096",
+        "contactUrl": null,
+        "email": "michel.lajoie@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/212",
+        "social": {}
+      }
+    ],
+    "ME:state-house:150": [
+      {
+        "id": "ocd-person/e26fdc8a-3099-4ea4-ad2d-1ccdc45ce1e6",
+        "name": "Michele Meyer",
+        "office": "state-house",
+        "districtCode": "150",
+        "contactUrl": null,
+        "email": "michele.meyer@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1337",
+        "social": {}
+      }
+    ],
+    "ME:state-house:123": [
+      {
+        "id": "ocd-person/0b6557f4-ce52-460b-99af-ec88b847d81a",
+        "name": "Michelle Boyer",
+        "office": "state-house",
+        "districtCode": "123",
+        "contactUrl": null,
+        "email": "michelle.boyer@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/3138",
+        "social": {}
+      }
+    ],
+    "ME:state-house:079": [
+      {
+        "id": "ocd-person/a2494f1d-e78d-4a29-b631-5c40b3fe43d8",
+        "name": "Mike Lance",
+        "office": "state-house",
+        "districtCode": "079",
+        "contactUrl": null,
+        "email": "michael.lance@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/3125",
+        "social": {}
+      }
+    ],
+    "ME:state-house:040": [
+      {
+        "id": "ocd-person/648b245c-8c13-4caf-944c-f775ff48aab2",
+        "name": "Mike Ray",
+        "office": "state-house",
+        "districtCode": "040",
+        "contactUrl": null,
+        "email": "michael.ray@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/3114",
+        "social": {}
+      }
+    ],
+    "ME:state-house:127": [
+      {
+        "id": "ocd-person/35363ed2-34d2-4f93-bbce-2b0fe26d962e",
+        "name": "Morgan Rielly",
+        "office": "state-house",
+        "districtCode": "127",
+        "contactUrl": null,
+        "email": "morgan.rielly@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1414",
+        "social": {}
+      }
+    ],
+    "ME:state-house:029": [
+      {
+        "id": "ocd-person/58e6cfa5-f375-4619-b8b3-2ce7d176cb55",
+        "name": "Nancy Theriault",
+        "office": "state-house",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "nancy.theriault@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/MemberProfiles/Details/3142",
+        "social": {}
+      }
+    ],
+    "ME:state-house:082": [
+      {
+        "id": "ocd-person/bed16528-b0ae-40e0-89a0-7303b946fb71",
+        "name": "Nate Wadsworth",
+        "office": "state-house",
+        "districtCode": "082",
+        "contactUrl": null,
+        "email": "nathan.wadsworth@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/46",
+        "social": {}
+      }
+    ],
+    "ME:state-house:137": [
+      {
+        "id": "ocd-person/69e87146-73a0-434e-9cbb-8d7c80e7ce30",
+        "name": "Nathan Carlow",
+        "office": "state-house",
+        "districtCode": "137",
+        "contactUrl": null,
+        "email": "nathan.carlow@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1411",
+        "social": {}
+      }
+    ],
+    "ME:state-house:016": [
+      {
+        "id": "ocd-person/a1ab39cd-e95b-4f16-9fdc-9f7d2685fc45",
+        "name": "Nina Milliken",
+        "office": "state-house",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "nina.milliken@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1462",
+        "social": {}
+      }
+    ],
+    "ME:state-house:108": [
+      {
+        "id": "ocd-person/a3686503-340d-4f8b-91d3-6f8de4d8a55d",
+        "name": "Parnell Terry",
+        "office": "state-house",
+        "districtCode": "108",
+        "contactUrl": null,
+        "email": "parnell.terry@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/3133",
+        "social": {}
+      }
+    ],
+    "ME:state-house:063": [
+      {
+        "id": "ocd-person/ff5fbabd-df54-46a9-a36c-e78dad524105",
+        "name": "Paul Flynn",
+        "office": "state-house",
+        "districtCode": "063",
+        "contactUrl": null,
+        "email": "paul.flynn@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/3120",
+        "social": {}
+      }
+    ],
+    "ME:state-house:081": [
+      {
+        "id": "ocd-person/dac0a6d5-74a6-4948-8e27-cd036a44668d",
+        "name": "Peter Wood",
+        "office": "state-house",
+        "districtCode": "081",
+        "contactUrl": null,
+        "email": "peter.wood@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/3126",
+        "social": {}
+      }
+    ],
+    "ME:state-house:101": [
+      {
+        "id": "ocd-person/522f7557-1c06-451b-9c81-78080fc5c21c",
+        "name": "Poppy Arford",
+        "office": "state-house",
+        "districtCode": "101",
+        "contactUrl": null,
+        "email": "poppy.arford@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1421",
+        "social": {}
+      }
+    ],
+    "ME:state-house:088": [
+      {
+        "id": "ocd-person/d2a31aea-936e-459b-85e8-a031ba2756e9",
+        "name": "Quentin Chapman",
+        "office": "state-house",
+        "districtCode": "088",
+        "contactUrl": null,
+        "email": "quentin.chapman@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/3129",
+        "social": {}
+      }
+    ],
+    "ME:state-house:078": [
+      {
+        "id": "ocd-person/b61923e6-c463-4df4-95b2-117d74c030bd",
+        "name": "Rachel Henderson",
+        "office": "state-house",
+        "districtCode": "078",
+        "contactUrl": null,
+        "email": "rachel.henderson@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1484",
+        "social": {}
+      }
+    ],
+    "ME:state-house:051": [
+      {
+        "id": "ocd-person/ef82117f-6819-4f84-92dc-a49bebded523",
+        "name": "Rafael Macias",
+        "office": "state-house",
+        "districtCode": "051",
+        "contactUrl": null,
+        "email": "rafael.macias@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/3116",
+        "social": {}
+      }
+    ],
+    "ME:state-house:056": [
+      {
+        "id": "ocd-person/abfa3321-4f0f-42a1-81ef-25b5d7bbfd3e",
+        "name": "Randall Greenwood",
+        "office": "state-house",
+        "districtCode": "056",
+        "contactUrl": null,
+        "email": "randall.greenwood@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/208",
+        "social": {}
+      }
+    ],
+    "ME:state-house:074": [
+      {
+        "id": "ocd-person/8a7d14ca-669e-4984-8a28-0086e2b9b2ae",
+        "name": "Randy Hall",
+        "office": "state-house",
+        "districtCode": "074",
+        "contactUrl": null,
+        "email": "randall.hall@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1375",
+        "social": {}
+      }
+    ],
+    "ME:state-house:037": [
+      {
+        "id": "ocd-person/76ab2f9a-14e8-4eb5-ae0e-1a26e4a3a04c",
+        "name": "Reagan Paul",
+        "office": "state-house",
+        "districtCode": "037",
+        "contactUrl": null,
+        "email": "reagan.paul@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1496",
+        "social": {}
+      }
+    ],
+    "ME:state-house:097": [
+      {
+        "id": "ocd-person/6c313875-2dc9-4ef5-b869-c3cc0b7d5c97",
+        "name": "Rick Mason",
+        "office": "state-house",
+        "districtCode": "097",
+        "contactUrl": null,
+        "email": "richard.mason@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/158",
+        "social": {}
+      }
+    ],
+    "ME:state-house:019": [
+      {
+        "id": "ocd-person/0f9ba178-89fb-439e-afa2-c327414d966d",
+        "name": "Dick Campbell",
+        "office": "state-house",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "richard.campbell@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/21",
+        "social": {}
+      }
+    ],
+    "ME:state-house:145": [
+      {
+        "id": "ocd-person/8292a538-3cda-492f-8686-da248f432df3",
+        "name": "Bob Foley",
+        "office": "state-house",
+        "districtCode": "145",
+        "contactUrl": null,
+        "email": "robert.foley@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/64",
+        "social": {}
+      }
+    ],
+    "ME:state-house:066": [
+      {
+        "id": "ocd-person/32f4600c-1bc1-4758-8d94-69878c863e00",
+        "name": "Bob Nutting",
+        "office": "state-house",
+        "districtCode": "066",
+        "contactUrl": null,
+        "email": "robert.nutting@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/218",
+        "social": {}
+      }
+    ],
+    "ME:state-house:002": [
+      {
+        "id": "ocd-person/c76a67f9-4d87-4a73-8d89-eea7cd8a3a98",
+        "name": "Roger Albert",
+        "office": "state-house",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "roger.albert@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1454",
+        "social": {}
+      }
+    ],
+    "ME:state-house:086": [
+      {
+        "id": "ocd-person/df555146-b927-4268-b8cf-d3d7b0848b14",
+        "name": "Rolf Olsen",
+        "office": "state-house",
+        "districtCode": "086",
+        "contactUrl": null,
+        "email": "rolf.olsen@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/3128",
+        "social": {}
+      }
+    ],
+    "ME:state-house:013": [
+      {
+        "id": "ocd-person/6e471a24-9252-4c4d-aff6-a00c0c84604d",
+        "name": "Russ White",
+        "office": "state-house",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "russell.white@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/3108",
+        "social": {}
+      }
+    ],
+    "ME:state-house:132": [
+      {
+        "id": "ocd-person/b890f601-0023-4d87-acf7-a4db5cbf2b62",
+        "name": "Ryan Fecteau",
+        "office": "state-house",
+        "districtCode": "132",
+        "contactUrl": null,
+        "email": "ryan.fecteau@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/63",
+        "social": {}
+      }
+    ],
+    "ME:state-house:052": [
+      {
+        "id": "ocd-person/d91a8965-c40d-481f-af61-5acb9b953fd3",
+        "name": "Sally Cluchey",
+        "office": "state-house",
+        "districtCode": "052",
+        "contactUrl": null,
+        "email": "sally.cluchey@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1501",
+        "social": {}
+      }
+    ],
+    "ME:state-house:116": [
+      {
+        "id": "ocd-person/59c5505d-902d-4b6a-b3d5-8e036e640348",
+        "name": "Sam Zager",
+        "office": "state-house",
+        "districtCode": "116",
+        "contactUrl": null,
+        "email": "sam.zager@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1418",
+        "social": {}
+      }
+    ],
+    "ME:state-house:094": [
+      {
+        "id": "ocd-person/07984348-1057-4adf-9816-8407548bdb35",
+        "name": "Scott Harriman",
+        "office": "state-house",
+        "districtCode": "094",
+        "contactUrl": null,
+        "email": "scott.harriman@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/MemberProfiles/Details/3141",
+        "social": {}
+      }
+    ],
+    "ME:state-house:024": [
+      {
+        "id": "ocd-person/9db9a9ba-552e-446f-b5a3-58f74596a115",
+        "name": "Sean Faircloth",
+        "office": "state-house",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "sean.faircloth@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/430",
+        "social": {}
+      }
+    ],
+    "ME:state-house:058": [
+      {
+        "id": "ocd-person/05a89099-12b0-46b5-9f6e-002e1e621583",
+        "name": "Sharon Frost",
+        "office": "state-house",
+        "districtCode": "058",
+        "contactUrl": null,
+        "email": "sharon.frost@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/3117",
+        "social": {}
+      }
+    ],
+    "ME:state-house:076": [
+      {
+        "id": "ocd-person/7498179f-e3de-47b7-9aee-9abee716522a",
+        "name": "Sheila Lyman",
+        "office": "state-house",
+        "districtCode": "076",
+        "contactUrl": null,
+        "email": "sheila.lyman@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1424",
+        "social": {}
+      }
+    ],
+    "ME:state-house:067": [
+      {
+        "id": "ocd-person/2c48b67e-10dd-4162-af2b-add94f3bc728",
+        "name": "Shelley Rudnicki",
+        "office": "state-house",
+        "districtCode": "067",
+        "contactUrl": null,
+        "email": "shelley.rudnicki@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1371",
+        "social": {}
+      }
+    ],
+    "ME:state-house:124": [
+      {
+        "id": "ocd-person/140459ab-ba63-410a-819c-aec28c2f2f66",
+        "name": "Sophie Warren",
+        "office": "state-house",
+        "districtCode": "124",
+        "contactUrl": null,
+        "email": "sophia.warren@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1413",
+        "social": {}
+      }
+    ],
+    "ME:state-house:092": [
+      {
+        "id": "ocd-person/94645c8f-f06c-485e-b5fa-797e3590ea30",
+        "name": "Steve Wood",
+        "office": "state-house",
+        "districtCode": "092",
+        "contactUrl": null,
+        "email": "stephen.wood@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/40",
+        "social": {}
+      }
+    ],
+    "ME:state-house:017": [
+      {
+        "id": "ocd-person/4cd1a303-929b-43fe-b92c-1cca8a89d302",
+        "name": "Steve Bishop",
+        "office": "state-house",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "steven.bishop@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/memberprofiles/Details/3110",
+        "social": {}
+      }
+    ],
+    "ME:state-house:075": [
+      {
+        "id": "ocd-person/fb8f35c6-65a4-42d0-9009-3def6dcc62cb",
+        "name": "Steve Bunker",
+        "office": "state-house",
+        "districtCode": "075",
+        "contactUrl": null,
+        "email": "stephan.bunker@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/3124",
+        "social": {}
+      }
+    ],
+    "ME:state-house:032": [
+      {
+        "id": "ocd-person/7d5a163c-a37a-48be-9a3f-2e4b54e3fdd6",
+        "name": "Steven Foster",
+        "office": "state-house",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "steven.foster@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1370",
+        "social": {}
+      }
+    ],
+    "ME:state-house:128": [
+      {
+        "id": "ocd-person/d43df0c7-0dfd-4640-9881-f37611c15830",
+        "name": "Sue Salisbury",
+        "office": "state-house",
+        "districtCode": "128",
+        "contactUrl": null,
+        "email": "suzanne.salisbury@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1415",
+        "social": {}
+      }
+    ],
+    "ME:state-house:077": [
+      {
+        "id": "ocd-person/444d3040-a7ee-4559-8d5f-bfc515617605",
+        "name": "Tammy Schmersal-Burgess",
+        "office": "state-house",
+        "districtCode": "077",
+        "contactUrl": null,
+        "email": "tammy.schmersal-burgess@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1483",
+        "social": {}
+      }
+    ],
+    "ME:state-house:057": [
+      {
+        "id": "ocd-person/194ff967-ad0b-4f2d-8cb7-ef1e062b235c",
+        "name": "Tavis Hasenfus",
+        "office": "state-house",
+        "districtCode": "057",
+        "contactUrl": null,
+        "email": "tavis.hasenfus@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1427",
+        "social": {}
+      }
+    ],
+    "ME:state-house:148": [
+      {
+        "id": "ocd-person/be3df38c-150a-4e3c-8c16-6e97bdbeadc4",
+        "name": "Thomas Lavigne",
+        "office": "state-house",
+        "districtCode": "148",
+        "contactUrl": null,
+        "email": "thomas.lavigne@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1472",
+        "social": {}
+      }
+    ],
+    "ME:state-house:149": [
+      {
+        "id": "ocd-person/524f6cce-8333-442a-aff3-2e92bd9df894",
+        "name": "Tiffany Roberts",
+        "office": "state-house",
+        "districtCode": "149",
+        "contactUrl": null,
+        "email": "tiffany.roberts@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1385",
+        "social": {}
+      }
+    ],
+    "ME:state-house:011": [
+      {
+        "id": "ocd-person/2ffd13d7-b22a-4bea-8bc0-eaa6c0a53c17",
+        "name": "Tiffany Strout",
+        "office": "state-house",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "tiffany.strout@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1459",
+        "social": {}
+      }
+    ],
+    "ME:state-house:004": [
+      {
+        "id": "ocd-person/2e5b6467-1014-4771-9aae-2c401029ed01",
+        "name": "Timmy Guerrette",
+        "office": "state-house",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "timothy.guerrette@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1456",
+        "social": {}
+      }
+    ],
+    "ME:state-house:134": [
+      {
+        "id": "ocd-person/10c768fb-c5ef-448e-9759-d76f6c313909",
+        "name": "Traci Gere",
+        "office": "state-house",
+        "districtCode": "134",
+        "contactUrl": null,
+        "email": "traci.gere@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1408",
+        "social": {}
+      }
+    ],
+    "ME:state-house:008": [
+      {
+        "id": "ocd-person/3853d2fe-2580-4041-abb1-b4136172e9c0",
+        "name": "Tracy Quint",
+        "office": "state-house",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "tracy.quint@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1443",
+        "social": {}
+      }
+    ],
+    "ME:state-house:042": [
+      {
+        "id": "ocd-person/0842c8ba-66a3-4896-aede-def84a65605b",
+        "name": "Valli Geiger",
+        "office": "state-house",
+        "districtCode": "042",
+        "contactUrl": null,
+        "email": "valli.geiger@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1430",
+        "social": {}
+      }
+    ],
+    "ME:state-house:041": [
+      {
+        "id": "ocd-person/6ec04f29-e02d-4c39-96e8-e9ed823437e7",
+        "name": "Vicki Doudera",
+        "office": "state-house",
+        "districtCode": "041",
+        "contactUrl": null,
+        "email": "vicki.doudera@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1365",
+        "social": {}
+      }
+    ],
+    "ME:state-house:112": [
+      {
+        "id": "ocd-person/3fbfa65e-661c-4b82-a754-9ae0c6956797",
+        "name": "Ed Crockett",
+        "office": "state-house",
+        "districtCode": "112",
+        "contactUrl": null,
+        "email": "ed.crockett@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1351",
+        "social": {}
+      }
+    ],
+    "ME:state-house:146": [
+      {
+        "id": "ocd-person/7dea9101-48ec-4f1a-871e-a4f1c98b8914",
+        "name": "Gerry Runte",
+        "office": "state-house",
+        "districtCode": "146",
+        "contactUrl": null,
+        "email": "gerry.runte@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1470",
+        "social": {}
+      }
+    ],
+    "ME:state-house:047": [
+      {
+        "id": "ocd-person/674df0e4-1997-4d43-b377-274485c0cd42",
+        "name": "Wayne Farrin",
+        "office": "state-house",
+        "districtCode": "047",
+        "contactUrl": null,
+        "email": "wayne.farrin@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/3115",
+        "social": {}
+      }
+    ],
+    "ME:state-house:140": [
+      {
+        "id": "ocd-person/8a75e2da-2389-4052-9592-1e607ba2dfc1",
+        "name": "Wayne Parry",
+        "office": "state-house",
+        "districtCode": "140",
+        "contactUrl": null,
+        "email": "wayne.parry@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/124",
+        "social": {}
+      }
+    ],
+    "ME:state-house:010": [
+      {
+        "id": "ocd-person/76a9907f-f257-4621-b176-8e911bb8cf35",
+        "name": "Will Tuell",
+        "office": "state-house",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "william.tuell@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/49",
+        "social": {}
+      }
+    ],
+    "ME:state-house:044": [
+      {
+        "id": "ocd-person/30ae681d-e01b-4305-9c6e-60df2e62b49b",
+        "name": "Bill Pluecker",
+        "office": "state-house",
+        "districtCode": "044",
+        "contactUrl": null,
+        "email": "bill.pluecker@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1383",
+        "social": {}
+      }
+    ],
+    "ME:state-house:060": [
+      {
+        "id": "ocd-person/44cd2c44-aa58-4129-bc5f-eefc64bf836f",
+        "name": "Bill Bridgeo",
+        "office": "state-house",
+        "districtCode": "060",
+        "contactUrl": null,
+        "email": "william.bridgeo@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/1504",
+        "social": {}
+      }
+    ],
+    "ME:state-house:118": [
+      {
+        "id": "ocd-person/17a906a0-129a-46f8-b12e-22910db55dbf",
+        "name": "Yusuf Yusuf",
+        "office": "state-house",
+        "districtCode": "118",
+        "contactUrl": null,
+        "email": "yusuf.yusuf@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/house/house/MemberProfiles/Details/3137",
+        "social": {}
+      }
+    ],
+    "ME:state-senate:012": [
+      {
+        "id": "ocd-person/db11e611-94a4-4451-8486-f941a532789d",
+        "name": "Pinny Beebe-Center",
+        "office": "state-senate",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "anne.beebe-center@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/District12",
+        "social": {}
+      }
+    ],
+    "ME:state-senate:029": [
+      {
+        "id": "ocd-person/50f75f0e-328c-413c-8733-de2872c5b7b0",
+        "name": "Anne Carney",
+        "office": "state-senate",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "anne.carney@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/District29",
+        "social": {}
+      }
+    ],
+    "ME:state-senate:003": [
+      {
+        "id": "ocd-person/72193c8f-2b94-4e56-bff4-482bde6037eb",
+        "name": "Brad Farrin",
+        "office": "state-senate",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "brad.farrin@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/District3",
+        "social": {}
+      }
+    ],
+    "ME:state-senate:020": [
+      {
+        "id": "ocd-person/0b3965de-8fe2-42b4-bc21-115d6b2b470f",
+        "name": "Bruce Bickford",
+        "office": "state-senate",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "bruce.bickford@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/District20",
+        "social": {}
+      }
+    ],
+    "ME:state-senate:013": [
+      {
+        "id": "ocd-person/38a3d5d7-cc62-4479-bfba-03d40099e7cd",
+        "name": "Cameron Reny",
+        "office": "state-senate",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "cameron.reny@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/District13",
+        "social": {}
+      }
+    ],
+    "ME:state-senate:014": [
+      {
+        "id": "ocd-person/5a475e6f-5277-425e-bb09-1c55facbc736",
+        "name": "Craig Hickman",
+        "office": "state-senate",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "craig.hickman@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/District14",
+        "social": {}
+      }
+    ],
+    "ME:state-senate:010": [
+      {
+        "id": "ocd-person/b3f3ab98-9169-42f8-b7d7-c04b3bdfb545",
+        "name": "David Haggan",
+        "office": "state-senate",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "david.haggan@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/District10",
+        "social": {}
+      }
+    ],
+    "ME:state-senate:024": [
+      {
+        "id": "ocd-person/0321d169-de06-4377-8cd5-6cdb51471393",
+        "name": "Denise Tepler",
+        "office": "state-senate",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "denise.tepler@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/District24",
+        "social": {}
+      }
+    ],
+    "ME:state-senate:031": [
+      {
+        "id": "ocd-person/d071215f-4839-4c4c-ab4d-f3c7179004a6",
+        "name": "Donna Bailey",
+        "office": "state-senate",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "donna.bailey@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/District31",
+        "social": {}
+      }
+    ],
+    "ME:state-senate:011": [
+      {
+        "id": "ocd-person/6d397c09-c2d3-41ff-b33a-c42efae4f187",
+        "name": "Chip Curry",
+        "office": "state-senate",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "chip.curry@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/District11",
+        "social": {}
+      }
+    ],
+    "ME:state-senate:002": [
+      {
+        "id": "ocd-person/bd417e77-81d9-4e60-8b2a-b940da10bc37",
+        "name": "Trey Stewart",
+        "office": "state-senate",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "trey.stewart@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/District2",
+        "social": {}
+      }
+    ],
+    "ME:state-senate:032": [
+      {
+        "id": "ocd-person/050d357e-3b22-4647-942f-56c9d8755194",
+        "name": "Henry Ingwersen",
+        "office": "state-senate",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "henry.ingwersen@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/District32",
+        "social": {}
+      }
+    ],
+    "ME:state-senate:022": [
+      {
+        "id": "ocd-person/32c9dbd7-beb7-481e-b0f4-22f3eaa00e50",
+        "name": "Jim Libby",
+        "office": "state-senate",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "james.libby@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/District22",
+        "social": {}
+      }
+    ],
+    "ME:state-senate:017": [
+      {
+        "id": "ocd-person/3ef077c6-482d-4dc2-92ef-69ac2a09bf06",
+        "name": "Jeff Timberlake",
+        "office": "state-senate",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "jeffrey.timberlake@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/District17",
+        "social": {}
+      }
+    ],
+    "ME:state-senate:027": [
+      {
+        "id": "ocd-person/c2268745-e66c-42d5-93bf-3b52819006e9",
+        "name": "Jill Duson",
+        "office": "state-senate",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "jill.duson@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/District27",
+        "social": {}
+      }
+    ],
+    "ME:state-senate:019": [
+      {
+        "id": "ocd-person/8f4aa04f-f106-456f-a09f-e901c78939b6",
+        "name": "Joe Martin",
+        "office": "state-senate",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "joseph.martin@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/District19",
+        "social": {}
+      }
+    ],
+    "ME:state-senate:009": [
+      {
+        "id": "ocd-person/34231d57-22e2-4f2f-be41-d2734fa6211f",
+        "name": "Joe Baldacci",
+        "office": "state-senate",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "joe.baldacci@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/District9",
+        "social": {}
+      }
+    ],
+    "ME:state-senate:034": [
+      {
+        "id": "ocd-person/8c2c2996-5a72-4c9a-a0d9-958099f3a304",
+        "name": "Joe Rafferty",
+        "office": "state-senate",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "joe.rafferty@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/District34",
+        "social": {}
+      }
+    ],
+    "ME:state-senate:021": [
+      {
+        "id": "ocd-person/062977a2-a482-4c4f-b053-75cae4bdce31",
+        "name": "Peggy Rotundo",
+        "office": "state-senate",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "margaret.rotundo@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/District21",
+        "social": {}
+      }
+    ],
+    "ME:state-senate:006": [
+      {
+        "id": "ocd-person/24bd9e6e-f10d-4e0d-a4b1-72bbe45f4e0d",
+        "name": "Marianne Moore",
+        "office": "state-senate",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "marianne.moore@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/District6",
+        "social": {}
+      }
+    ],
+    "ME:state-senate:035": [
+      {
+        "id": "ocd-person/ce4a4a85-e41d-410f-bfba-07f7f5b9dee0",
+        "name": "Mark Lawrence",
+        "office": "state-senate",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "mark.lawrence@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/District35",
+        "social": {}
+      }
+    ],
+    "ME:state-senate:023": [
+      {
+        "id": "ocd-person/863a9ef0-5916-40d6-9929-7a7b498af0ec",
+        "name": "Mattie Daughtry",
+        "office": "state-senate",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "mattie.daughtry@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/District23",
+        "social": {}
+      }
+    ],
+    "ME:state-senate:033": [
+      {
+        "id": "ocd-person/f4b39a4f-3a31-4e15-9b0a-459cb260f535",
+        "name": "Matt Harrington",
+        "office": "state-senate",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "matthew.harrington@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/District33",
+        "social": {}
+      }
+    ],
+    "ME:state-senate:008": [
+      {
+        "id": "ocd-person/a18c5356-5572-4a99-8a7c-e86105afb821",
+        "name": "Mike Tipping",
+        "office": "state-senate",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "mike.tipping@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/District8",
+        "social": {}
+      }
+    ],
+    "ME:state-senate:007": [
+      {
+        "id": "ocd-person/e53a09e6-a38e-4622-97e4-c40bf2d93faa",
+        "name": "Nicole Grohoski",
+        "office": "state-senate",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "nicole.grohoski@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/District7",
+        "social": {}
+      }
+    ],
+    "ME:state-senate:028": [
+      {
+        "id": "ocd-person/a3fd29b8-0e0e-4559-a71f-6f7cf20be60f",
+        "name": "Rachel Talbot Ross",
+        "office": "state-senate",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "rachel.talbotross@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/District28",
+        "social": {}
+      }
+    ],
+    "ME:state-senate:018": [
+      {
+        "id": "ocd-person/4276be86-7dfa-4817-9792-52622b93ff40",
+        "name": "Rick Bennett",
+        "office": "state-senate",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "richard.bennett@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/District18",
+        "social": {}
+      }
+    ],
+    "ME:state-senate:015": [
+      {
+        "id": "ocd-person/ec504278-9872-4842-a99c-80b31e563707",
+        "name": "Dick Bradstreet",
+        "office": "state-senate",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "dick.bradstreet@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/District15",
+        "social": {}
+      }
+    ],
+    "ME:state-senate:005": [
+      {
+        "id": "ocd-person/fa3e8ae3-757e-44fb-9451-6bf381d748ce",
+        "name": "Russell Black",
+        "office": "state-senate",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "russell.black@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/District5",
+        "social": {}
+      }
+    ],
+    "ME:state-senate:016": [
+      {
+        "id": "ocd-person/73dfc0b1-9ce4-4d8e-8119-1dc7396fbb2c",
+        "name": "Scott Cyrway",
+        "office": "state-senate",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "scott.cyrway@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/District16",
+        "social": {}
+      }
+    ],
+    "ME:state-senate:004": [
+      {
+        "id": "ocd-person/3439fe0c-fb43-4977-ac8c-1dd1f8f10e96",
+        "name": "Stacey Guerin",
+        "office": "state-senate",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "stacey.guerin@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/District4",
+        "social": {}
+      }
+    ],
+    "ME:state-senate:030": [
+      {
+        "id": "ocd-person/b060c143-2734-491d-b28f-f6e4e2c77cb8",
+        "name": "Stacy Brenner",
+        "office": "state-senate",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "stacy.brenner@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/District30",
+        "social": {}
+      }
+    ],
+    "ME:state-senate:001": [
+      {
+        "id": "ocd-person/2c0651f3-bbea-49c8-9da3-a713953ff4d8",
+        "name": "Sue Bernard",
+        "office": "state-senate",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "susan.bernard@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/DIstrict1",
+        "social": {}
+      }
+    ],
+    "ME:state-senate:025": [
+      {
+        "id": "ocd-person/0d692e7b-535a-498b-8072-a258806fecb4",
+        "name": "Teresa Pierce",
+        "office": "state-senate",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "teresa.pierce@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/District25",
+        "social": {}
+      }
+    ],
+    "ME:state-senate:026": [
+      {
+        "id": "ocd-person/2715d740-16c6-49ec-9224-d3d9a24e47ee",
+        "name": "Tim Nangle",
+        "office": "state-senate",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "timothy.nangle@legislature.maine.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.maine.gov/District26",
+        "social": {}
+      }
+    ]
+  }
+}

@@ -1,0 +1,1468 @@
+{
+  "state": "AZ",
+  "generatedFrom": {
+    "legislators-current.json": "ae8cb9477c48715df71a7d860854229d799dc90a254d61badc1efb770f892b2c",
+    "legislators-social-media.json": "c6eca1fcdb3a89901335eed51ca061daa4b60ad3243969a127e913bb9657fbc5",
+    "az.csv": "a8a0fdf7d36d0cb88410d41dd91f7b53b0bf6f22446923fc0c8c36bdc3b4ff27"
+  },
+  "byKey": {
+    "AZ:us-house:09": [
+      {
+        "id": "G000565",
+        "name": "Paul A. Gosar",
+        "office": "us-house",
+        "districtCode": "09",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2315",
+        "address": "2057 Rayburn House Office Building Washington DC 20515-0309",
+        "website": "https://gosar.house.gov",
+        "social": {
+          "x": "RepGosar",
+          "facebook": "repgosar",
+          "instagram": "REPGOSAR"
+        }
+      }
+    ],
+    "AZ:us-house:01": [
+      {
+        "id": "S001183",
+        "name": "David Schweikert",
+        "office": "us-house",
+        "districtCode": "01",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2190",
+        "address": "166 Cannon House Office Building Washington DC 20515-0301",
+        "website": "https://schweikert.house.gov",
+        "social": {
+          "x": "RepDavid",
+          "facebook": "repdavidschweikert",
+          "instagram": "repdavid"
+        }
+      }
+    ],
+    "AZ:us-senate:00": [
+      {
+        "id": "G000574",
+        "name": "Ruben Gallego",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-224-4521",
+        "address": "302 Hart Senate Office Building Washington DC 20510",
+        "website": "https://www.gallego.senate.gov",
+        "social": {
+          "x": "RepRubenGallego",
+          "facebook": "RepRubenGallego",
+          "instagram": "reprubengallego"
+        }
+      },
+      {
+        "id": "K000377",
+        "name": "Mark Kelly",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.kelly.senate.gov/contact/contact-form/",
+        "email": null,
+        "phone": "202-224-2235",
+        "address": "516 Hart Senate Office Building Washington DC 20510",
+        "website": "https://www.kelly.senate.gov",
+        "social": {
+          "x": "SenMarkKelly",
+          "facebook": "SenMarkKelly",
+          "instagram": "senmarkkelly"
+        }
+      }
+    ],
+    "AZ:us-house:05": [
+      {
+        "id": "B001302",
+        "name": "Andy Biggs",
+        "office": "us-house",
+        "districtCode": "05",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2635",
+        "address": "464 Cannon House Office Building Washington DC 20515-0305",
+        "website": "https://biggs.house.gov",
+        "social": {
+          "x": "RepAndyBiggsAZ",
+          "facebook": "RepAndyBiggs",
+          "instagram": "repandybiggs"
+        }
+      }
+    ],
+    "AZ:us-house:04": [
+      {
+        "id": "S001211",
+        "name": "Greg Stanton",
+        "office": "us-house",
+        "districtCode": "04",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-9888",
+        "address": "207 Cannon House Office Building Washington DC 20515-0304",
+        "website": "https://stanton.house.gov",
+        "social": {
+          "x": "RepGregStanton",
+          "facebook": "repgregstanton",
+          "instagram": "repgregstanton"
+        }
+      }
+    ],
+    "AZ:us-house:02": [
+      {
+        "id": "C001132",
+        "name": "Elijah Crane",
+        "office": "us-house",
+        "districtCode": "02",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-3361",
+        "address": "307 Cannon House Office Building Washington DC 20515-0302",
+        "website": "https://crane.house.gov",
+        "social": {
+          "x": "RepEliCrane",
+          "facebook": "100088851021670"
+        }
+      }
+    ],
+    "AZ:us-house:06": [
+      {
+        "id": "C001133",
+        "name": "Juan Ciscomani",
+        "office": "us-house",
+        "districtCode": "06",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2542",
+        "address": "461 Cannon House Office Building Washington DC 20515-0306",
+        "website": "https://ciscomani.house.gov",
+        "social": {
+          "x": "RepCiscomani",
+          "facebook": "100089186535085",
+          "instagram": "repjuanciscomani"
+        }
+      }
+    ],
+    "AZ:us-house:03": [
+      {
+        "id": "A000381",
+        "name": "Yassamin Ansari",
+        "office": "us-house",
+        "districtCode": "03",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4065",
+        "address": "1432 Longworth House Office Building Washington DC 20515-0303",
+        "website": "https://ansari.house.gov",
+        "social": {
+          "x": "RepYassAnsari",
+          "facebook": "RepYassAnsari",
+          "instagram": "RepYassAnsari"
+        }
+      }
+    ],
+    "AZ:us-house:08": [
+      {
+        "id": "H001098",
+        "name": "Abraham J. Hamadeh",
+        "office": "us-house",
+        "districtCode": "08",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4576",
+        "address": "1722 Longworth House Office Building Washington DC 20515-0308",
+        "website": "https://hamadeh.house.gov",
+        "social": {}
+      }
+    ],
+    "AZ:us-house:07": [
+      {
+        "id": "G000606",
+        "name": "Adelita S. Grijalva",
+        "office": "us-house",
+        "districtCode": "07",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2435",
+        "address": "1203 Longworth House Office Building Washington DC 20515-0307",
+        "website": "https://grijalva.house.gov",
+        "social": {}
+      }
+    ],
+    "AZ:state-house:005": [
+      {
+        "id": "ocd-person/c6a181c7-b58e-4c2a-aa2d-9ca31fc6548f",
+        "name": "Aaron Márquez",
+        "office": "state-house",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "amarquez@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=57&session=129&legislator=2355",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/99f91f84-b1db-4a48-897a-4f87593357ea",
+        "name": "Sarah Liguori",
+        "office": "state-house",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "sliguori@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=56&session=128&legislator=2279",
+        "social": {}
+      }
+    ],
+    "AZ:state-house:003": [
+      {
+        "id": "ocd-person/102ffcb1-3028-401f-b74f-6f45db25e05e",
+        "name": "Alex Kolodin",
+        "office": "state-house",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "akolodin@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=56&session=127&legislator=2174",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/367990a3-3e02-455b-97b3-6b8dc34d9bbf",
+        "name": "Cody Reim",
+        "office": "state-house",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "creim@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=57&session=129&legislator=2417",
+        "social": {}
+      }
+    ],
+    "AZ:state-house:020": [
+      {
+        "id": "ocd-person/6dba6afa-b274-4273-b8c6-270d27214eee",
+        "name": "Alma Hernández",
+        "office": "state-house",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "ahernandez@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=55&legislator=2033",
+        "social": {
+          "x": "almaforarizona",
+          "facebook": "AlmaforAZ",
+          "instagram": "repahernandez"
+        }
+      },
+      {
+        "id": "ocd-person/81d12f3a-b635-4111-be8d-a71d2f7565f2",
+        "name": "Betty Villegas",
+        "office": "state-house",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "bvillegas@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=56&session=127&legislator=2274",
+        "social": {}
+      }
+    ],
+    "AZ:state-house:024": [
+      {
+        "id": "ocd-person/2e9c0206-d392-48a3-a599-7f6d226527b7",
+        "name": "Anna Abeytia",
+        "office": "state-house",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "aabeytia@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=57&session=129&legislator=2366",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/7a33e2bd-8394-45d9-967b-0c39430ff39b",
+        "name": "Lydia Hernandez",
+        "office": "state-house",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "lhernandez@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=56&session=127&legislator=2170",
+        "social": {}
+      }
+    ],
+    "AZ:state-house:028": [
+      {
+        "id": "ocd-person/77be0e97-4c93-4332-a9f9-9348560fdf98",
+        "name": "Beverly Pingerelli",
+        "office": "state-house",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "bpingerelli@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=55&legislator=2071",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/6e8f2c0d-c9d3-4cb5-ae59-5264cb6d61a7",
+        "name": "David Livingston",
+        "office": "state-house",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "dlivingston@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=56&legislator=2175&session=128",
+        "social": {
+          "x": "livingstonld22",
+          "facebook": "votelivingston"
+        }
+      }
+    ],
+    "AZ:state-house:008": [
+      {
+        "id": "ocd-person/c13f449f-0423-4ad5-836b-69913aad6600",
+        "name": "Brian Garcia",
+        "office": "state-house",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "bgarcia@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=57&session=129&legislator=2358",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/acfd8972-7a82-41f3-9fd7-0993cfa7365c",
+        "name": "Janeen Connolly",
+        "office": "state-house",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "jconnolly@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=57&session=129&legislator=2357",
+        "social": {}
+      }
+    ],
+    "AZ:state-house:026": [
+      {
+        "id": "ocd-person/b1da595a-8c97-42f8-ae58-694c17efa3f3",
+        "name": "Cesar Aguilar",
+        "office": "state-house",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "caguilar@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=56&session=127&legislator=2146",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/0fb2e73b-b140-4669-a9bd-b75facb342dd",
+        "name": "Quantá Crews",
+        "office": "state-house",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "qcrews@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=56&session=127&legislator=2272",
+        "social": {}
+      }
+    ],
+    "AZ:state-house:016": [
+      {
+        "id": "ocd-person/9128a4e7-1464-483c-8642-0d878da05619",
+        "name": "Chris Lopez",
+        "office": "state-house",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "clopez@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=57&session=129&legislator=2364",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/0fa874b7-acab-4f29-b800-56bd54f375fe",
+        "name": "Teresa Martinez",
+        "office": "state-house",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "tmartinez@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=55&session=123&legislator=2096",
+        "social": {}
+      }
+    ],
+    "AZ:state-house:018": [
+      {
+        "id": "ocd-person/b2ed48a3-b9ae-42be-a2c8-22a47477acfd",
+        "name": "Chris Mathis",
+        "office": "state-house",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "cmathis@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=55&session=123&legislator=2103",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/f9216229-6490-412d-aa30-8baac5c2be3e",
+        "name": "Nancy Gutierrez",
+        "office": "state-house",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "ngutierrez@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=56&session=127&legislator=2165",
+        "social": {}
+      }
+    ],
+    "AZ:state-house:021": [
+      {
+        "id": "ocd-person/0a4e4b0a-a16e-475b-8aa1-75088657d8c1",
+        "name": "Consuelo Hernandez",
+        "office": "state-house",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "chernandez@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=56&session=127&legislator=2169",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/df482d8a-1ed9-41ae-b4ba-d73d4cd9aa39",
+        "name": "Stephanie Stahl Hamilton",
+        "office": "state-house",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "sstahlhamilton@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=56&legislator=2199&session=128",
+        "social": {}
+      }
+    ],
+    "AZ:state-house:022": [
+      {
+        "id": "ocd-person/93db82ca-c8b1-43e4-98ce-ba52f4d0f635",
+        "name": "Elda Luna-Nájera",
+        "office": "state-house",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "eluna-najera@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=56&session=127&legislator=2281",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/095a6754-d7ca-4f1f-b562-974d92e7eb3c",
+        "name": "Lupe Contreras",
+        "office": "state-house",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "lcontreras@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=56&session=127&legislator=2156",
+        "social": {
+          "x": "sencontreras",
+          "facebook": "FriendsForLupeContreras"
+        }
+      }
+    ],
+    "AZ:state-house:019": [
+      {
+        "id": "ocd-person/1e39adcf-868d-4722-a07b-09fcd36ad9ed",
+        "name": "Gail Griffin",
+        "office": "state-house",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "ggriffin@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=55&legislator=2053",
+        "social": {
+          "facebook": "Gail-Griffin-161930173930830"
+        }
+      },
+      {
+        "id": "ocd-person/bc52f516-a13b-4490-a12c-7b98fa3969e5",
+        "name": "Lupe Diaz",
+        "office": "state-house",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "ldiaz@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=55&session=123&legislator=2100",
+        "social": {}
+      }
+    ],
+    "AZ:state-house:029": [
+      {
+        "id": "ocd-person/70f55f83-fed8-497f-86a9-94b6d428b9b4",
+        "name": "James Taylor",
+        "office": "state-house",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "jtaylor@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=57&session=129&legislator=2370",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/37f8815d-1672-42dd-9e9b-305449d7bb8b",
+        "name": "Steve Montenegro",
+        "office": "state-house",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "smontenegro@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=56&session=127&legislator=2183",
+        "social": {}
+      }
+    ],
+    "AZ:state-house:013": [
+      {
+        "id": "ocd-person/de8a5959-6572-44a9-bea5-ed73c27dd0ce",
+        "name": "Jeff Weninger",
+        "office": "state-house",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "jweninger@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=57&session=129&legislator=2361",
+        "social": {
+          "x": "jeffweninger",
+          "facebook": "JeffWeninger1"
+        }
+      },
+      {
+        "id": "ocd-person/d19ab410-5bc3-4160-b279-765e25d959ab",
+        "name": "Julie Willoughby",
+        "office": "state-house",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "jwilloughby@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=56&session=127&legislator=2270",
+        "social": {}
+      }
+    ],
+    "AZ:state-house:030": [
+      {
+        "id": "ocd-person/fd68e4c2-0463-477c-81ea-e2e36273e12b",
+        "name": "John Gillette",
+        "office": "state-house",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "jgillette@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=56&session=127&legislator=2161",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/433aab5d-35be-48cc-80a9-f468d5279022",
+        "name": "Leo Biasiucci",
+        "office": "state-house",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "lbiasiucci@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=55&legislator=2034",
+        "social": {
+          "x": "Leo4AzHouse",
+          "facebook": "Leo4AzHouse"
+        }
+      }
+    ],
+    "AZ:state-house:011": [
+      {
+        "id": "ocd-person/94895484-6eda-42d7-823b-a4eab17071e8",
+        "name": "Junelle Cavero",
+        "office": "state-house",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "jcavero@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=56&session=128&legislator=2287",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/a4fabea6-f50e-4fe9-8696-8b4505a481e8",
+        "name": "Oscar De Los Santos",
+        "office": "state-house",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "odelossantos@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=56&session=127&legislator=2158",
+        "social": {}
+      }
+    ],
+    "AZ:state-house:010": [
+      {
+        "id": "ocd-person/448cb969-a498-4826-ad1e-c443fe9b8057",
+        "name": "Justin Olson",
+        "office": "state-house",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "jolson@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=57&legislator=2359",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/176a6d0b-88bb-45fa-bf37-b4610972b2ae",
+        "name": "Ralph Heap",
+        "office": "state-house",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "rheap@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=57&session=129&legislator=2360",
+        "social": {}
+      }
+    ],
+    "AZ:state-house:002": [
+      {
+        "id": "ocd-person/2706e746-45b7-4586-8d06-8b80e99d3869",
+        "name": "Justin Wilmeth",
+        "office": "state-house",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "jwilmeth@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=55&legislator=2068",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/bf406953-ad2b-43f7-95ea-3af060525c90",
+        "name": "Stephanie Simacek",
+        "office": "state-house",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "ssimacek@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=57&session=129&legislator=2353",
+        "social": {}
+      }
+    ],
+    "AZ:state-house:017": [
+      {
+        "id": "ocd-person/183af2d0-dd61-476d-873f-305ae591968f",
+        "name": "Kevin Volk",
+        "office": "state-house",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "kvolk@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=57&session=129&legislator=2365",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/11b313a8-0f20-4d81-8060-4ec7e65f1a29",
+        "name": "Rachel Keshel",
+        "office": "state-house",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "rkeshel@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=56&session=127&legislator=2173",
+        "social": {}
+      }
+    ],
+    "AZ:state-house:014": [
+      {
+        "id": "ocd-person/bd3fb0ce-720a-4137-bd45-87fb6bcf8649",
+        "name": "Khyl Powell",
+        "office": "state-house",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "kpowell@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=57&session=129&legislator=2362",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/45d0b998-57ed-4c6f-ae22-bdbc4262f3e3",
+        "name": "Laurin Hendrix",
+        "office": "state-house",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "lhendrix@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=56&session=127&legislator=2172",
+        "social": {}
+      }
+    ],
+    "AZ:state-house:027": [
+      {
+        "id": "ocd-person/981d0aee-d239-4acc-9da8-1332481e57ee",
+        "name": "Lisa Fink",
+        "office": "state-house",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "lfink@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=57&session=129&legislator=2369",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/ec93f89c-d32f-4f34-bbe9-1aeb8305a065",
+        "name": "Tony Rivero",
+        "office": "state-house",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "trivero@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/House/House-member/?legislature=54&session=122&legislator=1870",
+        "social": {
+          "x": "reptonyrivero",
+          "facebook": "tonyriveroforazhouse"
+        }
+      }
+    ],
+    "AZ:state-house:009": [
+      {
+        "id": "ocd-person/90a36fec-df56-4f22-bf16-790866d5b227",
+        "name": "Lorena Austin",
+        "office": "state-house",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "laustin@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=56&session=127&legislator=2206",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/4b29d125-27ee-46c7-a6ac-ed870c1f10a7",
+        "name": "Seth Blattman",
+        "office": "state-house",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "sblattman@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=56&session=127&legislator=2148",
+        "social": {}
+      }
+    ],
+    "AZ:state-house:006": [
+      {
+        "id": "ocd-person/bcc217f5-fe08-4213-b8a5-78d1e4d64184",
+        "name": "Mae Peshlakai",
+        "office": "state-house",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "mpeshlakai@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=56&session=127&legislator=2190",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/a437a3ce-e3ba-44ec-af75-3308e70f5a87",
+        "name": "Myron Tsosie",
+        "office": "state-house",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "mtsosie@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=55&legislator=2037",
+        "social": {
+          "x": "myrontsosield7"
+        }
+      }
+    ],
+    "AZ:state-house:023": [
+      {
+        "id": "ocd-person/3b6fa6b2-0a60-4f2e-9fd8-0882b04d9e0b",
+        "name": "Mariana Sandoval",
+        "office": "state-house",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "msandoval@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=56&session=127&legislator=2194",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/68c38dfc-a12b-4c51-8b70-c4e02931cddf",
+        "name": "Michele Peña",
+        "office": "state-house",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "mpena@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=56&session=127&legislator=2189",
+        "social": {}
+      }
+    ],
+    "AZ:state-house:004": [
+      {
+        "id": "ocd-person/bfb503ce-dcb1-444b-9484-8a90e73c6a6f",
+        "name": "Matt Gress",
+        "office": "state-house",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "mgress@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=56&session=127&legislator=2163",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/d78cb0f9-fd3c-472e-aeb8-716abd42f26e",
+        "name": "Pamela Carter",
+        "office": "state-house",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "pcarter@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=57&session=129&legislator=2354",
+        "social": {}
+      }
+    ],
+    "AZ:state-house:025": [
+      {
+        "id": "ocd-person/8db06598-a7e1-4b25-9e76-6a2be0d9eae3",
+        "name": "Michael Carbone",
+        "office": "state-house",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "mcarbone@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=56&session=127&legislator=2153",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/8595d83f-1e95-4c0d-8c24-100a4a763a8f",
+        "name": "Nick Kupper",
+        "office": "state-house",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "nkupper@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=57&session=129&legislator=2367",
+        "social": {}
+      }
+    ],
+    "AZ:state-house:015": [
+      {
+        "id": "ocd-person/555adc5f-cc3a-46b1-a00b-8fb209bc457e",
+        "name": "Michael Way",
+        "office": "state-house",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "mway@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=57&session=129&legislator=2363",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/17f344ec-ffe3-46fe-ba7a-8efdc5fbf2fd",
+        "name": "Neal Carter",
+        "office": "state-house",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "ncarter@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=55&session=123&legislator=2098",
+        "social": {}
+      }
+    ],
+    "AZ:state-house:012": [
+      {
+        "id": "ocd-person/61dc96d8-140a-4042-b832-ac51bf0796f3",
+        "name": "Patty Contreras",
+        "office": "state-house",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "pcontreras@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=56&session=127&legislator=2157",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/7bd58fc8-e6df-4091-86c6-c64f54b96c35",
+        "name": "Stacey Travers",
+        "office": "state-house",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "stravers@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=56&session=127&legislator=2203",
+        "social": {}
+      }
+    ],
+    "AZ:state-house:001": [
+      {
+        "id": "ocd-person/a4f969ab-e79a-4364-9a93-ad8c75ccf668",
+        "name": "Quang Nguyen",
+        "office": "state-house",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "qnguyen@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=55&legislator=2063",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/bdcadc0a-7e86-4e6a-8e27-4896dbb094ce",
+        "name": "Selina Bliss",
+        "office": "state-house",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "sbliss@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=56&session=127&legislator=2149",
+        "social": {}
+      }
+    ],
+    "AZ:state-house:007": [
+      {
+        "id": "ocd-person/fa74a7b7-6413-4abb-813d-056b84252549",
+        "name": "Sylvia Allen",
+        "office": "state-house",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "sallen@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=57&legislator=2419",
+        "social": {
+          "x": "SylviaAllenAZ",
+          "facebook": "SenatorSylviaAllen"
+        }
+      },
+      {
+        "id": "ocd-person/d4068bfb-d487-4fde-b36e-7db0ac5cae38",
+        "name": "Walt Blackman",
+        "office": "state-house",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "wblackman@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=57&session=129&legislator=2356",
+        "social": {}
+      }
+    ],
+    "AZ:state-senate:024": [
+      {
+        "id": "ocd-person/87e6206a-c16e-4038-a86f-0d5c88b993e3",
+        "name": "Analise Ortiz",
+        "office": "state-senate",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "analise.ortiz@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=56&session=127&legislator=2178",
+        "social": {}
+      }
+    ],
+    "AZ:state-senate:023": [
+      {
+        "id": "ocd-person/5425612b-fb2c-4857-8f75-31523345eb2b",
+        "name": "Brian Fernandez",
+        "office": "state-senate",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "bfernandez@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=55&session=123&legislator=2101",
+        "social": {}
+      }
+    ],
+    "AZ:state-senate:004": [
+      {
+        "id": "ocd-person/051cb7cf-e965-49a7-844a-a8830447df0c",
+        "name": "Carine Werner",
+        "office": "state-senate",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "cwerner@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/senate-member/?legislature=57&legislator=2389",
+        "social": {}
+      }
+    ],
+    "AZ:state-senate:011": [
+      {
+        "id": "ocd-person/6241112b-910b-4ad8-9c0d-9caad318874f",
+        "name": "Catherine Miranda",
+        "office": "state-senate",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "cmiranda@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/senate-member/?legislature=56&legislator=2138",
+        "social": {}
+      }
+    ],
+    "AZ:state-senate:010": [
+      {
+        "id": "ocd-person/263ebe9c-566a-4b5c-bfbc-ea1f1d0dc3f2",
+        "name": "Dave Farnsworth",
+        "office": "state-senate",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "dfarnsworth@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/senate-member/?legislature=56&legislator=2123",
+        "social": {}
+      }
+    ],
+    "AZ:state-senate:019": [
+      {
+        "id": "ocd-person/51520de4-0e87-475b-91d2-99aa18addf72",
+        "name": "David Gowan",
+        "office": "state-senate",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "dgowan@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/senate-member/?legislature=55&legislator=1968",
+        "social": {
+          "x": "DavidGowanAZ",
+          "facebook": "DavidGowanAZ"
+        }
+      }
+    ],
+    "AZ:state-senate:012": [
+      {
+        "id": "ocd-person/f0175b18-52a0-407d-af38-c1fe118e209d",
+        "name": "Mitzi Epstein",
+        "office": "state-senate",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "mepstein@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/House/House-member/?legislature=54&session=122&legislator=1881",
+        "social": {
+          "x": "MitziEpstein",
+          "facebook": "MitziEpsteinforAZ"
+        }
+      }
+    ],
+    "AZ:state-senate:022": [
+      {
+        "id": "ocd-person/e1cd66fa-a0de-45fd-ae53-a4db7d178d21",
+        "name": "Eva Diaz",
+        "office": "state-senate",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "eva.diaz@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/senate-member/?legislature=56&legislator=2121",
+        "social": {}
+      }
+    ],
+    "AZ:state-senate:026": [
+      {
+        "id": "ocd-person/36cc8d88-e944-4889-b8ab-cf5610f3f03e",
+        "name": "Flavio Bravo",
+        "office": "state-senate",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "fbravo@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/House/House-member/?legislature=56&session=127&legislator=2150",
+        "social": {}
+      }
+    ],
+    "AZ:state-senate:028": [
+      {
+        "id": "ocd-person/faca0001-6681-450b-9577-6185f4f49a3d",
+        "name": "Frank Carroll",
+        "office": "state-senate",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "fcarroll@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/House/House-member/?legislature=54&session=122&legislator=1906",
+        "social": {
+          "x": "repfrankcarroll",
+          "facebook": "RepFrankCarroll"
+        }
+      }
+    ],
+    "AZ:state-senate:030": [
+      {
+        "id": "ocd-person/a739b3e9-8161-4b10-b007-3d1e90de791f",
+        "name": "Hildy Angius",
+        "office": "state-senate",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "hangius@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/senate-member/?legislature=57&legislator=2373",
+        "social": {}
+      }
+    ],
+    "AZ:state-senate:015": [
+      {
+        "id": "ocd-person/35f7056c-9f29-4b66-9ae0-f041fe6e7e05",
+        "name": "Jake Hoffman",
+        "office": "state-senate",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "jake.hoffman@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/House/House-member/?legislature=55&session=123&legislator=2066",
+        "social": {}
+      }
+    ],
+    "AZ:state-senate:029": [
+      {
+        "id": "ocd-person/c94f542a-52e0-4831-8479-02793a97ccd9",
+        "name": "Janae Shamp",
+        "office": "state-senate",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "jshamp@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/senate-member/?legislature=56&legislator=2141",
+        "social": {}
+      }
+    ],
+    "AZ:state-senate:013": [
+      {
+        "id": "ocd-person/06adeea1-c37c-4dd1-8be5-92e9b5d3556e",
+        "name": "J.D. Mesnard",
+        "office": "state-senate",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "jmesnard@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/senate-member/?legislature=56&legislator=2137",
+        "social": {
+          "x": "jdmesnard",
+          "facebook": "javanmesnard"
+        }
+      }
+    ],
+    "AZ:state-senate:003": [
+      {
+        "id": "ocd-person/b6144266-5383-491f-8c87-df8fd11805ea",
+        "name": "John Kavanagh",
+        "office": "state-senate",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "jkavanagh@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=55&legislator=2056",
+        "social": {
+          "x": "johnkavanagh_az",
+          "facebook": "John.KavanaghAZ"
+        }
+      }
+    ],
+    "AZ:state-senate:027": [
+      {
+        "id": "ocd-person/4b336587-cb71-4a49-9cf8-514cdd2771ff",
+        "name": "Kevin Payne",
+        "office": "state-senate",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "kpayne@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=55&legislator=2023",
+        "social": {
+          "x": "kevinpayneld21",
+          "facebook": "electkevinpayne"
+        }
+      }
+    ],
+    "AZ:state-senate:009": [
+      {
+        "id": "ocd-person/78fce9ac-3aa4-484f-b345-f55bbbf9db9b",
+        "name": "Kiana Sears",
+        "office": "state-senate",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "ksears@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/senate-member/?legislature=57&legislator=2415",
+        "social": {}
+      }
+    ],
+    "AZ:state-senate:008": [
+      {
+        "id": "ocd-person/159091af-9aa8-4cb8-8c9c-9e20ba83c0ed",
+        "name": "Lauren Kuby",
+        "office": "state-senate",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "lkuby@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/senate-member/?legislature=57&legislator=2390",
+        "social": {}
+      }
+    ],
+    "AZ:state-senate:005": [
+      {
+        "id": "ocd-person/030638cb-5fcd-4637-8c59-c129e28db988",
+        "name": "Lela Alston",
+        "office": "state-senate",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "lalston@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/senate-member/?legislature=55&legislator=1978",
+        "social": {
+          "x": "LelaAlstonAz",
+          "facebook": "LelaAlstonAZ"
+        }
+      }
+    ],
+    "AZ:state-senate:001": [
+      {
+        "id": "ocd-person/77415ae8-cbbc-4f67-ac01-3f749d44ff08",
+        "name": "Mark Finchem",
+        "office": "state-senate",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "mfinchem@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/House/House-member/?legislature=54&session=122&legislator=1865",
+        "social": {
+          "x": "markfinchem",
+          "facebook": "mfinchem"
+        }
+      }
+    ],
+    "AZ:state-senate:018": [
+      {
+        "id": "ocd-person/7ff01dde-5112-436f-a267-dd7a7f91ec9b",
+        "name": "Priya Sundareshan",
+        "office": "state-senate",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "psundareshan@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/senate-member/?legislature=56&legislator=2143",
+        "social": {}
+      }
+    ],
+    "AZ:state-senate:021": [
+      {
+        "id": "ocd-person/6de57177-1b9e-4864-bb87-97c528842030",
+        "name": "Rosanna Gabaldón",
+        "office": "state-senate",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "rgabaldon@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/House/House-member/?legislature=54&session=122&legislator=1867",
+        "social": {
+          "x": "RosannaGabaldon",
+          "facebook": "Elect-Gabaldon-for-Senate-325797754125959"
+        }
+      }
+    ],
+    "AZ:state-senate:020": [
+      {
+        "id": "ocd-person/3c965e03-1e51-4f10-a037-4fb2f35292c5",
+        "name": "Sally Gonzales",
+        "office": "state-senate",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "sgonzales@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/senate-member/?legislature=55&legislator=1957",
+        "social": {
+          "x": "GonzalesSally",
+          "facebook": "AZStateHouse"
+        }
+      }
+    ],
+    "AZ:state-senate:002": [
+      {
+        "id": "ocd-person/355be281-2f88-4108-b894-62c54b67fba3",
+        "name": "Shawnna Bolick",
+        "office": "state-senate",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "sbolick@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/House/House-member/?legislature=54&session=122&legislator=1905",
+        "social": {
+          "x": "Bolick4AZ",
+          "facebook": "repshawnnabolick",
+          "instagram": "bolickforarizona"
+        }
+      }
+    ],
+    "AZ:state-senate:006": [
+      {
+        "id": "ocd-person/384e8b4c-d85b-4414-9372-40116a10b3b6",
+        "name": "Theresa Hatathlie",
+        "office": "state-senate",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "thatathlie@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/senate-member/?legislature=56&legislator=2128",
+        "social": {}
+      }
+    ],
+    "AZ:state-senate:016": [
+      {
+        "id": "ocd-person/bde26535-68ee-4eef-bbc8-bfa8a4380015",
+        "name": "T.J. Shope",
+        "office": "state-senate",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "tshope@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/House/House-member/?legislature=54&session=122&legislator=1871",
+        "social": {
+          "x": "tjshopeforaz",
+          "facebook": "TJSHOPEFORARIZONA"
+        }
+      }
+    ],
+    "AZ:state-senate:025": [
+      {
+        "id": "ocd-person/0b8c9973-1ae5-4af3-8a73-713c8365eccd",
+        "name": "Tim Dunn",
+        "office": "state-senate",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "tdunn@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/house-member/?legislature=55&legislator=2031",
+        "social": {
+          "x": "ElectDunn",
+          "facebook": "TimDunnForAZHouse"
+        }
+      }
+    ],
+    "AZ:state-senate:017": [
+      {
+        "id": "ocd-person/00f9103d-191e-40ca-8f5c-e5bf806896a6",
+        "name": "Vince Leach",
+        "office": "state-senate",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "vleach@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/senate-member/?legislature=55&legislator=1965",
+        "social": {
+          "x": "VinceLeach",
+          "facebook": "VinceLeachElection"
+        }
+      }
+    ],
+    "AZ:state-senate:014": [
+      {
+        "id": "ocd-person/66e496a4-a407-4af1-add3-ef6899b89807",
+        "name": "Warren Petersen",
+        "office": "state-senate",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "wpetersen@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/House/House-member/?legislature=54&session=122&legislator=1914",
+        "social": {
+          "x": "votewarren"
+        }
+      }
+    ],
+    "AZ:state-senate:007": [
+      {
+        "id": "ocd-person/417c9599-7617-4b6d-ac0a-1d1b2a005f4e",
+        "name": "Wendy Rogers",
+        "office": "state-senate",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "wrogers@azleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.azleg.gov/senate-member/?legislature=55&legislator=1960",
+        "social": {}
+      }
+    ]
+  }
+}

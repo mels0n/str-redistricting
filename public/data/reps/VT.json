@@ -1,0 +1,2471 @@
+{
+  "state": "VT",
+  "generatedFrom": {
+    "legislators-current.json": "ae8cb9477c48715df71a7d860854229d799dc90a254d61badc1efb770f892b2c",
+    "legislators-social-media.json": "c6eca1fcdb3a89901335eed51ca061daa4b60ad3243969a127e913bb9657fbc5",
+    "vt.csv": "aa8d4c40bb3d46c697f14b12f9c0a34a4436d7f1b09cbe034f7f85dbb3294408"
+  },
+  "byKey": {
+    "VT:us-senate:00": [
+      {
+        "id": "S000033",
+        "name": "Bernard Sanders",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.sanders.senate.gov/contact/",
+        "email": null,
+        "phone": "202-224-5141",
+        "address": "332 Dirksen Senate Office Building Washington DC 20510",
+        "website": "https://www.sanders.senate.gov",
+        "social": {
+          "x": "SenSanders",
+          "facebook": "senatorsanders"
+        }
+      },
+      {
+        "id": "W000800",
+        "name": "Peter Welch",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.welch.senate.gov/email-peter/",
+        "email": null,
+        "phone": "202-224-4242",
+        "address": "115 Russell Senate Office Building Washington DC 20510",
+        "website": "https://www.welch.senate.gov",
+        "social": {
+          "x": "PeterWelch",
+          "facebook": "PeterWelch",
+          "instagram": "reppeterwelch"
+        }
+      }
+    ],
+    "VT:us-house:00": [
+      {
+        "id": "B001318",
+        "name": "Becca Balint",
+        "office": "us-house",
+        "districtCode": "00",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4115",
+        "address": "1510 Longworth House Office Building Washington DC 20515-4500",
+        "website": "https://balint.house.gov",
+        "social": {
+          "x": "RepBeccaB",
+          "facebook": "repbeccab",
+          "instagram": "repbeccab"
+        }
+      }
+    ],
+    "VT:state-house:C17": [
+      {
+        "id": "ocd-person/90da5348-421e-435b-8458-67123462addf",
+        "name": "Abbey Duke",
+        "office": "state-house",
+        "districtCode": "C17",
+        "contactUrl": null,
+        "email": "aduke@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2024/40324",
+        "social": {}
+      }
+    ],
+    "VT:state-house:Y-3": [
+      {
+        "id": "ocd-person/24194dba-4d25-4b8c-be33-8ff50fcd8a8f",
+        "name": "Alice Emmons",
+        "office": "state-house",
+        "districtCode": "Y-3",
+        "contactUrl": null,
+        "email": "aemmons@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Windsor-3.pdf",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/aa90c35b-88cb-4f97-9d66-70d777f7cae4",
+        "name": "Kristi Morris",
+        "office": "state-house",
+        "districtCode": "Y-3",
+        "contactUrl": null,
+        "email": "kmorris2@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2020/33012",
+        "social": {}
+      }
+    ],
+    "VT:state-house:R-8": [
+      {
+        "id": "ocd-person/6c87b7e7-0047-47a6-94b4-9232ac42175f",
+        "name": "Alicia Malay",
+        "office": "state-house",
+        "districtCode": "R-8",
+        "contactUrl": null,
+        "email": "amalay@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2026/40427",
+        "social": {}
+      }
+    ],
+    "VT:state-house:C24": [
+      {
+        "id": "ocd-person/cd4ceb1c-8960-4b10-b6f8-bd0b8ae0c68c",
+        "name": "Alyssa Black",
+        "office": "state-house",
+        "districtCode": "C24",
+        "contactUrl": null,
+        "email": "ablack@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-24.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-house:A-1": [
+      {
+        "id": "ocd-person/f490d01d-80b7-40ae-9577-572bd1c8567a",
+        "name": "Amy Sheldon",
+        "office": "state-house",
+        "districtCode": "A-1",
+        "contactUrl": null,
+        "email": "asheldon@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2022/24022",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/b463b201-086b-4f98-ab96-75a136e8be35",
+        "name": "Robin Scheu",
+        "office": "state-house",
+        "districtCode": "A-1",
+        "contactUrl": null,
+        "email": "rscheu@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2020/27154",
+        "social": {}
+      }
+    ],
+    "VT:state-house:C-2": [
+      {
+        "id": "ocd-person/91f08063-02d6-4167-aa23-bbfb2289bbf1",
+        "name": "Angela Arsenault",
+        "office": "state-house",
+        "districtCode": "C-2",
+        "contactUrl": null,
+        "email": "aarsenault@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-19.pdf",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/e334b770-4785-459a-89cd-1e16ef2444ad",
+        "name": "Erin Brady",
+        "office": "state-house",
+        "districtCode": "C-2",
+        "contactUrl": null,
+        "email": "ebrady@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-2.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-house:WA1": [
+      {
+        "id": "ocd-person/5321cd58-caae-4d94-8ba0-f1df47d4e75b",
+        "name": "Anne Donahue",
+        "office": "state-house",
+        "districtCode": "WA1",
+        "contactUrl": null,
+        "email": "adonahue@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Washington-1.pdf",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/723a6dd0-9f92-4fdf-b506-f6947a3ccfe7",
+        "name": "Kenneth Goslant",
+        "office": "state-house",
+        "districtCode": "WA1",
+        "contactUrl": null,
+        "email": "kgoslant@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2020/30968",
+        "social": {}
+      }
+    ],
+    "VT:state-house:C-F": [
+      {
+        "id": "ocd-person/9a5bf877-6bb2-4135-a3de-fc344e84c1c6",
+        "name": "Tony Micklus",
+        "office": "state-house",
+        "districtCode": "C-F",
+        "contactUrl": null,
+        "email": "amicklus@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2026/40415",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/8a7c0a35-c3bc-4b94-a1c3-c726c8ecaaae",
+        "name": "Chris Taylor",
+        "office": "state-house",
+        "districtCode": "C-F",
+        "contactUrl": null,
+        "email": "cataylor@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-Franklin.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-house:F-1": [
+      {
+        "id": "ocd-person/62781794-15d5-4362-82db-d6542a0e2f75",
+        "name": "Ashley Bartley",
+        "office": "state-house",
+        "districtCode": "F-1",
+        "contactUrl": null,
+        "email": "abartley@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Franklin-1.pdf",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/b910e00e-ce75-426a-a0cc-29948edfce5d",
+        "name": "Carolyn Branagan",
+        "office": "state-house",
+        "districtCode": "F-1",
+        "contactUrl": null,
+        "email": "cbranagan@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2018.1/27151",
+        "social": {}
+      }
+    ],
+    "VT:state-house:C14": [
+      {
+        "id": "ocd-person/26b89cd1-55b7-49ef-b47b-d3b21ed81635",
+        "name": "Barbara Rachelson",
+        "office": "state-house",
+        "districtCode": "C14",
+        "contactUrl": null,
+        "email": "brachelson@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-14.pdf",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/eda9290c-b27b-4b39-bfc2-c760a63506ef",
+        "name": "Mary-Katherine Stone",
+        "office": "state-house",
+        "districtCode": "C14",
+        "contactUrl": null,
+        "email": "mstone@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-14.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-house:CA3": [
+      {
+        "id": "ocd-person/54f186e0-f30c-410a-bae4-bbd443611e77",
+        "name": "Beth Quimby",
+        "office": "state-house",
+        "districtCode": "CA3",
+        "contactUrl": null,
+        "email": "bquimby@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2024/39966",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/730abe31-c817-47fa-bf5b-fe6697996e4c",
+        "name": "Marty Feltus",
+        "office": "state-house",
+        "districtCode": "CA3",
+        "contactUrl": null,
+        "email": "mfeltus@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2022/20375",
+        "social": {}
+      }
+    ],
+    "VT:state-house:C13": [
+      {
+        "id": "ocd-person/565d034b-76cd-4303-a045-770d4be05f0a",
+        "name": "Bram Kleppner",
+        "office": "state-house",
+        "districtCode": "C13",
+        "contactUrl": null,
+        "email": "bkleppner@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2026/40409",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/8210ead4-c6b3-4316-ab90-7564b9f23cdb",
+        "name": "Tiff Bluemle",
+        "office": "state-house",
+        "districtCode": "C13",
+        "contactUrl": null,
+        "email": "tbluemle@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-13.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-house:C25": [
+      {
+        "id": "ocd-person/7ddd32be-c3f8-4861-9964-89e07127bec8",
+        "name": "Brenda Steady",
+        "office": "state-house",
+        "districtCode": "C25",
+        "contactUrl": null,
+        "email": "bsteady@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2026/40414",
+        "social": {}
+      }
+    ],
+    "VT:state-house:C15": [
+      {
+        "id": "ocd-person/35504508-c008-4ecd-869f-6d8e33a4ad56",
+        "name": "Brian Cina",
+        "office": "state-house",
+        "districtCode": "C15",
+        "contactUrl": null,
+        "email": "bcina@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2020/27162",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/4da3dea2-48bb-4162-a1a5-ff0525f7cbf6",
+        "name": "Troy Headrick",
+        "office": "state-house",
+        "districtCode": "C15",
+        "contactUrl": null,
+        "email": "theadrick@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-15.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-house:C11": [
+      {
+        "id": "ocd-person/d44ada7b-9678-4a17-a66c-aa658b03bf38",
+        "name": "Brian Minier",
+        "office": "state-house",
+        "districtCode": "C11",
+        "contactUrl": null,
+        "email": "bminier@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-11.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-house:C-8": [
+      {
+        "id": "ocd-person/65f7d469-b06a-41d9-96b6-eb4e14ced390",
+        "name": "Bridget Burkhardt",
+        "office": "state-house",
+        "districtCode": "C-8",
+        "contactUrl": null,
+        "email": "bburkhardt@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2026/40408",
+        "social": {}
+      }
+    ],
+    "VT:state-house:WA2": [
+      {
+        "id": "ocd-person/ec71009f-b56e-4ac5-bc77-4ba172ea59d1",
+        "name": "Candice White",
+        "office": "state-house",
+        "districtCode": "WA2",
+        "contactUrl": null,
+        "email": "cwhite@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2026/40431",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/46a9d6df-bd07-4fa4-b6b9-b91c0fa37f94",
+        "name": "Dara Torre",
+        "office": "state-house",
+        "districtCode": "WA2",
+        "contactUrl": null,
+        "email": "dtorre@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Washington-2.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-house:C18": [
+      {
+        "id": "ocd-person/e9036574-9eac-4f0c-9bd2-1b425e96bb8c",
+        "name": "Carol Ode",
+        "office": "state-house",
+        "districtCode": "C18",
+        "contactUrl": null,
+        "email": "code@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-18.pdf",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/dec4c236-1cd1-465f-969c-0bb4b8a04992",
+        "name": "Bob Hooper",
+        "office": "state-house",
+        "districtCode": "C18",
+        "contactUrl": null,
+        "email": "rhooper@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2020/30948",
+        "social": {}
+      }
+    ],
+    "VT:state-house:F-8": [
+      {
+        "id": "ocd-person/704de547-43b6-4dfa-bf95-c4137f263e00",
+        "name": "Casey Toof",
+        "office": "state-house",
+        "districtCode": "F-8",
+        "contactUrl": null,
+        "email": "ctoof@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Franklin-8.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-house:Y-5": [
+      {
+        "id": "ocd-person/8e97e883-e34f-441f-83a2-aa72526fef38",
+        "name": "Charlie Kimbell",
+        "office": "state-house",
+        "districtCode": "Y-5",
+        "contactUrl": null,
+        "email": "ckimbell@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2022/27184",
+        "social": {}
+      }
+    ],
+    "VT:state-house:C-5": [
+      {
+        "id": "ocd-person/0f7b93b3-9e96-4e44-8bb4-9c60e4be4b72",
+        "name": "Chea Evans",
+        "office": "state-house",
+        "districtCode": "C-5",
+        "contactUrl": null,
+        "email": "cevans@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-5.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-house:C21": [
+      {
+        "id": "ocd-person/239a4f3b-c9b4-474b-8e2a-eda545f0ef43",
+        "name": "Chloe Tomlinson",
+        "office": "state-house",
+        "districtCode": "C21",
+        "contactUrl": null,
+        "email": "ctomlinson@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2026/40413",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/c7019f00-84e8-405f-9efe-055112cbb4c4",
+        "name": "Daisy Berbeco",
+        "office": "state-house",
+        "districtCode": "C21",
+        "contactUrl": null,
+        "email": "dberbeco@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-21.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-house:R-7": [
+      {
+        "id": "ocd-person/568a47fb-6a5e-4346-800f-ac49018a9099",
+        "name": "Chris Keyser",
+        "office": "state-house",
+        "districtCode": "R-7",
+        "contactUrl": null,
+        "email": "ckeyser@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2026/40426",
+        "social": {}
+      }
+    ],
+    "VT:state-house:R-B": [
+      {
+        "id": "ocd-person/482c508a-aefd-405c-a252-4d661dced9a4",
+        "name": "Chris Pritchard",
+        "office": "state-house",
+        "districtCode": "R-B",
+        "contactUrl": null,
+        "email": "cpritchard@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2026/40429",
+        "social": {}
+      }
+    ],
+    "VT:state-house:R-4": [
+      {
+        "id": "ocd-person/f930a207-e39c-47c9-b82a-d9eca94119c3",
+        "name": "Christopher Howland",
+        "office": "state-house",
+        "districtCode": "R-4",
+        "contactUrl": null,
+        "email": "chowland@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2026/40425",
+        "social": {}
+      }
+    ],
+    "VT:state-house:WWB": [
+      {
+        "id": "ocd-person/70fc16c3-0cba-429c-8616-dbcc6b9b7bf7",
+        "name": "Chris Morrow",
+        "office": "state-house",
+        "districtCode": "WWB",
+        "contactUrl": null,
+        "email": "cmorrow@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2026/40437",
+        "social": {}
+      }
+    ],
+    "VT:state-house:WA4": [
+      {
+        "id": "ocd-person/526f33a9-fcbe-4963-ae6c-abccde1fe4da",
+        "name": "Conor Casey",
+        "office": "state-house",
+        "districtCode": "WA4",
+        "contactUrl": null,
+        "email": "ccasey@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Washington-4.pdf",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/2f2db82f-4812-4a06-8dc0-1e03877aabf9",
+        "name": "Kate McCann",
+        "office": "state-house",
+        "districtCode": "WA4",
+        "contactUrl": null,
+        "email": "kmccann@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Washington-4.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-house:L-2": [
+      {
+        "id": "ocd-person/95cd4184-c07f-48a5-993a-e924ad71184f",
+        "name": "Dan Noyes",
+        "office": "state-house",
+        "districtCode": "L-2",
+        "contactUrl": null,
+        "email": "dnoyes@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2020/27171",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/e997532b-9034-4d46-8c99-c92d763d8d0e",
+        "name": "Richard Bailey",
+        "office": "state-house",
+        "districtCode": "L-2",
+        "contactUrl": null,
+        "email": "rbailey@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2026/40417",
+        "social": {}
+      }
+    ],
+    "VT:state-house:L-W": [
+      {
+        "id": "ocd-person/4d489014-c6ba-41df-9f4f-d8846ee2ebba",
+        "name": "Dave Yacovone",
+        "office": "state-house",
+        "districtCode": "L-W",
+        "contactUrl": null,
+        "email": "dyacovone@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2022/27172",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/4d7ff594-22ad-4a37-b2ed-2190c6be9e54",
+        "name": "Saudia Lamont",
+        "office": "state-house",
+        "districtCode": "L-W",
+        "contactUrl": null,
+        "email": "slamont@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Lamoille-Washington.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-house:R-2": [
+      {
+        "id": "ocd-person/31f6e27d-151c-4878-845b-f600ea1742e2",
+        "name": "Dave Bosch",
+        "office": "state-house",
+        "districtCode": "R-2",
+        "contactUrl": null,
+        "email": "dbosch@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2026/40423",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/68d53f5e-f99c-4167-9dff-3c802fc6e857",
+        "name": "Tom Burditt",
+        "office": "state-house",
+        "districtCode": "R-2",
+        "contactUrl": null,
+        "email": "tburditt@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2020/15771",
+        "social": {}
+      }
+    ],
+    "VT:state-house:B-3": [
+      {
+        "id": "ocd-person/500ffe66-07b0-4ebd-9084-d017872daa84",
+        "name": "David Durfee",
+        "office": "state-house",
+        "districtCode": "B-3",
+        "contactUrl": null,
+        "email": "ddurfee@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Bennington-3.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-house:CAE": [
+      {
+        "id": "ocd-person/22ae1c1b-d08d-4068-ae58-ea89fecb8a09",
+        "name": "Debbie Dolgin",
+        "office": "state-house",
+        "districtCode": "CAE",
+        "contactUrl": null,
+        "email": "ddolgin@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2026/40405",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/b64a9bcc-5c1d-4e8b-931f-81f89ea5137e",
+        "name": "Scott Campbell",
+        "office": "state-house",
+        "districtCode": "CAE",
+        "contactUrl": null,
+        "email": "scampbell@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Caledonia-Essex.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-house:CA1": [
+      {
+        "id": "ocd-person/59bc4503-ca5f-413d-ac29-0bf51790dcb8",
+        "name": "Debbie Powers",
+        "office": "state-house",
+        "districtCode": "CA1",
+        "contactUrl": null,
+        "email": "dpowers@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2026/40403",
+        "social": {}
+      }
+    ],
+    "VT:state-house:C20": [
+      {
+        "id": "ocd-person/aff4d081-e7eb-46d9-a62f-3ee78cd568c2",
+        "name": "Doug Bishop",
+        "office": "state-house",
+        "districtCode": "C20",
+        "contactUrl": null,
+        "email": "dbishop@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2026/40411",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/0aa1e822-d69d-4417-a26e-0ca6935b6b8b",
+        "name": "Gayle Pezzo",
+        "office": "state-house",
+        "districtCode": "C20",
+        "contactUrl": null,
+        "email": "gpezzo@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2026/40412",
+        "social": {}
+      }
+    ],
+    "VT:state-house:C-3": [
+      {
+        "id": "ocd-person/2f46ddc5-1564-4215-b201-cc3c1521f4c4",
+        "name": "Edye Graning",
+        "office": "state-house",
+        "districtCode": "C-3",
+        "contactUrl": null,
+        "email": "egraning@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-3.pdf",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/7e019459-6d2e-4c45-8092-72cb8334bf25",
+        "name": "Trevor Squirrell",
+        "office": "state-house",
+        "districtCode": "C-3",
+        "contactUrl": null,
+        "email": "tsquirrell@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2020/27159",
+        "social": {}
+      }
+    ],
+    "VT:state-house:F-2": [
+      {
+        "id": "ocd-person/d0698c2f-d5fb-475b-abc9-042971d26a5f",
+        "name": "Lynn Dickinson",
+        "office": "state-house",
+        "districtCode": "F-2",
+        "contactUrl": null,
+        "email": "edickinson@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Franklin-2.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-house:WA5": [
+      {
+        "id": "ocd-person/dda44e05-7cb0-49e7-ac32-49963b4aaa7c",
+        "name": "Ela Chapin",
+        "office": "state-house",
+        "districtCode": "WA5",
+        "contactUrl": null,
+        "email": "echapin@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Washington-5.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-house:Y-1": [
+      {
+        "id": "ocd-person/e7232e6f-4a66-45dc-9a4b-ee9d8b763544",
+        "name": "Elizabeth Burrows",
+        "office": "state-house",
+        "districtCode": "Y-1",
+        "contactUrl": null,
+        "email": "eburrows@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Windsor-1.pdf",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/d12670e1-fd0b-4e78-a471-ec5d4ddfafb8",
+        "name": "John Bartholomew",
+        "office": "state-house",
+        "districtCode": "Y-1",
+        "contactUrl": null,
+        "email": "jbartholomew@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Windsor-1.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-house:W-7": [
+      {
+        "id": "ocd-person/cb033790-7578-41c3-87b6-c9794b289c77",
+        "name": "Emilie Kornheiser",
+        "office": "state-house",
+        "districtCode": "W-7",
+        "contactUrl": null,
+        "email": "ekornheiser@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Windham-7.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-house:C-9": [
+      {
+        "id": "ocd-person/0ab172d4-ecc7-46e4-a4f1-ee71429595bd",
+        "name": "Emilie Krasnow",
+        "office": "state-house",
+        "districtCode": "C-9",
+        "contactUrl": null,
+        "email": "ekrasnow@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-9.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-house:W-6": [
+      {
+        "id": "ocd-person/f5c660c9-81e8-4038-9cf2-a7ad838ef980",
+        "name": "Emily Carris-Duncan",
+        "office": "state-house",
+        "districtCode": "W-6",
+        "contactUrl": null,
+        "email": "ecarris-duncan@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2026/40435",
+        "social": {}
+      }
+    ],
+    "VT:state-house:W-5": [
+      {
+        "id": "ocd-person/36bd1884-fd78-46b4-9ac3-318ca6358a67",
+        "name": "Emily Long",
+        "office": "state-house",
+        "districtCode": "W-5",
+        "contactUrl": null,
+        "email": "elong@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Windham-5.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-house:R-5": [
+      {
+        "id": "ocd-person/ed272e8b-3ef7-47ce-84c9-9163efac3734",
+        "name": "Eric Maguire",
+        "office": "state-house",
+        "districtCode": "R-5",
+        "contactUrl": null,
+        "email": "emaguire@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Rutland-5.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-house:Y-6": [
+      {
+        "id": "ocd-person/62b30d56-d938-4882-b763-2c2495ae6fe5",
+        "name": "Esme Cole",
+        "office": "state-house",
+        "districtCode": "Y-6",
+        "contactUrl": null,
+        "email": "ecole@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Windsor-6.pdf",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/dfe297f7-6d88-48d5-8b81-f2605f791de0",
+        "name": "Kevin Christie",
+        "office": "state-house",
+        "districtCode": "Y-6",
+        "contactUrl": null,
+        "email": "kchristie@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2020/15774",
+        "social": {}
+      }
+    ],
+    "VT:state-house:WAO": [
+      {
+        "id": "ocd-person/a7c7d0f6-8795-4f50-928b-15b6c3831ac4",
+        "name": "Topper McFaun",
+        "office": "state-house",
+        "districtCode": "WAO",
+        "contactUrl": null,
+        "email": "fmcfaun@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2020/14579",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/39c4dae9-aee7-46f6-858d-e1eece72d79e",
+        "name": "Gina Galfetti",
+        "office": "state-house",
+        "districtCode": "WAO",
+        "contactUrl": null,
+        "email": "ggalfetti@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Washington-Orange.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-house:CAW": [
+      {
+        "id": "ocd-person/c4aa4da8-d01c-485e-8499-03378f12675e",
+        "name": "Greg Burtt",
+        "office": "state-house",
+        "districtCode": "CAW",
+        "contactUrl": null,
+        "email": "gburtt@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2026/40406",
+        "social": {}
+      }
+    ],
+    "VT:state-house:Y-4": [
+      {
+        "id": "ocd-person/a424d253-1d98-4865-a5b7-998d3ffd1bc8",
+        "name": "Heather Surprenant",
+        "office": "state-house",
+        "districtCode": "Y-4",
+        "contactUrl": null,
+        "email": "hsurprenant@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Windsor-4.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-house:A-4": [
+      {
+        "id": "ocd-person/d6336e80-d57f-46df-9c49-9931d8efc0b7",
+        "name": "Herb Olson",
+        "office": "state-house",
+        "districtCode": "A-4",
+        "contactUrl": null,
+        "email": "holson@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2026/40397",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/1f501dde-37ba-49b3-ac83-0c77102ed8c3",
+        "name": "Mari Cordes",
+        "office": "state-house",
+        "districtCode": "A-4",
+        "contactUrl": null,
+        "email": "mcordes@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2020/30939",
+        "social": {}
+      }
+    ],
+    "VT:state-house:W-9": [
+      {
+        "id": "ocd-person/658fc95f-5d9f-4b9d-afa6-1f759f531e09",
+        "name": "Ian Goodnow",
+        "office": "state-house",
+        "districtCode": "W-9",
+        "contactUrl": null,
+        "email": "igoodnow@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2026/40436",
+        "social": {}
+      }
+    ],
+    "VT:state-house:F-6": [
+      {
+        "id": "ocd-person/2219c217-1804-40be-8183-ae139cd93f1c",
+        "name": "James Gregoire",
+        "office": "state-house",
+        "districtCode": "F-6",
+        "contactUrl": null,
+        "email": "jgregoire@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Franklin-6.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-house:R11": [
+      {
+        "id": "ocd-person/bd5d142d-90c3-41f6-b8af-7591316951da",
+        "name": "Jim Harrison",
+        "office": "state-house",
+        "districtCode": "R11",
+        "contactUrl": null,
+        "email": "jharrison@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Rutland-11.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-house:YO2": [
+      {
+        "id": "ocd-person/5342eafc-7f58-4ebe-ad1e-0ec4aefe82fe",
+        "name": "Jim Masland",
+        "office": "state-house",
+        "districtCode": "YO2",
+        "contactUrl": null,
+        "email": "jmasland@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2020/14523",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/610c8e4d-f0c3-4792-a5b6-f935eddc8960",
+        "name": "Rebecca Holcombe",
+        "office": "state-house",
+        "districtCode": "YO2",
+        "contactUrl": null,
+        "email": "rholcombe@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Windsor-Orange-2.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-house:C-1": [
+      {
+        "id": "ocd-person/9ce762cd-72a4-4835-876b-71d83b16d44d",
+        "name": "Jana Brown",
+        "office": "state-house",
+        "districtCode": "C-1",
+        "contactUrl": null,
+        "email": "jbrown@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-1.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-house:L-1": [
+      {
+        "id": "ocd-person/5581159f-1776-41de-ab76-72c8fe5167c0",
+        "name": "Jed Lipsky",
+        "office": "state-house",
+        "districtCode": "L-1",
+        "contactUrl": null,
+        "email": "jlipsky@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Lamoille-1.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-house:C16": [
+      {
+        "id": "ocd-person/ca098cac-17de-4e6b-ac7c-178d77998970",
+        "name": "Jill Krowinski",
+        "office": "state-house",
+        "districtCode": "C16",
+        "contactUrl": null,
+        "email": "jkrowinski@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2020/19342",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/52b7db57-8a72-4d36-9cfa-5f1a5b69a044",
+        "name": "Kate Logan",
+        "office": "state-house",
+        "districtCode": "C16",
+        "contactUrl": null,
+        "email": "klogan@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-16.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-house:A-R": [
+      {
+        "id": "ocd-person/6fd23933-f800-459e-a608-bf8690dbf5f9",
+        "name": "Jim Casey",
+        "office": "state-house",
+        "districtCode": "A-R",
+        "contactUrl": null,
+        "email": "jcasey@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2026/40398",
+        "social": {}
+      }
+    ],
+    "VT:state-house:F-3": [
+      {
+        "id": "ocd-person/36a9b7c9-0c31-4aff-82da-7d54b3e0721a",
+        "name": "Joe Luneau",
+        "office": "state-house",
+        "districtCode": "F-3",
+        "contactUrl": null,
+        "email": "jluneau@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2026/40416",
+        "social": {}
+      }
+    ],
+    "VT:state-house:E-C": [
+      {
+        "id": "ocd-person/b9c3e545-5ef2-4fb2-9128-64a369608dda",
+        "name": "John Kascenska",
+        "office": "state-house",
+        "districtCode": "E-C",
+        "contactUrl": null,
+        "email": "jkascenska@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2022/36986",
+        "social": {}
+      }
+    ],
+    "VT:state-house:YO1": [
+      {
+        "id": "ocd-person/6b0c1c32-609e-4d13-a9c5-699b73bd1470",
+        "name": "John O'Brien",
+        "office": "state-house",
+        "districtCode": "YO1",
+        "contactUrl": null,
+        "email": "jobrien@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Windsor-Orange-1.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-house:B-1": [
+      {
+        "id": "ocd-person/3fc028e6-c73a-4959-8889-63b4e3e50f1c",
+        "name": "Jonathan Cooper",
+        "office": "state-house",
+        "districtCode": "B-1",
+        "contactUrl": null,
+        "email": "jcooper@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2026/40399",
+        "social": {}
+      }
+    ],
+    "VT:state-house:ORC": [
+      {
+        "id": "ocd-person/54baf00b-c1da-4dc9-95cc-3210c50360e8",
+        "name": "Joseph Parsons",
+        "office": "state-house",
+        "districtCode": "ORC",
+        "contactUrl": null,
+        "email": "jparsons@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Orange-Caledonia.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-house:OR3": [
+      {
+        "id": "ocd-person/f668b31d-5c47-4d56-a850-1a1d859c8510",
+        "name": "Josh Dobrovich",
+        "office": "state-house",
+        "districtCode": "OR3",
+        "contactUrl": null,
+        "email": "jdobrovich@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2026/40419",
+        "social": {}
+      }
+    ],
+    "VT:state-house:A-5": [
+      {
+        "id": "ocd-person/829926f6-054a-45e2-be75-1c1da860f0c4",
+        "name": "Jubilee McGill",
+        "office": "state-house",
+        "districtCode": "A-5",
+        "contactUrl": null,
+        "email": "jmcgill@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Addison-5.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-house:C22": [
+      {
+        "id": "ocd-person/b2d2f2a9-28a3-40c5-a818-9f839adac1fa",
+        "name": "Karen Dolan",
+        "office": "state-house",
+        "districtCode": "C22",
+        "contactUrl": null,
+        "email": "kndolan@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-22.pdf",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/acf44b62-a884-4de2-8deb-055363849c5b",
+        "name": "Lori Houghton",
+        "office": "state-house",
+        "districtCode": "C22",
+        "contactUrl": null,
+        "email": "lhoughton@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-22.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-house:C-6": [
+      {
+        "id": "ocd-person/f9d0a963-ca4d-4ab2-a761-ad4aa6983055",
+        "name": "Kate Lalley",
+        "office": "state-house",
+        "districtCode": "C-6",
+        "contactUrl": null,
+        "email": "klalley@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-6.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-house:C10": [
+      {
+        "id": "ocd-person/edf5128d-7630-41be-8b16-c183d7cb24e5",
+        "name": "Kate Nugent",
+        "office": "state-house",
+        "districtCode": "C10",
+        "contactUrl": null,
+        "email": "knugent@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-10.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-house:B-4": [
+      {
+        "id": "ocd-person/8b47b675-97d4-4cdc-a3ae-d44c05594b5c",
+        "name": "Kathleen James",
+        "office": "state-house",
+        "districtCode": "B-4",
+        "contactUrl": null,
+        "email": "kjames@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2020/30945",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/c6250393-5afe-4ded-9b4e-0c04921077f0",
+        "name": "Rob Hunter",
+        "office": "state-house",
+        "districtCode": "B-4",
+        "contactUrl": null,
+        "email": "rhunter@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2026/40401",
+        "social": {}
+      }
+    ],
+    "VT:state-house:O-3": [
+      {
+        "id": "ocd-person/a10e8620-2957-408b-a004-481d6d19a832",
+        "name": "Ken Wells",
+        "office": "state-house",
+        "districtCode": "O-3",
+        "contactUrl": null,
+        "email": "kwells@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2026/40421",
+        "social": {}
+      }
+    ],
+    "VT:state-house:R-W": [
+      {
+        "id": "ocd-person/c7254a9c-7d0d-499a-adad-25f869fd7406",
+        "name": "Kevin Winter",
+        "office": "state-house",
+        "districtCode": "R-W",
+        "contactUrl": null,
+        "email": "kwinter@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2026/40430",
+        "social": {}
+      }
+    ],
+    "VT:state-house:Y-A": [
+      {
+        "id": "ocd-person/60ea24d4-7a38-4d78-b07d-2fc414be2e4b",
+        "name": "Kirk White",
+        "office": "state-house",
+        "districtCode": "Y-A",
+        "contactUrl": null,
+        "email": "kwhite@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Windsor-Addison.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-house:E-O": [
+      {
+        "id": "ocd-person/b9ffa5dc-833e-4936-9d62-0b653ae44842",
+        "name": "Larry Labor",
+        "office": "state-house",
+        "districtCode": "E-O",
+        "contactUrl": null,
+        "email": "llabor@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Essex-Orleans.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-house:OWA": [
+      {
+        "id": "ocd-person/d6092ff2-3e4d-4c9a-9317-6d243c7bc0e8",
+        "name": "Larry Satcowitz",
+        "office": "state-house",
+        "districtCode": "OWA",
+        "contactUrl": null,
+        "email": "lsatcowitz@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Orange-Washington-Addison.pdf",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/fe86164f-d4c6-4ed6-b9f4-db9a7fb70f6a",
+        "name": "Jay Hooper",
+        "office": "state-house",
+        "districtCode": "OWA",
+        "contactUrl": null,
+        "email": "jhooper@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Orange-Washington-Addison.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-house:W-2": [
+      {
+        "id": "ocd-person/57c62cd8-8701-4af6-9627-b89e735b5632",
+        "name": "Laura Sibilia",
+        "office": "state-house",
+        "districtCode": "W-2",
+        "contactUrl": null,
+        "email": "lsibilia@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Windham-2.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-house:O-4": [
+      {
+        "id": "ocd-person/b8a71676-1754-4af0-88e5-c38201cef018",
+        "name": "Leanne Harple",
+        "office": "state-house",
+        "districtCode": "O-4",
+        "contactUrl": null,
+        "email": "lharple@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2026/40422",
+        "social": {}
+      }
+    ],
+    "VT:state-house:GIC": [
+      {
+        "id": "ocd-person/5b8b4c48-b09c-4669-a145-c733ae32e293",
+        "name": "Leland Morgan",
+        "office": "state-house",
+        "districtCode": "GIC",
+        "contactUrl": null,
+        "email": "lmorgan@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2020/30960",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/ede0cb44-cafd-43ef-9b1c-3e6efdd759e7",
+        "name": "Mike Morgan",
+        "office": "state-house",
+        "districtCode": "GIC",
+        "contactUrl": null,
+        "email": "mmorgan@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2024/34693",
+        "social": {}
+      }
+    ],
+    "VT:state-house:C23": [
+      {
+        "id": "ocd-person/a7ecda71-d1ad-4e61-bc68-16e929cfc11d",
+        "name": "Leonora Dodge",
+        "office": "state-house",
+        "districtCode": "C23",
+        "contactUrl": null,
+        "email": "ldodge@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-23.pdf",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/9fdba4e0-d367-4fd1-86d6-815042abd075",
+        "name": "Rey Garofano",
+        "office": "state-house",
+        "districtCode": "C23",
+        "contactUrl": null,
+        "email": "rgarofano@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-23.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-house:W-3": [
+      {
+        "id": "ocd-person/90a243b6-e5b2-4f16-b19f-612508863535",
+        "name": "Leslie Goldman",
+        "office": "state-house",
+        "districtCode": "W-3",
+        "contactUrl": null,
+        "email": "lgoldman@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Windham-3.pdf",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/a039bd2d-a206-4976-857e-c6434b26fde1",
+        "name": "Michelle Bos-Lun",
+        "office": "state-house",
+        "districtCode": "W-3",
+        "contactUrl": null,
+        "email": "mboslun@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Windham-3.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-house:F-5": [
+      {
+        "id": "ocd-person/99b59993-b8ed-4046-b343-2958d25a58a4",
+        "name": "Lisa Hango",
+        "office": "state-house",
+        "districtCode": "F-5",
+        "contactUrl": null,
+        "email": "lhango@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2020/31854",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/1ae38fee-1328-4298-aa0a-11b5d0265730",
+        "name": "Wayne Laroche",
+        "office": "state-house",
+        "districtCode": "F-5",
+        "contactUrl": null,
+        "email": "wlaroche@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Franklin-5.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-house:L-3": [
+      {
+        "id": "ocd-person/95e547fd-21f0-489d-a558-a8937d6341e5",
+        "name": "Lucy Boyden",
+        "office": "state-house",
+        "districtCode": "L-3",
+        "contactUrl": null,
+        "email": "lboyden@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Lamoille-3.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-house:WA6": [
+      {
+        "id": "ocd-person/1f0c898f-0199-4b66-a432-d81c85ad9528",
+        "name": "Marc Mihaly",
+        "office": "state-house",
+        "districtCode": "WA6",
+        "contactUrl": null,
+        "email": "mmihaly@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Washington-6.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-house:O-L": [
+      {
+        "id": "ocd-person/67ac8d03-20fe-47a8-9997-61467b4a8e30",
+        "name": "Mark Higley",
+        "office": "state-house",
+        "districtCode": "O-L",
+        "contactUrl": null,
+        "email": "mhigley@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Orleans-Lamoille.pdf",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/cffd5316-4723-43a2-bd54-2d41a9e61e16",
+        "name": "Michael Marcotte",
+        "office": "state-house",
+        "districtCode": "O-L",
+        "contactUrl": null,
+        "email": "mmarcotte@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2020/14568",
+        "social": {}
+      }
+    ],
+    "VT:state-house:C12": [
+      {
+        "id": "ocd-person/73ee356a-069a-4f2c-938d-2bab3d81b49a",
+        "name": "Martin LaLonde",
+        "office": "state-house",
+        "districtCode": "C12",
+        "contactUrl": null,
+        "email": "mlalonde@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-12.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-house:B-5": [
+      {
+        "id": "ocd-person/337fe4da-28df-42bf-82b1-e806bb50e8f3",
+        "name": "Mary Morrissey",
+        "office": "state-house",
+        "districtCode": "B-5",
+        "contactUrl": null,
+        "email": "mmorrissey@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Bennington-5.pdf",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/59b84739-aac0-4d96-bc03-7adbbb7f682e",
+        "name": "Michael Nigro",
+        "office": "state-house",
+        "districtCode": "B-5",
+        "contactUrl": null,
+        "email": "mnigro@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2022/34714",
+        "social": {}
+      }
+    ],
+    "VT:state-house:R-6": [
+      {
+        "id": "ocd-person/3d835c85-50e3-4a02-8891-baa377f63fa5",
+        "name": "Mary Howard",
+        "office": "state-house",
+        "districtCode": "R-6",
+        "contactUrl": null,
+        "email": "mhoward@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Rutland-6.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-house:F-4": [
+      {
+        "id": "ocd-person/36d8fa28-e00c-4894-96b3-ef2946001d88",
+        "name": "Matt Walker",
+        "office": "state-house",
+        "districtCode": "F-4",
+        "contactUrl": null,
+        "email": "mwalker@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Franklin-4.pdf",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/fe8a848a-09ff-4cca-b3b7-5f7c2750556f",
+        "name": "Tom Oliver",
+        "office": "state-house",
+        "districtCode": "F-4",
+        "contactUrl": null,
+        "email": "toliver@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Franklin-4.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-house:A-3": [
+      {
+        "id": "ocd-person/e3e3144c-e166-4b0f-a7e7-e3e24cd40039",
+        "name": "Matt Birong",
+        "office": "state-house",
+        "districtCode": "A-3",
+        "contactUrl": null,
+        "email": "mbirong@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2020/30938",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/825c4e6c-76c1-4c0c-85af-48be726a9108",
+        "name": "Rob North",
+        "office": "state-house",
+        "districtCode": "A-3",
+        "contactUrl": null,
+        "email": "rnorth@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2026/40396",
+        "social": {}
+      }
+    ],
+    "VT:state-house:WA3": [
+      {
+        "id": "ocd-person/86bf6469-26ea-4367-bda5-b191686ca556",
+        "name": "Michael Boutin",
+        "office": "state-house",
+        "districtCode": "WA3",
+        "contactUrl": null,
+        "email": "mboutin@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2026/40432",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/c3b31012-c199-42a6-8256-29f07de76343",
+        "name": "Teddy Waszazak",
+        "office": "state-house",
+        "districtCode": "WA3",
+        "contactUrl": null,
+        "email": "ewaszazak@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2026/40433",
+        "social": {}
+      }
+    ],
+    "VT:state-house:W-4": [
+      {
+        "id": "ocd-person/4258ac6c-c453-4faf-b15c-4cbd8ea91ebd",
+        "name": "Mike Mrowicki",
+        "office": "state-house",
+        "districtCode": "W-4",
+        "contactUrl": null,
+        "email": "mmrowicki@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Windham-4.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-house:CA2": [
+      {
+        "id": "ocd-person/1cd9cf7f-581d-4861-ac6f-b3414947419e",
+        "name": "Mike Southworth",
+        "office": "state-house",
+        "districtCode": "CA2",
+        "contactUrl": null,
+        "email": "msouthworth@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2026/40404",
+        "social": {}
+      }
+    ],
+    "VT:state-house:OR1": [
+      {
+        "id": "ocd-person/682e6ab6-a457-4a67-bf31-5b94ab2b1333",
+        "name": "Mike Tagliavia",
+        "office": "state-house",
+        "districtCode": "OR1",
+        "contactUrl": null,
+        "email": "mtagliavia@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2026/40418",
+        "social": {}
+      }
+    ],
+    "VT:state-house:W-8": [
+      {
+        "id": "ocd-person/2bf6abc2-667f-494f-896a-812721ee77d3",
+        "name": "Mollie Burke",
+        "office": "state-house",
+        "districtCode": "W-8",
+        "contactUrl": null,
+        "email": "mburke@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Windham-8.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-house:OR2": [
+      {
+        "id": "ocd-person/64ee14bb-3a28-4062-ba6d-4ec89c25b64c",
+        "name": "Monique Priestley",
+        "office": "state-house",
+        "districtCode": "OR2",
+        "contactUrl": null,
+        "email": "mpriestley@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Orange-2.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-house:R-1": [
+      {
+        "id": "ocd-person/599c54f9-34b6-4e31-bb50-e36708c3509b",
+        "name": "Pattie McCoy",
+        "office": "state-house",
+        "districtCode": "R-1",
+        "contactUrl": null,
+        "email": "pmccoy@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Rutland-1.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-house:F-7": [
+      {
+        "id": "ocd-person/7d3fc311-0a19-48c1-a1ff-d8e27f521479",
+        "name": "Penny Demar",
+        "office": "state-house",
+        "districtCode": "F-7",
+        "contactUrl": null,
+        "email": "ademar@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Franklin-7.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-house:A-2": [
+      {
+        "id": "ocd-person/842ac286-38fb-428e-af54-1176d06b6144",
+        "name": "Peter Conlon",
+        "office": "state-house",
+        "districtCode": "A-2",
+        "contactUrl": null,
+        "email": "pconlon@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Addison-2.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-house:C-4": [
+      {
+        "id": "ocd-person/424e2c2d-e874-444f-8a1e-e64e2be1b001",
+        "name": "Phil Pouech",
+        "office": "state-house",
+        "districtCode": "C-4",
+        "contactUrl": null,
+        "email": "ppouech@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-4.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-house:O-1": [
+      {
+        "id": "ocd-person/5a58d1ac-7e52-457a-b6f4-c46a46d073e2",
+        "name": "Richard Nelson",
+        "office": "state-house",
+        "districtCode": "O-1",
+        "contactUrl": null,
+        "email": "rnelson@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2026/40420",
+        "social": {}
+      }
+    ],
+    "VT:state-house:B-R": [
+      {
+        "id": "ocd-person/86633f19-1d0c-437d-93b8-e715452c0d2c",
+        "name": "Sandy Pinsonault",
+        "office": "state-house",
+        "districtCode": "B-R",
+        "contactUrl": null,
+        "email": "spinsonault@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2026/40402",
+        "social": {}
+      }
+    ],
+    "VT:state-house:C19": [
+      {
+        "id": "ocd-person/c028faa3-479d-440c-b2a5-e4320933c10f",
+        "name": "Sarita Austin",
+        "office": "state-house",
+        "districtCode": "C19",
+        "contactUrl": null,
+        "email": "saustin@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Chittenden-19.pdf",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/a4282454-4b00-4795-b2b8-ca37f4ce6979",
+        "name": "Wendy Critchlow",
+        "office": "state-house",
+        "districtCode": "C19",
+        "contactUrl": null,
+        "email": "wcritchlow@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2026/40410",
+        "social": {}
+      }
+    ],
+    "VT:state-house:C-7": [
+      {
+        "id": "ocd-person/e9419bea-beed-4507-bb1d-250a32ea800f",
+        "name": "Shawn Sweeney",
+        "office": "state-house",
+        "districtCode": "C-7",
+        "contactUrl": null,
+        "email": "ssweeney@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2026/40407",
+        "social": {}
+      }
+    ],
+    "VT:state-house:WAC": [
+      {
+        "id": "ocd-person/f68d3f17-24ca-4b87-8837-6a30737d21d8",
+        "name": "Theresa Wood",
+        "office": "state-house",
+        "districtCode": "WAC",
+        "contactUrl": null,
+        "email": "twood@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2020/25699",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/0acb9a2c-6cbb-44b3-828c-4c7ad3fd8ce6",
+        "name": "Tom Stevens",
+        "office": "state-house",
+        "districtCode": "WAC",
+        "contactUrl": null,
+        "email": "tstevens@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2020/14689",
+        "social": {}
+      }
+    ],
+    "VT:state-house:Y-W": [
+      {
+        "id": "ocd-person/21e8e7da-7b5c-4ca1-aa06-3dd53ca5c4a5",
+        "name": "Tom Charlton",
+        "office": "state-house",
+        "districtCode": "Y-W",
+        "contactUrl": null,
+        "email": "tcharlton@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2026/40439",
+        "social": {}
+      }
+    ],
+    "VT:state-house:B-2": [
+      {
+        "id": "ocd-person/bd42ebbc-3e03-4929-bbd8-f2fe5141d604",
+        "name": "Timothy Corcoran",
+        "office": "state-house",
+        "districtCode": "B-2",
+        "contactUrl": null,
+        "email": "tcorcoran@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Bennington-2.pdf",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/207d01c5-2277-4f1d-9373-66722cfd3f8b",
+        "name": "Will Greer",
+        "office": "state-house",
+        "districtCode": "B-2",
+        "contactUrl": null,
+        "email": "wgreer@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2026/40400",
+        "social": {}
+      }
+    ],
+    "VT:state-house:R-9": [
+      {
+        "id": "ocd-person/81ee4925-031e-4d85-b35b-6561eefa9d24",
+        "name": "Todd Nielsen",
+        "office": "state-house",
+        "districtCode": "R-9",
+        "contactUrl": null,
+        "email": "tnielsen@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2026/40428",
+        "social": {}
+      }
+    ],
+    "VT:state-house:Y-2": [
+      {
+        "id": "ocd-person/72cf372e-7fd5-40f8-bd04-ccd85fe57e5e",
+        "name": "V.L. Coffin",
+        "office": "state-house",
+        "districtCode": "Y-2",
+        "contactUrl": null,
+        "email": "vlcoffin@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2026/40438",
+        "social": {}
+      }
+    ],
+    "VT:state-house:R10": [
+      {
+        "id": "ocd-person/c66f104c-310a-40a1-9222-6d366b42e576",
+        "name": "Bill Canfield",
+        "office": "state-house",
+        "districtCode": "R10",
+        "contactUrl": null,
+        "email": "wcanfield@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Rutland-10.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-house:O-2": [
+      {
+        "id": "ocd-person/0c2d8e34-55f1-4b34-a6a3-bd7708d2578c",
+        "name": "Woody Page",
+        "office": "state-house",
+        "districtCode": "O-2",
+        "contactUrl": null,
+        "email": "wpage@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Orleans-2.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-house:R-3": [
+      {
+        "id": "ocd-person/55538705-111f-48b3-9495-7877bbecb1f3",
+        "name": "Zak Harvey",
+        "office": "state-house",
+        "districtCode": "R-3",
+        "contactUrl": null,
+        "email": "zharvey@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2026/40459",
+        "social": {}
+      }
+    ],
+    "VT:state-house:W-1": [
+      {
+        "id": "ocd-person/70f4c8cf-b715-484a-a7d1-f02508f7a3b7",
+        "name": "Zon Eastes",
+        "office": "state-house",
+        "districtCode": "W-1",
+        "contactUrl": null,
+        "email": "zeastes@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2026/40434",
+        "social": {}
+      }
+    ],
+    "VT:state-senate:WSR": [
+      {
+        "id": "ocd-person/a366bc32-20d8-41a8-a2cf-939650b7a2c2",
+        "name": "Alison Clarkson",
+        "office": "state-senate",
+        "districtCode": "WSR",
+        "contactUrl": null,
+        "email": "aclarkson@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/Senate/Windsor.pdf",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/4eba2d1e-5bc7-42e1-bc03-2fdc5f4b4889",
+        "name": "Joe Major",
+        "office": "state-senate",
+        "districtCode": "WSR",
+        "contactUrl": null,
+        "email": "jmajor@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2026/40395",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/d798a240-afe8-451d-8b56-9d2badd4820c",
+        "name": "Becca White",
+        "office": "state-senate",
+        "districtCode": "WSR",
+        "contactUrl": null,
+        "email": "rwhite@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2020/30976",
+        "social": {}
+      }
+    ],
+    "VT:state-senate:WAS": [
+      {
+        "id": "ocd-person/1463485e-f279-44f6-a368-f75f213dc7cd",
+        "name": "Andrew Perchlik",
+        "office": "state-senate",
+        "districtCode": "WAS",
+        "contactUrl": null,
+        "email": "aperchlik@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2022/30982",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/c34f492a-7cdf-4830-a28a-0ff2fe7c8f71",
+        "name": "Ann Cummings",
+        "office": "state-senate",
+        "districtCode": "WAS",
+        "contactUrl": null,
+        "email": "acummings@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2022/14604",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/70fa5e7e-8ab1-4599-a881-61d12120637c",
+        "name": "Anne Watson",
+        "office": "state-senate",
+        "districtCode": "WAS",
+        "contactUrl": null,
+        "email": "awatson@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/Senate/Washington.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-senate:RUT": [
+      {
+        "id": "ocd-person/d4ead076-6425-4ab7-ad32-b10dce660170",
+        "name": "Brian Collamore",
+        "office": "state-senate",
+        "districtCode": "RUT",
+        "contactUrl": null,
+        "email": "bcollamore@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2020/24031",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/f076a53a-1ebd-485d-8d0f-adb7cf0b00be",
+        "name": "Dave Weeks",
+        "office": "state-senate",
+        "districtCode": "RUT",
+        "contactUrl": null,
+        "email": "dweeks@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/Senate/Rutland.pdf",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/ba524e3d-a578-4498-8226-6e947840c69f",
+        "name": "Terry Williams",
+        "office": "state-senate",
+        "districtCode": "RUT",
+        "contactUrl": null,
+        "email": "tkwilliams@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/Senate/Rutland.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-senate:CHN": [
+      {
+        "id": "ocd-person/1526326f-c2a8-4103-af27-1805f9a8e32a",
+        "name": "Chris Mattos",
+        "office": "state-senate",
+        "districtCode": "CHN",
+        "contactUrl": null,
+        "email": "cmattos@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2020/29153",
+        "social": {}
+      }
+    ],
+    "VT:state-senate:CHS": [
+      {
+        "id": "ocd-person/06f7e87d-e1f3-4d29-bd2c-11cadb89069e",
+        "name": "Kesha Ram Hinsdale",
+        "office": "state-senate",
+        "districtCode": "CHS",
+        "contactUrl": null,
+        "email": "kramhinsdale@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2024/34727",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/c3b03c7d-9be1-4da5-994a-aa2980ae35b1",
+        "name": "Thomas Chittenden",
+        "office": "state-senate",
+        "districtCode": "CHS",
+        "contactUrl": null,
+        "email": "tchittenden@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2022/34724",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/91dafbcc-d313-4ef3-a506-0113d4ce1975",
+        "name": "Ginny Lyons",
+        "office": "state-senate",
+        "districtCode": "CHS",
+        "contactUrl": null,
+        "email": "vlyons@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2020/14616",
+        "social": {}
+      }
+    ],
+    "VT:state-senate:ORA": [
+      {
+        "id": "ocd-person/c5bca102-7637-45de-90fb-183c2c024f43",
+        "name": "Larry Hart",
+        "office": "state-senate",
+        "districtCode": "ORA",
+        "contactUrl": null,
+        "email": "lhart@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2026/40393",
+        "social": {}
+      }
+    ],
+    "VT:state-senate:CHC": [
+      {
+        "id": "ocd-person/a1812863-f6a9-4ce2-8131-d701923dd507",
+        "name": "Martine Gulick",
+        "office": "state-senate",
+        "districtCode": "CHC",
+        "contactUrl": null,
+        "email": "mgulick@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2024/37408",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/ba794ad6-45fa-40cc-8642-55e759a94d71",
+        "name": "Phil Baruth",
+        "office": "state-senate",
+        "districtCode": "CHC",
+        "contactUrl": null,
+        "email": "pbaruth@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2024/15791",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/3c832fcc-6a3b-415d-9db8-25b87719082c",
+        "name": "Tanya Vyhovsky",
+        "office": "state-senate",
+        "districtCode": "CHC",
+        "contactUrl": null,
+        "email": "tvyhovsky@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2022/34715",
+        "social": {}
+      }
+    ],
+    "VT:state-senate:WDH": [
+      {
+        "id": "ocd-person/4cae5971-93ee-4029-b5ef-4c69574256da",
+        "name": "Nader Hashim",
+        "office": "state-senate",
+        "districtCode": "WDH",
+        "contactUrl": null,
+        "email": "nhashim@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2020/30973",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/5d4b135e-4bed-4f7f-960a-250691fca6a8",
+        "name": "Wendy Harrison",
+        "office": "state-senate",
+        "districtCode": "WDH",
+        "contactUrl": null,
+        "email": "wharrison@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/Senate/Windham.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-senate:GRI": [
+      {
+        "id": "ocd-person/44bcd67b-5b5f-4fca-a61a-20f91072c5e7",
+        "name": "Patrick Brennan",
+        "office": "state-senate",
+        "districtCode": "GRI",
+        "contactUrl": null,
+        "email": "pbrennan@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2020/14549",
+        "social": {}
+      }
+    ],
+    "VT:state-senate:FRA": [
+      {
+        "id": "ocd-person/e8028cf6-fe46-49bf-b8fc-6c9bcd1fa020",
+        "name": "Randy Brock",
+        "office": "state-senate",
+        "districtCode": "FRA",
+        "contactUrl": null,
+        "email": "rbrock@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2020/29338",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/2f1d3491-871e-4eb6-988b-57d3c9ea7a19",
+        "name": "Bob Norris",
+        "office": "state-senate",
+        "districtCode": "FRA",
+        "contactUrl": null,
+        "email": "rnorris@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2022/34702",
+        "social": {}
+      }
+    ],
+    "VT:state-senate:LAM": [
+      {
+        "id": "ocd-person/9a4f5d0d-7c71-4f80-bcf0-da9b4882d0d7",
+        "name": "Richard Westman",
+        "office": "state-senate",
+        "districtCode": "LAM",
+        "contactUrl": null,
+        "email": "rawestman@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/Senate/Lamoille.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-senate:BEN": [
+      {
+        "id": "ocd-person/aabafc36-7412-443d-9fbb-f94ed291dcf7",
+        "name": "Rob Plunkett",
+        "office": "state-senate",
+        "districtCode": "BEN",
+        "contactUrl": null,
+        "email": "rplunkett@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2026/40389",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/28f82298-2bd5-4f82-9e4a-3e2261f0062c",
+        "name": "Seth Bongartz",
+        "office": "state-senate",
+        "districtCode": "BEN",
+        "contactUrl": null,
+        "email": "sbongartz@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/House/Bennington-4.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-senate:ESX": [
+      {
+        "id": "ocd-person/ec8b2fa8-32e3-43ef-a8e9-101958b5d652",
+        "name": "Russ Ingalls",
+        "office": "state-senate",
+        "districtCode": "ESX",
+        "contactUrl": null,
+        "email": "ringalls@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/Documents/SmallMaps/2022/Senate/Essex.pdf",
+        "social": {}
+      }
+    ],
+    "VT:state-senate:ADD": [
+      {
+        "id": "ocd-person/84f2c6bd-5fe7-486c-b2ad-555bf69654e8",
+        "name": "Ruth Hardy",
+        "office": "state-senate",
+        "districtCode": "ADD",
+        "contactUrl": null,
+        "email": "rhardy@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2020/30978",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/0eb14129-49c2-4e33-9abd-34c8802958f1",
+        "name": "Steven Heffernan",
+        "office": "state-senate",
+        "districtCode": "ADD",
+        "contactUrl": null,
+        "email": "sheffernan@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2026/40387",
+        "social": {}
+      }
+    ],
+    "VT:state-senate:ORL": [
+      {
+        "id": "ocd-person/a7824782-070e-47c0-992e-2a508f3da243",
+        "name": "Sam Douglass",
+        "office": "state-senate",
+        "districtCode": "ORL",
+        "contactUrl": null,
+        "email": "sdouglass@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2026/40394",
+        "social": {}
+      }
+    ],
+    "VT:state-senate:CAL": [
+      {
+        "id": "ocd-person/d626c3d1-769d-456c-a073-f1efb326fe1d",
+        "name": "Scott Beck",
+        "office": "state-senate",
+        "districtCode": "CAL",
+        "contactUrl": null,
+        "email": "sbeck@leg.state.vt.us",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.vermont.gov/people/single/2020/23996",
+        "social": {}
+      }
+    ]
+  }
+}

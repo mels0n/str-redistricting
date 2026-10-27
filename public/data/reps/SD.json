@@ -1,0 +1,1464 @@
+{
+  "state": "SD",
+  "generatedFrom": {
+    "legislators-current.json": "ae8cb9477c48715df71a7d860854229d799dc90a254d61badc1efb770f892b2c",
+    "legislators-social-media.json": "c6eca1fcdb3a89901335eed51ca061daa4b60ad3243969a127e913bb9657fbc5",
+    "sd.csv": "29c58c346c83d22b9cff8ae7fa22e44a0bee489d98d2a18979c42353a21f3b85"
+  },
+  "byKey": {
+    "SD:us-senate:00": [
+      {
+        "id": "T000250",
+        "name": "John Thune",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.thune.senate.gov/public/index.cfm/contact",
+        "email": null,
+        "phone": "202-224-2321",
+        "address": "511 Dirksen Senate Office Building Washington DC 20510",
+        "website": "https://www.thune.senate.gov",
+        "social": {
+          "x": "SenJohnThune",
+          "facebook": "LeaderJohnThune",
+          "instagram": "senjohnthune"
+        }
+      },
+      {
+        "id": "R000605",
+        "name": "Mike Rounds",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.rounds.senate.gov/contact/email-mike",
+        "email": null,
+        "phone": "202-224-5842",
+        "address": "716 Hart Senate Office Building Washington DC 20510",
+        "website": "https://www.rounds.senate.gov",
+        "social": {
+          "x": "SenatorRounds",
+          "facebook": "SenatorMikeRounds",
+          "instagram": "senatorrounds"
+        }
+      }
+    ],
+    "SD:us-house:00": [
+      {
+        "id": "J000301",
+        "name": "Dusty Johnson",
+        "office": "us-house",
+        "districtCode": "00",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2801",
+        "address": "1714 Longworth House Office Building Washington DC 20515-4100",
+        "website": "https://dustyjohnson.house.gov",
+        "social": {
+          "x": "RepDustyJohnson"
+        }
+      }
+    ],
+    "SD:state-house:006": [
+      {
+        "id": "ocd-person/d3d7563b-420c-4498-8bc5-4f9d6ed90806",
+        "name": "Aaron Aylward",
+        "office": "state-house",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "aaron.aylward@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/3786/Detail",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/6a9db533-590a-4481-980b-b5efe3412d9b",
+        "name": "Tim Czmowski",
+        "office": "state-house",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "tim.czmowski@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/4730/Detail",
+        "social": {}
+      }
+    ],
+    "SD:state-house:003": [
+      {
+        "id": "ocd-person/02f0edff-2879-4fbb-9b23-796358690d07",
+        "name": "Al Novstrup",
+        "office": "state-house",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "al.novstrup@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Legislators/MemberDetail.aspx?Member=1456&Session=2018s",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/713ca571-304b-48f0-a853-b49fa859134e",
+        "name": "Brandei Schaefbauer",
+        "office": "state-house",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "brandei.schaefbauer@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/4444/Detail",
+        "social": {}
+      }
+    ],
+    "SD:state-house:012": [
+      {
+        "id": "ocd-person/f9dd87da-ac23-450d-9574-1efa95ef0d81",
+        "name": "Amber Arlint",
+        "office": "state-house",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "amber.arlint@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/4456/Detail",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/fe9a44c7-7241-4395-98e3-8445b1bc2d54",
+        "name": "Greg Jamison",
+        "office": "state-house",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "greg.jamison@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Legislators/MemberDetail.aspx?Member=1536&Session=2018s",
+        "social": {}
+      }
+    ],
+    "SD:state-house:009": [
+      {
+        "id": "ocd-person/3b05e975-1b79-42ec-94e8-7a258142dd46",
+        "name": "Bethany Soye",
+        "office": "state-house",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "bethany.soye@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/3793/Detail",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/052b96bd-7f02-4518-ba11-b1a55084149e",
+        "name": "Tesa Schwans",
+        "office": "state-house",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "tesa.schwans@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/4717/Detail",
+        "social": {}
+      }
+    ],
+    "SD:state-house:010": [
+      {
+        "id": "ocd-person/1e3d4ebf-2669-4b20-acd4-e339d24f73c3",
+        "name": "Bobbi Andera",
+        "office": "state-house",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "bobbi.andera@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/4715/Detail",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/85bda678-d416-4caa-b439-8a579288f2ec",
+        "name": "Erin Healy",
+        "office": "state-house",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "erin.healy@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Legislators/MemberDetail.aspx?Member=1624&Session=2019",
+        "social": {}
+      }
+    ],
+    "SD:state-house:011": [
+      {
+        "id": "ocd-person/d9d8a84f-96df-4dbf-b638-d63e216166d4",
+        "name": "Brian Mulder",
+        "office": "state-house",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "brian.mulder@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/4447/Detail",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/708ee344-687f-499a-9f52-48cb79686167",
+        "name": "Keri Weems",
+        "office": "state-house",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "keri.weems@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/4691/Detail",
+        "social": {}
+      }
+    ],
+    "SD:state-house:017": [
+      {
+        "id": "ocd-person/87c4b9d3-1e14-4c64-af35-e9a95a1f4bf3",
+        "name": "Chris Kassin",
+        "office": "state-house",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "chris.kassin@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/4462/Detail",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/705bda08-a613-4be4-9c90-ac7e30eef6bf",
+        "name": "William Shorma",
+        "office": "state-house",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "william.shorma@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/4463/Detail",
+        "social": {}
+      }
+    ],
+    "SD:state-house:033": [
+      {
+        "id": "ocd-person/132b0654-ebb2-4b6b-81b3-d39b41110d45",
+        "name": "Curt Massie",
+        "office": "state-house",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "curt.massie@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/4451/Detail",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/cc4fe32a-b912-4876-96e5-32341ccdd06d",
+        "name": "Phil Jensen",
+        "office": "state-house",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "phil.jensen@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Legislators/MemberDetail.aspx?Member=1442&Session=2019",
+        "social": {}
+      }
+    ],
+    "SD:state-house:002": [
+      {
+        "id": "ocd-person/4d2f522f-336a-4794-8b89-48d65d250f6e",
+        "name": "David Kull",
+        "office": "state-house",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "david.kull@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/4438/Detail",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/fe5950b8-b6e8-4a95-87b5-fd569f43b286",
+        "name": "John Sjaarda",
+        "office": "state-house",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "john.sjaarda@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/4439/Detail",
+        "social": {}
+      }
+    ],
+    "SD:state-house:019": [
+      {
+        "id": "ocd-person/ce0a6958-a2d1-4e9e-ab06-943bc84a271a",
+        "name": "Drew Peterson",
+        "office": "state-house",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "drew.peterson@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/4440/Detail",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/7d5691be-08ff-4684-978d-81aaa8bdd99b",
+        "name": "Jessica Bahmuller",
+        "office": "state-house",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "jessica.bahmuller@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/4441/Detail",
+        "social": {}
+      }
+    ],
+    "SD:state-house:004": [
+      {
+        "id": "ocd-person/d458ae29-45a8-4406-a5c0-c256ec743172",
+        "name": "Dylan Jordan",
+        "office": "state-house",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "dylan.jordan@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/4714/Detail",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/8125bf75-9ccc-41c4-b76b-3e84dc083c43",
+        "name": "Kent Roe",
+        "office": "state-house",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "kent.roe@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/4713/Detail",
+        "social": {}
+      }
+    ],
+    "SD:state-house:26A": [
+      {
+        "id": "ocd-person/589ced64-f78f-447d-ab9a-8ead6965c61b",
+        "name": "Eric Emery",
+        "office": "state-house",
+        "districtCode": "26A",
+        "contactUrl": null,
+        "email": "eric.emery@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/4471/Detail",
+        "social": {}
+      }
+    ],
+    "SD:state-house:015": [
+      {
+        "id": "ocd-person/c123398a-d235-488f-ba5f-cc71983a66de",
+        "name": "Erik Muckey",
+        "office": "state-house",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "erik.muckey@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/4719/Detail",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/892b6289-0bd8-441d-94bf-30e6f1cfce49",
+        "name": "Kadyn Wittman",
+        "office": "state-house",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "kadyn.wittman@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/4461/Detail",
+        "social": {}
+      }
+    ],
+    "SD:state-house:034": [
+      {
+        "id": "ocd-person/229c5337-951c-41d2-9e76-dc74878bcf89",
+        "name": "Heather Baxter",
+        "office": "state-house",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "heather.baxter@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/4721/Detail",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/082e4c6e-c16a-4bfa-8c17-9c46952da446",
+        "name": "Mike Derby",
+        "office": "state-house",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "mike.derby@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/3791/Detail",
+        "social": {}
+      }
+    ],
+    "SD:state-house:025": [
+      {
+        "id": "ocd-person/950b0ec2-1c69-4c81-ab1d-c61464519e26",
+        "name": "Les Heinemann",
+        "office": "state-house",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "les.heinemann@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/#/Legislators/Profile/1250/Detail",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/912b0c53-5674-42b0-8f22-8ccd01c3264c",
+        "name": "Jon Hansen",
+        "office": "state-house",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "jon.hansen@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Legislators/MemberDetail.aspx?Member=1635&Session=2019",
+        "social": {}
+      }
+    ],
+    "SD:state-house:013": [
+      {
+        "id": "ocd-person/fd692c4a-e6c1-45c1-b970-1fcdbe732cfe",
+        "name": "Jack Kolbeck",
+        "office": "state-house",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "jack.kolbeck@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Legislators/MemberDetail.aspx?Member=1538&Session=2018s",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/123a6b73-d0a1-4263-96fd-a65373159918",
+        "name": "John Hughes",
+        "office": "state-house",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "john.hughes@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/4690/Detail",
+        "social": {}
+      }
+    ],
+    "SD:state-house:28A": [
+      {
+        "id": "ocd-person/3900be26-2367-48af-8083-6ec4b4f18cf1",
+        "name": "Jana Hunt",
+        "office": "state-house",
+        "districtCode": "28A",
+        "contactUrl": null,
+        "email": "jana.hunt@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/4718/Detail",
+        "social": {}
+      }
+    ],
+    "SD:state-house:020": [
+      {
+        "id": "ocd-person/94fa8c46-b27a-452e-85b2-27baca009678",
+        "name": "Jeff Bathke",
+        "office": "state-house",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "jeff.bathke@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/4688/Detail",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/0baaa53b-6468-4de4-98ce-bf1e218f8d38",
+        "name": "Kaley Nolz",
+        "office": "state-house",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "kaley.nolz@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/4689/Detail",
+        "social": {}
+      }
+    ],
+    "SD:state-house:021": [
+      {
+        "id": "ocd-person/98281de1-c8bc-4c3a-9a5b-6a45c96c6087",
+        "name": "Jim Halverson",
+        "office": "state-house",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "jim.halverson@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/4712/Detail",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/7dc4b8d9-148b-4622-a6de-b27dc27030be",
+        "name": "Marty Overweg",
+        "office": "state-house",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "marty.overweg@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/1832/Detail",
+        "social": {}
+      }
+    ],
+    "SD:state-house:016": [
+      {
+        "id": "ocd-person/de36e5d9-b079-4778-bd29-2d7a161488f6",
+        "name": "John Shubeck",
+        "office": "state-house",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "john.shubeck@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/4947/Detail",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/0c864308-04a8-4b22-af5b-5d718046b99f",
+        "name": "Karla Lems",
+        "office": "state-house",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "karla.lems@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/4443/Detail",
+        "social": {}
+      }
+    ],
+    "SD:state-house:005": [
+      {
+        "id": "ocd-person/6ca3c0b7-e0d2-4d68-8b33-725c378ff130",
+        "name": "Josephine Garcia",
+        "office": "state-house",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "josephine.garcia@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/4705/Detail",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/8ea8be55-3862-4034-b0c9-8aa418dfc915",
+        "name": "Matt Roby",
+        "office": "state-house",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "matt.roby@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/4704/Detail",
+        "social": {}
+      }
+    ],
+    "SD:state-house:018": [
+      {
+        "id": "ocd-person/8fabf252-4409-4c1f-b754-ab54759ea3ce",
+        "name": "Julie Auch",
+        "office": "state-house",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "julie.auch@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/4445/Detail",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/0121d607-e75c-4427-bd76-a6e01434afca",
+        "name": "Mike Stevens",
+        "office": "state-house",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "mike.stevens@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/3790/Detail",
+        "social": {}
+      }
+    ],
+    "SD:state-house:029": [
+      {
+        "id": "ocd-person/f2a2616a-c0d4-45d2-8c52-2c8d7dac5e26",
+        "name": "Kathy Rice",
+        "office": "state-house",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "kathy.rice@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/4711/Detail",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/5f9be535-0a3a-4661-a651-f65dbd39ce2b",
+        "name": "Terri Jorgenson",
+        "office": "state-house",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "terri.jorgenson@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/4710/Detail",
+        "social": {}
+      }
+    ],
+    "SD:state-house:022": [
+      {
+        "id": "ocd-person/e94f9d65-3b95-40cb-b3c2-74126023b55f",
+        "name": "Kevin Van Diepen",
+        "office": "state-house",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "kevin.vandiepen@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/4699/Detail",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/7eefd193-a618-4a9b-b416-cd495239ead6",
+        "name": "Lana Greenfield",
+        "office": "state-house",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "lana.greenfield@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Legislators/MemberDetail.aspx?Member=1509&Session=2018s",
+        "social": {}
+      }
+    ],
+    "SD:state-house:027": [
+      {
+        "id": "ocd-person/2b581087-9814-4f0d-80e5-b29a6e7aee67",
+        "name": "Liz May",
+        "office": "state-house",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "liz.may@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/3806/Detail",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/8dc5a857-0514-4a81-8215-a2f21a069075",
+        "name": "Peri Pourier",
+        "office": "state-house",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "peri.pourier@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Legislators/MemberDetail.aspx?Member=1638&Session=2019",
+        "social": {}
+      }
+    ],
+    "SD:state-house:001": [
+      {
+        "id": "ocd-person/533da64d-d703-4d56-9d65-8bf3b730d552",
+        "name": "Logan Manhart",
+        "office": "state-house",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "logan.manhart@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/4685/Detail",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/1f9d8833-6a73-4985-b33e-635b6bc194b7",
+        "name": "Nick Fosness",
+        "office": "state-house",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "nick.fosness@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/4839/Detail",
+        "social": {}
+      }
+    ],
+    "SD:state-house:031": [
+      {
+        "id": "ocd-person/e03644b8-7ddd-4ae0-a734-6f6e76e735ba",
+        "name": "Mary Fitzgerald",
+        "office": "state-house",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "mary.fitzgerald@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/3785/Detail",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/18602d7b-fb7f-495b-bf94-2b0da2aae00f",
+        "name": "Scott Odenbach",
+        "office": "state-house",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "scott.odenbach@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/3784/Detail",
+        "social": {}
+      }
+    ],
+    "SD:state-house:007": [
+      {
+        "id": "ocd-person/82afbbac-f85b-47ec-aad9-c7218f35d44c",
+        "name": "Mellissa Heermann",
+        "office": "state-house",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "mellissa.heermann@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/4450/Detail",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/69b0ca35-e513-4250-90fd-3a8c44dbeae8",
+        "name": "Roger DeGroot",
+        "office": "state-house",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "roger.degroot@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/4449/Detail",
+        "social": {}
+      }
+    ],
+    "SD:state-house:024": [
+      {
+        "id": "ocd-person/f611d7e5-8438-49da-a323-374bbf0af218",
+        "name": "Mike Weisgram",
+        "office": "state-house",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "mike.weisgram@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/3789/Detail",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/46a0838c-0bb9-446a-8828-21a3f2124d1b",
+        "name": "Will Mortenson",
+        "office": "state-house",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "will.mortenson@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/3788/Detail",
+        "social": {}
+      }
+    ],
+    "SD:state-house:032": [
+      {
+        "id": "ocd-person/00ed522e-529c-4ec7-bec2-90e124a2b3df",
+        "name": "Nicole Uhre-Balk",
+        "office": "state-house",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "nicole.uhre-balk@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/4693/Detail",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/a86e2b88-677f-4819-9fc2-0e9ba4c04377",
+        "name": "Steve Duffy",
+        "office": "state-house",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "steve.duffy@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/4468/Detail",
+        "social": {}
+      }
+    ],
+    "SD:state-house:26B": [
+      {
+        "id": "ocd-person/6ce3a563-339c-4bf4-8a70-0f5de85e5693",
+        "name": "Rebecca Reimer",
+        "office": "state-house",
+        "districtCode": "26B",
+        "contactUrl": null,
+        "email": "rebecca.reimer@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Legislators/MemberDetail.aspx?Member=1554&Session=2018s",
+        "social": {}
+      }
+    ],
+    "SD:state-house:023": [
+      {
+        "id": "ocd-person/f6efc9b6-c985-4765-bd47-8da24d06712b",
+        "name": "Scott Moore",
+        "office": "state-house",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "scott.moore@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/4469/Detail",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/138b5508-01b0-43ed-b8b6-ce9b9d07806f",
+        "name": "Spencer Gosch",
+        "office": "state-house",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "spencer.gosch@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Legislators/MemberDetail.aspx?Member=1434&Session=2019",
+        "social": {}
+      }
+    ],
+    "SD:state-house:014": [
+      {
+        "id": "ocd-person/ba249bd9-5b3e-42f3-a367-061bf63d620a",
+        "name": "Taylor Rehfeldt",
+        "office": "state-house",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "taylor.rehfeldt@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/3799/Detail",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/a0e95faf-3b79-4657-bdd2-3a496d04e03c",
+        "name": "Tony Kayser",
+        "office": "state-house",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "tony.kayser@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/4724/Detail",
+        "social": {}
+      }
+    ],
+    "SD:state-house:030": [
+      {
+        "id": "ocd-person/e12868fa-61b7-4ad5-9f68-bcfca817057d",
+        "name": "Tim Goodwin",
+        "office": "state-house",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "tim.goodwin@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Legislators/MemberDetail.aspx?Member=1444&Session=2019",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/e7bb9291-fd90-4db8-b3e6-c90ebc41c997",
+        "name": "Trish Ladner",
+        "office": "state-house",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "trish.ladner@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/3802/Detail",
+        "social": {}
+      }
+    ],
+    "SD:state-house:008": [
+      {
+        "id": "ocd-person/3c82e6e9-348f-40cd-818e-76d4901d9ec5",
+        "name": "Tim Reisch",
+        "office": "state-house",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "tim.reisch@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/4458/Detail",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/cc78d0ae-544c-4b45-8073-4aed3ee1a513",
+        "name": "Tim Walburg",
+        "office": "state-house",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "tim.walburg@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/4687/Detail",
+        "social": {}
+      }
+    ],
+    "SD:state-house:035": [
+      {
+        "id": "ocd-person/ebadc687-f53a-4ec4-9c37-b362a2ea6842",
+        "name": "Tina Mulally",
+        "office": "state-house",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "tina.mulally@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Legislators/MemberDetail.aspx?Member=1646&Session=2019",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/74bc4404-28a3-413b-b01f-3f303da1c8a9",
+        "name": "Tony Randolph",
+        "office": "state-house",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "tony.randolph@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Legislators/MemberDetail.aspx?Member=1647&Session=2019",
+        "social": {}
+      }
+    ],
+    "SD:state-house:28B": [
+      {
+        "id": "ocd-person/1e73baba-bddd-4b8c-901d-a1324f3194eb",
+        "name": "Travis Ismay",
+        "office": "state-house",
+        "districtCode": "28B",
+        "contactUrl": null,
+        "email": "travis.ismay@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/4725/Detail",
+        "social": {}
+      }
+    ],
+    "SD:state-senate:030": [
+      {
+        "id": "ocd-person/ae4b500c-4a37-43ed-a3a2-dbb08071e265",
+        "name": "Amber Hulse",
+        "office": "state-senate",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "amber.hulse@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/4701/Detail",
+        "social": {}
+      }
+    ],
+    "SD:state-senate:012": [
+      {
+        "id": "ocd-person/169a8374-daaa-4884-9add-d1719eabd966",
+        "name": "Arch Beal",
+        "office": "state-senate",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "arch.beal@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Legislators/MemberDetail.aspx?Member=1518&Session=2018s",
+        "social": {}
+      }
+    ],
+    "SD:state-senate:022": [
+      {
+        "id": "ocd-person/a5c12215-2e38-4d1f-a8b0-cc6ce0e859ca",
+        "name": "Brandon Wipf",
+        "office": "state-senate",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "brandon.wipf@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/4837/Detail",
+        "social": {}
+      }
+    ],
+    "SD:state-senate:003": [
+      {
+        "id": "ocd-person/5a5c92d7-0b2c-418e-a0ce-8ba0a6e4790a",
+        "name": "Carl Perry",
+        "office": "state-senate",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "carl.perry@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Legislators/MemberDetail.aspx?Member=1612&Session=2019",
+        "social": {}
+      }
+    ],
+    "SD:state-senate:008": [
+      {
+        "id": "ocd-person/6dabb48d-f267-4fb3-9e8c-0a3c182d44d3",
+        "name": "Casey Crabtree",
+        "office": "state-senate",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "casey.crabtree@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/1881/Detail",
+        "social": {}
+      }
+    ],
+    "SD:state-senate:011": [
+      {
+        "id": "ocd-person/85616a5d-63b7-4794-8eb0-63ab7b121761",
+        "name": "Chris Karr",
+        "office": "state-senate",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "chris.karr@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Legislators/MemberDetail.aspx?Member=1549&Session=2018s",
+        "social": {}
+      }
+    ],
+    "SD:state-senate:033": [
+      {
+        "id": "ocd-person/6dce0110-114c-467d-adb2-50e0309a8079",
+        "name": "Curt Voight",
+        "office": "state-senate",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "curt.voight@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/4702/Detail",
+        "social": {}
+      }
+    ],
+    "SD:state-senate:006": [
+      {
+        "id": "ocd-person/dda7bd46-d880-453e-b830-269e79425a9a",
+        "name": "Ernie Otten",
+        "office": "state-senate",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "ernie.otten@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Legislators/MemberDetail.aspx?Member=1479&Session=2018s",
+        "social": {}
+      }
+    ],
+    "SD:state-senate:005": [
+      {
+        "id": "ocd-person/4d53d676-05f1-409a-8ef8-762d97143443",
+        "name": "Glen Vilhauer",
+        "office": "state-senate",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "glen.vilhauer@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/4706/Detail",
+        "social": {}
+      }
+    ],
+    "SD:state-senate:035": [
+      {
+        "id": "ocd-person/4a052dc7-31aa-4a24-b72d-7e922ce7bf8b",
+        "name": "Greg Blanc",
+        "office": "state-senate",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "greg.blanc@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/4709/Detail",
+        "social": {}
+      }
+    ],
+    "SD:state-senate:032": [
+      {
+        "id": "ocd-person/e0548110-ef50-435f-8c99-fbd53a06d8ff",
+        "name": "Helene Duhamel",
+        "office": "state-senate",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "helene.duhamel@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/1785/Detail",
+        "social": {}
+      }
+    ],
+    "SD:state-senate:015": [
+      {
+        "id": "ocd-person/bea6d77a-6773-463b-946c-b23b27f5f4c0",
+        "name": "Jamie Smith",
+        "office": "state-senate",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "jamie.smith@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Legislators/MemberDetail.aspx?Member=1539&Session=2018s",
+        "social": {}
+      }
+    ],
+    "SD:state-senate:024": [
+      {
+        "id": "ocd-person/c8ca77f5-97e7-4604-aec3-fe4ee5e7dc31",
+        "name": "Jim Mehlhaff",
+        "office": "state-senate",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "jim.mehlhaff@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/4460/Detail",
+        "social": {}
+      }
+    ],
+    "SD:state-senate:029": [
+      {
+        "id": "ocd-person/2d13f154-7e05-462c-b8d9-da5c5556d8b9",
+        "name": "John Carley",
+        "office": "state-senate",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "john.carley@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/4692/Detail",
+        "social": {}
+      }
+    ],
+    "SD:state-senate:009": [
+      {
+        "id": "ocd-person/3a454e94-ca27-4e34-b603-c2768c047bc3",
+        "name": "Joy Hohn",
+        "office": "state-senate",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "joy.hohn@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/4723/Detail",
+        "social": {}
+      }
+    ],
+    "SD:state-senate:016": [
+      {
+        "id": "ocd-person/1de26fd7-bcde-486b-b290-afdee6756c7c",
+        "name": "Kevin Jensen",
+        "office": "state-senate",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "kevin.jensen@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Legislators/MemberDetail.aspx?Member=1427&Session=2019",
+        "social": {}
+      }
+    ],
+    "SD:state-senate:019": [
+      {
+        "id": "ocd-person/bd74c8bf-cc11-4bfc-a721-269a01a6ccb1",
+        "name": "Kyle Schoenfish",
+        "office": "state-senate",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "kyle.schoenfish@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/1851/Detail",
+        "social": {}
+      }
+    ],
+    "SD:state-senate:014": [
+      {
+        "id": "ocd-person/5e23171d-49a3-471f-a6f8-24b057f2d836",
+        "name": "Larry Zikmund",
+        "office": "state-senate",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "larry.zikmund@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/1870/Detail",
+        "social": {}
+      }
+    ],
+    "SD:state-senate:018": [
+      {
+        "id": "ocd-person/a5c8c5c0-c02e-49cf-834b-f8e9d118935a",
+        "name": "Lauren Nelson",
+        "office": "state-senate",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "lauren.nelson@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/4695/Detail",
+        "social": {}
+      }
+    ],
+    "SD:state-senate:010": [
+      {
+        "id": "ocd-person/81df3498-7677-4749-9753-c1ae9799e444",
+        "name": "Liz Larson",
+        "office": "state-senate",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "liz.larson@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/4466/Detail",
+        "social": {}
+      }
+    ],
+    "SD:state-senate:023": [
+      {
+        "id": "ocd-person/04b57e8f-1cbe-4637-84a5-6b2257413d18",
+        "name": "Mark Lapka",
+        "office": "state-senate",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "mark.lapka@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/4696/Detail",
+        "social": {}
+      }
+    ],
+    "SD:state-senate:001": [
+      {
+        "id": "ocd-person/9f5c460a-6f5d-4198-8be2-e78a9d4980bf",
+        "name": "Michael Rohl",
+        "office": "state-senate",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "michael.rohl@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/3805/Detail",
+        "social": {}
+      }
+    ],
+    "SD:state-senate:021": [
+      {
+        "id": "ocd-person/5cfb95b9-aa6a-4285-89d1-04770ae033fd",
+        "name": "MyKala Voita",
+        "office": "state-senate",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "mykala.voita@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/4697/Detail",
+        "social": {}
+      }
+    ],
+    "SD:state-senate:020": [
+      {
+        "id": "ocd-person/169a02e3-c161-4cca-8adb-10e55934a94f",
+        "name": "Paul Miskimins",
+        "office": "state-senate",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "paul.miskimins@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Legislators/MemberDetail.aspx?Member=1632&Session=2019",
+        "social": {}
+      }
+    ],
+    "SD:state-senate:031": [
+      {
+        "id": "ocd-person/73f418c4-6d07-4ef5-924f-1664738d2b46",
+        "name": "Randy Deibert",
+        "office": "state-senate",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "randy.deibert@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/4448/Detail",
+        "social": {}
+      }
+    ],
+    "SD:state-senate:027": [
+      {
+        "id": "ocd-person/d2b91681-6a72-42f8-94f6-c489309798b7",
+        "name": "Red Dawn Foster",
+        "office": "state-senate",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "reddawn.foster@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Legislators/MemberDetail.aspx?Member=1605&Session=2019",
+        "social": {}
+      }
+    ],
+    "SD:state-senate:028": [
+      {
+        "id": "ocd-person/3ff2f0b9-b570-4980-941f-9616ea0bbc55",
+        "name": "Sam Marty",
+        "office": "state-senate",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "sam.marty@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Legislators/MemberDetail.aspx?Member=1514&Session=2018s",
+        "social": {}
+      }
+    ],
+    "SD:state-senate:004": [
+      {
+        "id": "ocd-person/229f3180-5808-47f9-b473-3da3c9585bc5",
+        "name": "Stephanie Sauder",
+        "office": "state-senate",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "stephanie.sauder@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/4455/Detail",
+        "social": {}
+      }
+    ],
+    "SD:state-senate:002": [
+      {
+        "id": "ocd-person/d8b7a70b-2c34-4319-aaaf-54112c5ca471",
+        "name": "Steve Kolbeck",
+        "office": "state-senate",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "steve.kolbeck@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/4453/Detail",
+        "social": {}
+      }
+    ],
+    "SD:state-senate:013": [
+      {
+        "id": "ocd-person/10c3de09-4e65-4885-bbbb-78b2903a36e2",
+        "name": "Sue Peterson",
+        "office": "state-senate",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "sue.peterson@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Legislators/MemberDetail.aspx?Member=1431&Session=2019",
+        "social": {}
+      }
+    ],
+    "SD:state-senate:017": [
+      {
+        "id": "ocd-person/c2149a50-34ee-42c5-8440-e1c5ddcf66e4",
+        "name": "Sydney Davis",
+        "office": "state-senate",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "sydney.davis@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/3783/Detail",
+        "social": {}
+      }
+    ],
+    "SD:state-senate:034": [
+      {
+        "id": "ocd-person/f06bd3c9-8cac-4cc6-be62-f949e51f28eb",
+        "name": "Taffy Howard",
+        "office": "state-senate",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "taffy.howard@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Legislators/MemberDetail.aspx?Member=1547&Session=2018s",
+        "social": {}
+      }
+    ],
+    "SD:state-senate:026": [
+      {
+        "id": "ocd-person/e195011d-04f8-4e39-a9f9-b804495b3f2c",
+        "name": "Tamara Grove",
+        "office": "state-senate",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "tamara.grove@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Profile/4716/Detail",
+        "social": {}
+      }
+    ],
+    "SD:state-senate:007": [
+      {
+        "id": "ocd-person/6206c534-4bec-4228-b86f-5005547c6957",
+        "name": "Tim Reed",
+        "office": "state-senate",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "tim.reed@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Legislators/MemberDetail.aspx?Member=1533&Session=2018s",
+        "social": {}
+      }
+    ],
+    "SD:state-senate:025": [
+      {
+        "id": "ocd-person/f6b50a35-18e6-4e0c-bdd9-071f4a99bbed",
+        "name": "Tom Pischke",
+        "office": "state-senate",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "tom.pischke@sdlegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sdlegislature.gov/Legislators/Legislators/MemberDetail.aspx?Member=1446&Session=2019",
+        "social": {}
+      }
+    ]
+  }
+}

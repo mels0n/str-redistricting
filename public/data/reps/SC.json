@@ -1,0 +1,2546 @@
+{
+  "state": "SC",
+  "generatedFrom": {
+    "legislators-current.json": "ae8cb9477c48715df71a7d860854229d799dc90a254d61badc1efb770f892b2c",
+    "legislators-social-media.json": "c6eca1fcdb3a89901335eed51ca061daa4b60ad3243969a127e913bb9657fbc5",
+    "sc.csv": "48ae4261cf94fd3d3693cbabceddc9ea4003aec887a24a41cbc726c5ad414869"
+  },
+  "byKey": {
+    "SC:us-house:06": [
+      {
+        "id": "C000537",
+        "name": "James E. Clyburn",
+        "office": "us-house",
+        "districtCode": "06",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-3315",
+        "address": "274 Cannon House Office Building Washington DC 20515-4006",
+        "website": "https://clyburn.house.gov",
+        "social": {
+          "x": "RepJamesClyburn",
+          "facebook": "jameseclyburn",
+          "instagram": "repjamesclyburn"
+        }
+      }
+    ],
+    "SC:us-senate:00": [
+      {
+        "id": "S001184",
+        "name": "Tim Scott",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.scott.senate.gov/contact/email-me",
+        "email": null,
+        "phone": "202-224-6121",
+        "address": "104 Hart Senate Office Building Washington DC 20510",
+        "website": "https://www.scott.senate.gov",
+        "social": {
+          "x": "SenatorTimScott",
+          "facebook": "SenatorTimScott",
+          "instagram": "SenatorTimScott"
+        }
+      },
+      {
+        "id": "G000608",
+        "name": "Darline Graham",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-224-5972",
+        "address": "211 Russell Senate Office Building Washington DC 20510",
+        "website": "https://www.dgraham.senate.gov",
+        "social": {}
+      }
+    ],
+    "SC:us-house:02": [
+      {
+        "id": "W000795",
+        "name": "Joe Wilson",
+        "office": "us-house",
+        "districtCode": "02",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2452",
+        "address": "1436 Longworth House Office Building Washington DC 20515-4002",
+        "website": "https://joewilson.house.gov",
+        "social": {
+          "x": "RepJoeWilson",
+          "facebook": "JoeWilson",
+          "instagram": "repjoewilson"
+        }
+      }
+    ],
+    "SC:us-house:05": [
+      {
+        "id": "N000190",
+        "name": "Ralph Norman",
+        "office": "us-house",
+        "districtCode": "05",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5501",
+        "address": "569 Cannon House Office Building Washington DC 20515-4005",
+        "website": "https://norman.house.gov",
+        "social": {
+          "x": "RepRalphNorman",
+          "facebook": "RepRalphNorman",
+          "instagram": "repralphnorman"
+        }
+      }
+    ],
+    "SC:us-house:04": [
+      {
+        "id": "T000480",
+        "name": "William R. Timmons IV",
+        "office": "us-house",
+        "districtCode": "04",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-6030",
+        "address": "267 Cannon House Office Building Washington DC 20515-4004",
+        "website": "https://timmons.house.gov",
+        "social": {
+          "x": "RepTimmons",
+          "facebook": "reptimmons",
+          "instagram": "reptimmons"
+        }
+      }
+    ],
+    "SC:us-house:01": [
+      {
+        "id": "M000194",
+        "name": "Nancy Mace",
+        "office": "us-house",
+        "districtCode": "01",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-3176",
+        "address": "1728 Longworth House Office Building Washington DC 20515-4001",
+        "website": "https://mace.house.gov",
+        "social": {
+          "x": "RepNancyMace",
+          "facebook": "RepNancyMace",
+          "instagram": "repnancymace"
+        }
+      }
+    ],
+    "SC:us-house:07": [
+      {
+        "id": "F000478",
+        "name": "Russell Fry",
+        "office": "us-house",
+        "districtCode": "07",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-9895",
+        "address": "345 Cannon House Office Building Washington DC 20515-4007",
+        "website": "https://fry.house.gov",
+        "social": {
+          "x": "RepRussellFry",
+          "facebook": "reprussellfry",
+          "instagram": "reprussellfry"
+        }
+      }
+    ],
+    "SC:us-house:03": [
+      {
+        "id": "B001325",
+        "name": "Sheri Biggs",
+        "office": "us-house",
+        "districtCode": "03",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5301",
+        "address": "1530 Longworth House Office Building Washington DC 20515-4003",
+        "website": "https://sheribiggs.house.gov",
+        "social": {
+          "x": "repsheribiggs",
+          "facebook": "RepSheriBiggs",
+          "instagram": "RepSheriBiggs"
+        }
+      }
+    ],
+    "SC:state-house:002": [
+      {
+        "id": "ocd-person/0970c995-247f-4cc0-b0a3-8ee4a0e4ebcb",
+        "name": "Adam Duncan",
+        "office": "state-house",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "adamduncan@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.scstatehouse.gov/member.php?code=0502272667",
+        "social": {}
+      }
+    ],
+    "SC:state-house:041": [
+      {
+        "id": "ocd-person/86e53967-3383-4df1-b3b6-49aa2b327110",
+        "name": "Annie McDaniel",
+        "office": "state-house",
+        "districtCode": "041",
+        "contactUrl": null,
+        "email": "anniemcdaniel@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=1221590763",
+        "social": {}
+      }
+    ],
+    "SC:state-house:006": [
+      {
+        "id": "ocd-person/dbb8fc98-5116-44c4-8009-8c91e514dec1",
+        "name": "April Cromer",
+        "office": "state-house",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "aprilcromer@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0434090857",
+        "social": {}
+      }
+    ],
+    "SC:state-house:078": [
+      {
+        "id": "ocd-person/a45d8c37-372d-4d32-b9a5-cce96299ea3d",
+        "name": "Beth Bernstein",
+        "office": "state-house",
+        "districtCode": "078",
+        "contactUrl": null,
+        "email": "bethbernstein@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0141477256",
+        "social": {}
+      }
+    ],
+    "SC:state-house:086": [
+      {
+        "id": "ocd-person/010940bd-8041-4f17-b425-5f42c8c07526",
+        "name": "Bill Taylor",
+        "office": "state-house",
+        "districtCode": "086",
+        "contactUrl": null,
+        "email": "billtaylor@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=1811363419",
+        "social": {}
+      }
+    ],
+    "SC:state-house:009": [
+      {
+        "id": "ocd-person/ddb2ac02-4d91-4379-8c8b-da2353f2163a",
+        "name": "Blake Sanders",
+        "office": "state-house",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "blakesanders@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.scstatehouse.gov/member.php?code=1624999805",
+        "social": {}
+      }
+    ],
+    "SC:state-house:048": [
+      {
+        "id": "ocd-person/f89d05de-1f18-466c-bd51-f718a208407b",
+        "name": "Brandon Guffey",
+        "office": "state-house",
+        "districtCode": "048",
+        "contactUrl": null,
+        "email": "brandonguffey@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0730681731",
+        "social": {}
+      }
+    ],
+    "SC:state-house:092": [
+      {
+        "id": "ocd-person/d09020dc-87bc-49b4-a039-2a2809ab88cc",
+        "name": "Brandon Cox",
+        "office": "state-house",
+        "districtCode": "092",
+        "contactUrl": null,
+        "email": "brandoncox@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0428124949",
+        "social": {}
+      }
+    ],
+    "SC:state-house:045": [
+      {
+        "id": "ocd-person/aa158d61-1373-4c4a-9ad3-ea74bf422cc3",
+        "name": "Brandon Newton",
+        "office": "state-house",
+        "districtCode": "045",
+        "contactUrl": null,
+        "email": "brandonnewton@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=1418607785",
+        "social": {}
+      }
+    ],
+    "SC:state-house:024": [
+      {
+        "id": "ocd-person/d4974849-0939-472c-9862-4d760889125e",
+        "name": "Bruce Bannister",
+        "office": "state-house",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "brucebannister@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0103409079",
+        "social": {}
+      }
+    ],
+    "SC:state-house:039": [
+      {
+        "id": "ocd-person/bbff9a4c-7b59-4538-b869-64ba0c8431ff",
+        "name": "Cal Forrest",
+        "office": "state-house",
+        "districtCode": "039",
+        "contactUrl": null,
+        "email": "calforrest@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0608238564",
+        "social": {}
+      }
+    ],
+    "SC:state-house:103": [
+      {
+        "id": "ocd-person/c3b55867-85d7-4bf2-b1a0-30dd924ae734",
+        "name": "Carl Anderson",
+        "office": "state-house",
+        "districtCode": "103",
+        "contactUrl": null,
+        "email": "carlanderson@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0021590907",
+        "social": {}
+      }
+    ],
+    "SC:state-house:061": [
+      {
+        "id": "ocd-person/b082de67-acd5-42db-bdfc-643650ad7e34",
+        "name": "Carla Schuessler",
+        "office": "state-house",
+        "districtCode": "061",
+        "contactUrl": null,
+        "email": "carlaschuessler@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=1635227077",
+        "social": {}
+      }
+    ],
+    "SC:state-house:023": [
+      {
+        "id": "ocd-person/2432a9be-a476-4dae-966c-74f01e24fdbb",
+        "name": "Chandra Dillard",
+        "office": "state-house",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "chandra@chandradillard.com",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0479545397",
+        "social": {}
+      }
+    ],
+    "SC:state-house:081": [
+      {
+        "id": "ocd-person/08342d93-85d9-498e-a602-85ef9715ebf6",
+        "name": "Charlie Hartz",
+        "office": "state-house",
+        "districtCode": "081",
+        "contactUrl": null,
+        "email": "charleshartz@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.scstatehouse.gov/member.php?code=0776136271",
+        "social": {}
+      }
+    ],
+    "SC:state-house:028": [
+      {
+        "id": "ocd-person/77bd81c9-3436-4635-a945-11f1cf37ead7",
+        "name": "Chris Huff",
+        "office": "state-house",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "chrishuff@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.scstatehouse.gov/member.php?code=0893181711",
+        "social": {}
+      }
+    ],
+    "SC:state-house:069": [
+      {
+        "id": "ocd-person/728e5331-d2ec-4c21-a271-be37ae8843ff",
+        "name": "Chris Wooten",
+        "office": "state-house",
+        "districtCode": "069",
+        "contactUrl": null,
+        "email": "chriswooten@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=1978408854",
+        "social": {}
+      }
+    ],
+    "SC:state-house:073": [
+      {
+        "id": "ocd-person/f9925f2e-d43e-47ff-ba74-f670b65d96e7",
+        "name": "Chris Hart",
+        "office": "state-house",
+        "districtCode": "073",
+        "contactUrl": null,
+        "email": "chrishart@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0770454453",
+        "social": {}
+      }
+    ],
+    "SC:state-house:065": [
+      {
+        "id": "ocd-person/16726551-937d-43ca-a13b-c94c608d1ba3",
+        "name": "Cody Mitchell",
+        "office": "state-house",
+        "districtCode": "065",
+        "contactUrl": null,
+        "email": "codymitchell@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=1344033930",
+        "social": {}
+      }
+    ],
+    "SC:state-house:113": [
+      {
+        "id": "ocd-person/0a87faa3-3d88-4fd6-a29f-583102f8c89f",
+        "name": "Courtney Waters",
+        "office": "state-house",
+        "districtCode": "113",
+        "contactUrl": null,
+        "email": null,
+        "phone": null,
+        "address": null,
+        "website": "https://www.scstatehouse.gov/member.php?code=1896590682",
+        "social": {}
+      }
+    ],
+    "SC:state-house:011": [
+      {
+        "id": "ocd-person/52ab3f52-ec8b-4268-bfb2-16322df47839",
+        "name": "Craig Gagnon",
+        "office": "state-house",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "craiggagnon@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0632954470",
+        "social": {}
+      }
+    ],
+    "SC:state-house:012": [
+      {
+        "id": "ocd-person/fd827c3d-df23-4497-b39e-7c7ab43138fd",
+        "name": "Daniel Gibson",
+        "office": "state-house",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "danielgibson@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0667045375",
+        "social": {}
+      }
+    ],
+    "SC:state-house:026": [
+      {
+        "id": "ocd-person/0187a0b8-b72e-42f1-82ea-8fdac9b9c484",
+        "name": "David Martin",
+        "office": "state-house",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "davidmartin@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.scstatehouse.gov/member.php?code=1157954407",
+        "social": {}
+      }
+    ],
+    "SC:state-house:004": [
+      {
+        "id": "ocd-person/14b0abeb-70fd-404b-9f55-ff2e75e2c7ef",
+        "name": "Davey Hiott",
+        "office": "state-house",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "daveyhiott@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0848863535",
+        "social": {}
+      }
+    ],
+    "SC:state-house:027": [
+      {
+        "id": "ocd-person/96fcbf84-e1e8-4e69-bc26-eeced30abaf4",
+        "name": "David Vaughan",
+        "office": "state-house",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "davidvaughan@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=1865908867",
+        "social": {}
+      }
+    ],
+    "SC:state-house:029": [
+      {
+        "id": "ocd-person/08cc0e0f-26e0-4117-8591-2ac463f6fbe6",
+        "name": "Dennis Moss",
+        "office": "state-house",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "dennismoss@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=1379545289",
+        "social": {}
+      }
+    ],
+    "SC:state-house:021": [
+      {
+        "id": "ocd-person/65b53c25-26eb-4478-9ddc-b46e29c20543",
+        "name": "Dianne Mitchell",
+        "office": "state-house",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "diannemitchell@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.scstatehouse.gov/member.php?code=1344175976",
+        "social": {}
+      }
+    ],
+    "SC:state-house:008": [
+      {
+        "id": "ocd-person/7a7a6119-3a67-4b02-9313-d8454421494e",
+        "name": "Don Chapman",
+        "office": "state-house",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "donchapman@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0347727231",
+        "social": {}
+      }
+    ],
+    "SC:state-house:096": [
+      {
+        "id": "ocd-person/68934441-84b3-48c7-b8a5-a694744f9e3b",
+        "name": "Ryan McCabe",
+        "office": "state-house",
+        "districtCode": "096",
+        "contactUrl": null,
+        "email": "ryanmccabe@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=1206818037",
+        "social": {}
+      }
+    ],
+    "SC:state-house:115": [
+      {
+        "id": "ocd-person/a0512457-cf73-4c3a-8190-d381a90af2d8",
+        "name": "Spencer Wetmore",
+        "office": "state-house",
+        "districtCode": "115",
+        "contactUrl": null,
+        "email": "spencerwetmore@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=1905681590",
+        "social": {}
+      }
+    ],
+    "SC:state-house:064": [
+      {
+        "id": "ocd-person/5861846a-d293-416f-b5ab-227f8fd12b94",
+        "name": "Fawn Pedalino",
+        "office": "state-house",
+        "districtCode": "064",
+        "contactUrl": null,
+        "email": "fawnpedalino@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=1453408917",
+        "social": {}
+      }
+    ],
+    "SC:state-house:067": [
+      {
+        "id": "ocd-person/bc549137-780f-4b77-9438-61a92d3dce48",
+        "name": "Murrell Smith",
+        "office": "state-house",
+        "districtCode": "067",
+        "contactUrl": null,
+        "email": "murrellsmith@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=1703408887",
+        "social": {}
+      }
+    ],
+    "SC:state-house:114": [
+      {
+        "id": "ocd-person/774393b0-877d-4c4b-81cf-daf0494328f9",
+        "name": "Gary Brewer",
+        "office": "state-house",
+        "districtCode": "114",
+        "contactUrl": null,
+        "email": "garybrewer@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0192045432",
+        "social": {}
+      }
+    ],
+    "SC:state-house:094": [
+      {
+        "id": "ocd-person/21d2b4a4-f5fa-415b-8394-02e9b63c4ba0",
+        "name": "Gil Gatch",
+        "office": "state-house",
+        "districtCode": "094",
+        "contactUrl": null,
+        "email": "gilgatch@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0658522648",
+        "social": {}
+      }
+    ],
+    "SC:state-house:095": [
+      {
+        "id": "ocd-person/b494d1f6-d98e-4a8c-895c-6cb73ec892b8",
+        "name": "Gilda Cobb-Hunter",
+        "office": "state-house",
+        "districtCode": "095",
+        "contactUrl": null,
+        "email": "gildacobbhunter@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0372727228",
+        "social": {}
+      }
+    ],
+    "SC:state-house:098": [
+      {
+        "id": "ocd-person/ef3c638d-4ad1-4d9d-abbb-1a87b5513a66",
+        "name": "Greg Ford",
+        "office": "state-house",
+        "districtCode": "098",
+        "contactUrl": null,
+        "email": "gregford@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0605681746",
+        "social": {}
+      }
+    ],
+    "SC:state-house:079": [
+      {
+        "id": "ocd-person/c7b115f3-0fa8-4a8b-b01f-9b222f44018f",
+        "name": "Hamilton Grant",
+        "office": "state-house",
+        "districtCode": "079",
+        "contactUrl": null,
+        "email": "hamiltongrant@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.scstatehouse.gov/member.php?code=0705681734",
+        "social": {}
+      }
+    ],
+    "SC:state-house:102": [
+      {
+        "id": "ocd-person/7f424e9d-ce81-4413-9438-c5aeee1ec079",
+        "name": "Harriet Holman",
+        "office": "state-house",
+        "districtCode": "102",
+        "contactUrl": null,
+        "email": "harrietholman@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.scstatehouse.gov/member.php?code=0867045351",
+        "social": {}
+      }
+    ],
+    "SC:state-house:046": [
+      {
+        "id": "ocd-person/dbc0a5ad-b105-4cd9-8849-e2a7c77d23f0",
+        "name": "Heath Sessions",
+        "office": "state-house",
+        "districtCode": "046",
+        "contactUrl": null,
+        "email": "heathsessions@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=1649715712",
+        "social": {}
+      }
+    ],
+    "SC:state-house:068": [
+      {
+        "id": "ocd-person/814c55e9-568f-403e-9e8a-ee3859c07300",
+        "name": "Heather Crawford",
+        "office": "state-house",
+        "districtCode": "068",
+        "contactUrl": null,
+        "email": "heathercrawford@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0428977222",
+        "social": {}
+      }
+    ],
+    "SC:state-house:075": [
+      {
+        "id": "ocd-person/573c5456-8b53-4a00-9538-1013f0fc12c5",
+        "name": "Heather Bauer",
+        "office": "state-house",
+        "districtCode": "075",
+        "contactUrl": null,
+        "email": "heatherbauer@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0125568167",
+        "social": {}
+      }
+    ],
+    "SC:state-house:051": [
+      {
+        "id": "ocd-person/10d7814d-009b-4d21-a048-2672f48fe130",
+        "name": "David Weeks",
+        "office": "state-house",
+        "districtCode": "051",
+        "contactUrl": null,
+        "email": "davidweeks@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=1898863409",
+        "social": {}
+      }
+    ],
+    "SC:state-house:074": [
+      {
+        "id": "ocd-person/ad25d5ef-8d4f-425f-9dbd-0b018f1771cc",
+        "name": "Todd Rutherford",
+        "office": "state-house",
+        "districtCode": "074",
+        "contactUrl": null,
+        "email": "toddrutherford@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=1614772534",
+        "social": {}
+      }
+    ],
+    "SC:state-house:015": [
+      {
+        "id": "ocd-person/6f92ad6a-95c7-4e74-aa91-05fd5448c99a",
+        "name": "J.A. Moore",
+        "office": "state-house",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "jamoore@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=1356818019",
+        "social": {}
+      }
+    ],
+    "SC:state-house:055": [
+      {
+        "id": "ocd-person/0193ab02-383a-4b92-a810-00fd0bf0fb98",
+        "name": "Jackie Hayes",
+        "office": "state-house",
+        "districtCode": "055",
+        "contactUrl": null,
+        "email": "jackiehayes@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0802272631",
+        "social": {}
+      }
+    ],
+    "SC:state-house:066": [
+      {
+        "id": "ocd-person/d5713eed-0ae5-4bf4-9dc8-7c3efdfae317",
+        "name": "Jackie Terribile",
+        "office": "state-house",
+        "districtCode": "066",
+        "contactUrl": null,
+        "email": "jackieterribile@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.scstatehouse.gov/member.php?code=1812357738",
+        "social": {}
+      }
+    ],
+    "SC:state-house:044": [
+      {
+        "id": "ocd-person/31e694fa-e3e1-4df4-8ca7-4977dbf6e321",
+        "name": "Mike Neese",
+        "office": "state-house",
+        "districtCode": "044",
+        "contactUrl": null,
+        "email": "mikeneese@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=1403977105",
+        "social": {}
+      }
+    ],
+    "SC:state-house:017": [
+      {
+        "id": "ocd-person/6ffe4e57-021a-4424-bc36-b933c8e18477",
+        "name": "Mike Burns",
+        "office": "state-house",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "mikeburns@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0257954515",
+        "social": {}
+      }
+    ],
+    "SC:state-house:116": [
+      {
+        "id": "ocd-person/4b8dd070-0114-4788-9d4c-21eab54496c0",
+        "name": "James Teeple",
+        "office": "state-house",
+        "districtCode": "116",
+        "contactUrl": null,
+        "email": "jamesteeple@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.scstatehouse.gov/member.php?code=1812215692",
+        "social": {}
+      }
+    ],
+    "SC:state-house:054": [
+      {
+        "id": "ocd-person/8c2d9f43-2498-4961-a046-bc5c3f8d7fa6",
+        "name": "Jason Luck",
+        "office": "state-house",
+        "districtCode": "054",
+        "contactUrl": null,
+        "email": "jasonluck@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.scstatehouse.gov/member.php?code=1126420320",
+        "social": {}
+      }
+    ],
+    "SC:state-house:123": [
+      {
+        "id": "ocd-person/99dd735b-3ab4-4362-a2c5-f1b5c9257e52",
+        "name": "Jeff Bradley",
+        "office": "state-house",
+        "districtCode": "123",
+        "contactUrl": null,
+        "email": "jeffbradley@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0171590889",
+        "social": {}
+      }
+    ],
+    "SC:state-house:058": [
+      {
+        "id": "ocd-person/7b2dc589-67e0-4286-9a21-73a69a299ef7",
+        "name": "Jeff Johnson",
+        "office": "state-house",
+        "districtCode": "058",
+        "contactUrl": null,
+        "email": "jeffjohnson@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0938636251",
+        "social": {}
+      }
+    ],
+    "SC:state-house:052": [
+      {
+        "id": "ocd-person/4ae40a76-8a57-40b1-b4cd-0218170e3ff8",
+        "name": "Jermaine Johnson",
+        "office": "state-house",
+        "districtCode": "052",
+        "contactUrl": null,
+        "email": "jermainejohnson@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0943181705",
+        "social": {}
+      }
+    ],
+    "SC:state-house:093": [
+      {
+        "id": "ocd-person/56f713aa-3887-4e45-996d-ca60006edd99",
+        "name": "Jerry Govan",
+        "office": "state-house",
+        "districtCode": "093",
+        "contactUrl": null,
+        "email": "jerrygovan@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.scstatehouse.gov/member.php?code=0702272643",
+        "social": {}
+      }
+    ],
+    "SC:state-house:085": [
+      {
+        "id": "ocd-person/5a7a2735-d539-4aa0-b1a9-2f0e3828a02b",
+        "name": "Jay Kilmartin",
+        "office": "state-house",
+        "districtCode": "085",
+        "contactUrl": null,
+        "email": "jaykilmartin@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0993323745",
+        "social": {}
+      }
+    ],
+    "SC:state-house:088": [
+      {
+        "id": "ocd-person/708261ba-00bd-4cef-bd7e-bd80de59b101",
+        "name": "John Lastinger",
+        "office": "state-house",
+        "districtCode": "088",
+        "contactUrl": null,
+        "email": "johnlastinger@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.scstatehouse.gov/member.php?code=1066761236",
+        "social": {}
+      }
+    ],
+    "SC:state-house:013": [
+      {
+        "id": "ocd-person/f946b369-cfbd-4cc5-84f2-4cc343beb03a",
+        "name": "John McCravy",
+        "office": "state-house",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "johnmccravy@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=1217045309",
+        "social": {}
+      }
+    ],
+    "SC:state-house:049": [
+      {
+        "id": "ocd-person/12f4e61d-b847-4a7d-8029-613580ebfd9f",
+        "name": "John King",
+        "office": "state-house",
+        "districtCode": "049",
+        "contactUrl": null,
+        "email": "johnking@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=1002272607",
+        "social": {}
+      }
+    ],
+    "SC:state-house:117": [
+      {
+        "id": "ocd-person/ec3b270f-6396-440c-89c1-e42262d02477",
+        "name": "Jordan Pace",
+        "office": "state-house",
+        "districtCode": "117",
+        "contactUrl": null,
+        "email": "jordanpace@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=1433984204",
+        "social": {}
+      }
+    ],
+    "SC:state-house:112": [
+      {
+        "id": "ocd-person/35125937-cf55-4408-883f-6f81e45b0063",
+        "name": "Joe Bustos",
+        "office": "state-house",
+        "districtCode": "112",
+        "contactUrl": null,
+        "email": "joebustos@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0278409057",
+        "social": {}
+      }
+    ],
+    "SC:state-house:040": [
+      {
+        "id": "ocd-person/e6db7b68-2d69-4585-816a-ad2c7ee9b1cc",
+        "name": "Joe White",
+        "office": "state-house",
+        "districtCode": "040",
+        "contactUrl": null,
+        "email": "joewhite@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=1912499771",
+        "social": {}
+      }
+    ],
+    "SC:state-house:038": [
+      {
+        "id": "ocd-person/6db09ea1-fe89-497a-8502-dce892c13fe8",
+        "name": "Josiah Magnuson",
+        "office": "state-house",
+        "districtCode": "038",
+        "contactUrl": null,
+        "email": "josiahmagnuson@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=1130965774",
+        "social": {}
+      }
+    ],
+    "SC:state-house:090": [
+      {
+        "id": "ocd-person/88861a7f-ca46-4ed7-a053-0d463cca48e0",
+        "name": "Justin Bamberg",
+        "office": "state-house",
+        "districtCode": "090",
+        "contactUrl": null,
+        "email": "justinbamberg@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0102840897",
+        "social": {}
+      }
+    ],
+    "SC:state-house:077": [
+      {
+        "id": "ocd-person/904331e5-36ae-43d5-8e3e-62a845c7965e",
+        "name": "Kambrell Garvin",
+        "office": "state-house",
+        "districtCode": "077",
+        "contactUrl": null,
+        "email": "kambrellgarvin@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0657954467",
+        "social": {}
+      }
+    ],
+    "SC:state-house:080": [
+      {
+        "id": "ocd-person/07274f31-3348-491d-af78-4eefad9d39c8",
+        "name": "Kathy Landing",
+        "office": "state-house",
+        "districtCode": "080",
+        "contactUrl": null,
+        "email": "kathylanding@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=1066477145",
+        "social": {}
+      }
+    ],
+    "SC:state-house:050": [
+      {
+        "id": "ocd-person/d38909c5-fdcb-4230-8380-498f6f8cc510",
+        "name": "Keishan Scott",
+        "office": "state-house",
+        "districtCode": "050",
+        "contactUrl": null,
+        "email": null,
+        "phone": null,
+        "address": null,
+        "website": "https://www.scstatehouse.gov/member.php?code=1645738439",
+        "social": {}
+      }
+    ],
+    "SC:state-house:105": [
+      {
+        "id": "ocd-person/ad6c27e9-3571-477c-9d94-92127d0020e7",
+        "name": "Kevin Hardee",
+        "office": "state-house",
+        "districtCode": "105",
+        "contactUrl": null,
+        "email": "kevinhardee@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://kevinhardee.com/",
+        "social": {}
+      }
+    ],
+    "SC:state-house:007": [
+      {
+        "id": "ocd-person/16296fb0-76bf-4e65-b7e6-5dc6abceb7b4",
+        "name": "Lee Gilreath",
+        "office": "state-house",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "leegilreath@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.scstatehouse.gov/member.php?code=0675852192",
+        "social": {}
+      }
+    ],
+    "SC:state-house:108": [
+      {
+        "id": "ocd-person/eba98c82-1f71-45c1-951f-40076eb34a8b",
+        "name": "Lee Hewitt",
+        "office": "state-house",
+        "districtCode": "108",
+        "contactUrl": null,
+        "email": "leehewitt@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0834658991",
+        "social": {}
+      }
+    ],
+    "SC:state-house:042": [
+      {
+        "id": "ocd-person/3a09cbd2-aa21-4fa8-9511-d1f842816e49",
+        "name": "Doug Gilliam",
+        "office": "state-house",
+        "districtCode": "042",
+        "contactUrl": null,
+        "email": "douggilliam@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0675426055",
+        "social": {}
+      }
+    ],
+    "SC:state-house:076": [
+      {
+        "id": "ocd-person/a7665bc0-b03c-419e-976c-b3a25ebf358e",
+        "name": "Leon Howard",
+        "office": "state-house",
+        "districtCode": "076",
+        "contactUrl": null,
+        "email": "leonhoward@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0879545349",
+        "social": {}
+      }
+    ],
+    "SC:state-house:119": [
+      {
+        "id": "ocd-person/3faa0b04-4277-4a07-ae78-bc9cb0d20e07",
+        "name": "Leon Stavrinakis",
+        "office": "state-house",
+        "districtCode": "119",
+        "contactUrl": null,
+        "email": "leonstavrinakis@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=1747727063",
+        "social": {}
+      }
+    ],
+    "SC:state-house:091": [
+      {
+        "id": "ocd-person/a02e7674-1693-446b-8863-3d7df87a20fa",
+        "name": "Lonnie Hosey",
+        "office": "state-house",
+        "districtCode": "091",
+        "contactUrl": null,
+        "email": "onniehosey@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0874999895",
+        "social": {}
+      }
+    ],
+    "SC:state-house:057": [
+      {
+        "id": "ocd-person/e3d0a679-af6a-4861-aac2-be366fda3210",
+        "name": "Lucas Atkinson",
+        "office": "state-house",
+        "districtCode": "057",
+        "contactUrl": null,
+        "email": "lucasatkinson@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0066477265",
+        "social": {}
+      }
+    ],
+    "SC:state-house:014": [
+      {
+        "id": "ocd-person/94b1b04a-1be7-4128-b7ac-0c3b299b7d53",
+        "name": "Luke Rankin",
+        "office": "state-house",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "lukerankin@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.scstatehouse.gov/member.php?code=1510227092",
+        "social": {}
+      }
+    ],
+    "SC:state-house:030": [
+      {
+        "id": "ocd-person/d2019dc3-160d-4229-b681-280c52561435",
+        "name": "Brian Lawson",
+        "office": "state-house",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "brianlawson@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=1067613508",
+        "social": {}
+      }
+    ],
+    "SC:state-house:016": [
+      {
+        "id": "ocd-person/45f11431-96b7-4bfe-85f5-ce986002a233",
+        "name": "Mark Willis",
+        "office": "state-house",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "markwillis@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=1942613404",
+        "social": {}
+      }
+    ],
+    "SC:state-house:099": [
+      {
+        "id": "ocd-person/9d1ecabb-7f76-4f2e-9951-03599223ca4c",
+        "name": "Mark Smith",
+        "office": "state-house",
+        "districtCode": "099",
+        "contactUrl": null,
+        "email": "marksmith@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=1724999793",
+        "social": {}
+      }
+    ],
+    "SC:state-house:084": [
+      {
+        "id": "ocd-person/b3dcafed-7f7a-4b8b-8a5e-a517d768ed42",
+        "name": "Melissa Oremus",
+        "office": "state-house",
+        "districtCode": "084",
+        "contactUrl": null,
+        "email": "melissaoremus@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=1432386192",
+        "social": {}
+      }
+    ],
+    "SC:state-house:089": [
+      {
+        "id": "ocd-person/32c6ccd9-4b56-4075-a99b-1882f4dd176d",
+        "name": "Micah Caskey",
+        "office": "state-house",
+        "districtCode": "089",
+        "contactUrl": null,
+        "email": "micahcaskey@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0329545415",
+        "social": {}
+      }
+    ],
+    "SC:state-house:121": [
+      {
+        "id": "ocd-person/ebf046cf-233e-4c98-b78e-4cefbb07615b",
+        "name": "Michael Rivers",
+        "office": "state-house",
+        "districtCode": "121",
+        "contactUrl": null,
+        "email": "michaelrivers@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=1564346404",
+        "social": {}
+      }
+    ],
+    "SC:state-house:071": [
+      {
+        "id": "ocd-person/129fde97-b4fa-4004-bfb9-f96169a7c0a5",
+        "name": "Nathan Ballentine",
+        "office": "state-house",
+        "districtCode": "071",
+        "contactUrl": null,
+        "email": "nathanballentine@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0102272715",
+        "social": {}
+      }
+    ],
+    "SC:state-house:005": [
+      {
+        "id": "ocd-person/73b7f73e-705e-409a-b582-51060e573fd5",
+        "name": "Neal Collins",
+        "office": "state-house",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "nealcollins@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0388636317",
+        "social": {}
+      }
+    ],
+    "SC:state-house:019": [
+      {
+        "id": "ocd-person/08f0816c-5d19-47df-90fb-1249e3f50fae",
+        "name": "Patrick Haddon",
+        "office": "state-house",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "patrick@patrickhaddon.com",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0733806731",
+        "social": {}
+      }
+    ],
+    "SC:state-house:022": [
+      {
+        "id": "ocd-person/4774fe34-b398-48bb-98b8-4ce344781e6c",
+        "name": "Paul Wickensimer",
+        "office": "state-house",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "paulwickensimer@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.scstatehouse.gov/member.php?code=1914630453",
+        "social": {}
+      }
+    ],
+    "SC:state-house:087": [
+      {
+        "id": "ocd-person/ee278d2b-ce89-40bf-af2c-42ede04e3afd",
+        "name": "Paula Calhoon",
+        "office": "state-house",
+        "districtCode": "087",
+        "contactUrl": null,
+        "email": "paulacalhoon@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0293181783",
+        "social": {}
+      }
+    ],
+    "SC:state-house:003": [
+      {
+        "id": "ocd-person/30bbaf18-f705-40eb-a035-be01314f1b44",
+        "name": "Phillip Bowers",
+        "office": "state-house",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "phillipbowers@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.scstatehouse.gov/member.php?code=0169318162",
+        "social": {}
+      }
+    ],
+    "SC:state-house:060": [
+      {
+        "id": "ocd-person/92bc68c6-b20b-4eec-a315-b0d5495db8ec",
+        "name": "Phillip Lowe",
+        "office": "state-house",
+        "districtCode": "060",
+        "contactUrl": null,
+        "email": "philliplowe@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=1125568047",
+        "social": {}
+      }
+    ],
+    "SC:state-house:053": [
+      {
+        "id": "ocd-person/ebfb814e-0b47-4d8f-be94-63718f71a96c",
+        "name": "Richie Yow",
+        "office": "state-house",
+        "districtCode": "053",
+        "contactUrl": null,
+        "email": "richieyow@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=1998863577",
+        "social": {}
+      }
+    ],
+    "SC:state-house:097": [
+      {
+        "id": "ocd-person/ea7da5ce-c132-44b0-8b3c-33745f9d3e4b",
+        "name": "Robby Robbins",
+        "office": "state-house",
+        "districtCode": "097",
+        "contactUrl": null,
+        "email": "robertrobbins@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=1565340722",
+        "social": {}
+      }
+    ],
+    "SC:state-house:036": [
+      {
+        "id": "ocd-person/5bc3db4e-8055-4952-a217-1520e26c8929",
+        "name": "Rob Harris",
+        "office": "state-house",
+        "districtCode": "036",
+        "contactUrl": null,
+        "email": "robharris@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0764772636",
+        "social": {}
+      }
+    ],
+    "SC:state-house:062": [
+      {
+        "id": "ocd-person/1b83cb36-84ea-44b1-b234-14ca1151c7a4",
+        "name": "Robert Williams",
+        "office": "state-house",
+        "districtCode": "062",
+        "contactUrl": null,
+        "email": "robertwilliams@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=1942045222",
+        "social": {}
+      }
+    ],
+    "SC:state-house:070": [
+      {
+        "id": "ocd-person/82c25564-6f95-4fbc-96b8-2ab8a5954a4b",
+        "name": "Robert Reese",
+        "office": "state-house",
+        "districtCode": "070",
+        "contactUrl": null,
+        "email": "robertreese@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.scstatehouse.gov/member.php?code=1527840726",
+        "social": {}
+      }
+    ],
+    "SC:state-house:101": [
+      {
+        "id": "ocd-person/9aa18702-15a2-4281-926b-4e980f2e8aa0",
+        "name": "Roger Kirby",
+        "office": "state-house",
+        "districtCode": "101",
+        "contactUrl": null,
+        "email": "rogerkirby@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=1006818061",
+        "social": {}
+      }
+    ],
+    "SC:state-house:031": [
+      {
+        "id": "ocd-person/6a6c75f2-f3be-4764-9b7d-04b13c28b4aa",
+        "name": "Rosalyn Henderson-Myers",
+        "office": "state-house",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "rosalynhenderson-myers@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0824999901",
+        "social": {}
+      }
+    ],
+    "SC:state-house:034": [
+      {
+        "id": "ocd-person/60078bba-44b1-4606-9943-470d3b3ffbb2",
+        "name": "Sarita Edgerton",
+        "office": "state-house",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "saritaedgerton@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.scstatehouse.gov/member.php?code=0522159029",
+        "social": {}
+      }
+    ],
+    "SC:state-house:032": [
+      {
+        "id": "ocd-person/afbbce75-a054-458a-ad5f-95ac385510f2",
+        "name": "Scott Montgomery",
+        "office": "state-house",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "scottmontgomery@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.scstatehouse.gov/member.php?code=1351704384",
+        "social": {}
+      }
+    ],
+    "SC:state-house:072": [
+      {
+        "id": "ocd-person/6f3e5d6a-0e85-4af0-9711-1eaa7e3da981",
+        "name": "Seth Rose",
+        "office": "state-house",
+        "districtCode": "072",
+        "contactUrl": null,
+        "email": "sethrose@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=1584090719",
+        "social": {}
+      }
+    ],
+    "SC:state-house:124": [
+      {
+        "id": "ocd-person/2bc4de0d-45ee-4cb7-8fda-f0a54a9a7492",
+        "name": "Shannon Erickson",
+        "office": "state-house",
+        "districtCode": "124",
+        "contactUrl": null,
+        "email": "shannonerickson@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0539772663",
+        "social": {}
+      }
+    ],
+    "SC:state-house:020": [
+      {
+        "id": "ocd-person/c706a635-007e-45fa-90c1-0961d0e4cd2f",
+        "name": "Stephen Frank",
+        "office": "state-house",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "stephenfrank@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.scstatehouse.gov/member.php?code=0614772654",
+        "social": {}
+      }
+    ],
+    "SC:state-house:037": [
+      {
+        "id": "ocd-person/72f330b5-9ae0-40e6-b1d2-0ab6725cccf2",
+        "name": "Steven Long",
+        "office": "state-house",
+        "districtCode": "037",
+        "contactUrl": null,
+        "email": "stevenlong@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=1120454411",
+        "social": {}
+      }
+    ],
+    "SC:state-house:100": [
+      {
+        "id": "ocd-person/36dea3e2-2ea8-47e8-84df-cfc4a28073e7",
+        "name": "Sylleste Davis",
+        "office": "state-house",
+        "districtCode": "100",
+        "contactUrl": null,
+        "email": "syllestedavis@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0456249946",
+        "social": {}
+      }
+    ],
+    "SC:state-house:018": [
+      {
+        "id": "ocd-person/10d51991-3dec-499f-8ed2-9c5685de9b00",
+        "name": "Alan Morgan",
+        "office": "state-house",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "alanmorgan@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=1374999835",
+        "social": {}
+      }
+    ],
+    "SC:state-house:059": [
+      {
+        "id": "ocd-person/ae65876e-c27c-49ff-a49f-d58bcbbd4bd5",
+        "name": "Terry Alexander",
+        "office": "state-house",
+        "districtCode": "059",
+        "contactUrl": null,
+        "email": "terryalexander@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0011363635",
+        "social": {}
+      }
+    ],
+    "SC:state-house:010": [
+      {
+        "id": "ocd-person/2ac35060-d236-438e-a3ec-6ad2be0f53c6",
+        "name": "Thomas Beach",
+        "office": "state-house",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "thomasbeach@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0129545439",
+        "social": {}
+      }
+    ],
+    "SC:state-house:107": [
+      {
+        "id": "ocd-person/30329193-5519-45c5-a7de-f841e62b91ac",
+        "name": "Case Brittain",
+        "office": "state-house",
+        "districtCode": "107",
+        "contactUrl": null,
+        "email": "casebrittain@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0202272703",
+        "social": {}
+      }
+    ],
+    "SC:state-house:106": [
+      {
+        "id": "ocd-person/f8956197-cf73-4a14-927d-c3a0f62cff4c",
+        "name": "Val Guest",
+        "office": "state-house",
+        "districtCode": "106",
+        "contactUrl": null,
+        "email": "valguest@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0730113549",
+        "social": {}
+      }
+    ],
+    "SC:state-house:047": [
+      {
+        "id": "ocd-person/7a31b7ee-6b6c-487b-bc69-c3c323357c05",
+        "name": "Tommy Pope",
+        "office": "state-house",
+        "districtCode": "047",
+        "contactUrl": null,
+        "email": "tommypope@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=1484090731",
+        "social": {}
+      }
+    ],
+    "SC:state-house:110": [
+      {
+        "id": "ocd-person/3635c44f-6b49-4e42-bbd7-10dac688f92f",
+        "name": "Tom Hartnett",
+        "office": "state-house",
+        "districtCode": "110",
+        "contactUrl": null,
+        "email": "tomhartnett@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0774999907",
+        "social": {}
+      }
+    ],
+    "SC:state-house:043": [
+      {
+        "id": "ocd-person/e4ab57f5-cf10-42ea-9c31-a6a4cc1a8c29",
+        "name": "Randy Ligon",
+        "office": "state-house",
+        "districtCode": "043",
+        "contactUrl": null,
+        "email": "randyligon@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=1087499870",
+        "social": {}
+      }
+    ],
+    "SC:state-house:109": [
+      {
+        "id": "ocd-person/e7352f8b-8faf-42e3-8216-b480056968c0",
+        "name": "Tiffany Spann-Wilder",
+        "office": "state-house",
+        "districtCode": "109",
+        "contactUrl": null,
+        "email": "tiffanyspannwilder@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.scstatehouse.gov/member.php?code=1742897519",
+        "social": {}
+      }
+    ],
+    "SC:state-house:056": [
+      {
+        "id": "ocd-person/023895b1-aeb4-410a-84d0-0059b3f10ee3",
+        "name": "Tim McGinnis",
+        "office": "state-house",
+        "districtCode": "056",
+        "contactUrl": null,
+        "email": "timmcginnis@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=1256818031",
+        "social": {}
+      }
+    ],
+    "SC:state-house:033": [
+      {
+        "id": "ocd-person/3b778652-2293-4f1d-ae0c-7d2308cbe9af",
+        "name": "Travis Moore",
+        "office": "state-house",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "travismoore@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=1365908927",
+        "social": {}
+      }
+    ],
+    "SC:state-house:063": [
+      {
+        "id": "ocd-person/00d450b3-f427-4e64-b0bd-45609b0a433b",
+        "name": "Jay Jordan",
+        "office": "state-house",
+        "districtCode": "063",
+        "contactUrl": null,
+        "email": "jayjordan@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0957954431",
+        "social": {}
+      }
+    ],
+    "SC:state-house:111": [
+      {
+        "id": "ocd-person/7d11e90b-a028-4947-89d1-ac0788530446",
+        "name": "Wendell Gilliard",
+        "office": "state-house",
+        "districtCode": "111",
+        "contactUrl": null,
+        "email": "wendellgilliard@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0675568101",
+        "social": {}
+      }
+    ],
+    "SC:state-house:025": [
+      {
+        "id": "ocd-person/7a7e6769-eee4-4bb5-8246-a6463457f342",
+        "name": "Wendell Jones",
+        "office": "state-house",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "wendelljones@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0953408977",
+        "social": {}
+      }
+    ],
+    "SC:state-house:082": [
+      {
+        "id": "ocd-person/58d2072a-c96a-49b2-8591-a4e186dc28eb",
+        "name": "Bill Clyburn",
+        "office": "state-house",
+        "districtCode": "082",
+        "contactUrl": null,
+        "email": "billclyburn@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0363636320",
+        "social": {}
+      }
+    ],
+    "SC:state-house:118": [
+      {
+        "id": "ocd-person/e27051a1-60e8-4ad9-b1d2-55360e09ea8c",
+        "name": "Bill Herbkersman",
+        "office": "state-house",
+        "districtCode": "118",
+        "contactUrl": null,
+        "email": "billherbkerman@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://repbillherbkersman.com/",
+        "social": {}
+      }
+    ],
+    "SC:state-house:104": [
+      {
+        "id": "ocd-person/40032da4-e72a-445f-b2df-7975724e64bb",
+        "name": "William Bailey",
+        "office": "state-house",
+        "districtCode": "104",
+        "contactUrl": null,
+        "email": "williambailey@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0088636353",
+        "social": {}
+      }
+    ],
+    "SC:state-house:035": [
+      {
+        "id": "ocd-person/20240c0c-69e5-445f-b8ca-d33dd377e086",
+        "name": "Bill Chumley",
+        "office": "state-house",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "billchumley@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0351704504",
+        "social": {}
+      }
+    ],
+    "SC:state-house:083": [
+      {
+        "id": "ocd-person/d1f25d1c-bd0e-4d0d-be0e-f8f3edad8a3d",
+        "name": "Bill Hixon",
+        "office": "state-house",
+        "districtCode": "083",
+        "contactUrl": null,
+        "email": "billhixon@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billhixon.com/",
+        "social": {}
+      }
+    ],
+    "SC:state-house:001": [
+      {
+        "id": "ocd-person/ae3ba290-90f6-4121-874d-ba80e16ccbe7",
+        "name": "Bill Whitmire",
+        "office": "state-house",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "billwhitmire@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=1914204316",
+        "social": {}
+      }
+    ],
+    "SC:state-house:122": [
+      {
+        "id": "ocd-person/066a2879-ab95-4082-803d-9c4dd582f04e",
+        "name": "Bill Hager",
+        "office": "state-house",
+        "districtCode": "122",
+        "contactUrl": null,
+        "email": "billhager@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0733948776",
+        "social": {}
+      }
+    ],
+    "SC:state-house:120": [
+      {
+        "id": "ocd-person/eba4b1a4-14ca-44dd-93ab-25cdd3cbd5fd",
+        "name": "Weston Newton",
+        "office": "state-house",
+        "districtCode": "120",
+        "contactUrl": null,
+        "email": "westonnewton@schouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=1418749830",
+        "social": {}
+      }
+    ],
+    "SC:state-senate:025": [
+      {
+        "id": "ocd-person/340b7b78-4f07-49ef-8872-dab35cf48c5c",
+        "name": "Shane Massey",
+        "office": "state-senate",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "shanemassey@scsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=1185227131",
+        "social": {}
+      }
+    ],
+    "SC:state-senate:027": [
+      {
+        "id": "ocd-person/52d28efd-d83d-4825-8572-c9e30b8d7c77",
+        "name": "Allen Blackmon",
+        "office": "state-senate",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "allenblackmon@scsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.scstatehouse.gov/member.php?code=0143749983",
+        "social": {}
+      }
+    ],
+    "SC:state-senate:010": [
+      {
+        "id": "ocd-person/898bb0dc-8dd1-4c29-b7a6-04f87c7cbd2d",
+        "name": "Billy Garrett",
+        "office": "state-senate",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "billygarrett@scsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0638636287",
+        "social": {}
+      }
+    ],
+    "SC:state-senate:040": [
+      {
+        "id": "ocd-person/16ba6021-423d-4b0d-b899-d2fe18778c12",
+        "name": "Brad Hutto",
+        "office": "state-senate",
+        "districtCode": "040",
+        "contactUrl": null,
+        "email": "bradhutto@scsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0912499891",
+        "social": {}
+      }
+    ],
+    "SC:state-senate:044": [
+      {
+        "id": "ocd-person/9f665ce8-ed4c-4bef-841f-3036ac03a181",
+        "name": "Brian Adams",
+        "office": "state-senate",
+        "districtCode": "044",
+        "contactUrl": null,
+        "email": "brianadams@scsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0002272727",
+        "social": {}
+      }
+    ],
+    "SC:state-senate:023": [
+      {
+        "id": "ocd-person/31de54c6-a271-4c9e-a109-35de035197ce",
+        "name": "Carlisle Kennedy",
+        "office": "state-senate",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "carlislekennedy@scsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.scstatehouse.gov/member.php?code=0984090791",
+        "social": {}
+      }
+    ],
+    "SC:state-senate:009": [
+      {
+        "id": "ocd-person/0ed8d824-c5b2-47c6-9970-2c475cbfd9ac",
+        "name": "Danny Verdin",
+        "office": "state-senate",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "dannyverdin@scsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=1874999775",
+        "social": {}
+      }
+    ],
+    "SC:state-senate:021": [
+      {
+        "id": "ocd-person/4eca904a-5153-440d-8e5c-4c9e056a1dd1",
+        "name": "Darrell Jackson",
+        "office": "state-senate",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "darrelljackson@scsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0920454435",
+        "social": {}
+      }
+    ],
+    "SC:state-senate:042": [
+      {
+        "id": "ocd-person/4f07a054-384b-4fc7-b60a-f5848ea514d4",
+        "name": "Deon Tedder",
+        "office": "state-senate",
+        "districtCode": "042",
+        "contactUrl": null,
+        "email": "deontedder@scsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=1811931601",
+        "social": {}
+      }
+    ],
+    "SC:state-senate:020": [
+      {
+        "id": "ocd-person/6cabdb85-c770-42ce-9eaf-68326c9dc0aa",
+        "name": "Ed Sutton",
+        "office": "state-senate",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "edsutton@scsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.scstatehouse.gov/member.php?code=1782954332",
+        "social": {}
+      }
+    ],
+    "SC:state-senate:017": [
+      {
+        "id": "ocd-person/c699e1e2-e3f4-4b78-8aeb-7bef9374518f",
+        "name": "Everett Stubbs",
+        "office": "state-senate",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "everettstubbs@scsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.scstatehouse.gov/member.php?code=1780681605",
+        "social": {}
+      }
+    ],
+    "SC:state-senate:043": [
+      {
+        "id": "ocd-person/2ff21c9e-e03e-4f5c-ac4e-7b1e5633969d",
+        "name": "Chip Campsen",
+        "office": "state-senate",
+        "districtCode": "043",
+        "contactUrl": null,
+        "email": "chipcampsen@scsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0302272691",
+        "social": {}
+      }
+    ],
+    "SC:state-senate:028": [
+      {
+        "id": "ocd-person/d09cb270-bb44-44e7-86d6-a880ce40d93d",
+        "name": "Greg Hembree",
+        "office": "state-senate",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "greghembree@scsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0819318084",
+        "social": {}
+      }
+    ],
+    "SC:state-senate:014": [
+      {
+        "id": "ocd-person/8b81073b-87da-4f5c-aacb-f387b69456cc",
+        "name": "Harvey Peeler",
+        "office": "state-senate",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "harveypeeler@scsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=1454545280",
+        "social": {}
+      }
+    ],
+    "SC:state-senate:029": [
+      {
+        "id": "ocd-person/a34e27e4-59ab-41a6-89ee-1b5d82fcbcf6",
+        "name": "J.D. Chaplin",
+        "office": "state-senate",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "jdchaplin@scsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.scstatehouse.gov/member.php?code=0346590868",
+        "social": {}
+      }
+    ],
+    "SC:state-senate:006": [
+      {
+        "id": "ocd-person/3d40ff3f-ddbf-4611-a366-9be7d55b9247",
+        "name": "Jason Elliott",
+        "office": "state-senate",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "jasonelliott@scsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0529545391",
+        "social": {}
+      }
+    ],
+    "SC:state-senate:036": [
+      {
+        "id": "ocd-person/236892d9-be31-4afa-9c3c-e68dff8bf480",
+        "name": "Jeff Zell",
+        "office": "state-senate",
+        "districtCode": "036",
+        "contactUrl": null,
+        "email": "jeffzell@scsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.scstatehouse.gov/member.php?code=1999431789",
+        "social": {}
+      }
+    ],
+    "SC:state-senate:035": [
+      {
+        "id": "ocd-person/2a153d17-d828-4285-a361-fb9f736dd388",
+        "name": "Jeffrey Graham",
+        "office": "state-senate",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "jeffreygraham@scsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.scstatehouse.gov/member.php?code=0703124916",
+        "social": {}
+      }
+    ],
+    "SC:state-senate:011": [
+      {
+        "id": "ocd-person/abab175f-5281-4f94-9550-09131ee156ad",
+        "name": "Josh Kimbrell",
+        "office": "state-senate",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "joshkimbrell@scsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0993465790",
+        "social": {}
+      }
+    ],
+    "SC:state-senate:007": [
+      {
+        "id": "ocd-person/946afea5-c89c-4a8f-a80e-a841bf7e899a",
+        "name": "Karl Allen",
+        "office": "state-senate",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "karlallen@scsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0015340908",
+        "social": {}
+      }
+    ],
+    "SC:state-senate:030": [
+      {
+        "id": "ocd-person/0fdf2e22-badf-4b5c-be34-969781dc40a3",
+        "name": "Kent Williams",
+        "office": "state-senate",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "kentwilliams@scsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=1938636131",
+        "social": {}
+      }
+    ],
+    "SC:state-senate:037": [
+      {
+        "id": "ocd-person/cc6f617e-1af7-4aa5-a9cc-a2214b2c21e2",
+        "name": "Larry Grooms",
+        "office": "state-senate",
+        "districtCode": "037",
+        "contactUrl": null,
+        "email": "stranscomm@scsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0729545367",
+        "social": {}
+      }
+    ],
+    "SC:state-senate:012": [
+      {
+        "id": "ocd-person/3ebbdeb2-9bbf-41d3-8175-2d4e901cb9d1",
+        "name": "Lee Bright",
+        "office": "state-senate",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "leebright@scsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.scstatehouse.gov/member.php?code=0193181795",
+        "social": {}
+      }
+    ],
+    "SC:state-senate:033": [
+      {
+        "id": "ocd-person/27fb6caf-f757-44a3-8973-6ce72aacd7e2",
+        "name": "Luke Rankin",
+        "office": "state-senate",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "lukerankin@scsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=1511363455",
+        "social": {}
+      }
+    ],
+    "SC:state-senate:045": [
+      {
+        "id": "ocd-person/829bd3ab-d117-43fd-b274-f9ff8177c789",
+        "name": "Margie Bright Matthews",
+        "office": "state-senate",
+        "districtCode": "045",
+        "contactUrl": null,
+        "email": "margiebrightmatthews@scsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0194318159",
+        "social": {}
+      }
+    ],
+    "SC:state-senate:041": [
+      {
+        "id": "ocd-person/1bf0b19d-9fa1-474a-99f2-16e7835064cf",
+        "name": "Matt Leber",
+        "office": "state-senate",
+        "districtCode": "041",
+        "contactUrl": null,
+        "email": "matthewleber@scsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=1074431690",
+        "social": {}
+      }
+    ],
+    "SC:state-senate:016": [
+      {
+        "id": "ocd-person/ef901990-e178-4836-b40c-1b5822227650",
+        "name": "Michael Johnson",
+        "office": "state-senate",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "michaeljohnson@scsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0949431704",
+        "social": {}
+      }
+    ],
+    "SC:state-senate:004": [
+      {
+        "id": "ocd-person/52d745c3-ccb7-41db-9b4a-624c757b678a",
+        "name": "Mike Gambrell",
+        "office": "state-senate",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "mwgambrell@bellsouth.net",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0635227197",
+        "social": {}
+      }
+    ],
+    "SC:state-senate:031": [
+      {
+        "id": "ocd-person/c2a237ba-67b6-4280-9cf2-430f1d10d28e",
+        "name": "Mike Reichenbach",
+        "office": "state-senate",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "mikereichenbach@scsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=1528408908",
+        "social": {}
+      }
+    ],
+    "SC:state-senate:022": [
+      {
+        "id": "ocd-person/3e43cada-6457-40bf-9f6d-ed024f737177",
+        "name": "Overture Walker",
+        "office": "state-senate",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "overturewalker@scsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.scstatehouse.gov/member.php?code=1889772501",
+        "social": {}
+      }
+    ],
+    "SC:state-senate:002": [
+      {
+        "id": "ocd-person/bfea6436-5d17-4d26-bc37-15f1a975575e",
+        "name": "Rex Rice",
+        "office": "state-senate",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "rexrice@scsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=1547727087",
+        "social": {}
+      }
+    ],
+    "SC:state-senate:003": [
+      {
+        "id": "ocd-person/69162972-6151-4fe2-b5fe-dee599d86ad3",
+        "name": "Richard Cash",
+        "office": "state-senate",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "richardcash@scsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0328409052",
+        "social": {}
+      }
+    ],
+    "SC:state-senate:032": [
+      {
+        "id": "ocd-person/92a0b883-789a-4291-b2f1-330ec804ba12",
+        "name": "Ronnie Sabb",
+        "office": "state-senate",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "ronniesabb@scsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=1617045261",
+        "social": {}
+      }
+    ],
+    "SC:state-senate:018": [
+      {
+        "id": "ocd-person/a8c8738a-88f3-4a32-a61e-96004425b2c3",
+        "name": "Ronnie Cromer",
+        "office": "state-senate",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "ronniecromer@scsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0438636311",
+        "social": {}
+      }
+    ],
+    "SC:state-senate:008": [
+      {
+        "id": "ocd-person/bf0e5259-d4e3-472c-a3a0-384eab1e8ae2",
+        "name": "Ross Turner",
+        "office": "state-senate",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "rossturner@scsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=1847727051",
+        "social": {}
+      }
+    ],
+    "SC:state-senate:026": [
+      {
+        "id": "ocd-person/458d191f-6584-4548-b464-a3a24cda3cf3",
+        "name": "Russell Ott",
+        "office": "state-senate",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "russellott@scsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=1433096420",
+        "social": {}
+      }
+    ],
+    "SC:state-senate:038": [
+      {
+        "id": "ocd-person/3265c6c1-e300-4fd3-9d61-1cef57279d67",
+        "name": "Sean Bennett",
+        "office": "state-senate",
+        "districtCode": "038",
+        "contactUrl": null,
+        "email": "seanbennett@scsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0141193165",
+        "social": {}
+      }
+    ],
+    "SC:state-senate:013": [
+      {
+        "id": "ocd-person/6409590b-b759-47e0-ba61-cfe5aee94228",
+        "name": "Shane Martin",
+        "office": "state-senate",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "shanemartin@scsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=1179545313",
+        "social": {}
+      }
+    ],
+    "SC:state-senate:034": [
+      {
+        "id": "ocd-person/9837e1c5-5014-4306-9f78-1550b1a9a2c2",
+        "name": "Stephen Goldfinch",
+        "office": "state-senate",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "stephen@stephengoldfinch.com",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0682386282",
+        "social": {}
+      }
+    ],
+    "SC:state-senate:019": [
+      {
+        "id": "ocd-person/51410bac-c642-4cd8-9935-dd87b16a6972",
+        "name": "Tameika Isaac Devine",
+        "office": "state-senate",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "tameikaisaacdevine@scsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.scstatehouse.gov/member.php?code=0477840852",
+        "social": {}
+      }
+    ],
+    "SC:state-senate:001": [
+      {
+        "id": "ocd-person/06c7c886-4087-499e-855c-f36b0fa75195",
+        "name": "Tom Alexander",
+        "office": "state-senate",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "thomasalexander@scsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0013636362",
+        "social": {}
+      }
+    ],
+    "SC:state-senate:005": [
+      {
+        "id": "ocd-person/25450820-f565-4644-95aa-885948c253c3",
+        "name": "Tom Corbin",
+        "office": "state-senate",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "tomcorbin@scsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0402272679",
+        "social": {}
+      }
+    ],
+    "SC:state-senate:046": [
+      {
+        "id": "ocd-person/33fe6bed-f8b0-4002-90fa-870813b72caf",
+        "name": "Tom Davis",
+        "office": "state-senate",
+        "districtCode": "046",
+        "contactUrl": null,
+        "email": "tomdavis@scsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0456818127",
+        "social": {}
+      }
+    ],
+    "SC:state-senate:039": [
+      {
+        "id": "ocd-person/74b41634-f393-47b4-807b-124c14277ecb",
+        "name": "Tom Fernandez",
+        "office": "state-senate",
+        "districtCode": "039",
+        "contactUrl": null,
+        "email": "tomfernandez@scsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.scstatehouse.gov/member.php?code=0574999931",
+        "social": {}
+      }
+    ],
+    "SC:state-senate:024": [
+      {
+        "id": "ocd-person/b01d47f8-2131-4fe5-a611-d1b571696346",
+        "name": "Tom Young",
+        "office": "state-senate",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "tomyoung@scsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=1996590730",
+        "social": {}
+      }
+    ],
+    "SC:state-senate:015": [
+      {
+        "id": "ocd-person/cccdb27c-0ed3-4d26-b2e1-5dd7c94e79ab",
+        "name": "Wes Climer",
+        "office": "state-senate",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "wesclimer@scsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://scstatehouse.gov/member.php?code=0356818139",
+        "social": {}
+      }
+    ]
+  }
+}

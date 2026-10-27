@@ -1,0 +1,2142 @@
+{
+  "state": "AR",
+  "generatedFrom": {
+    "legislators-current.json": "ae8cb9477c48715df71a7d860854229d799dc90a254d61badc1efb770f892b2c",
+    "legislators-social-media.json": "c6eca1fcdb3a89901335eed51ca061daa4b60ad3243969a127e913bb9657fbc5",
+    "ar.csv": "7a322270a61203fd444e7ca91ae29b44d53231af4b5e3af51f3b515e80d445fe"
+  },
+  "byKey": {
+    "AR:us-senate:00": [
+      {
+        "id": "B001236",
+        "name": "John Boozman",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.boozman.senate.gov/public/index.cfm/contact",
+        "email": null,
+        "phone": "202-224-4843",
+        "address": "555 Dirksen Senate Office Building Washington DC 20510",
+        "website": "https://www.boozman.senate.gov/public",
+        "social": {
+          "x": "JohnBoozman",
+          "facebook": "JohnBoozman",
+          "instagram": "johnboozman"
+        }
+      },
+      {
+        "id": "C001095",
+        "name": "Tom Cotton",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.cotton.senate.gov/contact/contact-tom",
+        "email": null,
+        "phone": "202-224-2353",
+        "address": "326 Russell Senate Office Building Washington DC 20510",
+        "website": "https://www.cotton.senate.gov",
+        "social": {
+          "x": "SenTomCotton",
+          "facebook": "SenatorTomCotton"
+        }
+      }
+    ],
+    "AR:us-house:01": [
+      {
+        "id": "C001087",
+        "name": "Eric A. \"Rick\" Crawford",
+        "office": "us-house",
+        "districtCode": "01",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4076",
+        "address": "2422 Rayburn House Office Building Washington DC 20515-0401",
+        "website": "https://crawford.house.gov",
+        "social": {
+          "x": "RepRickCrawford",
+          "facebook": "RepRickCrawford",
+          "instagram": "reprickcrawford"
+        }
+      }
+    ],
+    "AR:us-house:03": [
+      {
+        "id": "W000809",
+        "name": "Steve Womack",
+        "office": "us-house",
+        "districtCode": "03",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4301",
+        "address": "2412 Rayburn House Office Building Washington DC 20515-0403",
+        "website": "https://womack.house.gov",
+        "social": {
+          "x": "Rep_SteveWomack",
+          "facebook": "RepSteveWomack",
+          "instagram": "rep_stevewomack"
+        }
+      }
+    ],
+    "AR:us-house:02": [
+      {
+        "id": "H001072",
+        "name": "J. French Hill",
+        "office": "us-house",
+        "districtCode": "02",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2506",
+        "address": "1533 Longworth House Office Building Washington DC 20515-0402",
+        "website": "https://hill.house.gov",
+        "social": {
+          "x": "RepFrenchHill",
+          "facebook": "RepFrenchHill",
+          "instagram": "repfrenchhill"
+        }
+      }
+    ],
+    "AR:us-house:04": [
+      {
+        "id": "W000821",
+        "name": "Bruce Westerman",
+        "office": "us-house",
+        "districtCode": "04",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-3772",
+        "address": "202 Cannon House Office Building Washington DC 20515-0404",
+        "website": "https://westerman.house.gov",
+        "social": {
+          "x": "RepWesterman",
+          "facebook": "RepWesterman"
+        }
+      }
+    ],
+    "AR:state-house:045": [
+      {
+        "id": "ocd-person/7dff69f1-609b-4230-9937-b8bbc239f5b5",
+        "name": "Aaron Pilkington",
+        "office": "state-house",
+        "districtCode": "045",
+        "contactUrl": null,
+        "email": "aaron.pilkington@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Pilkington",
+        "social": {
+          "x": "pilkingtonforar",
+          "facebook": "PilkingtonforAR",
+          "instagram": "ampilkington"
+        }
+      }
+    ],
+    "AR:state-house:070": [
+      {
+        "id": "ocd-person/54b2621c-cc79-4a5b-95bf-d9113525624e",
+        "name": "Alex Holladay",
+        "office": "state-house",
+        "districtCode": "070",
+        "contactUrl": null,
+        "email": "alex.holladay@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Holladay",
+        "social": {}
+      }
+    ],
+    "AR:state-house:041": [
+      {
+        "id": "ocd-person/4dc31c5c-a5a5-417f-bbaa-d99442259b4f",
+        "name": "Alyssa Brown",
+        "office": "state-house",
+        "districtCode": "041",
+        "contactUrl": null,
+        "email": "alyssa.brown@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkelect.com/officials/501",
+        "social": {}
+      }
+    ],
+    "AR:state-house:073": [
+      {
+        "id": "ocd-person/5143965d-c539-411e-8a15-74ebbcbb7cd7",
+        "name": "Andrew Collins",
+        "office": "state-house",
+        "districtCode": "073",
+        "contactUrl": null,
+        "email": "andrew.collins@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=A.+Collins",
+        "social": {
+          "x": "andrewcollinsAR",
+          "facebook": "andrewcollinsAR",
+          "instagram": "andrewcollinsAR"
+        }
+      }
+    ],
+    "AR:state-house:075": [
+      {
+        "id": "ocd-person/0e0e799b-70de-4472-b289-4a0c2aba3a26",
+        "name": "Ashley Hudson",
+        "office": "state-house",
+        "districtCode": "075",
+        "contactUrl": null,
+        "email": "ashley.hudson@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Hudson",
+        "social": {}
+      }
+    ],
+    "AR:state-house:028": [
+      {
+        "id": "ocd-person/4f5cafe6-850c-42b3-8a75-cd13c8871baf",
+        "name": "Bart Schulz",
+        "office": "state-house",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "bart.schulz@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Schulz",
+        "social": {}
+      }
+    ],
+    "AR:state-house:044": [
+      {
+        "id": "ocd-person/a9eb9004-ed2b-41b1-a51a-81e59790718f",
+        "name": "Bill Teeter",
+        "office": "state-house",
+        "districtCode": "044",
+        "contactUrl": null,
+        "email": "bill.teeter@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Teeter",
+        "social": {}
+      }
+    ],
+    "AR:state-house:024": [
+      {
+        "id": "ocd-person/d1286114-790d-404b-ac09-ef86b7fa6556",
+        "name": "Brad Hall",
+        "office": "state-house",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "brad.hall@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkansashouse.org/district/24",
+        "social": {}
+      }
+    ],
+    "AR:state-house:071": [
+      {
+        "id": "ocd-person/9bce7e7f-cd90-4b10-a557-c37d82923be2",
+        "name": "Brandon Achor",
+        "office": "state-house",
+        "districtCode": "071",
+        "contactUrl": null,
+        "email": "brandon.achor@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Achor",
+        "social": {}
+      }
+    ],
+    "AR:state-house:068": [
+      {
+        "id": "ocd-person/a1614a7c-f5f0-4fe1-a2b1-c8390e4bf106",
+        "name": "Brian Evans",
+        "office": "state-house",
+        "districtCode": "068",
+        "contactUrl": null,
+        "email": "brian.evans@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Evans",
+        "social": {}
+      }
+    ],
+    "AR:state-house:007": [
+      {
+        "id": "ocd-person/0fc23ae8-f37f-4684-b8f5-083c8e36e19d",
+        "name": "Brit McKenzie",
+        "office": "state-house",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "brit.mckenzie@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=B.+McKenzie",
+        "social": {}
+      }
+    ],
+    "AR:state-house:091": [
+      {
+        "id": "ocd-person/49608f14-5f53-40fc-b662-0d48a2aa1340",
+        "name": "Bruce Cozart",
+        "office": "state-house",
+        "districtCode": "091",
+        "contactUrl": null,
+        "email": "bruce.cozart@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Cozart",
+        "social": {
+          "x": "repbrucecozart",
+          "facebook": "bruce.cozart"
+        }
+      }
+    ],
+    "AR:state-house:057": [
+      {
+        "id": "ocd-person/8b544682-2d9b-4759-bdc1-e560cced87fa",
+        "name": "Cameron Cooper",
+        "office": "state-house",
+        "districtCode": "057",
+        "contactUrl": null,
+        "email": "cameron.cooper@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=C.+Cooper",
+        "social": {
+          "facebook": "cameron.cooper.5477"
+        }
+      }
+    ],
+    "AR:state-house:100": [
+      {
+        "id": "ocd-person/247b430e-d46a-474a-87bc-24d03c636fd8",
+        "name": "Carol Dalby",
+        "office": "state-house",
+        "districtCode": "100",
+        "contactUrl": null,
+        "email": "carol.dalby@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Dalby",
+        "social": {}
+      }
+    ],
+    "AR:state-house:025": [
+      {
+        "id": "ocd-person/53cecb4b-96b5-4cbe-bc72-6eab07cbdeea",
+        "name": "Chad Puryear",
+        "office": "state-house",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "chad.puryear@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Puryear",
+        "social": {}
+      }
+    ],
+    "AR:state-house:051": [
+      {
+        "id": "ocd-person/c0936ba9-d863-4262-8fd1-3e08fb1013c8",
+        "name": "Cindy Crawford",
+        "office": "state-house",
+        "districtCode": "051",
+        "contactUrl": null,
+        "email": "cindy.crawford@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Crawford",
+        "social": {
+          "x": "cindycrawford_",
+          "facebook": "CrawfordForDistrict76"
+        }
+      }
+    ],
+    "AR:state-house:069": [
+      {
+        "id": "ocd-person/4b6071ae-58c1-4400-a49f-416579c6371e",
+        "name": "David Ray",
+        "office": "state-house",
+        "districtCode": "069",
+        "contactUrl": null,
+        "email": "david.ray@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Ray",
+        "social": {
+          "x": "DavidARay",
+          "facebook": "RayforArkansas"
+        }
+      }
+    ],
+    "AR:state-house:022": [
+      {
+        "id": "ocd-person/7c229d62-dd8f-491c-8aab-15118335cfe9",
+        "name": "David Whitaker",
+        "office": "state-house",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "david.whitaker@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=D.+Whitaker",
+        "social": {
+          "x": "repwhitaker85",
+          "facebook": "Whitakerfor85",
+          "instagram": "repwhitaker85"
+        }
+      }
+    ],
+    "AR:state-house:087": [
+      {
+        "id": "ocd-person/b165a0c6-fe5a-4505-9f6f-aaafce582b6a",
+        "name": "DeAnn Vaught",
+        "office": "state-house",
+        "districtCode": "087",
+        "contactUrl": null,
+        "email": "deann.vaught@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Vaught",
+        "social": {
+          "facebook": "DeAnnVaughtHD4"
+        }
+      }
+    ],
+    "AR:state-house:080": [
+      {
+        "id": "ocd-person/44cca040-d890-4cf3-9a00-bc8f6f3ac3fc",
+        "name": "Denise Ennett",
+        "office": "state-house",
+        "districtCode": "080",
+        "contactUrl": null,
+        "email": "denise.ennett@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Ennett",
+        "social": {
+          "x": "denisefor36",
+          "facebook": "Denisefor36",
+          "instagram": "denisefor36"
+        }
+      }
+    ],
+    "AR:state-house:020": [
+      {
+        "id": "ocd-person/e8e66020-d749-42e0-9e4e-35962d7f31f4",
+        "name": "Denise Garner",
+        "office": "state-house",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "denise.garner@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=D.+Garner",
+        "social": {
+          "x": "DeniseforAR",
+          "facebook": "deniseforArkansas84",
+          "instagram": "deniseforarkansas"
+        }
+      }
+    ],
+    "AR:state-house:009": [
+      {
+        "id": "ocd-person/4afdc38b-6ea9-4aa9-a8a1-0975c1147cfc",
+        "name": "Diana Gonzales Worthen",
+        "office": "state-house",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "diana.gonzalesworthen@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkansashouse.org/district/9",
+        "social": {}
+      }
+    ],
+    "AR:state-house:088": [
+      {
+        "id": "ocd-person/50cdb325-0c04-483e-87cb-d6a9037d9bc9",
+        "name": "Dolly Henley",
+        "office": "state-house",
+        "districtCode": "088",
+        "contactUrl": null,
+        "email": "dolly.henley@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkansashouse.org/district/88",
+        "social": {}
+      }
+    ],
+    "AR:state-house:038": [
+      {
+        "id": "ocd-person/38a8f4c9-1138-461c-a8a1-ac853c79d3ca",
+        "name": "Dwight Tosh",
+        "office": "state-house",
+        "districtCode": "038",
+        "contactUrl": null,
+        "email": "dwight.tosh@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Tosh",
+        "social": {
+          "facebook": "State Representative Dwight Tosh"
+        }
+      }
+    ],
+    "AR:state-house:030": [
+      {
+        "id": "ocd-person/f3fd86cb-bfa0-47e0-8318-d53b2958c19c",
+        "name": "Fran Cavenaugh",
+        "office": "state-house",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "frances.cavenaugh@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Cavenaugh",
+        "social": {
+          "x": "francavenaugh",
+          "facebook": "FranCavenaughAR"
+        }
+      }
+    ],
+    "AR:state-house:077": [
+      {
+        "id": "ocd-person/b325559c-79b9-4ce3-a548-4c0c4116815e",
+        "name": "Fred Allen",
+        "office": "state-house",
+        "districtCode": "077",
+        "contactUrl": null,
+        "email": "allenfred@me.com",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=F.+Allen",
+        "social": {
+          "facebook": "fredallendist30"
+        }
+      }
+    ],
+    "AR:state-house:065": [
+      {
+        "id": "ocd-person/192e3368-5acb-4ace-9909-fdc02ff2c3d3",
+        "name": "Glenn Barnes",
+        "office": "state-house",
+        "districtCode": "065",
+        "contactUrl": null,
+        "email": "pinehillmbc111@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://arkansashouse.org/district/65",
+        "social": {}
+      }
+    ],
+    "AR:state-house:006": [
+      {
+        "id": "ocd-person/72ce8f2a-95f2-4c1c-8e91-203653d0610a",
+        "name": "Harlan Breaux",
+        "office": "state-house",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "harlan.breaux@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Breaux",
+        "social": {
+          "facebook": "Harlan Breaux for State Representative"
+        }
+      }
+    ],
+    "AR:state-house:012": [
+      {
+        "id": "ocd-person/8f4c182b-d257-45b7-8c34-c4c1f12bb4f6",
+        "name": "Hope Duke",
+        "office": "state-house",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "hope.duke@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Duke",
+        "social": {}
+      }
+    ],
+    "AR:state-house:095": [
+      {
+        "id": "ocd-person/95d21faa-0431-4285-8cee-36fc918959b6",
+        "name": "Howard Beaty",
+        "office": "state-house",
+        "districtCode": "095",
+        "contactUrl": null,
+        "email": "howard.beaty@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Beaty+Jr.",
+        "social": {
+          "x": "HBEATYJR",
+          "facebook": "beatyforrep"
+        }
+      }
+    ],
+    "AR:state-house:032": [
+      {
+        "id": "ocd-person/acc25f3e-2151-45ae-8c48-26e598718a47",
+        "name": "Jack Ladyman",
+        "office": "state-house",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "jackladyman@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Ladyman",
+        "social": {
+          "x": "JackLadyman",
+          "facebook": "jackladymancampaign"
+        }
+      }
+    ],
+    "AR:state-house:026": [
+      {
+        "id": "ocd-person/43843e57-ce6c-45a5-877c-eca55b1c14e6",
+        "name": "James Eaton",
+        "office": "state-house",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "james.eaton@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkansashouse.org/district/26",
+        "social": {}
+      }
+    ],
+    "AR:state-house:004": [
+      {
+        "id": "ocd-person/8a728485-a8bf-4bf8-9197-710ee37eb5e1",
+        "name": "Jason Nazarenko",
+        "office": "state-house",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "jason.nazarenko@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkansashouse.org/district/4",
+        "social": {}
+      }
+    ],
+    "AR:state-house:049": [
+      {
+        "id": "ocd-person/65961429-87cb-4c8c-b9c9-006622ea63c7",
+        "name": "Jay Richardson",
+        "office": "state-house",
+        "districtCode": "049",
+        "contactUrl": null,
+        "email": "jay.richardson@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=J.+Richardson",
+        "social": {}
+      }
+    ],
+    "AR:state-house:094": [
+      {
+        "id": "ocd-person/80a1486d-1661-4409-adf4-63aacf4df148",
+        "name": "Jeff Wardlaw",
+        "office": "state-house",
+        "districtCode": "094",
+        "contactUrl": null,
+        "email": "jeff@jeffwardlaw.com",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Wardlaw",
+        "social": {
+          "x": "jeff_wardlaw",
+          "facebook": "StateRepJeffWardlaw",
+          "instagram": "wardlaw2"
+        }
+      }
+    ],
+    "AR:state-house:061": [
+      {
+        "id": "ocd-person/982babbb-33e1-48ad-a199-10a86e6db5e6",
+        "name": "Jeremiah Moore",
+        "office": "state-house",
+        "districtCode": "061",
+        "contactUrl": null,
+        "email": "jeremiah.moore@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=J.+Moore",
+        "social": {}
+      }
+    ],
+    "AR:state-house:001": [
+      {
+        "id": "ocd-person/bbb656fb-9de4-4ee7-aad5-dd713cba2e1c",
+        "name": "Jeremy Wooldridge",
+        "office": "state-house",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "jeremy.wooldridge@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Wooldridge",
+        "social": {}
+      }
+    ],
+    "AR:state-house:035": [
+      {
+        "id": "ocd-person/f81fdd7f-aa3e-4678-bc4f-870114f8b0ce",
+        "name": "Jessie McGruder",
+        "office": "state-house",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "mcgruder4arkansashouse@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://arkansashouse.org/district/35",
+        "social": {}
+      }
+    ],
+    "AR:state-house:059": [
+      {
+        "id": "ocd-person/3016494b-fa9f-4f79-8530-7bd26120a31e",
+        "name": "Jim Wooten",
+        "office": "state-house",
+        "districtCode": "059",
+        "contactUrl": null,
+        "email": "wjewooten@aol.com",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Wooten",
+        "social": {}
+      }
+    ],
+    "AR:state-house:031": [
+      {
+        "id": "ocd-person/5b260e70-f46b-4d1f-83d9-bd242c11a645",
+        "name": "Jimmy Gazaway",
+        "office": "state-house",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "jimmy.gazaway@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Gazaway",
+        "social": {
+          "x": "jimmygazaway",
+          "facebook": "JimmyGazawayAR"
+        }
+      }
+    ],
+    "AR:state-house:034": [
+      {
+        "id": "ocd-person/99d5591e-13f9-40af-90f4-97c5f958031a",
+        "name": "Joey Carr",
+        "office": "state-house",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "joey.carr@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Joey+Carr",
+        "social": {}
+      }
+    ],
+    "AR:state-house:086": [
+      {
+        "id": "ocd-person/240d9f6e-15f1-41eb-acbb-733861936e5b",
+        "name": "John Maddox",
+        "office": "state-house",
+        "districtCode": "086",
+        "contactUrl": null,
+        "email": "john.maddox@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Maddox",
+        "social": {
+          "x": "johnmaddoxjohn",
+          "facebook": "john.maddox.9275"
+        }
+      }
+    ],
+    "AR:state-house:015": [
+      {
+        "id": "ocd-person/dfa1d0ff-842e-49d2-baa7-41525816070e",
+        "name": "John Carr",
+        "office": "state-house",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "john.carr@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Carr",
+        "social": {
+          "facebook": "StateRepJohnPCarr"
+        }
+      }
+    ],
+    "AR:state-house:036": [
+      {
+        "id": "ocd-person/3ce18467-b330-4d64-98d6-79c31414e7ca",
+        "name": "Johnny Rye",
+        "office": "state-house",
+        "districtCode": "036",
+        "contactUrl": null,
+        "email": "johnny.rye@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Rye",
+        "social": {
+          "facebook": "100058104337901"
+        }
+      }
+    ],
+    "AR:state-house:033": [
+      {
+        "id": "ocd-person/2920db4d-9f68-411a-bd01-9ca6e9089ef7",
+        "name": "Jon Milligan",
+        "office": "state-house",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "jonmilligan@ymail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Milligan",
+        "social": {
+          "facebook": "jon.milligan.545"
+        }
+      }
+    ],
+    "AR:state-house:046": [
+      {
+        "id": "ocd-person/3220c1b9-f133-47fa-8ef9-9944493fbb2c",
+        "name": "Jon Eubanks",
+        "office": "state-house",
+        "districtCode": "046",
+        "contactUrl": null,
+        "email": "jon.eubanks@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Eubanks",
+        "social": {}
+      }
+    ],
+    "AR:state-house:076": [
+      {
+        "id": "ocd-person/e5cf38cc-b933-4bbb-928a-8089d83a6d56",
+        "name": "Joy Springer",
+        "office": "state-house",
+        "districtCode": "076",
+        "contactUrl": null,
+        "email": "joy.springer@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Springer",
+        "social": {
+          "facebook": "electjoycspringer"
+        }
+      }
+    ],
+    "AR:state-house:092": [
+      {
+        "id": "ocd-person/1621cc3a-d18c-486f-96fb-57c6a2890da1",
+        "name": "Julie Mayberry",
+        "office": "state-house",
+        "districtCode": "092",
+        "contactUrl": null,
+        "email": "julie.mayberry@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=J.+Mayberry",
+        "social": {
+          "facebook": "juliemayberrypolitical",
+          "instagram": "repjuliemayberry"
+        }
+      }
+    ],
+    "AR:state-house:089": [
+      {
+        "id": "ocd-person/96dbbbb4-8a04-42bc-a553-e178d47ce838",
+        "name": "Justin Gonzales",
+        "office": "state-house",
+        "districtCode": "089",
+        "contactUrl": null,
+        "email": "justinrory@yahoo.com",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Gonzales",
+        "social": {}
+      }
+    ],
+    "AR:state-house:067": [
+      {
+        "id": "ocd-person/dfbad34c-8e78-4a93-9029-9e50cb0ccb51",
+        "name": "Karilyn Brown",
+        "office": "state-house",
+        "districtCode": "067",
+        "contactUrl": null,
+        "email": "karilyn.brown@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=K.+Brown",
+        "social": {
+          "x": "karilynbrown1",
+          "facebook": "KarilynBB"
+        }
+      }
+    ],
+    "AR:state-house:078": [
+      {
+        "id": "ocd-person/d4c881c3-3d11-4cc4-a40d-64d3d0e11c60",
+        "name": "Keith Brooks",
+        "office": "state-house",
+        "districtCode": "078",
+        "contactUrl": null,
+        "email": "keith.brooks@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Brooks",
+        "social": {}
+      }
+    ],
+    "AR:state-house:016": [
+      {
+        "id": "ocd-person/42e0cedc-8165-45c0-988a-d3a414a521c6",
+        "name": "Kendon Underwood",
+        "office": "state-house",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "kendon.underwood@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Underwood",
+        "social": {
+          "x": "KendonReese",
+          "facebook": "UnderwoodforArkansas",
+          "instagram": "underwoodforarkansas"
+        }
+      }
+    ],
+    "AR:state-house:023": [
+      {
+        "id": "ocd-person/46a1908a-c372-4f84-8ee2-361d767b982a",
+        "name": "Kendra Moore",
+        "office": "state-house",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "kendra.moore@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=K.+Moore",
+        "social": {}
+      }
+    ],
+    "AR:state-house:064": [
+      {
+        "id": "ocd-person/58b100fe-13ff-4b17-a210-88c13cbd3217",
+        "name": "Ken Ferguson",
+        "office": "state-house",
+        "districtCode": "064",
+        "contactUrl": null,
+        "email": "kenneth.ferguson@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=K.+Ferguson",
+        "social": {}
+      }
+    ],
+    "AR:state-house:099": [
+      {
+        "id": "ocd-person/e04b2e49-1a8c-46e5-b9fc-c23d35e10393",
+        "name": "Lane Jean",
+        "office": "state-house",
+        "districtCode": "099",
+        "contactUrl": null,
+        "email": "l_jean@sbcglobal.net",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Jean",
+        "social": {}
+      }
+    ],
+    "AR:state-house:047": [
+      {
+        "id": "ocd-person/4a794d08-4a71-424a-a17d-d35af3c979ae",
+        "name": "Lee Johnson",
+        "office": "state-house",
+        "districtCode": "047",
+        "contactUrl": null,
+        "email": "lee.johnson@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=L.+Johnson",
+        "social": {}
+      }
+    ],
+    "AR:state-house:058": [
+      {
+        "id": "ocd-person/7d85c10d-346f-4c4f-a4e5-470799f7b21c",
+        "name": "Les Eaves",
+        "office": "state-house",
+        "districtCode": "058",
+        "contactUrl": null,
+        "email": "les.eaves@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Eaves",
+        "social": {}
+      }
+    ],
+    "AR:state-house:084": [
+      {
+        "id": "ocd-person/5e063acb-6720-4bb0-8f6e-1df169c856e7",
+        "name": "Les Warren",
+        "office": "state-house",
+        "districtCode": "084",
+        "contactUrl": null,
+        "email": "les.warren@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Warren",
+        "social": {
+          "facebook": "les.warren.902"
+        }
+      }
+    ],
+    "AR:state-house:063": [
+      {
+        "id": "ocd-person/6e3a7643-abe7-4d0f-8d03-47b514558a67",
+        "name": "Lincoln Barnett",
+        "office": "state-house",
+        "districtCode": "063",
+        "contactUrl": null,
+        "email": "lincoln.barnett@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkansashouse.org/district/63",
+        "social": {}
+      }
+    ],
+    "AR:state-house:052": [
+      {
+        "id": "ocd-person/41f3a186-d3b7-4b46-b3dc-2da6f89c902e",
+        "name": "Marcus Richmond",
+        "office": "state-house",
+        "districtCode": "052",
+        "contactUrl": null,
+        "email": "richmond4staterep@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Richmond",
+        "social": {
+          "facebook": "Richmond4StateRep"
+        }
+      }
+    ],
+    "AR:state-house:062": [
+      {
+        "id": "ocd-person/fc30e79a-ee65-4e5b-9cb8-f27ef06c951d",
+        "name": "Mark McElroy",
+        "office": "state-house",
+        "districtCode": "062",
+        "contactUrl": null,
+        "email": "mdmcelroy1@yahoo.com",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=M.+McElroy",
+        "social": {
+          "facebook": "MarkMcElroyARStateRep"
+        }
+      }
+    ],
+    "AR:state-house:066": [
+      {
+        "id": "ocd-person/4b44cfe9-fb9b-4c18-ba6e-34cf679ac3ef",
+        "name": "Mark Perry",
+        "office": "state-house",
+        "districtCode": "066",
+        "contactUrl": null,
+        "email": "mark.perry@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Perry",
+        "social": {
+          "facebook": "MakingOurMarkTogether"
+        }
+      }
+    ],
+    "AR:state-house:054": [
+      {
+        "id": "ocd-person/7e778aa7-3d02-4d6c-9373-42470990fdea",
+        "name": "Mary Bentley",
+        "office": "state-house",
+        "districtCode": "054",
+        "contactUrl": null,
+        "email": "mary.bentley@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Bentley",
+        "social": {
+          "x": "MaryBentleyAR",
+          "facebook": "mary.bentley.39"
+        }
+      }
+    ],
+    "AR:state-house:055": [
+      {
+        "id": "ocd-person/d1b32d51-8ec6-4493-afd2-1bc5feb44034",
+        "name": "Matt Brown",
+        "office": "state-house",
+        "districtCode": "055",
+        "contactUrl": null,
+        "email": "brownmk@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=M.+Brown",
+        "social": {}
+      }
+    ],
+    "AR:state-house:053": [
+      {
+        "id": "ocd-person/487bf09e-e78f-467c-b671-3b4c881f4341",
+        "name": "Matt Duffield",
+        "office": "state-house",
+        "districtCode": "053",
+        "contactUrl": null,
+        "email": "matt.duffield@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Duffield",
+        "social": {}
+      }
+    ],
+    "AR:state-house:097": [
+      {
+        "id": "ocd-person/2774b34a-6b89-4ee9-b8af-32b7a7d8e174",
+        "name": "Matthew Shepherd",
+        "office": "state-house",
+        "districtCode": "097",
+        "contactUrl": null,
+        "email": "matthew.shepherd@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=M.+Shepherd",
+        "social": {
+          "x": "Matt_J_Shepherd",
+          "facebook": "Matthew-Shepherd-130774645804"
+        }
+      }
+    ],
+    "AR:state-house:093": [
+      {
+        "id": "ocd-person/1bf7a3a7-5871-4777-af71-dbdfd358e41b",
+        "name": "Mike Holcomb",
+        "office": "state-house",
+        "districtCode": "093",
+        "contactUrl": null,
+        "email": "mike.holcomb@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Holcomb",
+        "social": {}
+      }
+    ],
+    "AR:state-house:010": [
+      {
+        "id": "ocd-person/5f09e022-f775-4da8-aaad-224793aa2230",
+        "name": "Mindy McAlindon",
+        "office": "state-house",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "mindy.mcalindon@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=McAlindon",
+        "social": {}
+      }
+    ],
+    "AR:state-house:014": [
+      {
+        "id": "ocd-person/4b82405d-205f-47f7-8d9c-a7af23e9bada",
+        "name": "Nick Burkes",
+        "office": "state-house",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "nick.burkes@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkansashouse.org/district/14",
+        "social": {}
+      }
+    ],
+    "AR:state-house:021": [
+      {
+        "id": "ocd-person/c3be3a52-2646-4ea6-9aef-e4ff36a16762",
+        "name": "Nicole Clowney",
+        "office": "state-house",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "nicole.clowney@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Clowney",
+        "social": {
+          "x": "NicoleClowneyAR",
+          "facebook": "NicoleClowneyAR",
+          "instagram": "nicoleclowneyar"
+        }
+      }
+    ],
+    "AR:state-house:083": [
+      {
+        "id": "ocd-person/bd307080-d45f-4c7b-8365-2c7386e0fc3a",
+        "name": "Paul Childress",
+        "office": "state-house",
+        "districtCode": "083",
+        "contactUrl": null,
+        "email": "paul.childress@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkansashouse.org/district/83",
+        "social": {}
+      }
+    ],
+    "AR:state-house:081": [
+      {
+        "id": "ocd-person/1bbfdd71-5072-4978-89bb-6aa19558c3f7",
+        "name": "R.J. Hawk",
+        "office": "state-house",
+        "districtCode": "081",
+        "contactUrl": null,
+        "email": "rj.hawk@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Hawk",
+        "social": {}
+      }
+    ],
+    "AR:state-house:017": [
+      {
+        "id": "ocd-person/aaa584ee-c86a-4631-a37d-8d006ecb8a7b",
+        "name": "Randy Torres",
+        "office": "state-house",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "randy.torres@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkansashouse.org/district/17",
+        "social": {}
+      }
+    ],
+    "AR:state-house:011": [
+      {
+        "id": "ocd-person/8f012092-5f3f-4047-8047-f2520efe0fad",
+        "name": "Rebecca Burkes",
+        "office": "state-house",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "rebecca.burkes@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Burkes",
+        "social": {}
+      }
+    ],
+    "AR:state-house:085": [
+      {
+        "id": "ocd-person/7f9f1a8b-47a7-456d-bc5d-1e6ec32e8572",
+        "name": "Richard McGrew",
+        "office": "state-house",
+        "districtCode": "085",
+        "contactUrl": null,
+        "email": "mcgrewrep22@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=McGrew",
+        "social": {
+          "facebook": "richard.mcgrew.94"
+        }
+      }
+    ],
+    "AR:state-house:090": [
+      {
+        "id": "ocd-person/f2b10588-1d21-4f8f-b313-d668bf58d967",
+        "name": "Richard Womack",
+        "office": "state-house",
+        "districtCode": "090",
+        "contactUrl": null,
+        "email": "richard.womack@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Womack",
+        "social": {
+          "facebook": "richard.womack.731"
+        }
+      }
+    ],
+    "AR:state-house:043": [
+      {
+        "id": "ocd-person/5559a783-5b5f-4dc5-b800-4b9493b7148b",
+        "name": "Rick Beck",
+        "office": "state-house",
+        "districtCode": "043",
+        "contactUrl": null,
+        "email": "rick.beck@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Beck",
+        "social": {
+          "facebook": "100064776606249"
+        }
+      }
+    ],
+    "AR:state-house:029": [
+      {
+        "id": "ocd-person/9b76655d-a7c5-474d-8a35-5a30e8bf9d3a",
+        "name": "Rick McClure",
+        "office": "state-house",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "rick.mcclure@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=McClure",
+        "social": {}
+      }
+    ],
+    "AR:state-house:018": [
+      {
+        "id": "ocd-person/c26f1f0e-232e-4bf2-99f8-be3e80bfcdcc",
+        "name": "Robin Lundstrum",
+        "office": "state-house",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "robin.lundstrum@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Lundstrum",
+        "social": {
+          "x": "RobinLundstrum",
+          "facebook": "Robin-Lundstrum-457537847631425"
+        }
+      }
+    ],
+    "AR:state-house:060": [
+      {
+        "id": "ocd-person/de934263-fe58-4281-bd70-1291fcbd0e25",
+        "name": "Roger Lynch",
+        "office": "state-house",
+        "districtCode": "060",
+        "contactUrl": null,
+        "email": "roger.lynch@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Lynch",
+        "social": {
+          "x": "rogerdlynch",
+          "facebook": "rogerDLynch"
+        }
+      }
+    ],
+    "AR:state-house:005": [
+      {
+        "id": "ocd-person/c45493e9-afbd-4f5e-bb69-e6caed58936a",
+        "name": "Ron McNair",
+        "office": "state-house",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "rmcnair1950@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=McNair",
+        "social": {}
+      }
+    ],
+    "AR:state-house:048": [
+      {
+        "id": "ocd-person/91123b36-1cbd-4696-b6d1-b9973c9d920f",
+        "name": "Ryan Rose",
+        "office": "state-house",
+        "districtCode": "048",
+        "contactUrl": null,
+        "email": "ryan.rose@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Rose",
+        "social": {}
+      }
+    ],
+    "AR:state-house:013": [
+      {
+        "id": "ocd-person/302953f6-213a-4bca-94a6-08a36b801d6c",
+        "name": "Scott Richardson",
+        "office": "state-house",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "scott.richardson@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=R.+Scott+Richardson",
+        "social": {}
+      }
+    ],
+    "AR:state-house:040": [
+      {
+        "id": "ocd-person/4f64d1ad-6e2b-443d-b8cb-64164febff31",
+        "name": "Shad Pearce",
+        "office": "state-house",
+        "districtCode": "040",
+        "contactUrl": null,
+        "email": "shad.pearce@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Pearce",
+        "social": {}
+      }
+    ],
+    "AR:state-house:096": [
+      {
+        "id": "ocd-person/bd3c22f6-b1b5-4089-b03b-f8198ca843a2",
+        "name": "Sonia Barker",
+        "office": "state-house",
+        "districtCode": "096",
+        "contactUrl": null,
+        "email": "sonia.barker@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Barker",
+        "social": {}
+      }
+    ],
+    "AR:state-house:056": [
+      {
+        "id": "ocd-person/d7828297-0ad0-491b-88a6-93369de7acca",
+        "name": "Steve Magie",
+        "office": "state-house",
+        "districtCode": "056",
+        "contactUrl": null,
+        "email": "stephen.magie@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Magie",
+        "social": {
+          "x": "stevemagie",
+          "facebook": "stevemagie"
+        }
+      }
+    ],
+    "AR:state-house:042": [
+      {
+        "id": "ocd-person/8b64758a-b71a-4bb4-ad5d-d4ea812ebf58",
+        "name": "Stephen Meeks",
+        "office": "state-house",
+        "districtCode": "042",
+        "contactUrl": null,
+        "email": "stephen.meeks@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=S.+Meeks",
+        "social": {
+          "x": "repstephenmeeks",
+          "facebook": "RepStephenMeeks"
+        }
+      }
+    ],
+    "AR:state-house:003": [
+      {
+        "id": "ocd-person/120ce349-5d8a-4fa6-902e-4fa39945d7d7",
+        "name": "Stetson Painter",
+        "office": "state-house",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "stetson.painter@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Painter",
+        "social": {}
+      }
+    ],
+    "AR:state-house:037": [
+      {
+        "id": "ocd-person/6eae19da-9b27-462c-af4b-28615d8d2f54",
+        "name": "Steve Hollowell",
+        "office": "state-house",
+        "districtCode": "037",
+        "contactUrl": null,
+        "email": "steve.hollowell@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Hollowell",
+        "social": {
+          "x": "SteveHollowell4",
+          "facebook": "steve.hollowell.7"
+        }
+      }
+    ],
+    "AR:state-house:019": [
+      {
+        "id": "ocd-person/1d522f48-2a04-40ed-860f-3c580d9c87fa",
+        "name": "Steve Unger",
+        "office": "state-house",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "steve.unger@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Unger",
+        "social": {}
+      }
+    ],
+    "AR:state-house:027": [
+      {
+        "id": "ocd-person/155853e2-b93f-442f-b551-5084b5c2105f",
+        "name": "Steven Walker",
+        "office": "state-house",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "steven.walker@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Walker",
+        "social": {}
+      }
+    ],
+    "AR:state-house:079": [
+      {
+        "id": "ocd-person/18f06e22-dd2c-4247-81c8-a40938de3ea1",
+        "name": "Tara Shephard",
+        "office": "state-house",
+        "districtCode": "079",
+        "contactUrl": null,
+        "email": "tara.shephard@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=T.+Shephard",
+        "social": {}
+      }
+    ],
+    "AR:state-house:074": [
+      {
+        "id": "ocd-person/03241c54-792d-42c6-ba4c-7b81d02b24a9",
+        "name": "Tippi McCullough",
+        "office": "state-house",
+        "districtCode": "074",
+        "contactUrl": null,
+        "email": "tippi.mccullough@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=McCullough",
+        "social": {
+          "x": "tippi31",
+          "facebook": "TippiStateRep33"
+        }
+      }
+    ],
+    "AR:state-house:082": [
+      {
+        "id": "ocd-person/55779b79-fd86-4991-882f-05819d80a87d",
+        "name": "Tony Furman",
+        "office": "state-house",
+        "districtCode": "082",
+        "contactUrl": null,
+        "email": "tony.furman@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Furman",
+        "social": {}
+      }
+    ],
+    "AR:state-house:072": [
+      {
+        "id": "ocd-person/be626067-db01-4481-b096-d2792ff189c8",
+        "name": "Tracy Steele",
+        "office": "state-house",
+        "districtCode": "072",
+        "contactUrl": null,
+        "email": "sensteele@yahoo.com",
+        "phone": null,
+        "address": null,
+        "website": "https://arkansashouse.org/district/72",
+        "social": {}
+      }
+    ],
+    "AR:state-house:002": [
+      {
+        "id": "ocd-person/9d4e09cb-8d9f-4c8c-a8df-481af146436d",
+        "name": "Trey Steimel",
+        "office": "state-house",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "trey.steimel@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Steimel",
+        "social": {}
+      }
+    ],
+    "AR:state-house:098": [
+      {
+        "id": "ocd-person/9762816a-27bf-4209-864b-d15e2e39212a",
+        "name": "Wade Andrews",
+        "office": "state-house",
+        "districtCode": "098",
+        "contactUrl": null,
+        "email": "wade.andrews@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Andrews",
+        "social": {}
+      }
+    ],
+    "AR:state-house:039": [
+      {
+        "id": "ocd-person/e8865ad0-46d2-49a0-8273-da14fe929f3e",
+        "name": "Wayne Long",
+        "office": "state-house",
+        "districtCode": "039",
+        "contactUrl": null,
+        "email": "wayne.long@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Long",
+        "social": {}
+      }
+    ],
+    "AR:state-house:050": [
+      {
+        "id": "ocd-person/417afb72-31e7-4152-bf79-0ba67e3cb63f",
+        "name": "Zack Gramlich",
+        "office": "state-house",
+        "districtCode": "050",
+        "contactUrl": null,
+        "email": "zack.gramlich@arkansashouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Gramlich",
+        "social": {}
+      }
+    ],
+    "AR:state-senate:007": [
+      {
+        "id": "ocd-person/6448d3df-2802-44a1-a142-7c3cc136d0a5",
+        "name": "Alan Clark",
+        "office": "state-senate",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "alan.clark@senate.ar.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=A.+Clark",
+        "social": {
+          "x": "AlanClark4AR",
+          "facebook": "SenatorAlanClark"
+        }
+      }
+    ],
+    "AR:state-senate:033": [
+      {
+        "id": "ocd-person/0dee8795-58dd-48a8-980e-044d8d2ac646",
+        "name": "Bart Hester",
+        "office": "state-senate",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "bart.hester@senate.ar.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Hester",
+        "social": {
+          "x": "barthester",
+          "facebook": "BartHesterforStateSenate",
+          "instagram": "StateSenatorBartHester"
+        }
+      }
+    ],
+    "AR:state-senate:021": [
+      {
+        "id": "ocd-person/6bbe436a-67bc-4003-80eb-1ce79c52413f",
+        "name": "Blake Johnson",
+        "office": "state-senate",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "blake.johnson@senate.ar.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=B.+Johnson",
+        "social": {
+          "x": "farmerblake20",
+          "facebook": "BlakeJohnsonForStateSenate"
+        }
+      }
+    ],
+    "AR:state-senate:026": [
+      {
+        "id": "ocd-person/24a8e487-fca2-4d84-999c-4877ab721136",
+        "name": "Brad Simon",
+        "office": "state-senate",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "brad.simon@senate.ar.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Simon",
+        "social": {}
+      }
+    ],
+    "AR:state-senate:025": [
+      {
+        "id": "ocd-person/2eebf3d3-1e64-4c5b-b5fc-62924bc324fd",
+        "name": "Breanne Davis",
+        "office": "state-senate",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "breanne.davis@senate.ar.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=B.+Davis",
+        "social": {
+          "x": "BreanneDavis",
+          "facebook": "State Senator Breanne Davis",
+          "instagram": "breannedavis"
+        }
+      }
+    ],
+    "AR:state-senate:028": [
+      {
+        "id": "ocd-person/ac9a90a0-dfba-4bf0-a07d-ca2232b21a90",
+        "name": "Bryan King",
+        "office": "state-senate",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "bryan.king@senate.ar.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=B.+King",
+        "social": {}
+      }
+    ],
+    "AR:state-senate:014": [
+      {
+        "id": "ocd-person/cdb599f1-f956-430d-9ba2-87ce18d3fd53",
+        "name": "Clarke Tucker",
+        "office": "state-senate",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "clarke.tucker@senate.ar.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=C.+Tucker",
+        "social": {
+          "x": "clarketucker",
+          "facebook": "TuckerForStateSenate",
+          "instagram": "clarketuckerforstatesenate"
+        }
+      }
+    ],
+    "AR:state-senate:031": [
+      {
+        "id": "ocd-person/6c773215-c5d7-4039-bcb2-d2abe9053e39",
+        "name": "Clint Penzo",
+        "office": "state-senate",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "clint.penzo@senate.ar.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=C.+Penzo",
+        "social": {}
+      }
+    ],
+    "AR:state-senate:020": [
+      {
+        "id": "ocd-person/fea1d80a-0cfb-4b26-9123-2a6c2e951d60",
+        "name": "Dan Sullivan",
+        "office": "state-senate",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "dan.sullivan@senate.ar.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=D.+Sullivan",
+        "social": {
+          "x": "SullivanforAR",
+          "facebook": "SullivanForArkansas"
+        }
+      }
+    ],
+    "AR:state-senate:019": [
+      {
+        "id": "ocd-person/f009d442-b840-4308-b48e-f38591e5d0d4",
+        "name": "Dave Wallace",
+        "office": "state-senate",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "dave.wallace@senate.ar.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=D.+Wallace",
+        "social": {
+          "x": "SenDaveWallace",
+          "facebook": "electdave",
+          "instagram": "senatordavewallace"
+        }
+      }
+    ],
+    "AR:state-senate:015": [
+      {
+        "id": "ocd-person/b35d0a49-a7f2-4013-83f0-a2feb42adba3",
+        "name": "Fred Love",
+        "office": "state-senate",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "fred.love@senate.ar.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=F.+Love",
+        "social": {}
+      }
+    ],
+    "AR:state-senate:030": [
+      {
+        "id": "ocd-person/afd73d93-f65e-480d-ba40-3bc65f4fe95b",
+        "name": "Greg Leding",
+        "office": "state-senate",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "greg.leding@senate.ar.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=G.+Leding",
+        "social": {
+          "x": "GregLeding",
+          "facebook": "gregleding",
+          "instagram": "gregleding"
+        }
+      }
+    ],
+    "AR:state-senate:012": [
+      {
+        "id": "ocd-person/71affd8a-77ef-45b1-96ab-c5724f34dfa5",
+        "name": "Jamie Scott",
+        "office": "state-senate",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "jamie.scott@senate.ar.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=J.+Scott&dd",
+        "social": {
+          "x": "Anointed08",
+          "facebook": "Jamie Scott",
+          "instagram": "jamiescott4arkansas"
+        }
+      }
+    ],
+    "AR:state-senate:013": [
+      {
+        "id": "ocd-person/627a5f2e-efc6-4084-982e-b165a79c8e21",
+        "name": "Jane English",
+        "office": "state-senate",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "jane.english@senate.ar.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=J.+English",
+        "social": {
+          "facebook": "jane.english.18"
+        }
+      }
+    ],
+    "AR:state-senate:034": [
+      {
+        "id": "ocd-person/f2259c7e-4c43-41c3-ae29-3aedd5b88eef",
+        "name": "Jim Dotson",
+        "office": "state-senate",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "jim.dotson@senate.ar.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Dotson",
+        "social": {
+          "x": "JimDotson_",
+          "facebook": "dotsonsenate",
+          "instagram": "repjimdotson"
+        }
+      }
+    ],
+    "AR:state-senate:029": [
+      {
+        "id": "ocd-person/6b90e69a-b1af-402f-a219-daacb99f3926",
+        "name": "Jim Petty",
+        "office": "state-senate",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "jim.petty@senate.ar.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=J.+Petty",
+        "social": {}
+      }
+    ],
+    "AR:state-senate:004": [
+      {
+        "id": "ocd-person/c083823a-b0f6-43dd-87b9-f1f398b84a00",
+        "name": "Jimmy Hickey",
+        "office": "state-senate",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "jimmy.hickey@senate.ar.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Hickey",
+        "social": {}
+      }
+    ],
+    "AR:state-senate:022": [
+      {
+        "id": "ocd-person/2f040802-82dc-4ca8-959f-f1b66cf53b16",
+        "name": "John Payton",
+        "office": "state-senate",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "john.payton@senate.ar.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=J.+Payton",
+        "social": {
+          "facebook": "JohnPaytonForStateSenate"
+        }
+      }
+    ],
+    "AR:state-senate:032": [
+      {
+        "id": "ocd-person/e0045c85-0471-4128-ba41-0454ff1470e6",
+        "name": "Josh Bryant",
+        "office": "state-senate",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "joshua.bryant@senate.ar.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=J.+Bryant",
+        "social": {}
+      }
+    ],
+    "AR:state-senate:027": [
+      {
+        "id": "ocd-person/fb2fcf8c-ed42-46f0-b473-4940692f8e40",
+        "name": "Justin Boyd",
+        "office": "state-senate",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "justin.boyd@senate.ar.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=J.+Boyd",
+        "social": {
+          "x": "JustinBoydAR",
+          "facebook": "boyd4AR"
+        }
+      }
+    ],
+    "AR:state-senate:016": [
+      {
+        "id": "ocd-person/29e74f04-ceb4-45e1-a803-049e57699923",
+        "name": "Kim Hammer",
+        "office": "state-senate",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "kim.hammer@senate.ar.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=K.+Hammer",
+        "social": {
+          "facebook": "kimhammerforstatesenate"
+        }
+      }
+    ],
+    "AR:state-senate:017": [
+      {
+        "id": "ocd-person/927a87ee-64b3-49b8-8794-9b0857581d1c",
+        "name": "Mark Johnson",
+        "office": "state-senate",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "mark.johnson@senate.ar.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=M.+Johnson",
+        "social": {
+          "facebook": "markjohnsonforarkansas"
+        }
+      }
+    ],
+    "AR:state-senate:006": [
+      {
+        "id": "ocd-person/dfe71972-1012-4330-af2a-98482d9aa3bc",
+        "name": "Matt McKee",
+        "office": "state-senate",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "matt.mckee@senate.ar.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=M.+McKee",
+        "social": {}
+      }
+    ],
+    "AR:state-senate:002": [
+      {
+        "id": "ocd-person/2b67c2a6-d80e-48f4-9bc7-a40d7e5bc2bc",
+        "name": "Matt Stone",
+        "office": "state-senate",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "matt.stone@senate.ar.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Stone",
+        "social": {}
+      }
+    ],
+    "AR:state-senate:024": [
+      {
+        "id": "ocd-person/d7dbf486-9ad6-411a-a2ad-a599d0606f2b",
+        "name": "Missy Irvin",
+        "office": "state-senate",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "missy.irvin@senate.ar.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Irvin",
+        "social": {
+          "x": "irvin4senate",
+          "facebook": "senatorirvin",
+          "instagram": "senmissyirvin"
+        }
+      }
+    ],
+    "AR:state-senate:009": [
+      {
+        "id": "ocd-person/f148aa6d-abfe-4577-9c15-44f2ea79c707",
+        "name": "Reginald Murdock",
+        "office": "state-senate",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "rkm_72360@yahoo.com",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=R.+Murdock",
+        "social": {
+          "facebook": "ReginaldMurdockAR"
+        }
+      }
+    ],
+    "AR:state-senate:011": [
+      {
+        "id": "ocd-person/faf89935-181a-4d19-9e4b-dce4657d4d3a",
+        "name": "Ricky Hill",
+        "office": "state-senate",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "ricky.hill@senate.ar.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Hill",
+        "social": {}
+      }
+    ],
+    "AR:state-senate:010": [
+      {
+        "id": "ocd-person/a7626d1d-fcc7-4c01-ad87-48a28faf7245",
+        "name": "Ron Caldwell",
+        "office": "state-senate",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "ronald.caldwell@senate.ar.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Caldwell",
+        "social": {
+          "facebook": "RonCaldwell23"
+        }
+      }
+    ],
+    "AR:state-senate:023": [
+      {
+        "id": "ocd-person/b61d9a4f-d5d1-43b4-84b2-91cb5741b153",
+        "name": "Scott Flippo",
+        "office": "state-senate",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "scott.flippo@senate.ar.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Flippo",
+        "social": {
+          "x": "ScottFlippo",
+          "facebook": "scott.flippo.9"
+        }
+      }
+    ],
+    "AR:state-senate:008": [
+      {
+        "id": "ocd-person/536c6536-294f-499b-a261-120a685297f0",
+        "name": "Stephanie Flowers",
+        "office": "state-senate",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "stephanie.flowers@senate.ar.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=S.+Flowers",
+        "social": {}
+      }
+    ],
+    "AR:state-senate:003": [
+      {
+        "id": "ocd-person/33b10c1d-6f19-44fe-83e7-827fdb1c4e78",
+        "name": "Steve Crowell",
+        "office": "state-senate",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "steve.crowell@senate.ar.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Crowell",
+        "social": {}
+      }
+    ],
+    "AR:state-senate:005": [
+      {
+        "id": "ocd-person/65d8b209-ce03-403c-8437-7c4d7a2e7185",
+        "name": "Terry Rice",
+        "office": "state-senate",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "terry.rice@senate.ar.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Rice",
+        "social": {
+          "x": "TerryRice6",
+          "facebook": "terry.rice.7906"
+        }
+      }
+    ],
+    "AR:state-senate:035": [
+      {
+        "id": "ocd-person/11d34a89-689c-4b2f-b953-670ce11ae3bb",
+        "name": "Tyler Dees",
+        "office": "state-senate",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "tyler.dees@senate.ar.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://arkleg.state.ar.us/Legislators/Detail?member=Dees",
+        "social": {}
+      }
+    ]
+  }
+}

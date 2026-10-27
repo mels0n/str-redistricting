@@ -1,0 +1,2751 @@
+{
+  "state": "CT",
+  "generatedFrom": {
+    "legislators-current.json": "ae8cb9477c48715df71a7d860854229d799dc90a254d61badc1efb770f892b2c",
+    "legislators-social-media.json": "c6eca1fcdb3a89901335eed51ca061daa4b60ad3243969a127e913bb9657fbc5",
+    "ct.csv": "44c61cc950586acd498bbbb5161f2e568be33e1b81619baec28493bef33c3928"
+  },
+  "byKey": {
+    "CT:us-senate:00": [
+      {
+        "id": "B001277",
+        "name": "Richard Blumenthal",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.blumenthal.senate.gov/contact/",
+        "email": null,
+        "phone": "202-224-2823",
+        "address": "503 Hart Senate Office Building Washington DC 20510",
+        "website": "https://www.blumenthal.senate.gov",
+        "social": {
+          "x": "SenBlumenthal",
+          "facebook": "SenBlumenthal",
+          "instagram": "senblumenthal"
+        }
+      },
+      {
+        "id": "M001169",
+        "name": "Christopher Murphy",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.murphy.senate.gov/contact",
+        "email": null,
+        "phone": "202-224-4041",
+        "address": "136 Hart Senate Office Building Washington DC 20510",
+        "website": "https://www.murphy.senate.gov",
+        "social": {
+          "x": "SenMurphyOffice",
+          "facebook": "chrismurphyct",
+          "instagram": "senchrismurphy"
+        }
+      }
+    ],
+    "CT:us-house:02": [
+      {
+        "id": "C001069",
+        "name": "Joe Courtney",
+        "office": "us-house",
+        "districtCode": "02",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2076",
+        "address": "2449 Rayburn House Office Building Washington DC 20515-0702",
+        "website": "https://courtney.house.gov",
+        "social": {
+          "x": "RepJoeCourtney",
+          "facebook": "joecourtney",
+          "instagram": "repjoecourtney"
+        }
+      }
+    ],
+    "CT:us-house:03": [
+      {
+        "id": "D000216",
+        "name": "Rosa L. DeLauro",
+        "office": "us-house",
+        "districtCode": "03",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-3661",
+        "address": "2413 Rayburn House Office Building Washington DC 20515-0703",
+        "website": "https://delauro.house.gov",
+        "social": {
+          "x": "RosaDeLauro",
+          "facebook": "CongresswomanRosaDeLauro"
+        }
+      }
+    ],
+    "CT:us-house:04": [
+      {
+        "id": "H001047",
+        "name": "James A. Himes",
+        "office": "us-house",
+        "districtCode": "04",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5541",
+        "address": "2137 Rayburn House Office Building Washington DC 20515-0704",
+        "website": "https://himes.house.gov",
+        "social": {
+          "x": "jahimes",
+          "facebook": "CongressmanJimHimes",
+          "instagram": "repjimhimes"
+        }
+      }
+    ],
+    "CT:us-house:01": [
+      {
+        "id": "L000557",
+        "name": "John B. Larson",
+        "office": "us-house",
+        "districtCode": "01",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2265",
+        "address": "1501 Longworth House Office Building Washington DC 20515-0701",
+        "website": "https://larson.house.gov",
+        "social": {
+          "x": "RepJohnLarson",
+          "facebook": "RepJohnLarson",
+          "instagram": "RepJohnBLarson"
+        }
+      }
+    ],
+    "CT:us-house:05": [
+      {
+        "id": "H001081",
+        "name": "Jahana Hayes",
+        "office": "us-house",
+        "districtCode": "05",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4476",
+        "address": "2049 Rayburn House Office Building Washington DC 20515-0705",
+        "website": "https://hayes.house.gov",
+        "social": {
+          "x": "RepJahanaHayes",
+          "facebook": "RepJahanaHayes",
+          "instagram": "repjahanahayes"
+        }
+      }
+    ],
+    "CT:state-house:111": [
+      {
+        "id": "ocd-person/b43c741a-89b2-4e46-abfc-1d75f26189fe",
+        "name": "Aimee Berger-Girvalo",
+        "office": "state-house",
+        "districtCode": "111",
+        "contactUrl": null,
+        "email": "aimee.berger-girvalo@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27111%27&dist_name=Berger-Girvalo,%20Aimee",
+        "social": {}
+      }
+    ],
+    "CT:state-house:097": [
+      {
+        "id": "ocd-person/3e0a00e8-0ec8-418d-a2e3-a7eef0a5d186",
+        "name": "Al Paolillo",
+        "office": "state-house",
+        "districtCode": "097",
+        "contactUrl": null,
+        "email": "alphonse.paolillo@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27097%27&dist_name=Paolillo,%20Alphonse",
+        "social": {}
+      }
+    ],
+    "CT:state-house:028": [
+      {
+        "id": "ocd-person/ff1c4d90-5cc3-4ff9-8f31-454d03803816",
+        "name": "Amy Morrin Bello",
+        "office": "state-house",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "amy.morrinbello@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27028%27&dist_name=Morrin%20Bello,%20Amy",
+        "social": {}
+      }
+    ],
+    "CT:state-house:113": [
+      {
+        "id": "ocd-person/9b751b3f-3f56-43dd-8eab-1cfdb81d7b34",
+        "name": "Amy Romano",
+        "office": "state-house",
+        "districtCode": "113",
+        "contactUrl": null,
+        "email": "amy.romano@housegop.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.cthousegop.com/Romano/",
+        "social": {}
+      }
+    ],
+    "CT:state-house:124": [
+      {
+        "id": "ocd-person/e823b0bf-1132-4ed8-b860-e0febf9a275a",
+        "name": "Andre Baker",
+        "office": "state-house",
+        "districtCode": "124",
+        "contactUrl": null,
+        "email": "andre.baker@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27124%27&dist_name=Baker,%20Andre%20F.",
+        "social": {}
+      }
+    ],
+    "CT:state-house:044": [
+      {
+        "id": "ocd-person/087a813d-b14a-4205-a08f-cec795647318",
+        "name": "Anne Dauphinais",
+        "office": "state-house",
+        "districtCode": "044",
+        "contactUrl": null,
+        "email": "anne.dauphinais@housegop.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27044%27&dist_name=Dauphinais,%20Anne",
+        "social": {}
+      }
+    ],
+    "CT:state-house:135": [
+      {
+        "id": "ocd-person/ce2070f7-9487-4856-976b-9bbd6a2f1617",
+        "name": "Anne Hughes",
+        "office": "state-house",
+        "districtCode": "135",
+        "contactUrl": null,
+        "email": "anne.hughes@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27135%27&dist_name=Hughes,%20Anne%20M.",
+        "social": {}
+      }
+    ],
+    "CT:state-house:039": [
+      {
+        "id": "ocd-person/c7160abf-d376-484d-b87e-600a398ab503",
+        "name": "Anthony Nolan",
+        "office": "state-house",
+        "districtCode": "039",
+        "contactUrl": null,
+        "email": "anthony.nolan@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27039%27&dist_name=Nolan,%20Anthony%20L.",
+        "social": {}
+      }
+    ],
+    "CT:state-house:130": [
+      {
+        "id": "ocd-person/caaba025-7a5a-401d-8714-73f627651196",
+        "name": "Tone Felipe",
+        "office": "state-house",
+        "districtCode": "130",
+        "contactUrl": null,
+        "email": "antonio.felipe@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27130%27&dist_name=Felipe,%20Antonio",
+        "social": {}
+      }
+    ],
+    "CT:state-house:131": [
+      {
+        "id": "ocd-person/5e12bcd3-8cc0-4a0f-9c7c-4ecec6442948",
+        "name": "Arnie Jensen",
+        "office": "state-house",
+        "districtCode": "131",
+        "contactUrl": null,
+        "email": "arnold.jensen@housegop.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.cthousegop.com/jensen/",
+        "social": {}
+      }
+    ],
+    "CT:state-house:041": [
+      {
+        "id": "ocd-person/32ad6577-b1ee-411f-9dca-e40e06226703",
+        "name": "Aundré Bumgardner",
+        "office": "state-house",
+        "districtCode": "041",
+        "contactUrl": null,
+        "email": "aundre.bumgardner@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.housedems.ct.gov/Bumgardner",
+        "social": {}
+      }
+    ],
+    "CT:state-house:122": [
+      {
+        "id": "ocd-person/240d52a3-33df-495c-b1a0-142cc43f3fce",
+        "name": "Ben McGorty",
+        "office": "state-house",
+        "districtCode": "122",
+        "contactUrl": null,
+        "email": "ben.mcgorty@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27122%27&dist_name=McGorty,%20Ben",
+        "social": {}
+      }
+    ],
+    "CT:state-house:067": [
+      {
+        "id": "ocd-person/1c270bf3-7cc6-4e11-93fb-e35f5d9a1774",
+        "name": "Billy Buckbee",
+        "office": "state-house",
+        "districtCode": "067",
+        "contactUrl": null,
+        "email": "bill.buckbee@housegop.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27067%27&dist_name=Buckbee,%20Bill",
+        "social": {}
+      }
+    ],
+    "CT:state-house:115": [
+      {
+        "id": "ocd-person/e4ee574a-8df3-46b3-93cb-3ec24cb49144",
+        "name": "Bill Heffernan",
+        "office": "state-house",
+        "districtCode": "115",
+        "contactUrl": null,
+        "email": "bill.heffernan@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.housedems.ct.gov/heffernan",
+        "social": {}
+      }
+    ],
+    "CT:state-house:110": [
+      {
+        "id": "ocd-person/97e1ed70-218e-41d6-abad-73cf8c717c5b",
+        "name": "Bob Godfrey",
+        "office": "state-house",
+        "districtCode": "110",
+        "contactUrl": null,
+        "email": "bob.godfrey@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27110%27&dist_name=Godfrey,%20Bob",
+        "social": {}
+      }
+    ],
+    "CT:state-house:015": [
+      {
+        "id": "ocd-person/6e4977fe-2ed9-4e1c-93ce-c837766d2896",
+        "name": "Bobby Gibson",
+        "office": "state-house",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "bobby.gibson@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27015%27&dist_name=Gibson,%20Bobby%20G.",
+        "social": {}
+      }
+    ],
+    "CT:state-house:033": [
+      {
+        "id": "ocd-person/e8ce793e-671a-41fa-818a-42b534fa9c6b",
+        "name": "Brandon Chafee",
+        "office": "state-house",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "brandon.chafee@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27033%27&dist_name=Chafee,%20Brandon",
+        "social": {}
+      }
+    ],
+    "CT:state-house:045": [
+      {
+        "id": "ocd-person/fc3ba144-870e-4603-b2a4-26d3e80b5c70",
+        "name": "Brian Lanoue",
+        "office": "state-house",
+        "districtCode": "045",
+        "contactUrl": null,
+        "email": "brian.lanoue@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27045%27&dist_name=Lanoue,%20Brian",
+        "social": {}
+      }
+    ],
+    "CT:state-house:077": [
+      {
+        "id": "ocd-person/e9c9ef28-807a-4efe-983f-d194c54ed41a",
+        "name": "Cara Pavalock-D'Amato",
+        "office": "state-house",
+        "districtCode": "077",
+        "contactUrl": null,
+        "email": "cara.pavalock@housegop.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27077%27&dist_name=Pavalock-D%27Amato,%20Cara%20Christine",
+        "social": {}
+      }
+    ],
+    "CT:state-house:059": [
+      {
+        "id": "ocd-person/5e47f657-ab56-4673-bebb-5a7c1a0410db",
+        "name": "Carol Hall",
+        "office": "state-house",
+        "districtCode": "059",
+        "contactUrl": null,
+        "email": "carol.hall@housegop.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27059%27&dist_name=Hall,%20Carol",
+        "social": {}
+      }
+    ],
+    "CT:state-house:035": [
+      {
+        "id": "ocd-person/3dac820b-e022-4ee6-a5d5-4b194f8988ec",
+        "name": "Chris Aniskovich",
+        "office": "state-house",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "chris.aniskovich@housegop.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.cthousegop.com/aniskovich/",
+        "social": {}
+      }
+    ],
+    "CT:state-house:051": [
+      {
+        "id": "ocd-person/fdce734b-2080-4a62-bf9c-baec09572938",
+        "name": "Chris Stewart",
+        "office": "state-house",
+        "districtCode": "051",
+        "contactUrl": null,
+        "email": "chris.stewart@housegop.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.cthousegop.com/stewart/",
+        "social": {}
+      }
+    ],
+    "CT:state-house:032": [
+      {
+        "id": "ocd-person/88d052d8-3d97-4e23-8abd-53311294acfd",
+        "name": "Christie Carpino",
+        "office": "state-house",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "christie.carpino@housegop.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27032%27&dist_name=Carpino,%20Christie%20M.",
+        "social": {}
+      }
+    ],
+    "CT:state-house:081": [
+      {
+        "id": "ocd-person/7fda8e36-f73d-43e2-bf43-8365c617d94e",
+        "name": "Chris Poulos",
+        "office": "state-house",
+        "districtCode": "081",
+        "contactUrl": null,
+        "email": "chris.poulos@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.housedems.ct.gov/poulos",
+        "social": {}
+      }
+    ],
+    "CT:state-house:128": [
+      {
+        "id": "ocd-person/ea0027a9-6952-4b74-a771-a14ced4e647e",
+        "name": "Christopher Rosario",
+        "office": "state-house",
+        "districtCode": "128",
+        "contactUrl": null,
+        "email": "christopher.rosario@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27128%27&dist_name=Rosario,%20Christopher",
+        "social": {}
+      }
+    ],
+    "CT:state-house:145": [
+      {
+        "id": "ocd-person/fcc3d3fa-4b4d-4d3c-b512-003a58657a85",
+        "name": "Corey Paris",
+        "office": "state-house",
+        "districtCode": "145",
+        "contactUrl": null,
+        "email": "corey.paris@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27145%27&dist_name=Paris,%20Corey%20P.",
+        "social": {}
+      }
+    ],
+    "CT:state-house:090": [
+      {
+        "id": "ocd-person/02ce0fa3-ac25-42dd-9f5e-ee44b7e9d542",
+        "name": "Craig Fishbein",
+        "office": "state-house",
+        "districtCode": "090",
+        "contactUrl": null,
+        "email": "craig.fishbein@housegop.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27090%27&dist_name=Fishbein,%20Craig%20C.",
+        "social": {}
+      }
+    ],
+    "CT:state-house:133": [
+      {
+        "id": "ocd-person/dfc1bead-50cd-4c34-9dc6-5d80c7a09589",
+        "name": "Cristin McCarthy Vahey",
+        "office": "state-house",
+        "districtCode": "133",
+        "contactUrl": null,
+        "email": "cristin.mccarthyvahey@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27133%27&dist_name=McCarthy%20Vahey,%20Cristin",
+        "social": {}
+      }
+    ],
+    "CT:state-house:040": [
+      {
+        "id": "ocd-person/cb28efe4-6e12-4488-bf75-491066cec97f",
+        "name": "Dan Gaiewski",
+        "office": "state-house",
+        "districtCode": "040",
+        "contactUrl": null,
+        "email": "daniel.gaiewski@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.housedems.ct.gov/gaiewski",
+        "social": {}
+      }
+    ],
+    "CT:state-house:026": [
+      {
+        "id": "ocd-person/9c30cf12-f07a-4c35-be3f-97bd3a778767",
+        "name": "Dave DeFronzo",
+        "office": "state-house",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "dave.defronzo@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.housedems.ct.gov/DeFronzo",
+        "social": {}
+      }
+    ],
+    "CT:state-house:087": [
+      {
+        "id": "ocd-person/12835342-bb95-428a-ace3-78c51c3e8443",
+        "name": "Dave Yaccarino",
+        "office": "state-house",
+        "districtCode": "087",
+        "contactUrl": null,
+        "email": "dave.yaccarino@housegop.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27087%27&dist_name=Yaccarino,%20Dave%20W.",
+        "social": {}
+      }
+    ],
+    "CT:state-house:123": [
+      {
+        "id": "ocd-person/01bfbaf3-d536-45f0-8478-96cd8fbd4518",
+        "name": "Dave Rutigliano",
+        "office": "state-house",
+        "districtCode": "123",
+        "contactUrl": null,
+        "email": "dave.rutigliano@housegop.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27123%27&dist_name=Rutigliano,%20David",
+        "social": {}
+      }
+    ],
+    "CT:state-house:046": [
+      {
+        "id": "ocd-person/56582153-80dd-4de6-9b79-2427316eeb6c",
+        "name": "Derell Wilson",
+        "office": "state-house",
+        "districtCode": "046",
+        "contactUrl": null,
+        "email": "derell.wilson@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.housedems.ct.gov/Wilson",
+        "social": {}
+      }
+    ],
+    "CT:state-house:023": [
+      {
+        "id": "ocd-person/79d4059c-5faa-443f-a842-7b494ea2d57e",
+        "name": "Devin Carney",
+        "office": "state-house",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "devin.carney@housegop.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27023%27&dist_name=Carney,%20Devin%20R.",
+        "social": {}
+      }
+    ],
+    "CT:state-house:143": [
+      {
+        "id": "ocd-person/d4c20e08-7210-40b8-8a4c-7aac8b59af7b",
+        "name": "Dominique Johnson",
+        "office": "state-house",
+        "districtCode": "143",
+        "contactUrl": null,
+        "email": "dominique.johnson@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.housedems.ct.gov/JohnsonD",
+        "social": {}
+      }
+    ],
+    "CT:state-house:030": [
+      {
+        "id": "ocd-person/63461ed0-da6d-4423-82bc-5b83c2a811cf",
+        "name": "Donna Veach",
+        "office": "state-house",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "donna.veach@housegop.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27030%27&dist_name=Veach,%20Donna",
+        "social": {}
+      }
+    ],
+    "CT:state-house:047": [
+      {
+        "id": "ocd-person/2342cde8-078f-4dd8-8879-f9fdaa036a94",
+        "name": "Doug Dubitsky",
+        "office": "state-house",
+        "districtCode": "047",
+        "contactUrl": null,
+        "email": "doug.dubitsky@housegop.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27047%27&dist_name=Dubitsky,%20Doug",
+        "social": {}
+      }
+    ],
+    "CT:state-house:146": [
+      {
+        "id": "ocd-person/46ffabcf-724a-453e-89c4-797662a75e40",
+        "name": "Eilish Collins Main",
+        "office": "state-house",
+        "districtCode": "146",
+        "contactUrl": null,
+        "email": "eilish.collinsmain@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.housedems.ct.gov/CollinsMain",
+        "social": {}
+      }
+    ],
+    "CT:state-house:017": [
+      {
+        "id": "ocd-person/2a3c062a-ac41-4295-9c26-195f78369242",
+        "name": "Eleni DeGraw",
+        "office": "state-house",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "elenikavros.degraw@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27017%27&dist_name=Kavros%20DeGraw,%20Eleni",
+        "social": {}
+      }
+    ],
+    "CT:state-house:024": [
+      {
+        "id": "ocd-person/140d2d97-aae9-433a-b012-ce3775aa81a8",
+        "name": "Manny Sanchez",
+        "office": "state-house",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "emmanuel.sanchez@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27024%27&dist_name=Sanchez,%20Emmanuel",
+        "social": {}
+      }
+    ],
+    "CT:state-house:109": [
+      {
+        "id": "ocd-person/b9f6e7c0-0413-4490-a3a4-3fb63620b4cc",
+        "name": "Farley Santos",
+        "office": "state-house",
+        "districtCode": "109",
+        "contactUrl": null,
+        "email": "farley.santos@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.housedems.ct.gov/Santos",
+        "social": {}
+      }
+    ],
+    "CT:state-house:118": [
+      {
+        "id": "ocd-person/c09f368c-d954-48e1-b94b-18728ab9b6bd",
+        "name": "Frank Smith",
+        "office": "state-house",
+        "districtCode": "118",
+        "contactUrl": null,
+        "email": "frank.smith@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27118%27&dist_name=Smith,%20Frank",
+        "social": {}
+      }
+    ],
+    "CT:state-house:126": [
+      {
+        "id": "ocd-person/2d97c881-725d-47a8-9bea-8d3a5f14fbd0",
+        "name": "Fred Gee",
+        "office": "state-house",
+        "districtCode": "126",
+        "contactUrl": null,
+        "email": "fred.gee@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.housedems.ct.gov/gee",
+        "social": {}
+      }
+    ],
+    "CT:state-house:080": [
+      {
+        "id": "ocd-person/c60ec8d2-fcc3-414e-a122-cca6aeef901d",
+        "name": "Gale Mastrofrancesco",
+        "office": "state-house",
+        "districtCode": "080",
+        "contactUrl": null,
+        "email": "gale.mastrofrancesco@housegop.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27080%27&dist_name=Mastrofrancesco,%20Gale%20L.",
+        "social": {}
+      }
+    ],
+    "CT:state-house:027": [
+      {
+        "id": "ocd-person/36b9eb8c-9fd8-4f6e-ba6b-fddb03bf3be3",
+        "name": "Gary Turco",
+        "office": "state-house",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "gary.turco@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27027%27&dist_name=Turco,%20Gary%20A.",
+        "social": {}
+      }
+    ],
+    "CT:state-house:012": [
+      {
+        "id": "ocd-person/37f6cb6c-888c-44c1-8c21-b273d967a62d",
+        "name": "Geoff Luxenberg",
+        "office": "state-house",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "geoff.luxenberg@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27012%27&dist_name=Luxenberg,%20Geoff",
+        "social": {}
+      }
+    ],
+    "CT:state-house:075": [
+      {
+        "id": "ocd-person/f11b5a17-e613-4aa8-9b91-7e2583e1ced5",
+        "name": "Geraldo Reyes",
+        "office": "state-house",
+        "districtCode": "075",
+        "contactUrl": null,
+        "email": "geraldo.reyes@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27075%27&dist_name=Reyes,%20Geraldo%20C.",
+        "social": {}
+      }
+    ],
+    "CT:state-house:043": [
+      {
+        "id": "ocd-person/d8829ada-0b6e-4cbf-8aa6-e88c70d76e89",
+        "name": "Greg Howard",
+        "office": "state-house",
+        "districtCode": "043",
+        "contactUrl": null,
+        "email": "greg.howard@housegop.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27043%27&dist_name=Howard,%20Greg%20S.",
+        "social": {}
+      }
+    ],
+    "CT:state-house:054": [
+      {
+        "id": "ocd-person/63a8e4ab-dfcd-4a69-8317-53b8e9a69729",
+        "name": "Gregg Haddad",
+        "office": "state-house",
+        "districtCode": "054",
+        "contactUrl": null,
+        "email": "gregory.haddad@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27054%27&dist_name=Haddad,%20Gregory",
+        "social": {}
+      }
+    ],
+    "CT:state-house:151": [
+      {
+        "id": "ocd-person/f0ce3c59-536e-4e79-9fe6-20eb59d66c06",
+        "name": "Héctor Arzeno",
+        "office": "state-house",
+        "districtCode": "151",
+        "contactUrl": null,
+        "email": "hector.arzeno@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.housedems.ct.gov/arzeno",
+        "social": {}
+      }
+    ],
+    "CT:state-house:010": [
+      {
+        "id": "ocd-person/c07f613b-b79d-4e11-b959-589c8cefac41",
+        "name": "Henry Genga",
+        "office": "state-house",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "henry.genga@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27010%27&dist_name=Genga,%20Henry%20J.",
+        "social": {}
+      }
+    ],
+    "CT:state-house:084": [
+      {
+        "id": "ocd-person/568f232d-2133-4eee-a886-c1927f7f88bc",
+        "name": "Hilda Santiago",
+        "office": "state-house",
+        "districtCode": "084",
+        "contactUrl": null,
+        "email": "hilda.santiago@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27084%27&dist_name=Santiago,%20Hilda%20E.",
+        "social": {}
+      }
+    ],
+    "CT:state-house:144": [
+      {
+        "id": "ocd-person/b666accd-c7f7-41e9-ade0-f64f6e438669",
+        "name": "Hubert Delany",
+        "office": "state-house",
+        "districtCode": "144",
+        "contactUrl": null,
+        "email": "hubert.delany@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27144%27&dist_name=144%20-%Delany,%Hubert",
+        "social": {}
+      }
+    ],
+    "CT:state-house:034": [
+      {
+        "id": "ocd-person/02cd12d5-6a88-4834-b9b5-11fb491f6b4b",
+        "name": "Irene Haines",
+        "office": "state-house",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "irene.haines@housegop.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27034%27&dist_name=Haines,%20Irene%20M.",
+        "social": {}
+      }
+    ],
+    "CT:state-house:025": [
+      {
+        "id": "ocd-person/30588b22-af2c-4f70-b824-c717ae60139f",
+        "name": "Iris Sánchez",
+        "office": "state-house",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "iris.sanchez@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedems.ct.gov/SanchezI",
+        "social": {}
+      }
+    ],
+    "CT:state-house:057": [
+      {
+        "id": "ocd-person/784a12cd-3ecc-4fed-8b47-4e090038c2f8",
+        "name": "Jaime Foster",
+        "office": "state-house",
+        "districtCode": "057",
+        "contactUrl": null,
+        "email": "jaime.foster@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27057%27&dist_name=057%20-%Foster,%Jaime",
+        "social": {}
+      }
+    ],
+    "CT:state-house:006": [
+      {
+        "id": "ocd-person/37cdaa0f-2531-44f6-95d0-41f9eefa6c97",
+        "name": "Jimmy Sánchez",
+        "office": "state-house",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "james.sanchez@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.housedems.ct.gov/sanchezJ",
+        "social": {}
+      }
+    ],
+    "CT:state-house:060": [
+      {
+        "id": "ocd-person/fee3a7d8-7e51-4c5a-af29-190694152ccc",
+        "name": "Jane Garibay",
+        "office": "state-house",
+        "districtCode": "060",
+        "contactUrl": null,
+        "email": "jane.garibay@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27060%27&dist_name=060%20-%Garibay,%Jane",
+        "social": {}
+      }
+    ],
+    "CT:state-house:069": [
+      {
+        "id": "ocd-person/ff87fec9-1c97-45e5-bdcc-a0ed0b3025cc",
+        "name": "Jason Buchsbaum",
+        "office": "state-house",
+        "districtCode": "069",
+        "contactUrl": null,
+        "email": "jason.buchsbaum@housegop.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.cthousegop.com/buchsbaum/",
+        "social": {}
+      }
+    ],
+    "CT:state-house:013": [
+      {
+        "id": "ocd-person/33a50ad7-61f8-4e5a-92fc-a24efddc15f1",
+        "name": "Jason Doucette",
+        "office": "state-house",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "jason.doucette@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedems.ct.gov/doucette",
+        "social": {}
+      }
+    ],
+    "CT:state-house:009": [
+      {
+        "id": "ocd-person/94b3daf5-cbc7-4016-9297-8c0b8bc54944",
+        "name": "Jason Rojas",
+        "office": "state-house",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "jason.rojas@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27009%27&dist_name=009%20-%Rojas,%Jason",
+        "social": {}
+      }
+    ],
+    "CT:state-house:063": [
+      {
+        "id": "ocd-person/fc3cb4e1-f784-46ac-9d54-1dd44cb817b0",
+        "name": "Jay Case",
+        "office": "state-house",
+        "districtCode": "063",
+        "contactUrl": null,
+        "email": "jay.case@housegop.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27063%27&dist_name=Jay,%20Case",
+        "social": {}
+      }
+    ],
+    "CT:state-house:132": [
+      {
+        "id": "ocd-person/15c5ac01-eb03-4dd3-8ab6-d162e7420559",
+        "name": "Jenn Leeper",
+        "office": "state-house",
+        "districtCode": "132",
+        "contactUrl": null,
+        "email": "jennifer.leeper@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27132%27&dist_name=132%20-%Leeper,%Jennifer",
+        "social": {}
+      }
+    ],
+    "CT:state-house:031": [
+      {
+        "id": "ocd-person/629f89a2-138d-43b1-a39f-b420bd7bc061",
+        "name": "Jill Barry",
+        "office": "state-house",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "jill.barry@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27031%27&dist_name=031%20-%Barry,%Jill",
+        "social": {}
+      }
+    ],
+    "CT:state-house:018": [
+      {
+        "id": "ocd-person/26149cc4-f15a-46fb-a9a5-7bc0544dc287",
+        "name": "Jill Gilchrest",
+        "office": "state-house",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "jillian.gilchrest@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27018%27&dist_name=018%20-%Gilchrest,%Jillian",
+        "social": {}
+      }
+    ],
+    "CT:state-house:065": [
+      {
+        "id": "ocd-person/5c3f590e-c576-43b7-ab1a-5607efbf7ad7",
+        "name": "Joe Canino",
+        "office": "state-house",
+        "districtCode": "065",
+        "contactUrl": null,
+        "email": "joe.canino@housegop.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.cthousegop.com/canino/",
+        "social": {}
+      }
+    ],
+    "CT:state-house:078": [
+      {
+        "id": "ocd-person/ab33209c-a8c8-4a6e-a480-ef298eeaa74a",
+        "name": "Joe Hoxha",
+        "office": "state-house",
+        "districtCode": "078",
+        "contactUrl": null,
+        "email": "joe.hoxha@housegop.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.cthousegop.com/hoxha/",
+        "social": {}
+      }
+    ],
+    "CT:state-house:068": [
+      {
+        "id": "ocd-person/df318645-047c-46a5-be61-682a7272e6b6",
+        "name": "Joe Polletta",
+        "office": "state-house",
+        "districtCode": "068",
+        "contactUrl": null,
+        "email": "joe.polletta@housegop.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27068%27&dist_name=Polletta,%20Joe",
+        "social": {}
+      }
+    ],
+    "CT:state-house:076": [
+      {
+        "id": "ocd-person/e7f7ad52-69a8-4306-8dfe-02368f74d75b",
+        "name": "John Piscopo",
+        "office": "state-house",
+        "districtCode": "076",
+        "contactUrl": null,
+        "email": "john.piscopo@housegop.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27076%27&dist_name=Piscopo,%20John",
+        "social": {}
+      }
+    ],
+    "CT:state-house:101": [
+      {
+        "id": "ocd-person/7e0711c4-57d1-405e-afe7-33df0bf064d6",
+        "name": "John-Michael Parker",
+        "office": "state-house",
+        "districtCode": "101",
+        "contactUrl": null,
+        "email": "john-michael.parker@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27101%27&dist_name=101%20-%Parker,%John-Michael",
+        "social": {}
+      }
+    ],
+    "CT:state-house:058": [
+      {
+        "id": "ocd-person/3939d7ca-20d7-4587-9c34-c6ee9bb2014e",
+        "name": "John Santanella",
+        "office": "state-house",
+        "districtCode": "058",
+        "contactUrl": null,
+        "email": "john.santanella@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.housedems.ct.gov/Santanella",
+        "social": {}
+      }
+    ],
+    "CT:state-house:083": [
+      {
+        "id": "ocd-person/cab156d4-4d6c-4c5f-ae17-c380f063d2b0",
+        "name": "Jack Fazzino",
+        "office": "state-house",
+        "districtCode": "083",
+        "contactUrl": null,
+        "email": "jack.fazzino@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.housedems.ct.gov/Fazzino",
+        "social": {}
+      }
+    ],
+    "CT:state-house:148": [
+      {
+        "id": "ocd-person/c567ea19-728c-43ba-ba57-20e1499418f8",
+        "name": "Jonathan Jacobson",
+        "office": "state-house",
+        "districtCode": "148",
+        "contactUrl": null,
+        "email": "jonathan.jacobson@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.housedems.ct.gov/Jacobson",
+        "social": {}
+      }
+    ],
+    "CT:state-house:136": [
+      {
+        "id": "ocd-person/22b7b95d-3488-4c14-8365-c5157b3cb099",
+        "name": "Jonathan Steinberg",
+        "office": "state-house",
+        "districtCode": "136",
+        "contactUrl": null,
+        "email": "jonathan.steinberg@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27136%27&dist_name=136%20-%Steinberg,%Jonathan",
+        "social": {}
+      }
+    ],
+    "CT:state-house:099": [
+      {
+        "id": "ocd-person/391a83ee-0e23-4669-b3ae-b29bd9c77294",
+        "name": "Joe Zullo",
+        "office": "state-house",
+        "districtCode": "099",
+        "contactUrl": null,
+        "email": "joe.zullo@housegop.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27099%27&dist_name=Zullo,%20Joseph%20H.",
+        "social": {}
+      }
+    ],
+    "CT:state-house:121": [
+      {
+        "id": "ocd-person/06bb6ad8-3238-4ba7-8f83-47507541a300",
+        "name": "Joe Gresko",
+        "office": "state-house",
+        "districtCode": "121",
+        "contactUrl": null,
+        "email": "joseph.gresko@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27121%27&dist_name=121%20-%Gresko,%Joseph%20P.",
+        "social": {}
+      }
+    ],
+    "CT:state-house:088": [
+      {
+        "id": "ocd-person/57461c01-e706-4ce5-9dfd-8982e1f29021",
+        "name": "Josh Elliott",
+        "office": "state-house",
+        "districtCode": "088",
+        "contactUrl": null,
+        "email": "josh.elliott@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27088%27&dist_name=088%20-%Elliott,%Josh",
+        "social": {}
+      }
+    ],
+    "CT:state-house:007": [
+      {
+        "id": "ocd-person/acb9a83b-c921-4631-826e-ffd02e2203b9",
+        "name": "Joshua Hall",
+        "office": "state-house",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "joshua.hall@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27007%27&dist_name=007%20-%Hall,%Joshua",
+        "social": {}
+      }
+    ],
+    "CT:state-house:095": [
+      {
+        "id": "ocd-person/6af561a7-e6d7-4a29-8f65-9a22a5734639",
+        "name": "Juan Candelaria",
+        "office": "state-house",
+        "districtCode": "095",
+        "contactUrl": null,
+        "email": "juan.candelaria@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27095%27&dist_name=095%20-%Candelaria,%Juan%20R.",
+        "social": {}
+      }
+    ],
+    "CT:state-house:004": [
+      {
+        "id": "ocd-person/d44bd84a-b02c-4c1b-94ee-05c8b1008e57",
+        "name": "Julio Concepción",
+        "office": "state-house",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "julio.concepcion@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27004%27&dist_name=004%20-%Concepcion,%Julio",
+        "social": {}
+      }
+    ],
+    "CT:state-house:137": [
+      {
+        "id": "ocd-person/86852522-4c4d-46ae-8a59-d81a16ad179a",
+        "name": "Kadeem Roberts",
+        "office": "state-house",
+        "districtCode": "137",
+        "contactUrl": null,
+        "email": "kadeem.roberts@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.housedems.ct.gov/Roberts",
+        "social": {}
+      }
+    ],
+    "CT:state-house:100": [
+      {
+        "id": "ocd-person/75ee19d6-dea2-4ef3-9682-0bfa9f53fb38",
+        "name": "Kai Belton",
+        "office": "state-house",
+        "districtCode": "100",
+        "contactUrl": null,
+        "email": "kai.belton@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://housedems.ct.gov/belton",
+        "social": {}
+      }
+    ],
+    "CT:state-house:120": [
+      {
+        "id": "ocd-person/91e5bc44-6a8d-410d-bab5-5eb34b90d368",
+        "name": "Kaitlyn Shake",
+        "office": "state-house",
+        "districtCode": "120",
+        "contactUrl": null,
+        "email": "kaitlyn.shake@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.housedems.ct.gov/Shake",
+        "social": {}
+      }
+    ],
+    "CT:state-house:104": [
+      {
+        "id": "ocd-person/3969673d-4a3e-487e-a572-42ce9f79e6dd",
+        "name": "Kara Rochelle",
+        "office": "state-house",
+        "districtCode": "104",
+        "contactUrl": null,
+        "email": "kara.rochelle@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27104%27&dist_name=104%20-%Rochelle,%Kara",
+        "social": {}
+      }
+    ],
+    "CT:state-house:066": [
+      {
+        "id": "ocd-person/56d4db3c-b047-4480-99ae-c99ed0131d69",
+        "name": "Karen Reddington-Hughes",
+        "office": "state-house",
+        "districtCode": "066",
+        "contactUrl": null,
+        "email": "karen.reddington-hughes@housegop.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.cthousegop.com/Reddington-Hughes/",
+        "social": {}
+      }
+    ],
+    "CT:state-house:020": [
+      {
+        "id": "ocd-person/96fa444a-7e86-4ead-9d2e-c3ffef258be2",
+        "name": "Kate Farrar",
+        "office": "state-house",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "kate.farrar@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27020%27&dist_name=020%20-%Farrar,%Kate",
+        "social": {}
+      }
+    ],
+    "CT:state-house:119": [
+      {
+        "id": "ocd-person/f0517411-fc60-49ad-86e6-1f025ab4579b",
+        "name": "Kathy Kennedy",
+        "office": "state-house",
+        "districtCode": "119",
+        "contactUrl": null,
+        "email": "kathy.kennedy@housegop.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27119%27",
+        "social": {}
+      }
+    ],
+    "CT:state-house:138": [
+      {
+        "id": "ocd-person/f086a8e8-70ea-40bc-a77f-2012b74f3a00",
+        "name": "Ken Gucker",
+        "office": "state-house",
+        "districtCode": "138",
+        "contactUrl": null,
+        "email": "ken.gucker@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.housedems.ct.gov/gucker",
+        "social": {}
+      }
+    ],
+    "CT:state-house:029": [
+      {
+        "id": "ocd-person/d71060b1-2bb9-4239-ab9b-fad7d1a4d903",
+        "name": "Kerry Wood",
+        "office": "state-house",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "kerry.wood@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27029%27&dist_name=029%20-%Wood,%Kerry",
+        "social": {}
+      }
+    ],
+    "CT:state-house:056": [
+      {
+        "id": "ocd-person/ac2991dd-302d-430f-8878-0fbd393a5909",
+        "name": "Kevin Brown",
+        "office": "state-house",
+        "districtCode": "056",
+        "contactUrl": null,
+        "email": "kevin.brown@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.housedems.ct.gov/BrownK",
+        "social": {}
+      }
+    ],
+    "CT:state-house:052": [
+      {
+        "id": "ocd-person/ffa361d0-7471-450e-aee8-cb0c32ee2742",
+        "name": "Kurt Vail",
+        "office": "state-house",
+        "districtCode": "052",
+        "contactUrl": null,
+        "email": "kurt.vail@housegop.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27052%27&dist_name=Kurt,%20Vail",
+        "social": {}
+      }
+    ],
+    "CT:state-house:072": [
+      {
+        "id": "ocd-person/47282285-14de-4306-b33f-a82754702ec5",
+        "name": "Larry Butler",
+        "office": "state-house",
+        "districtCode": "072",
+        "contactUrl": null,
+        "email": "larry.butler@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27072%27&dist_name=072%20-%Butler,%Larry%20B.",
+        "social": {}
+      }
+    ],
+    "CT:state-house:139": [
+      {
+        "id": "ocd-person/cd552354-5729-4c68-8872-3e0f6693bcc1",
+        "name": "Larry Pemberton",
+        "office": "state-house",
+        "districtCode": "139",
+        "contactUrl": null,
+        "email": "larry.pemberton@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.housedems.ct.gov/pemberton",
+        "social": {}
+      }
+    ],
+    "CT:state-house:091": [
+      {
+        "id": "ocd-person/4324ca37-42af-4095-b666-a4bf80af6df1",
+        "name": "Laurie Sweet",
+        "office": "state-house",
+        "districtCode": "091",
+        "contactUrl": null,
+        "email": "laurie.sweet@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.housedems.ct.gov/Sweet",
+        "social": {}
+      }
+    ],
+    "CT:state-house:089": [
+      {
+        "id": "ocd-person/cddc0b8f-51e5-4ed1-af05-41de718801f3",
+        "name": "Lezlye Zupkus",
+        "office": "state-house",
+        "districtCode": "089",
+        "contactUrl": null,
+        "email": "lezlye.zupkus@housegop.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27089%27&dist_name=089-Lezlye%20Zupkus",
+        "social": {}
+      }
+    ],
+    "CT:state-house:103": [
+      {
+        "id": "ocd-person/96e6350e-71c4-4031-8af8-a989d0ec3a01",
+        "name": "Liz Linehan",
+        "office": "state-house",
+        "districtCode": "103",
+        "contactUrl": null,
+        "email": "liz.linehan@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27103%27&dist_name=103%20-%Linehan,%Liz",
+        "social": {}
+      }
+    ],
+    "CT:state-house:142": [
+      {
+        "id": "ocd-person/2ed1f7b0-a1e3-4754-93a5-46b5a3fb9836",
+        "name": "Lucy Dathan",
+        "office": "state-house",
+        "districtCode": "142",
+        "contactUrl": null,
+        "email": "lucy.dathan@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27142%27&dist_name=142%20-%Dathan,%Lucy",
+        "social": {}
+      }
+    ],
+    "CT:state-house:117": [
+      {
+        "id": "ocd-person/79a30b4c-53c7-4031-9267-66fbae2df6c8",
+        "name": "M.J. Shannon",
+        "office": "state-house",
+        "districtCode": "117",
+        "contactUrl": null,
+        "email": "mj.shannon@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.housedems.ct.gov/Shannon",
+        "social": {}
+      }
+    ],
+    "CT:state-house:127": [
+      {
+        "id": "ocd-person/4e77c536-5645-4e15-99b2-00a781896717",
+        "name": "Marcus Brown",
+        "office": "state-house",
+        "districtCode": "127",
+        "contactUrl": null,
+        "email": "marcus.brown@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.housedems.ct.gov/BrownM",
+        "social": {}
+      }
+    ],
+    "CT:state-house:064": [
+      {
+        "id": "ocd-person/283ad876-68be-4235-a108-e0aedbadde40",
+        "name": "Maria Horn",
+        "office": "state-house",
+        "districtCode": "064",
+        "contactUrl": null,
+        "email": "maria.horn@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27064%27&dist_name=064%20-%Horn,%Maria",
+        "social": {}
+      }
+    ],
+    "CT:state-house:048": [
+      {
+        "id": "ocd-person/6130c80a-07b7-438e-8f5b-005e0a6b7034",
+        "name": "Mark DeCaprio",
+        "office": "state-house",
+        "districtCode": "048",
+        "contactUrl": null,
+        "email": "mark.decaprio@housegop.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.cthousegop.com/decaprio/",
+        "social": {}
+      }
+    ],
+    "CT:state-house:062": [
+      {
+        "id": "ocd-person/135d2f43-c892-4a34-9651-a523e85dd6de",
+        "name": "Mark Anderson",
+        "office": "state-house",
+        "districtCode": "062",
+        "contactUrl": null,
+        "email": "mark.anderson@housegop.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27062%27&dist_name=Anderson,%20Mark%20W",
+        "social": {}
+      }
+    ],
+    "CT:state-house:107": [
+      {
+        "id": "ocd-person/f3b77c59-132b-4e51-a148-641a891a48a6",
+        "name": "Marty Foncello",
+        "office": "state-house",
+        "districtCode": "107",
+        "contactUrl": null,
+        "email": "martin.foncello@housegop.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.cthousegop.com/Foncello/",
+        "social": {}
+      }
+    ],
+    "CT:state-house:079": [
+      {
+        "id": "ocd-person/dba46a90-f765-4508-a9e1-9bfdeb4a03dd",
+        "name": "Mary Fortier",
+        "office": "state-house",
+        "districtCode": "079",
+        "contactUrl": null,
+        "email": "mary.fortier@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.housedems.ct.gov/Fortier",
+        "social": {}
+      }
+    ],
+    "CT:state-house:085": [
+      {
+        "id": "ocd-person/817e17bf-a01c-4bf1-b70f-3e16aeef088e",
+        "name": "Mary Mushinsky",
+        "office": "state-house",
+        "districtCode": "085",
+        "contactUrl": null,
+        "email": "mary.mushinsky@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27085%27&dist_name=085%20-%Mushinsky,%Mary%20M.",
+        "social": {}
+      }
+    ],
+    "CT:state-house:114": [
+      {
+        "id": "ocd-person/53fa49be-9042-4e23-a1ff-a85f98a3d9f7",
+        "name": "Mary Welander",
+        "office": "state-house",
+        "districtCode": "114",
+        "contactUrl": null,
+        "email": "mary.welander@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27114%27&dist_name=114%20-%Welander,%Mary",
+        "social": {}
+      }
+    ],
+    "CT:state-house:005": [
+      {
+        "id": "ocd-person/298d6d03-248e-44c2-be42-269bc417745c",
+        "name": "Maryam Khan",
+        "office": "state-house",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "maryam.khan@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27005%27&dist_name=005%20-%Khan,%Maryam",
+        "social": {}
+      }
+    ],
+    "CT:state-house:147": [
+      {
+        "id": "ocd-person/9c5e5d75-a622-41d2-b607-2adbc12ee11f",
+        "name": "Matt Blumenthal",
+        "office": "state-house",
+        "districtCode": "147",
+        "contactUrl": null,
+        "email": "matt.blumenthal@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27147%27&dist_name=147%20-%Blumenthal,%Matt",
+        "social": {}
+      }
+    ],
+    "CT:state-house:001": [
+      {
+        "id": "ocd-person/2a91c3d6-433a-4e8f-b5a5-38fc80b8ea57",
+        "name": "Matt Ritter",
+        "office": "state-house",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "matthew.ritter@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27001%27&dist_name=001%20-%Ritter,%Matt",
+        "social": {}
+      }
+    ],
+    "CT:state-house:016": [
+      {
+        "id": "ocd-person/d16242a4-d3e1-45b3-9f95-8741980310cc",
+        "name": "Melissa Osborne",
+        "office": "state-house",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "melissa.osborne@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.housedems.ct.gov/Osborne",
+        "social": {}
+      }
+    ],
+    "CT:state-house:082": [
+      {
+        "id": "ocd-person/155c99fd-9d59-47e7-9134-12872a72426f",
+        "name": "Michael Quinn",
+        "office": "state-house",
+        "districtCode": "082",
+        "contactUrl": null,
+        "email": "michaeld.quinn@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27082%27&dist_name=082%20-%Quinn,%Michael%20D.",
+        "social": {}
+      }
+    ],
+    "CT:state-house:074": [
+      {
+        "id": "ocd-person/1e5a518e-ddf5-4976-b239-9a5324339a47",
+        "name": "Michael DiGiovancarlo",
+        "office": "state-house",
+        "districtCode": "074",
+        "contactUrl": null,
+        "email": "michael.digiovancarlo@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27074%27&dist_name=074%20-%DiGiovancarlo,%Michael",
+        "social": {}
+      }
+    ],
+    "CT:state-house:021": [
+      {
+        "id": "ocd-person/ca9357d4-dffa-456a-a715-d4a7671c1f84",
+        "name": "Mike Demicco",
+        "office": "state-house",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "mike.demicco@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27021%27&dist_name=Demicco,%20Mike",
+        "social": {}
+      }
+    ],
+    "CT:state-house:003": [
+      {
+        "id": "ocd-person/57900db1-ade5-4107-8025-a0c664f41a32",
+        "name": "Minnie Gonzalez",
+        "office": "state-house",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "minnie.gonzalez@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27003%27&dist_name=Gonzalez,%20Minnie",
+        "social": {}
+      }
+    ],
+    "CT:state-house:106": [
+      {
+        "id": "ocd-person/5af50689-4e90-49b1-8544-7a00048dad99",
+        "name": "Mitch Bolinsky",
+        "office": "state-house",
+        "districtCode": "106",
+        "contactUrl": null,
+        "email": "mitch.bolinsky@housegop.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27106%27&dist_name=Bolinsky,%20Mitch",
+        "social": {}
+      }
+    ],
+    "CT:state-house:098": [
+      {
+        "id": "ocd-person/adb6f661-e282-42a5-8b55-cb1e5f56aa5a",
+        "name": "Moira Rader",
+        "office": "state-house",
+        "districtCode": "098",
+        "contactUrl": null,
+        "email": "moira.rader@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.housedems.ct.gov/Rader",
+        "social": {}
+      }
+    ],
+    "CT:state-house:038": [
+      {
+        "id": "ocd-person/2f3d7307-89cd-4dac-a9ca-4b12d7bf777e",
+        "name": "Nick Gauthier",
+        "office": "state-house",
+        "districtCode": "038",
+        "contactUrl": null,
+        "email": "nick.gauthier@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.housedems.ct.gov/Gauthier",
+        "social": {}
+      }
+    ],
+    "CT:state-house:037": [
+      {
+        "id": "ocd-person/467c2737-7494-44d0-a370-c38c178740e9",
+        "name": "Nick Menapace",
+        "office": "state-house",
+        "districtCode": "037",
+        "contactUrl": null,
+        "email": "nick.menapace@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.housedems.ct.gov/Menapace",
+        "social": {}
+      }
+    ],
+    "CT:state-house:105": [
+      {
+        "id": "ocd-person/71c15656-a6f4-4b95-9537-69a82b2cb54c",
+        "name": "Nicole Klarides-Ditria",
+        "office": "state-house",
+        "districtCode": "105",
+        "contactUrl": null,
+        "email": "nicole.klarides-ditria@housegop.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27105%27&dist_name=Klarides-Ditria,%20Nicole",
+        "social": {}
+      }
+    ],
+    "CT:state-house:092": [
+      {
+        "id": "ocd-person/23d08488-597c-4c35-b41a-f8aef1c264c4",
+        "name": "Pat Dillon",
+        "office": "state-house",
+        "districtCode": "092",
+        "contactUrl": null,
+        "email": "patricia.dillon@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27092%27&dist_name=Dillon,%20Patricia%20A.",
+        "social": {}
+      }
+    ],
+    "CT:state-house:011": [
+      {
+        "id": "ocd-person/9ddc7811-2c18-44e0-b0c9-dccded290a3e",
+        "name": "Patrick Biggins",
+        "office": "state-house",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "patrick.biggins@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.housedems.ct.gov/Biggins",
+        "social": {}
+      }
+    ],
+    "CT:state-house:108": [
+      {
+        "id": "ocd-person/72191c68-6a23-4fa2-93d4-ba8dc07c2025",
+        "name": "Pat Callahan",
+        "office": "state-house",
+        "districtCode": "108",
+        "contactUrl": null,
+        "email": "patrick.callahan@housegop.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27108%27&dist_name=Callahan,%20Patrick%20E.",
+        "social": {}
+      }
+    ],
+    "CT:state-house:050": [
+      {
+        "id": "ocd-person/50e78f89-a9e7-43f5-9566-a9f2cb23a5c9",
+        "name": "Pat Boyd",
+        "office": "state-house",
+        "districtCode": "050",
+        "contactUrl": null,
+        "email": "pat.boyd@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27050%27&dist_name=Boyd,%20Patrick%20S.",
+        "social": {}
+      }
+    ],
+    "CT:state-house:002": [
+      {
+        "id": "ocd-person/1a01451b-8c85-4bde-9cef-ab083d99ae84",
+        "name": "Raghib Allie-Brennan",
+        "office": "state-house",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "raghib.allie-brennan@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27002%27&dist_name=Allie-Brennan,%20Raghib",
+        "social": {}
+      }
+    ],
+    "CT:state-house:022": [
+      {
+        "id": "ocd-person/606b5b0a-a9f3-4625-8224-e7f66bd3eed4",
+        "name": "Rebecca Martinez",
+        "office": "state-house",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "rebecca.martinez@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.housedems.ct.gov/martinez",
+        "social": {}
+      }
+    ],
+    "CT:state-house:036": [
+      {
+        "id": "ocd-person/ed6fd366-fcec-4d7c-91fc-847667f604c9",
+        "name": "Renee Muir",
+        "office": "state-house",
+        "districtCode": "036",
+        "contactUrl": null,
+        "email": "renee.lamarkmuir@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.housedems.ct.gov/LaMarkMuir",
+        "social": {}
+      }
+    ],
+    "CT:state-house:102": [
+      {
+        "id": "ocd-person/5d963d6d-74c1-4282-9ad4-592c3760bead",
+        "name": "Robin Comey",
+        "office": "state-house",
+        "districtCode": "102",
+        "contactUrl": null,
+        "email": "robin.comey@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27102%27&dist_name=Comey,%20Robin%20E.",
+        "social": {}
+      }
+    ],
+    "CT:state-house:096": [
+      {
+        "id": "ocd-person/273e9a65-2254-43f1-ae88-744e1fa3738a",
+        "name": "Roland Lemar",
+        "office": "state-house",
+        "districtCode": "096",
+        "contactUrl": null,
+        "email": "roland.lemar@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27096%27&dist_name=Lemar,%20Roland%20J.",
+        "social": {}
+      }
+    ],
+    "CT:state-house:073": [
+      {
+        "id": "ocd-person/71fb3504-679f-419d-86bf-d1ae7d573244",
+        "name": "Ron Napoli",
+        "office": "state-house",
+        "districtCode": "073",
+        "contactUrl": null,
+        "email": "ron.napoli@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27073%27&dist_name=Napoli,%20Ronald%20A.",
+        "social": {}
+      }
+    ],
+    "CT:state-house:134": [
+      {
+        "id": "ocd-person/7af92839-ae80-4370-a84a-e63799ed5a48",
+        "name": "Sarah Keitt",
+        "office": "state-house",
+        "districtCode": "134",
+        "contactUrl": null,
+        "email": "sarah.keitt@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.housedems.ct.gov/keitt",
+        "social": {}
+      }
+    ],
+    "CT:state-house:042": [
+      {
+        "id": "ocd-person/09dcfeba-575f-44d2-9566-1ba8471c0b4f",
+        "name": "Savet Constantine",
+        "office": "state-house",
+        "districtCode": "042",
+        "contactUrl": null,
+        "email": "savet.constantine@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.housedems.ct.gov/Constantine",
+        "social": {}
+      }
+    ],
+    "CT:state-house:070": [
+      {
+        "id": "ocd-person/a0e90d7c-cc41-469e-a27a-7efa009ef801",
+        "name": "Seth Bronko",
+        "office": "state-house",
+        "districtCode": "070",
+        "contactUrl": null,
+        "email": "seth.bronko@housegop.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.cthousegop.com/Bronko/",
+        "social": {}
+      }
+    ],
+    "CT:state-house:150": [
+      {
+        "id": "ocd-person/77dbf0fd-d45c-445c-9966-0135fff8feaa",
+        "name": "Steve Meskers",
+        "office": "state-house",
+        "districtCode": "150",
+        "contactUrl": null,
+        "email": "stephen.meskers@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27150%27&dist_name=Meskers,%20Stephen%20R",
+        "social": {}
+      }
+    ],
+    "CT:state-house:055": [
+      {
+        "id": "ocd-person/755c489b-dcb4-4037-8df7-d9e62006e844",
+        "name": "Steve Weir",
+        "office": "state-house",
+        "districtCode": "055",
+        "contactUrl": null,
+        "email": "steve.weir@housegop.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.cthousegop.com/Weir/",
+        "social": {}
+      }
+    ],
+    "CT:state-house:129": [
+      {
+        "id": "ocd-person/cb252e7b-fffb-4bda-b951-d2b54a3c37e3",
+        "name": "Steve Stafstrom",
+        "office": "state-house",
+        "districtCode": "129",
+        "contactUrl": null,
+        "email": "steven.stafstrom@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27129%27&dist_name=Stafstrom,%20Steven%20J.",
+        "social": {}
+      }
+    ],
+    "CT:state-house:094": [
+      {
+        "id": "ocd-person/17c7aeb7-7f31-4ca3-9d8c-041451663ff0",
+        "name": "Steven Winter",
+        "office": "state-house",
+        "districtCode": "094",
+        "contactUrl": null,
+        "email": "steve.winter@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.housedems.ct.gov/Winter",
+        "social": {}
+      }
+    ],
+    "CT:state-house:049": [
+      {
+        "id": "ocd-person/454e5979-c5bb-4f4e-9f3d-dc11f5e5b6ca",
+        "name": "Susan Johnson",
+        "office": "state-house",
+        "districtCode": "049",
+        "contactUrl": null,
+        "email": "susan.johnson@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27049%27&dist_name=Johnson,%20Susan%20M.",
+        "social": {}
+      }
+    ],
+    "CT:state-house:061": [
+      {
+        "id": "ocd-person/b57c3599-c0b0-4fd3-a48c-2bfd32d95071",
+        "name": "Tami Zawistowski",
+        "office": "state-house",
+        "districtCode": "061",
+        "contactUrl": null,
+        "email": "tami.zawistowski@housegop.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27061%27&dist_name=Zawistowski,%20Tami",
+        "social": {}
+      }
+    ],
+    "CT:state-house:053": [
+      {
+        "id": "ocd-person/cbdde335-cd3e-4769-b477-5893c46d96b6",
+        "name": "Tammy Nuccio",
+        "office": "state-house",
+        "districtCode": "053",
+        "contactUrl": null,
+        "email": "tammy.nuccio@housegop.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27053%27&dist_name=Nuccio,%20Tammy",
+        "social": {}
+      }
+    ],
+    "CT:state-house:019": [
+      {
+        "id": "ocd-person/8872e78b-25b4-406b-84b2-949c700f7b56",
+        "name": "Tammy Exum",
+        "office": "state-house",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "tammy.exum@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27019%27&dist_name=Exum,%20Tammy%20R.",
+        "social": {}
+      }
+    ],
+    "CT:state-house:008": [
+      {
+        "id": "ocd-person/d458d504-9053-4709-bf43-d955083a18ab",
+        "name": "Tim Ackert",
+        "office": "state-house",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "tim.ackert@housegop.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27008%27&dist_name=Ackert,%20Tim",
+        "social": {}
+      }
+    ],
+    "CT:state-house:149": [
+      {
+        "id": "ocd-person/ca470373-9e97-47c5-ab96-96e3f93cee08",
+        "name": "Tina Courpas",
+        "office": "state-house",
+        "districtCode": "149",
+        "contactUrl": null,
+        "email": "tina.courpas@housegop.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.cthousegop.com/courpas/",
+        "social": {}
+      }
+    ],
+    "CT:state-house:014": [
+      {
+        "id": "ocd-person/8bf7e55e-afc1-4f5c-99c3-9b7a1356fbc3",
+        "name": "Tom Delnicki",
+        "office": "state-house",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "tom.delnicki@housegop.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27014%27&dist_name=Delnicki,%20Tom",
+        "social": {}
+      }
+    ],
+    "CT:state-house:125": [
+      {
+        "id": "ocd-person/03642345-7acb-4294-91b5-84dcc3c18cc7",
+        "name": "Tom O'Dea",
+        "office": "state-house",
+        "districtCode": "125",
+        "contactUrl": null,
+        "email": "tom.odea@housegop.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27125%27&dist_name=O%27Dea,%20Tom",
+        "social": {}
+      }
+    ],
+    "CT:state-house:093": [
+      {
+        "id": "ocd-person/59460c80-5324-423f-a06c-158d69a30b02",
+        "name": "Toni Walker",
+        "office": "state-house",
+        "districtCode": "093",
+        "contactUrl": null,
+        "email": "toni.walker@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27093%27&dist_name=Walker,%20Toni%20E.",
+        "social": {}
+      }
+    ],
+    "CT:state-house:112": [
+      {
+        "id": "ocd-person/bc3200fa-f97b-433f-bb0b-ac15f71b2e92",
+        "name": "Tony Scott",
+        "office": "state-house",
+        "districtCode": "112",
+        "contactUrl": null,
+        "email": "tony.scott@housegop.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27112%27&dist_name=Scott,%20Tony%20J",
+        "social": {}
+      }
+    ],
+    "CT:state-house:141": [
+      {
+        "id": "ocd-person/fd032e0e-7926-4f81-9477-6fdee260014b",
+        "name": "Tracy Marra",
+        "office": "state-house",
+        "districtCode": "141",
+        "contactUrl": null,
+        "email": "tracy.marra@housegop.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.cthousegop.com/Marra/",
+        "social": {}
+      }
+    ],
+    "CT:state-house:140": [
+      {
+        "id": "ocd-person/9e9d6f02-ee29-4ff3-a6fe-1b8a0cec0612",
+        "name": "Travis Simms",
+        "office": "state-house",
+        "districtCode": "140",
+        "contactUrl": null,
+        "email": "travis.simms@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27140%27&dist_name=Simms,%20Travis",
+        "social": {}
+      }
+    ],
+    "CT:state-house:116": [
+      {
+        "id": "ocd-person/5a41c633-8d04-43c6-b3c2-64cbbbbefcc4",
+        "name": "Treneé McGee",
+        "office": "state-house",
+        "districtCode": "116",
+        "contactUrl": null,
+        "email": "trenee.mcgee@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27116%27&dist_name=McGee,%20Trenee",
+        "social": {}
+      }
+    ],
+    "CT:state-house:086": [
+      {
+        "id": "ocd-person/1d02baaa-ab25-4607-b33f-40948893f928",
+        "name": "Vin Candelora",
+        "office": "state-house",
+        "districtCode": "086",
+        "contactUrl": null,
+        "email": "vincent.candelora@housegop.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27086%27&dist_name=Candelora,%20Vincent%20J.",
+        "social": {}
+      }
+    ],
+    "CT:state-house:071": [
+      {
+        "id": "ocd-person/f7127b57-a72f-4b84-abf6-77b021cddf3f",
+        "name": "Bill Pizzuto",
+        "office": "state-house",
+        "districtCode": "071",
+        "contactUrl": null,
+        "email": "william.pizzuto@housegop.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27071%27&dist_name=Pizzuto,%20William",
+        "social": {}
+      }
+    ],
+    "CT:state-senate:025": [
+      {
+        "id": "ocd-person/7836916c-08a2-430a-99eb-580f7cf50e81",
+        "name": "Bob Duff",
+        "office": "state-senate",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "duff@senatedems.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27S25%27&dist_name=Duff,%20Bob",
+        "social": {}
+      }
+    ],
+    "CT:state-senate:019": [
+      {
+        "id": "ocd-person/aec1fe1b-02ac-4802-be69-8714ec0b848e",
+        "name": "Cathy Osten",
+        "office": "state-senate",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "osten@senatedems.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27S19%27&dist_name=Osten,%20Catherine%20A.",
+        "social": {}
+      }
+    ],
+    "CT:state-senate:026": [
+      {
+        "id": "ocd-person/5310d199-fa92-40aa-8d0b-efad6d3027b2",
+        "name": "Ceci Maher",
+        "office": "state-senate",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "ceci.maher@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senatedems.ct.gov/maher",
+        "social": {}
+      }
+    ],
+    "CT:state-senate:012": [
+      {
+        "id": "ocd-person/5e2acad1-d976-4a7d-997b-52b5b400a654",
+        "name": "Christine Cohen",
+        "office": "state-senate",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "christine.cohen@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27S12%27&dist_name=Cohen,%20Christine",
+        "social": {}
+      }
+    ],
+    "CT:state-senate:005": [
+      {
+        "id": "ocd-person/a33a2113-e60b-4000-9dc7-eb58a775d986",
+        "name": "Derek Slap",
+        "office": "state-senate",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "derek.slap@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27S05%27&dist_name=Slap,%20Derek",
+        "social": {}
+      }
+    ],
+    "CT:state-senate:002": [
+      {
+        "id": "ocd-person/83a4e876-4df7-48ef-8a84-7d7940585af9",
+        "name": "Doug McCrory",
+        "office": "state-senate",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "douglas.mccrory@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27S02%27&dist_name=McCrory,%20Douglas",
+        "social": {}
+      }
+    ],
+    "CT:state-senate:032": [
+      {
+        "id": "ocd-person/58a9b2fa-cd93-420c-a9bc-6326a75a218a",
+        "name": "Eric Berthel",
+        "office": "state-senate",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "eric.berthel@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27S32%27&dist_name=Berthel,%20Eric%20C.",
+        "social": {}
+      }
+    ],
+    "CT:state-senate:010": [
+      {
+        "id": "ocd-person/102845da-9b93-400d-b58a-fa3e7df1806e",
+        "name": "Gary Winfield",
+        "office": "state-senate",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "winfield@senatedems.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27S10%27&dist_name=Winfield,%20Gary%20A.",
+        "social": {}
+      }
+    ],
+    "CT:state-senate:018": [
+      {
+        "id": "ocd-person/a648c360-3b9e-408d-ba2a-c171edada365",
+        "name": "Heather Somers",
+        "office": "state-senate",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "heather.somers@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27S18%27&dist_name=Somers,%20Heather%20S.",
+        "social": {}
+      }
+    ],
+    "CT:state-senate:031": [
+      {
+        "id": "ocd-person/ca8be710-988a-4415-bc37-6d3a92d1afcd",
+        "name": "Henri Martin",
+        "office": "state-senate",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "henri.martin@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27S31%27&dist_name=Martin,%20Henri",
+        "social": {}
+      }
+    ],
+    "CT:state-senate:023": [
+      {
+        "id": "ocd-person/3be9e2dc-7ffa-40fb-90c8-d25fe4970dee",
+        "name": "Herron Gaston",
+        "office": "state-senate",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "herron.gaston@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senatedems.ct.gov/gaston",
+        "social": {}
+      }
+    ],
+    "CT:state-senate:014": [
+      {
+        "id": "ocd-person/f37ce303-e106-4972-b453-4287b7915762",
+        "name": "James Maroney",
+        "office": "state-senate",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "maroney@senatedems.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27S14%27&dist_name=Maroney,%20James%20J.",
+        "social": {}
+      }
+    ],
+    "CT:state-senate:013": [
+      {
+        "id": "ocd-person/e823b348-fd0f-410b-b3c1-62fe7a2982f6",
+        "name": "Jan Hochadel",
+        "office": "state-senate",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "jan.hochadel@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senatedems.ct.gov/hochadel",
+        "social": {}
+      }
+    ],
+    "CT:state-senate:021": [
+      {
+        "id": "ocd-person/78bb88a9-cde1-4691-aa7a-e423ee16a147",
+        "name": "Jason Perillo",
+        "office": "state-senate",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "jason.perillo@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27113%27&dist_name=Jason,%20Perillo",
+        "social": {}
+      }
+    ],
+    "CT:state-senate:035": [
+      {
+        "id": "ocd-person/1a60b520-6887-4830-b33e-78520b7b53aa",
+        "name": "Jeff Gordon",
+        "office": "state-senate",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "jeffrey.gordon@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ctsenaterepublicans.com/home-gordon/",
+        "social": {}
+      }
+    ],
+    "CT:state-senate:015": [
+      {
+        "id": "ocd-person/2c22d680-9e92-423b-a943-20571186c91a",
+        "name": "Joan Hartley",
+        "office": "state-senate",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "hartley@senatedems.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senatedems.ct.gov/Hartley",
+        "social": {}
+      }
+    ],
+    "CT:state-senate:007": [
+      {
+        "id": "ocd-person/da65a738-37c7-41c1-8cd4-abae65ef0167",
+        "name": "John Kissel",
+        "office": "state-senate",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "john.a.kissel@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27S07%27&dist_name=Kissel,%20John%20A.",
+        "social": {}
+      }
+    ],
+    "CT:state-senate:001": [
+      {
+        "id": "ocd-person/749be8b3-0b40-41ec-8670-7dfbfbc90b6e",
+        "name": "John Fonfara",
+        "office": "state-senate",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "fonfara@senatedems.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27S01%27&dist_name=Fonfara,%20John%20W.",
+        "social": {}
+      }
+    ],
+    "CT:state-senate:017": [
+      {
+        "id": "ocd-person/bb280880-afa9-43f3-91bf-b05af25b023d",
+        "name": "Jorge Cabrera",
+        "office": "state-senate",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "jorge.cabrera@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27S17%27&dist_name=Cabrera,%20Jorge",
+        "social": {}
+      }
+    ],
+    "CT:state-senate:024": [
+      {
+        "id": "ocd-person/34ca88f1-c2bc-430e-9f7c-93e8f3563e33",
+        "name": "Julie Kushner",
+        "office": "state-senate",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "julie.kushner@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27S24%27&dist_name=Kushner,%20Julie",
+        "social": {}
+      }
+    ],
+    "CT:state-senate:004": [
+      {
+        "id": "ocd-person/277414ca-35b8-41dd-ae2e-e99fe9ecdb9b",
+        "name": "M.D. Rahman",
+        "office": "state-senate",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "md.rahman@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senatedems.ct.gov/Rahman",
+        "social": {}
+      }
+    ],
+    "CT:state-senate:029": [
+      {
+        "id": "ocd-person/77713b68-e8ef-455e-80a6-1614488fb71a",
+        "name": "Mae Flexer",
+        "office": "state-senate",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "flexer@senatedems.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27S29%27&dist_name=Flexer,%20Mae",
+        "social": {}
+      }
+    ],
+    "CT:state-senate:020": [
+      {
+        "id": "ocd-person/e171a437-11bc-4200-ae58-f6f8c4971f39",
+        "name": "Martha Marx",
+        "office": "state-senate",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "martha.marx@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senatedems.ct.gov/marx",
+        "social": {}
+      }
+    ],
+    "CT:state-senate:011": [
+      {
+        "id": "ocd-person/2d21e401-cb76-4001-b836-e57f667f550f",
+        "name": "Martin Looney",
+        "office": "state-senate",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "looney@senatedems.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27S11%27&dist_name=Looney,%20Martin%20M.",
+        "social": {}
+      }
+    ],
+    "CT:state-senate:009": [
+      {
+        "id": "ocd-person/f55ef0f9-f0ed-48ba-80b9-23ac643626cc",
+        "name": "Matt Lesser",
+        "office": "state-senate",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "matthew.lesser@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27S09%27&dist_name=Lesser,%20Matthew%20L.",
+        "social": {}
+      }
+    ],
+    "CT:state-senate:033": [
+      {
+        "id": "ocd-person/109295ad-521f-463a-b0af-66c9f0598a97",
+        "name": "Norm Needleman",
+        "office": "state-senate",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "norm.needleman@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27S33%27&dist_name=Needleman,%20Norman",
+        "social": {}
+      }
+    ],
+    "CT:state-senate:027": [
+      {
+        "id": "ocd-person/fcf63a22-3979-4cbf-a719-0d414d13e1ac",
+        "name": "Pat Miller",
+        "office": "state-senate",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "patricia.miller@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27S27%27&dist_name=Miller,%20Patricia%20Billie",
+        "social": {}
+      }
+    ],
+    "CT:state-senate:034": [
+      {
+        "id": "ocd-person/ca523a61-6db3-47c6-bf1f-8fd7638e999f",
+        "name": "Paul Cicarella",
+        "office": "state-senate",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "paul.cicarella@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27S34%27&dist_name=Cicarella,%20Paul",
+        "social": {}
+      }
+    ],
+    "CT:state-senate:008": [
+      {
+        "id": "ocd-person/98ba1778-693a-41a5-9f4a-94f10d1c9fcd",
+        "name": "Paul Honig",
+        "office": "state-senate",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "paul.honig@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senatedems.ct.gov/senator/paul-honig",
+        "social": {}
+      }
+    ],
+    "CT:state-senate:006": [
+      {
+        "id": "ocd-person/bdc5f5a0-0285-45d2-a6fd-d29d8b31cd43",
+        "name": "Rick Lopes",
+        "office": "state-senate",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "rick.lopes@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27S06%27&dist_name=Lopes,%20Rick",
+        "social": {}
+      }
+    ],
+    "CT:state-senate:016": [
+      {
+        "id": "ocd-person/0cdb540d-c360-4981-b7a9-2a67e2f91121",
+        "name": "Rob Sampson",
+        "office": "state-senate",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "rob.sampson@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27S16%27&dist_name=Sampson,%20Rob",
+        "social": {}
+      }
+    ],
+    "CT:state-senate:036": [
+      {
+        "id": "ocd-person/c5800b0c-c84a-4e63-83fa-8aaad9b6535f",
+        "name": "Ryan Fazio",
+        "office": "state-senate",
+        "districtCode": "036",
+        "contactUrl": null,
+        "email": "ryan.fazio@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27S36%27&dist_name=Fazio,%20Ryan",
+        "social": {}
+      }
+    ],
+    "CT:state-senate:003": [
+      {
+        "id": "ocd-person/686df3d6-3199-4d48-a27e-7b3e7c65de66",
+        "name": "Saud Anwar",
+        "office": "state-senate",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "saud.anwar@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27S03%27&dist_name=Anwar,%20Saud",
+        "social": {}
+      }
+    ],
+    "CT:state-senate:030": [
+      {
+        "id": "ocd-person/f0f89d15-9682-4a2e-8096-57700ac5b8dc",
+        "name": "Stephen Harding",
+        "office": "state-senate",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "stephen.harding@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27107%27&dist_name=Harding,%20Stephen%20G.",
+        "social": {}
+      }
+    ],
+    "CT:state-senate:022": [
+      {
+        "id": "ocd-person/2d581ca4-1fb8-4e7c-9f33-060db9ed895e",
+        "name": "Sujata Gadkar-Wilcox",
+        "office": "state-senate",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "gadkarwilcox@senatedems.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senatedems.ct.gov/senator/sujata-gadkar-wilcox",
+        "social": {}
+      }
+    ],
+    "CT:state-senate:028": [
+      {
+        "id": "ocd-person/b1ab473b-e7ff-4c53-96af-ee796c89f4dd",
+        "name": "Tony Hwang",
+        "office": "state-senate",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "tony.hwang@cga.ct.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cga.ct.gov/asp/CGABillStatus/CGAMemberBills.asp?dist_code=%27S28%27&dist_name=Hwang,%20Tony",
+        "social": {}
+      }
+    ]
+  }
+}

@@ -1,0 +1,2982 @@
+{
+  "state": "MN",
+  "generatedFrom": {
+    "legislators-current.json": "ae8cb9477c48715df71a7d860854229d799dc90a254d61badc1efb770f892b2c",
+    "legislators-social-media.json": "c6eca1fcdb3a89901335eed51ca061daa4b60ad3243969a127e913bb9657fbc5",
+    "mn.csv": "24ed9cf712ea0680e7e895832aa3ca90cf7450f10875e6a99eee5f5292e7cc7d"
+  },
+  "byKey": {
+    "MN:us-senate:00": [
+      {
+        "id": "K000367",
+        "name": "Amy Klobuchar",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.klobuchar.senate.gov/public/index.cfm/contact",
+        "email": null,
+        "phone": "202-224-3244",
+        "address": "425 Dirksen Senate Office Building Washington DC 20510",
+        "website": "https://www.klobuchar.senate.gov",
+        "social": {
+          "x": "SenAmyKlobuchar"
+        }
+      },
+      {
+        "id": "S001203",
+        "name": "Tina Smith",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.smith.senate.gov/share-your-opinion/",
+        "email": null,
+        "phone": "202-224-5641",
+        "address": "720 Hart Senate Office Building Washington DC 20510",
+        "website": "https://www.smith.senate.gov",
+        "social": {
+          "x": "SenTinaSmith",
+          "facebook": "USSenTinaSmith",
+          "instagram": "senatortinasmith"
+        }
+      }
+    ],
+    "MN:us-house:04": [
+      {
+        "id": "M001143",
+        "name": "Betty McCollum",
+        "office": "us-house",
+        "districtCode": "04",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-6631",
+        "address": "2426 Rayburn House Office Building Washington DC 20515-2304",
+        "website": "https://mccollum.house.gov",
+        "social": {
+          "x": "BettyMcCollum04",
+          "facebook": "repbettymccollum",
+          "instagram": "repbettymccollum"
+        }
+      }
+    ],
+    "MN:us-house:06": [
+      {
+        "id": "E000294",
+        "name": "Tom Emmer",
+        "office": "us-house",
+        "districtCode": "06",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2331",
+        "address": "326 Cannon House Office Building Washington DC 20515-2306",
+        "website": "https://emmer.house.gov",
+        "social": {
+          "x": "RepTomEmmer",
+          "facebook": "reptomemmer",
+          "instagram": "reptomemmer"
+        }
+      }
+    ],
+    "MN:us-house:02": [
+      {
+        "id": "C001119",
+        "name": "Angie Craig",
+        "office": "us-house",
+        "districtCode": "02",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2271",
+        "address": "2052 Rayburn House Office Building Washington DC 20515-2302",
+        "website": "https://craig.house.gov",
+        "social": {
+          "x": "RepAngieCraig",
+          "facebook": "RepAngieCraig"
+        }
+      }
+    ],
+    "MN:us-house:05": [
+      {
+        "id": "O000173",
+        "name": "Ilhan Omar",
+        "office": "us-house",
+        "districtCode": "05",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4755",
+        "address": "1730 Longworth House Office Building Washington DC 20515-2305",
+        "website": "https://omar.house.gov",
+        "social": {
+          "x": "Ilhan"
+        }
+      }
+    ],
+    "MN:us-house:08": [
+      {
+        "id": "S001212",
+        "name": "Pete Stauber",
+        "office": "us-house",
+        "districtCode": "08",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-6211",
+        "address": "145 Cannon House Office Building Washington DC 20515-2308",
+        "website": "https://stauber.house.gov",
+        "social": {
+          "x": "RepPeteStauber",
+          "facebook": "RepPeteStauber"
+        }
+      }
+    ],
+    "MN:us-house:07": [
+      {
+        "id": "F000470",
+        "name": "Michelle Fischbach",
+        "office": "us-house",
+        "districtCode": "07",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2165",
+        "address": "2229 Rayburn House Office Building Washington DC 20515-2307",
+        "website": "https://fischbach.house.gov",
+        "social": {
+          "x": "RepFischbach",
+          "facebook": "repfischbach",
+          "instagram": "repfischbach"
+        }
+      }
+    ],
+    "MN:us-house:01": [
+      {
+        "id": "F000475",
+        "name": "Brad Finstad",
+        "office": "us-house",
+        "districtCode": "01",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2472",
+        "address": "2418 Rayburn House Office Building Washington DC 20515-2301",
+        "website": "https://finstad.house.gov",
+        "social": {
+          "x": "RepFinstad",
+          "facebook": "RepFinstad",
+          "instagram": "repfinstad"
+        }
+      }
+    ],
+    "MN:us-house:03": [
+      {
+        "id": "M001234",
+        "name": "Kelly Morrison",
+        "office": "us-house",
+        "districtCode": "03",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2871",
+        "address": "1205 Longworth House Office Building Washington DC 20515-2303",
+        "website": "https://morrison.house.gov",
+        "social": {
+          "x": "kellymorrisonmn",
+          "facebook": "repkellymorrison",
+          "instagram": "kellymorrisonmn"
+        }
+      }
+    ],
+    "MN:state-house:62A": [
+      {
+        "id": "ocd-person/09493dc0-a224-4cf6-a859-1384ffeda8a0",
+        "name": "Aisha Gomez",
+        "office": "state-house",
+        "districtCode": "62A",
+        "contactUrl": null,
+        "email": "rep.aisha.gomez@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15531",
+        "social": {}
+      }
+    ],
+    "MN:state-house:49A": [
+      {
+        "id": "ocd-person/1a50d8e6-64c4-4c8f-87ee-dedde17c1c2c",
+        "name": "Alex Falconer",
+        "office": "state-house",
+        "districtCode": "49A",
+        "contactUrl": null,
+        "email": "rep.alex.falconer@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15630",
+        "social": {}
+      }
+    ],
+    "MN:state-house:08B": [
+      {
+        "id": "ocd-person/5604b347-d9b5-40b6-844d-8bc5246283d3",
+        "name": "Liish Kozlowski",
+        "office": "state-house",
+        "districtCode": "08B",
+        "contactUrl": null,
+        "email": "rep.alicia.kozlowski@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15595",
+        "social": {}
+      }
+    ],
+    "MN:state-house:45A": [
+      {
+        "id": "ocd-person/bba68b5b-90ac-4465-bdd2-fdf23c33b87a",
+        "name": "Andrew Myers",
+        "office": "state-house",
+        "districtCode": "45A",
+        "contactUrl": null,
+        "email": "rep.andrew.myers@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15618",
+        "social": {}
+      }
+    ],
+    "MN:state-house:25B": [
+      {
+        "id": "ocd-person/41cf59c9-a2c3-442d-85f1-7d6ec8de1a97",
+        "name": "Andy Smith",
+        "office": "state-house",
+        "districtCode": "25B",
+        "contactUrl": null,
+        "email": "rep.andy.smith@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15606",
+        "social": {}
+      }
+    ],
+    "MN:state-house:62B": [
+      {
+        "id": "ocd-person/8c85da58-235b-4769-be5f-dcf5b7c66c75",
+        "name": "Anquam Mahamoud",
+        "office": "state-house",
+        "districtCode": "62B",
+        "contactUrl": null,
+        "email": "rep.anquam.mahamoud@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15639",
+        "social": {}
+      }
+    ],
+    "MN:state-house:66B": [
+      {
+        "id": "ocd-person/9f56bc31-f522-4e29-af62-cdc616babc88",
+        "name": "Athena Hollins",
+        "office": "state-house",
+        "districtCode": "66B",
+        "contactUrl": null,
+        "email": "rep.athena.hollins@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.leg.state.mn.us/members/profile/15553",
+        "social": {}
+      }
+    ],
+    "MN:state-house:54B": [
+      {
+        "id": "ocd-person/f8d52f8b-1b8c-454d-87be-42edd3100511",
+        "name": "Ben Bakeberg",
+        "office": "state-house",
+        "districtCode": "54B",
+        "contactUrl": null,
+        "email": "rep.ben.bakeberg@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15569",
+        "social": {}
+      }
+    ],
+    "MN:state-house:06A": [
+      {
+        "id": "ocd-person/f5597924-50c0-4bfc-bd63-3d3b814274f8",
+        "name": "Ben Davis",
+        "office": "state-house",
+        "districtCode": "06A",
+        "contactUrl": null,
+        "email": "rep.ben.davis@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15594",
+        "social": {}
+      }
+    ],
+    "MN:state-house:14A": [
+      {
+        "id": "ocd-person/354e366b-b9b5-46b4-b9ce-f3d96f508ceb",
+        "name": "Bernie Perryman",
+        "office": "state-house",
+        "districtCode": "14A",
+        "contactUrl": null,
+        "email": "rep.bernie.perryman@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15599",
+        "social": {}
+      }
+    ],
+    "MN:state-house:52B": [
+      {
+        "id": "ocd-person/971431ad-1fdb-49e5-9cf0-57cfff1645a8",
+        "name": "Bianca Virnig",
+        "office": "state-house",
+        "districtCode": "52B",
+        "contactUrl": null,
+        "email": "rep.bianca.virnig@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15625",
+        "social": {}
+      }
+    ],
+    "MN:state-house:02A": [
+      {
+        "id": "ocd-person/8a84172a-6b96-4b28-a9ab-bf11625528a3",
+        "name": "Bidal Duran",
+        "office": "state-house",
+        "districtCode": "02A",
+        "contactUrl": null,
+        "email": "rep.bidal.duran@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15629",
+        "social": {}
+      }
+    ],
+    "MN:state-house:22A": [
+      {
+        "id": "ocd-person/ad3245d1-b310-4d50-8290-e642d078f661",
+        "name": "Bjorn Olson",
+        "office": "state-house",
+        "districtCode": "22A",
+        "contactUrl": null,
+        "email": "rep.bjorn.olson@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15544",
+        "social": {}
+      }
+    ],
+    "MN:state-house:17B": [
+      {
+        "id": "ocd-person/fe6a11bc-199d-467e-9447-3999c8250490",
+        "name": "Bobbie Harder",
+        "office": "state-house",
+        "districtCode": "17B",
+        "contactUrl": null,
+        "email": "rep.bobbie.harder@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15601",
+        "social": {}
+      }
+    ],
+    "MN:state-house:54A": [
+      {
+        "id": "ocd-person/05f634e6-f8d3-4983-9604-dfc8dddc574e",
+        "name": "Brad Tabke",
+        "office": "state-house",
+        "districtCode": "54A",
+        "contactUrl": null,
+        "email": "rep.brad.tabke@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15523",
+        "social": {}
+      }
+    ],
+    "MN:state-house:36B": [
+      {
+        "id": "ocd-person/372ff500-488c-4bf6-9557-6b5824c6e193",
+        "name": "Brion Curran",
+        "office": "state-house",
+        "districtCode": "36B",
+        "contactUrl": null,
+        "email": "rep.brion.curran@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15614",
+        "social": {}
+      }
+    ],
+    "MN:state-house:27B": [
+      {
+        "id": "ocd-person/b135d3fd-c3cd-4bb5-a0b8-eefef669aada",
+        "name": "Bryan Lawrence",
+        "office": "state-house",
+        "districtCode": "27B",
+        "contactUrl": null,
+        "email": "rep.bryan.lawrence@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15626",
+        "social": {}
+      }
+    ],
+    "MN:state-house:07B": [
+      {
+        "id": "ocd-person/0fcdf023-48a4-4f62-92d0-0be6715bf229",
+        "name": "Cal Warwas",
+        "office": "state-house",
+        "districtCode": "07B",
+        "contactUrl": null,
+        "email": "rep.cal.warwas@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15648",
+        "social": {}
+      }
+    ],
+    "MN:state-house:49B": [
+      {
+        "id": "ocd-person/bfa93ce5-99ed-4840-9d49-c3531a6e7742",
+        "name": "Carlie Kotyza-Witthuhn",
+        "office": "state-house",
+        "districtCode": "49B",
+        "contactUrl": null,
+        "email": "rep.carlie.kotyza-witthuhn@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15515",
+        "social": {}
+      }
+    ],
+    "MN:state-house:43A": [
+      {
+        "id": "ocd-person/31bf14e3-fcde-4b2f-b2c4-1dd47b9a260b",
+        "name": "Cedrick Frazier",
+        "office": "state-house",
+        "districtCode": "43A",
+        "contactUrl": null,
+        "email": "rep.cedrick.frazier@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15548",
+        "social": {}
+      }
+    ],
+    "MN:state-house:46B": [
+      {
+        "id": "ocd-person/ec1171fd-3b90-4137-b01d-041f905c642d",
+        "name": "Cheryl Youakim",
+        "office": "state-house",
+        "districtCode": "46B",
+        "contactUrl": null,
+        "email": "rep.cheryl.youakim@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15450",
+        "social": {}
+      }
+    ],
+    "MN:state-house:15A": [
+      {
+        "id": "ocd-person/d9abe93e-6eba-4658-a0cd-68610585606b",
+        "name": "Chris Swedzinski",
+        "office": "state-house",
+        "districtCode": "15A",
+        "contactUrl": null,
+        "email": "rep.chris.swedzinski@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15369",
+        "social": {}
+      }
+    ],
+    "MN:state-house:14B": [
+      {
+        "id": "ocd-person/57755948-5912-49c5-b8b7-65c110ae44d9",
+        "name": "Dan Wolgamott",
+        "office": "state-house",
+        "districtCode": "14B",
+        "contactUrl": null,
+        "email": "rep.dan.wolgamott@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15499",
+        "social": {}
+      }
+    ],
+    "MN:state-house:34A": [
+      {
+        "id": "ocd-person/04242ba4-8fb4-4306-98d2-cae358d8e532",
+        "name": "Danny Nadeau",
+        "office": "state-house",
+        "districtCode": "34A",
+        "contactUrl": null,
+        "email": "rep.danny.nadeau@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15612",
+        "social": {}
+      }
+    ],
+    "MN:state-house:16B": [
+      {
+        "id": "ocd-person/c0275aeb-e2ff-44c7-b4ab-cae4bf495d84",
+        "name": "Dave Baker",
+        "office": "state-house",
+        "districtCode": "16B",
+        "contactUrl": null,
+        "email": "rep.dave.baker@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15429",
+        "social": {}
+      }
+    ],
+    "MN:state-house:64B": [
+      {
+        "id": "ocd-person/a8c6c773-371b-4df9-a57a-5d2565c7b876",
+        "name": "Dave Pinto",
+        "office": "state-house",
+        "districtCode": "64B",
+        "contactUrl": null,
+        "email": "rep.dave.pinto@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15444",
+        "social": {}
+      }
+    ],
+    "MN:state-house:40B": [
+      {
+        "id": "ocd-person/0d187b4d-c15c-487e-9602-541bd7dd948a",
+        "name": "David Gottfried",
+        "office": "state-house",
+        "districtCode": "40B",
+        "contactUrl": null,
+        "email": "rep.david.gottfried@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15650",
+        "social": {}
+      }
+    ],
+    "MN:state-house:17A": [
+      {
+        "id": "ocd-person/f4047f6d-971d-41be-bbce-e15dac5829ae",
+        "name": "Dawn Gillman",
+        "office": "state-house",
+        "districtCode": "17A",
+        "contactUrl": null,
+        "email": "rep.dawn.gillman@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15600",
+        "social": {}
+      }
+    ],
+    "MN:state-house:58B": [
+      {
+        "id": "ocd-person/7eb10c5c-1b6e-4ee2-9dac-589e3db32f49",
+        "name": "Drew Roach",
+        "office": "state-house",
+        "districtCode": "58B",
+        "contactUrl": null,
+        "email": "rep.drew.roach@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15642",
+        "social": {}
+      }
+    ],
+    "MN:state-house:24A": [
+      {
+        "id": "ocd-person/6652aa40-32c5-4430-bbf6-707a0b8a1f56",
+        "name": "Duane Quam",
+        "office": "state-house",
+        "districtCode": "24A",
+        "contactUrl": null,
+        "email": "rep.duane.quam@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15366",
+        "social": {}
+      }
+    ],
+    "MN:state-house:36A": [
+      {
+        "id": "ocd-person/f27e2742-5c0f-4dba-a37f-76592f91f6f0",
+        "name": "Elliott Engen",
+        "office": "state-house",
+        "districtCode": "36A",
+        "contactUrl": null,
+        "email": "rep.elliott.engen@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15613",
+        "social": {}
+      }
+    ],
+    "MN:state-house:63B": [
+      {
+        "id": "ocd-person/f38e8115-610c-4e22-b9cb-80bd96311410",
+        "name": "Emma Greenman",
+        "office": "state-house",
+        "districtCode": "63B",
+        "contactUrl": null,
+        "email": "rep.emma.greenman@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15552",
+        "social": {}
+      }
+    ],
+    "MN:state-house:18A": [
+      {
+        "id": "ocd-person/e62d342c-ae38-4607-88d7-3a7f3f7e248b",
+        "name": "Erica Schwartz",
+        "office": "state-house",
+        "districtCode": "18A",
+        "contactUrl": null,
+        "email": "rep.erica.schwartz@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15644",
+        "social": {}
+      }
+    ],
+    "MN:state-house:39A": [
+      {
+        "id": "ocd-person/0d6f7edf-eae0-441d-8089-84472ce1f36f",
+        "name": "Erin Koegel",
+        "office": "state-house",
+        "districtCode": "39A",
+        "contactUrl": null,
+        "email": "rep.erin.koegel@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15465",
+        "social": {}
+      }
+    ],
+    "MN:state-house:59B": [
+      {
+        "id": "ocd-person/b140f0d2-f803-4118-9c6c-72aa322ec3bb",
+        "name": "Esther Agbaje",
+        "office": "state-house",
+        "districtCode": "59B",
+        "contactUrl": null,
+        "email": "rep.esther.agbaje@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15551",
+        "social": {}
+      }
+    ],
+    "MN:state-house:47B": [
+      {
+        "id": "ocd-person/d0e94ca0-b600-4567-88ee-34a861ca38aa",
+        "name": "Ethan Cha",
+        "office": "state-house",
+        "districtCode": "47B",
+        "contactUrl": null,
+        "email": "rep.ethan.cha@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15621",
+        "social": {}
+      }
+    ],
+    "MN:state-house:59A": [
+      {
+        "id": "ocd-person/d8da71a7-c99b-4510-8abc-2d8e78db3fff",
+        "name": "Fue Lee",
+        "office": "state-house",
+        "districtCode": "59A",
+        "contactUrl": null,
+        "email": "rep.fue.lee@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15468",
+        "social": {}
+      }
+    ],
+    "MN:state-house:42B": [
+      {
+        "id": "ocd-person/2cb0f6d7-006d-4f7a-a1a3-218eff6016aa",
+        "name": "Ginny Klevorn",
+        "office": "state-house",
+        "districtCode": "42B",
+        "contactUrl": null,
+        "email": "rep.ginny.klevorn@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.ginnyklevorn.com/",
+        "social": {}
+      }
+    ],
+    "MN:state-house:26B": [
+      {
+        "id": "ocd-person/5bf21441-27fe-4f78-8fc1-83ca3ee5700d",
+        "name": "Greg Davids",
+        "office": "state-house",
+        "districtCode": "26B",
+        "contactUrl": null,
+        "email": "rep.greg.davids@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/10123",
+        "social": {}
+      }
+    ],
+    "MN:state-house:31A": [
+      {
+        "id": "ocd-person/371f41ef-a432-4880-950b-f3ac4b17d02f",
+        "name": "Harry Niska",
+        "office": "state-house",
+        "districtCode": "31A",
+        "contactUrl": null,
+        "email": "rep.harry.niska@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15608",
+        "social": {}
+      }
+    ],
+    "MN:state-house:04A": [
+      {
+        "id": "ocd-person/3ace0851-830e-42a1-8390-27c1142f2367",
+        "name": "Heather Keeler",
+        "office": "state-house",
+        "districtCode": "04A",
+        "contactUrl": null,
+        "email": "rep.heather.keeler@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15539",
+        "social": {}
+      }
+    ],
+    "MN:state-house:38A": [
+      {
+        "id": "ocd-person/05831ea3-3480-4a57-a5ea-a1844a554301",
+        "name": "Huldah Hiltsley",
+        "office": "state-house",
+        "districtCode": "38A",
+        "contactUrl": null,
+        "email": "rep.huldah.momanyi-hiltsley@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15634",
+        "social": {}
+      }
+    ],
+    "MN:state-house:10B": [
+      {
+        "id": "ocd-person/a916d408-21ae-4eee-a2d7-c8019478f521",
+        "name": "Isaac Schultz",
+        "office": "state-house",
+        "districtCode": "10B",
+        "contactUrl": null,
+        "email": "rep.isaac.schultz@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15597",
+        "social": {}
+      }
+    ],
+    "MN:state-house:61B": [
+      {
+        "id": "ocd-person/b6ea5e13-3aad-438c-bed0-749a9bff80c3",
+        "name": "Jamie Long",
+        "office": "state-house",
+        "districtCode": "61B",
+        "contactUrl": null,
+        "email": "rep.jamie.long@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15529",
+        "social": {}
+      }
+    ],
+    "MN:state-house:67B": [
+      {
+        "id": "ocd-person/8892bfba-9b17-4378-8c85-f2d73d2b88ac",
+        "name": "Jay Xiong",
+        "office": "state-house",
+        "districtCode": "67B",
+        "contactUrl": null,
+        "email": "rep.jay.xiong@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15533",
+        "social": {}
+      }
+    ],
+    "MN:state-house:09A": [
+      {
+        "id": "ocd-person/edcf7ea6-b735-46b3-9d50-fa189cda6e8d",
+        "name": "Jeff Backer",
+        "office": "state-house",
+        "districtCode": "09A",
+        "contactUrl": null,
+        "email": "rep.jeff.backer@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15428",
+        "social": {}
+      }
+    ],
+    "MN:state-house:11A": [
+      {
+        "id": "ocd-person/f6aa30f5-2e66-44ae-8de0-352c64ddafe8",
+        "name": "Jeff Dotseth",
+        "office": "state-house",
+        "districtCode": "11A",
+        "contactUrl": null,
+        "email": "rep.jeff.dotseth@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15598",
+        "social": {}
+      }
+    ],
+    "MN:state-house:57B": [
+      {
+        "id": "ocd-person/72c6929c-a329-4613-99a0-5e339f5a045f",
+        "name": "Jeff Witte",
+        "office": "state-house",
+        "districtCode": "57B",
+        "contactUrl": null,
+        "email": "rep.jeff.witte@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15570",
+        "social": {}
+      }
+    ],
+    "MN:state-house:55A": [
+      {
+        "id": "ocd-person/5099a61c-2d2a-41d0-a03d-ccbbb0edbf15",
+        "name": "Jess Hanson",
+        "office": "state-house",
+        "districtCode": "55A",
+        "contactUrl": null,
+        "email": "rep.jessica.hanson@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15563",
+        "social": {}
+      }
+    ],
+    "MN:state-house:04B": [
+      {
+        "id": "ocd-person/0897d40e-d8b4-4b1e-b0cf-e0ae4e9685f2",
+        "name": "Jim Joy",
+        "office": "state-house",
+        "districtCode": "04B",
+        "contactUrl": null,
+        "email": "rep.jim.joy@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.leg.state.mn.us/members/profile/15591",
+        "social": {}
+      }
+    ],
+    "MN:state-house:48A": [
+      {
+        "id": "ocd-person/d7012c12-e223-4409-823b-ba3e55be6677",
+        "name": "Jim Nash",
+        "office": "state-house",
+        "districtCode": "48A",
+        "contactUrl": null,
+        "email": "rep.jim.nash@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15441",
+        "social": {}
+      }
+    ],
+    "MN:state-house:28A": [
+      {
+        "id": "ocd-person/a2fed609-2172-4740-b9f3-f00a6da4716d",
+        "name": "Jimmy Gordon",
+        "office": "state-house",
+        "districtCode": "28A",
+        "contactUrl": null,
+        "email": "rep.jimmy.gordon@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15632",
+        "social": {}
+      }
+    ],
+    "MN:state-house:29A": [
+      {
+        "id": "ocd-person/6292245e-1db4-4a8e-ba2a-a036e7b68044",
+        "name": "Joe McDonald",
+        "office": "state-house",
+        "districtCode": "29A",
+        "contactUrl": null,
+        "email": "rep.joe.mcdonald@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15360",
+        "social": {}
+      }
+    ],
+    "MN:state-house:01A": [
+      {
+        "id": "ocd-person/c86f501e-0b47-4e57-8f5a-d7d0be2392af",
+        "name": "John Burkel",
+        "office": "state-house",
+        "districtCode": "01A",
+        "contactUrl": null,
+        "email": "rep.john.burkel@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15538",
+        "social": {}
+      }
+    ],
+    "MN:state-house:56B": [
+      {
+        "id": "ocd-person/5d8ac115-4a2b-4f0f-b70a-c1df26184891",
+        "name": "John Huot",
+        "office": "state-house",
+        "districtCode": "56B",
+        "contactUrl": null,
+        "email": "rep.john.huot@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15527",
+        "social": {}
+      }
+    ],
+    "MN:state-house:57A": [
+      {
+        "id": "ocd-person/8c4ed90f-f243-43f1-b205-0edd374777d8",
+        "name": "Jon Koznick",
+        "office": "state-house",
+        "districtCode": "57A",
+        "contactUrl": null,
+        "email": "rep.jon.koznick@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15436",
+        "social": {}
+      }
+    ],
+    "MN:state-house:06B": [
+      {
+        "id": "ocd-person/18549c8f-0d80-4c2f-bdcc-f3762c3acb19",
+        "name": "Josh Heintzeman",
+        "office": "state-house",
+        "districtCode": "06B",
+        "contactUrl": null,
+        "email": "rep.josh.heintzeman@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15435",
+        "social": {}
+      }
+    ],
+    "MN:state-house:33B": [
+      {
+        "id": "ocd-person/4558fb30-435a-4fde-acdd-bdcc82c7da45",
+        "name": "Josiah Hill",
+        "office": "state-house",
+        "districtCode": "33B",
+        "contactUrl": null,
+        "email": "rep.josiah.hill@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15611",
+        "social": {}
+      }
+    ],
+    "MN:state-house:50A": [
+      {
+        "id": "ocd-person/15f0a29b-674a-4146-8a93-019c9a3f305e",
+        "name": "Julie Greene",
+        "office": "state-house",
+        "districtCode": "50A",
+        "contactUrl": null,
+        "email": "rep.julie.greene@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15633",
+        "social": {}
+      }
+    ],
+    "MN:state-house:55B": [
+      {
+        "id": "ocd-person/1912cdc1-267c-4d36-acec-08896502658e",
+        "name": "Kaela Berg",
+        "office": "state-house",
+        "districtCode": "55B",
+        "contactUrl": null,
+        "email": "rep.kaela.berg@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15550",
+        "social": {}
+      }
+    ],
+    "MN:state-house:35B": [
+      {
+        "id": "ocd-person/ecea4720-d4e0-4c21-a4dd-76cdb54023d2",
+        "name": "Kari Rehrauer",
+        "office": "state-house",
+        "districtCode": "35B",
+        "contactUrl": null,
+        "email": "rep.kari.rehrauer@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15640",
+        "social": {}
+      }
+    ],
+    "MN:state-house:61A": [
+      {
+        "id": "ocd-person/12252e69-5ffb-459b-a84e-333af1219f94",
+        "name": "Katie Jones",
+        "office": "state-house",
+        "districtCode": "61A",
+        "contactUrl": null,
+        "email": "rep.katie.jones@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15638",
+        "social": {}
+      }
+    ],
+    "MN:state-house:19A": [
+      {
+        "id": "ocd-person/939c0bab-e76d-443f-b46b-7f98d05036e2",
+        "name": "Keith Allen",
+        "office": "state-house",
+        "districtCode": "19A",
+        "contactUrl": null,
+        "email": "rep.keith.allen@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15627",
+        "social": {}
+      }
+    ],
+    "MN:state-house:40A": [
+      {
+        "id": "ocd-person/3eb5eb9d-cd17-4a48-ac4c-4f7a7b8e133e",
+        "name": "Kelly Moller",
+        "office": "state-house",
+        "districtCode": "40A",
+        "contactUrl": null,
+        "email": "rep.kelly.moller@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15511",
+        "social": {}
+      }
+    ],
+    "MN:state-house:25A": [
+      {
+        "id": "ocd-person/6902f219-7571-4bf1-a0af-ffa9eae2c23f",
+        "name": "Kim Hicks",
+        "office": "state-house",
+        "districtCode": "25A",
+        "contactUrl": null,
+        "email": "rep.kim.hicks@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15605",
+        "social": {}
+      }
+    ],
+    "MN:state-house:05A": [
+      {
+        "id": "ocd-person/d9b75b0d-6065-4efc-81e2-03084dee070a",
+        "name": "Krista Knudsen",
+        "office": "state-house",
+        "districtCode": "05A",
+        "contactUrl": null,
+        "email": "rep.krista.knudsen@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15592",
+        "social": {}
+      }
+    ],
+    "MN:state-house:58A": [
+      {
+        "id": "ocd-person/ed73b309-bb2f-4805-a33b-a3fb760e6664",
+        "name": "Kristi Pursell",
+        "office": "state-house",
+        "districtCode": "58A",
+        "contactUrl": null,
+        "email": "rep.kristi.pursell@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15571",
+        "social": {}
+      }
+    ],
+    "MN:state-house:37B": [
+      {
+        "id": "ocd-person/ad111cf3-f5f9-4e94-a087-dc39ce1fb136",
+        "name": "Kristin Bahner",
+        "office": "state-house",
+        "districtCode": "37B",
+        "contactUrl": null,
+        "email": "rep.kristin.bahner@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15505",
+        "social": {}
+      }
+    ],
+    "MN:state-house:37A": [
+      {
+        "id": "ocd-person/d32d0b31-20af-4068-a5bd-42fd0a072ded",
+        "name": "Kristin Robbins",
+        "office": "state-house",
+        "districtCode": "37A",
+        "contactUrl": null,
+        "email": "rep.kristin.robbins@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15504",
+        "social": {}
+      }
+    ],
+    "MN:state-house:46A": [
+      {
+        "id": "ocd-person/a4451923-cc1b-4d5d-9c14-5c50062335a2",
+        "name": "Larry Kraft",
+        "office": "state-house",
+        "districtCode": "46A",
+        "contactUrl": null,
+        "email": "rep.larry.kraft@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15619",
+        "social": {}
+      }
+    ],
+    "MN:state-house:66A": [
+      {
+        "id": "ocd-person/afff2a0a-1b2d-480e-a90d-8609842f0927",
+        "name": "Leigh Finke",
+        "office": "state-house",
+        "districtCode": "66A",
+        "contactUrl": null,
+        "email": "rep.leigh.finke@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15575",
+        "social": {}
+      }
+    ],
+    "MN:state-house:44B": [
+      {
+        "id": "ocd-person/00240593-7a31-4725-8c31-c723115732bb",
+        "name": "Leon Lillie",
+        "office": "state-house",
+        "districtCode": "44B",
+        "contactUrl": null,
+        "email": "rep.leon.lillie@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/12269",
+        "social": {}
+      }
+    ],
+    "MN:state-house:13A": [
+      {
+        "id": "ocd-person/7b7b8d46-05d4-4285-b728-abcad1a430d5",
+        "name": "Lisa Demuth",
+        "office": "state-house",
+        "districtCode": "13A",
+        "contactUrl": null,
+        "email": "rep.lisa.demuth@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15498",
+        "social": {}
+      }
+    ],
+    "MN:state-house:67A": [
+      {
+        "id": "ocd-person/f9dbe591-5c2d-4a25-836a-ae05863b40ff",
+        "name": "Liz Lee",
+        "office": "state-house",
+        "districtCode": "67A",
+        "contactUrl": null,
+        "email": "rep.liz.lee@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15576",
+        "social": {}
+      }
+    ],
+    "MN:state-house:52A": [
+      {
+        "id": "ocd-person/e57307af-8e06-4c44-997d-a2cad2cdb231",
+        "name": "Liz Reyer",
+        "office": "state-house",
+        "districtCode": "52A",
+        "contactUrl": null,
+        "email": "rep.liz.reyer@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.leg.state.mn.us/members/profile/15549",
+        "social": {}
+      }
+    ],
+    "MN:state-house:48B": [
+      {
+        "id": "ocd-person/75e19dbb-1f4b-4ace-b87e-201e445d25b4",
+        "name": "Lucy Rehm",
+        "office": "state-house",
+        "districtCode": "48B",
+        "contactUrl": null,
+        "email": "rep.lucy.rehm@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15622",
+        "social": {}
+      }
+    ],
+    "MN:state-house:18B": [
+      {
+        "id": "ocd-person/b0d93fc5-2efc-4908-aceb-7b2fc208b34d",
+        "name": "Luke Frederick",
+        "office": "state-house",
+        "districtCode": "18B",
+        "contactUrl": null,
+        "email": "rep.luke.frederick@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15542",
+        "social": {}
+      }
+    ],
+    "MN:state-house:65B": [
+      {
+        "id": "ocd-person/d1c094c0-6184-49e4-a18a-d5b900caca1b",
+        "name": "María Isa Pérez-Vega",
+        "office": "state-house",
+        "districtCode": "65B",
+        "contactUrl": null,
+        "email": "rep.maria.isa.perez-vega@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15574",
+        "social": {}
+      }
+    ],
+    "MN:state-house:29B": [
+      {
+        "id": "ocd-person/0682bc6b-e4f2-427a-917b-96fbc49bb741",
+        "name": "Marion Rarick",
+        "office": "state-house",
+        "districtCode": "29B",
+        "contactUrl": null,
+        "email": "rep.marion.rarick@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15409",
+        "social": {}
+      }
+    ],
+    "MN:state-house:21B": [
+      {
+        "id": "ocd-person/9837607c-b08b-4742-ad5f-3e8f72f8b7b4",
+        "name": "Marj Fogelman",
+        "office": "state-house",
+        "districtCode": "21B",
+        "contactUrl": null,
+        "email": "rep.marj.fogelman@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15604",
+        "social": {}
+      }
+    ],
+    "MN:state-house:53A": [
+      {
+        "id": "ocd-person/1acddc90-d32a-4495-a769-27f8b57193b7",
+        "name": "Mary Clardy",
+        "office": "state-house",
+        "districtCode": "53A",
+        "contactUrl": null,
+        "email": "rep.mary.frances.clardy@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15568",
+        "social": {}
+      }
+    ],
+    "MN:state-house:12B": [
+      {
+        "id": "ocd-person/1b284763-8577-49ab-b641-f4f079196646",
+        "name": "Mary Franson",
+        "office": "state-house",
+        "districtCode": "12B",
+        "contactUrl": null,
+        "email": "rep.mary.franson@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15347",
+        "social": {}
+      }
+    ],
+    "MN:state-house:02B": [
+      {
+        "id": "ocd-person/cbab855f-4a47-4afd-b74a-468a4545b82b",
+        "name": "Matt Bliss",
+        "office": "state-house",
+        "districtCode": "02B",
+        "contactUrl": null,
+        "email": "rep.matt.bliss@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15458",
+        "social": {}
+      }
+    ],
+    "MN:state-house:32B": [
+      {
+        "id": "ocd-person/662f07d4-7dd5-4549-bded-c8b5a200e054",
+        "name": "Matt Norris",
+        "office": "state-house",
+        "districtCode": "32B",
+        "contactUrl": null,
+        "email": "rep.matt.norris@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15609",
+        "social": {}
+      }
+    ],
+    "MN:state-house:28B": [
+      {
+        "id": "ocd-person/afca05de-e5ff-4b1c-b38c-444f37b92687",
+        "name": "Max Rymer",
+        "office": "state-house",
+        "districtCode": "28B",
+        "contactUrl": null,
+        "email": "rep.max.rymer@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15643",
+        "social": {}
+      }
+    ],
+    "MN:state-house:64A": [
+      {
+        "id": "ocd-person/8164812a-be9a-44e0-bf42-741cb4a01e2c",
+        "name": "Meg Luger-Nikolai",
+        "office": "state-house",
+        "districtCode": "64A",
+        "contactUrl": null,
+        "email": "rep.meg.luger-nikolai@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15654",
+        "social": {}
+      }
+    ],
+    "MN:state-house:51A": [
+      {
+        "id": "ocd-person/8910b3db-698e-4019-b976-0ee19ecb8ca0",
+        "name": "Mike Howard",
+        "office": "state-house",
+        "districtCode": "51A",
+        "contactUrl": null,
+        "email": "rep.michael.howard@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15518",
+        "social": {}
+      }
+    ],
+    "MN:state-house:43B": [
+      {
+        "id": "ocd-person/4815983e-d0b9-4ebc-855f-bb9eac8aa5ae",
+        "name": "Mike Freiberg",
+        "office": "state-house",
+        "districtCode": "43B",
+        "contactUrl": null,
+        "email": "rep.mike.freiberg@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15398",
+        "social": {}
+      }
+    ],
+    "MN:state-house:05B": [
+      {
+        "id": "ocd-person/4c34f3d9-8890-4145-8a96-92ab23f046c0",
+        "name": "Mike Wiener",
+        "office": "state-house",
+        "districtCode": "05B",
+        "contactUrl": null,
+        "email": "rep.mike.wiener@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15593",
+        "social": {}
+      }
+    ],
+    "MN:state-house:60B": [
+      {
+        "id": "ocd-person/591ea10b-1362-434e-90be-2db0877a0e9c",
+        "name": "Mohamud Noor",
+        "office": "state-house",
+        "districtCode": "60B",
+        "contactUrl": null,
+        "email": "rep.mohamud.noor@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15528",
+        "social": {}
+      }
+    ],
+    "MN:state-house:03B": [
+      {
+        "id": "ocd-person/1b1055a8-959c-452c-a2a8-106a4ccef20d",
+        "name": "Natalie Zeleznikar",
+        "office": "state-house",
+        "districtCode": "03B",
+        "contactUrl": null,
+        "email": "rep.natalie.zeleznikar@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15624",
+        "social": {}
+      }
+    ],
+    "MN:state-house:51B": [
+      {
+        "id": "ocd-person/63b26a4d-ae7c-4267-89ab-dfa4a1f341ad",
+        "name": "Nathan Coulter",
+        "office": "state-house",
+        "districtCode": "51B",
+        "contactUrl": null,
+        "email": "rep.nathan.coulter@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15567",
+        "social": {}
+      }
+    ],
+    "MN:state-house:11B": [
+      {
+        "id": "ocd-person/172cb289-beec-4bc1-8627-f027f2cd3769",
+        "name": "Nathan Nelson",
+        "office": "state-house",
+        "districtCode": "11B",
+        "contactUrl": null,
+        "email": "rep.nathan.nelson@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15534",
+        "social": {}
+      }
+    ],
+    "MN:state-house:42A": [
+      {
+        "id": "ocd-person/764db471-e56d-4ef0-9df8-4e7a164c3b7e",
+        "name": "Ned Carroll",
+        "office": "state-house",
+        "districtCode": "42A",
+        "contactUrl": null,
+        "email": "rep.ned.carroll@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15617",
+        "social": {}
+      }
+    ],
+    "MN:state-house:32A": [
+      {
+        "id": "ocd-person/171224fc-8a8d-4516-aa87-a2f5bcf1ea46",
+        "name": "Nolan West",
+        "office": "state-house",
+        "districtCode": "32A",
+        "contactUrl": null,
+        "email": "rep.nolan.west@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15476",
+        "social": {}
+      }
+    ],
+    "MN:state-house:20A": [
+      {
+        "id": "ocd-person/26c19220-1368-4453-81c9-3b0c395e3949",
+        "name": "Pam Altendorf",
+        "office": "state-house",
+        "districtCode": "20A",
+        "contactUrl": null,
+        "email": "rep.pam.altendorf@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15602",
+        "social": {}
+      }
+    ],
+    "MN:state-house:23B": [
+      {
+        "id": "ocd-person/71df2690-6a54-4452-960a-54a5b6540bc7",
+        "name": "Patty Mueller",
+        "office": "state-house",
+        "districtCode": "23B",
+        "contactUrl": null,
+        "email": "rep.patricia.mueller@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15561",
+        "social": {}
+      }
+    ],
+    "MN:state-house:33A": [
+      {
+        "id": "ocd-person/4bab18ef-55dc-44bf-adfe-8dbdf9488a09",
+        "name": "Patti Anderson",
+        "office": "state-house",
+        "districtCode": "33A",
+        "contactUrl": null,
+        "email": "rep.patti.anderson@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15610",
+        "social": {}
+      }
+    ],
+    "MN:state-house:45B": [
+      {
+        "id": "ocd-person/b393cb61-cb71-4cd0-8132-6e21c2a7202d",
+        "name": "Patty Acomb",
+        "office": "state-house",
+        "districtCode": "45B",
+        "contactUrl": null,
+        "email": "rep.patty.acomb@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15513",
+        "social": {}
+      }
+    ],
+    "MN:state-house:12A": [
+      {
+        "id": "ocd-person/ab35dde5-226a-4427-9344-c74d8291a75f",
+        "name": "Paul Anderson",
+        "office": "state-house",
+        "districtCode": "12A",
+        "contactUrl": null,
+        "email": "rep.paul.anderson@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15301",
+        "social": {}
+      }
+    ],
+    "MN:state-house:30B": [
+      {
+        "id": "ocd-person/3e0eb8aa-b66c-4b30-9a0e-f1326c6f0589",
+        "name": "Paul Novotny",
+        "office": "state-house",
+        "districtCode": "30B",
+        "contactUrl": null,
+        "email": "rep.paul.novotny@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15536",
+        "social": {}
+      }
+    ],
+    "MN:state-house:15B": [
+      {
+        "id": "ocd-person/380875c6-dc4c-4062-8c2d-f5b80dd64c4c",
+        "name": "Paul Torkelson",
+        "office": "state-house",
+        "districtCode": "15B",
+        "contactUrl": null,
+        "email": "rep.paul.torkelson@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15304",
+        "social": {}
+      }
+    ],
+    "MN:state-house:23A": [
+      {
+        "id": "ocd-person/16c8390c-93c6-403e-83d4-5ff1a81fe4aa",
+        "name": "Peggy Bennett",
+        "office": "state-house",
+        "districtCode": "23A",
+        "contactUrl": null,
+        "email": "rep.peggy.bennett@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15430",
+        "social": {}
+      }
+    ],
+    "MN:state-house:31B": [
+      {
+        "id": "ocd-person/75f1b339-bd9f-4f7c-820b-75812553bde0",
+        "name": "Peggy Scott",
+        "office": "state-house",
+        "districtCode": "31B",
+        "contactUrl": null,
+        "email": "rep.peggy.scott@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15314",
+        "social": {}
+      }
+    ],
+    "MN:state-house:08A": [
+      {
+        "id": "ocd-person/fb643600-2577-4561-a902-6f158a5c40e4",
+        "name": "Pete Johnson",
+        "office": "state-house",
+        "districtCode": "08A",
+        "contactUrl": null,
+        "email": "rep.pete.johnson@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15636",
+        "social": {}
+      }
+    ],
+    "MN:state-house:44A": [
+      {
+        "id": "ocd-person/929dc6f7-63f4-4a9d-ba24-6ab8c5964acf",
+        "name": "Peter Fischer",
+        "office": "state-house",
+        "districtCode": "44A",
+        "contactUrl": null,
+        "email": "rep.peter.fischer@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15396",
+        "social": {}
+      }
+    ],
+    "MN:state-house:53B": [
+      {
+        "id": "ocd-person/c41944c1-d89b-4c3f-a76f-d5c58d0a507f",
+        "name": "Rick Hansen",
+        "office": "state-house",
+        "districtCode": "53B",
+        "contactUrl": null,
+        "email": "rep.rick.hansen@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/12282",
+        "social": {}
+      }
+    ],
+    "MN:state-house:26A": [
+      {
+        "id": "ocd-person/e783687f-ea0d-480a-a1ff-3072f491fb44",
+        "name": "Ripper Repinski",
+        "office": "state-house",
+        "districtCode": "26A",
+        "contactUrl": null,
+        "email": "rep.aaron.repinski@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15641",
+        "social": {}
+      }
+    ],
+    "MN:state-house:56A": [
+      {
+        "id": "ocd-person/f2b7f80c-abb4-4204-839f-eb9a4de6dbab",
+        "name": "Robert Bierman",
+        "office": "state-house",
+        "districtCode": "56A",
+        "contactUrl": null,
+        "email": "rep.robert.bierman@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15526",
+        "social": {}
+      }
+    ],
+    "MN:state-house:03A": [
+      {
+        "id": "ocd-person/e7b3aed7-aa50-4c4b-bd53-eacc60e53ba8",
+        "name": "Roger Skraba",
+        "office": "state-house",
+        "districtCode": "03A",
+        "contactUrl": null,
+        "email": "rep.roger.skraba@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15623",
+        "social": {}
+      }
+    ],
+    "MN:state-house:10A": [
+      {
+        "id": "ocd-person/3059daef-810c-4917-b6fa-c059312f97bf",
+        "name": "Ron Kresha",
+        "office": "state-house",
+        "districtCode": "10A",
+        "contactUrl": null,
+        "email": "rep.ron.kresha@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15404",
+        "social": {}
+      }
+    ],
+    "MN:state-house:65A": [
+      {
+        "id": "ocd-person/1ff5f689-18c9-4d74-970f-c289f915dc6a",
+        "name": "Samakab Hussein",
+        "office": "state-house",
+        "districtCode": "65A",
+        "contactUrl": null,
+        "email": "rep.samakab.hussein@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15573",
+        "social": {}
+      }
+    ],
+    "MN:state-house:63A": [
+      {
+        "id": "ocd-person/74dec7df-a9b9-48aa-9fae-bbe45990f4f5",
+        "name": "Samantha Sencer-Mura",
+        "office": "state-house",
+        "districtCode": "63A",
+        "contactUrl": null,
+        "email": "rep.samantha.sencer-mura@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15572",
+        "social": {}
+      }
+    ],
+    "MN:state-house:38B": [
+      {
+        "id": "ocd-person/3f73ba2f-f038-47ff-b721-27118592b691",
+        "name": "Samantha Vang",
+        "office": "state-house",
+        "districtCode": "38B",
+        "contactUrl": null,
+        "email": "rep.samantha.vang@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15510",
+        "social": {}
+      }
+    ],
+    "MN:state-house:39B": [
+      {
+        "id": "ocd-person/94c52434-9616-43bd-863b-9481943dedb1",
+        "name": "Sandra Feist",
+        "office": "state-house",
+        "districtCode": "39B",
+        "contactUrl": null,
+        "email": "rep.sandra.feist@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15547",
+        "social": {}
+      }
+    ],
+    "MN:state-house:16A": [
+      {
+        "id": "ocd-person/18e1e0aa-a224-4772-b4d1-11c7a9ed510f",
+        "name": "Scott Van Binsbergen",
+        "office": "state-house",
+        "districtCode": "16A",
+        "contactUrl": null,
+        "email": "rep.scott.vanbinsbergen@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15647",
+        "social": {}
+      }
+    ],
+    "MN:state-house:27A": [
+      {
+        "id": "ocd-person/204ac87d-7f04-4b49-adc4-658faec7d413",
+        "name": "Shane Mekeland",
+        "office": "state-house",
+        "districtCode": "27A",
+        "contactUrl": null,
+        "email": "rep.shane.mekeland@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15500",
+        "social": {}
+      }
+    ],
+    "MN:state-house:47A": [
+      {
+        "id": "ocd-person/0b860ed2-515a-4212-81ab-cc27b5e16223",
+        "name": "Shelley Buck",
+        "office": "state-house",
+        "districtCode": "47A",
+        "contactUrl": null,
+        "email": "rep.shelley.buck@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15655",
+        "social": {}
+      }
+    ],
+    "MN:state-house:07A": [
+      {
+        "id": "ocd-person/2e342c55-f56d-4895-9dd2-ef1271f784c0",
+        "name": "Spencer Igo",
+        "office": "state-house",
+        "districtCode": "07A",
+        "contactUrl": null,
+        "email": "rep.spencer.igo@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15540",
+        "social": {}
+      }
+    ],
+    "MN:state-house:50B": [
+      {
+        "id": "ocd-person/b867618c-7a49-4cb3-94ac-b5836ae8dedf",
+        "name": "Steve Elkins",
+        "office": "state-house",
+        "districtCode": "50B",
+        "contactUrl": null,
+        "email": "rep.steve.elkins@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15517",
+        "social": {}
+      }
+    ],
+    "MN:state-house:01B": [
+      {
+        "id": "ocd-person/23bda6c1-1fa1-4d42-9b6c-8c76d1d91227",
+        "name": "Steve Gander",
+        "office": "state-house",
+        "districtCode": "01B",
+        "contactUrl": null,
+        "email": "rep.steve.gander@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15631",
+        "social": {}
+      }
+    ],
+    "MN:state-house:20B": [
+      {
+        "id": "ocd-person/3c90edec-1bce-4197-8e1c-cc840102c7a9",
+        "name": "Steve Jacob",
+        "office": "state-house",
+        "districtCode": "20B",
+        "contactUrl": null,
+        "email": "rep.steven.jacob@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15603",
+        "social": {}
+      }
+    ],
+    "MN:state-house:60A": [
+      {
+        "id": "ocd-person/e60bb3ff-5164-4d6d-9029-d2e3d2ac69a0",
+        "name": "Sydney Jordan",
+        "office": "state-house",
+        "districtCode": "60A",
+        "contactUrl": null,
+        "email": "rep.sydney.jordan@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15535",
+        "social": {}
+      }
+    ],
+    "MN:state-house:22B": [
+      {
+        "id": "ocd-person/9e7eca64-ff97-48f2-8887-916e50d917cd",
+        "name": "Terry Stier",
+        "office": "state-house",
+        "districtCode": "22B",
+        "contactUrl": null,
+        "email": "rep.terry.stier@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15646",
+        "social": {}
+      }
+    ],
+    "MN:state-house:13B": [
+      {
+        "id": "ocd-person/015d0cf4-9742-4050-8084-a62be4107f2e",
+        "name": "Tim O'Driscoll",
+        "office": "state-house",
+        "districtCode": "13B",
+        "contactUrl": null,
+        "email": "rep.tim.odriscoll@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15364",
+        "social": {}
+      }
+    ],
+    "MN:state-house:24B": [
+      {
+        "id": "ocd-person/ed6e8851-f7a8-41af-b2b6-570bd2004587",
+        "name": "Tina Liebling",
+        "office": "state-house",
+        "districtCode": "24B",
+        "contactUrl": null,
+        "email": "rep.tina.liebling@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/12268",
+        "social": {}
+      }
+    ],
+    "MN:state-house:41B": [
+      {
+        "id": "ocd-person/05de7bba-70ee-4848-b0ec-d67354b6073a",
+        "name": "Tom Dippel",
+        "office": "state-house",
+        "districtCode": "41B",
+        "contactUrl": null,
+        "email": "rep.tom.dippel@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15628",
+        "social": {}
+      }
+    ],
+    "MN:state-house:09B": [
+      {
+        "id": "ocd-person/a798a6be-e28f-447c-b9ce-ffd7bf9a0ed4",
+        "name": "Tom Murphy",
+        "office": "state-house",
+        "districtCode": "09B",
+        "contactUrl": null,
+        "email": "rep.tom.murphy@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15596",
+        "social": {}
+      }
+    ],
+    "MN:state-house:19B": [
+      {
+        "id": "ocd-person/2989633c-a60b-4337-972d-49941a4db1b6",
+        "name": "Tom Sexton",
+        "office": "state-house",
+        "districtCode": "19B",
+        "contactUrl": null,
+        "email": "rep.tom.sexton@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15645",
+        "social": {}
+      }
+    ],
+    "MN:state-house:30A": [
+      {
+        "id": "ocd-person/0b721953-c642-4b33-b203-5eb3f3da210b",
+        "name": "Walter Hudson",
+        "office": "state-house",
+        "districtCode": "30A",
+        "contactUrl": null,
+        "email": "rep.walter.hudson@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15607",
+        "social": {}
+      }
+    ],
+    "MN:state-house:41A": [
+      {
+        "id": "ocd-person/0926949b-8d9e-4fc0-b860-7662f46afdc6",
+        "name": "Wayne Johnson",
+        "office": "state-house",
+        "districtCode": "41A",
+        "contactUrl": null,
+        "email": "rep.wayne.johnson@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15637",
+        "social": {}
+      }
+    ],
+    "MN:state-house:34B": [
+      {
+        "id": "ocd-person/622e5358-869c-4d25-b6ed-e5425ca56caa",
+        "name": "Xp Lee",
+        "office": "state-house",
+        "districtCode": "34B",
+        "contactUrl": null,
+        "email": "rep.xp.lee@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15652",
+        "social": {}
+      }
+    ],
+    "MN:state-house:35A": [
+      {
+        "id": "ocd-person/ed5f1cc0-ff12-461e-9016-0ef27f180430",
+        "name": "Zack Stephenson",
+        "office": "state-house",
+        "districtCode": "35A",
+        "contactUrl": null,
+        "email": "rep.zack.stephenson@house.mn.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15507",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:050": [
+      {
+        "id": "ocd-person/c5f2a744-0a3e-481f-9224-e4d5a58b9c9d",
+        "name": "Alice Mann",
+        "office": "state-senate",
+        "districtCode": "050",
+        "contactUrl": null,
+        "email": "sen.alice.mann@senate.mn",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mn/members/member_bio.html?mem_id=1270",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:047": [
+      {
+        "id": "ocd-person/8300aa36-f818-4ae8-ad31-f9373e396e08",
+        "name": "Amanda Hemmingsen-Jaeger",
+        "office": "state-senate",
+        "districtCode": "047",
+        "contactUrl": null,
+        "email": "sen.amanda.hemmingsen.jaeger@mnsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mn.gov/members/profile/15620",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:027": [
+      {
+        "id": "ocd-person/aabdca28-85ec-41e4-be90-726acaaa0cff",
+        "name": "Andrew Mathews",
+        "office": "state-senate",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "sen.andrew.mathews@senate.mn",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mn/members/member_bio.html?mem_id=1222",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:016": [
+      {
+        "id": "ocd-person/3e1cd4f3-2c37-4531-b2cb-ca875c82d773",
+        "name": "Andrew Lang",
+        "office": "state-senate",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "sen.andrew.lang@senate.mn",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mn/members/member_bio.html?mem_id=1223",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:043": [
+      {
+        "id": "ocd-person/ec588921-873b-4335-8fa1-2e3485008d3e",
+        "name": "Ann Rest",
+        "office": "state-senate",
+        "districtCode": "043",
+        "contactUrl": null,
+        "email": "sen.ann.rest@senate.mn",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mn/members/member_bio.html?mem_id=1051",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:045": [
+      {
+        "id": "ocd-person/4749e0fb-4f41-46e3-a8b4-19fdbbbde113",
+        "name": "Ann Johnson Stewart",
+        "office": "state-senate",
+        "districtCode": "045",
+        "contactUrl": null,
+        "email": "sen.ann.johnson.stewart@senate.mn",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mn/members/member_bio.html?mem_id=1243",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:014": [
+      {
+        "id": "ocd-person/20c89480-8cde-4106-8b3d-54183371960a",
+        "name": "Aric Putnam",
+        "office": "state-senate",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "sen.aric.putnam@senate.mn",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mn/members/member_bio.html?mem_id=1249",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:058": [
+      {
+        "id": "ocd-person/05fb3c26-0704-49c8-8eb6-8c624b752434",
+        "name": "Bill Lieske",
+        "office": "state-senate",
+        "districtCode": "058",
+        "contactUrl": null,
+        "email": "sen.bill.lieske@senate.mn",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mn/members/member_bio.html?mem_id=1272",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:021": [
+      {
+        "id": "ocd-person/f839da78-1e9c-4e4b-b1d7-d203970ec6b2",
+        "name": "Bill Weber",
+        "office": "state-senate",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "sen.bill.weber@senate.mn",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mn/members/member_bio.html?mem_id=1199",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:059": [
+      {
+        "id": "ocd-person/c7436be4-472a-4d5e-82f5-f46359395d3a",
+        "name": "Bobby Joe Champion",
+        "office": "state-senate",
+        "districtCode": "059",
+        "contactUrl": null,
+        "email": "sen.bobby.champion@senate.mn",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mn/members/member_bio.html?mem_id=1212",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:042": [
+      {
+        "id": "ocd-person/7536b66f-54fe-436e-ba03-83291c3c8d12",
+        "name": "Bonnie Westlin",
+        "office": "state-senate",
+        "districtCode": "042",
+        "contactUrl": null,
+        "email": "sen.bwestlin@senate.mn",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mn/members/member_bio.html?mem_id=1266",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:031": [
+      {
+        "id": "ocd-person/57b9021d-f5b7-4f80-a82d-a93ca9a123d0",
+        "name": "Cal Bahr",
+        "office": "state-senate",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "sen.cal.bahr@senate.mn",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mn/members/member_bio.html?mem_id=1261",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:024": [
+      {
+        "id": "ocd-person/69ac712d-4de2-448a-8b84-ef07b4c4e423",
+        "name": "Carla Nelson",
+        "office": "state-senate",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "sen.carla.nelson@senate.mn",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mn/members/member_bio.html?mem_id=1178",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:066": [
+      {
+        "id": "ocd-person/9afffc3e-2fd8-404c-beeb-5bf3e17397ce",
+        "name": "Clare Oumou Verbeten",
+        "office": "state-senate",
+        "districtCode": "066",
+        "contactUrl": null,
+        "email": "sen.clare.oumou.verbeten@senate.mn",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mn/members/member_bio.html?mem_id=1274",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:061": [
+      {
+        "id": "ocd-person/4dc8ff31-159a-457a-9551-a897d222f87e",
+        "name": "Scott Dibble",
+        "office": "state-senate",
+        "districtCode": "061",
+        "contactUrl": null,
+        "email": "sen.scott.dibble@senate.mn",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mn/members/member_bio.html?mem_id=1010",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:060": [
+      {
+        "id": "ocd-person/2c27d592-c50b-45ae-b62a-ff657c828a5c",
+        "name": "Doron Clark",
+        "office": "state-senate",
+        "districtCode": "060",
+        "contactUrl": null,
+        "email": "sen.doron.clark@senate.mn",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mn/members/member_bio.html?mem_id=1275",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:030": [
+      {
+        "id": "ocd-person/a9040c8f-56d4-4ad9-83f5-e6f1216e7a5e",
+        "name": "Eric Lucero",
+        "office": "state-senate",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "sen.eric.lucero@senate.mn",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mn/members/member_bio.html?mem_id=1260",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:054": [
+      {
+        "id": "ocd-person/f520232e-1086-4353-b904-9ff7a89ba5e8",
+        "name": "Eric Pratt",
+        "office": "state-senate",
+        "districtCode": "054",
+        "contactUrl": null,
+        "email": "sen.eric.pratt@mnsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mn/members/member_bio.html?mem_id=1210",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:056": [
+      {
+        "id": "ocd-person/5233b98b-0b6d-47c9-9fc0-9218a592f8d8",
+        "name": "Erin Maye Quade",
+        "office": "state-senate",
+        "districtCode": "056",
+        "contactUrl": null,
+        "email": "sen.erin.mayequade@senate.mn",
+        "phone": null,
+        "address": null,
+        "website": "https://erinmayequade.com/",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:064": [
+      {
+        "id": "ocd-person/81828030-d1b8-4641-8692-8148fca58b28",
+        "name": "Erin Murphy",
+        "office": "state-senate",
+        "districtCode": "064",
+        "contactUrl": null,
+        "email": "sen.erin.murphy@senate.mn",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mn/members/member_bio.html?mem_id=1248",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:067": [
+      {
+        "id": "ocd-person/5644f3f8-6394-4ab6-9619-7ab6702b37ea",
+        "name": "Foung Hawj",
+        "office": "state-senate",
+        "districtCode": "067",
+        "contactUrl": null,
+        "email": "sen.foung.hawj@senate.mn",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mn/members/member_bio.html?mem_id=1213",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:015": [
+      {
+        "id": "ocd-person/d1b377a1-8caa-4e37-999b-83ef8a1bf92c",
+        "name": "Gary Dahms",
+        "office": "state-senate",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "sen.gary.dahms@mnsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mn/members/member_bio.html?mem_id=1174",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:023": [
+      {
+        "id": "ocd-person/d3857eb4-0ec5-4406-840a-e338aad6a238",
+        "name": "Gene Dornink",
+        "office": "state-senate",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "sen.gene.dornink@mnsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mn/members/member_bio.html?mem_id=1250",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:017": [
+      {
+        "id": "ocd-person/7a52595e-fa21-4e21-88d6-b03e4d9f1f77",
+        "name": "Glenn Gruenhagen",
+        "office": "state-senate",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "sen.glenn.gruenhagen@senate.mn",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mn/members/member_bio.html?mem_id=1257",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:003": [
+      {
+        "id": "ocd-person/6a13cdd4-3646-4fe9-a2a3-5f1399c2c146",
+        "name": "Grant Hauschild",
+        "office": "state-senate",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "sen.grant.hauschild@senate.mn",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mn/members/member_bio.html?mem_id=1252",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:036": [
+      {
+        "id": "ocd-person/9411a121-c47d-431a-b407-88ff5c891c5f",
+        "name": "Heather Gustafson",
+        "office": "state-senate",
+        "districtCode": "036",
+        "contactUrl": null,
+        "email": "sen.heather.gustafson@senate.mn",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mn/members/member_bio.html?mem_id=1263",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:011": [
+      {
+        "id": "ocd-person/f15c0d42-4380-4f9b-b66d-14ffe61e1a40",
+        "name": "Jason Rarick",
+        "office": "state-senate",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "sen.jason.rarick@mnsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.mnsenaterepublicans.com/jason-rarick/",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:013": [
+      {
+        "id": "ocd-person/971dbd16-363f-4151-a75c-306746aec18e",
+        "name": "Jeff Howe",
+        "office": "state-senate",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "sen.jeff.howe@senate.mn",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mn/members/member_bio.html?mem_id=1239",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:008": [
+      {
+        "id": "ocd-person/8d0a69ec-1301-4df5-9676-86720555ea7c",
+        "name": "Jen McEwen",
+        "office": "state-senate",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "sen.jennifer.mcewen@senate.mn",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mn/members/member_bio.html?mem_id=1241",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:026": [
+      {
+        "id": "ocd-person/f0824aef-4692-46c8-bafa-f19a01a9d716",
+        "name": "Jeremy Miller",
+        "office": "state-senate",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "sen.jeremy.miller@mnsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mn/members/member_bio.html?mem_id=1179",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:035": [
+      {
+        "id": "ocd-person/fc189dd9-b597-4744-86d3-ac315b93a3f3",
+        "name": "Jim Abeler",
+        "office": "state-senate",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "sen.jim.abeler@senate.mn",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mn/members/member_bio.html?mem_id=1216",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:052": [
+      {
+        "id": "ocd-person/ac087885-bab6-4fbf-b88a-daf71262c8b6",
+        "name": "Jim Carlson",
+        "office": "state-senate",
+        "districtCode": "052",
+        "contactUrl": null,
+        "email": "sen.jim.carlson@senate.mn",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mn/members/member_bio.html?mem_id=1140",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:034": [
+      {
+        "id": "ocd-person/b31cb55a-94ea-4f44-a4b9-8003b32c749a",
+        "name": "John Hoffman",
+        "office": "state-senate",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "sen.john.hoffman@senate.mn",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mn/members/member_bio.html?mem_id=1205",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:040": [
+      {
+        "id": "ocd-person/4acf27d9-edd4-4f04-97c7-164390a5664b",
+        "name": "John Marty",
+        "office": "state-senate",
+        "districtCode": "040",
+        "contactUrl": null,
+        "email": "sen.john.mcguire@senate.mn",
+        "phone": null,
+        "address": null,
+        "website": "https://www.johnmarty.org/",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:019": [
+      {
+        "id": "ocd-person/f6b649e0-5359-4d22-8ff0-6ca017bc5e23",
+        "name": "John Jasinski",
+        "office": "state-senate",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "sen.john.jasinski@senate.mn",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mn/members/member_bio.html?mem_id=1227",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:009": [
+      {
+        "id": "ocd-person/4c3116e2-98db-4367-b543-a12220c9b12f",
+        "name": "Jordan Rasmusson",
+        "office": "state-senate",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "sen.jordan.rasmusson@senate.mn",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mn/members/member_bio.html?mem_id=1255",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:041": [
+      {
+        "id": "ocd-person/4ca681ca-58ab-4d75-b7ef-8d255f858d62",
+        "name": "Judy Seeberger",
+        "office": "state-senate",
+        "districtCode": "041",
+        "contactUrl": null,
+        "email": "sen.judy.seeberger@senate.mn",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mn/members/member_bio.html?mem_id=1265",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:048": [
+      {
+        "id": "ocd-person/62a79a93-6117-4f36-87ef-f4058c34142a",
+        "name": "Julia Coleman",
+        "office": "state-senate",
+        "districtCode": "048",
+        "contactUrl": null,
+        "email": "sen.julia.coleman@mnsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mn/members/member_bio.html?mem_id=1244",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:033": [
+      {
+        "id": "ocd-person/dde8cf7d-52c2-48e5-bf65-f0fe2477713c",
+        "name": "Karin Housley",
+        "office": "state-senate",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "sen.karin.housley@senate.mn",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mn/members/member_bio.html?mem_id=1214",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:006": [
+      {
+        "id": "ocd-person/4d922135-f178-4e50-8439-ebbf47cf025c",
+        "name": "Keri Heintzeman",
+        "office": "state-senate",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "sen.keri.heintzeman@mnsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mn/members/member_bio.html?mem_id=1276",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:055": [
+      {
+        "id": "ocd-person/39814623-d268-47a1-8dcd-78e3ae1a33cf",
+        "name": "Lindsey Port",
+        "office": "state-senate",
+        "districtCode": "055",
+        "contactUrl": null,
+        "email": "sen.lindsey.port@senate.mn",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mn/members/member_bio.html?mem_id=1245",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:025": [
+      {
+        "id": "ocd-person/26ed75ae-3230-4e92-82a3-486bd76e1893",
+        "name": "Liz Boldon",
+        "office": "state-senate",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "sen.liz.boldon@senate.mn",
+        "phone": null,
+        "address": null,
+        "website": "https://lizboldon.com/",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:001": [
+      {
+        "id": "ocd-person/de9b28f6-a2a8-4edd-98cb-2b3ff2e6382c",
+        "name": "Mark Johnson",
+        "office": "state-senate",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "sen.mark.johnson@senate.mn",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mn/members/member_bio.html?mem_id=1217",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:028": [
+      {
+        "id": "ocd-person/f20a4255-6c65-4091-a0f5-aea70f133cdb",
+        "name": "Mark Koran",
+        "office": "state-senate",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "sen.mark.koran@senate.mn",
+        "phone": null,
+        "address": null,
+        "website": "https://www.markkoranmn.com/",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:039": [
+      {
+        "id": "ocd-person/2795e0ed-3a02-4afc-8836-f5c3c067139c",
+        "name": "Mary Kunesh",
+        "office": "state-senate",
+        "districtCode": "039",
+        "contactUrl": null,
+        "email": "sen.mary.kunesh@senate.mn",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mn/members/member_bio.html?mem_id=1242",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:053": [
+      {
+        "id": "ocd-person/a4b21c2d-d3fe-41dc-9614-0ff80878850c",
+        "name": "Matt Klein",
+        "office": "state-senate",
+        "districtCode": "053",
+        "contactUrl": null,
+        "email": "sen.matt.klein@senate.mn",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mn/members/member_bio.html?mem_id=1235",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:051": [
+      {
+        "id": "ocd-person/d2fb6801-379e-481c-9313-2ac099d3a775",
+        "name": "Melissa Wiklund",
+        "office": "state-senate",
+        "districtCode": "051",
+        "contactUrl": null,
+        "email": "sen.melissa.wiklund@senate.mn",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mn/members/member_bio.html?mem_id=1209",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:032": [
+      {
+        "id": "ocd-person/3a76623e-d295-4c58-be60-fd37a285a39b",
+        "name": "Michael Kreun",
+        "office": "state-senate",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "sen.michael.kreun@senate.mn",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mn/members/member_bio.html?mem_id=1262",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:029": [
+      {
+        "id": "ocd-person/564bbace-b157-416d-ae59-81cd8a1fbaf8",
+        "name": "Mike Holmstrom",
+        "office": "state-senate",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "sen.michael.holmstrom@mnsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mn/members/member_bio.html?mem_id=1277",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:010": [
+      {
+        "id": "ocd-person/7eaf40ec-f926-4992-8962-65b90846ef80",
+        "name": "Nathan Wesenberg",
+        "office": "state-senate",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "sen.nathan.wesenberg@mnsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mn/members/member_bio.html?mem_id=1256",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:018": [
+      {
+        "id": "ocd-person/55a02119-b43d-4b39-a19b-07411c5ec7c9",
+        "name": "Nick Frentz",
+        "office": "state-senate",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "sen.nick.frentz@senate.mn",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mn/members/member_bio.html?mem_id=1224",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:062": [
+      {
+        "id": "ocd-person/04eeaa61-ee3c-4e36-88f2-b415660175eb",
+        "name": "Omar Fateh",
+        "office": "state-senate",
+        "districtCode": "062",
+        "contactUrl": null,
+        "email": "sen.omar.fateh@senate.mn",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mn/members/member_bio.html?mem_id=1247",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:005": [
+      {
+        "id": "ocd-person/fde08265-b73e-4a4b-ba87-d90d71319640",
+        "name": "Paul Utke",
+        "office": "state-senate",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "sen.paul.utke@mnsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mn/members/member_bio.html?mem_id=1218",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:022": [
+      {
+        "id": "ocd-person/f9fb7c65-e0ab-484c-8517-b20267cc3f07",
+        "name": "Rich Draheim",
+        "office": "state-senate",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "sen.rich.draheim@mnsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mn/members/member_bio.html?mem_id=1225",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:007": [
+      {
+        "id": "ocd-person/9cdb9977-9923-4124-ae93-c45e28f1f51c",
+        "name": "Rob Farnsworth",
+        "office": "state-senate",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "sen.robert.farnsworth@senate.mn",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mn/members/member_bio.html?mem_id=1254",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:004": [
+      {
+        "id": "ocd-person/b8c303a5-0a73-4a26-8071-be5a9dcf113a",
+        "name": "Rob Kupec",
+        "office": "state-senate",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "sen.robert.kupec@senate.mn",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mn/members/member_bio.html?mem_id=1253",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:046": [
+      {
+        "id": "ocd-person/834a2c10-beb0-454e-8e08-619309d8a08a",
+        "name": "Ron Latz",
+        "office": "state-senate",
+        "districtCode": "046",
+        "contactUrl": null,
+        "email": "sen.ron.latz@senate.mn",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mn/members/member_bio.html?mem_id=1102",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:065": [
+      {
+        "id": "ocd-person/0b83a916-567b-4d36-843f-17d8f5e13b8d",
+        "name": "Sandy Pappas",
+        "office": "state-senate",
+        "districtCode": "065",
+        "contactUrl": null,
+        "email": "sen.sandra.parry@senate.mn",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mn/members/member_bio.html?mem_id=1046",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:049": [
+      {
+        "id": "ocd-person/e67843ce-752d-4cc0-abb9-4a45b8b8fdca",
+        "name": "Steve Cwodzinski",
+        "office": "state-senate",
+        "districtCode": "049",
+        "contactUrl": null,
+        "email": "sen.steve.cwodzinski@senate.mn",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mn/members/member_bio.html?mem_id=1234",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:020": [
+      {
+        "id": "ocd-person/a947d529-ab68-4ae8-b1e8-7ff012dde193",
+        "name": "Steve Drazkowski",
+        "office": "state-senate",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "sen.steve.drazkowski@senate.mn",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mn/members/member_bio.html?mem_id=1258",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:002": [
+      {
+        "id": "ocd-person/9d8b9b67-e74b-4e7f-92d5-52e3c0907f1d",
+        "name": "Steve Green",
+        "office": "state-senate",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "sen.steve.green@mnsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mn/members/member_bio.html?mem_id=1251",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:038": [
+      {
+        "id": "ocd-person/bd086574-4116-4b0a-ad6b-7c0352293f06",
+        "name": "Susan Pha",
+        "office": "state-senate",
+        "districtCode": "038",
+        "contactUrl": null,
+        "email": "sen.susan.pha@senate.mn",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mn/members/member_bio.html?mem_id=1264",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:012": [
+      {
+        "id": "ocd-person/1c19414e-994b-46d4-8971-432ed482ca39",
+        "name": "Torrey Westrom",
+        "office": "state-senate",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "sen.torrey.westrom@mnsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mn/members/member_bio.html?mem_id=1197",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:044": [
+      {
+        "id": "ocd-person/5d9e1da5-ecf9-45d9-b104-7d1238032aff",
+        "name": "Tou Xiong",
+        "office": "state-senate",
+        "districtCode": "044",
+        "contactUrl": null,
+        "email": "sen.tou.xiong@senate.mn",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mn/members/member_bio.html?mem_id=1267",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:037": [
+      {
+        "id": "ocd-person/dc676c57-0779-4d0e-9ba4-a07d7034dfa1",
+        "name": "Warren Limmer",
+        "office": "state-senate",
+        "districtCode": "037",
+        "contactUrl": null,
+        "email": "sen.warren.limmer@senate.mn",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mn/members/member_bio.html?mem_id=1032",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:057": [
+      {
+        "id": "ocd-person/acacede0-a09a-45b9-8990-646dfa5bd59a",
+        "name": "Zach Duckworth",
+        "office": "state-senate",
+        "districtCode": "057",
+        "contactUrl": null,
+        "email": "sen.zach.duckworth@senate.mn",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mn/members/member_bio.html?mem_id=1246",
+        "social": {}
+      }
+    ],
+    "MN:state-senate:063": [
+      {
+        "id": "ocd-person/332e30b5-dc8d-4074-9c16-6e2a6255d135",
+        "name": "Zaynab Mohamed",
+        "office": "state-senate",
+        "districtCode": "063",
+        "contactUrl": null,
+        "email": "sen.zaynab.mohamed@senate.mn",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mn/members/member_bio.html?mem_id=1273",
+        "social": {}
+      }
+    ]
+  }
+}

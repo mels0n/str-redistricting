@@ -1,0 +1,1944 @@
+{
+  "state": "ND",
+  "generatedFrom": {
+    "legislators-current.json": "ae8cb9477c48715df71a7d860854229d799dc90a254d61badc1efb770f892b2c",
+    "legislators-social-media.json": "c6eca1fcdb3a89901335eed51ca061daa4b60ad3243969a127e913bb9657fbc5",
+    "nd.csv": "18aa947c4ba0100c8e827ac684775aa3323e02a30bb9b2234433700579b176dd"
+  },
+  "byKey": {
+    "ND:us-senate:00": [
+      {
+        "id": "H001061",
+        "name": "John Hoeven",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.hoeven.senate.gov/contact/contact-the-senator",
+        "email": null,
+        "phone": "202-224-2551",
+        "address": "338 Russell Senate Office Building Washington DC 20510",
+        "website": "https://www.hoeven.senate.gov",
+        "social": {
+          "x": "SenJohnHoeven",
+          "facebook": "SenatorJohnHoeven",
+          "instagram": "senjohnhoeven"
+        }
+      },
+      {
+        "id": "C001096",
+        "name": "Kevin Cramer",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.cramer.senate.gov/contact/contact-kevin",
+        "email": null,
+        "phone": "202-224-2043",
+        "address": "313 Hart Senate Office Building Washington DC 20510",
+        "website": "https://www.cramer.senate.gov",
+        "social": {
+          "x": "SenKevinCramer",
+          "facebook": "CongressmanKevinCramer",
+          "instagram": "repkevincramer"
+        }
+      }
+    ],
+    "ND:us-house:00": [
+      {
+        "id": "F000482",
+        "name": "Julie Fedorchak",
+        "office": "us-house",
+        "districtCode": "00",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2611",
+        "address": "1607 Longworth House Office Building Washington DC 20515-3400",
+        "website": "https://fedorchak.house.gov",
+        "social": {
+          "x": "RepFedorchak",
+          "facebook": "RepJulieFedorchak",
+          "instagram": "RepJulieFedorchak"
+        }
+      }
+    ],
+    "ND:state-house:011": [
+      {
+        "id": "ocd-person/3735ca02-1a6a-4f2f-b13b-1a5118d78ae2",
+        "name": "Adam Goldwyn",
+        "office": "state-house",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "agoldwyn@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/adam-goldwyn",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/752ba791-ab73-4945-b632-64fcae50c118",
+        "name": "Gretchen Dobervich",
+        "office": "state-house",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "gdobervich@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/gretchen-dobervich",
+        "social": {}
+      }
+    ],
+    "ND:state-house:025": [
+      {
+        "id": "ocd-person/9c0f35c1-03de-443e-97bd-5cdf77581897",
+        "name": "Alisa Mitskog",
+        "office": "state-house",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "amitskog@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/alisa-mitskog",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/d9bd764d-f08a-4056-ba7d-82bad9e9d17b",
+        "name": "Kathy Skroch",
+        "office": "state-house",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "kskroch@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/kathy-skroch",
+        "social": {}
+      }
+    ],
+    "ND:state-house:016": [
+      {
+        "id": "ocd-person/6fbb2691-956f-4427-8927-66309b08ed68",
+        "name": "Andrew Marschall",
+        "office": "state-house",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "amarschall@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/andrew-marschall",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/9335be7e-11ff-4577-af89-e61195143354",
+        "name": "Ben Koppelman",
+        "office": "state-house",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "bkoppelman@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/ben-koppelman",
+        "social": {}
+      }
+    ],
+    "ND:state-house:033": [
+      {
+        "id": "ocd-person/c40382fd-ce08-46af-8649-afd1f5e04091",
+        "name": "Anna Novak",
+        "office": "state-house",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "anovak@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/anna-s-novak",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/50e4864c-095a-43a6-9486-3b071e02ca09",
+        "name": "Bill Tveit",
+        "office": "state-house",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "btveit@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/bill-tveit",
+        "social": {}
+      }
+    ],
+    "ND:state-house:013": [
+      {
+        "id": "ocd-person/860892bd-92d1-4a30-a5e6-3b5f2359e9df",
+        "name": "Austen Schauer",
+        "office": "state-house",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "aschauer@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/austen-schauer",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/364ea7b0-8ff8-42b6-ac54-1453cc9d7785",
+        "name": "Jim Jonas",
+        "office": "state-house",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "jjonas@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/jim-jonas",
+        "social": {}
+      }
+    ],
+    "ND:state-house:044": [
+      {
+        "id": "ocd-person/7b99ceee-cc27-4b30-96f9-b29845bacdf8",
+        "name": "Austin Foss",
+        "office": "state-house",
+        "districtCode": "044",
+        "contactUrl": null,
+        "email": "afoss@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/austin-foss",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/84b51f7f-dbd2-4d17-b698-4650964514cd",
+        "name": "Karla Rose Hanson",
+        "office": "state-house",
+        "districtCode": "044",
+        "contactUrl": null,
+        "email": "krhanson@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/karla-rose-hanson",
+        "social": {}
+      }
+    ],
+    "ND:state-house:012": [
+      {
+        "id": "ocd-person/3f885f7e-14b0-4ee7-b1fd-71ddbd72c539",
+        "name": "Bernie Satrom",
+        "office": "state-house",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "blsatrom@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/bernie-satrom",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/a9b3e13f-b522-4383-b775-45afc7636520",
+        "name": "Mitch Ostlie",
+        "office": "state-house",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "mostlie@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/mitch-ostlie",
+        "social": {}
+      }
+    ],
+    "ND:state-house:002": [
+      {
+        "id": "ocd-person/7ba931d2-cba2-4913-92fa-f5b0c3a8baf0",
+        "name": "Bert Anderson",
+        "office": "state-house",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "bertanderson@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/bert-anderson",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/da7774ec-8498-4094-b7d7-87d301911015",
+        "name": "Donald Longmuir",
+        "office": "state-house",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "dlongmuir@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/donald-w-longmuir",
+        "social": {}
+      }
+    ],
+    "ND:state-house:035": [
+      {
+        "id": "ocd-person/f8720088-51ae-4178-87f8-abbb73faf444",
+        "name": "Bob Martinson",
+        "office": "state-house",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "bmartinson@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/bob-martinson",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/a1829243-52bf-4ade-9ed8-6955241120c3",
+        "name": "Karen Karls",
+        "office": "state-house",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "kkarls@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/karen-karls",
+        "social": {}
+      }
+    ],
+    "ND:state-house:022": [
+      {
+        "id": "ocd-person/0bae2d8b-4e48-4f31-9e23-9f438ccac477",
+        "name": "Brandy Pyle",
+        "office": "state-house",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "bpyle@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/brandy-pyle",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/35e63cc0-2313-4f4b-80f8-0d7356fa684a",
+        "name": "Jonathan Warrey",
+        "office": "state-house",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "jwarrey@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/jonathan-warrey",
+        "social": {}
+      }
+    ],
+    "ND:state-house:045": [
+      {
+        "id": "ocd-person/57dff80c-9579-411d-a55e-b76846f15fd8",
+        "name": "Carrie McLeod",
+        "office": "state-house",
+        "districtCode": "045",
+        "contactUrl": null,
+        "email": "cmcleod@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/carrie-mcleod",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/29d5158e-c93e-4d69-9da5-70972c26c896",
+        "name": "Scott Wagner",
+        "office": "state-house",
+        "districtCode": "045",
+        "contactUrl": null,
+        "email": "swagner@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/scott-wagner",
+        "social": {}
+      }
+    ],
+    "ND:state-house:038": [
+      {
+        "id": "ocd-person/f503a00c-951e-43c6-a5e5-8aff9bda4a6a",
+        "name": "Christina Wolff",
+        "office": "state-house",
+        "districtCode": "038",
+        "contactUrl": null,
+        "email": "cwolff@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/christina-wolff",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/a78a22ef-aefe-43ee-a40e-86026b341381",
+        "name": "Dan Ruby",
+        "office": "state-house",
+        "districtCode": "038",
+        "contactUrl": null,
+        "email": "druby@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/dan-ruby",
+        "social": {}
+      }
+    ],
+    "ND:state-house:04B": [
+      {
+        "id": "ocd-person/0e57f5ef-a6aa-4019-bce7-da50c23b3a7a",
+        "name": "Clayton Fegley",
+        "office": "state-house",
+        "districtCode": "04B",
+        "contactUrl": null,
+        "email": "cfegley@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/clayton-fegley",
+        "social": {}
+      }
+    ],
+    "ND:state-house:009": [
+      {
+        "id": "ocd-person/7c99cb12-9158-4ddc-8bff-8ecca64cc8fa",
+        "name": "Collette Brown",
+        "office": "state-house",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "cbrown@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/collette-brown",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/967219db-3714-49e4-8642-5fb444ef882c",
+        "name": "Jayme Davis",
+        "office": "state-house",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "jdavis@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/jayme-davis",
+        "social": {}
+      }
+    ],
+    "ND:state-house:029": [
+      {
+        "id": "ocd-person/74e50305-a021-46bd-9d0d-dcd872645cfd",
+        "name": "Craig Headland",
+        "office": "state-house",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "cheadland@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/craig-headland",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/95e4c82b-ae91-4bc6-a3f1-14ad9b8758ce",
+        "name": "Don Vigesaa",
+        "office": "state-house",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "dwvigesaa@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/don-vigesaa",
+        "social": {}
+      }
+    ],
+    "ND:state-house:024": [
+      {
+        "id": "ocd-person/47e7d979-3c08-4c17-bd54-d9cb06f31d9e",
+        "name": "Dan Johnston",
+        "office": "state-house",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "djohnston@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/daniel-johnston",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/7c89a861-f0cf-402f-97e1-70953440ee36",
+        "name": "Dwight Kiefert",
+        "office": "state-house",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "dhkiefert@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/dwight-kiefert",
+        "social": {}
+      }
+    ],
+    "ND:state-house:006": [
+      {
+        "id": "ocd-person/bd6e2ebb-5fc3-4a04-9def-d9e581c39783",
+        "name": "Dan Vollmer",
+        "office": "state-house",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "dvollmer@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/daniel-r-vollmer",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/65381298-5fe3-49d8-9739-8678016f8383",
+        "name": "Dick Anderson",
+        "office": "state-house",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "dickanderson@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/dick-anderson",
+        "social": {}
+      }
+    ],
+    "ND:state-house:020": [
+      {
+        "id": "ocd-person/62c94736-93a5-43a9-af8d-5a37b65159c6",
+        "name": "Dave Rustebakke",
+        "office": "state-house",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "drustebakke@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/dave-rustebakke",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/2e1bbdc9-a4e1-4ab2-953f-2e51910b7b58",
+        "name": "Mike Beltz",
+        "office": "state-house",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "mbeltz@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/mike-beltz",
+        "social": {}
+      }
+    ],
+    "ND:state-house:019": [
+      {
+        "id": "ocd-person/5d387655-8234-48d2-a1dd-dd2f4a83ca6f",
+        "name": "Dave Monson",
+        "office": "state-house",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "dmonson@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/david-monson",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/d0cd1bbe-d84e-49d8-bb5e-1ada10cf187d",
+        "name": "Karen Anderson",
+        "office": "state-house",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "kanderson@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/karen-a-anderson",
+        "social": {}
+      }
+    ],
+    "ND:state-house:001": [
+      {
+        "id": "ocd-person/633a61c8-9424-445f-b844-b0b40fc1781a",
+        "name": "David Richter",
+        "office": "state-house",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "dwrichter@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/david-richter",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/8fd64fab-cbe4-4ad3-bd63-447cc527e567",
+        "name": "Patrick Hatlestad",
+        "office": "state-house",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "phatlestad@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/patrick-hatlestad",
+        "social": {}
+      }
+    ],
+    "ND:state-house:031": [
+      {
+        "id": "ocd-person/5938951d-3c45-4913-8612-aa70ba790f88",
+        "name": "Dawson Holle",
+        "office": "state-house",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "dholle@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/dawson-holle",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/af21927a-d2f9-454d-93fc-04ec9d585b1e",
+        "name": "Karen Rohr",
+        "office": "state-house",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "kmrohr@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/karen-m-rohr",
+        "social": {}
+      }
+    ],
+    "ND:state-house:023": [
+      {
+        "id": "ocd-person/4e998af9-35f0-457c-8f37-b2fdaa914dbd",
+        "name": "Dennis Nehring",
+        "office": "state-house",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "denehring@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/dennis-nehring",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/1a0c2ca8-e9ab-4698-a75b-4f40e65a413d",
+        "name": "Nico Rios",
+        "office": "state-house",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "nrios@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/nico-rios",
+        "social": {}
+      }
+    ],
+    "ND:state-house:046": [
+      {
+        "id": "ocd-person/6c9076a0-42ad-4045-81da-7f463d0e57b5",
+        "name": "Desiree Morton",
+        "office": "state-house",
+        "districtCode": "046",
+        "contactUrl": null,
+        "email": "dmorton@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/desiree-morton",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/af2974f4-4889-4ea5-9cfd-93d68e2d39a2",
+        "name": "Jim Kasper",
+        "office": "state-house",
+        "districtCode": "046",
+        "contactUrl": null,
+        "email": "jkasper@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/jim-kasper",
+        "social": {}
+      }
+    ],
+    "ND:state-house:015": [
+      {
+        "id": "ocd-person/56cc14e2-12cc-4d70-b37a-0aa0397bc841",
+        "name": "Donna Henderson",
+        "office": "state-house",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "dhenderson@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/donna-henderson",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/2674934f-59c0-4caa-8ff4-be3deecc31b3",
+        "name": "Kathy Frelich",
+        "office": "state-house",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "kfrelich@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/kathy-frelich",
+        "social": {}
+      }
+    ],
+    "ND:state-house:036": [
+      {
+        "id": "ocd-person/6035e38b-ec58-44f7-9b47-7c6672c575f8",
+        "name": "Dori Hauck",
+        "office": "state-house",
+        "districtCode": "036",
+        "contactUrl": null,
+        "email": "dorihauck@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/dori-hauck",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/573043a9-0df8-41f8-a3e3-18a72c38aac6",
+        "name": "Ty Dressler",
+        "office": "state-house",
+        "districtCode": "036",
+        "contactUrl": null,
+        "email": "tdressler@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/ty-dressler",
+        "social": {}
+      }
+    ],
+    "ND:state-house:042": [
+      {
+        "id": "ocd-person/bf1ee8a5-edf3-44c5-82bf-6be1beecd989",
+        "name": "Doug Osowski",
+        "office": "state-house",
+        "districtCode": "042",
+        "contactUrl": null,
+        "email": "dosowski@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/doug-osowski",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/a7b8cf9d-a22f-479f-ad25-07bd47aab2ba",
+        "name": "Dustin McNally",
+        "office": "state-house",
+        "districtCode": "042",
+        "contactUrl": null,
+        "email": "dmcnally@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/dustin-mcnally",
+        "social": {}
+      }
+    ],
+    "ND:state-house:043": [
+      {
+        "id": "ocd-person/1caabacc-b2df-41c9-a0ff-5719a1d9dea5",
+        "name": "Eric Murphy",
+        "office": "state-house",
+        "districtCode": "043",
+        "contactUrl": null,
+        "email": "emurphy@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/eric-james-murphy",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/edf5f43d-33f6-4b77-a7c1-0b0e05a6b0be",
+        "name": "Zac Ista",
+        "office": "state-house",
+        "districtCode": "043",
+        "contactUrl": null,
+        "email": "zmista@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/zachary-ista",
+        "social": {}
+      }
+    ],
+    "ND:state-house:030": [
+      {
+        "id": "ocd-person/489ce19c-875b-49c9-aa02-d8c05c09b3f5",
+        "name": "Glenn Bosch",
+        "office": "state-house",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "gdbosch@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/glenn-bosch",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/981c4da0-4ab9-46cb-aa42-397253399cba",
+        "name": "Mike Nathe",
+        "office": "state-house",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "mrnathe@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/mike-nathe",
+        "social": {}
+      }
+    ],
+    "ND:state-house:027": [
+      {
+        "id": "ocd-person/3ef34927-6fe8-4693-a818-20f654ae6b31",
+        "name": "Greg Stemen",
+        "office": "state-house",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "gstemen@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/greg-stemen",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/1e04adce-2d55-4b2a-bf7b-8a2977cd05f9",
+        "name": "T.J. Brown",
+        "office": "state-house",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "tbrown@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/tj-brown",
+        "social": {}
+      }
+    ],
+    "ND:state-house:010": [
+      {
+        "id": "ocd-person/fadbd16b-e02e-4448-889b-1072b7308710",
+        "name": "Jared Hendrix",
+        "office": "state-house",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "jhendrix@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/jared-hendrix",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/705643fb-7605-4c42-9d55-6e774edf9fc6",
+        "name": "Steve Swiontek",
+        "office": "state-house",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "sswiontek@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/steve-swiontek",
+        "social": {}
+      }
+    ],
+    "ND:state-house:007": [
+      {
+        "id": "ocd-person/0b48f460-f41c-4f21-8620-c64728604e4c",
+        "name": "Jason Dockter",
+        "office": "state-house",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "jddockter@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/jason-dockter",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/27436563-29f4-4508-be92-0adf91ea442a",
+        "name": "Matt Heilman",
+        "office": "state-house",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "mheilman@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/matt-heilman",
+        "social": {}
+      }
+    ],
+    "ND:state-house:005": [
+      {
+        "id": "ocd-person/c141f4ae-fef0-4dfa-8746-81c116e313c1",
+        "name": "Jay Fisher",
+        "office": "state-house",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "jayfisher@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/jay-fisher",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/3a13b8c4-9366-4af8-b137-d3f959572a2a",
+        "name": "Scott Louser",
+        "office": "state-house",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "slouser@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/scott-louser",
+        "social": {}
+      }
+    ],
+    "ND:state-house:003": [
+      {
+        "id": "ocd-person/4c53491d-adf0-4c18-a645-a63667f2c828",
+        "name": "Jeff Hoverson",
+        "office": "state-house",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "jahoverson@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/jeff-a-hoverson",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/f1c4c314-4fe7-4aa1-b243-d075dce4444d",
+        "name": "Lori VanWinkle",
+        "office": "state-house",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "lvanwinkle@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/lori-vanwinkle",
+        "social": {}
+      }
+    ],
+    "ND:state-house:028": [
+      {
+        "id": "ocd-person/d9517a29-cf58-4538-953f-715eee39db16",
+        "name": "Jim Grueneich",
+        "office": "state-house",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "jgrueneich@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/jim-grueneich",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/52538b14-697a-4632-854b-badf925cbfe6",
+        "name": "Mike Brandenburg",
+        "office": "state-house",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "mbrandenburg@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/mike-brandenburg",
+        "social": {}
+      }
+    ],
+    "ND:state-house:014": [
+      {
+        "id": "ocd-person/b3f127cc-2ec4-434b-8258-b5b29a7690ca",
+        "name": "Jon Nelson",
+        "office": "state-house",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "jonelson@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/jon-o-nelson",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/f96d48d1-23a3-4516-a3a5-5bf873f05eda",
+        "name": "Robin Weisz",
+        "office": "state-house",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "rweisz@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/robin-weisz",
+        "social": {}
+      }
+    ],
+    "ND:state-house:041": [
+      {
+        "id": "ocd-person/230e88ef-7b8d-4229-b121-c1df2328c78a",
+        "name": "Jorin Johnson",
+        "office": "state-house",
+        "districtCode": "041",
+        "contactUrl": null,
+        "email": "jjohnson@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/jorin-johnson",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/3e2f8712-9190-4c2d-887a-7e479e27dd81",
+        "name": "Karen Grindberg",
+        "office": "state-house",
+        "districtCode": "041",
+        "contactUrl": null,
+        "email": "kgrindberg@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/karen-grindberg",
+        "social": {}
+      }
+    ],
+    "ND:state-house:039": [
+      {
+        "id": "ocd-person/3075343c-75ba-4957-a1a2-411eb1708c6b",
+        "name": "Keith Kempenich",
+        "office": "state-house",
+        "districtCode": "039",
+        "contactUrl": null,
+        "email": "kkempenich@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/keith-kempenich",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/a8e9d4c9-c6fa-41cf-8440-30ba429d4c63",
+        "name": "Mike Schatz",
+        "office": "state-house",
+        "districtCode": "039",
+        "contactUrl": null,
+        "email": "mischatz@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/mike-schatz",
+        "social": {}
+      }
+    ],
+    "ND:state-house:026": [
+      {
+        "id": "ocd-person/ed4f6720-01ed-42c3-9e33-8fa6ca237b49",
+        "name": "Kelby Timmons",
+        "office": "state-house",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "ktimmons@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/kelby-timmons",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/3bf442fa-fe42-48c3-b10a-6e94bc20e23d",
+        "name": "Roger Maki",
+        "office": "state-house",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "rmaki@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/roger-a-maki",
+        "social": {}
+      }
+    ],
+    "ND:state-house:017": [
+      {
+        "id": "ocd-person/a7fba7c3-b0ee-4b95-976e-4b38c0b8fa53",
+        "name": "Landon Bahl",
+        "office": "state-house",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "lbahl@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/landon-bahl",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/fdaab7d3-77b8-4cf4-bda2-1cb927f675a9",
+        "name": "Mark Sanford",
+        "office": "state-house",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "masanford@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/mark-sanford",
+        "social": {}
+      }
+    ],
+    "ND:state-house:021": [
+      {
+        "id": "ocd-person/f233c739-2bfe-4a96-ba9b-f3c4cbff539c",
+        "name": "LaurieBeth Hager",
+        "office": "state-house",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "lbhager@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/lauriebeth-hager",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/891c379b-f866-4029-9f52-a416b5005272",
+        "name": "Mary Schneider",
+        "office": "state-house",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "mschneider@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/mary-schneider",
+        "social": {}
+      }
+    ],
+    "ND:state-house:047": [
+      {
+        "id": "ocd-person/3de00ea0-0ad8-4875-8f7f-445b7e67a6d6",
+        "name": "Larry Klemin",
+        "office": "state-house",
+        "districtCode": "047",
+        "contactUrl": null,
+        "email": "lklemin@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/lawrence-r-klemin",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/a8e7843d-466a-4112-9238-707dbbac2696",
+        "name": "Mike Motschenbacher",
+        "office": "state-house",
+        "districtCode": "047",
+        "contactUrl": null,
+        "email": "mmotschenbacher@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/mike-motschenbacher",
+        "social": {}
+      }
+    ],
+    "ND:state-house:04A": [
+      {
+        "id": "ocd-person/bf09d70e-a605-43f0-bcca-57ece9c06214",
+        "name": "Lisa Finley-DeVille",
+        "office": "state-house",
+        "districtCode": "04A",
+        "contactUrl": null,
+        "email": "lfinleydeville@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/lisa-finley-deville",
+        "social": {}
+      }
+    ],
+    "ND:state-house:032": [
+      {
+        "id": "ocd-person/39e75205-fa1e-45d4-a04a-2ccee0a83a07",
+        "name": "Lisa Meier",
+        "office": "state-house",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "lmeier@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/lisa-meier",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/1f5bad71-f1e2-4729-896b-293137ed6a84",
+        "name": "Pat Heinert",
+        "office": "state-house",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "pdheinert@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/pat-d-heinert",
+        "social": {}
+      }
+    ],
+    "ND:state-house:040": [
+      {
+        "id": "ocd-person/be77ffd0-b287-4585-8409-5189885d180a",
+        "name": "Macy Bolinske",
+        "office": "state-house",
+        "districtCode": "040",
+        "contactUrl": null,
+        "email": "mbolinske@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/macy-bolinske",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/11d3d315-2e0d-4824-8ad2-6fd81962c9d1",
+        "name": "Matt Ruby",
+        "office": "state-house",
+        "districtCode": "040",
+        "contactUrl": null,
+        "email": "mruby@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/matthew-ruby",
+        "social": {}
+      }
+    ],
+    "ND:state-house:008": [
+      {
+        "id": "ocd-person/00959142-f06a-4e5d-aab2-21abfd9aa261",
+        "name": "Mike Berg",
+        "office": "state-house",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "mberg@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/mike-berg",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/e3f46d13-b49b-4fd9-a604-16ad12393a71",
+        "name": "SuAnn Olson",
+        "office": "state-house",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "solson@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/suann-olson",
+        "social": {}
+      }
+    ],
+    "ND:state-house:037": [
+      {
+        "id": "ocd-person/813e59ee-0d23-43d7-b6a9-82ff79cf8f4f",
+        "name": "Mike Lefor",
+        "office": "state-house",
+        "districtCode": "037",
+        "contactUrl": null,
+        "email": "mlefor@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/mike-lefor",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/6408b9c3-3e70-4e47-a2c1-d31c11012f4c",
+        "name": "Vicky Steiner",
+        "office": "state-house",
+        "districtCode": "037",
+        "contactUrl": null,
+        "email": "vsteiner@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/vicky-steiner",
+        "social": {}
+      }
+    ],
+    "ND:state-house:034": [
+      {
+        "id": "ocd-person/bf16c102-641d-4296-96c4-eccab1c1d43f",
+        "name": "Nathan Toman",
+        "office": "state-house",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "nptoman@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/nathan-toman",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/94b03c1b-39a3-495a-8a11-0c21a5f30f08",
+        "name": "Todd Porter",
+        "office": "state-house",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "tkporter@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/todd-porter",
+        "social": {}
+      }
+    ],
+    "ND:state-house:018": [
+      {
+        "id": "ocd-person/1db300de-726b-44fc-b3fe-f4c918a55ea1",
+        "name": "Nels Christianson",
+        "office": "state-house",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "nchristianson@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/nels-christianson",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/9d903288-c374-46e7-8665-d9ba4ba377b5",
+        "name": "Steve Vetter",
+        "office": "state-house",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "smvetter@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/steve-vetter",
+        "social": {}
+      }
+    ],
+    "ND:state-senate:003": [
+      {
+        "id": "ocd-person/983f512c-6f3f-4243-b6c8-b83d9d4f3696",
+        "name": "Bob Paulson",
+        "office": "state-senate",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "bpaulson@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/bob-paulson",
+        "social": {}
+      }
+    ],
+    "ND:state-senate:001": [
+      {
+        "id": "ocd-person/86d15ce1-f1e9-40f8-894c-490f3d960e15",
+        "name": "Brad Bekkedahl",
+        "office": "state-senate",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "bbekkedahl@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/brad-bekkedahl",
+        "social": {}
+      }
+    ],
+    "ND:state-senate:004": [
+      {
+        "id": "ocd-person/43e25c66-8935-4938-8634-b8666bfdb876",
+        "name": "Chuck Walen",
+        "office": "state-senate",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "cwalen@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/chuck-walen",
+        "social": {}
+      }
+    ],
+    "ND:state-senate:042": [
+      {
+        "id": "ocd-person/00d22ac4-d0e4-4b26-a521-729b177b3a01",
+        "name": "Claire Cory",
+        "office": "state-senate",
+        "districtCode": "042",
+        "contactUrl": null,
+        "email": "clairecory@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/claire-cory",
+        "social": {}
+      }
+    ],
+    "ND:state-senate:012": [
+      {
+        "id": "ocd-person/3b75961c-1c9e-4150-84ee-965ffb59fafa",
+        "name": "Cole Conley",
+        "office": "state-senate",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "cconley@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/cole-conley",
+        "social": {}
+      }
+    ],
+    "ND:state-senate:026": [
+      {
+        "id": "ocd-person/ffc100fb-2fbe-47d1-bfde-a2e4b0acae3c",
+        "name": "Dale Patten",
+        "office": "state-senate",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "dpatten@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/dale-patten",
+        "social": {}
+      }
+    ],
+    "ND:state-senate:016": [
+      {
+        "id": "ocd-person/e93f45b9-72c9-4e10-bc05-4896381f29f4",
+        "name": "David Clemens",
+        "office": "state-senate",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "dclemens@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/david-a-clemens",
+        "social": {}
+      }
+    ],
+    "ND:state-senate:038": [
+      {
+        "id": "ocd-person/e911d1c9-258a-47c6-acd4-d0f8a3befc2f",
+        "name": "David Hogue",
+        "office": "state-senate",
+        "districtCode": "038",
+        "contactUrl": null,
+        "email": "dhogue@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/david-hogue",
+        "social": {}
+      }
+    ],
+    "ND:state-senate:037": [
+      {
+        "id": "ocd-person/cc65fd55-6d87-4ef9-95ff-b98592bebc8f",
+        "name": "Dean Rummel",
+        "office": "state-senate",
+        "districtCode": "037",
+        "contactUrl": null,
+        "email": "drummel@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/dean-rummel",
+        "social": {}
+      }
+    ],
+    "ND:state-senate:036": [
+      {
+        "id": "ocd-person/4d0233df-e907-42eb-9682-fa31578f52b7",
+        "name": "Desiree Van Oosting",
+        "office": "state-senate",
+        "districtCode": "036",
+        "contactUrl": null,
+        "email": "dvanoosting@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/desiree-van-oosting",
+        "social": {}
+      }
+    ],
+    "ND:state-senate:030": [
+      {
+        "id": "ocd-person/9844a188-809c-4711-8147-2c30206721ee",
+        "name": "Diane Larson",
+        "office": "state-senate",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "dlarson@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/diane-larson",
+        "social": {}
+      }
+    ],
+    "ND:state-senate:032": [
+      {
+        "id": "ocd-person/afb1de56-a1cf-439a-8a9f-3fcaa73c691a",
+        "name": "Dick Dever",
+        "office": "state-senate",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "ddever@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/dick-dever",
+        "social": {}
+      }
+    ],
+    "ND:state-senate:031": [
+      {
+        "id": "ocd-person/93c8011d-d8c2-4e7e-80ee-3b1cab991039",
+        "name": "Don Schaible",
+        "office": "state-senate",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "dgschaible@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/donald-schaible",
+        "social": {}
+      }
+    ],
+    "ND:state-senate:039": [
+      {
+        "id": "ocd-person/6c9671e4-274f-41cd-b1ba-d6b2dd55ba5e",
+        "name": "Greg Kessel",
+        "office": "state-senate",
+        "districtCode": "039",
+        "contactUrl": null,
+        "email": "gkessel@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/greg-kessel",
+        "social": {}
+      }
+    ],
+    "ND:state-senate:044": [
+      {
+        "id": "ocd-person/b6b20b68-a6e2-4d3a-abf1-84a019c197d9",
+        "name": "Jamie Selzler",
+        "office": "state-senate",
+        "districtCode": "044",
+        "contactUrl": null,
+        "email": "jselzler@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/jamie-selzler",
+        "social": {}
+      }
+    ],
+    "ND:state-senate:019": [
+      {
+        "id": "ocd-person/4a64529e-c299-4979-a564-909dc9f2edd2",
+        "name": "Janne Myrdal",
+        "office": "state-senate",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "jmyrdal@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/janne-myrdal",
+        "social": {}
+      }
+    ],
+    "ND:state-senate:043": [
+      {
+        "id": "ocd-person/49d467a4-d6ad-49bb-b498-445117bd1669",
+        "name": "Jeff Barta",
+        "office": "state-senate",
+        "districtCode": "043",
+        "contactUrl": null,
+        "email": "jbarta@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/jeff-barta",
+        "social": {}
+      }
+    ],
+    "ND:state-senate:008": [
+      {
+        "id": "ocd-person/9c20611f-bea1-4176-b98f-3b20537e6818",
+        "name": "Jeff Magrum",
+        "office": "state-senate",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "jmagrum@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/jeffery-j-magrum",
+        "social": {}
+      }
+    ],
+    "ND:state-senate:014": [
+      {
+        "id": "ocd-person/714275ca-f81c-4fae-af2e-248a5ba4d697",
+        "name": "Jerry Klein",
+        "office": "state-senate",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "jklein@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/jerry-klein",
+        "social": {}
+      }
+    ],
+    "ND:state-senate:017": [
+      {
+        "id": "ocd-person/e0da9b3a-45c3-4776-b6cc-eebd3d64d785",
+        "name": "Jonathan Sickler",
+        "office": "state-senate",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "jlsickler@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/jonathan-sickler",
+        "social": {}
+      }
+    ],
+    "ND:state-senate:040": [
+      {
+        "id": "ocd-person/2abbe0b0-fc8b-47f0-8b29-78e7c1315322",
+        "name": "Jose Castaneda",
+        "office": "state-senate",
+        "districtCode": "040",
+        "contactUrl": null,
+        "email": "jcastaneda@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/jose-l-castaneda",
+        "social": {}
+      }
+    ],
+    "ND:state-senate:013": [
+      {
+        "id": "ocd-person/75e58364-853b-4b08-b902-7c84deb98e4a",
+        "name": "Judy Lee",
+        "office": "state-senate",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "jlee@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/judy-lee",
+        "social": {}
+      }
+    ],
+    "ND:state-senate:034": [
+      {
+        "id": "ocd-person/17f0bfb4-083b-460d-9b3f-483079df42c6",
+        "name": "Justin Gerhardt",
+        "office": "state-senate",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "jgerhardt@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/justin-gerhardt",
+        "social": {}
+      }
+    ],
+    "ND:state-senate:021": [
+      {
+        "id": "ocd-person/03924b26-a081-4722-947b-2738200f9063",
+        "name": "Kathy Hogan",
+        "office": "state-senate",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "khogan@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/kathy-hogan",
+        "social": {}
+      }
+    ],
+    "ND:state-senate:033": [
+      {
+        "id": "ocd-person/61200f69-4501-4cfb-a9cf-a37e86d6604c",
+        "name": "Keith Boehm",
+        "office": "state-senate",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "kboehm@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/keith-boehm",
+        "social": {}
+      }
+    ],
+    "ND:state-senate:015": [
+      {
+        "id": "ocd-person/f1041f2b-2e6e-41b0-9313-9767f7c03dbe",
+        "name": "Kent Weston",
+        "office": "state-senate",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "kweston@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/kent-weston",
+        "social": {}
+      }
+    ],
+    "ND:state-senate:027": [
+      {
+        "id": "ocd-person/dd6fc6e2-9b7f-405a-9121-28afd911ecdd",
+        "name": "Kristin Roers",
+        "office": "state-senate",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "kroers@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/kristin-roers",
+        "social": {}
+      }
+    ],
+    "ND:state-senate:041": [
+      {
+        "id": "ocd-person/4412269d-782d-4ea2-a649-e62a30cd1739",
+        "name": "Kyle Davison",
+        "office": "state-senate",
+        "districtCode": "041",
+        "contactUrl": null,
+        "email": "kdavison@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/kyle-davison",
+        "social": {}
+      }
+    ],
+    "ND:state-senate:025": [
+      {
+        "id": "ocd-person/bbce3e80-9e27-4dfe-a7db-0c2b3bcc0b94",
+        "name": "Larry Luick",
+        "office": "state-senate",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "lluick@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/larry-luick",
+        "social": {}
+      }
+    ],
+    "ND:state-senate:002": [
+      {
+        "id": "ocd-person/157a41fd-5329-42f2-a5c7-d0cc81336f07",
+        "name": "Mark Enget",
+        "office": "state-senate",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "menget@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/mark-enget",
+        "social": {}
+      }
+    ],
+    "ND:state-senate:022": [
+      {
+        "id": "ocd-person/450cf40c-eb15-4f0d-843f-3a3e071d54fc",
+        "name": "Mark Weber",
+        "office": "state-senate",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "markweber@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/mark-f-weber",
+        "social": {}
+      }
+    ],
+    "ND:state-senate:024": [
+      {
+        "id": "ocd-person/a5665c05-d239-4297-a3dc-08557280d5f8",
+        "name": "Mike Wobbema",
+        "office": "state-senate",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "mwobbema@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/michael-a-wobbema",
+        "social": {}
+      }
+    ],
+    "ND:state-senate:047": [
+      {
+        "id": "ocd-person/704150b0-5d7f-43ea-afd5-b6f059463575",
+        "name": "Mike Dwyer",
+        "office": "state-senate",
+        "districtCode": "047",
+        "contactUrl": null,
+        "email": "mdwyer@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/michael-dwyer",
+        "social": {}
+      }
+    ],
+    "ND:state-senate:007": [
+      {
+        "id": "ocd-person/281253e2-e075-4cde-92dd-20d097bc2b3b",
+        "name": "Michelle Axtman",
+        "office": "state-senate",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "maxtman@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/michelle-axtman",
+        "social": {}
+      }
+    ],
+    "ND:state-senate:046": [
+      {
+        "id": "ocd-person/3f38bb4c-1371-4b8c-851f-cc441b5c853b",
+        "name": "Michelle Powers",
+        "office": "state-senate",
+        "districtCode": "046",
+        "contactUrl": null,
+        "email": "mpowers@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/michelle-powers",
+        "social": {}
+      }
+    ],
+    "ND:state-senate:006": [
+      {
+        "id": "ocd-person/960f301d-59c2-4047-96ca-8f026c7cc096",
+        "name": "Paul Thomas",
+        "office": "state-senate",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "paulthomas@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/paul-j-thomas",
+        "social": {}
+      }
+    ],
+    "ND:state-senate:005": [
+      {
+        "id": "ocd-person/c7d25cc2-0a28-4001-b046-df3e3a996f21",
+        "name": "Randy Burckhard",
+        "office": "state-senate",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "raburckhard@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/randy-a-burckhard",
+        "social": {}
+      }
+    ],
+    "ND:state-senate:020": [
+      {
+        "id": "ocd-person/c8e63920-e054-4bb3-aff3-e9caeb012d2c",
+        "name": "Randy Lemm",
+        "office": "state-senate",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "rlemm@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/randy-d-lemm",
+        "social": {}
+      }
+    ],
+    "ND:state-senate:009": [
+      {
+        "id": "ocd-person/d87ed27e-35a2-4272-aa04-edf0a2893004",
+        "name": "Richard Marcellais",
+        "office": "state-senate",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "rmarcellais@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/richard-marcellais",
+        "social": {}
+      }
+    ],
+    "ND:state-senate:028": [
+      {
+        "id": "ocd-person/e3f498cc-b127-4f43-be89-1ad84b3b4e78",
+        "name": "Robert Erbele",
+        "office": "state-senate",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "rerbele@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/robert-erbele",
+        "social": {}
+      }
+    ],
+    "ND:state-senate:045": [
+      {
+        "id": "ocd-person/d313121d-2b0d-41e9-94a2-fe819a6e82b4",
+        "name": "Ron Sorvaag",
+        "office": "state-senate",
+        "districtCode": "045",
+        "contactUrl": null,
+        "email": "rsorvaag@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/ronald-sorvaag",
+        "social": {}
+      }
+    ],
+    "ND:state-senate:010": [
+      {
+        "id": "ocd-person/66b053e6-9766-40f0-8da3-2a40f517d9e1",
+        "name": "Ryan Braunberger",
+        "office": "state-senate",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "rbraunberger@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/ryan-braunberger",
+        "social": {}
+      }
+    ],
+    "ND:state-senate:018": [
+      {
+        "id": "ocd-person/5bcd9ecd-d547-4336-aa69-b4b258085802",
+        "name": "Scott Meyer",
+        "office": "state-senate",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "scottmeyer@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/scott-meyer",
+        "social": {}
+      }
+    ],
+    "ND:state-senate:035": [
+      {
+        "id": "ocd-person/ee32295a-16ef-45df-b47e-f74ac5f1765b",
+        "name": "Sean Cleary",
+        "office": "state-senate",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "scleary@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/sean-cleary",
+        "social": {}
+      }
+    ],
+    "ND:state-senate:029": [
+      {
+        "id": "ocd-person/b40f2559-d9ae-41c2-b539-bd9c673cd90d",
+        "name": "Terry Wanzek",
+        "office": "state-senate",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "tmwanzek@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/terry-m-wanzek",
+        "social": {}
+      }
+    ],
+    "ND:state-senate:011": [
+      {
+        "id": "ocd-person/f715b93a-dcf7-4a67-b466-10c2cfad8a60",
+        "name": "Tim Mathern",
+        "office": "state-senate",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "tmathern@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/tim-mathern",
+        "social": {}
+      }
+    ],
+    "ND:state-senate:023": [
+      {
+        "id": "ocd-person/f01e3e40-01d3-4290-a85b-760683d4292e",
+        "name": "Todd Beard",
+        "office": "state-senate",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "tbeard@ndlegis.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ndlegis.gov/biography/todd-beard",
+        "social": {}
+      }
+    ]
+  }
+}

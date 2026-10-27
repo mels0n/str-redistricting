@@ -1,0 +1,1919 @@
+{
+  "state": "WV",
+  "generatedFrom": {
+    "legislators-current.json": "ae8cb9477c48715df71a7d860854229d799dc90a254d61badc1efb770f892b2c",
+    "legislators-social-media.json": "c6eca1fcdb3a89901335eed51ca061daa4b60ad3243969a127e913bb9657fbc5",
+    "wv.csv": "803bc7fb715aedac9144809a0c4645acfece5623c128989db947c78c8756f9b9"
+  },
+  "byKey": {
+    "WV:us-senate:00": [
+      {
+        "id": "C001047",
+        "name": "Shelley Moore Capito",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.capito.senate.gov/contact/contact-shelley",
+        "email": null,
+        "phone": "202-224-6472",
+        "address": "170 Russell Senate Office Building Washington DC 20510",
+        "website": "https://www.capito.senate.gov",
+        "social": {
+          "x": "SenCapito",
+          "facebook": "senshelley",
+          "instagram": "sencapito"
+        }
+      },
+      {
+        "id": "J000312",
+        "name": "James C. Justice",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-224-3954",
+        "address": "509 Hart Senate Office Building Washington DC 20510",
+        "website": "https://www.justice.senate.gov",
+        "social": {
+          "facebook": "100044187231175",
+          "instagram": "senjimjustice"
+        }
+      }
+    ],
+    "WV:us-house:01": [
+      {
+        "id": "M001205",
+        "name": "Carol D. Miller",
+        "office": "us-house",
+        "districtCode": "01",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-3452",
+        "address": "465 Cannon House Office Building Washington DC 20515-4801",
+        "website": "https://miller.house.gov",
+        "social": {
+          "x": "RepCarolMiller",
+          "facebook": "RepCarolMiller"
+        }
+      }
+    ],
+    "WV:us-house:02": [
+      {
+        "id": "M001235",
+        "name": "Riley M. Moore",
+        "office": "us-house",
+        "districtCode": "02",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2711",
+        "address": "1337 Longworth House Office Building Washington DC 20515-4802",
+        "website": "https://rileymoore.house.gov",
+        "social": {
+          "x": "RepRileyMoore",
+          "instagram": "reprileymoore"
+        }
+      }
+    ],
+    "WV:state-house:022": [
+      {
+        "id": "ocd-person/feedb0b5-72da-4529-ab31-630805452e1a",
+        "name": "Aaron Holley",
+        "office": "state-house",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "aaron.holley@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Holley",
+        "social": {}
+      }
+    ],
+    "WV:state-house:064": [
+      {
+        "id": "ocd-person/76544899-58ec-4065-a3e8-4a4d8a12b4eb",
+        "name": "Adam Burkhammer",
+        "office": "state-house",
+        "districtCode": "064",
+        "contactUrl": null,
+        "email": "adam.burkhammer@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Burkhammer",
+        "social": {}
+      }
+    ],
+    "WV:state-house:035": [
+      {
+        "id": "ocd-person/c15b4eb1-1dc4-498f-9929-43ff34445317",
+        "name": "Adam Vance",
+        "office": "state-house",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "adam.vance@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Vance",
+        "social": {}
+      }
+    ],
+    "WV:state-house:059": [
+      {
+        "id": "ocd-person/e6deff1e-fb70-4bf0-a2b6-9c30567fcd9d",
+        "name": "Andy Shamblin",
+        "office": "state-house",
+        "districtCode": "059",
+        "contactUrl": null,
+        "email": "andy.shamblin@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Shamblin",
+        "social": {}
+      }
+    ],
+    "WV:state-house:081": [
+      {
+        "id": "ocd-person/86a1fdf7-e6af-41b4-8d69-0d0815fc9512",
+        "name": "Anitra Hamilton",
+        "office": "state-house",
+        "districtCode": "081",
+        "contactUrl": null,
+        "email": "anitra.hamilton@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Hamilton",
+        "social": {}
+      }
+    ],
+    "WV:state-house:009": [
+      {
+        "id": "ocd-person/ffd4b452-510d-48f0-ac07-51af538b46f0",
+        "name": "Betsy Kelly",
+        "office": "state-house",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "betsy.kelly@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Kelly",
+        "social": {}
+      }
+    ],
+    "WV:state-house:008": [
+      {
+        "id": "ocd-person/4d4f0511-706a-406b-9259-05c4008d8b64",
+        "name": "Bill Bell",
+        "office": "state-house",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "bill.bell@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Bell",
+        "social": {}
+      }
+    ],
+    "WV:state-house:100": [
+      {
+        "id": "ocd-person/ad2e5607-a6ef-4458-88fc-bea91da19ac6",
+        "name": "Bill Ridenour",
+        "office": "state-house",
+        "districtCode": "100",
+        "contactUrl": null,
+        "email": "bill.ridenour@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Ridenour",
+        "social": {}
+      }
+    ],
+    "WV:state-house:044": [
+      {
+        "id": "ocd-person/9f35a509-bd40-4ed2-8792-407169b7a944",
+        "name": "Bill Roop",
+        "office": "state-house",
+        "districtCode": "044",
+        "contactUrl": null,
+        "email": "bill.roop@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Roop",
+        "social": {}
+      }
+    ],
+    "WV:state-house:050": [
+      {
+        "id": "ocd-person/a49643ec-8dac-4464-8658-1cf68602be17",
+        "name": "Bill Vest",
+        "office": "state-house",
+        "districtCode": "050",
+        "contactUrl": null,
+        "email": "william.vest@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Vest",
+        "social": {}
+      }
+    ],
+    "WV:state-house:011": [
+      {
+        "id": "ocd-person/a70a295b-82a5-44a0-ba22-a462823f7abb",
+        "name": "Bob Fehrenbacher",
+        "office": "state-house",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "bob.fehrenbacher@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Fehrenbacher",
+        "social": {}
+      }
+    ],
+    "WV:state-house:073": [
+      {
+        "id": "ocd-person/9cdbf48f-3fd5-4147-9f26-a78632d99929",
+        "name": "Bryan Smith",
+        "office": "state-house",
+        "districtCode": "073",
+        "contactUrl": null,
+        "email": "bryan.smith@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Smith,%20B.",
+        "social": {}
+      }
+    ],
+    "WV:state-house:086": [
+      {
+        "id": "ocd-person/6e588e9a-4d48-444d-92b4-629e00900440",
+        "name": "Bryan Ward",
+        "office": "state-house",
+        "districtCode": "086",
+        "contactUrl": null,
+        "email": "bryan.ward@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Ward%2C+B.",
+        "social": {}
+      }
+    ],
+    "WV:state-house:065": [
+      {
+        "id": "ocd-person/aa01a651-9834-4b98-b9c3-25aee388087a",
+        "name": "Robbie Martin",
+        "office": "state-house",
+        "districtCode": "065",
+        "contactUrl": null,
+        "email": "carl.martin@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Martin",
+        "social": {}
+      }
+    ],
+    "WV:state-house:007": [
+      {
+        "id": "ocd-person/338acc2a-d910-4c29-aa94-bf39fbebdeec",
+        "name": "Chuck Sheedy",
+        "office": "state-house",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "charles.sheedy@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Sheedy",
+        "social": {}
+      }
+    ],
+    "WV:state-house:097": [
+      {
+        "id": "ocd-person/7ad5da9a-c2b3-4f9b-b62c-6cd7f0564f43",
+        "name": "Chris Anders",
+        "office": "state-house",
+        "districtCode": "097",
+        "contactUrl": null,
+        "email": "chris.anders@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Anders",
+        "social": {}
+      }
+    ],
+    "WV:state-house:068": [
+      {
+        "id": "ocd-person/eb6d633a-5526-413b-872d-bd36f4d9a906",
+        "name": "Chris Phillips",
+        "office": "state-house",
+        "districtCode": "068",
+        "contactUrl": null,
+        "email": "chris.phillips@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Phillips",
+        "social": {}
+      }
+    ],
+    "WV:state-house:043": [
+      {
+        "id": "ocd-person/cdd73d73-98d4-43f0-9eec-a030c4ce080f",
+        "name": "Chris Toney",
+        "office": "state-house",
+        "districtCode": "043",
+        "contactUrl": null,
+        "email": "chris.toney@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Toney",
+        "social": {}
+      }
+    ],
+    "WV:state-house:095": [
+      {
+        "id": "ocd-person/1f91d255-ce76-40b4-86fd-f9412407f869",
+        "name": "Chuck Horst",
+        "office": "state-house",
+        "districtCode": "095",
+        "contactUrl": null,
+        "email": "charles.horst@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Horst",
+        "social": {}
+      }
+    ],
+    "WV:state-house:072": [
+      {
+        "id": "ocd-person/cf728c9e-40e8-4f73-a5fa-0d46844aa38e",
+        "name": "Clay Riley",
+        "office": "state-house",
+        "districtCode": "072",
+        "contactUrl": null,
+        "email": "clay.riley@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Riley",
+        "social": {}
+      }
+    ],
+    "WV:state-house:084": [
+      {
+        "id": "ocd-person/34e1e6dd-469b-4e3d-9cc5-604bffe79730",
+        "name": "Buck Jennings",
+        "office": "state-house",
+        "districtCode": "084",
+        "contactUrl": null,
+        "email": "buck.jennings@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Jennings",
+        "social": {}
+      }
+    ],
+    "WV:state-house:060": [
+      {
+        "id": "ocd-person/6c7fa52c-c313-4f10-aab9-ba9cc0269743",
+        "name": "Dana Ferrell",
+        "office": "state-house",
+        "districtCode": "060",
+        "contactUrl": null,
+        "email": "dana.ferrell@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Ferrell",
+        "social": {}
+      }
+    ],
+    "WV:state-house:014": [
+      {
+        "id": "ocd-person/9ad2e11c-daf4-4f33-9c2d-0075beaeada8",
+        "name": "Dave Foggin",
+        "office": "state-house",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "dave.foggin@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Foggin",
+        "social": {}
+      }
+    ],
+    "WV:state-house:082": [
+      {
+        "id": "ocd-person/297732cd-3e12-4ce1-b6ca-7e046d8b3e46",
+        "name": "Dave McCormick",
+        "office": "state-house",
+        "districtCode": "082",
+        "contactUrl": null,
+        "email": "david.mccormick@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20McCormick",
+        "social": {}
+      }
+    ],
+    "WV:state-house:089": [
+      {
+        "id": "ocd-person/79e71ddf-33fc-4e28-8324-dd52aaa0e653",
+        "name": "David Cannon",
+        "office": "state-house",
+        "districtCode": "089",
+        "contactUrl": null,
+        "email": "david.cannon@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Cannon,%20D.",
+        "social": {}
+      }
+    ],
+    "WV:state-house:036": [
+      {
+        "id": "ocd-person/b0526275-df8b-4f42-b16b-064aa721a858",
+        "name": "David Green",
+        "office": "state-house",
+        "districtCode": "036",
+        "contactUrl": null,
+        "email": "david.green@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Green",
+        "social": {}
+      }
+    ],
+    "WV:state-house:061": [
+      {
+        "id": "ocd-person/94a511d8-31ee-4f7d-9227-005b143f9c47",
+        "name": "Dean Jeffries",
+        "office": "state-house",
+        "districtCode": "061",
+        "contactUrl": null,
+        "email": "dean.jeffries@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Jeffries",
+        "social": {}
+      }
+    ],
+    "WV:state-house:094": [
+      {
+        "id": "ocd-person/43f0eeae-cf06-4d8b-a568-03e63c72b796",
+        "name": "Donald Bennett",
+        "office": "state-house",
+        "districtCode": "094",
+        "contactUrl": null,
+        "email": "donaldlee.bennett@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Bennett",
+        "social": {}
+      }
+    ],
+    "WV:state-house:039": [
+      {
+        "id": "ocd-person/70ac0a53-79d8-426b-950b-83e9be022bf3",
+        "name": "Doug Smith",
+        "office": "state-house",
+        "districtCode": "039",
+        "contactUrl": null,
+        "email": "doug.smith@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Smith",
+        "social": {}
+      }
+    ],
+    "WV:state-house:067": [
+      {
+        "id": "ocd-person/0714e7e4-9da4-46bf-a8f5-e48be1af2242",
+        "name": "Elías Coop-González",
+        "office": "state-house",
+        "districtCode": "067",
+        "contactUrl": null,
+        "email": "elias.coop-gonzalez@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Coop-Gonzalez",
+        "social": {}
+      }
+    ],
+    "WV:state-house:045": [
+      {
+        "id": "ocd-person/db5d813b-3cd2-4a6d-b656-b48624f61094",
+        "name": "Eric Brooks",
+        "office": "state-house",
+        "districtCode": "045",
+        "contactUrl": null,
+        "email": "eric.brooks@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Brooks",
+        "social": {}
+      }
+    ],
+    "WV:state-house:015": [
+      {
+        "id": "ocd-person/74fee589-c9e9-4dd7-a719-d9b165b2b2c7",
+        "name": "Erica Moore",
+        "office": "state-house",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "erica.moore@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Moore",
+        "social": {}
+      }
+    ],
+    "WV:state-house:079": [
+      {
+        "id": "ocd-person/10dbdccd-3754-49b8-ae28-8f75c4d6936f",
+        "name": "Evan Hansen",
+        "office": "state-house",
+        "districtCode": "079",
+        "contactUrl": null,
+        "email": "evan.hansen@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Hansen",
+        "social": {}
+      }
+    ],
+    "WV:state-house:023": [
+      {
+        "id": "ocd-person/b875b7d6-4941-42a6-bcdf-c5da19bf0ced",
+        "name": "Evan Worrell",
+        "office": "state-house",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "evan.worrell@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Worrell",
+        "social": {}
+      }
+    ],
+    "WV:state-house:087": [
+      {
+        "id": "ocd-person/405fa851-873f-4895-acd5-d394fbb06be3",
+        "name": "Gary Howell",
+        "office": "state-house",
+        "districtCode": "087",
+        "contactUrl": null,
+        "email": "gary.howell@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Howell",
+        "social": {}
+      }
+    ],
+    "WV:state-house:078": [
+      {
+        "id": "ocd-person/409397ae-ceea-4b1b-bce5-b042af057232",
+        "name": "Geno Chiarelli",
+        "office": "state-house",
+        "districtCode": "078",
+        "contactUrl": null,
+        "email": "geno.chiarelli@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Chiarelli",
+        "social": {}
+      }
+    ],
+    "WV:state-house:090": [
+      {
+        "id": "ocd-person/5bb7ff93-88f4-42ec-ba11-6921dead66a1",
+        "name": "George Miller",
+        "office": "state-house",
+        "districtCode": "090",
+        "contactUrl": null,
+        "email": "george.miller@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Miller",
+        "social": {}
+      }
+    ],
+    "WV:state-house:083": [
+      {
+        "id": "ocd-person/2ee0335d-f067-4ca3-99ce-e10944fa8875",
+        "name": "George Street",
+        "office": "state-house",
+        "districtCode": "083",
+        "contactUrl": null,
+        "email": "george.street@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Street",
+        "social": {}
+      }
+    ],
+    "WV:state-house:048": [
+      {
+        "id": "ocd-person/c66e0d8a-9d20-47ce-8d45-50d4b5aaa0d3",
+        "name": "Greg Watt",
+        "office": "state-house",
+        "districtCode": "048",
+        "contactUrl": null,
+        "email": "gregory.watt@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Watt",
+        "social": {}
+      }
+    ],
+    "WV:state-house:074": [
+      {
+        "id": "ocd-person/1495b97d-e012-4f6f-84b9-3e1d67b8a016",
+        "name": "Guy Ward",
+        "office": "state-house",
+        "districtCode": "074",
+        "contactUrl": null,
+        "email": "guy.ward@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Ward",
+        "social": {}
+      }
+    ],
+    "WV:state-house:029": [
+      {
+        "id": "ocd-person/e05b927b-a702-4143-87b2-79a8c81d4eee",
+        "name": "Corby Dillon",
+        "office": "state-house",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "henry.dillon@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Dillon",
+        "social": {}
+      }
+    ],
+    "WV:state-house:057": [
+      {
+        "id": "ocd-person/68163122-16de-4528-8eda-fd1f9783c45d",
+        "name": "Hollis Lewis",
+        "office": "state-house",
+        "districtCode": "057",
+        "contactUrl": null,
+        "email": "hollis.lewis@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Lewis",
+        "social": {}
+      }
+    ],
+    "WV:state-house:091": [
+      {
+        "id": "ocd-person/f8921713-413e-4f72-8291-464f2cef3f7b",
+        "name": "Ian Masters",
+        "office": "state-house",
+        "districtCode": "091",
+        "contactUrl": null,
+        "email": "ian.masters@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/house/lawmaker.cfm?member=Delegate%20Masters",
+        "social": {}
+      }
+    ],
+    "WV:state-house:055": [
+      {
+        "id": "ocd-person/33e56ab1-3106-45fa-a992-fab181983a99",
+        "name": "J.B. Akers",
+        "office": "state-house",
+        "districtCode": "055",
+        "contactUrl": null,
+        "email": "jb.akers@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/house/lawmaker.cfm?member=Delegate%20Akers",
+        "social": {}
+      }
+    ],
+    "WV:state-house:021": [
+      {
+        "id": "ocd-person/e617259d-e2c9-4043-a759-321c7e3ff7f0",
+        "name": "Jarred Cannon",
+        "office": "state-house",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "jarred.cannon@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Cannon",
+        "social": {}
+      }
+    ],
+    "WV:state-house:046": [
+      {
+        "id": "ocd-person/81cad520-b015-42c8-b533-64a9e4596197",
+        "name": "Jeff Campbell",
+        "office": "state-house",
+        "districtCode": "046",
+        "contactUrl": null,
+        "email": "jeff.campbell@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Campbell",
+        "social": {}
+      }
+    ],
+    "WV:state-house:030": [
+      {
+        "id": "ocd-person/e43a22ad-b630-496b-81f8-6b1f6ceaa13e",
+        "name": "Jeff Eldridge",
+        "office": "state-house",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "jeff.eldridge@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Eldridge",
+        "social": {}
+      }
+    ],
+    "WV:state-house:006": [
+      {
+        "id": "ocd-person/0092e49c-3dfe-4a2b-b053-e7a0360accf1",
+        "name": "Jeff Stephens",
+        "office": "state-house",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "jeffrey.stephens@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Stephens",
+        "social": {}
+      }
+    ],
+    "WV:state-house:018": [
+      {
+        "id": "ocd-person/905290bd-c655-4a3d-9961-65a2f9c0e271",
+        "name": "Jim Butler",
+        "office": "state-house",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "jim.butler@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Butler",
+        "social": {}
+      }
+    ],
+    "WV:state-house:003": [
+      {
+        "id": "ocd-person/5a2928e1-3371-480d-be6f-1c3133de4609",
+        "name": "Jimmy Willis",
+        "office": "state-house",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "jimmy.willis@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Willis",
+        "social": {}
+      }
+    ],
+    "WV:state-house:038": [
+      {
+        "id": "ocd-person/fe6a6b8e-91f2-427f-9060-2cac2b9eb66c",
+        "name": "Joe Ellington",
+        "office": "state-house",
+        "districtCode": "038",
+        "contactUrl": null,
+        "email": "joe.ellington@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Ellington",
+        "social": {}
+      }
+    ],
+    "WV:state-house:098": [
+      {
+        "id": "ocd-person/c93039e0-7c57-4289-9447-466f56bba802",
+        "name": "Joe Funkhouser",
+        "office": "state-house",
+        "districtCode": "098",
+        "contactUrl": null,
+        "email": "joe.funkhouser@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Funkhouser",
+        "social": {}
+      }
+    ],
+    "WV:state-house:016": [
+      {
+        "id": "ocd-person/e2f71bb6-832a-46f3-8247-5e2c16685fe1",
+        "name": "Joe Parsons",
+        "office": "state-house",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "frederick.parsons@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Parsons",
+        "social": {}
+      }
+    ],
+    "WV:state-house:077": [
+      {
+        "id": "ocd-person/79271821-3d79-4f99-bba3-a147779bb3d0",
+        "name": "Joe Statler",
+        "office": "state-house",
+        "districtCode": "077",
+        "contactUrl": null,
+        "email": "joe.statler@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Statler",
+        "social": {}
+      }
+    ],
+    "WV:state-house:042": [
+      {
+        "id": "ocd-person/642a1eab-3a94-4d91-b1ff-5fc5e720cb06",
+        "name": "John Jordan",
+        "office": "state-house",
+        "districtCode": "042",
+        "contactUrl": null,
+        "email": "john.jordan@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Jordan",
+        "social": {}
+      }
+    ],
+    "WV:state-house:085": [
+      {
+        "id": "ocd-person/06c041be-0a45-4bfe-8e2d-49055af1205f",
+        "name": "John Paul Hott",
+        "office": "state-house",
+        "districtCode": "085",
+        "contactUrl": null,
+        "email": "johnpaul.hott@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Hott",
+        "social": {}
+      }
+    ],
+    "WV:state-house:080": [
+      {
+        "id": "ocd-person/2c8a36d4-5afa-4b68-a6a0-1a9b170401b0",
+        "name": "John Williams",
+        "office": "state-house",
+        "districtCode": "080",
+        "contactUrl": null,
+        "email": "john.williams@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Williams",
+        "social": {}
+      }
+    ],
+    "WV:state-house:066": [
+      {
+        "id": "ocd-person/e83c168f-6725-47ea-ac8d-7dbadc6736c7",
+        "name": "Jonathan Kyle",
+        "office": "state-house",
+        "districtCode": "066",
+        "contactUrl": null,
+        "email": "jonathan.kyle@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Kyle",
+        "social": {}
+      }
+    ],
+    "WV:state-house:017": [
+      {
+        "id": "ocd-person/a71cd621-aa1e-4338-b0bd-ca9f7a03f667",
+        "name": "Jonathan Pinson",
+        "office": "state-house",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "jonathan.pinson@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Pinson",
+        "social": {}
+      }
+    ],
+    "WV:state-house:033": [
+      {
+        "id": "ocd-person/be682c29-e66f-4a19-89cc-761c60330eea",
+        "name": "Jordan Bridges",
+        "office": "state-house",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "jordan.bridges@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Bridges",
+        "social": {}
+      }
+    ],
+    "WV:state-house:041": [
+      {
+        "id": "ocd-person/487dd54b-3091-4b0e-b798-0df99523b4c6",
+        "name": "Jordan Maynor",
+        "office": "state-house",
+        "districtCode": "041",
+        "contactUrl": null,
+        "email": "jordan.maynor@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Maynor",
+        "social": {}
+      }
+    ],
+    "WV:state-house:032": [
+      {
+        "id": "ocd-person/9d8c89be-2ece-4dff-8a6d-65dccb8e647e",
+        "name": "Josh Holstein",
+        "office": "state-house",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "josh.holstein@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Holstein",
+        "social": {}
+      }
+    ],
+    "WV:state-house:019": [
+      {
+        "id": "ocd-person/0686b8e2-2d6a-4950-b3c3-0dbfe5a6e719",
+        "name": "Kathie Hess Crouse",
+        "office": "state-house",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "kathie.crouse@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Crouse",
+        "social": {}
+      }
+    ],
+    "WV:state-house:056": [
+      {
+        "id": "ocd-person/3317959e-9fbd-40dc-aa7a-0f0a9cc06c3f",
+        "name": "Kayla Young",
+        "office": "state-house",
+        "districtCode": "056",
+        "contactUrl": null,
+        "email": "kayla.young@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Young",
+        "social": {}
+      }
+    ],
+    "WV:state-house:069": [
+      {
+        "id": "ocd-person/13a851e4-7ecb-4609-bd19-3bd4ff7fbc1c",
+        "name": "Keith Marple",
+        "office": "state-house",
+        "districtCode": "069",
+        "contactUrl": null,
+        "email": "keith.marple@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Marple",
+        "social": {}
+      }
+    ],
+    "WV:state-house:071": [
+      {
+        "id": "ocd-person/ce1e7053-19d4-4405-8e31-f5c39af87ae9",
+        "name": "Laura Kimble",
+        "office": "state-house",
+        "districtCode": "071",
+        "contactUrl": null,
+        "email": "laura.kimble@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Kimble",
+        "social": {}
+      }
+    ],
+    "WV:state-house:096": [
+      {
+        "id": "ocd-person/7ae7ca12-88dc-4387-a9ee-49295af32fb7",
+        "name": "Lisa White",
+        "office": "state-house",
+        "districtCode": "096",
+        "contactUrl": null,
+        "email": "lisa.white@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20White",
+        "social": {}
+      }
+    ],
+    "WV:state-house:063": [
+      {
+        "id": "ocd-person/3f45442d-ffd9-4566-a661-42efa25f8e18",
+        "name": "Lori Dittman",
+        "office": "state-house",
+        "districtCode": "063",
+        "contactUrl": null,
+        "email": "lori.dittman@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Dittman",
+        "social": {}
+      }
+    ],
+    "WV:state-house:031": [
+      {
+        "id": "ocd-person/92599af8-32f7-4aa4-bab2-8c7b461f54a5",
+        "name": "Margitta Mazzocchi",
+        "office": "state-house",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "margitta.mazzocchi@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Mazzocchi",
+        "social": {}
+      }
+    ],
+    "WV:state-house:034": [
+      {
+        "id": "ocd-person/2461647c-b7dc-4df2-b1b8-6acee9700b7c",
+        "name": "Mark Dean",
+        "office": "state-house",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "mark.dean@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Dean",
+        "social": {}
+      }
+    ],
+    "WV:state-house:002": [
+      {
+        "id": "ocd-person/af0b8606-3832-40d4-91e2-3b71975e4b8f",
+        "name": "Mark Zatezalo",
+        "office": "state-house",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "mark.zatezalo@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Zatezalo",
+        "social": {}
+      }
+    ],
+    "WV:state-house:051": [
+      {
+        "id": "ocd-person/6a8371d3-32ba-4997-9cd4-ad26bafab694",
+        "name": "Marshall Clay",
+        "office": "state-house",
+        "districtCode": "051",
+        "contactUrl": null,
+        "email": "marshall.clay@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Clay",
+        "social": {}
+      }
+    ],
+    "WV:state-house:037": [
+      {
+        "id": "ocd-person/c56adc82-a476-4d3c-bd7f-51b2257b0032",
+        "name": "Marty Gearheart",
+        "office": "state-house",
+        "districtCode": "037",
+        "contactUrl": null,
+        "email": "marty.gearheart@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Gearheart",
+        "social": {}
+      }
+    ],
+    "WV:state-house:026": [
+      {
+        "id": "ocd-person/074a2aa9-d012-437a-8d59-d3f4b9d73905",
+        "name": "Matthew Rohrbach",
+        "office": "state-house",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "matthew.rohrbach@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Rohrbach",
+        "social": {}
+      }
+    ],
+    "WV:state-house:027": [
+      {
+        "id": "ocd-person/3d5db222-66fb-4f3a-a178-d12246697654",
+        "name": "Michael Amos",
+        "office": "state-house",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "michael.amos@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Amos",
+        "social": {}
+      }
+    ],
+    "WV:state-house:092": [
+      {
+        "id": "ocd-person/0ef791a3-2e24-4751-8686-21ffac958ce0",
+        "name": "Mike Hite",
+        "office": "state-house",
+        "districtCode": "092",
+        "contactUrl": null,
+        "email": "michael.hite@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Hite",
+        "social": {}
+      }
+    ],
+    "WV:state-house:093": [
+      {
+        "id": "ocd-person/b76899a3-5189-495c-af2f-9ca8a4e8036e",
+        "name": "Mike Hornby",
+        "office": "state-house",
+        "districtCode": "093",
+        "contactUrl": null,
+        "email": "michael.hornby@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Hornby",
+        "social": {}
+      }
+    ],
+    "WV:state-house:070": [
+      {
+        "id": "ocd-person/354b56ae-dee4-4536-879e-cfb0d80b4069",
+        "name": "Mickey Petitto",
+        "office": "state-house",
+        "districtCode": "070",
+        "contactUrl": null,
+        "email": "mickey.petitto@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Petitto",
+        "social": {}
+      }
+    ],
+    "WV:state-house:054": [
+      {
+        "id": "ocd-person/1a97b137-218f-43cc-a24f-d806c6ac9fd2",
+        "name": "Mike Pushkin",
+        "office": "state-house",
+        "districtCode": "054",
+        "contactUrl": null,
+        "email": "mike.pushkin@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Pushkin",
+        "social": {}
+      }
+    ],
+    "WV:state-house:001": [
+      {
+        "id": "ocd-person/aa7bf09a-ce90-4e58-a893-42c813a16434",
+        "name": "Pat McGeehan",
+        "office": "state-house",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "pat.mcgeehan@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+McGeehan",
+        "social": {}
+      }
+    ],
+    "WV:state-house:024": [
+      {
+        "id": "ocd-person/9a7c2d4d-002a-439e-b095-e7b86329fc1c",
+        "name": "Patrick Lucas",
+        "office": "state-house",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "patrick.lucas@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Lucas",
+        "social": {}
+      }
+    ],
+    "WV:state-house:075": [
+      {
+        "id": "ocd-person/ca7ec436-00a0-447d-8592-00fc7d358571",
+        "name": "Phil Mallow",
+        "office": "state-house",
+        "districtCode": "075",
+        "contactUrl": null,
+        "email": "phil.mallow@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Mallow",
+        "social": {}
+      }
+    ],
+    "WV:state-house:047": [
+      {
+        "id": "ocd-person/639eb22f-b161-4be3-9abc-9cccf4dfdd05",
+        "name": "Ray Canterbury",
+        "office": "state-house",
+        "districtCode": "047",
+        "contactUrl": null,
+        "email": "ray.canterbury@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Canterbury",
+        "social": {}
+      }
+    ],
+    "WV:state-house:076": [
+      {
+        "id": "ocd-person/cc1fb64b-859b-4009-88b3-2cb23e7e9d9b",
+        "name": "Rick Garcia",
+        "office": "state-house",
+        "districtCode": "076",
+        "contactUrl": null,
+        "email": "rick.garcia@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Garcia",
+        "social": {}
+      }
+    ],
+    "WV:state-house:088": [
+      {
+        "id": "ocd-person/5e9dad08-2267-4354-b695-814e1014a0ec",
+        "name": "Rick Hillenbrand",
+        "office": "state-house",
+        "districtCode": "088",
+        "contactUrl": null,
+        "email": "rick.hillenbrand@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Hillenbrand",
+        "social": {}
+      }
+    ],
+    "WV:state-house:062": [
+      {
+        "id": "ocd-person/a5fb80fa-41db-4bb7-8d0c-9f643b029b86",
+        "name": "Roger Hanshaw",
+        "office": "state-house",
+        "districtCode": "062",
+        "contactUrl": null,
+        "email": "roger.hanshaw@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Speaker+Hanshaw",
+        "social": {}
+      }
+    ],
+    "WV:state-house:040": [
+      {
+        "id": "ocd-person/f7a82cd3-d2c6-4f57-b0d0-d38322d1ad54",
+        "name": "Roy Cooper",
+        "office": "state-house",
+        "districtCode": "040",
+        "contactUrl": null,
+        "email": "roy.cooper@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Cooper",
+        "social": {}
+      }
+    ],
+    "WV:state-house:028": [
+      {
+        "id": "ocd-person/c95f5292-14c3-4e79-8465-05cca13242b6",
+        "name": "Ryan Browning",
+        "office": "state-house",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "ryan.browning@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Browning",
+        "social": {}
+      }
+    ],
+    "WV:state-house:020": [
+      {
+        "id": "ocd-person/003871b4-bf51-4bba-bacc-bf1ead7a9947",
+        "name": "Sarah Drennan",
+        "office": "state-house",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "sarah.drennan@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Drennan",
+        "social": {}
+      }
+    ],
+    "WV:state-house:013": [
+      {
+        "id": "ocd-person/5cd39fcf-7682-4cb0-8ac3-f7c4816f950d",
+        "name": "Scot Heckert",
+        "office": "state-house",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "scot.heckert@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Heckert",
+        "social": {}
+      }
+    ],
+    "WV:state-house:025": [
+      {
+        "id": "ocd-person/916ee127-a228-4dac-b945-312a5f76121a",
+        "name": "Sean Hornbuckle",
+        "office": "state-house",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "sean.hornbuckle@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Hornbuckle",
+        "social": {}
+      }
+    ],
+    "WV:state-house:004": [
+      {
+        "id": "ocd-person/290eeecf-40a3-4418-a80d-15a61b809607",
+        "name": "Shane Stack",
+        "office": "state-house",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "shane.stack@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Stack",
+        "social": {}
+      }
+    ],
+    "WV:state-house:005": [
+      {
+        "id": "ocd-person/bd0e9ba2-fe37-4251-96f2-44715a186750",
+        "name": "Shawn Fluharty",
+        "office": "state-house",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "shawn.fluharty@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Fluharty",
+        "social": {}
+      }
+    ],
+    "WV:state-house:049": [
+      {
+        "id": "ocd-person/4b7f8925-344a-4ce2-b70c-76bb9127c4fa",
+        "name": "Stan Adkins",
+        "office": "state-house",
+        "districtCode": "049",
+        "contactUrl": null,
+        "email": "stanley.adkins@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Adkins",
+        "social": {}
+      }
+    ],
+    "WV:state-house:052": [
+      {
+        "id": "ocd-person/a6ad12cd-7040-4cf0-83b5-9de1fd835fa8",
+        "name": "Tresa Howell",
+        "office": "state-house",
+        "districtCode": "052",
+        "contactUrl": null,
+        "email": "tresa.howell@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Howell,%20T.",
+        "social": {}
+      }
+    ],
+    "WV:state-house:053": [
+      {
+        "id": "ocd-person/8b2ff1b1-618d-47c4-8b20-8388c53eb412",
+        "name": "Tristan Leavitt",
+        "office": "state-house",
+        "districtCode": "053",
+        "contactUrl": null,
+        "email": "tristan.leavitt@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Leavitt",
+        "social": {}
+      }
+    ],
+    "WV:state-house:012": [
+      {
+        "id": "ocd-person/381e0784-9202-4308-a138-399c84740804",
+        "name": "Vernon Criss",
+        "office": "state-house",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "vernon.criss@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Criss",
+        "social": {}
+      }
+    ],
+    "WV:state-house:058": [
+      {
+        "id": "ocd-person/542b49b1-72ed-4e96-98bf-e7c236b92e12",
+        "name": "Walter Hall",
+        "office": "state-house",
+        "districtCode": "058",
+        "contactUrl": null,
+        "email": "walter.hall@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Hall",
+        "social": {}
+      }
+    ],
+    "WV:state-house:099": [
+      {
+        "id": "ocd-person/de66a26a-0d5d-44d4-a687-58cffa1a2512",
+        "name": "Wayne Clark",
+        "office": "state-house",
+        "districtCode": "099",
+        "contactUrl": null,
+        "email": "wayne.clark@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Clark",
+        "social": {}
+      }
+    ],
+    "WV:state-house:010": [
+      {
+        "id": "ocd-person/b5b3734c-fa9f-422b-b0d4-ce8b2b2624c5",
+        "name": "Bill Anderson",
+        "office": "state-house",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "bill.anderson@wvhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Anderson",
+        "social": {}
+      }
+    ],
+    "WV:state-senate:004": [
+      {
+        "id": "ocd-person/57c08164-a673-4269-84d9-6017e740eaac",
+        "name": "Amy Grady",
+        "office": "state-senate",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "amy.grady@wvsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.wv.us/Senate1/lawmaker.cfm?member=Senator+Grady",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/18d03332-9bd9-4070-9101-6cf93ab2105e",
+        "name": "Eric Tarr",
+        "office": "state-senate",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "eric.tarr@wvsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.wv.us/Senate1/lawmaker.cfm?member=Senator+Tarr",
+        "social": {}
+      }
+    ],
+    "WV:state-senate:017": [
+      {
+        "id": "ocd-person/37bf9de9-84b5-4983-8742-a5c3eeeca64a",
+        "name": "Anne Charnock",
+        "office": "state-senate",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "anne.charnock@wvsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/Senate1/lawmaker.cfm?member=Senator%20Charnock",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/c6a91d2b-9230-4d3e-a3d0-c3844ad9e985",
+        "name": "Tom Takubo",
+        "office": "state-senate",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "tom.takubo@wvsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senatortomtakubo.com/",
+        "social": {}
+      }
+    ],
+    "WV:state-senate:012": [
+      {
+        "id": "ocd-person/de50d28d-6a58-4244-8c74-36ca3f41767a",
+        "name": "Ben Queen",
+        "office": "state-senate",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "ben.queen@wvsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Queen",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/69547a9d-4e96-4ea8-94eb-528e40d5d004",
+        "name": "Patrick Martin",
+        "office": "state-senate",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "patrick.martin@wvsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Martin",
+        "social": {}
+      }
+    ],
+    "WV:state-senate:011": [
+      {
+        "id": "ocd-person/8bd21671-34c1-4ba3-aced-0dcaa110029c",
+        "name": "Bill Hamilton",
+        "office": "state-senate",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "bill.hamilton@wvsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.wv.us/Senate1/lawmaker.cfm?member=Senator+Hamilton",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/86c70f70-4fc9-43f3-bd70-632d3a8f023b",
+        "name": "Robbie Morris",
+        "office": "state-senate",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "robbie.morris@wvsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/Senate1/lawmaker.cfm?member=Senator%20Morris",
+        "social": {}
+      }
+    ],
+    "WV:state-senate:009": [
+      {
+        "id": "ocd-person/be5e24ac-6372-4364-a9b0-2e9b33a1a234",
+        "name": "Brian Helton",
+        "office": "state-senate",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "brian.helton@wvsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/Senate1/lawmaker.cfm?member=Senator%20Helton",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/e0166da1-e7d4-42ed-bf99-fe2a9cd3e82e",
+        "name": "Rollan Roberts",
+        "office": "state-senate",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "rollan.roberts@wvsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.wv.us/Senate1/lawmaker.cfm?member=Senator+Roberts",
+        "social": {}
+      }
+    ],
+    "WV:state-senate:002": [
+      {
+        "id": "ocd-person/8941d02d-cee0-47a4-9c68-de73382b20af",
+        "name": "Charles Clements",
+        "office": "state-senate",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "charles.clements@wvsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.wv.us/Senate1/lawmaker.cfm?member=Senator+Clements",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/9c82f11d-28f2-4167-b10c-26815533f73a",
+        "name": "Chris Rose",
+        "office": "state-senate",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "chris.rose@wvsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/Senate1/lawmaker.cfm?member=Senator%20Rose",
+        "social": {}
+      }
+    ],
+    "WV:state-senate:006": [
+      {
+        "id": "ocd-person/e304d393-2b0a-45c3-9f59-98455e0d73a0",
+        "name": "Craig Hart",
+        "office": "state-senate",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "craig.hart@wvsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/senate1/lawmaker.cfm?member=Senator%20Hart",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/e98e90d4-7e6d-47e0-b837-6f5f8b492d9c",
+        "name": "Mark Maynard",
+        "office": "state-senate",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "mark.maynard@wvsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.wv.us/Senate1/lawmaker.cfm?member=Senator+Maynard",
+        "social": {}
+      }
+    ],
+    "WV:state-senate:015": [
+      {
+        "id": "ocd-person/60b7f294-2c42-40ab-ab7d-2a639e5be5e5",
+        "name": "Darren Thorne",
+        "office": "state-senate",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "darren.thorne@wvsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/House/lawmaker.cfm?member=Delegate%20Thorne",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/da86ac6a-5d19-472e-80a0-8b8595cb3054",
+        "name": "Tom Willis",
+        "office": "state-senate",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "tom.willis@wvsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/Senate1/lawmaker.cfm?member=Senator%20Willis",
+        "social": {}
+      }
+    ],
+    "WV:state-senate:008": [
+      {
+        "id": "ocd-person/de2f5e4b-192a-463d-91b0-73f212e8f953",
+        "name": "Glenn Jeffries",
+        "office": "state-senate",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "glenn.jeffries@wvsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.wv.us/Senate1/lawmaker.cfm?member=Senator+Jeffries",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/bf1213a4-9f13-4c3e-a900-c1722909f8a6",
+        "name": "Kevan Bartlett",
+        "office": "state-senate",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "kevan.bartlett@wvsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/Senate1/lawmaker.cfm?member=Senator%20Bartlett",
+        "social": {}
+      }
+    ],
+    "WV:state-senate:010": [
+      {
+        "id": "ocd-person/b4df4940-ac0e-4e1a-ba3c-940d604b4ad2",
+        "name": "Jack Woodrum",
+        "office": "state-senate",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "jack.woodrum@wvsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.wv.us/Senate1/lawmaker.cfm?member=Senator+Woodrum",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/147a2b54-846b-4fec-b394-be4b50827f5f",
+        "name": "Vince Deeds",
+        "office": "state-senate",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "vince.deeds@wvsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/Senate1/lawmaker.cfm?member=Senator%20Deeds",
+        "social": {}
+      }
+    ],
+    "WV:state-senate:016": [
+      {
+        "id": "ocd-person/bcbe03de-3df0-4c07-8973-0304dafa2cb8",
+        "name": "Jason Barrett",
+        "office": "state-senate",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "jason.barrett@wvsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Barrett",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/61c66718-ebd4-4ded-827d-14b21ed01b0a",
+        "name": "Patricia Rucker",
+        "office": "state-senate",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "patricia.rucker@wvsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.wv.us/Senate1/lawmaker.cfm?member=Senator+Rucker",
+        "social": {}
+      }
+    ],
+    "WV:state-senate:014": [
+      {
+        "id": "ocd-person/a7ae16a1-8a1e-4280-8d00-9125719a893e",
+        "name": "Jay Taylor",
+        "office": "state-senate",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "jay.taylor@wvsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/Senate1/lawmaker.cfm?member=Senator%20Taylor",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/28321ca7-5b8c-4b1a-9a85-2ae30e52045b",
+        "name": "Randy Smith",
+        "office": "state-senate",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "randy.smith@wvsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.wv.us/Senate1/lawmaker.cfm?member=Senator+Smith",
+        "social": {}
+      }
+    ],
+    "WV:state-senate:013": [
+      {
+        "id": "ocd-person/387d11ce-ecf1-4c80-a338-bd8c86f52004",
+        "name": "Joey Garcia",
+        "office": "state-senate",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "joey.garcia@wvsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Garcia",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/c00003a6-3518-496e-b972-fd5aa566d4c4",
+        "name": "Mike Oliverio",
+        "office": "state-senate",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "mike.oliverio@wvsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/Senate1/lawmaker.cfm?member=Senator%20Oliverio",
+        "social": {}
+      }
+    ],
+    "WV:state-senate:001": [
+      {
+        "id": "ocd-person/599fd572-0475-4215-8d43-1474237f5a78",
+        "name": "Laura Chapman",
+        "office": "state-senate",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "laura.chapman@wvsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/Senate1/lawmaker.cfm?member=Senator%20Chapman",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/680aa2ce-6408-4047-a36b-0b3badc82851",
+        "name": "Ryan Weld",
+        "office": "state-senate",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "ryan.weld@wvsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ryanweld.com/",
+        "social": {}
+      }
+    ],
+    "WV:state-senate:003": [
+      {
+        "id": "ocd-person/8fe81e26-b0ce-4349-a3e3-91d25247b980",
+        "name": "Mike Azinger",
+        "office": "state-senate",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "mike.azinger@wvsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.wv.us/Senate1/lawmaker.cfm?member=Senator+Azinger",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/4a909c49-37c6-4105-ac77-afe4745a1b1b",
+        "name": "Trenton Barnhart",
+        "office": "state-senate",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "trenton.barnhart@wvsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/Senate1/lawmaker.cfm?member=Senator%20Barnhart",
+        "social": {}
+      }
+    ],
+    "WV:state-senate:005": [
+      {
+        "id": "ocd-person/500ddd59-2fb2-406a-869c-2b06f6cc2385",
+        "name": "Mike Woelfel",
+        "office": "state-senate",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "mike.woelfel@wvsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.wv.us/Senate1/lawmaker.cfm?member=Senator+Woelfel",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/7a94bf35-24ea-49ba-bf09-b53c1465ffa7",
+        "name": "Scott Fuller",
+        "office": "state-senate",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "scott.fuller@wvsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.wvlegislature.gov/Senate1/lawmaker.cfm?member=Senator%20Fuller",
+        "social": {}
+      }
+    ],
+    "WV:state-senate:007": [
+      {
+        "id": "ocd-person/c1187148-471e-4bdc-acf5-16fa0d5d998e",
+        "name": "Rupie Phillips",
+        "office": "state-senate",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "rupie.phillips@wvsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.wv.us/Senate1/lawmaker.cfm?member=Senator+Phillips",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/1039d280-ca07-4923-a501-408c5f7703dc",
+        "name": "Zack Maynard",
+        "office": "state-senate",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "zack.maynard@wvsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.wv.us/House/lawmaker.cfm?member=Delegate+Maynard",
+        "social": {}
+      }
+    ]
+  }
+}

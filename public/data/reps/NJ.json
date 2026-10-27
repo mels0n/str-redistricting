@@ -1,0 +1,1852 @@
+{
+  "state": "NJ",
+  "generatedFrom": {
+    "legislators-current.json": "ae8cb9477c48715df71a7d860854229d799dc90a254d61badc1efb770f892b2c",
+    "legislators-social-media.json": "c6eca1fcdb3a89901335eed51ca061daa4b60ad3243969a127e913bb9657fbc5",
+    "nj.csv": "df3f952467c31823c7126270643c65b93d45e5f6c64c42a069970d95c2cf8f6a"
+  },
+  "byKey": {
+    "NJ:us-house:06": [
+      {
+        "id": "P000034",
+        "name": "Frank Pallone, Jr.",
+        "office": "us-house",
+        "districtCode": "06",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4671",
+        "address": "2107 Rayburn House Office Building Washington DC 20515-3006",
+        "website": "https://pallone.house.gov",
+        "social": {
+          "x": "FrankPallone",
+          "facebook": "repfrankpallone",
+          "instagram": "repfrankpallone"
+        }
+      }
+    ],
+    "NJ:us-house:04": [
+      {
+        "id": "S000522",
+        "name": "Christopher H. Smith",
+        "office": "us-house",
+        "districtCode": "04",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-3765",
+        "address": "2373 Rayburn House Office Building Washington DC 20515-3004",
+        "website": "https://chrissmith.house.gov",
+        "social": {
+          "facebook": "RepChrisSmith",
+          "instagram": "repchrissmith"
+        }
+      }
+    ],
+    "NJ:us-senate:00": [
+      {
+        "id": "B001288",
+        "name": "Cory A. Booker",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.booker.senate.gov/?p=contact",
+        "email": null,
+        "phone": "202-224-3224",
+        "address": "306 Hart Senate Office Building Washington DC 20510",
+        "website": "https://www.booker.senate.gov",
+        "social": {
+          "x": "SenBooker",
+          "facebook": "SenatorCoryBooker",
+          "instagram": "corybooker"
+        }
+      },
+      {
+        "id": "K000394",
+        "name": "Andy Kim",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-224-4744",
+        "address": "520 Hart Senate Office Building Washington DC 20510",
+        "website": "https://www.kim.senate.gov",
+        "social": {
+          "facebook": "SenatorAndyKim",
+          "instagram": "SenatorAndyKim"
+        }
+      }
+    ],
+    "NJ:us-house:01": [
+      {
+        "id": "N000188",
+        "name": "Donald Norcross",
+        "office": "us-house",
+        "districtCode": "01",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-6501",
+        "address": "2427 Rayburn House Office Building Washington DC 20515-3001",
+        "website": "https://norcross.house.gov",
+        "social": {
+          "x": "DonaldNorcross",
+          "facebook": "DonaldNorcrossNJ",
+          "instagram": "donald_norcross"
+        }
+      }
+    ],
+    "NJ:us-house:12": [
+      {
+        "id": "W000822",
+        "name": "Bonnie Watson Coleman",
+        "office": "us-house",
+        "districtCode": "12",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5801",
+        "address": "168 Cannon House Office Building Washington DC 20515-3012",
+        "website": "https://watsoncoleman.house.gov",
+        "social": {
+          "x": "RepBonnie",
+          "facebook": "RepBonnie",
+          "instagram": "repbonnie"
+        }
+      }
+    ],
+    "NJ:us-house:05": [
+      {
+        "id": "G000583",
+        "name": "Josh Gottheimer",
+        "office": "us-house",
+        "districtCode": "05",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4465",
+        "address": "106 Cannon House Office Building Washington DC 20515-3005",
+        "website": "https://gottheimer.house.gov",
+        "social": {
+          "x": "RepJoshG",
+          "facebook": "RepJoshG",
+          "instagram": "RepJoshG"
+        }
+      }
+    ],
+    "NJ:us-house:02": [
+      {
+        "id": "V000133",
+        "name": "Jefferson Van Drew",
+        "office": "us-house",
+        "districtCode": "02",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-6572",
+        "address": "2447 Rayburn House Office Building Washington DC 20515-3002",
+        "website": "https://vandrew.house.gov",
+        "social": {
+          "x": "Congressman_JVD",
+          "facebook": "CongressmanJVD",
+          "instagram": "jeffvandrew"
+        }
+      }
+    ],
+    "NJ:us-house:07": [
+      {
+        "id": "K000398",
+        "name": "Thomas H. Kean, Jr.",
+        "office": "us-house",
+        "districtCode": "07",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5361",
+        "address": "251 Cannon House Office Building Washington DC 20515-3007",
+        "website": "https://kean.house.gov",
+        "social": {
+          "x": "CongressmanKean",
+          "facebook": "CongressmanKean",
+          "instagram": "congressmankean"
+        }
+      }
+    ],
+    "NJ:us-house:08": [
+      {
+        "id": "M001226",
+        "name": "Robert Menendez",
+        "office": "us-house",
+        "districtCode": "08",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-7919",
+        "address": "2453 Rayburn House Office Building Washington DC 20515-3008",
+        "website": "https://menendez.house.gov",
+        "social": {
+          "x": "RepMenendez",
+          "facebook": "repmenendez",
+          "instagram": "repmenendez"
+        }
+      }
+    ],
+    "NJ:us-house:10": [
+      {
+        "id": "M001229",
+        "name": "LaMonica McIver",
+        "office": "us-house",
+        "districtCode": "10",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-3436",
+        "address": "426 Cannon House Office Building Washington DC 20515-3010",
+        "website": "https://mciver.house.gov",
+        "social": {
+          "x": "RepLaMonica",
+          "facebook": "RepLaMonica",
+          "instagram": "replamonica"
+        }
+      }
+    ],
+    "NJ:us-house:03": [
+      {
+        "id": "C001136",
+        "name": "Herbert C. Conaway, Jr.",
+        "office": "us-house",
+        "districtCode": "03",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4765",
+        "address": "1022 Longworth House Office Building Washington DC 20515-3003",
+        "website": "https://conaway.house.gov",
+        "social": {
+          "x": "RepHerbConaway"
+        }
+      }
+    ],
+    "NJ:us-house:09": [
+      {
+        "id": "P000621",
+        "name": "Nellie Pou",
+        "office": "us-house",
+        "districtCode": "09",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5751",
+        "address": "1007 Longworth House Office Building Washington DC 20515-3009",
+        "website": "https://pou.house.gov",
+        "social": {
+          "x": "caohouse",
+          "facebook": "CAOHouseofReps",
+          "instagram": "housecreativeservices"
+        }
+      }
+    ],
+    "NJ:us-house:11": [
+      {
+        "id": "M001246",
+        "name": "Analilia Mejia",
+        "office": "us-house",
+        "districtCode": "11",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5034",
+        "address": "1427 Longworth House Office Building Washington DC 20515-3011",
+        "website": "https://mejia.house.gov",
+        "social": {}
+      }
+    ],
+    "NJ:state-house:035": [
+      {
+        "id": "ocd-person/d358cf84-b9ae-4bce-bb28-aa083fe082b4",
+        "name": "Al Abdelaziz",
+        "office": "state-house",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "asmabdelaziz@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.assemblydems.com/388/Alaa-Al-Abdelaziz---District-35",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/0bf3c2a3-9004-40cb-8d3a-eeeca4b0b967",
+        "name": "Kenyatta Stewart",
+        "office": "state-house",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "asmstewart@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://njleg.state.nj.us/legislative-roster/512/assemblyman-stewart",
+        "social": {}
+      }
+    ],
+    "NJ:state-house:040": [
+      {
+        "id": "ocd-person/525b3307-b007-4cfa-8166-efb0810fcda7",
+        "name": "Al Barlas",
+        "office": "state-house",
+        "districtCode": "040",
+        "contactUrl": null,
+        "email": "asmbarlas@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.njassemblygop.com/218/Al-Barlas",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/33050562-f29d-4c4f-9e21-022822792a5c",
+        "name": "Chris DePhillips",
+        "office": "state-house",
+        "districtCode": "040",
+        "contactUrl": null,
+        "email": "asmdephillips@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.njassemblygop.com/213/Christopher-DePhillips",
+        "social": {}
+      }
+    ],
+    "NJ:state-house:012": [
+      {
+        "id": "ocd-person/fc986c0e-c1cd-422f-80c1-4d3691f34f28",
+        "name": "Alex Sauickie",
+        "office": "state-house",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "asmsauickie@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://njleg.state.nj.us/legislative-roster/454/assemblyman-sauickie",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/b94db48b-9083-48c9-8b27-3603db14fa3e",
+        "name": "Rob Clifton",
+        "office": "state-house",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "asmclifton@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.njassemblygop.com/220/Robert-Clifton",
+        "social": {}
+      }
+    ],
+    "NJ:state-house:027": [
+      {
+        "id": "ocd-person/b5f9d8c9-0f98-4d89-8a5f-82152f41687d",
+        "name": "Alixon Collazos-Gill",
+        "office": "state-house",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "aswcollazosgill@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.assemblydems.com/204/Alixon-Collazos-Gill---District-27",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/f152f2d6-e4ff-4958-996d-532c310ddef1",
+        "name": "Rosy Bagolie",
+        "office": "state-house",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "aswbagolie@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.assemblydems.com/203/Rosaura-Rosy-Bagolie---District-27",
+        "social": {}
+      }
+    ],
+    "NJ:state-house:008": [
+      {
+        "id": "ocd-person/acf3b54e-9725-4867-aaa5-9275ada21b37",
+        "name": "Andrea Katz",
+        "office": "state-house",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "aswkatz@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.assemblydems.com/168/Andrea-Katz---District-8",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/21b098a3-5f30-40c7-9169-1d4b92402a99",
+        "name": "Anthony Angelozzi",
+        "office": "state-house",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "asmangelozzi@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://njleg.state.nj.us/legislative-roster/502/assemblyman-angelozzi",
+        "social": {}
+      }
+    ],
+    "NJ:state-house:021": [
+      {
+        "id": "ocd-person/bd2c37cd-6c84-406e-9e38-95bd83f20f0f",
+        "name": "Andrew Macurdy",
+        "office": "state-house",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "asmmacurdy@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://njleg.state.nj.us/legislative-roster/505/assemblyman-macurdy",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/3d57728e-0da2-4df4-891e-9cc8e0e9b219",
+        "name": "Vinnie Kearney",
+        "office": "state-house",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "asmkearney@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://njleg.state.nj.us/legislative-roster/504/assemblyman-kearney",
+        "social": {}
+      }
+    ],
+    "NJ:state-house:020": [
+      {
+        "id": "ocd-person/ec370db8-c51e-4022-9868-5cad9c38e97d",
+        "name": "Annette Quijano",
+        "office": "state-house",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "aswquijano@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.assemblydems.com/170/Annette-Quijano---District-20",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/c17427d2-58a7-45f5-aa6c-a70ca914f8de",
+        "name": "Ed Rodriguez",
+        "office": "state-house",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "asmrodriguez@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://njleg.state.nj.us/legislative-roster/503/assemblyman-rodriguez",
+        "social": {}
+      }
+    ],
+    "NJ:state-house:015": [
+      {
+        "id": "ocd-person/c6d61a12-eeb5-4400-943d-68a81b0728f0",
+        "name": "Anthony Verrelli",
+        "office": "state-house",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "asmverrelli@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.assemblydems.com/177/Anthony-S-Verrelli---District-15",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/b432ec8c-f914-47dc-addd-740dfc95daaf",
+        "name": "Verlina Reynolds-Jackson",
+        "office": "state-house",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "aswreynoldsjackson@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.assemblydems.com/169/Verlina-Reynolds-Jackson---District-15",
+        "social": {}
+      }
+    ],
+    "NJ:state-house:001": [
+      {
+        "id": "ocd-person/4ebe8d6e-9814-4f68-aa9f-148c0942eaab",
+        "name": "Antwan McClellan",
+        "office": "state-house",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "asmmcclellan@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.njassemblygop.com/212/Antwan-McClellan",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/7f9ebe1c-d4fa-4dd0-8948-7cf6248ffb6d",
+        "name": "Erik Simonsen",
+        "office": "state-house",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "asmsimonsen@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.njassemblygop.com/235/Erik-Simonsen",
+        "social": {}
+      }
+    ],
+    "NJ:state-house:025": [
+      {
+        "id": "ocd-person/03aa8bec-9d7e-41e7-ad20-b5ba1991cab6",
+        "name": "Aura Dunn",
+        "office": "state-house",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "aswdunn@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.njassemblygop.com/221/Aura-Dunn",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/028a440f-10cb-49cc-9417-1dfd0cff83e2",
+        "name": "Marisa Sweeney",
+        "office": "state-house",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "aswsweeney@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://njleg.state.nj.us/legislative-roster/506/assemblywoman-sweeney",
+        "social": {}
+      }
+    ],
+    "NJ:state-house:030": [
+      {
+        "id": "ocd-person/4dab8e3a-93be-4ad7-8cb1-5009e4c7d232",
+        "name": "Avi Schnall",
+        "office": "state-house",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "asmschnall@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.assemblydems.com/210/Alexander-Avi-Schnall---District-30",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/ac95c4e3-057b-43bc-8bee-752137bb2d12",
+        "name": "Sean Kean",
+        "office": "state-house",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "asmskean@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.njassemblygop.com/227/Sean-Kean",
+        "social": {}
+      }
+    ],
+    "NJ:state-house:007": [
+      {
+        "id": "ocd-person/a189187b-df3f-4f10-8e5c-744ad7071787",
+        "name": "Balvir Singh",
+        "office": "state-house",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "asmsingh@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.assemblydems.com/389/Balvir-Singh---District-7",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/c33b5f2b-0494-414f-aa84-d2286ae46095",
+        "name": "Carol Murphy",
+        "office": "state-house",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "aswmurphy@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.assemblydems.com/167/Carol-Murphy---District-7",
+        "social": {}
+      }
+    ],
+    "NJ:state-house:026": [
+      {
+        "id": "ocd-person/006c1bd9-54e9-49be-9d02-12dda1119149",
+        "name": "Brian Bergen",
+        "office": "state-house",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "asmbergen@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.njassemblygop.com/161/Brian-Bergen",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/dbe67894-e4cd-46ea-bb59-877a8b4f26d0",
+        "name": "Jay Webber",
+        "office": "state-house",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "asmwebber@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.njassemblygop.com/238/Jay-Webber",
+        "social": {}
+      }
+    ],
+    "NJ:state-house:009": [
+      {
+        "id": "ocd-person/d6731a7f-a22e-48dd-8bba-fd2c155c16c3",
+        "name": "Brian Rumpf",
+        "office": "state-house",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "asmrumpf@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.njassemblygop.com/215/Brian-Rumpf",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/85863833-b5e6-40f2-aafc-5a0fc5f790d0",
+        "name": "Greg Myhre",
+        "office": "state-house",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "asmmyhre@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.njassemblygop.com/231/Gregory-Myhre",
+        "social": {}
+      }
+    ],
+    "NJ:state-house:034": [
+      {
+        "id": "ocd-person/38f2061a-a83f-45bc-92a2-817f44d6b377",
+        "name": "Carmen Morales",
+        "office": "state-house",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "aswmorales@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.assemblydems.com/237/Carmen-Morales---District-34",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/96eb992c-0f0c-4db5-b146-76349604f4d3",
+        "name": "Mike Venezia",
+        "office": "state-house",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "asmvenezia@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.assemblydems.com/238/Michael-Venezia---District-34",
+        "social": {}
+      }
+    ],
+    "NJ:state-house:028": [
+      {
+        "id": "ocd-person/383fdfc0-c14a-433f-8f1d-a29e6350c5ca",
+        "name": "Chigozie Onyema",
+        "office": "state-house",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "asmonyema@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://njleg.state.nj.us/legislative-roster/507/assemblyman-onyema",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/c5469bd6-29bd-4054-9ac0-3577d17422d4",
+        "name": "Cleopatra Tucker",
+        "office": "state-house",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "aswtucker@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.assemblydems.com/199/Cleopatra-G-Tucker---District-28",
+        "social": {}
+      }
+    ],
+    "NJ:state-house:036": [
+      {
+        "id": "ocd-person/5475b510-25ec-4354-abb5-f1f03c3ea2c3",
+        "name": "Clinton Calabrese",
+        "office": "state-house",
+        "districtCode": "036",
+        "contactUrl": null,
+        "email": "asmcalabrese@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.assemblydems.com/226/Clinton-Calabrese---District-36",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/93a1a3ce-eb52-4e71-b01c-346f41b6bde4",
+        "name": "Gary Schaer",
+        "office": "state-house",
+        "districtCode": "036",
+        "contactUrl": null,
+        "email": "asmschaer@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.assemblydems.com/179/Gary-S-Schaer---District-36",
+        "social": {}
+      }
+    ],
+    "NJ:state-house:004": [
+      {
+        "id": "ocd-person/fab6547d-4f37-4c02-a738-dc4fb0b707e7",
+        "name": "Cody Miller",
+        "office": "state-house",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "asmmiller@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.assemblydems.com/161/Cody-Miller---District-4",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/fa6aa5c6-0479-4d12-88c0-75480bfbe3a5",
+        "name": "Dan Hutchison",
+        "office": "state-house",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "asmhutchison@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.assemblydems.com/160/Dan-Hutchison---District-4",
+        "social": {}
+      }
+    ],
+    "NJ:state-house:019": [
+      {
+        "id": "ocd-person/9d1ae08a-66b3-4d68-bafe-956d4eaeb57f",
+        "name": "Craig Coughlin",
+        "office": "state-house",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "asmcoughlin@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.assemblydems.com/185/Craig-J-Coughlin---District-19",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/a0d9e9ac-6ede-4e36-8c9e-f7bd83cc704a",
+        "name": "Yvonne Lopez",
+        "office": "state-house",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "aswlopez@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.assemblydems.com/188/Yvonne-Lopez---District-19",
+        "social": {}
+      }
+    ],
+    "NJ:state-house:003": [
+      {
+        "id": "ocd-person/64a8c09d-24a2-4d4c-a071-d09f0a30c79f",
+        "name": "Dave Bailey",
+        "office": "state-house",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "asmbailey@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.assemblydems.com/157/Dave-Bailey-Jr---District-3",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/5d619c98-5127-433c-99c6-adb888ab407b",
+        "name": "Heather Simmons",
+        "office": "state-house",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "aswsimmons@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.assemblydems.com/159/Heather-Simmons---District-3",
+        "social": {}
+      }
+    ],
+    "NJ:state-house:024": [
+      {
+        "id": "ocd-person/790ac0bd-71fa-4446-b1fa-b013e4b4f33e",
+        "name": "Dawn Fantasia",
+        "office": "state-house",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "aswfantasia@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.njassemblygop.com/222/Dawn-Fantasia",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/9228b053-be5e-4490-aadc-ece59b7421fd",
+        "name": "Mike Inganamort",
+        "office": "state-house",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "asminganamort@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.njassemblygop.com/225/Michael-Inganamort",
+        "social": {}
+      }
+    ],
+    "NJ:state-house:002": [
+      {
+        "id": "ocd-person/df880b40-1e96-49d0-92bc-70732a1cce32",
+        "name": "Don Guardian",
+        "office": "state-house",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "asmguardian@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.njassemblygop.com/224/Donald-Guardian",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/af1dfa82-2c03-4b0c-bf63-1eef9e8b6616",
+        "name": "Maureen Rowan",
+        "office": "state-house",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "aswrowan@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://njleg.state.nj.us/legislative-roster/501/assemblywoman-rowan",
+        "social": {}
+      }
+    ],
+    "NJ:state-house:029": [
+      {
+        "id": "ocd-person/6056438b-65d3-4db4-b0ad-c367074bd47e",
+        "name": "Eliana Pintor Marin",
+        "office": "state-house",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "aswpintormarin@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.assemblydems.com/173/Eliana-Pintor-Marin---District-29",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/304c7552-b833-4b9c-b125-39030b8376ff",
+        "name": "Shanique Speight",
+        "office": "state-house",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "aswspeight@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.assemblydems.com/200/Shanique-Speight---District-29",
+        "social": {}
+      }
+    ],
+    "NJ:state-house:037": [
+      {
+        "id": "ocd-person/e5da04d8-e25f-4ab3-a453-84e692fe89c4",
+        "name": "Ellen Park",
+        "office": "state-house",
+        "districtCode": "037",
+        "contactUrl": null,
+        "email": "aswpark@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.assemblydems.com/206/Ellen-Park---District-37",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/49be7512-9343-4189-8769-4497ed129a92",
+        "name": "Shama Haider",
+        "office": "state-house",
+        "districtCode": "037",
+        "contactUrl": null,
+        "email": "aswhaider@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.assemblydems.com/209/Shama-Haider---District-37",
+        "social": {}
+      }
+    ],
+    "NJ:state-house:023": [
+      {
+        "id": "ocd-person/df6d2d1f-3fb0-4e93-93cf-26665cae9a23",
+        "name": "Erik Peterson",
+        "office": "state-house",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "asmpeterson@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.njassemblygop.com/232/Erik-Peterson",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/dce6ec3a-7d62-4b33-8693-259364c85285",
+        "name": "John DiMaio",
+        "office": "state-house",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "asmdimaio@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.njassemblygop.com/211/John-DiMaio",
+        "social": {}
+      }
+    ],
+    "NJ:state-house:033": [
+      {
+        "id": "ocd-person/2078f4b2-3e69-4e01-aada-3ccf21ba6173",
+        "name": "Gabe Rodriguez",
+        "office": "state-house",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "asmrodriguez@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.assemblydems.com/223/Gabriel-Rodriguez---District-33",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/036d00b8-5e0b-4bc0-ae46-f0bf5e1b9a73",
+        "name": "Larry Wainstein",
+        "office": "state-house",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "asmwainstein@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://njleg.state.nj.us/legislative-roster/511/assemblyman-wainstein",
+        "social": {}
+      }
+    ],
+    "NJ:state-house:013": [
+      {
+        "id": "ocd-person/4323bf03-63e6-4f8b-9b2e-3554df7723bf",
+        "name": "Gerry Scharfenberger",
+        "office": "state-house",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "asmscharfenberger@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.njassemblygop.com/234/Gerry-Scharfenberger",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/379945ef-55af-4b76-96ce-fcddbcb0c1c6",
+        "name": "Vicky Flynn",
+        "office": "state-house",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "aswflynn@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.njassemblygop.com/223/Victoria-Flynn",
+        "social": {}
+      }
+    ],
+    "NJ:state-house:010": [
+      {
+        "id": "ocd-person/2ac520a3-ae36-4936-a9c3-6842401b6c83",
+        "name": "Greg McGuckin",
+        "office": "state-house",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "asmmcguckin@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.njassemblygop.com/229/Gregory-McGuckin",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/e4c2301b-6812-423e-b27a-c40919f4bd5d",
+        "name": "Paul Kanitra",
+        "office": "state-house",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "asmkanitra@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.njassemblygop.com/226/Paul-Kanitra",
+        "social": {}
+      }
+    ],
+    "NJ:state-house:022": [
+      {
+        "id": "ocd-person/d80f0df2-57cd-436b-a250-7413ec11fe27",
+        "name": "Jim Kennedy",
+        "office": "state-house",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "asmkennedy@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.assemblydems.com/195/James-J-Kennedy---District-22",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/199dd5c8-3ef1-4a2c-9585-9de5def27e98",
+        "name": "Linda Carter",
+        "office": "state-house",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "aswcarter@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.assemblydems.com/194/Linda-S-Carter---District-22",
+        "social": {}
+      }
+    ],
+    "NJ:state-house:031": [
+      {
+        "id": "ocd-person/cbdafb85-539d-4ef4-a3ee-30f4985969fa",
+        "name": "Jerry Walker",
+        "office": "state-house",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "asmwalker@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://njleg.state.nj.us/legislative-roster/508/assemblyman-walker",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/d624fdfb-366e-41f1-83a7-2a8421350d3c",
+        "name": "Will Sampson",
+        "office": "state-house",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "asmsampson@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.assemblydems.com/201/William-Sampson---District-31",
+        "social": {}
+      }
+    ],
+    "NJ:state-house:017": [
+      {
+        "id": "ocd-person/03acbfd3-a81b-4461-aff4-db7ecf5e8e48",
+        "name": "Joe Danielsen",
+        "office": "state-house",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "asmdanielsen@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.assemblydems.com/181/Joseph-Danielsen---District-17",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/59c25089-5752-4eb9-a96b-a005c1c46743",
+        "name": "Kevin Egan",
+        "office": "state-house",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "asmegan@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.assemblydems.com/182/Kevin-P-Egan---District-17",
+        "social": {}
+      }
+    ],
+    "NJ:state-house:039": [
+      {
+        "id": "ocd-person/86641d6d-4538-453d-974f-aec40c42a33d",
+        "name": "John Azzariti",
+        "office": "state-house",
+        "districtCode": "039",
+        "contactUrl": null,
+        "email": "asmazzariti@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.njassemblygop.com/217/John-Azzariti",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/acff039b-0a83-4184-8b6b-7b051cfcdc77",
+        "name": "Bob Auth",
+        "office": "state-house",
+        "districtCode": "039",
+        "contactUrl": null,
+        "email": "asmauth@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.njassemblygop.com/216/Robert-Auth",
+        "social": {}
+      }
+    ],
+    "NJ:state-house:032": [
+      {
+        "id": "ocd-person/a04dc132-6a91-4e1b-a336-ede062d06884",
+        "name": "Katie Brennan",
+        "office": "state-house",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "aswbrennan@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://njleg.state.nj.us/legislative-roster/510/assemblywoman-brennan",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/27b085de-d164-466e-845b-fc1de27a2da9",
+        "name": "Ravi Bhalla",
+        "office": "state-house",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "asmbhalla@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://njleg.state.nj.us/legislative-roster/509/assemblyman-bhalla",
+        "social": {}
+      }
+    ],
+    "NJ:state-house:038": [
+      {
+        "id": "ocd-person/28b4c7d2-d1c3-4735-b321-0f348ec27299",
+        "name": "Lisa Swain",
+        "office": "state-house",
+        "districtCode": "038",
+        "contactUrl": null,
+        "email": "aswswain@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.assemblydems.com/193/Lisa-Swain---District-38",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/934c3022-709b-4768-b2df-635d25579128",
+        "name": "Chris Tully",
+        "office": "state-house",
+        "districtCode": "038",
+        "contactUrl": null,
+        "email": "asmtully@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.assemblydems.com/211/Christopher-Tully---District-38",
+        "social": {}
+      }
+    ],
+    "NJ:state-house:006": [
+      {
+        "id": "ocd-person/a27823aa-f5a9-4d6c-8089-1d8ceee6f8e0",
+        "name": "Lou Greenwald",
+        "office": "state-house",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "asmgreenwald@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://nj-newjerseylegislativead.civicplus.com/165/Louis-D-Greenwald---District-6",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/a33ec105-c8ff-446b-ae8b-1a79f402f983",
+        "name": "Melinda Kane",
+        "office": "state-house",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "aswkane@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.assemblydems.com/387/Melinda-Kane---District-6",
+        "social": {}
+      }
+    ],
+    "NJ:state-house:011": [
+      {
+        "id": "ocd-person/589a73bd-a164-472a-8b50-4b4d0846cd24",
+        "name": "Luanne Peterpaul",
+        "office": "state-house",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "aswpeterpaul@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.assemblydems.com/172/Luanne-M-Peterpaul---District-11",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/78ee83b9-ead4-4a03-89e7-f976d0454408",
+        "name": "Margie Donlon",
+        "office": "state-house",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "aswdonlon@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.assemblydems.com/171/Margie-M-Donlon---District-11",
+        "social": {}
+      }
+    ],
+    "NJ:state-house:016": [
+      {
+        "id": "ocd-person/97251dd4-e275-4347-a757-a05366fa5013",
+        "name": "Mitchelle Drulis",
+        "office": "state-house",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "aswdrulis@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.assemblydems.com/178/Mitchelle-Drulis---District-16",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/77b80e3f-bfdd-4c81-b92e-866c17abd398",
+        "name": "Roy Freiman",
+        "office": "state-house",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "asmfreiman@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.assemblydems.com/180/Roy-Freiman---District-16",
+        "social": {}
+      }
+    ],
+    "NJ:state-house:018": [
+      {
+        "id": "ocd-person/d6732f77-1c72-4ee6-8d52-5c9b79987976",
+        "name": "Robert Karabinchak",
+        "office": "state-house",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "asmkarabinchak@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.assemblydems.com/189/Robert-Karabinchak---District-18",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/901f85af-77c2-4cff-8626-ac510fdc425f",
+        "name": "Sterley Stanley",
+        "office": "state-house",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "asmstanley@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.assemblydems.com/191/Sterley-Stanley---District-18",
+        "social": {}
+      }
+    ],
+    "NJ:state-house:014": [
+      {
+        "id": "ocd-person/c05a0080-95df-4576-a81c-d509fb4a5063",
+        "name": "Tennille McCoy",
+        "office": "state-house",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "aswmccoy@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://tennillermccoy.com/",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/08016f74-f5d6-4554-91b4-385fdbd558a7",
+        "name": "Wayne DeAngelo",
+        "office": "state-house",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "asmdeangelo@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.assemblydems.com/174/Wayne-P-DeAngelo---District-14",
+        "social": {}
+      }
+    ],
+    "NJ:state-house:005": [
+      {
+        "id": "ocd-person/1e9cd368-349e-4ddc-a34d-8301d0ac4841",
+        "name": "Bill Moen",
+        "office": "state-house",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "asmmoen@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.assemblydems.com/163/William-F-Moen-Jr---District-5",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/3d5d3c07-70ed-481a-91ba-a19fce581561",
+        "name": "Bill Spearman",
+        "office": "state-house",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "asmspearman@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.assemblydems.com/162/William-W-Spearman---District-5",
+        "social": {}
+      }
+    ],
+    "NJ:state-senate:016": [
+      {
+        "id": "ocd-person/7782ffcd-73df-41b5-9857-fd7b10953bf3",
+        "name": "Andrew Zwicker",
+        "office": "state-senate",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "senzwicker@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.andrewzwicker.com",
+        "social": {}
+      }
+    ],
+    "NJ:state-senate:031": [
+      {
+        "id": "ocd-person/d8c826c4-95c7-465b-8448-1f05495bfc45",
+        "name": "Angela McKnight",
+        "office": "state-senate",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "senmcknight@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.njleg.state.nj.us/legislative-roster/383/assemblywoman-mcknight",
+        "social": {}
+      }
+    ],
+    "NJ:state-senate:025": [
+      {
+        "id": "ocd-person/f321f20f-b8af-4d0b-85ba-e7b8dcf9ae03",
+        "name": "Tony Bucco",
+        "office": "state-senate",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "senbucco@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://bucco.senatenj.com/",
+        "social": {}
+      }
+    ],
+    "NJ:state-senate:035": [
+      {
+        "id": "ocd-person/18fa38fc-954e-43d9-a294-a2068828216e",
+        "name": "Benjie Wimberly",
+        "office": "state-senate",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "senwimberly@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.assemblydems.com/176/Benjie-E-Wimberly---District-35",
+        "social": {}
+      }
+    ],
+    "NJ:state-senate:017": [
+      {
+        "id": "ocd-person/177d44ba-0c93-4e26-b245-84aa2239f7b4",
+        "name": "Bob Smith",
+        "office": "state-senate",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "senbsmith@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.njleg.state.nj.us/legislative-roster/53/senator-smith",
+        "social": {}
+      }
+    ],
+    "NJ:state-senate:033": [
+      {
+        "id": "ocd-person/6f616307-dafe-44ca-a6b3-5f9516d21f89",
+        "name": "Brian Stack",
+        "office": "state-senate",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "senstack@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.njleg.state.nj.us/legislative-roster/306/senator-stack",
+        "social": {}
+      }
+    ],
+    "NJ:state-senate:034": [
+      {
+        "id": "ocd-person/707e3027-d06f-4346-8c11-3ff1becbe725",
+        "name": "Britnee Timberlake",
+        "office": "state-senate",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "sentimberlake@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.assemblydems.com/britnee-timberlake/",
+        "social": {}
+      }
+    ],
+    "NJ:state-senate:009": [
+      {
+        "id": "ocd-person/0f0e1edc-6ab5-4fca-8999-2db3229c5d19",
+        "name": "Carmen Amato",
+        "office": "state-senate",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "senamato@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.njleg.state.nj.us/legislative-roster/465/senator-amato",
+        "social": {}
+      }
+    ],
+    "NJ:state-senate:013": [
+      {
+        "id": "ocd-person/ac044b70-7745-435a-9c38-c4af013d0b0e",
+        "name": "Declan O'Scanlon",
+        "office": "state-senate",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "senoscanlon@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://oscanlon.senatenj.com/",
+        "social": {}
+      }
+    ],
+    "NJ:state-senate:023": [
+      {
+        "id": "ocd-person/2798197f-1516-44ef-9933-99e5b23f19c8",
+        "name": "Doug Steinhardt",
+        "office": "state-senate",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "sensteinhardt@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://steinhardt.senatenj.com/",
+        "social": {}
+      }
+    ],
+    "NJ:state-senate:037": [
+      {
+        "id": "ocd-person/53fe6716-2bdb-4926-993f-4a2cf002ad51",
+        "name": "Gordon Johnson",
+        "office": "state-senate",
+        "districtCode": "037",
+        "contactUrl": null,
+        "email": "senjohnson@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.njleg.state.nj.us/legislative-roster/434/senator-johnson",
+        "social": {}
+      }
+    ],
+    "NJ:state-senate:039": [
+      {
+        "id": "ocd-person/57fe7d05-af12-4f44-b143-e19814f2cfa2",
+        "name": "Holly Schepisi",
+        "office": "state-senate",
+        "districtCode": "039",
+        "contactUrl": null,
+        "email": "senschepisi@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://schepisi.senatenj.com/",
+        "social": {}
+      }
+    ],
+    "NJ:state-senate:006": [
+      {
+        "id": "ocd-person/87714b2b-1868-4d3f-aa3f-a3d25db0fbc6",
+        "name": "Jim Beach",
+        "office": "state-senate",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "senbeach@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.njleg.state.nj.us/legislative-roster/310/senator-beach",
+        "social": {}
+      }
+    ],
+    "NJ:state-senate:010": [
+      {
+        "id": "ocd-person/32e625c0-5e22-40b4-a6a3-4040d10e6ff0",
+        "name": "Jim Holzapfel",
+        "office": "state-senate",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "senholzapfel@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://holzapfel.senatenj.com/",
+        "social": {}
+      }
+    ],
+    "NJ:state-senate:027": [
+      {
+        "id": "ocd-person/1fec06e0-00df-4d84-8c9a-18e80a6f29e2",
+        "name": "John McKeon",
+        "office": "state-senate",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "senmckeon@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.assemblydems.com/john-mckeon/",
+        "social": {}
+      }
+    ],
+    "NJ:state-senate:003": [
+      {
+        "id": "ocd-person/1b726d76-851a-487b-a6e6-42ee4fa5c050",
+        "name": "John Burzichelli",
+        "office": "state-senate",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "senburzichelli@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.njleg.state.nj.us/api/legislatorData/legislatorBio/458",
+        "social": {}
+      }
+    ],
+    "NJ:state-senate:021": [
+      {
+        "id": "ocd-person/08a758f9-92fb-4e59-ac8f-edc75aaf3390",
+        "name": "Jon Bramnick",
+        "office": "state-senate",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "senbramnick@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://bramnick.senatenj.com/",
+        "social": {}
+      }
+    ],
+    "NJ:state-senate:038": [
+      {
+        "id": "ocd-person/90a0a109-2ce3-4a55-8761-1e07ff875703",
+        "name": "Joe Lagana",
+        "office": "state-senate",
+        "districtCode": "038",
+        "contactUrl": null,
+        "email": "senlagana@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.njleg.state.nj.us/legislative-roster/411/senator-lagana",
+        "social": {}
+      }
+    ],
+    "NJ:state-senate:019": [
+      {
+        "id": "ocd-person/97fba3ff-adc8-4323-bf77-37acfe18b735",
+        "name": "Joe Vitale",
+        "office": "state-senate",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "senvitale@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.njleg.state.nj.us/legislative-roster/175/senator-vitale",
+        "social": {}
+      }
+    ],
+    "NJ:state-senate:020": [
+      {
+        "id": "ocd-person/5dcef6ac-7dbe-4c65-a53b-670c89a615e7",
+        "name": "Joe Cryan",
+        "office": "state-senate",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "sencryan@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.njleg.state.nj.us/legislative-roster/406/senator-cryan",
+        "social": {}
+      }
+    ],
+    "NJ:state-senate:026": [
+      {
+        "id": "ocd-person/4bf4c8e4-5a97-4100-b34d-cb01da6ab266",
+        "name": "Joe Pennacchio",
+        "office": "state-senate",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "senpennacchio@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://pennacchio.senatenj.com/",
+        "social": {}
+      }
+    ],
+    "NJ:state-senate:040": [
+      {
+        "id": "ocd-person/0880a4b0-8e91-484b-aa12-6e0444838c44",
+        "name": "Kristin Corrado",
+        "office": "state-senate",
+        "districtCode": "040",
+        "contactUrl": null,
+        "email": "sencorrado@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://corrado.senatenj.com/",
+        "social": {}
+      }
+    ],
+    "NJ:state-senate:008": [
+      {
+        "id": "ocd-person/0e989cd5-91f8-4595-8346-bbac4f3d2c9e",
+        "name": "Latham Tiver",
+        "office": "state-senate",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "sentiver@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.njleg.state.nj.us/legislative-roster/464/senator-tiver",
+        "social": {}
+      }
+    ],
+    "NJ:state-senate:014": [
+      {
+        "id": "ocd-person/27646653-40e2-4c79-b608-0f2edcaa0322",
+        "name": "Linda Greenstein",
+        "office": "state-senate",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "sengreenstein@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.njleg.state.nj.us/legislative-roster/329/senator-greenstein",
+        "social": {}
+      }
+    ],
+    "NJ:state-senate:029": [
+      {
+        "id": "ocd-person/907aae0b-1026-405a-9429-cadd01efd79d",
+        "name": "Teresa Ruiz",
+        "office": "state-senate",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "senruiz@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.njleg.state.nj.us/legislative-roster/287/senator-ruiz",
+        "social": {}
+      }
+    ],
+    "NJ:state-senate:001": [
+      {
+        "id": "ocd-person/4cb8db73-8982-4b4f-9c90-f86b20b217bc",
+        "name": "Mike Testa",
+        "office": "state-senate",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "sentesta@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://testa.senatenj.com/testa.php",
+        "social": {}
+      }
+    ],
+    "NJ:state-senate:022": [
+      {
+        "id": "ocd-person/4d47b297-b5f4-4d83-94e6-bb95eb91ecd7",
+        "name": "Nick Scutari",
+        "office": "state-senate",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "senscutari@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.njleg.state.nj.us/legislative-roster/237/senator-scutari",
+        "social": {}
+      }
+    ],
+    "NJ:state-senate:005": [
+      {
+        "id": "ocd-person/b656905a-de58-4d36-b433-276788233b1f",
+        "name": "Nilsa Cruz-Perez",
+        "office": "state-senate",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "sencruzperez@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.njleg.state.nj.us/legislative-roster/371/senator-cruz-perez",
+        "social": {}
+      }
+    ],
+    "NJ:state-senate:012": [
+      {
+        "id": "ocd-person/fee23b32-9f92-4951-889e-6d09749a78b9",
+        "name": "Owen Henry",
+        "office": "state-senate",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "senhenry@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.njleg.state.nj.us/legislative-roster/470/senator-henry",
+        "social": {}
+      }
+    ],
+    "NJ:state-senate:024": [
+      {
+        "id": "ocd-person/1dde507a-70ed-4f89-95f8-cd11748a753c",
+        "name": "Parker Space",
+        "office": "state-senate",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "senspace@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.njassemblygop.com/space/",
+        "social": {}
+      }
+    ],
+    "NJ:state-senate:018": [
+      {
+        "id": "ocd-person/16048732-130c-4102-b6e7-2d8faa0c3f52",
+        "name": "Patrick Diegnan",
+        "office": "state-senate",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "sendiegnan@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.njleg.state.nj.us/legislative-roster/387/senator-diegnan",
+        "social": {}
+      }
+    ],
+    "NJ:state-senate:036": [
+      {
+        "id": "ocd-person/1d8eb6cf-cff2-4948-ba03-7f31fcadd4ec",
+        "name": "Paul Sarlo",
+        "office": "state-senate",
+        "districtCode": "036",
+        "contactUrl": null,
+        "email": "sensarlo@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.njleg.state.nj.us/legislative-roster/223/senator-sarlo",
+        "social": {}
+      }
+    ],
+    "NJ:state-senate:004": [
+      {
+        "id": "ocd-person/f15f8b7e-96ee-41e8-b59c-b277927985c0",
+        "name": "Paul Moriarty",
+        "office": "state-senate",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "senmoriarty@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.assemblydems.com/paul-moriarty/",
+        "social": {}
+      }
+    ],
+    "NJ:state-senate:032": [
+      {
+        "id": "ocd-person/fe8bf5e4-85ed-423b-b2d8-301f29d3faea",
+        "name": "Raj Mukherji",
+        "office": "state-senate",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "senmukherji@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.assemblydems.com/raj-mukherji/",
+        "social": {}
+      }
+    ],
+    "NJ:state-senate:028": [
+      {
+        "id": "ocd-person/b8495630-20f7-4f9e-bf84-2a13a6da3794",
+        "name": "Renee Burgess",
+        "office": "state-senate",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "senburgess@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.njleg.state.nj.us/legislative-roster/455/senator-burgess",
+        "social": {}
+      }
+    ],
+    "NJ:state-senate:030": [
+      {
+        "id": "ocd-person/45219a29-080f-4452-9b05-92488e96f2f1",
+        "name": "Bob Singer",
+        "office": "state-senate",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "sensinger@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://singer.senatenj.com/",
+        "social": {}
+      }
+    ],
+    "NJ:state-senate:015": [
+      {
+        "id": "ocd-person/26eb8b3c-59a5-49ca-841c-13a569444994",
+        "name": "Shirley Turner",
+        "office": "state-senate",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "senturner@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.njleg.state.nj.us/legislative-roster/47/senator-turner",
+        "social": {}
+      }
+    ],
+    "NJ:state-senate:007": [
+      {
+        "id": "ocd-person/a1c9ec59-4127-4973-b100-f35c30bb817c",
+        "name": "Troy Singleton",
+        "office": "state-senate",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "sensingleton@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.njleg.state.nj.us/legislative-roster/395/senator-singleton",
+        "social": {}
+      }
+    ],
+    "NJ:state-senate:011": [
+      {
+        "id": "ocd-person/76afbcca-bed8-4e2e-bc3a-0fd6d53158a5",
+        "name": "Vin Gopal",
+        "office": "state-senate",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "sengopal@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.njleg.state.nj.us/legislative-roster/405/senator-gopal",
+        "social": {}
+      }
+    ],
+    "NJ:state-senate:002": [
+      {
+        "id": "ocd-person/5a6bf64a-7731-4e80-8208-e1a18f09762b",
+        "name": "Vince Polistina",
+        "office": "state-senate",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "senpolistina@njleg.org",
+        "phone": null,
+        "address": null,
+        "website": "https://polistina.senatenj.com/",
+        "social": {}
+      }
+    ]
+  }
+}

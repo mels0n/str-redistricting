@@ -1,0 +1,3575 @@
+{
+  "state": "GA",
+  "generatedFrom": {
+    "legislators-current.json": "ae8cb9477c48715df71a7d860854229d799dc90a254d61badc1efb770f892b2c",
+    "legislators-social-media.json": "c6eca1fcdb3a89901335eed51ca061daa4b60ad3243969a127e913bb9657fbc5",
+    "ga.csv": "1d6f29f8757fdefd63dd011e0b4c934388a9922b44be9b5aefab3f2df13acb14"
+  },
+  "byKey": {
+    "GA:us-house:02": [
+      {
+        "id": "B000490",
+        "name": "Sanford D. Bishop, Jr.",
+        "office": "us-house",
+        "districtCode": "02",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-3631",
+        "address": "2407 Rayburn House Office Building Washington DC 20515-1002",
+        "website": "https://bishop.house.gov",
+        "social": {
+          "x": "SanfordBishop",
+          "facebook": "sanfordbishop"
+        }
+      }
+    ],
+    "GA:us-house:04": [
+      {
+        "id": "J000288",
+        "name": "Henry C. \"Hank\" Johnson, Jr.",
+        "office": "us-house",
+        "districtCode": "04",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-1605",
+        "address": "2240 Rayburn House Office Building Washington DC 20515-1004",
+        "website": "https://hankjohnson.house.gov",
+        "social": {
+          "x": "RepHankJohnson",
+          "facebook": "115356957005",
+          "instagram": "rephankjohnson"
+        }
+      }
+    ],
+    "GA:us-house:08": [
+      {
+        "id": "S001189",
+        "name": "Austin Scott",
+        "office": "us-house",
+        "districtCode": "08",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-6531",
+        "address": "2185 Rayburn House Office Building Washington DC 20515-1008",
+        "website": "https://austinscott.house.gov",
+        "social": {
+          "x": "AustinScottGA08",
+          "facebook": "RepAustinScott"
+        }
+      }
+    ],
+    "GA:us-house:01": [
+      {
+        "id": "C001103",
+        "name": "Earl L. \"Buddy\" Carter",
+        "office": "us-house",
+        "districtCode": "01",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5831",
+        "address": "2432 Rayburn House Office Building Washington DC 20515-1001",
+        "website": "https://buddycarter.house.gov",
+        "social": {
+          "x": "RepBuddyCarter",
+          "facebook": "congressmanbuddycarter",
+          "instagram": "repbuddycarter"
+        }
+      }
+    ],
+    "GA:us-house:11": [
+      {
+        "id": "L000583",
+        "name": "Barry Loudermilk",
+        "office": "us-house",
+        "districtCode": "11",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2931",
+        "address": "2133 Rayburn House Office Building Washington DC 20515-1011",
+        "website": "https://loudermilk.house.gov",
+        "social": {
+          "x": "RepLoudermilk",
+          "facebook": "reploudermilk",
+          "instagram": "RepLoudermilk"
+        }
+      }
+    ],
+    "GA:us-house:12": [
+      {
+        "id": "A000372",
+        "name": "Rick W. Allen",
+        "office": "us-house",
+        "districtCode": "12",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2823",
+        "address": "462 Cannon House Office Building Washington DC 20515-1012",
+        "website": "https://allen.house.gov",
+        "social": {
+          "x": "RepRickAllen",
+          "facebook": "CongressmanRickAllen",
+          "instagram": "Rep_RickAllen"
+        }
+      }
+    ],
+    "GA:us-house:06": [
+      {
+        "id": "M001208",
+        "name": "Lucy McBath",
+        "office": "us-house",
+        "districtCode": "06",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4501",
+        "address": "2246 Rayburn House Office Building Washington DC 20515-1006",
+        "website": "https://mcbath.house.gov",
+        "social": {
+          "x": "RepLucyMcBath",
+          "facebook": "RepLucyMcBath",
+          "instagram": "replucymcbath"
+        }
+      }
+    ],
+    "GA:us-house:05": [
+      {
+        "id": "W000788",
+        "name": "Nikema Williams",
+        "office": "us-house",
+        "districtCode": "05",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-3801",
+        "address": "1406 Longworth House Office Building Washington DC 20515-1005",
+        "website": "https://nikemawilliams.house.gov",
+        "social": {
+          "x": "RepNikema",
+          "facebook": "RepNikemaWilliams",
+          "instagram": "repnikema"
+        }
+      }
+    ],
+    "GA:us-house:09": [
+      {
+        "id": "C001116",
+        "name": "Andrew S. Clyde",
+        "office": "us-house",
+        "districtCode": "09",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-9893",
+        "address": "445 Cannon House Office Building Washington DC 20515-1009",
+        "website": "https://clyde.house.gov",
+        "social": {
+          "x": "Rep_Clyde",
+          "facebook": "RepresentativeClyde",
+          "instagram": "repclyde"
+        }
+      }
+    ],
+    "GA:us-senate:00": [
+      {
+        "id": "O000174",
+        "name": "Jon Ossoff",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.ossoff.senate.gov/contact-us/",
+        "email": null,
+        "phone": "202-224-3521",
+        "address": "317 Hart Senate Office Building Washington DC 20510",
+        "website": "https://www.ossoff.senate.gov",
+        "social": {
+          "x": "SenOssoff",
+          "facebook": "SenOssoff",
+          "instagram": "jonossoff"
+        }
+      },
+      {
+        "id": "W000790",
+        "name": "Raphael G. Warnock",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.warnock.senate.gov/contact/",
+        "email": null,
+        "phone": "202-224-3643",
+        "address": "717 Hart Senate Office Building Washington DC 20510",
+        "website": "https://www.warnock.senate.gov",
+        "social": {
+          "x": "SenatorWarnock",
+          "facebook": "SenatorWarnock"
+        }
+      }
+    ],
+    "GA:us-house:07": [
+      {
+        "id": "M001218",
+        "name": "Richard McCormick",
+        "office": "us-house",
+        "districtCode": "07",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4272",
+        "address": "1719 Longworth House Office Building Washington DC 20515-1007",
+        "website": "https://mccormick.house.gov",
+        "social": {
+          "x": "RepMcCormick",
+          "facebook": "100089135203690",
+          "instagram": "reprichmccormick"
+        }
+      }
+    ],
+    "GA:us-house:10": [
+      {
+        "id": "C001129",
+        "name": "Mike Collins",
+        "office": "us-house",
+        "districtCode": "10",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4101",
+        "address": "2351 Rayburn House Office Building Washington DC 20515-1010",
+        "website": "https://collins.house.gov",
+        "social": {
+          "x": "RepMikeCollins",
+          "facebook": "RepMikeCollinsGA",
+          "instagram": "repmikecollins"
+        }
+      }
+    ],
+    "GA:us-house:03": [
+      {
+        "id": "J000311",
+        "name": "Brian Jack",
+        "office": "us-house",
+        "districtCode": "03",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5901",
+        "address": "1320 Longworth House Office Building Washington DC 20515-1003",
+        "website": "https://jack.house.gov",
+        "social": {
+          "x": "RepBrianJack",
+          "facebook": "RepBrianJack",
+          "instagram": "repbrianjack"
+        }
+      }
+    ],
+    "GA:us-house:14": [
+      {
+        "id": "F000485",
+        "name": "Clay Fuller",
+        "office": "us-house",
+        "districtCode": "14",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5211",
+        "address": "2201 Rayburn House Office Building Washington DC 20515-1014",
+        "website": "https://fuller.house.gov",
+        "social": {}
+      }
+    ],
+    "GA:us-house:13": [
+      {
+        "id": "B001328",
+        "name": "Everton Blair Jr.",
+        "office": "us-house",
+        "districtCode": "13",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2939",
+        "address": "468 Cannon House Office Building Washington DC 20515-1013",
+        "website": "https://blair.house.gov/",
+        "social": {}
+      }
+    ],
+    "GA:state-house:106": [
+      {
+        "id": "ocd-person/938f2479-c51f-446a-87f0-76d4f07c61e5",
+        "name": "Akbar Ali",
+        "office": "state-house",
+        "districtCode": "106",
+        "contactUrl": null,
+        "email": "akbar.ali@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house/5089",
+        "social": {}
+      }
+    ],
+    "GA:state-house:168": [
+      {
+        "id": "ocd-person/a5a0998b-3837-4c4e-a66b-a567dc2f9d77",
+        "name": "Al Williams",
+        "office": "state-house",
+        "districtCode": "168",
+        "contactUrl": null,
+        "email": "al.williams@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=230&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:033": [
+      {
+        "id": "ocd-person/bb48e87c-29db-4a4d-a278-fa299be2020e",
+        "name": "Alan Powell",
+        "office": "state-house",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "alan.powell@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=187&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:177": [
+      {
+        "id": "ocd-person/8aa7ee05-bf64-4c51-8821-ad905d25741b",
+        "name": "Alvin Payton",
+        "office": "state-house",
+        "districtCode": "177",
+        "contactUrl": null,
+        "email": "alvin.payton@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house/5096?session=1034",
+        "social": {}
+      }
+    ],
+    "GA:state-house:091": [
+      {
+        "id": "ocd-person/b001a55f-61fa-4e62-85fd-ac6c282f2711",
+        "name": "Angela Moore",
+        "office": "state-house",
+        "districtCode": "091",
+        "contactUrl": null,
+        "email": "angela.moore@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:169": [
+      {
+        "id": "ocd-person/1d0deded-daaa-425b-b6aa-3612492dca5b",
+        "name": "Angie O'Steen",
+        "office": "state-house",
+        "districtCode": "169",
+        "contactUrl": null,
+        "email": "angie.osteen@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house/5084",
+        "social": {}
+      }
+    ],
+    "GA:state-house:163": [
+      {
+        "id": "ocd-person/e16d6516-badc-4682-9e3a-84f30a44b060",
+        "name": "Anne Westbrook",
+        "office": "state-house",
+        "districtCode": "163",
+        "contactUrl": null,
+        "email": "anneallen.westbrook@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:096": [
+      {
+        "id": "ocd-person/3b3da57c-2f96-4a94-a7bc-eb6a814cc627",
+        "name": "Arlene Beckles",
+        "office": "state-house",
+        "districtCode": "096",
+        "contactUrl": null,
+        "email": "arlene.beckles@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house/5076",
+        "social": {}
+      }
+    ],
+    "GA:state-house:135": [
+      {
+        "id": "ocd-person/e4e40f68-0970-4392-b739-3c68f749bcdc",
+        "name": "Beth Camp",
+        "office": "state-house",
+        "districtCode": "135",
+        "contactUrl": null,
+        "email": "beth.camp@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:147": [
+      {
+        "id": "ocd-person/8b4b00cb-6f78-4b69-b788-796b19d94752",
+        "name": "Bethany Ballard",
+        "office": "state-house",
+        "districtCode": "147",
+        "contactUrl": null,
+        "email": "bethany.ballard@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:054": [
+      {
+        "id": "ocd-person/c2c81ffc-f4b1-40f4-96b0-6309f89902ee",
+        "name": "Betsy Holland",
+        "office": "state-house",
+        "districtCode": "054",
+        "contactUrl": null,
+        "email": "betsy.holland@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4943&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:023": [
+      {
+        "id": "ocd-person/f2444048-8c14-45b2-b700-37f7899fa5bb",
+        "name": "Bill Fincher",
+        "office": "state-house",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "bill.fincher@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house/5092",
+        "social": {}
+      }
+    ],
+    "GA:state-house:161": [
+      {
+        "id": "ocd-person/4a9ef816-9130-4510-a19e-3124e3f2aeed",
+        "name": "Bill Hitchens",
+        "office": "state-house",
+        "districtCode": "161",
+        "contactUrl": null,
+        "email": "bill.hitchens@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=823&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:157": [
+      {
+        "id": "ocd-person/adefd0ba-43cd-4aae-9321-12f67e57ac8a",
+        "name": "Bill Werkheiser",
+        "office": "state-house",
+        "districtCode": "157",
+        "contactUrl": null,
+        "email": "bill.werkheiser@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=863&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:152": [
+      {
+        "id": "ocd-person/23dfc274-73d1-45df-b381-67e597cf0b84",
+        "name": "Bill Yearta",
+        "office": "state-house",
+        "districtCode": "152",
+        "contactUrl": null,
+        "email": "bill.yearta@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4969&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:088": [
+      {
+        "id": "ocd-person/96307d79-07d4-4f59-9dd3-b7f994d566d5",
+        "name": "Billy Mitchell",
+        "office": "state-house",
+        "districtCode": "088",
+        "contactUrl": null,
+        "email": "billy.mitchell@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=172&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:021": [
+      {
+        "id": "ocd-person/933a841a-19d6-42c2-a046-991ff9903a23",
+        "name": "Brad Thomas",
+        "office": "state-house",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "brad.thomas@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:028": [
+      {
+        "id": "ocd-person/c0b205e2-1542-4802-896d-fa7b2b6fc4d9",
+        "name": "Brent Cox",
+        "office": "state-house",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "brent.cox@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:132": [
+      {
+        "id": "ocd-person/a53e6bbd-a5b8-436b-94ae-bebf957c5b61",
+        "name": "Brian Prince",
+        "office": "state-house",
+        "districtCode": "132",
+        "contactUrl": null,
+        "email": "brian.prince@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=847&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:112": [
+      {
+        "id": "ocd-person/13b7af1b-5b56-481b-a81a-2001846188a6",
+        "name": "Bruce Williamson",
+        "office": "state-house",
+        "districtCode": "112",
+        "contactUrl": null,
+        "email": "bruce.williamson@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=778&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:056": [
+      {
+        "id": "ocd-person/b1187e7a-8cea-4e91-9c9f-7c7c61df3c85",
+        "name": "Bryce Berry",
+        "office": "state-house",
+        "districtCode": "056",
+        "contactUrl": null,
+        "email": "bryce.berry@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house/5069",
+        "social": {}
+      }
+    ],
+    "GA:state-house:167": [
+      {
+        "id": "ocd-person/d40576ac-fbc0-4b42-98ee-f6362063784d",
+        "name": "Buddy DeLoach",
+        "office": "state-house",
+        "districtCode": "167",
+        "contactUrl": null,
+        "email": "buddy.deloach@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:158": [
+      {
+        "id": "ocd-person/842218b5-88ae-4ba8-8395-756bf3340e16",
+        "name": "Butch Parrish",
+        "office": "state-house",
+        "districtCode": "158",
+        "contactUrl": null,
+        "email": "butch.parrish@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=183&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:162": [
+      {
+        "id": "ocd-person/562e162f-2a60-441c-956b-11db12eef266",
+        "name": "Carl Gilliard",
+        "office": "state-house",
+        "districtCode": "162",
+        "contactUrl": null,
+        "email": "carl.gilliard@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4881&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:139": [
+      {
+        "id": "ocd-person/3646e872-85a6-4383-97c5-36ff96ca7113",
+        "name": "Carmen Rice",
+        "office": "state-house",
+        "districtCode": "139",
+        "contactUrl": null,
+        "email": "carmen.rice@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house/5064",
+        "social": {}
+      }
+    ],
+    "GA:state-house:141": [
+      {
+        "id": "ocd-person/0f5a9273-2fc6-458f-af59-b75070a1dc76",
+        "name": "Carolyn Hugley",
+        "office": "state-house",
+        "districtCode": "141",
+        "contactUrl": null,
+        "email": "carolyn.hugley@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=133&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:024": [
+      {
+        "id": "ocd-person/72370a62-92f4-46f1-ab7b-193a643085b8",
+        "name": "Carter Barrett",
+        "office": "state-house",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "carter.barrett@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:172": [
+      {
+        "id": "ocd-person/cba2f06c-773c-49d3-949c-b1a2db377c21",
+        "name": "Chas Cannon",
+        "office": "state-house",
+        "districtCode": "172",
+        "contactUrl": null,
+        "email": "chas.cannon@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:020": [
+      {
+        "id": "ocd-person/0d75f0d9-0242-4f72-b4f3-1cd085eb26b6",
+        "name": "Charlice Byrd",
+        "office": "state-house",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "charlice.byrd@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:032": [
+      {
+        "id": "ocd-person/d79c3e9b-b73d-416b-9bfd-8a0338d8256c",
+        "name": "Chris Erwin",
+        "office": "state-house",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "chris.erwin@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4965&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:049": [
+      {
+        "id": "ocd-person/42517dd7-eccb-4d22-a795-cbd010b69ee6",
+        "name": "Chuck Martin",
+        "office": "state-house",
+        "districtCode": "049",
+        "contactUrl": null,
+        "email": "chuck.martin@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=164&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:104": [
+      {
+        "id": "ocd-person/3ff894cb-f2e4-47d0-9f67-b125245a10c3",
+        "name": "Chuck Efstration",
+        "office": "state-house",
+        "districtCode": "104",
+        "contactUrl": null,
+        "email": "chuck.efstration@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=846&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:118": [
+      {
+        "id": "ocd-person/e1a9102d-f845-47f5-882e-e344eef060ec",
+        "name": "Clint Crowe",
+        "office": "state-house",
+        "districtCode": "118",
+        "contactUrl": null,
+        "email": "clint.crowe@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:144": [
+      {
+        "id": "ocd-person/ec6cf250-ebcc-4dda-89a5-12da9ebbe51a",
+        "name": "Dale Washburn",
+        "office": "state-house",
+        "districtCode": "144",
+        "contactUrl": null,
+        "email": "dale.washburn@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4958&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:133": [
+      {
+        "id": "ocd-person/1a9598cc-056f-4725-a3fb-64c3f0fd26ed",
+        "name": "Danny Mathis",
+        "office": "state-house",
+        "districtCode": "133",
+        "contactUrl": null,
+        "email": "danny.mathis@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4959&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:173": [
+      {
+        "id": "ocd-person/d00eb950-0fb6-41ab-ae22-8e9ce84d7cf0",
+        "name": "Darlene Taylor",
+        "office": "state-house",
+        "districtCode": "173",
+        "contactUrl": null,
+        "email": "darlene.taylor@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=786&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:095": [
+      {
+        "id": "ocd-person/1f94316e-fb58-401f-bbfc-5ada0a717b6b",
+        "name": "Dar'shun Kendrick",
+        "office": "state-house",
+        "districtCode": "095",
+        "contactUrl": null,
+        "email": "darshun.kendrick@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=770&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:100": [
+      {
+        "id": "ocd-person/ad18dba4-9247-4542-95b1-2ccef815dbc7",
+        "name": "David Clark",
+        "office": "state-house",
+        "districtCode": "100",
+        "contactUrl": null,
+        "email": "david.clark@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=867&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:072": [
+      {
+        "id": "ocd-person/9bcfa0eb-ee7d-4762-9555-7bc4a67d6417",
+        "name": "David Huddleston",
+        "office": "state-house",
+        "districtCode": "072",
+        "contactUrl": null,
+        "email": "david.huddleston@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:136": [
+      {
+        "id": "ocd-person/0f288c5b-484a-4b70-8209-0a23f922edd1",
+        "name": "David Jenkins",
+        "office": "state-house",
+        "districtCode": "136",
+        "contactUrl": null,
+        "email": "david.jenkins@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:153": [
+      {
+        "id": "ocd-person/9a8e7b0c-3c19-473f-b04a-d3a17037af0a",
+        "name": "David Sampson",
+        "office": "state-house",
+        "districtCode": "153",
+        "contactUrl": null,
+        "email": "david.sampson@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:038": [
+      {
+        "id": "ocd-person/83a7bbf2-d69c-4813-bbeb-52820e6b9af4",
+        "name": "David Wilkerson",
+        "office": "state-house",
+        "districtCode": "038",
+        "contactUrl": null,
+        "email": "david.wilkerson@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=760&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:137": [
+      {
+        "id": "ocd-person/5061bc6b-83af-46d0-a78d-30ebe10a63db",
+        "name": "Debbie Buckner",
+        "office": "state-house",
+        "districtCode": "137",
+        "contactUrl": null,
+        "email": "debbie.buckner@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=71&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:053": [
+      {
+        "id": "ocd-person/b824f8fd-7343-449d-8027-fcd0afaf1949",
+        "name": "Deborah Silcox",
+        "office": "state-house",
+        "districtCode": "053",
+        "contactUrl": null,
+        "email": "deborah.silcox@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4887&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:069": [
+      {
+        "id": "ocd-person/1bb8d14b-9d5d-4edd-8c93-37e95991a8e4",
+        "name": "Debra Bazemore",
+        "office": "state-house",
+        "districtCode": "069",
+        "contactUrl": null,
+        "email": "debra.bazemore@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4890&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:078": [
+      {
+        "id": "ocd-person/016fb7f0-2b08-4587-b7f2-8d18c1d9b8f5",
+        "name": "Demetrius Douglas",
+        "office": "state-house",
+        "districtCode": "078",
+        "contactUrl": null,
+        "email": "demetrius.douglas@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=817&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:068": [
+      {
+        "id": "ocd-person/9046fcb2-f3eb-4233-bd92-32c94e60f9df",
+        "name": "Derrick Jackson",
+        "office": "state-house",
+        "districtCode": "068",
+        "contactUrl": null,
+        "email": "derrick.jackson@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:030": [
+      {
+        "id": "ocd-person/3a323603-753e-4380-993c-9bb2a7fc55f3",
+        "name": "Derrick McCollum",
+        "office": "state-house",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "derrick.mccollum@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:034": [
+      {
+        "id": "ocd-person/8f76af22-98dc-4e1e-ba99-75b87c1129d6",
+        "name": "Devan Seabaugh",
+        "office": "state-house",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "devan.seabaugh@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:109": [
+      {
+        "id": "ocd-person/8afda706-7afa-462c-89f2-0d6d5da010ff",
+        "name": "Dewey McClain",
+        "office": "state-house",
+        "districtCode": "109",
+        "contactUrl": null,
+        "email": "dewey.mcclain@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=845&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:044": [
+      {
+        "id": "ocd-person/81dde544-49e9-4fb0-9313-32eacaf6194b",
+        "name": "Don Parsons",
+        "office": "state-house",
+        "districtCode": "044",
+        "contactUrl": null,
+        "email": "don.parsons@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=184&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:093": [
+      {
+        "id": "ocd-person/818f1afb-2850-448e-99c1-be63a9acfe95",
+        "name": "Doreen Carter",
+        "office": "state-house",
+        "districtCode": "093",
+        "contactUrl": null,
+        "email": "doreen.carter@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=3877&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:012": [
+      {
+        "id": "ocd-person/f33d979c-554c-433e-ad0f-837eef1da589",
+        "name": "Eddie Lumsden",
+        "office": "state-house",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "eddie.lumsden@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=826&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:165": [
+      {
+        "id": "ocd-person/18427775-e3e7-4730-bb6f-722616e6aebe",
+        "name": "Edna Jackson",
+        "office": "state-house",
+        "districtCode": "165",
+        "contactUrl": null,
+        "email": "edna.jackson@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:116": [
+      {
+        "id": "ocd-person/4615e308-db74-408f-89df-02be56b5013b",
+        "name": "El-Mahdi Holly",
+        "office": "state-house",
+        "districtCode": "116",
+        "contactUrl": null,
+        "email": "el-mahdi.holly@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4954&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:031": [
+      {
+        "id": "ocd-person/3b2b9f31-6859-4582-8d82-581597c0c178",
+        "name": "Emory Dunahoo",
+        "office": "state-house",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "emory.dunahoo@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=797&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:075": [
+      {
+        "id": "ocd-person/fe4b934e-8976-4c62-bcb0-ed8ae9782560",
+        "name": "Eric Bell",
+        "office": "state-house",
+        "districtCode": "075",
+        "contactUrl": null,
+        "email": "eric.bell@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:121": [
+      {
+        "id": "ocd-person/abece831-30a8-4cf8-94ff-d41f7f48197f",
+        "name": "Eric Gisler",
+        "office": "state-house",
+        "districtCode": "121",
+        "contactUrl": null,
+        "email": "eric.gisler@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house/5091",
+        "social": {}
+      }
+    ],
+    "GA:state-house:051": [
+      {
+        "id": "ocd-person/bdc621be-7296-4383-8c45-b4533d1c106c",
+        "name": "Esther Panitch",
+        "office": "state-house",
+        "districtCode": "051",
+        "contactUrl": null,
+        "email": "esther.panitch@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:149": [
+      {
+        "id": "ocd-person/b261086c-7b16-4a8e-82a6-22df4445af84",
+        "name": "Floyd Griffin",
+        "office": "state-house",
+        "districtCode": "149",
+        "contactUrl": null,
+        "email": "floyd.griffin@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house/5083",
+        "social": {}
+      }
+    ],
+    "GA:state-house:102": [
+      {
+        "id": "ocd-person/dc99efc3-076b-4d00-b4b0-66a0507a4057",
+        "name": "Gabe Okoye",
+        "office": "state-house",
+        "districtCode": "102",
+        "contactUrl": null,
+        "email": "gabe.okoye@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:042": [
+      {
+        "id": "ocd-person/bd990496-ea34-4b79-8d6f-68cfed424c15",
+        "name": "Gabriel Sanchez",
+        "office": "state-house",
+        "districtCode": "042",
+        "contactUrl": null,
+        "email": "gabriel.sanchez@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house/5068",
+        "social": {}
+      }
+    ],
+    "GA:state-house:125": [
+      {
+        "id": "ocd-person/47fd36f3-f5d4-4ef6-a429-1ffc7681e233",
+        "name": "Gary Richardson",
+        "office": "state-house",
+        "districtCode": "125",
+        "contactUrl": null,
+        "email": "gary.richardson@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house/5063",
+        "social": {}
+      }
+    ],
+    "GA:state-house:154": [
+      {
+        "id": "ocd-person/570a213a-a475-4fd3-ac36-23e1bd1190be",
+        "name": "Gerald Greene",
+        "office": "state-house",
+        "districtCode": "154",
+        "contactUrl": null,
+        "email": "gerald.greene@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=115&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:036": [
+      {
+        "id": "ocd-person/be05ace3-ea73-4f3f-85ae-c5ed313d4cbe",
+        "name": "Ginny Ehrhart",
+        "office": "state-house",
+        "districtCode": "036",
+        "contactUrl": null,
+        "email": "ginny.ehrhart@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4937&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:119": [
+      {
+        "id": "ocd-person/b39e2164-d570-45f2-b271-5e2fbe99c8d6",
+        "name": "Holt Persinger",
+        "office": "state-house",
+        "districtCode": "119",
+        "contactUrl": null,
+        "email": "holt.persinger@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:120": [
+      {
+        "id": "ocd-person/e73cb2a6-bf3e-4211-a386-142c18a4f607",
+        "name": "Houston Gaines",
+        "office": "state-house",
+        "districtCode": "120",
+        "contactUrl": null,
+        "email": "houston.gaines@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4955&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:086": [
+      {
+        "id": "ocd-person/2a68d594-e7d5-49cd-b615-6efb872430c3",
+        "name": "Imani Barnes",
+        "office": "state-house",
+        "districtCode": "086",
+        "contactUrl": null,
+        "email": "imani.barnes@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:055": [
+      {
+        "id": "ocd-person/f02d369f-2d48-4d8d-853d-77ce5a8810fc",
+        "name": "Inga Willis",
+        "office": "state-house",
+        "districtCode": "055",
+        "contactUrl": null,
+        "email": "inga.willis@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:170": [
+      {
+        "id": "ocd-person/37602f7b-947e-4067-8f2e-b2fec620643e",
+        "name": "Jaclyn Ford",
+        "office": "state-house",
+        "districtCode": "170",
+        "contactUrl": null,
+        "email": "jaclyn.ford@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house/5085",
+        "social": {}
+      }
+    ],
+    "GA:state-house:176": [
+      {
+        "id": "ocd-person/dbce462d-74e3-42d3-bd6c-3b9f8eeb69fe",
+        "name": "James Burchett",
+        "office": "state-house",
+        "districtCode": "176",
+        "contactUrl": null,
+        "email": "james.burchett@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4967&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:047": [
+      {
+        "id": "ocd-person/85740034-23b0-4001-9190-8948bd9f3b37",
+        "name": "Jan Jones",
+        "office": "state-house",
+        "districtCode": "047",
+        "contactUrl": null,
+        "email": "jan.jones@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=142&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:108": [
+      {
+        "id": "ocd-person/0461f02b-df18-4984-8b3b-ada287879d0a",
+        "name": "Jasmine Clark",
+        "office": "state-house",
+        "districtCode": "108",
+        "contactUrl": null,
+        "email": "jasmine.clark@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4953&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:006": [
+      {
+        "id": "ocd-person/594aa971-500b-42a4-9d7a-1ceb4c029220",
+        "name": "Jason Ridley",
+        "office": "state-house",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "jason.ridley@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4883&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:166": [
+      {
+        "id": "ocd-person/38c596a4-df69-4a56-9329-be73f26bc7d5",
+        "name": "Jesse Petrea",
+        "office": "state-house",
+        "districtCode": "166",
+        "contactUrl": null,
+        "email": "jesse.petrea@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=862&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:171": [
+      {
+        "id": "ocd-person/c862c17f-ed00-41d7-97e5-1138f451a96c",
+        "name": "Joe Campbell",
+        "office": "state-house",
+        "districtCode": "171",
+        "contactUrl": null,
+        "email": "joe.campbell@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4970&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:046": [
+      {
+        "id": "ocd-person/713cac52-0a57-4baa-8273-6eeca5b491df",
+        "name": "John Carson",
+        "office": "state-house",
+        "districtCode": "046",
+        "contactUrl": null,
+        "email": "john.carson@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=795&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:174": [
+      {
+        "id": "ocd-person/a34c9a5a-f307-4c07-b766-3b3b1148d7b1",
+        "name": "John Corbett",
+        "office": "state-house",
+        "districtCode": "174",
+        "contactUrl": null,
+        "email": "john.corbett@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=859&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:175": [
+      {
+        "id": "ocd-person/9249be26-54d2-467a-88ec-2588b886148d",
+        "name": "John LaHood",
+        "office": "state-house",
+        "districtCode": "175",
+        "contactUrl": null,
+        "email": "john.lahood@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4923&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:007": [
+      {
+        "id": "ocd-person/8106e2d8-e1e3-42a8-b550-fbd2627fa474",
+        "name": "Johnny Chastain",
+        "office": "state-house",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "johnny.chastain@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:159": [
+      {
+        "id": "ocd-person/64012657-d026-411c-9525-3232524a5145",
+        "name": "Jon Burns",
+        "office": "state-house",
+        "districtCode": "159",
+        "contactUrl": null,
+        "email": "jon.burns@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=73&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:022": [
+      {
+        "id": "ocd-person/56f28f8a-9296-4e69-9bd4-d0101a42b359",
+        "name": "Jordan Ridley",
+        "office": "state-house",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "jordan.ridley@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:019": [
+      {
+        "id": "ocd-person/f36d2507-b19a-4ee5-b4f9-5c06df761edf",
+        "name": "Joseph Gullett",
+        "office": "state-house",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "joseph.gullett@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4936&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:073": [
+      {
+        "id": "ocd-person/0e45048c-c1a4-415f-9ee4-5d09ea857e2e",
+        "name": "Josh Bonner",
+        "office": "state-house",
+        "districtCode": "073",
+        "contactUrl": null,
+        "email": "josh.bonner@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4893&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:071": [
+      {
+        "id": "ocd-person/8b62e64b-bf80-4967-832b-8fb92cd6c4b3",
+        "name": "Jutt Howard",
+        "office": "state-house",
+        "districtCode": "071",
+        "contactUrl": null,
+        "email": "justin.howard@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house/5073",
+        "social": {}
+      }
+    ],
+    "GA:state-house:083": [
+      {
+        "id": "ocd-person/eb28f991-35c9-4d84-a907-5be56aed1aff",
+        "name": "Karen Lupton",
+        "office": "state-house",
+        "districtCode": "083",
+        "contactUrl": null,
+        "email": "karen.lupton@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:082": [
+      {
+        "id": "ocd-person/f8db50e0-08ab-406c-ac8b-39c7038ef5ca",
+        "name": "Karen Mathiak",
+        "office": "state-house",
+        "districtCode": "082",
+        "contactUrl": null,
+        "email": "karen.mathiak@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4894&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:085": [
+      {
+        "id": "ocd-person/27365f19-a138-4a9e-9f6e-11352932e5d5",
+        "name": "Karla Drenner",
+        "office": "state-house",
+        "districtCode": "085",
+        "contactUrl": null,
+        "email": "karla.drenner@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=95&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:129": [
+      {
+        "id": "ocd-person/4b3fdb35-d3fb-40aa-843e-d3900df37ce4",
+        "name": "Karlton Howard",
+        "office": "state-house",
+        "districtCode": "129",
+        "contactUrl": null,
+        "email": "karlton.howard@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:004": [
+      {
+        "id": "ocd-person/97a40ea4-674f-4b84-8fd3-8bc2f3b4a35d",
+        "name": "Kasey Carpenter",
+        "office": "state-house",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "kasey.carpenter@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4911&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:013": [
+      {
+        "id": "ocd-person/bf68b3dc-ca81-49f9-8e33-fe27317183d3",
+        "name": "Katie Dempsey",
+        "office": "state-house",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "katie.dempsey@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=92&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:063": [
+      {
+        "id": "ocd-person/eff357d0-3187-4a7b-93fe-2d54d010b093",
+        "name": "Kim Schofield",
+        "office": "state-house",
+        "districtCode": "063",
+        "contactUrl": null,
+        "email": "kim.schofield@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4916&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:066": [
+      {
+        "id": "ocd-person/275b772e-6407-4aaa-8bd6-ceddad1da7fa",
+        "name": "Kimberly Alexander",
+        "office": "state-house",
+        "districtCode": "066",
+        "contactUrl": null,
+        "email": "kimberly.alexander@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=806&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:040": [
+      {
+        "id": "ocd-person/fc1a5e1f-6ce4-47ab-987b-095afa166359",
+        "name": "Kimberly New",
+        "office": "state-house",
+        "districtCode": "040",
+        "contactUrl": null,
+        "email": "kimberly.new@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:126": [
+      {
+        "id": "ocd-person/1d9bb111-bf4f-4e4f-aa63-a2f6a94b566c",
+        "name": "L.C. Myles",
+        "office": "state-house",
+        "districtCode": "126",
+        "contactUrl": null,
+        "email": "lc.myles@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house/5079",
+        "social": {}
+      }
+    ],
+    "GA:state-house:026": [
+      {
+        "id": "ocd-person/7767ee85-7961-45ba-adc2-c3606b1c39b8",
+        "name": "Lauren McDonald",
+        "office": "state-house",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "lauren.mcdonald@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:027": [
+      {
+        "id": "ocd-person/69493144-3e3e-49a8-9e1f-f9a948fd0ff3",
+        "name": "Lee Hawkins",
+        "office": "state-house",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "lee.hawkins@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=19&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:156": [
+      {
+        "id": "ocd-person/df874c28-6403-42c1-9cbb-0855508cda85",
+        "name": "Leesa Hagan",
+        "office": "state-house",
+        "districtCode": "156",
+        "contactUrl": null,
+        "email": "leesa.hagan@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:160": [
+      {
+        "id": "ocd-person/6971bb34-9ea4-4bdc-971e-c1a2c5de344c",
+        "name": "Lehman Franklin",
+        "office": "state-house",
+        "districtCode": "160",
+        "contactUrl": null,
+        "email": "lehman.franklin@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:035": [
+      {
+        "id": "ocd-person/3a23acfd-5ce6-4e47-b641-1efdab05bdca",
+        "name": "Lisa Campbell",
+        "office": "state-house",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "lisa.campbell@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:080": [
+      {
+        "id": "ocd-person/7475f989-a4f9-4ac8-9188-26903a012d71",
+        "name": "Long Tran",
+        "office": "state-house",
+        "districtCode": "080",
+        "contactUrl": null,
+        "email": "long.tran@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:067": [
+      {
+        "id": "ocd-person/ee575d7a-b5a1-419c-949d-4aa9290a67a1",
+        "name": "Lydia Glaize",
+        "office": "state-house",
+        "districtCode": "067",
+        "contactUrl": null,
+        "email": "lydia.glaize@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:070": [
+      {
+        "id": "ocd-person/945875f7-f3c5-4c75-acd6-a195a0f76b12",
+        "name": "Lynn Smith",
+        "office": "state-house",
+        "districtCode": "070",
+        "contactUrl": null,
+        "email": "lynn.smith@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=212&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:128": [
+      {
+        "id": "ocd-person/8e209d95-2333-4aa2-a628-1bdcec0674f5",
+        "name": "Mack Jackson",
+        "office": "state-house",
+        "districtCode": "128",
+        "contactUrl": null,
+        "email": "mack.jackson@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=738&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:127": [
+      {
+        "id": "ocd-person/5e12fb82-1f69-46df-9ac5-a09ce51dd95b",
+        "name": "Mark Newton",
+        "office": "state-house",
+        "districtCode": "127",
+        "contactUrl": null,
+        "email": "mark.newton@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4902&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:017": [
+      {
+        "id": "ocd-person/6552dd8d-1020-4bbb-abfc-88975573ebd4",
+        "name": "Martin Momtahan",
+        "office": "state-house",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "martin.momtahan@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4935&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:098": [
+      {
+        "id": "ocd-person/9531d502-440c-48db-83c4-70dfbe9a9ea1",
+        "name": "Marvin Lim",
+        "office": "state-house",
+        "districtCode": "098",
+        "contactUrl": null,
+        "email": "marvin.lim@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:117": [
+      {
+        "id": "ocd-person/7deae3f1-5548-4afe-9018-e8112945fd8d",
+        "name": "Mary Ann Santos",
+        "office": "state-house",
+        "districtCode": "117",
+        "contactUrl": null,
+        "email": "maryann.santos@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house/5078",
+        "social": {}
+      }
+    ],
+    "GA:state-house:037": [
+      {
+        "id": "ocd-person/4aec761f-5117-4f43-a487-9d77418f0bfa",
+        "name": "Mary Frances Williams",
+        "office": "state-house",
+        "districtCode": "037",
+        "contactUrl": null,
+        "email": "maryfrances.williams@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4938&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:084": [
+      {
+        "id": "ocd-person/e6ca1b23-0972-4df6-ab04-6186cf9da814",
+        "name": "Mary Margaret Oliver",
+        "office": "state-house",
+        "districtCode": "084",
+        "contactUrl": null,
+        "email": "mary.oliver@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:005": [
+      {
+        "id": "ocd-person/9103b29e-964b-4637-9304-0e73216d7796",
+        "name": "Matt Barton",
+        "office": "state-house",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "matt.barton@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4966&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:029": [
+      {
+        "id": "ocd-person/99f0a2a7-8817-4756-a40e-575e259890e7",
+        "name": "Matt Dubnik",
+        "office": "state-house",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "matt.dubnik@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4886&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:155": [
+      {
+        "id": "ocd-person/c81779f3-65bf-4714-b295-79cac3b0da28",
+        "name": "Matt Hatchett",
+        "office": "state-house",
+        "districtCode": "155",
+        "contactUrl": null,
+        "email": "matt.hatchett@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=781&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:099": [
+      {
+        "id": "ocd-person/0f4f3c5a-1192-4ec1-9698-4aef005b4875",
+        "name": "Matt Reeves",
+        "office": "state-house",
+        "districtCode": "099",
+        "contactUrl": null,
+        "email": "matt.reeves@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:015": [
+      {
+        "id": "ocd-person/909e9026-e549-494b-be99-e8562a389e0c",
+        "name": "Matthew Gambill",
+        "office": "state-house",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "matthew.gambill@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4934&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:061": [
+      {
+        "id": "ocd-person/f0af2586-d535-4e44-bcaa-65239f9390b1",
+        "name": "Mekyah McQueen",
+        "office": "state-house",
+        "districtCode": "061",
+        "contactUrl": null,
+        "email": "mekyah.mcqueen@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house/5070",
+        "social": {}
+      }
+    ],
+    "GA:state-house:041": [
+      {
+        "id": "ocd-person/68185f1d-fa54-4571-b305-fcd6c7dc024e",
+        "name": "Michael Smith",
+        "office": "state-house",
+        "districtCode": "041",
+        "contactUrl": null,
+        "email": "michael.smith@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=832&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:050": [
+      {
+        "id": "ocd-person/48b46caf-d38e-46ab-96ff-c268e23a7d76",
+        "name": "Michelle Au",
+        "office": "state-house",
+        "districtCode": "050",
+        "contactUrl": null,
+        "email": "michelle.au@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:001": [
+      {
+        "id": "ocd-person/f4f9be12-5d7c-4fae-8b7b-9e9d19d2282f",
+        "name": "Mike Cameron",
+        "office": "state-house",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "mike.cameron@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:151": [
+      {
+        "id": "ocd-person/1831cc73-e694-4cea-83a4-b55c3495f76a",
+        "name": "Mike Cheokas",
+        "office": "state-house",
+        "districtCode": "151",
+        "contactUrl": null,
+        "email": "mike.cheokas@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=81&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:142": [
+      {
+        "id": "ocd-person/bad14891-c7bc-4ac4-b23a-fb5ae3878d67",
+        "name": "Miriam Paris",
+        "office": "state-house",
+        "districtCode": "142",
+        "contactUrl": null,
+        "email": "miriam.paris@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=794&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:003": [
+      {
+        "id": "ocd-person/c4c6c741-0cb4-4179-b46d-9983421b8fdd",
+        "name": "Mitchell Horner",
+        "office": "state-house",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "mitchell.horner@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:014": [
+      {
+        "id": "ocd-person/7ac30a66-1649-4a8c-a72f-a4b9a7ab1534",
+        "name": "Mitchell Scoggins",
+        "office": "state-house",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "mitchell.scoggins@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4964&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:143": [
+      {
+        "id": "ocd-person/55074030-4d64-4da0-b68a-5e3945d00f25",
+        "name": "Nissa Jones",
+        "office": "state-house",
+        "districtCode": "143",
+        "contactUrl": null,
+        "email": "anissa.jones@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house/5081",
+        "social": {}
+      }
+    ],
+    "GA:state-house:148": [
+      {
+        "id": "ocd-person/3252da04-a17e-4298-b19d-9dd2fbf29ded",
+        "name": "Noel Williams",
+        "office": "state-house",
+        "districtCode": "148",
+        "contactUrl": null,
+        "email": "noel.williams@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4960&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:081": [
+      {
+        "id": "ocd-person/fdf78e39-985f-48c3-8ed3-ccf15946871f",
+        "name": "Noelle Kahaian",
+        "office": "state-house",
+        "districtCode": "081",
+        "contactUrl": null,
+        "email": "noelle.kahaian@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house/5075",
+        "social": {}
+      }
+    ],
+    "GA:state-house:089": [
+      {
+        "id": "ocd-person/dbb81f07-2181-48dd-b383-19870e08d4fd",
+        "name": "Omari Crawford",
+        "office": "state-house",
+        "districtCode": "089",
+        "contactUrl": null,
+        "email": "omari.crawford@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:058": [
+      {
+        "id": "ocd-person/5c5ab5cb-54f6-4218-8d1d-a99d36bca436",
+        "name": "Park Cannon",
+        "office": "state-house",
+        "districtCode": "058",
+        "contactUrl": null,
+        "email": "park.cannon@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4880&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:150": [
+      {
+        "id": "ocd-person/af51c2db-8871-45a4-803d-314fa2b9d18d",
+        "name": "Patty Marie Stinson",
+        "office": "state-house",
+        "districtCode": "150",
+        "contactUrl": null,
+        "email": "patty.stinson@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=811&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:059": [
+      {
+        "id": "ocd-person/80928bd9-c963-4b21-954c-c62ee9373064",
+        "name": "Phil Olaleye",
+        "office": "state-house",
+        "districtCode": "059",
+        "contactUrl": null,
+        "email": "phil.olaleye@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:115": [
+      {
+        "id": "ocd-person/21651856-bba6-49fd-b3f8-8ed1b723e804",
+        "name": "Regina Lewis-Ward",
+        "office": "state-house",
+        "districtCode": "115",
+        "contactUrl": null,
+        "email": "regina.lewis-ward@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:111": [
+      {
+        "id": "ocd-person/08ee45fd-d3f4-4129-9e7c-27cf52533ed2",
+        "name": "Rey Martinez",
+        "office": "state-house",
+        "districtCode": "111",
+        "contactUrl": null,
+        "email": "reynaldo.martinez@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:077": [
+      {
+        "id": "ocd-person/e04bd985-5b75-4551-84a1-f9797ac495d2",
+        "name": "Rhonda Burnough",
+        "office": "state-house",
+        "districtCode": "077",
+        "contactUrl": null,
+        "email": "rhonda.burnough@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4895&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:092": [
+      {
+        "id": "ocd-person/bc40f904-9c20-41d0-80d5-e5645d3e6935",
+        "name": "Rhonda Taylor",
+        "office": "state-house",
+        "districtCode": "092",
+        "contactUrl": null,
+        "email": "rhonda.taylor@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:011": [
+      {
+        "id": "ocd-person/4d1f5379-01e9-4f58-9868-42acc07ec7a8",
+        "name": "Rick Jasperse",
+        "office": "state-house",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "rick.jasperse@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=755&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:179": [
+      {
+        "id": "ocd-person/1da20ad9-1a05-42ab-addb-7fbf295a0e5d",
+        "name": "Rick Townsend",
+        "office": "state-house",
+        "districtCode": "179",
+        "contactUrl": null,
+        "email": "rick.townsend@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:131": [
+      {
+        "id": "ocd-person/84eb7371-a332-4534-b3b3-542500c798f8",
+        "name": "Rob Clifton",
+        "office": "state-house",
+        "districtCode": "131",
+        "contactUrl": null,
+        "email": "rob.clifton@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house/5080",
+        "social": {}
+      }
+    ],
+    "GA:state-house:123": [
+      {
+        "id": "ocd-person/29210f3f-ec97-47c8-9492-b81154275109",
+        "name": "Rob Leverett",
+        "office": "state-house",
+        "districtCode": "123",
+        "contactUrl": null,
+        "email": "rob.leverett@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:065": [
+      {
+        "id": "ocd-person/5d77204f-89e7-43df-bccb-a08b9956132d",
+        "name": "Robert Dawson",
+        "office": "state-house",
+        "districtCode": "065",
+        "contactUrl": null,
+        "email": "robert.dawson@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house/5072",
+        "social": {}
+      }
+    ],
+    "GA:state-house:134": [
+      {
+        "id": "ocd-person/f863b50d-c865-463a-830a-e5648837d9f7",
+        "name": "Robert Dickey",
+        "office": "state-house",
+        "districtCode": "134",
+        "contactUrl": null,
+        "email": "robert.dickey@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=791&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:074": [
+      {
+        "id": "ocd-person/32c3fbdd-4034-47d0-b7ab-0411bd200737",
+        "name": "Robert Flournoy",
+        "office": "state-house",
+        "districtCode": "074",
+        "contactUrl": null,
+        "email": "robert.flournoy@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house/5074",
+        "social": {}
+      }
+    ],
+    "GA:state-house:164": [
+      {
+        "id": "ocd-person/aeaeb854-ff9c-47cb-8069-395b60ba05b2",
+        "name": "Ron Stephens",
+        "office": "state-house",
+        "districtCode": "164",
+        "contactUrl": null,
+        "email": "ron.stephens@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=219&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:097": [
+      {
+        "id": "ocd-person/d291834f-70cd-48b5-b7db-b05d23d74a4c",
+        "name": "Ruwa Romman",
+        "office": "state-house",
+        "districtCode": "097",
+        "contactUrl": null,
+        "email": "ruwa.romman@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:090": [
+      {
+        "id": "ocd-person/2a66b922-b812-4c45-9786-478187cd5e33",
+        "name": "Saira Draper",
+        "office": "state-house",
+        "districtCode": "090",
+        "contactUrl": null,
+        "email": "saira.draper@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:107": [
+      {
+        "id": "ocd-person/2ba0916f-40b1-4255-9496-94b12ccabd1e",
+        "name": "Sam Park",
+        "office": "state-house",
+        "districtCode": "107",
+        "contactUrl": null,
+        "email": "sam.park@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4901&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:076": [
+      {
+        "id": "ocd-person/21c6cae1-bcd2-4403-ad39-af04b64ce55c",
+        "name": "Sandra Scott",
+        "office": "state-house",
+        "districtCode": "076",
+        "contactUrl": null,
+        "email": "sandra.scott@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=766&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:105": [
+      {
+        "id": "ocd-person/4ab15127-5b7a-40bc-8807-26e8e8a73397",
+        "name": "Sandy Donatucci",
+        "office": "state-house",
+        "districtCode": "105",
+        "contactUrl": null,
+        "email": "sandy.donatucci@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house/5077",
+        "social": {}
+      }
+    ],
+    "GA:state-house:048": [
+      {
+        "id": "ocd-person/91abe321-5ea4-4f17-b8d8-573d7cb913e6",
+        "name": "Scott Hilton",
+        "office": "state-house",
+        "districtCode": "048",
+        "contactUrl": null,
+        "email": "scott.hilton@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:101": [
+      {
+        "id": "ocd-person/99ef9b20-6b1f-4831-8e58-a523de606cda",
+        "name": "Scott Holcomb",
+        "office": "state-house",
+        "districtCode": "101",
+        "contactUrl": null,
+        "email": "scott.holcomb@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=769&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:110": [
+      {
+        "id": "ocd-person/702658f4-8382-479a-9416-79928239d5e7",
+        "name": "Segun Adeyina",
+        "office": "state-house",
+        "districtCode": "110",
+        "contactUrl": null,
+        "email": "segun.adeyina@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:045": [
+      {
+        "id": "ocd-person/15db25fc-273b-467f-b8f9-897337f40b65",
+        "name": "Sharon Cooper",
+        "office": "state-house",
+        "districtCode": "045",
+        "contactUrl": null,
+        "email": "sharon.cooper@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=86&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:113": [
+      {
+        "id": "ocd-person/e51d36a7-9684-4540-aae7-a5e60e434681",
+        "name": "Sharon Henderson",
+        "office": "state-house",
+        "districtCode": "113",
+        "contactUrl": null,
+        "email": "sharon.henderson@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:146": [
+      {
+        "id": "ocd-person/ee145624-3295-4db4-b3ce-9d1583e4ef6e",
+        "name": "Shaw Blackmon",
+        "office": "state-house",
+        "districtCode": "146",
+        "contactUrl": null,
+        "email": "shaw.blackmon@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=1878&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:052": [
+      {
+        "id": "ocd-person/9007dcd9-3246-4cf3-9185-7478b3a9ad7a",
+        "name": "Shea Roberts",
+        "office": "state-house",
+        "districtCode": "052",
+        "contactUrl": null,
+        "email": "shea.roberts@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:130": [
+      {
+        "id": "ocd-person/059c0e54-cc7b-4605-aee6-58388026a2fb",
+        "name": "Sheila Nelson",
+        "office": "state-house",
+        "districtCode": "130",
+        "contactUrl": null,
+        "email": "sheila.nelson@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4903&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:060": [
+      {
+        "id": "ocd-person/b278b399-5ca3-4cd7-bc19-4053166577a2",
+        "name": "Sheila Jones",
+        "office": "state-house",
+        "districtCode": "060",
+        "contactUrl": null,
+        "email": "sheila.jones@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=143&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:043": [
+      {
+        "id": "ocd-person/5474fbe2-6cdb-4ad2-9831-cdffaca442af",
+        "name": "Solomon Adesanya",
+        "office": "state-house",
+        "districtCode": "043",
+        "contactUrl": null,
+        "email": "solomon.adesanya@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:103": [
+      {
+        "id": "ocd-person/64721c9b-451c-4bc9-9040-4ca232ffd746",
+        "name": "Soo Hong",
+        "office": "state-house",
+        "districtCode": "103",
+        "contactUrl": null,
+        "email": "soo.hong@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:122": [
+      {
+        "id": "ocd-person/e6ae8d30-4b1b-4b06-8918-2be6fa7f8108",
+        "name": "Spencer Frye",
+        "office": "state-house",
+        "districtCode": "122",
+        "contactUrl": null,
+        "email": "spencer.frye@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=819&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:057": [
+      {
+        "id": "ocd-person/fa5d8d09-a0b9-4ba4-93da-a24902530416",
+        "name": "Stacey Evans",
+        "office": "state-house",
+        "districtCode": "057",
+        "contactUrl": null,
+        "email": "stacey.evans@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=762&Session=25",
+        "social": {}
+      }
+    ],
+    "GA:state-house:008": [
+      {
+        "id": "ocd-person/432ef767-d4c8-4736-b2ac-96397205fb3d",
+        "name": "Stan Gunter",
+        "office": "state-house",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "stan.gunter@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:002": [
+      {
+        "id": "ocd-person/80f4bbdf-02f3-4233-8456-e550e7e745af",
+        "name": "Steve Tarvin",
+        "office": "state-house",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "steve.tarvin@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=849&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:178": [
+      {
+        "id": "ocd-person/3194a8e0-aaf8-4686-b2c9-a22521f85fff",
+        "name": "Steven Meeks",
+        "office": "state-house",
+        "districtCode": "178",
+        "contactUrl": null,
+        "email": "steven.meeks@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4961&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:180": [
+      {
+        "id": "ocd-person/99082062-acd6-4c6b-bb45-2cfa071f19fc",
+        "name": "Steven Sainz",
+        "office": "state-house",
+        "districtCode": "180",
+        "contactUrl": null,
+        "email": "steven.sainz@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4962&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:064": [
+      {
+        "id": "ocd-person/cabc1e6f-ba7c-4063-a778-707579f91ec8",
+        "name": "Sylvia Wayfer",
+        "office": "state-house",
+        "districtCode": "064",
+        "contactUrl": null,
+        "email": "sylvia.baker@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house/5071",
+        "social": {}
+      }
+    ],
+    "GA:state-house:145": [
+      {
+        "id": "ocd-person/c5766526-3a5a-4d33-b5ff-a0d1d358d7ae",
+        "name": "Tangie Herring",
+        "office": "state-house",
+        "districtCode": "145",
+        "contactUrl": null,
+        "email": "tangie.herring@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house/5082",
+        "social": {}
+      }
+    ],
+    "GA:state-house:062": [
+      {
+        "id": "ocd-person/6e5432a3-09ed-4813-b11d-e97222bb7e4d",
+        "name": "Tanya Miller",
+        "office": "state-house",
+        "districtCode": "062",
+        "contactUrl": null,
+        "email": "tanya.miller@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:039": [
+      {
+        "id": "ocd-person/aa7405f9-5c37-4ce8-a7eb-ac5949a6e776",
+        "name": "Terry Cummings",
+        "office": "state-house",
+        "districtCode": "039",
+        "contactUrl": null,
+        "email": "terry.cummings@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:114": [
+      {
+        "id": "ocd-person/cf955c60-cbda-4414-9266-3d8dca3553fe",
+        "name": "Tim Fleming",
+        "office": "state-house",
+        "districtCode": "114",
+        "contactUrl": null,
+        "email": "tim.fleming@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:025": [
+      {
+        "id": "ocd-person/45567c87-3ba6-49ec-9ea2-5ebb880aa94c",
+        "name": "Todd Jones",
+        "office": "state-house",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "todd.jones@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4885&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:140": [
+      {
+        "id": "ocd-person/9fe70ed7-31a0-4732-92b1-54d2a79a4654",
+        "name": "Teddy Reese",
+        "office": "state-house",
+        "districtCode": "140",
+        "contactUrl": null,
+        "email": "tremaine.reese@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:016": [
+      {
+        "id": "ocd-person/6ac8933e-8dde-4902-8eec-61cc5a91c844",
+        "name": "Trey Kelley",
+        "office": "state-house",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "trey.kelley@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=825&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:124": [
+      {
+        "id": "ocd-person/9dfc8ec3-0935-4d1d-877d-e05cf7a5dca5",
+        "name": "Trey Rhodes",
+        "office": "state-house",
+        "districtCode": "124",
+        "contactUrl": null,
+        "email": "trey.rhodes@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=876&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:018": [
+      {
+        "id": "ocd-person/4b162447-89a7-4ffc-acbf-617e1ad87e2a",
+        "name": "Tyler Smith",
+        "office": "state-house",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "tyler.smith@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:138": [
+      {
+        "id": "ocd-person/9deeb60b-4d1e-42b8-8052-d2808a30ea9a",
+        "name": "Vance Smith",
+        "office": "state-house",
+        "districtCode": "138",
+        "contactUrl": null,
+        "email": "vance.smith@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=215&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:094": [
+      {
+        "id": "ocd-person/b9050158-4a6d-4332-8ad2-769472f52e3e",
+        "name": "Venola Mason",
+        "office": "state-house",
+        "districtCode": "094",
+        "contactUrl": null,
+        "email": "venola.mason@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house/5095",
+        "social": {}
+      }
+    ],
+    "GA:state-house:010": [
+      {
+        "id": "ocd-person/546d682f-b256-4060-8fd3-084d7f118d43",
+        "name": "Victor Anderson",
+        "office": "state-house",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "victor.anderson@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:087": [
+      {
+        "id": "ocd-person/e3b1be9c-b244-4466-9192-adc365a31cfb",
+        "name": "Viola Davis",
+        "office": "state-house",
+        "districtCode": "087",
+        "contactUrl": null,
+        "email": "viola.davis@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4947&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-house:009": [
+      {
+        "id": "ocd-person/97a002db-6151-4fdf-9bce-013a6344764f",
+        "name": "Will Wade",
+        "office": "state-house",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "will.wade@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-house:079": [
+      {
+        "id": "ocd-person/6f986b42-14f6-4147-9466-c49294331db9",
+        "name": "Yasmin Neal",
+        "office": "state-house",
+        "districtCode": "079",
+        "contactUrl": null,
+        "email": "yasmin.neal@house.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house",
+        "social": {}
+      }
+    ],
+    "GA:state-senate:007": [
+      {
+        "id": "ocd-person/3cfc8d4f-68d4-44b2-81f4-a162465e1aed",
+        "name": "Adrienne White",
+        "office": "state-senate",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "adrienne.whitecarden@senate.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/senate/5097",
+        "social": {}
+      }
+    ],
+    "GA:state-senate:001": [
+      {
+        "id": "ocd-person/fd2717f1-6294-4601-a027-8fc41195372c",
+        "name": "Ben Watson",
+        "office": "state-senate",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "ben.watson@senate.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/senate",
+        "social": {}
+      }
+    ],
+    "GA:state-senate:046": [
+      {
+        "id": "ocd-person/4dc87191-fa52-4c2f-bc9c-8823a8b4c882",
+        "name": "Bill Cowsert",
+        "office": "state-senate",
+        "districtCode": "046",
+        "contactUrl": null,
+        "email": "bill.cowsert@senate.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/senate",
+        "social": {}
+      }
+    ],
+    "GA:state-senate:004": [
+      {
+        "id": "ocd-person/449db918-10b7-4fa7-a047-eb9de416dce3",
+        "name": "Billy Hickman",
+        "office": "state-senate",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "billy.hickman@senate.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/senate",
+        "social": {}
+      }
+    ],
+    "GA:state-senate:019": [
+      {
+        "id": "ocd-person/e9c5a2fc-3354-49e1-ac29-783502155fe7",
+        "name": "Blake Tillery",
+        "office": "state-senate",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "blake.tillery@senate.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/senate",
+        "social": {}
+      }
+    ],
+    "GA:state-senate:050": [
+      {
+        "id": "ocd-person/60bb96c4-f20c-4918-b88b-d7857341e5f4",
+        "name": "Bo Hatchett",
+        "office": "state-senate",
+        "districtCode": "050",
+        "contactUrl": null,
+        "email": "bo.hatchett@senate.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/senate",
+        "social": {}
+      }
+    ],
+    "GA:state-senate:042": [
+      {
+        "id": "ocd-person/3a5721a0-d848-40d0-a48a-66b797e7d7d9",
+        "name": "Brian Strickland",
+        "office": "state-senate",
+        "districtCode": "042",
+        "contactUrl": null,
+        "email": "brian.strickland@senate.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/senate",
+        "social": {}
+      }
+    ],
+    "GA:state-senate:013": [
+      {
+        "id": "ocd-person/98850c9f-1c37-4177-9ad8-17d2b4d3c8d4",
+        "name": "Carden Summers",
+        "office": "state-senate",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "carden.summers@senate.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/senate",
+        "social": {}
+      }
+    ],
+    "GA:state-senate:052": [
+      {
+        "id": "ocd-person/b11d0191-cd84-4a93-add6-ee65494caff2",
+        "name": "Chuck Hufstetler",
+        "office": "state-senate",
+        "districtCode": "052",
+        "contactUrl": null,
+        "email": "chuck.hufstetler@senate.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/senate",
+        "social": {}
+      }
+    ],
+    "GA:state-senate:054": [
+      {
+        "id": "ocd-person/1ac93f89-f367-4de3-82ba-79fa78d4d134",
+        "name": "Chuck Payne",
+        "office": "state-senate",
+        "districtCode": "054",
+        "contactUrl": null,
+        "email": "chuck.payne@senate.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/senate",
+        "social": {}
+      }
+    ],
+    "GA:state-senate:045": [
+      {
+        "id": "ocd-person/17a7e011-73f2-4ac5-8470-3436b47a6744",
+        "name": "Clint Dixon",
+        "office": "state-senate",
+        "districtCode": "045",
+        "contactUrl": null,
+        "email": "clint.dixon@senate.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/senate",
+        "social": {}
+      }
+    ],
+    "GA:state-senate:026": [
+      {
+        "id": "ocd-person/4b05e770-4423-4b64-8ae1-9600e8c73244",
+        "name": "David Lucas",
+        "office": "state-senate",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "david.lucas@senate.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/senate",
+        "social": {}
+      }
+    ],
+    "GA:state-senate:002": [
+      {
+        "id": "ocd-person/73918c45-83c1-4d52-a84d-3ad7ad8de40b",
+        "name": "Derek Mallow",
+        "office": "state-senate",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "derek.mallow@senate.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/house/5007?session=1029",
+        "social": {}
+      }
+    ],
+    "GA:state-senate:028": [
+      {
+        "id": "ocd-person/7f88fadb-2f51-48c7-8ae5-e20cd2f33e4a",
+        "name": "Donzella James",
+        "office": "state-senate",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "donzella.james@senate.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/senate",
+        "social": {}
+      }
+    ],
+    "GA:state-senate:049": [
+      {
+        "id": "ocd-person/6be704ef-6250-4e08-86d3-f5fa2e1eebf3",
+        "name": "Drew Echols",
+        "office": "state-senate",
+        "districtCode": "049",
+        "contactUrl": null,
+        "email": "drew.echols@senate.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/senate/5067",
+        "social": {}
+      }
+    ],
+    "GA:state-senate:015": [
+      {
+        "id": "ocd-person/4cf7c975-678b-4e21-9877-6d22d7b37916",
+        "name": "Ed Harbison",
+        "office": "state-senate",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "ed.harbison@senate.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/senate",
+        "social": {}
+      }
+    ],
+    "GA:state-senate:037": [
+      {
+        "id": "ocd-person/777f58bb-9d6b-4755-ab7b-b94d11629cb5",
+        "name": "Ed Setzler",
+        "office": "state-senate",
+        "districtCode": "037",
+        "contactUrl": null,
+        "email": "ed.setzler@senate.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=203&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-senate:044": [
+      {
+        "id": "ocd-person/3f15ad5e-877d-44aa-b5b3-b24587c42685",
+        "name": "Elena Parent",
+        "office": "state-senate",
+        "districtCode": "044",
+        "contactUrl": null,
+        "email": "elena.parent@senate.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/senate",
+        "social": {}
+      }
+    ],
+    "GA:state-senate:010": [
+      {
+        "id": "ocd-person/acc7c167-6251-4ce8-8021-511acfa291ef",
+        "name": "Emanuel Jones",
+        "office": "state-senate",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "emanuel.jones@senate.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/senate",
+        "social": {}
+      }
+    ],
+    "GA:state-senate:047": [
+      {
+        "id": "ocd-person/9e417b67-da09-4516-b858-6b2458f53633",
+        "name": "Frank Ginn",
+        "office": "state-senate",
+        "districtCode": "047",
+        "contactUrl": null,
+        "email": "frank.ginn@senate.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/senate",
+        "social": {}
+      }
+    ],
+    "GA:state-senate:017": [
+      {
+        "id": "ocd-person/df023a79-0194-4d1a-8755-5dee4053e1cc",
+        "name": "Gail Davenport",
+        "office": "state-senate",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "gail.davenport@senate.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/senate",
+        "social": {}
+      }
+    ],
+    "GA:state-senate:027": [
+      {
+        "id": "ocd-person/1f7d013a-8861-4e08-b6bf-7c8d36f8107c",
+        "name": "Greg Dolezal",
+        "office": "state-senate",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "greg.dolezal@senate.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/senate",
+        "social": {}
+      }
+    ],
+    "GA:state-senate:022": [
+      {
+        "id": "ocd-person/d7bfd125-d343-4acd-a4dc-480daf241af3",
+        "name": "Harold Jones",
+        "office": "state-senate",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "harold.jones@senate.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/senate",
+        "social": {}
+      }
+    ],
+    "GA:state-senate:035": [
+      {
+        "id": "ocd-person/fcd57129-480c-4fba-a0d1-7fb369706611",
+        "name": "Jaha Howard",
+        "office": "state-senate",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "jaha.howard@senate.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/senate/5090",
+        "social": {}
+      }
+    ],
+    "GA:state-senate:031": [
+      {
+        "id": "ocd-person/cb7d8c1d-3c26-4f35-8d37-d1cf8a7ce207",
+        "name": "Jason Anavitarte",
+        "office": "state-senate",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "jason.anavitarte@senate.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/senate",
+        "social": {}
+      }
+    ],
+    "GA:state-senate:021": [
+      {
+        "id": "ocd-person/584267b0-e40b-4d6e-a7fe-4c076eb6214c",
+        "name": "Jason Dickerson",
+        "office": "state-senate",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "jason.dickerson@senate.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/senate/5088",
+        "social": {}
+      }
+    ],
+    "GA:state-senate:056": [
+      {
+        "id": "ocd-person/ac1cac30-3fec-4c56-b172-b483db465a6b",
+        "name": "John Albers",
+        "office": "state-senate",
+        "districtCode": "056",
+        "contactUrl": null,
+        "email": "john.albers@senate.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/senate",
+        "social": {}
+      }
+    ],
+    "GA:state-senate:014": [
+      {
+        "id": "ocd-person/b83b0486-773f-4979-a1ce-e2f7f3e6d7e1",
+        "name": "Josh McLaurin",
+        "office": "state-senate",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "josh.mclaurin@senate.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4942&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-senate:032": [
+      {
+        "id": "ocd-person/fc31ab02-026c-4173-86db-570c0b297c64",
+        "name": "Kay Kirkpatrick",
+        "office": "state-senate",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "kay.kirkpatrick@senate.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/senate",
+        "social": {}
+      }
+    ],
+    "GA:state-senate:034": [
+      {
+        "id": "ocd-person/0a816fbf-e5ec-4056-8b3e-08184400e71b",
+        "name": "Kenya Wicks",
+        "office": "state-senate",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "kenya.wicks@senate.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/senate/5065",
+        "social": {}
+      }
+    ],
+    "GA:state-senate:041": [
+      {
+        "id": "ocd-person/2f8621bc-0548-457c-8b0d-9148e14b77fe",
+        "name": "Kim Jackson",
+        "office": "state-senate",
+        "districtCode": "041",
+        "contactUrl": null,
+        "email": "kim.jackson@senate.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/senate",
+        "social": {}
+      }
+    ],
+    "GA:state-senate:053": [
+      {
+        "id": "ocd-person/ae6e08e3-6971-4cd2-982a-48d650a343d5",
+        "name": "Lanny Thomas",
+        "office": "state-senate",
+        "districtCode": "053",
+        "contactUrl": null,
+        "email": "lanny.thomas@senate.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/senate/5094",
+        "social": {}
+      }
+    ],
+    "GA:state-senate:020": [
+      {
+        "id": "ocd-person/44a51125-9e82-41f6-8d4f-a646895b5994",
+        "name": "Larry Walker",
+        "office": "state-senate",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "larry.walker@senate.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/senate",
+        "social": {}
+      }
+    ],
+    "GA:state-senate:024": [
+      {
+        "id": "ocd-person/e11cecf4-f2e5-49d9-ba9e-47681f779438",
+        "name": "Lee Anderson",
+        "office": "state-senate",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "lee.anderson@senate.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/senate",
+        "social": {}
+      }
+    ],
+    "GA:state-senate:016": [
+      {
+        "id": "ocd-person/078246e9-90b8-43aa-bb92-d7016f517b8e",
+        "name": "Marty Harbin",
+        "office": "state-senate",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "marty.harbin@senate.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/senate",
+        "social": {}
+      }
+    ],
+    "GA:state-senate:006": [
+      {
+        "id": "ocd-person/81b84318-8c9f-467f-a7c1-776d9c415f51",
+        "name": "Matt Brass",
+        "office": "state-senate",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "matt.brass@senate.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/senate",
+        "social": {}
+      }
+    ],
+    "GA:state-senate:023": [
+      {
+        "id": "ocd-person/918888ac-edc7-4178-9133-d058f0f21010",
+        "name": "Max Burns",
+        "office": "state-senate",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "max.burns@senate.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/senate",
+        "social": {}
+      }
+    ],
+    "GA:state-senate:033": [
+      {
+        "id": "ocd-person/efb9168c-b45a-4f43-bba5-d6f05e7d9cbe",
+        "name": "Doc Rhett",
+        "office": "state-senate",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "michael.rhett@senate.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/senate",
+        "social": {}
+      }
+    ],
+    "GA:state-senate:003": [
+      {
+        "id": "ocd-person/011995be-4dd0-43b2-ae75-57ae45f53576",
+        "name": "Mike Hodges",
+        "office": "state-senate",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "mike.hodges@senate.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/senate",
+        "social": {}
+      }
+    ],
+    "GA:state-senate:036": [
+      {
+        "id": "ocd-person/bf2c1ec5-d995-4605-85ac-139adb037d99",
+        "name": "Nan Orrock",
+        "office": "state-senate",
+        "districtCode": "036",
+        "contactUrl": null,
+        "email": "nan.orrock@senate.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/senate",
+        "social": {}
+      }
+    ],
+    "GA:state-senate:009": [
+      {
+        "id": "ocd-person/57ad1f65-9969-4be2-b262-684bf53123fb",
+        "name": "Nikki Merritt",
+        "office": "state-senate",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "nikki.merritt@senate.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/senate",
+        "social": {}
+      }
+    ],
+    "GA:state-senate:055": [
+      {
+        "id": "ocd-person/8798a822-fee8-4546-bcdd-455f788bef44",
+        "name": "Randal Mangham",
+        "office": "state-senate",
+        "districtCode": "055",
+        "contactUrl": null,
+        "email": "randal.mangham@senate.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/senate/161",
+        "social": {}
+      }
+    ],
+    "GA:state-senate:029": [
+      {
+        "id": "ocd-person/6da7fe11-4436-4854-8e1b-4c45dc4cdaac",
+        "name": "Randy Robertson",
+        "office": "state-senate",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "randy.robertson@senate.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/senate",
+        "social": {}
+      }
+    ],
+    "GA:state-senate:038": [
+      {
+        "id": "ocd-person/069fb4fa-766b-40e4-90b7-ce96b4fa2ace",
+        "name": "RaShaun Kemp",
+        "office": "state-senate",
+        "districtCode": "038",
+        "contactUrl": null,
+        "email": "rashaun.kemp@senate.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/senate/5066",
+        "social": {}
+      }
+    ],
+    "GA:state-senate:025": [
+      {
+        "id": "ocd-person/c7860bae-9d9c-449c-9903-20230eec50ac",
+        "name": "Rick Williams",
+        "office": "state-senate",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "rick.williams@senate.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=4905&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-senate:008": [
+      {
+        "id": "ocd-person/b90b899d-87f0-43a5-9d15-6e310187ac41",
+        "name": "Russ Goodman",
+        "office": "state-senate",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "russ.goodman@senate.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/senate",
+        "social": {}
+      }
+    ],
+    "GA:state-senate:040": [
+      {
+        "id": "ocd-person/218a4fc4-a568-4b78-b350-0d60c6b12d4c",
+        "name": "Sally Harrell",
+        "office": "state-senate",
+        "districtCode": "040",
+        "contactUrl": null,
+        "email": "sally.harrell@senate.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/senate",
+        "social": {}
+      }
+    ],
+    "GA:state-senate:011": [
+      {
+        "id": "ocd-person/cbcdfca3-e47d-4b32-9164-ec0709a134bf",
+        "name": "Sam Watson",
+        "office": "state-senate",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "sam.watson@senate.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.ga.gov/Representatives/en-US/member.aspx?Member=837&Session=27",
+        "social": {}
+      }
+    ],
+    "GA:state-senate:048": [
+      {
+        "id": "ocd-person/314d7845-ba55-4bd4-809a-c7c7aea26690",
+        "name": "Shawn Still",
+        "office": "state-senate",
+        "districtCode": "048",
+        "contactUrl": null,
+        "email": "shawn.still@senate.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/senate",
+        "social": {}
+      }
+    ],
+    "GA:state-senate:005": [
+      {
+        "id": "ocd-person/5b6e0e37-802b-4103-b401-551532aba2e7",
+        "name": "Sheikh Rahman",
+        "office": "state-senate",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "sheikh.rahman@senate.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/senate",
+        "social": {}
+      }
+    ],
+    "GA:state-senate:039": [
+      {
+        "id": "ocd-person/2abbbe23-8cb6-4f33-afaf-38ce88a4e10c",
+        "name": "Sonya Halpern",
+        "office": "state-senate",
+        "districtCode": "039",
+        "contactUrl": null,
+        "email": "sonya.halpern@senate.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/senate",
+        "social": {}
+      }
+    ],
+    "GA:state-senate:051": [
+      {
+        "id": "ocd-person/e2c141e9-9e04-4e2b-8e5b-57db594c7abc",
+        "name": "Steve Gooch",
+        "office": "state-senate",
+        "districtCode": "051",
+        "contactUrl": null,
+        "email": "steve.gooch@senate.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/senate",
+        "social": {}
+      }
+    ],
+    "GA:state-senate:018": [
+      {
+        "id": "ocd-person/516cb969-9467-490f-9a05-02c3e7decae3",
+        "name": "Steven McNeel",
+        "office": "state-senate",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "steven.mcneel@senate.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/senate/5093",
+        "social": {}
+      }
+    ],
+    "GA:state-senate:030": [
+      {
+        "id": "ocd-person/93f45299-bfa2-4458-844a-5c6b9bdd8c1d",
+        "name": "Tim Bearden",
+        "office": "state-senate",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "timothy.bearden@senate.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/senate/62",
+        "social": {}
+      }
+    ],
+    "GA:state-senate:043": [
+      {
+        "id": "ocd-person/d9f1ea57-7b90-484a-9664-927a36c87e0c",
+        "name": "Tonya Anderson",
+        "office": "state-senate",
+        "districtCode": "043",
+        "contactUrl": null,
+        "email": "tonya.anderson@senate.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/senate",
+        "social": {}
+      }
+    ]
+  }
+}

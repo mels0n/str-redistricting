@@ -1,0 +1,2176 @@
+{
+  "state": "MT",
+  "generatedFrom": {
+    "legislators-current.json": "ae8cb9477c48715df71a7d860854229d799dc90a254d61badc1efb770f892b2c",
+    "legislators-social-media.json": "c6eca1fcdb3a89901335eed51ca061daa4b60ad3243969a127e913bb9657fbc5",
+    "mt.csv": "0fb1c6a06a8f25e2a919eeb0a847cceacf59a0fddc5b5c040a7f8acab1531661"
+  },
+  "byKey": {
+    "MT:us-senate:00": [
+      {
+        "id": "D000618",
+        "name": "Steve Daines",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.daines.senate.gov/connect/email-steve",
+        "email": null,
+        "phone": "202-224-2651",
+        "address": "320 Hart Senate Office Building Washington DC 20510",
+        "website": "https://www.daines.senate.gov",
+        "social": {
+          "x": "SteveDaines",
+          "facebook": "SteveDainesMT",
+          "instagram": "stevedaines"
+        }
+      },
+      {
+        "id": "S001232",
+        "name": "Tim Sheehy",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-224-2644",
+        "address": "124 Russell Senate Office Building Washington DC 20510",
+        "website": "https://www.sheehy.senate.gov",
+        "social": {}
+      }
+    ],
+    "MT:us-house:01": [
+      {
+        "id": "Z000018",
+        "name": "Ryan K. Zinke",
+        "office": "us-house",
+        "districtCode": "01",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5628",
+        "address": "512 Cannon House Office Building Washington DC 20515-2600",
+        "website": "https://zinke.house.gov",
+        "social": {
+          "x": "RepRyanZinke",
+          "facebook": "RepRyanZinke",
+          "instagram": "RepRyanZinke"
+        }
+      }
+    ],
+    "MT:us-house:02": [
+      {
+        "id": "D000634",
+        "name": "Troy Downing",
+        "office": "us-house",
+        "districtCode": "02",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-3211",
+        "address": "1529 Longworth House Office Building Washington DC 20515-0001",
+        "website": "https://downing.house.gov",
+        "social": {
+          "x": "reptroydowning",
+          "facebook": "reptroydowning",
+          "instagram": "reptroydowning"
+        }
+      }
+    ],
+    "MT:state-house:060": [
+      {
+        "id": "ocd-person/1f3a2599-a310-46f5-9b72-ea57f7b59c9b",
+        "name": "Alanah Griffith",
+        "office": "state-house",
+        "districtCode": "060",
+        "contactUrl": null,
+        "email": "alanah.griffith@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislators.legmt.gov/#/legislator/234",
+        "social": {}
+      }
+    ],
+    "MT:state-house:006": [
+      {
+        "id": "ocd-person/817877aa-a3ac-40a7-9f32-f40204840abf",
+        "name": "Amy Regier",
+        "office": "state-house",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "amy.regier@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/6891",
+        "social": {}
+      }
+    ],
+    "MT:state-house:050": [
+      {
+        "id": "ocd-person/06fef2c8-9695-47b2-9015-999a5dd3bded",
+        "name": "Anthony Nicastro",
+        "office": "state-house",
+        "districtCode": "050",
+        "contactUrl": null,
+        "email": "anthony.nicastro@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislators.legmt.gov/#/legislator/200",
+        "social": {}
+      }
+    ],
+    "MT:state-house:061": [
+      {
+        "id": "ocd-person/94db4829-5bc5-433b-9617-f1e9740ad694",
+        "name": "Becky Edwards",
+        "office": "state-house",
+        "districtCode": "061",
+        "contactUrl": null,
+        "email": "becky.edwards@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislators.legmt.gov/#/legislator/177",
+        "social": {}
+      }
+    ],
+    "MT:state-house:096": [
+      {
+        "id": "ocd-person/ad9a1852-425f-4f4b-9b6e-270f2c282024",
+        "name": "Bob Carter",
+        "office": "state-house",
+        "districtCode": "096",
+        "contactUrl": null,
+        "email": "bob.carter@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/7622",
+        "social": {}
+      }
+    ],
+    "MT:state-house:055": [
+      {
+        "id": "ocd-person/e46e64b0-2c6e-4581-b281-bc4c0993fa5b",
+        "name": "Brad Barker",
+        "office": "state-house",
+        "districtCode": "055",
+        "contactUrl": null,
+        "email": "brad.barker@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/7618",
+        "social": {}
+      }
+    ],
+    "MT:state-house:033": [
+      {
+        "id": "ocd-person/578dada9-9f18-470a-ae8f-e8516a5e9635",
+        "name": "Brandon Ler",
+        "office": "state-house",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "brandon.ler@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/6842",
+        "social": {}
+      }
+    ],
+    "MT:state-house:005": [
+      {
+        "id": "ocd-person/8664c246-dc7e-48aa-9db1-9e33055dcb67",
+        "name": "Braxton Mitchell",
+        "office": "state-house",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "braxton.mitchell@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/6890",
+        "social": {}
+      }
+    ],
+    "MT:state-house:065": [
+      {
+        "id": "ocd-person/733ea07d-29e9-4259-b489-6ae30bc76bce",
+        "name": "Brian Close",
+        "office": "state-house",
+        "districtCode": "065",
+        "contactUrl": null,
+        "email": "brian.close@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislators.legmt.gov/#/legislator/201",
+        "social": {}
+      }
+    ],
+    "MT:state-house:068": [
+      {
+        "id": "ocd-person/b6bacabc-6ff6-4bc6-9631-fbbf067f9f0e",
+        "name": "Caleb Hinkle",
+        "office": "state-house",
+        "districtCode": "068",
+        "contactUrl": null,
+        "email": "caleb.hinkle@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://archive.legmt.gov/legislator-information/roster/individual/7530",
+        "social": {}
+      }
+    ],
+    "MT:state-house:042": [
+      {
+        "id": "ocd-person/83bac865-b5d7-4797-ae5a-2cb5d29e9626",
+        "name": "Chip Fitzpatrick",
+        "office": "state-house",
+        "districtCode": "042",
+        "contactUrl": null,
+        "email": "sidney.fitzpatrick@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislators.legmt.gov/#/legislator/237",
+        "social": {}
+      }
+    ],
+    "MT:state-house:092": [
+      {
+        "id": "ocd-person/d640b7b9-98c0-48f4-820d-24440c180667",
+        "name": "Connie Keogh",
+        "office": "state-house",
+        "districtCode": "092",
+        "contactUrl": null,
+        "email": "connie.keogh@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/5150",
+        "social": {}
+      }
+    ],
+    "MT:state-house:007": [
+      {
+        "id": "ocd-person/db529569-d550-4ed9-b371-b5a1cae9e007",
+        "name": "Courtenay Sprunger",
+        "office": "state-house",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "courtenay.sprunger@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/7646",
+        "social": {}
+      }
+    ],
+    "MT:state-house:090": [
+      {
+        "id": "ocd-person/81d4b739-eb62-4dae-85db-9e053fb0d886",
+        "name": "Curt Cochran",
+        "office": "state-house",
+        "districtCode": "090",
+        "contactUrl": null,
+        "email": "curtis.cochran@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislators.legmt.gov/#/legislator/159",
+        "social": {}
+      }
+    ],
+    "MT:state-house:048": [
+      {
+        "id": "ocd-person/72eca5f2-a7b5-463d-b49d-681eaf30ffea",
+        "name": "Curtis Schomer",
+        "office": "state-house",
+        "districtCode": "048",
+        "contactUrl": null,
+        "email": "curtis.schomer@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislators.legmt.gov/#/legislator/232",
+        "social": {}
+      }
+    ],
+    "MT:state-house:086": [
+      {
+        "id": "ocd-person/8583c5f0-fc55-4f5b-9664-19d44f7f25b3",
+        "name": "Dave Bedey",
+        "office": "state-house",
+        "districtCode": "086",
+        "contactUrl": null,
+        "email": "david.bedey@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/5145",
+        "social": {}
+      }
+    ],
+    "MT:state-house:003": [
+      {
+        "id": "ocd-person/cf8ab221-3027-4ab8-81bc-66bc28e342fb",
+        "name": "Debo Powers",
+        "office": "state-house",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "debo.powers@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/6334",
+        "social": {}
+      }
+    ],
+    "MT:state-house:045": [
+      {
+        "id": "ocd-person/9b4883f0-d68f-48df-b4f1-de6d401e420e",
+        "name": "Denise Baum",
+        "office": "state-house",
+        "districtCode": "045",
+        "contactUrl": null,
+        "email": "denise.baum@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/7619",
+        "social": {}
+      }
+    ],
+    "MT:state-house:046": [
+      {
+        "id": "ocd-person/d0749550-4529-4d4b-8278-41e6a1a8da42",
+        "name": "Denise Joy",
+        "office": "state-house",
+        "districtCode": "046",
+        "contactUrl": null,
+        "email": "denise.joy@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislators.legmt.gov/#/legislator/304",
+        "social": {}
+      }
+    ],
+    "MT:state-house:072": [
+      {
+        "id": "ocd-person/228fbd51-8789-433e-a790-52e395da0dd0",
+        "name": "Donavon Hawk",
+        "office": "state-house",
+        "districtCode": "072",
+        "contactUrl": null,
+        "email": "donavon.hawk@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/6867",
+        "social": {}
+      }
+    ],
+    "MT:state-house:011": [
+      {
+        "id": "ocd-person/370cab6e-1802-49f1-938f-1b0d1c036cd8",
+        "name": "Ed Byrne",
+        "office": "state-house",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "ed.byrne@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislators.legmt.gov/#/legislator/226",
+        "social": {}
+      }
+    ],
+    "MT:state-house:021": [
+      {
+        "id": "ocd-person/29b81d32-dc72-49d8-8bef-ca4b60fe9c87",
+        "name": "Ed Buttrey",
+        "office": "state-house",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "ed.buttrey@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/5079",
+        "social": {}
+      }
+    ],
+    "MT:state-house:028": [
+      {
+        "id": "ocd-person/3d8ef86d-689a-40ed-a09d-2f612a7ecf6a",
+        "name": "Eric Albus",
+        "office": "state-house",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "eric.albus@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislators.legmt.gov/#/legislator/186",
+        "social": {}
+      }
+    ],
+    "MT:state-house:066": [
+      {
+        "id": "ocd-person/1cc82ae1-087a-497e-9f01-6a96201815e3",
+        "name": "Eric Matthews",
+        "office": "state-house",
+        "districtCode": "066",
+        "contactUrl": null,
+        "email": "eric.matthews@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/7636",
+        "social": {}
+      }
+    ],
+    "MT:state-house:023": [
+      {
+        "id": "ocd-person/02b6c314-f7d8-4573-9747-b5d97d5b3960",
+        "name": "Eric Tilleman",
+        "office": "state-house",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "eric.tilleman@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/7819",
+        "social": {}
+      }
+    ],
+    "MT:state-house:056": [
+      {
+        "id": "ocd-person/e47950ef-92f1-41d1-8f1c-5b579fb80e57",
+        "name": "Fiona Nave",
+        "office": "state-house",
+        "districtCode": "056",
+        "contactUrl": null,
+        "email": "fiona.nave@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/6850",
+        "social": {}
+      }
+    ],
+    "MT:state-house:031": [
+      {
+        "id": "ocd-person/e9b6d4cf-9585-4cc4-8802-598065431e0e",
+        "name": "Frank J. Smith",
+        "office": "state-house",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "frank.smith@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://archive.legmt.gov/legislator-information/roster/individual/7591",
+        "social": {}
+      }
+    ],
+    "MT:state-house:035": [
+      {
+        "id": "ocd-person/5492c1bb-9eb1-4cf9-a689-0de78812382f",
+        "name": "Gary Parry",
+        "office": "state-house",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "gary.parry@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/7641",
+        "social": {}
+      }
+    ],
+    "MT:state-house:022": [
+      {
+        "id": "ocd-person/0602a63c-7e36-4bb5-9a8a-21b7f684ff75",
+        "name": "George Nikolakakos",
+        "office": "state-house",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "george.nikolakakos@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/7639",
+        "social": {}
+      }
+    ],
+    "MT:state-house:036": [
+      {
+        "id": "ocd-person/d5507f4a-a8ab-4249-a9ae-3ea728a6728b",
+        "name": "Greg Kmetz",
+        "office": "state-house",
+        "districtCode": "036",
+        "contactUrl": null,
+        "email": "greg.kmetz@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/7633",
+        "social": {}
+      }
+    ],
+    "MT:state-house:038": [
+      {
+        "id": "ocd-person/8641b3dd-3687-4665-a96c-2e406740affc",
+        "name": "Greg Oblander",
+        "office": "state-house",
+        "districtCode": "038",
+        "contactUrl": null,
+        "email": "greg.oblander@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/7640",
+        "social": {}
+      }
+    ],
+    "MT:state-house:088": [
+      {
+        "id": "ocd-person/947a4007-eb7a-43c7-9519-8e77fb3a6919",
+        "name": "Greg Overstreet",
+        "office": "state-house",
+        "districtCode": "088",
+        "contactUrl": null,
+        "email": "greg.overstreet@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislators.legmt.gov/#/legislator/202",
+        "social": {}
+      }
+    ],
+    "MT:state-house:041": [
+      {
+        "id": "ocd-person/098c3584-23ff-4de0-a002-94955787083b",
+        "name": "Jade Sooktis",
+        "office": "state-house",
+        "districtCode": "041",
+        "contactUrl": null,
+        "email": "jade.sooktis@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislators.legmt.gov/#/legislator/233",
+        "social": {}
+      }
+    ],
+    "MT:state-house:047": [
+      {
+        "id": "ocd-person/6fa7b921-7111-45a9-a5f9-1be6cc8ba2ea",
+        "name": "James Reavis",
+        "office": "state-house",
+        "districtCode": "047",
+        "contactUrl": null,
+        "email": "james.reavis@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislators.legmt.gov/#/legislator/175",
+        "social": {}
+      }
+    ],
+    "MT:state-house:058": [
+      {
+        "id": "ocd-person/f04b91d7-0281-486a-abce-e96b5b1e5659",
+        "name": "Jamie Isaly",
+        "office": "state-house",
+        "districtCode": "058",
+        "contactUrl": null,
+        "email": "jamie.isaly@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislators.legmt.gov/#/legislator/178",
+        "social": {}
+      }
+    ],
+    "MT:state-house:077": [
+      {
+        "id": "ocd-person/60009e1c-4fef-4511-b59b-02b39b406a1d",
+        "name": "Jane Gillette",
+        "office": "state-house",
+        "districtCode": "077",
+        "contactUrl": null,
+        "email": "jane.gillette@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/6918",
+        "social": {}
+      }
+    ],
+    "MT:state-house:019": [
+      {
+        "id": "ocd-person/19740d5e-e86e-4099-9121-9e70e6277775",
+        "name": "Jane Weber",
+        "office": "state-house",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "jane.weber@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislators.legmt.gov/#/legislator/231",
+        "social": {}
+      }
+    ],
+    "MT:state-house:067": [
+      {
+        "id": "ocd-person/8274985f-2a84-4d59-a4e4-d1ba9555e64b",
+        "name": "Jedediah Hinkle",
+        "office": "state-house",
+        "districtCode": "067",
+        "contactUrl": null,
+        "email": "jedediah.hinkle@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/4706",
+        "social": {}
+      }
+    ],
+    "MT:state-house:073": [
+      {
+        "id": "ocd-person/9da66594-712c-4dee-9ed9-7cff10abc43a",
+        "name": "Jennifer Lynch",
+        "office": "state-house",
+        "districtCode": "073",
+        "contactUrl": null,
+        "email": "jennifer.lynch@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/7634",
+        "social": {}
+      }
+    ],
+    "MT:state-house:034": [
+      {
+        "id": "ocd-person/d6bca004-d3ef-4015-9c88-b4d536110436",
+        "name": "Jerry Schillinger",
+        "office": "state-house",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "jerry.schillinger@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/6907",
+        "social": {}
+      }
+    ],
+    "MT:state-house:083": [
+      {
+        "id": "ocd-person/51c3b0b8-ee51-48bb-8b83-b50ea6f670ec",
+        "name": "Jill Cohenour",
+        "office": "state-house",
+        "districtCode": "083",
+        "contactUrl": null,
+        "email": "jill.cohenour@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/4703",
+        "social": {}
+      }
+    ],
+    "MT:state-house:051": [
+      {
+        "id": "ocd-person/b0d78104-aa08-4d01-9b7e-25d9aa422806",
+        "name": "Jodee Etchart",
+        "office": "state-house",
+        "districtCode": "051",
+        "contactUrl": null,
+        "email": "jodee.etchart@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/7625",
+        "social": {}
+      }
+    ],
+    "MT:state-house:076": [
+      {
+        "id": "ocd-person/bcfec03b-c046-4af3-9653-a8e5e4fa97b6",
+        "name": "John Fitzpatrick",
+        "office": "state-house",
+        "districtCode": "076",
+        "contactUrl": null,
+        "email": "john.fitzpatrick@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/7627",
+        "social": {}
+      }
+    ],
+    "MT:state-house:098": [
+      {
+        "id": "ocd-person/5692ad8b-7258-409d-bbf3-63d6748e8b68",
+        "name": "Jonathan Karlen",
+        "office": "state-house",
+        "districtCode": "098",
+        "contactUrl": null,
+        "email": "jonathan.karlen@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/7631",
+        "social": {}
+      }
+    ],
+    "MT:state-house:062": [
+      {
+        "id": "ocd-person/e395ea05-2482-4149-bda3-d553d4ec14d3",
+        "name": "Josh Seckinger",
+        "office": "state-house",
+        "districtCode": "062",
+        "contactUrl": null,
+        "email": "joshua.seckinger@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislators.legmt.gov/#/legislator/197",
+        "social": {}
+      }
+    ],
+    "MT:state-house:084": [
+      {
+        "id": "ocd-person/7f228ad4-2fec-4ec3-8ae9-18cef8e8969a",
+        "name": "Julie Darling",
+        "office": "state-house",
+        "districtCode": "084",
+        "contactUrl": null,
+        "email": "julie.darling@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/5129",
+        "social": {}
+      }
+    ],
+    "MT:state-house:085": [
+      {
+        "id": "ocd-person/66924fc4-cbd4-42c5-bdda-2348131b4518",
+        "name": "Kathy Love",
+        "office": "state-house",
+        "districtCode": "085",
+        "contactUrl": null,
+        "email": "kathy.love@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislators.legmt.gov/#/legislator/199",
+        "social": {}
+      }
+    ],
+    "MT:state-house:059": [
+      {
+        "id": "ocd-person/dabda7b3-b4b9-485d-aabd-9ceab215232b",
+        "name": "Katie Fire Thunder",
+        "office": "state-house",
+        "districtCode": "059",
+        "contactUrl": null,
+        "email": "katie.firethunder@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislators.legmt.gov/#/legislator/1841",
+        "social": {}
+      }
+    ],
+    "MT:state-house:093": [
+      {
+        "id": "ocd-person/c76a4d75-0213-4a09-8426-315007fe7290",
+        "name": "Katie Sullivan",
+        "office": "state-house",
+        "districtCode": "093",
+        "contactUrl": null,
+        "email": "katie.sullivan@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/5148",
+        "social": {}
+      }
+    ],
+    "MT:state-house:044": [
+      {
+        "id": "ocd-person/1e48939a-8455-4a22-b545-7a908f2b9462",
+        "name": "Katie Zolnikov",
+        "office": "state-house",
+        "districtCode": "044",
+        "contactUrl": null,
+        "email": "katie.zolnikov@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/6337",
+        "social": {}
+      }
+    ],
+    "MT:state-house:064": [
+      {
+        "id": "ocd-person/ef4c6827-f405-491c-a349-d1ede87549c1",
+        "name": "Kelly Kortum",
+        "office": "state-house",
+        "districtCode": "064",
+        "contactUrl": null,
+        "email": "kelly.kortum@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/6864",
+        "social": {}
+      }
+    ],
+    "MT:state-house:069": [
+      {
+        "id": "ocd-person/89cfc24f-851d-46c8-ad39-9cc888a437a5",
+        "name": "Ken Walsh",
+        "office": "state-house",
+        "districtCode": "069",
+        "contactUrl": null,
+        "email": "kenneth.walsh@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/6921",
+        "social": {}
+      }
+    ],
+    "MT:state-house:039": [
+      {
+        "id": "ocd-person/3f7c50cf-76f5-4948-9777-c4801fd63fdf",
+        "name": "Kerri Seekins-Crowe",
+        "office": "state-house",
+        "districtCode": "039",
+        "contactUrl": null,
+        "email": "kerri.seekins-crowe@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/6909",
+        "social": {}
+      }
+    ],
+    "MT:state-house:043": [
+      {
+        "id": "ocd-person/18659b1f-64e3-4f2d-88d8-972821b26500",
+        "name": "Larry Brewster",
+        "office": "state-house",
+        "districtCode": "043",
+        "contactUrl": null,
+        "email": "larry.brewster@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/6336",
+        "social": {}
+      }
+    ],
+    "MT:state-house:054": [
+      {
+        "id": "ocd-person/06d3f385-e129-46a1-b8a3-88d1b5efa2c8",
+        "name": "Lee Deming",
+        "office": "state-house",
+        "districtCode": "054",
+        "contactUrl": null,
+        "email": "lee.deming@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/7623",
+        "social": {}
+      }
+    ],
+    "MT:state-house:013": [
+      {
+        "id": "ocd-person/7e2b7b5b-0e72-4dac-ab5d-cc44450aeb95",
+        "name": "Linda Reksten",
+        "office": "state-house",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "linda.reksten@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/6894",
+        "social": {}
+      }
+    ],
+    "MT:state-house:018": [
+      {
+        "id": "ocd-person/ed3e498d-5160-4f6a-8580-ee2a4d877b5d",
+        "name": "Llew Jones",
+        "office": "state-house",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "llew.jones@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/5076",
+        "social": {}
+      }
+    ],
+    "MT:state-house:008": [
+      {
+        "id": "ocd-person/14a4fd05-5a3c-444e-82dc-5216deb9cd62",
+        "name": "Lukas Schubert",
+        "office": "state-house",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "lukas.schubert@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislators.legmt.gov/#/legislator/174",
+        "social": {}
+      }
+    ],
+    "MT:state-house:079": [
+      {
+        "id": "ocd-person/b86dc3b3-7ea1-4fee-a11c-151130205f55",
+        "name": "Luke Muszkiewicz",
+        "office": "state-house",
+        "districtCode": "079",
+        "contactUrl": null,
+        "email": "luke.muszkiewicz@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislators.legmt.gov/#/legislator/176",
+        "social": {}
+      }
+    ],
+    "MT:state-house:004": [
+      {
+        "id": "ocd-person/1d41145c-d88e-4976-b994-7781e8a6b777",
+        "name": "Lyn Bennett",
+        "office": "state-house",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "lyn.bennett@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislators.legmt.gov/#/legislator/230",
+        "social": {}
+      }
+    ],
+    "MT:state-house:074": [
+      {
+        "id": "ocd-person/929408f9-eade-45b3-bb06-06da68b8e36d",
+        "name": "Marc Lee",
+        "office": "state-house",
+        "districtCode": "074",
+        "contactUrl": null,
+        "email": "marc.lee@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislators.legmt.gov/#/legislator/179",
+        "social": {}
+      }
+    ],
+    "MT:state-house:094": [
+      {
+        "id": "ocd-person/e223fb67-4ad0-4f12-aa95-f0b8567d84c1",
+        "name": "Marilyn Marler",
+        "office": "state-house",
+        "districtCode": "094",
+        "contactUrl": null,
+        "email": "marilyn.marler@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/5149",
+        "social": {}
+      }
+    ],
+    "MT:state-house:075": [
+      {
+        "id": "ocd-person/d8ff9a89-7988-4c31-9548-cc968eea3b35",
+        "name": "Mark Reinschmidt",
+        "office": "state-house",
+        "districtCode": "075",
+        "contactUrl": null,
+        "email": "mark.reinschmidt@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislators.legmt.gov/#/legislator/1829",
+        "social": {}
+      }
+    ],
+    "MT:state-house:089": [
+      {
+        "id": "ocd-person/64bf2cec-e248-4708-9462-1c3a971ad653",
+        "name": "Mark Thane",
+        "office": "state-house",
+        "districtCode": "089",
+        "contactUrl": null,
+        "email": "mark.thane@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/6880",
+        "social": {}
+      }
+    ],
+    "MT:state-house:081": [
+      {
+        "id": "ocd-person/c2eda1fb-6dc5-4326-a4b5-a295f26ee399",
+        "name": "Mary Caferro",
+        "office": "state-house",
+        "districtCode": "081",
+        "contactUrl": null,
+        "email": "mary.caferro@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/5140",
+        "social": {}
+      }
+    ],
+    "MT:state-house:020": [
+      {
+        "id": "ocd-person/0d5c67d4-7a66-40f3-8dbd-0136155955d2",
+        "name": "Melissa Nikolakakos",
+        "office": "state-house",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "melissa.nikolakakos@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislators.legmt.gov/#/legislator/180",
+        "social": {}
+      }
+    ],
+    "MT:state-house:080": [
+      {
+        "id": "ocd-person/81f1ba67-a22c-4bdb-89b2-3351d7e1263d",
+        "name": "Melissa Romano",
+        "office": "state-house",
+        "districtCode": "080",
+        "contactUrl": null,
+        "email": "melissa.romano@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/7642",
+        "social": {}
+      }
+    ],
+    "MT:state-house:097": [
+      {
+        "id": "ocd-person/7bfc5a9c-40aa-4698-907c-578c772aef43",
+        "name": "Melody Cunningham",
+        "office": "state-house",
+        "districtCode": "097",
+        "contactUrl": null,
+        "email": "melody.cunningham@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislators.legmt.gov/#/legislator/240",
+        "social": {}
+      }
+    ],
+    "MT:state-house:032": [
+      {
+        "id": "ocd-person/ef77e3ee-eec4-4274-ae22-7b1074227740",
+        "name": "Mike Fox",
+        "office": "state-house",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "michael.fox@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/6817",
+        "social": {}
+      }
+    ],
+    "MT:state-house:040": [
+      {
+        "id": "ocd-person/f04a0d34-6c7b-4d78-8215-d430eeff5fee",
+        "name": "Mike Vinton",
+        "office": "state-house",
+        "districtCode": "040",
+        "contactUrl": null,
+        "email": "mike.vinton@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislators.legmt.gov/#/legislator/181",
+        "social": {}
+      }
+    ],
+    "MT:state-house:030": [
+      {
+        "id": "ocd-person/181afb1f-2892-49da-bcd0-b7bc0da57b5a",
+        "name": "Morgan Thiel",
+        "office": "state-house",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "morgan.thiel@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislators.legmt.gov/#/legislator/157",
+        "social": {}
+      }
+    ],
+    "MT:state-house:001": [
+      {
+        "id": "ocd-person/51f462fa-2f25-40cf-a73f-3d9d60ea8936",
+        "name": "Neil Duram",
+        "office": "state-house",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "neil.duram@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/5060",
+        "social": {}
+      }
+    ],
+    "MT:state-house:053": [
+      {
+        "id": "ocd-person/e3347d94-a591-4c55-98fe-910536a94b2c",
+        "name": "Nelly Nicol",
+        "office": "state-house",
+        "districtCode": "053",
+        "contactUrl": null,
+        "email": "nelly.nicol@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/7638",
+        "social": {}
+      }
+    ],
+    "MT:state-house:014": [
+      {
+        "id": "ocd-person/a379258c-d227-4861-998b-15bb543886e2",
+        "name": "Paul Fielder",
+        "office": "state-house",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "paul.fielder@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/6895",
+        "social": {}
+      }
+    ],
+    "MT:state-house:027": [
+      {
+        "id": "ocd-person/4d9cab5d-56c1-4262-9063-052b13b7d0c2",
+        "name": "Paul Tuss",
+        "office": "state-house",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "paul.tuss@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/7647",
+        "social": {}
+      }
+    ],
+    "MT:state-house:082": [
+      {
+        "id": "ocd-person/12136664-4944-4228-94c7-2e3a89308938",
+        "name": "Pete Elverum",
+        "office": "state-house",
+        "districtCode": "082",
+        "contactUrl": null,
+        "email": "pete.elverum@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislators.legmt.gov/#/legislator/223",
+        "social": {}
+      }
+    ],
+    "MT:state-house:063": [
+      {
+        "id": "ocd-person/15741bd0-a194-4a29-9339-d088add2e6b8",
+        "name": "Peter Strand",
+        "office": "state-house",
+        "districtCode": "063",
+        "contactUrl": null,
+        "email": "peter.strand@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislators.legmt.gov/#/legislator/184",
+        "social": {}
+      }
+    ],
+    "MT:state-house:078": [
+      {
+        "id": "ocd-person/55023d46-1fcc-4df9-9b29-6b9f2e9e7a4d",
+        "name": "Randyn Gregg",
+        "office": "state-house",
+        "districtCode": "078",
+        "contactUrl": null,
+        "email": "randyn.gregg@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislators.legmt.gov/#/legislator/227",
+        "social": {}
+      }
+    ],
+    "MT:state-house:026": [
+      {
+        "id": "ocd-person/2c714bfa-23c8-496d-a0ad-718b806db836",
+        "name": "Russ Miner",
+        "office": "state-house",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "russel.miner@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/7637",
+        "social": {}
+      }
+    ],
+    "MT:state-house:071": [
+      {
+        "id": "ocd-person/b4eef5bc-1509-462d-905b-cd0f03ec3981",
+        "name": "Scott DeMarois",
+        "office": "state-house",
+        "districtCode": "071",
+        "contactUrl": null,
+        "email": "scott.demarois@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislators.legmt.gov/#/legislator/163",
+        "social": {}
+      }
+    ],
+    "MT:state-house:057": [
+      {
+        "id": "ocd-person/0ddba0a3-ab07-4d9a-ab04-5883d59a42f1",
+        "name": "Scott Rosenzweig",
+        "office": "state-house",
+        "districtCode": "057",
+        "contactUrl": null,
+        "email": "scott.rosenzweig@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislators.legmt.gov/#/legislator/293",
+        "social": {}
+      }
+    ],
+    "MT:state-house:037": [
+      {
+        "id": "ocd-person/2bb6ac7c-9a64-416f-a983-8382965c3a16",
+        "name": "Shane Klakken",
+        "office": "state-house",
+        "districtCode": "037",
+        "contactUrl": null,
+        "email": "shane.klakken@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislators.legmt.gov/#/legislator/183",
+        "social": {}
+      }
+    ],
+    "MT:state-house:070": [
+      {
+        "id": "ocd-person/998f9864-2081-4b53-b15e-aee33ceeacb9",
+        "name": "Shannon Maness",
+        "office": "state-house",
+        "districtCode": "070",
+        "contactUrl": null,
+        "email": "shannon.maness@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislators.legmt.gov/#/legislator/158",
+        "social": {}
+      }
+    ],
+    "MT:state-house:091": [
+      {
+        "id": "ocd-person/20bdbec3-719d-4b1c-b0ec-63ebb7a48dae",
+        "name": "Shelly Fyant",
+        "office": "state-house",
+        "districtCode": "091",
+        "contactUrl": null,
+        "email": "shelly.fyant@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislators.legmt.gov/#/legislator/228",
+        "social": {}
+      }
+    ],
+    "MT:state-house:049": [
+      {
+        "id": "ocd-person/a010acb1-3638-4369-ac44-23ce1661b36f",
+        "name": "Sherry Essmann",
+        "office": "state-house",
+        "districtCode": "049",
+        "contactUrl": null,
+        "email": "sherry.essmann@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/7499",
+        "social": {}
+      }
+    ],
+    "MT:state-house:100": [
+      {
+        "id": "ocd-person/9f2826d8-7d78-45bd-b5a8-2bbc9f7eff2d",
+        "name": "S.J. Howell",
+        "office": "state-house",
+        "districtCode": "100",
+        "contactUrl": null,
+        "email": "sj.howell@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/7630",
+        "social": {}
+      }
+    ],
+    "MT:state-house:052": [
+      {
+        "id": "ocd-person/fb97e59c-6d06-476c-a834-06613cb8f9bd",
+        "name": "Stacy Zinn",
+        "office": "state-house",
+        "districtCode": "052",
+        "contactUrl": null,
+        "email": "stacy.zinn@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislators.legmt.gov/#/legislator/1840",
+        "social": {}
+      }
+    ],
+    "MT:state-house:024": [
+      {
+        "id": "ocd-person/afcd51eb-e3cf-4bc4-8093-80f884de54e2",
+        "name": "Steve Fitzpatrick",
+        "office": "state-house",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "steve.fitzpatrick@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/4723",
+        "social": {}
+      }
+    ],
+    "MT:state-house:025": [
+      {
+        "id": "ocd-person/61c5bfdf-8d89-4ca3-b235-c55eb13c485e",
+        "name": "Steve Gist",
+        "office": "state-house",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "steven.gist@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://archive.legmt.gov/legislator-information/roster/individual/7518",
+        "social": {}
+      }
+    ],
+    "MT:state-house:009": [
+      {
+        "id": "ocd-person/995231c8-96a0-412d-bd29-952b74c6745c",
+        "name": "Steve Kelly",
+        "office": "state-house",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "steven.kelly@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislators.legmt.gov/#/legislator/182",
+        "social": {}
+      }
+    ],
+    "MT:state-house:010": [
+      {
+        "id": "ocd-person/be2c0041-9ca1-48d1-8244-023a31458b5e",
+        "name": "Terry Falk",
+        "office": "state-house",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "terry.falk@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/7626",
+        "social": {}
+      }
+    ],
+    "MT:state-house:087": [
+      {
+        "id": "ocd-person/34d1a14e-02b6-4f4e-91df-11f2236ec097",
+        "name": "Terry Nelson",
+        "office": "state-house",
+        "districtCode": "087",
+        "contactUrl": null,
+        "email": "terry.nelson@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislators.legmt.gov/#/legislator/307",
+        "social": {}
+      }
+    ],
+    "MT:state-house:015": [
+      {
+        "id": "ocd-person/6b9930b6-a74b-420a-af6d-22675ad569dd",
+        "name": "Thedis Crowe",
+        "office": "state-house",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "thedis.crowe@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislators.legmt.gov/#/legislator/185",
+        "social": {}
+      }
+    ],
+    "MT:state-house:099": [
+      {
+        "id": "ocd-person/d7ca6eb8-615f-4b3c-8651-3a5f86577f0a",
+        "name": "Tom France",
+        "office": "state-house",
+        "districtCode": "099",
+        "contactUrl": null,
+        "email": "tom.france@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/6877",
+        "social": {}
+      }
+    ],
+    "MT:state-house:002": [
+      {
+        "id": "ocd-person/53b80943-16fb-4e9a-a2ff-dc5d476af9de",
+        "name": "Tom Millett",
+        "office": "state-house",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "tom.millett@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislators.legmt.gov/#/legislator/241",
+        "social": {}
+      }
+    ],
+    "MT:state-house:012": [
+      {
+        "id": "ocd-person/d4d8f309-a7ec-4ec4-9362-a25193c0e6a8",
+        "name": "Tracy Sharp",
+        "office": "state-house",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "tracy.sharp@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislators.legmt.gov/#/legislator/225",
+        "social": {}
+      }
+    ],
+    "MT:state-house:016": [
+      {
+        "id": "ocd-person/637f0db7-9c93-478e-904b-a36d0a2a67b1",
+        "name": "Tyson Running Wolf",
+        "office": "state-house",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "tyson.runningwolf@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://archive.legmt.gov/legislator-information/roster/individual/7583",
+        "social": {}
+      }
+    ],
+    "MT:state-house:029": [
+      {
+        "id": "ocd-person/85361b50-c848-444c-9f54-c9203fe94777",
+        "name": "Valerie Moore",
+        "office": "state-house",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "valerie.moore@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislators.legmt.gov/#/legislator/156",
+        "social": {}
+      }
+    ],
+    "MT:state-house:017": [
+      {
+        "id": "ocd-person/01b5e40e-16c0-48df-8e7b-28877a05fe28",
+        "name": "Zack Wirth",
+        "office": "state-house",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "zack.wirth@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/7654",
+        "social": {}
+      }
+    ],
+    "MT:state-house:095": [
+      {
+        "id": "ocd-person/ba9f3268-99c4-4f05-ac5b-c552e8c3aedc",
+        "name": "Zooey Zephyr",
+        "office": "state-house",
+        "districtCode": "095",
+        "contactUrl": null,
+        "email": "zooey.zephyr@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/7651",
+        "social": {}
+      }
+    ],
+    "MT:state-senate:048": [
+      {
+        "id": "ocd-person/2dcaf4be-0227-4ced-b01c-aacd8376c45a",
+        "name": "Andrea Olsen",
+        "office": "state-senate",
+        "districtCode": "048",
+        "contactUrl": null,
+        "email": "andrea.olsen@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/4842",
+        "social": {}
+      }
+    ],
+    "MT:state-senate:019": [
+      {
+        "id": "ocd-person/69cfa3aa-7091-4752-a99c-b6a42c70b17b",
+        "name": "Barry Usher",
+        "office": "state-senate",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "barry.usher@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/4782",
+        "social": {}
+      }
+    ],
+    "MT:state-senate:038": [
+      {
+        "id": "ocd-person/f87d7b76-3065-48f4-bc3b-50bf00926180",
+        "name": "Becky Beard",
+        "office": "state-senate",
+        "districtCode": "038",
+        "contactUrl": null,
+        "email": "becky.beard@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/7472",
+        "social": {}
+      }
+    ],
+    "MT:state-senate:017": [
+      {
+        "id": "ocd-person/cf7f704c-87ac-4bcd-821a-9377bbbee43f",
+        "name": "Bob Phalen",
+        "office": "state-senate",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "bobby.phalen@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/6843",
+        "social": {}
+      }
+    ],
+    "MT:state-senate:009": [
+      {
+        "id": "ocd-person/0bb87197-276c-4ea7-9e93-cf782879e010",
+        "name": "Butch Gillespie",
+        "office": "state-senate",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "bruce.gillespie@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://archive.legmt.gov/legislator-information/roster/individual/7516",
+        "social": {}
+      }
+    ],
+    "MT:state-senate:003": [
+      {
+        "id": "ocd-person/8cf123ff-85f6-4652-922a-87c0cb474573",
+        "name": "Carl Glimm",
+        "office": "state-senate",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "carl.glimm@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/4749",
+        "social": {}
+      }
+    ],
+    "MT:state-senate:033": [
+      {
+        "id": "ocd-person/ab04d84a-c320-4d82-b211-d36206213195",
+        "name": "Chris Pope",
+        "office": "state-senate",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "christopher.pope@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/css/Sessions/64th/leg_info.asp?HouseID=0&SessionID=109&LAWSID=16520",
+        "social": {}
+      }
+    ],
+    "MT:state-senate:030": [
+      {
+        "id": "ocd-person/a7c31f94-f7bd-4d2c-b149-f26928cc934e",
+        "name": "Cora Neumann",
+        "office": "state-senate",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "cora.neumann@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislators.legmt.gov/#/legislator/229",
+        "social": {}
+      }
+    ],
+    "MT:state-senate:011": [
+      {
+        "id": "ocd-person/ab3accc3-6794-45c1-9f78-27d524aecc00",
+        "name": "Daniel Emrich",
+        "office": "state-senate",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "daniel.emrich@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://archive.legmt.gov/legislator-information/roster/individual/7624",
+        "social": {}
+      }
+    ],
+    "MT:state-senate:022": [
+      {
+        "id": "ocd-person/afffd4a2-fd6b-4cc5-8eff-8aa1f696db3a",
+        "name": "Daniel Zolnikov",
+        "office": "state-senate",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "daniel.zolnikov@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/7652",
+        "social": {}
+      }
+    ],
+    "MT:state-senate:002": [
+      {
+        "id": "ocd-person/9c542cad-1c8f-4dfd-b41f-12468fd2d806",
+        "name": "Dave Fern",
+        "office": "state-senate",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "dave.fern@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/4748",
+        "social": {}
+      }
+    ],
+    "MT:state-senate:032": [
+      {
+        "id": "ocd-person/482e35af-a664-4010-a5db-33f21d902045",
+        "name": "Denise Hayman",
+        "office": "state-senate",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "denise.hayman@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/4808",
+        "social": {}
+      }
+    ],
+    "MT:state-senate:045": [
+      {
+        "id": "ocd-person/e5cf63ad-879c-435f-819e-a3326862b1b8",
+        "name": "Denley Loge",
+        "office": "state-senate",
+        "districtCode": "045",
+        "contactUrl": null,
+        "email": "denley.loge@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/4757",
+        "social": {}
+      }
+    ],
+    "MT:state-senate:025": [
+      {
+        "id": "ocd-person/0fd1ad64-349c-42d9-ae46-4ff7d3eb9495",
+        "name": "Dennis Lenz",
+        "office": "state-senate",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "dennis.lenz@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/4795",
+        "social": {}
+      }
+    ],
+    "MT:state-senate:037": [
+      {
+        "id": "ocd-person/ec4cdcd7-d8b8-4c37-84ce-a99749b22ca3",
+        "name": "Derek Harvey",
+        "office": "state-senate",
+        "districtCode": "037",
+        "contactUrl": null,
+        "email": "derek.harvey@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/5133",
+        "social": {}
+      }
+    ],
+    "MT:state-senate:047": [
+      {
+        "id": "ocd-person/4e6ad74d-1e72-4d2b-ac0d-557f429b3e9a",
+        "name": "Ellie Boldman",
+        "office": "state-senate",
+        "districtCode": "047",
+        "contactUrl": null,
+        "email": "ellie.boldman@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/6886",
+        "social": {}
+      }
+    ],
+    "MT:state-senate:023": [
+      {
+        "id": "ocd-person/86031b2b-034f-4791-8c0e-b0dd4d776eb6",
+        "name": "Emma Kerr-Carpenter",
+        "office": "state-senate",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "emma.kc@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/5108",
+        "social": {}
+      }
+    ],
+    "MT:state-senate:028": [
+      {
+        "id": "ocd-person/40c484e9-cba9-4fd5-8f99-7bcaf25fc4ac",
+        "name": "Forrest Mandeville",
+        "office": "state-senate",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "forrest.mandeville@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/4799",
+        "social": {}
+      }
+    ],
+    "MT:state-senate:021": [
+      {
+        "id": "ocd-person/29925f97-152a-473e-951e-27d55dba532e",
+        "name": "Gayle Lammers",
+        "office": "state-senate",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "gayle.lammers@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/7810",
+        "social": {}
+      }
+    ],
+    "MT:state-senate:007": [
+      {
+        "id": "ocd-person/e085c6ea-bb53-4daf-8a02-5268818158bd",
+        "name": "Greg Hertz",
+        "office": "state-senate",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "greg.hertz@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/4755",
+        "social": {}
+      }
+    ],
+    "MT:state-senate:015": [
+      {
+        "id": "ocd-person/419a79a5-8153-4a77-9533-0833b8b57fad",
+        "name": "Gregg Hunter",
+        "office": "state-senate",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "gregg.hunter@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislators.legmt.gov/#/legislator/154",
+        "social": {}
+      }
+    ],
+    "MT:state-senate:046": [
+      {
+        "id": "ocd-person/06134a1a-df5e-43c6-9622-ca7f946faa88",
+        "name": "Jacinda Morigeau",
+        "office": "state-senate",
+        "districtCode": "046",
+        "contactUrl": null,
+        "email": "jacinda.morigeau@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislators.legmt.gov/#/legislator/239",
+        "social": {}
+      }
+    ],
+    "MT:state-senate:041": [
+      {
+        "id": "ocd-person/2062cc82-e160-435d-ab16-c57305a13db4",
+        "name": "Janet Ellis",
+        "office": "state-senate",
+        "districtCode": "041",
+        "contactUrl": null,
+        "email": "janet.ellis@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://archive.legmt.gov/legislator-information/roster/individual/7495",
+        "social": {}
+      }
+    ],
+    "MT:state-senate:043": [
+      {
+        "id": "ocd-person/f68bf624-cad5-4db2-9c74-a49a33348018",
+        "name": "Jason Ellsworth",
+        "office": "state-senate",
+        "districtCode": "043",
+        "contactUrl": null,
+        "email": "jason.ellsworth@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/5055",
+        "social": {}
+      }
+    ],
+    "MT:state-senate:010": [
+      {
+        "id": "ocd-person/b51a470c-840d-404c-aebe-a7cb47c3edff",
+        "name": "Jeremy Trebas",
+        "office": "state-senate",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "jeremy.trebas@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/4847",
+        "social": {}
+      }
+    ],
+    "MT:state-senate:029": [
+      {
+        "id": "ocd-person/a936c9c8-0a8d-4bcf-8da0-1a9b9ac80ab2",
+        "name": "John Esp",
+        "office": "state-senate",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "john.esp@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/5049",
+        "social": {}
+      }
+    ],
+    "MT:state-senate:004": [
+      {
+        "id": "ocd-person/54fe073e-e061-43aa-9299-42fe869102d0",
+        "name": "John Fuller",
+        "office": "state-senate",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "john.fuller@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://archive.legmt.gov/legislator-information/roster/individual/7513",
+        "social": {}
+      }
+    ],
+    "MT:state-senate:016": [
+      {
+        "id": "ocd-person/aad657b3-2d8f-48cf-99b3-650ccddf258b",
+        "name": "Jonathan Windy Boy",
+        "office": "state-senate",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "jonathan.windyboy@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/4774",
+        "social": {}
+      }
+    ],
+    "MT:state-senate:013": [
+      {
+        "id": "ocd-person/92191849-ad4d-479b-9168-582773a9f6bb",
+        "name": "Josh Kassmier",
+        "office": "state-senate",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "josh.kassmier@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/5086",
+        "social": {}
+      }
+    ],
+    "MT:state-senate:018": [
+      {
+        "id": "ocd-person/ea9c7cc2-da2d-430e-a997-824818295244",
+        "name": "Ken Bogner",
+        "office": "state-senate",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "kenneth.bogner@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/5043",
+        "social": {}
+      }
+    ],
+    "MT:state-senate:040": [
+      {
+        "id": "ocd-person/51492780-1440-4625-b487-63640ee2b11d",
+        "name": "Laura Smith",
+        "office": "state-senate",
+        "districtCode": "040",
+        "contactUrl": null,
+        "email": "laura.smith@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/7644",
+        "social": {}
+      }
+    ],
+    "MT:state-senate:006": [
+      {
+        "id": "ocd-person/9fe046dc-4a09-4f3a-8054-97718b4dc017",
+        "name": "Mark Noland",
+        "office": "state-senate",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "mark.noland@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/4753",
+        "social": {}
+      }
+    ],
+    "MT:state-senate:042": [
+      {
+        "id": "ocd-person/3e82bb94-a815-40d2-b125-b9884517b1c3",
+        "name": "Mary Ann Dunwell",
+        "office": "state-senate",
+        "districtCode": "042",
+        "contactUrl": null,
+        "email": "maryann.dunwell@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/4826",
+        "social": {}
+      }
+    ],
+    "MT:state-senate:005": [
+      {
+        "id": "ocd-person/109f7bbf-905d-418c-b8e2-11705af0a5fb",
+        "name": "Matt Regier",
+        "office": "state-senate",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "matt.regier@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/4747",
+        "social": {}
+      }
+    ],
+    "MT:state-senate:001": [
+      {
+        "id": "ocd-person/54c93c1b-968f-4b39-a17f-26ebcb266f69",
+        "name": "Mike Cuffe",
+        "office": "state-senate",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "mike.cuffe@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/5034",
+        "social": {}
+      }
+    ],
+    "MT:state-senate:024": [
+      {
+        "id": "ocd-person/3b95ca27-a496-4781-8fda-7d98db846f50",
+        "name": "Mike Yakawich",
+        "office": "state-senate",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "mike.yakawich@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/7650",
+        "social": {}
+      }
+    ],
+    "MT:state-senate:031": [
+      {
+        "id": "ocd-person/4877fdac-4a93-4654-ad03-1b3038145c69",
+        "name": "Pat Flowers",
+        "office": "state-senate",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "pat.flowers@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/5050",
+        "social": {}
+      }
+    ],
+    "MT:state-senate:014": [
+      {
+        "id": "ocd-person/8a8a229e-b35e-4fea-a4a9-114cc9f7488e",
+        "name": "Russel Tempel",
+        "office": "state-senate",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "russ.tempel@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/4848",
+        "social": {}
+      }
+    ],
+    "MT:state-senate:036": [
+      {
+        "id": "ocd-person/45a7ac2a-90f6-4923-95e4-ebf6309e4a39",
+        "name": "Sara Novak",
+        "office": "state-senate",
+        "districtCode": "036",
+        "contactUrl": null,
+        "email": "sara.novak@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/6868",
+        "social": {}
+      }
+    ],
+    "MT:state-senate:050": [
+      {
+        "id": "ocd-person/83f50436-e02e-41b0-b6bb-dd44973665c8",
+        "name": "Shane Morigeau",
+        "office": "state-senate",
+        "districtCode": "050",
+        "contactUrl": null,
+        "email": "shane.morigeau@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/4837",
+        "social": {}
+      }
+    ],
+    "MT:state-senate:034": [
+      {
+        "id": "ocd-person/307202d9-6626-46a3-9697-0cc5f80356e4",
+        "name": "Shelley Vance",
+        "office": "state-senate",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "shelley.vance@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://archive.legmt.gov/legislator-information/roster/individual/7648",
+        "social": {}
+      }
+    ],
+    "MT:state-senate:020": [
+      {
+        "id": "ocd-person/b4f79bac-c985-4bdc-9505-145cdd861198",
+        "name": "Sue Vinton",
+        "office": "state-senate",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "sue.vinton@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/4798",
+        "social": {}
+      }
+    ],
+    "MT:state-senate:008": [
+      {
+        "id": "ocd-person/8a773a18-0be3-4292-9543-e6e5051e59f4",
+        "name": "Susan Webber",
+        "office": "state-senate",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "susan.webber@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/5037",
+        "social": {}
+      }
+    ],
+    "MT:state-senate:044": [
+      {
+        "id": "ocd-person/97c7ced5-ba80-4a9a-80ca-349fd2040a64",
+        "name": "Theresa Manzella",
+        "office": "state-senate",
+        "districtCode": "044",
+        "contactUrl": null,
+        "email": "theresa.manzella@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/4827",
+        "social": {}
+      }
+    ],
+    "MT:state-senate:026": [
+      {
+        "id": "ocd-person/3a84733c-95e7-4927-af5f-63f82cb8a884",
+        "name": "Tom McGillvray",
+        "office": "state-senate",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "tom.mcgillvray@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/css/Sessions/62nd/leg_info.asp?HouseID=0&SessionID=105&LAWSID=3851",
+        "social": {}
+      }
+    ],
+    "MT:state-senate:035": [
+      {
+        "id": "ocd-person/3808001c-481b-413d-bf39-0f6dce17912a",
+        "name": "Tony Tezak",
+        "office": "state-senate",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "tony.tezak@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislators.legmt.gov/#/legislator/1606",
+        "social": {}
+      }
+    ],
+    "MT:state-senate:027": [
+      {
+        "id": "ocd-person/a86b7e4c-c7f9-46fa-89d5-3cce2317ae11",
+        "name": "Vince Ricci",
+        "office": "state-senate",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "vince.ricci@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/4797",
+        "social": {}
+      }
+    ],
+    "MT:state-senate:012": [
+      {
+        "id": "ocd-person/8f827a3b-16fe-4e09-bad0-c3e29c73d9c8",
+        "name": "Wendy McKamey",
+        "office": "state-senate",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "wendy.mckamey@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/4762",
+        "social": {}
+      }
+    ],
+    "MT:state-senate:049": [
+      {
+        "id": "ocd-person/d6a3a052-3fb3-4dce-9ce0-074852fb2612",
+        "name": "Willis Curdy",
+        "office": "state-senate",
+        "districtCode": "049",
+        "contactUrl": null,
+        "email": "willis.curdy@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/4840",
+        "social": {}
+      }
+    ],
+    "MT:state-senate:039": [
+      {
+        "id": "ocd-person/4b0e74d3-19ae-449e-b712-ac96d2c1a165",
+        "name": "Wylie Galt",
+        "office": "state-senate",
+        "districtCode": "039",
+        "contactUrl": null,
+        "email": "wylie.galt@legmt.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.mt.gov/legislator-information/roster/individual/4772",
+        "social": {}
+      }
+    ]
+  }
+}

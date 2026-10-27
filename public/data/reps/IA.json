@@ -1,0 +1,2185 @@
+{
+  "state": "IA",
+  "generatedFrom": {
+    "legislators-current.json": "ae8cb9477c48715df71a7d860854229d799dc90a254d61badc1efb770f892b2c",
+    "legislators-social-media.json": "c6eca1fcdb3a89901335eed51ca061daa4b60ad3243969a127e913bb9657fbc5",
+    "ia.csv": "c71ed1d7bbcd3bb8fbad51154b30c4319f4bc4ea5f3073eb7b79a9b81702eaa4"
+  },
+  "byKey": {
+    "IA:us-senate:00": [
+      {
+        "id": "G000386",
+        "name": "Chuck Grassley",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.grassley.senate.gov/contact",
+        "email": null,
+        "phone": "202-224-3744",
+        "address": "135 Hart Senate Office Building Washington DC 20510",
+        "website": "https://www.grassley.senate.gov",
+        "social": {
+          "x": "ChuckGrassley",
+          "facebook": "grassley",
+          "instagram": "senatorchuckgrassley"
+        }
+      },
+      {
+        "id": "E000295",
+        "name": "Joni Ernst",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.ernst.senate.gov/public/index.cfm/contact",
+        "email": null,
+        "phone": "202-224-3254",
+        "address": "260 Russell Senate Office Building Washington DC 20510",
+        "website": "https://www.ernst.senate.gov",
+        "social": {
+          "x": "SenJoniErnst",
+          "facebook": "senjoniernst",
+          "instagram": "senjoniernst"
+        }
+      }
+    ],
+    "IA:us-house:02": [
+      {
+        "id": "H001091",
+        "name": "Ashley Hinson",
+        "office": "us-house",
+        "districtCode": "02",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2911",
+        "address": "2458 Rayburn House Office Building Washington DC 20515-1502",
+        "website": "https://hinson.house.gov",
+        "social": {
+          "x": "RepAshleyHinson",
+          "facebook": "RepAshleyHinson"
+        }
+      }
+    ],
+    "IA:us-house:01": [
+      {
+        "id": "M001215",
+        "name": "Mariannette Miller-Meeks",
+        "office": "us-house",
+        "districtCode": "01",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-6576",
+        "address": "504 Cannon House Office Building Washington DC 20515-1501",
+        "website": "https://millermeeks.house.gov",
+        "social": {
+          "x": "RepMMM",
+          "facebook": "RepMMM"
+        }
+      }
+    ],
+    "IA:us-house:04": [
+      {
+        "id": "F000446",
+        "name": "Randy Feenstra",
+        "office": "us-house",
+        "districtCode": "04",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4426",
+        "address": "2434 Rayburn House Office Building Washington DC 20515-1504",
+        "website": "https://feenstra.house.gov",
+        "social": {
+          "x": "RepFeenstra",
+          "facebook": "repfeenstra"
+        }
+      }
+    ],
+    "IA:us-house:03": [
+      {
+        "id": "N000193",
+        "name": "Zachary Nunn",
+        "office": "us-house",
+        "districtCode": "03",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5476",
+        "address": "1410 Longworth House Office Building Washington DC 20515-1503",
+        "website": "https://nunn.house.gov",
+        "social": {
+          "x": "ZachNunn",
+          "facebook": "RepZachNunn",
+          "instagram": "repzachnunn"
+        }
+      }
+    ],
+    "IA:state-house:090": [
+      {
+        "id": "ocd-person/c29c02a4-8429-4846-bc19-817f545f3935",
+        "name": "Adam Zabner",
+        "office": "state-house",
+        "districtCode": "090",
+        "contactUrl": null,
+        "email": "adam.zabner@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://eepurl.com/ihe76H",
+        "social": {}
+      }
+    ],
+    "IA:state-house:080": [
+      {
+        "id": "ocd-person/e0883366-eaba-4dc1-9a66-4c35cb1d0290",
+        "name": "Aime Wichtendahl",
+        "office": "state-house",
+        "districtCode": "080",
+        "contactUrl": null,
+        "email": "aime.wichtendahl@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.iowa.gov/legislators/legislator?ga=91&personID=37390",
+        "social": {}
+      }
+    ],
+    "IA:state-house:085": [
+      {
+        "id": "ocd-person/0ed1d7f1-1471-4055-b674-582bf19c28b3",
+        "name": "Amy Nielsen",
+        "office": "state-house",
+        "districtCode": "085",
+        "contactUrl": null,
+        "email": "amy.nielsen@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://eepurl.com/gXNTL1",
+        "social": {}
+      }
+    ],
+    "IA:state-house:078": [
+      {
+        "id": "ocd-person/17e291e9-2484-4e94-a99f-0c12d6269349",
+        "name": "Angel Ramirez",
+        "office": "state-house",
+        "districtCode": "078",
+        "contactUrl": null,
+        "email": "angel.ramirez@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.iowa.gov/legislators/legislator?personID=6145",
+        "social": {}
+      }
+    ],
+    "IA:state-house:008": [
+      {
+        "id": "ocd-person/f8bf5332-b8b7-4d55-8652-e9b883cae35e",
+        "name": "Ann Meyer",
+        "office": "state-house",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "ann.meyer@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://iowahouserepublicans.nationbuilder.com/reps",
+        "social": {}
+      }
+    ],
+    "IA:state-house:036": [
+      {
+        "id": "ocd-person/9aa42801-ba2e-4f2e-9448-cf5e6114fba7",
+        "name": "Austin Baeth",
+        "office": "state-house",
+        "districtCode": "036",
+        "contactUrl": null,
+        "email": "austin.baeth@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://eepurl.com/ihfkvT",
+        "social": {}
+      }
+    ],
+    "IA:state-house:026": [
+      {
+        "id": "ocd-person/3dea807e-b6b5-4531-a5d6-d51ae8811aca",
+        "name": "Austin Harris",
+        "office": "state-house",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "austin.harris@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.iowa.gov/legislators/legislator/newsletter?id=33971&ga=90",
+        "social": {}
+      }
+    ],
+    "IA:state-house:037": [
+      {
+        "id": "ocd-person/5aa1870f-0eb7-4a82-9788-7b159d28a287",
+        "name": "Barb Kniff McCulla",
+        "office": "state-house",
+        "districtCode": "037",
+        "contactUrl": null,
+        "email": "barb.kniffmcculla@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.iowa.gov/legislators/legislator/newsletter?id=33977&ga=90",
+        "social": {}
+      }
+    ],
+    "IA:state-house:049": [
+      {
+        "id": "ocd-person/5c955d7c-30ce-4930-9d96-588735b89dc2",
+        "name": "Beth Wessel-Kroeschell",
+        "office": "state-house",
+        "districtCode": "049",
+        "contactUrl": null,
+        "email": "beth.wessel-kroeschell@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://eepurl.com/gXNo2T",
+        "social": {}
+      }
+    ],
+    "IA:state-house:040": [
+      {
+        "id": "ocd-person/7ebd4346-a560-458d-b010-3ddd82d1cf38",
+        "name": "Bill Gustoff",
+        "office": "state-house",
+        "districtCode": "040",
+        "contactUrl": null,
+        "email": "bill.gustoff@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://eepurl.com/h6jOxr",
+        "social": {}
+      }
+    ],
+    "IA:state-house:100": [
+      {
+        "id": "ocd-person/16d3e647-2d71-4eb0-beb3-1c6e0294fd7d",
+        "name": "Blaine Watkins",
+        "office": "state-house",
+        "districtCode": "100",
+        "contactUrl": null,
+        "email": "blaine.watkins@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.iowa.gov/legislators/legislator?ga=91&personID=28966",
+        "social": {}
+      }
+    ],
+    "IA:state-house:075": [
+      {
+        "id": "ocd-person/bdd055a7-677f-4df3-ba42-72c09d75a2ad",
+        "name": "Bob Kressig",
+        "office": "state-house",
+        "districtCode": "075",
+        "contactUrl": null,
+        "email": "bob.kressig@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://iowa.us19.list-manage.com/subscribe?u=9f68e4c04f9646e4baeec6d78&id=77ff2ca7e5",
+        "social": {}
+      }
+    ],
+    "IA:state-house:082": [
+      {
+        "id": "ocd-person/657c7d2d-2444-4809-93fb-d1701d77f528",
+        "name": "Bobby Kaufmann",
+        "office": "state-house",
+        "districtCode": "082",
+        "contactUrl": null,
+        "email": "bobby.kaufmann@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://iowahouserepublicans.nationbuilder.com/reps",
+        "social": {}
+      }
+    ],
+    "IA:state-house:019": [
+      {
+        "id": "ocd-person/29efffba-9a8b-473f-a66e-8be5441cbb83",
+        "name": "Brent Siegrist",
+        "office": "state-house",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "brent.siegrist@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://iowahouserepublicans.nationbuilder.com/reps",
+        "social": {}
+      }
+    ],
+    "IA:state-house:051": [
+      {
+        "id": "ocd-person/e34f4bba-5e1f-4e99-8654-d35140a5470b",
+        "name": "Brett Barker",
+        "office": "state-house",
+        "districtCode": "051",
+        "contactUrl": null,
+        "email": "brett.barker@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.iowa.gov/legislators/legislator?ga=91&personID=37386",
+        "social": {}
+      }
+    ],
+    "IA:state-house:045": [
+      {
+        "id": "ocd-person/e0d66082-fd49-47ff-acd7-2f8106bc9837",
+        "name": "Brian Lohse",
+        "office": "state-house",
+        "districtCode": "045",
+        "contactUrl": null,
+        "email": "brian.lohse@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gop.us20.list-manage.com/subscribe?u=871f3d222fc2ae8e3dd8b683a&id=5f02846a39",
+        "social": {}
+      }
+    ],
+    "IA:state-house:029": [
+      {
+        "id": "ocd-person/141dec61-26f0-4155-a86b-9b2179c9546c",
+        "name": "Brian Meyer",
+        "office": "state-house",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "brian.meyer@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.iowa.gov/legislators/legislator/newsletter?id=6377&ga=89",
+        "social": {}
+      }
+    ],
+    "IA:state-house:021": [
+      {
+        "id": "ocd-person/942429d9-5b4a-4ad7-8da7-d43eb7828dff",
+        "name": "Brooke Boden",
+        "office": "state-house",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "brooke.boden@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://brookeforiowa.us7.list-manage.com/subscribe?u=2729c18ae239c6270f597da67&id=dbd3dab3ff",
+        "social": {}
+      }
+    ],
+    "IA:state-house:047": [
+      {
+        "id": "ocd-person/e7b268b8-c922-4e66-8327-cc4c49854d5e",
+        "name": "Carter Nordman",
+        "office": "state-house",
+        "districtCode": "047",
+        "contactUrl": null,
+        "email": "carter.nordman@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://iowahouserepublicans.nationbuilder.com/reps",
+        "social": {}
+      }
+    ],
+    "IA:state-house:048": [
+      {
+        "id": "ocd-person/3d113997-b440-47db-97d2-3dca3a2b431a",
+        "name": "Chad Behn",
+        "office": "state-house",
+        "districtCode": "048",
+        "contactUrl": null,
+        "email": "chad.behn@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.iowa.gov/legislators/legislator?ga=91&personID=37384",
+        "social": {}
+      }
+    ],
+    "IA:state-house:068": [
+      {
+        "id": "ocd-person/623b4ac1-3411-4109-b0eb-31bec2780313",
+        "name": "Chad Ingels",
+        "office": "state-house",
+        "districtCode": "068",
+        "contactUrl": null,
+        "email": "chad.ingels@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://iowa.us7.list-manage.com/subscribe?u=2ab7b475cd3c7661510125056&id=4b2e51f33d",
+        "social": {}
+      }
+    ],
+    "IA:state-house:058": [
+      {
+        "id": "ocd-person/1a5372b1-e23d-4877-a614-a32f552c58b4",
+        "name": "Charley Thomson",
+        "office": "state-house",
+        "districtCode": "058",
+        "contactUrl": null,
+        "email": "charley.thomson@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.iowa.gov/legislators/legislator/newsletter?id=33983&ga=90",
+        "social": {}
+      }
+    ],
+    "IA:state-house:059": [
+      {
+        "id": "ocd-person/08e97c3c-42e2-47f7-b186-0b5099161d4e",
+        "name": "Christian Hermanson",
+        "office": "state-house",
+        "districtCode": "059",
+        "contactUrl": null,
+        "email": "christian.hermanson@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.iowa.gov/legislators/legislator?ga=91&personID=37387",
+        "social": {}
+      }
+    ],
+    "IA:state-house:083": [
+      {
+        "id": "ocd-person/6729badd-57a5-484c-bb4c-23afa6e96cdf",
+        "name": "Cindy Golding",
+        "office": "state-house",
+        "districtCode": "083",
+        "contactUrl": null,
+        "email": "cindy.golding@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.iowa.gov/legislators/legislator/newsletter?id=33990&ga=90",
+        "social": {}
+      }
+    ],
+    "IA:state-house:067": [
+      {
+        "id": "ocd-person/63ec798f-401b-4512-9f56-b162eb96bfe9",
+        "name": "Craig Johnson",
+        "office": "state-house",
+        "districtCode": "067",
+        "contactUrl": null,
+        "email": "craig.johnson@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://eepurl.com/gSVn0f",
+        "social": {}
+      }
+    ],
+    "IA:state-house:011": [
+      {
+        "id": "ocd-person/cf98b8af-97b3-46d8-9cc8-4695aab1ae30",
+        "name": "Craig Williams",
+        "office": "state-house",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "craig.williams@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.iowasenaterepublicans.com/senators/craig-williams/",
+        "social": {}
+      }
+    ],
+    "IA:state-house:046": [
+      {
+        "id": "ocd-person/d9b64ebb-2332-4ab8-b21f-e697f08759d3",
+        "name": "Dan Gehlbach",
+        "office": "state-house",
+        "districtCode": "046",
+        "contactUrl": null,
+        "email": "dan.gehlbach@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.iowa.gov/legislators/legislator/newsletter?id=33980&ga=90",
+        "social": {}
+      }
+    ],
+    "IA:state-house:081": [
+      {
+        "id": "ocd-person/63c59e95-ff5f-40b3-871e-3569f6ad8425",
+        "name": "Dan Gosa",
+        "office": "state-house",
+        "districtCode": "081",
+        "contactUrl": null,
+        "email": "daniel.gosa@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.iowa.gov/legislators/legislator?ga=91&personID=37391",
+        "social": {}
+      }
+    ],
+    "IA:state-house:052": [
+      {
+        "id": "ocd-person/6c2b2d09-de80-47ca-af67-e646f20ba5fa",
+        "name": "David Blom",
+        "office": "state-house",
+        "districtCode": "052",
+        "contactUrl": null,
+        "email": "david.blom@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.iowa.gov/legislators/legislator?ga=91&personID=25125",
+        "social": {}
+      }
+    ],
+    "IA:state-house:028": [
+      {
+        "id": "ocd-person/e0df02a4-7910-4538-8c3b-8152fb8f657c",
+        "name": "David Young",
+        "office": "state-house",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "david.young@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.iowa.gov/legislators/legislator/newsletter?id=33972&ga=90",
+        "social": {}
+      }
+    ],
+    "IA:state-house:086": [
+      {
+        "id": "ocd-person/55c46119-e6fa-4b22-ade6-18990aeacf0c",
+        "name": "Dave Jacoby",
+        "office": "state-house",
+        "districtCode": "086",
+        "contactUrl": null,
+        "email": "david.jacoby@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://eepurl.com/gXMR_X",
+        "social": {}
+      }
+    ],
+    "IA:state-house:016": [
+      {
+        "id": "ocd-person/7e4913e9-9219-461f-9842-2a96813e009e",
+        "name": "David Sieck",
+        "office": "state-house",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "david.sieck@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://iowahouserepublicans.nationbuilder.com/reps",
+        "social": {}
+      }
+    ],
+    "IA:state-house:053": [
+      {
+        "id": "ocd-person/a4832927-060d-4e15-82d7-795f6f9cc78f",
+        "name": "Dean Fisher",
+        "office": "state-house",
+        "districtCode": "053",
+        "contactUrl": null,
+        "email": "dean.fisher@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.deanfisher.com",
+        "social": {}
+      }
+    ],
+    "IA:state-house:076": [
+      {
+        "id": "ocd-person/5dbb36a6-f191-4201-9cbe-20d7aada4d4c",
+        "name": "Derek Wulf",
+        "office": "state-house",
+        "districtCode": "076",
+        "contactUrl": null,
+        "email": "derek.wulf@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.iowa.gov/legislators/legislator/newsletter?id=33986&ga=90",
+        "social": {}
+      }
+    ],
+    "IA:state-house:017": [
+      {
+        "id": "ocd-person/60f3c355-fa56-48db-8379-14234d427148",
+        "name": "Devon Wood",
+        "office": "state-house",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "devon.wood@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.iowa.gov/legislators/legislator/newsletter?id=33968&ga=90",
+        "social": {}
+      }
+    ],
+    "IA:state-house:043": [
+      {
+        "id": "ocd-person/258e0f31-d71a-42b5-98ff-3f2263f95f65",
+        "name": "Eddie Andrews",
+        "office": "state-house",
+        "districtCode": "043",
+        "contactUrl": null,
+        "email": "eddie.andrews@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://iowahouserepublicans.nationbuilder.com/reps",
+        "social": {}
+      }
+    ],
+    "IA:state-house:089": [
+      {
+        "id": "ocd-person/6ce3e40a-3eee-4a3f-acf3-ddee38e37e6f",
+        "name": "Elinor Levin",
+        "office": "state-house",
+        "districtCode": "089",
+        "contactUrl": null,
+        "email": "elinor.levin@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://eepurl.com/ihfkwn",
+        "social": {}
+      }
+    ],
+    "IA:state-house:073": [
+      {
+        "id": "ocd-person/75ee3e5c-bf95-4f36-8366-264872631c3c",
+        "name": "Elizabeth Wilson",
+        "office": "state-house",
+        "districtCode": "073",
+        "contactUrl": null,
+        "email": "elizabeth.wilson@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://eepurl.com/ihOgIP",
+        "social": {}
+      }
+    ],
+    "IA:state-house:074": [
+      {
+        "id": "ocd-person/8e424b53-9531-4b76-bd44-a8008f34b539",
+        "name": "Eric Gjerde",
+        "office": "state-house",
+        "districtCode": "074",
+        "contactUrl": null,
+        "email": "eric.gjerde@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://eepurl.com/hn8I8P",
+        "social": {}
+      }
+    ],
+    "IA:state-house:093": [
+      {
+        "id": "ocd-person/98672aab-5ba5-4994-964a-f53d8bcdd108",
+        "name": "Gary Mohr",
+        "office": "state-house",
+        "districtCode": "093",
+        "contactUrl": null,
+        "email": "gary.mohr@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://facebook.us4.list-manage.com/subscribe?u=4f656da8e0485e1a4a8032e0f&id=f0dd08c637",
+        "social": {}
+      }
+    ],
+    "IA:state-house:025": [
+      {
+        "id": "ocd-person/831144f3-e67d-4706-a018-abec3c492269",
+        "name": "Hans Wilz",
+        "office": "state-house",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "hans.wilz@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.iowa.gov/legislators/legislator/newsletter?id=33970&ga=90",
+        "social": {}
+      }
+    ],
+    "IA:state-house:092": [
+      {
+        "id": "ocd-person/e927adb7-9b5c-41a8-8daf-c9a8620741f5",
+        "name": "Heather Hora",
+        "office": "state-house",
+        "districtCode": "092",
+        "contactUrl": null,
+        "email": "heather.hora@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.iowa.gov/legislators/legislator/newsletter?id=33995&ga=90",
+        "social": {}
+      }
+    ],
+    "IA:state-house:042": [
+      {
+        "id": "ocd-person/ba713234-dc5e-4646-9f74-c25d84f648cc",
+        "name": "Heather Matson",
+        "office": "state-house",
+        "districtCode": "042",
+        "contactUrl": null,
+        "email": "heather.matson@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://eepurl.com/ihfkwz",
+        "social": {}
+      }
+    ],
+    "IA:state-house:088": [
+      {
+        "id": "ocd-person/64d7c18c-3a40-4a0c-a5b9-51ab85b37c81",
+        "name": "Helena Hayes",
+        "office": "state-house",
+        "districtCode": "088",
+        "contactUrl": null,
+        "email": "helena.hayes@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.iowa.gov/legislators/legislator/newsletter?id=33991&ga=90",
+        "social": {}
+      }
+    ],
+    "IA:state-house:009": [
+      {
+        "id": "ocd-person/21405c5b-96dc-4c28-9b69-59c2cf00e9a5",
+        "name": "Henry Stone",
+        "office": "state-house",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "henry.stone@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://iowa.us7.list-manage.com/subscribe?u=b7d249185b0959748eda3cd67&id=04fa01942f",
+        "social": {}
+      }
+    ],
+    "IA:state-house:001": [
+      {
+        "id": "ocd-person/4483a8f0-d946-45b2-9a2e-00dbb4816816",
+        "name": "J.D. Scholten",
+        "office": "state-house",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "j.d.scholten@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://eepurl.com/ihfkwH",
+        "social": {}
+      }
+    ],
+    "IA:state-house:014": [
+      {
+        "id": "ocd-person/9c6428d6-af30-4a4f-bb9c-666d3d6d84c5",
+        "name": "Jacob Bossman",
+        "office": "state-house",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "jacob.bossman@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://iowahouserepublicans.nationbuilder.com/reps",
+        "social": {}
+      }
+    ],
+    "IA:state-house:060": [
+      {
+        "id": "ocd-person/37952941-d329-4c96-8458-654fa495ec76",
+        "name": "Jane Bloomingdale",
+        "office": "state-house",
+        "districtCode": "060",
+        "contactUrl": null,
+        "email": "jane.bloomingdale@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://iowahouserepublicans.nationbuilder.com/reps",
+        "social": {}
+      }
+    ],
+    "IA:state-house:064": [
+      {
+        "id": "ocd-person/2f1410fb-220d-46f7-a49c-2a96ac49e338",
+        "name": "Jason Gearhart",
+        "office": "state-house",
+        "districtCode": "064",
+        "contactUrl": null,
+        "email": "jason.gearhart@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.iowa.gov/legislators/legislator?ga=91&personID=37388",
+        "social": {}
+      }
+    ],
+    "IA:state-house:077": [
+      {
+        "id": "ocd-person/c8eeda58-6c95-4ac9-988f-1c9363b2e17c",
+        "name": "Jeff Cooling",
+        "office": "state-house",
+        "districtCode": "077",
+        "contactUrl": null,
+        "email": "jeff.cooling@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://eepurl.com/ihfkv5",
+        "social": {}
+      }
+    ],
+    "IA:state-house:087": [
+      {
+        "id": "ocd-person/11ceb3de-a680-4dc0-b140-edd37f04e75b",
+        "name": "Jeff Shipley",
+        "office": "state-house",
+        "districtCode": "087",
+        "contactUrl": null,
+        "email": "jeff.shipley@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://iowahouserepublicans.nationbuilder.com/reps",
+        "social": {}
+      }
+    ],
+    "IA:state-house:032": [
+      {
+        "id": "ocd-person/522b14b8-b82f-4336-a7fb-a0f782d5509a",
+        "name": "Jennifer Konfrst",
+        "office": "state-house",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "jennifer.konfrst@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://eepurl.com/gXUjrH",
+        "social": {}
+      }
+    ],
+    "IA:state-house:072": [
+      {
+        "id": "ocd-person/4b61e993-1cb9-4bd2-a383-46d264d298f9",
+        "name": "Jennifer Smith",
+        "office": "state-house",
+        "districtCode": "072",
+        "contactUrl": null,
+        "email": "jennifer.smith@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.iowa.gov/legislators/legislator?ga=91&personID=37389",
+        "social": {}
+      }
+    ],
+    "IA:state-house:062": [
+      {
+        "id": "ocd-person/d7083428-89b1-4a56-a4c8-4a40e80e30e8",
+        "name": "Jerome Amos",
+        "office": "state-house",
+        "districtCode": "062",
+        "contactUrl": null,
+        "email": "jerome.amosjr@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://eepurl.com/ihfkvP",
+        "social": {}
+      }
+    ],
+    "IA:state-house:010": [
+      {
+        "id": "ocd-person/955a4d7c-a378-4bd2-8a74-dac94f74ba52",
+        "name": "John Wills",
+        "office": "state-house",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "john.wills@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://iowahouserepublicans.nationbuilder.com/reps",
+        "social": {}
+      }
+    ],
+    "IA:state-house:020": [
+      {
+        "id": "ocd-person/c9679bfc-5a21-405a-bae1-e2de9a85baf8",
+        "name": "Josh Turek",
+        "office": "state-house",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "josh.turek@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://eepurl.com/ihe76n",
+        "social": {}
+      }
+    ],
+    "IA:state-house:054": [
+      {
+        "id": "ocd-person/b28ad297-8f6d-4f36-807e-0acfa35c7d4c",
+        "name": "Josh Meggers",
+        "office": "state-house",
+        "districtCode": "054",
+        "contactUrl": null,
+        "email": "joshua.meggers@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.iowa.gov/legislators/legislator/newsletter?id=33981&ga=90",
+        "social": {}
+      }
+    ],
+    "IA:state-house:091": [
+      {
+        "id": "ocd-person/69441bf5-e98f-4872-8bf0-5bca86e3c258",
+        "name": "Judd Lawler",
+        "office": "state-house",
+        "districtCode": "091",
+        "contactUrl": null,
+        "email": "judd.lawler@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.iowa.gov/legislators/legislator?ga=91&personID=37392",
+        "social": {}
+      }
+    ],
+    "IA:state-house:097": [
+      {
+        "id": "ocd-person/3dd459aa-4a08-4a98-bce4-37536a9414fa",
+        "name": "Ken Croken",
+        "office": "state-house",
+        "districtCode": "097",
+        "contactUrl": null,
+        "email": "ken.croken@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://eepurl.com/ihfkwb",
+        "social": {}
+      }
+    ],
+    "IA:state-house:027": [
+      {
+        "id": "ocd-person/1b7d56b0-f635-423c-9c09-5617322b1518",
+        "name": "Kenan Judge",
+        "office": "state-house",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "kenan.judge@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://eepurl.com/gXSavj",
+        "social": {}
+      }
+    ],
+    "IA:state-house:044": [
+      {
+        "id": "ocd-person/dcd5b341-0a0b-4f2b-bb34-d7aab8539258",
+        "name": "Larry McBurney",
+        "office": "state-house",
+        "districtCode": "044",
+        "contactUrl": null,
+        "email": "larry.mcburney@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.iowa.gov/legislators/legislator?ga=91&personID=37383",
+        "social": {}
+      }
+    ],
+    "IA:state-house:071": [
+      {
+        "id": "ocd-person/2f43be90-4912-41fa-acf3-735e3a9ef557",
+        "name": "Lindsay James",
+        "office": "state-house",
+        "districtCode": "071",
+        "contactUrl": null,
+        "email": "lindsay.james@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://eepurl.com/gXSDkT",
+        "social": {}
+      }
+    ],
+    "IA:state-house:096": [
+      {
+        "id": "ocd-person/277c38cf-3dc5-419b-b072-df34adc214e6",
+        "name": "Mark Cisneros",
+        "office": "state-house",
+        "districtCode": "096",
+        "contactUrl": null,
+        "email": "mark.cisneros@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://iowahouserepublicans.nationbuilder.com/reps",
+        "social": {}
+      }
+    ],
+    "IA:state-house:056": [
+      {
+        "id": "ocd-person/967868e2-3ec5-425f-bc96-f41208809217",
+        "name": "Mark Thompson",
+        "office": "state-house",
+        "districtCode": "056",
+        "contactUrl": null,
+        "email": "mark.thompson@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.iowa.gov/legislators/legislator/newsletter?id=33982&ga=90",
+        "social": {}
+      }
+    ],
+    "IA:state-house:031": [
+      {
+        "id": "ocd-person/996db9b7-c251-478f-8852-0c5477013469",
+        "name": "Mary Madison",
+        "office": "state-house",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "mary.madison@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://eepurl.com/ihfkwv",
+        "social": {}
+      }
+    ],
+    "IA:state-house:015": [
+      {
+        "id": "ocd-person/be1898a3-30da-45c6-810f-4751158daefc",
+        "name": "Matt Windschitl",
+        "office": "state-house",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "matt.windschitl@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://iowahouserepublicans.nationbuilder.com/admin/sites/2/pages/30/preview?browser_id=default&logged_in=0&theme_id=5cf7e407c294800185b6c2c2",
+        "social": {}
+      }
+    ],
+    "IA:state-house:099": [
+      {
+        "id": "ocd-person/aec12ca2-6ad3-4026-9f01-7a691566c6fc",
+        "name": "Matt Rinker",
+        "office": "state-house",
+        "districtCode": "099",
+        "contactUrl": null,
+        "email": "matthew.rinker@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.iowa.gov/legislators/legislator/newsletter?id=33998&ga=90",
+        "social": {}
+      }
+    ],
+    "IA:state-house:006": [
+      {
+        "id": "ocd-person/65c3efb9-452e-4aae-a390-15db3f3ba707",
+        "name": "Megan Jones",
+        "office": "state-house",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "megan.jones@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.jonesforiowa.com",
+        "social": {}
+      }
+    ],
+    "IA:state-house:030": [
+      {
+        "id": "ocd-person/84f3edbd-f0e1-4220-a670-f7d39d57bda5",
+        "name": "Megan Srinivas",
+        "office": "state-house",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "megan.srinivas@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://eepurl.com/ihe76f",
+        "social": {}
+      }
+    ],
+    "IA:state-house:063": [
+      {
+        "id": "ocd-person/bf9a43c8-3e2a-489f-94f6-b26035f7f9b9",
+        "name": "Michael Bergan",
+        "office": "state-house",
+        "districtCode": "063",
+        "contactUrl": null,
+        "email": "michael.bergan@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://iowa.us4.list-manage.com/subscribe?u=cda8d4cec739450efbb093a0a&id=09e9bff453",
+        "social": {}
+      }
+    ],
+    "IA:state-house:094": [
+      {
+        "id": "ocd-person/4416e207-bc39-4dee-b6fc-7e70e351aa54",
+        "name": "Mike Vondran",
+        "office": "state-house",
+        "districtCode": "094",
+        "contactUrl": null,
+        "email": "mike.vondran@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.iowa.gov/legislators/legislator/newsletter?id=33996&ga=90",
+        "social": {}
+      }
+    ],
+    "IA:state-house:098": [
+      {
+        "id": "ocd-person/c746f92f-f2d1-4dd9-aa76-f056fe026c32",
+        "name": "Monica Kurth",
+        "office": "state-house",
+        "districtCode": "098",
+        "contactUrl": null,
+        "email": "monica.kurth@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://eepurl.com/gXNhsX",
+        "social": {}
+      }
+    ],
+    "IA:state-house:070": [
+      {
+        "id": "ocd-person/e8a08a29-2cc5-4b0b-a461-61983aa0771c",
+        "name": "Norlin Mommsen",
+        "office": "state-house",
+        "districtCode": "070",
+        "contactUrl": null,
+        "email": "norlin.mommsen@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://iowahouserepublicans.nationbuilder.com/reps",
+        "social": {}
+      }
+    ],
+    "IA:state-house:057": [
+      {
+        "id": "ocd-person/43530aa9-bb74-4e1b-845c-e9491c9a410c",
+        "name": "Pat Grassley",
+        "office": "state-house",
+        "districtCode": "057",
+        "contactUrl": null,
+        "email": "pat.grassley@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://iowahouserepublicans.nationbuilder.com/Grassley",
+        "social": {}
+      }
+    ],
+    "IA:state-house:023": [
+      {
+        "id": "ocd-person/97a4ef03-4b50-4fcd-9ebc-3d76482f2150",
+        "name": "Bubba Sorensen",
+        "office": "state-house",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "ray.sorensen@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://iowa.us20.list-manage.com/subscribe?u=bf8ea8a70bdafa528d6feb893&id=cf761d2cb3",
+        "social": {}
+      }
+    ],
+    "IA:state-house:039": [
+      {
+        "id": "ocd-person/8ef407a5-2d80-4190-a656-a23d13fb5cb4",
+        "name": "Rick Olson",
+        "office": "state-house",
+        "districtCode": "039",
+        "contactUrl": null,
+        "email": "rick.olson@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.iowa.gov/legislators/legislator/newsletter?id=776&ga=89",
+        "social": {}
+      }
+    ],
+    "IA:state-house:034": [
+      {
+        "id": "ocd-person/6c4e422c-1d04-48c1-8e75-7af2e6ad1002",
+        "name": "Rob Johnson",
+        "office": "state-house",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "rob.johnson@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.iowa.gov/legislators/legislator?ga=91&personID=37381",
+        "social": {}
+      }
+    ],
+    "IA:state-house:002": [
+      {
+        "id": "ocd-person/078e02d7-0d26-49f2-9176-8044701e540f",
+        "name": "Bob Henderson",
+        "office": "state-house",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "robert.henderson@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.iowa.gov/legislators/legislator/newsletter?id=33964&ga=90",
+        "social": {}
+      }
+    ],
+    "IA:state-house:050": [
+      {
+        "id": "ocd-person/068a7290-ab67-4ff5-abe5-8e23a7715097",
+        "name": "Ross Wilburn",
+        "office": "state-house",
+        "districtCode": "050",
+        "contactUrl": null,
+        "email": "ross.wilburn@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://eepurl.com/gXMQCb",
+        "social": {}
+      }
+    ],
+    "IA:state-house:033": [
+      {
+        "id": "ocd-person/dad6bcf1-d56a-4a10-a969-2980dd3582d8",
+        "name": "Ruth Ann Gaines",
+        "office": "state-house",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "ruth.ann.gaines@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://eepurl.com/gXMYEr",
+        "social": {}
+      }
+    ],
+    "IA:state-house:041": [
+      {
+        "id": "ocd-person/3c21eb9b-0b5d-429e-9bb4-0d53adf4442c",
+        "name": "Ryan Weldon",
+        "office": "state-house",
+        "districtCode": "041",
+        "contactUrl": null,
+        "email": "ryan.weldon@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.iowa.gov/legislators/legislator?ga=91&personID=37382",
+        "social": {}
+      }
+    ],
+    "IA:state-house:024": [
+      {
+        "id": "ocd-person/c9617375-c6c8-453d-8807-32714cd85c21",
+        "name": "Sam Wengryn",
+        "office": "state-house",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "sam.wengryn@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.iowa.gov/legislators/legislator?ga=91&personID=37380",
+        "social": {}
+      }
+    ],
+    "IA:state-house:022": [
+      {
+        "id": "ocd-person/a629e45d-fc34-4751-9ca3-d70d2b8f332d",
+        "name": "Samantha Fett",
+        "office": "state-house",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "samantha.fett@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.iowa.gov/legislators/legislator?ga=91&personID=37379",
+        "social": {}
+      }
+    ],
+    "IA:state-house:035": [
+      {
+        "id": "ocd-person/8ee06272-1977-4810-8c40-5d007fb31ac8",
+        "name": "Sean Bagniewski",
+        "office": "state-house",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "sean.bagniewski@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://eepurl.com/ihS4LT",
+        "social": {}
+      }
+    ],
+    "IA:state-house:055": [
+      {
+        "id": "ocd-person/90ea16da-2e10-470e-a004-a5e2688e6331",
+        "name": "Shannon Latham",
+        "office": "state-house",
+        "districtCode": "055",
+        "contactUrl": null,
+        "email": "shannon.latham@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://iowahouserepublicans.nationbuilder.com/reps",
+        "social": {}
+      }
+    ],
+    "IA:state-house:065": [
+      {
+        "id": "ocd-person/82dcdad5-7974-4b38-a44c-7007e8111a5c",
+        "name": "Shannon Lundgren",
+        "office": "state-house",
+        "districtCode": "065",
+        "contactUrl": null,
+        "email": "shannon.lundgren@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://facebook.us14.list-manage.com/subscribe?u=2aece3f2f1c3b4cc01a0cc692&id=8fc149e435",
+        "social": {}
+      }
+    ],
+    "IA:state-house:004": [
+      {
+        "id": "ocd-person/9d60676d-f50e-4117-8d22-681927e43a01",
+        "name": "Skyler Wheeler",
+        "office": "state-house",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "skyler.wheeler@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://iowahouserepublicans.nationbuilder.com/reps",
+        "social": {}
+      }
+    ],
+    "IA:state-house:066": [
+      {
+        "id": "ocd-person/fca5c5d4-a5b0-40eb-ace9-24dfd50bc4a6",
+        "name": "Steve Bradley",
+        "office": "state-house",
+        "districtCode": "066",
+        "contactUrl": null,
+        "email": "steven.bradley@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://iowahouserepublicans.nationbuilder.com/reps",
+        "social": {}
+      }
+    ],
+    "IA:state-house:012": [
+      {
+        "id": "ocd-person/427b416b-eca9-4863-a8c2-c54ad2769bc1",
+        "name": "Steven Holt",
+        "office": "state-house",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "steven.holt@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://iowahouserepublicans.nationbuilder.com/reps",
+        "social": {}
+      }
+    ],
+    "IA:state-house:095": [
+      {
+        "id": "ocd-person/fb3a8905-a9a9-4016-97b3-94ce90308240",
+        "name": "Taylor Collins",
+        "office": "state-house",
+        "districtCode": "095",
+        "contactUrl": null,
+        "email": "taylor.collins@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.iowa.gov/legislators/legislator/newsletter?id=27618&ga=90",
+        "social": {}
+      }
+    ],
+    "IA:state-house:084": [
+      {
+        "id": "ocd-person/ed333b61-6734-49a2-b37d-a167f330bf09",
+        "name": "Tom Gerhold",
+        "office": "state-house",
+        "districtCode": "084",
+        "contactUrl": null,
+        "email": "thomas.gerhold@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://iowahouserepublicans.nationbuilder.com/reps",
+        "social": {}
+      }
+    ],
+    "IA:state-house:061": [
+      {
+        "id": "ocd-person/7467e822-4c62-4cd2-b8e1-6f72a9204fce",
+        "name": "Timi Brown-Powers",
+        "office": "state-house",
+        "districtCode": "061",
+        "contactUrl": null,
+        "email": "timi.brown-powers@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://eepurl.com/gXSzO1",
+        "social": {}
+      }
+    ],
+    "IA:state-house:069": [
+      {
+        "id": "ocd-person/264c5cb9-f69f-4d07-ac58-231c98915233",
+        "name": "Tom Determann",
+        "office": "state-house",
+        "districtCode": "069",
+        "contactUrl": null,
+        "email": "tom.determann@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.iowa.gov/legislators/legislator/newsletter?id=33984&ga=90",
+        "social": {}
+      }
+    ],
+    "IA:state-house:003": [
+      {
+        "id": "ocd-person/49fc2a54-b290-4f92-9fda-64893f09d29c",
+        "name": "Tom Jeneary",
+        "office": "state-house",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "tom.jeneary@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://iowahouserepublicans.nationbuilder.com/reps",
+        "social": {}
+      }
+    ],
+    "IA:state-house:018": [
+      {
+        "id": "ocd-person/137108a7-0316-40f8-9624-08b2094fb723",
+        "name": "Tom Moore",
+        "office": "state-house",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "tom.moore@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://iowahouserepublicans.nationbuilder.com/reps",
+        "social": {}
+      }
+    ],
+    "IA:state-house:079": [
+      {
+        "id": "ocd-person/0a7675f8-869f-4d49-9a14-c44201e8a8dc",
+        "name": "Tracy Ehlert",
+        "office": "state-house",
+        "districtCode": "079",
+        "contactUrl": null,
+        "email": "tracy.ehlert@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://eepurl.com/gXOgt9",
+        "social": {}
+      }
+    ],
+    "IA:state-house:013": [
+      {
+        "id": "ocd-person/4b23e066-26f2-4b23-ac81-060462b2a956",
+        "name": "Travis Sitzmann",
+        "office": "state-house",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "travis.sitzmann@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.iowa.gov/legislators/legislator?ga=91&personID=37378",
+        "social": {}
+      }
+    ],
+    "IA:state-house:007": [
+      {
+        "id": "ocd-person/b385cd86-67bc-4cff-94cb-6e822f719ca7",
+        "name": "Wendy Larson",
+        "office": "state-house",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "wendy.larson@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.iowa.gov/legislators/legislator?personID=39538",
+        "social": {}
+      }
+    ],
+    "IA:state-house:005": [
+      {
+        "id": "ocd-person/ef26d757-2882-4047-a82e-0682cc638d05",
+        "name": "Zach Dieken",
+        "office": "state-house",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "zachary.dieken@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.iowa.gov/legislators/legislator/newsletter?id=33965&ga=90",
+        "social": {}
+      }
+    ],
+    "IA:state-senate:044": [
+      {
+        "id": "ocd-person/9788064e-fad9-4130-9084-69e829884d9c",
+        "name": "Adrian Dickey",
+        "office": "state-senate",
+        "districtCode": "044",
+        "contactUrl": null,
+        "email": "adrian.dickey@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://iowasenaterepublicans.com/senators/adrian-dickey/",
+        "social": {}
+      }
+    ],
+    "IA:state-senate:012": [
+      {
+        "id": "ocd-person/8e969687-4903-4f3c-a76f-2e35a2232d09",
+        "name": "Amy Sinclair",
+        "office": "state-senate",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "amy.sinclair@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.iowasenaterepublicans.com/senators/amy-sinclair/",
+        "social": {}
+      }
+    ],
+    "IA:state-senate:027": [
+      {
+        "id": "ocd-person/79eacd35-8caf-466e-b75f-0d878dcf5221",
+        "name": "Annette Sweeney",
+        "office": "state-senate",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "annette.sweeney@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.iowasenaterepublicans.com/senators/annette-sweeney/",
+        "social": {}
+      }
+    ],
+    "IA:state-senate:040": [
+      {
+        "id": "ocd-person/57925a0b-3010-440d-a012-c8465535c13e",
+        "name": "Art Staed",
+        "office": "state-senate",
+        "districtCode": "040",
+        "contactUrl": null,
+        "email": "art.staed@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.iowa.gov/legislators/legislator?ga=88&personID=10743",
+        "social": {}
+      }
+    ],
+    "IA:state-senate:033": [
+      {
+        "id": "ocd-person/9b68d2a2-ead2-401e-a225-1edae68f6099",
+        "name": "Carrie Koelker",
+        "office": "state-senate",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "carrie.koelker@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.iowasenaterepublicans.com/senators/carrie-koelker/",
+        "social": {}
+      }
+    ],
+    "IA:state-senate:001": [
+      {
+        "id": "ocd-person/96941816-29ce-4c03-ab43-efa1ef2930ab",
+        "name": "Catelin Drey",
+        "office": "state-senate",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "catelin.drey@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.iowa.gov/legislators/legislator?personID=39183",
+        "social": {}
+      }
+    ],
+    "IA:state-senate:042": [
+      {
+        "id": "ocd-person/006bcadf-1173-4661-a28e-25fbf1a5c423",
+        "name": "Charlie McClintock",
+        "office": "state-senate",
+        "districtCode": "042",
+        "contactUrl": null,
+        "email": "charlie.mcclintock@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gmail.us7.list-manage.com/subscribe?u=042fc53ef84961eacea578a65&id=5c8a12c5c7",
+        "social": {}
+      }
+    ],
+    "IA:state-senate:013": [
+      {
+        "id": "ocd-person/f4803b48-80d4-43aa-86cd-fe78d268e77a",
+        "name": "Cherielynn Westrich",
+        "office": "state-senate",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "cherielynn.westrich@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://iowasenaterepublicans.com/senators/cherielynn-westrich/",
+        "social": {}
+      }
+    ],
+    "IA:state-senate:049": [
+      {
+        "id": "ocd-person/84279bc7-04df-475e-8d6f-9f9703c73101",
+        "name": "Cindy Winckler",
+        "office": "state-senate",
+        "districtCode": "049",
+        "contactUrl": null,
+        "email": "cindy.winckler@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.iowa.gov/legislators/legislator?ga=90&personID=44",
+        "social": {}
+      }
+    ],
+    "IA:state-senate:010": [
+      {
+        "id": "ocd-person/79384252-69ca-43c7-bda1-46b6abe5873e",
+        "name": "Dan Dawson",
+        "office": "state-senate",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "dan.dawson@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.iowasenaterepublicans.com/senators/dan-dawson/",
+        "social": {}
+      }
+    ],
+    "IA:state-senate:034": [
+      {
+        "id": "ocd-person/3fa8bceb-666f-4480-a957-1928e2b5fec6",
+        "name": "Dan Zumbach",
+        "office": "state-senate",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "dan.zumbach@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.iowasenaterepublicans.com/senators/dan-zumbach/",
+        "social": {}
+      }
+    ],
+    "IA:state-senate:038": [
+      {
+        "id": "ocd-person/b261b6a8-cb30-4808-b750-df2e7963d6c8",
+        "name": "Dave Sires",
+        "office": "state-senate",
+        "districtCode": "038",
+        "contactUrl": null,
+        "email": "dave.sires@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.iowa.gov/legislators/legislator?ga=91&personID=37464",
+        "social": {}
+      }
+    ],
+    "IA:state-senate:005": [
+      {
+        "id": "ocd-person/93e9ba73-a053-4661-8b8b-e8e2f25d0596",
+        "name": "Dave Rowley",
+        "office": "state-senate",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "david.rowley@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://iowasenaterepublicans.com/senators/dave-rowley/",
+        "social": {}
+      }
+    ],
+    "IA:state-senate:046": [
+      {
+        "id": "ocd-person/fe90f2b2-0892-4abd-9d6d-4b2ac1dae632",
+        "name": "Dawn Driscoll",
+        "office": "state-senate",
+        "districtCode": "046",
+        "contactUrl": null,
+        "email": "dawn.driscoll@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://iowasenaterepublicans.com/senators/dawn-driscoll/",
+        "social": {}
+      }
+    ],
+    "IA:state-senate:028": [
+      {
+        "id": "ocd-person/1e11235a-f4c8-4124-9f3a-3bb7a219636d",
+        "name": "Dennis Guth",
+        "office": "state-senate",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "dennis.guth@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.iowasenaterepublicans.com/senators/dennis-guth/",
+        "social": {}
+      }
+    ],
+    "IA:state-senate:030": [
+      {
+        "id": "ocd-person/a38725e7-bec0-4a5d-bc71-d039bcb8ec04",
+        "name": "Doug Campbell",
+        "office": "state-senate",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "doug.campbell@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.iowa.gov/legislators/legislator?ga=91&personID=37463",
+        "social": {}
+      }
+    ],
+    "IA:state-senate:025": [
+      {
+        "id": "ocd-person/d3b3bc8e-ab0c-4ee2-ba3d-de78040274af",
+        "name": "Herman Quirmbach",
+        "office": "state-senate",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "herman.quirmbach@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.iowa.gov/legislators/legislator?personID=161",
+        "social": {}
+      }
+    ],
+    "IA:state-senate:017": [
+      {
+        "id": "ocd-person/0af01ef4-f982-4239-9ffc-56d33cee3b7b",
+        "name": "Izaah Knox",
+        "office": "state-senate",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "izaah.knox@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.iowa.gov/legislators/legislator?ga=90&personID=34010",
+        "social": {}
+      }
+    ],
+    "IA:state-senate:023": [
+      {
+        "id": "ocd-person/9da58039-06dd-451e-835c-c406a493a21c",
+        "name": "Jack Whitver",
+        "office": "state-senate",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "jack.whitver@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.iowasenaterepublicans.com/senators/jack-whitver/",
+        "social": {}
+      }
+    ],
+    "IA:state-senate:018": [
+      {
+        "id": "ocd-person/3089e8af-0071-4298-822c-2d16ac01fe9f",
+        "name": "Janet Petersen",
+        "office": "state-senate",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "janet.petersen@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://mailchi.mp/legis/petersen",
+        "social": {}
+      }
+    ],
+    "IA:state-senate:045": [
+      {
+        "id": "ocd-person/1c841d58-bdbe-4021-9126-055184cecdd5",
+        "name": "Janice Weiner",
+        "office": "state-senate",
+        "districtCode": "045",
+        "contactUrl": null,
+        "email": "janice.weiner@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.iowa.gov/legislators/legislator?ga=90&personID=34011",
+        "social": {}
+      }
+    ],
+    "IA:state-senate:006": [
+      {
+        "id": "ocd-person/32126238-17ce-4338-923a-3867b6517039",
+        "name": "Jason Schultz",
+        "office": "state-senate",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "jason.schultz@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.iowasenaterepublicans.com/senators/jason-schultz/",
+        "social": {}
+      }
+    ],
+    "IA:state-senate:050": [
+      {
+        "id": "ocd-person/54f49ddd-7a13-4639-87de-7db8760ed5c5",
+        "name": "Jeff Reichman",
+        "office": "state-senate",
+        "districtCode": "050",
+        "contactUrl": null,
+        "email": "jeff.reichman@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://iowasenaterepublicans.com/senators/jeff-reichman/",
+        "social": {}
+      }
+    ],
+    "IA:state-senate:002": [
+      {
+        "id": "ocd-person/cc1cff7e-82d6-4947-a906-f467b4017285",
+        "name": "Jeff Taylor",
+        "office": "state-senate",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "jeff.taylor@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://iowasenaterepublicans.com/senators/jeff-taylor/",
+        "social": {}
+      }
+    ],
+    "IA:state-senate:024": [
+      {
+        "id": "ocd-person/c6cbc677-2d42-4497-ae57-989a30aaddae",
+        "name": "Jesse Green",
+        "office": "state-senate",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "jesse.green@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://iowasenaterepublicans.com/senators/jesse-green/",
+        "social": {}
+      }
+    ],
+    "IA:state-senate:026": [
+      {
+        "id": "ocd-person/ef7b8c3c-3cd0-4f95-8b4f-9e4daa061479",
+        "name": "Kara Warme",
+        "office": "state-senate",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "kara.warme@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.iowa.gov/legislators/legislator?ga=91&personID=37462",
+        "social": {}
+      }
+    ],
+    "IA:state-senate:019": [
+      {
+        "id": "ocd-person/1cfc824d-740a-4e35-a4e2-3728e2d43056",
+        "name": "Ken Rozenboom",
+        "office": "state-senate",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "ken.rozenboom@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.iowasenaterepublicans.com/senators/ken-rozenboom/",
+        "social": {}
+      }
+    ],
+    "IA:state-senate:041": [
+      {
+        "id": "ocd-person/2ff1622d-f1f4-4344-8821-57bcf8d99b83",
+        "name": "Kerry Gruenhagen",
+        "office": "state-senate",
+        "districtCode": "041",
+        "contactUrl": null,
+        "email": "kerry.gruenhagen@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.iowasenaterepublicans.com/senators/kerry-gruenhagen/",
+        "social": {}
+      }
+    ],
+    "IA:state-senate:007": [
+      {
+        "id": "ocd-person/abad9c61-6eb9-484a-bf07-94cb9040a639",
+        "name": "Kevin Alons",
+        "office": "state-senate",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "kevin.alons@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://iowasenaterepublicans.com/senators/kevin-alons/",
+        "social": {}
+      }
+    ],
+    "IA:state-senate:039": [
+      {
+        "id": "ocd-person/a5bbbe7f-202c-4427-89e1-da8d2786d1dc",
+        "name": "Liz Bennett",
+        "office": "state-senate",
+        "districtCode": "039",
+        "contactUrl": null,
+        "email": "liz.bennett@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.iowa.gov/legislators/legislator?ga=88&personID=14806",
+        "social": {}
+      }
+    ],
+    "IA:state-senate:003": [
+      {
+        "id": "ocd-person/0f7d8e8f-ab3e-4a0f-bde0-2ef776cdb27d",
+        "name": "Lynn Evans",
+        "office": "state-senate",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "lynn.evans@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://iowasenaterepublicans.com/senators/lynn-evans/",
+        "social": {}
+      }
+    ],
+    "IA:state-senate:008": [
+      {
+        "id": "ocd-person/37b1879c-5435-4c28-bb62-fa71fbabbbdb",
+        "name": "Mark Costello",
+        "office": "state-senate",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "mark.costello@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.iowasenaterepublicans.com/senators/mark-costello/",
+        "social": {}
+      }
+    ],
+    "IA:state-senate:048": [
+      {
+        "id": "ocd-person/b1110000-b6c3-4348-8655-8a7b51c8a9db",
+        "name": "Mark Lofgren",
+        "office": "state-senate",
+        "districtCode": "048",
+        "contactUrl": null,
+        "email": "mark.lofgren@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.iowasenaterepublicans.com/senators/mark-lofgren/",
+        "social": {}
+      }
+    ],
+    "IA:state-senate:022": [
+      {
+        "id": "ocd-person/4bb97641-21a7-4aaa-b4d8-7f0dfcacd3a0",
+        "name": "Matt Blake",
+        "office": "state-senate",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "matt.blake@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.iowa.gov/legislators/legislator?ga=91&personID=37460",
+        "social": {}
+      }
+    ],
+    "IA:state-senate:021": [
+      {
+        "id": "ocd-person/37784f85-492c-422c-93a3-9910867f68f9",
+        "name": "Mike Bousselot",
+        "office": "state-senate",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "mike.bousselot@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.iowasenaterepublicans.com/senators/mike-bousselot/",
+        "social": {}
+      }
+    ],
+    "IA:state-senate:032": [
+      {
+        "id": "ocd-person/cad5e110-d7b3-45b3-b7c3-9e8232e2dbc7",
+        "name": "Mike Klimesh",
+        "office": "state-senate",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "mike.klimesh@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://iowasenaterepublicans.com/senators/mike-klimesh/",
+        "social": {}
+      }
+    ],
+    "IA:state-senate:020": [
+      {
+        "id": "ocd-person/fdb8c40c-9f1e-4799-bc5f-0249d21f3811",
+        "name": "Mike Pike",
+        "office": "state-senate",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "mike.pike@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.iowa.gov/legislators/legislator?ga=91&personID=37458",
+        "social": {}
+      }
+    ],
+    "IA:state-senate:035": [
+      {
+        "id": "ocd-person/93034bcb-c3fa-4427-8a1a-d48b8485a8eb",
+        "name": "Mike Zimmer",
+        "office": "state-senate",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "mike.zimmer@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.iowa.gov/legislators/legislator?personID=37960",
+        "social": {}
+      }
+    ],
+    "IA:state-senate:037": [
+      {
+        "id": "ocd-person/d675a03b-f474-4e1c-b48a-b78b399488c4",
+        "name": "Molly Donahue",
+        "office": "state-senate",
+        "districtCode": "037",
+        "contactUrl": null,
+        "email": "molly.donahue@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.iowa.gov/legislators/legislator?ga=88&personID=27031",
+        "social": {}
+      }
+    ],
+    "IA:state-senate:016": [
+      {
+        "id": "ocd-person/6d119d13-56ee-4aef-a7b0-602efef0b995",
+        "name": "Renee Hardman",
+        "office": "state-senate",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "renee.hardman@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.iowa.gov/legislators/legislator?personID=39593",
+        "social": {}
+      }
+    ],
+    "IA:state-senate:029": [
+      {
+        "id": "ocd-person/b51c0843-c860-4568-a3a7-3d004a377fd4",
+        "name": "Sandy Salmon",
+        "office": "state-senate",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "sandy.salmon@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.iowasenaterepublicans.com/senators/sandy-salmon/",
+        "social": {}
+      }
+    ],
+    "IA:state-senate:014": [
+      {
+        "id": "ocd-person/ce66871e-57e7-471d-b231-d772dd41eb63",
+        "name": "Sarah Garriott",
+        "office": "state-senate",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "sarah.trone.garriott@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://mailchi.mp/legis/trone-garriott",
+        "social": {}
+      }
+    ],
+    "IA:state-senate:047": [
+      {
+        "id": "ocd-person/5d6f21b7-11a6-4f5e-8661-abc9345f3623",
+        "name": "Scott Webster",
+        "office": "state-senate",
+        "districtCode": "047",
+        "contactUrl": null,
+        "email": "scott.webster@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://iowasenaterepublicans.com/senators/scott-webster/",
+        "social": {}
+      }
+    ],
+    "IA:state-senate:004": [
+      {
+        "id": "ocd-person/293487d6-a28b-48a2-8cfc-c3daabb8abbe",
+        "name": "Tim Kraayenbrink",
+        "office": "state-senate",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "tim.kraayenbrink@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.iowasenaterepublicans.com/senators/tim-kraayenbrink/",
+        "social": {}
+      }
+    ],
+    "IA:state-senate:009": [
+      {
+        "id": "ocd-person/d1167ce2-5a24-4eb8-bce8-3800ea24a4d0",
+        "name": "Tom Shipley",
+        "office": "state-senate",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "tom.shipley@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.iowasenaterepublicans.com/senators/tom-shipley/",
+        "social": {}
+      }
+    ],
+    "IA:state-senate:036": [
+      {
+        "id": "ocd-person/ba2c7b09-df43-4428-b268-1f5a4995282e",
+        "name": "Tom Townsend",
+        "office": "state-senate",
+        "districtCode": "036",
+        "contactUrl": null,
+        "email": "thomas.townsend@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.iowa.gov/legislators/legislator?ga=91&personID=37465",
+        "social": {}
+      }
+    ],
+    "IA:state-senate:015": [
+      {
+        "id": "ocd-person/be302cfd-09b1-4a29-974d-479aa24469eb",
+        "name": "Tony Bisignano",
+        "office": "state-senate",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "tony.bisignano@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://mailchi.mp/legis/bisignano",
+        "social": {}
+      }
+    ],
+    "IA:state-senate:031": [
+      {
+        "id": "ocd-person/c1174a56-68c9-4103-aaee-fa3f1a2b25ca",
+        "name": "Bill Dotzler",
+        "office": "state-senate",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "bill.dotzler@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://mailchi.mp/legis/dotzler",
+        "social": {}
+      }
+    ],
+    "IA:state-senate:043": [
+      {
+        "id": "ocd-person/ab4528a8-eeca-4562-8475-967ce868eb68",
+        "name": "Zach Wahls",
+        "office": "state-senate",
+        "districtCode": "043",
+        "contactUrl": null,
+        "email": "zach.wahls@legis.iowa.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://mailchi.mp/legis/wahls",
+        "social": {}
+      }
+    ]
+  }
+}

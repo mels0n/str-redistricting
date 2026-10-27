@@ -1,0 +1,4658 @@
+{
+  "state": "NH",
+  "generatedFrom": {
+    "legislators-current.json": "ae8cb9477c48715df71a7d860854229d799dc90a254d61badc1efb770f892b2c",
+    "legislators-social-media.json": "c6eca1fcdb3a89901335eed51ca061daa4b60ad3243969a127e913bb9657fbc5",
+    "nh.csv": "d6b5d157cdd3a044b078799c06e5d836a94379b276ea47ab8895b8fadc1d635a"
+  },
+  "byKey": {
+    "NH:us-senate:00": [
+      {
+        "id": "S001181",
+        "name": "Jeanne Shaheen",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.shaheen.senate.gov/contact/contact-jeanne",
+        "email": null,
+        "phone": "202-224-2841",
+        "address": "506 Hart Senate Office Building Washington DC 20510",
+        "website": "https://www.shaheen.senate.gov",
+        "social": {
+          "x": "SenatorShaheen",
+          "facebook": "SenatorShaheen",
+          "instagram": "senatorshaheen"
+        }
+      },
+      {
+        "id": "H001076",
+        "name": "Margaret Wood Hassan",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.hassan.senate.gov/content/contact-senator",
+        "email": null,
+        "phone": "202-224-3324",
+        "address": "324 Hart Senate Office Building Washington DC 20510",
+        "website": "https://www.hassan.senate.gov",
+        "social": {
+          "x": "SenatorHassan",
+          "facebook": "SenatorHassan",
+          "instagram": "senatorhassan"
+        }
+      }
+    ],
+    "NH:us-house:01": [
+      {
+        "id": "P000614",
+        "name": "Chris Pappas",
+        "office": "us-house",
+        "districtCode": "01",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5456",
+        "address": "452 Cannon House Office Building Washington DC 20515-2901",
+        "website": "https://pappas.house.gov",
+        "social": {
+          "x": "RepChrisPappas"
+        }
+      }
+    ],
+    "NH:us-house:02": [
+      {
+        "id": "G000604",
+        "name": "Maggie Goodlander",
+        "office": "us-house",
+        "districtCode": "02",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5206",
+        "address": "223 Cannon House Office Building Washington DC 20515-2902",
+        "website": "https://goodlander.house.gov",
+        "social": {
+          "x": "RepGoodlander",
+          "facebook": "61571606604866",
+          "instagram": "repgoodlander"
+        }
+      }
+    ],
+    "NH:state-house:730": [
+      {
+        "id": "ocd-person/e60aed5e-cbb4-4b27-ab1b-2ce1dd787dac",
+        "name": "Aboul Khan",
+        "office": "state-house",
+        "districtCode": "730",
+        "contactUrl": null,
+        "email": "aboul.khan@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=736",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/5709592a-7c88-41e3-8295-7c05146327e2",
+        "name": "Matt Sabourin dit Choinière",
+        "office": "state-house",
+        "districtCode": "730",
+        "contactUrl": null,
+        "email": "matt.sabourin@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11420",
+        "social": {}
+      }
+    ],
+    "NH:state-house:512": [
+      {
+        "id": "ocd-person/e6d39a32-9602-4a87-905b-a86eeefe9ae1",
+        "name": "Adam Presa",
+        "office": "state-house",
+        "districtCode": "512",
+        "contactUrl": null,
+        "email": "adam.presa@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11346",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/6f592f37-cac8-4bf0-b12c-3a86f9b444dc",
+        "name": "Bill Boyd",
+        "office": "state-house",
+        "districtCode": "512",
+        "contactUrl": null,
+        "email": "bill.boyd@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10347",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/84f79859-fef0-441d-80bb-5edeafc70e78",
+        "name": "Jeanine Notter",
+        "office": "state-house",
+        "districtCode": "512",
+        "contactUrl": null,
+        "email": "jeanine.notter@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=376991",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/44b33c8b-b7ee-41e3-a7a4-601a53746e36",
+        "name": "Julie Miles",
+        "office": "state-house",
+        "districtCode": "512",
+        "contactUrl": null,
+        "email": "julie.miles@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11345",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/4a80db99-34b2-4d33-995b-41d889592bf3",
+        "name": "Maureen Mooney",
+        "office": "state-house",
+        "districtCode": "512",
+        "contactUrl": null,
+        "email": "maureen.mooney@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=5772",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/0ac05fa7-143f-4ae9-8ac8-99de42d21779",
+        "name": "Nancy Murphy",
+        "office": "state-house",
+        "districtCode": "512",
+        "contactUrl": null,
+        "email": "nancy.murphy@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9089",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/1a5923c6-3e1f-4ebe-8739-17c9e9642403",
+        "name": "Rosemarie Rung",
+        "office": "state-house",
+        "districtCode": "512",
+        "contactUrl": null,
+        "email": "rosemarie.rung@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9090",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/2375b05c-cf9a-4f1b-a4b0-194fac6d86bf",
+        "name": "Wendy Thomas",
+        "office": "state-house",
+        "districtCode": "512",
+        "contactUrl": null,
+        "email": "wendy.thomas@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9093",
+        "social": {}
+      }
+    ],
+    "NH:state-house:807": [
+      {
+        "id": "ocd-person/540cbe60-cc65-4ff6-8c78-5d54488e5ed8",
+        "name": "Aidan Ankarberg",
+        "office": "state-house",
+        "districtCode": "807",
+        "contactUrl": null,
+        "email": "aidan.ankarberg@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9947",
+        "social": {}
+      }
+    ],
+    "NH:state-house:815": [
+      {
+        "id": "ocd-person/ef4b9cee-5a72-452c-8720-a59d5d5ca9ef",
+        "name": "Alice Wade",
+        "office": "state-house",
+        "districtCode": "815",
+        "contactUrl": null,
+        "email": "alice.wade@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11286",
+        "social": {}
+      }
+    ],
+    "NH:state-house:507": [
+      {
+        "id": "ocd-person/36eee284-6fc9-4b03-9b5c-012b5fdd6995",
+        "name": "Alicia Gregg",
+        "office": "state-house",
+        "districtCode": "507",
+        "contactUrl": null,
+        "email": "alicia.gregg@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10781",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/36fb226e-9ed4-483f-a254-141baf18d295",
+        "name": "Catherine Sofikitis",
+        "office": "state-house",
+        "districtCode": "507",
+        "contactUrl": null,
+        "email": "csofikitis@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=408546",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/9e0a9394-7bcc-451a-9ae1-439248598eae",
+        "name": "Lou Juris",
+        "office": "state-house",
+        "districtCode": "507",
+        "contactUrl": null,
+        "email": "louis.juris@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10782",
+        "social": {}
+      }
+    ],
+    "NH:state-house:520": [
+      {
+        "id": "ocd-person/f809a410-5a03-4ebc-a0ab-32507705c479",
+        "name": "Alissandra Murray",
+        "office": "state-house",
+        "districtCode": "520",
+        "contactUrl": null,
+        "email": "alissandra.murray@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10799",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/040f626d-c4bc-4c7b-a99a-1fcc5df165d9",
+        "name": "Pierre DuPont",
+        "office": "state-house",
+        "districtCode": "520",
+        "contactUrl": null,
+        "email": "pierre.dupont@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10644",
+        "social": {}
+      }
+    ],
+    "NH:state-house:712": [
+      {
+        "id": "ocd-person/0bc83772-75ee-453c-868c-8d2a034788b1",
+        "name": "Allison Knab",
+        "office": "state-house",
+        "districtCode": "712",
+        "contactUrl": null,
+        "email": "allison.knab@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10856",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/82019391-800c-469e-b17b-fbbf700b6555",
+        "name": "Zoe Manos",
+        "office": "state-house",
+        "districtCode": "712",
+        "contactUrl": null,
+        "email": "zoe.manos@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10857",
+        "social": {}
+      }
+    ],
+    "NH:state-house:809": [
+      {
+        "id": "ocd-person/47ad413d-8b61-4b5b-8be6-9c999fb1a682",
+        "name": "Amy Malone",
+        "office": "state-house",
+        "districtCode": "809",
+        "contactUrl": null,
+        "email": "amy.malone@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11278",
+        "social": {}
+      }
+    ],
+    "NH:state-house:513": [
+      {
+        "id": "ocd-person/da5fb901-d16d-430f-b5cb-7ab556f8d4ee",
+        "name": "Andrew Prout",
+        "office": "state-house",
+        "districtCode": "513",
+        "contactUrl": null,
+        "email": "andrew.prout@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=408359",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/db105051-1a17-4bff-a3a3-46332533ac8a",
+        "name": "Cathy Kenny",
+        "office": "state-house",
+        "districtCode": "513",
+        "contactUrl": null,
+        "email": "cathy.kenny@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10640",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/8be0bff9-f1a4-410d-9177-0080a7c40f0a",
+        "name": "Dillon Dumont",
+        "office": "state-house",
+        "districtCode": "513",
+        "contactUrl": null,
+        "email": "dillon.dumont@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11348",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/c258b160-4a1f-461e-8fed-18597f349df9",
+        "name": "Jeremy Slottje",
+        "office": "state-house",
+        "districtCode": "513",
+        "contactUrl": null,
+        "email": null,
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11349",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/31f696d4-f806-4eb3-a8ce-5b1d2a2eba93",
+        "name": "Jordan Ulery",
+        "office": "state-house",
+        "districtCode": "513",
+        "contactUrl": null,
+        "email": "repulery@comcast.net",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=376635",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/e7f37a7a-0f05-4fd3-944d-be2c41cc200b",
+        "name": "Robert Wherry",
+        "office": "state-house",
+        "districtCode": "513",
+        "contactUrl": null,
+        "email": "robert.wherry@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10641",
+        "social": {}
+      }
+    ],
+    "NH:state-house:102": [
+      {
+        "id": "ocd-person/a028512b-5d61-4d23-9e28-dec7038577d6",
+        "name": "Anita Burroughs",
+        "office": "state-house",
+        "districtCode": "102",
+        "contactUrl": null,
+        "email": "anita.burroughs@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=408822",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/28ef2003-b65a-4c46-92f1-b777498c5a00",
+        "name": "Chris McAleer",
+        "office": "state-house",
+        "districtCode": "102",
+        "contactUrl": null,
+        "email": "chris.mcaleer@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9871",
+        "social": {}
+      }
+    ],
+    "NH:state-house:302": [
+      {
+        "id": "ocd-person/4f07f5aa-c410-481b-b570-36ae37d64e24",
+        "name": "Arnie Davis",
+        "office": "state-house",
+        "districtCode": "302",
+        "contactUrl": null,
+        "email": "arnold.davis@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9882",
+        "social": {}
+      }
+    ],
+    "NH:state-house:007": [
+      {
+        "id": "ocd-person/3e0ee111-2332-4742-b073-a23cc37a8b51",
+        "name": "Barbara Comtois",
+        "office": "state-house",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "barbara.comtois@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=408274",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/8488ba3a-e608-4f0d-9d7b-7e6e13244917",
+        "name": "Paul Terry",
+        "office": "state-house",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "paul.terry@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9866",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/b4735fd9-309f-40b0-a554-c646dde34fc1",
+        "name": "Peter Varney",
+        "office": "state-house",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "pvarney@atsnh.com",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=377271",
+        "social": {}
+      }
+    ],
+    "NH:state-house:210": [
+      {
+        "id": "ocd-person/a8bcce41-eef2-4b18-b99f-8bb34c7f94ea",
+        "name": "Barry Faulkner",
+        "office": "state-house",
+        "districtCode": "210",
+        "contactUrl": null,
+        "email": "fbfaulkner@outlook.com",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=407628",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/c2f2054b-2949-44ea-b784-ffe4820eed77",
+        "name": "Sly Karasinski",
+        "office": "state-house",
+        "districtCode": "210",
+        "contactUrl": null,
+        "email": "sly.karasinski@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10037",
+        "social": {}
+      }
+    ],
+    "NH:state-house:617": [
+      {
+        "id": "ocd-person/49453d65-a175-4c22-bc1f-878d02ea3d45",
+        "name": "Beth Richards",
+        "office": "state-house",
+        "districtCode": "617",
+        "contactUrl": null,
+        "email": "bethrichardsforward3@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=408564",
+        "social": {}
+      }
+    ],
+    "NH:state-house:510": [
+      {
+        "id": "ocd-person/9839219c-e885-4957-99e8-01ebb78583de",
+        "name": "Bill Ohm",
+        "office": "state-house",
+        "districtCode": "510",
+        "contactUrl": null,
+        "email": "bill.ohm@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=968",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/1e2b57f6-dbb9-4069-a71b-d40828c80cfa",
+        "name": "Linda Harriott-Gathright",
+        "office": "state-house",
+        "districtCode": "510",
+        "contactUrl": null,
+        "email": "linda.harriottgathright@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=720",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/27e55643-df5b-49aa-8529-082cd786c0f8",
+        "name": "Martin Jack",
+        "office": "state-house",
+        "districtCode": "510",
+        "contactUrl": null,
+        "email": "martin.jack@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=377126",
+        "social": {}
+      }
+    ],
+    "NH:state-house:408": [
+      {
+        "id": "ocd-person/6d4386a3-50ff-437f-bf9e-50faea1fd774",
+        "name": "Bill Bolton",
+        "office": "state-house",
+        "districtCode": "408",
+        "contactUrl": null,
+        "email": "bill.bolton@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10765",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/af8ff7f6-ee61-492f-87cc-8fc69bee7886",
+        "name": "Peter Lovett",
+        "office": "state-house",
+        "districtCode": "408",
+        "contactUrl": null,
+        "email": "peter.lovett@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10766",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/2260bb0a-065f-4d26-a814-f70aa2c16705",
+        "name": "Sallie Fellows",
+        "office": "state-house",
+        "districtCode": "408",
+        "contactUrl": null,
+        "email": "sallie.fellows@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9059",
+        "social": {}
+      }
+    ],
+    "NH:state-house:812": [
+      {
+        "id": "ocd-person/1c179bc8-d192-44c1-aed6-4801e9d6b338",
+        "name": "Billie Butler",
+        "office": "state-house",
+        "districtCode": "812",
+        "contactUrl": null,
+        "email": null,
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11524",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/78fa874f-3651-424e-a8c7-094b2d89de95",
+        "name": "John Stone",
+        "office": "state-house",
+        "districtCode": "812",
+        "contactUrl": null,
+        "email": "biggamehunter53@aol.com",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11284",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/0d466dcc-c612-4c5e-b080-0bd257ec589d",
+        "name": "Myles England",
+        "office": "state-house",
+        "districtCode": "812",
+        "contactUrl": null,
+        "email": "myles.england@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11281",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/a56c3553-5c3b-4638-89a5-e1d97ccd4516",
+        "name": "Wayne Pearson",
+        "office": "state-house",
+        "districtCode": "812",
+        "contactUrl": null,
+        "email": "wayne.pearson@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11283",
+        "social": {}
+      }
+    ],
+    "NH:state-house:717": [
+      {
+        "id": "ocd-person/ce46c52e-8598-4888-8a1f-d16b283a7238",
+        "name": "Bob Lynn",
+        "office": "state-house",
+        "districtCode": "717",
+        "contactUrl": null,
+        "email": "rjlynn4@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9937",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/28d59199-5bae-46fe-99f3-ec78e330cdeb",
+        "name": "Charles McMahon",
+        "office": "state-house",
+        "districtCode": "717",
+        "contactUrl": null,
+        "email": "cmcmahon55@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=376498",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/36ded3c5-84fd-49cc-82cb-d03fe682ad5f",
+        "name": "Daniel Popovici-Muller",
+        "office": "state-house",
+        "districtCode": "717",
+        "contactUrl": null,
+        "email": "daniel.popovicimuller@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10697",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/b7d43cab-3399-4022-a2a4-9415937b3daa",
+        "name": "Katelyn Kuttab",
+        "office": "state-house",
+        "districtCode": "717",
+        "contactUrl": null,
+        "email": "katelyn.kuttab@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10695",
+        "social": {}
+      }
+    ],
+    "NH:state-house:526": [
+      {
+        "id": "ocd-person/e0dbb769-2677-4939-adc5-e1d2b253150f",
+        "name": "Brian Cole",
+        "office": "state-house",
+        "districtCode": "526",
+        "contactUrl": null,
+        "email": "brian.cole@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=7267",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/c480dbd4-efbc-4a6b-9fc2-37bef688e2de",
+        "name": "Patrick Long",
+        "office": "state-house",
+        "districtCode": "526",
+        "contactUrl": null,
+        "email": "patrickn.long@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11177",
+        "social": {}
+      }
+    ],
+    "NH:state-house:502": [
+      {
+        "id": "ocd-person/a04ceb08-3ec9-43b6-87d2-014313ada4a1",
+        "name": "Brian Labrie",
+        "office": "state-house",
+        "districtCode": "502",
+        "contactUrl": null,
+        "email": "brian.labrie@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11336",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/5223be3f-79ec-4442-8164-588d2ccc77e0",
+        "name": "Catherine Rombeau",
+        "office": "state-house",
+        "districtCode": "502",
+        "contactUrl": null,
+        "email": "catherine.rombeau@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10407",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/84047292-5618-45d3-afbf-16bb611f415d",
+        "name": "John Schneller",
+        "office": "state-house",
+        "districtCode": "502",
+        "contactUrl": null,
+        "email": "john.schneller@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=4027",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/4246d501-b872-4cf9-bfd8-7ef21015da7a",
+        "name": "Kristin Noble",
+        "office": "state-house",
+        "districtCode": "502",
+        "contactUrl": null,
+        "email": "kristin.noble@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10626",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/40ae4adb-2124-47ca-82b5-9eee794af4a2",
+        "name": "Linda Gould",
+        "office": "state-house",
+        "districtCode": "502",
+        "contactUrl": null,
+        "email": "linda.gould@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=377299",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/260ddf78-7100-4fee-a353-0ebf1a0615ec",
+        "name": "Loren Foxx",
+        "office": "state-house",
+        "districtCode": "502",
+        "contactUrl": null,
+        "email": "loren.foxx@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10773",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/c40abbd9-220c-4081-9ad8-9559c10f9aae",
+        "name": "Ted Gorski",
+        "office": "state-house",
+        "districtCode": "502",
+        "contactUrl": null,
+        "email": "ted.gorski@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9898",
+        "social": {}
+      }
+    ],
+    "NH:state-house:901": [
+      {
+        "id": "ocd-person/4c78e7fc-43a2-467b-abe3-6ba04ad8853e",
+        "name": "Brian Sullivan",
+        "office": "state-house",
+        "districtCode": "901",
+        "contactUrl": null,
+        "email": "brian.sullivan@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=408813",
+        "social": {}
+      }
+    ],
+    "NH:state-house:704": [
+      {
+        "id": "ocd-person/c8d8a204-038c-4544-ad17-e12a5af19cd6",
+        "name": "Brian Nadeau",
+        "office": "state-house",
+        "districtCode": "704",
+        "contactUrl": null,
+        "email": "brian.nadeau@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11396",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/24af30d5-efc3-40b2-9493-b9ef94217ada",
+        "name": "Cindy Bennett",
+        "office": "state-house",
+        "districtCode": "704",
+        "contactUrl": null,
+        "email": "cindy.bennett@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11395",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/07c09a56-23ba-4c8b-90bd-5668f22c5103",
+        "name": "Mike Drago",
+        "office": "state-house",
+        "districtCode": "704",
+        "contactUrl": null,
+        "email": "mike.drago@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10686",
+        "social": {}
+      }
+    ],
+    "NH:state-house:612": [
+      {
+        "id": "ocd-person/b12abcbf-fbbe-4464-854e-6960b024e62a",
+        "name": "Brian Seaworth",
+        "office": "state-house",
+        "districtCode": "612",
+        "contactUrl": null,
+        "email": "brian.seaworth@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=377023",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/e2026731-25f3-42b3-bd92-f6b3fc101f01",
+        "name": "Peter Mehegan",
+        "office": "state-house",
+        "districtCode": "612",
+        "contactUrl": null,
+        "email": "peter.mehegan@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11382",
+        "social": {}
+      }
+    ],
+    "NH:state-house:603": [
+      {
+        "id": "ocd-person/cee0d2c5-0580-4fa6-bc84-43fa5f54144f",
+        "name": "Bryan Morse",
+        "office": "state-house",
+        "districtCode": "603",
+        "contactUrl": null,
+        "email": "bryan.morse@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11378",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/6e5dc279-9e21-4971-9d63-eaf55886db57",
+        "name": "Ernesto Gonzalez",
+        "office": "state-house",
+        "districtCode": "603",
+        "contactUrl": null,
+        "email": "ernesto.gonzalez@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11377",
+        "social": {}
+      }
+    ],
+    "NH:state-house:726": [
+      {
+        "id": "ocd-person/214295d3-da3e-45cb-89bc-80de2be1a071",
+        "name": "Buzz Scherr",
+        "office": "state-house",
+        "districtCode": "726",
+        "contactUrl": null,
+        "email": "buzz.scherr@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11267",
+        "social": {}
+      }
+    ],
+    "NH:state-house:401": [
+      {
+        "id": "ocd-person/205741ac-701b-416e-9716-c725bc7d7665",
+        "name": "Calvin Beaulier",
+        "office": "state-house",
+        "districtCode": "401",
+        "contactUrl": null,
+        "email": "calvin.beaulier@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9140",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/7349598b-1f4e-4a54-8053-34534c9663e0",
+        "name": "Darrell Louis",
+        "office": "state-house",
+        "districtCode": "401",
+        "contactUrl": null,
+        "email": "darrell.louis@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11321",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/894db7b4-6c38-493e-9935-0f54a6cda8b7",
+        "name": "Joseph Barton",
+        "office": "state-house",
+        "districtCode": "401",
+        "contactUrl": null,
+        "email": "joseph.barton@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11320",
+        "social": {}
+      }
+    ],
+    "NH:state-house:728": [
+      {
+        "id": "ocd-person/810aefbf-2c1d-448d-824a-a848d5d05910",
+        "name": "Carrie Sorensen",
+        "office": "state-house",
+        "districtCode": "728",
+        "contactUrl": null,
+        "email": "carrie.sorensen@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11268",
+        "social": {}
+      }
+    ],
+    "NH:state-house:506": [
+      {
+        "id": "ocd-person/74d3b542-b2d0-426f-9835-0de12d5e4895",
+        "name": "Carry Spier",
+        "office": "state-house",
+        "districtCode": "506",
+        "contactUrl": null,
+        "email": "carry.spier@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10780",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/b80b4918-c952-4015-82e5-585229f9c2eb",
+        "name": "Lee Ann Kluger",
+        "office": "state-house",
+        "districtCode": "506",
+        "contactUrl": null,
+        "email": "leeann.kluger@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11191",
+        "social": {}
+      }
+    ],
+    "NH:state-house:804": [
+      {
+        "id": "ocd-person/711423e3-ff28-4150-8a89-ec568a4f2c5d",
+        "name": "Cassandra Levesque",
+        "office": "state-house",
+        "districtCode": "804",
+        "contactUrl": null,
+        "email": "cassandra.levesque@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cassandralevesque4nh.wordpress.com/",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/ff64ec8f-c8be-4e9c-8dce-3397cdc2401e",
+        "name": "Heath Howard",
+        "office": "state-house",
+        "districtCode": "804",
+        "contactUrl": null,
+        "email": "heath.howard@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10004",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/b5f897f3-cce8-43b0-a130-f98d0d88da8e",
+        "name": "Len Turcotte",
+        "office": "state-house",
+        "districtCode": "804",
+        "contactUrl": null,
+        "email": "lenturcotte@metrocast.net",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=920",
+        "social": {}
+      }
+    ],
+    "NH:state-house:206": [
+      {
+        "id": "ocd-person/c15709b9-8514-4e8f-8a52-6b464eb8484d",
+        "name": "Cathryn Harvey",
+        "office": "state-house",
+        "districtCode": "206",
+        "contactUrl": null,
+        "email": "cathryn.harvey@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=408479",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/f96a072d-9add-44b0-8028-0ec057f31f52",
+        "name": "Paul Berch",
+        "office": "state-house",
+        "districtCode": "206",
+        "contactUrl": null,
+        "email": "paul.berch@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=676",
+        "social": {}
+      }
+    ],
+    "NH:state-house:713": [
+      {
+        "id": "ocd-person/2cc808df-0763-4807-9a67-b53a1764f84c",
+        "name": "Charlie Foote",
+        "office": "state-house",
+        "districtCode": "713",
+        "contactUrl": null,
+        "email": "charles.foote@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10691",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/1c956ef6-b705-4e9d-af0c-f66d6f44591e",
+        "name": "David Love",
+        "office": "state-house",
+        "districtCode": "713",
+        "contactUrl": null,
+        "email": "david.love@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=8407",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/ef41a7dd-a84f-47db-b794-2a6c6be48771",
+        "name": "David Milz",
+        "office": "state-house",
+        "districtCode": "713",
+        "contactUrl": null,
+        "email": "david.milz@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=377147",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/94df7a3f-b27d-42c1-9ecc-1ebdc707c9ae",
+        "name": "Erica Layon",
+        "office": "state-house",
+        "districtCode": "713",
+        "contactUrl": null,
+        "email": "erica.layon@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9935",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/1f649bd8-815d-47b9-aca3-6e11ef2da422",
+        "name": "Jodi Nelson",
+        "office": "state-house",
+        "districtCode": "713",
+        "contactUrl": null,
+        "email": "jodi.nelson@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10440",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/433c67d6-bfdc-410e-87e2-463c93d55a17",
+        "name": "John Potucek",
+        "office": "state-house",
+        "districtCode": "713",
+        "contactUrl": null,
+        "email": "john.potucek@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=377257",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/a0a8c9d8-1f27-4d28-a249-8a5856ea5c05",
+        "name": "Katherine Prudhomme-O'Brien",
+        "office": "state-house",
+        "districtCode": "713",
+        "contactUrl": null,
+        "email": "kpo@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=377258",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/19404ada-b556-4609-9814-f19db9c0a0ad",
+        "name": "Phyllis Katsakiores",
+        "office": "state-house",
+        "districtCode": "713",
+        "contactUrl": null,
+        "email": "pkatsakiores@comcast.net",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=332247",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/c715d154-3822-42b6-ab75-73181ac7be0a",
+        "name": "Richard Tripp",
+        "office": "state-house",
+        "districtCode": "713",
+        "contactUrl": null,
+        "email": "richard.tripp@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=8408",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/2a085551-6f62-4320-a1eb-bc9a177b9a6d",
+        "name": "Steve Pearson",
+        "office": "state-house",
+        "districtCode": "713",
+        "contactUrl": null,
+        "email": "steve.pearson@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9269",
+        "social": {}
+      }
+    ],
+    "NH:state-house:720": [
+      {
+        "id": "ocd-person/66ba1045-a0e7-4602-b228-e68dea8be29e",
+        "name": "Charlie Melvin",
+        "office": "state-house",
+        "districtCode": "720",
+        "contactUrl": null,
+        "email": "charlie.melvin@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=8419",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/14936ed1-5203-4f3e-be18-4243f1fff521",
+        "name": "Jim Summers",
+        "office": "state-house",
+        "districtCode": "720",
+        "contactUrl": null,
+        "email": "james.summers@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9294",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/c62fca24-e8c3-4f87-95dd-cb52a3d58c05",
+        "name": "Bob Harb",
+        "office": "state-house",
+        "districtCode": "720",
+        "contactUrl": null,
+        "email": "robert.harb@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9293",
+        "social": {}
+      }
+    ],
+    "NH:state-house:729": [
+      {
+        "id": "ocd-person/0dbeb05f-3510-48d3-9918-a929a6069ac2",
+        "name": "Chris Muns",
+        "office": "state-house",
+        "districtCode": "729",
+        "contactUrl": null,
+        "email": "chris.muns@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=755",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/cd3ca080-a00e-4ad2-a5c4-897d8939c32b",
+        "name": "Erica de Vries",
+        "office": "state-house",
+        "districtCode": "729",
+        "contactUrl": null,
+        "email": "erica.devries@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10887",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/0f78413a-b328-4856-ab48-21a5d4d614c0",
+        "name": "Michael Edgar",
+        "office": "state-house",
+        "districtCode": "729",
+        "contactUrl": null,
+        "email": "michael.edgar@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=377778",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/276d3407-ff3e-4e21-966d-696cfde5faa8",
+        "name": "Nicholas Bridle",
+        "office": "state-house",
+        "districtCode": "729",
+        "contactUrl": null,
+        "email": "nicholas.bridle@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11419",
+        "social": {}
+      }
+    ],
+    "NH:state-house:508": [
+      {
+        "id": "ocd-person/84fef36b-d3a0-4bb1-9458-7e7b165a51ff",
+        "name": "Christal Lloyd",
+        "office": "state-house",
+        "districtCode": "508",
+        "contactUrl": null,
+        "email": "christal.lloyd@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10783",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/3ffd7496-524f-40b6-92d8-0e932f002a90",
+        "name": "Efstathia Booras",
+        "office": "state-house",
+        "districtCode": "508",
+        "contactUrl": null,
+        "email": "efstathia.booras@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=679",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/2a474f9c-7a7d-4d4f-8c7c-73ade8e11ad8",
+        "name": "Kevin Scully",
+        "office": "state-house",
+        "districtCode": "508",
+        "contactUrl": null,
+        "email": "kevin.scully@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=8351",
+        "social": {}
+      }
+    ],
+    "NH:state-house:521": [
+      {
+        "id": "ocd-person/a05c5eab-d5d5-475d-a66a-39b8b514b8e6",
+        "name": "Christine Seibert",
+        "office": "state-house",
+        "districtCode": "521",
+        "contactUrl": null,
+        "email": "christine.seibert@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9077",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/61d2e8f3-f2b9-4357-81af-fe982ee1821f",
+        "name": "Matt Wilhelm",
+        "office": "state-house",
+        "districtCode": "521",
+        "contactUrl": null,
+        "email": "matt.wilhelm@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9134",
+        "social": {}
+      }
+    ],
+    "NH:state-house:524": [
+      {
+        "id": "ocd-person/7eb393f4-db93-4fbd-95bc-3491d9a6ca93",
+        "name": "Chris Herbert",
+        "office": "state-house",
+        "districtCode": "524",
+        "contactUrl": null,
+        "email": "chris.herbert@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=856",
+        "social": {}
+      }
+    ],
+    "NH:state-house:802": [
+      {
+        "id": "ocd-person/bfecb4c6-509b-4c23-9c69-0e21483c44d3",
+        "name": "Claudine Burnham",
+        "office": "state-house",
+        "districtCode": "802",
+        "contactUrl": null,
+        "email": "claudine.burnham@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10713",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/56f58b74-b3b6-4f73-ad18-15af5119c4bc",
+        "name": "Glenn Bailey",
+        "office": "state-house",
+        "districtCode": "802",
+        "contactUrl": null,
+        "email": "grbailey@metrocast.net",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9946",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/6d72216e-2f3d-4c60-9ce0-dc2c365d2033",
+        "name": "Michael Granger",
+        "office": "state-house",
+        "districtCode": "802",
+        "contactUrl": null,
+        "email": "michael.granger@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10714",
+        "social": {}
+      }
+    ],
+    "NH:state-house:613": [
+      {
+        "id": "ocd-person/2bf4a05c-14f0-4916-964b-48bdb20f4fdd",
+        "name": "Clayton Wood",
+        "office": "state-house",
+        "districtCode": "613",
+        "contactUrl": null,
+        "email": "clayton.wood@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10678",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/e4ac4259-d405-4839-af31-6c409719065c",
+        "name": "Cy Aures",
+        "office": "state-house",
+        "districtCode": "613",
+        "contactUrl": null,
+        "email": "cyril.aures@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10677",
+        "social": {}
+      }
+    ],
+    "NH:state-house:616": [
+      {
+        "id": "ocd-person/8171a035-7cc1-4a7f-b086-9bdb800782da",
+        "name": "Connie Lane",
+        "office": "state-house",
+        "districtCode": "616",
+        "contactUrl": null,
+        "email": "connie.lane@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9156",
+        "social": {}
+      }
+    ],
+    "NH:state-house:906": [
+      {
+        "id": "ocd-person/87ac63e4-d144-451e-a13b-0b834f1ef81b",
+        "name": "Dale Girard",
+        "office": "state-house",
+        "districtCode": "906",
+        "contactUrl": null,
+        "email": "dale.girard@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11293",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/d3dab509-1268-4b4f-b363-98932002bf2e",
+        "name": "John Cloutier",
+        "office": "state-house",
+        "districtCode": "906",
+        "contactUrl": null,
+        "email": "jocloutier@comcast.net",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=375829",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/891b5235-2e56-4bbf-820a-ca7c928324e1",
+        "name": "Wayne Hemingway",
+        "office": "state-house",
+        "districtCode": "906",
+        "contactUrl": null,
+        "email": "wayne.hemingway@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11439",
+        "social": {}
+      }
+    ],
+    "NH:state-house:505": [
+      {
+        "id": "ocd-person/89af0a16-e17b-490b-96d1-8d445071cec2",
+        "name": "Dale Swanson",
+        "office": "state-house",
+        "districtCode": "505",
+        "contactUrl": null,
+        "email": "dale.swanson@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11190",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/e1e26c8f-3b7f-42bf-89e2-33331ff83bb3",
+        "name": "Heather Raymond",
+        "office": "state-house",
+        "districtCode": "505",
+        "contactUrl": null,
+        "email": "heather.raymond@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10779",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/c9b60101-8e1e-4ca2-b5c1-3ffa019fcb3e",
+        "name": "Susan Elberger",
+        "office": "state-house",
+        "districtCode": "505",
+        "contactUrl": null,
+        "email": "susan.elberger@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10778",
+        "social": {}
+      }
+    ],
+    "NH:state-house:516": [
+      {
+        "id": "ocd-person/4ae310b1-b493-47b9-888e-e318a5ea0e76",
+        "name": "Dan Bergeron",
+        "office": "state-house",
+        "districtCode": "516",
+        "contactUrl": null,
+        "email": "dan.bergeron@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11203",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/26d443c0-53fe-480b-bf4c-7b7a28a109e9",
+        "name": "Larry Gagne",
+        "office": "state-house",
+        "districtCode": "516",
+        "contactUrl": null,
+        "email": "lgagne25@comcast.net",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=573",
+        "social": {}
+      }
+    ],
+    "NH:state-house:614": [
+      {
+        "id": "ocd-person/f67d5fcc-0dac-4bf0-b1ab-b63f73162d0b",
+        "name": "Dan McGuire",
+        "office": "state-house",
+        "districtCode": "614",
+        "contactUrl": null,
+        "email": "dan.mcguire@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=376984",
+        "social": {}
+      }
+    ],
+    "NH:state-house:534": [
+      {
+        "id": "ocd-person/ce0bbcca-54b7-40f4-817f-4f17e7a212a1",
+        "name": "Dan LeClerc",
+        "office": "state-house",
+        "districtCode": "534",
+        "contactUrl": null,
+        "email": "daniel.leclerc@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10814",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/88428a5a-4af6-40b8-a4ff-c2ea283b758f",
+        "name": "Dan Veilleux",
+        "office": "state-house",
+        "districtCode": "534",
+        "contactUrl": null,
+        "email": "daniel.veilleux@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9905",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/dfbe7855-971b-4eb3-832e-a3f67b8b6a61",
+        "name": "Stephanie Grund",
+        "office": "state-house",
+        "districtCode": "534",
+        "contactUrl": null,
+        "email": "stephanie.grund@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11212",
+        "social": {}
+      }
+    ],
+    "NH:state-house:716": [
+      {
+        "id": "ocd-person/4e9bb139-f952-4fda-bce1-f1bb16c585e3",
+        "name": "David Lundgren",
+        "office": "state-house",
+        "districtCode": "716",
+        "contactUrl": null,
+        "email": "qtipnh@aol.com",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=376972",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/5db11498-80a8-4136-9c50-2c7f1a2f6826",
+        "name": "Doug Thomas",
+        "office": "state-house",
+        "districtCode": "716",
+        "contactUrl": null,
+        "email": "doug.thomasnh@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=377267",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/ea8d6a3b-8312-4ffe-a85a-e8a9776ec560",
+        "name": "Kristine Perez",
+        "office": "state-house",
+        "districtCode": "716",
+        "contactUrl": null,
+        "email": "kristine.perez@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10694",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/e0b29cba-9dd9-4e90-889c-e5eaea7d174c",
+        "name": "Ron Dunn",
+        "office": "state-house",
+        "districtCode": "716",
+        "contactUrl": null,
+        "email": "ron.dunn@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10693",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/e94c1d98-5454-40a2-8293-ee0998fee8ca",
+        "name": "Sherm Packard",
+        "office": "state-house",
+        "districtCode": "716",
+        "contactUrl": null,
+        "email": "sherman.packard@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=375453",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/330b6b4b-dfa6-4379-ae45-bedd9b276fcd",
+        "name": "Tom Dolan",
+        "office": "state-house",
+        "districtCode": "716",
+        "contactUrl": null,
+        "email": "tom.dolan@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9268",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/8588302c-ac8c-4b58-9444-0c9f29448aa0",
+        "name": "Wayne MacDonald",
+        "office": "state-house",
+        "districtCode": "716",
+        "contactUrl": null,
+        "email": "elephantsmarching@msn.com",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9951",
+        "social": {}
+      }
+    ],
+    "NH:state-house:416": [
+      {
+        "id": "ocd-person/01e401fa-3dca-460b-8eac-080f6e7fce90",
+        "name": "David Fracht",
+        "office": "state-house",
+        "districtCode": "416",
+        "contactUrl": null,
+        "email": "david.fracht@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11041",
+        "social": {}
+      }
+    ],
+    "NH:state-house:006": [
+      {
+        "id": "ocd-person/c614a6b4-5a2b-46ca-89c0-1ff666aef92a",
+        "name": "Dave Nagel",
+        "office": "state-house",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "davidnagelmd@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10574",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/620d9d69-c8fb-47ad-ad25-1c1ef75c39dd",
+        "name": "Glen Aldrich",
+        "office": "state-house",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "glennaldrich@proton.me",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=806",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/9aae937c-2a6d-4654-a18e-d76e1b379e51",
+        "name": "Russ Dumais",
+        "office": "state-house",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "russell.dumais@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=377221",
+        "social": {}
+      }
+    ],
+    "NH:state-house:517": [
+      {
+        "id": "ocd-person/d347f91a-d60c-48a2-b78b-8e387e7b38a1",
+        "name": "David Preece",
+        "office": "state-house",
+        "districtCode": "517",
+        "contactUrl": null,
+        "email": "david.preece@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=2458",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/a9f75dde-f348-4c7a-90c9-a785ee2de208",
+        "name": "Linda DiSilvestro",
+        "office": "state-house",
+        "districtCode": "517",
+        "contactUrl": null,
+        "email": "linda.disilvestro@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=377091",
+        "social": {}
+      }
+    ],
+    "NH:state-house:609": [
+      {
+        "id": "ocd-person/c3c9bb99-9512-4bec-be04-d8b29ea96f3e",
+        "name": "David Luneau",
+        "office": "state-house",
+        "districtCode": "609",
+        "contactUrl": null,
+        "email": "dluneaunh@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=377307",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/3b5abb0c-bfa9-4dfb-a84d-a60f7d3f8bc7",
+        "name": "Eleana Colby",
+        "office": "state-house",
+        "districtCode": "609",
+        "contactUrl": null,
+        "email": "eleana.colby@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11230",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/58bff024-3ec3-431f-bfa7-0d499b0bb780",
+        "name": "James Newsom",
+        "office": "state-house",
+        "districtCode": "609",
+        "contactUrl": null,
+        "email": "james.newsom@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11232",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/c85e3c8a-f2b9-40d5-a830-7c59a1328bf4",
+        "name": "Muriel Hall",
+        "office": "state-house",
+        "districtCode": "609",
+        "contactUrl": null,
+        "email": "muriel.hall@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10352",
+        "social": {}
+      }
+    ],
+    "NH:state-house:101": [
+      {
+        "id": "ocd-person/09308be5-c800-42a8-b0bf-afbc877ab976",
+        "name": "David Paige",
+        "office": "state-house",
+        "districtCode": "101",
+        "contactUrl": null,
+        "email": "david.paige@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10741",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/bdde38b3-3210-4b2d-890b-bbf2d2bf314a",
+        "name": "Steve Woodcock",
+        "office": "state-house",
+        "districtCode": "101",
+        "contactUrl": null,
+        "email": "stevewoodcock.rep@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9046",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/22809c1b-0676-4ad9-8d0e-8a0a9d19063a",
+        "name": "Tom Buco",
+        "office": "state-house",
+        "districtCode": "101",
+        "contactUrl": null,
+        "email": "tom.buco@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=376645",
+        "social": {}
+      }
+    ],
+    "NH:state-house:605": [
+      {
+        "id": "ocd-person/8015d8e4-78cd-41a5-93f9-f6a704910c2f",
+        "name": "Deborah Aylward",
+        "office": "state-house",
+        "districtCode": "605",
+        "contactUrl": null,
+        "email": "deborah.aylward@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10670",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/4f84e968-9226-470f-bde4-4163efc19593",
+        "name": "Louise Andrus",
+        "office": "state-house",
+        "districtCode": "605",
+        "contactUrl": null,
+        "email": "louise.andrus@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9920",
+        "social": {}
+      }
+    ],
+    "NH:state-house:718": [
+      {
+        "id": "ocd-person/7ef7472f-0bda-4708-9239-76adeca1e87e",
+        "name": "Debra DeSimone",
+        "office": "state-house",
+        "districtCode": "718",
+        "contactUrl": null,
+        "email": "debra.desimone@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=376807",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/f96a83f9-c085-451a-9b6b-4f79e2472e90",
+        "name": "Jay Markell",
+        "office": "state-house",
+        "districtCode": "718",
+        "contactUrl": null,
+        "email": "jay.markell@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11413",
+        "social": {}
+      }
+    ],
+    "NH:state-house:211": [
+      {
+        "id": "ocd-person/72264eda-ca33-468c-bc9d-f745c55bce68",
+        "name": "Denis Murphy",
+        "office": "state-house",
+        "districtCode": "211",
+        "contactUrl": null,
+        "email": "denis.murphy@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11452",
+        "social": {}
+      }
+    ],
+    "NH:state-house:806": [
+      {
+        "id": "ocd-person/579982ee-0c20-4345-a08d-777f6723e67c",
+        "name": "Denise DeDe-Poulin",
+        "office": "state-house",
+        "districtCode": "806",
+        "contactUrl": null,
+        "email": "denise.dedepoulin@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11425",
+        "social": {}
+      }
+    ],
+    "NH:state-house:724": [
+      {
+        "id": "ocd-person/d6200a81-3d99-4ff7-93e0-e2f3b49cfd65",
+        "name": "Dennis Malloy",
+        "office": "state-house",
+        "districtCode": "724",
+        "contactUrl": null,
+        "email": "dennis.malloy@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=377137",
+        "social": {}
+      }
+    ],
+    "NH:state-house:725": [
+      {
+        "id": "ocd-person/4568bf8a-b56b-43ec-a00f-718341eb6cb9",
+        "name": "Dennis Mannion",
+        "office": "state-house",
+        "districtCode": "725",
+        "contactUrl": null,
+        "email": "dennis.mannion@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10705",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/568a287b-89c6-44b7-a8e6-a5188ef7f9bc",
+        "name": "Joe Sweeney",
+        "office": "state-house",
+        "districtCode": "725",
+        "contactUrl": null,
+        "email": "joe.sweeney@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=779",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/4c4f4974-0202-43a0-9aba-f41d0f99603a",
+        "name": "John Janigian",
+        "office": "state-house",
+        "districtCode": "725",
+        "contactUrl": null,
+        "email": "john.janigian@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=408412",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/81a14b0b-f5dd-4e7a-b500-c9dc0a56c2be",
+        "name": "John Sytek",
+        "office": "state-house",
+        "districtCode": "725",
+        "contactUrl": null,
+        "email": "john.sytek@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=375692",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/b89dda18-b7c5-4184-b6d9-0bff9bed045e",
+        "name": "Lorie Ball",
+        "office": "state-house",
+        "districtCode": "725",
+        "contactUrl": null,
+        "email": "lorie.ball@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10702",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/b3316ac6-b023-4dec-9e07-33600f4027bb",
+        "name": "Sue Vandecasteele",
+        "office": "state-house",
+        "districtCode": "725",
+        "contactUrl": null,
+        "email": "susanjonvan@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9938",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/93179238-e90a-433f-bafb-72333aa7c9ef",
+        "name": "Tanya Donnelly",
+        "office": "state-house",
+        "districtCode": "725",
+        "contactUrl": null,
+        "email": "tanya.donnelly@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10704",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/8c0d6811-045b-46ca-91c6-86e360249246",
+        "name": "Valerie McDonnell",
+        "office": "state-house",
+        "districtCode": "725",
+        "contactUrl": null,
+        "email": "valerie.mcdonnell@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10706",
+        "social": {}
+      }
+    ],
+    "NH:state-house:532": [
+      {
+        "id": "ocd-person/592ab77a-caf9-4132-ba45-effb3ecb012e",
+        "name": "Diane Kelley",
+        "office": "state-house",
+        "districtCode": "532",
+        "contactUrl": null,
+        "email": "diane.kelley@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9909",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/fa8b39ea-006f-420a-9a3f-fe36d0db8776",
+        "name": "Jim Kofalt",
+        "office": "state-house",
+        "districtCode": "532",
+        "contactUrl": null,
+        "email": "jim.kofalt@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9895",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/a56b0587-b57f-4dbb-a977-ba82c714a379",
+        "name": "Shane Sirois",
+        "office": "state-house",
+        "districtCode": "532",
+        "contactUrl": null,
+        "email": "shane.sirois@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10653",
+        "social": {}
+      }
+    ],
+    "NH:state-house:536": [
+      {
+        "id": "ocd-person/7cc1d333-efac-47fb-a109-98113c762790",
+        "name": "Diane Pauer",
+        "office": "state-house",
+        "districtCode": "536",
+        "contactUrl": null,
+        "email": "diane.pauer@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9910",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/fe4b2b32-0709-486c-910c-fa3bcfc54056",
+        "name": "John Suiter",
+        "office": "state-house",
+        "districtCode": "536",
+        "contactUrl": null,
+        "email": "john.suiter@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11369",
+        "social": {}
+      }
+    ],
+    "NH:state-house:212": [
+      {
+        "id": "ocd-person/5e1bcd9f-9dd0-46b1-8c7f-b9e84bbba8e7",
+        "name": "Dick Thackston",
+        "office": "state-house",
+        "districtCode": "212",
+        "contactUrl": null,
+        "email": "thackston3@aol.com",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=6938",
+        "social": {}
+      }
+    ],
+    "NH:state-house:709": [
+      {
+        "id": "ocd-person/3d27678e-e5ec-4ba7-989d-3e4d50245fff",
+        "name": "Donald Selby",
+        "office": "state-house",
+        "districtCode": "709",
+        "contactUrl": null,
+        "email": "donald.selby@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11402",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/ee2f53d6-9f8b-46ef-82e1-53ba6eae54bd",
+        "name": "Vicki Wilson",
+        "office": "state-house",
+        "districtCode": "709",
+        "contactUrl": null,
+        "email": "vicki.wilson@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11403",
+        "social": {}
+      }
+    ],
+    "NH:state-house:202": [
+      {
+        "id": "ocd-person/31e633fb-0fd5-43e8-8a18-2bd0c1d6bca9",
+        "name": "Dru Fox",
+        "office": "state-house",
+        "districtCode": "202",
+        "contactUrl": null,
+        "email": "dru.fox@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9873",
+        "social": {}
+      }
+    ],
+    "NH:state-house:608": [
+      {
+        "id": "ocd-person/956f70c5-6a5c-455f-b17d-c25f04b25db1",
+        "name": "Eileen Kelly",
+        "office": "state-house",
+        "districtCode": "608",
+        "contactUrl": null,
+        "email": "eileen.kelly@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9441",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/8184319b-a3eb-4538-a78a-5e5cd439e2a3",
+        "name": "Stephanie Payeur",
+        "office": "state-house",
+        "districtCode": "608",
+        "contactUrl": null,
+        "email": "stephanie.payeur@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10834",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/960dc748-e7c7-4859-ab1d-b07f9bb7b269",
+        "name": "Tony Caplan",
+        "office": "state-house",
+        "districtCode": "608",
+        "contactUrl": null,
+        "email": "tony.caplan@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9923",
+        "social": {}
+      }
+    ],
+    "NH:state-house:710": [
+      {
+        "id": "ocd-person/77304532-17fb-4b2c-aed6-213a435e4a46",
+        "name": "Ellen Read",
+        "office": "state-house",
+        "districtCode": "710",
+        "contactUrl": null,
+        "email": "ellen4nh@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=408613",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/facb5409-244f-4381-8452-e6a1078bb1c5",
+        "name": "Michael Cahill",
+        "office": "state-house",
+        "districtCode": "710",
+        "contactUrl": null,
+        "email": "michael.cahill@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=377079",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/fc03907c-1276-40e7-9838-83f4ab670d03",
+        "name": "Toni Weinstein",
+        "office": "state-house",
+        "districtCode": "710",
+        "contactUrl": null,
+        "email": "toni.weinstein@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11252",
+        "social": {}
+      }
+    ],
+    "NH:state-house:412": [
+      {
+        "id": "ocd-person/194a44fa-ae6e-4f8a-80fa-1ba652df02ba",
+        "name": "Ellen Rockmore",
+        "office": "state-house",
+        "districtCode": "412",
+        "contactUrl": null,
+        "email": "ellen.rockmore@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11183",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/0929165d-f73c-4820-8820-209de58c1e78",
+        "name": "Mary Hakken-Phillips",
+        "office": "state-house",
+        "districtCode": "412",
+        "contactUrl": null,
+        "email": "mary.hakkenphillips@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9889",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/33c30ffc-2203-48fc-9161-e14946abce23",
+        "name": "Russ Muirhead",
+        "office": "state-house",
+        "districtCode": "412",
+        "contactUrl": null,
+        "email": "russell.muirhead@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9890",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/3427853b-656d-4c4e-9857-acb92e08187d",
+        "name": "Terry Spahr",
+        "office": "state-house",
+        "districtCode": "412",
+        "contactUrl": null,
+        "email": "terry.spahr@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11184",
+        "social": {}
+      }
+    ],
+    "NH:state-house:620": [
+      {
+        "id": "ocd-person/a8e2dc1d-b828-475a-92d4-373129360dcb",
+        "name": "Eric Gallager",
+        "office": "state-house",
+        "districtCode": "620",
+        "contactUrl": null,
+        "email": "eric.gallager@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9926",
+        "social": {}
+      }
+    ],
+    "NH:state-house:706": [
+      {
+        "id": "ocd-person/fa004123-5b0b-4019-8f74-8c43570c388c",
+        "name": "Eric Turer",
+        "office": "state-house",
+        "districtCode": "706",
+        "contactUrl": null,
+        "email": "eric.turer@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9999",
+        "social": {}
+      }
+    ],
+    "NH:state-house:811": [
+      {
+        "id": "ocd-person/5a468f0d-8baf-47e9-92da-2db62373030f",
+        "name": "Erik Johnson",
+        "office": "state-house",
+        "districtCode": "811",
+        "contactUrl": null,
+        "email": "erik.johnson@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11134",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/2830876f-1a4d-4332-ae2a-a97607c4e1b9",
+        "name": "Janet Wall",
+        "office": "state-house",
+        "districtCode": "811",
+        "contactUrl": null,
+        "email": "janet.wall@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=372557",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/4febed48-b7fd-4b44-98e8-fb20de52968e",
+        "name": "Tom Southworth",
+        "office": "state-house",
+        "districtCode": "811",
+        "contactUrl": null,
+        "email": "thomas.southworth@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=377316",
+        "social": {}
+      }
+    ],
+    "NH:state-house:503": [
+      {
+        "id": "ocd-person/0119879d-c522-4d71-992d-936a57389093",
+        "name": "Fred Davis",
+        "office": "state-house",
+        "districtCode": "503",
+        "contactUrl": null,
+        "email": "fred.davis@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9109",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/a5b1edc7-c0a1-49fe-824c-a9177a8e1218",
+        "name": "Marc Plamondon",
+        "office": "state-house",
+        "districtCode": "503",
+        "contactUrl": null,
+        "email": "marc.plamondon@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10998",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/2fe799f4-a099-4667-ac0d-1bce40a08e3d",
+        "name": "Paige Beauchemin",
+        "office": "state-house",
+        "districtCode": "503",
+        "contactUrl": null,
+        "email": "paige.beauchemin@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11100",
+        "social": {}
+      }
+    ],
+    "NH:state-house:711": [
+      {
+        "id": "ocd-person/01d85172-f83f-48ee-8c35-8979a95c9190",
+        "name": "Gaby Grossman",
+        "office": "state-house",
+        "districtCode": "711",
+        "contactUrl": null,
+        "email": "gaby.grossman@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9218",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/77ca15e6-ebe1-4ef5-8bc9-ed3dff861f38",
+        "name": "Julie Gilman",
+        "office": "state-house",
+        "districtCode": "711",
+        "contactUrl": null,
+        "email": "julie.gilman@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=408615",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/8c6eeb07-d048-47fd-9f0e-718460e2edc9",
+        "name": "Mark Paige",
+        "office": "state-house",
+        "districtCode": "711",
+        "contactUrl": null,
+        "email": "mark.paige@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9942",
+        "social": {}
+      }
+    ],
+    "NH:state-house:816": [
+      {
+        "id": "ocd-person/26cadaaa-59d2-4c71-b23b-9f103dbd3e81",
+        "name": "Gary Gilmore",
+        "office": "state-house",
+        "districtCode": "816",
+        "contactUrl": null,
+        "email": "gary.gilmore@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=4998",
+        "social": {}
+      }
+    ],
+    "NH:state-house:543": [
+      {
+        "id": "ocd-person/281c916b-4280-41ff-9ee1-ba183d838536",
+        "name": "Gary Daniels",
+        "office": "state-house",
+        "districtCode": "543",
+        "contactUrl": null,
+        "email": "gary.daniels@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=423",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/b2021972-0991-4a95-a897-b7e992eac8dd",
+        "name": "Paul Dargie",
+        "office": "state-house",
+        "districtCode": "543",
+        "contactUrl": null,
+        "email": "paul.dargie@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9097",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/1bf3d6c4-3325-4571-b2f7-6a28422dada6",
+        "name": "Peter Petrigno",
+        "office": "state-house",
+        "districtCode": "543",
+        "contactUrl": null,
+        "email": "peter.petrigno@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9099",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/5c985922-36b3-4d80-986d-1f9c363920f1",
+        "name": "Vanessa Sheehan",
+        "office": "state-house",
+        "districtCode": "543",
+        "contactUrl": null,
+        "email": "vanessa@vanessa4nh.com",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9907",
+        "social": {}
+      }
+    ],
+    "NH:state-house:414": [
+      {
+        "id": "ocd-person/1d64c012-42cd-433e-9e51-d449279fe57e",
+        "name": "George Sykes",
+        "office": "state-house",
+        "districtCode": "414",
+        "contactUrl": null,
+        "email": "george.sykes@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=377176",
+        "social": {}
+      }
+    ],
+    "NH:state-house:905": [
+      {
+        "id": "ocd-person/8ecb185e-f9d2-4da1-94af-8ea367b7b34a",
+        "name": "George Grant",
+        "office": "state-house",
+        "districtCode": "905",
+        "contactUrl": null,
+        "email": "george.grant@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10729",
+        "social": {}
+      }
+    ],
+    "NH:state-house:542": [
+      {
+        "id": "ocd-person/915a097c-1280-478b-b200-0903e323e9e5",
+        "name": "Gerry Griffin",
+        "office": "state-house",
+        "districtCode": "542",
+        "contactUrl": null,
+        "email": "gerald.griffin@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=8314",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/c975be5b-c686-4489-92d2-5b8ba36f9974",
+        "name": "Keith Ammon",
+        "office": "state-house",
+        "districtCode": "542",
+        "contactUrl": null,
+        "email": "keith.ammon@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=836",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/72ef654a-277a-4309-b0ae-08fee715af2c",
+        "name": "Lisa Post",
+        "office": "state-house",
+        "districtCode": "542",
+        "contactUrl": null,
+        "email": "lisacmpost@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9896",
+        "social": {}
+      }
+    ],
+    "NH:state-house:727": [
+      {
+        "id": "ocd-person/03774445-16e9-4857-8015-317a3d8705a3",
+        "name": "Gerry Ward",
+        "office": "state-house",
+        "districtCode": "727",
+        "contactUrl": null,
+        "email": "ward4staterep@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=377188",
+        "social": {}
+      }
+    ],
+    "NH:state-house:607": [
+      {
+        "id": "ocd-person/f1292af8-a209-4ff7-87b5-086acddcc10e",
+        "name": "Greg Sargent",
+        "office": "state-house",
+        "districtCode": "607",
+        "contactUrl": null,
+        "email": "gregory.sargent@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10832",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/947e2e2b-04eb-4f92-9f83-aef8760517e0",
+        "name": "Karen Ebel",
+        "office": "state-house",
+        "districtCode": "607",
+        "contactUrl": null,
+        "email": "karen.ebel@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=377093",
+        "social": {}
+      }
+    ],
+    "NH:state-house:602": [
+      {
+        "id": "ocd-person/852df922-484b-412f-a604-c2d67efee5ec",
+        "name": "Greg Hill",
+        "office": "state-house",
+        "districtCode": "602",
+        "contactUrl": null,
+        "email": "greghillnh@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=943",
+        "social": {}
+      }
+    ],
+    "NH:state-house:404": [
+      {
+        "id": "ocd-person/b14568dd-d9f5-4557-8ccd-0d000c231650",
+        "name": "Heather Baldwin",
+        "office": "state-house",
+        "districtCode": "404",
+        "contactUrl": null,
+        "email": "heather.baldwin@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10762",
+        "social": {}
+      }
+    ],
+    "NH:state-house:529": [
+      {
+        "id": "ocd-person/1a1bb56f-cf92-4af0-b65e-3831e8a07b64",
+        "name": "Henry Giasson",
+        "office": "state-house",
+        "districtCode": "529",
+        "contactUrl": null,
+        "email": "henry.giasson@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11363",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/e7800d58-1019-4aff-8d1a-22faba9d3e23",
+        "name": "Joe Alexander",
+        "office": "state-house",
+        "districtCode": "529",
+        "contactUrl": null,
+        "email": "joe.alexander@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9165",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/19278cc6-c610-4ae1-b1eb-b33f60658f0b",
+        "name": "Sherri Reinfurt",
+        "office": "state-house",
+        "districtCode": "529",
+        "contactUrl": null,
+        "email": "sherri.reinfurt@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11364",
+        "social": {}
+      }
+    ],
+    "NH:state-house:702": [
+      {
+        "id": "ocd-person/2520dc46-648c-44d0-ba1f-fe09b17a9d8b",
+        "name": "Jim Spillane",
+        "office": "state-house",
+        "districtCode": "702",
+        "contactUrl": null,
+        "email": "james@jamesspillane.org",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=377264",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/6e2bc564-5cd1-4f96-a265-4753b7f12ee1",
+        "name": "Jason Osborne",
+        "office": "state-house",
+        "districtCode": "702",
+        "contactUrl": null,
+        "email": "jason@osborne4nh.com",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=901",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/9d10ccec-b571-4eea-b025-9ed7634b6516",
+        "name": "Kevin Verville",
+        "office": "state-house",
+        "districtCode": "702",
+        "contactUrl": null,
+        "email": "kevin.verville@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=408388",
+        "social": {}
+      }
+    ],
+    "NH:state-house:622": [
+      {
+        "id": "ocd-person/cfbe3994-9a8b-4edf-80e7-d087700ca75a",
+        "name": "James Roesener",
+        "office": "state-house",
+        "districtCode": "622",
+        "contactUrl": null,
+        "email": "james.roesener@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10840",
+        "social": {}
+      }
+    ],
+    "NH:state-house:618": [
+      {
+        "id": "ocd-person/c027d650-709d-440f-8740-84b3e11406ba",
+        "name": "Jim MacKay",
+        "office": "state-house",
+        "districtCode": "618",
+        "contactUrl": null,
+        "email": "james.mackay@mygait.com",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=376028",
+        "social": {}
+      }
+    ],
+    "NH:state-house:301": [
+      {
+        "id": "ocd-person/0723bc3a-b040-40e5-9eaa-60c12f148828",
+        "name": "James Tierney",
+        "office": "state-house",
+        "districtCode": "301",
+        "contactUrl": null,
+        "email": "james.tierney@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=8023",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/8d99d9dc-999d-438c-84c8-01d80f1ef5cd",
+        "name": "Sean Durkin",
+        "office": "state-house",
+        "districtCode": "301",
+        "contactUrl": null,
+        "email": "seandurkin4nh@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11118",
+        "social": {}
+      }
+    ],
+    "NH:state-house:407": [
+      {
+        "id": "ocd-person/5aab63e3-55a7-485a-b6ee-93a9533b760a",
+        "name": "Janet Lucas",
+        "office": "state-house",
+        "districtCode": "407",
+        "contactUrl": null,
+        "email": "janet.lucas@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11181",
+        "social": {}
+      }
+    ],
+    "NH:state-house:402": [
+      {
+        "id": "ocd-person/80eb1932-bf31-4008-b48b-640178bfa0d3",
+        "name": "Jared Sullivan",
+        "office": "state-house",
+        "districtCode": "402",
+        "contactUrl": null,
+        "email": "jared.sullivan@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10761",
+        "social": {}
+      }
+    ],
+    "NH:state-house:523": [
+      {
+        "id": "ocd-person/f47878eb-66fe-4d01-92ea-4d3190c6183c",
+        "name": "Jean Jeudy",
+        "office": "state-house",
+        "districtCode": "523",
+        "contactUrl": null,
+        "email": "jean.jeudy@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=376657",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/4b40718c-8dbd-4df2-a1a0-75a9093778ce",
+        "name": "Mary Georges",
+        "office": "state-house",
+        "districtCode": "523",
+        "contactUrl": null,
+        "email": "mary.georges@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11206",
+        "social": {}
+      }
+    ],
+    "NH:state-house:501": [
+      {
+        "id": "ocd-person/ff500f6d-8768-4947-af54-b2881b1134a4",
+        "name": "Jeff Tenczar",
+        "office": "state-house",
+        "districtCode": "501",
+        "contactUrl": null,
+        "email": "jeffrey.tenczar@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10624",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/5e093007-fbc4-44da-a096-5eac6ae040f2",
+        "name": "Tim Mannion",
+        "office": "state-house",
+        "districtCode": "501",
+        "contactUrl": null,
+        "email": "tim.mannion@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11332",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/6bf9fba1-96e4-46af-843d-5e006d357acd",
+        "name": "Tom Mannion",
+        "office": "state-house",
+        "districtCode": "501",
+        "contactUrl": null,
+        "email": "tom.mannion@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10622",
+        "social": {}
+      }
+    ],
+    "NH:state-house:721": [
+      {
+        "id": "ocd-person/64122b0a-5dcf-4f7e-aa74-cff67dcb67b3",
+        "name": "Jennifer Mandelbaum",
+        "office": "state-house",
+        "districtCode": "721",
+        "contactUrl": null,
+        "email": "jenfornh@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11135",
+        "social": {}
+      }
+    ],
+    "NH:state-house:403": [
+      {
+        "id": "ocd-person/80181303-730c-46b5-88e5-ccfbf32b132f",
+        "name": "Jerry Stringham",
+        "office": "state-house",
+        "districtCode": "403",
+        "contactUrl": null,
+        "email": "jerry.stringham@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9058",
+        "social": {}
+      }
+    ],
+    "NH:state-house:817": [
+      {
+        "id": "ocd-person/47233e65-87c6-4a8b-ba37-271c2413615d",
+        "name": "Jessica LaMontagne",
+        "office": "state-house",
+        "districtCode": "817",
+        "contactUrl": null,
+        "email": "jessica.lamontagne@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10900",
+        "social": {}
+      }
+    ],
+    "NH:state-house:518": [
+      {
+        "id": "ocd-person/d607d081-ecb8-4d5d-bc2f-d3ee78a627c7",
+        "name": "Jessica Grill",
+        "office": "state-house",
+        "districtCode": "518",
+        "contactUrl": null,
+        "email": "jessica.grill@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10797",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/f773bff0-d2b7-4fa5-8f82-c8b519b8556b",
+        "name": "Steve Kesselring",
+        "office": "state-house",
+        "districtCode": "518",
+        "contactUrl": null,
+        "email": "steven.kesselring@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11354",
+        "social": {}
+      }
+    ],
+    "NH:state-house:530": [
+      {
+        "id": "ocd-person/de8891e6-5b3f-4fb5-8c5d-63ab84c70e59",
+        "name": "Jim Fedolfi",
+        "office": "state-house",
+        "districtCode": "530",
+        "contactUrl": null,
+        "email": "jfedolfi@comcast.net",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=408299",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/e6b59654-1e8f-4f6b-b01f-7d69bb76ffec",
+        "name": "Jim Creighton",
+        "office": "state-house",
+        "districtCode": "530",
+        "contactUrl": null,
+        "email": "creighton4nh@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9917",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/f34606de-25d3-4e18-991e-b21727563eb6",
+        "name": "Riché Colcombe",
+        "office": "state-house",
+        "districtCode": "530",
+        "contactUrl": null,
+        "email": "riche.colcombe@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10099",
+        "social": {}
+      }
+    ],
+    "NH:state-house:701": [
+      {
+        "id": "ocd-person/ec6cfbd9-53fd-4643-b2c9-b0889f417baa",
+        "name": "Jim Guzofski",
+        "office": "state-house",
+        "districtCode": "701",
+        "contactUrl": null,
+        "email": "james.guzofski@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11393",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/9a1db7df-83d0-4f2f-8c3c-7610f8012ce6",
+        "name": "Paul Tudor",
+        "office": "state-house",
+        "districtCode": "701",
+        "contactUrl": null,
+        "email": "paultudor.1strockingham@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9930",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/b51774f3-49ab-4d3f-b103-683491aa57c4",
+        "name": "Scott Bryer",
+        "office": "state-house",
+        "districtCode": "701",
+        "contactUrl": null,
+        "email": "scott.bryer@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11392",
+        "social": {}
+      }
+    ],
+    "NH:state-house:723": [
+      {
+        "id": "ocd-person/deb760cf-91f7-415c-949a-bab0c5311d6f",
+        "name": "Jim Maggiore",
+        "office": "state-house",
+        "districtCode": "723",
+        "contactUrl": null,
+        "email": "jim.maggiore@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9224",
+        "social": {}
+      }
+    ],
+    "NH:state-house:204": [
+      {
+        "id": "ocd-person/97c57bb8-58d9-43b2-9ccb-5c926022f89f",
+        "name": "Jodi Newell",
+        "office": "state-house",
+        "districtCode": "204",
+        "contactUrl": null,
+        "email": "jodi.newell@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10750",
+        "social": {}
+      }
+    ],
+    "NH:state-house:103": [
+      {
+        "id": "ocd-person/5afc747c-0880-4f38-9ae3-28a966cd7a64",
+        "name": "Joe Hamblen",
+        "office": "state-house",
+        "districtCode": "103",
+        "contactUrl": null,
+        "email": "joseph.hamblen@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11313",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/a0936f2f-8170-47f9-8b05-6c6697a95968",
+        "name": "Karel Crawford",
+        "office": "state-house",
+        "districtCode": "103",
+        "contactUrl": null,
+        "email": "karel.crawford@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=377087",
+        "social": {}
+      }
+    ],
+    "NH:state-house:610": [
+      {
+        "id": "ocd-person/c4ba3022-267a-4ca0-8aad-2a2daa3af0db",
+        "name": "John Leavitt",
+        "office": "state-house",
+        "districtCode": "610",
+        "contactUrl": null,
+        "email": "john.leavitt@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=8381",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/b46ed135-4c70-40b9-81ab-94660b76be3e",
+        "name": "Stephen Boyd",
+        "office": "state-house",
+        "districtCode": "610",
+        "contactUrl": null,
+        "email": "stepheneboyd@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9929",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/e325954b-c90e-4b1e-aadb-3f5cc7ec1671",
+        "name": "Thomas Walsh",
+        "office": "state-house",
+        "districtCode": "610",
+        "contactUrl": null,
+        "email": "thomas.walsh@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=377187",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/3bc62111-d292-4ae2-a648-43b858308394",
+        "name": "Yury Polozov",
+        "office": "state-house",
+        "districtCode": "610",
+        "contactUrl": null,
+        "email": "yury.polozov@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10676",
+        "social": {}
+      }
+    ],
+    "NH:state-house:214": [
+      {
+        "id": "ocd-person/35c51630-9b9c-411a-9b98-0842cb6093df",
+        "name": "John Hunt",
+        "office": "state-house",
+        "districtCode": "214",
+        "contactUrl": null,
+        "email": "jbhunt@prodigy.net",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=372375",
+        "social": {}
+      }
+    ],
+    "NH:state-house:410": [
+      {
+        "id": "ocd-person/a365b40c-5682-4627-ae84-764e7da7219e",
+        "name": "John Sellers",
+        "office": "state-house",
+        "districtCode": "410",
+        "contactUrl": null,
+        "email": "john.sellers@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10620",
+        "social": {}
+      }
+    ],
+    "NH:state-house:106": [
+      {
+        "id": "ocd-person/a22a36bb-3514-4d76-a39e-791902f41d6c",
+        "name": "John MacDonald",
+        "office": "state-house",
+        "districtCode": "106",
+        "contactUrl": null,
+        "email": "john.macdonald@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9411",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/437d084e-35d3-4a37-9ccb-61d6fcc43b1c",
+        "name": "Katy Peternel",
+        "office": "state-house",
+        "districtCode": "106",
+        "contactUrl": null,
+        "email": "katy.peternel@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10579",
+        "social": {}
+      }
+    ],
+    "NH:state-house:533": [
+      {
+        "id": "ocd-person/87b1ae9f-d7ad-4fc2-b96c-a03c1926c4b1",
+        "name": "Jonah Wheeler",
+        "office": "state-house",
+        "districtCode": "533",
+        "contactUrl": null,
+        "email": "jonah.wheeler@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10813",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/86708f42-531f-4e57-a6b1-f5b11ff9389c",
+        "name": "Peter Leishman",
+        "office": "state-house",
+        "districtCode": "533",
+        "contactUrl": null,
+        "email": "prleishman@aol.com",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=376139",
+        "social": {}
+      }
+    ],
+    "NH:state-house:105": [
+      {
+        "id": "ocd-person/214b10b8-1ed6-4964-8aab-32c6609965f6",
+        "name": "Jonathan Smith",
+        "office": "state-house",
+        "districtCode": "105",
+        "contactUrl": null,
+        "email": "jonathan.smith@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9869",
+        "social": {}
+      }
+    ],
+    "NH:state-house:604": [
+      {
+        "id": "ocd-person/3d1f7d21-9a20-4245-b51f-03ca0d2b14eb",
+        "name": "Jose Cambrils",
+        "office": "state-house",
+        "districtCode": "604",
+        "contactUrl": null,
+        "email": "jose4nh@comcast.net",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9925",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/acb20216-f193-42e1-9304-2b1d3572e61d",
+        "name": "Mike Moffett",
+        "office": "state-house",
+        "districtCode": "604",
+        "contactUrl": null,
+        "email": "michael.moffett@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=7144",
+        "social": {}
+      }
+    ],
+    "NH:state-house:715": [
+      {
+        "id": "ocd-person/772f5157-b959-4aed-beaa-6bd67ab8fefe",
+        "name": "Joe Guthrie",
+        "office": "state-house",
+        "districtCode": "715",
+        "contactUrl": null,
+        "email": "joseph.guthrie@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=376127",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/554fe6ba-061a-413f-b2c7-c0e10c47ad01",
+        "name": "Lilli Walsh",
+        "office": "state-house",
+        "districtCode": "715",
+        "contactUrl": null,
+        "email": "lilli.walsh@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10692",
+        "social": {}
+      }
+    ],
+    "NH:state-house:904": [
+      {
+        "id": "ocd-person/533fb85c-c4f0-41f3-9bc6-8b1c422a9693",
+        "name": "Judy Aron",
+        "office": "state-house",
+        "districtCode": "904",
+        "contactUrl": null,
+        "email": "judy.aron@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9429",
+        "social": {}
+      }
+    ],
+    "NH:state-house:003": [
+      {
+        "id": "ocd-person/5d7f39ae-2cc4-4b36-bd76-828a24bc454d",
+        "name": "Juliet Harvey-Bolia",
+        "office": "state-house",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "juliet.harveybolia@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9865",
+        "social": {}
+      }
+    ],
+    "NH:state-house:535": [
+      {
+        "id": "ocd-person/4c8bec8a-e86d-4316-8b2e-2f8c4157cae5",
+        "name": "Kat McGhee",
+        "office": "state-house",
+        "districtCode": "535",
+        "contactUrl": null,
+        "email": "kat.mcghee@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=6966",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/6fbc7a9b-82b3-4897-86e1-61e3fb4a4f77",
+        "name": "Liz Barbour",
+        "office": "state-house",
+        "districtCode": "535",
+        "contactUrl": null,
+        "email": "liz.barbour@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10659",
+        "social": {}
+      }
+    ],
+    "NH:state-house:525": [
+      {
+        "id": "ocd-person/dca02694-20ad-476e-8b56-2ff59d3d8ba6",
+        "name": "Kathi Paquette",
+        "office": "state-house",
+        "districtCode": "525",
+        "contactUrl": null,
+        "email": "kathleen.paquette@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10648",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/4f2dee8b-bbd5-41d9-8bd4-bf2f60556ed7",
+        "name": "Kathy Staub",
+        "office": "state-house",
+        "districtCode": "525",
+        "contactUrl": null,
+        "email": "kathy.staub@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10801",
+        "social": {}
+      }
+    ],
+    "NH:state-house:528": [
+      {
+        "id": "ocd-person/0e6b2514-25d6-4e16-bcbd-5029e90df22d",
+        "name": "Keith Erf",
+        "office": "state-house",
+        "districtCode": "528",
+        "contactUrl": null,
+        "email": "keith.erf@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9416",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/f5b14d40-aa28-485b-ab61-dc07c647384a",
+        "name": "Travis Corcoran",
+        "office": "state-house",
+        "districtCode": "528",
+        "contactUrl": null,
+        "email": "tjic2020@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10666",
+        "social": {}
+      }
+    ],
+    "NH:state-house:714": [
+      {
+        "id": "ocd-person/e2f9dd7e-b221-4cf0-b7de-5daa70658669",
+        "name": "Ken Weyler",
+        "office": "state-house",
+        "districtCode": "714",
+        "contactUrl": null,
+        "email": "kweyler@aol.com",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=374470",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/8efd1438-4fbb-4e6a-ab55-73222f232022",
+        "name": "Pam Brown",
+        "office": "state-house",
+        "districtCode": "714",
+        "contactUrl": null,
+        "email": "pam.brown@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11407",
+        "social": {}
+      }
+    ],
+    "NH:state-house:707": [
+      {
+        "id": "ocd-person/efbf2adf-16f5-490e-9513-a80698aab5d8",
+        "name": "Larry Miner",
+        "office": "state-house",
+        "districtCode": "707",
+        "contactUrl": null,
+        "email": "laurence.miner@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11399",
+        "social": {}
+      }
+    ],
+    "NH:state-house:511": [
+      {
+        "id": "ocd-person/ac414b7c-45dc-48b6-9530-eaa8e80b124f",
+        "name": "Laura Telerski",
+        "office": "state-house",
+        "districtCode": "511",
+        "contactUrl": null,
+        "email": "laura.telerski@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9117",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/ce051501-985a-4008-913f-38b1b05351c6",
+        "name": "Manoj Chourasia",
+        "office": "state-house",
+        "districtCode": "511",
+        "contactUrl": null,
+        "email": "manoj.chourasia@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11194",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/4c6a4d79-307b-4e5f-9d63-ba4f60a6892c",
+        "name": "Will Darby",
+        "office": "state-house",
+        "districtCode": "511",
+        "contactUrl": null,
+        "email": "will.darby@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10785",
+        "social": {}
+      }
+    ],
+    "NH:state-house:413": [
+      {
+        "id": "ocd-person/90ca1969-94b3-4c8d-b712-e00e48a7a671",
+        "name": "Laurel Stavis",
+        "office": "state-house",
+        "districtCode": "413",
+        "contactUrl": null,
+        "email": "laurel.stavis@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9063",
+        "social": {}
+      }
+    ],
+    "NH:state-house:411": [
+      {
+        "id": "ocd-person/a70935b5-517e-4b70-accb-26e55c34fb42",
+        "name": "Lex Berezhny",
+        "office": "state-house",
+        "districtCode": "411",
+        "contactUrl": null,
+        "email": "lex.berezhny@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9887",
+        "social": {}
+      }
+    ],
+    "NH:state-house:406": [
+      {
+        "id": "ocd-person/61c86857-d1d9-401b-a045-3f4bac5b3312",
+        "name": "Linda Franz",
+        "office": "state-house",
+        "districtCode": "406",
+        "contactUrl": null,
+        "email": "linda.franz@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11328",
+        "social": {}
+      }
+    ],
+    "NH:state-house:504": [
+      {
+        "id": "ocd-person/d0a3a869-3612-4910-b31b-32a88667cb84",
+        "name": "Linda Ryan",
+        "office": "state-house",
+        "districtCode": "504",
+        "contactUrl": null,
+        "email": "linda.ryan@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10776",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/f68b34d8-19af-449e-a4cc-3d2729bb9e23",
+        "name": "Ray Newman",
+        "office": "state-house",
+        "districtCode": "504",
+        "contactUrl": null,
+        "email": "ray.newman@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9107",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/27254294-07b6-4c08-90be-466800c312bc",
+        "name": "Sue Newman",
+        "office": "state-house",
+        "districtCode": "504",
+        "contactUrl": null,
+        "email": "sue.newman@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=408537",
+        "social": {}
+      }
+    ],
+    "NH:state-house:104": [
+      {
+        "id": "ocd-person/4d68b7bf-e7fb-4c6d-ac12-526aba53e65e",
+        "name": "Lino Avellani",
+        "office": "state-house",
+        "districtCode": "104",
+        "contactUrl": null,
+        "email": "lino.avellani@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=377205",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/75ad73cd-6591-4a64-9f6b-7558bbaf3689",
+        "name": "Mike Belcher",
+        "office": "state-house",
+        "districtCode": "104",
+        "contactUrl": null,
+        "email": "mike.belcher@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10578",
+        "social": {}
+      }
+    ],
+    "NH:state-house:810": [
+      {
+        "id": "ocd-person/a35a4483-879d-4dd2-889e-57a576e56acc",
+        "name": "Loren Selig",
+        "office": "state-house",
+        "districtCode": "810",
+        "contactUrl": null,
+        "email": "loren.selig@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10896",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/86b31d04-3a4b-4199-b10e-27bd337f0a34",
+        "name": "Marjorie Smith",
+        "office": "state-house",
+        "districtCode": "810",
+        "contactUrl": null,
+        "email": "msmithpen@aol.com",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=376166",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/2a11a559-c16e-4211-82ea-215951d74c1f",
+        "name": "Timothy Horrigan",
+        "office": "state-house",
+        "districtCode": "810",
+        "contactUrl": null,
+        "email": "timothy.horrigan@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=376826",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/4c3783ee-340d-4891-abf6-c4dfa6a030e3",
+        "name": "Wayne Burton",
+        "office": "state-house",
+        "districtCode": "810",
+        "contactUrl": null,
+        "email": "wayne.burton@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=974",
+        "social": {}
+      }
+    ],
+    "NH:state-house:208": [
+      {
+        "id": "ocd-person/4854b313-26e5-49a3-8095-76298f96ced3",
+        "name": "Lucius Parshall",
+        "office": "state-house",
+        "districtCode": "208",
+        "contactUrl": null,
+        "email": "lucius.parshall@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9874",
+        "social": {}
+      }
+    ],
+    "NH:state-house:205": [
+      {
+        "id": "ocd-person/a6790cd1-6b7a-48f9-b48c-b298929578a4",
+        "name": "Lucy Weber",
+        "office": "state-house",
+        "districtCode": "205",
+        "contactUrl": null,
+        "email": "lucy.weber@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=531",
+        "social": {}
+      }
+    ],
+    "NH:state-house:305": [
+      {
+        "id": "ocd-person/20e7dbe4-40e8-4a11-bf8b-c7f7d2658725",
+        "name": "Marc Tremblay",
+        "office": "state-house",
+        "districtCode": "305",
+        "contactUrl": null,
+        "email": "marc.tremblay@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=6469",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/622ea33c-23b7-4074-9ed6-75d2086677e8",
+        "name": "Pete Morency",
+        "office": "state-house",
+        "districtCode": "305",
+        "contactUrl": null,
+        "email": "peter.morency@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=8401",
+        "social": {}
+      }
+    ],
+    "NH:state-house:405": [
+      {
+        "id": "ocd-person/f3ab13ac-5040-4533-b5f3-ce49dec5020f",
+        "name": "Marie Bjelobrk",
+        "office": "state-house",
+        "districtCode": "405",
+        "contactUrl": null,
+        "email": "marie.bjelobrk@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11326",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/1bd6c569-f2dd-4670-bf82-ef3ea4b15960",
+        "name": "Rick Ladd",
+        "office": "state-house",
+        "districtCode": "405",
+        "contactUrl": null,
+        "email": "rick.ladd@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=582",
+        "social": {}
+      }
+    ],
+    "NH:state-house:705": [
+      {
+        "id": "ocd-person/248ddc70-c3e0-4ec2-94ff-1d1de0d0e9fc",
+        "name": "Mark Vallone",
+        "office": "state-house",
+        "districtCode": "705",
+        "contactUrl": null,
+        "email": "mark.vallone@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9210",
+        "social": {}
+      }
+    ],
+    "NH:state-house:515": [
+      {
+        "id": "ocd-person/b50abef6-0b19-4d5c-97c9-f757f3b571ad",
+        "name": "Mark Proulx",
+        "office": "state-house",
+        "districtCode": "515",
+        "contactUrl": null,
+        "email": "mark.proulx@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=377007",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/b089786f-4435-4822-a7d6-3725cca787bf",
+        "name": "Mark McLean",
+        "office": "state-house",
+        "districtCode": "515",
+        "contactUrl": null,
+        "email": "mark.mclean@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=377251",
+        "social": {}
+      }
+    ],
+    "NH:state-house:703": [
+      {
+        "id": "ocd-person/c353b272-e9b3-41d1-812c-17ee08295476",
+        "name": "Mary Ford",
+        "office": "state-house",
+        "districtCode": "703",
+        "contactUrl": null,
+        "email": "mary.ford@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11394",
+        "social": {}
+      }
+    ],
+    "NH:state-house:619": [
+      {
+        "id": "ocd-person/0e6f806c-ba57-4dc6-b6b4-f2a926288ca3",
+        "name": "Mary Jane Wallner",
+        "office": "state-house",
+        "districtCode": "619",
+        "contactUrl": null,
+        "email": "mjwallner@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=368423",
+        "social": {}
+      }
+    ],
+    "NH:state-house:527": [
+      {
+        "id": "ocd-person/bdc7b519-4849-4992-b21b-f5563d642285",
+        "name": "Mary Murphy",
+        "office": "state-house",
+        "districtCode": "527",
+        "contactUrl": null,
+        "email": "mary.murphy@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11360",
+        "social": {}
+      }
+    ],
+    "NH:state-house:519": [
+      {
+        "id": "ocd-person/472f8b30-237d-44fe-8d3e-af33b833d8eb",
+        "name": "Matt Drew",
+        "office": "state-house",
+        "districtCode": "519",
+        "contactUrl": null,
+        "email": "matt.drew@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11355",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/4c5b973d-20c9-4205-a69d-bed3b74ca391",
+        "name": "Suzanne Chretien",
+        "office": "state-house",
+        "districtCode": "519",
+        "contactUrl": null,
+        "email": "suzanne.chretien@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11204",
+        "social": {}
+      }
+    ],
+    "NH:state-house:002": [
+      {
+        "id": "ocd-person/3b11dc06-256a-430c-9f75-7ebe69267e4d",
+        "name": "Matt Coker",
+        "office": "state-house",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "matthew.coker@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10733",
+        "social": {}
+      }
+    ],
+    "NH:state-house:611": [
+      {
+        "id": "ocd-person/08622297-087a-4e0e-97ad-abd8e81a89d8",
+        "name": "Matthew Pitaro",
+        "office": "state-house",
+        "districtCode": "611",
+        "contactUrl": null,
+        "email": "matthew.pitaro@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9928",
+        "social": {}
+      }
+    ],
+    "NH:state-house:624": [
+      {
+        "id": "ocd-person/3e70b6de-08a4-4ee5-a1c5-482f9394c475",
+        "name": "Matthew Hicks",
+        "office": "state-house",
+        "districtCode": "624",
+        "contactUrl": null,
+        "email": "matthew.hicks@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10844",
+        "social": {}
+      }
+    ],
+    "NH:state-house:623": [
+      {
+        "id": "ocd-person/db534ca2-9d91-4578-b093-9b3ed61695eb",
+        "name": "Merryl Gibbs",
+        "office": "state-house",
+        "districtCode": "623",
+        "contactUrl": null,
+        "email": "merryl.gibbs@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10843",
+        "social": {}
+      }
+    ],
+    "NH:state-house:005": [
+      {
+        "id": "ocd-person/c924901e-1cc8-4574-ae7c-19f3e52d2031",
+        "name": "Mike Bordes",
+        "office": "state-house",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "mike.bordes@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9861",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/d4473432-7416-4a64-9a3f-24b7ce96c446",
+        "name": "Sheri Minor",
+        "office": "state-house",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "sheri.minor@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11310",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/a82b5491-46a0-4062-aec5-362724f8f729",
+        "name": "Steve Bogert",
+        "office": "state-house",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "steven.bogert@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10573",
+        "social": {}
+      }
+    ],
+    "NH:state-house:303": [
+      {
+        "id": "ocd-person/7c8a79bb-76d5-488c-988b-084fa40b34c7",
+        "name": "Mike Ouellet",
+        "office": "state-house",
+        "districtCode": "303",
+        "contactUrl": null,
+        "email": "mike.ouellet@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10609",
+        "social": {}
+      }
+    ],
+    "NH:state-house:531": [
+      {
+        "id": "ocd-person/4825494b-dbbb-44f4-a4a7-dee1df0a87ae",
+        "name": "Molly Howard",
+        "office": "state-house",
+        "districtCode": "531",
+        "contactUrl": null,
+        "email": "molly.howard@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10810",
+        "social": {}
+      }
+    ],
+    "NH:state-house:522": [
+      {
+        "id": "ocd-person/854e522b-afa5-4359-b826-71aaa8b89f39",
+        "name": "Nicole Leapley",
+        "office": "state-house",
+        "districtCode": "522",
+        "contactUrl": null,
+        "email": "nicole.leapley@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10800",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/e657ef2c-bfc3-4a08-99fe-4456be3bfe2a",
+        "name": "Patricia Cornell",
+        "office": "state-house",
+        "districtCode": "522",
+        "contactUrl": null,
+        "email": "patricia.cornell@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=377289",
+        "social": {}
+      }
+    ],
+    "NH:state-house:814": [
+      {
+        "id": "ocd-person/16654889-3b48-44d6-a6d3-8da5d7a434f1",
+        "name": "Peter Schmidt",
+        "office": "state-house",
+        "districtCode": "814",
+        "contactUrl": null,
+        "email": "peterbarrettschmidt@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=376521",
+        "social": {}
+      }
+    ],
+    "NH:state-house:813": [
+      {
+        "id": "ocd-person/2c42e95c-0192-4910-9fc6-8a43b58c6467",
+        "name": "Peter Bixby",
+        "office": "state-house",
+        "districtCode": "813",
+        "contactUrl": null,
+        "email": "peter.bixby@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=377070",
+        "social": {}
+      }
+    ],
+    "NH:state-house:203": [
+      {
+        "id": "ocd-person/09cfaba9-f3ee-41d6-8cf7-0c93613109cd",
+        "name": "Philip Jones",
+        "office": "state-house",
+        "districtCode": "203",
+        "contactUrl": null,
+        "email": "philip.jones@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10749",
+        "social": {}
+      }
+    ],
+    "NH:state-house:514": [
+      {
+        "id": "ocd-person/c67b2f9d-8f52-4ce4-b613-781763f0bfe4",
+        "name": "Ray Peeples",
+        "office": "state-house",
+        "districtCode": "514",
+        "contactUrl": null,
+        "email": "raymond.peeples@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11350",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/c11f9fad-128e-455e-896e-2e880b6cc29e",
+        "name": "Rich Lascelles",
+        "office": "state-house",
+        "districtCode": "514",
+        "contactUrl": null,
+        "email": "richard.lascelles@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=408331",
+        "social": {}
+      }
+    ],
+    "NH:state-house:209": [
+      {
+        "id": "ocd-person/34a4f745-0a57-454d-acc0-598c6fcc35ce",
+        "name": "Rich Nalevanko",
+        "office": "state-house",
+        "districtCode": "209",
+        "contactUrl": null,
+        "email": "rich.nalevanko@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10030",
+        "social": {}
+      }
+    ],
+    "NH:state-house:213": [
+      {
+        "id": "ocd-person/47c165c7-ecd9-4b88-b9f7-2e58e8e290d4",
+        "name": "Dick Ames",
+        "office": "state-house",
+        "districtCode": "213",
+        "contactUrl": null,
+        "email": "amesinjaffrey@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=377061",
+        "social": {}
+      }
+    ],
+    "NH:state-house:601": [
+      {
+        "id": "ocd-person/3ce1bede-22ef-4c98-b958-1bca45624608",
+        "name": "Rick Devoid",
+        "office": "state-house",
+        "districtCode": "601",
+        "contactUrl": null,
+        "email": "rick.devoid@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10669",
+        "social": {}
+      }
+    ],
+    "NH:state-house:801": [
+      {
+        "id": "ocd-person/225fd1a2-5691-411a-b0ba-48c1943a139b",
+        "name": "Robley Hall",
+        "office": "state-house",
+        "districtCode": "801",
+        "contactUrl": null,
+        "email": "robley.hall@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11423",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/62edd52b-364d-4f60-a796-107ca302fdc5",
+        "name": "Sue DeLemus",
+        "office": "state-house",
+        "districtCode": "801",
+        "contactUrl": null,
+        "email": "susan.delemus@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=947",
+        "social": {}
+      }
+    ],
+    "NH:state-house:808": [
+      {
+        "id": "ocd-person/b0df7728-b702-4448-b36e-e09cdacbd16d",
+        "name": "Sam Farrington",
+        "office": "state-house",
+        "districtCode": "808",
+        "contactUrl": null,
+        "email": "samuel.farrington@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11426",
+        "social": {}
+      }
+    ],
+    "NH:state-house:509": [
+      {
+        "id": "ocd-person/db63311e-bd1c-454a-8d9f-7e89cf645a72",
+        "name": "Sanjeev Manohar",
+        "office": "state-house",
+        "districtCode": "509",
+        "contactUrl": null,
+        "email": "sanjeev.manohar@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11192",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/9f34527d-c08a-4112-8046-1ce5a61b3f0a",
+        "name": "Santosh Salvi",
+        "office": "state-house",
+        "districtCode": "509",
+        "contactUrl": null,
+        "email": "santosh.salvi@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11193",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/967b5d85-d526-49ad-941a-1401fa855998",
+        "name": "Bill Dolan",
+        "office": "state-house",
+        "districtCode": "509",
+        "contactUrl": null,
+        "email": "william.dolan@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10784",
+        "social": {}
+      }
+    ],
+    "NH:state-house:708": [
+      {
+        "id": "ocd-person/44357af0-cbba-4906-87fd-1929564931b9",
+        "name": "Sayra DeVito",
+        "office": "state-house",
+        "districtCode": "708",
+        "contactUrl": null,
+        "email": "sayra.devito@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11401",
+        "social": {}
+      }
+    ],
+    "NH:state-house:304": [
+      {
+        "id": "ocd-person/15d93e43-ec08-4958-8f3b-1d56d95eb574",
+        "name": "Seth King",
+        "office": "state-house",
+        "districtCode": "304",
+        "contactUrl": null,
+        "email": "seth.king@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10610",
+        "social": {}
+      }
+    ],
+    "NH:state-house:903": [
+      {
+        "id": "ocd-person/31d4d765-be08-4393-8e9a-21444cf8b411",
+        "name": "Skip Rollins",
+        "office": "state-house",
+        "districtCode": "903",
+        "contactUrl": null,
+        "email": "skip.rollins@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=377163",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/129a2970-07b9-4136-aae1-15c689edca40",
+        "name": "Steven Smith",
+        "office": "state-house",
+        "districtCode": "903",
+        "contactUrl": null,
+        "email": "steven.smith@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=377031",
+        "social": {}
+      },
+      {
+        "id": "ocd-person/236f5df6-87b6-488d-86cd-a1ed3a5adb81",
+        "name": "Terry Spilsbury",
+        "office": "state-house",
+        "districtCode": "903",
+        "contactUrl": null,
+        "email": "walter.spilsbury@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9950",
+        "social": {}
+      }
+    ],
+    "NH:state-house:803": [
+      {
+        "id": "ocd-person/09972c73-4e4f-471a-9888-558053aace85",
+        "name": "Susan DeRoy",
+        "office": "state-house",
+        "districtCode": "803",
+        "contactUrl": null,
+        "email": "susan.deroy@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11424",
+        "social": {}
+      }
+    ],
+    "NH:state-house:719": [
+      {
+        "id": "ocd-person/64a835c6-0e89-411f-bc32-331e246b10f0",
+        "name": "Susan Porcelli",
+        "office": "state-house",
+        "districtCode": "719",
+        "contactUrl": null,
+        "email": "susan.porcelli@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10700",
+        "social": {}
+      }
+    ],
+    "NH:state-house:207": [
+      {
+        "id": "ocd-person/81cb2080-0fec-4a30-8212-71fa0679e2f3",
+        "name": "Terri O'Rorke",
+        "office": "state-house",
+        "districtCode": "207",
+        "contactUrl": null,
+        "email": "terri.ororke@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11167",
+        "social": {}
+      }
+    ],
+    "NH:state-house:606": [
+      {
+        "id": "ocd-person/29eeecd3-79b7-489c-b1a5-ace913e619f2",
+        "name": "Tom Schamberg",
+        "office": "state-house",
+        "districtCode": "606",
+        "contactUrl": null,
+        "email": "tom.schamberg@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=771",
+        "social": {}
+      }
+    ],
+    "NH:state-house:415": [
+      {
+        "id": "ocd-person/25d71e57-9def-4149-8257-2bfb3c5e5415",
+        "name": "Tom Cormen",
+        "office": "state-house",
+        "districtCode": "415",
+        "contactUrl": null,
+        "email": "thomas.cormen@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10769",
+        "social": {}
+      }
+    ],
+    "NH:state-house:805": [
+      {
+        "id": "ocd-person/21a4a059-a8f3-4ec9-ac42-84983f16fb8d",
+        "name": "Thomas Kaczynski",
+        "office": "state-house",
+        "districtCode": "805",
+        "contactUrl": null,
+        "email": "thomas.kaczynski@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=915",
+        "social": {}
+      }
+    ],
+    "NH:state-house:621": [
+      {
+        "id": "ocd-person/edcefea3-7cd4-4128-92ef-b22bc4a7c0b4",
+        "name": "Timothy Soucy",
+        "office": "state-house",
+        "districtCode": "621",
+        "contactUrl": null,
+        "email": "timothy.soucy@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?member=376869",
+        "social": {}
+      }
+    ],
+    "NH:state-house:001": [
+      {
+        "id": "ocd-person/8f685697-5fb0-4966-8cd0-ad3059650f8d",
+        "name": "Tom Ploszaj",
+        "office": "state-house",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "tom.ploszaj@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=9860",
+        "social": {}
+      }
+    ],
+    "NH:state-house:615": [
+      {
+        "id": "ocd-person/31497c82-3d45-49e4-9232-1c435a5c72e3",
+        "name": "Tracy Bricchi",
+        "office": "state-house",
+        "districtCode": "615",
+        "contactUrl": null,
+        "email": "tracy.bricchi@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11235",
+        "social": {}
+      }
+    ],
+    "NH:state-house:004": [
+      {
+        "id": "ocd-person/9b0c88d1-3fd7-465a-b24e-3675d18a2dde",
+        "name": "Travis Toner",
+        "office": "state-house",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "travis.toner@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=11309",
+        "social": {}
+      }
+    ],
+    "NH:state-house:902": [
+      {
+        "id": "ocd-person/0e14232e-aea6-4da6-9380-c59375f58e7c",
+        "name": "Bill Palmer",
+        "office": "state-house",
+        "districtCode": "902",
+        "contactUrl": null,
+        "email": "william.palmer@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/house/members/member.aspx?pid=10906",
+        "social": {}
+      }
+    ],
+    "NH:state-senate:023": [
+      {
+        "id": "ocd-person/d3c437bd-532d-458b-961f-4f6dccec1e4b",
+        "name": "Bill Gannon",
+        "office": "state-senate",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "william.gannon@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/Senate/members/webpages/district23.aspx",
+        "social": {}
+      }
+    ],
+    "NH:state-senate:013": [
+      {
+        "id": "ocd-person/f3e949ce-6d98-4826-bbca-08039cea4ea4",
+        "name": "Cindy Rosenwald",
+        "office": "state-senate",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "cindy.rosenwald@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/senate/members/webpages/district13.aspx",
+        "social": {}
+      }
+    ],
+    "NH:state-senate:007": [
+      {
+        "id": "ocd-person/6328e7f7-d952-4d28-98b8-75a9a6f50c8d",
+        "name": "Dan Innis",
+        "office": "state-senate",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "daniel.innis@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/senate/members/webpages/district07.aspx",
+        "social": {}
+      }
+    ],
+    "NH:state-senate:022": [
+      {
+        "id": "ocd-person/6dfd683a-1f79-49db-95a9-07f4f9898a22",
+        "name": "Daryl Abbas",
+        "office": "state-senate",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "daryl.abbas@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/senate/members/webpages/district22.aspx",
+        "social": {}
+      }
+    ],
+    "NH:state-senate:004": [
+      {
+        "id": "ocd-person/cf24defe-6df3-49f3-88ca-c6774b144f19",
+        "name": "David Watters",
+        "office": "state-senate",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "david.watters@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/Senate/members/webpages/district04.aspx",
+        "social": {}
+      }
+    ],
+    "NH:state-senate:001": [
+      {
+        "id": "ocd-person/e849b9fb-0e1d-4ed5-b684-2a6b3520be6a",
+        "name": "David Rochefort",
+        "office": "state-senate",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "david.rochefort@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/senate/members/webpages/district01.aspx",
+        "social": {}
+      }
+    ],
+    "NH:state-senate:024": [
+      {
+        "id": "ocd-person/925608b2-8d23-4186-85f6-4c50f334374d",
+        "name": "Debra Altschiller",
+        "office": "state-senate",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "debra.altschiller@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/senate/members/webpages/district24.aspx",
+        "social": {}
+      }
+    ],
+    "NH:state-senate:009": [
+      {
+        "id": "ocd-person/8dc59c94-caba-41b2-a6ba-6bca0f595118",
+        "name": "Denise Ricciardi",
+        "office": "state-senate",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "denise.ricciardi@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/Senate/members/webpages/district09.aspx",
+        "social": {}
+      }
+    ],
+    "NH:state-senate:010": [
+      {
+        "id": "ocd-person/8e013e93-3dd2-4530-a42f-d9ba62ea5f04",
+        "name": "Donovan Fenton",
+        "office": "state-senate",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "donovan.fenton@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/senate/members/webpages/district10.aspx",
+        "social": {}
+      }
+    ],
+    "NH:state-senate:017": [
+      {
+        "id": "ocd-person/c4122c6a-ed23-492e-b813-59a0fed1ec86",
+        "name": "Howard Pearl",
+        "office": "state-senate",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "howard.pearl@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/senate/members/webpages/district17.aspx",
+        "social": {}
+      }
+    ],
+    "NH:state-senate:006": [
+      {
+        "id": "ocd-person/e6443187-eb51-42eb-8bd7-349ed0ba9641",
+        "name": "James Gray",
+        "office": "state-senate",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "james.gray@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/Senate/members/webpages/district06.aspx",
+        "social": {}
+      }
+    ],
+    "NH:state-senate:016": [
+      {
+        "id": "ocd-person/7ec573c3-d961-4d08-a71c-d239490b5c1a",
+        "name": "Keith Murphy",
+        "office": "state-senate",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "keith.murphy@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/senate/members/webpages/district16.aspx",
+        "social": {}
+      }
+    ],
+    "NH:state-senate:012": [
+      {
+        "id": "ocd-person/b99b0bbb-4710-43c7-a6b5-0e04524eedf0",
+        "name": "Kevin Avard",
+        "office": "state-senate",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "kevin.avard@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/Senate/members/webpages/district12.aspx",
+        "social": {}
+      }
+    ],
+    "NH:state-senate:003": [
+      {
+        "id": "ocd-person/c344ed7a-6fea-4f17-9c48-4e27d67bebc8",
+        "name": "Mark McConkey",
+        "office": "state-senate",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "mark.mcconkey@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/senate/members/webpages/district03.aspx",
+        "social": {}
+      }
+    ],
+    "NH:state-senate:020": [
+      {
+        "id": "ocd-person/14d0ff58-3340-4344-bb79-c6acd5f8ba6c",
+        "name": "Pat Long",
+        "office": "state-senate",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "pat.long@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/senate/members/webpages/district20.aspx",
+        "social": {}
+      }
+    ],
+    "NH:state-senate:021": [
+      {
+        "id": "ocd-person/c20b7693-7f2c-4646-af7f-d57518edd1a4",
+        "name": "Rebecca Perkins Kwoka",
+        "office": "state-senate",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "rebecca.perkinskwoka@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/Senate/members/webpages/district21.aspx",
+        "social": {}
+      }
+    ],
+    "NH:state-senate:019": [
+      {
+        "id": "ocd-person/461c9024-c8c3-44a5-91d6-015a6587db5f",
+        "name": "Regina Birdsell",
+        "office": "state-senate",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "regina.birdsell@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/senate/members/webpages/district19.aspx",
+        "social": {}
+      }
+    ],
+    "NH:state-senate:008": [
+      {
+        "id": "ocd-person/9089a509-1f26-4770-adc6-199ed716e692",
+        "name": "Ruth Ward",
+        "office": "state-senate",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "ruth.ward@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/Senate/members/webpages/district08.aspx",
+        "social": {}
+      }
+    ],
+    "NH:state-senate:014": [
+      {
+        "id": "ocd-person/00964fc0-dd57-44c3-87bf-b6d5bbc34560",
+        "name": "Sharon Carson",
+        "office": "state-senate",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "sharon.carson@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/Senate/members/webpages/district14.aspx",
+        "social": {}
+      }
+    ],
+    "NH:state-senate:005": [
+      {
+        "id": "ocd-person/de206392-deba-4ecf-96a3-33494c415417",
+        "name": "Sue Prentiss",
+        "office": "state-senate",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "suzanne.prentiss@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/Senate/members/webpages/district05.aspx",
+        "social": {}
+      }
+    ],
+    "NH:state-senate:015": [
+      {
+        "id": "ocd-person/db4dc6cd-8c68-487f-a1e3-dd80995ba786",
+        "name": "Tara Reardon",
+        "office": "state-senate",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "tara.reardon@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/senate/members/webpages/district15.aspx",
+        "social": {}
+      }
+    ],
+    "NH:state-senate:011": [
+      {
+        "id": "ocd-person/18d80f49-9f78-441e-bf28-1ed0929b5fd3",
+        "name": "Tim McGough",
+        "office": "state-senate",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "tim.mcgough@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/senate/members/webpages/district11.aspx",
+        "social": {}
+      }
+    ],
+    "NH:state-senate:002": [
+      {
+        "id": "ocd-person/5330ad05-ce69-47c0-9093-6286233c7a7d",
+        "name": "Tim Lang",
+        "office": "state-senate",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "timothy.lang@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/senate/members/webpages/district02.aspx",
+        "social": {}
+      }
+    ],
+    "NH:state-senate:018": [
+      {
+        "id": "ocd-person/dbf39ca6-e569-4078-b150-f63c51784d80",
+        "name": "Victoria Sullivan",
+        "office": "state-senate",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "victoria.sullivan@gc.nh.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://gc.nh.gov/senate/members/webpages/district18.aspx",
+        "social": {}
+      }
+    ]
+  }
+}

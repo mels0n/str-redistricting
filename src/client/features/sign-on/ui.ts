@@ -11,6 +11,7 @@ export const SIGN_ERROR_COPY: Readonly<Record<string, string>> = {
   'rate-limit': 'Too many tries from here. Try again in an hour.',
   'bot-check': 'The check didn’t go through. Try again.',
 };
+export const WAIT_COPY = 'Waiting for the check to finish. Try again in a moment.';
 export const SIGN_FALLBACK_COPY = 'Couldn’t sign you up just now. Try again in a minute.';
 
 export interface SignOnValues {
@@ -82,21 +83,20 @@ export function createSignOnForm(input: { address: string }): SignOnForm {
   const updates = check('consentUpdates', 'Email me updates about Fair Maps');
 
   const widget = h('div', { class: 'strv-sign__widget' });
-  const error = h('p', { class: 'strv-sign__error', role: 'alert', hidden: true });
+  const error = h('p', { class: 'strv-sign__error', role: 'alert' });
   const submit = h('button', { type: 'submit', class: 'strv-button strv-button--ink' }, 'Sign');
   const root = h('div', { class: 'strv-sign' });
 
   const fail = (message: string): void => {
     error.textContent = message;
-    error.hidden = false;
   };
 
   const onSubmit = (ev: Event): void => {
     ev.preventDefault();
     if (submit.disabled) return;
-    error.hidden = true;
+    error.textContent = '';
     if (token === '') {
-      fail(SIGN_ERROR_COPY['bot-check']!);
+      fail(WAIT_COPY);
       return;
     }
     const body = signPayload({
@@ -115,7 +115,9 @@ export function createSignOnForm(input: { address: string }): SignOnForm {
       if (dead) return;
       if (out.ok) {
         clear(root);
-        root.append(h('p', { class: 'strv-sign__done', role: 'status' }, out.queued ? QUEUED_COPY : SENT_COPY));
+        const done = h('p', { class: 'strv-sign__done', role: 'status', tabindex: -1 }, out.queued ? QUEUED_COPY : SENT_COPY);
+        root.append(done);
+        done.focus();
         handle?.remove();
         handle = null;
         return;
@@ -161,6 +163,9 @@ export function createSignOnForm(input: { address: string }): SignOnForm {
     },
     () => fail(SIGN_FALLBACK_COPY),
   );
+
+  // The form is only created when the visitor opens it, so the first field takes focus once it is in the page.
+  queueMicrotask(() => address.focus());
 
   return {
     el: root,

@@ -5,9 +5,9 @@ interface Section {
   body: (HTMLElement | string)[];
 }
 
-const SERVICES = ['Supabase (database)', 'Vercel (hosting)', 'Cloudflare Turnstile (bot check)', 'Resend (sending email)', 'the U.S. Census Bureau geocoder (finding your district)'];
+const SERVICES = ['Supabase (database)', 'Vercel (hosting)', 'Cloudflare Turnstile (bot check, which sees your IP address as you sign)', 'Resend (delivers our emails to you)', 'the U.S. Census Bureau geocoder (receives your address to find your district)'];
 
-/** What the sign-on collects, keeps and shows. Every line here describes what the code does today. */
+/** What the sign-on collects, keeps and shows. It describes the full feature set (notes and self-serve removal included), so it must ship together with them. */
 const SECTIONS = (): Section[] => [
   {
     heading: 'What we collect',
@@ -22,12 +22,12 @@ const SECTIONS = (): Section[] => [
         h('li', null, 'A note, if you write one.'),
         h('li', null, 'A hash of your IP address, kept for 24 hours to limit how often one place can sign.'),
       ),
-      'Sign-ups that are never confirmed are deleted automatically after a few weeks.',
+      'Sign-ups that are never confirmed are deleted automatically within about two weeks of your last attempt (a little longer if your confirmation email was delayed).',
     ],
   },
   {
     heading: 'What we never keep',
-    body: ['Your address. We use it once to find your district, and it is not stored or logged.'],
+    body: ['Your address. We send it to the U.S. Census Bureau geocoder once to find your district, and it is not stored or logged by us.'],
   },
   {
     heading: 'What is public',
@@ -47,7 +47,7 @@ const SECTIONS = (): Section[] => [
   },
   {
     heading: 'Who sees your email',
-    body: ['Only us, to send the updates you asked for.'],
+    body: ['Only us and Resend, the service that delivers our emails, and only to send the confirmation and the updates you asked for.'],
   },
   {
     heading: 'How to be removed',

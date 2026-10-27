@@ -5285,10 +5285,6 @@ var {
   font-weight: 700;
 }
 
-.strv-sign__error[hidden] {
-  display: none;
-}
-
 .strv-sign__done {
   margin: 0;
   line-height: 1.45;

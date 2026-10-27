@@ -22,7 +22,7 @@ vi.mock('../../src/client/features/sign-on/turnstile', () => ({
 }));
 
 import { config } from '../../src/client/shared';
-import { createSignOnForm, signPayload, SIGN_ERROR_COPY, SIGN_FALLBACK_COPY, SENT_COPY, QUEUED_COPY } from '../../src/client/features/sign-on';
+import { createSignOnForm, signPayload, SIGN_ERROR_COPY, SIGN_FALLBACK_COPY, SENT_COPY, QUEUED_COPY, WAIT_COPY } from '../../src/client/features/sign-on';
 import { createPrivacyPage } from '../../src/client/pages/privacy';
 import { createSiteFooter } from '../../src/client/widgets/site-footer';
 
@@ -98,6 +98,24 @@ describe('sign-on form', () => {
     expect(f.el.textContent).not.toContain('2014');
   });
 
+  it('keeps a live region for errors, focuses the first field on open and the message on success', async () => {
+    fetchMock.mockResolvedValue(Response.json({ status: 'check-email', queued: false }, { status: 202 }));
+    const f = createSignOnForm({ address: '' });
+    document.body.append(f.el);
+    await settle();
+    const err = q<HTMLElement>(f.el, '.strv-sign__error');
+    expect(err.getAttribute('role')).toBe('alert');
+    expect(err.hidden).toBe(false);
+    expect(err.textContent).toBe('');
+    expect(document.activeElement).toBe(byName(f.el, 'address'));
+    fill(f.el);
+    widgets[0]!.token('t');
+    await submit(f.el);
+    const done = q<HTMLElement>(f.el, '.strv-sign__done');
+    expect(done.getAttribute('tabindex')).toBe('-1');
+    expect(document.activeElement).toBe(done);
+  });
+
   it('posts exactly the server schema shape to /api/sign', async () => {
     fetchMock.mockResolvedValue(Response.json({ status: 'check-email', queued: false }, { status: 202 }));
     const f = createSignOnForm({ address: '' });
@@ -163,7 +181,6 @@ describe('sign-on form', () => {
     widgets[0]!.token('t');
     await submit(f.el);
     const err = q<HTMLElement>(f.el, '.strv-sign__error');
-    expect(err.hidden).toBe(false);
     expect(err.textContent).toBe(message);
     expect(byName(f.el, 'email').value).toBe('maria@example.org');
     expect(byName(f.el, 'displayName').value).toBe('Maria G.');
@@ -181,7 +198,8 @@ describe('sign-on form', () => {
     fill(f.el);
     await submit(f.el);
     expect(fetchMock).not.toHaveBeenCalled();
-    expect(q(f.el, '.strv-sign__error').textContent).toBe(SIGN_ERROR_COPY['bot-check']);
+    expect(q(f.el, '.strv-sign__error').textContent).toBe(WAIT_COPY);
+    expect(WAIT_COPY).toBe('Waiting for the check to finish. Try again in a moment.');
     fetchMock.mockRejectedValue(new TypeError('offline'));
     widgets[0]!.token('t');
     await submit(f.el);
@@ -219,6 +237,9 @@ describe('privacy page and footer', () => {
     expect(page.el.querySelector('a[href="/remove"]')).not.toBeNull();
     expect(page.el.textContent).toContain('Supabase');
     expect(page.el.textContent).toContain('Cloudflare Turnstile');
+    expect(page.el.textContent).toContain('Resend');
+    expect(page.el.textContent).toContain('within about two weeks');
+    expect(page.el.textContent).toContain('U.S. Census Bureau geocoder');
     expect(page.el.textContent).not.toContain('2014');
     expect(page.el.textContent!.toLowerCase()).not.toMatch(/draft|voter/);
   });

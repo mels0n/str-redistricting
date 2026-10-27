@@ -100,30 +100,48 @@ const stamped = <T extends object>(entry: T, maps: number | undefined): T & { ma
 
 const presentFiles = (dir: string): string[] => DATA_FILES.filter((f) => existsSync(join(dir, f.file))).map((f) => f.file);
 
-/** Write `<distDir>/<ST>/index.html` for every state with published data, and `<ST>/house/` and `<ST>/senate/` for each state chamber that has data; returns the paths written. */
-export function writeSharePages(publicDir: string, distDir: string): string[] {
+/** One share page to write: its path under the site root (`CO`, `CO/house`), its entry, and the folder its published data sits in. */
+interface SharePage {
+  readonly path: string;
+  readonly entry: ShareEntry;
+  readonly dataDir: string;
+}
+
+/** Every share page the published index calls for: each state with data, and each of its state chambers with data and seats. */
+function sharePageList(publicDir: string): SharePage[] {
   const indexPath = join(publicDir, 'data', 'index.json');
   if (!existsSync(indexPath)) return [];
   const parsed = IndexSchema.safeParse(JSON.parse(readFileSync(indexPath, 'utf8')));
   if (!parsed.success) throw new Error(`${indexPath} is not a valid index`);
-  const shell = readFileSync(join(distDir, 'index.html'), 'utf8');
-  const written: string[] = [];
+  const pages: SharePage[] = [];
   for (const s of parsed.data.states) {
     if (!s.hasData) continue;
-    const dir = join(distDir, s.abbr);
-    mkdirSync(dir, { recursive: true });
-    writeFileSync(join(dir, 'index.html'), sharePageHtml(stamped(s, s.summary?.versions?.maps), SITE, shell, existsSync(join(publicDir, 'data', s.abbr, 'og.png')), presentFiles(join(publicDir, 'data', s.abbr))));
-    written.push(s.abbr);
+    pages.push({ path: s.abbr, entry: stamped(s, s.summary?.versions?.maps), dataDir: join(publicDir, 'data', s.abbr) });
     for (const c of CHAMBERS) {
       const own = s.chambers?.[c.key];
       if (own === undefined || !own.hasData || own.seats === 0) continue;
-      const chamberDir = join(dir, c.segment);
-      mkdirSync(chamberDir, { recursive: true });
-      writeFileSync(join(chamberDir, 'index.html'), sharePageHtml(stamped({ ...s, seats: own.seats, chamber: c.key }, own.summary?.versions?.maps), SITE, shell, existsSync(join(publicDir, 'data', s.abbr, c.key, 'og.png')), presentFiles(join(publicDir, 'data', s.abbr, c.key))));
-      written.push(`${s.abbr}/${c.segment}`);
+      pages.push({ path: `${s.abbr}/${c.segment}`, entry: stamped({ ...s, seats: own.seats, chamber: c.key }, own.summary?.versions?.maps), dataDir: join(publicDir, 'data', s.abbr, c.key) });
     }
   }
-  return written;
+  return pages;
+}
+
+/** The site paths of every share page, in the order they are written; the sitemap lists these after the fixed pages. */
+export function sharePagePaths(publicDir: string): string[] {
+  return sharePageList(publicDir).map((p) => p.path);
+}
+
+/** Write `<distDir>/<ST>/index.html` for every state with published data, and `<ST>/house/` and `<ST>/senate/` for each state chamber that has data; returns the paths written. */
+export function writeSharePages(publicDir: string, distDir: string): string[] {
+  const pages = sharePageList(publicDir);
+  if (pages.length === 0) return [];
+  const shell = readFileSync(join(distDir, 'index.html'), 'utf8');
+  for (const p of pages) {
+    const dir = join(distDir, ...p.path.split('/'));
+    mkdirSync(dir, { recursive: true });
+    writeFileSync(join(dir, 'index.html'), sharePageHtml(p.entry, SITE, shell, existsSync(join(p.dataDir, 'og.png')), presentFiles(p.dataDir)));
+  }
+  return pages.map((p) => p.path);
 }
 
 /** After the build, one share page per published state, so a link to /CO previews with that state's map. */

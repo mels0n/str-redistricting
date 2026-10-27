@@ -22,11 +22,18 @@ describe('structured data builders', () => {
 
 describe('site files', () => {
   it('lists the four pages in the sitemap with no lastmod', () => {
-    const xml = sitemapXml('https://x.test');
+    const xml = sitemapXml('https://x.test', []);
     expect(xml.match(/<loc>/g)).toHaveLength(4);
     expect(xml).toContain('<loc>https://x.test/</loc>');
     expect(xml).toContain('<loc>https://x.test/faq</loc>');
     expect(xml).not.toContain('lastmod');
+  });
+
+  it('lists each share page after the fixed pages', () => {
+    const xml = sitemapXml('https://x.test', ['CO', 'CO/house', 'CO/senate']);
+    const locs = [...xml.matchAll(/<loc>([^<]*)<\/loc>/g)].map((m) => m[1]);
+    expect(locs).toHaveLength(7);
+    expect(locs.slice(4)).toEqual(['https://x.test/CO', 'https://x.test/CO/house', 'https://x.test/CO/senate']);
   });
 
   it('ends robots.txt with the sitemap line and keeps em dashes out', () => {

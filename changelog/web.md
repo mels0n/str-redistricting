@@ -1,5 +1,9 @@
 # Web changelog
 
+## 1.6.1 (2026-10-27)
+
+- The sitemap now lists every state map page and each State House and State Senate page, not only the home, How it works, FAQ and changelog pages.
+
 ## 1.6.0 (2026-10-27)
 
 - The FAQ answers what fair means here, set beside equal, proportional and equitable, and its terms add Fair and Proportional.

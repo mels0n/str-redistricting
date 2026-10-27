@@ -2,25 +2,12 @@
 
 ## 1.8.0 (2026-10-27)
 
-- feat(web): add Vercel Web Analytics script
-- fix: note upsert keyed on signer, add missing slurs, keep the backend out of the engine version
-- feat: signer notes with rule-based screening, district voices and a rep digest
-- fix: answer removal requests before the email work, cool down per signer, cap removal emails
-- feat: self-serve removal of a signature
-- fix(web): accurate privacy copy and sign-on form focus and live error region
-- feat(web): sign-on form, privacy page and Turnstile in the CSP
-- fix(api): keep re-signed pending signers from cleanup, release slots on read errors, skip vanished rows
-- feat: signer and ask counts per district
-- fix(api): hide membership in sign-up answers, clean up stale rows, drop failed payloads
-- feat(api): email outbox with a daily cap and a daily drain
-- feat(api): sign on with email confirmation, bot check and rate limits
-- fix(api): spec seal format, harden migration schema and runner, https-only config
-- feat(api): backend foundation with Supabase, typed errors and request ids
-- feat(web): pledges list, badge and pledge status for representatives
-- fix(web): print one ask letter, keep one composer open, harden contact links
-- feat(web): show today's representatives and an ask letter for a found address
-- feat(web): find today's districts and representatives for an address
-- feat(web): pin and publish representative contact data
+- A new Take action page, linked from the header, shows who represents you today: your state senator and state representative, your U.S. House member and both U.S. senators. Enter a street address and the site finds your districts in your browser. Each representative has a ready-made letter asking them to support the Fair Maps rule, with their email, contact form, website and phone number where we have them. One button opens a single email to every representative who lists an address, and another copies all of the addresses.
+- You can sign on with just an email and your state. Adding a street address is optional and counts you in your district. The address is used only to find the district and is never kept. A confirmation email makes the signature count, and you can remove your signature at any time from the Remove page, linked from the privacy page and from every email.
+- A "Why I signed" note is optional. Every note is read by hand before it can appear. A note shows publicly only after it is approved and only if you chose to show your name and town. Notes with links, contact details, street addresses or blocked words are not added, and your signature still counts.
+- A Pledges page lists officeholders who have publicly said they support the rule, each with a link to their own statement, and a badge anyone can add to their site. Candidates stay hidden for now. Party is never shown.
+- Counts of people who signed stay hidden until the national total reaches 1,000.
+- The privacy page now explains what sign-on keeps, what is encrypted, what is public and how long things are kept. The footer is tidier.
 
 ## 1.7.0 (2026-10-27)
 

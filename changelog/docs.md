@@ -2,8 +2,7 @@
 
 ## 1.2.0 (2026-10-27)
 
-- docs: describe representative data, the backend, pledges and note rules
-- feat(web): sign-on form, privacy page and Turnstile in the CSP
+- Described how representative data is pinned, published and refreshed each week, how the sign-on backend and its automatic migrations work, how to add a pledge, and what the note rules block.
 
 ## 1.1.0 (2026-10-27)
 

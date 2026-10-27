@@ -26,6 +26,7 @@ describe('dev API stand-in', () => {
     expect((devReply('POST', '/api/sign', none, { email: 'a@b.co', note: 'see my link' })!.body as { noteDropped: string }).noteDropped).toBe('a link');
     expect(devReply('POST', '/api/remove-request', none, {})!.status).toBe(202);
     expect(devReply('POST', '/api/remove', none, {})!.status).toBe(200);
+    expect(devReply('POST', '/api/confirm', none, {})!.status).toBe(200);
     expect(devReply('GET', '/api/unknown', none, {})).toBeNull();
   });
 

@@ -118,6 +118,7 @@ function stubFetch(opts: { turnstile?: boolean; geocode?: unknown } = {}): { fet
 
 const STREET = '1600 Secret Lane';
 const BODY = { address: `${STREET}, Denver CO`, email: 'ada@example.com', turnstileToken: 'tok', consentUpdates: true, showPublic: true, displayName: 'Ada L', ref: null, note: null };
+const confirmReq = (token: string) => new Request('https://site.test/api/confirm', { method: 'POST', body: JSON.stringify({ token }) });
 const post = (body: unknown) => new Request('https://site.test/api/sign', { method: 'POST', body: JSON.stringify(body), headers: { 'x-forwarded-for': '9.9.9.9' } });
 
 interface Sent { kind: string; signerId: string; to: string; token: string }
@@ -175,7 +176,7 @@ describe('POST /api/sign', () => {
   it('does nothing for an email that is already confirmed', async () => {
     const { handler, repo, sent } = setup();
     await handler(post(BODY));
-    await confirmHandler({ loadConfig: () => CONFIG, repo: () => repo, now: () => NOW })(new Request(`https://site.test/api/confirm?token=${sent[0]!.token}`));
+    await confirmHandler({ loadConfig: () => CONFIG, repo: () => repo, now: () => NOW })(confirmReq(sent[0]!.token));
     sent.length = 0;
     const res = await handler(post(BODY));
     expect(res.status).toBe(202);
@@ -278,7 +279,7 @@ describe('sign-up hardening', () => {
       wouldQueueNow = waiting;
       const fresh = await (await s.handler(post({ ...BODY, email: 'new@example.com' }))).text();
       await s.handler(post(BODY));
-      await confirmHandler({ loadConfig: () => CONFIG, repo: () => s.repo, now: () => NOW })(new Request(`https://site.test/api/confirm?token=${tokens.at(-1)}`));
+      await confirmHandler({ loadConfig: () => CONFIG, repo: () => s.repo, now: () => NOW })(confirmReq(tokens.at(-1)!));
       const again = await s.handler(post(BODY));
       expect(await again.text()).toBe(fresh);
       expect(again.status).toBe(202);
@@ -365,56 +366,64 @@ describe('sign-up hardening', () => {
   });
 });
 
-describe('GET /api/confirm', () => {
+describe('POST /api/confirm', () => {
   async function signed() {
     const s = setup();
     await s.handler(post(BODY));
     const confirm = confirmHandler({ loadConfig: () => CONFIG, repo: () => s.repo, now: () => NOW });
-    const url = (t: string) => new Request(`https://site.test/api/confirm?token=${t}`);
-    return { ...s, confirm, url, token: s.sent[0]!.token };
+    return { ...s, confirm, token: s.sent[0]!.token };
   }
 
-  it('confirms and redirects, and a second click does the same without counting twice', async () => {
-    const { confirm, url, token, repo } = await signed();
+  it('confirms and answers the state as JSON, and a second call does the same without counting twice', async () => {
+    const { confirm, token, repo } = await signed();
     for (let i = 0; i < 2; i++) {
-      const res = await confirm(url(token));
-      expect(res.status).toBe(303);
-      expect(res.headers.get('location')).toBe('/CO?signed=1');
+      const res = await confirm(confirmReq(token));
+      expect(res.status).toBe(200);
+      expect(await res.json()).toEqual({ status: 'confirmed', state: 'CO' });
     }
     expect(repo.rows.filter((r) => r.status === 'confirmed')).toHaveLength(1);
     expect(repo.rows[0]!.confirmedAt).toBe(NOW.toISOString());
     expect(repo.rows[0]!.tokenHash).toBeTruthy();
   });
 
-  it('redirects an expired pending token to the home page and leaves the row pending', async () => {
-    const { confirm, url, token, repo } = await signed();
-    repo.rows[0]!.tokenExpiresAt = new Date(NOW.getTime() - 1000).toISOString();
-    const res = await confirm(url(token));
-    expect(res.status).toBe(303);
-    expect(res.headers.get('location')).toBe('/?signed=expired');
+  it('answers 405 to GET and changes nothing, so a link scanner cannot confirm anyone', async () => {
+    const { confirm, token, repo } = await signed();
+    for (const method of ['GET', 'HEAD', 'PUT']) {
+      const res = await confirm(new Request(`https://site.test/api/confirm?token=${token}`, { method }));
+      expect(res.status).toBe(405);
+      expect(res.headers.get('allow')).toBe('POST');
+    }
     expect(repo.rows[0]!.status).toBe('pending');
   });
 
-  it('redirects an unknown or malformed token to the home page notice instead of answering JSON', async () => {
-    const { confirm, url } = await signed();
-    for (const req of [url('0'.repeat(64)), url('zz'), new Request('https://site.test/api/confirm')]) {
+  it('answers 410 for an expired pending token and leaves the row pending', async () => {
+    const { confirm, token, repo } = await signed();
+    repo.rows[0]!.tokenExpiresAt = new Date(NOW.getTime() - 1000).toISOString();
+    const res = await confirm(confirmReq(token));
+    expect(res.status).toBe(410);
+    expect(await res.json()).toEqual({ error: 'token-expired' });
+    expect(repo.rows[0]!.status).toBe('pending');
+  });
+
+  it('answers 400 for an unknown or malformed token or a body without one', async () => {
+    const { confirm } = await signed();
+    for (const req of [confirmReq('0'.repeat(64)), confirmReq('zz'), new Request('https://site.test/api/confirm', { method: 'POST', body: 'nope' }), new Request('https://site.test/api/confirm', { method: 'POST', body: '{}' })]) {
       const res = await confirm(req);
-      expect(res.status).toBe(303);
-      expect(res.headers.get('location')).toBe('/?signed=invalid');
+      expect(res.status).toBe(400);
+      expect(await res.json()).toEqual({ error: 'token-invalid' });
     }
   });
 
-  it('redirects to the same notice when the database is down', async () => {
-    const { confirm, url, token, repo } = await signed();
+  it('answers 503 when the database is down', async () => {
+    vi.spyOn(console, 'error').mockImplementation(() => {});
+    const { confirm, token, repo } = await signed();
     repo.findByTokenHash = async () => { throw new Error('db down'); };
-    const res = await confirm(url(token));
-    expect(res.status).toBe(303);
-    expect(res.headers.get('location')).toBe('/?signed=invalid');
+    expect((await confirm(confirmReq(token))).status).toBe(503);
   });
 
   it('answers 503 and touches nothing outside production', async () => {
     const repo = new FakeRepo();
-    const res = await confirmHandler({ loadConfig: () => ({ vercelEnv: 'preview' }), repo: () => repo, now: () => NOW })(new Request(`https://site.test/api/confirm?token=${'a'.repeat(64)}`));
+    const res = await confirmHandler({ loadConfig: () => ({ vercelEnv: 'preview' }), repo: () => repo, now: () => NOW })(confirmReq('a'.repeat(64)));
     expect(res.status).toBe(503);
     expect(repo.touched).toBe(0);
   });
@@ -552,7 +561,7 @@ describe('sign-up with just a state', () => {
       const note = { note: 'call me on 303-555-0100' };
       const fresh = await (await s.handler(post({ ...STATE_ONLY, email: 'new@example.com', ...note }))).text();
       await s.handler(post(STATE_ONLY));
-      await confirmHandler({ loadConfig: () => CONFIG, repo: () => s.repo, now: () => NOW })(new Request(`https://site.test/api/confirm?token=${tokens.at(-1)}`));
+      await confirmHandler({ loadConfig: () => CONFIG, repo: () => s.repo, now: () => NOW })(confirmReq(tokens.at(-1)!));
       const again = await s.handler(post({ ...STATE_ONLY, ...note }));
       expect(await again.text()).toBe(fresh);
       expect(again.status).toBe(202);
@@ -560,14 +569,14 @@ describe('sign-up with just a state', () => {
     }
   });
 
-  it('seals the optional fields and confirms to the state page', async () => {
+  it('seals the optional fields and confirms with the state', async () => {
     const { handler, repo, sent } = setup();
     await handler(post(STATE_ONLY));
     const stored = JSON.stringify(repo.rows);
     expect(stored).not.toContain('ada@example.com');
     expect(stored).not.toContain('Ada L');
-    const res = await confirmHandler({ loadConfig: () => CONFIG, repo: () => repo, now: () => NOW })(new Request(`https://site.test/api/confirm?token=${sent[0]!.token}`));
-    expect(res.headers.get('location')).toBe('/CO?signed=1');
+    const res = await confirmHandler({ loadConfig: () => CONFIG, repo: () => repo, now: () => NOW })(confirmReq(sent[0]!.token));
+    expect(await res.json()).toEqual({ status: 'confirmed', state: 'CO' });
   });
 });
 

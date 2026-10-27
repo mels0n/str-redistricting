@@ -40,6 +40,7 @@ export function devReply(method: string, path: string, query: URLSearchParams, b
   }
   if (path === '/api/remove-request' && method === 'POST') return { status: 202, body: { status: 'check-email' } };
   if (path === '/api/remove' && method === 'POST') return { status: 200, body: { status: 'removed' } };
+  if (path === '/api/confirm' && method === 'POST') return { status: 200, body: { status: 'confirmed', state: 'CO' } };
   return null;
 }
 

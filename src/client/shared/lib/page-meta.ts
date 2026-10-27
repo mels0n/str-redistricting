@@ -49,4 +49,10 @@ export const PAGE_META = {
     description: 'Remove your signature, your note and your email from Fair Maps for good.',
     noindex: true,
   },
-} as const satisfies Record<'home' | 'act' | 'how' | 'faq' | 'changelog' | 'pledges' | 'privacy' | 'remove', PageMeta>;
+  confirm: {
+    path: '/confirm',
+    title: 'Confirm your signature | Fair Maps',
+    description: 'Confirm your signature for Fair Maps.',
+    noindex: true,
+  },
+} as const satisfies Record<'home' | 'act' | 'how' | 'faq' | 'changelog' | 'pledges' | 'privacy' | 'remove' | 'confirm', PageMeta>;

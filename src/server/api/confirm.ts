@@ -10,21 +10,24 @@ export interface ConfirmHandlerDeps {
   now: () => Date;
 }
 
-const redirect = (location: string): Response => new Response(null, { status: 303, headers: { location } });
-
-/** GET /api/confirm?token=<hex>. Sends the browser to the signer's state, or to the home page with a notice when the link has expired or does not work. */
+/**
+ * POST /api/confirm with `{ token }`. The email links to the /confirm page, whose script makes this call, so a mail scanner
+ * that only fetches the link cannot confirm anyone: any other method answers 405 and changes nothing. Answers
+ * `{ status: 'confirmed', state }` (again for a token already confirmed), 400 token-invalid or 410 token-expired.
+ */
 export function confirmHandler(deps: ConfirmHandlerDeps): (req: Request) => Promise<Response> {
   return handle(async (req) => {
+    if (req.method !== 'POST') return Response.json({ error: 'method-not-allowed' }, { status: 405, headers: { allow: 'POST' } });
     if (deps.loadConfig().vercelEnv !== 'production') throw new SignonError('unavailable', 'not production');
+    let token: string | null = null;
     try {
-      const { state } = await confirm(new URL(req.url).searchParams.get('token'), deps.repo(), deps.now());
-      return redirect(`/${state}?signed=1`);
-    } catch (err) {
-      if (err instanceof SignonError && err.code === 'token-expired') return redirect('/?signed=expired');
-      // A link that is unknown or already used, or a database outage: send the browser to the home page with a notice, not raw JSON.
-      console.error(JSON.stringify({ code: err instanceof SignonError ? err.code : 'unavailable' }));
-      return redirect('/?signed=invalid');
+      const body: unknown = await req.json();
+      if (typeof body === 'object' && body !== null && typeof (body as { token?: unknown }).token === 'string') token = (body as { token: string }).token;
+    } catch {
+      // A body that is not JSON has no token.
     }
+    const { state } = await confirm(token, deps.repo(), deps.now());
+    return Response.json({ status: 'confirmed', state });
   });
 }
 

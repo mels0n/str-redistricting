@@ -33,7 +33,7 @@ export function renderEmail(kind: EmailKind, link: string, site: string): EmailC
   };
 }
 
-/** The link in the email: the confirm link is handled by the API, the removal link by the remove page. */
+/** The link in the email: both open a page; the page's button or script makes the API call. */
 export function linkFor(kind: EmailKind, token: string, site: string): string {
-  return kind === 'confirm' ? `${site}/api/confirm?token=${token}` : `${site}/remove?token=${token}`;
+  return kind === 'confirm' ? `${site}/confirm?token=${token}` : `${site}/remove?token=${token}`;
 }

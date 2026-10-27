@@ -52,6 +52,7 @@ describe('hosting routes for path URLs', () => {
     ['/changelog/x', null],
     ['/pledges', null],
     ['/remove', null],
+    ['/confirm', null],
     ['/CO', null],
     // files, assets and data are never rewritten
     ['/data/CO/og.png', null],

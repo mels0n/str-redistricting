@@ -357,9 +357,9 @@ describe('wouldQueue', () => {
 
 describe('templates', () => {
   it('holds the exact confirmation and removal text', () => {
-    expect(renderEmail('confirm', `${SITE}/api/confirm?token=abc`, SITE)).toEqual({
+    expect(renderEmail('confirm', `${SITE}/confirm?token=abc`, SITE)).toEqual({
       subject: 'Confirm your signature for Fair Maps',
-      text: `Thanks for signing. Click to confirm, and you’ll be counted in your district:\n\n${SITE}/api/confirm?token=abc\n\nThis link works for 48 hours. If you didn’t sign, ignore this email and nothing happens.\n\nChanged your mind later? Remove yourself any time at ${SITE}/remove`,
+      text: `Thanks for signing. Click to confirm, and you’ll be counted in your district:\n\n${SITE}/confirm?token=abc\n\nThis link works for 48 hours. If you didn’t sign, ignore this email and nothing happens.\n\nChanged your mind later? Remove yourself any time at ${SITE}/remove`,
     });
     expect(renderEmail('remove', `${SITE}/remove?token=abc`, SITE)).toEqual({
       subject: 'Remove your Fair Maps signature',
@@ -369,7 +369,7 @@ describe('templates', () => {
   it('sends the confirm link built from the raw token', async () => {
     const { mails, deps } = setup();
     await enqueueEmail(deps, 'confirm', 's1', 'a@example.com', 'f'.repeat(64));
-    expect(mails[0]!.text).toContain(`${SITE}/api/confirm?token=${'f'.repeat(64)}`);
+    expect(mails[0]!.text).toContain(`${SITE}/confirm?token=${'f'.repeat(64)}`);
   });
 });
 

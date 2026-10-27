@@ -2,8 +2,7 @@
 
 ## 1.3.1 (2026-10-27)
 
-- fix(build): keep the repository url out of the publish module
-- refactor(build): name the repository url beside the site host
+- The repository address is no longer set in the publish code; the site build names it beside the site host. Published files are unchanged.
 
 ## 1.3.0 (2026-10-13)
 

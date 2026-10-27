@@ -2,9 +2,10 @@
 
 ## 1.5.0 (2026-10-27)
 
-- fix(web): keep the national map's state labels from overlapping; coverage note to the FAQ only
-- feat(web): point questions and problem reports to GitHub issue forms
-- fix(web): calm the home page: shorter lede, one row of reading links, coverage note under the map
+- The home page is less crowded: the second paragraph is shorter, How it works and the three questions share one row of links, and the note on Washington, D.C. and the territories now lives only in the FAQ.
+- State labels on the national map no longer overlap. A label can move within its state to make room for a neighbor's, and a state with no room gets a callout. Labels are drawn above every state, so a neighbor no longer covers one.
+- On a phone, the national map grows to hold its callout column instead of running into what follows it.
+- Every page's footer links to GitHub forms for asking a question or reporting a problem, and the FAQ points to the question form for anything it does not answer.
 
 ## 1.4.0 (2026-10-23)
 

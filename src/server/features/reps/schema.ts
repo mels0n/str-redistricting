@@ -31,8 +31,14 @@ export const StateRepsSchema = z.object({
 export type StateReps = z.infer<typeof StateRepsSchema>;
 
 const ChamberCoverage = z.object({ matched: z.number().int().nonnegative(), unmatched: z.array(z.string()) });
-/** The file `public/data/reps/coverage.json`; a chamber a state does not have (Nebraska's House) is absent. */
-export const CoverageSchema = z.record(z.string().length(2), z.object({ 'state-house': ChamberCoverage.optional(), 'state-senate': ChamberCoverage.optional() }));
+/**
+ * The file `public/data/reps/coverage.json`; a chamber a state does not have (Nebraska's House) is absent. `us-house`
+ * is present only for a state with a House seat that has no member, and lists those seats (`FL-20`).
+ */
+export const CoverageSchema = z.record(
+  z.string().length(2),
+  z.object({ 'us-house': z.object({ vacant: z.array(z.string().regex(/^[A-Z]{2}-\d{2}$/)) }).optional(), 'state-house': ChamberCoverage.optional(), 'state-senate': ChamberCoverage.optional() }),
+);
 export type Coverage = z.infer<typeof CoverageSchema>;
 
 /** The district code a senator is filed under (`CO:us-senate:state`): a Senate seat is statewide. The senator's own `districtCode` stays null. */

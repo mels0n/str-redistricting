@@ -191,7 +191,47 @@ describe('publishReps', () => {
     await expect(publishReps(setup({ 'legislators-current.json': 'b'.repeat(64) }))).rejects.toThrow(/legislators-current\.json: sha256/);
   });
 
-  it('throws when a federal House seat has no member', async () => {
-    await expect(publishReps(setup({}, ['03', '04']))).rejects.toThrow(/CO-04/);
+  it('publishes a House seat with no member as vacant and carries on', async () => {
+    const input = setup({}, ['03', '04']);
+    const { coverage } = await publishReps(input);
+    expect(coverage.CO?.['us-house']).toEqual({ vacant: ['CO-04'] });
+    const file = StateRepsSchema.parse(JSON.parse(readFileSync(join(input.publicDir, 'reps', 'CO.json'), 'utf8')));
+    expect(file.byKey['CO:us-house:04']).toBeUndefined();
+    expect(file.byKey['CO:us-house:03']).toHaveLength(1);
+    expect(JSON.parse(readFileSync(join(input.publicDir, 'reps', 'coverage.json'), 'utf8'))).toEqual(coverage);
+  });
+
+  it('records no vacancy when every House seat has a member', async () => {
+    const { coverage } = await publishReps(setup());
+    expect(coverage.CO?.['us-house']).toBeUndefined();
+  });
+
+  it('throws when an implausible number of House seats have no member', async () => {
+    const codes = ['03', ...Array.from({ length: 16 }, (_, i) => String(i + 4).padStart(2, '0'))];
+    await expect(publishReps(setup({}, codes))).rejects.toThrow(/16 U\.S\. House seats have no member/);
+  });
+
+  it('accepts exactly the most empty House seats allowed', async () => {
+    const codes = ['03', ...Array.from({ length: 15 }, (_, i) => String(i + 4).padStart(2, '0'))];
+    const { coverage } = await publishReps(setup({}, codes));
+    expect(coverage.CO?.['us-house']?.vacant).toHaveLength(15);
+  });
+
+  it('throws when a state has no senators, and accepts one vacant Senate seat', async () => {
+    const input = setup();
+    const file = join(input.cacheDir, 'legislators-current.json');
+    const members = JSON.parse(readFileSync(file, 'utf8')) as { terms: { type: string; state: string }[] }[];
+    const without = (keep: (m: (typeof members)[number]) => boolean): void => {
+      const text = JSON.stringify(members.filter(keep));
+      writeFileSync(file, text);
+      const path = join(input.configDir, 'reps-sources.json');
+      const sources = JSON.parse(readFileSync(path, 'utf8')) as Record<string, { sha256: string }>;
+      sources['legislators-current.json']!.sha256 = createHash('sha256').update(text).digest('hex');
+      writeFileSync(path, JSON.stringify(sources));
+    };
+    const isSenator = (m: (typeof members)[number]): boolean => m.terms.at(-1)!.type === 'sen' && m.terms.at(-1)!.state === 'CO';
+    await expect(publishReps(input)).resolves.toBeDefined();
+    without((m) => !isSenator(m));
+    await expect(publishReps(input)).rejects.toThrow(/no U\.S\. senator found for CO/);
   });
 });

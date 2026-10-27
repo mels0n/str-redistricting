@@ -17,7 +17,10 @@ async function main(): Promise<void> {
   const { coverage } = await publishReps(cfg);
   let matched = 0;
   for (const [state, chambers] of Object.entries(coverage)) {
-    for (const [chamber, c] of Object.entries(chambers)) {
+    if (chambers['us-house'] !== undefined) console.log(`${state} us-house: vacant ${chambers['us-house'].vacant.join(', ')}`);
+    for (const chamber of ['state-house', 'state-senate'] as const) {
+      const c = chambers[chamber];
+      if (c === undefined) continue;
       matched += c.matched;
       if (c.unmatched.length > 0) console.log(`${state} ${chamber}: unmatched ${c.unmatched.join(', ')}`);
     }

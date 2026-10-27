@@ -91,6 +91,11 @@
     }
   },
   "FL": {
+    "us-house": {
+      "vacant": [
+        "FL-20"
+      ]
+    },
     "state-house": {
       "matched": 116,
       "unmatched": [
@@ -488,6 +493,11 @@
     }
   },
   "TX": {
+    "us-house": {
+      "vacant": [
+        "TX-23"
+      ]
+    },
     "state-house": {
       "matched": 148,
       "unmatched": [

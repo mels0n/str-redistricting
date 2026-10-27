@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Frequently asked questions
+    url: https://fairmaps.melson.us/faq
+    about: Short answers to the questions people ask most. Check here first.
+  - name: How it works
+    url: https://fairmaps.melson.us/how
+    about: Every stage of how the districts are drawn, with drawings.

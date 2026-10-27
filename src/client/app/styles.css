@@ -4830,6 +4830,15 @@ var {
   text-decoration: underline;
 }
 
+.strv-footer__reach {
+  margin-top: var(--s-1);
+  color: var(--ink-2);
+}
+
+.strv-footer__reach .strv-footer__link {
+  text-decoration: underline;
+}
+
 /* ---------- Map credit strip ---------- */
 
 .strv-us-wrap {

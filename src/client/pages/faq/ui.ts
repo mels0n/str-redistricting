@@ -1,4 +1,4 @@
-import { h, mv, PAGE_META, config, ENACTED, ordinal, routeHref, howRoute, faqRoute, stateRoute, iconArrowLeft, prefersReducedMotion, NATIONAL, FAQ_QUESTIONS, type FaqQuestion, type Page, type Route } from '../../shared';
+import { h, mv, PAGE_META, config, ENACTED, ordinal, routeHref, feedbackHref, howRoute, faqRoute, stateRoute, iconArrowLeft, prefersReducedMotion, NATIONAL, FAQ_QUESTIONS, type FaqQuestion, type Page, type Route } from '../../shared';
 
 const TITLES: Record<FaqQuestion, string> = {
   gerrymandering: 'What is gerrymandering?',
@@ -177,7 +177,7 @@ export function createFaqPage(initial: Extract<Route, { page: 'faq' }>): Page {
       { class: 'strv-how__head' },
       h('a', { href: routeHref(NATIONAL), class: 'strv-back' }, iconArrowLeft(), 'All states'),
       h1,
-      h('p', { class: 'strv-how__lede' }, 'Short answers to the questions people ask most. Each links to the part of ', h('a', { href: routeHref(howRoute()) }, 'How it works'), ' that explains it in full.'),
+      h('p', { class: 'strv-how__lede' }, 'Short answers to the questions people ask most. Each links to the part of ', h('a', { href: routeHref(howRoute()) }, 'How it works'), ' that explains it in full. Not answered here? ', h('a', { href: feedbackHref('question') }, 'Ask a question on GitHub'), '.'),
     ),
     h('div', { class: 'strv-how__room' }, h('div', { class: 'strv-how__grid' }, toc, body)),
   );

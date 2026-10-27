@@ -54,7 +54,7 @@ export function createPrivacyPage(): Page {
       section(
         'removal',
         'How to be removed',
-        p('Go to ', link('/remove', '/remove'), ' any time. You get an email with a link, and one click deletes your signature, your note and your email from the database for good. Your district’s count drops by one.'),
+        p(link('/remove', 'Remove your signature'), ' any time. You get an email with a link, and one click deletes your signature, your note and your email from the database for good. Your district’s count drops by one.'),
       ),
       section('services', 'Services we use', ul(...SERVICES)),
       section(

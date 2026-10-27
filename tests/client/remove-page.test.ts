@@ -108,8 +108,8 @@ describe('routing and discovery', () => {
   });
 
   it('is left out of the sitemap and the prerendered page says noindex', () => {
-    expect(sitemapXml('https://x.test')).not.toContain('/remove');
-    expect(sitemapXml('https://x.test')).toContain('/privacy');
+    expect(sitemapXml('https://x.test', [])).not.toContain('/remove');
+    expect(sitemapXml('https://x.test', [])).toContain('/privacy');
     const shell = readFileSync('index.html', 'utf8');
     const html = pageHtml('remove', shell, { html: '<main></main>', faq: [] });
     expect(html).toContain('<meta name="robots" content="noindex">');

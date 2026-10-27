@@ -47,6 +47,7 @@ describe('hosting routes for path URLs', () => {
     ['/how', null],
     ['/faq', null],
     ['/changelog', null],
+    ['/privacy', null],
     ['/changelog/x', null],
     ['/pledges', null],
     ['/privacy', null],

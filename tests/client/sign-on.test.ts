@@ -248,7 +248,7 @@ describe('sign-on form', () => {
 });
 
 describe('privacy page and footer', () => {
-  it('has the plain sections, links /remove, and uses no em dash', () => {
+  it('has the sign-on sections and the visit-count sections, links /remove, and uses no em dash', () => {
     const page = createPrivacyPage();
     expect([...page.el.querySelectorAll('h2')].map((e) => e.textContent)).toEqual([
       'What we collect',
@@ -258,6 +258,11 @@ describe('privacy page and footer', () => {
       'Who sees your email',
       'How to be removed',
       'Services we use',
+      'Visit counts',
+      'Address lookups',
+      'Kept in your browser',
+      'Hosting',
+      'Nothing else',
     ]);
     expect(page.el.querySelector('a[href="/remove"]')).not.toBeNull();
     expect(page.el.textContent).toContain('Supabase');

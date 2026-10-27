@@ -2,6 +2,8 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { renderPage } from '../../build/prerender';
+import { sharePagePaths } from '../../build/share-pages';
+import { SITE_HOST } from '../../src/server/features/publish/site';
 import { PAGE_META } from '../../src/client/shared/lib/page-meta';
 
 const read = (p: string): string => readFileSync(p, 'utf8');
@@ -14,13 +16,15 @@ describe('prerendered pages', () => {
     expect(html).toContain('pack one side’s voters');
     expect(html).not.toContain(' style="');
     expect(faq[0]?.q).toBe('What is gerrymandering?');
-    expect(faq).toHaveLength(15);
+    expect(faq).toHaveLength(16);
   });
 
   it('keeps every glossary term in the answer to the terms question', async () => {
     const { faq } = await renderPage('faq');
     const terms = faq.find((f) => f.q === 'What do the other terms mean?');
     expect(terms?.a).toContain('Census block: The smallest area');
+    expect(terms?.a).toContain('Fair: Made by a rule nobody can aim');
+    expect(terms?.a).toContain('Proportional: Seats shared out');
     expect(terms?.a.length).toBeGreaterThan(300);
   });
 
@@ -43,7 +47,7 @@ describe('prerendered pages', () => {
     expect(scripts).toHaveLength(1);
     const data = JSON.parse(scripts[0]![1]!) as { '@graph': { '@type': string; mainEntity?: unknown }[] };
     const faqPage = data['@graph'].find((n) => n['@type'] === 'FAQPage');
-    expect(faqPage?.mainEntity).toHaveLength(15);
+    expect(faqPage?.mainEntity).toHaveLength(16);
     expect(html).not.toMatch(/<[^>]* style="/);
   });
 
@@ -91,5 +95,10 @@ describe('prerendered pages', () => {
     expect([ico[6], ico[7], ico.readUInt16LE(10), ico.readUInt16LE(12), ico.readUInt32LE(14), ico.readUInt32LE(18)]).toEqual([48, 48, 1, 32, ico.length - 22, 22]);
     expect(readFileSync('dist/apple-touch-icon.png').readUInt32BE(16)).toBe(180);
     expect(read('dist/robots.txt')).toContain('Sitemap:');
+  });
+
+  it('lists every share page in the built sitemap', () => {
+    const sitemap = read('dist/sitemap.xml');
+    for (const p of sharePagePaths('public')) expect(sitemap).toContain(`<loc>https://${SITE_HOST}/${p}</loc>`);
   });
 });

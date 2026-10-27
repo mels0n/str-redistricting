@@ -1,4 +1,4 @@
-import { h, mv, PAGE_META, config, ENACTED, ordinal, routeHref, howRoute, faqRoute, stateRoute, iconArrowLeft, prefersReducedMotion, NATIONAL, FAQ_QUESTIONS, type FaqQuestion, type Page, type Route } from '../../shared';
+import { h, mv, PAGE_META, config, ENACTED, ordinal, routeHref, feedbackHref, howRoute, faqRoute, stateRoute, iconArrowLeft, prefersReducedMotion, NATIONAL, FAQ_QUESTIONS, type FaqQuestion, type Page, type Route } from '../../shared';
 
 const TITLES: Record<FaqQuestion, string> = {
   gerrymandering: 'What is gerrymandering?',
@@ -8,6 +8,7 @@ const TITLES: Record<FaqQuestion, string> = {
   block: 'What is a census block?',
   ties: 'How are ties settled?',
   data: 'Does it use party, voting or race data?',
+  fair: 'What does fair mean here?',
   counties: 'Why doesn’t it follow county or city lines?',
   equal: 'Why aren’t the districts exactly equal?',
   current: 'Is this my district today?',
@@ -84,6 +85,13 @@ const ANSWERS: Record<FaqQuestion, () => HTMLElement[]> = {
     p('No. Three facts about each census block go in: how many people the census counted there, where its edges are, and one point inside it, used to put blocks in order and to measure island links. Each chamber’s number of districts in each state goes in too. Nothing else does.'),
     p('Party registration, election results, where officeholders or candidates live, the shapes of current or past district lines, and race, ethnicity, age or income never go in. For a State House or State Senate map, only the number of districts in the Census Bureau’s file is used. See ', howLink('inputs', 'What goes in'), '.'),
   ],
+  fair: () => [
+    p('Fair describes how a map is made, not who wins under it. A fair map is one nobody shaped. The lines come from one fixed rule that never sees party, votes or race, so no one can aim them at a result.'),
+    p(h('strong', null, 'Equal'), ' is the one outcome the rule does promise. Every district in a chamber holds the same number of people, as close as whole census blocks allow, so each person’s vote counts the same.'),
+    p(h('strong', null, 'Proportional'), ' means a party’s share of seats matches its share of votes. District lines can’t deliver that without gerrymandering. To hit a seat target, someone has to look at where each party’s voters live and draw around them, which is gerrymandering aimed at a different goal. Seats that follow votes need a different election system, such as filling seats from a statewide vote by each party’s ranked list of candidates. That is a change to how elections work, not to where the lines go.'),
+    p(h('strong', null, 'Equitable'), ' usually means drawing lines to give a particular group a better chance. That requires seeing who lives where and choosing which groups count. That is gerrymandering too, however well meant, and stopping it is the whole point of the rule. It draws no district for or against any group.'),
+    p('So the promise is narrow on purpose: one rule everywhere, equal people in every district, and no one’s hand on any line.'),
+  ],
   counties: () => [
     p('County and city lines are never used to draw anything. The generator only knows people and block shapes, so a district border can split a county or a city when that gives the shortest border.'),
     p('Counties are counted afterwards, for reporting only: the district list shows how many counties each district touches.'),
@@ -128,6 +136,8 @@ const TERMS: readonly (readonly [string, string | readonly (Node | string)[]])[]
   ['Census block', 'The smallest area the Census Bureau counts people in. Every person is counted in exactly one. More under “What is a census block?” above.'],
   ['GEOID', 'The identifier the Census Bureau gives every block: a 15-digit number made of its state, county, tract and block codes. Sorting by it gives one fixed order, which settles ties.'],
   ['Internal point', 'One point inside each block, published by the Census Bureau. It is used to put blocks in order across a guide line and to measure island links.'],
+  ['Fair', 'Made by a rule nobody can aim. Fair describes how a map is drawn, not who wins under it.'],
+  ['Proportional', 'Seats shared out to match each party’s share of the vote. District lines can’t produce it without gerrymandering; it takes a different election system.'],
   ['Chamber', 'One of the bodies a map is drawn for: the Federal House, the State House or the State Senate. Each is drawn separately, by the same rule.'],
   ['Apportionment', 'How the 435 House seats are shared out among the states after each census. The Federal House maps use the 2020 apportionment.'],
   ['Seat', 'The unit a map is divided into: one district. A Federal House map has one district for each House seat the state received. A State House or State Senate map has one district for each distinct district in the Census Bureau’s ' + ENACTED.legislativeVintage + ' state legislative district files. Where a state elects more than one member from a district, the map still draws one district, because how many members a district elects is not modelled.'],
@@ -177,7 +187,7 @@ export function createFaqPage(initial: Extract<Route, { page: 'faq' }>): Page {
       { class: 'strv-how__head' },
       h('a', { href: routeHref(NATIONAL), class: 'strv-back' }, iconArrowLeft(), 'All states'),
       h1,
-      h('p', { class: 'strv-how__lede' }, 'Short answers to the questions people ask most. Each links to the part of ', h('a', { href: routeHref(howRoute()) }, 'How it works'), ' that explains it in full.'),
+      h('p', { class: 'strv-how__lede' }, 'Short answers to the questions people ask most. Each links to the part of ', h('a', { href: routeHref(howRoute()) }, 'How it works'), ' that explains it in full. Not answered here? ', h('a', { href: feedbackHref('question') }, 'Ask a question on GitHub'), '.'),
     ),
     h('div', { class: 'strv-how__room' }, h('div', { class: 'strv-how__grid' }, toc, body)),
   );

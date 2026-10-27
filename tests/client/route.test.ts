@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it } from 'vitest';
 import { chamberDataPath } from '../../src/client/shared/lib/chamber';
-import { fitRouteToState, nationalRoute, describeRouteIssue, faqRoute, formatHash, howRoute, CHANGELOG, parseHash, stateRoute, NATIONAL, formatPath, parsePath, canonicalPath, routeHref, setRouteMode, getRouteMode } from '../../src/client/shared/lib/route';
+import { fitRouteToState, nationalRoute, describeRouteIssue, faqRoute, formatHash, howRoute, CHANGELOG, PRIVACY, parseHash, stateRoute, NATIONAL, formatPath, parsePath, canonicalPath, routeHref, setRouteMode, getRouteMode } from '../../src/client/shared/lib/route';
 
 describe('hash routes', () => {
   it('parses the national index', () => {
@@ -32,7 +32,7 @@ describe('hash routes', () => {
       }
     }
     // Every hash that existed before chambers formats back to itself.
-    for (const h of ['#/', '#/CO', '#/CO/d/3', '#/TX/cut/0', '#/CO/balance/12', '#/CO/d/3/cut/4?plan=before&compare=enacted', '#/CO/d/3?compare=enacted', '#/how', '#/faq/ties', '#/changelog']) {
+    for (const h of ['#/', '#/CO', '#/CO/d/3', '#/TX/cut/0', '#/CO/balance/12', '#/CO/d/3/cut/4?plan=before&compare=enacted', '#/CO/d/3?compare=enacted', '#/how', '#/faq/ties', '#/changelog', '#/privacy']) {
       expect(formatHash(parseHash(h))).toBe(h);
     }
   });
@@ -97,6 +97,8 @@ describe('hash routes', () => {
     expect(parseHash('#/changelog')).toEqual(CHANGELOG);
     expect(parseHash('#/Changelog/x')).toEqual(CHANGELOG);
     expect(formatHash(CHANGELOG)).toBe('#/changelog');
+    expect(parsePath('/Privacy/x', '')).toEqual(PRIVACY);
+    expect(formatPath(PRIVACY)).toBe('/privacy');
     expect(formatHash(howRoute())).toBe('#/how');
     expect(formatHash(howRoute('strays'))).toBe('#/how/strays');
     for (const r of [howRoute(), howRoute('inputs'), howRoute('sources'), faqRoute(), faqRoute('ties'), faqRoute('strange')]) expect(parseHash(formatHash(r))).toEqual(r);
@@ -135,7 +137,7 @@ describe('path routes', () => {
 
   it('round-trips every example', () => {
     const cases: [string, string][] = [
-      ['/', ''], ['/house', ''], ['/senate', ''], ['/how', ''], ['/how/balancing', ''], ['/faq', ''], ['/faq/ties', ''], ['/changelog', ''], ['/pledges', ''],
+      ['/', ''], ['/house', ''], ['/senate', ''], ['/how', ''], ['/how/balancing', ''], ['/faq', ''], ['/faq/ties', ''], ['/changelog', ''], ['/pledges', ''], ['/privacy', ''],
       ['/CO', ''], ['/CO/senate/d/12', ''], ['/CO/cut/4', ''], ['/CO/balance/12', ''], ['/CO/d/3', '?plan=before&compare=enacted'],
     ];
     for (const [p, q] of cases) expect(formatPath(parsePath(p, q))).toBe(p + q);
@@ -158,6 +160,7 @@ describe('path routes', () => {
     expect(canonicalPath(howRoute('balancing'))).toBe('/how');
     expect(canonicalPath(faqRoute('ties'))).toBe('/faq');
     expect(canonicalPath(CHANGELOG)).toBe('/changelog');
+    expect(canonicalPath(PRIVACY)).toBe('/privacy');
     expect(canonicalPath(NATIONAL)).toBe('/');
     expect(canonicalPath(nationalRoute('state-senate'))).toBe('/senate');
   });

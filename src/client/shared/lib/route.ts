@@ -4,6 +4,7 @@
  *   /                          national index
  *   /how                       how the maps are drawn
  *   /changelog                 release notes for maps, engine and input
+ *   /privacy                   what the site collects
  *   /how/balancing             the same page, at one of its sections
  *   /faq                       common questions
  *   /pledges                   who supports the rule
@@ -35,7 +36,7 @@ export const HOW_SECTIONS = ['inputs', 'cut', 'strays', 'recursion', 'balancing'
 export type HowSection = (typeof HOW_SECTIONS)[number];
 
 /** Questions on the FAQ page, in page order. */
-export const FAQ_QUESTIONS = ['gerrymandering', 'stop', 'today', 'strange', 'block', 'ties', 'data', 'counties', 'equal', 'current', 'water', 'one-seat', 'state-laws', 'check', 'terms'] as const;
+export const FAQ_QUESTIONS = ['gerrymandering', 'stop', 'today', 'strange', 'block', 'ties', 'data', 'fair', 'counties', 'equal', 'current', 'water', 'one-seat', 'state-laws', 'check', 'terms'] as const;
 export type FaqQuestion = (typeof FAQ_QUESTIONS)[number];
 
 export type Route =

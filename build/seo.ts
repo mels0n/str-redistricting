@@ -7,8 +7,10 @@ export type { FaqEntry, PageKey };
 /** Every fixed page, in the order PAGE_META lists them: the one list the sitemap and the prerender both walk. */
 export const PAGE_KEYS = Object.keys(PAGE_META) as PageKey[];
 
-export function sitemapXml(site: string): string {
-  const urls = PAGE_KEYS.filter((k) => !(PAGE_META[k] as PageMeta).noindex).map((k) => `  <url><loc>${site}${PAGE_META[k].path}</loc></url>`);
+/** The fixed pages that are indexable, then each share page path (`CO`, `CO/house`) the published index calls for. */
+export function sitemapXml(site: string, sharePaths: readonly string[]): string {
+  const paths = [...PAGE_KEYS.filter((k) => !(PAGE_META[k] as PageMeta).noindex).map((k) => PAGE_META[k].path), ...sharePaths.map((p) => `/${p}`)];
+  const urls = paths.map((p) => `  <url><loc>${site}${p}</loc></url>`);
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join('\n')}\n</urlset>\n`;
 }
 

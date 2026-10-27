@@ -17,14 +17,8 @@ describe('site footer', () => {
     const { createSiteFooter } = await import('../../src/client/widgets/site-footer');
     const el = createSiteFooter();
     await settle();
-    const links = el.querySelectorAll('a');
-    expect(links).toHaveLength(3);
-    expect(links[0]!.textContent).toBe('Changelog');
-    expect(links[0]!.getAttribute('href')).toBe('/changelog');
-    expect(links[1]!.textContent).toBe('Privacy');
-    expect(links[1]!.getAttribute('href')).toBe('/privacy');
-    expect(links[2]!.textContent).toBe('Remove');
-    expect(links[2]!.getAttribute('href')).toBe('/remove');
+    expect(el.querySelector('p')!.textContent).toBe('Changelog');
+    expect(el.querySelectorAll('a')[0]!.getAttribute('href')).toBe('/changelog');
   });
 
   it('stays a bare link when the published versions file is invalid', async () => {
@@ -32,7 +26,7 @@ describe('site footer', () => {
     const { createSiteFooter } = await import('../../src/client/widgets/site-footer');
     const el = createSiteFooter();
     await settle();
-    expect(el.querySelectorAll('a')[0]!.textContent).toBe('Changelog');
+    expect(el.querySelector('p')!.textContent).toBe('Changelog');
   });
 
   it('names the published release, engine and input, with the code’s own site version', async () => {
@@ -42,8 +36,16 @@ describe('site footer', () => {
     const el = createSiteFooter();
     await settle();
     const expected = `Maps release 7 · Engine 1.2.3 · ${censusLabel('census-2020')} (r3) · Site ${VERSIONS.web}`;
-    expect(el.querySelectorAll('a')[0]!.textContent).toBe(expected);
+    expect(el.querySelector('p')!.textContent).toBe(expected);
     expect(el.querySelectorAll('a')[0]!.getAttribute('href')).toBe('/changelog');
     expect(expected).not.toContain('—');
+  });
+
+  it('links a question and a problem report to their GitHub issue forms, then the privacy and remove pages', async () => {
+    vi.stubGlobal('fetch', respond(404, {}));
+    const { createSiteFooter } = await import('../../src/client/widgets/site-footer');
+    const el = createSiteFooter();
+    const hrefs = [...el.querySelectorAll('.strv-footer__reach a')].map((a) => a.getAttribute('href'));
+    expect(hrefs).toEqual(['https://github.com/mels0n/str-redistricting/issues/new?template=question.yml', 'https://github.com/mels0n/str-redistricting/issues/new?template=problem.yml', '/privacy', '/remove']);
   });
 });

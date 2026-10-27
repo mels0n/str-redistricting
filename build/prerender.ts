@@ -6,13 +6,14 @@ import { JSDOM } from 'jsdom';
 import { PAGE_META, type PageMeta } from '../src/client/shared/lib/page-meta';
 import { SITE_HOST } from '../src/server/features/publish/site';
 import { readPledgesFile } from '../src/server/features/pledges';
-import { esc, swap } from './share-pages';
+import { esc, sharePagePaths, swap } from './share-pages';
 import { Resvg } from '@resvg/resvg-js';
 import { toMarkdown } from './markdown';
 import { LLMS_SUMMARY, PAGE_KEYS, jsonLd, jsonLdScript, llmsTxt, robotsTxt, sitemapXml, type FaqEntry, type PageKey } from './seo';
 
 const DIST = 'dist';
 const PLEDGES_FILE = join('config', 'pledges.json');
+const PUBLIC = 'public';
 const ROOT_TAG = '<div id="str-viewer"></div>';
 
 /** Renders one page with the real page code in jsdom and returns the markup inside `#str-viewer`, plus the FAQ entries for the FAQ page. */
@@ -175,12 +176,12 @@ export async function main(): Promise<void> {
   // The pledges are validated here, so an invalid file fails the build, then published as data/pledges.json.
   outputs.set(join(DIST, 'data', 'pledges.json'), `${JSON.stringify(readPledgesFile(PLEDGES_FILE))}
 `);
-  outputs.set(join(DIST, 'sitemap.xml'), sitemapXml(site));
+  outputs.set(join(DIST, 'sitemap.xml'), sitemapXml(site, sharePagePaths(PUBLIC)));
   outputs.set(join(DIST, 'robots.txt'), robotsTxt(site));
   outputs.set(join(DIST, 'llms.txt'), llmsTxt(site));
   const sections = (['home', 'faq', 'how'] as const).map((k) => `---\n\n${markdown.get(k) ?? ''}`);
   outputs.set(join(DIST, 'llms-full.txt'), ['# Fair Maps', LLMS_SUMMARY, ...sections].join('\n\n').trimEnd() + '\n');
-  const svg = readFileSync(join('public', 'favicon.svg'));
+  const svg = readFileSync(join(PUBLIC, 'favicon.svg'));
   const png = (width: number): Buffer => Buffer.from(new Resvg(svg, { fitTo: { mode: 'width', value: width } }).render().asPng());
   outputs.set(join(DIST, 'apple-touch-icon.png'), png(180));
   outputs.set(join(DIST, 'favicon.ico'), ico(png(48)));

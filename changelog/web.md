@@ -1,5 +1,26 @@
 # Web changelog
 
+## 1.7.0 (2026-10-27)
+
+- The site counts visits with Vercel Web Analytics, which sets no cookies. Each page view is sent with its path only, never the part of the address after a ? or #, where other sites add click and campaign codes.
+- A new Privacy page says what the site counts, what it keeps in your browser, and what it sends elsewhere. The footer links to it.
+
+## 1.6.1 (2026-10-27)
+
+- The sitemap now lists every state map page and each State House and State Senate page, not only the home, How it works, FAQ and changelog pages.
+
+## 1.6.0 (2026-10-27)
+
+- The FAQ answers what fair means here, set beside equal, proportional and equitable, and its terms add Fair and Proportional.
+
+## 1.5.0 (2026-10-27)
+
+- The home page is less crowded: the second paragraph is shorter, How it works and the three questions share one row of links, and the note on Washington, D.C. and the territories now lives only in the FAQ.
+- State labels on the national map no longer overlap. A label can move within its state to make room for a neighbor's, and a state with no room gets a callout. Labels are drawn above every state, so a neighbor no longer covers one.
+- On a phone, the national map grows to hold its callout column instead of running into what follows it.
+- Pointing at a state's label lights the state with it, and a state with keyboard focus stays lit when the pointer moves away.
+- Every page's footer links to GitHub forms for asking a question or reporting a problem, and the FAQ points to the question form for anything it does not answer.
+
 ## 1.4.0 (2026-10-23)
 
 - Addresses are now real paths, such as /CO, /CO/d/3, /how and /faq, instead of #/ links. Old #/ links still work and are rewritten to the path form when they open.

@@ -36,7 +36,7 @@ export const PAGE_META = {
   privacy: {
     path: '/privacy',
     title: 'Privacy | Fair Maps',
-    description: 'What Fair Maps collects when you add your name, what it never keeps, what is public, and how to be removed at any time.',
+    description: 'What Fair Maps collects when you add your name, what it never keeps, what is public, how visits are counted without cookies, and how to be removed at any time.',
   },
   remove: {
     path: '/remove',

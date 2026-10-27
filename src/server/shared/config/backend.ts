@@ -24,7 +24,10 @@ const Schema = DbSchema.extend({
   SIGNON_HASH_SECRET: key32,
   SIGNON_ENCRYPTION_KEY: key32,
   VERCEL_ENV: z.string().optional(),
-  SIGNON_FROM: z.string().min(1).default('Fair Maps <signon@fairmaps.melson.us>'),
+  SIGNON_FROM: z
+    .string()
+    .refine((s) => /^[^\s<>@,]+@[^\s<>@,]+$/.test(s) || /^[^<>@,\r\n]+\s<[^\s<>@,]+@[^\s<>@,]+>$/.test(s), 'must be addr@host or Name <addr@host>')
+    .default('Fair Maps <signon@fairmaps.melson.us>'),
   SITE_ORIGIN: httpsOrLocal.default('https://fairmaps.melson.us'),
   EMAIL_DAILY_CAP: z.coerce.number().int().min(1).max(100000).default(20),
   // Not created by Vercel: the owner adds it as a Production environment variable (16 or more random characters). Vercel then sends it

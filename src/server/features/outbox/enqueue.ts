@@ -25,7 +25,9 @@ export async function enqueueEmail(deps: OutboxDeps, kind: EmailKind, signerId: 
     );
     return { queued: false };
   }
-  return { queued: (await sendRow(deps, row)) !== 'sent' };
+  // The visitor is told to check their email either way. A refused address (the signer is gone) is not "in line" for a later day, so it is not reported as queued.
+  const result = await sendRow(deps, row);
+  return { queued: result !== 'sent' && result !== 'rejected' };
 }
 
 /** What a new confirmation email would get right now, without queuing or sending anything: waiting if people are in line or today's quota is spent. */

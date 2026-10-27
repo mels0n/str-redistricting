@@ -73,14 +73,19 @@ class Fake implements OutboxRepo {
   }
 }
 
-function setup(opts: { cap?: number; status?: number; fail?: boolean; after?: (t: Promise<unknown>) => void } = {}) {
+type Body = string | ((to: string) => string);
+function setup(opts: { cap?: number; status?: number; fail?: boolean; body?: Body; after?: (t: Promise<unknown>) => void } = {}) {
   const repo = new Fake();
   const mails: string[] = [];
   const deps: OutboxDeps = {
     repo,
     config: { resendApiKey: 'rk', from: 'Fair Maps <a@b.test>', siteOrigin: 'https://site.test', encryptionKey: KEY, emailDailyCap: opts.cap ?? 20 },
     fetchFn: (async (_u: unknown, init: RequestInit) => {
-      if (opts.fail) return new Response('{}', { status: opts.status ?? 500 });
+      if (opts.fail) {
+        const to = (JSON.parse(String(init.body)) as { to: string[] }).to[0]!;
+        const body = typeof opts.body === 'function' ? opts.body(to) : (opts.body ?? '{}');
+        return new Response(body, { status: opts.status ?? 500 });
+      }
       mails.push((JSON.parse(String(init.body)) as { to: string[] }).to[0]!);
       return Response.json({ id: 'x' });
     }) as typeof fetch,
@@ -143,23 +148,79 @@ describe('safe marking and per-kind lists', () => {
 });
 
 describe('failed and refused sends', () => {
-  it('deletes the signer at once when the provider refuses a confirmation address, and logs the row id only', async () => {
-    const { repo, deps } = setup({ fail: true, status: 422 });
+  const TO_ERROR = JSON.stringify({ name: 'validation_error', message: 'Invalid `to` field. The email address needs to follow the `email@example.com` or `Name <email@example.com>` format.' });
+  const FROM_ERROR = JSON.stringify({ name: 'validation_error', message: 'Invalid `from` field. The email address needs to follow the `email@example.com` or `Name <email@example.com>` format.' });
+
+  it('deletes the signer at once when the provider says the recipient address is invalid, and logs the row id and error name only', async () => {
+    const { repo, deps } = setup({ fail: true, status: 422, body: TO_ERROR });
     const r = await enqueueEmail(deps, 'confirm', 's1', 'bad@example.com', 'secret-token');
-    expect(r.queued).toBe(true);
+    // The signer is gone, so the visitor is not "in line"; they are still told to check their email.
+    expect(r.queued).toBe(false);
     expect(repo.deletedSigners).toEqual(['s1']);
     expect(repo.rows).toHaveLength(0);
     expect(repo.sent).toBe(0);
-    expect(JSON.parse(logs()[0]!)).toEqual({ event: 'email-send-failed', rowId: 1, kind: 'confirm', status: 422, attempt: 1, final: true });
+    expect(JSON.parse(logs()[0]!)).toEqual({ event: 'email-send-failed', rowId: 1, kind: 'confirm', status: 422, error: 'validation_error', attempt: 1, final: true });
     expect(logs().join('\n')).not.toContain('bad@example.com');
     expect(logs().join('\n')).not.toContain('secret-token');
+    expect(logs().join('\n')).not.toContain('Invalid');
   });
 
   it('marks a refused removal row failed and deletes nothing', async () => {
-    const { repo, deps } = setup({ fail: true, status: 400 });
+    const { repo, deps } = setup({ fail: true, status: 400, body: TO_ERROR });
     await enqueueEmail(deps, 'remove', 's1', 'bad@example.com', 't');
     expect(repo.deletedSigners).toEqual([]);
     expect(repo.rows[0]).toMatchObject({ status: 'failed', toEnc: null, tokenEnc: null });
+  });
+
+  it.each([
+    ['a sender-wide 422 about from', 422, FROM_ERROR],
+    ['a 422 about the subject', 422, JSON.stringify({ name: 'validation_error', message: 'Missing `subject` field.' })],
+    ['a 422 missing a required field', 422, JSON.stringify({ name: 'missing_required_field', message: 'Missing `to` field.' })],
+    ['a 400 about the domain', 400, JSON.stringify({ name: 'validation_error', message: 'The domain of the to address is not verified.' })],
+    ['a body that is not JSON', 422, 'not json at all'],
+    ['an empty body', 400, ''],
+  ])('treats %s as a retry, not a bad address', async (_what, status, body) => {
+    const { repo, deps } = setup({ fail: true, status, body });
+    for (let i = 0; i < 4; i++) await queue(repo, 'confirm', `s${i}`);
+    const result = await drainOutbox(deps, 20);
+    expect(repo.deletedSigners).toEqual([]);
+    expect(repo.rows.filter((r) => r.status === 'queued')).toHaveLength(result.left);
+    expect(repo.rows.every((r) => r.attempts === 1 || r.attempts === 0)).toBe(true);
+    expect(result.failed).toBeGreaterThan(0);
+    expect(result.left).toBeGreaterThan(0);
+    expect(logs().some((l) => l.includes('email-send-failed'))).toBe(true);
+  });
+
+  it('deletes only the signer whose address was refused', async () => {
+    const { repo, deps, mails } = setup({ fail: true, status: 422, body: (to) => (to === 'bad@example.com' ? TO_ERROR : '{}') });
+    await repo.upsertQueued('confirm', 'bad', seal('bad@example.com', KEY), seal('t1', KEY));
+    await repo.upsertQueued('confirm', 'ok', seal('ok@example.com', KEY), seal('t2', KEY));
+    await drainOutbox(deps, 20);
+    expect(repo.deletedSigners).toEqual(['bad']);
+    expect(repo.rows.map((r) => r.signerId)).toEqual(['ok']);
+    expect(repo.rows[0]).toMatchObject({ status: 'queued', attempts: 1 });
+    expect(mails).toHaveLength(0);
+  });
+
+  it('stops a drain after three address refusals in a row and leaves the rest queued', async () => {
+    const { repo, deps } = setup({ cap: 20, fail: true, status: 422, body: TO_ERROR });
+    for (let i = 0; i < 6; i++) await queue(repo, 'confirm', `s${i}`);
+    const result = await drainOutbox(deps, 20);
+    expect(result).toEqual({ sent: 0, failed: 3, left: 3 });
+    expect(repo.deletedSigners).toHaveLength(3);
+    expect(repo.rows.filter((r) => r.status === 'queued')).toHaveLength(3);
+    expect(logs().some((l) => l.includes('email-drain-stopped'))).toBe(true);
+  });
+
+  it('a successful send resets the run of refusals', async () => {
+    let n = 0;
+    const { repo, deps } = setup({ cap: 20, fail: true, status: 422, body: TO_ERROR });
+    const real = deps.fetchFn;
+    deps.fetchFn = (async (u: unknown, init: RequestInit) => (++n === 3 ? Response.json({ id: 'x' }) : real(u as string, init))) as typeof fetch;
+    for (let i = 0; i < 5; i++) await queue(repo, 'confirm', `s${i}`);
+    const result = await drainOutbox(deps, 20);
+    expect(result.sent).toBe(1);
+    expect(repo.deletedSigners).toHaveLength(4);
   });
 
   it.each([401, 403, 429, 500])('keeps retrying on %i and does not delete anyone', async (status) => {
@@ -178,13 +239,6 @@ describe('failed and refused sends', () => {
     await drainOutbox(deps, 20);
     const statuses = logs().filter((l) => l.includes('email-send-failed')).map((l) => JSON.parse(l).status);
     expect(statuses).toEqual(expect.arrayContaining(['network', 'unseal']));
-  });
-
-  it('reports failed sends from the drain without stopping on refused addresses', async () => {
-    const { repo, deps } = setup({ cap: 20, fail: true, status: 422 });
-    for (let i = 0; i < 5; i++) await queue(repo, 'confirm', `s${i}`);
-    expect(await drainOutbox(deps, 20)).toEqual({ sent: 0, failed: 5, left: 0 });
-    expect(repo.deletedSigners).toHaveLength(5);
   });
 });
 

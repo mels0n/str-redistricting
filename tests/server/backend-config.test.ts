@@ -48,6 +48,17 @@ describe('mail quota settings', () => {
   });
 });
 
+describe('sender address', () => {
+  it('keeps the default and accepts addr@host or Name <addr@host>', () => {
+    expect(loadBackendConfig(GOOD).from).toBe('Fair Maps <signon@fairmaps.melson.us>');
+    expect(loadBackendConfig({ ...GOOD, SIGNON_FROM: 'signon@fairmaps.melson.us' }).from).toBe('signon@fairmaps.melson.us');
+    expect(loadBackendConfig({ ...GOOD, SIGNON_FROM: 'Fair Maps <a@b.co>' }).from).toBe('Fair Maps <a@b.co>');
+  });
+  it.each(['', 'Fair Maps', 'a@', '@b.co', 'Fair Maps <a@b.co', 'Fair Maps a@b.co>', '<a@b.co>', 'a@b.co, c@d.co', 'Fair <a@b.co>' + String.fromCharCode(10) + 'Bcc: x@y.z'])('rejects %j', (from) => {
+    expect(() => loadBackendConfig({ ...GOOD, SIGNON_FROM: from })).toThrow('SIGNON_FROM');
+  });
+});
+
 describe('url rules', () => {
   it('requires https for the Supabase URL and the site origin', () => {
     expect(() => loadBackendConfig({ ...GOOD, NEXT_PUBLIC_BACKERS_SUPABASE_URL: 'http://example.supabase.co' })).toThrow('NEXT_PUBLIC_BACKERS_SUPABASE_URL');

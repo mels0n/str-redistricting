@@ -4,6 +4,8 @@ import { sendRow, type OutboxDeps } from './send.js';
 const PAGE = 500;
 /** Stop after this many sends in a row fail, so an outage at the mail provider does not use up every row's attempts. */
 const MAX_CONSECUTIVE_FAILURES = 3;
+/** Stop after this many address refusals in a row: a real bad address is rare, so a run of them means something else is wrong, and no more signers should be deleted. */
+const MAX_CONSECUTIVE_REFUSALS = 3;
 
 /**
  * Sends waiting rows for as long as today's quota has room: removals first, then confirmations, each oldest first.
@@ -15,6 +17,7 @@ export async function drainOutbox(deps: OutboxDeps, cap: number): Promise<{ sent
   let sent = 0;
   let failed = 0;
   let consecutive = 0;
+  let refusals = 0;
   let stop = false;
 
   const run = async (rows: OutboxRow[]): Promise<void> => {
@@ -23,15 +26,22 @@ export async function drainOutbox(deps: OutboxDeps, cap: number): Promise<{ sent
       // A removal refused may only mean its share is used; a confirmation refused means the day is full.
       if (!(await repo.claimSlot(cap, row.kind))) return;
       const result = await sendRow(deps, row);
+      if (result === 'rejected') {
+        failed++;
+        consecutive = 0;
+        if (++refusals >= MAX_CONSECUTIVE_REFUSALS) {
+          console.error(JSON.stringify({ event: 'email-drain-stopped', reason: 'consecutive-address-refusals', refusals }));
+          stop = true;
+        }
+        continue;
+      }
+      refusals = 0;
       if (result === 'sent') {
         sent++;
         consecutive = 0;
       } else if (result === 'failed') {
         failed++;
         if (++consecutive >= MAX_CONSECUTIVE_FAILURES) stop = true;
-      } else if (result === 'rejected') {
-        // A bad address says nothing about the provider, so it does not count toward the stop.
-        failed++;
       }
     }
   };

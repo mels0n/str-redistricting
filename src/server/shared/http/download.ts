@@ -52,7 +52,7 @@ function assertAllowedUrl(url: string, label: string, hosts: ReadonlySet<string>
     throw new DownloadRefusedError(`download for ${label} refused: not a valid address`);
   }
   if (!isAllowedUrl(url, hosts)) {
-    throw new DownloadRefusedError(`download for ${label} refused: ${parsed.protocol}//${parsed.host} is not an allowed Census host`);
+    throw new DownloadRefusedError(`download for ${label} refused: ${parsed.protocol}//${parsed.host} is not an allowed host`);
   }
 }
 

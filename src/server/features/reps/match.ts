@@ -1,3 +1,4 @@
+import { DataError } from '../../shared/errors/index.js';
 import type { Office } from './schema.js';
 
 /** Uppercase, no `DISTRICT`, no spaces or hyphens, and no leading zeros on a number (`012` and `12` agree). */
@@ -26,7 +27,13 @@ export function matchStateDistricts(
   aliases: Readonly<Record<string, string>>,
 ): DistrictMatch {
   const byNormal = new Map<string, string>();
-  for (const d of openStatesDistricts) if (!byNormal.has(normalizeDistrict(d))) byNormal.set(normalizeDistrict(d), d);
+  for (const d of openStatesDistricts) {
+    const n = normalizeDistrict(d);
+    const seen = byNormal.get(n);
+    // Two different names that normalise alike would be merged into one district; stop instead.
+    if (seen !== undefined && seen !== d) throw new DataError(`${state} ${office}: Open States districts '${seen}' and '${d}' normalise to the same name`);
+    byNormal.set(n, d);
+  }
   const matched: Record<string, string> = {};
   const used = new Set<string>();
   const unmatchedEnacted: string[] = [];
@@ -41,4 +48,36 @@ export function matchStateDistricts(
   }
   const unmatchedOpenStates = [...new Set(openStatesDistricts)].filter((d) => !used.has(normalizeDistrict(d)));
   return { matched, unmatchedEnacted, unmatchedOpenStates };
+}
+
+/**
+ * Problems in a state chamber's aliases, as readable lines (none means the aliases are sound). An alias must name an
+ * enacted district, name Open States districts that exist exactly as spelled, be needed (the code does not already
+ * match without it), and no Open States district may be claimed by two enacted districts.
+ */
+export function checkAliases(
+  state: string,
+  office: Office,
+  enactedCodes: readonly string[],
+  openStatesDistricts: readonly string[],
+  aliases: Readonly<Record<string, string>>,
+): string[] {
+  const problems: string[] = [];
+  const prefix = `${state}:${office}:`;
+  const names = new Set(openStatesDistricts);
+  const normals = new Set(openStatesDistricts.map(normalizeDistrict));
+  const claimed = new Map<string, string>();
+  for (const [key, value] of Object.entries(aliases)) {
+    if (!key.startsWith(prefix)) continue;
+    const code = key.slice(prefix.length);
+    if (!enactedCodes.includes(code)) problems.push(`${key}: no such enacted district`);
+    if (normals.has(normalizeDistrict(code))) problems.push(`${key}: the code already matches without an alias`);
+    for (const part of value.split('|')) {
+      if (!names.has(part)) problems.push(`${key}: '${part}' is not an Open States district`);
+      const other = claimed.get(part);
+      if (other !== undefined) problems.push(`${key}: '${part}' is also claimed by ${other}`);
+      claimed.set(part, key);
+    }
+  }
+  return problems;
 }

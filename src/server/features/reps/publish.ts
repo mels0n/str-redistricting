@@ -7,7 +7,7 @@ import { STATES } from '../../shared/apportionment/index.js';
 import { DataError } from '../../shared/errors/index.js';
 import type { DownloadOptions } from '../../shared/http/index.js';
 import { LEGISLATORS_FILE, openStatesFile, readRepsSources, readVerified, SOCIAL_FILE } from './download.js';
-import { matchStateDistricts, normalizeDistrict } from './match.js';
+import { checkAliases, matchStateDistricts, normalizeDistrict } from './match.js';
 import { parseCongress } from './parse-congress.js';
 import { parseOpenStates } from './parse-openstates.js';
 import { CoverageSchema, districtKey, STATEWIDE_CODE, StateRepsSchema, type Coverage, type Office, type Rep, type StateReps } from './schema.js';
@@ -73,6 +73,7 @@ export async function publishReps(input: PublishRepsInput): Promise<{ coverage: 
   const coverage: Coverage = {};
   const missingSeats: string[] = [];
   const staleVacancies: string[] = [];
+  const checked = new Set<string>();
   for (const state of STATES.filter((s) => input.only === undefined || input.only.includes(s.abbr))) {
     const byKey: Record<string, Rep[]> = {};
     const mine = congress.filter((r) => r.state === state.abbr);
@@ -93,6 +94,9 @@ export async function publishReps(input: PublishRepsInput): Promise<{ coverage: 
       const codes = await enactedCodes(input.publicDir, state.abbr, office);
       if (codes === null) continue;
       const theirs = reps.filter((r) => r.office === office);
+      checked.add(`${state.abbr}:${office}:`);
+      const bad = checkAliases(state.abbr, office, codes, theirs.map((r) => r.districtCode!), aliases);
+      if (bad.length > 0) throw new DataError(`config/reps-district-aliases.json: ${bad.join('; ')}`);
       const m = matchStateDistricts(state.abbr, office, codes, theirs.map((r) => r.districtCode!), aliases);
       const byOpenStates = new Map<string, string>(Object.entries(m.matched).flatMap(([code, os]) => os.split('|').map((name): [string, string] => [normalizeDistrict(name), code])));
       for (const rep of theirs) {
@@ -107,6 +111,10 @@ export async function publishReps(input: PublishRepsInput): Promise<{ coverage: 
       generatedFrom: { [LEGISLATORS_FILE]: hash(LEGISLATORS_FILE), [SOCIAL_FILE]: hash(SOCIAL_FILE), [csvName]: hash(csvName) },
       byKey,
     }));
+  }
+  if (input.only === undefined) {
+    const orphan = Object.keys(aliases).filter((k) => ![...checked].some((c) => k.startsWith(c)));
+    if (orphan.length > 0) throw new DataError(`config/reps-district-aliases.json: no enacted districts for ${orphan.join(', ')}`);
   }
   if (missingSeats.length > 0) throw new DataError(`no member found for US House seat(s): ${missingSeats.join(', ')}. If a seat is truly vacant, list it in config/reps-vacant-seats.json.`);
   if (staleVacancies.length > 0) throw new DataError(`config/reps-vacant-seats.json lists seat(s) that now have a member: ${staleVacancies.join(', ')}`);

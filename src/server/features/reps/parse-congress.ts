@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { STATES } from '../../shared/apportionment/index.js';
-import { RepSchema, type StatedRep } from './schema.js';
+import { publishableWebsite, RepSchema, type StatedRep } from './schema.js';
 
 const Term = z.object({
   type: z.enum(['rep', 'sen']),
@@ -66,7 +66,7 @@ export function parseCongress(legislators: unknown, social: unknown): StatedRep[
         email: null,
         phone: orNull(term.phone),
         address: orNull(term.address),
-        website: orNull(term.url),
+        website: publishableWebsite(term.url),
         social: socialOf(socialById.get(m.id.bioguide)),
       }),
       state: term.state,

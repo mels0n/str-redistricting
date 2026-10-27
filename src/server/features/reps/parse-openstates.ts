@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { RepSchema, type Rep } from './schema.js';
+import { publishableWebsite, RepSchema, type Rep } from './schema.js';
 
 /** RFC 4180: comma separated, fields optionally quoted, `""` inside quotes is a quote, and a quoted field may hold commas and newlines. */
 export function parseCsv(text: string): string[][] {
@@ -91,7 +91,7 @@ export function parseOpenStates(csv: string, state: string): OpenStatesParse {
       email: orNull(r.email),
       phone: orNull(r.capitol_voice),
       address: orNull(r.capitol_address),
-      website: orNull(r.links.split(';')[0] ?? ''),
+      website: publishableWebsite(r.links.split(';')[0]),
       social,
     }));
   }

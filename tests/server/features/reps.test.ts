@@ -4,7 +4,7 @@ import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
-import { matchStateDistricts, parseCongress, parseCsv, parseOpenStates, publishReps, StateRepsSchema } from '../../../src/server/features/reps/index.js';
+import { checkAliases, matchStateDistricts, parseCongress, parseCsv, parseOpenStates, publishableWebsite, publishReps, StateRepsSchema } from '../../../src/server/features/reps/index.js';
 
 const FIXTURES = join(dirname(fileURLToPath(import.meta.url)), '../../fixtures/reps');
 const read = (name: string): string => readFileSync(join(FIXTURES, name), 'utf8');
@@ -90,6 +90,48 @@ describe('matchStateDistricts', () => {
   });
 });
 
+describe('matchStateDistricts collisions', () => {
+  it('throws when two Open States names normalise to the same string', () => {
+    expect(() => matchStateDistricts('XX', 'state-house', ['001'], ['1', '01'], {})).toThrow(/normalise to the same name/);
+  });
+});
+
+describe('checkAliases', () => {
+  const os = ['Chittenden-Central', 'Windsor', '1A', '1B'];
+  it('accepts sound aliases, including a | list', () => {
+    expect(checkAliases('VT', 'state-senate', ['CHI', '001'], os, { 'VT:state-senate:CHI': 'Chittenden-Central', 'VT:state-senate:001': '1A|1B' })).toEqual([]);
+  });
+  it('flags a target that is not an exact Open States name', () => {
+    expect(checkAliases('VT', 'state-senate', ['CHI'], os, { 'VT:state-senate:CHI': 'Chittenden Central' })).toHaveLength(1);
+  });
+  it('flags an Open States name claimed twice', () => {
+    expect(checkAliases('VT', 'state-senate', ['CHI', 'CHC'], os, { 'VT:state-senate:CHI': 'Windsor', 'VT:state-senate:CHC': 'Windsor' }).join()).toMatch(/also claimed/);
+  });
+  it('flags an alias for a code that matches without it, and for an unknown code', () => {
+    expect(checkAliases('VT', 'state-senate', ['WINDSOR'], os, { 'VT:state-senate:WINDSOR': 'Windsor' }).join()).toMatch(/already matches/);
+    expect(checkAliases('VT', 'state-senate', ['CHI'], os, { 'VT:state-senate:ZZZ': 'Windsor' }).join()).toMatch(/no such enacted/);
+  });
+  it('ignores aliases of another state or chamber', () => {
+    expect(checkAliases('VT', 'state-senate', ['CHI'], os, { 'NH:state-house:001': 'nope' })).toEqual([]);
+  });
+});
+
+describe('publishableWebsite', () => {
+  it('drops a party or caucus host and keeps an official one', () => {
+    for (const u of ['https://www.housegop.org/x', 'https://senatedemocrats.com', 'https://www.republicanhouse.org', 'https://dems.example.gov', 'https://caucus.example.org']) expect(publishableWebsite(u)).toBeNull();
+    expect(publishableWebsite('https://hurd.house.gov')).toBe('https://hurd.house.gov');
+    expect(publishableWebsite('')).toBeNull();
+    expect(publishableWebsite('not a url')).toBeNull();
+  });
+  it('is applied to Open States links', () => {
+    const swapped = read('co.csv').replaceAll('https://leg.colorado.gov/legislators/', 'https://www.coloradohousegop.com/');
+    const out = parseOpenStates(swapped, 'CO');
+    expect(out.reps.every((x) => x.website === null)).toBe(true);
+    expect(out.reps.some((x) => x.website === null)).toBe(true);
+    expect(JSON.stringify(out.reps)).not.toMatch(/housegop/);
+  });
+});
+
 describe('publishReps', () => {
   let dir: string;
   const topo = (path: string, codes: string[]): void => {
@@ -132,7 +174,9 @@ describe('publishReps', () => {
     });
     const file = StateRepsSchema.parse(JSON.parse(readFileSync(join(input.publicDir, 'reps', 'CO.json'), 'utf8')));
     expect(file.byKey['CO:us-house:03']?.[0]?.id).toBe('H001100');
-    expect(file.byKey['CO:us-senate:00']).toHaveLength(1);
+    expect(file.byKey['CO:us-senate:state']).toHaveLength(1);
+    expect(file.byKey['CO:us-senate:state']?.[0]?.districtCode).toBeNull();
+    expect(Object.keys(file.byKey).filter((k) => k.includes('us-senate'))).toEqual(['CO:us-senate:state']);
     expect(file.byKey['CO:state-senate:012']?.[0]?.districtCode).toBe('012');
     expect(Object.keys(file.generatedFrom).sort()).toEqual(['co.csv', 'legislators-current.json', 'legislators-social-media.json']);
     expect(readFileSync(join(input.publicDir, 'reps', 'CO.json'), 'utf8')).not.toMatch(/party/i);

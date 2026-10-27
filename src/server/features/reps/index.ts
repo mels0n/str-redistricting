@@ -1,11 +1,11 @@
 export { LEGISLATORS_FILE, RepsSourcesSchema, SOCIAL_FILE, openStatesFile, pinRepsSources, readRepsSources, repsSourceList } from './download.js';
 export type { RepsSources } from './download.js';
-export { matchStateDistricts, normalizeDistrict } from './match.js';
+export { checkAliases, matchStateDistricts, normalizeDistrict } from './match.js';
 export type { DistrictMatch } from './match.js';
 export { parseCongress } from './parse-congress.js';
 export { parseCsv, parseOpenStates } from './parse-openstates.js';
 export type { OpenStatesParse } from './parse-openstates.js';
 export { publishReps } from './publish.js';
 export type { PublishRepsInput } from './publish.js';
-export { CoverageSchema, OFFICES, RepSchema, STATEWIDE_CODE, StateRepsSchema, districtKey } from './schema.js';
+export { CoverageSchema, OFFICES, RepSchema, STATEWIDE_CODE, StateRepsSchema, districtKey, publishableWebsite } from './schema.js';
 export type { Coverage, Office, Rep, StateReps, StatedRep } from './schema.js';

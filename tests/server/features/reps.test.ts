@@ -1,0 +1,153 @@
+import { createHash } from 'node:crypto';
+import { copyFileSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+import { matchStateDistricts, parseCongress, parseCsv, parseOpenStates, publishReps, StateRepsSchema } from '../../../src/server/features/reps/index.js';
+
+const FIXTURES = join(dirname(fileURLToPath(import.meta.url)), '../../fixtures/reps');
+const read = (name: string): string => readFileSync(join(FIXTURES, name), 'utf8');
+const json = (name: string): unknown => JSON.parse(read(name)) as unknown;
+const sha = (name: string): string => createHash('sha256').update(readFileSync(join(FIXTURES, name))).digest('hex');
+
+describe('parseCongress', () => {
+  const out = parseCongress(json('legislators-current.json'), json('legislators-social-media.json'));
+
+  it('reads a House member from the last term and the social file', () => {
+    const hurd = out.find((r) => r.id === 'H001100')!;
+    expect(hurd).toMatchObject({ state: 'CO', office: 'us-house', districtCode: '03', phone: '202-225-4676', website: 'https://hurd.house.gov' });
+    expect(hurd.address).toContain('Longworth');
+    expect(hurd.social.x).toBe('RepJeffHurd');
+    // The upstream file lists no contact form for House members.
+    expect(hurd.contactUrl).toBeNull();
+  });
+
+  it('takes the contact form of a senator, who has no district', () => {
+    const bennet = out.find((r) => r.id === 'B001267')!;
+    expect(bennet).toMatchObject({ office: 'us-senate', districtCode: null });
+    expect(bennet.contactUrl).toMatch(/^https:\/\/www\.bennet\.senate\.gov/);
+  });
+
+  it('gives an at-large member 00 and keeps no party', () => {
+    expect(out.find((r) => r.id === 'B001318')).toMatchObject({ state: 'VT', districtCode: '00' });
+    expect(JSON.stringify(out)).not.toMatch(/party/i);
+  });
+});
+
+describe('parseOpenStates', () => {
+  it('maps chambers and takes email, capitol phone and address, and the first link', () => {
+    const { reps, skipped } = parseOpenStates(read('co.csv'), 'CO');
+    expect(skipped).toBe(0);
+    expect(reps).toHaveLength(6);
+    expect(reps.filter((r) => r.office === 'state-senate')).toHaveLength(2);
+    expect(reps.filter((r) => r.office === 'state-house')).toHaveLength(4);
+    const first = reps[0]!;
+    expect(first.id).toMatch(/^ocd-person\//);
+    expect(first.email).toMatch(/@/);
+    expect(first.website).toMatch(/^https:\/\/leg\.colorado\.gov\/legislators\//);
+    expect(first.website).not.toContain(';');
+    expect(JSON.stringify(reps)).not.toMatch(/party|Democratic|Republican/i);
+  });
+
+  it('keeps two members of one district as two reps', () => {
+    const { reps } = parseOpenStates(read('vt.csv'), 'VT');
+    expect(reps.filter((r) => r.districtCode === 'Windsor')).toHaveLength(2);
+  });
+
+  it('skips and counts a row that fails validation', () => {
+    const csv = read('co.csv').trimEnd();
+    const bad = `${csv}\nnot-an-id,Nobody,,5,joint,,,,,,,,,,,,,,,,,,,,,\n`;
+    expect(parseOpenStates(bad, 'CO').skipped).toBe(1);
+  });
+});
+
+describe('parseCsv', () => {
+  it('handles quoted commas, doubled quotes and embedded newlines', () => {
+    expect(parseCsv('a,b\r\n"x,1","he said ""hi""\nthere"\nlast,')).toEqual([['a', 'b'], ['x,1', 'he said "hi"\nthere'], ['last', '']]);
+  });
+});
+
+describe('matchStateDistricts', () => {
+  it('matches numbers regardless of leading zeros', () => {
+    const m = matchStateDistricts('CO', 'state-senate', ['001', '012'], ['1', '12'], {});
+    expect(m.matched).toEqual({ '001': '1', '012': '12' });
+    expect(m.unmatchedEnacted).toEqual([]);
+    expect(m.unmatchedOpenStates).toEqual([]);
+  });
+
+  it('leaves a name that does not agree unmatched until an alias names it', () => {
+    const plain = matchStateDistricts('VT', 'state-senate', ['CHI'], ['Chittenden-Central'], {});
+    expect(plain.unmatchedEnacted).toEqual(['CHI']);
+    expect(plain.unmatchedOpenStates).toEqual(['Chittenden-Central']);
+    const aliased = matchStateDistricts('VT', 'state-senate', ['CHI'], ['Chittenden-Central'], { 'VT:state-senate:CHI': 'Chittenden-Central' });
+    expect(aliased.matched).toEqual({ CHI: 'Chittenden-Central' });
+    expect(aliased.unmatchedEnacted).toEqual([]);
+  });
+
+  it('ignores case, spaces, hyphens and the word district', () => {
+    expect(matchStateDistricts('VT', 'state-house', ['CHITTENDEN-CENTRAL'], ['Chittenden Central District'], {}).unmatchedEnacted).toEqual([]);
+  });
+});
+
+describe('publishReps', () => {
+  let dir: string;
+  const topo = (path: string, codes: string[]): void => {
+    mkdirSync(dirname(path), { recursive: true });
+    writeFileSync(path, JSON.stringify({ objects: { enacted: { geometries: codes.map((code) => ({ properties: { label: code, code } })) } } }));
+  };
+  const setup = (overrides: Record<string, string> = {}, usHouse = ['03']): { configDir: string; cacheDir: string; publicDir: string; only: string[] } => {
+    const configDir = join(dir, 'config');
+    const cacheDir = join(dir, 'cache');
+    const publicDir = join(dir, 'public');
+    mkdirSync(configDir);
+    mkdirSync(cacheDir);
+    const files: Record<string, string> = { 'legislators-current.json': 'legislators-current.json', 'legislators-social-media.json': 'legislators-social-media.json', 'co.csv': 'co.csv' };
+    const sources: Record<string, { url: string; sha256: string }> = {};
+    for (const [name, fixture] of Object.entries(files)) {
+      copyFileSync(join(FIXTURES, fixture), join(cacheDir, name));
+      sources[name] = { url: `https://data.openstates.org/${name}`, sha256: overrides[name] ?? sha(fixture) };
+    }
+    writeFileSync(join(configDir, 'reps-sources.json'), JSON.stringify(sources));
+    writeFileSync(join(configDir, 'reps-district-aliases.json'), '{}');
+    topo(join(publicDir, 'CO', 'enacted.topo.json'), usHouse);
+    topo(join(publicDir, 'CO', 'state-senate', 'enacted.topo.json'), ['001', '012', '035']);
+    topo(join(publicDir, 'CO', 'state-house', 'enacted.topo.json'), ['005', '007', '012', '030', '031']);
+    return { configDir, cacheDir, publicDir, only: ['CO'] };
+  };
+
+  beforeEach(() => {
+    dir = mkdtempSync(join(tmpdir(), 'reps-'));
+  });
+  afterEach(() => {
+    rmSync(dir, { recursive: true, force: true });
+  });
+
+  it('writes the state file and coverage, filing reps under the enacted code', async () => {
+    const input = setup();
+    const { coverage } = await publishReps(input);
+    expect(coverage.CO).toEqual({
+      'state-senate': { matched: 2, unmatched: ['035'] },
+      'state-house': { matched: 4, unmatched: ['031'] },
+    });
+    const file = StateRepsSchema.parse(JSON.parse(readFileSync(join(input.publicDir, 'reps', 'CO.json'), 'utf8')));
+    expect(file.byKey['CO:us-house:03']?.[0]?.id).toBe('H001100');
+    expect(file.byKey['CO:us-senate:00']).toHaveLength(1);
+    expect(file.byKey['CO:state-senate:012']?.[0]?.districtCode).toBe('012');
+    expect(Object.keys(file.generatedFrom).sort()).toEqual(['co.csv', 'legislators-current.json', 'legislators-social-media.json']);
+    expect(readFileSync(join(input.publicDir, 'reps', 'CO.json'), 'utf8')).not.toMatch(/party/i);
+    expect(JSON.parse(readFileSync(join(input.publicDir, 'reps', 'coverage.json'), 'utf8'))).toEqual(coverage);
+  });
+
+  it('throws when a file differs from its pinned sha256', async () => {
+    await expect(publishReps(setup({ 'co.csv': 'a'.repeat(64) }))).rejects.toThrow(/co\.csv: sha256/);
+  });
+
+  it('throws when the legislators file differs from its pinned sha256', async () => {
+    await expect(publishReps(setup({ 'legislators-current.json': 'b'.repeat(64) }))).rejects.toThrow(/legislators-current\.json: sha256/);
+  });
+
+  it('throws when a federal House seat has no member', async () => {
+    await expect(publishReps(setup({}, ['03', '04']))).rejects.toThrow(/CO-04/);
+  });
+});

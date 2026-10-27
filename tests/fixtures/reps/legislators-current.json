@@ -1,0 +1,182 @@
+[
+  {
+    "id": {
+      "bioguide": "B001267",
+      "thomas": "01965",
+      "lis": "S330",
+      "govtrack": 412330,
+      "opensecrets": "N00030608",
+      "votesmart": 110942,
+      "fec": [
+        "S0CO00211"
+      ],
+      "cspan": 1031622,
+      "wikipedia": "Michael Bennet",
+      "ballotpedia": "Michael Bennet",
+      "maplight": 1092,
+      "icpsr": 40910,
+      "wikidata": "Q554792",
+      "google_entity_id": "kg:/m/05b60qf",
+      "pictorial": 13409
+    },
+    "name": {
+      "first": "Michael",
+      "middle": "F.",
+      "last": "Bennet",
+      "official_full": "Michael F. Bennet"
+    },
+    "bio": {
+      "gender": "M",
+      "birthday": "1964-11-28"
+    },
+    "terms": [
+      {
+        "type": "sen",
+        "start": "2009-01-22",
+        "end": "2011-01-03",
+        "state": "CO",
+        "class": 3,
+        "party": "Democrat",
+        "url": "http://bennet.senate.gov/",
+        "how": "appointment"
+      },
+      {
+        "type": "sen",
+        "start": "2011-01-05",
+        "end": "2017-01-03",
+        "state": "CO",
+        "class": 3,
+        "party": "Democrat",
+        "url": "https://www.bennet.senate.gov",
+        "address": "261 Russell Senate Office Building Washington DC 20510",
+        "phone": "202-224-5852",
+        "fax": "202-228-5097",
+        "contact_form": "http://www.bennet.senate.gov/contact/email",
+        "office": "261 Russell Senate Office Building",
+        "state_rank": "senior",
+        "rss_url": "http://www.bennet.senate.gov/rss/feeds/?type=news"
+      },
+      {
+        "type": "sen",
+        "start": "2017-01-03",
+        "end": "2023-01-03",
+        "state": "CO",
+        "class": 3,
+        "state_rank": "senior",
+        "party": "Democrat",
+        "url": "https://www.bennet.senate.gov/public",
+        "rss_url": "http://www.bennet.senate.gov/rss/feeds/?type=news",
+        "address": "261 Russell Senate Office Building Washington DC 20510",
+        "office": "261 Russell Senate Office Building",
+        "phone": "202-224-5852",
+        "contact_form": "https://www.bennet.senate.gov/public/index.cfm/contact",
+        "fax": "202-228-5097"
+      },
+      {
+        "type": "sen",
+        "start": "2023-01-03",
+        "end": "2029-01-03",
+        "state": "CO",
+        "class": 3,
+        "state_rank": "senior",
+        "party": "Democrat",
+        "url": "https://www.bennet.senate.gov",
+        "rss_url": "http://www.bennet.senate.gov/rss/feeds/?type=news",
+        "contact_form": "https://www.bennet.senate.gov/public/index.cfm/contact",
+        "address": "261 Russell Senate Office Building Washington DC 20510",
+        "office": "261 Russell Senate Office Building",
+        "phone": "202-224-5852"
+      }
+    ]
+  },
+  {
+    "id": {
+      "bioguide": "B001318",
+      "fec": [
+        "H2VT01076"
+      ],
+      "govtrack": 456948,
+      "opensecrets": "N00049900",
+      "wikidata": "Q28137193",
+      "wikipedia": "Becca Balint",
+      "google_entity_id": "kg:/g/11c1pdt17l",
+      "votesmart": 154056,
+      "pictorial": 13311,
+      "ballotpedia": "Becca Balint"
+    },
+    "name": {
+      "first": "Becca",
+      "middle": "A.",
+      "last": "Balint",
+      "official_full": "Becca Balint"
+    },
+    "bio": {
+      "gender": "F",
+      "birthday": "1968-05-04"
+    },
+    "terms": [
+      {
+        "type": "rep",
+        "start": "2023-01-03",
+        "end": "2025-01-03",
+        "state": "VT",
+        "district": 0,
+        "party": "Democrat",
+        "url": "https://balint.house.gov",
+        "address": "1408 Longworth House Office Building Washington DC 20515-4500",
+        "office": "1408 Longworth House Office Building",
+        "phone": "202-225-4115"
+      },
+      {
+        "type": "rep",
+        "start": "2025-01-03",
+        "end": "2027-01-03",
+        "state": "VT",
+        "district": 0,
+        "party": "Democrat",
+        "url": "https://balint.house.gov",
+        "address": "1510 Longworth House Office Building Washington DC 20515-4500",
+        "office": "1510 Longworth House Office Building",
+        "phone": "202-225-4115"
+      }
+    ]
+  },
+  {
+    "id": {
+      "bioguide": "H001100",
+      "fec": [
+        "H4CO03357"
+      ],
+      "govtrack": 456982,
+      "opensecrets": "N00053367",
+      "wikipedia": "Jeff Hurd",
+      "wikidata": "Q131101500",
+      "votesmart": 217034,
+      "ballotpedia": "Jeff Hurd"
+    },
+    "name": {
+      "first": "Jeff",
+      "middle": "Stephen",
+      "last": "Hurd",
+      "official_full": "Jeff Hurd"
+    },
+    "bio": {
+      "gender": "M",
+      "birthday": "1979-08-15"
+    },
+    "terms": [
+      {
+        "type": "rep",
+        "start": "2025-01-03",
+        "end": "2027-01-03",
+        "state": "CO",
+        "district": 3,
+        "party": "Republican",
+        "address": "1641 Longworth House Office Building Washington DC 20515-0603",
+        "office": "1641 Longworth House Office Building",
+        "phone": "202-225-4676",
+        "url": "https://hurd.house.gov"
+      }
+    ]
+  }
+]

@@ -13,7 +13,7 @@
       "src/server/app/rule-examples/**",
       "src/server/features/metrics/**"
     ],
-    "web": ["src/client/**", "index.html", "public/*", "build/**", "vercel.json"],
+    "web": ["src/client/**", "index.html", "public/*", "build/**", "vercel.json", "config/reps-sources.json", "config/reps-district-aliases.json", "config/reps-vacant-seats.json"],
     "docs": ["docs/**", "README.md"]
   },
   "exclude": {
@@ -41,7 +41,11 @@
       "src/server/features/census-watch/**",
       "src/server/app/census-watch.ts",
       "src/server/shared/http/**",
-      "src/server/shared/config/versions.ts"
+      "src/server/shared/config/versions.ts",
+      "src/server/features/reps/**",
+      "src/server/app/reps.ts",
+      "src/server/shared/config/reps.ts",
+      "src/server/shared/config/reps-hosts.ts"
     ],
     "input": [],
     "maps": [],

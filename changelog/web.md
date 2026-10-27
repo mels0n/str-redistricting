@@ -1,5 +1,9 @@
 # Web changelog
 
+## 1.5.1 (2026-10-27)
+
+- The sitemap now lists every state map page and each State House and State Senate page, not only the home, How it works, FAQ and changelog pages.
+
 ## 1.5.0 (2026-10-27)
 
 - The home page is less crowded: the second paragraph is shorter, How it works and the three questions share one row of links, and the note on Washington, D.C. and the territories now lives only in the FAQ.

@@ -8,6 +8,7 @@
  *   /faq                       common questions
  *   /pledges                   who supports the rule
  *   /privacy                   what the sign-on collects and keeps
+ *   /remove                    ask for a removal link; /remove?token=... confirms a removal
  *   /faq/ties                  the same page, at one question
  *   /house  /senate            national index for the State House or State Senate
  *   /CO                        Colorado, finished map
@@ -44,6 +45,7 @@ export type Route =
   | { page: 'changelog' }
   | { page: 'pledges' }
   | { page: 'privacy' }
+  | { page: 'remove'; token: string | null }
   | {
       page: 'state';
       abbr: string;
@@ -65,6 +67,7 @@ export function nationalRoute(chamber: Chamber = 'federal-house'): Route {
 export const CHANGELOG: Route = { page: 'changelog' };
 export const PLEDGES: Route = { page: 'pledges' };
 export const PRIVACY: Route = { page: 'privacy' };
+export const REMOVE: Route = { page: 'remove', token: null };
 
 export function howRoute(section: HowSection | null = null): Route {
   return { page: 'how', section };
@@ -104,6 +107,10 @@ export function parsePath(pathname: string, search: string): Route {
   if (segs[0]?.toLowerCase() === 'changelog') return CHANGELOG;
   if (segs[0]?.toLowerCase() === 'pledges') return PLEDGES;
   if (segs[0]?.toLowerCase() === 'privacy') return PRIVACY;
+  if (segs[0]?.toLowerCase() === 'remove') {
+    const token = new URLSearchParams(search).get('token');
+    return { page: 'remove', token: token !== null && /^[0-9a-f]{64}$/.test(token) ? token : null };
+  }
   const nationalChamber = chamberOfSegment(segs[0]);
   if (nationalChamber) return nationalRoute(nationalChamber);
   const abbr = segs[0]?.toUpperCase();
@@ -151,6 +158,7 @@ export function formatPath(route: Route): string {
   if (route.page === 'changelog') return '/changelog';
   if (route.page === 'pledges') return '/pledges';
   if (route.page === 'privacy') return '/privacy';
+  if (route.page === 'remove') return route.token ? `/remove?token=${route.token}` : '/remove';
   if (route.page === 'how') return route.section ? `/how/${route.section}` : '/how';
   if (route.page === 'faq') return route.question ? `/faq/${route.question}` : '/faq';
   let path = `/${route.abbr}`;
@@ -193,6 +201,7 @@ export function canonicalPath(route: Route): string {
   if (route.page === 'changelog') return '/changelog';
   if (route.page === 'pledges') return '/pledges';
   if (route.page === 'privacy') return '/privacy';
+  if (route.page === 'remove') return '/remove';
   if (route.page === 'national') return `/${chamberSegment(route.chamber)}`;
   const chamber = route.chamber === 'federal-house' ? '' : `/${chamberSegment(route.chamber)}`;
   return `/${route.abbr}${chamber}`;

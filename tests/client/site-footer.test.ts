@@ -18,11 +18,13 @@ describe('site footer', () => {
     const el = createSiteFooter();
     await settle();
     const links = el.querySelectorAll('a');
-    expect(links).toHaveLength(2);
+    expect(links).toHaveLength(3);
     expect(links[0]!.textContent).toBe('Changelog');
     expect(links[0]!.getAttribute('href')).toBe('/changelog');
     expect(links[1]!.textContent).toBe('Privacy');
     expect(links[1]!.getAttribute('href')).toBe('/privacy');
+    expect(links[2]!.textContent).toBe('Remove');
+    expect(links[2]!.getAttribute('href')).toBe('/remove');
   });
 
   it('stays a bare link when the published versions file is invalid', async () => {

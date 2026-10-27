@@ -3,6 +3,8 @@ export interface PageMeta {
   title: string;
   description: string;
   path: string;
+  /** True for a page kept out of search results and the sitemap. */
+  noindex?: boolean;
 }
 
 export const PAGE_META = {
@@ -36,4 +38,10 @@ export const PAGE_META = {
     title: 'Privacy | Fair Maps',
     description: 'What Fair Maps collects when you add your name, what it never keeps, what is public, and how to be removed at any time.',
   },
-} as const satisfies Record<'home' | 'how' | 'faq' | 'changelog' | 'pledges' | 'privacy', PageMeta>;
+  remove: {
+    path: '/remove',
+    title: 'Remove your signature | Fair Maps',
+    description: 'Remove your signature, your note and your email from Fair Maps for good.',
+    noindex: true,
+  },
+} as const satisfies Record<'home' | 'how' | 'faq' | 'changelog' | 'pledges' | 'privacy' | 'remove', PageMeta>;

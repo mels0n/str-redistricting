@@ -1,4 +1,4 @@
-import { PAGE_META } from '../src/client/shared/lib/page-meta';
+import { PAGE_META, type PageMeta } from '../src/client/shared/lib/page-meta';
 import { CODE_LICENSE_NAME, CREDIT_TEXT, DATA_LICENSE_NAME, REPO_URL, jsonLd, jsonLdScript, type FaqEntry, type PageKey } from './structured-data';
 
 export { jsonLd, jsonLdScript };
@@ -8,7 +8,7 @@ export type { FaqEntry, PageKey };
 export const PAGE_KEYS = Object.keys(PAGE_META) as PageKey[];
 
 export function sitemapXml(site: string): string {
-  const urls = PAGE_KEYS.map((k) => `  <url><loc>${site}${PAGE_META[k].path}</loc></url>`);
+  const urls = PAGE_KEYS.filter((k) => !(PAGE_META[k] as PageMeta).noindex).map((k) => `  <url><loc>${site}${PAGE_META[k].path}</loc></url>`);
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join('\n')}\n</urlset>\n`;
 }
 

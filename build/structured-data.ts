@@ -231,7 +231,7 @@ export function breadcrumbNode(id: string, items: readonly { name: string; url: 
 const graph = (nodes: Node[]): Graph => ({ '@context': 'https://schema.org', '@graph': nodes });
 
 const HOME_URL = `${SITE}/`;
-const PAGE_NAMES: Record<PageKey, string> = { home: 'Fair Maps', how: 'How it works', faq: 'FAQ', changelog: 'Changelog', pledges: 'Who supports the rule', privacy: 'Privacy' };
+const PAGE_NAMES: Record<PageKey, string> = { home: 'Fair Maps', how: 'How it works', faq: 'FAQ', changelog: 'Changelog', pledges: 'Who supports the rule', privacy: 'Privacy', remove: 'Remove your signature' };
 const pageUrl = (key: PageKey): string => (key === 'home' ? HOME_URL : `${SITE}${PAGE_META[key].path}`);
 
 /** The crumbs of a page below Home. The home page has none: a trail of one item is not worth marking up. */
@@ -365,6 +365,11 @@ function privacyNodes(): Node[] {
   return [...siteNodes(), webPage('privacy', 'WebPage', {}), breadcrumbNode(`${url}#breadcrumb`, pageCrumbs('privacy'))];
 }
 
+function removeNodes(): Node[] {
+  const url = pageUrl('remove');
+  return [...siteNodes(), webPage('remove', 'WebPage', {}), breadcrumbNode(`${url}#breadcrumb`, pageCrumbs('remove'))];
+}
+
 /** The structured data each prerendered page carries, as one `@graph`; the FAQ entries feed the FAQ page's `FAQPage`. */
 export function jsonLd(key: PageKey, faq: readonly FaqEntry[]): Graph[] {
   switch (key) {
@@ -380,6 +385,8 @@ export function jsonLd(key: PageKey, faq: readonly FaqEntry[]): Graph[] {
       return [graph(pledgesNodes())];
     case 'privacy':
       return [graph(privacyNodes())];
+    case 'remove':
+      return [graph(removeNodes())];
   }
 }
 

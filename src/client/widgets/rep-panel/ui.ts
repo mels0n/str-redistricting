@@ -27,6 +27,12 @@ function officeLabel(state: string, office: Office, code: string): string {
   return 'U.S. Senate';
 }
 
+/** Digits and a leading plus only, so nothing else can ride in a tel: link. */
+function telHref(phone: string): string {
+  const digits = phone.replace(/[^\d]/g, '');
+  return `tel:${phone.trim().startsWith('+') ? '+' : ''}${digits}`;
+}
+
 async function share(url: string): Promise<void> {
   if (typeof navigator.share === 'function') {
     try {
@@ -47,6 +53,8 @@ async function share(url: string): Promise<void> {
 export function createRepPanel(): RepPanel {
   const el = h('section', { class: 'strv-reps', 'aria-labelledby': 'strv-reps-h', hidden: true });
   let token = 0;
+  /** Closes the composer that is open, if any: one letter at a time. */
+  let closeOpen: (() => void) | null = null;
 
   const hide = (): void => {
     el.hidden = true;
@@ -64,14 +72,17 @@ export function createRepPanel(): RepPanel {
         class: 'strv-button strv-button--signal',
         'aria-expanded': 'false',
         onclick: () => {
-          if (slot.firstChild) {
-            clear(slot);
-            ask.setAttribute('aria-expanded', 'false');
-            return;
-          }
+          const wasOpen = slot.firstChild !== null;
+          closeOpen?.();
+          if (wasOpen) return;
           const letter = letterText({ rep, office: row.office, stateName: input.stateName, districtLabel: label, mapUrl });
           slot.append(createAskComposer({ name: rep.name, letter, contactUrl: rep.contactUrl, email: rep.email, phone: rep.phone }));
           ask.setAttribute('aria-expanded', 'true');
+          closeOpen = () => {
+            clear(slot);
+            ask.setAttribute('aria-expanded', 'false');
+            closeOpen = null;
+          };
         },
       },
       'Ask them to support the rule',
@@ -84,7 +95,7 @@ export function createRepPanel(): RepPanel {
         'div',
         { class: 'strv-reps__actions' },
         ask,
-        rep.phone && h('a', { class: 'strv-button', href: `tel:${rep.phone}` }, 'Call'),
+        rep.phone && h('a', { class: 'strv-button', href: telHref(rep.phone) }, 'Call'),
         h('button', { type: 'button', class: 'strv-button', onclick: () => void share(mapUrl) }, 'Share'),
       ),
       slot,
@@ -93,6 +104,7 @@ export function createRepPanel(): RepPanel {
 
   async function update(input: RepPanelInput): Promise<void> {
     const mine = ++token;
+    closeOpen = null;
     if (!input.located || input.located.state !== input.state) {
       hide();
       return;

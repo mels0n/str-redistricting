@@ -25,7 +25,7 @@ const file = {
   byKey: {
     'CO:state-senate:012': [rep('SS', 'state-senate', { email: 'a@b.co', phone: null })],
     'CO:state-house:004': [rep('SH', 'state-house')],
-    'CO:us-house:03': [rep('H', 'us-house', { email: 'h@x.gov', contactUrl: 'https://x.gov/contact' })],
+    'CO:us-house:03': [rep('H', 'us-house', { email: 'h@x.gov', contactUrl: 'https://x.gov/contact', phone: '+1 (202) 225-4431 x5' })],
     'CO:us-senate:state': [rep('S1', 'us-senate', { contactUrl: 'https://s.gov/c' })],
   } as Record<string, unknown>,
 };
@@ -104,5 +104,56 @@ describe('rep panel', () => {
     await p.update({ ...input, located: { ...located, lonLat: [9, 9] } });
     expect(p.el.textContent).toContain('We couldn’t place this address in a district.');
     expect([...p.el.querySelectorAll('.strv-reps__office')].map((e) => e.textContent)).toEqual(['U.S. Senate']);
+  });
+
+  it('keeps one composer open at a time', async () => {
+    const p = createRepPanel();
+    await p.update(input);
+    const rows = [...p.el.querySelectorAll('li')];
+    (rows[0]!.querySelector('button') as HTMLButtonElement).click();
+    (rows[1]!.querySelector('button') as HTMLButtonElement).click();
+    expect(p.el.querySelectorAll('.strv-ask')).toHaveLength(1);
+    expect(rows[0]!.querySelector('.strv-ask')).toBeNull();
+    expect(rows[1]!.querySelector('.strv-ask')).not.toBeNull();
+  });
+
+  it('marks only the printed letter and clears the mark afterwards', async () => {
+    vi.stubGlobal('print', vi.fn());
+    const p = createRepPanel();
+    await p.update(input);
+    const row = p.el.querySelectorAll('li')[1]!;
+    (row.querySelector('button') as HTMLButtonElement).click();
+    const printBtn = [...row.querySelectorAll('button')].find((b) => b.textContent === 'Print')!;
+    printBtn.click();
+    expect(row.querySelector('.strv-ask')!.hasAttribute('data-printing')).toBe(true);
+    expect(document.documentElement.hasAttribute('data-print-letter')).toBe(true);
+    window.dispatchEvent(new Event('afterprint'));
+    expect(row.querySelector('.strv-ask')!.hasAttribute('data-printing')).toBe(false);
+    expect(document.documentElement.hasAttribute('data-print-letter')).toBe(false);
+    vi.unstubAllGlobals();
+  });
+
+  it('shows the contact form link only for http and https addresses', async () => {
+    file.byKey['CO:us-senate:state'] = [rep('S1', 'us-senate', { contactUrl: 'javascript:alert(1)' })];
+    const p = createRepPanel();
+    await p.update(input);
+    const row = [...p.el.querySelectorAll('li')][3]!;
+    (row.querySelector('button') as HTMLButtonElement).click();
+    expect(buttons(row)).not.toContain('Open their contact form');
+    file.byKey['CO:us-senate:state'] = [rep('S1', 'us-senate', { contactUrl: 'https://s.gov/c' })];
+    const q = createRepPanel();
+    await q.update(input);
+    const row2 = [...q.el.querySelectorAll('li')][3]!;
+    (row2.querySelector('button') as HTMLButtonElement).click();
+    const link = [...row2.querySelectorAll('a')].find((a) => a.textContent === 'Open their contact form')!;
+    expect(link.getAttribute('href')).toBe('https://s.gov/c');
+    expect(link.getAttribute('rel')).toBe('noopener');
+  });
+
+  it('builds tel: links from digits and a leading plus only', async () => {
+    const p = createRepPanel();
+    await p.update(input);
+    const call = [...p.el.querySelectorAll('a')].filter((a) => a.textContent === 'Call').map((a) => a.getAttribute('href'));
+    expect(call).toEqual(['tel:5550100', 'tel:+120222544315', 'tel:5550100']);
   });
 });

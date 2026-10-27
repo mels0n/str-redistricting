@@ -5116,31 +5116,38 @@ var {
   color: var(--ink-2);
 }
 
-/* Print only the letter. */
+/* Print only the letter whose Print button was pressed: everything outside its ancestor chain is removed from layout, and the chain itself is flattened to plain blocks. */
 @media print {
-  body * {
-    visibility: hidden;
+  html[data-print-letter] body *:not(:has(.strv-ask[data-printing])):not(.strv-ask[data-printing]):not(.strv-ask[data-printing] *) {
+    display: none !important;
   }
 
-  .strv-ask__subject,
-  .strv-ask__subject *,
-  .strv-ask__letter {
-    visibility: visible;
+  html[data-print-letter] body :has(.strv-ask[data-printing]) {
+    display: block !important;
+    position: static !important;
+    inset: auto !important;
+    width: auto !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow: visible !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: 0 !important;
+    container-type: normal !important;
+    transform: none !important;
+    columns: auto !important;
   }
 
-  .strv-ask__subject,
-  .strv-ask__letter {
-    position: absolute;
-    left: 0;
-    right: 0;
-  }
-
-  .strv-ask__subject {
-    top: 0;
-  }
-
-  .strv-ask__letter {
-    top: 2.5rem;
+  html[data-print-letter] .strv-ask[data-printing] {
+    border: 0;
+    padding: 0;
     color: #000;
+    background: #fff;
+  }
+
+  html[data-print-letter] .strv-ask[data-printing] .strv-ask__actions,
+  html[data-print-letter] .strv-ask[data-printing] .strv-ask__phone {
+    display: none;
   }
 }

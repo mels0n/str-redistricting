@@ -19,7 +19,7 @@ describe('FAQ page', () => {
   it('opens with the three gerrymandering questions', () => {
     const page = createFaqPage({ page: 'faq', question: null });
     const sections = [...page.el.querySelectorAll('section.strv-how__section')];
-    expect(sections).toHaveLength(15);
+    expect(sections).toHaveLength(16);
     const titles = sections.slice(0, 3).map((s) => {
       const h2 = s.querySelector('h2')!.cloneNode(true) as HTMLElement;
       h2.querySelector('.strv-how__no')?.remove();

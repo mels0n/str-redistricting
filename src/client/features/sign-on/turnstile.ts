@@ -53,6 +53,12 @@ function loadApi(): Promise<TurnstileApi> {
 
 /** Renders the Managed widget into `el`. Rejects if Cloudflare's script cannot load. */
 export async function mountTurnstile(el: HTMLElement, siteKey: string, handlers: TurnstileHandlers): Promise<TurnstileHandle> {
+  // The dev server has no backend to check a token, so it never contacts Cloudflare. Vite removes this branch from builds.
+  if (import.meta.env.DEV) {
+    const pass = (): void => handlers.onToken('dev-token');
+    pass();
+    return { reset: pass, remove: () => undefined };
+  }
   const api = await loadApi();
   const id = api.render(el, {
     sitekey: siteKey,

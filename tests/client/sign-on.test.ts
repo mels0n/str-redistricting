@@ -22,7 +22,7 @@ vi.mock('../../src/client/features/sign-on/turnstile', () => ({
 }));
 
 import { config } from '../../src/client/shared';
-import { createSignOnForm, signPayload, SIGN_ERROR_COPY, SIGN_FALLBACK_COPY, SENT_COPY, QUEUED_COPY, WAIT_COPY } from '../../src/client/features/sign-on';
+import { createSignOnForm, signPayload, SIGN_FALLBACK_COPY, SENT_COPY, QUEUED_COPY, WAIT_COPY, ADDRESS_HINT } from '../../src/client/features/sign-on';
 import { createPrivacyPage } from '../../src/client/pages/privacy';
 import { createSiteFooter } from '../../src/client/widgets/site-footer';
 
@@ -41,7 +41,7 @@ const ServerSign = z.strictObject({
   ref: z.string().nullable(),
   note: z.string().max(2000).nullable(),
   shareWithRep: z.boolean(),
-});
+}).refine((v) => v.address !== null || (v.state !== null && v.state !== undefined));
 
 const settle = async (): Promise<void> => {
   for (let i = 0; i < 5; i++) await new Promise((r) => setTimeout(r, 0));
@@ -73,6 +73,7 @@ function fill(el: HTMLElement): void {
   byName(el, 'note').value = ' Fair lines matter ';
   byName(el, 'shareWithRep').checked = true;
   byName(el, 'address').value = '10 Elm St, Denver CO';
+  q<HTMLSelectElement>(el, '[name="state"]').value = 'CO';
 }
 const submit = async (el: HTMLElement): Promise<void> => {
   q<HTMLFormElement>(el, 'form').dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
@@ -86,12 +87,13 @@ describe('sign-on form', () => {
     await settle();
     expect(q(f.el, 'h4').textContent).toBe('Add your name');
     expect(q(f.el, '.strv-sign__lede').textContent).toBe(
-      'Sign to support the Fair Maps rule. You’ll be counted in your district once you confirm your email. We don’t keep your address.',
+      'Sign to support the Fair Maps rule. You’ll be counted once you confirm your email. Add an address and you’ll be counted in your district too. We never keep your address.',
     );
     expect([...f.el.querySelectorAll('label')].map((l) => l.textContent)).toEqual([
-      'Address',
       'Email',
+      'State',
       'Name to show (optional)',
+      'Address (optional)',
       'Why you signed (optional)',
       'Show my name and town on the site',
       'Share my note with my representative',
@@ -99,6 +101,10 @@ describe('sign-on form', () => {
     ]);
     expect(q(f.el, '.strv-sign__hint').textContent).toBe('First name and last initial, like Maria G.');
     expect(byName(f.el, 'address').value).toBe('1 Main St, Denver, CO');
+    expect(byName(f.el, 'address').required).toBe(false);
+    expect(q<HTMLSelectElement>(f.el, '[name="state"]').required).toBe(true);
+    expect(q<HTMLSelectElement>(f.el, '[name="state"]').options).toHaveLength(51);
+    expect(f.el.querySelectorAll('.strv-sign__hint')[1]!.textContent).toBe(ADDRESS_HINT);
     expect(q(f.el, 'button[type="submit"]').textContent).toBe('Sign');
     expect(q<HTMLAnchorElement>(f.el, 'a').getAttribute('href')).toBe('/privacy');
     expect(widgets.map((w) => w.siteKey)).toEqual([TEST_SITE_KEY]);
@@ -114,7 +120,7 @@ describe('sign-on form', () => {
     expect(err.getAttribute('role')).toBe('alert');
     expect(err.hidden).toBe(false);
     expect(err.textContent).toBe('');
-    expect(document.activeElement).toBe(byName(f.el, 'address'));
+    expect(document.activeElement).toBe(byName(f.el, 'email'));
     fill(f.el);
     widgets[0]!.token('t');
     await submit(f.el);
@@ -138,6 +144,7 @@ describe('sign-on form', () => {
     expect(ServerSign.safeParse(body).success).toBe(true);
     expect(body).toEqual({
       address: '10 Elm St, Denver CO',
+      state: 'CO',
       email: 'maria@example.org',
       turnstileToken: 'tok-1',
       consentUpdates: true,
@@ -149,8 +156,30 @@ describe('sign-on form', () => {
     });
   });
 
+  it('signs with just a state: address null, state sent, and the same schema accepts it', async () => {
+    fetchMock.mockResolvedValue(Response.json({ status: 'check-email', queued: false }, { status: 202 }));
+    const f = createSignOnForm({ address: '', state: 'CO' });
+    await settle();
+    byName(f.el, 'email').value = 'maria@example.org';
+    expect(q<HTMLSelectElement>(f.el, '[name="state"]').value).toBe('CO');
+    widgets[0]!.token('tok-2');
+    await submit(f.el);
+    const body = JSON.parse((fetchMock.mock.calls[0] as [string, RequestInit])[1].body as string) as Record<string, unknown>;
+    expect(ServerSign.safeParse(body).success).toBe(true);
+    expect(body).toMatchObject({ address: null, state: 'CO', displayName: null, note: null });
+  });
+
+  it('takes a located address and state from the page', async () => {
+    const f = createSignOnForm({ address: '', focus: false });
+    await settle();
+    f.setLocation({ address: '1 Main St', state: 'CO' });
+    expect(byName(f.el, 'address').value).toBe('1 Main St');
+    expect(q<HTMLSelectElement>(f.el, '[name="state"]').value).toBe('CO');
+    expect(document.activeElement).not.toBe(byName(f.el, 'email'));
+  });
+
   it('sends a null display name when the field is empty', () => {
-    expect(signPayload({ address: ' a b c d ', email: 'x@y.co', displayName: '  ', showPublic: false, consentUpdates: false, note: '  ', shareWithRep: false, turnstileToken: 't' })).toMatchObject({ address: 'a b c d', displayName: null, note: null, shareWithRep: false });
+    expect(signPayload({ state: 'CO', address: ' a b c d ', email: 'x@y.co', displayName: '  ', showPublic: false, consentUpdates: false, note: '  ', shareWithRep: false, turnstileToken: 't' })).toMatchObject({ address: 'a b c d', displayName: null, note: null, shareWithRep: false });
   });
 
   it('shows the confirm message after a 202 that was sent now, and the in-line message when queued', async () => {
@@ -180,10 +209,10 @@ describe('sign-on form', () => {
     const f = createSignOnForm({ address: '' });
     document.body.append(f.el);
     await settle();
-    expect(f.el.querySelectorAll('.strv-sign__hint')[1]!.textContent).toBe(
+    expect(f.el.querySelectorAll('.strv-sign__hint')[2]!.textContent).toBe(
       'About the maps or the rule. No links, contact details, or attacks on people or parties. We read every note before it appears.',
     );
-    expect(byName(f.el, 'note').getAttribute('aria-describedby')).toBe(f.el.querySelectorAll('.strv-sign__hint')[1]!.id);
+    expect(byName(f.el, 'note').getAttribute('aria-describedby')).toBe(f.el.querySelectorAll('.strv-sign__hint')[2]!.id);
     fill(f.el);
     widgets[0]!.token('t');
     await submit(f.el);
@@ -211,6 +240,7 @@ describe('sign-on form', () => {
     expect(byName(f.el, 'email').value).toBe('maria@example.org');
     expect(byName(f.el, 'displayName').value).toBe('Maria G.');
     expect(byName(f.el, 'address').value).toBe('10 Elm St, Denver CO');
+    expect(q<HTMLSelectElement>(f.el, '[name="state"]').value).toBe('CO');
     expect(byName(f.el, 'showPublic').checked).toBe(true);
     expect(byName(f.el, 'consentUpdates').checked).toBe(true);
     // The single-use token is dropped and a new check is asked for.

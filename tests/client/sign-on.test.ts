@@ -87,7 +87,7 @@ describe('sign-on form', () => {
     await settle();
     expect(q(f.el, 'h4').textContent).toBe('Add your name');
     expect(q(f.el, '.strv-sign__lede').textContent).toBe(
-      'Sign to support the Fair Maps rule. You’ll be counted once you confirm your email. Add an address and you’ll be counted in your district too. We never keep your address.',
+      'Sign to support the Fair Maps rule. You’ll be counted once you confirm your email. Add an address to be counted in your district. We never keep your address.',
     );
     expect([...f.el.querySelectorAll('label')].map((l) => l.textContent)).toEqual([
       'Email',
@@ -268,6 +268,22 @@ describe('sign-on form', () => {
     const f = createSignOnForm({ address: '' });
     await settle();
     expect(q(f.el, '.strv-sign__error').textContent).toBe(SIGN_FALLBACK_COPY);
+  });
+
+  it('with lazy set, loads the check on first focus or first submit, not on creation, and can drop its heading', async () => {
+    const a = createSignOnForm({ address: '', lazy: true, title: null, focus: false });
+    await settle();
+    expect(widgets).toHaveLength(0);
+    expect(a.el.querySelector('h4')).toBeNull();
+    byName(a.el, 'email').dispatchEvent(new FocusEvent('focusin', { bubbles: true }));
+    await settle();
+    expect(widgets).toHaveLength(1);
+    const b = createSignOnForm({ address: '', lazy: true, focus: false });
+    await settle();
+    fill(b.el);
+    await submit(b.el);
+    expect(q(b.el, '.strv-sign__error').textContent).toBe(WAIT_COPY);
+    expect(widgets).toHaveLength(2);
   });
 
   it('removes the widget when destroyed', async () => {

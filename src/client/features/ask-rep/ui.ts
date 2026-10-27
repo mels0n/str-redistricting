@@ -14,7 +14,7 @@ export interface AskComposerInput {
 }
 
 /** Subject and body are percent-encoded so the link decodes back to the exact letter. */
-function mailtoHref(email: string, letter: { subject: string; body: string }): string {
+export function mailtoHref(email: string, letter: { subject: string; body: string }): string {
   return `mailto:${email}?subject=${encodeURIComponent(letter.subject)}&body=${encodeURIComponent(letter.body)}`;
 }
 

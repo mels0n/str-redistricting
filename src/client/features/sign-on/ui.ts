@@ -23,7 +23,7 @@ export const WAIT_COPY = 'Waiting for the check to finish. Try again in a moment
 
 export const ADDRESS_HINT = 'Add your street address to be counted in your district and see your representatives. We use it only to find your district and never keep it.';
 export const SIGN_LEDE =
-  'Sign to support the Fair Maps rule. You’ll be counted once you confirm your email. Add an address and you’ll be counted in your district too. We never keep your address.';
+  'Sign to support the Fair Maps rule. You’ll be counted once you confirm your email. Add an address to be counted in your district. We never keep your address.';
 
 export interface SignOnValues {
   /** Optional: blank means the signer is counted for the state only. */
@@ -86,7 +86,16 @@ async function post(body: Record<string, unknown>): Promise<Outcome> {
 let uid = 0;
 
 /** The sign-on form. Cloudflare's check loads when the form is created, so a page that never opens it never contacts Cloudflare. */
-export function createSignOnForm(input: { address: string; state?: string; /** Move focus to the first field (default); false when the form is open from the start. */ focus?: boolean }): SignOnForm {
+export function createSignOnForm(input: {
+  address: string;
+  state?: string;
+  /** Move focus to the first field (default); false when the form is open from the start. */
+  focus?: boolean;
+  /** Load the bot check when the form is first focused or scrolled into view, not when it is created. */
+  lazy?: boolean;
+  /** The form's own heading; null when the page already has one. */
+  title?: string | null;
+}): SignOnForm {
   const n = ++uid;
   const id = (k: string): string => `strv-sign-${k}-${n}`;
   let token = '';
@@ -129,6 +138,7 @@ export function createSignOnForm(input: { address: string; state?: string; /** M
     if (submit.disabled) return;
     error.textContent = '';
     if (token === '') {
+      start();
       fail(WAIT_COPY);
       return;
     }
@@ -188,25 +198,41 @@ export function createSignOnForm(input: { address: string; state?: string; /** M
   );
 
   root.append(
-    h('h4', { class: 'strv-sign__h' }, 'Add your name'),
+    ...(input.title !== null ? [h('h4', { class: 'strv-sign__h' }, input.title ?? 'Add your name')] : []),
     h('p', { class: 'strv-sign__lede' }, SIGN_LEDE),
     form,
   );
 
-  mountTurnstile(widget, config.turnstileSiteKey, {
-    onToken: (t) => {
-      token = t;
-    },
-    onClear: () => {
-      token = '';
-    },
-  }).then(
-    (hd) => {
-      if (dead) hd.remove();
-      else handle = hd;
-    },
-    () => fail(SIGN_FALLBACK_COPY),
-  );
+  let started = false;
+  let watcher: IntersectionObserver | null = null;
+  function start(): void {
+    if (started || dead) return;
+    started = true;
+    watcher?.disconnect();
+    mountTurnstile(widget, config.turnstileSiteKey, {
+      onToken: (t) => {
+        token = t;
+      },
+      onClear: () => {
+        token = '';
+      },
+    }).then(
+      (hd) => {
+        if (dead) hd.remove();
+        else handle = hd;
+      },
+      () => fail(SIGN_FALLBACK_COPY),
+    );
+  }
+  if (input.lazy === true) {
+    form.addEventListener('focusin', start, { once: true });
+    if (typeof IntersectionObserver !== 'undefined') {
+      watcher = new IntersectionObserver((entries) => {
+        if (entries.some((e) => e.isIntersecting)) start();
+      });
+      watcher.observe(root);
+    }
+  } else start();
 
   // The form is only created when the visitor opens it, so the first field takes focus once it is in the page (unless the form is open from the start).
   if (input.focus !== false) queueMicrotask(() => email.focus());
@@ -219,6 +245,7 @@ export function createSignOnForm(input: { address: string; state?: string; /** M
     },
     destroy() {
       dead = true;
+      watcher?.disconnect();
       handle?.remove();
       handle = null;
     },

@@ -2,6 +2,8 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { renderPage } from '../../build/prerender';
+import { sharePagePaths } from '../../build/share-pages';
+import { SITE_HOST } from '../../src/server/features/publish/site';
 import { PAGE_META } from '../../src/client/shared/lib/page-meta';
 
 const read = (p: string): string => readFileSync(p, 'utf8');
@@ -74,5 +76,10 @@ describe('prerendered pages', () => {
     expect([ico[6], ico[7], ico.readUInt16LE(10), ico.readUInt16LE(12), ico.readUInt32LE(14), ico.readUInt32LE(18)]).toEqual([48, 48, 1, 32, ico.length - 22, 22]);
     expect(readFileSync('dist/apple-touch-icon.png').readUInt32BE(16)).toBe(180);
     expect(read('dist/robots.txt')).toContain('Sitemap:');
+  });
+
+  it('lists every share page in the built sitemap', () => {
+    const sitemap = read('dist/sitemap.xml');
+    for (const p of sharePagePaths('public')) expect(sitemap).toContain(`<loc>https://${SITE_HOST}/${p}</loc>`);
   });
 });

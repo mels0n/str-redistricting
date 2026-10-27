@@ -22,7 +22,7 @@ describe('structured data builders', () => {
 
 describe('site files', () => {
   it('lists the four pages in the sitemap with no lastmod', () => {
-    const xml = sitemapXml('https://x.test');
+    const xml = sitemapXml('https://x.test', []);
     expect(xml.match(/<loc>/g)).toHaveLength(4);
     expect(xml).toContain('<loc>https://x.test/</loc>');
     expect(xml).toContain('<loc>https://x.test/faq</loc>');

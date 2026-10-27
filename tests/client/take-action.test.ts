@@ -117,6 +117,26 @@ describe('take-action widget', () => {
     expect(w.el.querySelectorAll('.strv-act__count')).toHaveLength(1);
   });
 
+  it.each([[999, true], [1000, false], [0, true]])('hides the count line below the threshold: national %i hidden=%s', async (national, hidden) => {
+    fetchMock.mockImplementation(async (url: string) => (String(url).startsWith('/api/counts') ? Response.json({ national, state: 87, waiting: 0, byKey: {} }) : new Response(null, { status: 404 })));
+    const w = createTakeAction({ id: 'a' });
+    document.body.append(w.el);
+    await settle();
+    q<HTMLInputElement>(w.el, '#a-address').value = '1 Main St';
+    q<HTMLFormElement>(w.el, 'form.strv-search').dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+    await settle();
+    const line = q<HTMLElement>(w.el, '.strv-act__count');
+    expect(line.hidden).toBe(hidden);
+    expect(line.textContent).toBe(hidden ? '' : '1,000 people have signed, 87 in Colorado');
+  });
+
+  it('shows no count line when the counts fail to load', async () => {
+    const w = createTakeAction({ id: 'a' });
+    document.body.append(w.el);
+    await settle();
+    expect(q<HTMLElement>(w.el, '.strv-act__count').hidden).toBe(true);
+  });
+
   it('shows the reps of an address looked up earlier on the visit', async () => {
     setLocated({ state: 'CO', lonLat: [0.5, 0.5], matchedAddress: '1 Main St' });
     const w = createTakeAction({ id: 'a' });

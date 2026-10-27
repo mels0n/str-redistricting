@@ -90,7 +90,7 @@ npm run dev            # serves the viewer locally
 npm run build          # builds the static site into dist/, with public/data copied in
 ```
 
-`npm run dev` stubs the /api routes so every screen can be viewed.
+`npm run dev` stubs the /api routes so every screen can be viewed; open any page with `?fakeCounts=low` to see the screens as they look while the signer total is below the display threshold (`?fakeCounts=high` switches back).
 
 `explore` flags. `--chamber` picks what to draw: `federal-house` (the default), `state-house` or `state-senate`. `--states` is required and takes two-letter state abbreviations, comma separated (for example `RI,CT,CO`). A state that fails is reported in the summary table and the run continues with the others. `--out-dir` sets the output directory (default `out`). `--cache-dir` sets where downloaded Census files are kept (default `data/raw`). `--threads` sets how many threads sweep the directions for each cut (default: the computer's hardware threads minus two, lowered to one thread per 400 MiB of free memory; `1` uses a single thread). The thread count never changes a map. A state whose folder already holds plans drawn from the same Census file, seat count, engine major and code is skipped and reported as unchanged; `--force` draws it again anyway. `docs/explanation/how-districts-are-drawn.md` lists exactly what is compared.
 

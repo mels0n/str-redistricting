@@ -1,4 +1,4 @@
-import type { Office } from '../../shared';
+import { config, type Office } from '../../shared';
 import { DistrictCountsSchema, type DistrictCounts } from './model';
 
 const TIMEOUT_MS = 4000;
@@ -14,6 +14,11 @@ export async function loadCounts(state?: string): Promise<DistrictCounts | null>
   } catch {
     return null;
   }
+}
+
+/** The counts to show: null (show nothing anywhere) when they failed to load or the national total is below the threshold. */
+export function shownCounts(c: DistrictCounts | null): DistrictCounts | null {
+  return c !== null && c.national >= config.showCountsFrom ? c : null;
 }
 
 const asked = new Set<string>();

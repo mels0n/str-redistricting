@@ -29,6 +29,14 @@ describe('dev API stand-in', () => {
     expect(devReply('GET', '/api/unknown', none, {})).toBeNull();
   });
 
+  it('answers with totals under the display threshold in low mode, by flag or by mode', () => {
+    const low = devReply('GET', '/api/counts', new URLSearchParams('state=CO'), {}, 'low')!.body as { national: number; state: number };
+    expect(low.national).toBeLessThan(1000);
+    expect(low.state).toBeLessThan(1000);
+    expect((devReply('GET', '/api/counts', new URLSearchParams('fakeCounts=low'), {})!.body as { national: number }).national).toBeLessThan(1000);
+    expect((devReply('GET', '/api/counts', new URLSearchParams(), {})!.body as { national: number }).national).toBe(1234);
+  });
+
   it('has no em dash in the made-up notes', () => {
     expect(JSON.stringify(devReply('GET', '/api/notes', new URLSearchParams(), {}))).not.toContain('—');
   });

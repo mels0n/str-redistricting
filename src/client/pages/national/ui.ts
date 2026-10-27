@@ -1,6 +1,6 @@
 import { h, clear, announce, takeSigned, PAGE_META, faqRoute, describeError, setLocated, stateRoute, routeHref, howRoute, type Chamber, type Navigate, type Page } from '../../shared';
 import { loadIndex, loadOutlines } from '../../entities/state';
-import { loadCounts } from '../../entities/counts';
+import { loadCounts, shownCounts } from '../../entities/counts';
 import { createAddressSearch, describeResolution, resolveAddress } from '../../features/address-search';
 import { createUsMap, type UsMap } from '../../widgets/us-map';
 import { createStateIndex } from '../../widgets/state-index';
@@ -100,7 +100,8 @@ export function createNationalPage(nav: Navigate, chamber: Chamber = 'federal-ho
     notice.hidden = false;
     announce(text);
   }
-  void loadCounts().then((c) => {
+  void loadCounts().then((raw) => {
+    const c = shownCounts(raw);
     if (!alive || !c) return;
     // The waiting number only appears beside a total.
     if (c.national > 0) total.textContent = c.national === 1 ? '1 person has signed' : `${c.national.toLocaleString('en-US')} people have signed`;

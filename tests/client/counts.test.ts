@@ -37,7 +37,7 @@ vi.mock('../../src/client/entities/pledges', async (orig) => ({
   loadPledges: async () => [],
 }));
 
-import { loadCounts, recordAsk, resetAsks } from '../../src/client/entities/counts';
+import { loadCounts, shownCounts, recordAsk, resetAsks } from '../../src/client/entities/counts';
 import { captureSigned, takeSigned } from '../../src/client/shared';
 import { createRepPanel } from '../../src/client/widgets/take-action/panel';
 
@@ -97,6 +97,16 @@ describe('recordAsk', () => {
     expect(url).toBe('/api/ask');
     expect(init).toMatchObject({ method: 'POST', keepalive: true });
     expect(JSON.parse(init.body)).toEqual({ key: 'CO:us-house:03', office: 'us-house' });
+  });
+});
+
+describe('shownCounts', () => {
+  const c = (national: number) => ({ national, state: 0, waiting: 0, byKey: {} });
+  it('hides every count below 1000, shows them from exactly 1000, and shows nothing for a failed load', () => {
+    expect(shownCounts(c(999))).toBeNull();
+    expect(shownCounts(c(1000))).toEqual(c(1000));
+    expect(shownCounts(c(5000))).toEqual(c(5000));
+    expect(shownCounts(null)).toBeNull();
   });
 });
 

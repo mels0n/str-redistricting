@@ -21,7 +21,7 @@ afterEach(() => vi.unstubAllGlobals());
 
 describe('national page signed line', () => {
   it.each([
-    [{ national: 1, waiting: 0 }, '1 person has signed'],
+    [{ national: 1000, waiting: 0 }, '1,000 people have signed'],
     [{ national: 1234, waiting: 0 }, '1,234 people have signed'],
     [{ national: 1234, waiting: 5 }, '1,234 people have signed 5 more waiting to confirm'],
   ])('%j', async (counts, text) => {
@@ -29,6 +29,24 @@ describe('national page signed line', () => {
     const line = page.el.querySelector('.strv-national__signed') as HTMLElement;
     expect(line.hidden).toBe(false);
     expect(line.textContent?.replace(/\s+/g, ' ').trim()).toBe(text);
+    page.destroy();
+  });
+
+  it.each([[{ national: 999, waiting: 5 }], [{ national: 1, waiting: 0 }]])('shows nothing below the display threshold: %j', async (counts) => {
+    const page = await mount(counts);
+    expect((page.el.querySelector('.strv-national__signed') as HTMLElement).hidden).toBe(true);
+    expect(page.el.textContent).not.toContain('have signed');
+    expect(page.el.textContent).not.toContain('waiting to confirm');
+    page.destroy();
+  });
+
+  it('shows nothing when the counts fail to load', async () => {
+    vi.resetModules();
+    vi.stubGlobal('fetch', vi.fn(async () => new Response('{}', { status: 500 })));
+    const { createNationalPage } = await import('../../src/client/pages/national');
+    const page = createNationalPage(() => undefined);
+    await settle();
+    expect((page.el.querySelector('.strv-national__signed') as HTMLElement).hidden).toBe(true);
     page.destroy();
   });
 

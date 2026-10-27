@@ -42,6 +42,8 @@ const ConfigSchema = z.object({
   routing: z.enum(['path', 'hash']),
   /** Whether candidates who pledged are shown (the pledges page and the rep panel). Off until the list is ready for them. */
   showCandidates: z.boolean(),
+  /** Public signer counts stay hidden until the national confirmed total reaches this, because small numbers discourage signing. */
+  showCountsFrom: z.number().int().nonnegative(),
   /** The public Turnstile site key for the sign-on form (fairmaps.melson.us, Managed mode). Public by design. */
   turnstileSiteKey: z.string().min(1),
 });
@@ -127,6 +129,7 @@ function load(): ViewerConfig {
     // Any host config object, valid or not, means an embedder: fail toward hash mode, which never rewrites the host page's path.
     routing: host?.routing ?? (hostConfigPresent() ? 'hash' : 'path'),
     showCandidates: false,
+    showCountsFrom: 1000,
     turnstileSiteKey: '0x4AAAAAAFoURTR4JlgmnOc1',
   });
 }

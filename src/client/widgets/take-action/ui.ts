@@ -1,6 +1,6 @@
 import { h, getLocated, setLocated, formatInt, type LocatedAddress } from '../../shared';
 import { nameOfState } from '../../entities/state';
-import { loadCounts } from '../../entities/counts';
+import { loadCounts, shownCounts } from '../../entities/counts';
 import { createAddressSearch, stateFromBlock } from '../../features/address-search';
 import { createSignOnForm } from '../../features/sign-on';
 import { createRepPanel, type MakeVoices } from './panel';
@@ -48,7 +48,8 @@ export function createTakeAction(opts: TakeActionOptions): TakeAction {
     count.textContent = countLine(national, stateCounts?.n ?? 0, stateName);
     count.hidden = false;
   };
-  void loadCounts().then((c) => {
+  void loadCounts().then((raw) => {
+    const c = shownCounts(raw);
     if (dead || !c) return;
     national = c.national;
     paintCount(null);
@@ -57,7 +58,8 @@ export function createTakeAction(opts: TakeActionOptions): TakeAction {
   const show = async (at: LocatedAddress): Promise<void> => {
     signForm.setLocation({ address: at.matchedAddress, state: at.state });
     const stateName = nameOfState(at.state);
-    void loadCounts(at.state).then((c) => {
+    void loadCounts(at.state).then((raw) => {
+      const c = shownCounts(raw);
       if (dead || !c) return;
       national = c.national;
       stateCounts = { state: at.state, n: c.state };

@@ -14,17 +14,21 @@ const NOTES = [
   { body: 'A rule anyone can check is the only kind of map I can trust.', name: null, town: null, at: '2026-10-18T09:30:00.000Z' },
 ];
 
+/** `low` answers with totals under the site's display threshold, so the hidden-counts state can be seen. */
+export type CountsMode = 'high' | 'low';
+
 /** What a person typed decides which answer comes back, so every screen can be reached without a backend. */
-export function devReply(method: string, path: string, query: URLSearchParams, body: Record<string, unknown>): Reply | null {
+export function devReply(method: string, path: string, query: URLSearchParams, body: Record<string, unknown>, mode: CountsMode = 'high'): Reply | null {
   const text = (k: string): string => (typeof body[k] === 'string' ? (body[k] as string) : '');
   if (path === '/api/counts' && method === 'GET') {
     const state = query.get('state');
+    const low = (query.get('fakeCounts') ?? mode) === 'low';
     return {
       status: 200,
       body: {
-        national: 1234,
-        waiting: 12,
-        ...(state && { state: state === 'CO' ? 87 : 21, byKey: { [`${state}:us-house:01`]: 12, [`${state}:us-house:08`]: 7, [`${state}:us-senate:state`]: 40, [`${state}:state-senate:031`]: 5, [`${state}:state-house:006`]: 3, [`${state}:us-house:01#asks`]: 4 } }),
+        national: low ? 87 : 1234,
+        waiting: low ? 3 : 12,
+        ...(state && { state: low ? 5 : state === 'CO' ? 87 : 21, byKey: { [`${state}:us-house:01`]: 12, [`${state}:us-house:08`]: 7, [`${state}:us-senate:state`]: 40, [`${state}:state-senate:031`]: 5, [`${state}:state-house:006`]: 3, [`${state}:us-house:01#asks`]: 4 } }),
       },
     };
   }
@@ -56,10 +60,16 @@ export function devApi(): Plugin {
     name: DEV_API_MARK,
     apply: 'serve',
     configureServer(server) {
+      // Opening any page with ?fakeCounts=low (or =high) switches the counts the stand-in returns, until the server restarts.
+      let mode: CountsMode = 'high';
       server.middlewares.use(async (req: IncomingMessage, res: ServerResponse, next: () => void) => {
         const url = new URL(req.url ?? '/', 'http://localhost');
-        if (!url.pathname.startsWith('/api/')) return next();
-        const reply = devReply(req.method ?? 'GET', url.pathname, url.searchParams, req.method === 'POST' ? await readJson(req) : {});
+        if (!url.pathname.startsWith('/api/')) {
+          const flag = url.searchParams.get('fakeCounts');
+          if (flag === 'low' || flag === 'high') mode = flag;
+          return next();
+        }
+        const reply = devReply(req.method ?? 'GET', url.pathname, url.searchParams, req.method === 'POST' ? await readJson(req) : {}, mode);
         res.statusCode = reply?.status ?? 404;
         res.setHeader('content-type', 'application/json');
         res.end(JSON.stringify(reply?.body ?? { error: 'not-found' }));

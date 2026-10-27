@@ -22,15 +22,24 @@ export interface OutboxDeps {
 
 /**
  * Sends one queued row. The caller has already taken a slot. On success the row is marked sent (which drops the sealed
- * address and token and starts the signer's 48 hours). On any failure the slot is given back and the attempt is counted.
+ * address and token and starts the signer's 48 hours). On a send failure the slot is given back and the attempt is counted; a row that is gone gives the slot back and is skipped.
  */
-export async function sendRow(deps: OutboxDeps, listed: OutboxRow): Promise<boolean> {
+export type SendResult = 'sent' | 'failed' | 'skipped';
+
+export async function sendRow(deps: OutboxDeps, listed: OutboxRow): Promise<SendResult> {
   const { repo, config } = deps;
   // The row may have been replaced (the signer signed again) or finished since it was listed: send what is stored now.
-  const row = await repo.getQueued(listed.id);
+  let row: OutboxRow | null;
+  try {
+    row = await repo.getQueued(listed.id);
+  } catch (err) {
+    // The caller already took a slot; a failed read must not use it up.
+    await repo.releaseSlot().catch(() => undefined);
+    throw err;
+  }
   if (!row) {
     await repo.releaseSlot();
-    return false;
+    return 'skipped';
   }
   let accepted = false;
   try {
@@ -56,8 +65,8 @@ export async function sendRow(deps: OutboxDeps, listed: OutboxRow): Promise<bool
   if (!accepted) {
     await repo.releaseSlot();
     await repo.recordFailure(row, MAX_ATTEMPTS);
-    return false;
+    return 'failed';
   }
   await repo.markSent(row.id);
-  return true;
+  return 'sent';
 }

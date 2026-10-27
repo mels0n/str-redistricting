@@ -278,6 +278,31 @@ describe('stale rows and idempotency', () => {
   });
 });
 
+describe('slots and skipped rows', () => {
+  it('gives the slot back when reading the row fails', async () => {
+    const { repo, mails, deps } = setup({ cap: 5 });
+    await repo.upsertQueued('confirm', 's1', seal('a@example.com', KEY), seal('t1', KEY));
+    repo.getQueued = async () => { throw new Error('db down'); };
+    await expect(drainOutbox(deps, 5)).rejects.toThrow('db down');
+    expect(repo.days.get(repo.today)).toBe(0);
+    expect(mails).toHaveLength(0);
+  });
+
+  it('does not count skipped rows toward the consecutive-failure stop', async () => {
+    const { repo, mails, deps } = setup({ cap: 20 });
+    for (let i = 0; i < 5; i++) await repo.upsertQueued('confirm', `s${i}`, seal(`p${i}@example.com`, KEY), seal(`t${i}`, KEY));
+    const list = repo.listQueued.bind(repo);
+    repo.listQueued = async (n: number) => {
+      const snapshot = await list(n);
+      repo.rows = repo.rows.filter((r) => r.signerId === 's4');
+      return snapshot;
+    };
+    expect(await drainOutbox(deps, 20)).toEqual({ sent: 1, left: 0 });
+    expect(mails.map((m) => m.to)).toEqual(['p4@example.com']);
+    expect(repo.days.get(repo.today)).toBe(1);
+  });
+});
+
 describe('wouldQueue', () => {
   it('is read-only and true only when people are in line or the quota is spent', async () => {
     const { repo, deps } = setup({ cap: 1 });

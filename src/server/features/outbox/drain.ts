@@ -12,10 +12,11 @@ export async function drainOutbox(deps: OutboxDeps, cap: number): Promise<{ sent
   let failures = 0;
   for (const row of rows) {
     if (!(await repo.claimSlot(cap))) break;
-    if (await sendRow(deps, row)) {
+    const result = await sendRow(deps, row);
+    if (result === 'sent') {
       sent++;
       failures = 0;
-    } else if (++failures >= MAX_CONSECUTIVE_FAILURES) {
+    } else if (result === 'failed' && ++failures >= MAX_CONSECUTIVE_FAILURES) {
       break;
     }
   }

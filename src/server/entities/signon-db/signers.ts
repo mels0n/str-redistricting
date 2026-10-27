@@ -78,7 +78,8 @@ export function signerRepo(): SignerRepo {
         token_hash: input.tokenHash,
         token_expires_at: null,
       };
-      const updated = await db().from('signers').update(fields).eq('email_hash', input.emailHash).eq('status', 'pending').select('id');
+      // Signing again refreshes a pending signer, so cleanup measures its age from now.
+      const updated = await db().from('signers').update({ ...fields, created_at: new Date().toISOString() }).eq('email_hash', input.emailHash).eq('status', 'pending').select('id');
       if (updated.error) fail();
       if (updated.data && updated.data.length > 0) return { id: String(updated.data[0]!.id) };
       for (let attempt = 0; attempt < 3; attempt++) {

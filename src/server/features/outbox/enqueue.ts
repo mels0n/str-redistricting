@@ -14,7 +14,7 @@ export async function enqueueEmail(deps: OutboxDeps, kind: EmailKind, signerId: 
   const row = await repo.upsertQueued(kind, signerId, seal(to, config.encryptionKey), seal(token, config.encryptionKey));
   if (await repo.hasQueuedAhead(row)) return { queued: true };
   if (!(await repo.claimSlot(config.emailDailyCap))) return { queued: true };
-  return { queued: !(await sendRow(deps, row)) };
+  return { queued: (await sendRow(deps, row)) !== 'sent' };
 }
 
 /** What a new confirmation email would get right now, without queuing or sending anything: waiting if people are in line or today's quota is spent. */

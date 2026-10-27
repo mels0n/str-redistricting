@@ -16,13 +16,15 @@ describe('prerendered pages', () => {
     expect(html).toContain('pack one side’s voters');
     expect(html).not.toContain(' style="');
     expect(faq[0]?.q).toBe('What is gerrymandering?');
-    expect(faq).toHaveLength(15);
+    expect(faq).toHaveLength(16);
   });
 
   it('keeps every glossary term in the answer to the terms question', async () => {
     const { faq } = await renderPage('faq');
     const terms = faq.find((f) => f.q === 'What do the other terms mean?');
     expect(terms?.a).toContain('Census block: The smallest area');
+    expect(terms?.a).toContain('Fair: Made by a rule nobody can aim');
+    expect(terms?.a).toContain('Proportional: Seats shared out');
     expect(terms?.a.length).toBeGreaterThan(300);
   });
 
@@ -45,7 +47,7 @@ describe('prerendered pages', () => {
     expect(scripts).toHaveLength(1);
     const data = JSON.parse(scripts[0]![1]!) as { '@graph': { '@type': string; mainEntity?: unknown }[] };
     const faqPage = data['@graph'].find((n) => n['@type'] === 'FAQPage');
-    expect(faqPage?.mainEntity).toHaveLength(15);
+    expect(faqPage?.mainEntity).toHaveLength(16);
     expect(html).not.toMatch(/<[^>]* style="/);
   });
 

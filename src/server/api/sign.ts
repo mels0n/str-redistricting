@@ -4,6 +4,7 @@ import { clientIp, sign, type EnqueueEmail, type SignConfig } from '../features/
 import { loadBackendConfig } from '../shared/config/backend.js';
 import { SignonError } from '../shared/errors/signon.js';
 import { handle } from './http.js';
+import { outboxDeps } from './outbox-deps.js';
 
 export interface SignHandlerDeps {
   loadConfig: () => SignConfig & { vercelEnv: string | undefined };
@@ -32,7 +33,7 @@ export function signHandler(deps: SignHandlerDeps): (req: Request) => Promise<Re
 export const signRoute = signHandler({
   loadConfig: () => loadBackendConfig(),
   repo: signerRepo,
-  enqueue: enqueueEmail,
+  enqueue: (kind, signerId, to, token) => enqueueEmail(outboxDeps(), kind, signerId, to, token),
   fetchFn: (...args) => fetch(...args),
   now: () => new Date(),
 });

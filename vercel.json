@@ -5,6 +5,7 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "trailingSlash": false,
+  "crons": [{ "path": "/api/cron-drain", "schedule": "0 14 * * *" }],
   "rewrites": [
     { "source": "/how/:rest+", "destination": "/how/index.html" },
     { "source": "/faq/:rest+", "destination": "/faq/index.html" },

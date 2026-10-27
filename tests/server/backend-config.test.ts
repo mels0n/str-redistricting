@@ -34,6 +34,20 @@ describe('loadBackendConfig', () => {
   });
 });
 
+describe('mail quota settings', () => {
+  it('defaults the daily cap to 20 and leaves the cron secret unset', () => {
+    const c = loadBackendConfig(GOOD);
+    expect(c.emailDailyCap).toBe(20);
+    expect(c.cronSecret).toBeUndefined();
+  });
+  it('reads EMAIL_DAILY_CAP and CRON_SECRET and rejects a bad cap', () => {
+    const c = loadBackendConfig({ ...GOOD, EMAIL_DAILY_CAP: '5', CRON_SECRET: 'x' });
+    expect(c.emailDailyCap).toBe(5);
+    expect(c.cronSecret).toBe('x');
+    expect(() => loadBackendConfig({ ...GOOD, EMAIL_DAILY_CAP: '0' })).toThrow('EMAIL_DAILY_CAP');
+  });
+});
+
 describe('url rules', () => {
   it('requires https for the Supabase URL and the site origin', () => {
     expect(() => loadBackendConfig({ ...GOOD, NEXT_PUBLIC_BACKERS_SUPABASE_URL: 'http://example.supabase.co' })).toThrow('NEXT_PUBLIC_BACKERS_SUPABASE_URL');

@@ -1,8 +1,18 @@
-import { SignonError } from '../../shared/errors/signon.js';
+import type { EmailKind } from '../../entities/signon-db/index.js';
+import { seal } from '../../shared/crypto/index.js';
+import { sendRow, type OutboxDeps } from './send.js';
 
-export type EmailKind = 'confirm' | 'remove';
+export type { EmailKind };
 
-/** Placeholder until the outbox table and the drain exist (next commit): sign-up answers 503 rather than sending unmetered mail. */
-export async function enqueueEmail(_kind: EmailKind, _signerId: string, _to: string, _token: string): Promise<{ queued: boolean }> {
-  throw new SignonError('unavailable', 'outbox not available');
+/**
+ * Queues an email and sends it at once only if nobody is waiting ahead of it and today's quota has room.
+ * A person who signs today never jumps ahead of people already waiting. The address and token are stored sealed
+ * and are dropped when the email goes out.
+ */
+export async function enqueueEmail(deps: OutboxDeps, kind: EmailKind, signerId: string, to: string, token: string): Promise<{ queued: boolean }> {
+  const { repo, config } = deps;
+  const row = await repo.upsertQueued(kind, signerId, seal(to, config.encryptionKey), seal(token, config.encryptionKey));
+  if (await repo.hasQueuedAhead(row)) return { queued: true };
+  if (!(await repo.claimSlot(config.emailDailyCap))) return { queued: true };
+  return { queued: !(await sendRow(deps, row)) };
 }

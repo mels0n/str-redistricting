@@ -26,6 +26,9 @@ const Schema = DbSchema.extend({
   VERCEL_ENV: z.string().optional(),
   SIGNON_FROM: z.string().min(1).default('Fair Maps <signon@fairmaps.melson.us>'),
   SITE_ORIGIN: httpsOrLocal.default('https://fairmaps.melson.us'),
+  EMAIL_DAILY_CAP: z.coerce.number().int().min(1).max(100000).default(20),
+  // Vercel sets it for cron invocations; the drain endpoint refuses every request without it.
+  CRON_SECRET: z.string().min(1).optional(),
 });
 
 export interface BackendConfig {
@@ -38,6 +41,8 @@ export interface BackendConfig {
   vercelEnv: string | undefined;
   from: string;
   siteOrigin: string;
+  emailDailyCap: number;
+  cronSecret: string | undefined;
 }
 
 let cached: BackendConfig | null = null;
@@ -72,6 +77,8 @@ export function loadBackendConfig(env: NodeJS.ProcessEnv = process.env): Backend
     vercelEnv: v.VERCEL_ENV,
     from: v.SIGNON_FROM,
     siteOrigin: v.SITE_ORIGIN,
+    emailDailyCap: v.EMAIL_DAILY_CAP,
+    cronSecret: v.CRON_SECRET,
   };
   if (env === process.env) cached = config;
   return config;

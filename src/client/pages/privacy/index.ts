@@ -1,0 +1,1 @@
+export { createPrivacyPage } from './ui';

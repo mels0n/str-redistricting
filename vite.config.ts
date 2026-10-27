@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 import { sharePages } from './build/share-pages.js';
 import { versionMeta } from './build/version-meta.js';
+import { webAnalytics } from './build/web-analytics.js';
 
 // Static build for the map viewer. Assets and data URLs are relative, but the
 // built pages carry <base href="/">, so they assume the domain root (the
@@ -9,7 +10,7 @@ import { versionMeta } from './build/version-meta.js';
 export default defineConfig({
   base: './',
   publicDir: 'public',
-  plugins: [versionMeta(), sharePages()],
+  plugins: [versionMeta(), webAnalytics(), sharePages()],
   worker: { format: 'es' },
   build: {
     outDir: 'dist',

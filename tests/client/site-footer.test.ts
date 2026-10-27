@@ -41,11 +41,11 @@ describe('site footer', () => {
     expect(expected).not.toContain('—');
   });
 
-  it('links a question and a problem report to their GitHub issue forms', async () => {
+  it('links a question and a problem report to their GitHub issue forms, then the privacy page', async () => {
     vi.stubGlobal('fetch', respond(404, {}));
     const { createSiteFooter } = await import('../../src/client/widgets/site-footer');
     const el = createSiteFooter();
     const hrefs = [...el.querySelectorAll('.strv-footer__reach a')].map((a) => a.getAttribute('href'));
-    expect(hrefs).toEqual(['https://github.com/mels0n/str-redistricting/issues/new?template=question.yml', 'https://github.com/mels0n/str-redistricting/issues/new?template=problem.yml']);
+    expect(hrefs).toEqual(['https://github.com/mels0n/str-redistricting/issues/new?template=question.yml', 'https://github.com/mels0n/str-redistricting/issues/new?template=problem.yml', '/privacy']);
   });
 });

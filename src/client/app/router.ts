@@ -5,6 +5,7 @@ import { createStatePage } from '../pages/state';
 import { createHowPage } from '../pages/how';
 import { createChangelogPage } from '../pages/changelog';
 import { createFaqPage } from '../pages/faq';
+import { createPrivacyPage } from '../pages/privacy';
 import { syncChamberSwitch } from '../widgets/site-header';
 
 /** Aborts the listeners of the router started before, so a second start (a test, a re-mount) never leaves two routers answering. */
@@ -131,7 +132,7 @@ export function startRouter(outlet: HTMLElement, root: HTMLElement = outlet.pare
     clear(outlet);
     // A pinch-zoom from the last page would otherwise carry over (no reload between pages).
     if (!initial) resetPageZoom();
-    page = route.page === 'national' ? createNationalPage(navigate, route.chamber) : route.page === 'how' ? createHowPage(route) : route.page === 'faq' ? createFaqPage(route) : route.page === 'changelog' ? createChangelogPage() : createStatePage(route, navigate);
+    page = route.page === 'national' ? createNationalPage(navigate, route.chamber) : route.page === 'how' ? createHowPage(route) : route.page === 'faq' ? createFaqPage(route) : route.page === 'changelog' ? createChangelogPage() : route.page === 'privacy' ? createPrivacyPage() : createStatePage(route, navigate);
     outlet.append(page.el);
     // On the first load the browser owns focus; after that, move it to the new page's heading.
     if (!initial) {

@@ -17,7 +17,7 @@ export function createNationalPage(nav: Navigate, chamber: Chamber = 'federal-ho
     'div',
     { class: 'strv-national__lede' },
     h('p', null, 'People, usually politicians, draw the lines. They see your party, your race, your income, and use that to pick their voters. That is gerrymandering.'),
-    h('p', { class: 'strv-national__closing' }, 'So we removed the human. Code draws these maps from census headcounts and block shapes alone. It draws a Federal House map for every state and a State House and State Senate map for every state that has the chamber, and the only other input is how many districts each chamber has. No human, no gerrymandering.'),
+    h('p', { class: 'strv-national__closing' }, 'So we removed the human. Code draws every map from census headcounts, block shapes and the number of seats, nothing else. No human, no gerrymandering.'),
     h(
       'div',
       { class: 'strv-national__how' },
@@ -29,21 +29,19 @@ export function createNationalPage(nav: Navigate, chamber: Chamber = 'federal-ho
         step('Keep blocks whole.', 'The census counts people in blocks: areas bounded by streets, streams, rail lines and similar edges. There is no count for part of a block, so lines follow block edges.'),
         step('Balance.', 'Blocks along each border shift only when that brings two districts closer to equal population (or leaves them exactly as close and shortens the border).'),
       ),
-      h(
-        'p',
-        { class: 'strv-national__scope' },
-        chamber === 'federal-house'
-          ? 'These maps cover the 50 states. Washington, D.C. and the U.S. territories are not drawn. They elect non-voting delegates to the House, and their local legislatures are not covered.'
-          : `These are ${chamberLabel(chamber)} maps. They cover the 50 states. A chamber a state does not have, such as Nebraska's State House, has no map.`,
-      ),
     ),
-    h('p', { class: 'strv-national__more' }, h('a', { href: routeHref(howRoute()) }, 'How it works: every stage, with drawings')),
+    // One quiet row of further reading, so the links do not compete with the lede.
     h(
-      'ul',
-      { class: 'strv-national__questions' },
-      h('li', null, h('a', { href: routeHref(faqRoute('gerrymandering')) }, 'What is gerrymandering?')),
-      h('li', null, h('a', { href: routeHref(faqRoute('stop')) }, 'How do you stop gerrymandering?')),
-      h('li', null, h('a', { href: routeHref(faqRoute('today')) }, 'How are districts drawn today?')),
+      'div',
+      { class: 'strv-national__more' },
+      h('a', { href: routeHref(howRoute()) }, 'How it works, with drawings'),
+      h(
+        'ul',
+        { class: 'strv-national__questions' },
+        h('li', null, h('a', { href: routeHref(faqRoute('gerrymandering')) }, 'What is gerrymandering?')),
+        h('li', null, h('a', { href: routeHref(faqRoute('stop')) }, 'How do you stop it?')),
+        h('li', null, h('a', { href: routeHref(faqRoute('today')) }, 'How are districts drawn today?')),
+      ),
     ),
   );
 
@@ -64,7 +62,20 @@ export function createNationalPage(nav: Navigate, chamber: Chamber = 'federal-ho
     },
   });
 
-  const mapSlot = h('div', { class: 'strv-national__map', 'aria-busy': 'true' }, h('p', { class: 'strv-loading' }, 'Loading the map of the states…'));
+  const mapSlot = h('div', { class: 'strv-national__map-slot', 'aria-busy': 'true' }, h('p', { class: 'strv-loading' }, 'Loading the map of the states…'));
+  // What the maps cover sits under the map as a caption rather than in the steps.
+  const mapBlock = h(
+    'div',
+    { class: 'strv-national__map' },
+    mapSlot,
+    h(
+      'p',
+      { class: 'strv-national__scope' },
+      chamber === 'federal-house'
+        ? 'These maps cover the 50 states. Washington, D.C. and the U.S. territories are not drawn. They elect non-voting delegates to the House, and their local legislatures are not covered.'
+        : `These are ${chamberLabel(chamber)} maps. They cover the 50 states. A chamber a state does not have, such as Nebraska's State House, has no map.`,
+    ),
+  );
   const indexSlot = h('div', { class: 'strv-national__index' });
 
   let usMap: UsMap | null = null;
@@ -79,7 +90,7 @@ export function createNationalPage(nav: Navigate, chamber: Chamber = 'federal-ho
       h('div', { class: 'strv-national__head' }, h1),
       // On a phone the lede and map are separate rows (lede, map, index, then the address search); on a wide screen they stay pinned together beside the index.
       // Source order follows the phone layout, so on a wide screen the search (shown top left) is reached after the index by Tab; its search landmark is the shortcut.
-      h('div', { class: 'strv-national__side' }, lede, mapSlot),
+      h('div', { class: 'strv-national__side' }, lede, mapBlock),
       // On a wide screen the search and index share one left rail, so the index starts right under the search instead of below the headline block.
       h('div', { class: 'strv-national__rail' }, indexSlot, h('div', { class: 'strv-national__search' }, search.el)),
     ),

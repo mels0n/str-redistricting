@@ -156,7 +156,8 @@ function buildUsMap(opts: UsMapOptions, compact: boolean): SVGSVGElement {
     {
       class: compact ? 'strv-us strv-us--compact' : 'strv-us',
       style: compact ? `--us-abbr:${abbrUnits}px;--us-seats:${seatsUnits}px` : null,
-      viewBox: `0 0 ${W} ${H}`,
+      // A long callout column (large phone labels) can run past the drawing; the box grows to hold it so it never overlaps what follows.
+      viewBox: `0 0 ${W} ${Math.max(H, Math.ceil(lastY + (compact ? 20 : 14)))}`,
       role: 'group',
       'aria-label': chamber === 'federal-house' ? 'Map of the United States. States with a generated map are links, labeled with their number of districts.' : `Map of the United States. States with a generated ${chamberLabel(chamber)} map are links, labeled with their number of districts.`,
     },

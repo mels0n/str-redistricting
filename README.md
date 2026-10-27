@@ -124,11 +124,48 @@ The number of districts in each state chamber lives in `config/legislative-distr
 
 Every Census file is downloaded once into `data/raw/` and checked against a pinned SHA-256 in `config/census-sha256.json`, both when it is downloaded and each time the cached copy is reused, so the maps are always built from the exact same bytes. A failed or interrupted download is retried up to three times. If a file fails the check, the cached copy is corrupt or the Census Bureau has reissued it: delete the file to download it again, and if the new file still differs, the Census Bureau reissued it, so update the manifest only knowing that it changes the maps.
 
+## Representative data
+State pages show who represents an address and let a visitor ask those people to adopt the rule. The names come from two open sources, pinned by SHA-256 in `config/reps-sources.json`:
+
+- U.S. House and Senate members from the [congress-legislators](https://github.com/unitedstates/congress-legislators) files, which are public domain.
+- State legislators from the [Open States](https://open.pluralpolicy.com/) people files (`data.openstates.org/people/current/<st>.csv`), released under CC0.
+
+`npm run reps:pin` downloads the files into `data/raw/reps/` and records their hashes in `config/reps-sources.json`. `npm run reps:publish` checks every file against those hashes and writes `public/data/reps/<ST>.json` (one file per state) and `public/data/reps/coverage.json`, which lists, for each state and chamber, how many districts were matched and which district codes found no person. Both take `--cache-dir`, `--config-dir` and `--public-dir`. Party is never written to the published files.
+
+Two small files fix what the sources cannot say. `config/reps-district-aliases.json` maps a district code as the Census Bureau writes it to the code (or codes, separated by `|`, for a district with several seats) the source uses, such as `AK:state-senate:00A` to `A` or `ID:state-house:001` to `1A|1B`. `config/reps-vacant-seats.json` lists U.S. House seats that are vacant (for example `FL-20`) so they show as vacant, not as missing.
+
+## The backend
+Signatures, notes and removal requests are handled by a small backend: serverless functions on Vercel and a Supabase Postgres database. It is configured only through environment variables, read once at boot by `src/server/shared/config/backend.ts` (the Postgres one is read by `build/migrate.ts`). The names:
+
+- `NEXT_PUBLIC_BACKERS_SUPABASE_URL`, `BACKERS_SUPABASE_SECRET_KEY` and `BACKERS_POSTGRES_URL_NON_POOLING` for the database
+- `RESEND_API_KEY` for sending mail, plus the optional `SIGNON_FROM`
+- `TURNSTILE_SECRET_KEY` for the bot check
+- `SIGNON_HASH_SECRET` and `SIGNON_ENCRYPTION_KEY` (each base64 of 32 bytes) for hashing and sealing personal data
+- `SITE_ORIGIN` (default `https://fairmaps.melson.us`), `EMAIL_DAILY_CAP` (default 20) and `CRON_SECRET` (set by Vercel for the daily mail job)
+
+Migrations are the numbered files in `supabase/migrations/`. They are append-only: a file that was applied and then edited, or removed, stops the build. `npm run build` applies the ones not yet recorded, but only in the Vercel production build (`VERCEL_ENV=production`); preview builds and local builds skip it.
+
+Every file in `api/` is a thin wrapper of at most 15 lines that imports one handler from `src/server/api/`. The logic, validation and error mapping live in `src/server/`, and the browser code in `src/client/` never imports it.
+
+Mail goes through a queue. A confirmation or removal email is written to the outbox, and a daily job (`/api/cron-drain`) sends what fits under `EMAIL_DAILY_CAP`; removal emails keep half of each day's cap, confirmations carry on past that. A removal link opens a page that does nothing until the person presses its button, and that button deletes the signer and their note.
+
+## Pledges
+`/pledges` lists public statements of support for the rule. Each entry in `config/pledges.json` needs a name, an office, a state, a district where one applies, and a URL where the statement can be read; party is never listed. To add one, open a GitHub issue with the "Add a pledge" form, or send a pull request that edits `config/pledges.json`. An entry is listed only if its statement URL shows the pledge publicly.
+
+## Notes
+A person who signs can add a note of up to 280 characters, and choose whether it is shown on the site and whether it is shared with their representative. Notes are screened by rules in `config/note-rules.json`:
+
+- A note is rejected, and the sender sees why, if it is over 280 characters or holds a link or handle, an email address, a phone number, a street address or a blocked word (whole word, after normalizing case, accents and letter swaps).
+- A note that uses a party or election word (for example "vote for" or "defeat") or seems to name a person is flagged. Flags only help the reader decide; they never publish or reject.
+- Every note that passes is stored as pending. Nothing is shown or shared until it has been approved by hand in the database table editor.
+
+The blocked-word list starts from the `badwords-list` npm package (version 1.0.0, MIT License, Copyright (c) 2013 Maurice Butler). The rules file records which upstream entries were removed and which words this project added; the license text is in `NOTICE`.
+
 ## Deploy
-Deployed on Vercel at https://fairmaps.melson.us (the `str-redistricting.vercel.app` address also serves it) from the `main` branch: every push to `main` builds the site with `npm run build` and serves the static output in `dist/` (settings in `vercel.json`). `vercel.json` sets a Content-Security-Policy, a no-referrer policy, `nosniff`, a restrictive Permissions-Policy and long-lived caching for built assets. `public/_headers` carries the same headers for hosts that read that file, such as Cloudflare Pages. The outside requests the viewer makes are the address lookup, a script from the Census Bureau geocoder, and, only when the sign-on form is opened, the Cloudflare Turnstile bot check (a script and a frame from `challenges.cloudflare.com`); the policy allows both.
+Deployed on Vercel at https://fairmaps.melson.us (the `str-redistricting.vercel.app` address also serves it) from the `main` branch: every push to `main` builds the site with `npm run build` and serves the static output in `dist/` (settings in `vercel.json`). `vercel.json` sets a Content-Security-Policy, a no-referrer policy, `nosniff`, a restrictive Permissions-Policy and long-lived caching for built assets. `public/_headers` carries the same headers for hosts that read that file, such as Cloudflare Pages. The outside requests the viewer makes are the address lookup, a script from the Census Bureau geocoder, and, only when the sign-on form is opened, the Cloudflare Turnstile bot check (a script and a frame from `challenges.cloudflare.com`); the policy allows both. Page views are counted by Vercel Web Analytics, whose script is served from this site.
 
 ## Where secrets live
-None. Census data is downloaded from public endpoints.
+The Census data and the representative data come from public endpoints and need no keys. The backend's keys are environment variables set in the hosting dashboard; they are never in the repository (see "The backend" for the names).
 
 ## License
 The code is licensed under the [Apache License 2.0](LICENSE). You may use, change and redistribute it, including commercially, as long as you keep the copyright notice and pass along the [NOTICE](NOTICE) file, which credits the original work.

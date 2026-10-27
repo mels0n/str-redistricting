@@ -1,9 +1,10 @@
-import { h, clear, config, sharePath, toStateFrame, announce, type LocatedAddress, type Office } from '../../shared';
+import { h, clear, config, getLocated, sharePath, toStateFrame, announce, type LocatedAddress, type Office } from '../../shared';
 import { loadStateReps, STATEWIDE_CODE, type Rep } from '../../entities/reps';
 import { recordAsk, type DistrictCounts } from '../../entities/counts';
 import { loadPledges, inPledgeOrder, type Pledge } from '../../entities/pledges';
 import { todaysDistrictsAt, repsFor, type RepsRow } from '../../features/todays-districts';
 import { createAskComposer } from '../../features/ask-rep';
+import { createSignOnForm, type SignOnForm } from '../../features/sign-on';
 import { letterText } from './letter';
 
 export interface RepPanelInput {
@@ -71,8 +72,12 @@ export function createRepPanel(): RepPanel {
   let token = 0;
   /** Closes the composer that is open, if any: one letter at a time. */
   let closeOpen: (() => void) | null = null;
+  /** The sign-on form that is open, if any. */
+  let signForm: SignOnForm | null = null;
 
   const hide = (): void => {
+    signForm?.destroy();
+    signForm = null;
     el.hidden = true;
     clear(el);
   };
@@ -148,9 +153,38 @@ export function createRepPanel(): RepPanel {
     ];
   };
 
+  /** The "Add your name" button and the slot its form opens in; the address comes from the last lookup. */
+  const signSection = (input: RepPanelInput): HTMLElement => {
+    const slot = h('div', { class: 'strv-reps__sign' });
+    const open = h(
+      'button',
+      {
+        type: 'button',
+        class: 'strv-button',
+        'aria-expanded': 'false',
+        onclick: () => {
+          if (signForm) {
+            signForm.destroy();
+            signForm = null;
+            clear(slot);
+            open.setAttribute('aria-expanded', 'false');
+            return;
+          }
+          signForm = createSignOnForm({ address: (getLocated() ?? input.located)?.matchedAddress ?? '' });
+          slot.append(signForm.el);
+          open.setAttribute('aria-expanded', 'true');
+        },
+      },
+      'Add your name',
+    );
+    return h('div', { class: 'strv-reps__signon' }, open, slot);
+  };
+
   async function update(input: RepPanelInput): Promise<void> {
     const mine = ++token;
     closeOpen = null;
+    signForm?.destroy();
+    signForm = null;
     if (!input.located || input.located.state !== input.state) {
       hide();
       return;
@@ -190,6 +224,7 @@ export function createRepPanel(): RepPanel {
       ...(found ? [] : [h('p', { class: 'strv-reps__none' }, 'We couldn’t place this address in a district.')]),
       list,
       ...candidatesSection(input, rows, pledges),
+      signSection(input),
     );
     paintCounts();
     el.hidden = false;

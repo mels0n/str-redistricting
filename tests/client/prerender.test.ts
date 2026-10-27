@@ -55,6 +55,15 @@ describe('prerendered pages', () => {
     expect(JSON.parse(read('dist/data/pledges.json'))).toEqual({ pledges: [] });
   });
 
+  it('writes the privacy page and lists it in the sitemap', () => {
+    const html = read('dist/privacy/index.html');
+    expect(titleOf(html)).toBe(PAGE_META.privacy.title);
+    expect(html).toContain('What we never keep');
+    expect(html).toContain('href="/remove"');
+    expect(html).not.toContain('2014');
+    expect(read('dist/sitemap.xml')).toContain('<loc>https://fairmaps.melson.us/privacy</loc>');
+  });
+
   it('writes the home file and the not-found page', () => {
     expect(titleOf(read('dist/index.html'))).toBe(PAGE_META.home.title);
     const missing = read('dist/404.html');

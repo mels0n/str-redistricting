@@ -21,9 +21,9 @@ describe('structured data builders', () => {
 });
 
 describe('site files', () => {
-  it('lists the five pages in the sitemap with no lastmod', () => {
+  it('lists the six pages in the sitemap with no lastmod', () => {
     const xml = sitemapXml('https://x.test');
-    expect(xml.match(/<loc>/g)).toHaveLength(5);
+    expect(xml.match(/<loc>/g)).toHaveLength(6);
     expect(xml).toContain('<loc>https://x.test/</loc>');
     expect(xml).toContain('<loc>https://x.test/faq</loc>');
     expect(xml).not.toContain('lastmod');

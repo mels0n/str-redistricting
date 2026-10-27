@@ -1,9 +1,13 @@
 # Same headers as vercel.json, for static hosts that read a _headers file
 # (the production deploy on Vercel uses vercel.json). Everything the viewer
 # loads comes from this site, except one script: the answer from the U.S.
-# Census Bureau address service, which only answers browsers as a script.
+# Census Bureau address service, which only answers browsers as a script,
+# and the Cloudflare Turnstile bot check on the sign-on form, loaded as a
+# script into a frame only when that form opens.
 #
 #   script-src    this site, plus the Census geocoder host for that answer
+#                 and Cloudflare's challenge host for the bot check
+#   frame-src     Cloudflare's challenge host, for the bot check widget
 #   worker-src    this site, plus blob: for the map's drawing worker
 #   style-src     this site only (the viewer sets styles through the style
 #                 object, which this policy allows; no inline style blocks)
@@ -11,7 +15,7 @@
 #   connect-src   this site (the map data files); blob: for the map worker
 #   frame-ancestors is left out on purpose: the viewer can be embedded.
 /*
-  Content-Security-Policy: default-src 'self'; script-src 'self' https://geocoding.geo.census.gov; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self' blob:; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://geocoding.geo.census.gov https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self' blob:; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'
   Referrer-Policy: no-referrer
   X-Content-Type-Options: nosniff
   Permissions-Policy: geolocation=(), camera=(), microphone=(), payment=()

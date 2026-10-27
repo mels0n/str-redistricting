@@ -4820,6 +4820,10 @@ var {
   text-decoration: none;
 }
 
+.strv-footer__link + .strv-footer__link {
+  margin-left: var(--s-3);
+}
+
 .strv-footer__link:hover,
 .strv-footer__link:focus-visible {
   text-decoration: underline;
@@ -5210,4 +5214,98 @@ var {
 
 .strv-reps__candidates ul {
   padding-left: 1.25em;
+}
+
+/* ---------- Sign-on form and privacy page ---------- */
+
+.strv-reps__signon {
+  display: grid;
+  gap: var(--s-3);
+  margin-top: var(--s-3);
+  justify-items: start;
+}
+
+.strv-reps__sign:empty {
+  display: none;
+}
+
+.strv-sign {
+  display: grid;
+  gap: var(--s-2);
+  padding: var(--s-3);
+  border: 1px solid var(--ink);
+  font-size: 0.875rem;
+}
+
+.strv-sign__h,
+.strv-sign__lede {
+  margin: 0;
+}
+
+.strv-sign__lede {
+  line-height: 1.45;
+  color: var(--ink-2);
+}
+
+.strv-sign__form {
+  display: grid;
+  gap: var(--s-3);
+}
+
+.strv-sign__field {
+  display: grid;
+  gap: var(--s-1);
+}
+
+.strv-sign__input {
+  min-height: 2.75rem;
+  padding: 0 var(--s-3);
+  font: inherit;
+  font-size: 1rem;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  border-radius: 2px;
+}
+
+.strv-sign__input:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.strv-sign__hint,
+.strv-sign__more {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: var(--ink-2);
+}
+
+.strv-sign__error {
+  margin: 0;
+  font-weight: 700;
+}
+
+.strv-sign__error[hidden] {
+  display: none;
+}
+
+.strv-sign__done {
+  margin: 0;
+  line-height: 1.45;
+}
+
+.strv-privacy__body {
+  display: grid;
+  gap: var(--s-4);
+  max-width: 42rem;
+}
+
+.strv-privacy__body h2 {
+  margin: 0 0 var(--s-2);
+}
+
+.strv-privacy__body p,
+.strv-privacy__body ul {
+  margin: 0 0 var(--s-2);
+  line-height: 1.5;
 }

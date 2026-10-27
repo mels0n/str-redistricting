@@ -7,6 +7,7 @@
  *   /how/balancing             the same page, at one of its sections
  *   /faq                       common questions
  *   /pledges                   who supports the rule
+ *   /privacy                   what the sign-on collects and keeps
  *   /faq/ties                  the same page, at one question
  *   /house  /senate            national index for the State House or State Senate
  *   /CO                        Colorado, finished map
@@ -42,6 +43,7 @@ export type Route =
   | { page: 'faq'; question: FaqQuestion | null }
   | { page: 'changelog' }
   | { page: 'pledges' }
+  | { page: 'privacy' }
   | {
       page: 'state';
       abbr: string;
@@ -62,6 +64,7 @@ export function nationalRoute(chamber: Chamber = 'federal-house'): Route {
 }
 export const CHANGELOG: Route = { page: 'changelog' };
 export const PLEDGES: Route = { page: 'pledges' };
+export const PRIVACY: Route = { page: 'privacy' };
 
 export function howRoute(section: HowSection | null = null): Route {
   return { page: 'how', section };
@@ -100,6 +103,7 @@ export function parsePath(pathname: string, search: string): Route {
   }
   if (segs[0]?.toLowerCase() === 'changelog') return CHANGELOG;
   if (segs[0]?.toLowerCase() === 'pledges') return PLEDGES;
+  if (segs[0]?.toLowerCase() === 'privacy') return PRIVACY;
   const nationalChamber = chamberOfSegment(segs[0]);
   if (nationalChamber) return nationalRoute(nationalChamber);
   const abbr = segs[0]?.toUpperCase();
@@ -146,6 +150,7 @@ export function formatPath(route: Route): string {
   if (route.page === 'national') return `/${chamberSegment(route.chamber)}`;
   if (route.page === 'changelog') return '/changelog';
   if (route.page === 'pledges') return '/pledges';
+  if (route.page === 'privacy') return '/privacy';
   if (route.page === 'how') return route.section ? `/how/${route.section}` : '/how';
   if (route.page === 'faq') return route.question ? `/faq/${route.question}` : '/faq';
   let path = `/${route.abbr}`;
@@ -187,6 +192,7 @@ export function canonicalPath(route: Route): string {
   if (route.page === 'faq') return '/faq';
   if (route.page === 'changelog') return '/changelog';
   if (route.page === 'pledges') return '/pledges';
+  if (route.page === 'privacy') return '/privacy';
   if (route.page === 'national') return `/${chamberSegment(route.chamber)}`;
   const chamber = route.chamber === 'federal-house' ? '' : `/${chamberSegment(route.chamber)}`;
   return `/${route.abbr}${chamber}`;

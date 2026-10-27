@@ -1,9 +1,9 @@
-import { h, routeHref, censusLabel, CHANGELOG, VERSIONS, loadPublishedVersions, type Versions } from '../../shared';
+import { h, routeHref, PRIVACY, censusLabel, CHANGELOG, VERSIONS, loadPublishedVersions, type Versions } from '../../shared';
 
 const line = (v: Versions): string => `Maps release ${v.maps} · Engine ${v.engine} · ${censusLabel(v.input.vintage)} (r${v.input.revision}) · Site ${VERSIONS.web}`;
 
 /**
- * A link to what changed in each release. It names the versions behind the maps only once the published data says
+ * Links to what changed in each release and to the privacy page. It names the versions behind the maps only once the published data says
  * what they are (public/data/versions.json); until then it claims nothing. The site's own version is the code's.
  */
 export function createSiteFooter(): HTMLElement {
@@ -11,5 +11,5 @@ export function createSiteFooter(): HTMLElement {
   void loadPublishedVersions().then((v) => {
     if (v !== null) link.textContent = line(v);
   });
-  return h('footer', { class: 'strv-footer' }, link);
+  return h('footer', { class: 'strv-footer' }, link, h('a', { href: routeHref(PRIVACY), class: 'strv-footer__link' }, 'Privacy'));
 }

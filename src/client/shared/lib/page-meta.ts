@@ -31,4 +31,9 @@ export const PAGE_META = {
     title: 'Who supports the Fair Maps rule | Fair Maps',
     description: 'Officeholders and candidates who have publicly pledged to support drawing districts with the Fair Maps rule, each with a link to their own statement.',
   },
-} as const satisfies Record<'home' | 'how' | 'faq' | 'changelog' | 'pledges', PageMeta>;
+  privacy: {
+    path: '/privacy',
+    title: 'Privacy | Fair Maps',
+    description: 'What Fair Maps collects when you add your name, what it never keeps, what is public, and how to be removed at any time.',
+  },
+} as const satisfies Record<'home' | 'how' | 'faq' | 'changelog' | 'pledges' | 'privacy', PageMeta>;

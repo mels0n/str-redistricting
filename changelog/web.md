@@ -1,5 +1,27 @@
 # Web changelog
 
+## 1.8.0 (2026-10-27)
+
+- feat(web): add Vercel Web Analytics script
+- fix: note upsert keyed on signer, add missing slurs, keep the backend out of the engine version
+- feat: signer notes with rule-based screening, district voices and a rep digest
+- fix: answer removal requests before the email work, cool down per signer, cap removal emails
+- feat: self-serve removal of a signature
+- fix(web): accurate privacy copy and sign-on form focus and live error region
+- feat(web): sign-on form, privacy page and Turnstile in the CSP
+- fix(api): keep re-signed pending signers from cleanup, release slots on read errors, skip vanished rows
+- feat: signer and ask counts per district
+- fix(api): hide membership in sign-up answers, clean up stale rows, drop failed payloads
+- feat(api): email outbox with a daily cap and a daily drain
+- feat(api): sign on with email confirmation, bot check and rate limits
+- fix(api): spec seal format, harden migration schema and runner, https-only config
+- feat(api): backend foundation with Supabase, typed errors and request ids
+- feat(web): pledges list, badge and pledge status for representatives
+- fix(web): print one ask letter, keep one composer open, harden contact links
+- feat(web): show today's representatives and an ask letter for a found address
+- feat(web): find today's districts and representatives for an address
+- feat(web): pin and publish representative contact data
+
 ## 1.7.0 (2026-10-27)
 
 - The site counts visits with Vercel Web Analytics, which sets no cookies. Each page view is sent with its path only, never the part of the address after a ? or #, where other sites add click and campaign codes.

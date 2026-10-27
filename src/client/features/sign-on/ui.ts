@@ -11,6 +11,10 @@ export const SIGN_ERROR_COPY: Readonly<Record<string, string>> = {
   'rate-limit': 'Too many tries from here. Try again in an hour.',
   'bot-check': 'The check didn’t go through. Try again.',
 };
+export const NOTE_LABEL = 'Why you signed (optional)';
+export const NOTE_HINT = 'About the maps or the rule. No links, contact details, or attacks on people or parties. We read every note before it appears.';
+/** The second line when the server leaves the note out: `reason` is the server's own wording. */
+export const noteDroppedCopy = (reason: string): string => `Your name is in, but your note wasn’t added because it included ${reason}.`;
 export const WAIT_COPY = 'Waiting for the check to finish. Try again in a moment.';
 export const SIGN_FALLBACK_COPY = 'Couldn’t sign you up just now. Try again in a minute.';
 
@@ -20,12 +24,15 @@ export interface SignOnValues {
   displayName: string;
   showPublic: boolean;
   consentUpdates: boolean;
+  note: string;
+  shareWithRep: boolean;
   turnstileToken: string;
 }
 
 /** The body of POST /api/sign: exactly the fields the server's schema takes, nothing more. */
 export function signPayload(v: SignOnValues): Record<string, unknown> {
   const name = v.displayName.trim();
+  const note = v.note.trim();
   return {
     address: v.address.trim(),
     email: v.email.trim(),
@@ -34,6 +41,8 @@ export function signPayload(v: SignOnValues): Record<string, unknown> {
     showPublic: v.showPublic,
     displayName: name === '' ? null : name,
     ref: null,
+    note: note === '' ? null : note,
+    shareWithRep: v.shareWithRep,
   };
 }
 
@@ -42,7 +51,7 @@ export interface SignOnForm {
   destroy(): void;
 }
 
-type Outcome = { ok: true; queued: boolean } | { ok: false; message: string };
+type Outcome = { ok: true; queued: boolean; noteDropped: string | null } | { ok: false; message: string };
 
 async function post(body: Record<string, unknown>): Promise<Outcome> {
   try {
@@ -50,7 +59,8 @@ async function post(body: Record<string, unknown>): Promise<Outcome> {
     const data: unknown = await res.json().catch(() => null);
     if (res.status === 202) {
       const queued = typeof data === 'object' && data !== null && (data as { queued?: unknown }).queued === true;
-      return { ok: true, queued };
+      const dropped = typeof data === 'object' && data !== null ? (data as { noteDropped?: unknown }).noteDropped : null;
+      return { ok: true, queued, noteDropped: typeof dropped === 'string' && dropped !== '' ? dropped : null };
     }
     const code = typeof data === 'object' && data !== null ? (data as { error?: unknown }).error : undefined;
     return { ok: false, message: (typeof code === 'string' ? SIGN_ERROR_COPY[code] : undefined) ?? SIGN_FALLBACK_COPY };
@@ -69,17 +79,19 @@ export function createSignOnForm(input: { address: string }): SignOnForm {
   let handle: TurnstileHandle | null = null;
   let dead = false;
 
-  const field = (key: string, label: string, control: HTMLInputElement, hint?: string): HTMLElement =>
+  const field = (key: string, label: string, control: HTMLInputElement | HTMLTextAreaElement, hint?: string): HTMLElement =>
     h('div', { class: 'strv-sign__field' }, h('label', { for: id(key), class: 'strv-search__label' }, label), control, hint && h('span', { class: 'strv-sign__hint', id: id(`${key}-hint`) }, hint));
   const address = h('input', { id: id('address'), name: 'address', type: 'text', autocomplete: 'street-address', required: true, maxlength: 200, minlength: 4, class: 'strv-sign__input' });
   address.value = input.address;
   const email = h('input', { id: id('email'), name: 'email', type: 'email', autocomplete: 'email', required: true, maxlength: 254, class: 'strv-sign__input' });
   const name = h('input', { id: id('name'), name: 'displayName', type: 'text', autocomplete: 'off', maxlength: 40, 'aria-describedby': id('name-hint'), class: 'strv-sign__input' });
+  const note = h('textarea', { id: id('note'), name: 'note', rows: 3, maxlength: 280, autocomplete: 'off', 'aria-describedby': id('note-hint'), class: 'strv-sign__input strv-sign__note' });
   const check = (key: string, label: string): { box: HTMLInputElement; row: HTMLElement } => {
     const box = h('input', { id: id(key), name: key, type: 'checkbox' });
     return { box, row: h('div', { class: 'strv-check' }, box, h('label', { for: id(key) }, h('span', { class: 'strv-check__label' }, label))) };
   };
   const showPublic = check('showPublic', 'Show my name and town on the site');
+  const shareWithRep = check('shareWithRep', 'Share my note with my representative');
   const updates = check('consentUpdates', 'Email me updates about Fair Maps');
 
   const widget = h('div', { class: 'strv-sign__widget' });
@@ -105,6 +117,8 @@ export function createSignOnForm(input: { address: string }): SignOnForm {
       displayName: name.value,
       showPublic: showPublic.box.checked,
       consentUpdates: updates.box.checked,
+      note: note.value,
+      shareWithRep: shareWithRep.box.checked,
       turnstileToken: token,
     });
     submit.disabled = true;
@@ -115,7 +129,12 @@ export function createSignOnForm(input: { address: string }): SignOnForm {
       if (dead) return;
       if (out.ok) {
         clear(root);
-        const done = h('p', { class: 'strv-sign__done', role: 'status', tabindex: -1 }, out.queued ? QUEUED_COPY : SENT_COPY);
+        const done = h(
+          'p',
+          { class: 'strv-sign__done', role: 'status', tabindex: -1 },
+          out.queued ? QUEUED_COPY : SENT_COPY,
+          out.noteDropped && h('span', { class: 'strv-sign__dropped' }, noteDroppedCopy(out.noteDropped)),
+        );
         root.append(done);
         done.focus();
         handle?.remove();
@@ -135,7 +154,9 @@ export function createSignOnForm(input: { address: string }): SignOnForm {
     field('address', 'Address', address),
     field('email', 'Email', email),
     field('name', 'Name to show (optional)', name, 'First name and last initial, like Maria G.'),
+    field('note', NOTE_LABEL, note, NOTE_HINT),
     showPublic.row,
+    shareWithRep.row,
     updates.row,
     widget,
     error,

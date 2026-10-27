@@ -38,6 +38,8 @@ const ServerSign = z.strictObject({
   showPublic: z.boolean(),
   displayName: z.string().max(40).nullable(),
   ref: z.string().nullable(),
+  note: z.string().max(2000).nullable(),
+  shareWithRep: z.boolean(),
 });
 
 const settle = async (): Promise<void> => {
@@ -67,6 +69,8 @@ function fill(el: HTMLElement): void {
   byName(el, 'displayName').value = 'Maria G.';
   byName(el, 'showPublic').checked = true;
   byName(el, 'consentUpdates').checked = true;
+  byName(el, 'note').value = ' Fair lines matter ';
+  byName(el, 'shareWithRep').checked = true;
   byName(el, 'address').value = '10 Elm St, Denver CO';
 }
 const submit = async (el: HTMLElement): Promise<void> => {
@@ -87,7 +91,9 @@ describe('sign-on form', () => {
       'Address',
       'Email',
       'Name to show (optional)',
+      'Why you signed (optional)',
       'Show my name and town on the site',
+      'Share my note with my representative',
       'Email me updates about Fair Maps',
     ]);
     expect(q(f.el, '.strv-sign__hint').textContent).toBe('First name and last initial, like Maria G.');
@@ -137,11 +143,13 @@ describe('sign-on form', () => {
       showPublic: true,
       displayName: 'Maria G.',
       ref: null,
+      note: 'Fair lines matter',
+      shareWithRep: true,
     });
   });
 
   it('sends a null display name when the field is empty', () => {
-    expect(signPayload({ address: ' a b c d ', email: 'x@y.co', displayName: '  ', showPublic: false, consentUpdates: false, turnstileToken: 't' })).toMatchObject({ address: 'a b c d', displayName: null });
+    expect(signPayload({ address: ' a b c d ', email: 'x@y.co', displayName: '  ', showPublic: false, consentUpdates: false, note: '  ', shareWithRep: false, turnstileToken: 't' })).toMatchObject({ address: 'a b c d', displayName: null, note: null, shareWithRep: false });
   });
 
   it('shows the confirm message after a 202 that was sent now, and the in-line message when queued', async () => {
@@ -164,6 +172,23 @@ describe('sign-on form', () => {
     expect(QUEUED_COPY).toBe(
       'You’re in line. Because so many people are signing, confirmation emails go out in order, and yours should arrive within a day or two. The link works for 48 hours from when it arrives.',
     );
+  });
+
+  it('shows the dropped-note line under the check-your-email message, and the hint with the rules', async () => {
+    fetchMock.mockResolvedValue(Response.json({ status: 'check-email', noteDropped: 'phone numbers', queued: false }, { status: 202 }));
+    const f = createSignOnForm({ address: '' });
+    document.body.append(f.el);
+    await settle();
+    expect(f.el.querySelectorAll('.strv-sign__hint')[1]!.textContent).toBe(
+      'About the maps or the rule. No links, contact details, or attacks on people or parties. We read every note before it appears.',
+    );
+    expect(byName(f.el, 'note').getAttribute('aria-describedby')).toBe(f.el.querySelectorAll('.strv-sign__hint')[1]!.id);
+    fill(f.el);
+    widgets[0]!.token('t');
+    await submit(f.el);
+    const done = q<HTMLElement>(f.el, '.strv-sign__done');
+    expect(done.textContent).toBe(`${SENT_COPY}Your name is in, but your note wasn’t added because it included phone numbers.`);
+    expect(q(done, '.strv-sign__dropped').textContent).toBe('Your name is in, but your note wasn’t added because it included phone numbers.');
   });
 
   it.each([

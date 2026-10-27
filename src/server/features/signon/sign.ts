@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { OWN_CODE_ALPHABET, type PendingSigner, type SignerRepo } from '../../entities/signon-db/index.js';
+import { OWN_CODE_ALPHABET, type NotesRepo, type PendingSigner, type SignerRepo } from '../../entities/signon-db/index.js';
 import { seal } from '../../shared/crypto/index.js';
 import { SignonError } from '../../shared/errors/signon.js';
 import { geocodeServer } from './geocode.js';
@@ -21,6 +21,13 @@ export const SignRequestSchema = z.strictObject({
     .transform((s) => s.replace(/\s+/g, ' ').replace(/[\p{Cc}\p{Cf}]/gu, '').trim())
     .nullable(),
   ref: z.string().regex(new RegExp(`^[${OWN_CODE_ALPHABET}]{8}$`)).nullable(),
+  // Long notes are accepted here so that length is a screening reason, not a 400. Whitespace runs become one space and control characters go.
+  note: z
+    .string()
+    .max(2000)
+    .transform((s) => s.replace(/\s+/g, ' ').replace(/[\p{Cc}\p{Cf}]/gu, '').trim())
+    .nullable(),
+  shareWithRep: z.boolean(),
 });
 export type SignRequest = z.infer<typeof SignRequestSchema>;
 
@@ -35,9 +42,14 @@ export interface SignConfig {
 /** Puts an email in the outbox; supplied by the API layer (features do not import each other). */
 export type EnqueueEmail = (kind: 'confirm' | 'remove', signerId: string, to: string, token: string) => Promise<{ queued: boolean }>;
 
+/** The verdict on a note; supplied by the API layer (features do not import each other). */
+export type ScreenNote = (body: string) => { result: 'reject'; reason: string } | { result: 'pending'; flags: string[] };
+
 export interface SignDeps {
   config: SignConfig;
   repo: SignerRepo;
+  notes: NotesRepo;
+  screen: ScreenNote;
   enqueue: EnqueueEmail;
   /** What a new email would get right now (read-only), so a confirmed address answers like a new one. */
   wouldQueue: () => Promise<boolean>;
@@ -91,6 +103,14 @@ export async function sign(body: unknown, ip: string, deps: SignDeps): Promise<S
   const signer = await repo.upsertPending(row);
   if (!signer) return { ...done, queued: await deps.wouldQueue() };
 
+  // The note is screened only now, after the signer row exists. A note that fails is dropped without a trace; the signature goes ahead.
+  let noteDropped: string | null = null;
+  if (req.note) {
+    const verdict = deps.screen(req.note);
+    if (verdict.result === 'reject') noteDropped = verdict.reason;
+    else await deps.notes.insertNote({ signerId: signer.id, bodyEnc: seal(req.note, config.encryptionKey), showPublic: req.showPublic, shareWithRep: req.shareWithRep, flags: verdict.flags });
+  }
+
   const { queued } = await deps.enqueue('confirm', signer.id, req.email, token);
-  return { ...done, queued };
+  return { ...done, noteDropped, queued };
 }

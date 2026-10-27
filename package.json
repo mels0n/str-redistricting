@@ -28,7 +28,8 @@
     "release:tags": "node --import tsx src/server/app/release-tags.ts",
     "fingerprints": "node --max-old-space-size=8192 --import tsx src/server/app/fingerprints.ts",
     "reps:pin": "node --import tsx src/server/app/reps.ts pin",
-    "reps:publish": "node --import tsx src/server/app/reps.ts publish"
+    "reps:publish": "node --import tsx src/server/app/reps.ts publish",
+    "digest": "node --import tsx src/server/app/digest.ts"
   },
   "devDependencies": {
     "@fontsource/public-sans": "5.3.0",

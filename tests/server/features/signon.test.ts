@@ -1,6 +1,6 @@
 import { createHash } from 'node:crypto';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import type { PendingSigner, SignerRepo, TokenRow } from '../../../src/server/entities/signon-db/index.js';
+import type { NewNote, NoteRow, NotesRepo, PendingSigner, SignerRepo, TokenRow } from '../../../src/server/entities/signon-db/index.js';
 import { confirmHandler } from '../../../src/server/api/confirm.js';
 import { signHandler, type SignHandlerDeps } from '../../../src/server/api/sign.js';
 import { open } from '../../../src/server/shared/crypto/index.js';
@@ -71,6 +71,24 @@ class FakeRepo implements SignerRepo {
   }
 }
 
+/** In-memory stand-in for the notes table. */
+class FakeNotes implements NotesRepo {
+  stored: (NewNote & { status: string })[] = [];
+  async insertNote(note: NewNote) {
+    this.stored = this.stored.filter((n) => n.signerId !== note.signerId);
+    this.stored.push({ ...note, status: 'pending' });
+  }
+  async publicNotes(): Promise<NoteRow[]> {
+    return [];
+  }
+  async digestNotes(): Promise<NoteRow[]> {
+    return [];
+  }
+  async signerCount() {
+    return 0;
+  }
+}
+
 const topo = (code: string) => ({
   type: 'Topology',
   arcs: [[[-105, 39], [-104, 39], [-104, 40], [-105, 40], [-105, 39]]],
@@ -97,7 +115,7 @@ function stubFetch(opts: { turnstile?: boolean; geocode?: unknown } = {}): { fet
 }
 
 const STREET = '1600 Secret Lane';
-const BODY = { address: `${STREET}, Denver CO`, email: 'ada@example.com', turnstileToken: 'tok', consentUpdates: true, showPublic: true, displayName: 'Ada L', ref: null };
+const BODY = { address: `${STREET}, Denver CO`, email: 'ada@example.com', turnstileToken: 'tok', consentUpdates: true, showPublic: true, displayName: 'Ada L', ref: null, note: null, shareWithRep: false };
 const post = (body: unknown) => new Request('https://site.test/api/sign', { method: 'POST', body: JSON.stringify(body), headers: { 'x-forwarded-for': '9.9.9.9' } });
 
 interface Sent { kind: string; signerId: string; to: string; token: string }
@@ -107,11 +125,13 @@ function setup(over: Partial<SignHandlerDeps> = {}, fetchOpts: Parameters<typeof
   resetCleanup();
   wouldQueueNow = false;
   const repo = new FakeRepo();
+  const notes = new FakeNotes();
   const sent: Sent[] = [];
   const { fetchFn, calls } = stubFetch(fetchOpts);
   const deps: SignHandlerDeps = {
     loadConfig: () => CONFIG,
     repo: () => repo,
+    notes: () => notes,
     enqueue: async (kind, signerId, to, token) => {
       sent.push({ kind, signerId, to, token });
       return { queued: false };
@@ -121,7 +141,7 @@ function setup(over: Partial<SignHandlerDeps> = {}, fetchOpts: Parameters<typeof
     now: () => NOW,
     ...over,
   };
-  return { repo, sent, calls, handler: signHandler(deps), deps };
+  return { repo, notes, sent, calls, handler: signHandler(deps), deps };
 }
 
 beforeEach(() => void vi.spyOn(console, 'error').mockImplementation(() => {}));
@@ -366,6 +386,63 @@ describe('GET /api/confirm', () => {
     const res = await confirmHandler({ loadConfig: () => ({ vercelEnv: 'preview' }), repo: () => repo, now: () => NOW })(new Request(`https://site.test/api/confirm?token=${'a'.repeat(64)}`));
     expect(res.status).toBe(503);
     expect(repo.touched).toBe(0);
+  });
+});
+
+describe('POST /api/sign with a note', () => {
+  const NOTE = 'Fair lines for everyone';
+
+  it('stores a passing note sealed and pending, with the signer ticks, and still queues the email', async () => {
+    const { handler, notes, sent, repo } = setup();
+    const res = await handler(post({ ...BODY, note: NOTE, shareWithRep: true }));
+    expect(res.status).toBe(202);
+    expect(await res.json()).toEqual({ status: 'check-email', noteDropped: null, queued: false });
+    expect(notes.stored).toHaveLength(1);
+    const n = notes.stored[0]!;
+    expect(n.bodyEnc.startsWith('v1:')).toBe(true);
+    expect(n.bodyEnc).not.toContain(NOTE);
+    expect(open(n.bodyEnc, KEY)).toBe(NOTE);
+    expect(n).toMatchObject({ signerId: repo.rows[0]!.id, showPublic: true, shareWithRep: true, flags: [], status: 'pending' });
+    expect(sent).toHaveLength(1);
+  });
+
+  it('drops a failing note: 202 with the reason, the signer and email go ahead, nothing of the text is stored or logged', async () => {
+    const { handler, notes, sent, repo } = setup();
+    const res = await handler(post({ ...BODY, note: 'call me on 303-555-0100 about this', shareWithRep: true }));
+    expect(res.status).toBe(202);
+    const text = await res.text();
+    expect(JSON.parse(text)).toEqual({ status: 'check-email', noteDropped: 'phone numbers', queued: false });
+    expect(text).not.toContain('555');
+    expect(notes.stored).toHaveLength(0);
+    expect(repo.rows).toHaveLength(1);
+    expect(sent).toHaveLength(1);
+    expect(JSON.stringify(repo.rows)).not.toContain('555');
+    expect(JSON.stringify(vi.mocked(console.error).mock.calls)).not.toContain('555');
+  });
+
+  it('accepts a note longer than 280 characters and drops it for its length, not a 400', async () => {
+    const { handler, notes } = setup();
+    const res = await handler(post({ ...BODY, note: 'a b '.repeat(100), shareWithRep: false }));
+    expect(res.status).toBe(202);
+    expect(await res.json()).toMatchObject({ noteDropped: 'more than 280 characters' });
+    expect(notes.stored).toHaveLength(0);
+    expect((await handler(post({ ...BODY, email: 'z@example.com', note: 'x'.repeat(2001) }))).status).toBe(400);
+  });
+
+  it('stores nothing for an empty note, and refuses a body without the new fields', async () => {
+    const { handler, notes } = setup();
+    expect((await handler(post({ ...BODY, note: '   ' }))).status).toBe(202);
+    expect(notes.stored).toHaveLength(0);
+    const { note: _n, ...without } = BODY;
+    expect((await handler(post(without))).status).toBe(400);
+  });
+
+  it('replaces the earlier note when a pending signer signs again', async () => {
+    const { handler, notes } = setup();
+    await handler(post({ ...BODY, note: NOTE }));
+    await handler(post({ ...BODY, note: 'Second thoughts on fairness' }));
+    expect(notes.stored).toHaveLength(1);
+    expect(open(notes.stored[0]!.bodyEnc, KEY)).toBe('Second thoughts on fairness');
   });
 });
 

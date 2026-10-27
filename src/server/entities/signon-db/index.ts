@@ -7,3 +7,5 @@ export { countsRepo } from './counts.js';
 export type { AskRow, CountsRepo, DistrictRow } from './counts.js';
 export { removalRepo } from './removal.js';
 export type { RemovalRepo, RemovalToken } from './removal.js';
+export { notesRepo } from './notes.js';
+export type { NewNote, NoteRow, NoteScope, NotesRepo } from './notes.js';

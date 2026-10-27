@@ -5290,6 +5290,58 @@ var {
   line-height: 1.45;
 }
 
+.strv-sign__note {
+  min-height: 5.5rem;
+  padding: var(--s-2) var(--s-3);
+  line-height: 1.45;
+  resize: vertical;
+}
+
+.strv-sign__dropped {
+  display: block;
+  margin-top: var(--s-2);
+}
+
+/* ---------- Voices: why people signed ---------- */
+
+.strv-voices {
+  display: grid;
+  gap: var(--s-2);
+  margin-top: var(--s-3);
+}
+
+.strv-voices[hidden],
+.strv-reps__voices:empty {
+  display: none;
+}
+
+.strv-voices__h {
+  margin: 0;
+}
+
+.strv-voices__list {
+  display: grid;
+  gap: var(--s-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.strv-voices__quote {
+  margin: 0;
+  padding-left: var(--s-3);
+  border-left: 2px solid var(--ink);
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+.strv-voices__by {
+  margin: var(--s-1) 0 0;
+  padding-left: var(--s-3);
+  font-size: 0.8125rem;
+  color: var(--ink-2);
+}
+
 .strv-privacy__body {
   display: grid;
   gap: var(--s-4);

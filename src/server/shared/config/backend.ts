@@ -83,3 +83,10 @@ export function loadBackendConfig(env: NodeJS.ProcessEnv = process.env): Backend
   if (env === process.env) cached = config;
   return config;
 }
+
+/** Just the key that seals notes, names and towns, so reading them back does not depend on the mail or bot-check keys. */
+export function loadEncryptionKey(env: NodeJS.ProcessEnv = process.env): Buffer {
+  const parsed = z.object({ SIGNON_ENCRYPTION_KEY: key32 }).safeParse(env);
+  if (!parsed.success) throw new ConfigError('Invalid backend configuration: SIGNON_ENCRYPTION_KEY');
+  return parsed.data.SIGNON_ENCRYPTION_KEY;
+}

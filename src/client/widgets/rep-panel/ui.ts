@@ -18,6 +18,7 @@ export interface RepPanel {
   update(input: RepPanelInput): Promise<void>;
   /** Shows how many people signed and asked in each district; null (or no numbers yet) shows no count lines. */
   setCounts(c: DistrictCounts | null): void;
+  /** Shows the district's "why I signed" notes (a voices element) above the sign-on form; null removes them. */
   setVoices(el: HTMLElement | null): void;
 }
 
@@ -70,6 +71,8 @@ export function createRepPanel(): RepPanel {
   };
   const el = h('section', { class: 'strv-reps', 'aria-labelledby': 'strv-reps-h', hidden: true });
   let token = 0;
+  /** Holds the notes element the page hands over; it outlives a re-render of the panel. */
+  const voicesSlot = h('div', { class: 'strv-reps__voices' });
   /** Closes the composer that is open, if any: one letter at a time. */
   let closeOpen: (() => void) | null = null;
   /** The sign-on form that is open, if any. */
@@ -224,15 +227,23 @@ export function createRepPanel(): RepPanel {
       ...(found ? [] : [h('p', { class: 'strv-reps__none' }, 'We couldn’t place this address in a district.')]),
       list,
       ...candidatesSection(input, rows, pledges),
+      voicesSlot,
       signSection(input),
     );
     paintCounts();
     el.hidden = false;
   }
 
-  return { el, update, setCounts(c) {
+  return {
+    el,
+    update,
+    setCounts(c) {
       counts = c;
       paintCounts();
     },
-     setVoices: () => undefined };
+    setVoices(voices) {
+      clear(voicesSlot);
+      if (voices) voicesSlot.append(voices);
+    },
+  };
 }

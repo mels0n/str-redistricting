@@ -1,4 +1,4 @@
-import { h, PAGE_META, config, routeHref, iconArrowLeft, NATIONAL, type Page } from '../../shared';
+import { h, PAGE_META, feedbackHref, routeHref, iconArrowLeft, NATIONAL, type Page } from '../../shared';
 
 const p = (...children: (Node | string)[]): HTMLElement => h('p', null, ...children);
 const link = (href: string, text: string): HTMLElement => h('a', { href }, text);
@@ -26,7 +26,7 @@ export function createPrivacyPage(): Page {
       section(
         'visits',
         'Visit counts',
-        p('The site counts visits with Vercel Web Analytics, from the company that hosts it. For each page view it records the page, the site that linked to it, and the visitor’s country, browser, operating system and kind of device.'),
+        p('The site counts visits with Vercel Web Analytics, from the company that hosts it. For each page view it records the page’s path (never the part of the address after a ? or #, where other sites add tracking codes), the site that linked to it, and the visitor’s country, browser, operating system and kind of device.'),
         p('It sets no cookies and stores nothing in your browser. Visitors are told apart only by a code worked out from each request, and that code is discarded after 24 hours, so a visit can’t be tied to a person or followed from one day to the next or from site to site. Only totals are ever shown. If an ad blocker stops the count, the site works the same.'),
       ),
       section(
@@ -48,7 +48,7 @@ export function createPrivacyPage(): Page {
       section(
         'else',
         'Nothing else',
-        p('There are no cookies, ads, social media buttons or outside fonts, and no tracking across sites. The maps, data and fonts all load from this site. Questions about any of this can go to the ', link(`${config.repoUrl}/issues`, 'project’s issue tracker'), '.'),
+        p('There are no cookies, ads, social media buttons or outside fonts, and no tracking across sites. The maps, data and fonts all load from this site. Questions about any of this are welcome: ', link(feedbackHref('question'), 'ask on GitHub'), '.'),
       ),
     ),
   );

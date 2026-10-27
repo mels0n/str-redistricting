@@ -47,6 +47,7 @@ Gerrymandering is drawing election districts to decide who wins before anyone vo
 - [How Fair Maps draws districts](${site}/how): the rule, step by step, with worked examples
 - [All questions](${site}/faq)
 - [Who supports the Fair Maps rule](${site}/pledges): officeholders and candidates who pledged, each with a link to their own statement
+- [Take action](${site}/act): find your representatives, email all of them at once, and add your name
 - [Privacy](${site}/privacy): what is collected when someone adds their name, what is never kept, and how to be removed
 
 ## Maps

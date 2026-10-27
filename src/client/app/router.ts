@@ -4,6 +4,7 @@ import { createNationalPage } from '../pages/national';
 import { createStatePage } from '../pages/state';
 import { createHowPage } from '../pages/how';
 import { createChangelogPage } from '../pages/changelog';
+import { createActPage } from '../pages/act';
 import { createPledgesPage } from '../pages/pledges';
 import { createPrivacyPage } from '../pages/privacy';
 import { createRemovePage } from '../pages/remove';
@@ -113,7 +114,7 @@ export function startRouter(outlet: HTMLElement, root: HTMLElement = outlet.pare
     }
   };
 
-  /** The masthead's How it works and FAQ links say when their page is showing. */
+  /** The masthead's Take action, How it works and FAQ links say when their page is showing. */
   const markNav = (route: Route): void => {
     const mark = (nav: string, on: boolean): void => {
       const link = document.querySelector(`.strv-masthead [data-nav="${nav}"]`);
@@ -122,6 +123,7 @@ export function startRouter(outlet: HTMLElement, root: HTMLElement = outlet.pare
     };
     mark('how', route.page === 'how');
     mark('faq', route.page === 'faq');
+    mark('act', route.page === 'act');
     syncChamberSwitch(route, live);
   };
 
@@ -134,7 +136,7 @@ export function startRouter(outlet: HTMLElement, root: HTMLElement = outlet.pare
     clear(outlet);
     // A pinch-zoom from the last page would otherwise carry over (no reload between pages).
     if (!initial) resetPageZoom();
-    page = route.page === 'national' ? createNationalPage(navigate, route.chamber) : route.page === 'how' ? createHowPage(route) : route.page === 'faq' ? createFaqPage(route) : route.page === 'changelog' ? createChangelogPage() : route.page === 'pledges' ? createPledgesPage() : route.page === 'privacy' ? createPrivacyPage() : route.page === 'remove' ? createRemovePage(route.token) : createStatePage(route, navigate);
+    page = route.page === 'national' ? createNationalPage(navigate, route.chamber) : route.page === 'how' ? createHowPage(route) : route.page === 'faq' ? createFaqPage(route) : route.page === 'changelog' ? createChangelogPage() : route.page === 'act' ? createActPage(route.state) : route.page === 'pledges' ? createPledgesPage() : route.page === 'privacy' ? createPrivacyPage() : route.page === 'remove' ? createRemovePage(route.token) : createStatePage(route, navigate);
     outlet.append(page.el);
     // On the first load the browser owns focus; after that, move it to the new page's heading.
     if (!initial) {

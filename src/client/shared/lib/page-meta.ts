@@ -13,6 +13,11 @@ export const PAGE_META = {
     title: 'Fair Maps: districts drawn by a rule',
     description: 'Gerrymandering lets politicians pick their voters. Fair Maps draws every state’s districts by one open rule that never sees party, race or past votes.',
   },
+  act: {
+    path: '/act',
+    title: 'Take action | Fair Maps',
+    description: 'Find who represents you, email all of your representatives at once, and add your name to the people asking for districts drawn by one open rule.',
+  },
   how: {
     path: '/how',
     title: 'How the districts are drawn | Fair Maps',
@@ -44,4 +49,4 @@ export const PAGE_META = {
     description: 'Remove your signature, your note and your email from Fair Maps for good.',
     noindex: true,
   },
-} as const satisfies Record<'home' | 'how' | 'faq' | 'changelog' | 'pledges' | 'privacy' | 'remove', PageMeta>;
+} as const satisfies Record<'home' | 'act' | 'how' | 'faq' | 'changelog' | 'pledges' | 'privacy' | 'remove', PageMeta>;

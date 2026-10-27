@@ -42,7 +42,7 @@ vi.mock('../../src/client/entities/pledges', async (orig) => ({
 }));
 
 import { config } from '../../src/client/shared';
-import { createRepPanel } from '../../src/client/widgets/rep-panel';
+import { createRepPanel } from '../../src/client/widgets/take-action/panel';
 
 const located = { state: 'CO', lonLat: [0.5, 0.5] as [number, number], matchedAddress: '1 Main St' };
 const input = { state: 'CO', stateName: 'Colorado', located };
@@ -105,18 +105,6 @@ describe('rep panel', () => {
     await p.update(input);
     expect(p.el.textContent).toContain('We don’t have contact details for this seat yet.');
     file.byKey['CO:state-house:004'] = [rep('SH', 'state-house')];
-  });
-
-  it('offers Add your name below the rows, opening the form with the located address', async () => {
-    const p = createRepPanel();
-    await p.update(input);
-    const open = [...p.el.querySelectorAll('button')].find((b) => b.textContent === 'Add your name')!;
-    expect(open.closest('li')).toBeNull();
-    expect(p.el.querySelector('.strv-sign')).toBeNull();
-    open.click();
-    expect((p.el.querySelector('[name="address"]') as HTMLInputElement).value).toBe('1 Main St');
-    open.click();
-    expect(p.el.querySelector('.strv-sign')).toBeNull();
   });
 
   it('says the address could not be placed and keeps the US Senate rows', async () => {

@@ -62,7 +62,7 @@ function modules(): NonNullable<typeof loaded> {
   loaded ??= (async () => {
     // The changelog page imports its markdown with Vite's `?raw`; this gives that suffix the same meaning here.
     register('./raw-loader.mjs', import.meta.url);
-    const [{ mountShell }, { createNationalPage }, { createHowPage }, { createFaqPage }, { createChangelogPage }, { createPledgesPage }, { createPrivacyPage }, { createRemovePage }] = await Promise.all([
+    const [{ mountShell }, { createNationalPage }, { createHowPage }, { createFaqPage }, { createChangelogPage }, { createPledgesPage }, { createPrivacyPage }, { createRemovePage }, { createActPage }] = await Promise.all([
       import('../src/client/app/shell'),
       import('../src/client/pages/national'),
       import('../src/client/pages/how'),
@@ -71,11 +71,13 @@ function modules(): NonNullable<typeof loaded> {
       import('../src/client/pages/pledges'),
       import('../src/client/pages/privacy'),
       import('../src/client/pages/remove'),
+      import('../src/client/pages/act'),
     ]);
     return {
       mountShell,
       pages: {
         home: () => createNationalPage(() => undefined, 'federal-house'),
+        act: () => createActPage(null),
         how: () => createHowPage({ page: 'how', section: null }),
         faq: () => createFaqPage({ page: 'faq', question: null }),
         changelog: () => createChangelogPage(),

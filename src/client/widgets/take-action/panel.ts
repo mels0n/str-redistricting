@@ -1,11 +1,18 @@
-import { h, clear, config, getLocated, sharePath, toStateFrame, announce, type LocatedAddress, type Office } from '../../shared';
+import { h, clear, config, sharePath, toStateFrame, announce, districtKey, type LocatedAddress, type Office } from '../../shared';
 import { loadStateReps, STATEWIDE_CODE, type Rep } from '../../entities/reps';
-import { recordAsk, type DistrictCounts } from '../../entities/counts';
+import { recordAsk, loadCounts, type DistrictCounts } from '../../entities/counts';
 import { loadPledges, inPledgeOrder, type Pledge } from '../../entities/pledges';
 import { todaysDistrictsAt, repsFor, type RepsRow } from '../../features/todays-districts';
 import { createAskComposer, telHref } from '../../features/ask-rep';
-import { createSignOnForm, type SignOnForm } from '../../features/sign-on';
+import { createEveryone, type EveryoneRep } from './everyone';
 import { letterText } from './letter';
+
+/** A district's "why I signed" notes. A sibling widget makes them, so the page hands in the maker. */
+export interface VoicesView {
+  el: HTMLElement;
+  destroy(): void;
+}
+export type MakeVoices = (districtKey: string) => VoicesView;
 
 export interface RepPanelInput {
   state: string;
@@ -16,10 +23,7 @@ export interface RepPanelInput {
 export interface RepPanel {
   el: HTMLElement;
   update(input: RepPanelInput): Promise<void>;
-  /** Shows how many people signed and asked in each district; null (or no numbers yet) shows no count lines. */
-  setCounts(c: DistrictCounts | null): void;
-  /** Shows the district's "why I signed" notes (a voices element) above the sign-on form; null removes them. */
-  setVoices(el: HTMLElement | null): void;
+  destroy(): void;
 }
 
 /** "State Senate, district 12", "State House, district 4", "U.S. House, CO-03", "U.S. Senate". */
@@ -48,7 +52,7 @@ async function share(url: string): Promise<void> {
   }
 }
 
-export function createRepPanel(): RepPanel {
+export function createRepPanel(makeVoices?: MakeVoices): RepPanel {
   let counts: DistrictCounts | null = null;
   /** The count line of each rendered row, by district key. */
   let countLines: { key: string; el: HTMLElement }[] = [];
@@ -65,16 +69,15 @@ export function createRepPanel(): RepPanel {
   };
   const el = h('section', { class: 'strv-reps', 'aria-labelledby': 'strv-reps-h', hidden: true });
   let token = 0;
-  /** Holds the notes element the page hands over; it outlives a re-render of the panel. */
+  /** Holds the notes of the visitor's U.S. House district. */
   const voicesSlot = h('div', { class: 'strv-reps__voices' });
   /** Closes the composer that is open, if any: one letter at a time. */
   let closeOpen: (() => void) | null = null;
-  /** The sign-on form that is open, if any. */
-  let signForm: SignOnForm | null = null;
+  let voices: VoicesView | null = null;
 
   const hide = (): void => {
-    signForm?.destroy();
-    signForm = null;
+    voices?.destroy();
+    voices = null;
     el.hidden = true;
     clear(el);
   };
@@ -150,44 +153,19 @@ export function createRepPanel(): RepPanel {
     ];
   };
 
-  /** The "Add your name" button and the slot its form opens in; the address comes from the last lookup. */
-  const signSection = (input: RepPanelInput): HTMLElement => {
-    const slot = h('div', { class: 'strv-reps__sign' });
-    const open = h(
-      'button',
-      {
-        type: 'button',
-        class: 'strv-button',
-        'aria-expanded': 'false',
-        onclick: () => {
-          if (signForm) {
-            signForm.destroy();
-            signForm = null;
-            clear(slot);
-            open.setAttribute('aria-expanded', 'false');
-            return;
-          }
-          signForm = createSignOnForm({ address: (getLocated() ?? input.located)?.matchedAddress ?? '' });
-          slot.append(signForm.el);
-          open.setAttribute('aria-expanded', 'true');
-        },
-      },
-      'Add your name',
-    );
-    return h('div', { class: 'strv-reps__signon' }, open, slot);
-  };
-
   async function update(input: RepPanelInput): Promise<void> {
     const mine = ++token;
     closeOpen = null;
-    signForm?.destroy();
-    signForm = null;
+    voices?.destroy();
+    voices = null;
+    clear(voicesSlot);
     if (!input.located || input.located.state !== input.state) {
       hide();
       return;
     }
     let rows: RepsRow[];
     let found: boolean;
+    let usHouse: string | null;
     let pledges: Pledge[] = [];
     try {
       const at = toStateFrame(input.state, input.located.lonLat);
@@ -195,6 +173,7 @@ export function createRepPanel(): RepPanel {
       const [reps, d, pl] = await Promise.all([loadStateReps(input.state), todaysDistrictsAt(input.state, at), loadPledges().catch((): Pledge[] => [])]);
       pledges = pl;
       rows = repsFor(reps, d);
+      usHouse = d.usHouse;
       found = d.usHouse !== null || d.stateHouse !== null || d.stateSenate !== null;
     } catch {
       if (mine === token) hide();
@@ -205,6 +184,7 @@ export function createRepPanel(): RepPanel {
     clear(el);
     countLines = [];
     const list = h('ul', { class: 'strv-reps__list' });
+    const everyone: EveryoneRep[] = [];
     for (const row of rows) {
       if (row.missing || row.reps.length === 0) {
         list.append(h('li', { class: 'strv-reps__row strv-reps__row--missing' }, 'We don’t have contact details for this seat yet.'));
@@ -213,31 +193,40 @@ export function createRepPanel(): RepPanel {
       for (const rep of row.reps) {
         const pledge = pledges.find((p) => p.role === 'incumbent' && p.personId === rep.id);
         list.append(repRow(input, row, rep, mapUrl, pledge));
+        const code = row.key.slice(row.key.lastIndexOf(':') + 1);
+        everyone.push({ key: row.key, office: row.office, label: officeLabel(input.state, row.office, code), rep });
       }
     }
+    const places = rows.filter((r) => r.office !== 'us-senate').map((r) => ({ office: r.office, code: r.key.slice(r.key.lastIndexOf(':') + 1) }));
     el.append(
       h('h3', { id: 'strv-reps-h', class: 'strv-reps__h' }, 'Who represents you today'),
       h('p', { class: 'strv-reps__intro' }, `Your state legislators draw ${input.stateName}’s maps in most states. Your members of Congress could set one rule for every state.`),
       ...(found ? [] : [h('p', { class: 'strv-reps__none' }, 'We couldn’t place this address in a district.')]),
       list,
       ...candidatesSection(input, rows, pledges),
+      ...(everyone.length > 0 ? [createEveryone({ stateName: input.stateName, places, mapUrl, reps: everyone })] : []),
       voicesSlot,
-      signSection(input),
     );
+    if (usHouse !== null && makeVoices) {
+      voices = makeVoices(districtKey(input.state, 'us-house', usHouse));
+      voicesSlot.append(voices.el);
+    }
     paintCounts();
     el.hidden = false;
+    void loadCounts(input.state).then((c) => {
+      if (mine !== token) return;
+      counts = c;
+      paintCounts();
+    });
   }
 
   return {
     el,
     update,
-    setCounts(c) {
-      counts = c;
-      paintCounts();
-    },
-    setVoices(voices) {
-      clear(voicesSlot);
-      if (voices) voicesSlot.append(voices);
+    destroy() {
+      token++;
+      voices?.destroy();
+      voices = null;
     },
   };
 }

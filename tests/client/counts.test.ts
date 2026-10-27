@@ -39,7 +39,7 @@ vi.mock('../../src/client/entities/pledges', async (orig) => ({
 
 import { loadCounts, recordAsk, resetAsks } from '../../src/client/entities/counts';
 import { captureSigned, takeSigned } from '../../src/client/shared';
-import { createRepPanel } from '../../src/client/widgets/rep-panel';
+import { createRepPanel } from '../../src/client/widgets/take-action/panel';
 
 const input = { state: 'CO', stateName: 'Colorado', located: { state: 'CO', lonLat: [0.5, 0.5] as [number, number], matchedAddress: '1 Main St' } };
 const lines = (root: Element) => [...root.querySelectorAll('.strv-reps__count')].map((e) => ((e as HTMLElement).hidden ? null : e.textContent));
@@ -109,10 +109,15 @@ describe('rep panel counts', () => {
     byKey: { 'CO:state-senate:012': 1, 'CO:state-senate:012#asks': 3, 'CO:us-house:03': 2, 'CO:us-senate:state': 4, 'CO:us-senate:state#asks': 1 },
   };
 
-  it('shows the per-district lines under each row, with the singular for one person', async () => {
+  const settle = async (): Promise<void> => {
+    for (let i = 0; i < 5; i++) await new Promise((r) => setTimeout(r, 0));
+  };
+
+  it('loads the state’s counts and shows the per-district lines under each row, with the singular for one person', async () => {
+    fetchMock.mockImplementation(async (url: string) => (String(url) === '/api/counts?state=CO' ? Response.json(counts) : new Response(null, { status: 204 })));
     const p = createRepPanel();
     await p.update(input);
-    p.setCounts(counts);
+    await settle();
     expect(lines(p.el)).toEqual([
       '1 person in this district signed. 3 asked this office',
       null,
@@ -122,17 +127,10 @@ describe('rep panel counts', () => {
     ]);
   });
 
-  it('paints counts that arrive before the panel renders', async () => {
-    const p = createRepPanel();
-    p.setCounts(counts);
-    await p.update(input);
-    expect(lines(p.el)[0]).toBe('1 person in this district signed. 3 asked this office');
-  });
-
   it('keeps every row and shows no count lines when the counts failed', async () => {
     const p = createRepPanel();
     await p.update(input);
-    p.setCounts(null);
+    await settle();
     expect(p.el.querySelectorAll('.strv-reps__row')).toHaveLength(5);
     expect(lines(p.el).every((l) => l === null)).toBe(true);
   });

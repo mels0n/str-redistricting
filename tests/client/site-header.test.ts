@@ -20,7 +20,8 @@ describe('site header', () => {
     const homeLinks = [...header.querySelectorAll('a')].filter((a) => a.getAttribute('href') === routeHref(NATIONAL) && !a.hasAttribute('data-chamber'));
     expect(homeLinks).toHaveLength(1);
     expect(header.textContent).not.toContain('All states');
-    expect([...header.querySelectorAll('.strv-masthead__nav a')].map((a) => a.textContent || a.getAttribute('aria-label'))).toEqual(['FAQ', 'How it works', 'Source code on GitHub']);
+    expect([...header.querySelectorAll('.strv-masthead__nav a')].map((a) => a.textContent || a.getAttribute('aria-label'))).toEqual(['Take action', 'FAQ', 'How it works', 'Source code on GitHub']);
+    expect(header.querySelector('[data-nav="act"]')!.getAttribute('href')).toBe('/act');
   });
 
   it('links the source code on GitHub, after the page links, with no byline', () => {

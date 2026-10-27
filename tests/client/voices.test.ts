@@ -28,7 +28,7 @@ vi.mock('../../src/client/entities/pledges', async (orig) => ({
 }));
 
 import { loadNotes } from '../../src/client/entities/notes';
-import { createRepPanel } from '../../src/client/widgets/rep-panel';
+import { createRepPanel } from '../../src/client/widgets/take-action/panel';
 import { createVoices } from '../../src/client/widgets/voices';
 
 const note = (body: string, over: Record<string, unknown> = {}) => ({ body, name: 'Maria G.', town: 'Boulder', at: '2026-10-27T12:00:00Z', ...over });
@@ -108,17 +108,20 @@ describe('voices widget', () => {
 describe('rep panel voices', () => {
   const input = { state: 'CO', stateName: 'Colorado', located: { state: 'CO', lonLat: [0.5, 0.5] as [number, number], matchedAddress: '1 Main St' } };
 
-  it('puts the widget in the panel, before and after it renders, and removes it on null', async () => {
+  it('puts the district’s notes in the panel, once, and removes them when the address goes', async () => {
     fetchMock.mockResolvedValue(Response.json({ notes: [note('Fair maps')] }));
-    const v = createVoices({ scope: { key: 'CO:us-house:03' }, heading: 'Voices from this district' });
-    await v.ready;
-    const p = createRepPanel();
-    p.setVoices(v.el);
+    const keys: string[] = [];
+    const p = createRepPanel((key) => {
+      keys.push(key);
+      return createVoices({ scope: { key }, heading: 'Voices from this district' });
+    });
     await p.update(input);
+    await new Promise((r) => setTimeout(r, 0));
+    expect(keys).toEqual(['CO:us-house:03']);
     expect(p.el.querySelector('.strv-reps__voices h3')!.textContent).toBe('Voices from this district');
     await p.update(input);
     expect(p.el.querySelectorAll('.strv-voices')).toHaveLength(1);
-    p.setVoices(null);
+    await p.update({ ...input, located: null });
     expect(p.el.querySelector('.strv-voices')).toBeNull();
   });
 });

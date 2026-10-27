@@ -26,6 +26,7 @@ import {
   createSplitter,
   stateRoute,
   howRoute,
+  actRoute,
   NATIONAL,
   MapUnavailableError,
   UnknownStateError,
@@ -34,7 +35,6 @@ import {
   type StateRoute,
   type Chamber,
   type LonLat,
-  districtKey,
 } from '../../shared';
 import { loadIndex, loadOutlines, findState, chamberView, type GeneratedState } from '../../entities/state';
 import {
@@ -68,10 +68,6 @@ import { createDistrictList } from '../../widgets/district-list';
 import { createProofPanel } from '../../widgets/proof-panel';
 import { createExplainer } from '../../widgets/explainer';
 import { createProcessPanel } from '../../widgets/process-panel';
-import { createRepPanel } from '../../widgets/rep-panel';
-import { loadCounts } from '../../entities/counts';
-import { todaysDistrictsAt } from '../../features/todays-districts';
-import { createVoices, type Voices } from '../../widgets/voices';
 
 /** The page heading: the state, and for a State House or State Senate map the chamber too. */
 function pageTitle(name: string, chamber: Chamber): string {
@@ -105,7 +101,6 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
   const locatedDistrict = (plan = shownPlan()): number | null => located?.districts[plan] ?? null;
   /** The corrected link a notice explains; the notice stays while the route is still that one. */
   let noticeHash: string | null = null;
-  let voices: Voices | null = null;
   let located: { districts: PlanDistricts; lonLat: LonLat; matchedAddress: string; exact: boolean } | null = null;
   /** The block assignment file, loaded when an address with a census block is looked up; null if it failed. */
   let blocks: Blocks | null = null;
@@ -115,7 +110,6 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
   const howLink = h('a', { href: routeHref(howRoute()), class: 'strv-back strv-state__how' }, 'How it works');
   const meta = h('dl', { class: 'strv-state__meta' });
   const share = createShareButton();
-  const repPanel = createRepPanel();
   const head = h('header', { class: 'strv-state__head' }, h('div', { class: 'strv-state__links' }, back, h('span', { class: 'strv-state__actions' }, share.el, howLink)), h1, meta);
 
   // Spoken through announce(); a hidden element cannot be a live region.
@@ -562,7 +556,7 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
     stage.append(scrubber.el);
     controls = scrubber.el;
     splitWatch?.observe(scrubber.el);
-    const ticketBox = h('div', { class: 'strv-state__ticket' }, ticket.el, locatedNote, repPanel.el);
+    const ticketBox = h('div', { class: 'strv-state__ticket' }, ticket.el, locatedNote, h('a', { class: 'strv-state__act', href: routeHref(actRoute(initial.abbr)) }, 'Ask your representatives'));
     let pickKey = '';
     const renderPick = (plan: string, d: { district: number; pop: number } | null, color: string | null): void => {
       const key = `${plan}|${d?.district ?? ''}`;
@@ -788,24 +782,6 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
       at,
     });
     located = { districts, lonLat: at, matchedAddress: l.matchedAddress, exact };
-    void repPanel.update({ state: bundle.abbr, stateName, located: l });
-    void showVoices(bundle.abbr, at);
-  }
-
-  /** The notes people in the visitor's U.S. House district wrote. They show nothing until some are approved. */
-  async function showVoices(abbr: string, at: LonLat): Promise<void> {
-    voices?.destroy();
-    voices = null;
-    repPanel.setVoices(null);
-    let code: string | null;
-    try {
-      code = (await todaysDistrictsAt(abbr, at)).usHouse;
-    } catch {
-      return;
-    }
-    if (!alive || code === null) return;
-    voices = createVoices({ scope: { key: districtKey(abbr, 'us-house', code) }, heading: 'Voices from this district' });
-    repPanel.setVoices(voices.el);
   }
 
   // Arriving from the confirmation link: say so (the router has already cleared `?signed=` from the address bar).
@@ -813,9 +789,6 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
     setNotice('You’re signed. Thanks for adding your name.');
     noticeHash = formatPath(route);
   }
-  void loadCounts(initial.abbr).then((c) => {
-    if (alive) repPanel.setCounts(c);
-  });
   void start();
 
   return {
@@ -832,7 +805,6 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
     },
     destroy() {
       alive = false;
-      voices?.destroy();
       frameWatch?.disconnect();
       splitWatch?.disconnect();
       scrubber?.destroy();

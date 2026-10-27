@@ -95,7 +95,7 @@ const lookup = { lonLat: [-149.9, 61.2] as [number, number], matchedAddress: '1 
 async function lateAnswer(page: { el: HTMLElement; destroy(): void }, answer: unknown): Promise<void> {
   let resolve!: (v: unknown) => void;
   geo.impl = () => new Promise((r) => (resolve = r));
-  const form = page.el.querySelector<HTMLElement>('form')!;
+  const form = (page.el.querySelector<HTMLElement>('.strv-national__search form') ?? page.el.querySelector<HTMLElement>('form'))!;
   form.querySelector('input')!.value = '1 Main St, Anchorage';
   form.dispatchEvent(new Event('submit', { cancelable: true }));
   await flush();

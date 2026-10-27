@@ -7,6 +7,7 @@
  *   /how/balancing             the same page, at one of its sections
  *   /faq                       common questions
  *   /pledges                   who supports the rule
+ *   /act                       find your representatives, email them, add your name; /act?state=CO starts on a state
  *   /privacy                   what the sign-on collects and keeps
  *   /remove                    ask for a removal link; /remove?token=... confirms a removal
  *   /faq/ties                  the same page, at one question
@@ -44,6 +45,7 @@ export type Route =
   | { page: 'faq'; question: FaqQuestion | null }
   | { page: 'changelog' }
   | { page: 'pledges' }
+  | { page: 'act'; state: string | null }
   | { page: 'privacy' }
   | { page: 'remove'; token: string | null }
   | {
@@ -66,6 +68,10 @@ export function nationalRoute(chamber: Chamber = 'federal-house'): Route {
 }
 export const CHANGELOG: Route = { page: 'changelog' };
 export const PLEDGES: Route = { page: 'pledges' };
+export function actRoute(state: string | null = null): Route {
+  return { page: 'act', state };
+}
+export const ACT: Route = actRoute();
 export const PRIVACY: Route = { page: 'privacy' };
 export const REMOVE: Route = { page: 'remove', token: null };
 
@@ -106,6 +112,10 @@ export function parsePath(pathname: string, search: string): Route {
   }
   if (segs[0]?.toLowerCase() === 'changelog') return CHANGELOG;
   if (segs[0]?.toLowerCase() === 'pledges') return PLEDGES;
+  if (segs[0]?.toLowerCase() === 'act') {
+    const state = new URLSearchParams(search).get('state')?.toUpperCase() ?? null;
+    return actRoute(state !== null && /^[A-Z]{2}$/.test(state) ? state : null);
+  }
   if (segs[0]?.toLowerCase() === 'privacy') return PRIVACY;
   if (segs[0]?.toLowerCase() === 'remove') {
     const token = new URLSearchParams(search).get('token');
@@ -157,6 +167,7 @@ export function formatPath(route: Route): string {
   if (route.page === 'national') return `/${chamberSegment(route.chamber)}`;
   if (route.page === 'changelog') return '/changelog';
   if (route.page === 'pledges') return '/pledges';
+  if (route.page === 'act') return route.state ? `/act?state=${route.state}` : '/act';
   if (route.page === 'privacy') return '/privacy';
   if (route.page === 'remove') return route.token ? `/remove?token=${route.token}` : '/remove';
   if (route.page === 'how') return route.section ? `/how/${route.section}` : '/how';
@@ -200,6 +211,7 @@ export function canonicalPath(route: Route): string {
   if (route.page === 'faq') return '/faq';
   if (route.page === 'changelog') return '/changelog';
   if (route.page === 'pledges') return '/pledges';
+  if (route.page === 'act') return '/act';
   if (route.page === 'privacy') return '/privacy';
   if (route.page === 'remove') return '/remove';
   if (route.page === 'national') return `/${chamberSegment(route.chamber)}`;

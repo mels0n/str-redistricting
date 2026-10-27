@@ -387,6 +387,7 @@ html:has(> body > #str-viewer) {
     'head'
     'lede'
     'map'
+    'act'
     'index'
     'search';
 }
@@ -500,6 +501,11 @@ html:has(> body > #str-viewer) {
   padding: var(--s-4) var(--gutter) var(--s-2);
 }
 
+.strv-national__act {
+  grid-area: act;
+  padding: var(--s-4) var(--gutter);
+}
+
 .strv-national__index {
   grid-area: index;
   padding: var(--s-4) var(--gutter) var(--s-6);
@@ -530,6 +536,13 @@ html:has(> body > #str-viewer) {
 
   .strv-national__rail > .strv-national__search {
     order: -1;
+  }
+
+  /* The call to action tops the left column, above the lookup that only opens a state. */
+  .strv-national__rail > .strv-national__act {
+    order: -2;
+    padding: var(--s-4) var(--gutter);
+    border-bottom: 2px solid var(--ink);
   }
 
   .strv-national__head {
@@ -5213,6 +5226,172 @@ var {
   html[data-print-letter] .strv-ask[data-printing] .strv-ask__where {
     display: none;
   }
+}
+
+/* ---------- Take action ---------- */
+
+.strv-act {
+  display: grid;
+  gap: var(--s-3);
+  padding: var(--s-4);
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  border-top: 6px solid var(--signal);
+}
+
+.strv-act__h {
+  margin: 0;
+  font-size: 1.5rem;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.strv-act__lede,
+.strv-act__note {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.45;
+  color: var(--ink-2);
+}
+
+.strv-act__step {
+  display: grid;
+  gap: var(--s-2);
+}
+
+.strv-act__step--sign {
+  justify-items: start;
+  padding-top: var(--s-3);
+  border-top: 1px solid var(--hairline);
+}
+
+.strv-act__step--sign > * {
+  max-width: 100%;
+}
+
+.strv-act__step-h {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.strv-act__sign-slot:empty {
+  display: none;
+}
+
+.strv-act__sign-slot {
+  width: 100%;
+}
+
+.strv-act .strv-reps {
+  margin-top: 0;
+}
+
+.strv-act__all {
+  display: grid;
+  gap: var(--s-2);
+  margin-top: var(--s-4);
+  padding-top: var(--s-3);
+  border-top: 1px solid var(--hairline);
+}
+
+.strv-act__all .strv-reps__intro {
+  margin: 0;
+}
+
+.strv-act__letter summary {
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.strv-act__letter[open] {
+  display: grid;
+  gap: var(--s-2);
+  padding: var(--s-3);
+  border: 1px solid var(--hairline);
+}
+
+.strv-act__sub {
+  margin: var(--s-2) 0 0;
+  font-size: 0.875rem;
+}
+
+.strv-act__todo {
+  display: grid;
+  gap: var(--s-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.875rem;
+}
+
+.strv-act__todo-item,
+.strv-act__todo-who,
+.strv-act__todo-links {
+  display: grid;
+  gap: var(--s-1);
+}
+
+.strv-act__todo-links {
+  grid-auto-flow: column;
+  grid-auto-columns: max-content;
+  justify-content: start;
+  align-items: center;
+  gap: var(--s-2);
+  flex-wrap: wrap;
+}
+
+@media (max-width: 30rem) {
+  .strv-act__todo-links {
+    grid-auto-flow: row;
+    grid-auto-columns: auto;
+    justify-items: start;
+  }
+}
+
+.strv-act__todo-office {
+  color: var(--ink-2);
+}
+
+.strv-act__done {
+  font-weight: 700;
+}
+
+.strv-act__done::before {
+  content: '\2713\00a0';
+}
+
+.strv-act__todo-item[data-done='true'] .strv-act__todo-who {
+  color: var(--ink-2);
+}
+
+.strv-act__done[hidden] {
+  display: none;
+}
+
+.strv-state__act {
+  display: inline-block;
+  margin-top: var(--s-3);
+  font-weight: 600;
+}
+
+.strv-act-page__body {
+  max-width: 42rem;
+  padding: var(--s-4) var(--gutter) var(--s-7);
+}
+
+/* The header's call to action stands out from the plain links beside it. */
+.strv .strv-masthead__act {
+  padding: 0 var(--s-3);
+  color: var(--ink);
+  background: var(--signal);
+  border-radius: 2px;
+}
+
+.strv .strv-masthead__act:hover,
+.strv .strv-masthead__act[aria-current='page'] {
+  background: var(--signal-hover);
+  text-decoration: none;
 }
 
 /* ---------- Pledges ---------- */

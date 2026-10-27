@@ -173,7 +173,8 @@ jobs:
           GH_REPO: ${{ github.repository }}
         run: |
           set -euo pipefail
-          open=$(gh pr list --state open --json headRefName --jq '[.[] | select(.headRefName | startswith("chore/refresh-reps-data-"))] | length')
+          # A pull request from a fork can pick any branch name, so only this repository's own branches count.
+          open=$(gh pr list --state open --json headRefName,isCrossRepository --jq '[.[] | select(.isCrossRepository == false and (.headRefName | startswith("chore/refresh-reps-data-")))] | length')
           if [ "$open" != "0" ]; then
             echo "skip=true" >> "$GITHUB_OUTPUT"
             echo "::warning::An earlier representative data refresh pull request is still open. Merge or close it, and the next run opens a new one."

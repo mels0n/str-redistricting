@@ -5074,12 +5074,6 @@ var {
   display: none;
 }
 
-.strv-reps__h {
-  margin: 0 0 var(--s-2);
-  font-size: 1rem;
-}
-
-.strv-reps__intro,
 .strv-reps__none {
   margin: 0 0 var(--s-3);
   font-size: 0.875rem;
@@ -5520,13 +5514,11 @@ var {
   font-weight: 700;
 }
 
-.strv-reps__count,
 .strv-national__signed {
   margin: var(--s-2) 0 0;
   font-weight: 700;
 }
 
-.strv-reps__count[hidden],
 .strv-national__signed[hidden] {
   display: none;
 }
@@ -5536,17 +5528,6 @@ var {
 }
 
 /* ---------- Sign-on form and privacy page ---------- */
-
-.strv-reps__signon {
-  display: grid;
-  gap: var(--s-3);
-  margin-top: var(--s-3);
-  justify-items: start;
-}
-
-.strv-reps__sign:empty {
-  display: none;
-}
 
 .strv-sign {
   display: grid;

@@ -16,7 +16,10 @@ export async function loadCounts(state?: string): Promise<DistrictCounts | null>
   }
 }
 
-/** The counts to show: null (show nothing anywhere) when they failed to load or the national total is below the threshold. */
+/**
+ * The counts to show: null (show nothing anywhere) when they failed to load or the national total is below the threshold.
+ * The threshold only decides what the page shows; /api/counts still answers with the real numbers to anyone who asks it.
+ */
 export function shownCounts(c: DistrictCounts | null): DistrictCounts | null {
   return c !== null && c.national >= config.showCountsFrom ? c : null;
 }

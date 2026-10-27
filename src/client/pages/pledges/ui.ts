@@ -5,7 +5,7 @@ import { loadPledges, inPledgeOrder, type Pledge } from '../../entities/pledges'
 export const PLEDGE_SENTENCE =
   "I support drawing [state]'s districts with the Fair Maps rule: split the state along the shortest line that divides its people evenly, repeat until each piece is one district, and publish the code so anyone can check the result.";
 
-export const BADGE_SNIPPET = '<a href="https://fairmaps.melson.us/pledges"><img src="https://fairmaps.melson.us/badge.svg" alt="I back Fair Maps" width="200" height="40"></a>';
+export const BADGE_SNIPPET = `<a href="https://${config.siteHost}/pledges"><img src="https://${config.siteHost}/badge.svg" alt="I back Fair Maps" width="200" height="40"></a>`;
 
 function seat(office: Office, state: string, code: string | null): string {
   if (office === 'us-senate') return `U.S. Senate, ${state}`;

@@ -114,7 +114,8 @@ export async function sign(body: unknown, ip: string, deps: SignDeps): Promise<S
     stateHouse: districts.stateHouse,
     stateSenate: districts.stateSenate,
     displayNameEnc: publicName ? seal(publicName, config.encryptionKey) : null,
-    townEnc: req.showPublic && town ? seal(town, config.encryptionKey) : null,
+    // The town is only ever shown beside a name, so it is only kept when there is one.
+    townEnc: publicName && town ? seal(town, config.encryptionKey) : null,
     showPublic: req.showPublic,
     tokenHash: hashToken(token),
     refCode: req.ref,

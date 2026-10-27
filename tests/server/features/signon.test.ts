@@ -366,6 +366,18 @@ describe('sign-up hardening', () => {
   });
 });
 
+describe('town', () => {
+  it('is kept only when there is a name to show it beside', async () => {
+    const withName = setup();
+    await withName.handler(post({ ...BODY, showPublic: true, displayName: 'Ada L' }));
+    expect(withName.repo.rows[0]!.townEnc).toMatch(/^v1:/);
+    const noName = setup();
+    await noName.handler(post({ ...BODY, showPublic: true, displayName: null }));
+    expect(noName.repo.rows[0]!.townEnc).toBeNull();
+    expect(noName.repo.rows[0]!.displayNameEnc).toBeNull();
+  });
+});
+
 describe('POST /api/confirm', () => {
   async function signed() {
     const s = setup();

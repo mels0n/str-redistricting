@@ -41,7 +41,9 @@ export async function readNotes(query: unknown, repo: NotesRepo, encryptionKey: 
   for (const r of rows.filter(isPublic).slice(0, PUBLIC_NOTES_LIMIT)) {
     const body = tryOpen(r.bodyEnc, encryptionKey);
     if (body === null) continue;
-    notes.push({ body, name: tryOpen(r.nameEnc, encryptionKey), town: tryOpen(r.townEnc, encryptionKey), at: r.createdAt });
+    // A town is shown only beside a name.
+    const name = tryOpen(r.nameEnc, encryptionKey);
+    notes.push({ body, name, town: name ? tryOpen(r.townEnc, encryptionKey) : null, at: r.createdAt });
   }
   return { notes };
 }
@@ -59,7 +61,7 @@ export async function buildDigest(key: string, repo: NotesRepo, encryptionKey: B
   for (const r of shown) {
     const body = tryOpen(r.bodyEnc, encryptionKey);
     if (body === null) continue;
-    const town = tryOpen(r.townEnc, encryptionKey);
+    const town = tryOpen(r.nameEnc, encryptionKey) ? tryOpen(r.townEnc, encryptionKey) : null;
     lines.push(`- "${body.replace(/\s+/g, ' ')}"${town ? ` (${town})` : ''}`);
   }
   return `${lines.join('\n')}\n`;

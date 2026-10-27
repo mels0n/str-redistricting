@@ -114,6 +114,12 @@ describe('GET /api/notes', () => {
     expect(await res.json()).toEqual({ notes: [{ body: 'Fair maps please', name: 'Maria G.', town: 'Boulder', at: '2026-10-27T12:00:00Z' }] });
   });
 
+  it('shows a town only beside a name', async () => {
+    const repo = new FakeNotes();
+    repo.rows = [row({ body: 'No name', nameEnc: null })];
+    expect(await (await get(repo, '?national=1')).json()).toEqual({ notes: [{ body: 'No name', name: null, town: null, at: '2026-10-27T12:00:00Z' }] });
+  });
+
   it('leaves out a pending note, a note of a signer without show-public and of an unconfirmed signer', async () => {
     const repo = new FakeNotes();
     repo.rows = [

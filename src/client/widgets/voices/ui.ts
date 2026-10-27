@@ -15,7 +15,8 @@ const dateOf = (at: string): string => {
   return Number.isNaN(d.getTime()) ? '' : d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
 };
 
-const byline = (n: PublicNote): string => [n.name, n.town].filter((s): s is string => Boolean(s)).join(', ');
+/** The name and town of a note's writer; a town never appears without a name. */
+const byline = (n: PublicNote): string => (n.name ? [n.name, n.town].filter((s): s is string => Boolean(s)).join(', ') : '');
 
 /**
  * Recent "why I signed" notes under a heading. The section stays empty and hidden until notes arrive, and a failed fetch or

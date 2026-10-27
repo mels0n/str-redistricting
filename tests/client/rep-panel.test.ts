@@ -88,14 +88,15 @@ describe('rep panel', () => {
     expect(body).toContain('I live in Colorado State Senate district 12.');
   });
 
-  it('shows only copy and print and the phone when a rep has no form or email', async () => {
+  it('shows copy, print, the phone and the plain no-online message when a rep has no form or email', async () => {
     const p = createRepPanel();
     await p.update(input);
     const row = p.el.querySelectorAll('li')[1]!;
     (row.querySelector('button') as HTMLButtonElement).click();
     const composer = row.querySelector('.strv-ask')!;
-    expect(buttons(composer)).toEqual(['Copy letter', 'Print']);
+    expect(buttons(composer)).toEqual(['555-0100', 'Copy letter', 'Print']);
     expect(composer.textContent).toContain('Phone: 555-0100');
+    expect(composer.textContent).toContain('We don’t have a way to send this to them online. You can call or look up their office.');
   });
 
   it('says so for a seat with no published reps', async () => {

@@ -3,7 +3,7 @@ import { loadStateReps, STATEWIDE_CODE, type Rep } from '../../entities/reps';
 import { recordAsk, type DistrictCounts } from '../../entities/counts';
 import { loadPledges, inPledgeOrder, type Pledge } from '../../entities/pledges';
 import { todaysDistrictsAt, repsFor, type RepsRow } from '../../features/todays-districts';
-import { createAskComposer } from '../../features/ask-rep';
+import { createAskComposer, telHref } from '../../features/ask-rep';
 import { createSignOnForm, type SignOnForm } from '../../features/sign-on';
 import { letterText } from './letter';
 
@@ -29,12 +29,6 @@ function officeLabel(state: string, office: Office, code: string): string {
   if (office === 'state-house') return `State House, district ${num}`;
   if (office === 'us-house') return `U.S. House, ${state}-${code}`;
   return 'U.S. Senate';
-}
-
-/** Digits and a leading plus only, so nothing else can ride in a tel: link. */
-function telHref(phone: string): string {
-  const digits = phone.replace(/[^\d]/g, '');
-  return `tel:${phone.trim().startsWith('+') ? '+' : ''}${digits}`;
 }
 
 async function share(url: string): Promise<void> {
@@ -100,7 +94,7 @@ export function createRepPanel(): RepPanel {
           closeOpen?.();
           if (wasOpen) return;
           const letter = letterText({ rep, office: row.office, stateName: input.stateName, districtCode: code, mapUrl });
-          slot.append(createAskComposer({ name: rep.name, letter, contactUrl: rep.contactUrl, email: rep.email, phone: rep.phone, onUse: () => recordAsk(row.key, row.office) }));
+          slot.append(createAskComposer({ name: rep.name, letter, contactUrl: rep.contactUrl, email: rep.email, phone: rep.phone, website: rep.website, office: row.office, onUse: () => recordAsk(row.key, row.office) }));
           ask.setAttribute('aria-expanded', 'true');
           closeOpen = () => {
             clear(slot);

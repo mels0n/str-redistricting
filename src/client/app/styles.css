@@ -5124,9 +5124,46 @@ var {
   border: 1px solid var(--ink);
 }
 
-.strv-ask__subject,
-.strv-ask__phone {
+.strv-ask__subject {
   margin: 0;
+}
+
+.strv-ask__where {
+  display: grid;
+  gap: var(--s-2);
+  padding-bottom: var(--s-2);
+  border-bottom: 1px solid var(--hairline);
+}
+
+.strv-ask__where-h,
+.strv-ask__none {
+  margin: 0;
+}
+
+.strv-ask__dests {
+  display: grid;
+  gap: var(--s-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.strv-ask__dest {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-1) var(--s-2);
+  align-items: center;
+}
+
+.strv-ask__addr {
+  overflow-wrap: anywhere;
+  font-weight: 600;
+}
+
+.strv-ask__hint {
+  flex-basis: 100%;
+  font-size: 0.8125rem;
+  color: var(--ink-2);
 }
 
 .strv-ask__letter {
@@ -5173,7 +5210,7 @@ var {
   }
 
   html[data-print-letter] .strv-ask[data-printing] .strv-ask__actions,
-  html[data-print-letter] .strv-ask[data-printing] .strv-ask__phone {
+  html[data-print-letter] .strv-ask[data-printing] .strv-ask__where {
     display: none;
   }
 }

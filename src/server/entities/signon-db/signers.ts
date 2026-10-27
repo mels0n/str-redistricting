@@ -35,9 +35,16 @@ export interface SignerRepo {
   upsertPending(input: PendingSigner): Promise<{ id: string } | null>;
   findByTokenHash(tokenHash: string): Promise<TokenRow | null>;
   confirm(id: string, confirmedAtIso: string): Promise<void>;
-  /** Deletes rate-limit rows before `rateBeforeIso`, and pending signers created before `createdBeforeIso` whose token expired before `expiredBeforeIso` or was never issued. */
-  cleanup(rateBeforeIso: string, createdBeforeIso: string, expiredBeforeIso: string): Promise<void>;
+  /**
+   * Deletes rate-limit rows before `rateBeforeIso`, and pending signers whose confirmation link went out and expired
+   * before `expiredBeforeIso` and who have no email waiting in the queue. A pending signer whose link never went out
+   * (no expiry set) is kept however old.
+   */
+  cleanup(rateBeforeIso: string, expiredBeforeIso: string): Promise<void>;
 }
+
+/** Signers looked at per cleanup run, so the id lists stay short; the next run takes the rest. */
+const CLEANUP_BATCH = 100;
 
 export const OWN_CODE_ALPHABET = 'abcdefghjkmnpqrstuvwxyz23456789';
 const CODE_ALPHABET = OWN_CODE_ALPHABET;
@@ -102,11 +109,21 @@ export function signerRepo(): SignerRepo {
       const { error } = await db().from('signers').update({ status: 'confirmed', confirmed_at: confirmedAtIso, token_expires_at: null }).eq('id', id);
       if (error) fail();
     },
-    async cleanup(rateBeforeIso, createdBeforeIso, expiredBeforeIso) {
+    async cleanup(rateBeforeIso, expiredBeforeIso) {
       const a = await db().from('rate_limits').delete().lt('at', rateBeforeIso);
       if (a.error) fail();
-      // Deleting a signer cascades to its outbox rows.
-      const b = await db().from('signers').delete().eq('status', 'pending').lt('created_at', createdBeforeIso).or(`token_expires_at.is.null,token_expires_at.lt.${expiredBeforeIso}`);
+      // Only a link that was sent has an expiry. A signer with a queued email is never deleted, whatever its expiry.
+      const old = await db().from('signers').select('id').eq('status', 'pending').not('token_expires_at', 'is', null).lt('token_expires_at', expiredBeforeIso).limit(CLEANUP_BATCH);
+      if (old.error) fail();
+      const ids = (old.data ?? []).map((r) => String(r.id));
+      if (ids.length === 0) return;
+      const queued = await db().from('email_outbox').select('signer_id').eq('status', 'queued').in('signer_id', ids);
+      if (queued.error) fail();
+      const keep = new Set((queued.data ?? []).map((r) => String(r.signer_id)));
+      const drop = ids.filter((id) => !keep.has(id));
+      if (drop.length === 0) return;
+      // Deleting a signer cascades to its (sent or failed) outbox rows.
+      const b = await db().from('signers').delete().eq('status', 'pending').in('id', drop);
       if (b.error) fail();
     },
   };

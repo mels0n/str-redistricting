@@ -268,7 +268,7 @@ describe('privacy page and footer', () => {
     expect(page.el.textContent).toContain('Supabase');
     expect(page.el.textContent).toContain('Cloudflare Turnstile');
     expect(page.el.textContent).toContain('Resend');
-    expect(page.el.textContent).toContain('within about two weeks');
+    expect(page.el.textContent).toContain('about a week after the link in their confirmation email expires');
     expect(page.el.textContent).toContain('U.S. Census Bureau geocoder');
     expect(page.el.textContent).not.toContain('2014');
     expect(page.el.textContent!.toLowerCase()).not.toMatch(/draft|voter/);

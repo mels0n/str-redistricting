@@ -37,7 +37,7 @@ export function createPrivacyPage(): Page {
           'A note, if you write one. It is kept encrypted. Software checks it when you sign, and a note with a link, contact details or words we don’t allow is dropped and never stored.',
           'A hash of your IP address, kept for about a day to limit how often one place can sign.',
         ),
-        p('Sign-ups that are never confirmed are deleted automatically within about two weeks of your last attempt (a little longer if your confirmation email was delayed).'),
+        p('Sign-ups that are never confirmed are deleted automatically about a week after the link in their confirmation email expires. A sign-up whose confirmation email has not been sent yet is kept until the email goes out, so a delay on our side never costs you your place. While it waits, your email address is stored sealed (encrypted) in a queue, and it is deleted when the email is sent.'),
       ),
       section('never', 'What we never keep', p('Your address. We send it to the U.S. Census Bureau geocoder once to find your district, and it is not stored or logged by us.')),
       section(

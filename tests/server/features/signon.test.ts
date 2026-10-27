@@ -33,12 +33,13 @@ class FakeRepo implements SignerRepo {
   }
   cleanups = 0;
   failCleanup = false;
-  async cleanup(rateBeforeIso: string, createdBeforeIso: string, expiredBeforeIso: string) {
+  queued = new Set<string>();
+  async cleanup(rateBeforeIso: string, expiredBeforeIso: string) {
     this.cleanups++;
     if (this.failCleanup) throw new Error('db down');
     this.attempts = this.attempts.filter((a) => a.at.toISOString() >= rateBeforeIso);
     this.rows = this.rows.filter(
-      (r) => !(r.status === 'pending' && r.createdAt.toISOString() < createdBeforeIso && (r.tokenExpiresAt === null || r.tokenExpiresAt < expiredBeforeIso)),
+      (r) => !(r.status === 'pending' && r.tokenExpiresAt !== null && r.tokenExpiresAt < expiredBeforeIso && !this.queued.has(r.id)),
     );
   }
   async isConfirmed(h: string) {
@@ -310,7 +311,7 @@ describe('sign-up hardening', () => {
     expect(await (await raceRepo.handler(post({ ...BODY, ...note }))).json()).toEqual(fresh);
   });
 
-  it('cleans up old rate-limit rows and stale pending signers, keeps recent ones, and runs once per 10 minutes', async () => {
+  it('cleans up old rate-limit rows and pending signers whose sent link expired over a week ago, keeps every unsent one, and runs once per 10 minutes', async () => {
     const s = setup();
     const ago = (days: number) => new Date(NOW.getTime() - days * 86_400_000);
     const row = (id: string, created: Date, exp: Date | null, status: 'pending' | 'confirmed' = 'pending'): Row => ({
@@ -321,11 +322,13 @@ describe('sign-up hardening', () => {
       row('old-never-sent', ago(20), null),
       row('old-expired-long-ago', ago(30), ago(10)),
       row('old-expired-lately', ago(30), ago(3)),
+      row('old-expired-but-queued', ago(30), ago(10)),
       row('old-confirmed', ago(60), null, 'confirmed'),
     ];
+    s.repo.queued.add('old-expired-but-queued');
     s.repo.attempts = [{ ip: 'x', at: ago(2) }, { ip: 'x', at: NOW }];
     await s.handler(post(BODY));
-    expect(s.repo.rows.map((r) => r.id).sort()).toEqual(['old-confirmed', 'old-expired-lately', 's4', 'recent-queued'].sort());
+    expect(s.repo.rows.map((r) => r.id).sort()).toEqual(['old-confirmed', 'old-expired-lately', 'old-expired-but-queued', 'old-never-sent', 's6', 'recent-queued'].sort());
     expect(s.repo.attempts.some((a) => a.at.getTime() === ago(2).getTime())).toBe(false);
     await s.handler(post({ ...BODY, email: 'b@example.com' }));
     expect(s.repo.cleanups).toBe(1);

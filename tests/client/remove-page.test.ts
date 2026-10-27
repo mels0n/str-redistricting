@@ -17,6 +17,7 @@ vi.mock('../../src/client/features/sign-on/turnstile', () => ({
 
 import { PAGE_META, parsePath, formatPath, canonicalPath } from '../../src/client/shared';
 import { createRemovePage, REMOVE_COPY } from '../../src/client/pages/remove';
+import { createPrivacyPage } from '../../src/client/pages/privacy';
 import { createSiteFooter } from '../../src/client/widgets/site-footer';
 import { sitemapXml } from '../../build/seo';
 import { pageHtml } from '../../build/prerender';
@@ -117,8 +118,10 @@ describe('routing and discovery', () => {
     expect(pageHtml('privacy', shell, { html: '<main></main>', faq: [] })).not.toContain('noindex');
   });
 
-  it('is linked from the footer and has no em dash', () => {
-    expect([...createSiteFooter().querySelectorAll('a')].map((a) => a.getAttribute('href'))).toContain('/remove');
+  it('is linked from the privacy page, not the footer, and has no em dash', () => {
+    expect([...createSiteFooter().querySelectorAll('a')].map((a) => a.getAttribute('href'))).not.toContain('/remove');
+    const link = [...createPrivacyPage().el.querySelectorAll('a')].find((a) => a.getAttribute('href') === '/remove');
+    expect(link?.textContent).toBe('Remove your signature');
     expect(JSON.stringify([PAGE_META.remove, REMOVE_COPY])).not.toContain('—');
   });
 });

@@ -35,9 +35,9 @@ export function createPrivacyPage(): Page {
           'Your state, and the codes of your districts (U.S. House, State House, State Senate) if you gave an address. Without an address you are counted in your state only.',
           'A display name and your town, only if you give a name and tick the box to show it.',
           'A note, if you write one. It is kept encrypted. Software checks it when you sign, and a note with a link, contact details or words we don’t allow is dropped and never stored.',
-          'A hash of your IP address, kept for about a day to limit how often one place can sign.',
+          'A hash of your IP address (for an IPv6 address, of its network part), kept for one to two days to limit how often one place can sign.',
         ),
-        p('Sign-ups that are never confirmed are deleted automatically about a week after the link in their confirmation email expires. A sign-up whose confirmation email has not been sent yet is kept until the email goes out, so a delay on our side never costs you your place. While it waits, your email address is stored sealed (encrypted) in a queue, and it is deleted when the email is sent.'),
+        p('Sign-ups that are never confirmed are deleted automatically about a week after the link in their confirmation email expires. If the email never went out, for example because the address was refused, the sign-up is deleted about nine days after your last attempt (at once when the address is refused outright). A sign-up whose confirmation email is still waiting to be sent is kept until the email goes out, so a delay on our side never costs you your place. While it waits, your email address is stored sealed (encrypted) in a queue, and it is deleted when the email is sent.'),
       ),
       section('never', 'What we never keep', p('Your address. It is optional. If you give one, we send it to the U.S. Census Bureau geocoder once to find your district, and it is not stored or logged by us.')),
       section(

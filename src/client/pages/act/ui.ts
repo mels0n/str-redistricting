@@ -2,9 +2,9 @@ import { h, announce, takeSigned, PAGE_META, routeHref, iconArrowLeft, NATIONAL,
 import { createTakeAction } from '../../widgets/take-action';
 import { createVoices } from '../../widgets/voices';
 
-/** The Take action page: the take-action widget on a page of its own. `state` (from `?state=CO`) starts the sign-on form on that state. */
+/** The Take action page. `state` (from `?state=CO`) starts the sign-on form on that state. */
 export function createActPage(state: string | null): Page {
-  const h1 = h('h1', { class: 'strv-how__h1', tabindex: -1 }, 'Take action');
+  const h1 = h('h1', { class: 'strv-act-page__h1', tabindex: -1 }, 'Take action');
   const notice = h('p', { class: 'strv-notice', hidden: true });
   const signed = takeSigned();
   if (signed === 'expired' || signed === 'invalid') {
@@ -20,16 +20,16 @@ export function createActPage(state: string | null): Page {
   });
   const el = h(
     'main',
-    { class: 'strv-how strv-act-page', id: 'strv-main' },
+    { class: 'strv-act-page', id: 'strv-main' },
     h(
-      'header',
-      { class: 'strv-how__head' },
+      'div',
+      { class: 'strv-act-page__inner' },
       h('a', { href: routeHref(NATIONAL), class: 'strv-back' }, iconArrowLeft(), 'All states'),
       h1,
-      h('p', { class: 'strv-how__lede' }, 'Districts should be drawn by a rule anyone can check. Tell your representatives you want that, and add your name so they can see how many of us do.'),
+      h('p', { class: 'strv-act-page__lede' }, 'Tell your representatives you want districts drawn by a rule, then add your name.'),
       notice,
+      action.el,
     ),
-    h('div', { class: 'strv-act-page__body' }, action.el),
   );
   document.title = PAGE_META.act.title;
   return {

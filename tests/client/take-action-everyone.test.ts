@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { resetAsks } from '../../src/client/entities/counts';
-import { createEveryone, TOO_LONG_COPY } from '../../src/client/widgets/take-action/everyone';
+import { createEveryone, NO_EMAIL_COPY, TOO_LONG_COPY } from '../../src/client/widgets/take-action/everyone';
 import { fittingMailtoHref, groupMailtoHref, MAILTO_LIMIT, uniqueEmails } from '../../src/client/widgets/take-action/mailto';
 import type { Rep } from '../../src/client/entities/reps';
 
@@ -30,11 +30,12 @@ afterEach(() => vi.unstubAllGlobals());
 
 const asks = (): string[] => fetchMock.mock.calls.filter((c) => c[0] === '/api/ask').map((c) => (JSON.parse((c[1] as RequestInit).body as string) as { key: string }).key);
 
-describe('Email all of them at once', () => {
+describe('Email everyone at once', () => {
   it('has the heading and one mailto to every rep who lists an email, with the combined letter', () => {
     const el = createEveryone({ ...base, reps });
-    expect(el.querySelector('h3')!.textContent).toBe('Email all of them at once');
-    const a = [...el.querySelectorAll('a')].find((x) => x.textContent === 'Email everyone')!;
+    expect(el.getAttribute('aria-label')).toBe('Email everyone at once');
+    expect(el.querySelectorAll('.strv-ask__letter')).toHaveLength(1);
+    const a = [...el.querySelectorAll('a')].find((x) => x.textContent === 'Email everyone at once')!;
     const href = a.getAttribute('href')!;
     expect(href.startsWith('mailto:a@coleg.gov,b@coleg.gov?subject=')).toBe(true);
     const subject = decodeURIComponent(href.match(/subject=([^&]*)/)![1]!);
@@ -45,30 +46,10 @@ describe('Email all of them at once', () => {
     expect(href + body).not.toContain('—');
   });
 
-  it('lists every rep without an email with their form, website or phone, marks one done when used, and counts the ask once per office', () => {
-    const el = createEveryone({ ...base, reps });
-    const items = [...el.querySelectorAll('.strv-act__todo-item')];
-    expect(items).toHaveLength(3);
-    const links = (i: number) => [...items[i]!.querySelectorAll('a')].map((a) => [a.textContent, a.getAttribute('href'), a.getAttribute('target'), a.getAttribute('rel')]);
-    expect(links(0)).toEqual([['Their website', 'https://c.house.gov', '_blank', 'noopener'], ['Call +1 202 225 4431', 'tel:+12022254431', null, null]]);
-    expect(links(1)).toEqual([['Open their contact form', 'https://d.senate.gov/contact', '_blank', 'noopener']]);
-    expect(items[2]!.textContent).toContain('No contact details published.');
-    expect(el.textContent).toContain('Most House offices only accept messages through the contact form on their site.');
-    expect(items[1]!.getAttribute('data-done')).toBeNull();
-    const form = items[1]!.querySelector('a')!;
-    form.addEventListener('click', (e) => e.preventDefault());
-    form.click();
-    expect(items[1]!.getAttribute('data-done')).toBe('true');
-    expect((items[1]!.querySelector('.strv-act__done') as HTMLElement).hidden).toBe(false);
-    expect(items[0]!.getAttribute('data-done')).toBeNull();
-    form.click();
-    expect(asks()).toEqual(['CO:us-senate:state']);
-  });
-
   it('counts the offices that were emailed when Email everyone is used, and every office for Copy letter', () => {
     Object.defineProperty(navigator, 'clipboard', { value: { writeText: vi.fn(async () => undefined) }, configurable: true });
     const el = createEveryone({ ...base, reps });
-    const mail = [...el.querySelectorAll('a')].find((x) => x.textContent === 'Email everyone')!;
+    const mail = [...el.querySelectorAll('a')].find((x) => x.textContent === 'Email everyone at once')!;
     mail.addEventListener('click', (e) => e.preventDefault());
     mail.click();
     expect(asks()).toEqual(['CO:state-senate:031', 'CO:state-house:006']);
@@ -82,7 +63,7 @@ describe('Email all of them at once', () => {
     Object.defineProperty(navigator, 'clipboard', { value: { writeText }, configurable: true });
     const many = Array.from({ length: 60 }, (_, i) => entry(`CO:state-house:${i}`, 'state-house', rep(`m${i}`, { email: `representative.number${i}@legislature.example.gov` })));
     const el = createEveryone({ ...base, reps: many });
-    expect([...el.querySelectorAll('a')].find((x) => x.textContent === 'Email everyone')).toBeUndefined();
+    expect([...el.querySelectorAll('a')].find((x) => x.textContent === 'Email everyone at once')).toBeUndefined();
     expect(el.textContent).toContain(TOO_LONG_COPY);
     const copyEmails = [...el.querySelectorAll('button')].find((b) => b.textContent === 'Copy emails') as HTMLButtonElement;
     copyEmails.click();
@@ -90,10 +71,10 @@ describe('Email all of them at once', () => {
     expect([...el.querySelectorAll('button')].some((b) => b.textContent === 'Copy letter')).toBe(true);
   });
 
-  it('offers only the letter and the checklist when nobody lists an email', () => {
+  it('offers only the letter when nobody lists an email', () => {
     const el = createEveryone({ ...base, reps: reps.slice(2) });
     expect(el.querySelector('a[href^="mailto:"]')).toBeNull();
-    expect(el.textContent).toContain('None of your representatives list an email address');
+    expect(el.textContent).toContain(NO_EMAIL_COPY);
     expect([...el.querySelectorAll('button')].map((b) => b.textContent)).toEqual(['Copy letter']);
   });
 });

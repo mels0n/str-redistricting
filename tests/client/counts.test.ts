@@ -42,7 +42,6 @@ import { captureSigned, takeSigned } from '../../src/client/shared';
 import { createRepPanel } from '../../src/client/widgets/take-action/panel';
 
 const input = { state: 'CO', stateName: 'Colorado', located: { state: 'CO', lonLat: [0.5, 0.5] as [number, number], matchedAddress: '1 Main St' } };
-const lines = (root: Element) => [...root.querySelectorAll('.strv-reps__count')].map((e) => ((e as HTMLElement).hidden ? null : e.textContent));
 
 let fetchMock: ReturnType<typeof vi.fn>;
 beforeEach(() => {
@@ -101,40 +100,7 @@ describe('recordAsk', () => {
   });
 });
 
-describe('rep panel counts', () => {
-  const counts = {
-    national: 9,
-    state: 4,
-    waiting: 0,
-    byKey: { 'CO:state-senate:012': 1, 'CO:state-senate:012#asks': 3, 'CO:us-house:03': 2, 'CO:us-senate:state': 4, 'CO:us-senate:state#asks': 1 },
-  };
-
-  const settle = async (): Promise<void> => {
-    for (let i = 0; i < 5; i++) await new Promise((r) => setTimeout(r, 0));
-  };
-
-  it('loads the state’s counts and shows the per-district lines under each row, with the singular for one person', async () => {
-    fetchMock.mockImplementation(async (url: string) => (String(url) === '/api/counts?state=CO' ? Response.json(counts) : new Response(null, { status: 204 })));
-    const p = createRepPanel();
-    await p.update(input);
-    await settle();
-    expect(lines(p.el)).toEqual([
-      '1 person in this district signed. 3 asked this office',
-      null,
-      '2 people in this district signed',
-      '4 people in this district signed. 1 asked this office',
-      '4 people in this district signed. 1 asked this office',
-    ]);
-  });
-
-  it('keeps every row and shows no count lines when the counts failed', async () => {
-    const p = createRepPanel();
-    await p.update(input);
-    await settle();
-    expect(p.el.querySelectorAll('.strv-reps__row')).toHaveLength(5);
-    expect(lines(p.el).every((l) => l === null)).toBe(true);
-  });
-
+describe('rep panel asks', () => {
   it('records an ask once per office when the letter is used', async () => {
     Object.defineProperty(navigator, 'clipboard', { value: { writeText: async () => undefined }, configurable: true });
     const p = createRepPanel();

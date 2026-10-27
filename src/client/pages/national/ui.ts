@@ -5,7 +5,6 @@ import { createAddressSearch, describeResolution, resolveAddress } from '../../f
 import { createUsMap, type UsMap } from '../../widgets/us-map';
 import { createStateIndex } from '../../widgets/state-index';
 import { createVoices } from '../../widgets/voices';
-import { createTakeAction } from '../../widgets/take-action';
 
 export function createNationalPage(nav: Navigate, chamber: Chamber = 'federal-house'): Page {
   const h1 = h(
@@ -78,13 +77,6 @@ export function createNationalPage(nav: Navigate, chamber: Chamber = 'federal-ho
   // Up to three recent notes; nothing shows until some are approved, or if they cannot be fetched.
   const voices = createVoices({ scope: { national: true }, heading: 'Why people signed', limit: 3 });
 
-  // The call to action, the same widget as on /act: a card at the top of the left column on a wide screen and between the map and the list on a phone, so the map keeps its place.
-  const act = createTakeAction({
-    id: 'strv-act-home',
-    heading: { level: 2, text: 'Take action' },
-    makeVoices: (key) => createVoices({ scope: { key }, heading: 'Voices from this district' }),
-  });
-
   const el = h(
     'main',
     { class: 'strv-national', id: 'strv-main' },
@@ -96,7 +88,7 @@ export function createNationalPage(nav: Navigate, chamber: Chamber = 'federal-ho
       // Source order follows the phone layout, so on a wide screen the search (shown top left) is reached after the index by Tab; its search landmark is the shortcut.
       h('div', { class: 'strv-national__side' }, lede, mapSlot),
       // On a wide screen the search and index share one left rail, so the index starts right under the search instead of below the headline block.
-      h('div', { class: 'strv-national__rail' }, h('div', { class: 'strv-national__act' }, act.el), indexSlot, h('div', { class: 'strv-national__search' }, search.el)),
+      h('div', { class: 'strv-national__rail' }, indexSlot, h('div', { class: 'strv-national__search' }, search.el)),
     ),
   );
 
@@ -152,7 +144,6 @@ export function createNationalPage(nav: Navigate, chamber: Chamber = 'federal-ho
     destroy() {
       alive = false;
       voices.destroy();
-      act.destroy();
       usMap?.destroy();
     },
   };

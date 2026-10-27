@@ -1,9 +1,9 @@
-import { h, clear, config, sharePath, toStateFrame, announce, districtKey, type LocatedAddress, type Office } from '../../shared';
+import { h, clear, config, sharePath, toStateFrame, districtKey, type LocatedAddress, type Office } from '../../shared';
 import { loadStateReps, STATEWIDE_CODE, type Rep } from '../../entities/reps';
-import { recordAsk, loadCounts, type DistrictCounts } from '../../entities/counts';
+import { recordAsk } from '../../entities/counts';
 import { loadPledges, inPledgeOrder, type Pledge } from '../../entities/pledges';
 import { todaysDistrictsAt, repsFor, type RepsRow } from '../../features/todays-districts';
-import { createAskComposer, telHref } from '../../features/ask-rep';
+import { createAskComposer, isWebUrl, mailtoHref, telHref } from '../../features/ask-rep';
 import { createEveryone, type EveryoneRep } from './everyone';
 import { letterText } from './letter';
 
@@ -22,9 +22,16 @@ export interface RepPanelInput {
 
 export interface RepPanel {
   el: HTMLElement;
+  /** Where the notes of the visitor's U.S. House district appear (the page places it); empty until there are some. */
+  voices: HTMLElement;
   update(input: RepPanelInput): Promise<void>;
   destroy(): void;
 }
+
+export const IDLE_COPY = 'Enter your address above to see who represents you.';
+export const LOADING_COPY = 'Finding your representatives…';
+export const FAILED_COPY = 'We couldn’t load your representatives. Try again in a moment.';
+export const NOT_PLACED_COPY = 'We couldn’t place this address in a district.';
 
 /** "State Senate, district 12", "State House, district 4", "U.S. House, CO-03", "U.S. Senate". */
 function officeLabel(state: string, office: Office, code: string): string {
@@ -35,102 +42,124 @@ function officeLabel(state: string, office: Office, code: string): string {
   return 'U.S. Senate';
 }
 
-async function share(url: string): Promise<void> {
-  if (typeof navigator.share === 'function') {
-    try {
-      await navigator.share({ url });
-      return;
-    } catch (e) {
-      if (e instanceof DOMException && e.name === 'AbortError') return;
-    }
-  }
-  try {
-    await navigator.clipboard.writeText(url);
-    announce('Link copied');
-  } catch {
-    announce('Could not copy the link');
-  }
-}
+const codeOf = (key: string): string => key.slice(key.lastIndexOf(':') + 1);
 
+/** The "Ask them" step: who represents the address, one letter to all of them, and a row of actions for each. */
 export function createRepPanel(makeVoices?: MakeVoices): RepPanel {
-  let counts: DistrictCounts | null = null;
-  /** The count line of each rendered row, by district key. */
-  let countLines: { key: string; el: HTMLElement }[] = [];
-  const paintCounts = (): void => {
-    for (const { key, el: line } of countLines) {
-      const signed = counts?.byKey[key] ?? 0;
-      const asked = counts?.byKey[`${key}#asks`] ?? 0;
-      const parts: string[] = [];
-      if (signed > 0) parts.push(`${signed} ${signed === 1 ? 'person' : 'people'} in this district signed`);
-      if (asked > 0) parts.push(`${asked} asked this office`);
-      line.textContent = parts.join('. ');
-      line.hidden = parts.length === 0;
-    }
-  };
-  const el = h('section', { class: 'strv-reps', 'aria-labelledby': 'strv-reps-h', hidden: true });
-  let token = 0;
-  /** Holds the notes of the visitor's U.S. House district. */
+  const el = h('div', { class: 'strv-reps' });
   const voicesSlot = h('div', { class: 'strv-reps__voices' });
+  let token = 0;
+  let voices: VoicesView | null = null;
   /** Closes the composer that is open, if any: one letter at a time. */
   let closeOpen: (() => void) | null = null;
-  let voices: VoicesView | null = null;
 
-  const hide = (): void => {
+  const message = (text: string, tone: 'idle' | 'busy' | 'error' = 'idle'): void => {
+    clear(el);
+    el.append(h('p', { class: 'strv-reps__empty', 'data-tone': tone, role: tone === 'error' ? 'alert' : 'status' }, text));
+  };
+  message(IDLE_COPY);
+
+  const dropVoices = (): void => {
     voices?.destroy();
     voices = null;
-    el.hidden = true;
-    clear(el);
+    clear(voicesSlot);
   };
 
   const repRow = (input: RepPanelInput, row: RepsRow, rep: Rep, mapUrl: string, pledge: Pledge | undefined): HTMLElement => {
-    const code = row.key.slice(row.key.lastIndexOf(':') + 1);
-    const label = officeLabel(input.state, row.office, code);
+    const code = codeOf(row.key);
+    const letter = letterText({ rep, office: row.office, stateName: input.stateName, districtCode: code, mapUrl });
     const slot = h('div', { class: 'strv-reps__composer' });
-    const ask = h(
+    const done = h('span', { class: 'strv-reps__done', hidden: true }, 'Done');
+    const li = h('li', { class: 'strv-reps__row' });
+    const mark = (): void => {
+      li.setAttribute('data-done', 'true');
+      done.hidden = false;
+    };
+    const write = h(
       'button',
       {
         type: 'button',
-        class: 'strv-button strv-button--signal',
+        class: 'strv-button',
         'aria-expanded': 'false',
         onclick: () => {
           const wasOpen = slot.firstChild !== null;
           closeOpen?.();
           if (wasOpen) return;
-          const letter = letterText({ rep, office: row.office, stateName: input.stateName, districtCode: code, mapUrl });
-          slot.append(createAskComposer({ name: rep.name, letter, contactUrl: rep.contactUrl, email: rep.email, phone: rep.phone, website: rep.website, office: row.office, onUse: () => recordAsk(row.key, row.office) }));
-          ask.setAttribute('aria-expanded', 'true');
+          slot.append(
+            createAskComposer({
+              name: rep.name,
+              letter,
+              contactUrl: rep.contactUrl,
+              email: rep.email,
+              phone: rep.phone,
+              website: rep.website,
+              office: row.office,
+              onUse: () => {
+                recordAsk(row.key, row.office);
+                mark();
+              },
+            }),
+          );
+          write.setAttribute('aria-expanded', 'true');
           closeOpen = () => {
             clear(slot);
-            ask.setAttribute('aria-expanded', 'false');
+            write.setAttribute('aria-expanded', 'false');
             closeOpen = null;
           };
         },
       },
-      'Ask them to support the rule',
+      'Write to them',
     );
-    const countLine = h('p', { class: 'strv-reps__count', hidden: true });
-    countLines.push({ key: row.key, el: countLine });
-    return h(
-      'li',
-      { class: 'strv-reps__row' },
+    const contact = isWebUrl(rep.contactUrl) ? rep.contactUrl : null;
+    const site = !contact && isWebUrl(rep.website) ? rep.website : null;
+    li.append(
       h(
         'div',
         { class: 'strv-reps__who' },
         h('strong', null, rep.name),
-        h('span', { class: 'strv-reps__office' }, label),
+        h('span', { class: 'strv-reps__office' }, officeLabel(input.state, row.office, code)),
         pledge && h('span', { class: 'strv-reps__pledged' }, 'Pledged'),
         pledge && h('a', { class: 'strv-reps__statement', href: pledge.statementUrl, rel: 'noopener' }, 'Statement'),
+        done,
       ),
       h(
         'div',
         { class: 'strv-reps__actions' },
-        ask,
-        rep.phone && h('a', { class: 'strv-button', href: telHref(rep.phone) }, 'Call'),
-        h('button', { type: 'button', class: 'strv-button', onclick: () => void share(mapUrl) }, 'Share'),
+        write,
+        rep.email &&
+          h(
+            'a',
+            {
+              class: 'strv-button',
+              href: mailtoHref(rep.email, letter),
+              onclick: () => {
+                recordAsk(row.key, row.office);
+                mark();
+              },
+            },
+            'Email',
+          ),
+        contact &&
+          h(
+            'a',
+            {
+              class: 'strv-button',
+              href: contact,
+              target: '_blank',
+              rel: 'noopener',
+              onclick: () => {
+                recordAsk(row.key, row.office);
+                mark();
+              },
+            },
+            'Contact form',
+          ),
+        site && h('a', { class: 'strv-button', href: site, target: '_blank', rel: 'noopener', onclick: mark }, 'Website'),
+        rep.phone && h('a', { class: 'strv-button', href: telHref(rep.phone), onclick: mark }, 'Call'),
       ),
-      countLine,
       slot,
     );
+    return li;
   };
 
   /** Candidates for the seats shown who have pledged; nothing unless the site is set to show candidates. */
@@ -156,13 +185,12 @@ export function createRepPanel(makeVoices?: MakeVoices): RepPanel {
   async function update(input: RepPanelInput): Promise<void> {
     const mine = ++token;
     closeOpen = null;
-    voices?.destroy();
-    voices = null;
-    clear(voicesSlot);
+    dropVoices();
     if (!input.located || input.located.state !== input.state) {
-      hide();
+      message(IDLE_COPY);
       return;
     }
+    message(LOADING_COPY, 'busy');
     let rows: RepsRow[];
     let found: boolean;
     let usHouse: string | null;
@@ -176,13 +204,12 @@ export function createRepPanel(makeVoices?: MakeVoices): RepPanel {
       usHouse = d.usHouse;
       found = d.usHouse !== null || d.stateHouse !== null || d.stateSenate !== null;
     } catch {
-      if (mine === token) hide();
+      if (mine === token) message(FAILED_COPY, 'error');
       return;
     }
     if (mine !== token) return;
     const mapUrl = `https://${config.siteHost}${sharePath(input.state, 'federal-house')}`;
     clear(el);
-    countLines = [];
     const list = h('ul', { class: 'strv-reps__list' });
     const everyone: EveryoneRep[] = [];
     for (const row of rows) {
@@ -193,40 +220,29 @@ export function createRepPanel(makeVoices?: MakeVoices): RepPanel {
       for (const rep of row.reps) {
         const pledge = pledges.find((p) => p.role === 'incumbent' && p.personId === rep.id);
         list.append(repRow(input, row, rep, mapUrl, pledge));
-        const code = row.key.slice(row.key.lastIndexOf(':') + 1);
-        everyone.push({ key: row.key, office: row.office, label: officeLabel(input.state, row.office, code), rep });
+        everyone.push({ key: row.key, office: row.office, label: officeLabel(input.state, row.office, codeOf(row.key)), rep });
       }
     }
-    const places = rows.filter((r) => r.office !== 'us-senate').map((r) => ({ office: r.office, code: r.key.slice(r.key.lastIndexOf(':') + 1) }));
+    const places = rows.filter((r) => r.office !== 'us-senate').map((r) => ({ office: r.office, code: codeOf(r.key) }));
     el.append(
-      h('h3', { id: 'strv-reps-h', class: 'strv-reps__h' }, 'Who represents you today'),
-      h('p', { class: 'strv-reps__intro' }, `Your state legislators draw ${input.stateName}’s maps in most states. Your members of Congress could set one rule for every state.`),
-      ...(found ? [] : [h('p', { class: 'strv-reps__none' }, 'We couldn’t place this address in a district.')]),
+      ...(found ? [] : [h('p', { class: 'strv-reps__none' }, NOT_PLACED_COPY)]),
+      ...(everyone.length > 0 ? [createEveryone({ stateName: input.stateName, places, mapUrl, reps: everyone })] : []),
       list,
       ...candidatesSection(input, rows, pledges),
-      ...(everyone.length > 0 ? [createEveryone({ stateName: input.stateName, places, mapUrl, reps: everyone })] : []),
-      voicesSlot,
     );
     if (usHouse !== null && makeVoices) {
       voices = makeVoices(districtKey(input.state, 'us-house', usHouse));
       voicesSlot.append(voices.el);
     }
-    paintCounts();
-    el.hidden = false;
-    void loadCounts(input.state).then((c) => {
-      if (mine !== token) return;
-      counts = c;
-      paintCounts();
-    });
   }
 
   return {
     el,
+    voices: voicesSlot,
     update,
     destroy() {
       token++;
-      voices?.destroy();
-      voices = null;
+      dropVoices();
     },
   };
 }

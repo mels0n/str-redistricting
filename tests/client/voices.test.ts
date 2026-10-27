@@ -118,10 +118,10 @@ describe('rep panel voices', () => {
     await p.update(input);
     await new Promise((r) => setTimeout(r, 0));
     expect(keys).toEqual(['CO:us-house:03']);
-    expect(p.el.querySelector('.strv-reps__voices h3')!.textContent).toBe('Voices from this district');
+    expect(p.voices.querySelector('h3')!.textContent).toBe('Voices from this district');
     await p.update(input);
-    expect(p.el.querySelectorAll('.strv-voices')).toHaveLength(1);
+    expect(p.voices.querySelectorAll('.strv-voices')).toHaveLength(1);
     await p.update({ ...input, located: null });
-    expect(p.el.querySelector('.strv-voices')).toBeNull();
+    expect(p.voices.querySelector('.strv-voices')).toBeNull();
   });
 });

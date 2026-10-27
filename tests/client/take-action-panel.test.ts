@@ -49,20 +49,59 @@ const input = { state: 'CO', stateName: 'Colorado', located };
 const buttons = (root: Element) => [...root.querySelectorAll('button, a')].map((b) => b.textContent);
 
 describe('rep panel', () => {
-  it('renders nothing while no address is located', async () => {
+  it('says what to do while no address is located, and has no Share button', async () => {
     const p = createRepPanel();
+    expect(p.el.textContent).toBe('Enter your address above to see who represents you.');
     await p.update({ ...input, located: null });
-    expect(p.el.hidden).toBe(true);
-    expect(p.el.childElementCount).toBe(0);
+    expect(p.el.textContent).toBe('Enter your address above to see who represents you.');
+    expect(p.el.querySelector('li')).toBeNull();
   });
 
-  it('lists state senate, state house, US House, US Senate in order with labels', async () => {
+  it('says so when the representatives cannot be loaded', async () => {
+    const saved = file.byKey;
+    (file as { byKey: unknown }).byKey = null;
     const p = createRepPanel();
     await p.update(input);
-    expect(p.el.hidden).toBe(false);
-    expect(p.el.querySelector('h3')!.textContent).toBe('Who represents you today');
+    expect(p.el.querySelector('[role="alert"]')!.textContent).toBe('We couldn’t load your representatives. Try again in a moment.');
+    (file as { byKey: unknown }).byKey = saved;
+  });
+
+  it('lists state senate, state house, US House, US Senate in order with labels, one line each', async () => {
+    const p = createRepPanel();
+    await p.update(input);
     const offices = [...p.el.querySelectorAll('.strv-reps__office')].map((e) => e.textContent);
     expect(offices).toEqual(['State Senate, district 12', 'State House, district 4', 'U.S. House, CO-03', 'U.S. Senate']);
+    expect(p.el.querySelector('h3')).toBeNull();
+    expect(buttons(p.el).filter((t) => t === 'Share')).toEqual([]);
+  });
+
+  it('gives each row the actions it has: Write to them, Email, Contact form, Website, Call, in that order', async () => {
+    file.byKey['CO:us-house:03'] = [rep('H', 'us-house', { email: 'h@x.gov', contactUrl: 'https://x.gov/contact', website: 'https://h.gov', phone: '+1 (202) 225-4431 x5' })];
+    const p = createRepPanel();
+    await p.update(input);
+    const rows = [...p.el.querySelectorAll('li')];
+    expect(buttons(rows[0]!.querySelector('.strv-reps__actions')!)).toEqual(['Write to them', 'Email']);
+    expect(buttons(rows[1]!.querySelector('.strv-reps__actions')!)).toEqual(['Write to them', 'Call']);
+    expect(buttons(rows[2]!.querySelector('.strv-reps__actions')!)).toEqual(['Write to them', 'Email', 'Contact form', 'Call']);
+    const contact = [...rows[2]!.querySelectorAll('a')].find((a) => a.textContent === 'Contact form')!;
+    expect(contact.getAttribute('target')).toBe('_blank');
+    expect(contact.getAttribute('rel')).toBe('noopener');
+    expect(rows[2]!.getAttribute('data-done')).toBeNull();
+    contact.addEventListener('click', (e) => e.preventDefault());
+    contact.click();
+    expect(rows[2]!.getAttribute('data-done')).toBe('true');
+    expect(rows[0]!.getAttribute('data-done')).toBeNull();
+    file.byKey['CO:us-house:03'] = [rep('H', 'us-house', { email: 'h@x.gov', contactUrl: 'https://x.gov/contact', phone: '+1 (202) 225-4431 x5' })];
+  });
+
+  it('offers a website button only when there is no contact form, and the combined email above the list', async () => {
+    file.byKey['CO:us-house:03'] = [rep('H', 'us-house', { website: 'https://h.gov', phone: '555-0100' })];
+    const p = createRepPanel();
+    await p.update(input);
+    const row = [...p.el.querySelectorAll('li')][2]!;
+    expect(buttons(row.querySelector('.strv-reps__actions')!)).toEqual(['Write to them', 'Website', 'Call']);
+    expect(p.el.firstElementChild!.classList.contains('strv-act__all')).toBe(true);
+    file.byKey['CO:us-house:03'] = [rep('H', 'us-house', { email: 'h@x.gov', contactUrl: 'https://x.gov/contact', phone: '+1 (202) 225-4431 x5' })];
   });
 
   it('offers Call only when there is a phone number', async () => {

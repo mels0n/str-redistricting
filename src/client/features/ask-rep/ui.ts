@@ -6,6 +6,8 @@ export interface AskComposerInput {
   contactUrl: string | null;
   email: string | null;
   phone: string | null;
+  /** Called when the letter is used: copied, or the contact form or email link followed. */
+  onUse?: () => void;
 }
 
 /** Subject and body are percent-encoded so the link decodes back to the exact letter. */
@@ -51,6 +53,7 @@ export function createAskComposer(input: AskComposerInput): HTMLElement {
       type: 'button',
       class: 'strv-button strv-button--ink',
       onclick: () => {
+        input.onUse?.();
         const text = `${letter.subject}\n\n${letter.body}`;
         if (typeof navigator === 'undefined' || !navigator.clipboard) {
           status.textContent = COPY_FAILED;
@@ -73,8 +76,8 @@ export function createAskComposer(input: AskComposerInput): HTMLElement {
     'div',
     { class: 'strv-ask__actions' },
     copy,
-    contactUrl && h('a', { class: 'strv-button', href: contactUrl, target: '_blank', rel: 'noopener' }, 'Open their contact form'),
-    email && h('a', { class: 'strv-button', href: mailtoHref(email, letter) }, 'Email'),
+    contactUrl && h('a', { class: 'strv-button', href: contactUrl, target: '_blank', rel: 'noopener', onclick: () => input.onUse?.() }, 'Open their contact form'),
+    email && h('a', { class: 'strv-button', href: mailtoHref(email, letter), onclick: () => input.onUse?.() }, 'Email'),
     h('button', { type: 'button', class: 'strv-button', onclick: () => printLetter(root) }, 'Print'),
     status,
   );

@@ -1,4 +1,4 @@
-import { canonicalPath, clear, config, formatHash, formatPath, getRouteMode, parseHash, parsePath, resetPageZoom, type Chamber, type Page, type Route } from '../shared';
+import { canonicalPath, captureSigned, clear, config, formatHash, formatPath, getRouteMode, parseHash, parsePath, resetPageZoom, type Chamber, type Page, type Route } from '../shared';
 import { loadIndex, liveChambers } from '../entities/state';
 import { createNationalPage } from '../pages/national';
 import { createStatePage } from '../pages/state';
@@ -152,6 +152,8 @@ export function startRouter(outlet: HTMLElement, root: HTMLElement = outlet.pare
     pending = null;
   };
 
+  // The confirmation link's `?signed=` is read here, before the canonical address below drops it from the bar.
+  captureSigned(location.search);
   let first: Route;
   if (pathMode) {
     window.addEventListener(

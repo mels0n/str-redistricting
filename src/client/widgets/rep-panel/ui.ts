@@ -1,5 +1,6 @@
 import { h, clear, config, sharePath, toStateFrame, announce, type LocatedAddress, type Office } from '../../shared';
 import { loadStateReps, STATEWIDE_CODE, type Rep } from '../../entities/reps';
+import { recordAsk, type DistrictCounts } from '../../entities/counts';
 import { loadPledges, inPledgeOrder, type Pledge } from '../../entities/pledges';
 import { todaysDistrictsAt, repsFor, type RepsRow } from '../../features/todays-districts';
 import { createAskComposer } from '../../features/ask-rep';
@@ -14,8 +15,8 @@ export interface RepPanelInput {
 export interface RepPanel {
   el: HTMLElement;
   update(input: RepPanelInput): Promise<void>;
-  /** Filled in by the signatures work; nothing to show yet. */
-  setCounts(c: unknown): void;
+  /** Shows how many people signed and asked in each district; null (or no numbers yet) shows no count lines. */
+  setCounts(c: DistrictCounts | null): void;
   setVoices(el: HTMLElement | null): void;
 }
 
@@ -52,6 +53,20 @@ async function share(url: string): Promise<void> {
 }
 
 export function createRepPanel(): RepPanel {
+  let counts: DistrictCounts | null = null;
+  /** The count line of each rendered row, by district key. */
+  let countLines: { key: string; el: HTMLElement }[] = [];
+  const paintCounts = (): void => {
+    for (const { key, el: line } of countLines) {
+      const signed = counts?.byKey[key] ?? 0;
+      const asked = counts?.byKey[`${key}#asks`] ?? 0;
+      const parts: string[] = [];
+      if (signed > 0) parts.push(`${signed} ${signed === 1 ? 'person' : 'people'} in this district signed`);
+      if (asked > 0) parts.push(`${asked} asked this office`);
+      line.textContent = parts.join('. ');
+      line.hidden = parts.length === 0;
+    }
+  };
   const el = h('section', { class: 'strv-reps', 'aria-labelledby': 'strv-reps-h', hidden: true });
   let token = 0;
   /** Closes the composer that is open, if any: one letter at a time. */
@@ -77,7 +92,7 @@ export function createRepPanel(): RepPanel {
           closeOpen?.();
           if (wasOpen) return;
           const letter = letterText({ rep, office: row.office, stateName: input.stateName, districtLabel: label, mapUrl });
-          slot.append(createAskComposer({ name: rep.name, letter, contactUrl: rep.contactUrl, email: rep.email, phone: rep.phone }));
+          slot.append(createAskComposer({ name: rep.name, letter, contactUrl: rep.contactUrl, email: rep.email, phone: rep.phone, onUse: () => recordAsk(row.key, row.office) }));
           ask.setAttribute('aria-expanded', 'true');
           closeOpen = () => {
             clear(slot);
@@ -88,6 +103,8 @@ export function createRepPanel(): RepPanel {
       },
       'Ask them to support the rule',
     );
+    const countLine = h('p', { class: 'strv-reps__count', hidden: true });
+    countLines.push({ key: row.key, el: countLine });
     return h(
       'li',
       { class: 'strv-reps__row' },
@@ -106,6 +123,7 @@ export function createRepPanel(): RepPanel {
         rep.phone && h('a', { class: 'strv-button', href: telHref(rep.phone) }, 'Call'),
         h('button', { type: 'button', class: 'strv-button', onclick: () => void share(mapUrl) }, 'Share'),
       ),
+      countLine,
       slot,
     );
   };
@@ -154,6 +172,7 @@ export function createRepPanel(): RepPanel {
     if (mine !== token) return;
     const mapUrl = `https://${config.siteHost}${sharePath(input.state, 'federal-house')}`;
     clear(el);
+    countLines = [];
     const list = h('ul', { class: 'strv-reps__list' });
     for (const row of rows) {
       if (row.missing || row.reps.length === 0) {
@@ -172,8 +191,13 @@ export function createRepPanel(): RepPanel {
       list,
       ...candidatesSection(input, rows, pledges),
     );
+    paintCounts();
     el.hidden = false;
   }
 
-  return { el, update, setCounts: () => undefined, setVoices: () => undefined };
+  return { el, update, setCounts(c) {
+      counts = c;
+      paintCounts();
+    },
+     setVoices: () => undefined };
 }

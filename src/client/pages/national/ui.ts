@@ -1,5 +1,6 @@
-import { h, clear, PAGE_META, faqRoute, chamberLabel, describeError, setLocated, stateRoute, routeHref, howRoute, type Chamber, type Navigate, type Page } from '../../shared';
+import { h, clear, announce, takeSigned, PAGE_META, faqRoute, chamberLabel, describeError, setLocated, stateRoute, routeHref, howRoute, type Chamber, type Navigate, type Page } from '../../shared';
 import { loadIndex, loadOutlines } from '../../entities/state';
+import { loadCounts } from '../../entities/counts';
 import { createAddressSearch, describeResolution, resolveAddress } from '../../features/address-search';
 import { createUsMap, type UsMap } from '../../widgets/us-map';
 import { createStateIndex } from '../../widgets/state-index';
@@ -70,13 +71,18 @@ export function createNationalPage(nav: Navigate, chamber: Chamber = 'federal-ho
   let usMap: UsMap | null = null;
   let indexCache: Awaited<ReturnType<typeof loadIndex>> | null = null;
 
+  const notice = h('p', { class: 'strv-notice', hidden: true });
+  const total = h('span', { class: 'strv-national__signed-total' });
+  const waiting = h('span', { class: 'strv-national__signed-waiting' });
+  const signedLine = h('p', { class: 'strv-national__signed', hidden: true }, total, ' ', waiting);
+
   const el = h(
     'main',
     { class: 'strv-national', id: 'strv-main' },
     h(
       'div',
       { class: 'strv-national__grid' },
-      h('div', { class: 'strv-national__head' }, h1),
+      h('div', { class: 'strv-national__head' }, h1, notice, signedLine),
       // On a phone the lede and map are separate rows (lede, map, index, then the address search); on a wide screen they stay pinned together beside the index.
       // Source order follows the phone layout, so on a wide screen the search (shown top left) is reached after the index by Tab; its search landmark is the shortcut.
       h('div', { class: 'strv-national__side' }, lede, mapSlot),
@@ -86,6 +92,18 @@ export function createNationalPage(nav: Navigate, chamber: Chamber = 'federal-ho
   );
 
   let alive = true;
+  if (takeSigned() === 'expired') {
+    const text = 'That link has expired. Sign again to get a new one.';
+    notice.textContent = text;
+    notice.hidden = false;
+    announce(text);
+  }
+  void loadCounts().then((c) => {
+    if (!alive || !c) return;
+    if (c.national > 0) total.textContent = `${c.national.toLocaleString('en-US')} people have signed`;
+    if (c.waiting > 0) waiting.textContent = `${c.waiting.toLocaleString('en-US')} more waiting to confirm`;
+    signedLine.hidden = c.national === 0 && c.waiting === 0;
+  });
   const load = (retried = false): void => {
     clear(mapSlot);
     const loading = h('p', { class: 'strv-loading', tabindex: -1 }, 'Loading the map of the states…');

@@ -5197,6 +5197,17 @@ var {
   font-weight: 700;
 }
 
+.strv-reps__count,
+.strv-national__signed {
+  margin: var(--s-2) 0 0;
+  font-weight: 700;
+}
+
+.strv-reps__count[hidden],
+.strv-national__signed[hidden] {
+  display: none;
+}
+
 .strv-reps__candidates ul {
   padding-left: 1.25em;
 }

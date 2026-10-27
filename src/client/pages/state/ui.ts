@@ -2,6 +2,7 @@ import {
   h,
   clear,
   announce,
+  takeSigned,
   describeError,
   describeRouteIssue,
   fitRouteToState,
@@ -67,6 +68,7 @@ import { createProofPanel } from '../../widgets/proof-panel';
 import { createExplainer } from '../../widgets/explainer';
 import { createProcessPanel } from '../../widgets/process-panel';
 import { createRepPanel } from '../../widgets/rep-panel';
+import { loadCounts } from '../../entities/counts';
 
 /** The page heading: the state, and for a State House or State Senate map the chamber too. */
 function pageTitle(name: string, chamber: Chamber): string {
@@ -785,6 +787,14 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
     void repPanel.update({ state: bundle.abbr, stateName, located: l });
   }
 
+  // Arriving from the confirmation link: say so (the router has already cleared `?signed=` from the address bar).
+  if (takeSigned() === 'ok') {
+    setNotice('You’re signed. Thanks for adding your name.');
+    noticeHash = formatPath(route);
+  }
+  void loadCounts(initial.abbr).then((c) => {
+    if (alive) repPanel.setCounts(c);
+  });
   void start();
 
   return {

@@ -1,5 +1,13 @@
 # Web changelog
 
+## 1.5.0 (2026-10-27)
+
+- The home page is less crowded: the second paragraph is shorter, How it works and the three questions share one row of links, and the note on Washington, D.C. and the territories now lives only in the FAQ.
+- State labels on the national map no longer overlap. A label can move within its state to make room for a neighbor's, and a state with no room gets a callout. Labels are drawn above every state, so a neighbor no longer covers one.
+- On a phone, the national map grows to hold its callout column instead of running into what follows it.
+- Pointing at a state's label lights the state with it, and a state with keyboard focus stays lit when the pointer moves away.
+- Every page's footer links to GitHub forms for asking a question or reporting a problem, and the FAQ points to the question form for anything it does not answer.
+
 ## 1.4.0 (2026-10-23)
 
 - Addresses are now real paths, such as /CO, /CO/d/3, /how and /faq, instead of #/ links. Old #/ links still work and are rewritten to the path form when they open.

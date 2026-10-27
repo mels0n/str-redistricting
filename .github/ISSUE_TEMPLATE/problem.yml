@@ -1,0 +1,49 @@
+# Links and examples name the site's address (siteHost in src/client/shared/config); GitHub forms cannot read it from there.
+name: Report a problem
+description: Something on the site is broken, or a map or a number looks wrong.
+title: "Problem: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting it. The more exact the details, the faster it can be checked.
+
+        Issues here are public. For a problem with the address search, give the city or a nearby intersection, not your home address.
+  - type: dropdown
+    id: area
+    attributes:
+      label: What is wrong
+      options:
+        - A map or district looks wrong
+        - A number (people, seats, range) looks wrong
+        - The address search
+        - The site does not load or work
+        - Something else
+    validations:
+      required: true
+  - type: input
+    id: page
+    attributes:
+      label: Page
+      description: Paste the address from your browser.
+      placeholder: https://fairmaps.melson.us/CO
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened, and what you expected
+      description: Please leave out your home address and other personal details; this issue is public.
+    validations:
+      required: true
+  - type: input
+    id: fingerprint
+    attributes:
+      label: Map fingerprint
+      description: Optional. The code under "Check this map" on the map's page, if the problem is about a map.
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and device
+      placeholder: Safari on iPhone, Chrome on Windows

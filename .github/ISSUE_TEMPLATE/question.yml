@@ -1,0 +1,23 @@
+# Links and examples name the site's address (siteHost in src/client/shared/config); GitHub forms cannot read it from there.
+name: Ask a question
+description: Ask how the maps are drawn, why a district looks the way it does, or anything else about the project.
+title: "Question: "
+labels: [question]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for asking. The [FAQ](https://fairmaps.melson.us/faq) and [How it works](https://fairmaps.melson.us/how) may already answer it.
+  - type: textarea
+    id: question
+    attributes:
+      label: Your question
+      description: What would you like to know?
+    validations:
+      required: true
+  - type: input
+    id: page
+    attributes:
+      label: Page
+      description: If it is about a particular map, paste its address from your browser.
+      placeholder: https://fairmaps.melson.us/CO

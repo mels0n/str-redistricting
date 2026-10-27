@@ -1,12 +1,12 @@
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
-import { loadBackendConfig } from '../../shared/config/backend.js';
+import { loadDbConfig } from '../../shared/config/backend.js';
 
 let client: SupabaseClient | null = null;
 
 /** The service-role client (server only). No session is kept. */
 export function db(): SupabaseClient {
   if (!client) {
-    const cfg = loadBackendConfig();
+    const cfg = loadDbConfig();
     client = createClient(cfg.supabaseUrl, cfg.supabaseKey, { auth: { persistSession: false, autoRefreshToken: false } });
   }
   return client;

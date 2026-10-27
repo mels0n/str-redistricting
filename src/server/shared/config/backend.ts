@@ -10,16 +10,22 @@ const key32 = z
   .transform((s) => Buffer.from(s, 'base64'))
   .refine((b) => b.length === 32, 'must be base64 that decodes to 32 bytes');
 
-const Schema = z.object({
-  NEXT_PUBLIC_BACKERS_SUPABASE_URL: z.url(),
+const httpsUrl = z.url({ protocol: /^https$/ });
+const httpsOrLocal = z.string().refine((s) => /^https:\/\/[^/]/.test(s) || /^http:\/\/localhost(:\d+)?$/.test(s), 'must be https');
+
+const DbSchema = z.object({
+  NEXT_PUBLIC_BACKERS_SUPABASE_URL: httpsUrl,
   BACKERS_SUPABASE_SECRET_KEY: z.string().min(1),
+});
+
+const Schema = DbSchema.extend({
   RESEND_API_KEY: z.string().min(1),
   TURNSTILE_SECRET_KEY: z.string().min(1),
   SIGNON_HASH_SECRET: key32,
   SIGNON_ENCRYPTION_KEY: key32,
   VERCEL_ENV: z.string().optional(),
   SIGNON_FROM: z.string().min(1).default('Fair Maps <signon@fairmaps.melson.us>'),
-  SITE_ORIGIN: z.url().default('https://fairmaps.melson.us'),
+  SITE_ORIGIN: httpsOrLocal.default('https://fairmaps.melson.us'),
 });
 
 export interface BackendConfig {
@@ -35,6 +41,17 @@ export interface BackendConfig {
 }
 
 let cached: BackendConfig | null = null;
+let cachedDb: { supabaseUrl: string; supabaseKey: string } | null = null;
+
+/** Just what the database client needs, so a health check does not depend on the mail, bot-check or crypto keys. */
+export function loadDbConfig(env: NodeJS.ProcessEnv = process.env): { supabaseUrl: string; supabaseKey: string } {
+  if (env === process.env && cachedDb) return cachedDb;
+  const parsed = DbSchema.safeParse(env);
+  if (!parsed.success) throw new ConfigError(`Invalid backend configuration: ${[...new Set(parsed.error.issues.map((i) => String(i.path[0])))].join(', ')}`);
+  const out = { supabaseUrl: parsed.data.NEXT_PUBLIC_BACKERS_SUPABASE_URL, supabaseKey: parsed.data.BACKERS_SUPABASE_SECRET_KEY };
+  if (env === process.env) cachedDb = out;
+  return out;
+}
 
 /** Validates the environment once, at the first request. Errors name the keys, never their values. */
 export function loadBackendConfig(env: NodeJS.ProcessEnv = process.env): BackendConfig {

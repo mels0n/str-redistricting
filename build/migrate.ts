@@ -22,31 +22,32 @@ export async function migrate(opts: { env: NodeJS.ProcessEnv; dir: string; sql?:
   const files = readdirSync(opts.dir).filter((f) => f.endsWith('.sql')).sort();
   const sql = opts.sql ?? (await connect(opts.env));
   const applied: string[] = [];
+  let locked = false;
   try {
     await sql.unsafe('select pg_advisory_lock($1)', [LOCK_ID]);
-    try {
-      await sql.unsafe('create table if not exists schema_migrations (name text primary key, sha256 text not null, applied_at timestamptz not null default now())');
-      const rows = await sql.unsafe('select name, sha256 from schema_migrations');
-      const recorded = new Map(rows.map((r) => [String(r.name), String(r.sha256)]));
-      for (const name of files) {
-        const text = readFileSync(join(opts.dir, name), 'utf8');
-        const digest = sha256(text);
-        const prior = recorded.get(name);
-        if (prior !== undefined) {
-          if (prior !== digest) throw new Error(`Migration ${name} was edited after it was applied`);
-          continue;
-        }
-        await sql.begin(async (tx) => {
-          await tx.unsafe(text);
-          await tx.unsafe('insert into schema_migrations (name, sha256) values ($1, $2)', [name, digest]);
-        });
-        applied.push(name);
-      }
-    } finally {
-      await sql.unsafe('select pg_advisory_unlock($1)', [LOCK_ID]);
+    locked = true;
+    await sql.unsafe('create table if not exists schema_migrations (name text primary key, sha256 text not null, applied_at timestamptz not null default now())');
+    const rows = await sql.unsafe('select name, sha256 from schema_migrations');
+    const recorded = new Map(rows.map((r) => [String(r.name), String(r.sha256)]));
+    // Check every recorded migration against disk before applying anything new.
+    for (const [name, prior] of recorded) {
+      if (!files.includes(name)) throw new Error(`Migration ${name} was applied but its file is missing`);
+      if (prior !== sha256(readFileSync(join(opts.dir, name), 'utf8'))) throw new Error(`Migration ${name} was edited after it was applied`);
+    }
+    for (const name of files) {
+      if (recorded.has(name)) continue;
+      const text = readFileSync(join(opts.dir, name), 'utf8');
+      const digest = sha256(text);
+      await sql.begin(async (tx) => {
+        await tx.unsafe(text);
+        await tx.unsafe('insert into schema_migrations (name, sha256) values ($1, $2)', [name, digest]);
+      });
+      applied.push(name);
     }
   } finally {
-    await sql.end();
+    // A failing unlock or close must not replace the error that got us here.
+    if (locked) await sql.unsafe('select pg_advisory_unlock($1)', [LOCK_ID]).then(undefined, () => undefined);
+    await sql.end().catch(() => undefined);
   }
   return { applied, skipped: null };
 }

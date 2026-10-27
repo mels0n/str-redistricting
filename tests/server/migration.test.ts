@@ -10,6 +10,9 @@ describe('0001_signon.sql', () => {
   it('enables RLS on all three tables and has no policies', () => {
     for (const t of ['signers', 'rate_limits', 'asks']) expect(text).toContain(`alter table ${t} enable row level security`);
     expect(text).not.toMatch(/create policy/i);
+    expect(text).toMatch(/revoke all on table signers, rate_limits, asks from anon, authenticated/);
+    expect(text).toContain('check (length(own_code) = 8)');
+    expect(text).toContain('on signers (token_hash) where token_hash is not null');
   });
 });
 
@@ -76,6 +79,23 @@ describe('migrate', () => {
     await expect(migrate({ env: PROD, dir: dirWith({ '0001_a.sql': 'select 99' }), sql })).rejects.toThrow('Migration 0001_a.sql was edited after it was applied');
     expect(log.some((l) => l.includes('pg_advisory_unlock'))).toBe(true);
     expect(log.at(-1)).toBe('end');
+  });
+  it('applies nothing when an earlier recorded file was edited, even if a new file sorts first', async () => {
+    const { sql, log } = fake({ '0002_b.sql': sha('select 2') });
+    await expect(migrate({ env: PROD, dir: dirWith({ '0001_new.sql': 'select 1', '0002_b.sql': 'select 22' }), sql })).rejects.toThrow('0002_b.sql was edited');
+    expect(log).not.toContain('begin');
+    expect(log).not.toContain('select 1');
+  });
+  it('throws when a recorded migration file is missing', async () => {
+    const { sql, log } = fake({ '0001_a.sql': sha('select 1') });
+    await expect(migrate({ env: PROD, dir: dirWith({ '0002_b.sql': 'select 2' }), sql })).rejects.toThrow('0001_a.sql was applied but its file is missing');
+    expect(log).not.toContain('begin');
+  });
+  it('keeps the original error when unlock fails', async () => {
+    const { sql } = fake({}, 'bad stuff');
+    const orig = sql.unsafe.bind(sql);
+    sql.unsafe = async (q, p) => { if (q.includes('pg_advisory_unlock')) throw new Error('unlock failed'); return orig(q, p); };
+    await expect(migrate({ env: PROD, dir: dirWith({ '0001_a.sql': 'bad stuff' }), sql })).rejects.toThrow('boom');
   });
   it('releases the lock when a migration fails', async () => {
     const { sql, log } = fake({}, 'bad stuff');

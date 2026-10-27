@@ -27,7 +27,8 @@ const Schema = DbSchema.extend({
   SIGNON_FROM: z.string().min(1).default('Fair Maps <signon@fairmaps.melson.us>'),
   SITE_ORIGIN: httpsOrLocal.default('https://fairmaps.melson.us'),
   EMAIL_DAILY_CAP: z.coerce.number().int().min(1).max(100000).default(20),
-  // Vercel sets it for cron invocations; the drain endpoint refuses every request without it.
+  // Not created by Vercel: the owner adds it as a Production environment variable (16 or more random characters). Vercel then sends it
+  // as a bearer token on the daily cron call, and the drain endpoint refuses every request without it.
   CRON_SECRET: z.string().min(1).optional(),
 });
 

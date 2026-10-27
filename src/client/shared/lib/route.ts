@@ -4,7 +4,6 @@
  *   /                          national index
  *   /how                       how the maps are drawn
  *   /changelog                 release notes for maps, engine and input
- *   /privacy                   what the site collects
  *   /how/balancing             the same page, at one of its sections
  *   /faq                       common questions
  *   /pledges                   who supports the rule

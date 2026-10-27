@@ -35,7 +35,7 @@ export function createPrivacyPage(): Page {
           'The codes of your districts (U.S. House, State House, State Senate).',
           'A display name and your town, only if you give a name and tick the box to show it.',
           'A note, if you write one. It is kept encrypted. Software checks it when you sign, and a note with a link, contact details or words we don’t allow is dropped and never stored.',
-          'A hash of your IP address, kept for 24 hours to limit how often one place can sign.',
+          'A hash of your IP address, kept for about a day to limit how often one place can sign.',
         ),
         p('Sign-ups that are never confirmed are deleted automatically within about two weeks of your last attempt (a little longer if your confirmation email was delayed).'),
       ),
@@ -50,7 +50,7 @@ export function createPrivacyPage(): Page {
         'What goes to your representative',
         p('Your note, only if you tick “Share my note with my representative” and we have read and approved it. It goes in a summary for your district, along with how many people there signed.'),
       ),
-      section('email', 'Who sees your email', p('Only us and Resend, the service that delivers our emails, and only to send the confirmation and the updates you asked for.')),
+      section('email', 'Who sees your email', p('Only us and Resend, the service that delivers our emails, and only to send the confirmation and the updates you asked for. Resend keeps its own logs of the messages it sends, under its own policy.')),
       section(
         'removal',
         'How to be removed',

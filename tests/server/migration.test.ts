@@ -62,6 +62,17 @@ describe('migrate', () => {
     expect(log.filter((l) => l.startsWith('insert into schema_migrations'))).toHaveLength(2);
     expect(log.filter((l) => l === 'begin')).toHaveLength(2);
   });
+  it('locks schema_migrations down before it reads it, on every run', async () => {
+    for (const recorded of [{} as Record<string, string>, { '0001_a.sql': sha('select 1') }]) {
+      const { sql, log } = fake(recorded);
+      await migrate({ env: PROD, dir: dirWith({ '0001_a.sql': 'select 1' }), sql });
+      const rls = log.findIndex((l) => l.startsWith('alter table schema_migrations enable row level'));
+      const revoke = log.findIndex((l) => l.startsWith('revoke all on table schema_migrations from public'));
+      expect(rls).toBeGreaterThan(-1);
+      expect(revoke).toBeGreaterThan(rls);
+      expect(log.findIndex((l) => l.startsWith('select name, sha256'))).toBeGreaterThan(revoke);
+    }
+  });
   it('takes the lock first and releases it last', async () => {
     const { sql, log } = fake();
     await migrate({ env: PROD, dir: dirWith({ '0001_a.sql': 'select 1' }), sql });

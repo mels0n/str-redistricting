@@ -85,7 +85,7 @@ describe('rep panel', () => {
     expect(url.host).toBe('m');
     expect(subject).toBe('Please support the Fair Maps rule for Colorado');
     expect(body).toBe(row.querySelector('.strv-ask__letter')!.textContent);
-    expect(body).toContain('I live in State Senate, district 12.');
+    expect(body).toContain('I live in Colorado State Senate district 12.');
   });
 
   it('shows only copy and print and the phone when a rep has no form or email', async () => {

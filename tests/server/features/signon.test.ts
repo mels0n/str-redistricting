@@ -296,6 +296,20 @@ describe('sign-up hardening', () => {
     expect(s.sent).toHaveLength(0);
   });
 
+  it('reports a dropped note the same way for a confirmed address, a lost race and a new sign-up', async () => {
+    const note = { note: 'call me on 303-555-0100', shareWithRep: false };
+    const s = setup();
+    const fresh = await (await s.handler(post({ ...BODY, email: 'new@example.com', ...note }))).json();
+    expect(fresh.noteDropped).toBe('phone numbers');
+    await s.handler(post(BODY));
+    for (const r of s.repo.rows) r.status = 'confirmed';
+    const confirmed = await (await s.handler(post({ ...BODY, ...note }))).json();
+    expect(confirmed).toEqual(fresh);
+    const raceRepo = setup();
+    raceRepo.repo.upsertPending = async () => null;
+    expect(await (await raceRepo.handler(post({ ...BODY, ...note }))).json()).toEqual(fresh);
+  });
+
   it('cleans up old rate-limit rows and stale pending signers, keeps recent ones, and runs once per 10 minutes', async () => {
     const s = setup();
     const ago = (days: number) => new Date(NOW.getTime() - days * 86_400_000);
@@ -377,11 +391,21 @@ describe('GET /api/confirm', () => {
     expect(repo.rows[0]!.status).toBe('pending');
   });
 
-  it('answers 400 for an unknown or malformed token', async () => {
+  it('redirects an unknown or malformed token to the home page notice instead of answering JSON', async () => {
     const { confirm, url } = await signed();
-    expect((await confirm(url('0'.repeat(64)))).status).toBe(400);
-    expect((await confirm(url('zz'))).status).toBe(400);
-    expect((await confirm(new Request('https://site.test/api/confirm'))).status).toBe(400);
+    for (const req of [url('0'.repeat(64)), url('zz'), new Request('https://site.test/api/confirm')]) {
+      const res = await confirm(req);
+      expect(res.status).toBe(303);
+      expect(res.headers.get('location')).toBe('/?signed=invalid');
+    }
+  });
+
+  it('redirects to the same notice when the database is down', async () => {
+    const { confirm, url, token, repo } = await signed();
+    repo.findByTokenHash = async () => { throw new Error('db down'); };
+    const res = await confirm(url(token));
+    expect(res.status).toBe(303);
+    expect(res.headers.get('location')).toBe('/?signed=invalid');
   });
 
   it('answers 503 and touches nothing outside production', async () => {

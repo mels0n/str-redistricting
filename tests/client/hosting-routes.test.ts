@@ -50,7 +50,6 @@ describe('hosting routes for path URLs', () => {
     ['/privacy', null],
     ['/changelog/x', null],
     ['/pledges', null],
-    ['/privacy', null],
     ['/remove', null],
     ['/CO', null],
     // files, assets and data are never rewritten

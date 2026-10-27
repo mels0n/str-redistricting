@@ -1,7 +1,8 @@
 import { readFileSync } from 'node:fs';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { cronDrainHandler } from '../../../src/server/api/cron-drain.js';
-import type { EmailKind, OutboxRepo, OutboxRow } from '../../../src/server/entities/signon-db/index.js';
+import { resetCleanup } from '../../../src/server/features/signon/index.js';
+import type { EmailKind, OutboxRepo, OutboxRow, SignerRepo } from '../../../src/server/entities/signon-db/index.js';
 import { drainOutbox, enqueueEmail, renderEmail, wouldQueue, type OutboxDeps } from '../../../src/server/features/outbox/index.js';
 import { open, seal } from '../../../src/server/shared/crypto/index.js';
 
@@ -367,8 +368,18 @@ describe('templates', () => {
 describe('GET /api/cron-drain', () => {
   const make = (secret: string | undefined) => {
     const s = setup();
-    return { ...s, handler: cronDrainHandler({ cronSecret: () => secret, outbox: () => s.deps }) };
+    const signers = { cleanups: 0, fail: false, async cleanup() { signers.cleanups++; if (signers.fail) throw new Error('db down'); } };
+    const handler = cronDrainHandler({
+      cronSecret: () => secret,
+      outbox: () => s.deps,
+      loadConfig: () => ({ vercelEnv: env }),
+      repo: () => signers as unknown as SignerRepo,
+      now: () => new Date('2026-10-28T14:00:00Z'),
+    });
+    return { ...s, signers, handler };
   };
+  let env: string | undefined = 'production';
+  beforeEach(() => void (env = 'production'));
   const req = (auth?: string) => new Request('https://site.test/api/cron-drain', { headers: auth ? { authorization: auth } : {} });
 
   it('answers 401 without the correct bearer token and does nothing', async () => {
@@ -376,6 +387,31 @@ describe('GET /api/cron-drain', () => {
     await repo.upsertQueued('confirm', 's1', 'x', 'y');
     for (const auth of [undefined, 'Bearer wrong', 's3cret', 'Bearer s3cret2']) expect((await handler(req(auth))).status).toBe(401);
     expect(repo.rows[0]!.attempts).toBe(0);
+  });
+
+  it('answers 503 outside production and sends nothing', async () => {
+    env = 'preview';
+    const { handler, repo, mails } = make('s3cret');
+    await repo.upsertQueued('confirm', 's2', seal('b@example.com', KEY), seal('t2', KEY));
+    expect((await handler(req('Bearer s3cret'))).status).toBe(503);
+    expect(mails).toHaveLength(0);
+  });
+
+  it('runs the housekeeping after the bearer check, and its failure does not change the answer', async () => {
+    resetCleanup();
+    const a = make('s3cret');
+    await a.handler(req('Bearer wrong'));
+    expect(a.signers.cleanups).toBe(0);
+    const ok = await a.handler(req('Bearer s3cret'));
+    expect(ok.status).toBe(200);
+    expect(await ok.json()).toEqual({ sent: 0, left: 0 });
+    expect(a.signers.cleanups).toBe(1);
+    resetCleanup();
+    a.signers.fail = true;
+    const failing = await a.handler(req('Bearer s3cret'));
+    expect(failing.status).toBe(200);
+    expect(await failing.json()).toEqual({ sent: 0, left: 0 });
+    expect(a.signers.cleanups).toBe(2);
   });
 
   it('answers 401 when no secret is configured', async () => {

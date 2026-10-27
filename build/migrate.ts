@@ -27,6 +27,9 @@ export async function migrate(opts: { env: NodeJS.ProcessEnv; dir: string; sql?:
     await sql.unsafe('select pg_advisory_lock($1)', [LOCK_ID]);
     locked = true;
     await sql.unsafe('create table if not exists schema_migrations (name text primary key, sha256 text not null, applied_at timestamptz not null default now())');
+    // The table sits in the public schema, which the API roles can reach: lock it every run, since grants only apply to a table when it is created.
+    await sql.unsafe('alter table schema_migrations enable row level security');
+    await sql.unsafe('revoke all on table schema_migrations from public, anon, authenticated');
     const rows = await sql.unsafe('select name, sha256 from schema_migrations');
     const recorded = new Map(rows.map((r) => [String(r.name), String(r.sha256)]));
     // Check every recorded migration against disk before applying anything new.

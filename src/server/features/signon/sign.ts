@@ -72,6 +72,10 @@ export async function sign(body: unknown, ip: string, deps: SignDeps): Promise<S
   const req = parsed.data;
   const { config, repo } = deps;
 
+  // The note is screened first, before anything depends on who has signed, so `noteDropped` is the same for every branch below.
+  const verdict = req.note ? deps.screen(req.note) : null;
+  const noteDropped = verdict?.result === 'reject' ? verdict.reason : null;
+
   await verifyTurnstile(req.turnstileToken, config.turnstileSecret, ip, deps.fetchFn);
   await checkRateLimit(repo, hashIp(ip, config.hashSecret), deps.now());
 
@@ -80,7 +84,7 @@ export async function sign(body: unknown, ip: string, deps: SignDeps): Promise<S
   const districts = await lookup(found.state, found.lonLat);
 
   const emailHash = hashEmail(req.email, config.hashSecret);
-  const done: SignResult = { status: 'check-email', noteDropped: null, queued: false };
+  const done: SignResult = { status: 'check-email', noteDropped, queued: false };
   // A confirmed address (or a lost race) answers exactly as a new one would, so the response does not reveal membership.
   if (await repo.isConfirmed(emailHash)) return { ...done, queued: await deps.wouldQueue() };
 
@@ -103,17 +107,14 @@ export async function sign(body: unknown, ip: string, deps: SignDeps): Promise<S
   const signer = await repo.upsertPending(row);
   if (!signer) return { ...done, queued: await deps.wouldQueue() };
 
-  // The note is screened only now, after the signer row exists. A note that fails is dropped without a trace; the signature goes ahead.
-  let noteDropped: string | null = null;
-  if (req.note) {
-    const verdict = deps.screen(req.note);
-    if (verdict.result === 'reject') noteDropped = verdict.reason;
-    else await deps.notes.insertNote({ signerId: signer.id, bodyEnc: seal(req.note, config.encryptionKey), showPublic: req.showPublic, shareWithRep: req.shareWithRep, flags: verdict.flags });
+  // A note that failed screening is dropped without a trace; the signature goes ahead.
+  if (req.note && verdict?.result === 'pending') {
+    await deps.notes.insertNote({ signerId: signer.id, bodyEnc: seal(req.note, config.encryptionKey), showPublic: req.showPublic, shareWithRep: req.shareWithRep, flags: verdict.flags });
   }
 
   // Signing again without a note, or with one that failed, leaves no earlier pending note behind.
   if (!req.note || noteDropped !== null) await deps.notes.removeNote(signer.id);
 
   const { queued } = await deps.enqueue('confirm', signer.id, req.email, token);
-  return { ...done, noteDropped, queued };
+  return { ...done, queued };
 }

@@ -99,7 +99,7 @@ export function createRepPanel(): RepPanel {
           const wasOpen = slot.firstChild !== null;
           closeOpen?.();
           if (wasOpen) return;
-          const letter = letterText({ rep, office: row.office, stateName: input.stateName, districtLabel: label, mapUrl });
+          const letter = letterText({ rep, office: row.office, stateName: input.stateName, districtCode: code, mapUrl });
           slot.append(createAskComposer({ name: rep.name, letter, contactUrl: rep.contactUrl, email: rep.email, phone: rep.phone, onUse: () => recordAsk(row.key, row.office) }));
           ask.setAttribute('aria-expanded', 'true');
           closeOpen = () => {

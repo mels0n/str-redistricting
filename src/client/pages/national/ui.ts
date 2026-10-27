@@ -93,17 +93,19 @@ export function createNationalPage(nav: Navigate, chamber: Chamber = 'federal-ho
   );
 
   let alive = true;
-  if (takeSigned() === 'expired') {
-    const text = 'That link has expired. Sign again to get a new one.';
+  const signedNotice = takeSigned();
+  if (signedNotice === 'expired' || signedNotice === 'invalid') {
+    const text = signedNotice === 'expired' ? 'That link has expired. Sign again to get a new one.' : 'That link was already used or isn’t valid.';
     notice.textContent = text;
     notice.hidden = false;
     announce(text);
   }
   void loadCounts().then((c) => {
     if (!alive || !c) return;
-    if (c.national > 0) total.textContent = `${c.national.toLocaleString('en-US')} people have signed`;
-    if (c.waiting > 0) waiting.textContent = `${c.waiting.toLocaleString('en-US')} more waiting to confirm`;
-    signedLine.hidden = c.national === 0 && c.waiting === 0;
+    // The waiting number only appears beside a total.
+    if (c.national > 0) total.textContent = c.national === 1 ? '1 person has signed' : `${c.national.toLocaleString('en-US')} people have signed`;
+    if (c.national > 0 && c.waiting > 0) waiting.textContent = `${c.waiting.toLocaleString('en-US')} more waiting to confirm`;
+    signedLine.hidden = c.national === 0;
   });
   const load = (retried = false): void => {
     clear(mapSlot);

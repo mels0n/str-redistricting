@@ -64,9 +64,10 @@ Five GitHub workflows run the checks: `standards.yml` (on pull requests: typeche
 
 On the site:
 
-- The footer names the maps release, engine, Census vintage and revision, and site version, and links to the changelog.
+- The footer names the maps release, engine, Census vintage and revision, and site version, and links to the changelog and the privacy page.
 - `/changelog` lists what changed in each release, per component.
-- Pages use real paths: `/how`, `/faq`, `/changelog`, `/<ST>/d/<n>` for one district. Links written with the old `#/` form (for example `/#/CO/d/3`) still work and are rewritten to the path form on load.
+- `/privacy` says what the site counts, keeps in the browser and sends elsewhere. `tests/client/privacy-page.test.ts` checks its claims against `vercel.json`, the built pages' analytics tags, the path-only hook and the browser storage the code uses.
+- Pages use real paths: `/how`, `/faq`, `/changelog`, `/privacy`, `/<ST>/d/<n>` for one district. Links written with the old `#/` form (for example `/#/CO/d/3`) still work and are rewritten to the path form on load.
 - To embed the viewer in a page you do not control, set `window.STR_VIEWER_CONFIG = { dataBase: '…' }` before the script loads. Links and the address bar then use `#/` and the host page's own path is left alone. Embedders can set `routing: 'path'` in the same object to opt in to real paths. `dataBase` in the same object points the viewer at another copy of the published data.
 - Each state's proof panel shows the engine version and the maps release that drew it, and its "reproduce" command checks out the matching tag (`git clone --branch maps-<n> --depth 1 ...`), so you rebuild that state with exactly the code that drew it.
 - Every map carries a small credit line with the site address, the maps release, the engine and the first characters of the map's fingerprint, so a screenshot says where it came from.
@@ -125,7 +126,7 @@ The number of districts in each state chamber lives in `config/legislative-distr
 Every Census file is downloaded once into `data/raw/` and checked against a pinned SHA-256 in `config/census-sha256.json`, both when it is downloaded and each time the cached copy is reused, so the maps are always built from the exact same bytes. A failed or interrupted download is retried up to three times. If a file fails the check, the cached copy is corrupt or the Census Bureau has reissued it: delete the file to download it again, and if the new file still differs, the Census Bureau reissued it, so update the manifest only knowing that it changes the maps.
 
 ## Deploy
-Deployed on Vercel at https://fairmaps.melson.us (the `str-redistricting.vercel.app` address also serves it) from the `main` branch: every push to `main` builds the site with `npm run build` and serves the static output in `dist/` (settings in `vercel.json`). `vercel.json` sets a Content-Security-Policy, a no-referrer policy, `nosniff`, a restrictive Permissions-Policy and long-lived caching for built assets. `public/_headers` carries the same headers for hosts that read that file, such as Cloudflare Pages. The one outside request the viewer makes is the address lookup, a script from the Census Bureau geocoder, which the policy allows.
+Deployed on Vercel at https://fairmaps.melson.us (the `str-redistricting.vercel.app` address also serves it) from the `main` branch: every push to `main` builds the site with `npm run build` and serves the static output in `dist/` (settings in `vercel.json`). `vercel.json` sets a Content-Security-Policy, a no-referrer policy, `nosniff`, a restrictive Permissions-Policy and long-lived caching for built assets. `public/_headers` carries the same headers for hosts that read that file, such as Cloudflare Pages. The one outside request the viewer makes is the address lookup, a script from the Census Bureau geocoder, which the policy allows. Built pages also load Vercel Web Analytics from the site's own `/_vercel/insights/` path (added by `build/web-analytics.ts`, left out of the dev server), after `public/va-path-only.js`, which makes it send each page's path without the query or fragment. It counts page views without cookies; it reports nothing until Web Analytics is turned on for the project in Vercel.
 
 ## Where secrets live
 None. Census data is downloaded from public endpoints.

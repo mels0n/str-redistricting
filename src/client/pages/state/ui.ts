@@ -66,6 +66,7 @@ import { createDistrictList } from '../../widgets/district-list';
 import { createProofPanel } from '../../widgets/proof-panel';
 import { createExplainer } from '../../widgets/explainer';
 import { createProcessPanel } from '../../widgets/process-panel';
+import { createRepPanel } from '../../widgets/rep-panel';
 
 /** The page heading: the state, and for a State House or State Senate map the chamber too. */
 function pageTitle(name: string, chamber: Chamber): string {
@@ -108,6 +109,7 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
   const howLink = h('a', { href: routeHref(howRoute()), class: 'strv-back strv-state__how' }, 'How it works');
   const meta = h('dl', { class: 'strv-state__meta' });
   const share = createShareButton();
+  const repPanel = createRepPanel();
   const head = h('header', { class: 'strv-state__head' }, h('div', { class: 'strv-state__links' }, back, h('span', { class: 'strv-state__actions' }, share.el, howLink)), h1, meta);
 
   // Spoken through announce(); a hidden element cannot be a live region.
@@ -554,7 +556,7 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
     stage.append(scrubber.el);
     controls = scrubber.el;
     splitWatch?.observe(scrubber.el);
-    const ticketBox = h('div', { class: 'strv-state__ticket' }, ticket.el, locatedNote);
+    const ticketBox = h('div', { class: 'strv-state__ticket' }, ticket.el, locatedNote, repPanel.el);
     let pickKey = '';
     const renderPick = (plan: string, d: { district: number; pop: number } | null, color: string | null): void => {
       const key = `${plan}|${d?.district ?? ''}`;
@@ -780,6 +782,7 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
       at,
     });
     located = { districts, lonLat: at, matchedAddress: l.matchedAddress, exact };
+    void repPanel.update({ state: bundle.abbr, stateName, located: l });
   }
 
   void start();

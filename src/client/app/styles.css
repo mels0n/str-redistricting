@@ -2794,7 +2794,7 @@ html:has(> body > #str-viewer) {
 
 /* Phones: one instruction, in the strip under the map. The empty ticket box waits for a chosen district. */
 @media (max-width: 63.99rem) {
-  .strv-state__ticket:has(> .strv-ticket[data-empty='true']):has(> .strv-located[hidden]) {
+  .strv-state__ticket:has(> .strv-ticket[data-empty='true']):has(> .strv-located[hidden]):has(> .strv-reps[hidden]) {
     display: none;
   }
 }
@@ -5034,4 +5034,113 @@ var {
   max-width: 50vw;
   font: inherit;
   font-size: 0.8125rem;
+}
+
+/* ---------- Representatives and the ask letter ---------- */
+
+.strv-reps {
+  margin-top: var(--s-4);
+  padding-top: var(--s-3);
+  border-top: 1px solid var(--ink);
+}
+
+.strv-reps[hidden] {
+  display: none;
+}
+
+.strv-reps__h {
+  margin: 0 0 var(--s-2);
+  font-size: 1rem;
+}
+
+.strv-reps__intro,
+.strv-reps__none {
+  margin: 0 0 var(--s-3);
+  font-size: 0.875rem;
+  line-height: 1.45;
+  color: var(--ink-2);
+}
+
+.strv-reps__list {
+  display: grid;
+  gap: var(--s-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.strv-reps__row {
+  display: grid;
+  gap: var(--s-2);
+  font-size: 0.875rem;
+}
+
+.strv-reps__who {
+  display: grid;
+}
+
+.strv-reps__office {
+  color: var(--ink-2);
+}
+
+.strv-reps__actions,
+.strv-ask__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  align-items: center;
+}
+
+.strv-ask {
+  display: grid;
+  gap: var(--s-2);
+  padding: var(--s-3);
+  border: 1px solid var(--ink);
+}
+
+.strv-ask__subject,
+.strv-ask__phone {
+  margin: 0;
+}
+
+.strv-ask__letter {
+  margin: 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font: inherit;
+  line-height: 1.5;
+}
+
+.strv-ask__status {
+  font-size: 0.8125rem;
+  color: var(--ink-2);
+}
+
+/* Print only the letter. */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  .strv-ask__subject,
+  .strv-ask__subject *,
+  .strv-ask__letter {
+    visibility: visible;
+  }
+
+  .strv-ask__subject,
+  .strv-ask__letter {
+    position: absolute;
+    left: 0;
+    right: 0;
+  }
+
+  .strv-ask__subject {
+    top: 0;
+  }
+
+  .strv-ask__letter {
+    top: 2.5rem;
+    color: #000;
+  }
 }

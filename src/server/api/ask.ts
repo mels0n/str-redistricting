@@ -1,5 +1,5 @@
 import { countsRepo, signerRepo, type CountsRepo, type SignerRepo } from '../entities/signon-db/index.js';
-import { recordAsk } from '../features/counts/index.js';
+import { AskRequestSchema, recordAsk } from '../features/counts/index.js';
 import { checkRateLimit, clientIp, hashIp } from '../features/signon/index.js';
 import { loadBackendConfig } from '../shared/config/backend.js';
 import { SignonError } from '../shared/errors/signon.js';
@@ -23,7 +23,9 @@ export function askHandler(deps: AskHandlerDeps): (req: Request) => Promise<Resp
     } catch {
       throw new SignonError('bad-request');
     }
-    await checkRateLimit(deps.rateRepo(), hashIp(`ask:${clientIp(req.headers)}`, config.hashSecret), deps.now());
+    // A malformed body is refused before it uses up the visitor's allowance.
+    if (!AskRequestSchema.safeParse(body).success) throw new SignonError('bad-request');
+    await checkRateLimit(deps.rateRepo(), hashIp(clientIp(req.headers), config.hashSecret, 'ask'), deps.now());
     await recordAsk(body, deps.repo());
     return new Response(null, { status: 204 });
   });

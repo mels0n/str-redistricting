@@ -46,8 +46,8 @@ class FakeOutbox implements OutboxRepo {
   private queuedInOrder(): Stored[] {
     return this.rows.filter((r) => r.status === 'queued').sort((a, b) => Number(b.kind === 'remove') - Number(a.kind === 'remove') || a.id - b.id);
   }
-  async listQueued(limit: number) {
-    return this.queuedInOrder().slice(0, limit).map((r) => ({ ...r }) as OutboxRow);
+  async listQueued(limit: number, kind?: EmailKind) {
+    return this.queuedInOrder().filter((r) => !kind || r.kind === kind).slice(0, limit).map((r) => ({ ...r }) as OutboxRow);
   }
   async countQueued() {
     return this.queuedInOrder().length;
@@ -71,7 +71,7 @@ class FakeOutbox implements OutboxRepo {
       if (sent >= cap) return false;
       if (kind === 'remove') {
         const removed = this.removeDays.get(this.today) ?? 0;
-        if (removed >= Math.floor(cap / 2)) return false;
+        if (removed >= Math.max(1, Math.floor(cap / 2))) return false;
         this.removeDays.set(this.today, removed + 1);
       }
       this.days.set(this.today, sent + 1);
@@ -85,25 +85,32 @@ class FakeOutbox implements OutboxRepo {
     const sent = this.days.get(this.today) ?? 0;
     if (sent > 0) this.days.set(this.today, sent - 1);
   }
-  async markSent(id: number) {
-    const r = this.rows.find((x) => x.id === id && x.status === 'queued');
+  // Like mark_email_sent(p_id, p_token_enc): only the row still holding the sealed token that was sent is marked.
+  async markSent(row: OutboxRow) {
+    const r = this.rows.find((x) => x.id === row.id && x.status === 'queued' && x.tokenEnc === row.tokenEnc);
     if (!r) return;
     Object.assign(r, { status: 'sent', sentAt: this.clock, toEnc: null, tokenEnc: null });
     if (r.kind === 'confirm') this.expiry.set(r.signerId, new Date(this.clock.getTime() + 48 * 3_600_000));
   }
   async recordFailure(row: OutboxRow, maxAttempts: number) {
-    const r = this.rows.find((x) => x.id === row.id)!;
+    const r = this.rows.find((x) => x.id === row.id && x.status === 'queued' && x.tokenEnc === row.tokenEnc);
+    if (!r) return;
     r.attempts = row.attempts + 1;
     if (r.attempts >= maxAttempts) Object.assign(r, { status: 'failed', toEnc: null, tokenEnc: null });
+  }
+  deletedSigners: string[] = [];
+  async deletePendingSigner(signerId: string) {
+    this.deletedSigners.push(signerId);
+    this.rows = this.rows.filter((r) => r.signerId !== signerId);
   }
 }
 
 interface Mail { to: string; subject: string; text: string; auth: string | null; key: string | null }
-function setup(opts: { cap?: number; failResend?: () => boolean } = {}) {
+function setup(opts: { cap?: number; failResend?: () => boolean; status?: number; after?: (task: Promise<unknown>) => void } = {}) {
   const repo = new FakeOutbox();
   const mails: Mail[] = [];
   const fetchFn = (async (_url: unknown, init: RequestInit) => {
-    if (opts.failResend?.()) return new Response('{}', { status: 500 });
+    if (opts.failResend?.()) return new Response('{}', { status: opts.status ?? 500 });
     const body = JSON.parse(String(init.body)) as { to: string[]; subject: string; text: string };
     mails.push({ to: body.to[0]!, subject: body.subject, text: body.text, auth: new Headers(init.headers).get('authorization'), key: new Headers(init.headers).get('idempotency-key') });
     return Response.json({ id: 'x' });
@@ -112,6 +119,7 @@ function setup(opts: { cap?: number; failResend?: () => boolean } = {}) {
     repo,
     config: { resendApiKey: 'rk', from: 'Fair Maps <a@b.test>', siteOrigin: SITE, encryptionKey: KEY, emailDailyCap: opts.cap ?? 20 },
     fetchFn,
+    after: opts.after,
   };
   return { repo, mails, deps };
 }
@@ -191,7 +199,7 @@ describe('removal share of the day', () => {
     expect(repo.rows.filter((r) => r.status === 'queued' && r.kind === 'remove')).toHaveLength(4);
     for (let i = 0; i < 3; i++) await enqueueEmail(deps, 'confirm', `c${i}`, `c${i}@example.com`, `ct${i}`);
     // Two slots are left today: removals are at their share, so confirmations take them.
-    expect(await drainOutbox(deps, 4)).toEqual({ sent: 2, left: 5 });
+    expect(await drainOutbox(deps, 4)).toEqual({ sent: 2, failed: 0, left: 5 });
     expect(mails.filter((m) => m.subject.startsWith('Confirm'))).toHaveLength(2);
     // Next day the waiting removals go first again, up to their share.
     repo.today = '2026-10-28';
@@ -207,17 +215,17 @@ describe('drainOutbox', () => {
     await enqueueEmail(deps, 'remove', 'r1', 'rem@example.com', 'rt');
     expect(mails).toHaveLength(2);
     repo.today = '2026-10-28';
-    expect(await drainOutbox(deps, 2)).toEqual({ sent: 2, left: 1 });
+    expect(await drainOutbox(deps, 2)).toEqual({ sent: 2, failed: 0, left: 1 });
     expect(mails.slice(2).map((m) => m.to)).toEqual(['rem@example.com', 'c2@example.com']);
     repo.today = '2026-10-29';
-    expect(await drainOutbox(deps, 2)).toEqual({ sent: 1, left: 0 });
+    expect(await drainOutbox(deps, 2)).toEqual({ sent: 1, failed: 0, left: 0 });
     expect(mails[4]!.to).toBe('c3@example.com');
   });
 
   it('stops when the quota is used up', async () => {
     const { deps } = setup({ cap: 3 });
     for (let i = 0; i < 5; i++) await enqueueEmail(deps, 'confirm', `s${i}`, `c${i}@example.com`, `t${i}`);
-    expect(await drainOutbox(deps, 3)).toEqual({ sent: 0, left: 2 });
+    expect(await drainOutbox(deps, 3)).toEqual({ sent: 0, failed: 0, left: 2 });
   });
 });
 
@@ -243,7 +251,7 @@ describe('Resend failures', () => {
     await drainOutbox(deps, 20);
     expect(repo.rows[0]).toMatchObject({ status: 'failed', attempts: 3, toEnc: null, tokenEnc: null });
     expect(repo.days.get(repo.today)).toBe(0);
-    expect(await drainOutbox(deps, 20)).toEqual({ sent: 0, left: 0 });
+    expect(await drainOutbox(deps, 20)).toEqual({ sent: 0, failed: 0, left: 0 });
     expect(mails).toHaveLength(0);
   });
 
@@ -285,7 +293,7 @@ describe('stale rows and idempotency', () => {
       repo.rows = repo.rows.filter((r) => r.signerId !== 's2');
       return snapshot;
     };
-    expect(await drainOutbox(deps, 1)).toEqual({ sent: 0, left: 0 });
+    expect(await drainOutbox(deps, 1)).toEqual({ sent: 0, failed: 0, left: 0 });
     expect(mails).toHaveLength(1);
     expect(repo.days.get('2026-10-28')).toBe(0);
   });
@@ -322,7 +330,7 @@ describe('slots and skipped rows', () => {
       repo.rows = repo.rows.filter((r) => r.signerId === 's4');
       return snapshot;
     };
-    expect(await drainOutbox(deps, 20)).toEqual({ sent: 1, left: 0 });
+    expect(await drainOutbox(deps, 20)).toEqual({ sent: 1, failed: 0, left: 0 });
     expect(mails.map((m) => m.to)).toEqual(['p4@example.com']);
     expect(repo.days.get(repo.today)).toBe(1);
   });
@@ -404,13 +412,13 @@ describe('GET /api/cron-drain', () => {
     expect(a.signers.cleanups).toBe(0);
     const ok = await a.handler(req('Bearer s3cret'));
     expect(ok.status).toBe(200);
-    expect(await ok.json()).toEqual({ sent: 0, left: 0 });
+    expect(await ok.json()).toEqual({ sent: 0, failed: 0, left: 0 });
     expect(a.signers.cleanups).toBe(1);
     resetCleanup();
     a.signers.fail = true;
     const failing = await a.handler(req('Bearer s3cret'));
     expect(failing.status).toBe(200);
-    expect(await failing.json()).toEqual({ sent: 0, left: 0 });
+    expect(await failing.json()).toEqual({ sent: 0, failed: 0, left: 0 });
     expect(a.signers.cleanups).toBe(2);
   });
 
@@ -426,7 +434,7 @@ describe('GET /api/cron-drain', () => {
     repo.today = '2026-10-28';
     const res = await handler(req('Bearer s3cret'));
     expect(res.status).toBe(200);
-    expect(await res.json()).toEqual({ sent: 1, left: 0 });
+    expect(await res.json()).toEqual({ sent: 1, failed: 0, left: 0 });
     expect(mails).toHaveLength(2);
   });
 });

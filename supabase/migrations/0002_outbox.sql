@@ -4,7 +4,7 @@
 create table if not exists email_outbox (
   id bigserial primary key,
   kind text not null check (kind in ('remove', 'confirm')),
-  signer_id uuid references signers (id) on delete cascade,
+  signer_id uuid not null references signers (id) on delete cascade,
   to_enc text null,
   token_enc text null,
   status text not null check (status in ('queued', 'sent', 'failed')),
@@ -16,6 +16,7 @@ create table if not exists email_outbox (
 );
 alter table email_outbox enable row level security;
 create index if not exists email_outbox_queue_idx on email_outbox (status, kind, id);
+create index if not exists email_outbox_signer_id_idx on email_outbox (signer_id);
 -- One waiting email per signer and kind: signing again replaces the sealed token in place and keeps the place in line.
 create unique index if not exists email_outbox_one_queued_idx on email_outbox (signer_id, kind) where status = 'queued';
 
@@ -60,15 +61,16 @@ $$;
 
 -- Records a successful send in one step: the row is marked sent, the sealed address and token are dropped,
 -- and the 48 hours for the link start now.
-create or replace function mark_email_sent(p_id bigint) returns void
+create or replace function mark_email_sent(p_id bigint, p_token_enc text) returns void
 language plpgsql
 as $$
 declare
   r email_outbox%rowtype;
   sent_at_ts timestamptz := now();
 begin
+  -- p_token_enc is the sealed token the caller sent: a row replaced since (the signer signed again) no longer matches and stays queued.
   update email_outbox set status = 'sent', sent_at = sent_at_ts, to_enc = null, token_enc = null
-    where id = p_id and status = 'queued' returning * into r;
+    where id = p_id and status = 'queued' and token_enc = p_token_enc returning * into r;
   if not found then
     return;
   end if;
@@ -79,4 +81,8 @@ begin
 end;
 $$;
 
-revoke all on function claim_email_slot(int), email_quota_spent(int), release_email_slot(), mark_email_sent(bigint) from public, anon, authenticated;
+revoke all on function claim_email_slot(int), email_quota_spent(int), release_email_slot(), mark_email_sent(bigint, text) from public, anon, authenticated;
+
+grant all on table email_outbox, email_days to service_role;
+grant all on sequence email_outbox_id_seq to service_role;
+grant execute on function claim_email_slot(int), email_quota_spent(int), release_email_slot(), mark_email_sent(bigint, text) to service_role;

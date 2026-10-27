@@ -7,13 +7,24 @@ export type { EmailKind };
 /**
  * Queues an email and sends it at once only if nobody is waiting ahead of it and today's quota has room.
  * A person who signs today never jumps ahead of people already waiting. The address and token are stored sealed
- * and are dropped when the email goes out.
+ * and are dropped when the email goes out. All database writes happen before this returns; when the route gives an `after`
+ * hook, only the call to the mail provider (and the bookkeeping after it) is deferred, and `queued: false` is returned once the
+ * slot is taken. A deferred send that fails leaves the row queued for the daily job.
  */
 export async function enqueueEmail(deps: OutboxDeps, kind: EmailKind, signerId: string, to: string, token: string): Promise<{ queued: boolean }> {
   const { repo, config } = deps;
   const row = await repo.upsertQueued(kind, signerId, seal(to, config.encryptionKey), seal(token, config.encryptionKey));
   if (await repo.hasQueuedAhead(row)) return { queued: true };
   if (!(await repo.claimSlot(config.emailDailyCap, kind))) return { queued: true };
+  if (deps.after) {
+    deps.after(
+      sendRow(deps, row).then(
+        () => undefined,
+        () => console.error(JSON.stringify({ event: 'email-send-error', rowId: row.id })),
+      ),
+    );
+    return { queued: false };
+  }
   return { queued: (await sendRow(deps, row)) !== 'sent' };
 }
 

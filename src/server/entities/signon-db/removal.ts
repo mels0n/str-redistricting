@@ -12,8 +12,8 @@ export interface RemovalToken {
 export interface RemovalRepo {
   /**
    * Stores the hash of a new removal token on the signer with this email hash (an older token stops working, and the 48 hours
-   * start when the email is sent). Null when nobody has the hash, or when the signer's last token was made after `cooldownBeforeIso`
-   * (nothing changes then).
+   * start when the email is sent). Null when nobody has the hash, when the signer's last token was made after `cooldownBeforeIso`,
+   * or when the link of the last token was sent and is still valid at `nowIso` (nothing changes then).
    */
   setRemoveToken(emailHash: string, tokenHash: string, nowIso: string, cooldownBeforeIso: string): Promise<{ id: string } | null>;
   findByRemoveTokenHash(tokenHash: string): Promise<RemovalToken | null>;
@@ -32,7 +32,8 @@ export function removalRepo(): RemovalRepo {
         .from('signers')
         .update({ remove_token_hash: tokenHash, remove_token_expires_at: null, remove_token_set_at: nowIso })
         .eq('email_hash', emailHash)
-        .or(`remove_token_set_at.is.null,remove_token_set_at.lt.${cooldownBeforeIso}`)
+        // One filter: never replace a token whose emailed link is still valid, and never within the cooldown of the last token.
+        .or(`remove_token_set_at.is.null,and(remove_token_set_at.lt.${cooldownBeforeIso},or(remove_token_expires_at.is.null,remove_token_expires_at.lt.${nowIso}))`)
         .select('id');
       if (error) fail();
       return data && data.length > 0 ? { id: String(data[0]!.id) } : null;

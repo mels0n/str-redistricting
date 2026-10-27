@@ -18,3 +18,4 @@ create unique index if not exists notes_signer_id_idx on notes (signer_id);
 create index if not exists notes_status_created_at_idx on notes (status, created_at desc);
 
 revoke all on table notes from anon, authenticated;
+grant all on table notes to service_role;

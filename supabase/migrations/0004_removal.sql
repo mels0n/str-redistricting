@@ -8,8 +8,8 @@ alter table signers add column if not exists remove_token_expires_at timestamptz
 alter table signers add column if not exists remove_token_set_at timestamptz null;
 create unique index if not exists signers_remove_token_hash_idx on signers (remove_token_hash) where remove_token_hash is not null;
 
--- Same function as in 0002_outbox.sql with the 'remove' branch filled in: a sent removal email starts the 48 hours for its link.
-create or replace function mark_email_sent(p_id bigint) returns void
+-- Same function (and signature) as in 0002_outbox.sql with the 'remove' branch filled in: a sent removal email starts the 48 hours for its link.
+create or replace function mark_email_sent(p_id bigint, p_token_enc text) returns void
 language plpgsql
 as $$
 declare
@@ -17,7 +17,7 @@ declare
   sent_at_ts timestamptz := now();
 begin
   update email_outbox set status = 'sent', sent_at = sent_at_ts, to_enc = null, token_enc = null
-    where id = p_id and status = 'queued' returning * into r;
+    where id = p_id and status = 'queued' and token_enc = p_token_enc returning * into r;
   if not found then
     return;
   end if;
@@ -29,7 +29,8 @@ begin
 end;
 $$;
 
-revoke all on function mark_email_sent(bigint) from public, anon, authenticated;
+revoke all on function mark_email_sent(bigint, text) from public, anon, authenticated;
+grant execute on function mark_email_sent(bigint, text) to service_role;
 
 -- Removal emails go ahead of confirmations but may use at most `remove_cap` of each day's slots, so repeated requests
 -- cannot starve confirmations. remove_sent counts the removal slots taken today.
@@ -57,3 +58,4 @@ as $$
 $$;
 
 revoke all on function claim_remove_slot(int, int), release_remove_slot() from public, anon, authenticated;
+grant execute on function claim_remove_slot(int, int), release_remove_slot() to service_role;

@@ -7,12 +7,18 @@ export async function verifyTurnstile(token: string, secret: string, ip: string,
   const body = new URLSearchParams({ secret, response: token });
   if (ip !== 'unknown') body.set('remoteip', ip);
   let ok = false;
+  let codes: string[] = [];
   try {
     const res = await fetchFn(VERIFY_URL, { method: 'POST', body, signal: AbortSignal.timeout(10_000) });
-    const json = (await res.json()) as { success?: unknown };
+    const json = (await res.json()) as { success?: unknown; 'error-codes'?: unknown };
     ok = res.ok && json.success === true;
+    if (Array.isArray(json['error-codes'])) codes = json['error-codes'].filter((c): c is string => typeof c === 'string').slice(0, 8);
   } catch {
     throw new SignonError('unavailable', 'turnstile unreachable');
   }
-  if (!ok) throw new SignonError('bot-check');
+  if (!ok) {
+    // The codes say why (a wrong secret looks different from a spent token) and carry nothing about the visitor.
+    console.error(JSON.stringify({ event: 'turnstile-rejected', errorCodes: codes }));
+    throw new SignonError('bot-check');
+  }
 }

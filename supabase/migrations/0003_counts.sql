@@ -5,3 +5,4 @@ create or replace view ask_counts with (security_invoker = true) as
   from asks
   group by district_key;
 revoke all on table ask_counts from anon, authenticated;
+grant all on table ask_counts to service_role;

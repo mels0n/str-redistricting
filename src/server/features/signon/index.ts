@@ -3,7 +3,7 @@ export { serverDistrictsAt, clearDistrictCache } from './districts.js';
 export type { ServerDistricts } from './districts.js';
 export { sign, SignRequestSchema } from './sign.js';
 export type { EnqueueEmail, ScreenNote, SignConfig, SignDeps, SignRequest, SignResult } from './sign.js';
-export { clientIp, hashIp } from './hash.js';
+export { clientIp, hashIp, ipKey } from './hash.js';
 export { checkRateLimit } from './rate-limit.js';
 export { maybeCleanup, resetCleanup } from './cleanup.js';
 export { requestRemoval, REMOVE_COOLDOWN_MS, REMOVE_UNSENT_MAX_AGE_MS, removeSigner, RemoveRequestSchema, RemoveSchema } from './remove.js';

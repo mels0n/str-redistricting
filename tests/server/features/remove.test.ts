@@ -259,11 +259,11 @@ describe('removal plumbing', () => {
     expect(sql).toContain('add column if not exists remove_token_hash text null');
     expect(sql).toContain('add column if not exists remove_token_expires_at timestamptz null');
     expect(sql).toContain('on signers (remove_token_hash) where remove_token_hash is not null');
-    expect(sql).toContain('create or replace function mark_email_sent(p_id bigint)');
+    expect(sql).toContain('create or replace function mark_email_sent(p_id bigint, p_token_enc text)');
     expect(sql).toMatch(/elsif r\.kind = 'remove' then\s+update signers set remove_token_expires_at = sent_at_ts \+ interval '48 hours' where id = r\.signer_id/);
     expect(sql).toContain('add column if not exists remove_token_set_at timestamptz null');
     expect(sql).toContain('create or replace function claim_remove_slot(cap int, remove_cap int)');
     expect(sql).toContain('sent < cap and remove_sent < remove_cap');
-    expect(sql).toContain('revoke all on function mark_email_sent(bigint) from public, anon, authenticated');
+    expect(sql).toContain('revoke all on function mark_email_sent(bigint, text) from public, anon, authenticated');
   });
 });

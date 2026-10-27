@@ -18,14 +18,26 @@ export interface OutboxDeps {
   repo: OutboxRepo;
   config: OutboxConfig;
   fetchFn: typeof fetch;
+  /** Runs work after the response is sent (`waitUntil` in the route). Without it, enqueueEmail does the send before it returns. */
+  after?: (task: Promise<unknown>) => void;
 }
 
 /**
- * Sends one queued row. The caller has already taken a slot. On success the row is marked sent (which drops the sealed
- * address and token and starts the signer's 48 hours). On a send failure the slot is given back and the attempt is counted; a row that is gone gives the slot back and is skipped.
+ * - `sent`: the provider accepted it and the row is marked sent.
+ * - `failed`: the send failed; the slot is back and the attempt is counted.
+ * - `rejected`: the provider refused the address for good (400 or 422). A confirmation's signer is deleted; a removal row is marked failed.
+ * - `skipped`: the row was gone or replaced; the slot is back.
  */
-export type SendResult = 'sent' | 'failed' | 'skipped';
+export type SendResult = 'sent' | 'failed' | 'rejected' | 'skipped';
 
+/** One line per failed send, by row id only: never the address, the token or the provider's body. */
+function logFailure(row: OutboxRow, cause: number | 'network' | 'unseal', final: boolean): void {
+  console.error(JSON.stringify({ event: 'email-send-failed', rowId: row.id, kind: row.kind, status: cause, attempt: row.attempts + 1, final }));
+  // A rejected key or sender means every send will fail until it is fixed.
+  if (cause === 401 || cause === 403) console.error(JSON.stringify({ event: 'email-send-auth-rejected', rowId: row.id, status: cause }));
+}
+
+/** Sends one queued row. The caller has already taken a slot. */
 export async function sendRow(deps: OutboxDeps, listed: OutboxRow): Promise<SendResult> {
   const { repo, config } = deps;
   // The row may have been replaced (the signer signed again) or finished since it was listed: send what is stored now.
@@ -41,10 +53,17 @@ export async function sendRow(deps: OutboxDeps, listed: OutboxRow): Promise<Send
     await repo.releaseSlot(listed.kind);
     return 'skipped';
   }
-  let accepted = false;
+  let status: number | 'network' | 'unseal' = 'network';
   try {
-    const to = open(row.toEnc, config.encryptionKey);
-    const token = open(row.tokenEnc, config.encryptionKey);
+    let to: string;
+    let token: string;
+    try {
+      to = open(row.toEnc, config.encryptionKey);
+      token = open(row.tokenEnc, config.encryptionKey);
+    } catch {
+      status = 'unseal';
+      throw new Error('unseal');
+    }
     const mail = renderEmail(row.kind, linkFor(row.kind, token, config.siteOrigin), config.siteOrigin);
     const res = await deps.fetchFn(RESEND_URL, {
       method: 'POST',
@@ -58,15 +77,24 @@ export async function sendRow(deps: OutboxDeps, listed: OutboxRow): Promise<Send
       body: JSON.stringify({ from: config.from, to: [to], subject: mail.subject, text: mail.text }),
       signal: AbortSignal.timeout(15_000),
     });
-    accepted = res.ok;
-  } catch {
-    accepted = false;
+    if (res.ok) {
+      await repo.markSent(row);
+      return 'sent';
+    }
+    status = res.status;
+  } catch (err) {
+    // A database failure after the provider accepted the mail must not be counted as a send failure.
+    if (status === 'network' && err instanceof Error && err.message === 'database error') throw err;
   }
-  if (!accepted) {
-    await repo.releaseSlot(row.kind);
-    await repo.recordFailure(row, MAX_ATTEMPTS);
-    return 'failed';
+  await repo.releaseSlot(row.kind);
+  if (status === 400 || status === 422) {
+    // The provider refused this address for good, so retrying cannot help.
+    logFailure(row, status, true);
+    if (row.kind === 'confirm') await repo.deletePendingSigner(row.signerId);
+    else await repo.recordFailure(row, 1);
+    return 'rejected';
   }
-  await repo.markSent(row.id);
-  return 'sent';
+  logFailure(row, status, row.attempts + 1 >= MAX_ATTEMPTS);
+  await repo.recordFailure(row, MAX_ATTEMPTS);
+  return 'failed';
 }

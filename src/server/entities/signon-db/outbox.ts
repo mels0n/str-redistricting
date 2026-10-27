@@ -18,8 +18,8 @@ export interface OutboxRepo {
   upsertQueued(kind: EmailKind, signerId: string, toEnc: string, tokenEnc: string): Promise<OutboxRow>;
   /** True when a queued row would be sent before this one: any waiting removal, then waiting rows with a lower id of the same kind. */
   hasQueuedAhead(row: OutboxRow): Promise<boolean>;
-  /** Waiting rows in sending order: removals first, then oldest first. */
-  listQueued(limit: number): Promise<OutboxRow[]>;
+  /** Waiting rows of one kind, oldest first; without a kind, removals first and then the rest. */
+  listQueued(limit: number, kind?: EmailKind): Promise<OutboxRow[]>;
   countQueued(): Promise<number>;
   /** The row as it is now, or null when it is no longer queued (sent, failed or removed). */
   getQueued(id: number): Promise<OutboxRow | null>;
@@ -29,10 +29,12 @@ export interface OutboxRepo {
   claimSlot(cap: number, kind?: EmailKind): Promise<boolean>;
   /** Gives back a slot taken for this kind. */
   releaseSlot(kind?: EmailKind): Promise<void>;
-  /** Marks the row sent, drops its sealed payload and starts the signer's 48 hours (`mark_email_sent`). */
-  markSent(id: number): Promise<void>;
-  /** Adds one attempt; the row becomes `failed` once it reaches `maxAttempts`, and then its sealed address and token are dropped. */
+  /** Marks the row sent, drops its sealed payload and starts the signer's 48 hours (`mark_email_sent`). A row whose sealed token is no longer the one sent (the signer signed again) stays queued. */
+  markSent(row: OutboxRow): Promise<void>;
+  /** Adds one attempt to the row as it was read; the row becomes `failed` once it reaches `maxAttempts`, and then its sealed address and token are dropped. A row replaced since is left alone. */
   recordFailure(row: OutboxRow, maxAttempts: number): Promise<void>;
+  /** Deletes a signer who has not confirmed (their queued and sent outbox rows go with them). */
+  deletePendingSigner(signerId: string): Promise<void>;
 }
 
 const fail = (): never => {
@@ -72,9 +74,10 @@ export function outboxRepo(): OutboxRepo {
       if (error) fail();
       return (count ?? 0) > 0;
     },
-    async listQueued(limit) {
+    async listQueued(limit, kind) {
       // 'remove' sorts after 'confirm', so descending puts removals first.
-      const { data, error } = await db().from('email_outbox').select(COLUMNS).eq('status', 'queued').order('kind', { ascending: false }).order('created_at').order('id').limit(limit);
+      const base = db().from('email_outbox').select(COLUMNS).eq('status', 'queued');
+      const { data, error } = await (kind ? base.eq('kind', kind) : base).order('kind', { ascending: false }).order('created_at').order('id').limit(limit);
       if (error) fail();
       return (data as DbRow[]).map(toRow);
     },
@@ -94,7 +97,7 @@ export function outboxRepo(): OutboxRepo {
       return data === true;
     },
     async claimSlot(cap, kind) {
-      const { data, error } = kind === 'remove' ? await db().rpc('claim_remove_slot', { cap, remove_cap: Math.floor(cap / 2) }) : await db().rpc('claim_email_slot', { cap });
+      const { data, error } = kind === 'remove' ? await db().rpc('claim_remove_slot', { cap, remove_cap: Math.max(1, Math.floor(cap / 2)) }) : await db().rpc('claim_email_slot', { cap });
       if (error) fail();
       return data === true;
     },
@@ -102,13 +105,22 @@ export function outboxRepo(): OutboxRepo {
       const { error } = await db().rpc(kind === 'remove' ? 'release_remove_slot' : 'release_email_slot');
       if (error) fail();
     },
-    async markSent(id) {
-      const { error } = await db().rpc('mark_email_sent', { p_id: id });
+    async markSent(row) {
+      const { error } = await db().rpc('mark_email_sent', { p_id: row.id, p_token_enc: row.tokenEnc });
+      if (error) fail();
+    },
+    async deletePendingSigner(signerId) {
+      const { error } = await db().from('signers').delete().eq('id', signerId).eq('status', 'pending');
       if (error) fail();
     },
     async recordFailure(row, maxAttempts) {
       const attempts = row.attempts + 1;
-      const { error } = await db().from('email_outbox').update(attempts >= maxAttempts ? { attempts, status: 'failed', to_enc: null, token_enc: null } : { attempts }).eq('id', row.id);
+      const { error } = await db()
+        .from('email_outbox')
+        .update(attempts >= maxAttempts ? { attempts, status: 'failed', to_enc: null, token_enc: null } : { attempts })
+        .eq('id', row.id)
+        .eq('status', 'queued')
+        .eq('token_enc', row.tokenEnc);
       if (error) fail();
     },
   };

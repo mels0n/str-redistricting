@@ -42,6 +42,8 @@ create table if not exists asks (
   at timestamptz not null default now()
 );
 alter table asks enable row level security;
+-- Counts group and filter asks by district key, including prefix matches.
+create index if not exists asks_district_key_idx on asks (district_key text_pattern_ops);
 
 -- Explicit, in case default privileges ever grant the public API roles access.
 revoke all on table signers, rate_limits, asks from anon, authenticated;
@@ -53,3 +55,7 @@ create or replace view district_counts with (security_invoker = true) as
   where status = 'confirmed'
   group by state, us_house, state_house, state_senate;
 revoke all on table district_counts from anon, authenticated;
+
+-- The server connects as service_role; grant it exactly what it uses, explicitly, rather than relying on default privileges.
+grant all on table signers, rate_limits, asks, district_counts to service_role;
+grant all on sequence asks_id_seq to service_role;

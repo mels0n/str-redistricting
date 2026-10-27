@@ -37,7 +37,7 @@ export async function requestRemoval(body: unknown, ip: string, deps: RemoveRequ
   const { email, turnstileToken } = parsed.data;
   const { config } = deps;
   await verifyTurnstile(turnstileToken, config.turnstileSecret, ip, deps.fetchFn);
-  await checkRateLimit(deps.rateRepo, hashIp(`remove:${ip}`, config.hashSecret), deps.now());
+  await checkRateLimit(deps.rateRepo, hashIp(ip, config.hashSecret, 'remove'), deps.now());
 
   return async () => {
     const now = deps.now();

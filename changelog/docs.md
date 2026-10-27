@@ -1,5 +1,9 @@
 # Docs changelog
 
+## 1.1.0 (2026-10-27)
+
+- Described the privacy page and the visit counter, and how the tests keep the page's claims true.
+
 ## 1.0.6 (2026-10-24)
 
 - Listed the Census cache workflow and said the code standards checks run on pull requests.

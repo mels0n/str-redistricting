@@ -1,5 +1,10 @@
 # Web changelog
 
+## 1.7.0 (2026-10-27)
+
+- The site counts visits with Vercel Web Analytics, which sets no cookies. Each page view is sent with its path only, never the part of the address after a ? or #, where other sites add click and campaign codes.
+- A new Privacy page says what the site counts, what it keeps in your browser, and what it sends elsewhere. The footer links to it.
+
 ## 1.6.1 (2026-10-27)
 
 - The sitemap now lists every state map page and each State House and State Senate page, not only the home, How it works, FAQ and changelog pages.

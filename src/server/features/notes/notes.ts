@@ -20,6 +20,7 @@ export interface PublicNote {
 }
 
 export const PUBLIC_NOTES_LIMIT = 10;
+const DIGEST_LIMIT = 1000;
 
 const tryOpen = (sealed: string | null, key: Buffer): string | null => {
   if (sealed === null) return null;
@@ -48,14 +49,14 @@ export async function readNotes(query: unknown, repo: NotesRepo, encryptionKey: 
 // The database query already filters; this keeps a mistake there from publishing a note.
 const isPublic = (r: NoteRow): boolean => r.status === 'approved' && r.signerStatus === 'confirmed' && r.signerShowPublic;
 
-/** The Markdown a district's representative gets: the district, how many people signed, and every approved note shared with them. */
+/** The Markdown for one district: how many people signed, and the notes that are public on the site (the set /api/notes shows, without its limit of 10). */
 export async function buildDigest(key: string, repo: NotesRepo, encryptionKey: Buffer): Promise<string> {
   if (!DigestKeySchema.safeParse(key).success) throw new SignonError('bad-request');
-  const [count, rows] = await Promise.all([repo.signerCount(key), repo.digestNotes(key)]);
+  const [count, rows] = await Promise.all([repo.signerCount(key), repo.publicNotes({ kind: 'district', key }, DIGEST_LIMIT)]);
   const lines = [`# ${key}`, '', `People who signed: ${count}`, ''];
-  const shared = rows.filter((r) => r.status === 'approved' && r.shareWithRep && r.signerStatus === 'confirmed');
-  if (shared.length === 0) lines.push('No notes have been shared yet.');
-  for (const r of shared) {
+  const shown = rows.filter(isPublic);
+  if (shown.length === 0) lines.push('No notes are public yet.');
+  for (const r of shown) {
     const body = tryOpen(r.bodyEnc, encryptionKey);
     if (body === null) continue;
     const town = tryOpen(r.townEnc, encryptionKey);

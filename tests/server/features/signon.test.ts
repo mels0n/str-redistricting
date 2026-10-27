@@ -85,9 +85,6 @@ class FakeNotes implements NotesRepo {
   async publicNotes(): Promise<NoteRow[]> {
     return [];
   }
-  async digestNotes(): Promise<NoteRow[]> {
-    return [];
-  }
   async signerCount() {
     return 0;
   }
@@ -119,7 +116,7 @@ function stubFetch(opts: { turnstile?: boolean; geocode?: unknown } = {}): { fet
 }
 
 const STREET = '1600 Secret Lane';
-const BODY = { address: `${STREET}, Denver CO`, email: 'ada@example.com', turnstileToken: 'tok', consentUpdates: true, showPublic: true, displayName: 'Ada L', ref: null, note: null, shareWithRep: false };
+const BODY = { address: `${STREET}, Denver CO`, email: 'ada@example.com', turnstileToken: 'tok', consentUpdates: true, showPublic: true, displayName: 'Ada L', ref: null, note: null };
 const post = (body: unknown) => new Request('https://site.test/api/sign', { method: 'POST', body: JSON.stringify(body), headers: { 'x-forwarded-for': '9.9.9.9' } });
 
 interface Sent { kind: string; signerId: string; to: string; token: string }
@@ -298,7 +295,7 @@ describe('sign-up hardening', () => {
   });
 
   it('reports a dropped note the same way for a confirmed address, a lost race and a new sign-up', async () => {
-    const note = { note: 'call me on 303-555-0100', shareWithRep: false };
+    const note = { note: 'call me on 303-555-0100' };
     const s = setup();
     const fresh = await (await s.handler(post({ ...BODY, email: 'new@example.com', ...note }))).json();
     expect(fresh.noteDropped).toBe('phone numbers');
@@ -424,7 +421,7 @@ describe('POST /api/sign with a note', () => {
 
   it('stores a passing note sealed and pending, with the signer ticks, and still queues the email', async () => {
     const { handler, notes, sent, repo } = setup();
-    const res = await handler(post({ ...BODY, note: NOTE, shareWithRep: true }));
+    const res = await handler(post({ ...BODY, note: NOTE }));
     expect(res.status).toBe(202);
     expect(await res.json()).toEqual({ status: 'check-email', noteDropped: null, queued: false });
     expect(notes.stored).toHaveLength(1);
@@ -432,13 +429,13 @@ describe('POST /api/sign with a note', () => {
     expect(n.bodyEnc.startsWith('v1:')).toBe(true);
     expect(n.bodyEnc).not.toContain(NOTE);
     expect(open(n.bodyEnc, KEY)).toBe(NOTE);
-    expect(n).toMatchObject({ signerId: repo.rows[0]!.id, showPublic: true, shareWithRep: true, flags: [], status: 'pending' });
+    expect(n).toMatchObject({ signerId: repo.rows[0]!.id, showPublic: true, flags: [], status: 'pending' });
     expect(sent).toHaveLength(1);
   });
 
   it('drops a failing note: 202 with the reason, the signer and email go ahead, nothing of the text is stored or logged', async () => {
     const { handler, notes, sent, repo } = setup();
-    const res = await handler(post({ ...BODY, note: 'call me on 303-555-0100 about this', shareWithRep: true }));
+    const res = await handler(post({ ...BODY, note: 'call me on 303-555-0100 about this' }));
     expect(res.status).toBe(202);
     const text = await res.text();
     expect(JSON.parse(text)).toEqual({ status: 'check-email', noteDropped: 'phone numbers', queued: false });
@@ -452,7 +449,7 @@ describe('POST /api/sign with a note', () => {
 
   it('accepts a note longer than 280 characters and drops it for its length, not a 400', async () => {
     const { handler, notes } = setup();
-    const res = await handler(post({ ...BODY, note: 'a b '.repeat(100), shareWithRep: false }));
+    const res = await handler(post({ ...BODY, note: 'a b '.repeat(100) }));
     expect(res.status).toBe(202);
     expect(await res.json()).toMatchObject({ noteDropped: 'more than 280 characters' });
     expect(notes.stored).toHaveLength(0);
@@ -548,7 +545,7 @@ describe('sign-up with just a state', () => {
       const tokens: string[] = [];
       const s = setup({ enqueue: async (_k, _s, _t, token) => { tokens.push(token); return { queued: waiting }; } });
       wouldQueueNow = waiting;
-      const note = { note: 'call me on 303-555-0100', shareWithRep: false };
+      const note = { note: 'call me on 303-555-0100' };
       const fresh = await (await s.handler(post({ ...STATE_ONLY, email: 'new@example.com', ...note }))).text();
       await s.handler(post(STATE_ONLY));
       await confirmHandler({ loadConfig: () => CONFIG, repo: () => s.repo, now: () => NOW })(new Request(`https://site.test/api/confirm?token=${tokens.at(-1)}`));

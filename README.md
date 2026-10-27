@@ -165,11 +165,13 @@ Mail goes through a queue. A confirmation or removal email is written to the out
 `/pledges` lists public statements of support for the rule. Each entry in `config/pledges.json` needs a name, an office, a state, a district where one applies, and a URL where the statement can be read; party is never listed. To add one, open a GitHub issue with the "Add a pledge" form, or send a pull request that edits `config/pledges.json`. An entry is listed only if its statement URL shows the pledge publicly.
 
 ## Notes
-A person who signs can add a note of up to 280 characters, and choose whether it is shown on the site and whether it is shared with their representative. Notes are screened by rules in `config/note-rules.json`:
+A person who signs can add a note of up to 280 characters, and, if they tick the box to show their name and town, the note can appear on the site once approved. Notes are screened by rules in `config/note-rules.json`:
 
 - A note is rejected, and the sender sees why, if it is over 280 characters or holds a link or handle, an email address, a phone number, a street address or a blocked word (whole word, after normalizing case, accents and letter swaps).
 - A note that uses a party or election word (for example "vote for" or "defeat") or seems to name a person is flagged. Flags only help the reader decide; they never publish or reject.
-- Every note that passes is stored as pending. Nothing is shown or shared until it has been approved by hand in the database table editor.
+- Every note that passes is stored as pending. A note is shown on the site only after it has been approved by hand in the database table editor, and only if its signer is confirmed and ticked the box to show their name and town. Nothing else is shown.
+
+`npm run digest -- --key CO:us-house:03 [--out file.md]` writes a Markdown summary for one district: the number of confirmed signers and every note that is public on the site, with no limit of 10. It reads the database and encryption keys from the local `.env` or the environment.
 
 The blocked-word list starts from the `badwords-list` npm package (version 1.0.0, MIT License, Copyright (c) 2013 Maurice Butler). The rules file records which upstream entries were removed and which words this project added; the license text is in `NOTICE`.
 

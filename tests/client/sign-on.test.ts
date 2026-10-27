@@ -40,7 +40,6 @@ const ServerSign = z.strictObject({
   displayName: z.string().max(40).nullable(),
   ref: z.string().nullable(),
   note: z.string().max(2000).nullable(),
-  shareWithRep: z.boolean(),
 }).refine((v) => v.address !== null || (v.state !== null && v.state !== undefined));
 
 const settle = async (): Promise<void> => {
@@ -71,7 +70,6 @@ function fill(el: HTMLElement): void {
   byName(el, 'showPublic').checked = true;
   byName(el, 'consentUpdates').checked = true;
   byName(el, 'note').value = ' Fair lines matter ';
-  byName(el, 'shareWithRep').checked = true;
   byName(el, 'address').value = '10 Elm St, Denver CO';
   q<HTMLSelectElement>(el, '[name="state"]').value = 'CO';
 }
@@ -96,7 +94,6 @@ describe('sign-on form', () => {
       'Address (optional)',
       'Why you signed (optional)',
       'Show my name and town on the site',
-      'Share my note with my representative',
       'Email me updates about Fair Maps',
     ]);
     expect(q(f.el, '.strv-sign__hint').textContent).toBe('First name and last initial, like Maria G.');
@@ -152,7 +149,6 @@ describe('sign-on form', () => {
       displayName: 'Maria G.',
       ref: null,
       note: 'Fair lines matter',
-      shareWithRep: true,
     });
   });
 
@@ -179,7 +175,7 @@ describe('sign-on form', () => {
   });
 
   it('sends a null display name when the field is empty', () => {
-    expect(signPayload({ state: 'CO', address: ' a b c d ', email: 'x@y.co', displayName: '  ', showPublic: false, consentUpdates: false, note: '  ', shareWithRep: false, turnstileToken: 't' })).toMatchObject({ address: 'a b c d', displayName: null, note: null, shareWithRep: false });
+    expect(signPayload({ state: 'CO', address: ' a b c d ', email: 'x@y.co', displayName: '  ', showPublic: false, consentUpdates: false, note: '  ', turnstileToken: 't' })).toMatchObject({ address: 'a b c d', displayName: null, note: null });
   });
 
   it('shows the confirm message after a 202 that was sent now, and the in-line message when queued', async () => {
@@ -301,7 +297,6 @@ describe('privacy page and footer', () => {
       'What we collect',
       'What we never keep',
       'What is public',
-      'What goes to your representative',
       'Who sees your email',
       'How to be removed',
       'Services we use',

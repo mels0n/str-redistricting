@@ -6,8 +6,8 @@ import { buildDigest } from '../features/notes/index.js';
 import { loadEncryptionKey } from '../shared/config/backend.js';
 import { ConfigError, exitCodeFor } from '../shared/errors/index.js';
 
-// Writes the Markdown for one district's representative: the district, how many people signed, and every approved note
-// shared with them. The database and encryption keys come from the local .env (or the environment); nothing is printed from them.
+// Writes the Markdown for one district: how many people signed, and every note that is public on the site (approved, from a
+// confirmed signer who ticked the show-name-and-town box). The database and encryption keys come from the local .env (or the environment); nothing is printed from them.
 
 const Args = z.object({
   key: z.string().regex(/^[A-Z]{2}:(us-house|us-senate|state-house|state-senate):[A-Za-z0-9-]{1,12}$/, 'must look like CO:us-house:03'),

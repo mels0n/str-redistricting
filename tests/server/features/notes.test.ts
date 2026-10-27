@@ -83,9 +83,6 @@ class FakeNotes implements NotesRepo {
   async publicNotes(_scope: NoteScope, limit: number) {
     return this.rows.filter((r) => r.status === 'approved' && r.signerStatus === 'confirmed' && r.signerShowPublic).slice(0, limit);
   }
-  async digestNotes() {
-    return this.rows.filter((r) => r.status === 'approved' && r.shareWithRep && r.signerStatus === 'confirmed');
-  }
   async signerCount() {
     return 7;
   }
@@ -96,7 +93,6 @@ const row = (over: Partial<NoteRow> & { body: string }): NoteRow => {
   return {
     bodyEnc: seal(body, KEY),
     status: 'approved',
-    shareWithRep: false,
     createdAt: '2026-10-27T12:00:00Z',
     signerStatus: 'confirmed',
     signerShowPublic: true,
@@ -122,7 +118,7 @@ describe('GET /api/notes', () => {
     const repo = new FakeNotes();
     repo.rows = [
       row({ body: 'pending one', status: 'pending' }),
-      row({ body: 'private one', signerShowPublic: false, shareWithRep: true }),
+      row({ body: 'private one', signerShowPublic: false }),
       row({ body: 'unconfirmed one', signerStatus: 'pending' }),
       row({ body: 'rejected one', status: 'rejected' }),
     ];
@@ -150,24 +146,29 @@ describe('GET /api/notes', () => {
 });
 
 describe('digest', () => {
-  it('lists every approved note shared with the representative, including those of signers who did not tick show-public', async () => {
+  it('lists exactly the notes /api/notes would show publicly, without the limit of 10, and the signer count', async () => {
     const repo = new FakeNotes();
     repo.rows = [
-      row({ body: 'Shared and public', shareWithRep: true }),
-      row({ body: 'Shared but private', shareWithRep: true, signerShowPublic: false, nameEnc: null, townEnc: null }),
-      row({ body: 'Not shared', shareWithRep: false }),
-      row({ body: 'Pending shared', shareWithRep: true, status: 'pending' }),
+      ...Array.from({ length: 12 }, (_, i) => row({ body: `Public ${i}` })),
+      row({ body: 'No show-public', signerShowPublic: false, nameEnc: null, townEnc: null }),
+      row({ body: 'Pending one', status: 'pending' }),
+      row({ body: 'Unconfirmed one', signerStatus: 'pending' }),
+      row({ body: 'Rejected one', status: 'rejected' }),
     ];
     const md = await buildDigest('CO:us-house:03', repo, KEY);
     expect(md).toContain('# CO:us-house:03');
     expect(md).toContain('People who signed: 7');
-    expect(md).toContain('"Shared and public" (Boulder)');
-    expect(md).toContain('"Shared but private"');
-    expect(md).not.toContain('Not shared');
-    expect(md).not.toContain('Pending shared');
-    // The private one is in the digest but not on the public endpoint.
+    expect(md).toContain('"Public 0" (Boulder)');
+    expect(md).toContain('"Public 11" (Boulder)');
+    for (const hidden of ['No show-public', 'Pending one', 'Unconfirmed one', 'Rejected one']) expect(md).not.toContain(hidden);
     const pub = (await (await get(repo, '?key=CO:us-house:03')).json()) as { notes: { body: string }[] };
-    expect(pub.notes.map((n) => n.body)).toEqual(['Shared and public', 'Not shared']);
+    expect(pub.notes.map((n) => n.body)).toEqual(Array.from({ length: 10 }, (_, i) => `Public ${i}`));
+  });
+
+  it('does not trust the query for the digest either', async () => {
+    const repo = new FakeNotes();
+    repo.publicNotes = async () => [row({ body: 'pending', status: 'pending' }), row({ body: 'private', signerShowPublic: false })];
+    expect(await buildDigest('CO:us-house:03', repo, KEY)).toContain('No notes are public yet.');
   });
 
   it('refuses a malformed key', async () => {

@@ -35,7 +35,6 @@ export interface SignOnValues {
   showPublic: boolean;
   consentUpdates: boolean;
   note: string;
-  shareWithRep: boolean;
   turnstileToken: string;
 }
 
@@ -54,7 +53,6 @@ export function signPayload(v: SignOnValues): Record<string, unknown> {
     displayName: name === '' ? null : name,
     ref: null,
     note: note === '' ? null : note,
-    shareWithRep: v.shareWithRep,
   };
 }
 
@@ -121,7 +119,6 @@ export function createSignOnForm(input: {
     return { box, row: h('div', { class: 'strv-check' }, box, h('label', { for: id(key) }, h('span', { class: 'strv-check__label' }, label))) };
   };
   const showPublic = check('showPublic', 'Show my name and town on the site');
-  const shareWithRep = check('shareWithRep', 'Share my note with my representative');
   const updates = check('consentUpdates', 'Email me updates about Fair Maps');
 
   const widget = h('div', { class: 'strv-sign__widget' });
@@ -150,7 +147,6 @@ export function createSignOnForm(input: {
       showPublic: showPublic.box.checked,
       consentUpdates: updates.box.checked,
       note: note.value,
-      shareWithRep: shareWithRep.box.checked,
       turnstileToken: token,
     });
     submit.disabled = true;
@@ -189,7 +185,6 @@ export function createSignOnForm(input: {
     field('address', 'Address (optional)', address, ADDRESS_HINT),
     field('note', NOTE_LABEL, note, NOTE_HINT),
     showPublic.row,
-    shareWithRep.row,
     updates.row,
     widget,
     error,

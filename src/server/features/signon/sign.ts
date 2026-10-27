@@ -32,7 +32,6 @@ export const SignRequestSchema = z
       .max(2000)
       .transform((s) => s.replace(/\s+/g, ' ').replace(/[\p{Cc}\p{Cf}]/gu, '').trim())
       .nullable(),
-    shareWithRep: z.boolean(),
   })
   .refine((v) => v.address !== null || (v.state !== null && v.state !== undefined));
 export type SignRequest = z.infer<typeof SignRequestSchema>;
@@ -125,7 +124,7 @@ export async function sign(body: unknown, ip: string, deps: SignDeps): Promise<S
 
   // A note that failed screening is dropped without a trace; the signature goes ahead.
   if (req.note && verdict?.result === 'pending') {
-    await deps.notes.insertNote({ signerId: signer.id, bodyEnc: seal(req.note, config.encryptionKey), showPublic: req.showPublic, shareWithRep: req.shareWithRep, flags: verdict.flags });
+    await deps.notes.insertNote({ signerId: signer.id, bodyEnc: seal(req.note, config.encryptionKey), showPublic: req.showPublic, flags: verdict.flags });
   }
 
   // Signing again without a note, or with one that failed, leaves no earlier pending note behind.

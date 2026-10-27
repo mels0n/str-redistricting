@@ -17,7 +17,7 @@ const { notesRepo } = await import('../../../src/server/entities/signon-db/notes
 describe('notesRepo.insertNote', () => {
   it('is one upsert keyed on the signer, back to pending, with no delete', async () => {
     calls.length = 0;
-    await notesRepo().insertNote({ signerId: 's1', bodyEnc: 'v1:x', showPublic: true, shareWithRep: false, flags: [] });
+    await notesRepo().insertNote({ signerId: 's1', bodyEnc: 'v1:x', showPublic: true, flags: [] });
     expect(calls.map((c) => c.op)).toEqual(['upsert']);
     expect(calls[0]!.args[0]).toMatchObject({ signer_id: 's1', status: 'pending', reviewed_at: null });
     expect(calls[0]!.args[1]).toEqual({ onConflict: 'signer_id' });

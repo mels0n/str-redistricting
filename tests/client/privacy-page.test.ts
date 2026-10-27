@@ -17,7 +17,6 @@ describe('privacy page', () => {
       'What we collect',
       'What we never keep',
       'What is public',
-      'What goes to your representative',
       'Who sees your email',
       'How to be removed',
       'Services we use',

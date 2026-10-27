@@ -43,12 +43,7 @@ export function createPrivacyPage(): Page {
       section(
         'public',
         'What is public',
-        ul('Counts of people who signed in each district.', 'Your name and town, only if you tick the box.', 'Your note, only if you tick the box to show your name and town and we have read and approved it.'),
-      ),
-      section(
-        'representative',
-        'What goes to your representative',
-        p('Your note, only if you tick “Share my note with my representative” and we have read and approved it. It goes in a summary for your district, along with how many people there signed.'),
+        ul('Counts of people who signed in each district.', 'Your name and town, only if you tick the box.', 'Your note, only after we have read and approved it, and only if you ticked the box to show your name and town.'),
       ),
       section('email', 'Who sees your email', p('Only us and Resend, the service that delivers our emails, and only to send the confirmation and the updates you asked for. Resend keeps its own logs of the messages it sends, under its own policy.')),
       section(

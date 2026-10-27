@@ -5,7 +5,6 @@ export interface NewNote {
   signerId: string;
   bodyEnc: string;
   showPublic: boolean;
-  shareWithRep: boolean;
   flags: string[];
 }
 
@@ -16,7 +15,6 @@ export type NoteScope = { kind: 'national' } | { kind: 'district'; key: string }
 export interface NoteRow {
   bodyEnc: string;
   status: string;
-  shareWithRep: boolean;
   createdAt: string;
   signerStatus: string;
   signerShowPublic: boolean;
@@ -32,8 +30,6 @@ export interface NotesRepo {
   removeNote(signerId: string): Promise<void>;
   /** Approved notes of confirmed signers who ticked show-public, newest first. */
   publicNotes(scope: NoteScope, limit: number): Promise<NoteRow[]>;
-  /** Approved notes marked share-with-rep, of confirmed signers in the district, newest first. */
-  digestNotes(key: string): Promise<NoteRow[]>;
   /** Confirmed signers in the district. */
   signerCount(key: string): Promise<number>;
 }
@@ -42,12 +38,11 @@ const fail = (): never => {
   throw new Error('database error');
 };
 
-const COLUMNS = 'body_enc, status, share_with_rep, created_at, signers!inner(status, show_public, display_name_enc, town_enc, state, us_house, state_house, state_senate)';
+const COLUMNS = 'body_enc, status, created_at, signers!inner(status, show_public, display_name_enc, town_enc, state, us_house, state_house, state_senate)';
 
 interface Joined {
   body_enc: string;
   status: string;
-  share_with_rep: boolean;
   created_at: string;
   signers: { status: string; show_public: boolean; display_name_enc: string | null; town_enc: string | null };
 }
@@ -55,7 +50,6 @@ interface Joined {
 const toRow = (r: Joined): NoteRow => ({
   bodyEnc: r.body_enc,
   status: r.status,
-  shareWithRep: r.share_with_rep,
   createdAt: r.created_at,
   signerStatus: r.signers.status,
   signerShowPublic: r.signers.show_public,
@@ -81,7 +75,6 @@ export function notesRepo(): NotesRepo {
             signer_id: note.signerId,
             body_enc: note.bodyEnc,
             show_public: note.showPublic,
-            share_with_rep: note.shareWithRep,
             status: 'pending',
             flags: note.flags,
             created_at: new Date().toISOString(),
@@ -103,14 +96,6 @@ export function notesRepo(): NotesRepo {
         if (f.column) q = q.eq(`signers.${f.column}`, f.code);
       }
       const { data, error } = await q.order('created_at', { ascending: false }).limit(limit);
-      if (error) fail();
-      return ((data ?? []) as unknown as Joined[]).map(toRow);
-    },
-    async digestNotes(key) {
-      const f = districtFilter(key);
-      let q = db().from('notes').select(COLUMNS).eq('status', 'approved').eq('share_with_rep', true).eq('signers.status', 'confirmed').eq('signers.state', f.state);
-      if (f.column) q = q.eq(`signers.${f.column}`, f.code);
-      const { data, error } = await q.order('created_at', { ascending: false });
       if (error) fail();
       return ((data ?? []) as unknown as Joined[]).map(toRow);
     },

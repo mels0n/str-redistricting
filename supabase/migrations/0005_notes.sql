@@ -7,7 +7,6 @@ create table if not exists notes (
   signer_id uuid not null references signers (id) on delete cascade,
   body_enc text not null,
   show_public boolean not null,
-  share_with_rep boolean not null,
   status text not null check (status in ('pending', 'approved', 'rejected')),
   flags text[] not null default '{}',
   created_at timestamptz not null default now(),

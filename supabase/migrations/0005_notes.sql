@@ -14,7 +14,8 @@ create table if not exists notes (
   reviewed_at timestamptz
 );
 alter table notes enable row level security;
-create index if not exists notes_signer_id_idx on notes (signer_id);
+-- One note per signer: signing again replaces it (an upsert on this index).
+create unique index if not exists notes_signer_id_idx on notes (signer_id);
 create index if not exists notes_status_created_at_idx on notes (status, created_at desc);
 
 revoke all on table notes from anon, authenticated;

@@ -26,8 +26,10 @@ export interface NoteRow {
 
 /** The data access for notes. Tests pass an in-memory implementation. */
 export interface NotesRepo {
-  /** Stores a pending note; a signer who signs again replaces their earlier note. */
+  /** Stores a pending note in one statement; a signer who signs again replaces their earlier note. */
   insertNote(note: NewNote): Promise<void>;
+  /** Removes the signer's note, if any (signing again without a note, or with one that failed screening). */
+  removeNote(signerId: string): Promise<void>;
   /** Approved notes of confirmed signers who ticked show-public, newest first. */
   publicNotes(scope: NoteScope, limit: number): Promise<NoteRow[]>;
   /** Approved notes marked share-with-rep, of confirmed signers in the district, newest first. */
@@ -72,16 +74,25 @@ function districtFilter(key: string): { state: string; column: string | null; co
 export function notesRepo(): NotesRepo {
   return {
     async insertNote(note) {
-      const gone = await db().from('notes').delete().eq('signer_id', note.signerId);
-      if (gone.error) fail();
-      const { error } = await db().from('notes').insert({
-        signer_id: note.signerId,
-        body_enc: note.bodyEnc,
-        show_public: note.showPublic,
-        share_with_rep: note.shareWithRep,
-        status: 'pending',
-        flags: note.flags,
-      });
+      const { error } = await db()
+        .from('notes')
+        .upsert(
+          {
+            signer_id: note.signerId,
+            body_enc: note.bodyEnc,
+            show_public: note.showPublic,
+            share_with_rep: note.shareWithRep,
+            status: 'pending',
+            flags: note.flags,
+            created_at: new Date().toISOString(),
+            reviewed_at: null,
+          },
+          { onConflict: 'signer_id' },
+        );
+      if (error) fail();
+    },
+    async removeNote(signerId) {
+      const { error } = await db().from('notes').delete().eq('signer_id', signerId);
       if (error) fail();
     },
     async publicNotes(scope, limit) {

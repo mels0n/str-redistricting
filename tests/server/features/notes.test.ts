@@ -62,6 +62,12 @@ describe('screenNote', () => {
     expect(screenNote('see example.com or call 303-555-0100', NOTE_RULES)).toEqual({ result: 'reject', reason: 'links or handles' });
   });
 
+  it('blocks the slurs the project added, and no longer blocks the surnames cox and cok', () => {
+    for (const w of ['kike', 'spic', 'gook', 'wetback', 'tranny', 'paki']) expect(screenNote(`they are ${w}`, NOTE_RULES)).toEqual({ result: 'reject', reason: 'words that aren’t allowed here' });
+    expect(screenNote('Representative Cox listens', NOTE_RULES).result).toBe('pending');
+    expect(screenNote('Mr Cok agrees', NOTE_RULES).result).toBe('pending');
+  });
+
   it('keeps the rules file free of em dashes and the blocklist in place', () => {
     expect(JSON.stringify(NOTE_RULES)).not.toContain('—');
     expect(NOTE_RULES.blockWords.length).toBeGreaterThan(300);
@@ -73,6 +79,7 @@ describe('screenNote', () => {
 class FakeNotes implements NotesRepo {
   rows: NoteRow[] = [];
   async insertNote(_n: NewNote) {}
+  async removeNote(_id: string) {}
   async publicNotes(_scope: NoteScope, limit: number) {
     return this.rows.filter((r) => r.status === 'approved' && r.signerStatus === 'confirmed' && r.signerShowPublic).slice(0, limit);
   }

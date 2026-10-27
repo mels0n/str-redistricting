@@ -1,6 +1,6 @@
 {
   "source": {
-    "blockWords": "badwords-list 1.0.0 (npm tarball sha256 32e7d3f1df16d8a94a371ba82ada09e83205e0a229137a4a63e801befc65bde3), https://github.com/web-mech/badwords-list, MIT License, Copyright (c) 2013 Maurice Butler.",
+    "blockWords": "badwords-list 1.0.0 (npm tarball sha256 32e7d3f1df16d8a94a371ba82ada09e83205e0a229137a4a63e801befc65bde3), https://github.com/web-mech/badwords-list, MIT License, Copyright (c) 2013 Maurice Butler. 450 upstream entries; 424 kept after the removals listed in removedFromUpstream (so 424 of the entries below come from badwords-list).",
     "removedFromUpstream": [
       "God",
       "hell",
@@ -25,10 +25,23 @@
       "bi+ch",
       "l3i+ch",
       "sh!+",
-      "shi+"
+      "shi+",
+      "cox",
+      "cok"
     ],
     "removedBecause": "Mild or ordinary words (a note about fair maps may say them) and entries written as patterns that a whole-word match cannot use. Notes are also read before they appear.",
-    "matching": "Whole word, on text normalized the same way as the note (see normalize.ts). Entries are normalized before matching."
+    "matching": "Whole word, on text normalized the same way as the note (see normalize.ts). Entries are normalized before matching.",
+    "addedByProject": {
+      "words": [
+        "kike",
+        "spic",
+        "gook",
+        "wetback",
+        "tranny",
+        "paki"
+      ],
+      "note": "These 6 slurs are missing from the 2013 upstream list. They were added by this project and are not from badwords-list."
+    }
   },
   "maxLength": 280,
   "flagWords": [
@@ -127,11 +140,9 @@
     "cocksucks",
     "cocksuka",
     "cocksukka",
-    "cok",
     "cokmuncher",
     "coksucka",
     "coon",
-    "cox",
     "cum",
     "cummer",
     "cumming",
@@ -470,6 +481,12 @@
     "whore",
     "willies",
     "xrated",
-    "xxx"
+    "xxx",
+    "kike",
+    "spic",
+    "gook",
+    "wetback",
+    "tranny",
+    "paki"
   ]
 }

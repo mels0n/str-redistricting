@@ -78,6 +78,9 @@ class FakeNotes implements NotesRepo {
     this.stored = this.stored.filter((n) => n.signerId !== note.signerId);
     this.stored.push({ ...note, status: 'pending' });
   }
+  async removeNote(signerId: string) {
+    this.stored = this.stored.filter((n) => n.signerId !== signerId);
+  }
   async publicNotes(): Promise<NoteRow[]> {
     return [];
   }
@@ -443,6 +446,20 @@ describe('POST /api/sign with a note', () => {
     await handler(post({ ...BODY, note: 'Second thoughts on fairness' }));
     expect(notes.stored).toHaveLength(1);
     expect(open(notes.stored[0]!.bodyEnc, KEY)).toBe('Second thoughts on fairness');
+  });
+});
+
+describe('re-signing with a pending note', () => {
+  it.each([
+    ['no note', null],
+    ['an empty note', '   '],
+    ['a note that fails screening', 'call 303-555-0100'],
+  ])('removes the old pending note when the new sign-up has %s', async (_n, note) => {
+    const { handler, notes } = setup();
+    await handler(post({ ...BODY, note: 'Fair lines for everyone' }));
+    expect(notes.stored).toHaveLength(1);
+    expect((await handler(post({ ...BODY, note }))).status).toBe(202);
+    expect(notes.stored).toHaveLength(0);
   });
 });
 

@@ -111,6 +111,9 @@ export async function sign(body: unknown, ip: string, deps: SignDeps): Promise<S
     else await deps.notes.insertNote({ signerId: signer.id, bodyEnc: seal(req.note, config.encryptionKey), showPublic: req.showPublic, shareWithRep: req.shareWithRep, flags: verdict.flags });
   }
 
+  // Signing again without a note, or with one that failed, leaves no earlier pending note behind.
+  if (!req.note || noteDropped !== null) await deps.notes.removeNote(signer.id);
+
   const { queued } = await deps.enqueue('confirm', signer.id, req.email, token);
   return { ...done, noteDropped, queued };
 }

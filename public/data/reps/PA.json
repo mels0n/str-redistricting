@@ -234,7 +234,7 @@
         }
       }
     ],
-    "PA:us-senate:00": [
+    "PA:us-senate:state": [
       {
         "id": "F000479",
         "name": "John Fetterman",
@@ -3907,7 +3907,7 @@
         "email": "jpicozzi@pasen.gov",
         "phone": null,
         "address": null,
-        "website": "https://5thdistrict.pasenategop.com/",
+        "website": null,
         "social": {}
       }
     ],

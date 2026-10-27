@@ -6,7 +6,7 @@
     "tn.csv": "65617cccbfb94058e22de16219bd84745ccc4cb171bf434e6c029961ec7e910a"
   },
   "byKey": {
-    "TN:us-senate:00": [
+    "TN:us-senate:state": [
       {
         "id": "B001243",
         "name": "Marsha Blackburn",
@@ -273,7 +273,7 @@
         "email": "rep.brock.martin@capitol.tn.gov",
         "phone": null,
         "address": null,
-        "website": "https://tnhousegop.org/members/representative-brock-martin/",
+        "website": null,
         "social": {}
       }
     ],
@@ -287,7 +287,7 @@
         "email": "rep.bryan.terry@capitol.tn.gov",
         "phone": null,
         "address": null,
-        "website": "https://tnhousegop.org/members/representative-bryan-terry/",
+        "website": null,
         "social": {}
       }
     ],
@@ -343,7 +343,7 @@
         "email": "rep.charlie.baum@capitol.tn.gov",
         "phone": null,
         "address": null,
-        "website": "https://tnhousegop.org/members/representative-charlie-baum/",
+        "website": null,
         "social": {}
       }
     ],
@@ -357,7 +357,7 @@
         "email": "rep.chris.hurt@capitol.tn.gov",
         "phone": null,
         "address": null,
-        "website": "https://tnhousegop.org/members/representative-chris-hurt/",
+        "website": null,
         "social": {}
       }
     ],
@@ -371,7 +371,7 @@
         "email": "rep.chris.todd@capitol.tn.gov",
         "phone": null,
         "address": null,
-        "website": "https://tnhousegop.org/members/representative-chris-todd/",
+        "website": null,
         "social": {}
       }
     ],
@@ -399,7 +399,7 @@
         "email": "rep.clay.doggett@capitol.tn.gov",
         "phone": null,
         "address": null,
-        "website": "https://tnhousegop.org/members/representative-clay-doggett/",
+        "website": null,
         "social": {}
       }
     ],
@@ -427,7 +427,7 @@
         "email": "rep.dave.wright@capitol.tn.gov",
         "phone": null,
         "address": null,
-        "website": "https://tnhousegop.org/members/representative-dave-wright/",
+        "website": null,
         "social": {}
       }
     ],
@@ -441,7 +441,7 @@
         "email": "rep.david.hawk@capitol.tn.gov",
         "phone": null,
         "address": null,
-        "website": "https://tnhousegop.org/members/representative-david-hawk/",
+        "website": null,
         "social": {}
       }
     ],
@@ -497,7 +497,7 @@
         "email": "rep.elaine.davis@capitol.tn.gov",
         "phone": null,
         "address": null,
-        "website": "https://tnhousegop.org/members/representative-elaine-davis/",
+        "website": null,
         "social": {}
       }
     ],
@@ -511,7 +511,7 @@
         "email": "rep.esther.helton@capitol.tn.gov",
         "phone": null,
         "address": null,
-        "website": "https://tnhousegop.org/members/representative-esther-helton-haynes/",
+        "website": null,
         "social": {}
       }
     ],
@@ -553,7 +553,7 @@
         "email": "rep.gary.hicks@capitol.tn.gov",
         "phone": null,
         "address": null,
-        "website": "https://tnhousegop.org/members/representative-gary-hicks/",
+        "website": null,
         "social": {}
       }
     ],
@@ -609,7 +609,7 @@
         "email": "rep.greg.vital@capitol.tn.gov",
         "phone": null,
         "address": null,
-        "website": "https://tnhousegop.org/members/representative-greg-vital/",
+        "website": null,
         "social": {}
       }
     ],
@@ -637,7 +637,7 @@
         "email": "rep.iris.rudder@capitol.tn.gov",
         "phone": null,
         "address": null,
-        "website": "https://tnhousegop.org/members/representative-iris-rudder/",
+        "website": null,
         "social": {}
       }
     ],
@@ -651,7 +651,7 @@
         "email": "rep.jake.mccalmon@capitol.tn.gov",
         "phone": null,
         "address": null,
-        "website": "https://tnhousegop.org/members/representative-jake-mccalmon/",
+        "website": null,
         "social": {}
       }
     ],
@@ -679,7 +679,7 @@
         "email": "rep.jason.zachary@capitol.tn.gov",
         "phone": null,
         "address": null,
-        "website": "https://tnhousegop.org/members/representative-jason-zachary/",
+        "website": null,
         "social": {}
       }
     ],
@@ -707,7 +707,7 @@
         "email": "rep.jeremy.faison@capitol.tn.gov",
         "phone": null,
         "address": null,
-        "website": "https://tnhousegop.org/members/representative-jeremy-faison/",
+        "website": null,
         "social": {}
       }
     ],
@@ -763,7 +763,7 @@
         "email": "rep.john.crawford@capitol.tn.gov",
         "phone": null,
         "address": null,
-        "website": "https://tnhousegop.org/members/representative-john-crawford/",
+        "website": null,
         "social": {}
       }
     ],
@@ -777,7 +777,7 @@
         "email": "rep.john.gillespie@capitol.tn.gov",
         "phone": null,
         "address": null,
-        "website": "https://tnhousegop.org/members/representative-john-gillespie/",
+        "website": null,
         "social": {}
       }
     ],
@@ -889,7 +889,7 @@
         "email": "rep.kelly.keisling@capitol.tn.gov",
         "phone": null,
         "address": null,
-        "website": "https://tnhousegop.org/members/representative-kelly-keisling/",
+        "website": null,
         "social": {}
       }
     ],
@@ -931,7 +931,7 @@
         "email": "rep.kip.capley@capitol.tn.gov",
         "phone": null,
         "address": null,
-        "website": "https://tnhousegop.org/members/representative-kip-capley/",
+        "website": null,
         "social": {}
       }
     ],
@@ -973,7 +973,7 @@
         "email": "rep.lee.reeves@capitol.tn.gov",
         "phone": null,
         "address": null,
-        "website": "https://tnhousegop.org/members/representative-lee-reeves/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1001,7 +1001,7 @@
         "email": "rep.mark.cochran@capitol.tn.gov",
         "phone": null,
         "address": null,
-        "website": "https://tnhousegop.org/members/representative-mark-cochran/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1029,7 +1029,7 @@
         "email": "rep.mary.littleton@capitol.tn.gov",
         "phone": null,
         "address": null,
-        "website": "https://tnhousegop.org/members/representative-mary-littleton/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1071,7 +1071,7 @@
         "email": "rep.michele.carringer@capitol.tn.gov",
         "phone": null,
         "address": null,
-        "website": "https://tnhousegop.org/members/representative-michele-carringer/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1085,7 +1085,7 @@
         "email": "rep.michele.reneau@capitol.tn.gov",
         "phone": null,
         "address": null,
-        "website": "https://tnhousegop.org/members/representative-michele-reneau/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1113,7 +1113,7 @@
         "email": "rep.monty.fritts@capitol.tn.gov",
         "phone": null,
         "address": null,
-        "website": "https://tnhousegop.org/members/representative-monty-fritts/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1127,7 +1127,7 @@
         "email": "rep.pat.marsh@capitol.tn.gov",
         "phone": null,
         "address": null,
-        "website": "https://tnhousegop.org/members/representative-pat-marsh/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1141,7 +1141,7 @@
         "email": "rep.paul.sherrell@capitol.tn.gov",
         "phone": null,
         "address": null,
-        "website": "https://tnhousegop.org/members/representative-paul-sherrell/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1253,7 +1253,7 @@
         "email": "rep.ron.travis@capitol.tn.gov",
         "phone": null,
         "address": null,
-        "website": "https://tnhousegop.org/members/representative-ron-travis/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1351,7 +1351,7 @@
         "email": "rep.scott.cepicky@capitol.tn.gov",
         "phone": null,
         "address": null,
-        "website": "https://tnhousegop.org/members/representative-scott-cepicky/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1379,7 +1379,7 @@
         "email": "rep.susan.lynn@capitol.tn.gov",
         "phone": null,
         "address": null,
-        "website": "https://tnhousegop.org/members/representative-susan-lynn/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1407,7 +1407,7 @@
         "email": "rep.tandy.darby@capitol.tn.gov",
         "phone": null,
         "address": null,
-        "website": "https://tnhousegop.org/members/representative-tandy-darby/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1421,7 +1421,7 @@
         "email": "rep.tim.hicks@capitol.tn.gov",
         "phone": null,
         "address": null,
-        "website": "https://tnhousegop.org/members/representative-tim-hicks/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1449,7 +1449,7 @@
         "email": "rep.timothy.hill@capitol.tn.gov",
         "phone": null,
         "address": null,
-        "website": "https://tnhousegop.org/members/representative-timothy-hill/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1463,7 +1463,7 @@
         "email": "rep.todd.warner@capitol.tn.gov",
         "phone": null,
         "address": null,
-        "website": "https://tnhousegop.org/members/representative-todd-warner/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1477,7 +1477,7 @@
         "email": "rep.tom.leatherwood@capitol.tn.gov",
         "phone": null,
         "address": null,
-        "website": "https://tnhousegop.org/members/representative-tom-leatherwood/",
+        "website": null,
         "social": {}
       }
     ],

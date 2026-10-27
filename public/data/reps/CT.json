@@ -6,7 +6,7 @@
     "ct.csv": "44c61cc950586acd498bbbb5161f2e568be33e1b81619baec28493bef33c3928"
   },
   "byKey": {
-    "CT:us-senate:00": [
+    "CT:us-senate:state": [
       {
         "id": "B001277",
         "name": "Richard Blumenthal",
@@ -181,7 +181,7 @@
         "email": "amy.romano@housegop.ct.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.cthousegop.com/Romano/",
+        "website": null,
         "social": {}
       }
     ],
@@ -265,7 +265,7 @@
         "email": "arnold.jensen@housegop.ct.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.cthousegop.com/jensen/",
+        "website": null,
         "social": {}
       }
     ],
@@ -279,7 +279,7 @@
         "email": "aundre.bumgardner@cga.ct.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.housedems.ct.gov/Bumgardner",
+        "website": null,
         "social": {}
       }
     ],
@@ -321,7 +321,7 @@
         "email": "bill.heffernan@cga.ct.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.housedems.ct.gov/heffernan",
+        "website": null,
         "social": {}
       }
     ],
@@ -419,7 +419,7 @@
         "email": "chris.aniskovich@housegop.ct.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.cthousegop.com/aniskovich/",
+        "website": null,
         "social": {}
       }
     ],
@@ -433,7 +433,7 @@
         "email": "chris.stewart@housegop.ct.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.cthousegop.com/stewart/",
+        "website": null,
         "social": {}
       }
     ],
@@ -461,7 +461,7 @@
         "email": "chris.poulos@cga.ct.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.housedems.ct.gov/poulos",
+        "website": null,
         "social": {}
       }
     ],
@@ -531,7 +531,7 @@
         "email": "daniel.gaiewski@cga.ct.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.housedems.ct.gov/gaiewski",
+        "website": null,
         "social": {}
       }
     ],
@@ -545,7 +545,7 @@
         "email": "dave.defronzo@cga.ct.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.housedems.ct.gov/DeFronzo",
+        "website": null,
         "social": {}
       }
     ],
@@ -587,7 +587,7 @@
         "email": "derell.wilson@cga.ct.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.housedems.ct.gov/Wilson",
+        "website": null,
         "social": {}
       }
     ],
@@ -615,7 +615,7 @@
         "email": "dominique.johnson@cga.ct.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.housedems.ct.gov/JohnsonD",
+        "website": null,
         "social": {}
       }
     ],
@@ -657,7 +657,7 @@
         "email": "eilish.collinsmain@cga.ct.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.housedems.ct.gov/CollinsMain",
+        "website": null,
         "social": {}
       }
     ],
@@ -699,7 +699,7 @@
         "email": "farley.santos@cga.ct.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.housedems.ct.gov/Santos",
+        "website": null,
         "social": {}
       }
     ],
@@ -727,7 +727,7 @@
         "email": "fred.gee@cga.ct.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.housedems.ct.gov/gee",
+        "website": null,
         "social": {}
       }
     ],
@@ -825,7 +825,7 @@
         "email": "hector.arzeno@cga.ct.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.housedems.ct.gov/arzeno",
+        "website": null,
         "social": {}
       }
     ],
@@ -895,7 +895,7 @@
         "email": "iris.sanchez@cga.ct.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.ct.gov/SanchezI",
+        "website": null,
         "social": {}
       }
     ],
@@ -923,7 +923,7 @@
         "email": "james.sanchez@cga.ct.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.housedems.ct.gov/sanchezJ",
+        "website": null,
         "social": {}
       }
     ],
@@ -951,7 +951,7 @@
         "email": "jason.buchsbaum@housegop.ct.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.cthousegop.com/buchsbaum/",
+        "website": null,
         "social": {}
       }
     ],
@@ -965,7 +965,7 @@
         "email": "jason.doucette@cga.ct.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.ct.gov/doucette",
+        "website": null,
         "social": {}
       }
     ],
@@ -1049,7 +1049,7 @@
         "email": "joe.canino@housegop.ct.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.cthousegop.com/canino/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1063,7 +1063,7 @@
         "email": "joe.hoxha@housegop.ct.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.cthousegop.com/hoxha/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1119,7 +1119,7 @@
         "email": "john.santanella@cga.ct.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.housedems.ct.gov/Santanella",
+        "website": null,
         "social": {}
       }
     ],
@@ -1133,7 +1133,7 @@
         "email": "jack.fazzino@cga.ct.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.housedems.ct.gov/Fazzino",
+        "website": null,
         "social": {}
       }
     ],
@@ -1147,7 +1147,7 @@
         "email": "jonathan.jacobson@cga.ct.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.housedems.ct.gov/Jacobson",
+        "website": null,
         "social": {}
       }
     ],
@@ -1259,7 +1259,7 @@
         "email": "kadeem.roberts@cga.ct.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.housedems.ct.gov/Roberts",
+        "website": null,
         "social": {}
       }
     ],
@@ -1273,7 +1273,7 @@
         "email": "kai.belton@cga.ct.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.ct.gov/belton",
+        "website": null,
         "social": {}
       }
     ],
@@ -1287,7 +1287,7 @@
         "email": "kaitlyn.shake@cga.ct.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.housedems.ct.gov/Shake",
+        "website": null,
         "social": {}
       }
     ],
@@ -1315,7 +1315,7 @@
         "email": "karen.reddington-hughes@housegop.ct.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.cthousegop.com/Reddington-Hughes/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1357,7 +1357,7 @@
         "email": "ken.gucker@cga.ct.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.housedems.ct.gov/gucker",
+        "website": null,
         "social": {}
       }
     ],
@@ -1385,7 +1385,7 @@
         "email": "kevin.brown@cga.ct.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.housedems.ct.gov/BrownK",
+        "website": null,
         "social": {}
       }
     ],
@@ -1427,7 +1427,7 @@
         "email": "larry.pemberton@cga.ct.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.housedems.ct.gov/pemberton",
+        "website": null,
         "social": {}
       }
     ],
@@ -1441,7 +1441,7 @@
         "email": "laurie.sweet@cga.ct.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.housedems.ct.gov/Sweet",
+        "website": null,
         "social": {}
       }
     ],
@@ -1497,7 +1497,7 @@
         "email": "mj.shannon@cga.ct.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.housedems.ct.gov/Shannon",
+        "website": null,
         "social": {}
       }
     ],
@@ -1511,7 +1511,7 @@
         "email": "marcus.brown@cga.ct.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.housedems.ct.gov/BrownM",
+        "website": null,
         "social": {}
       }
     ],
@@ -1539,7 +1539,7 @@
         "email": "mark.decaprio@housegop.ct.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.cthousegop.com/decaprio/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1567,7 +1567,7 @@
         "email": "martin.foncello@housegop.ct.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.cthousegop.com/Foncello/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1581,7 +1581,7 @@
         "email": "mary.fortier@cga.ct.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.housedems.ct.gov/Fortier",
+        "website": null,
         "social": {}
       }
     ],
@@ -1665,7 +1665,7 @@
         "email": "melissa.osborne@cga.ct.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.housedems.ct.gov/Osborne",
+        "website": null,
         "social": {}
       }
     ],
@@ -1749,7 +1749,7 @@
         "email": "moira.rader@cga.ct.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.housedems.ct.gov/Rader",
+        "website": null,
         "social": {}
       }
     ],
@@ -1763,7 +1763,7 @@
         "email": "nick.gauthier@cga.ct.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.housedems.ct.gov/Gauthier",
+        "website": null,
         "social": {}
       }
     ],
@@ -1777,7 +1777,7 @@
         "email": "nick.menapace@cga.ct.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.housedems.ct.gov/Menapace",
+        "website": null,
         "social": {}
       }
     ],
@@ -1819,7 +1819,7 @@
         "email": "patrick.biggins@cga.ct.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.housedems.ct.gov/Biggins",
+        "website": null,
         "social": {}
       }
     ],
@@ -1875,7 +1875,7 @@
         "email": "rebecca.martinez@cga.ct.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.housedems.ct.gov/martinez",
+        "website": null,
         "social": {}
       }
     ],
@@ -1889,7 +1889,7 @@
         "email": "renee.lamarkmuir@cga.ct.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.housedems.ct.gov/LaMarkMuir",
+        "website": null,
         "social": {}
       }
     ],
@@ -1945,7 +1945,7 @@
         "email": "sarah.keitt@cga.ct.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.housedems.ct.gov/keitt",
+        "website": null,
         "social": {}
       }
     ],
@@ -1959,7 +1959,7 @@
         "email": "savet.constantine@cga.ct.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.housedems.ct.gov/Constantine",
+        "website": null,
         "social": {}
       }
     ],
@@ -1973,7 +1973,7 @@
         "email": "seth.bronko@housegop.ct.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.cthousegop.com/Bronko/",
+        "website": null,
         "social": {}
       }
     ],
@@ -2001,7 +2001,7 @@
         "email": "steve.weir@housegop.ct.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.cthousegop.com/Weir/",
+        "website": null,
         "social": {}
       }
     ],
@@ -2029,7 +2029,7 @@
         "email": "steve.winter@cga.ct.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.housedems.ct.gov/Winter",
+        "website": null,
         "social": {}
       }
     ],
@@ -2113,7 +2113,7 @@
         "email": "tina.courpas@housegop.ct.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.cthousegop.com/courpas/",
+        "website": null,
         "social": {}
       }
     ],
@@ -2183,7 +2183,7 @@
         "email": "tracy.marra@housegop.ct.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.cthousegop.com/Marra/",
+        "website": null,
         "social": {}
       }
     ],
@@ -2281,7 +2281,7 @@
         "email": "ceci.maher@cga.ct.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.senatedems.ct.gov/maher",
+        "website": null,
         "social": {}
       }
     ],
@@ -2393,7 +2393,7 @@
         "email": "herron.gaston@cga.ct.gov",
         "phone": null,
         "address": null,
-        "website": "https://senatedems.ct.gov/gaston",
+        "website": null,
         "social": {}
       }
     ],
@@ -2421,7 +2421,7 @@
         "email": "jan.hochadel@cga.ct.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.senatedems.ct.gov/hochadel",
+        "website": null,
         "social": {}
       }
     ],
@@ -2449,7 +2449,7 @@
         "email": "jeffrey.gordon@cga.ct.gov",
         "phone": null,
         "address": null,
-        "website": "https://ctsenaterepublicans.com/home-gordon/",
+        "website": null,
         "social": {}
       }
     ],
@@ -2463,7 +2463,7 @@
         "email": "hartley@senatedems.ct.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.senatedems.ct.gov/Hartley",
+        "website": null,
         "social": {}
       }
     ],
@@ -2533,7 +2533,7 @@
         "email": "md.rahman@cga.ct.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.senatedems.ct.gov/Rahman",
+        "website": null,
         "social": {}
       }
     ],
@@ -2561,7 +2561,7 @@
         "email": "martha.marx@cga.ct.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.senatedems.ct.gov/marx",
+        "website": null,
         "social": {}
       }
     ],
@@ -2645,7 +2645,7 @@
         "email": "paul.honig@cga.ct.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.senatedems.ct.gov/senator/paul-honig",
+        "website": null,
         "social": {}
       }
     ],
@@ -2729,7 +2729,7 @@
         "email": "gadkarwilcox@senatedems.ct.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.senatedems.ct.gov/senator/sujata-gadkar-wilcox",
+        "website": null,
         "social": {}
       }
     ],

@@ -6,7 +6,7 @@
     "mn.csv": "24ed9cf712ea0680e7e895832aa3ca90cf7450f10875e6a99eee5f5292e7cc7d"
   },
   "byKey": {
-    "MN:us-senate:00": [
+    "MN:us-senate:state": [
       {
         "id": "K000367",
         "name": "Amy Klobuchar",
@@ -2414,7 +2414,7 @@
         "email": "sen.jason.rarick@mnsenate.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.mnsenaterepublicans.com/jason-rarick/",
+        "website": null,
         "social": {}
       }
     ],

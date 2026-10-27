@@ -6,7 +6,7 @@
     "ia.csv": "c71ed1d7bbcd3bb8fbad51154b30c4319f4bc4ea5f3073eb7b79a9b81702eaa4"
   },
   "byKey": {
-    "IA:us-senate:00": [
+    "IA:us-senate:state": [
       {
         "id": "G000386",
         "name": "Chuck Grassley",
@@ -175,7 +175,7 @@
         "email": "ann.meyer@legis.iowa.gov",
         "phone": null,
         "address": null,
-        "website": "https://iowahouserepublicans.nationbuilder.com/reps",
+        "website": null,
         "social": {}
       }
     ],
@@ -287,7 +287,7 @@
         "email": "bobby.kaufmann@legis.iowa.gov",
         "phone": null,
         "address": null,
-        "website": "https://iowahouserepublicans.nationbuilder.com/reps",
+        "website": null,
         "social": {}
       }
     ],
@@ -301,7 +301,7 @@
         "email": "brent.siegrist@legis.iowa.gov",
         "phone": null,
         "address": null,
-        "website": "https://iowahouserepublicans.nationbuilder.com/reps",
+        "website": null,
         "social": {}
       }
     ],
@@ -329,7 +329,7 @@
         "email": "brian.lohse@legis.iowa.gov",
         "phone": null,
         "address": null,
-        "website": "https://gop.us20.list-manage.com/subscribe?u=871f3d222fc2ae8e3dd8b683a&id=5f02846a39",
+        "website": null,
         "social": {}
       }
     ],
@@ -371,7 +371,7 @@
         "email": "carter.nordman@legis.iowa.gov",
         "phone": null,
         "address": null,
-        "website": "https://iowahouserepublicans.nationbuilder.com/reps",
+        "website": null,
         "social": {}
       }
     ],
@@ -469,7 +469,7 @@
         "email": "craig.williams@legis.iowa.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.iowasenaterepublicans.com/senators/craig-williams/",
+        "website": null,
         "social": {}
       }
     ],
@@ -553,7 +553,7 @@
         "email": "david.sieck@legis.iowa.gov",
         "phone": null,
         "address": null,
-        "website": "https://iowahouserepublicans.nationbuilder.com/reps",
+        "website": null,
         "social": {}
       }
     ],
@@ -609,7 +609,7 @@
         "email": "eddie.andrews@legis.iowa.gov",
         "phone": null,
         "address": null,
-        "website": "https://iowahouserepublicans.nationbuilder.com/reps",
+        "website": null,
         "social": {}
       }
     ],
@@ -763,7 +763,7 @@
         "email": "jacob.bossman@legis.iowa.gov",
         "phone": null,
         "address": null,
-        "website": "https://iowahouserepublicans.nationbuilder.com/reps",
+        "website": null,
         "social": {}
       }
     ],
@@ -777,7 +777,7 @@
         "email": "jane.bloomingdale@legis.iowa.gov",
         "phone": null,
         "address": null,
-        "website": "https://iowahouserepublicans.nationbuilder.com/reps",
+        "website": null,
         "social": {}
       }
     ],
@@ -819,7 +819,7 @@
         "email": "jeff.shipley@legis.iowa.gov",
         "phone": null,
         "address": null,
-        "website": "https://iowahouserepublicans.nationbuilder.com/reps",
+        "website": null,
         "social": {}
       }
     ],
@@ -875,7 +875,7 @@
         "email": "john.wills@legis.iowa.gov",
         "phone": null,
         "address": null,
-        "website": "https://iowahouserepublicans.nationbuilder.com/reps",
+        "website": null,
         "social": {}
       }
     ],
@@ -987,7 +987,7 @@
         "email": "mark.cisneros@legis.iowa.gov",
         "phone": null,
         "address": null,
-        "website": "https://iowahouserepublicans.nationbuilder.com/reps",
+        "website": null,
         "social": {}
       }
     ],
@@ -1029,7 +1029,7 @@
         "email": "matt.windschitl@legis.iowa.gov",
         "phone": null,
         "address": null,
-        "website": "https://iowahouserepublicans.nationbuilder.com/admin/sites/2/pages/30/preview?browser_id=default&logged_in=0&theme_id=5cf7e407c294800185b6c2c2",
+        "website": null,
         "social": {}
       }
     ],
@@ -1127,7 +1127,7 @@
         "email": "norlin.mommsen@legis.iowa.gov",
         "phone": null,
         "address": null,
-        "website": "https://iowahouserepublicans.nationbuilder.com/reps",
+        "website": null,
         "social": {}
       }
     ],
@@ -1141,7 +1141,7 @@
         "email": "pat.grassley@legis.iowa.gov",
         "phone": null,
         "address": null,
-        "website": "https://iowahouserepublicans.nationbuilder.com/Grassley",
+        "website": null,
         "social": {}
       }
     ],
@@ -1295,7 +1295,7 @@
         "email": "shannon.latham@legis.iowa.gov",
         "phone": null,
         "address": null,
-        "website": "https://iowahouserepublicans.nationbuilder.com/reps",
+        "website": null,
         "social": {}
       }
     ],
@@ -1323,7 +1323,7 @@
         "email": "skyler.wheeler@legis.iowa.gov",
         "phone": null,
         "address": null,
-        "website": "https://iowahouserepublicans.nationbuilder.com/reps",
+        "website": null,
         "social": {}
       }
     ],
@@ -1337,7 +1337,7 @@
         "email": "steven.bradley@legis.iowa.gov",
         "phone": null,
         "address": null,
-        "website": "https://iowahouserepublicans.nationbuilder.com/reps",
+        "website": null,
         "social": {}
       }
     ],
@@ -1351,7 +1351,7 @@
         "email": "steven.holt@legis.iowa.gov",
         "phone": null,
         "address": null,
-        "website": "https://iowahouserepublicans.nationbuilder.com/reps",
+        "website": null,
         "social": {}
       }
     ],
@@ -1379,7 +1379,7 @@
         "email": "thomas.gerhold@legis.iowa.gov",
         "phone": null,
         "address": null,
-        "website": "https://iowahouserepublicans.nationbuilder.com/reps",
+        "website": null,
         "social": {}
       }
     ],
@@ -1421,7 +1421,7 @@
         "email": "tom.jeneary@legis.iowa.gov",
         "phone": null,
         "address": null,
-        "website": "https://iowahouserepublicans.nationbuilder.com/reps",
+        "website": null,
         "social": {}
       }
     ],
@@ -1435,7 +1435,7 @@
         "email": "tom.moore@legis.iowa.gov",
         "phone": null,
         "address": null,
-        "website": "https://iowahouserepublicans.nationbuilder.com/reps",
+        "website": null,
         "social": {}
       }
     ],
@@ -1505,7 +1505,7 @@
         "email": "adrian.dickey@legis.iowa.gov",
         "phone": null,
         "address": null,
-        "website": "https://iowasenaterepublicans.com/senators/adrian-dickey/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1519,7 +1519,7 @@
         "email": "amy.sinclair@legis.iowa.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.iowasenaterepublicans.com/senators/amy-sinclair/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1533,7 +1533,7 @@
         "email": "annette.sweeney@legis.iowa.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.iowasenaterepublicans.com/senators/annette-sweeney/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1561,7 +1561,7 @@
         "email": "carrie.koelker@legis.iowa.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.iowasenaterepublicans.com/senators/carrie-koelker/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1603,7 +1603,7 @@
         "email": "cherielynn.westrich@legis.iowa.gov",
         "phone": null,
         "address": null,
-        "website": "https://iowasenaterepublicans.com/senators/cherielynn-westrich/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1631,7 +1631,7 @@
         "email": "dan.dawson@legis.iowa.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.iowasenaterepublicans.com/senators/dan-dawson/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1645,7 +1645,7 @@
         "email": "dan.zumbach@legis.iowa.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.iowasenaterepublicans.com/senators/dan-zumbach/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1673,7 +1673,7 @@
         "email": "david.rowley@legis.iowa.gov",
         "phone": null,
         "address": null,
-        "website": "https://iowasenaterepublicans.com/senators/dave-rowley/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1687,7 +1687,7 @@
         "email": "dawn.driscoll@legis.iowa.gov",
         "phone": null,
         "address": null,
-        "website": "https://iowasenaterepublicans.com/senators/dawn-driscoll/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1701,7 +1701,7 @@
         "email": "dennis.guth@legis.iowa.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.iowasenaterepublicans.com/senators/dennis-guth/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1757,7 +1757,7 @@
         "email": "jack.whitver@legis.iowa.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.iowasenaterepublicans.com/senators/jack-whitver/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1799,7 +1799,7 @@
         "email": "jason.schultz@legis.iowa.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.iowasenaterepublicans.com/senators/jason-schultz/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1813,7 +1813,7 @@
         "email": "jeff.reichman@legis.iowa.gov",
         "phone": null,
         "address": null,
-        "website": "https://iowasenaterepublicans.com/senators/jeff-reichman/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1827,7 +1827,7 @@
         "email": "jeff.taylor@legis.iowa.gov",
         "phone": null,
         "address": null,
-        "website": "https://iowasenaterepublicans.com/senators/jeff-taylor/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1841,7 +1841,7 @@
         "email": "jesse.green@legis.iowa.gov",
         "phone": null,
         "address": null,
-        "website": "https://iowasenaterepublicans.com/senators/jesse-green/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1869,7 +1869,7 @@
         "email": "ken.rozenboom@legis.iowa.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.iowasenaterepublicans.com/senators/ken-rozenboom/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1883,7 +1883,7 @@
         "email": "kerry.gruenhagen@legis.iowa.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.iowasenaterepublicans.com/senators/kerry-gruenhagen/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1897,7 +1897,7 @@
         "email": "kevin.alons@legis.iowa.gov",
         "phone": null,
         "address": null,
-        "website": "https://iowasenaterepublicans.com/senators/kevin-alons/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1925,7 +1925,7 @@
         "email": "lynn.evans@legis.iowa.gov",
         "phone": null,
         "address": null,
-        "website": "https://iowasenaterepublicans.com/senators/lynn-evans/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1939,7 +1939,7 @@
         "email": "mark.costello@legis.iowa.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.iowasenaterepublicans.com/senators/mark-costello/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1953,7 +1953,7 @@
         "email": "mark.lofgren@legis.iowa.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.iowasenaterepublicans.com/senators/mark-lofgren/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1981,7 +1981,7 @@
         "email": "mike.bousselot@legis.iowa.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.iowasenaterepublicans.com/senators/mike-bousselot/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1995,7 +1995,7 @@
         "email": "mike.klimesh@legis.iowa.gov",
         "phone": null,
         "address": null,
-        "website": "https://iowasenaterepublicans.com/senators/mike-klimesh/",
+        "website": null,
         "social": {}
       }
     ],
@@ -2065,7 +2065,7 @@
         "email": "sandy.salmon@legis.iowa.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.iowasenaterepublicans.com/senators/sandy-salmon/",
+        "website": null,
         "social": {}
       }
     ],
@@ -2093,7 +2093,7 @@
         "email": "scott.webster@legis.iowa.gov",
         "phone": null,
         "address": null,
-        "website": "https://iowasenaterepublicans.com/senators/scott-webster/",
+        "website": null,
         "social": {}
       }
     ],
@@ -2107,7 +2107,7 @@
         "email": "tim.kraayenbrink@legis.iowa.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.iowasenaterepublicans.com/senators/tim-kraayenbrink/",
+        "website": null,
         "social": {}
       }
     ],
@@ -2121,7 +2121,7 @@
         "email": "tom.shipley@legis.iowa.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.iowasenaterepublicans.com/senators/tom-shipley/",
+        "website": null,
         "social": {}
       }
     ],

@@ -6,7 +6,7 @@
     "de.csv": "2f50408528912358dda21559fef9264ed1fb611a6b4e7a45e96d1287f458fb18"
   },
   "byKey": {
-    "DE:us-senate:00": [
+    "DE:us-senate:state": [
       {
         "id": "C001088",
         "name": "Christopher A. Coons",
@@ -67,7 +67,7 @@
         "email": "alonna.berry@delaware.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.delaware.gov/members/house-district-20/",
+        "website": null,
         "social": {
           "facebook": "RepAlonnaBerry",
           "instagram": "repalonnaberry"
@@ -84,7 +84,7 @@
         "email": "bryan.shupe@delaware.gov",
         "phone": null,
         "address": null,
-        "website": "https://housegop.delaware.gov/members/house-district-36/",
+        "website": null,
         "social": {
           "facebook": "BryanShupeDelaware",
           "instagram": "bryanshupedelaware"
@@ -101,7 +101,7 @@
         "email": "charles.postles@delaware.gov",
         "phone": null,
         "address": null,
-        "website": "https://housegop.delaware.gov/members/house-district-33/",
+        "website": null,
         "social": {
           "facebook": "Postles33rd"
         }
@@ -117,7 +117,7 @@
         "email": "claire.snyder-hall@delaware.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.delaware.gov/members/house-district-14/",
+        "website": null,
         "social": {}
       }
     ],
@@ -131,7 +131,7 @@
         "email": "cyndie.romer@delaware.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.delaware.gov/members/house-district-25/",
+        "website": null,
         "social": {
           "facebook": "RepCyndieRomer",
           "instagram": "repcyndieromer"
@@ -148,7 +148,7 @@
         "email": "daniel.short@delaware.gov",
         "phone": null,
         "address": null,
-        "website": "https://housegop.delaware.gov/members/house-district-39/",
+        "website": null,
         "social": {
           "facebook": "dannyshort39th"
         }
@@ -164,7 +164,7 @@
         "email": "deshanna.neal@delaware.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.delaware.gov/members/house-district-13/",
+        "website": null,
         "social": {
           "x": "DeShanna4DE13",
           "facebook": "RepDeShannaNeal"
@@ -181,7 +181,7 @@
         "email": "debra.heffernan@delaware.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.delaware.gov/members/house-district-6/",
+        "website": null,
         "social": {
           "x": "DebraHeffernan",
           "facebook": "RepDebraHeffernan",
@@ -199,7 +199,7 @@
         "email": "edward.osienski@delaware.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.delaware.gov/members/house-district-24/",
+        "website": null,
         "social": {
           "facebook": "EdOsienski",
           "instagram": "repedosienski"
@@ -216,7 +216,7 @@
         "email": "eric.morrison@delaware.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.delaware.gov/members/house-district-27/",
+        "website": null,
         "social": {
           "x": "EricMorrison_DE",
           "facebook": "RepEricMorrison",
@@ -234,7 +234,7 @@
         "email": "frank.burns@delaware.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.delaware.gov/members/house-district-21/",
+        "website": null,
         "social": {
           "facebook": "RepresentativeFrankBurns",
           "instagram": "repfrankburns"
@@ -251,7 +251,7 @@
         "email": "franklind.cooke@delaware.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.delaware.gov/members/house-district-16/",
+        "website": null,
         "social": {
           "facebook": "repfranklincooke",
           "instagram": "repfranklincooke"
@@ -268,7 +268,7 @@
         "email": "jeff.hilovsky@delaware.gov",
         "phone": null,
         "address": null,
-        "website": "https://housegop.delaware.gov/members/house-district-4/",
+        "website": null,
         "social": {}
       }
     ],
@@ -282,7 +282,7 @@
         "email": "jeff.spiegelman@delaware.gov",
         "phone": null,
         "address": null,
-        "website": "https://housegop.delaware.gov/members/house-district-11/",
+        "website": null,
         "social": {
           "facebook": "friends4jeff"
         }
@@ -298,7 +298,7 @@
         "email": "jesse.vanderwende@delaware.gov",
         "phone": null,
         "address": null,
-        "website": "https://housegop.delaware.gov/members/house-district-35/",
+        "website": null,
         "social": {}
       }
     ],
@@ -312,7 +312,7 @@
         "email": "josue.ortega@delaware.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.delaware.gov/members/house-district-3/",
+        "website": null,
         "social": {
           "facebook": "RepOrtega",
           "instagram": "electjosueortega"
@@ -329,7 +329,7 @@
         "email": "kamela.smith@delaware.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.delaware.gov/members/house-district-15/",
+        "website": null,
         "social": {
           "facebook": "RepKamSmith",
           "instagram": "repkamelasmith"
@@ -346,7 +346,7 @@
         "email": "kendra.johnson@delaware.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.delaware.gov/members/house-district-5/",
+        "website": null,
         "social": {
           "facebook": "RepKendraJohnson"
         }
@@ -362,7 +362,7 @@
         "email": "kerrievelyn.harris@delaware.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.delaware.gov/members/house-district-32/",
+        "website": null,
         "social": {
           "x": "KEEVHA_DE",
           "facebook": "RepKerriEvelynHarris",
@@ -380,7 +380,7 @@
         "email": "kevin.hensley@delaware.gov",
         "phone": null,
         "address": null,
-        "website": "https://housegop.delaware.gov/members/house-district-9/",
+        "website": null,
         "social": {
           "facebook": "repkevinhensley"
         }
@@ -396,7 +396,7 @@
         "email": "kimberly.williams@delaware.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.delaware.gov/members/house-district-19/",
+        "website": null,
         "social": {
           "x": "kimwilliamsde",
           "facebook": "KimWilliamsForStateRepresentative"
@@ -413,7 +413,7 @@
         "email": "krista.griffith@delaware.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.delaware.gov/members/house-district-12/",
+        "website": null,
         "social": {
           "facebook": "RepKristaGriffith",
           "instagram": "repkristagriffith"
@@ -430,7 +430,7 @@
         "email": "larry.lambert@delaware.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.delaware.gov/members/house-district-7/",
+        "website": null,
         "social": {
           "x": "LarryForDel",
           "facebook": "RepLarryLambert"
@@ -447,7 +447,7 @@
         "email": "lyndon.yearick@delaware.gov",
         "phone": null,
         "address": null,
-        "website": "https://housegop.delaware.gov/members/house-district-34/",
+        "website": null,
         "social": {
           "facebook": "YearickforDelaware"
         }
@@ -463,7 +463,7 @@
         "email": "madinah.wilson-anton@delaware.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.delaware.gov/members/house-district-26/",
+        "website": null,
         "social": {
           "x": "MadinahForDE",
           "facebook": "RepMadinah",
@@ -481,7 +481,7 @@
         "email": "mara.gorman@delaware.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.delaware.gov/members/house-district-23/",
+        "website": null,
         "social": {
           "facebook": "RepMaraGorman",
           "instagram": "repmaragorman"
@@ -498,7 +498,7 @@
         "email": "melanie.rosslevin@delaware.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.delaware.gov/members/house-district-10/",
+        "website": null,
         "social": {
           "facebook": "RepRossLevin",
           "instagram": "repmelanierosslevin"
@@ -515,7 +515,7 @@
         "email": "melissa.minorbrown@delaware.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.delaware.gov/members/house-district-17/",
+        "website": null,
         "social": {
           "x": "RepMinor",
           "facebook": "RepMelissaMinorBrown",
@@ -533,7 +533,7 @@
         "email": "michael.f.smith@delaware.gov",
         "phone": null,
         "address": null,
-        "website": "https://housegop.delaware.gov/members/house-district-22/",
+        "website": null,
         "social": {
           "x": "ILikeMikeSmith",
           "facebook": "staterepresentativemikesmith",
@@ -551,7 +551,7 @@
         "email": "nnamdi.chukwuocha@delaware.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.delaware.gov/members/house-district-1/",
+        "website": null,
         "social": {
           "facebook": "RepNnamdiChukwuocha",
           "instagram": "nnamdi1ststaterep"
@@ -568,7 +568,7 @@
         "email": "rich.collins@delaware.gov",
         "phone": null,
         "address": null,
-        "website": "https://housegop.delaware.gov/members/house-district-41/",
+        "website": null,
         "social": {}
       }
     ],
@@ -582,7 +582,7 @@
         "email": "ronald.gray@delaware.gov",
         "phone": null,
         "address": null,
-        "website": "https://housegop.delaware.gov/members/house-district-38/",
+        "website": null,
         "social": {
           "facebook": "statereprongray"
         }
@@ -598,7 +598,7 @@
         "email": "sean.lynn@delaware.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.delaware.gov/members/house-district-31/",
+        "website": null,
         "social": {}
       }
     ],
@@ -612,7 +612,7 @@
         "email": "rae.moore@delaware.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.delaware.gov/members/house-district-8/",
+        "website": null,
         "social": {
           "x": "MooreforDE",
           "facebook": "RepRaeMoore",
@@ -630,7 +630,7 @@
         "email": "sophie.phillips@delaware.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.delaware.gov/members/house-district-18/",
+        "website": null,
         "social": {
           "x": "sophiekp4de",
           "facebook": "RepSophiePhillips",
@@ -648,7 +648,7 @@
         "email": "stephaniet.bolden@delaware.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.delaware.gov/members/house-district-2/",
+        "website": null,
         "social": {
           "facebook": "RepBolden",
           "instagram": "repbolden"
@@ -665,7 +665,7 @@
         "email": "timothy.dukes@delaware.gov",
         "phone": null,
         "address": null,
-        "website": "https://housegop.delaware.gov/members/house-district-40/",
+        "website": null,
         "social": {
           "x": "timothydukes",
           "facebook": "RepresentativeTimDukes",
@@ -683,7 +683,7 @@
         "email": "valerie.jonesgiltner@delaware.gov",
         "phone": null,
         "address": null,
-        "website": "https://housegop.delaware.gov/members/house-district-37/",
+        "website": null,
         "social": {
           "facebook": "StateRepresentativeValerieJonesGiltner"
         }
@@ -699,7 +699,7 @@
         "email": "shannon.morris@delaware.gov",
         "phone": null,
         "address": null,
-        "website": "https://housegop.delaware.gov/members/house-district-30/",
+        "website": null,
         "social": {
           "facebook": "staterepshannonmorris"
         }
@@ -715,7 +715,7 @@
         "email": "william.bush@delaware.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.delaware.gov/members/house-district-29/",
+        "website": null,
         "social": {
           "facebook": "RepBillBush"
         }
@@ -731,7 +731,7 @@
         "email": "william.carson@delaware.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.delaware.gov/members/house-district-28/",
+        "website": null,
         "social": {
           "facebook": "RepWilliamCarson",
           "instagram": "repwilliamcarson"
@@ -799,7 +799,7 @@
         "email": "daniel.cruce@delaware.gov",
         "phone": null,
         "address": null,
-        "website": "https://senatedems.delaware.gov/members/senate-district-1/",
+        "website": null,
         "social": {
           "facebook": "SenDanCruce",
           "instagram": "cruceforsenate"
@@ -1001,7 +1001,7 @@
         "email": "ray.seigfried@delaware.gov",
         "phone": null,
         "address": null,
-        "website": "https://senatedems.delaware.gov/members/senate-district-5/",
+        "website": null,
         "social": {
           "facebook": "SenRaySeigfried"
         }

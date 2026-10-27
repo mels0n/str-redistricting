@@ -24,7 +24,7 @@
         }
       }
     ],
-    "IN:us-senate:00": [
+    "IN:us-senate:state": [
       {
         "id": "Y000064",
         "name": "Todd Young",
@@ -1033,7 +1033,7 @@
         "email": "h50@iga.in.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.indianahouserepublicans.com/members/general/lorissa-sweet",
+        "website": null,
         "social": {}
       }
     ],
@@ -1621,7 +1621,7 @@
         "email": "s46@iga.in.gov",
         "phone": null,
         "address": null,
-        "website": "https://indianasenatedemocrats.org/senators/s46/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1649,7 +1649,7 @@
         "email": "s24@iga.in.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.indianasenaterepublicans.com/clark",
+        "website": null,
         "social": {}
       }
     ],
@@ -1691,7 +1691,7 @@
         "email": "s36@iga.in.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.indianasenaterepublicans.com/carrasco",
+        "website": null,
         "social": {}
       }
     ],
@@ -1705,7 +1705,7 @@
         "email": "s1@iga.in.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.indianasenaterepublicans.com/dernulc",
+        "website": null,
         "social": {}
       }
     ],
@@ -1719,7 +1719,7 @@
         "email": "s48@iga.in.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.indianasenaterepublicans.com/schmitt",
+        "website": null,
         "social": {}
       }
     ],
@@ -1820,7 +1820,7 @@
         "email": "s38@iga.in.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.indianasenaterepublicans.com/goode",
+        "website": null,
         "social": {}
       }
     ],
@@ -2109,7 +2109,7 @@
         "email": "s43@iga.in.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.indianasenaterepublicans.com/maxwell",
+        "website": null,
         "social": {}
       }
     ],
@@ -2137,7 +2137,7 @@
         "email": "s4@iga.in.gov",
         "phone": null,
         "address": null,
-        "website": "https://indianasenatedemocrats.org/senators/s4/",
+        "website": null,
         "social": {
           "x": "SenRodneyPol",
           "facebook": "StateSenatorRodneyPolJr"
@@ -2196,7 +2196,7 @@
         "email": "s26@iga.in.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.indianasenaterepublicans.com/alexander",
+        "website": null,
         "social": {}
       }
     ],
@@ -2241,7 +2241,7 @@
         "email": "s23@iga.in.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.indianasenaterepublicans.com/deery",
+        "website": null,
         "social": {}
       }
     ],
@@ -2297,7 +2297,7 @@
         "email": "s14@iga.in.gov",
         "phone": null,
         "address": null,
-        "website": "https://www.indianasenaterepublicans.com/johnson",
+        "website": null,
         "social": {}
       }
     ],

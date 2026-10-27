@@ -24,7 +24,7 @@
         }
       }
     ],
-    "MI:us-senate:00": [
+    "MI:us-senate:state": [
       {
         "id": "P000595",
         "name": "Gary C. Peters",
@@ -282,7 +282,7 @@
         "email": "alabasfarhat@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.com/Alabas-Farhat/",
+        "website": null,
         "social": {}
       }
     ],
@@ -296,7 +296,7 @@
         "email": "aliciastgermaine@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://gophouse.org/member/RepAliciaStGermaine/posts",
+        "website": null,
         "social": {}
       }
     ],
@@ -310,7 +310,7 @@
         "email": "amosoneal@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.com/amos-oneal/",
+        "website": null,
         "social": {}
       }
     ],
@@ -324,7 +324,7 @@
         "email": "angelarigas@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://gophouse.org/member/RepAngelaRigas/posts",
+        "website": null,
         "social": {}
       }
     ],
@@ -338,7 +338,7 @@
         "email": "angelawitwer@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.com/angela-witwer/",
+        "website": null,
         "social": {}
       }
     ],
@@ -352,7 +352,7 @@
         "email": "annbollin@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://gophouse.org/member/repannbollin/about",
+        "website": null,
         "social": {}
       }
     ],
@@ -366,7 +366,7 @@
         "email": "betsycoffia@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.com/Betsy-Coffia/",
+        "website": null,
         "social": {}
       }
     ],
@@ -380,7 +380,7 @@
         "email": "billschuette@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://gophouse.org/member/RepBillGSchuette/posts",
+        "website": null,
         "social": {}
       }
     ],
@@ -394,7 +394,7 @@
         "email": "bradpaquette@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://gophouse.org/member/repbradpaquette/about",
+        "website": null,
         "social": {}
       }
     ],
@@ -408,7 +408,7 @@
         "email": "bradleyslagh@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://gophouse.org/member/repbradleyslagh/about",
+        "website": null,
         "social": {}
       }
     ],
@@ -422,7 +422,7 @@
         "email": "brendacarter@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.com/brenda-carter",
+        "website": null,
         "social": {}
       }
     ],
@@ -436,7 +436,7 @@
         "email": "brianbegole@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://gophouse.org/member/RepBrianBeGole/posts",
+        "website": null,
         "social": {}
       }
     ],
@@ -450,7 +450,7 @@
         "email": "bryanposthumus@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://gophouse.org/member/repbryanposthumus/about",
+        "website": null,
         "social": {}
       }
     ],
@@ -464,7 +464,7 @@
         "email": "camcavitt@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://gophouse.org/member/RepCamCavitt/posts",
+        "website": null,
         "social": {}
       }
     ],
@@ -478,7 +478,7 @@
         "email": "caglanville@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.com/carol-glanville/",
+        "website": null,
         "social": {}
       }
     ],
@@ -492,7 +492,7 @@
         "email": "carrierheingans@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.com/Carrie-Rheingans/",
+        "website": null,
         "social": {}
       }
     ],
@@ -506,7 +506,7 @@
         "email": "curtisvanderwall@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://gophouse.org/member/RepCurtisVanderWall/posts",
+        "website": null,
         "social": {}
       }
     ],
@@ -520,7 +520,7 @@
         "email": "cynthianeeley@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.com/cynthia-neeley/",
+        "website": null,
         "social": {}
       }
     ],
@@ -534,7 +534,7 @@
         "email": "davidmartin@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://gophouse.org/member/repdavidmartin/posts",
+        "website": null,
         "social": {}
       }
     ],
@@ -548,7 +548,7 @@
         "email": "daveprestin@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://gophouse.org/member/RepDavePrestin/posts",
+        "website": null,
         "social": {}
       }
     ],
@@ -562,7 +562,7 @@
         "email": "denisementzer@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.com/Denise-Mentzer/",
+        "website": null,
         "social": {}
       }
     ],
@@ -576,7 +576,7 @@
         "email": "donavanmckinney@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.com/Donavan-McKinney/",
+        "website": null,
         "social": {}
       }
     ],
@@ -590,7 +590,7 @@
         "email": "donnisteele@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://gophouse.org/member/RepDonniSteele/posts",
+        "website": null,
         "social": {}
       }
     ],
@@ -604,7 +604,7 @@
         "email": "douglaswozniak@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://gophouse.org/member/repdougwozniak/posts",
+        "website": null,
         "social": {}
       }
     ],
@@ -618,7 +618,7 @@
         "email": "dylanwegela@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.com/Dylan-Wegela/",
+        "website": null,
         "social": {}
       }
     ],
@@ -632,7 +632,7 @@
         "email": "emilydievendorf@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.com/Emily-Dievendorf/",
+        "website": null,
         "social": {}
       }
     ],
@@ -646,7 +646,7 @@
         "email": "erinbyrnes@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.com/Erin-Byrnes/",
+        "website": null,
         "social": {}
       }
     ],
@@ -660,7 +660,7 @@
         "email": "ginajohnsen@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://gophouse.org/member/RepGinaJohnsen/posts",
+        "website": null,
         "social": {}
       }
     ],
@@ -674,7 +674,7 @@
         "email": "gregvanwoerkom@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://gophouse.org/member/repgregvanwoerkom/about",
+        "website": null,
         "social": {}
       }
     ],
@@ -688,7 +688,7 @@
         "email": "gregalexander@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://gophouse.org/member/repgregalexander/posts",
+        "website": null,
         "social": {}
       }
     ],
@@ -702,7 +702,7 @@
         "email": "gregmarkkanen@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://gophouse.org/member/repgregmarkkanen/about",
+        "website": null,
         "social": {}
       }
     ],
@@ -716,7 +716,7 @@
         "email": "helenascott@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.com/helena-scott/",
+        "website": null,
         "social": {}
       }
     ],
@@ -730,7 +730,7 @@
         "email": "jaimegreene@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://gophouse.org/member/RepJaimeGreene/posts",
+        "website": null,
         "social": {}
       }
     ],
@@ -744,7 +744,7 @@
         "email": "jamesdesana@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://gophouse.org/member/RepJamesDeSana/posts",
+        "website": null,
         "social": {}
       }
     ],
@@ -758,7 +758,7 @@
         "email": "jamiethompson@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://gophouse.org/member/RepJamieThompson/posts",
+        "website": null,
         "social": {}
       }
     ],
@@ -772,7 +772,7 @@
         "email": "jasonhoskins@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.com/Jason-Hoskins/",
+        "website": null,
         "social": {}
       }
     ],
@@ -786,7 +786,7 @@
         "email": "jasonmorgan@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.com/Jason-Morgan/",
+        "website": null,
         "social": {}
       }
     ],
@@ -800,7 +800,7 @@
         "email": "jasonwoolford@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://gophouse.org/member/RepJasonWoolford/",
+        "website": null,
         "social": {}
       }
     ],
@@ -814,7 +814,7 @@
         "email": "jaspermartus@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.com/Jasper-Martus/",
+        "website": null,
         "social": {}
       }
     ],
@@ -828,7 +828,7 @@
         "email": "jaydeboyer@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://gophouse.org/member/RepJayDeBoyer/posts",
+        "website": null,
         "social": {}
       }
     ],
@@ -842,7 +842,7 @@
         "email": "jenniferconlin@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.com/Jennifer-Conlin/",
+        "website": null,
         "social": {}
       }
     ],
@@ -856,7 +856,7 @@
         "email": "jenniferwortz@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://gophouse.org/member/RepJenniferWortz/posts",
+        "website": null,
         "social": {}
       }
     ],
@@ -870,7 +870,7 @@
         "email": "jerryneyer@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://gophouse.org/member/RepJerryNeyer/posts",
+        "website": null,
         "social": {}
       }
     ],
@@ -884,7 +884,7 @@
         "email": "jimmiewilson@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.com/Jimmie-Wilson-Jr/",
+        "website": null,
         "social": {}
       }
     ],
@@ -898,7 +898,7 @@
         "email": "josephpavlov@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://gophouse.org/member/RepJosephGPavlov",
+        "website": null,
         "social": {}
       }
     ],
@@ -912,7 +912,7 @@
         "email": "joetate@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.com/joe-tate/",
+        "website": null,
         "social": {}
       }
     ],
@@ -926,7 +926,7 @@
         "email": "joeyandrews@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.com/joey-andrews/",
+        "website": null,
         "social": {}
       }
     ],
@@ -940,7 +940,7 @@
         "email": "johnfitzgerald@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.com/John-Fitzgerald/",
+        "website": null,
         "social": {}
       }
     ],
@@ -954,7 +954,7 @@
         "email": "johnroth@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://gophouse.org/member/repjohnroth/posts",
+        "website": null,
         "social": {}
       }
     ],
@@ -968,7 +968,7 @@
         "email": "josepharagona@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://gophouse.org/member/RepJosephAragona/posts",
+        "website": null,
         "social": {}
       }
     ],
@@ -982,7 +982,7 @@
         "email": "josephfox@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://gophouse.org/member/RepJosephFox/posts",
+        "website": null,
         "social": {}
       }
     ],
@@ -996,7 +996,7 @@
         "email": "joshschriver@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://gophouse.org/member/RepJoshSchriver/posts",
+        "website": null,
         "social": {}
       }
     ],
@@ -1010,7 +1010,7 @@
         "email": "juliebrixie@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.com/brixie",
+        "website": null,
         "social": {}
       }
     ],
@@ -1024,7 +1024,7 @@
         "email": "julierogers@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.com/julie-rogers/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1038,7 +1038,7 @@
         "email": "karahope@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.com/hope",
+        "website": null,
         "social": {}
       }
     ],
@@ -1052,7 +1052,7 @@
         "email": "karenwhitsett@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.com/karen-whitsett/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1066,7 +1066,7 @@
         "email": "karlbohnak@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://gophouse.org/member/RepKarlBohnak/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1080,7 +1080,7 @@
         "email": "kathyschmaltz@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://gophouse.org/member/RepKathySchmaltz/posts",
+        "website": null,
         "social": {}
       }
     ],
@@ -1094,7 +1094,7 @@
         "email": "kellybreen@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.com/kelly-breen/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1108,7 +1108,7 @@
         "email": "kenborton@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://gophouse.org/member/repkenborton/about",
+        "website": null,
         "social": {}
       }
     ],
@@ -1122,7 +1122,7 @@
         "email": "kimberlyedwards@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.com/Kimberly-Edwards/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1136,7 +1136,7 @@
         "email": "kristiangrant@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.com/Kristian-Grant/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1150,7 +1150,7 @@
         "email": "lauriepohutsky@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.com/laurie-pohutsky/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1164,7 +1164,7 @@
         "email": "lukemeerman@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://gophouse.org/member/replukemeerman/posts",
+        "website": null,
         "social": {}
       }
     ],
@@ -1178,7 +1178,7 @@
         "email": "maixiong@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.com/mai-xiong/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1192,7 +1192,7 @@
         "email": "marktisdel@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://gophouse.org/member/repmarktisdel/about",
+        "website": null,
         "social": {}
       }
     ],
@@ -1206,7 +1206,7 @@
         "email": "matthewbierlein@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://gophouse.org/member/RepMatthewBierlein/posts",
+        "website": null,
         "social": {}
       }
     ],
@@ -1220,7 +1220,7 @@
         "email": "matthall@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://gophouse.org/member/repmatthall/about",
+        "website": null,
         "social": {}
       }
     ],
@@ -1234,7 +1234,7 @@
         "email": "mattkoleszar@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.com/koleszar",
+        "website": null,
         "social": {}
       }
     ],
@@ -1248,7 +1248,7 @@
         "email": "mattlongjohn@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.com/matt-longjohn/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1276,7 +1276,7 @@
         "email": "mikeharris@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://gophouse.org/member/repmikeharris/posts",
+        "website": null,
         "social": {}
       }
     ],
@@ -1290,7 +1290,7 @@
         "email": "mikehoadley@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://gophouse.org/member/RepMikeHoadley/posts",
+        "website": null,
         "social": {}
       }
     ],
@@ -1304,7 +1304,7 @@
         "email": "mikemcfall@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.com/Mike-McFall/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1318,7 +1318,7 @@
         "email": "mikemueller@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://gophouse.org/member/repmikemueller/about",
+        "website": null,
         "social": {}
       }
     ],
@@ -1332,7 +1332,7 @@
         "email": "morganforeman@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.com/morgan-foreman/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1346,7 +1346,7 @@
         "email": "nancydeboer@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://gophouse.org/member/RepNancyDeBoer/posts",
+        "website": null,
         "social": {}
       }
     ],
@@ -1360,7 +1360,7 @@
         "email": "nancyjenkinsarno@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://gophouse.org/member/RepNancyJenkinsArno/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1374,7 +1374,7 @@
         "email": "natalieprice@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.com/Natalie-Price/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1388,7 +1388,7 @@
         "email": "noaharbit@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.com/Noah-Arbit/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1402,7 +1402,7 @@
         "email": "parker.fairbairn@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://gophouse.org/member/RepParkerFairbairn",
+        "website": null,
         "social": {}
       }
     ],
@@ -1416,7 +1416,7 @@
         "email": "patoutman@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://gophouse.org/member/reppatoutman/about",
+        "website": null,
         "social": {}
       }
     ],
@@ -1430,7 +1430,7 @@
         "email": "paulinewendzel@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://gophouse.org/member/reppaulinewendzel/about",
+        "website": null,
         "social": {}
       }
     ],
@@ -1444,7 +1444,7 @@
         "email": "penelopetsernoglou@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.com/Penelope-Tsernoglou/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1458,7 +1458,7 @@
         "email": "peterherzberg@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.com/peter-herzberg/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1472,7 +1472,7 @@
         "email": "repphilgreen@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://gophouse.org/member/repphilgreen/about",
+        "website": null,
         "social": {}
       }
     ],
@@ -1486,7 +1486,7 @@
         "email": "philskaggs@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.com/Phil-Skaggs/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1500,7 +1500,7 @@
         "email": "rachellesmit@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://gophouse.org/member/RepRachelleSmit/posts",
+        "website": null,
         "social": {}
       }
     ],
@@ -1514,7 +1514,7 @@
         "email": "ranjeevpuri@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.com/ranjeev-puri/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1528,7 +1528,7 @@
         "email": "reggiemiller@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.com/Reggie-Miller/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1542,7 +1542,7 @@
         "email": "reginaweiss@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.com/regina-weiss/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1556,7 +1556,7 @@
         "email": "ronrobinson@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://gophouse.org/member/RepRonRobinson",
+        "website": null,
         "social": {}
       }
     ],
@@ -1570,7 +1570,7 @@
         "email": "ryleelinting@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://gophouse.org/member/RepRyleeLinting",
+        "website": null,
         "social": {}
       }
     ],
@@ -1584,7 +1584,7 @@
         "email": "samanthasteckloff@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.com/samantha-steckloff/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1598,7 +1598,7 @@
         "email": "sarahlightner@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://gophouse.org/member/repsarahlightner/about",
+        "website": null,
         "social": {}
       }
     ],
@@ -1612,7 +1612,7 @@
         "email": "sharonmacdonell@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.com/Sharon-MacDonell/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1626,7 +1626,7 @@
         "email": "stephanieyoung@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.com/stephanie-young/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1640,7 +1640,7 @@
         "email": "stephenwooden@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.com/stephen-wooden/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1654,7 +1654,7 @@
         "email": "stevecarra@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://gophouse.org/member/repstevecarra/about",
+        "website": null,
         "social": {}
       }
     ],
@@ -1668,7 +1668,7 @@
         "email": "stevefrisbie@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://gophouse.org/member/RepSteveFrisbie/about",
+        "website": null,
         "social": {}
       }
     ],
@@ -1682,7 +1682,7 @@
         "email": "tomkuhn@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://gophouse.org/member/RepTomKuhn/posts",
+        "website": null,
         "social": {}
       }
     ],
@@ -1696,7 +1696,7 @@
         "email": "timkelly@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://gophouse.org/member/RepTimKelly/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1710,7 +1710,7 @@
         "email": "timothybeson@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://gophouse.org/member/reptimothybeson/about",
+        "website": null,
         "social": {}
       }
     ],
@@ -1724,7 +1724,7 @@
         "email": "tomkunse@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://gophouse.org/member/RepTomKunse/posts",
+        "website": null,
         "social": {}
       }
     ],
@@ -1738,7 +1738,7 @@
         "email": "tonyamyersphillips@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.com/tonya-myers-phillips/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1752,7 +1752,7 @@
         "email": "tullioliberati@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.com/tullio-liberati/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1766,7 +1766,7 @@
         "email": "tyronecarter@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.com/tyrone-carter",
+        "website": null,
         "social": {}
       }
     ],
@@ -1780,7 +1780,7 @@
         "email": "veronicapaiz@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.com/Veronica-Paiz/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1794,7 +1794,7 @@
         "email": "williambruck@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://gophouse.org/member/RepWilliamBruck/posts",
+        "website": null,
         "social": {}
       }
     ],
@@ -1808,7 +1808,7 @@
         "email": "willsnyder@house.mi.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedems.com/Will-Snyder/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1836,7 +1836,7 @@
         "email": "sencgreene@senate.michigan.gov",
         "phone": null,
         "address": null,
-        "website": "https://senatedems.com/greene/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1864,7 +1864,7 @@
         "email": "sendcamilleri@senate.michigan.gov",
         "phone": null,
         "address": null,
-        "website": "https://senatedems.com/camilleri",
+        "website": null,
         "social": {}
       }
     ],
@@ -1878,7 +1878,7 @@
         "email": "sendpolehanki@senate.michigan.gov",
         "phone": null,
         "address": null,
-        "website": "https://senatedems.com/polehanki",
+        "website": null,
         "social": {}
       }
     ],
@@ -1906,7 +1906,7 @@
         "email": "senegeiss@senate.michigan.gov",
         "phone": null,
         "address": null,
-        "website": "https://senatedems.com/geiss",
+        "website": null,
         "social": {}
       }
     ],
@@ -1920,7 +1920,7 @@
         "email": "senjirwin@senate.michigan.gov",
         "phone": null,
         "address": null,
-        "website": "https://senatedems.com/irwin",
+        "website": null,
         "social": {}
       }
     ],
@@ -1934,7 +1934,7 @@
         "email": "senjmoss@senate.michigan.gov",
         "phone": null,
         "address": null,
-        "website": "https://senatedems.com/moss",
+        "website": null,
         "social": {}
       }
     ],
@@ -1962,7 +1962,7 @@
         "email": "senjcherry@senate.michigan.gov",
         "phone": null,
         "address": null,
-        "website": "https://senatedems.com/cherry",
+        "website": null,
         "social": {}
       }
     ],
@@ -2018,7 +2018,7 @@
         "email": "senjbellino@senate.michigan.gov",
         "phone": null,
         "address": null,
-        "website": "https://gophouse.org/representatives/southeast/bellino/",
+        "website": null,
         "social": {}
       }
     ],
@@ -2046,7 +2046,7 @@
         "email": "senkhertel@senate.michigan.gov",
         "phone": null,
         "address": null,
-        "website": "https://senatedems.com/hertel",
+        "website": null,
         "social": {}
       }
     ],
@@ -2074,7 +2074,7 @@
         "email": "senmmcmorrow@senate.michigan.gov",
         "phone": null,
         "address": null,
-        "website": "https://senatedems.com/mcmorrow",
+        "website": null,
         "social": {}
       }
     ],
@@ -2102,7 +2102,7 @@
         "email": "senmcavanagh@senate.michigan.gov",
         "phone": null,
         "address": null,
-        "website": "https://senatedems.com/cavanagh",
+        "website": null,
         "social": {}
       }
     ],
@@ -2144,7 +2144,7 @@
         "email": "senpwojno@senate.michigan.gov",
         "phone": null,
         "address": null,
-        "website": "https://senatedems.com/wojno",
+        "website": null,
         "social": {}
       }
     ],
@@ -2172,7 +2172,7 @@
         "email": "senrhauck@senate.michigan.gov",
         "phone": null,
         "address": null,
-        "website": "https://gophouse.org/representatives/central/hauck/",
+        "website": null,
         "social": {}
       }
     ],
@@ -2200,7 +2200,7 @@
         "email": "senrbayer@senate.michigan.gov",
         "phone": null,
         "address": null,
-        "website": "https://senatedems.com/bayer",
+        "website": null,
         "social": {}
       }
     ],
@@ -2228,7 +2228,7 @@
         "email": "senssingh@senate.michigan.gov",
         "phone": null,
         "address": null,
-        "website": "https://senatedems.com/singh",
+        "website": null,
         "social": {}
       }
     ],
@@ -2242,7 +2242,7 @@
         "email": "sensanthony@senate.michigan.gov",
         "phone": null,
         "address": null,
-        "website": "https://senatedems.com/anthony",
+        "website": null,
         "social": {}
       }
     ],
@@ -2256,7 +2256,7 @@
         "email": "sensmccann@senate.michigan.gov",
         "phone": null,
         "address": null,
-        "website": "https://senatedems.com/mccann",
+        "website": null,
         "social": {}
       }
     ],
@@ -2270,7 +2270,7 @@
         "email": "senschang@senate.michigan.gov",
         "phone": null,
         "address": null,
-        "website": "https://senatedems.com/chang",
+        "website": null,
         "social": {}
       }
     ],
@@ -2284,7 +2284,7 @@
         "email": "sensshink@senate.michigan.gov",
         "phone": null,
         "address": null,
-        "website": "https://senatedems.com/shink",
+        "website": null,
         "social": {}
       }
     ],
@@ -2298,7 +2298,7 @@
         "email": "senssantana@senate.michigan.gov",
         "phone": null,
         "address": null,
-        "website": "https://senatedems.com/santana",
+        "website": null,
         "social": {}
       }
     ],
@@ -2312,7 +2312,7 @@
         "email": "sentalbert@senate.michigan.gov",
         "phone": null,
         "address": null,
-        "website": "https://gophouse.org/representatives/westmi/albert/",
+        "website": null,
         "social": {}
       }
     ],
@@ -2326,7 +2326,7 @@
         "email": "senvklinefelt@senate.michigan.gov",
         "phone": null,
         "address": null,
-        "website": "https://senatedems.com/klinefelt",
+        "website": null,
         "social": {}
       }
     ],
@@ -2340,7 +2340,7 @@
         "email": "senwbrinks@senate.michigan.gov",
         "phone": null,
         "address": null,
-        "website": "https://senatedems.com/brinks",
+        "website": null,
         "social": {}
       }
     ]

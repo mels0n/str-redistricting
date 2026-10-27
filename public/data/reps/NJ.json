@@ -41,7 +41,7 @@
         }
       }
     ],
-    "NJ:us-senate:00": [
+    "NJ:us-senate:state": [
       {
         "id": "B001288",
         "name": "Cory A. Booker",
@@ -258,7 +258,7 @@
         "email": "asmabdelaziz@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.assemblydems.com/388/Alaa-Al-Abdelaziz---District-35",
+        "website": null,
         "social": {}
       },
       {
@@ -284,7 +284,7 @@
         "email": "asmbarlas@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.njassemblygop.com/218/Al-Barlas",
+        "website": null,
         "social": {}
       },
       {
@@ -296,7 +296,7 @@
         "email": "asmdephillips@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.njassemblygop.com/213/Christopher-DePhillips",
+        "website": null,
         "social": {}
       }
     ],
@@ -322,7 +322,7 @@
         "email": "asmclifton@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.njassemblygop.com/220/Robert-Clifton",
+        "website": null,
         "social": {}
       }
     ],
@@ -336,7 +336,7 @@
         "email": "aswcollazosgill@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.assemblydems.com/204/Alixon-Collazos-Gill---District-27",
+        "website": null,
         "social": {}
       },
       {
@@ -348,7 +348,7 @@
         "email": "aswbagolie@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.assemblydems.com/203/Rosaura-Rosy-Bagolie---District-27",
+        "website": null,
         "social": {}
       }
     ],
@@ -362,7 +362,7 @@
         "email": "aswkatz@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.assemblydems.com/168/Andrea-Katz---District-8",
+        "website": null,
         "social": {}
       },
       {
@@ -414,7 +414,7 @@
         "email": "aswquijano@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.assemblydems.com/170/Annette-Quijano---District-20",
+        "website": null,
         "social": {}
       },
       {
@@ -440,7 +440,7 @@
         "email": "asmverrelli@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.assemblydems.com/177/Anthony-S-Verrelli---District-15",
+        "website": null,
         "social": {}
       },
       {
@@ -452,7 +452,7 @@
         "email": "aswreynoldsjackson@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.assemblydems.com/169/Verlina-Reynolds-Jackson---District-15",
+        "website": null,
         "social": {}
       }
     ],
@@ -466,7 +466,7 @@
         "email": "asmmcclellan@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.njassemblygop.com/212/Antwan-McClellan",
+        "website": null,
         "social": {}
       },
       {
@@ -478,7 +478,7 @@
         "email": "asmsimonsen@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.njassemblygop.com/235/Erik-Simonsen",
+        "website": null,
         "social": {}
       }
     ],
@@ -492,7 +492,7 @@
         "email": "aswdunn@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.njassemblygop.com/221/Aura-Dunn",
+        "website": null,
         "social": {}
       },
       {
@@ -518,7 +518,7 @@
         "email": "asmschnall@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.assemblydems.com/210/Alexander-Avi-Schnall---District-30",
+        "website": null,
         "social": {}
       },
       {
@@ -530,7 +530,7 @@
         "email": "asmskean@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.njassemblygop.com/227/Sean-Kean",
+        "website": null,
         "social": {}
       }
     ],
@@ -544,7 +544,7 @@
         "email": "asmsingh@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.assemblydems.com/389/Balvir-Singh---District-7",
+        "website": null,
         "social": {}
       },
       {
@@ -556,7 +556,7 @@
         "email": "aswmurphy@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.assemblydems.com/167/Carol-Murphy---District-7",
+        "website": null,
         "social": {}
       }
     ],
@@ -570,7 +570,7 @@
         "email": "asmbergen@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.njassemblygop.com/161/Brian-Bergen",
+        "website": null,
         "social": {}
       },
       {
@@ -582,7 +582,7 @@
         "email": "asmwebber@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.njassemblygop.com/238/Jay-Webber",
+        "website": null,
         "social": {}
       }
     ],
@@ -596,7 +596,7 @@
         "email": "asmrumpf@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.njassemblygop.com/215/Brian-Rumpf",
+        "website": null,
         "social": {}
       },
       {
@@ -608,7 +608,7 @@
         "email": "asmmyhre@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.njassemblygop.com/231/Gregory-Myhre",
+        "website": null,
         "social": {}
       }
     ],
@@ -622,7 +622,7 @@
         "email": "aswmorales@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.assemblydems.com/237/Carmen-Morales---District-34",
+        "website": null,
         "social": {}
       },
       {
@@ -634,7 +634,7 @@
         "email": "asmvenezia@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.assemblydems.com/238/Michael-Venezia---District-34",
+        "website": null,
         "social": {}
       }
     ],
@@ -660,7 +660,7 @@
         "email": "aswtucker@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.assemblydems.com/199/Cleopatra-G-Tucker---District-28",
+        "website": null,
         "social": {}
       }
     ],
@@ -674,7 +674,7 @@
         "email": "asmcalabrese@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.assemblydems.com/226/Clinton-Calabrese---District-36",
+        "website": null,
         "social": {}
       },
       {
@@ -686,7 +686,7 @@
         "email": "asmschaer@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.assemblydems.com/179/Gary-S-Schaer---District-36",
+        "website": null,
         "social": {}
       }
     ],
@@ -700,7 +700,7 @@
         "email": "asmmiller@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.assemblydems.com/161/Cody-Miller---District-4",
+        "website": null,
         "social": {}
       },
       {
@@ -712,7 +712,7 @@
         "email": "asmhutchison@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.assemblydems.com/160/Dan-Hutchison---District-4",
+        "website": null,
         "social": {}
       }
     ],
@@ -726,7 +726,7 @@
         "email": "asmcoughlin@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.assemblydems.com/185/Craig-J-Coughlin---District-19",
+        "website": null,
         "social": {}
       },
       {
@@ -738,7 +738,7 @@
         "email": "aswlopez@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.assemblydems.com/188/Yvonne-Lopez---District-19",
+        "website": null,
         "social": {}
       }
     ],
@@ -752,7 +752,7 @@
         "email": "asmbailey@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.assemblydems.com/157/Dave-Bailey-Jr---District-3",
+        "website": null,
         "social": {}
       },
       {
@@ -764,7 +764,7 @@
         "email": "aswsimmons@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.assemblydems.com/159/Heather-Simmons---District-3",
+        "website": null,
         "social": {}
       }
     ],
@@ -778,7 +778,7 @@
         "email": "aswfantasia@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.njassemblygop.com/222/Dawn-Fantasia",
+        "website": null,
         "social": {}
       },
       {
@@ -790,7 +790,7 @@
         "email": "asminganamort@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.njassemblygop.com/225/Michael-Inganamort",
+        "website": null,
         "social": {}
       }
     ],
@@ -804,7 +804,7 @@
         "email": "asmguardian@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.njassemblygop.com/224/Donald-Guardian",
+        "website": null,
         "social": {}
       },
       {
@@ -830,7 +830,7 @@
         "email": "aswpintormarin@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.assemblydems.com/173/Eliana-Pintor-Marin---District-29",
+        "website": null,
         "social": {}
       },
       {
@@ -842,7 +842,7 @@
         "email": "aswspeight@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.assemblydems.com/200/Shanique-Speight---District-29",
+        "website": null,
         "social": {}
       }
     ],
@@ -856,7 +856,7 @@
         "email": "aswpark@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.assemblydems.com/206/Ellen-Park---District-37",
+        "website": null,
         "social": {}
       },
       {
@@ -868,7 +868,7 @@
         "email": "aswhaider@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.assemblydems.com/209/Shama-Haider---District-37",
+        "website": null,
         "social": {}
       }
     ],
@@ -882,7 +882,7 @@
         "email": "asmpeterson@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.njassemblygop.com/232/Erik-Peterson",
+        "website": null,
         "social": {}
       },
       {
@@ -894,7 +894,7 @@
         "email": "asmdimaio@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.njassemblygop.com/211/John-DiMaio",
+        "website": null,
         "social": {}
       }
     ],
@@ -908,7 +908,7 @@
         "email": "asmrodriguez@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.assemblydems.com/223/Gabriel-Rodriguez---District-33",
+        "website": null,
         "social": {}
       },
       {
@@ -934,7 +934,7 @@
         "email": "asmscharfenberger@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.njassemblygop.com/234/Gerry-Scharfenberger",
+        "website": null,
         "social": {}
       },
       {
@@ -946,7 +946,7 @@
         "email": "aswflynn@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.njassemblygop.com/223/Victoria-Flynn",
+        "website": null,
         "social": {}
       }
     ],
@@ -960,7 +960,7 @@
         "email": "asmmcguckin@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.njassemblygop.com/229/Gregory-McGuckin",
+        "website": null,
         "social": {}
       },
       {
@@ -972,7 +972,7 @@
         "email": "asmkanitra@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.njassemblygop.com/226/Paul-Kanitra",
+        "website": null,
         "social": {}
       }
     ],
@@ -986,7 +986,7 @@
         "email": "asmkennedy@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.assemblydems.com/195/James-J-Kennedy---District-22",
+        "website": null,
         "social": {}
       },
       {
@@ -998,7 +998,7 @@
         "email": "aswcarter@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.assemblydems.com/194/Linda-S-Carter---District-22",
+        "website": null,
         "social": {}
       }
     ],
@@ -1024,7 +1024,7 @@
         "email": "asmsampson@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.assemblydems.com/201/William-Sampson---District-31",
+        "website": null,
         "social": {}
       }
     ],
@@ -1038,7 +1038,7 @@
         "email": "asmdanielsen@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.assemblydems.com/181/Joseph-Danielsen---District-17",
+        "website": null,
         "social": {}
       },
       {
@@ -1050,7 +1050,7 @@
         "email": "asmegan@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.assemblydems.com/182/Kevin-P-Egan---District-17",
+        "website": null,
         "social": {}
       }
     ],
@@ -1064,7 +1064,7 @@
         "email": "asmazzariti@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.njassemblygop.com/217/John-Azzariti",
+        "website": null,
         "social": {}
       },
       {
@@ -1076,7 +1076,7 @@
         "email": "asmauth@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.njassemblygop.com/216/Robert-Auth",
+        "website": null,
         "social": {}
       }
     ],
@@ -1116,7 +1116,7 @@
         "email": "aswswain@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.assemblydems.com/193/Lisa-Swain---District-38",
+        "website": null,
         "social": {}
       },
       {
@@ -1128,7 +1128,7 @@
         "email": "asmtully@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.assemblydems.com/211/Christopher-Tully---District-38",
+        "website": null,
         "social": {}
       }
     ],
@@ -1154,7 +1154,7 @@
         "email": "aswkane@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.assemblydems.com/387/Melinda-Kane---District-6",
+        "website": null,
         "social": {}
       }
     ],
@@ -1168,7 +1168,7 @@
         "email": "aswpeterpaul@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.assemblydems.com/172/Luanne-M-Peterpaul---District-11",
+        "website": null,
         "social": {}
       },
       {
@@ -1180,7 +1180,7 @@
         "email": "aswdonlon@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.assemblydems.com/171/Margie-M-Donlon---District-11",
+        "website": null,
         "social": {}
       }
     ],
@@ -1194,7 +1194,7 @@
         "email": "aswdrulis@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.assemblydems.com/178/Mitchelle-Drulis---District-16",
+        "website": null,
         "social": {}
       },
       {
@@ -1206,7 +1206,7 @@
         "email": "asmfreiman@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.assemblydems.com/180/Roy-Freiman---District-16",
+        "website": null,
         "social": {}
       }
     ],
@@ -1220,7 +1220,7 @@
         "email": "asmkarabinchak@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.assemblydems.com/189/Robert-Karabinchak---District-18",
+        "website": null,
         "social": {}
       },
       {
@@ -1232,7 +1232,7 @@
         "email": "asmstanley@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.assemblydems.com/191/Sterley-Stanley---District-18",
+        "website": null,
         "social": {}
       }
     ],
@@ -1258,7 +1258,7 @@
         "email": "asmdeangelo@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.assemblydems.com/174/Wayne-P-DeAngelo---District-14",
+        "website": null,
         "social": {}
       }
     ],
@@ -1272,7 +1272,7 @@
         "email": "asmmoen@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.assemblydems.com/163/William-F-Moen-Jr---District-5",
+        "website": null,
         "social": {}
       },
       {
@@ -1284,7 +1284,7 @@
         "email": "asmspearman@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.assemblydems.com/162/William-W-Spearman---District-5",
+        "website": null,
         "social": {}
       }
     ],
@@ -1340,7 +1340,7 @@
         "email": "senwimberly@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.assemblydems.com/176/Benjie-E-Wimberly---District-35",
+        "website": null,
         "social": {}
       }
     ],
@@ -1382,7 +1382,7 @@
         "email": "sentimberlake@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.assemblydems.com/britnee-timberlake/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1494,7 +1494,7 @@
         "email": "senmckeon@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.assemblydems.com/john-mckeon/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1704,7 +1704,7 @@
         "email": "senspace@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.njassemblygop.com/space/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1746,7 +1746,7 @@
         "email": "senmoriarty@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.assemblydems.com/paul-moriarty/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1760,7 +1760,7 @@
         "email": "senmukherji@njleg.org",
         "phone": null,
         "address": null,
-        "website": "https://www.assemblydems.com/raj-mukherji/",
+        "website": null,
         "social": {}
       }
     ],

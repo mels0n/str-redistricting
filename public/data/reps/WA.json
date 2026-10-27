@@ -6,7 +6,7 @@
     "wa.csv": "6178873de8fb5c5d634043a4992493124171853973e7401085318cf685a79453"
   },
   "byKey": {
-    "WA:us-senate:00": [
+    "WA:us-senate:state": [
       {
         "id": "C000127",
         "name": "Maria Cantwell",
@@ -223,7 +223,7 @@
         "email": "adam.bernbaum@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedemocrats.wa.gov/bernbaum/",
+        "website": null,
         "social": {}
       },
       {
@@ -235,7 +235,7 @@
         "email": "steve.tharinger@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedemocrats.wa.gov/legislators/Steve-Tharinger/",
+        "website": null,
         "social": {}
       }
     ],
@@ -249,7 +249,7 @@
         "email": "adison.richards@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedemocrats.wa.gov/richards/",
+        "website": null,
         "social": {}
       },
       {
@@ -261,7 +261,7 @@
         "email": "michelle.valdez@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://houserepublicans.wa.gov/Michelle-Caldier/",
+        "website": null,
         "social": {}
       }
     ],
@@ -275,7 +275,7 @@
         "email": "alex.ramel@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedemocrats.wa.gov/Ramel/",
+        "website": null,
         "social": {}
       },
       {
@@ -287,7 +287,7 @@
         "email": "debra.lekanoff@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedemocrats.wa.gov/legislators/Debra-Lekanoff/",
+        "website": null,
         "social": {}
       }
     ],
@@ -301,7 +301,7 @@
         "email": "alex.ybarra@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://AlexYbarra.houserepublicans.wa.gov/",
+        "website": null,
         "social": {}
       },
       {
@@ -313,7 +313,7 @@
         "email": "tom.dent@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://houserepublicans.wa.gov/Tom-Dent/",
+        "website": null,
         "social": {}
       }
     ],
@@ -327,7 +327,7 @@
         "email": "alicia.rule@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedemocrats.wa.gov/Rule/",
+        "website": null,
         "social": {}
       },
       {
@@ -339,7 +339,7 @@
         "email": "joe.timmons@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedemocrats.wa.gov/Timmons/",
+        "website": null,
         "social": {}
       }
     ],
@@ -353,7 +353,7 @@
         "email": "amy.walen@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedemocrats.wa.gov/legislators/Amy-Walen/",
+        "website": null,
         "social": {}
       },
       {
@@ -365,7 +365,7 @@
         "email": "osman.salahuddin@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedemocrats.wa.gov/salahuddin/",
+        "website": null,
         "social": {}
       }
     ],
@@ -379,7 +379,7 @@
         "email": "andrew.barkis@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://AndrewBarkis.houserepublicans.wa.gov/",
+        "website": null,
         "social": {}
       },
       {
@@ -405,7 +405,7 @@
         "email": "andrew.engell@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://andrewengell.houserepublicans.wa.gov/",
+        "website": null,
         "social": {}
       },
       {
@@ -417,7 +417,7 @@
         "email": "hunter.abell@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://hunterabell.houserepublicans.wa.gov/",
+        "website": null,
         "social": {}
       }
     ],
@@ -431,7 +431,7 @@
         "email": "april.berg@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedemocrats.wa.gov/Berg/",
+        "website": null,
         "social": {}
       },
       {
@@ -443,7 +443,7 @@
         "email": "brandy.donaghy@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedemocrats.wa.gov/Donaghy/",
+        "website": null,
         "social": {}
       }
     ],
@@ -457,7 +457,7 @@
         "email": "april.connors@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://AprilConnors.houserepublicans.wa.gov/",
+        "website": null,
         "social": {}
       },
       {
@@ -483,7 +483,7 @@
         "email": "beth.doglio@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedemocrats.wa.gov/Doglio/",
+        "website": null,
         "social": {}
       },
       {
@@ -495,7 +495,7 @@
         "email": "lisa.parshley@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedemocrats.wa.gov/parshley/",
+        "website": null,
         "social": {}
       }
     ],
@@ -509,7 +509,7 @@
         "email": "brian.burnett@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://brianburnett.houserepublicans.wa.gov/",
+        "website": null,
         "social": {}
       },
       {
@@ -521,7 +521,7 @@
         "email": "mike.steele@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://houserepublicans.wa.gov/Mike-Steele/",
+        "website": null,
         "social": {}
       }
     ],
@@ -535,7 +535,7 @@
         "email": "brianna.thomas@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedemocrats.wa.gov/thomas/",
+        "website": null,
         "social": {}
       },
       {
@@ -547,7 +547,7 @@
         "email": "joe.fitzgibbon@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedemocrats.wa.gov/Fitzgibbon/",
+        "website": null,
         "social": {}
       }
     ],
@@ -561,7 +561,7 @@
         "email": "carolyn.eslick@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://CarolynEslick.houserepublicans.wa.gov/",
+        "website": null,
         "social": {}
       },
       {
@@ -587,7 +587,7 @@
         "email": "chipalo.street@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedemocrats.wa.gov/Street/",
+        "website": null,
         "social": {}
       },
       {
@@ -599,7 +599,7 @@
         "email": "sharontomiko.santos@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedemocrats.wa.gov/legislators/Sharon-Tomiko-Santos/",
+        "website": null,
         "social": {}
       }
     ],
@@ -613,7 +613,7 @@
         "email": "chris.corry@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://ChrisCorry.houserepublicans.wa.gov/",
+        "website": null,
         "social": {}
       },
       {
@@ -625,7 +625,7 @@
         "email": "jeremie.dufault@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://houserepublicans.wa.gov/Jeremie-Dufault/",
+        "website": null,
         "social": {}
       }
     ],
@@ -639,7 +639,7 @@
         "email": "chris.stearns@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedemocrats.wa.gov/Stearns/",
+        "website": null,
         "social": {}
       },
       {
@@ -651,7 +651,7 @@
         "email": "debra.entenman@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedemocrats.wa.gov/entenman/",
+        "website": null,
         "social": {}
       }
     ],
@@ -665,7 +665,7 @@
         "email": "cindy.ryu@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedemocrats.wa.gov/legislators/Cindy-Ryu/",
+        "website": null,
         "social": {}
       },
       {
@@ -677,7 +677,7 @@
         "email": "lauren.davis@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedemocrats.wa.gov/davis/",
+        "website": null,
         "social": {}
       }
     ],
@@ -691,7 +691,7 @@
         "email": "clyde.shavers@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedemocrats.wa.gov/Shavers/",
+        "website": null,
         "social": {}
       },
       {
@@ -703,7 +703,7 @@
         "email": "dave.paul@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedemocrats.wa.gov/legislators/Dave-Paul/",
+        "website": null,
         "social": {}
       }
     ],
@@ -717,7 +717,7 @@
         "email": "cyndy.jacobsen@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://CyndyJacobsen.houserepublicans.wa.gov/",
+        "website": null,
         "social": {}
       },
       {
@@ -743,7 +743,7 @@
         "email": "dan.bronoske@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedemocrats.wa.gov/Bronoske/",
+        "website": null,
         "social": {}
       },
       {
@@ -755,7 +755,7 @@
         "email": "mari.leavitt@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedemocrats.wa.gov/Leavitt/",
+        "website": null,
         "social": {}
       }
     ],
@@ -769,7 +769,7 @@
         "email": "dan.griffey@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://DanGriffey.houserepublicans.wa.gov/",
+        "website": null,
         "social": {}
       },
       {
@@ -795,7 +795,7 @@
         "email": "darya.farivar@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedemocrats.wa.gov/Farivar/",
+        "website": null,
         "social": {}
       },
       {
@@ -807,7 +807,7 @@
         "email": "gerry.pollet@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedemocrats.wa.gov/legislators/Gerry-Pollet/",
+        "website": null,
         "social": {}
       }
     ],
@@ -821,7 +821,7 @@
         "email": "david.stuebe@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://davidstuebe.houserepublicans.wa.gov/",
+        "website": null,
         "social": {}
       },
       {
@@ -833,7 +833,7 @@
         "email": "kevin.waters@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://KevinWaters.houserepublicans.wa.gov/",
+        "website": null,
         "social": {}
       }
     ],
@@ -847,7 +847,7 @@
         "email": "david.hackney@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedemocrats.wa.gov/Hackney/",
+        "website": null,
         "social": {}
       },
       {
@@ -859,7 +859,7 @@
         "email": "steve.bergquist@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedemocrats.wa.gov/Bergquist/",
+        "website": null,
         "social": {}
       }
     ],
@@ -873,7 +873,7 @@
         "email": "davina.duerr@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedemocrats.wa.gov/Duerr/",
+        "website": null,
         "social": {}
       },
       {
@@ -885,7 +885,7 @@
         "email": "shelley.kloba@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedemocrats.wa.gov/Kloba/",
+        "website": null,
         "social": {}
       }
     ],
@@ -899,7 +899,7 @@
         "email": "deb.manjarrez@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://debmanjarrez.houserepublicans.wa.gov/",
+        "website": null,
         "social": {}
       },
       {
@@ -911,7 +911,7 @@
         "email": "gloria.mendoza@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://gloriamendoza.houserepublicans.wa.gov/",
+        "website": null,
         "social": {}
       }
     ],
@@ -925,7 +925,7 @@
         "email": "drew.stokesbary@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://DrewStokesbary.houserepublicans.wa.gov/",
+        "website": null,
         "social": {}
       },
       {
@@ -937,7 +937,7 @@
         "email": "joshua.penner@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://joshuapenner.houserepublicans.wa.gov/",
+        "website": null,
         "social": {}
       }
     ],
@@ -951,7 +951,7 @@
         "email": "ed.orcutt@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://EdOrcutt.houserepublicans.wa.gov/",
+        "website": null,
         "social": {}
       },
       {
@@ -977,7 +977,7 @@
         "email": "edwin.obras@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedemocrats.wa.gov/obras/",
+        "website": null,
         "social": {}
       },
       {
@@ -989,7 +989,7 @@
         "email": "mia.gregerson@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedemocrats.wa.gov/Gregerson/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1003,7 +1003,7 @@
         "email": "greg.nance@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedemocrats.wa.gov/Nance/",
+        "website": null,
         "social": {}
       },
       {
@@ -1015,7 +1015,7 @@
         "email": "tarra.simmons@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedemocrats.wa.gov/Simmons/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1029,7 +1029,7 @@
         "email": "jake.fey@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedemocrats.wa.gov/Fey/",
+        "website": null,
         "social": {}
       },
       {
@@ -1041,7 +1041,7 @@
         "email": "laurie.jinkins@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedemocrats.wa.gov/Jinkins/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1055,7 +1055,7 @@
         "email": "jamila.taylor@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedemocrats.wa.gov/Taylor/",
+        "website": null,
         "social": {}
       },
       {
@@ -1067,7 +1067,7 @@
         "email": "kristine.reeves@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedemocrats.wa.gov/legislators/Kristine-Reeves/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1081,7 +1081,7 @@
         "email": "janice.zahn@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedemocrats.wa.gov/zahn/",
+        "website": null,
         "social": {}
       },
       {
@@ -1093,7 +1093,7 @@
         "email": "my-linh.thai@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedemocrats.wa.gov/legislators/My-Linh-Thai/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1107,7 +1107,7 @@
         "email": "jenny.graham@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://houserepublicans.wa.gov/Jenny-Graham/",
+        "website": null,
         "social": {}
       },
       {
@@ -1119,7 +1119,7 @@
         "email": "mike.volz@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://houserepublicans.wa.gov/Mike-Volz/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1133,7 +1133,7 @@
         "email": "jim.walsh@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://houserepublicans.wa.gov/Jim-Walsh/",
+        "website": null,
         "social": {}
       },
       {
@@ -1145,7 +1145,7 @@
         "email": "joel.mcentire@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://JoelMcEntire.houserepublicans.wa.gov/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1159,7 +1159,7 @@
         "email": "joe.schmick@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://houserepublicans.wa.gov/Joe-Schmick/",
+        "website": null,
         "social": {}
       },
       {
@@ -1171,7 +1171,7 @@
         "email": "mary.dye@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://houserepublicans.wa.gov/Mary-Dye/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1185,7 +1185,7 @@
         "email": "john.ley@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://johnley.houserepublicans.wa.gov/",
+        "website": null,
         "social": {}
       },
       {
@@ -1211,7 +1211,7 @@
         "email": "julia.reed@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedemocrats.wa.gov/Reed/",
+        "website": null,
         "social": {}
       },
       {
@@ -1223,7 +1223,7 @@
         "email": "liz.berry@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedemocrats.wa.gov/Berry/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1237,7 +1237,7 @@
         "email": "julio.cortes@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedemocrats.wa.gov/Cortes/",
+        "website": null,
         "social": {}
       },
       {
@@ -1249,7 +1249,7 @@
         "email": "mary.fosse@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedemocrats.wa.gov/Fosse/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1263,7 +1263,7 @@
         "email": "larry.springer@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedemocrats.wa.gov/legislators/Larry-Springer/",
+        "website": null,
         "social": {}
       },
       {
@@ -1275,7 +1275,7 @@
         "email": "roger.goodman@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedemocrats.wa.gov/Goodman/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1289,7 +1289,7 @@
         "email": "lillian.ortiz-self@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedemocrats.wa.gov/legislators/Lillian-Ortiz-Self/",
+        "website": null,
         "social": {}
       },
       {
@@ -1301,7 +1301,7 @@
         "email": "strom.peterson@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedemocrats.wa.gov/legislators/Strom-Peterson/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1315,7 +1315,7 @@
         "email": "lisa.callan@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedemocrats.wa.gov/Callan/",
+        "website": null,
         "social": {}
       },
       {
@@ -1327,7 +1327,7 @@
         "email": "zach.hall@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedemocrats.wa.gov/Hall/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1353,7 +1353,7 @@
         "email": "skyler.rude@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://houserepublicans.wa.gov/Skyler-Rude/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1367,7 +1367,7 @@
         "email": "melanie.morgan@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedemocrats.wa.gov/legislators/Melanie-Morgan/",
+        "website": null,
         "social": {}
       },
       {
@@ -1379,7 +1379,7 @@
         "email": "sharlett.mena@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedemocrats.wa.gov/Mena/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1393,7 +1393,7 @@
         "email": "monica.stonier@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedemocrats.wa.gov/legislators/Monica-Jurado-Stonier/",
+        "website": null,
         "social": {}
       },
       {
@@ -1405,7 +1405,7 @@
         "email": "sharon.wylie@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedemocrats.wa.gov/legislators/Sharon-Wylie/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1419,7 +1419,7 @@
         "email": "natasha.hill@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedemocrats.wa.gov/hill/",
+        "website": null,
         "social": {}
       },
       {
@@ -1431,7 +1431,7 @@
         "email": "timm.ormsby@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedemocrats.wa.gov/legislators/Timm-Ormsby/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1445,7 +1445,7 @@
         "email": "nicole.macri@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedemocrats.wa.gov/legislators/Nicole-Macri/",
+        "website": null,
         "social": {}
       },
       {
@@ -1457,7 +1457,7 @@
         "email": "shaun.scott@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedemocrats.wa.gov/scott/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1623,7 +1623,7 @@
         "email": "drew.hansen@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedemocrats.wa.gov/Hansen/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1637,7 +1637,7 @@
         "email": "drew.macewen@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://DrewMacEwen.houserepublicans.wa.gov/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1805,7 +1805,7 @@
         "email": "june.robinson@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://housedemocrats.wa.gov/legislators/June-Robinson/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1819,7 +1819,7 @@
         "email": "keith.goehner@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://houserepublicans.wa.gov/Keith-Goehner/",
+        "website": null,
         "social": {}
       }
     ],
@@ -1945,7 +1945,7 @@
         "email": "matt.boehnke@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://houserepublicans.wa.gov/Matt-Boehnke/",
+        "website": null,
         "social": {}
       }
     ],
@@ -2001,7 +2001,7 @@
         "email": "paul.harris@leg.wa.gov",
         "phone": null,
         "address": null,
-        "website": "https://houserepublicans.wa.gov/Paul-Harris/",
+        "website": null,
         "social": {}
       }
     ],

@@ -453,13 +453,6 @@ html:has(> body > #str-viewer) {
   margin: 0 0 var(--s-2);
 }
 
-.strv-national__scope {
-  margin-top: var(--s-2);
-  max-width: 62ch;
-  font-size: 0.8125rem;
-  color: var(--ink-2);
-}
-
 .strv-national__steps {
   list-style: none;
   padding: 0;
@@ -733,6 +726,7 @@ html:has(> body > #str-viewer) {
   transition: fill 140ms ease-out;
 }
 
+.strv-us__state.is-hot path,
 .strv-us__state:hover path,
 .strv-us__state:focus-visible path {
   fill: var(--signal);
@@ -748,7 +742,8 @@ html:has(> body > #str-viewer) {
   pointer-events: none;
 }
 
-.strv-us__callout-link {
+.strv-us__callout-link,
+.strv-us__label-link {
   pointer-events: auto;
 }
 
@@ -758,9 +753,13 @@ html:has(> body > #str-viewer) {
   pointer-events: none;
 }
 
+/* A label belongs to its state: pointing at the part of it that runs onto a neighbor still means its own state. */
+.strv-us__label-link .strv-us__label {
+  pointer-events: auto;
+}
+
 /* The hover and focus fill is amber; paper text on it is only 2.6:1, ink is 6.4:1. */
-.strv-us__state:hover .strv-us__label,
-.strv-us__state:focus-visible .strv-us__label {
+.strv-us__label-link.is-hot .strv-us__label {
   fill: var(--ink);
 }
 
@@ -772,8 +771,7 @@ html:has(> body > #str-viewer) {
   paint-order: stroke;
 }
 
-.strv-us__state:hover .strv-us__label,
-.strv-us__state:focus-visible .strv-us__label {
+.strv-us__label-link.is-hot .strv-us__label {
   stroke: var(--signal);
 }
 
@@ -4916,6 +4914,7 @@ var {
     stroke: Canvas;
   }
 
+  .strv-us__state.is-hot path,
   .strv-us__state:hover path,
   .strv-us__state:focus-visible path {
     fill: Highlight;
@@ -4928,8 +4927,7 @@ var {
     stroke: Canvas;
   }
 
-  .strv-us__state:hover .strv-us__label,
-  .strv-us__state:focus-visible .strv-us__label {
+  .strv-us__label-link.is-hot .strv-us__label {
     fill: HighlightText;
     stroke: Highlight;
   }

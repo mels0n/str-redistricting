@@ -1,4 +1,4 @@
-import { h, clear, PAGE_META, faqRoute, chamberLabel, describeError, setLocated, stateRoute, routeHref, howRoute, type Chamber, type Navigate, type Page } from '../../shared';
+import { h, clear, PAGE_META, faqRoute, describeError, setLocated, stateRoute, routeHref, howRoute, type Chamber, type Navigate, type Page } from '../../shared';
 import { loadIndex, loadOutlines } from '../../entities/state';
 import { createAddressSearch, describeResolution, resolveAddress } from '../../features/address-search';
 import { createUsMap, type UsMap } from '../../widgets/us-map';
@@ -62,20 +62,7 @@ export function createNationalPage(nav: Navigate, chamber: Chamber = 'federal-ho
     },
   });
 
-  const mapSlot = h('div', { class: 'strv-national__map-slot', 'aria-busy': 'true' }, h('p', { class: 'strv-loading' }, 'Loading the map of the states…'));
-  // What the maps cover sits under the map as a caption rather than in the steps.
-  const mapBlock = h(
-    'div',
-    { class: 'strv-national__map' },
-    mapSlot,
-    h(
-      'p',
-      { class: 'strv-national__scope' },
-      chamber === 'federal-house'
-        ? 'These maps cover the 50 states. Washington, D.C. and the U.S. territories are not drawn. They elect non-voting delegates to the House, and their local legislatures are not covered.'
-        : `These are ${chamberLabel(chamber)} maps. They cover the 50 states. A chamber a state does not have, such as Nebraska's State House, has no map.`,
-    ),
-  );
+  const mapSlot = h('div', { class: 'strv-national__map', 'aria-busy': 'true' }, h('p', { class: 'strv-loading' }, 'Loading the map of the states…'));
   const indexSlot = h('div', { class: 'strv-national__index' });
 
   let usMap: UsMap | null = null;
@@ -90,7 +77,7 @@ export function createNationalPage(nav: Navigate, chamber: Chamber = 'federal-ho
       h('div', { class: 'strv-national__head' }, h1),
       // On a phone the lede and map are separate rows (lede, map, index, then the address search); on a wide screen they stay pinned together beside the index.
       // Source order follows the phone layout, so on a wide screen the search (shown top left) is reached after the index by Tab; its search landmark is the shortcut.
-      h('div', { class: 'strv-national__side' }, lede, mapBlock),
+      h('div', { class: 'strv-national__side' }, lede, mapSlot),
       // On a wide screen the search and index share one left rail, so the index starts right under the search instead of below the headline block.
       h('div', { class: 'strv-national__rail' }, indexSlot, h('div', { class: 'strv-national__search' }, search.el)),
     ),

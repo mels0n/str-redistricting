@@ -64,11 +64,15 @@ describe('address search copy', () => {
 });
 
 describe('scope note', () => {
-  it('is on the national page and the how page', async () => {
+  it('is in the FAQ and on the how page, not on the national page', async () => {
     const { createNationalPage } = await import('../../src/client/pages/national');
     const national = createNationalPage(() => undefined);
-    expect(national.el.textContent).toMatch(/cover the 50 states.*non-voting delegates/);
+    expect(national.el.textContent).not.toMatch(/non-voting delegates/);
     national.destroy();
+    const { createFaqPage } = await import('../../src/client/pages/faq');
+    const faq = createFaqPage({ page: 'faq', question: null });
+    expect(faq.el.textContent).toMatch(/territories are not drawn.*non-voting delegates/);
+    faq.destroy();
     const { createHowPage } = await import('../../src/client/pages/how');
     const how = createHowPage({ page: 'how', section: null });
     expect(how.el.textContent).toMatch(/cover the 50 states.*non-voting delegates/);

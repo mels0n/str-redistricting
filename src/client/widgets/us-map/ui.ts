@@ -16,6 +16,11 @@ const H = 600;
 /** Coastal states whose own label would sit on the shoreline get a callout too. */
 const ALWAYS_CALLOUT = new Set(['NC']);
 
+/** On a phone, the share of a moved label's width that must lie inside its state (see buildUsMap). */
+const MOVED_CORE = 0.4;
+/** Clear space kept between two labels on a phone, in drawing units. */
+const GAP_COMPACT = 2;
+
 /** The rightmost projected vertex of a state: a point on its eastern edge for a leader to start from. */
 function eastEdge(geometry: Polygon | MultiPolygon, project: (p: [number, number]) => [number, number] | null): [number, number] | null {
   const polys = geometry.type === 'Polygon' ? [geometry.coordinates] : geometry.coordinates;
@@ -94,6 +99,36 @@ function buildUsMap(opts: UsMapOptions, compact: boolean): SVGSVGElement {
   const labels = svg('g', { class: 'strv-us__labels', 'aria-hidden': 'true' });
   const callouts: { y: number; cx: number; cy: number; abbr: string; seats: number }[] = [];
 
+  // Every label is placed before any is drawn, so a label can step aside for a neighbor's instead of landing on it.
+  interface Box {
+    x0: number;
+    x1: number;
+    y0: number;
+    y1: number;
+  }
+  interface Pending {
+    d: string;
+    abbr: string;
+    seats: number;
+    href: string;
+    label: string;
+    geometry: Polygon | MultiPolygon;
+    /** Spots inside the state where the label fits, nearest its usual place first. */
+    spots: [number, number][];
+    w: number;
+    top: number;
+    bottom: number;
+  }
+  const project = (p: [number, number]): [number, number] | null => projection(p);
+  const abbrSize = compact ? abbrUnits : 13;
+  const seatsSize = compact ? seatsUnits : 24;
+  // On a phone the labels are large against the drawing: a label may run past a state's edge there (its ink outline keeps it
+  // readable on the ground), as long as the middle of it is inside. A long leader across the country would read worse.
+  const k = compact ? 0.72 : 1;
+  const top = abbrSize * (compact ? 0.95 : 1.1) + 2;
+  const bottom = seatsSize * (compact ? 0.85 : 0.95) + 2;
+  const pending: Pending[] = [];
+
   for (const f of opts.outlines.features) {
     const d = path(f);
     if (!d) continue;
@@ -102,32 +137,98 @@ function buildUsMap(opts: UsMapOptions, compact: boolean): SVGSVGElement {
       quiet.append(svg('path', { d }));
       continue;
     }
-    // The label sits at the point of the state's main part farthest from its edges (Michigan's lower peninsula, not the lake).
-    const project = (p: [number, number]): [number, number] | null => projection(p);
+    // The usual spot is the point of the state's main part farthest from its edges (Michigan's lower peninsula, not the lake).
     const [cx, cy] = project(labelPoint(f.geometry) as [number, number]) ?? path.centroid(f);
-    const abbrSize = compact ? abbrUnits : 13;
-    const seatsSize = compact ? seatsUnits : 24;
     const seats = chamberView(entry, chamber).seats;
-    const href = routeHref(stateRoute(entry.abbr, { chamber }));
-    const label = `${entry.name}, ${districtCount(seats)}`;
-    const labelW = Math.max(abbrSize * 1.6, String(seats).length * seatsSize * 0.62) + 4;
-    // On a phone the labels are large against the drawing: a label may run past a state's edge there (its ink outline keeps it
-    // readable on the ground), as long as the middle of it is inside. A long leader across the country would read worse.
-    const k = compact ? 0.72 : 1;
-    const fits = !ALWAYS_CALLOUT.has(entry.abbr) && labelFits(largestPart(f.geometry, project), cx, cy, labelW * k, abbrSize * (compact ? 0.95 : 1.1) + 2, seatsSize * (compact ? 0.85 : 0.95) + 2, compact);
-    // A label that fits sits inside its state's link, so it can change color with the state's hover and focus fill.
-    const inside = fits
-      ? svg(
-          'text',
-          { x: cx, y: cy, class: 'strv-us__label', 'text-anchor': 'middle', 'aria-hidden': 'true' },
-          svg('tspan', { x: cx, dy: compact ? '-0.2em' : '-0.35em', class: 'strv-us__abbr' }, entry.abbr),
-          svg('tspan', { x: cx, dy: compact ? '1.05em' : '1.15em', class: 'strv-us__seats' }, String(seats)),
-        )
-      : null;
-    active.append(svg('a', { href, 'aria-label': label, class: 'strv-us__state' }, svg('title', null, label), svg('path', { d }), inside));
-    if (!fits) {
-      const [ax, ay] = eastEdge(f.geometry, (p) => projection(p)) ?? [cx, cy];
-      callouts.push({ y: ay, cx: ax, cy: ay, abbr: entry.abbr, seats });
+    const w = Math.max(abbrSize * 1.6, String(seats).length * seatsSize * 0.62) + 4;
+    const rings = largestPart(f.geometry, project);
+    const fitsAt = (x: number, y: number): boolean => labelFits(rings, x, y, w * k, top, bottom, compact);
+    const spots: [number, number][] = [];
+    if (!ALWAYS_CALLOUT.has(entry.abbr) && fitsAt(cx, cy)) {
+      spots.push([cx, cy]);
+      // Other spots on a grid across the state, for when a neighbor's label takes the usual one.
+      const outer = rings[0] ?? [];
+      const xs = outer.map((q) => q[0]);
+      const ys = outer.map((q) => q[1]);
+      const step = Math.max(4, (top + bottom) / 4);
+      const more: [number, number][] = [];
+      // On a phone a moved label needs only its middle inside the state: its ink outline keeps it readable on the neighbor.
+      const fitsMoved = compact ? (x: number, y: number): boolean => labelFits(rings, x, y, w * MOVED_CORE, top, bottom, true) : fitsAt;
+      for (let y = Math.min(...ys); y <= Math.max(...ys); y += step) {
+        for (let x = Math.min(...xs); x <= Math.max(...xs); x += step) if (fitsMoved(x, y)) more.push([x, y]);
+      }
+      more.sort((a, b) => Math.hypot(a[0] - cx, a[1] - cy) - Math.hypot(b[0] - cx, b[1] - cy));
+      spots.push(...more);
+    }
+    pending.push({ d, abbr: entry.abbr, seats, href: routeHref(stateRoute(entry.abbr, { chamber })), label: `${entry.name}, ${districtCount(seats)}`, geometry: f.geometry, spots, w, top, bottom });
+  }
+
+  // The states with the fewest spots choose first; each takes its nearest spot whose label clears every label already placed.
+  // When none is clear, the labels in the way may each move to another of their own spots to make room. A state still left
+  // without a clear spot gets a callout instead.
+  const gap = compact ? GAP_COMPACT : 3;
+  const spotOf = new Map<string, [number, number]>();
+  const boxOf = new Map<string, Box>();
+  const byPending = new Map(pending.map((p) => [p.abbr, p]));
+  const boxAt = (p: Pending, [x, y]: [number, number]): Box => ({ x0: x - p.w / 2 - gap, x1: x + p.w / 2 + gap, y0: y - p.top - gap, y1: y + p.bottom + gap });
+  const meets = (a: Box, b: Box): boolean => !(a.x1 <= b.x0 || b.x1 <= a.x0 || a.y1 <= b.y0 || b.y1 <= a.y0);
+  const inTheWay = (b: Box, except: ReadonlySet<string> = new Set()): string[] => [...boxOf].filter(([abbr, o]) => !except.has(abbr) && meets(b, o)).map(([abbr]) => abbr);
+  const place = (p: Pending, spot: [number, number]): void => {
+    spotOf.set(p.abbr, spot);
+    boxOf.set(p.abbr, boxAt(p, spot));
+  };
+  for (const p of [...pending].filter((q) => q.spots.length > 0).sort((a, b) => a.spots.length - b.spots.length || (a.abbr < b.abbr ? -1 : 1))) {
+    const free = p.spots.find((q) => inTheWay(boxAt(p, q)).length === 0);
+    if (free) {
+      place(p, free);
+      continue;
+    }
+    for (const spot of p.spots) {
+      const mine = boxAt(p, spot);
+      const blockers = inTheWay(mine);
+      if (blockers.length > 2) continue;
+      // Move each blocker to its nearest spot that clears this label, the other blockers' new places and everything else.
+      const moved = new Map<string, Box>();
+      const moves: [Pending, [number, number]][] = [];
+      for (const abbr of blockers) {
+        const other = byPending.get(abbr)!;
+        const to = other.spots.find((q) => {
+          const b = boxAt(other, q);
+          return !meets(b, mine) && [...moved.values()].every((m) => !meets(b, m)) && inTheWay(b, new Set(blockers)).length === 0;
+        });
+        if (!to) break;
+        moved.set(abbr, boxAt(other, to));
+        moves.push([other, to]);
+      }
+      if (moves.length !== blockers.length) continue;
+      for (const [other, to] of moves) place(other, to);
+      place(p, spot);
+      break;
+    }
+  }
+
+  for (const p of pending) {
+    const spot = spotOf.get(p.abbr);
+    active.append(svg('a', { href: p.href, 'aria-label': p.label, class: 'strv-us__state', 'data-abbr': p.abbr }, svg('title', null, p.label), svg('path', { d: p.d })));
+    // Labels are drawn above every state, not inside their own, so a label that runs past its edge is never painted over by
+    // the neighbor drawn after it. Each is a second, unfocusable link to its state; the two light up together (see below).
+    if (spot) {
+      labels.append(
+        svg(
+          'a',
+          { href: p.href, tabindex: -1, class: 'strv-us__label-link', 'data-abbr': p.abbr },
+          svg(
+            'text',
+            { x: spot[0], y: spot[1], class: 'strv-us__label', 'text-anchor': 'middle' },
+            svg('tspan', { x: spot[0], dy: compact ? '-0.2em' : '-0.35em', class: 'strv-us__abbr' }, p.abbr),
+            svg('tspan', { x: spot[0], dy: compact ? '1.05em' : '1.15em', class: 'strv-us__seats' }, String(p.seats)),
+          ),
+        ),
+      );
+    }
+    if (!spot) {
+      const [ax, ay] = eastEdge(p.geometry, project) ?? [0, 0];
+      callouts.push({ y: ay, cx: ax, cy: ay, abbr: p.abbr, seats: p.seats });
     }
   }
 
@@ -151,7 +252,7 @@ function buildUsMap(opts: UsMapOptions, compact: boolean): SVGSVGElement {
     );
   }
 
-  return svg(
+  const root = svg(
     'svg',
     {
       class: compact ? 'strv-us strv-us--compact' : 'strv-us',
@@ -165,6 +266,17 @@ function buildUsMap(opts: UsMapOptions, compact: boolean): SVGSVGElement {
     active,
     labels,
   );
+  // A state and its label are separate links; pointing at or focusing either lights up both.
+  const hot = (e: Event, on: boolean): void => {
+    const abbr = (e.target as Element | null)?.closest?.('[data-abbr]')?.getAttribute('data-abbr');
+    if (!abbr) return;
+    for (const n of root.querySelectorAll(`[data-abbr="${abbr}"]`)) n.classList.toggle('is-hot', on);
+  };
+  root.addEventListener('pointerover', (e) => hot(e, true));
+  root.addEventListener('pointerout', (e) => hot(e, false));
+  root.addEventListener('focusin', (e) => hot(e, (e.target as Element).matches(':focus-visible')));
+  root.addEventListener('focusout', (e) => hot(e, false));
+  return root;
 }
 
 /** Below this width the map is drawn with larger labels (see buildUsMap). */

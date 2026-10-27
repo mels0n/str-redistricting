@@ -58,6 +58,22 @@ describe('Email everyone at once', () => {
     expect(navigator.clipboard.writeText).toHaveBeenCalledWith(expect.stringContaining('Dear Representatives,'));
   });
 
+  it('always shows Copy emails beside Email everyone at once, copies every address exactly, confirms, and lists them as text', async () => {
+    const writeText = vi.fn(async () => undefined);
+    Object.defineProperty(navigator, 'clipboard', { value: { writeText }, configurable: true });
+    const el = createEveryone({ ...base, reps });
+    const labels = [...el.querySelectorAll('.strv-act__actions a, .strv-act__actions button')].map((e) => e.textContent);
+    expect(labels).toEqual(['Email everyone at once', 'Copy emails', 'Copy letter']);
+    expect(el.querySelector('.strv-act__addrs')!.textContent).toBe('To: a@coleg.gov, b@coleg.gov');
+    ([...el.querySelectorAll('button')].find((b) => b.textContent === 'Copy emails') as HTMLButtonElement).click();
+    expect(writeText).toHaveBeenCalledWith('a@coleg.gov, b@coleg.gov');
+    await Promise.resolve();
+    await Promise.resolve();
+    const status = el.querySelector('[role="status"]')!;
+    expect(status.textContent).toBe('Copied');
+    expect(el.textContent).not.toContain('—');
+  });
+
   it('falls back to Copy emails and Copy letter when the link would be too long', () => {
     const writeText = vi.fn(async () => undefined);
     Object.defineProperty(navigator, 'clipboard', { value: { writeText }, configurable: true });
@@ -74,6 +90,8 @@ describe('Email everyone at once', () => {
   it('offers only the letter when nobody lists an email', () => {
     const el = createEveryone({ ...base, reps: reps.slice(2) });
     expect(el.querySelector('a[href^="mailto:"]')).toBeNull();
+    expect([...el.querySelectorAll('button')].some((b) => b.textContent === 'Copy emails')).toBe(false);
+    expect(el.querySelector('.strv-act__addrs')).toBeNull();
     expect(el.textContent).toContain(NO_EMAIL_COPY);
     expect([...el.querySelectorAll('button')].map((b) => b.textContent)).toEqual(['Copy letter']);
   });

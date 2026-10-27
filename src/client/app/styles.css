@@ -5427,6 +5427,12 @@ var {
   align-items: center;
 }
 
+.strv-act__addrs {
+  margin: 0;
+  font-size: 0.875rem;
+  overflow-wrap: anywhere;
+}
+
 .strv-act__hint {
   margin: 0;
   font-size: 0.875rem;

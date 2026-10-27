@@ -54,13 +54,14 @@ export function createEveryone(input: EveryoneInput): HTMLElement {
 
   const actions = h('div', { class: 'strv-act__actions' });
   if (href) actions.append(h('a', { class: 'strv-button strv-button--signal', href, onclick: () => count(withEmail) }, 'Email everyone at once'));
-  else if (emails.length > 0) actions.append(h('button', { type: 'button', class: 'strv-button strv-button--signal', onclick: () => copy(emails.join(', '), 'Email addresses copied', withEmail) }, 'Copy emails'));
+  if (emails.length > 0) actions.append(h('button', { type: 'button', class: `strv-button${href ? '' : ' strv-button--signal'}`, onclick: () => copy(emails.join(', '), 'Copied', withEmail) }, 'Copy emails'));
   actions.append(h('button', { type: 'button', class: 'strv-button', onclick: () => copy(`${letter.subject}\n\n${letter.body}`, 'Copied', input.reps) }, 'Copy letter'), status);
 
   return h(
     'div',
     { class: 'strv-act__all', role: 'group', 'aria-label': 'Email everyone at once' },
     actions,
+    emails.length > 0 && h('p', { class: 'strv-act__addrs' }, h('strong', null, 'To: '), emails.join(', ')),
     emails.length === 0 && h('p', { class: 'strv-act__hint' }, NO_EMAIL_COPY),
     emails.length > 0 && !href && h('p', { class: 'strv-act__hint' }, TOO_LONG_COPY),
     h('details', { class: 'strv-act__letter' }, h('summary', null, 'Read the letter'), h('p', { class: 'strv-ask__subject' }, h('strong', null, 'Subject: '), letter.subject), h('pre', { class: 'strv-ask__letter' }, letter.body)),

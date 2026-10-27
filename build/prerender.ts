@@ -5,7 +5,7 @@ import { pathToFileURL } from 'node:url';
 import { JSDOM } from 'jsdom';
 import { PAGE_META } from '../src/client/shared/lib/page-meta';
 import { SITE_HOST } from '../src/server/features/publish/site';
-import { esc, swap } from './share-pages';
+import { esc, sharePagePaths, swap } from './share-pages';
 import { Resvg } from '@resvg/resvg-js';
 import { toMarkdown } from './markdown';
 import { LLMS_SUMMARY, PAGE_KEYS, jsonLd, jsonLdScript, llmsTxt, robotsTxt, sitemapXml, type FaqEntry, type PageKey } from './seo';
@@ -162,7 +162,7 @@ export async function main(): Promise<void> {
     markdown.set(key, toMarkdown(rendered.html, site));
     outputs.set(file, pageHtml(key, shell, rendered));
   }
-  outputs.set(join(DIST, 'sitemap.xml'), sitemapXml(site));
+  outputs.set(join(DIST, 'sitemap.xml'), sitemapXml(site, sharePagePaths('public')));
   outputs.set(join(DIST, 'robots.txt'), robotsTxt(site));
   outputs.set(join(DIST, 'llms.txt'), llmsTxt(site));
   const sections = (['home', 'faq', 'how'] as const).map((k) => `---\n\n${markdown.get(k) ?? ''}`);

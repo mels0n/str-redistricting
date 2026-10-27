@@ -29,6 +29,13 @@ describe('site files', () => {
     expect(xml).not.toContain('lastmod');
   });
 
+  it('lists each share page after the fixed pages', () => {
+    const xml = sitemapXml('https://x.test', ['CO', 'CO/house', 'CO/senate']);
+    const locs = [...xml.matchAll(/<loc>([^<]*)<\/loc>/g)].map((m) => m[1]);
+    expect(locs).toHaveLength(7);
+    expect(locs.slice(4)).toEqual(['https://x.test/CO', 'https://x.test/CO/house', 'https://x.test/CO/senate']);
+  });
+
   it('ends robots.txt with the sitemap line and keeps em dashes out', () => {
     const robots = robotsTxt('https://fairmaps.melson.us');
     expect(robots.trimEnd().endsWith('Sitemap: https://fairmaps.melson.us/sitemap.xml')).toBe(true);

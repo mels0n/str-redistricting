@@ -6,5 +6,5 @@ export type { EnqueueEmail, SignConfig, SignDeps, SignRequest, SignResult } from
 export { clientIp, hashIp } from './hash.js';
 export { checkRateLimit } from './rate-limit.js';
 export { maybeCleanup, resetCleanup } from './cleanup.js';
-export { requestRemoval, removeSigner, RemoveRequestSchema, RemoveSchema } from './remove.js';
+export { requestRemoval, REMOVE_COOLDOWN_MS, REMOVE_UNSENT_MAX_AGE_MS, removeSigner, RemoveRequestSchema, RemoveSchema } from './remove.js';
 export type { RemoveRequestDeps } from './remove.js';

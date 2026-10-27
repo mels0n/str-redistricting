@@ -34,11 +34,11 @@ export async function sendRow(deps: OutboxDeps, listed: OutboxRow): Promise<Send
     row = await repo.getQueued(listed.id);
   } catch (err) {
     // The caller already took a slot; a failed read must not use it up.
-    await repo.releaseSlot().catch(() => undefined);
+    await repo.releaseSlot(listed.kind).catch(() => undefined);
     throw err;
   }
   if (!row) {
-    await repo.releaseSlot();
+    await repo.releaseSlot(listed.kind);
     return 'skipped';
   }
   let accepted = false;
@@ -63,7 +63,7 @@ export async function sendRow(deps: OutboxDeps, listed: OutboxRow): Promise<Send
     accepted = false;
   }
   if (!accepted) {
-    await repo.releaseSlot();
+    await repo.releaseSlot(row.kind);
     await repo.recordFailure(row, MAX_ATTEMPTS);
     return 'failed';
   }

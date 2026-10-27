@@ -13,7 +13,7 @@ export async function enqueueEmail(deps: OutboxDeps, kind: EmailKind, signerId: 
   const { repo, config } = deps;
   const row = await repo.upsertQueued(kind, signerId, seal(to, config.encryptionKey), seal(token, config.encryptionKey));
   if (await repo.hasQueuedAhead(row)) return { queued: true };
-  if (!(await repo.claimSlot(config.emailDailyCap))) return { queued: true };
+  if (!(await repo.claimSlot(config.emailDailyCap, kind))) return { queued: true };
   return { queued: (await sendRow(deps, row)) !== 'sent' };
 }
 

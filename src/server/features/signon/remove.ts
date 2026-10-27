@@ -12,6 +12,11 @@ export const RemoveRequestSchema = z.strictObject({
 });
 export const RemoveSchema = z.strictObject({ token: z.string().max(200) });
 
+/** A signer's removal token is not replaced, and no email is queued, for this long after it was made. */
+export const REMOVE_COOLDOWN_MS = 30 * 60_000;
+/** A token whose email never went out (so it has no expiry) is refused once it is this old. */
+export const REMOVE_UNSENT_MAX_AGE_MS = 7 * 24 * 3_600_000;
+
 export interface RemoveRequestDeps {
   config: { turnstileSecret: string; hashSecret: Buffer };
   rateRepo: SignerRepo;
@@ -22,10 +27,11 @@ export interface RemoveRequestDeps {
 }
 
 /**
- * Asks for a removal link. The caller gets the same answer whether or not the email is signed up. Both paths make a token,
- * hash it and look the row up; only a found row stores the hash and queues the email.
+ * Asks for a removal link. It checks the request, then returns the rest of the work as a function for the caller to run
+ * after it has answered: the lookup, the token and the email. Whether the email is signed up, in its cooldown, or the
+ * database or mail provider is failing, the caller sees the same thing. The caller must catch what the function throws.
  */
-export async function requestRemoval(body: unknown, ip: string, deps: RemoveRequestDeps): Promise<void> {
+export async function requestRemoval(body: unknown, ip: string, deps: RemoveRequestDeps): Promise<() => Promise<void>> {
   const parsed = RemoveRequestSchema.safeParse(body);
   if (!parsed.success) throw new SignonError('bad-request');
   const { email, turnstileToken } = parsed.data;
@@ -33,9 +39,13 @@ export async function requestRemoval(body: unknown, ip: string, deps: RemoveRequ
   await verifyTurnstile(turnstileToken, config.turnstileSecret, ip, deps.fetchFn);
   await checkRateLimit(deps.rateRepo, hashIp(`remove:${ip}`, config.hashSecret), deps.now());
 
-  const token = newToken();
-  const signer = await deps.repo.setRemoveToken(hashEmail(email, config.hashSecret), hashToken(token));
-  if (signer) await deps.enqueue('remove', signer.id, email, token);
+  return async () => {
+    const now = deps.now();
+    const token = newToken();
+    // Inside the cooldown (or for an unknown email) nothing is stored and nothing is queued.
+    const signer = await deps.repo.setRemoveToken(hashEmail(email, config.hashSecret), hashToken(token), now.toISOString(), new Date(now.getTime() - REMOVE_COOLDOWN_MS).toISOString());
+    if (signer) await deps.enqueue('remove', signer.id, email, token);
+  };
 }
 
 /** Deletes the signer who holds the token. A used token finds no row, so it is invalid. */
@@ -44,6 +54,9 @@ export async function removeSigner(body: unknown, repo: RemovalRepo, now: Date):
   if (!parsed.success || !TOKEN_PATTERN.test(parsed.data.token)) throw new SignonError('token-invalid');
   const row = await repo.findByRemoveTokenHash(hashToken(parsed.data.token));
   if (!row) throw new SignonError('token-invalid');
-  if (row.expiresAt !== null && new Date(row.expiresAt).getTime() < now.getTime()) throw new SignonError('token-expired');
+  // No expiry yet means the email has not gone out; that does not last forever.
+  const expired =
+    row.expiresAt !== null ? new Date(row.expiresAt).getTime() < now.getTime() : row.setAt === null || new Date(row.setAt).getTime() < now.getTime() - REMOVE_UNSENT_MAX_AGE_MS;
+  if (expired) throw new SignonError('token-expired');
   if (!(await repo.deleteSigner(row.id))) throw new SignonError('token-invalid');
 }

@@ -58,7 +58,8 @@ class FakeOutbox implements OutboxRepo {
   async quotaSpent(cap: number) {
     return (this.days.get(this.today) ?? 0) >= cap;
   }
-  async claimSlot(cap: number) {
+  removeDays = new Map<string, number>();
+  async claimSlot(cap: number, kind?: EmailKind) {
     const prev = this.lock;
     let release!: () => void;
     this.lock = new Promise<void>((r) => (release = r));
@@ -67,13 +68,19 @@ class FakeOutbox implements OutboxRepo {
       await Promise.resolve();
       const sent = this.days.get(this.today) ?? 0;
       if (sent >= cap) return false;
+      if (kind === 'remove') {
+        const removed = this.removeDays.get(this.today) ?? 0;
+        if (removed >= Math.floor(cap / 2)) return false;
+        this.removeDays.set(this.today, removed + 1);
+      }
       this.days.set(this.today, sent + 1);
       return true;
     } finally {
       release();
     }
   }
-  async releaseSlot() {
+  async releaseSlot(kind?: EmailKind) {
+    if (kind === 'remove') this.removeDays.set(this.today, Math.max(0, (this.removeDays.get(this.today) ?? 0) - 1));
     const sent = this.days.get(this.today) ?? 0;
     if (sent > 0) this.days.set(this.today, sent - 1);
   }
@@ -172,6 +179,23 @@ describe('claim_email_slot semantics', () => {
     expect(sql).toContain('alter table email_outbox enable row level security');
     expect(sql).toContain('alter table email_days enable row level security');
     expect(sql).not.toMatch(/create policy/i);
+  });
+});
+
+describe('removal share of the day', () => {
+  it('sends at most half the cap in removals and leaves the rest of the day to confirmations', async () => {
+    const { repo, mails, deps } = setup({ cap: 4 });
+    for (let i = 0; i < 6; i++) await enqueueEmail(deps, 'remove', `r${i}`, `r${i}@example.com`, `rt${i}`);
+    expect(mails).toHaveLength(2);
+    expect(repo.rows.filter((r) => r.status === 'queued' && r.kind === 'remove')).toHaveLength(4);
+    for (let i = 0; i < 3; i++) await enqueueEmail(deps, 'confirm', `c${i}`, `c${i}@example.com`, `ct${i}`);
+    // Two slots are left today: removals are at their share, so confirmations take them.
+    expect(await drainOutbox(deps, 4)).toEqual({ sent: 2, left: 5 });
+    expect(mails.filter((m) => m.subject.startsWith('Confirm'))).toHaveLength(2);
+    // Next day the waiting removals go first again, up to their share.
+    repo.today = '2026-10-28';
+    await drainOutbox(deps, 4);
+    expect(mails.slice(4).map((m) => m.subject.split(' ')[0])).toEqual(['Remove', 'Remove', 'Confirm']);
   });
 });
 

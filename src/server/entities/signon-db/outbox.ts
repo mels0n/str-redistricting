@@ -25,9 +25,10 @@ export interface OutboxRepo {
   getQueued(id: number): Promise<OutboxRow | null>;
   /** True when today's quota is spent (read-only; takes no slot). */
   quotaSpent(cap: number): Promise<boolean>;
-  /** Atomically takes one of today's slots (`claim_email_slot`). */
-  claimSlot(cap: number): Promise<boolean>;
-  releaseSlot(): Promise<void>;
+  /** Atomically takes one of today's slots (`claim_email_slot`). A removal also needs room in its share: at most half of `cap` a day (`claim_remove_slot`). */
+  claimSlot(cap: number, kind?: EmailKind): Promise<boolean>;
+  /** Gives back a slot taken for this kind. */
+  releaseSlot(kind?: EmailKind): Promise<void>;
   /** Marks the row sent, drops its sealed payload and starts the signer's 48 hours (`mark_email_sent`). */
   markSent(id: number): Promise<void>;
   /** Adds one attempt; the row becomes `failed` once it reaches `maxAttempts`, and then its sealed address and token are dropped. */
@@ -92,13 +93,13 @@ export function outboxRepo(): OutboxRepo {
       if (error) fail();
       return data === true;
     },
-    async claimSlot(cap) {
-      const { data, error } = await db().rpc('claim_email_slot', { cap });
+    async claimSlot(cap, kind) {
+      const { data, error } = kind === 'remove' ? await db().rpc('claim_remove_slot', { cap, remove_cap: Math.floor(cap / 2) }) : await db().rpc('claim_email_slot', { cap });
       if (error) fail();
       return data === true;
     },
-    async releaseSlot() {
-      const { error } = await db().rpc('release_email_slot');
+    async releaseSlot(kind) {
+      const { error } = await db().rpc(kind === 'remove' ? 'release_remove_slot' : 'release_email_slot');
       if (error) fail();
     },
     async markSent(id) {

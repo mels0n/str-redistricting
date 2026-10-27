@@ -4,6 +4,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { removeHandler } from '../../../src/server/api/remove.js';
 import { removeRequestHandler, type RemoveRequestHandlerDeps } from '../../../src/server/api/remove-request.js';
 import type { RemovalRepo, RemovalToken, SignerRepo } from '../../../src/server/entities/signon-db/index.js';
+import { REMOVE_COOLDOWN_MS, REMOVE_UNSENT_MAX_AGE_MS } from '../../../src/server/features/signon/remove.js';
 import { hashEmail, TOKEN_PATTERN } from '../../../src/server/features/signon/hash.js';
 import { renderEmail } from '../../../src/server/features/outbox/index.js';
 
@@ -18,24 +19,25 @@ interface Row {
   usHouse: string;
   removeTokenHash: string | null;
   removeExpires: string | null;
+  setAt: string | null;
 }
 
 /** In-memory stand-in for the signers table: notes cascade, and the district count is derived from the rows. */
 class FakeRemoval implements RemovalRepo {
-  rows: Row[] = [{ id: 's1', emailHash: hashEmail('ada@example.com', SECRET), usHouse: '01', removeTokenHash: null, removeExpires: null }];
+  rows: Row[] = [{ id: 's1', emailHash: hashEmail('ada@example.com', SECRET), usHouse: '01', removeTokenHash: null, removeExpires: null, setAt: null }];
   notes = [{ signerId: 's1', text: 'hello' }];
   writes = 0;
   count = (code: string) => this.rows.filter((r) => r.usHouse === code).length;
-  async setRemoveToken(emailHash: string, tokenHash: string) {
+  async setRemoveToken(emailHash: string, tokenHash: string, nowIso: string, cooldownBeforeIso: string) {
     const r = this.rows.find((x) => x.emailHash === emailHash);
-    if (!r) return null;
+    if (!r || (r.setAt !== null && r.setAt >= cooldownBeforeIso)) return null;
     this.writes++;
-    Object.assign(r, { removeTokenHash: tokenHash, removeExpires: null });
+    Object.assign(r, { removeTokenHash: tokenHash, removeExpires: null, setAt: nowIso });
     return { id: r.id };
   }
   async findByRemoveTokenHash(h: string): Promise<RemovalToken | null> {
     const r = this.rows.find((x) => x.removeTokenHash === h);
-    return r ? { id: r.id, expiresAt: r.removeExpires } : null;
+    return r ? { id: r.id, expiresAt: r.removeExpires, setAt: r.setAt } : null;
   }
   async deleteSigner(id: string) {
     const n = this.rows.length;
@@ -62,6 +64,7 @@ function setup(over: Partial<RemoveRequestHandlerDeps> = {}, turnstile = true) {
   const repo = new FakeRemoval();
   const { repo: rateRepo, attempts } = rate();
   const sent: { kind: string; signerId: string; to: string; token: string }[] = [];
+  const pending: Promise<void>[] = [];
   const deps: RemoveRequestHandlerDeps = {
     loadConfig: () => CONFIG,
     rateRepo: () => rateRepo,
@@ -72,9 +75,17 @@ function setup(over: Partial<RemoveRequestHandlerDeps> = {}, turnstile = true) {
     },
     fetchFn: (async () => Response.json({ success: turnstile })) as typeof fetch,
     now: () => NOW,
+    after: (work) => void pending.push(work),
     ...over,
   };
-  return { repo, sent, attempts, request: removeRequestHandler(deps), remove: removeHandler({ loadConfig: () => deps.loadConfig(), repo: () => repo, now: () => NOW }) };
+  const handler = removeRequestHandler(deps);
+  // Like the platform, the work runs after the response; tests wait for it here.
+  const request = async (req: Request) => {
+    const res = await handler(req);
+    await Promise.all(pending.splice(0));
+    return res;
+  };
+  return { repo, sent, attempts, request, pending, handler, remove: removeHandler({ loadConfig: () => deps.loadConfig(), repo: () => repo, now: () => NOW }) };
 }
 
 const ask = (email: string) => new Request('https://site.test/api/remove-request', { method: 'POST', body: JSON.stringify({ email, turnstileToken: 'tok' }), headers: { 'x-forwarded-for': '9.9.9.9' } });
@@ -107,6 +118,56 @@ describe('POST /api/remove-request', () => {
     expect(repo.rows[0]!.removeTokenHash).toBe(sha(sent[0]!.token));
     expect(JSON.stringify(repo.rows)).not.toContain(sent[0]!.token);
     expect(repo.rows[0]!.removeExpires).toBeNull();
+  });
+
+  it('answers the same 202 when the enqueue throws, and logs only the request id and a code', async () => {
+    const log = vi.spyOn(console, 'error').mockImplementation(() => {});
+    const s = setup({
+      enqueue: async () => {
+        throw new Error('ada@example.com resend key leaked');
+      },
+    });
+    const res = await s.request(ask('ada@example.com'));
+    expect(res.status).toBe(202);
+    expect(await res.json()).toEqual({ status: 'check-email' });
+    expect(log).toHaveBeenCalledTimes(1);
+    const line = JSON.parse(String(log.mock.calls[0]![0])) as Record<string, string>;
+    expect(Object.keys(line).sort()).toEqual(['code', 'requestId']);
+    expect(JSON.stringify(line)).not.toContain('ada@');
+  });
+
+  it('answers before the email work finishes', async () => {
+    let release!: () => void;
+    const gate = new Promise<void>((r) => (release = r));
+    const s = setup({ enqueue: async () => (await gate, { queued: false }) });
+    const res = await s.handler(ask('ada@example.com'));
+    expect(res.status).toBe(202);
+    expect(s.sent).toHaveLength(0);
+    release();
+    await Promise.all(s.pending);
+  });
+
+  it('does not rotate the token or queue a second email within 30 minutes, and answers the same', async () => {
+    const s = setup();
+    await s.request(ask('ada@example.com'));
+    const first = s.repo.rows[0]!.removeTokenHash;
+    const again = await s.request(ask('ada@example.com'));
+    expect(again.status).toBe(202);
+    expect(await again.json()).toEqual({ status: 'check-email' });
+    expect(s.sent).toHaveLength(1);
+    expect(s.repo.rows[0]!.removeTokenHash).toBe(first);
+    // The first link still works.
+    expect((await s.remove(del(s.sent[0]!.token))).status).toBe(200);
+  });
+
+  it('makes a new token once the cooldown is over', async () => {
+    let now = NOW;
+    const s = setup({ now: () => now });
+    await s.request(ask('ada@example.com'));
+    now = new Date(NOW.getTime() + REMOVE_COOLDOWN_MS + 1000);
+    await s.request(ask('ada@example.com'));
+    expect(s.sent).toHaveLength(2);
+    expect(s.repo.rows[0]!.removeTokenHash).toBe(sha(s.sent[1]!.token));
   });
 
   it('checks Turnstile first, rate limits in its own bucket, and refuses outside production', async () => {
@@ -164,6 +225,18 @@ describe('POST /api/remove', () => {
     expect(s.repo.rows).toHaveLength(1);
   });
 
+  it('treats a token whose email never went out as expired after a week, and valid before', async () => {
+    const s = setup();
+    const t = await token(s);
+    s.repo.rows[0]!.setAt = new Date(NOW.getTime() - REMOVE_UNSENT_MAX_AGE_MS + 60_000).toISOString();
+    expect((await s.remove(del(t))).status).toBe(200);
+    const s2 = setup();
+    const t2 = await token(s2);
+    s2.repo.rows[0]!.setAt = new Date(NOW.getTime() - REMOVE_UNSENT_MAX_AGE_MS - 60_000).toISOString();
+    expect((await s2.remove(del(t2))).status).toBe(410);
+    expect(s2.repo.rows).toHaveLength(1);
+  });
+
   it('never deletes on a GET, and refuses writes outside production', async () => {
     const s = setup();
     const t = await token(s);
@@ -188,6 +261,9 @@ describe('removal plumbing', () => {
     expect(sql).toContain('on signers (remove_token_hash) where remove_token_hash is not null');
     expect(sql).toContain('create or replace function mark_email_sent(p_id bigint)');
     expect(sql).toMatch(/elsif r\.kind = 'remove' then\s+update signers set remove_token_expires_at = sent_at_ts \+ interval '48 hours' where id = r\.signer_id/);
+    expect(sql).toContain('add column if not exists remove_token_set_at timestamptz null');
+    expect(sql).toContain('create or replace function claim_remove_slot(cap int, remove_cap int)');
+    expect(sql).toContain('sent < cap and remove_sent < remove_cap');
     expect(sql).toContain('revoke all on function mark_email_sent(bigint) from public, anon, authenticated');
   });
 });

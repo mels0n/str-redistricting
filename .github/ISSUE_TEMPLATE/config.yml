@@ -1,3 +1,4 @@
+# Links and examples name the site's address (siteHost in src/client/shared/config); GitHub forms cannot read it from there.
 blank_issues_enabled: false
 contact_links:
   - name: Frequently asked questions

@@ -433,12 +433,12 @@ html:has(> body > #str-viewer) {
   font-size: 0.875rem;
 }
 
+/* The list steps aside so its items wrap in the same row as the How it works link. */
 .strv .strv-national__questions {
   display: contents;
   list-style: none;
   padding: 0;
 }
-
 
 .strv-national__how {
   margin-top: var(--s-4);
@@ -726,7 +726,7 @@ html:has(> body > #str-viewer) {
   transition: fill 140ms ease-out;
 }
 
-.strv-us__state.is-hot path,
+.strv-us__state.is-hover path,
 .strv-us__state:hover path,
 .strv-us__state:focus-visible path {
   fill: var(--signal);
@@ -759,7 +759,8 @@ html:has(> body > #str-viewer) {
 }
 
 /* The hover and focus fill is amber; paper text on it is only 2.6:1, ink is 6.4:1. */
-.strv-us__label-link.is-hot .strv-us__label {
+.strv-us__label-link.is-hover .strv-us__label,
+.strv-us__label-link.is-focus .strv-us__label {
   fill: var(--ink);
 }
 
@@ -771,7 +772,8 @@ html:has(> body > #str-viewer) {
   paint-order: stroke;
 }
 
-.strv-us__label-link.is-hot .strv-us__label {
+.strv-us__label-link.is-hover .strv-us__label,
+.strv-us__label-link.is-focus .strv-us__label {
   stroke: var(--signal);
 }
 
@@ -4914,7 +4916,7 @@ var {
     stroke: Canvas;
   }
 
-  .strv-us__state.is-hot path,
+  .strv-us__state.is-hover path,
   .strv-us__state:hover path,
   .strv-us__state:focus-visible path {
     fill: Highlight;
@@ -4927,7 +4929,8 @@ var {
     stroke: Canvas;
   }
 
-  .strv-us__label-link.is-hot .strv-us__label {
+  .strv-us__label-link.is-hover .strv-us__label,
+  .strv-us__label-link.is-focus .strv-us__label {
     fill: HighlightText;
     stroke: Highlight;
   }

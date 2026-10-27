@@ -1,3 +1,4 @@
+# Links and examples name the site's address (siteHost in src/client/shared/config); GitHub forms cannot read it from there.
 name: Ask a question
 description: Ask how the maps are drawn, why a district looks the way it does, or anything else about the project.
 title: "Question: "

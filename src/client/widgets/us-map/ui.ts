@@ -20,6 +20,8 @@ const ALWAYS_CALLOUT = new Set(['NC']);
 const MOVED_CORE = 0.4;
 /** Clear space kept between two labels on a phone, in drawing units. */
 const GAP_COMPACT = 2;
+/** At most this many placed labels may move to make room for one that has no clear spot. */
+const MAX_MOVED = 2;
 
 /** The rightmost projected vertex of a state: a point on its eastern edge for a leader to start from. */
 function eastEdge(geometry: Polygon | MultiPolygon, project: (p: [number, number]) => [number, number] | null): [number, number] | null {
@@ -113,6 +115,8 @@ function buildUsMap(opts: UsMapOptions, compact: boolean): SVGSVGElement {
     href: string;
     label: string;
     geometry: Polygon | MultiPolygon;
+    /** The usual label point, where a callout's leader starts when the state has no eastern edge to start from. */
+    at: [number, number];
     /** Spots inside the state where the label fits, nearest its usual place first. */
     spots: [number, number][];
     w: number;
@@ -160,7 +164,7 @@ function buildUsMap(opts: UsMapOptions, compact: boolean): SVGSVGElement {
       more.sort((a, b) => Math.hypot(a[0] - cx, a[1] - cy) - Math.hypot(b[0] - cx, b[1] - cy));
       spots.push(...more);
     }
-    pending.push({ d, abbr: entry.abbr, seats, href: routeHref(stateRoute(entry.abbr, { chamber })), label: `${entry.name}, ${districtCount(seats)}`, geometry: f.geometry, spots, w, top, bottom });
+    pending.push({ d, abbr: entry.abbr, seats, href: routeHref(stateRoute(entry.abbr, { chamber })), label: `${entry.name}, ${districtCount(seats)}`, geometry: f.geometry, at: [cx, cy], spots, w, top, bottom });
   }
 
   // The states with the fewest spots choose first; each takes its nearest spot whose label clears every label already placed.
@@ -186,7 +190,7 @@ function buildUsMap(opts: UsMapOptions, compact: boolean): SVGSVGElement {
     for (const spot of p.spots) {
       const mine = boxAt(p, spot);
       const blockers = inTheWay(mine);
-      if (blockers.length > 2) continue;
+      if (blockers.length > MAX_MOVED) continue;
       // Move each blocker to its nearest spot that clears this label, the other blockers' new places and everything else.
       const moved = new Map<string, Box>();
       const moves: [Pending, [number, number]][] = [];
@@ -227,7 +231,7 @@ function buildUsMap(opts: UsMapOptions, compact: boolean): SVGSVGElement {
       );
     }
     if (!spot) {
-      const [ax, ay] = eastEdge(p.geometry, project) ?? [0, 0];
+      const [ax, ay] = eastEdge(p.geometry, project) ?? p.at;
       callouts.push({ y: ay, cx: ax, cy: ay, abbr: p.abbr, seats: p.seats });
     }
   }
@@ -266,16 +270,20 @@ function buildUsMap(opts: UsMapOptions, compact: boolean): SVGSVGElement {
     active,
     labels,
   );
-  // A state and its label are separate links; pointing at or focusing either lights up both.
-  const hot = (e: Event, on: boolean): void => {
+  // A state and its label are separate links; pointing at either, or keyboard focus on the state, lights up both. Pointer and
+  // focus are kept apart (is-hover, is-focus) so that moving the pointer away never unlights a state that still has focus.
+  const mark = (e: Event, cls: 'is-hover' | 'is-focus', on: boolean): void => {
     const abbr = (e.target as Element | null)?.closest?.('[data-abbr]')?.getAttribute('data-abbr');
     if (!abbr) return;
-    for (const n of root.querySelectorAll(`[data-abbr="${abbr}"]`)) n.classList.toggle('is-hot', on);
+    for (const n of root.querySelectorAll(`[data-abbr="${abbr}"]`)) n.classList.toggle(cls, on);
   };
-  root.addEventListener('pointerover', (e) => hot(e, true));
-  root.addEventListener('pointerout', (e) => hot(e, false));
-  root.addEventListener('focusin', (e) => hot(e, (e.target as Element).matches(':focus-visible')));
-  root.addEventListener('focusout', (e) => hot(e, false));
+  root.addEventListener('pointerover', (e) => mark(e, 'is-hover', true));
+  root.addEventListener('pointerout', (e) => mark(e, 'is-hover', false));
+  // Focus from a mouse press is not shown, as with :focus-visible; it neither lights nor unlights anything.
+  root.addEventListener('focusin', (e) => {
+    if ((e.target as Element).matches(':focus-visible')) mark(e, 'is-focus', true);
+  });
+  root.addEventListener('focusout', (e) => mark(e, 'is-focus', false));
   return root;
 }
 

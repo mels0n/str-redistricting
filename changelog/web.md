@@ -1,5 +1,11 @@
 # Web changelog
 
+## 1.5.0 (2026-10-27)
+
+- fix(web): keep the national map's state labels from overlapping; coverage note to the FAQ only
+- feat(web): point questions and problem reports to GitHub issue forms
+- fix(web): calm the home page: shorter lede, one row of reading links, coverage note under the map
+
 ## 1.4.0 (2026-10-23)
 
 - Addresses are now real paths, such as /CO, /CO/d/3, /how and /faq, instead of #/ links. Old #/ links still work and are rewritten to the path form when they open.

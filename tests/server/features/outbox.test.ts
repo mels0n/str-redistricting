@@ -2,8 +2,8 @@ import { readFileSync } from 'node:fs';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { cronDrainHandler } from '../../../src/server/api/cron-drain.js';
 import type { EmailKind, OutboxRepo, OutboxRow } from '../../../src/server/entities/signon-db/index.js';
-import { drainOutbox, enqueueEmail, renderEmail, type OutboxDeps } from '../../../src/server/features/outbox/index.js';
-import { open } from '../../../src/server/shared/crypto/index.js';
+import { drainOutbox, enqueueEmail, renderEmail, wouldQueue, type OutboxDeps } from '../../../src/server/features/outbox/index.js';
+import { open, seal } from '../../../src/server/shared/crypto/index.js';
 
 const KEY = Buffer.alloc(32, 2);
 const SITE = 'https://site.test';
@@ -51,6 +51,13 @@ class FakeOutbox implements OutboxRepo {
   async countQueued() {
     return this.queuedInOrder().length;
   }
+  async getQueued(id: number) {
+    const r = this.rows.find((x) => x.id === id && x.status === 'queued');
+    return r ? ({ ...r } as OutboxRow) : null;
+  }
+  async quotaSpent(cap: number) {
+    return (this.days.get(this.today) ?? 0) >= cap;
+  }
   async claimSlot(cap: number) {
     const prev = this.lock;
     let release!: () => void;
@@ -79,18 +86,18 @@ class FakeOutbox implements OutboxRepo {
   async recordFailure(row: OutboxRow, maxAttempts: number) {
     const r = this.rows.find((x) => x.id === row.id)!;
     r.attempts = row.attempts + 1;
-    if (r.attempts >= maxAttempts) r.status = 'failed';
+    if (r.attempts >= maxAttempts) Object.assign(r, { status: 'failed', toEnc: null, tokenEnc: null });
   }
 }
 
-interface Mail { to: string; subject: string; text: string; auth: string | null }
+interface Mail { to: string; subject: string; text: string; auth: string | null; key: string | null }
 function setup(opts: { cap?: number; failResend?: () => boolean } = {}) {
   const repo = new FakeOutbox();
   const mails: Mail[] = [];
   const fetchFn = (async (_url: unknown, init: RequestInit) => {
     if (opts.failResend?.()) return new Response('{}', { status: 500 });
     const body = JSON.parse(String(init.body)) as { to: string[]; subject: string; text: string };
-    mails.push({ to: body.to[0]!, subject: body.subject, text: body.text, auth: new Headers(init.headers).get('authorization') });
+    mails.push({ to: body.to[0]!, subject: body.subject, text: body.text, auth: new Headers(init.headers).get('authorization'), key: new Headers(init.headers).get('idempotency-key') });
     return Response.json({ id: 'x' });
   }) as typeof fetch;
   const deps: OutboxDeps = {
@@ -209,7 +216,7 @@ describe('Resend failures', () => {
     await drainOutbox(deps, 20);
     expect(repo.rows[0]).toMatchObject({ status: 'queued', attempts: 2 });
     await drainOutbox(deps, 20);
-    expect(repo.rows[0]).toMatchObject({ status: 'failed', attempts: 3 });
+    expect(repo.rows[0]).toMatchObject({ status: 'failed', attempts: 3, toEnc: null, tokenEnc: null });
     expect(repo.days.get(repo.today)).toBe(0);
     expect(await drainOutbox(deps, 20)).toEqual({ sent: 0, left: 0 });
     expect(mails).toHaveLength(0);
@@ -222,6 +229,71 @@ describe('Resend failures', () => {
     await drainOutbox(deps, 20);
     expect(repo.rows.filter((r) => r.attempts === 1)).toHaveLength(3);
     expect(repo.rows.filter((r) => r.attempts === 0)).toHaveLength(3);
+  });
+});
+
+describe('stale rows and idempotency', () => {
+  it('sends the newest token when the row was replaced between listing and sending', async () => {
+    const { repo, mails, deps } = setup({ cap: 1 });
+    await enqueueEmail(deps, 'confirm', 's1', 'a@example.com', 'first');
+    await enqueueEmail(deps, 'confirm', 's2', 'b@example.com', 'old-token');
+    repo.today = '2026-10-28';
+    const list = repo.listQueued.bind(repo);
+    repo.listQueued = async (n: number) => {
+      const snapshot = await list(n);
+      await repo.upsertQueued('confirm', 's2', seal('b@example.com', KEY), seal('new-token', KEY));
+      return snapshot;
+    };
+    await drainOutbox(deps, 1);
+    expect(mails.at(-1)!.text).toContain('token=new-token');
+    expect(mails.at(-1)!.text).not.toContain('old-token');
+  });
+
+  it('skips a row that is no longer queued and gives the slot back', async () => {
+    const { repo, mails, deps } = setup({ cap: 1 });
+    await enqueueEmail(deps, 'confirm', 's1', 'a@example.com', 't1');
+    await enqueueEmail(deps, 'confirm', 's2', 'b@example.com', 't2');
+    repo.today = '2026-10-28';
+    const list = repo.listQueued.bind(repo);
+    repo.listQueued = async (n: number) => {
+      const snapshot = await list(n);
+      repo.rows = repo.rows.filter((r) => r.signerId !== 's2');
+      return snapshot;
+    };
+    expect(await drainOutbox(deps, 1)).toEqual({ sent: 0, left: 0 });
+    expect(mails).toHaveLength(1);
+    expect(repo.days.get('2026-10-28')).toBe(0);
+  });
+
+  it('uses a different idempotency key for a different token or attempt', async () => {
+    const { repo, mails, deps } = setup({ failResend: (() => { let n = 0; return () => ++n === 1; })() });
+    await enqueueEmail(deps, 'confirm', 's1', 'a@example.com', 'tok-a');
+    await enqueueEmail(deps, 'confirm', 's1', 'a@example.com', 'tok-b');
+    await drainOutbox(deps, 20);
+    await enqueueEmail(deps, 'confirm', 's2', 'c@example.com', 'tok-a');
+    const keys = mails.map((m) => m.key);
+    expect(keys.every((k) => k && k.length > 0)).toBe(true);
+    expect(new Set(keys).size).toBe(keys.length);
+    expect(repo.rows.find((r) => r.signerId === 's1')!.status).toBe('sent');
+  });
+});
+
+describe('wouldQueue', () => {
+  it('is read-only and true only when people are in line or the quota is spent', async () => {
+    const { repo, deps } = setup({ cap: 1 });
+    expect(await wouldQueue(deps)).toBe(false);
+    await enqueueEmail(deps, 'confirm', 's1', 'a@example.com', 't1');
+    expect(await wouldQueue(deps)).toBe(true);
+    repo.today = '2026-10-28';
+    expect(await wouldQueue(deps)).toBe(false);
+    expect(repo.days.get('2026-10-28')).toBeUndefined();
+    await repo.upsertQueued('confirm', 's2', 'x', 'y');
+    expect(await wouldQueue(deps)).toBe(true);
+  });
+  it('is declared in the migration as a read-only check of today in Chicago', () => {
+    const sql = readFileSync('supabase/migrations/0002_outbox.sql', 'utf8');
+    expect(sql).toMatch(/function email_quota_spent\(cap int\) returns boolean\s+language sql stable/);
+    expect(sql).toContain('a sent or failed row holds neither');
   });
 });
 

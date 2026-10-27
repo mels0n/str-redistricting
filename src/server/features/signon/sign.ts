@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import type { PendingSigner, SignerRepo } from '../../entities/signon-db/index.js';
+import { OWN_CODE_ALPHABET, type PendingSigner, type SignerRepo } from '../../entities/signon-db/index.js';
 import { seal } from '../../shared/crypto/index.js';
 import { SignonError } from '../../shared/errors/signon.js';
 import { geocodeServer } from './geocode.js';
@@ -14,8 +14,13 @@ export const SignRequestSchema = z.strictObject({
   turnstileToken: z.string().min(1).max(2048),
   consentUpdates: z.boolean(),
   showPublic: z.boolean(),
-  displayName: z.string().max(40).nullable(),
-  ref: z.string().length(8).nullable(),
+  // Whitespace runs become one space, remaining control characters go, ends are trimmed.
+  displayName: z
+    .string()
+    .max(40)
+    .transform((s) => s.replace(/\s+/g, ' ').replace(/[\p{Cc}\p{Cf}]/gu, '').trim())
+    .nullable(),
+  ref: z.string().regex(new RegExp(`^[${OWN_CODE_ALPHABET}]{8}$`)).nullable(),
 });
 export type SignRequest = z.infer<typeof SignRequestSchema>;
 
@@ -34,6 +39,8 @@ export interface SignDeps {
   config: SignConfig;
   repo: SignerRepo;
   enqueue: EnqueueEmail;
+  /** What a new email would get right now (read-only), so a confirmed address answers like a new one. */
+  wouldQueue: () => Promise<boolean>;
   fetchFn: typeof fetch;
   now: () => Date;
   /** Defaults to the real lookup from the site's published files; tests may replace it. */
@@ -62,7 +69,8 @@ export async function sign(body: unknown, ip: string, deps: SignDeps): Promise<S
 
   const emailHash = hashEmail(req.email, config.hashSecret);
   const done: SignResult = { status: 'check-email', noteDropped: null, queued: false };
-  if (await repo.isConfirmed(emailHash)) return done;
+  // A confirmed address (or a lost race) answers exactly as a new one would, so the response does not reveal membership.
+  if (await repo.isConfirmed(emailHash)) return { ...done, queued: await deps.wouldQueue() };
 
   const token = newToken();
   const publicName = req.showPublic && req.displayName ? req.displayName : null;
@@ -81,7 +89,7 @@ export async function sign(body: unknown, ip: string, deps: SignDeps): Promise<S
     refCode: req.ref,
   };
   const signer = await repo.upsertPending(row);
-  if (!signer) return done;
+  if (!signer) return { ...done, queued: await deps.wouldQueue() };
 
   const { queued } = await deps.enqueue('confirm', signer.id, req.email, token);
   return { ...done, queued };

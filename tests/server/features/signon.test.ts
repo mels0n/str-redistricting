@@ -3,7 +3,8 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import type { PendingSigner, SignerRepo, TokenRow } from '../../../src/server/entities/signon-db/index.js';
 import { confirmHandler } from '../../../src/server/api/confirm.js';
 import { signHandler, type SignHandlerDeps } from '../../../src/server/api/sign.js';
-import { clearDistrictCache, serverDistrictsAt } from '../../../src/server/features/signon/index.js';
+import { open } from '../../../src/server/shared/crypto/index.js';
+import { clearDistrictCache, clientIp, resetCleanup, serverDistrictsAt } from '../../../src/server/features/signon/index.js';
 
 const KEY = Buffer.alloc(32, 2);
 const NOW = new Date('2026-10-27T15:00:00Z');
@@ -14,6 +15,7 @@ interface Row extends PendingSigner {
   status: 'pending' | 'confirmed';
   tokenExpiresAt: string | null;
   confirmedAt: string | null;
+  createdAt: Date;
 }
 
 /** In-memory stand-in for the signon-db functions. */
@@ -29,6 +31,16 @@ class FakeRepo implements SignerRepo {
     this.touched++;
     this.attempts.push({ ip, at: NOW });
   }
+  cleanups = 0;
+  failCleanup = false;
+  async cleanup(rateBeforeIso: string, createdBeforeIso: string, expiredBeforeIso: string) {
+    this.cleanups++;
+    if (this.failCleanup) throw new Error('db down');
+    this.attempts = this.attempts.filter((a) => a.at.toISOString() >= rateBeforeIso);
+    this.rows = this.rows.filter(
+      (r) => !(r.status === 'pending' && r.createdAt.toISOString() < createdBeforeIso && (r.tokenExpiresAt === null || r.tokenExpiresAt < expiredBeforeIso)),
+    );
+  }
   async isConfirmed(h: string) {
     this.touched++;
     return this.rows.some((r) => r.emailHash === h && r.status === 'confirmed');
@@ -42,7 +54,7 @@ class FakeRepo implements SignerRepo {
       return { id: existing.id };
     }
     const id = `s${this.rows.length + 1}`;
-    this.rows.push({ ...input, id, status: 'pending', tokenExpiresAt: null, confirmedAt: null });
+    this.rows.push({ ...input, id, status: 'pending', tokenExpiresAt: null, confirmedAt: null, createdAt: NOW });
     return { id };
   }
   async findByTokenHash(h: string): Promise<TokenRow | null> {
@@ -89,8 +101,11 @@ const BODY = { address: `${STREET}, Denver CO`, email: 'ada@example.com', turnst
 const post = (body: unknown) => new Request('https://site.test/api/sign', { method: 'POST', body: JSON.stringify(body), headers: { 'x-forwarded-for': '9.9.9.9' } });
 
 interface Sent { kind: string; signerId: string; to: string; token: string }
+let wouldQueueNow = false;
 function setup(over: Partial<SignHandlerDeps> = {}, fetchOpts: Parameters<typeof stubFetch>[0] = {}) {
   clearDistrictCache();
+  resetCleanup();
+  wouldQueueNow = false;
   const repo = new FakeRepo();
   const sent: Sent[] = [];
   const { fetchFn, calls } = stubFetch(fetchOpts);
@@ -101,6 +116,7 @@ function setup(over: Partial<SignHandlerDeps> = {}, fetchOpts: Parameters<typeof
       sent.push({ kind, signerId, to, token });
       return { queued: false };
     },
+    wouldQueue: async () => wouldQueueNow,
     fetchFn,
     now: () => NOW,
     ...over,
@@ -229,6 +245,82 @@ describe('POST /api/sign', () => {
     const { handler } = setup({}, { turnstile: false });
     await handler(post(BODY));
     expect(log.mock.calls.flat().join(' ')).not.toContain('Secret');
+  });
+});
+
+describe('sign-up hardening', () => {
+  it('answers a confirmed email exactly like a new one, whether or not people are in line', async () => {
+    for (const waiting of [false, true]) {
+      const tokens: string[] = [];
+      const s = setup({ enqueue: async (_k, _s, _t, token) => { tokens.push(token); return { queued: waiting }; } });
+      wouldQueueNow = waiting;
+      const fresh = await (await s.handler(post({ ...BODY, email: 'new@example.com' }))).text();
+      await s.handler(post(BODY));
+      await confirmHandler({ loadConfig: () => CONFIG, repo: () => s.repo, now: () => NOW })(new Request(`https://site.test/api/confirm?token=${tokens.at(-1)}`));
+      const again = await s.handler(post(BODY));
+      expect(await again.text()).toBe(fresh);
+      expect(again.status).toBe(202);
+      expect(JSON.parse(fresh).queued).toBe(waiting);
+    }
+  });
+
+  it('answers a lost race like a new sign-up', async () => {
+    const s = setup({ enqueue: async () => ({ queued: true }) });
+    wouldQueueNow = true;
+    s.repo.upsertPending = async () => null;
+    const res = await s.handler(post(BODY));
+    expect(await res.json()).toEqual({ status: 'check-email', noteDropped: null, queued: true });
+    expect(s.sent).toHaveLength(0);
+  });
+
+  it('cleans up old rate-limit rows and stale pending signers, keeps recent ones, and runs once per 10 minutes', async () => {
+    const s = setup();
+    const ago = (days: number) => new Date(NOW.getTime() - days * 86_400_000);
+    const row = (id: string, created: Date, exp: Date | null, status: 'pending' | 'confirmed' = 'pending'): Row => ({
+      ...({} as PendingSigner), id, emailHash: id, status, tokenExpiresAt: exp ? exp.toISOString() : null, confirmedAt: null, createdAt: created,
+    });
+    s.repo.rows = [
+      row('recent-queued', ago(1), null),
+      row('old-never-sent', ago(20), null),
+      row('old-expired-long-ago', ago(30), ago(10)),
+      row('old-expired-lately', ago(30), ago(3)),
+      row('old-confirmed', ago(60), null, 'confirmed'),
+    ];
+    s.repo.attempts = [{ ip: 'x', at: ago(2) }, { ip: 'x', at: NOW }];
+    await s.handler(post(BODY));
+    expect(s.repo.rows.map((r) => r.id).sort()).toEqual(['old-confirmed', 'old-expired-lately', 's4', 'recent-queued'].sort());
+    expect(s.repo.attempts.some((a) => a.at.getTime() === ago(2).getTime())).toBe(false);
+    await s.handler(post({ ...BODY, email: 'b@example.com' }));
+    expect(s.repo.cleanups).toBe(1);
+  });
+
+  it('never fails the request when cleanup fails', async () => {
+    const s = setup();
+    s.repo.failCleanup = true;
+    expect((await s.handler(post(BODY))).status).toBe(202);
+  });
+
+  it('reads the client address from the platform header first', () => {
+    const h = (o: Record<string, string>) => clientIp(new Headers(o));
+    expect(h({ 'x-vercel-forwarded-for': '1.1.1.1', 'x-real-ip': '2.2.2.2', 'x-forwarded-for': '3.3.3.3, 4.4.4.4' })).toBe('1.1.1.1');
+    expect(h({ 'x-real-ip': '2.2.2.2', 'x-forwarded-for': '3.3.3.3' })).toBe('2.2.2.2');
+    expect(h({ 'x-forwarded-for': '3.3.3.3, 4.4.4.4' })).toBe('3.3.3.3');
+    expect(h({})).toBe('unknown');
+  });
+
+  it('accepts only own-code characters in ref and cleans the display name', async () => {
+    const s = setup();
+    expect((await s.handler(post({ ...BODY, ref: 'ABCDEFGH' }))).status).toBe(400);
+    expect((await s.handler(post({ ...BODY, ref: 'abcdefg0' }))).status).toBe(400);
+    expect((await s.handler(post({ ...BODY, ref: 'abcdefgh', displayName: '  Ada \n\t  L\u0007ovelace\u200b ' }))).status).toBe(202);
+    expect(open(s.repo.rows[0]!.displayNameEnc!, KEY)).toBe('Ada Lovelace');
+    expect(s.repo.rows[0]!.refCode).toBe('abcdefgh');
+  });
+
+  it('records the attempt before counting, so the 6th try is refused and its row stays', async () => {
+    const s = setup();
+    for (let i = 0; i < 6; i++) await s.handler(post({ ...BODY, email: `r${i}@example.com` }));
+    expect(s.repo.attempts).toHaveLength(6);
   });
 });
 

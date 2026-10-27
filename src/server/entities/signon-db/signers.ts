@@ -35,9 +35,12 @@ export interface SignerRepo {
   upsertPending(input: PendingSigner): Promise<{ id: string } | null>;
   findByTokenHash(tokenHash: string): Promise<TokenRow | null>;
   confirm(id: string, confirmedAtIso: string): Promise<void>;
+  /** Deletes rate-limit rows before `rateBeforeIso`, and pending signers created before `createdBeforeIso` whose token expired before `expiredBeforeIso` or was never issued. */
+  cleanup(rateBeforeIso: string, createdBeforeIso: string, expiredBeforeIso: string): Promise<void>;
 }
 
-const CODE_ALPHABET = 'abcdefghjkmnpqrstuvwxyz23456789';
+export const OWN_CODE_ALPHABET = 'abcdefghjkmnpqrstuvwxyz23456789';
+const CODE_ALPHABET = OWN_CODE_ALPHABET;
 const newOwnCode = (): string => Array.from(randomBytes(8), (b) => CODE_ALPHABET[b % CODE_ALPHABET.length]).join('');
 
 const fail = (): never => {
@@ -97,6 +100,13 @@ export function signerRepo(): SignerRepo {
     async confirm(id, confirmedAtIso) {
       const { error } = await db().from('signers').update({ status: 'confirmed', confirmed_at: confirmedAtIso, token_expires_at: null }).eq('id', id);
       if (error) fail();
+    },
+    async cleanup(rateBeforeIso, createdBeforeIso, expiredBeforeIso) {
+      const a = await db().from('rate_limits').delete().lt('at', rateBeforeIso);
+      if (a.error) fail();
+      // Deleting a signer cascades to its outbox rows.
+      const b = await db().from('signers').delete().eq('status', 'pending').lt('created_at', createdBeforeIso).or(`token_expires_at.is.null,token_expires_at.lt.${expiredBeforeIso}`);
+      if (b.error) fail();
     },
   };
 }

@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto';
 import type { OutboxRepo, OutboxRow } from '../../entities/signon-db/index.js';
 import { open } from '../../shared/crypto/index.js';
 import { linkFor, renderEmail } from './templates.js';
@@ -23,8 +24,14 @@ export interface OutboxDeps {
  * Sends one queued row. The caller has already taken a slot. On success the row is marked sent (which drops the sealed
  * address and token and starts the signer's 48 hours). On any failure the slot is given back and the attempt is counted.
  */
-export async function sendRow(deps: OutboxDeps, row: OutboxRow): Promise<boolean> {
+export async function sendRow(deps: OutboxDeps, listed: OutboxRow): Promise<boolean> {
   const { repo, config } = deps;
+  // The row may have been replaced (the signer signed again) or finished since it was listed: send what is stored now.
+  const row = await repo.getQueued(listed.id);
+  if (!row) {
+    await repo.releaseSlot();
+    return false;
+  }
   let accepted = false;
   try {
     const to = open(row.toEnc, config.encryptionKey);
@@ -35,8 +42,9 @@ export async function sendRow(deps: OutboxDeps, row: OutboxRow): Promise<boolean
       headers: {
         authorization: `Bearer ${config.resendApiKey}`,
         'content-type': 'application/json',
-        // Same key for a retry of the same attempt, so a lost database write cannot send the email twice.
-        'idempotency-key': `outbox-${row.id}-${row.attempts}`,
+        // Same key only for the same row, attempt and token (so a lost database write cannot send the email twice);
+        // a replaced token or a later attempt is a different request and gets a different key.
+        'idempotency-key': `outbox-${row.id}-${row.attempts}-${createHash('sha256').update(token).digest('hex').slice(0, 16)}`,
       },
       body: JSON.stringify({ from: config.from, to: [to], subject: mail.subject, text: mail.text }),
       signal: AbortSignal.timeout(15_000),

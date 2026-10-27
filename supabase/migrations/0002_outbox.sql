@@ -11,7 +11,7 @@ create table if not exists email_outbox (
   attempts int not null default 0,
   created_at timestamptz not null default now(),
   sent_at timestamptz null,
-  -- A queued row holds the sealed address and token; a sent row holds neither.
+  -- A queued row holds the sealed address and token; a sent or failed row holds neither.
   constraint email_outbox_queued_has_payload check (status <> 'queued' or (to_enc is not null and token_enc is not null))
 );
 alter table email_outbox enable row level security;
@@ -43,6 +43,13 @@ begin
 end;
 $$;
 
+-- True when no email may go out right now: today's quota is spent. Read-only.
+create or replace function email_quota_spent(cap int) returns boolean
+language sql stable
+as $$
+  select coalesce((select sent >= cap from email_days where day = (now() at time zone 'America/Chicago')::date), false);
+$$;
+
 -- Gives back a slot after a failed send.
 create or replace function release_email_slot() returns void
 language sql
@@ -72,4 +79,4 @@ begin
 end;
 $$;
 
-revoke all on function claim_email_slot(int), release_email_slot(), mark_email_sent(bigint) from public, anon, authenticated;
+revoke all on function claim_email_slot(int), email_quota_spent(int), release_email_slot(), mark_email_sent(bigint) from public, anon, authenticated;

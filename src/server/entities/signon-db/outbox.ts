@@ -21,12 +21,16 @@ export interface OutboxRepo {
   /** Waiting rows in sending order: removals first, then oldest first. */
   listQueued(limit: number): Promise<OutboxRow[]>;
   countQueued(): Promise<number>;
+  /** The row as it is now, or null when it is no longer queued (sent, failed or removed). */
+  getQueued(id: number): Promise<OutboxRow | null>;
+  /** True when today's quota is spent (read-only; takes no slot). */
+  quotaSpent(cap: number): Promise<boolean>;
   /** Atomically takes one of today's slots (`claim_email_slot`). */
   claimSlot(cap: number): Promise<boolean>;
   releaseSlot(): Promise<void>;
   /** Marks the row sent, drops its sealed payload and starts the signer's 48 hours (`mark_email_sent`). */
   markSent(id: number): Promise<void>;
-  /** Adds one attempt; the row becomes `failed` once it reaches `maxAttempts`. */
+  /** Adds one attempt; the row becomes `failed` once it reaches `maxAttempts`, and then its sealed address and token are dropped. */
   recordFailure(row: OutboxRow, maxAttempts: number): Promise<void>;
 }
 
@@ -78,6 +82,16 @@ export function outboxRepo(): OutboxRepo {
       if (error) fail();
       return count ?? 0;
     },
+    async getQueued(id) {
+      const { data, error } = await db().from('email_outbox').select(COLUMNS).eq('id', id).eq('status', 'queued').limit(1);
+      if (error) fail();
+      return data?.[0] ? toRow(data[0] as DbRow) : null;
+    },
+    async quotaSpent(cap) {
+      const { data, error } = await db().rpc('email_quota_spent', { cap });
+      if (error) fail();
+      return data === true;
+    },
     async claimSlot(cap) {
       const { data, error } = await db().rpc('claim_email_slot', { cap });
       if (error) fail();
@@ -93,7 +107,7 @@ export function outboxRepo(): OutboxRepo {
     },
     async recordFailure(row, maxAttempts) {
       const attempts = row.attempts + 1;
-      const { error } = await db().from('email_outbox').update({ attempts, status: attempts >= maxAttempts ? 'failed' : 'queued' }).eq('id', row.id);
+      const { error } = await db().from('email_outbox').update(attempts >= maxAttempts ? { attempts, status: 'failed', to_enc: null, token_enc: null } : { attempts }).eq('id', row.id);
       if (error) fail();
     },
   };

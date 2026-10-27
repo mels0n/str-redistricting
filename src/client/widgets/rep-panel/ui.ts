@@ -1,5 +1,6 @@
 import { h, clear, config, sharePath, toStateFrame, announce, type LocatedAddress, type Office } from '../../shared';
-import { loadStateReps, type Rep } from '../../entities/reps';
+import { loadStateReps, STATEWIDE_CODE, type Rep } from '../../entities/reps';
+import { loadPledges, inPledgeOrder, type Pledge } from '../../entities/pledges';
 import { todaysDistrictsAt, repsFor, type RepsRow } from '../../features/todays-districts';
 import { createAskComposer } from '../../features/ask-rep';
 import { letterText } from './letter';
@@ -61,7 +62,7 @@ export function createRepPanel(): RepPanel {
     clear(el);
   };
 
-  const repRow = (input: RepPanelInput, row: RepsRow, rep: Rep, mapUrl: string): HTMLElement => {
+  const repRow = (input: RepPanelInput, row: RepsRow, rep: Rep, mapUrl: string, pledge: Pledge | undefined): HTMLElement => {
     const code = row.key.slice(row.key.lastIndexOf(':') + 1);
     const label = officeLabel(input.state, row.office, code);
     const slot = h('div', { class: 'strv-reps__composer' });
@@ -90,7 +91,14 @@ export function createRepPanel(): RepPanel {
     return h(
       'li',
       { class: 'strv-reps__row' },
-      h('div', { class: 'strv-reps__who' }, h('strong', null, rep.name), h('span', { class: 'strv-reps__office' }, label)),
+      h(
+        'div',
+        { class: 'strv-reps__who' },
+        h('strong', null, rep.name),
+        h('span', { class: 'strv-reps__office' }, label),
+        pledge && h('span', { class: 'strv-reps__pledged' }, 'Pledged'),
+        pledge && h('a', { class: 'strv-reps__statement', href: pledge.statementUrl, rel: 'noopener' }, 'Statement'),
+      ),
       h(
         'div',
         { class: 'strv-reps__actions' },
@@ -102,6 +110,26 @@ export function createRepPanel(): RepPanel {
     );
   };
 
+  /** Candidates for the seats shown who have pledged; nothing unless the site is set to show candidates. */
+  const candidatesSection = (input: RepPanelInput, rows: RepsRow[], pledges: Pledge[]): HTMLElement[] => {
+    if (!config.showCandidates) return [];
+    const keys = new Set(rows.map((r) => r.key));
+    const mine = inPledgeOrder(pledges).filter((p) => p.role === 'candidate' && keys.has(`${p.state}:${p.office}:${p.districtCode ?? STATEWIDE_CODE}`));
+    if (mine.length === 0) return [];
+    return [
+      h(
+        'div',
+        { class: 'strv-reps__candidates' },
+        h('h4', null, 'Candidates for this seat who support the rule'),
+        h(
+          'ul',
+          null,
+          mine.map((p) => h('li', null, h('strong', null, p.name), ' ', officeLabel(input.state, p.office, p.districtCode ?? ''), ' ', h('a', { href: p.statementUrl, rel: 'noopener' }, 'Statement'))),
+        ),
+      ),
+    ];
+  };
+
   async function update(input: RepPanelInput): Promise<void> {
     const mine = ++token;
     closeOpen = null;
@@ -111,9 +139,12 @@ export function createRepPanel(): RepPanel {
     }
     let rows: RepsRow[];
     let found: boolean;
+    let pledges: Pledge[] = [];
     try {
       const at = toStateFrame(input.state, input.located.lonLat);
-      const [reps, d] = await Promise.all([loadStateReps(input.state), todaysDistrictsAt(input.state, at)]);
+      // A pledges list that will not load only means no badges; it never hides the representatives.
+      const [reps, d, pl] = await Promise.all([loadStateReps(input.state), todaysDistrictsAt(input.state, at), loadPledges().catch((): Pledge[] => [])]);
+      pledges = pl;
       rows = repsFor(reps, d);
       found = d.usHouse !== null || d.stateHouse !== null || d.stateSenate !== null;
     } catch {
@@ -129,13 +160,17 @@ export function createRepPanel(): RepPanel {
         list.append(h('li', { class: 'strv-reps__row strv-reps__row--missing' }, 'We don’t have contact details for this seat yet.'));
         continue;
       }
-      for (const rep of row.reps) list.append(repRow(input, row, rep, mapUrl));
+      for (const rep of row.reps) {
+        const pledge = pledges.find((p) => p.role === 'incumbent' && p.personId === rep.id);
+        list.append(repRow(input, row, rep, mapUrl, pledge));
+      }
     }
     el.append(
       h('h3', { id: 'strv-reps-h', class: 'strv-reps__h' }, 'Who represents you today'),
       h('p', { class: 'strv-reps__intro' }, `Your state legislators draw ${input.stateName}’s maps in most states. Your members of Congress could set one rule for every state.`),
       ...(found ? [] : [h('p', { class: 'strv-reps__none' }, 'We couldn’t place this address in a district.')]),
       list,
+      ...candidatesSection(input, rows, pledges),
     );
     el.hidden = false;
   }

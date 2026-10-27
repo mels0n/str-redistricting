@@ -35,6 +35,13 @@ vi.mock('../../src/client/entities/reps', async (orig) => ({
   loadStateReps: async () => file,
 }));
 
+let pledges: unknown[] = [];
+vi.mock('../../src/client/entities/pledges', async (orig) => ({
+  ...(await orig<typeof import('../../src/client/entities/pledges')>()),
+  loadPledges: async () => pledges,
+}));
+
+import { config } from '../../src/client/shared';
 import { createRepPanel } from '../../src/client/widgets/rep-panel';
 
 const located = { state: 'CO', lonLat: [0.5, 0.5] as [number, number], matchedAddress: '1 Main St' };
@@ -155,5 +162,38 @@ describe('rep panel', () => {
     await p.update(input);
     const call = [...p.el.querySelectorAll('a')].filter((a) => a.textContent === 'Call').map((a) => a.getAttribute('href'));
     expect(call).toEqual(['tel:5550100', 'tel:+120222544315', 'tel:5550100']);
+  });
+
+  describe('pledges', () => {
+    const pl = (id: string, over: Record<string, unknown> = {}) => ({
+      id, name: `P ${id}`, role: 'incumbent', personId: id, office: 'us-house', state: 'CO', districtCode: '03',
+      statementUrl: `https://example.org/${id}`, campaignUrl: null, pledgedOn: '2026-10-01', cycle: null, ...over,
+    });
+
+    it('marks the rep whose id matches a pledge, with a link to the statement', async () => {
+      pledges = [pl('H')];
+      const p = createRepPanel();
+      await p.update(input);
+      const rows = [...p.el.querySelectorAll('li')];
+      expect(rows[2]!.textContent).toContain('Pledged');
+      expect(rows[2]!.querySelector('a.strv-reps__statement')!.getAttribute('href')).toBe('https://example.org/H');
+      expect(rows[0]!.textContent).not.toContain('Pledged');
+      expect(p.el.querySelector('.strv-reps__candidates')).toBeNull();
+      pledges = [];
+    });
+
+    it('shows candidates for the seat only when showCandidates is true', async () => {
+      pledges = [pl('C1', { role: 'candidate', personId: null })];
+      const p = createRepPanel();
+      await p.update(input);
+      expect(p.el.textContent).not.toContain('Candidates for this seat who support the rule');
+      config.showCandidates = true;
+      const q = createRepPanel();
+      await q.update(input);
+      expect(q.el.querySelector('h4')!.textContent).toBe('Candidates for this seat who support the rule');
+      expect(q.el.querySelector('.strv-reps__candidates')!.textContent).toContain('P C1');
+      config.showCandidates = false;
+      pledges = [];
+    });
   });
 });

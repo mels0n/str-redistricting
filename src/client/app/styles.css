@@ -5151,3 +5151,52 @@ var {
     display: none;
   }
 }
+
+/* ---------- Pledges ---------- */
+
+.strv-pledges__body {
+  display: grid;
+  gap: var(--s-5);
+  padding: var(--s-5) var(--gutter);
+  max-width: 62ch;
+}
+
+.strv-pledges__quote {
+  margin: 0;
+  padding-left: var(--s-4);
+  border-left: 4px solid var(--ink);
+}
+
+.strv-pledges__ul {
+  display: grid;
+  gap: var(--s-3);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.strv-pledges__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2) var(--s-3);
+  align-items: baseline;
+}
+
+.strv-pledges__seat,
+.strv-pledges__empty {
+  color: var(--ink-2);
+}
+
+.strv-pledges__snippet {
+  overflow-x: auto;
+  padding: var(--s-3);
+  border: 2px solid var(--ink);
+}
+
+.strv-reps__pledged {
+  font-weight: 700;
+}
+
+.strv-reps__candidates ul {
+  padding-left: 1.25em;
+}

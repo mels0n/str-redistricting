@@ -13,7 +13,7 @@
       "src/server/app/rule-examples/**",
       "src/server/features/metrics/**"
     ],
-    "web": ["src/client/**", "index.html", "public/*", "build/**", "vercel.json", "config/reps-sources.json", "config/reps-district-aliases.json", "config/reps-vacant-seats.json"],
+    "web": ["src/client/**", "index.html", "public/*", "build/**", "vercel.json", "config/reps-sources.json", "config/reps-district-aliases.json", "config/reps-vacant-seats.json", "config/pledges.json", ".github/ISSUE_TEMPLATE/**"],
     "docs": ["docs/**", "README.md"]
   },
   "exclude": {
@@ -45,7 +45,8 @@
       "src/server/features/reps/**",
       "src/server/app/reps.ts",
       "src/server/shared/config/reps.ts",
-      "src/server/shared/config/reps-hosts.ts"
+      "src/server/shared/config/reps-hosts.ts",
+      "src/server/features/pledges/**"
     ],
     "input": [],
     "maps": [],
@@ -53,7 +54,7 @@
     "web": [],
     "docs": []
   },
-  "ignore": ["public/data/**", "tests/**", ".github/**", "config/versions.json", "config/release.json", "changelog/**"],
+  "ignore": ["public/data/**", "tests/**", ".github/workflows/**", ".github/dependabot.yml", "config/versions.json", "config/release.json", "changelog/**"],
   "docsTypes": ["copy", "docs"],
   "fixtureStates": ["CT", "NV", "RI", "VT", "VT:state-senate"]
 }

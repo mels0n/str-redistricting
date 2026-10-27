@@ -47,6 +47,14 @@ describe('prerendered pages', () => {
     expect(html).not.toMatch(/<[^>]* style="/);
   });
 
+  it('writes the pledges page and publishes the validated pledges', () => {
+    const html = read('dist/pledges/index.html');
+    expect(titleOf(html)).toBe(PAGE_META.pledges.title);
+    expect(html).toContain('No one has pledged yet.');
+    expect(read('dist/sitemap.xml')).toContain('<loc>https://fairmaps.melson.us/pledges</loc>');
+    expect(JSON.parse(read('dist/data/pledges.json'))).toEqual({ pledges: [] });
+  });
+
   it('writes the home file and the not-found page', () => {
     expect(titleOf(read('dist/index.html'))).toBe(PAGE_META.home.title);
     const missing = read('dist/404.html');

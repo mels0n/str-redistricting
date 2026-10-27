@@ -135,7 +135,7 @@ describe('path routes', () => {
 
   it('round-trips every example', () => {
     const cases: [string, string][] = [
-      ['/', ''], ['/house', ''], ['/senate', ''], ['/how', ''], ['/how/balancing', ''], ['/faq', ''], ['/faq/ties', ''], ['/changelog', ''],
+      ['/', ''], ['/house', ''], ['/senate', ''], ['/how', ''], ['/how/balancing', ''], ['/faq', ''], ['/faq/ties', ''], ['/changelog', ''], ['/pledges', ''],
       ['/CO', ''], ['/CO/senate/d/12', ''], ['/CO/cut/4', ''], ['/CO/balance/12', ''], ['/CO/d/3', '?plan=before&compare=enacted'],
     ];
     for (const [p, q] of cases) expect(formatPath(parsePath(p, q))).toBe(p + q);

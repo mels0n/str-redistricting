@@ -26,4 +26,9 @@ export const PAGE_META = {
     title: 'Changelog | Fair Maps',
     description: 'Every release of the Fair Maps engine, census input, published maps and website, and what changed in each.',
   },
-} as const satisfies Record<'home' | 'how' | 'faq' | 'changelog', PageMeta>;
+  pledges: {
+    path: '/pledges',
+    title: 'Who supports the Fair Maps rule | Fair Maps',
+    description: 'Officeholders and candidates who have publicly pledged to support drawing districts with the Fair Maps rule, each with a link to their own statement.',
+  },
+} as const satisfies Record<'home' | 'how' | 'faq' | 'changelog' | 'pledges', PageMeta>;

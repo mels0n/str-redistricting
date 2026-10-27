@@ -5,12 +5,14 @@ import { pathToFileURL } from 'node:url';
 import { JSDOM } from 'jsdom';
 import { PAGE_META } from '../src/client/shared/lib/page-meta';
 import { SITE_HOST } from '../src/server/features/publish/site';
+import { readPledgesFile } from '../src/server/features/pledges';
 import { esc, swap } from './share-pages';
 import { Resvg } from '@resvg/resvg-js';
 import { toMarkdown } from './markdown';
 import { LLMS_SUMMARY, PAGE_KEYS, jsonLd, jsonLdScript, llmsTxt, robotsTxt, sitemapXml, type FaqEntry, type PageKey } from './seo';
 
 const DIST = 'dist';
+const PLEDGES_FILE = join('config', 'pledges.json');
 const ROOT_TAG = '<div id="str-viewer"></div>';
 
 /** Renders one page with the real page code in jsdom and returns the markup inside `#str-viewer`, plus the FAQ entries for the FAQ page. */
@@ -59,12 +61,13 @@ function modules(): NonNullable<typeof loaded> {
   loaded ??= (async () => {
     // The changelog page imports its markdown with Vite's `?raw`; this gives that suffix the same meaning here.
     register('./raw-loader.mjs', import.meta.url);
-    const [{ mountShell }, { createNationalPage }, { createHowPage }, { createFaqPage }, { createChangelogPage }] = await Promise.all([
+    const [{ mountShell }, { createNationalPage }, { createHowPage }, { createFaqPage }, { createChangelogPage }, { createPledgesPage }] = await Promise.all([
       import('../src/client/app/shell'),
       import('../src/client/pages/national'),
       import('../src/client/pages/how'),
       import('../src/client/pages/faq'),
       import('../src/client/pages/changelog'),
+      import('../src/client/pages/pledges'),
     ]);
     return {
       mountShell,
@@ -73,6 +76,7 @@ function modules(): NonNullable<typeof loaded> {
         how: () => createHowPage({ page: 'how', section: null }),
         faq: () => createFaqPage({ page: 'faq', question: null }),
         changelog: () => createChangelogPage(),
+        pledges: () => createPledgesPage(readPledgesFile(PLEDGES_FILE).pledges),
       },
     };
   })();
@@ -162,6 +166,9 @@ export async function main(): Promise<void> {
     markdown.set(key, toMarkdown(rendered.html, site));
     outputs.set(file, pageHtml(key, shell, rendered));
   }
+  // The pledges are validated here, so an invalid file fails the build, then published as data/pledges.json.
+  outputs.set(join(DIST, 'data', 'pledges.json'), `${JSON.stringify(readPledgesFile(PLEDGES_FILE))}
+`);
   outputs.set(join(DIST, 'sitemap.xml'), sitemapXml(site));
   outputs.set(join(DIST, 'robots.txt'), robotsTxt(site));
   outputs.set(join(DIST, 'llms.txt'), llmsTxt(site));

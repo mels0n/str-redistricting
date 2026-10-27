@@ -40,6 +40,8 @@ const ConfigSchema = z.object({
   tagline: z.string().min(1),
   /** How links and the address bar are written: real paths, or hashes when the viewer is embedded in a page it does not own. */
   routing: z.enum(['path', 'hash']),
+  /** Whether candidates who pledged are shown (the pledges page and the rep panel). Off until the list is ready for them. */
+  showCandidates: z.boolean(),
 });
 
 const EnactedSchema = z.looseObject({
@@ -122,6 +124,7 @@ function load(): ViewerConfig {
     tagline: 'Drawn by a rule, not by politicians.',
     // Any host config object, valid or not, means an embedder: fail toward hash mode, which never rewrites the host page's path.
     routing: host?.routing ?? (hostConfigPresent() ? 'hash' : 'path'),
+    showCandidates: false,
   });
 }
 
@@ -150,7 +153,7 @@ export function setDataRelease(release: number | null): void {
 }
 
 /** Files that say which release is current; they are always asked for plain. */
-const UNVERSIONED = new Set(['versions.json']);
+const UNVERSIONED = new Set(['versions.json', 'pledges.json']);
 
 export function dataUrl(path: string): string {
   const url = new URL(path, config.dataBase);

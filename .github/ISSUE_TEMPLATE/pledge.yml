@@ -1,0 +1,52 @@
+name: Add a pledge
+description: Tell us about a public statement of support for the Fair Maps rule.
+title: "Pledge: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        A pledge is listed only if the statement URL shows it publicly. Party is never listed.
+  - type: input
+    id: name
+    attributes:
+      label: Name
+    validations:
+      required: true
+  - type: input
+    id: office
+    attributes:
+      label: Office
+      description: U.S. House, U.S. Senate, State House or State Senate.
+    validations:
+      required: true
+  - type: input
+    id: state
+    attributes:
+      label: State
+      description: Two-letter code, such as CO.
+    validations:
+      required: true
+  - type: input
+    id: district
+    attributes:
+      label: District
+      description: The district number. Leave blank for the U.S. Senate.
+  - type: input
+    id: statement-url
+    attributes:
+      label: Statement URL
+      description: An https link to the public statement.
+    validations:
+      required: true
+  - type: input
+    id: campaign-url
+    attributes:
+      label: Campaign URL
+      description: Optional. An https link.
+  - type: input
+    id: date
+    attributes:
+      label: Date
+      description: When the statement was made, as YYYY-MM-DD.
+    validations:
+      required: true

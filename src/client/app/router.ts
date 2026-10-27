@@ -4,6 +4,7 @@ import { createNationalPage } from '../pages/national';
 import { createStatePage } from '../pages/state';
 import { createHowPage } from '../pages/how';
 import { createChangelogPage } from '../pages/changelog';
+import { createPledgesPage } from '../pages/pledges';
 import { createFaqPage } from '../pages/faq';
 import { syncChamberSwitch } from '../widgets/site-header';
 
@@ -131,7 +132,7 @@ export function startRouter(outlet: HTMLElement, root: HTMLElement = outlet.pare
     clear(outlet);
     // A pinch-zoom from the last page would otherwise carry over (no reload between pages).
     if (!initial) resetPageZoom();
-    page = route.page === 'national' ? createNationalPage(navigate, route.chamber) : route.page === 'how' ? createHowPage(route) : route.page === 'faq' ? createFaqPage(route) : route.page === 'changelog' ? createChangelogPage() : createStatePage(route, navigate);
+    page = route.page === 'national' ? createNationalPage(navigate, route.chamber) : route.page === 'how' ? createHowPage(route) : route.page === 'faq' ? createFaqPage(route) : route.page === 'changelog' ? createChangelogPage() : route.page === 'pledges' ? createPledgesPage() : createStatePage(route, navigate);
     outlet.append(page.el);
     // On the first load the browser owns focus; after that, move it to the new page's heading.
     if (!initial) {

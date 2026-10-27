@@ -8,7 +8,7 @@ function section(id: string, title: string, ...body: HTMLElement[]): HTMLElement
   return h('section', { class: 'strv-how__section', id: `strv-privacy-${id}`, 'aria-labelledby': `strv-privacy-${id}-h` }, h('h2', { class: 'strv-how__h2', id: `strv-privacy-${id}-h` }, title), ...body);
 }
 
-const SERVICES = ['Supabase (database)', 'Vercel (hosting and visit counts)', 'Cloudflare Turnstile (bot check, which sees your IP address as you sign)', 'Resend (delivers our emails to you)', 'the U.S. Census Bureau geocoder (receives your address to find your district)'];
+const SERVICES = ['Supabase (database)', 'Vercel (hosting and visit counts)', 'Cloudflare Turnstile (bot check, which sees your IP address as you sign)', 'Resend (delivers our emails to you)', 'the U.S. Census Bureau geocoder (receives your address, only if you give one, to find your district)'];
 
 /** What the site collects, counts, keeps and sends, with and without the sign-on. Every sentence has to stay true of the code: change one with the other. */
 export function createPrivacyPage(): Page {
@@ -32,14 +32,14 @@ export function createPrivacyPage(): Page {
         ul(
           'A one-way hash of your email, so the same email counts once.',
           'Your email itself, kept encrypted, only if you tick the box for updates. If you don’t, it is held encrypted only while your confirmation email waits to be sent, and it is deleted once the email is sent.',
-          'The codes of your districts (U.S. House, State House, State Senate).',
+          'Your state, and the codes of your districts (U.S. House, State House, State Senate) if you gave an address. Without an address you are counted in your state only.',
           'A display name and your town, only if you give a name and tick the box to show it.',
           'A note, if you write one. It is kept encrypted. Software checks it when you sign, and a note with a link, contact details or words we don’t allow is dropped and never stored.',
           'A hash of your IP address, kept for about a day to limit how often one place can sign.',
         ),
         p('Sign-ups that are never confirmed are deleted automatically about a week after the link in their confirmation email expires. A sign-up whose confirmation email has not been sent yet is kept until the email goes out, so a delay on our side never costs you your place. While it waits, your email address is stored sealed (encrypted) in a queue, and it is deleted when the email is sent.'),
       ),
-      section('never', 'What we never keep', p('Your address. We send it to the U.S. Census Bureau geocoder once to find your district, and it is not stored or logged by us.')),
+      section('never', 'What we never keep', p('Your address. It is optional. If you give one, we send it to the U.S. Census Bureau geocoder once to find your district, and it is not stored or logged by us.')),
       section(
         'public',
         'What is public',

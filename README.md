@@ -151,6 +151,8 @@ Signatures, notes and removal requests are handled by a small backend: serverles
 - `SIGNON_HASH_SECRET` and `SIGNON_ENCRYPTION_KEY` (each base64 of 32 bytes) for hashing and sealing personal data
 - `SITE_ORIGIN` (default `https://fairmaps.melson.us`), `EMAIL_DAILY_CAP` (default 20) and `CRON_SECRET` (you create it: 16 or more random characters, as a Production environment variable in Vercel; Vercel then sends it as a bearer token on the daily cron call, and without it the daily mail job cannot authenticate and nothing queued is sent)
 
+Signing needs an email and a state; the street address is optional. With an address, the server asks the Census Bureau geocoder, takes the state and the districts from the match (the geocoder's state wins over any state sent with it) and keeps only the state, the district codes and, if the signer chose to be shown, the town. Without one, the signer is stored with the chosen state and no districts, and counts for that state (and its U.S. Senate seats) but under no district. The address is never stored or logged.
+
 Migrations are the numbered files in `supabase/migrations/`. They are append-only: a file that was applied and then edited, or removed, stops the build. `npm run build` applies the ones not yet recorded, but only in the Vercel production build (`VERCEL_ENV=production`); preview builds and local builds skip it.
 
 Every file in `api/` is a thin wrapper of at most 15 lines that imports one handler from `src/server/api/`. The logic, validation and error mapping live in `src/server/`, and the browser code in `src/client/` never imports it.

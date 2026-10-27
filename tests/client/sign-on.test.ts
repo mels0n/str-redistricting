@@ -31,7 +31,8 @@ const TEST_SITE_KEY = '1x00000000000000000000AA';
 
 // The server's request schema, restated here (client and server never import each other).
 const ServerSign = z.strictObject({
-  address: z.string().min(4).max(200),
+  address: z.string().min(4).max(200).nullable(),
+  state: z.string().regex(/^[A-Z]{2}$/).nullish(),
   email: z.email().max(254),
   turnstileToken: z.string().min(1).max(2048),
   consentUpdates: z.boolean(),

@@ -72,6 +72,18 @@ describe('GET /api/counts', () => {
     });
   });
 
+  it('counts state-only signers in the state and the Senate seats, but under no district key', async () => {
+    const { repo, handler } = setup();
+    repo.signers.push(s('CO', null, null, null), s('CO', null, null, null), s('CO', null, null, null, 'pending'));
+    const body = await (await handler(get('?state=CO'))).json();
+    expect(body.state).toBe(5);
+    expect(body.national).toBe(6);
+    expect(body.byKey['CO:us-senate:state']).toBe(5);
+    expect(body.byKey['CO:us-house:03']).toBe(2);
+    expect(Object.keys(body.byKey).some((k) => k.includes('null'))).toBe(false);
+    expect(Object.keys(body.byKey)).toHaveLength(8);
+  });
+
   it('sends the cache header, and without a state only the national total and waiting', async () => {
     const { handler } = setup();
     const res = await handler(get());

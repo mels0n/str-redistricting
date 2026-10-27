@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { OWN_CODE_ALPHABET, type NotesRepo, type PendingSigner, type SignerRepo } from '../../entities/signon-db/index.js';
+import { stateByAbbr } from '../../shared/apportionment/index.js';
 import { seal } from '../../shared/crypto/index.js';
 import { SignonError } from '../../shared/errors/signon.js';
 import { geocodeServer } from './geocode.js';
@@ -8,27 +9,32 @@ import { hashEmail, hashIp, hashToken, newToken } from './hash.js';
 import { checkRateLimit } from './rate-limit.js';
 import { verifyTurnstile } from './turnstile.js';
 
-export const SignRequestSchema = z.strictObject({
-  address: z.string().min(4).max(200),
-  email: z.email().max(254),
-  turnstileToken: z.string().min(1).max(2048),
-  consentUpdates: z.boolean(),
-  showPublic: z.boolean(),
-  // Whitespace runs become one space, remaining control characters go, ends are trimmed.
-  displayName: z
-    .string()
-    .max(40)
-    .transform((s) => s.replace(/\s+/g, ' ').replace(/[\p{Cc}\p{Cf}]/gu, '').trim())
-    .nullable(),
-  ref: z.string().regex(new RegExp(`^[${OWN_CODE_ALPHABET}]{8}$`)).nullable(),
-  // Long notes are accepted here so that length is a screening reason, not a 400. Whitespace runs become one space and control characters go.
-  note: z
-    .string()
-    .max(2000)
-    .transform((s) => s.replace(/\s+/g, ' ').replace(/[\p{Cc}\p{Cf}]/gu, '').trim())
-    .nullable(),
-  shareWithRep: z.boolean(),
-});
+export const SignRequestSchema = z
+  .strictObject({
+    // Optional: without it the signer is counted for the state only.
+    address: z.string().min(4).max(200).nullable(),
+    // Required when there is no address; with one, the geocoder's state wins.
+    state: z.string().regex(/^[A-Z]{2}$/).refine((s) => stateByAbbr(s) !== undefined).nullish(),
+    email: z.email().max(254),
+    turnstileToken: z.string().min(1).max(2048),
+    consentUpdates: z.boolean(),
+    showPublic: z.boolean(),
+    // Whitespace runs become one space, remaining control characters go, ends are trimmed.
+    displayName: z
+      .string()
+      .max(40)
+      .transform((s) => s.replace(/\s+/g, ' ').replace(/[\p{Cc}\p{Cf}]/gu, '').trim())
+      .nullable(),
+    ref: z.string().regex(new RegExp(`^[${OWN_CODE_ALPHABET}]{8}$`)).nullable(),
+    // Long notes are accepted here so that length is a screening reason, not a 400. Whitespace runs become one space and control characters go.
+    note: z
+      .string()
+      .max(2000)
+      .transform((s) => s.replace(/\s+/g, ' ').replace(/[\p{Cc}\p{Cf}]/gu, '').trim())
+      .nullable(),
+    shareWithRep: z.boolean(),
+  })
+  .refine((v) => v.address !== null || (v.state !== null && v.state !== undefined));
 export type SignRequest = z.infer<typeof SignRequestSchema>;
 
 /** What the flow needs from the backend config. */
@@ -79,9 +85,19 @@ export async function sign(body: unknown, ip: string, deps: SignDeps): Promise<S
   await verifyTurnstile(req.turnstileToken, config.turnstileSecret, ip, deps.fetchFn);
   await checkRateLimit(repo, hashIp(ip, config.hashSecret), deps.now());
 
-  const found = await geocodeServer(req.address, deps.fetchFn);
-  const lookup = deps.districtsAt ?? ((s, p) => serverDistrictsAt(s, p, { origin: config.siteOrigin, fetchFn: deps.fetchFn }));
-  const districts = await lookup(found.state, found.lonLat);
+  let state: string;
+  let town: string | null = null;
+  let districts: ServerDistricts = { usHouse: null, stateHouse: null, stateSenate: null };
+  if (req.address !== null) {
+    const found = await geocodeServer(req.address, deps.fetchFn);
+    const lookup = deps.districtsAt ?? ((s, p) => serverDistrictsAt(s, p, { origin: config.siteOrigin, fetchFn: deps.fetchFn }));
+    districts = await lookup(found.state, found.lonLat);
+    state = found.state;
+    town = found.town;
+  } else {
+    // The schema guarantees a state when there is no address.
+    state = req.state as string;
+  }
 
   const emailHash = hashEmail(req.email, config.hashSecret);
   const done: SignResult = { status: 'check-email', noteDropped, queued: false };
@@ -94,12 +110,12 @@ export async function sign(body: unknown, ip: string, deps: SignDeps): Promise<S
     emailHash,
     emailEnc: req.consentUpdates ? seal(req.email, config.encryptionKey) : null,
     consentUpdates: req.consentUpdates,
-    state: found.state,
+    state,
     usHouse: districts.usHouse,
     stateHouse: districts.stateHouse,
     stateSenate: districts.stateSenate,
     displayNameEnc: publicName ? seal(publicName, config.encryptionKey) : null,
-    townEnc: req.showPublic && found.town ? seal(found.town, config.encryptionKey) : null,
+    townEnc: req.showPublic && town ? seal(town, config.encryptionKey) : null,
     showPublic: req.showPublic,
     tokenHash: hashToken(token),
     refCode: req.ref,

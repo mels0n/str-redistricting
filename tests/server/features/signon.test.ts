@@ -490,6 +490,86 @@ describe('re-signing with a pending note', () => {
   });
 });
 
+describe('sign-up with just a state', () => {
+  const { address: _a, ...NO_ADDRESS } = BODY;
+  const STATE_ONLY = { ...NO_ADDRESS, address: null, state: 'CO' };
+  const geocoded = (urls: string[]) => urls.filter((u) => u.startsWith('https://geocoding.geo.census.gov/'));
+
+  it('stores state only, with null districts and town, and never calls the geocoder or the district files', async () => {
+    const { handler, repo, sent, calls } = setup();
+    const res = await handler(post(STATE_ONLY));
+    expect(res.status).toBe(202);
+    expect(await res.json()).toEqual({ status: 'check-email', noteDropped: null, queued: false });
+    expect(repo.rows).toHaveLength(1);
+    expect(repo.rows[0]).toMatchObject({ status: 'pending', state: 'CO', usHouse: null, stateHouse: null, stateSenate: null, townEnc: null });
+    expect(sent).toHaveLength(1);
+    expect(geocoded(calls.urls)).toHaveLength(0);
+    expect(calls.urls.some((u) => u.includes('/data/'))).toBe(false);
+  });
+
+  it('answers 400 when there is neither an address nor a state, or the state is not one of the 50', async () => {
+    const { handler, repo } = setup();
+    expect((await handler(post({ ...NO_ADDRESS, address: null }))).status).toBe(400);
+    expect((await handler(post({ ...NO_ADDRESS, address: null, state: null }))).status).toBe(400);
+    expect((await handler(post({ ...NO_ADDRESS }))).status).toBe(400);
+    for (const state of ['ZZ', 'PR', 'DC', 'co', 'COL', '']) {
+      expect((await handler(post({ ...STATE_ONLY, state }))).status).toBe(400);
+      expect((await handler(post({ ...BODY, state }))).status).toBe(400);
+    }
+    expect(repo.rows).toHaveLength(0);
+  });
+
+  it('trusts the geocoder when an address and a different state are both given', async () => {
+    const { handler, repo } = setup();
+    expect((await handler(post({ ...BODY, state: 'TX' }))).status).toBe(202);
+    expect(repo.rows[0]).toMatchObject({ state: 'CO', usHouse: '01', stateSenate: '07' });
+  });
+
+  it('keeps the address errors when an address is given with a state', async () => {
+    const none = setup({}, { geocode: { result: { addressMatches: [] } } });
+    const res = await none.handler(post({ ...BODY, state: 'CO' }));
+    expect(res.status).toBe(422);
+    expect(await res.json()).toEqual({ error: 'address-not-found' });
+    const out = setup({}, { geocode: match('PR', 'San Juan') });
+    expect(await (await out.handler(post({ ...BODY, state: 'CO' }))).json()).toEqual({ error: 'outside-states' });
+  });
+
+  it('still checks the bot check and the rate limit', async () => {
+    const bot = setup({}, { turnstile: false });
+    expect((await bot.handler(post(STATE_ONLY))).status).toBe(403);
+    expect(bot.repo.rows).toHaveLength(0);
+    const s = setup();
+    for (let i = 0; i < 5; i++) expect((await s.handler(post({ ...STATE_ONLY, email: `a${i}@example.com` }))).status).toBe(202);
+    expect((await s.handler(post({ ...STATE_ONLY, email: 'a6@example.com' }))).status).toBe(429);
+  });
+
+  it('answers a confirmed email exactly like a new one, and a dropped note the same way', async () => {
+    for (const waiting of [false, true]) {
+      const tokens: string[] = [];
+      const s = setup({ enqueue: async (_k, _s, _t, token) => { tokens.push(token); return { queued: waiting }; } });
+      wouldQueueNow = waiting;
+      const note = { note: 'call me on 303-555-0100', shareWithRep: false };
+      const fresh = await (await s.handler(post({ ...STATE_ONLY, email: 'new@example.com', ...note }))).text();
+      await s.handler(post(STATE_ONLY));
+      await confirmHandler({ loadConfig: () => CONFIG, repo: () => s.repo, now: () => NOW })(new Request(`https://site.test/api/confirm?token=${tokens.at(-1)}`));
+      const again = await s.handler(post({ ...STATE_ONLY, ...note }));
+      expect(await again.text()).toBe(fresh);
+      expect(again.status).toBe(202);
+      expect(JSON.parse(fresh)).toEqual({ status: 'check-email', noteDropped: 'phone numbers', queued: waiting });
+    }
+  });
+
+  it('seals the optional fields and confirms to the state page', async () => {
+    const { handler, repo, sent } = setup();
+    await handler(post(STATE_ONLY));
+    const stored = JSON.stringify(repo.rows);
+    expect(stored).not.toContain('ada@example.com');
+    expect(stored).not.toContain('Ada L');
+    const res = await confirmHandler({ loadConfig: () => CONFIG, repo: () => repo, now: () => NOW })(new Request(`https://site.test/api/confirm?token=${sent[0]!.token}`));
+    expect(res.headers.get('location')).toBe('/CO?signed=1');
+  });
+});
+
 describe('serverDistrictsAt', () => {
   it('reads the three files once per 10 minutes and gives null for a missing chamber', async () => {
     clearDistrictCache();

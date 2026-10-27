@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite';
+import { devApi } from './build/dev-api.js';
 import { sharePages } from './build/share-pages.js';
 import { versionMeta } from './build/version-meta.js';
 import { webAnalytics } from './build/web-analytics.js';
@@ -10,7 +11,7 @@ import { webAnalytics } from './build/web-analytics.js';
 export default defineConfig({
   base: './',
   publicDir: 'public',
-  plugins: [versionMeta(), webAnalytics(), sharePages()],
+  plugins: [versionMeta(), webAnalytics(), sharePages(), devApi()],
   worker: { format: 'es' },
   build: {
     outDir: 'dist',

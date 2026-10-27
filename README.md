@@ -67,7 +67,7 @@ On the site:
 - The footer names the maps release, engine, Census vintage and revision, and site version, and links to the changelog and the privacy page.
 - `/changelog` lists what changed in each release, per component.
 - `/privacy` says what the site counts, keeps in the browser and sends elsewhere. `tests/client/privacy-page.test.ts` checks its claims against `vercel.json`, the built pages' analytics tags, the path-only hook and the browser storage the code uses.
-- Pages use real paths: `/how`, `/faq`, `/changelog`, `/privacy`, `/<ST>/d/<n>` for one district. Links written with the old `#/` form (for example `/#/CO/d/3`) still work and are rewritten to the path form on load.
+- Pages use real paths: `/act`, `/how`, `/faq`, `/changelog`, `/privacy`, `/<ST>/d/<n>` for one district. Links written with the old `#/` form (for example `/#/CO/d/3`) still work and are rewritten to the path form on load.
 - To embed the viewer in a page you do not control, set `window.STR_VIEWER_CONFIG = { dataBase: '…' }` before the script loads. Links and the address bar then use `#/` and the host page's own path is left alone. Embedders can set `routing: 'path'` in the same object to opt in to real paths. `dataBase` in the same object points the viewer at another copy of the published data.
 - Each state's proof panel shows the engine version and the maps release that drew it, and its "reproduce" command checks out the matching tag (`git clone --branch maps-<n> --depth 1 ...`), so you rebuild that state with exactly the code that drew it.
 - Every map carries a small credit line with the site address, the maps release, the engine and the first characters of the map's fingerprint, so a screenshot says where it came from.
@@ -89,6 +89,8 @@ npm run publish-data   # writes public/data/ from the generated plans in out/
 npm run dev            # serves the viewer locally
 npm run build          # builds the static site into dist/, with public/data copied in
 ```
+
+`npm run dev` stubs the /api routes so every screen can be viewed.
 
 `explore` flags. `--chamber` picks what to draw: `federal-house` (the default), `state-house` or `state-senate`. `--states` is required and takes two-letter state abbreviations, comma separated (for example `RI,CT,CO`). A state that fails is reported in the summary table and the run continues with the others. `--out-dir` sets the output directory (default `out`). `--cache-dir` sets where downloaded Census files are kept (default `data/raw`). `--threads` sets how many threads sweep the directions for each cut (default: the computer's hardware threads minus two, lowered to one thread per 400 MiB of free memory; `1` uses a single thread). The thread count never changes a map. A state whose folder already holds plans drawn from the same Census file, seat count, engine major and code is skipped and reported as unchanged; `--force` draws it again anyway. `docs/explanation/how-districts-are-drawn.md` lists exactly what is compared.
 
@@ -126,7 +128,7 @@ The number of districts in each state chamber lives in `config/legislative-distr
 Every Census file is downloaded once into `data/raw/` and checked against a pinned SHA-256 in `config/census-sha256.json`, both when it is downloaded and each time the cached copy is reused, so the maps are always built from the exact same bytes. A failed or interrupted download is retried up to three times. If a file fails the check, the cached copy is corrupt or the Census Bureau has reissued it: delete the file to download it again, and if the new file still differs, the Census Bureau reissued it, so update the manifest only knowing that it changes the maps.
 
 ## Representative data
-State pages show who represents an address and let a visitor ask those people to adopt the rule. The names come from two open sources, pinned by SHA-256 in `config/reps-sources.json`:
+The Take action page (`/act`, and the same block on the home page) shows who represents an address and lets a visitor ask those people to adopt the rule, one at a time or all at once in a single email. The names come from two open sources, pinned by SHA-256 in `config/reps-sources.json`:
 
 - U.S. House and Senate members from the [congress-legislators](https://github.com/unitedstates/congress-legislators) files, which are public domain.
 - State legislators from the [Open States](https://open.pluralpolicy.com/) people files (`data.openstates.org/people/current/<st>.csv`), released under CC0.

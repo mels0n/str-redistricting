@@ -1,9 +1,9 @@
 import { z } from 'zod';
 import { stateByAbbr } from '../../shared/apportionment/index.js';
+import { GEOCODER } from '../../shared/config/geocoder.js';
 import { SignonError } from '../../shared/errors/signon.js';
 
-// The same endpoint and parameters as the browser's address search (src/client/features/address-search), with format=json.
-const GEOCODER_URL = 'https://geocoding.geo.census.gov/geocoder/geographies/onelineaddress';
+// The same endpoint and parameters as the browser's address search, with format=json (see shared/config/geocoder.ts).
 
 const ResponseSchema = z.object({
   result: z.object({
@@ -24,12 +24,12 @@ export interface Geocoded {
 
 /** The first match for an address. `address-not-found` for no match, `outside-states` for anything but the 50 states. */
 export async function geocodeServer(address: string, fetchFn: typeof fetch): Promise<Geocoded> {
-  const url = new URL(GEOCODER_URL);
+  const url = new URL(GEOCODER.url);
   url.search = new URLSearchParams({
     address,
-    benchmark: 'Public_AR_Current',
-    vintage: 'Census2020_Current',
-    layers: 'Census Blocks',
+    benchmark: GEOCODER.benchmark,
+    vintage: GEOCODER.vintage,
+    layers: GEOCODER.layers,
     format: 'json',
   }).toString();
   let data: unknown;

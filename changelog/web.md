@@ -2,14 +2,8 @@
 
 ## 1.9.0 (2026-10-28)
 
-- fix(api): cap pages per host, leave failing pages to the daily run, and keep the image out of shared caches
-- fix(api): fail a check that lands on another site, bound each site and the run, and delete old rows first
-- fix(web): only an image counts as the badge, and name a representative only for a badge on the home page matched by id
-- feat(web): list sites that show the badge and mark representatives whose sites do, replacing manual pledges
-- feat(api): verify a new site right after its first badge request and check 100 a day
-- feat(api): serve the badge, note the sites that show it, and check them daily
-- feat(api): add a guarded fetch that refuses private and non-https targets
-- feat(db): add a table of sites seen showing the badge
+- The Pledges page now lists the websites that show the Fair Maps badge, each with a link to the page where it appears. Showing the badge is the only thing we check: there is nothing to apply for, and no claim is made about who supports what. Add the badge to your home page and link it to fairmaps.melson.us/pledges, and the site lists you within minutes of the first visit, or within a day. If the badge stays off for two daily checks, the site comes off the list. A representative whose own home page shows the badge is marked "Shows the Fair Maps badge" in the Take action list.
+- The privacy page says what is kept about a website that shows the badge: its page address, the page title, where the badge was found and when it was seen and checked, deleted after 60 days unseen.
 
 ## 1.8.0 (2026-10-27)
 

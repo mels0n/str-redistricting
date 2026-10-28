@@ -2,8 +2,7 @@
 
 ## 1.2.1 (2026-10-28)
 
-- docs: say exactly what is kept about a site, how it is checked and what is recognised
-- docs: describe the badge, how sites are verified and what is kept
+- Described the badge: how sites that show it are noticed and checked, what is recognised, the limits on checking, and what is kept.
 
 ## 1.2.0 (2026-10-27)
 

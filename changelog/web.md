@@ -1,5 +1,16 @@
 # Web changelog
 
+## 1.9.0 (2026-10-28)
+
+- fix(api): cap pages per host, leave failing pages to the daily run, and keep the image out of shared caches
+- fix(api): fail a check that lands on another site, bound each site and the run, and delete old rows first
+- fix(web): only an image counts as the badge, and name a representative only for a badge on the home page matched by id
+- feat(web): list sites that show the badge and mark representatives whose sites do, replacing manual pledges
+- feat(api): verify a new site right after its first badge request and check 100 a day
+- feat(api): serve the badge, note the sites that show it, and check them daily
+- feat(api): add a guarded fetch that refuses private and non-https targets
+- feat(db): add a table of sites seen showing the badge
+
 ## 1.8.0 (2026-10-27)
 
 - A new Take action page, linked from the header, shows who represents you today: your state senator and state representative, your U.S. House member and both U.S. senators. Enter a street address and the site finds your districts in your browser. Each representative has a ready-made letter asking them to support the Fair Maps rule, with their email, contact form, website and phone number where we have them. One button opens a single email to every representative who lists an address, and another copies all of the addresses.

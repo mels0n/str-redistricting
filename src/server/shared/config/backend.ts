@@ -94,3 +94,10 @@ export function loadEncryptionKey(env: NodeJS.ProcessEnv = process.env): Buffer 
   if (!parsed.success) throw new ConfigError('Invalid backend configuration: SIGNON_ENCRYPTION_KEY');
   return parsed.data.SIGNON_ENCRYPTION_KEY;
 }
+
+/** Just the site's own origin (where the published data files are served), so a public read does not depend on the secret keys. */
+export function loadSiteOrigin(env: NodeJS.ProcessEnv = process.env): string {
+  const parsed = z.object({ SITE_ORIGIN: httpsOrLocal.default('https://fairmaps.melson.us') }).safeParse(env);
+  if (!parsed.success) throw new ConfigError('Invalid backend configuration: SITE_ORIGIN');
+  return parsed.data.SITE_ORIGIN;
+}

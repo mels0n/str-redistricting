@@ -374,7 +374,7 @@ describe('templates', () => {
 });
 
 describe('GET /api/cron-drain', () => {
-  const make = (secret: string | undefined) => {
+  const make = (secret: string | undefined, checkBadges?: () => Promise<void>) => {
     const s = setup();
     const signers = { cleanups: 0, fail: false, async cleanup() { signers.cleanups++; if (signers.fail) throw new Error('db down'); } };
     const handler = cronDrainHandler({
@@ -383,6 +383,7 @@ describe('GET /api/cron-drain', () => {
       loadConfig: () => ({ vercelEnv: env }),
       repo: () => signers as unknown as SignerRepo,
       now: () => new Date('2026-10-28T14:00:00Z'),
+      ...(checkBadges ? { checkBadges } : {}),
     });
     return { ...s, signers, handler };
   };
@@ -420,6 +421,19 @@ describe('GET /api/cron-drain', () => {
     expect(failing.status).toBe(200);
     expect(await failing.json()).toEqual({ sent: 0, failed: 0, left: 0 });
     expect(a.signers.cleanups).toBe(2);
+  });
+
+  it('runs the badge check after the drain and the bearer check, and its failure does not change the answer', async () => {
+    let runs = 0;
+    const a = make('s3cret', async () => void runs++);
+    await a.handler(req('Bearer wrong'));
+    expect(runs).toBe(0);
+    expect((await a.handler(req('Bearer s3cret'))).status).toBe(200);
+    expect(runs).toBe(1);
+    const b = make('s3cret', async () => Promise.reject(new Error('boom')));
+    const res = await b.handler(req('Bearer s3cret'));
+    expect(res.status).toBe(200);
+    expect(await res.json()).toEqual({ sent: 0, failed: 0, left: 0 });
   });
 
   it('answers 401 when no secret is configured', async () => {

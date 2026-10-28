@@ -48,6 +48,7 @@
       "src/server/shared/config/reps-hosts.ts",
       "src/server/api/**",
       "src/server/entities/signon-db/**",
+      "src/server/features/pledges/**",
       "src/server/entities/badge-db/**",
       "src/server/features/badge/**",
       "src/server/shared/ssrf/**",

@@ -10,7 +10,7 @@ import { LEGISLATORS_FILE, openStatesFile, readRepsSources, readVerified, SOCIAL
 import { checkAliases, matchStateDistricts, normalizeDistrict } from './match.js';
 import { parseCongress } from './parse-congress.js';
 import { parseOpenStates } from './parse-openstates.js';
-import { CoverageSchema, districtKey, STATEWIDE_CODE, StateRepsSchema, type Coverage, type Office, type Rep, type StateReps } from './schema.js';
+import { buildWebsites, CoverageSchema, districtKey, STATEWIDE_CODE, StateRepsSchema, WebsitesSchema, type Coverage, type Office, type Rep, type StateReps } from './schema.js';
 
 export interface PublishRepsInput {
   readonly configDir: string;
@@ -52,7 +52,8 @@ const add = (byKey: Record<string, Rep[]>, key: string, rep: Rep): void => {
  * config/reps-sources.json first, and the run stops if any hash differs. An enacted US House district with no member is
  * recorded as vacant in coverage.json and the run goes on, unless an implausible number of seats are empty or a state has
  * no senators. State legislative districts that cannot be paired with an Open
- * States district are left out of the state file and listed in coverage.json.
+ * States district are left out of the state file and listed in coverage.json. A full run also writes websites.json,
+ * the host to person map behind the badge page.
  */
 export async function publishReps(input: PublishRepsInput): Promise<{ coverage: Coverage }> {
   const sources = await readRepsSources(input.configDir);
@@ -126,5 +127,7 @@ export async function publishReps(input: PublishRepsInput): Promise<{ coverage: 
   await mkdir(dir, { recursive: true });
   for (const file of out) await writeAtomic(join(dir, `${file.state}.json`), sortedJson(file));
   await writeAtomic(join(dir, 'coverage.json'), sortedJson(CoverageSchema.parse(coverage)));
+  // The map of websites covers the whole country, so a run limited to some states leaves the published one alone.
+  if (input.only === undefined) await writeAtomic(join(dir, 'websites.json'), sortedJson(WebsitesSchema.parse(buildWebsites(out))));
   return { coverage };
 }

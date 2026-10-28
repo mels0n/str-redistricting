@@ -1,10 +1,10 @@
 import { createHash } from 'node:crypto';
-import { copyFileSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { copyFileSync, existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
-import { checkAliases, matchStateDistricts, parseCongress, parseCsv, parseOpenStates, publishableWebsite, publishReps, StateRepsSchema } from '../../../src/server/features/reps/index.js';
+import { checkAliases, matchStateDistricts, parseCongress, parseCsv, parseOpenStates, buildWebsites, publishableWebsite, publishReps, websiteHost, WebsitesSchema, StateRepsSchema } from '../../../src/server/features/reps/index.js';
 
 const FIXTURES = join(dirname(fileURLToPath(import.meta.url)), '../../fixtures/reps');
 const read = (name: string): string => readFileSync(join(FIXTURES, name), 'utf8');
@@ -132,6 +132,26 @@ describe('publishableWebsite', () => {
   });
 });
 
+describe('buildWebsites', () => {
+  const rep = (id: string, name: string, website: string | null, office: 'us-house' | 'state-senate' = 'us-house') => ({ id, name, office, districtCode: '01', contactUrl: null, email: null, phone: null, address: null, website, social: {} });
+  const file = (state: string, reps: ReturnType<typeof rep>[]) => ({ state, generatedFrom: {}, byKey: { [`${state}:x:01`]: reps } }) as never;
+
+  it('maps each host, www removed and lower-cased, to the person, with no party or contact details', () => {
+    const out = buildWebsites([file('CO', [rep('A', 'Ann Lee', 'https://www.Lee.house.gov/about'), rep('B', 'Bo Kim', null), rep('C', 'Cy Poe', 'not a url', 'state-senate')])]);
+    expect(out).toEqual({ 'lee.house.gov': { name: 'Ann Lee', office: 'us-house', state: 'CO', id: 'A' } });
+    expect(WebsitesSchema.safeParse(out).success).toBe(true);
+  });
+  it('leaves out a host two people share', () => {
+    const out = buildWebsites([file('CO', [rep('A', 'Ann', 'https://shared.example.org/a'), rep('B', 'Bo', 'https://www.shared.example.org/b'), rep('C', 'Cy', 'https://cy.example.org')])]);
+    expect(Object.keys(out)).toEqual(['cy.example.org']);
+  });
+  it('reads a host from a website address', () => {
+    expect(websiteHost('https://WWW.Example.com/x')).toBe('example.com');
+    expect(websiteHost('')).toBeNull();
+    expect(websiteHost(null)).toBeNull();
+  });
+});
+
 describe('publishReps', () => {
   let dir: string;
   const topo = (path: string, codes: string[]): void => {
@@ -181,6 +201,8 @@ describe('publishReps', () => {
     expect(Object.keys(file.generatedFrom).sort()).toEqual(['co.csv', 'legislators-current.json', 'legislators-social-media.json']);
     expect(readFileSync(join(input.publicDir, 'reps', 'CO.json'), 'utf8')).not.toMatch(/party/i);
     expect(JSON.parse(readFileSync(join(input.publicDir, 'reps', 'coverage.json'), 'utf8'))).toEqual(coverage);
+    // A run limited to some states must not replace the national map of websites.
+    expect(existsSync(join(input.publicDir, 'reps', 'websites.json'))).toBe(false);
   });
 
   it('throws when a file differs from its pinned sha256', async () => {

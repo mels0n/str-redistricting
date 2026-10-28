@@ -65,3 +65,39 @@ export function publishableWebsite(url: string | null | undefined): string | nul
     return null;
   }
 }
+
+/**
+ * The file `public/data/reps/websites.json`: who the website on each host belongs to (host lower-case, "www." removed), so a site that
+ * shows the badge can be shown with its owner's name and seat. A host that more than one person uses is left out. No party, no contact details.
+ */
+export const WebsitesSchema = z.record(z.string().min(1), z.object({ name: z.string().min(1), office: z.enum(OFFICES), state: z.string().regex(/^[A-Z]{2}$/), id: z.string().min(1) }));
+export type Websites = z.infer<typeof WebsitesSchema>;
+
+/** The lower-case host of a website address with a leading "www." removed, or null when it is not a usable address. */
+export function websiteHost(url: string | null | undefined): string | null {
+  try {
+    return url ? new URL(url.trim()).hostname.toLowerCase().replace(/^www\./, '') || null : null;
+  } catch {
+    return null;
+  }
+}
+
+/** The host to person map for the badge page: every rep with a website, minus hosts that two or more people share. */
+export function buildWebsites(files: readonly StateReps[]): Websites {
+  const byHost = new Map<string, Websites[string] | null>();
+  for (const file of files) {
+    for (const reps of Object.values(file.byKey)) {
+      for (const rep of reps) {
+        const host = websiteHost(rep.website);
+        if (host === null) continue;
+        byHost.set(host, byHost.has(host) ? null : { name: rep.name, office: rep.office, state: file.state, id: rep.id });
+      }
+    }
+  }
+  const out: Websites = {};
+  for (const host of [...byHost.keys()].sort()) {
+    const who = byHost.get(host);
+    if (who) out[host] = who;
+  }
+  return out;
+}

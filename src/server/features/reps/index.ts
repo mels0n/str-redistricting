@@ -7,5 +7,5 @@ export { parseCsv, parseOpenStates } from './parse-openstates.js';
 export type { OpenStatesParse } from './parse-openstates.js';
 export { publishReps } from './publish.js';
 export type { PublishRepsInput } from './publish.js';
-export { CoverageSchema, OFFICES, RepSchema, STATEWIDE_CODE, StateRepsSchema, districtKey, publishableWebsite } from './schema.js';
-export type { Coverage, Office, Rep, StateReps, StatedRep } from './schema.js';
+export { CoverageSchema, OFFICES, RepSchema, STATEWIDE_CODE, StateRepsSchema, WebsitesSchema, buildWebsites, districtKey, publishableWebsite, websiteHost } from './schema.js';
+export type { Coverage, Office, Rep, StateReps, StatedRep, Websites } from './schema.js';

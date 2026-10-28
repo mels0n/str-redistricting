@@ -1,8 +1,10 @@
-import { h, clear, PAGE_META, faqRoute, describeError, setLocated, stateRoute, routeHref, howRoute, type Chamber, type Navigate, type Page } from '../../shared';
+import { h, clear, announce, takeSigned, PAGE_META, faqRoute, describeError, setLocated, stateRoute, routeHref, howRoute, type Chamber, type Navigate, type Page } from '../../shared';
 import { loadIndex, loadOutlines } from '../../entities/state';
+import { loadCounts, shownCounts } from '../../entities/counts';
 import { createAddressSearch, describeResolution, resolveAddress } from '../../features/address-search';
 import { createUsMap, type UsMap } from '../../widgets/us-map';
 import { createStateIndex } from '../../widgets/state-index';
+import { createVoices } from '../../widgets/voices';
 
 export function createNationalPage(nav: Navigate, chamber: Chamber = 'federal-house'): Page {
   const h1 = h(
@@ -68,13 +70,20 @@ export function createNationalPage(nav: Navigate, chamber: Chamber = 'federal-ho
   let usMap: UsMap | null = null;
   let indexCache: Awaited<ReturnType<typeof loadIndex>> | null = null;
 
+  const notice = h('p', { class: 'strv-notice', hidden: true });
+  const total = h('span', { class: 'strv-national__signed-total' });
+  const waiting = h('span', { class: 'strv-national__signed-waiting' });
+  const signedLine = h('p', { class: 'strv-national__signed', hidden: true }, total, ' ', waiting);
+  // Up to three recent notes; nothing shows until some are approved, or if they cannot be fetched.
+  const voices = createVoices({ scope: { national: true }, heading: 'Why people signed', limit: 3 });
+
   const el = h(
     'main',
     { class: 'strv-national', id: 'strv-main' },
     h(
       'div',
       { class: 'strv-national__grid' },
-      h('div', { class: 'strv-national__head' }, h1),
+      h('div', { class: 'strv-national__head' }, h1, notice, signedLine, voices.el),
       // On a phone the lede and map are separate rows (lede, map, index, then the address search); on a wide screen they stay pinned together beside the index.
       // Source order follows the phone layout, so on a wide screen the search (shown top left) is reached after the index by Tab; its search landmark is the shortcut.
       h('div', { class: 'strv-national__side' }, lede, mapSlot),
@@ -84,6 +93,21 @@ export function createNationalPage(nav: Navigate, chamber: Chamber = 'federal-ho
   );
 
   let alive = true;
+  const signedNotice = takeSigned();
+  if (signedNotice === 'expired' || signedNotice === 'invalid') {
+    const text = signedNotice === 'expired' ? 'That link has expired. Sign again to get a new one.' : 'That link was already used or isn’t valid.';
+    notice.textContent = text;
+    notice.hidden = false;
+    announce(text);
+  }
+  void loadCounts().then((raw) => {
+    const c = shownCounts(raw);
+    if (!alive || !c) return;
+    // The waiting number only appears beside a total.
+    if (c.national > 0) total.textContent = c.national === 1 ? '1 person has signed' : `${c.national.toLocaleString('en-US')} people have signed`;
+    if (c.national > 0 && c.waiting > 0) waiting.textContent = `${c.waiting.toLocaleString('en-US')} more waiting to confirm`;
+    signedLine.hidden = c.national === 0;
+  });
   const load = (retried = false): void => {
     clear(mapSlot);
     const loading = h('p', { class: 'strv-loading', tabindex: -1 }, 'Loading the map of the states…');
@@ -120,6 +144,7 @@ export function createNationalPage(nav: Navigate, chamber: Chamber = 'federal-ho
     focusTarget: () => h1,
     destroy() {
       alive = false;
+      voices.destroy();
       usMap?.destroy();
     },
   };

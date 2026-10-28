@@ -1,4 +1,4 @@
-import { h, svg, config, routeHref, faqRoute, howRoute, stateRoute, nationalRoute, NATIONAL, CHAMBERS, type Chamber, type Route } from '../../shared';
+import { h, svg, config, routeHref, actRoute, faqRoute, howRoute, stateRoute, nationalRoute, NATIONAL, CHAMBERS, type Chamber, type Route } from '../../shared';
 
 const FEDERAL_ONLY: ReadonlySet<Chamber> = new Set<Chamber>(['federal-house']);
 
@@ -76,6 +76,7 @@ export function createSiteHeader(): HTMLElement {
     h(
       'nav',
       { class: 'strv-masthead__nav', 'aria-label': 'Site' },
+      h('a', { href: routeHref(actRoute()), class: 'strv-masthead__link strv-masthead__act', 'data-nav': 'act' }, 'Take action'),
       h('a', { href: routeHref(faqRoute()), class: 'strv-masthead__link', 'data-nav': 'faq' }, 'FAQ'),
       h('a', { href: routeHref(howRoute()), class: 'strv-masthead__link', 'data-nav': 'how' }, 'How it works'),
       h(

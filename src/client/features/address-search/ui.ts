@@ -8,6 +8,8 @@ export interface AddressSearchOptions {
   /** Input id, unique on the page. */
   id: string;
   label?: string;
+  /** The helper line under the field; the default says where the address goes. */
+  note?: string;
 }
 
 export interface AddressSearch {
@@ -72,7 +74,7 @@ export function createAddressSearch(opts: AddressSearchOptions): AddressSearch {
     },
     h('label', { for: opts.id, class: 'strv-search__label' }, opts.label ?? 'Find your district by address'),
     h('div', { class: 'strv-search__row' }, input, button),
-    h('p', { id: `${opts.id}-note`, class: 'strv-search__note' }, NOTE),
+    h('p', { id: `${opts.id}-note`, class: 'strv-search__note' }, opts.note ?? NOTE),
     status,
   );
 

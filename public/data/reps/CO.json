@@ -1,0 +1,1861 @@
+{
+  "state": "CO",
+  "generatedFrom": {
+    "legislators-current.json": "ae8cb9477c48715df71a7d860854229d799dc90a254d61badc1efb770f892b2c",
+    "legislators-social-media.json": "c6eca1fcdb3a89901335eed51ca061daa4b60ad3243969a127e913bb9657fbc5",
+    "co.csv": "9520abbafebc90941e79dfd39660c2283ae79b38c43aef35075e59c61649910d"
+  },
+  "byKey": {
+    "CO:us-senate:state": [
+      {
+        "id": "B001267",
+        "name": "Michael F. Bennet",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.bennet.senate.gov/public/index.cfm/contact",
+        "email": null,
+        "phone": "202-224-5852",
+        "address": "261 Russell Senate Office Building Washington DC 20510",
+        "website": "https://www.bennet.senate.gov",
+        "social": {
+          "x": "SenatorBennet",
+          "facebook": "senbennetco",
+          "instagram": "SenBennetCO"
+        }
+      },
+      {
+        "id": "H000273",
+        "name": "John W. Hickenlooper",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.hickenlooper.senate.gov/contact/",
+        "email": null,
+        "phone": "202-224-5941",
+        "address": "316 Hart Senate Office Building Washington DC 20510",
+        "website": "https://www.hickenlooper.senate.gov",
+        "social": {
+          "x": "SenatorHick",
+          "facebook": "SenatorHick",
+          "instagram": "senatorhick"
+        }
+      }
+    ],
+    "CO:us-house:01": [
+      {
+        "id": "D000197",
+        "name": "Diana DeGette",
+        "office": "us-house",
+        "districtCode": "01",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4431",
+        "address": "2111 Rayburn House Office Building Washington DC 20515-0601",
+        "website": "https://degette.house.gov",
+        "social": {
+          "x": "RepDianaDeGette",
+          "facebook": "DianaDeGette"
+        }
+      }
+    ],
+    "CO:us-house:02": [
+      {
+        "id": "N000191",
+        "name": "Joe Neguse",
+        "office": "us-house",
+        "districtCode": "02",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2161",
+        "address": "2400 Rayburn House Office Building Washington DC 20515-0602",
+        "website": "https://neguse.house.gov",
+        "social": {
+          "x": "RepJoeNeguse",
+          "facebook": "RepJoeNeguse"
+        }
+      }
+    ],
+    "CO:us-house:06": [
+      {
+        "id": "C001121",
+        "name": "Jason Crow",
+        "office": "us-house",
+        "districtCode": "06",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-7882",
+        "address": "1323 Longworth House Office Building Washington DC 20515-0606",
+        "website": "https://crow.house.gov",
+        "social": {
+          "x": "RepJasonCrow",
+          "facebook": "RepJasonCrow"
+        }
+      }
+    ],
+    "CO:us-house:04": [
+      {
+        "id": "B000825",
+        "name": "Lauren Boebert",
+        "office": "us-house",
+        "districtCode": "04",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4761",
+        "address": "1713 Longworth House Office Building Washington DC 20515-0604",
+        "website": "https://boebert.house.gov",
+        "social": {
+          "x": "RepBoebert",
+          "facebook": "RepBoebert"
+        }
+      }
+    ],
+    "CO:us-house:07": [
+      {
+        "id": "P000620",
+        "name": "Brittany Pettersen",
+        "office": "us-house",
+        "districtCode": "07",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2645",
+        "address": "348 Cannon House Office Building Washington DC 20515-0607",
+        "website": "https://pettersen.house.gov",
+        "social": {
+          "x": "reppettersen",
+          "facebook": "repbrittanypettersen",
+          "instagram": "reppettersen"
+        }
+      }
+    ],
+    "CO:us-house:03": [
+      {
+        "id": "H001100",
+        "name": "Jeff Hurd",
+        "office": "us-house",
+        "districtCode": "03",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4676",
+        "address": "1641 Longworth House Office Building Washington DC 20515-0603",
+        "website": "https://hurd.house.gov",
+        "social": {
+          "x": "RepJeffHurd",
+          "facebook": "61571570223582",
+          "instagram": "repjeffhurd"
+        }
+      }
+    ],
+    "CO:us-house:05": [
+      {
+        "id": "C001137",
+        "name": "Jeff Crank",
+        "office": "us-house",
+        "districtCode": "05",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4422",
+        "address": "1029 Longworth House Office Building Washington DC 20515-0605",
+        "website": "https://crank.house.gov",
+        "social": {
+          "x": "RepJeffCrank",
+          "facebook": "RepJeffCrank",
+          "instagram": "repjeffcrank"
+        }
+      }
+    ],
+    "CO:us-house:08": [
+      {
+        "id": "E000300",
+        "name": "Gabe Evans",
+        "office": "us-house",
+        "districtCode": "08",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5625",
+        "address": "1229 Longworth House Office Building Washington DC 20515-0001",
+        "website": "https://gabeevans.house.gov",
+        "social": {
+          "x": "repgabeevans",
+          "facebook": "RepGabeEvans",
+          "instagram": "RepGabeEvans"
+        }
+      }
+    ],
+    "CO:state-house:005": [
+      {
+        "id": "ocd-person/45c957a4-0017-4c0c-8650-393d656fc5a0",
+        "name": "Alex Valdez",
+        "office": "state-house",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "alex.valdez.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/alex-valdez",
+        "social": {
+          "x": "ValdezforCO",
+          "facebook": "ValdezforCO"
+        }
+      }
+    ],
+    "CO:state-house:018": [
+      {
+        "id": "ocd-person/34dbb5f1-239b-4924-911e-27ff91bde5cd",
+        "name": "Amy Paschal",
+        "office": "state-house",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "amy.paschal.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/amy-paschal",
+        "social": {
+          "instagram": "amyfor18"
+        }
+      }
+    ],
+    "CO:state-house:053": [
+      {
+        "id": "ocd-person/278f042b-4fe3-4325-ad59-bc240e4fda0c",
+        "name": "Andy Boesenecker",
+        "office": "state-house",
+        "districtCode": "053",
+        "contactUrl": null,
+        "email": "andrew.boesenecker.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/andrew-boesenecker",
+        "social": {
+          "x": "rep_boesenecker",
+          "facebook": "andyforcolorado"
+        }
+      }
+    ],
+    "CO:state-house:044": [
+      {
+        "id": "ocd-person/561892b1-c618-43cb-9767-9237514f0a92",
+        "name": "Tony Hartsook",
+        "office": "state-house",
+        "districtCode": "044",
+        "contactUrl": null,
+        "email": "anthony.hartsook.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/anthony-hartsook",
+        "social": {
+          "x": "RepHartsook",
+          "facebook": "AnthonyHartsookCO",
+          "instagram": "rephartsook"
+        }
+      }
+    ],
+    "CO:state-house:014": [
+      {
+        "id": "ocd-person/af9e96aa-fb8b-49bb-96d8-e6c2c1ceb2b5",
+        "name": "Ava Flanell",
+        "office": "state-house",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "ava.flanell.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/ava-flanell",
+        "social": {
+          "x": "AvaFlanell_",
+          "instagram": "avaflanell_"
+        }
+      }
+    ],
+    "CO:state-house:043": [
+      {
+        "id": "ocd-person/ade56d2d-41d7-436d-b76b-85051f036c7a",
+        "name": "Bob Marshall",
+        "office": "state-house",
+        "districtCode": "043",
+        "contactUrl": null,
+        "email": "bob.marshall.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/bob-marshall",
+        "social": {
+          "x": "Bob4Colorado",
+          "facebook": "Bob4Colorado"
+        }
+      }
+    ],
+    "CO:state-house:039": [
+      {
+        "id": "ocd-person/5a396024-8dcf-438c-beca-a730e972d9d8",
+        "name": "Brandi Bradley",
+        "office": "state-house",
+        "districtCode": "039",
+        "contactUrl": null,
+        "email": "brandi.bradley.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/brandi-bradley",
+        "social": {
+          "x": "brandi_b12",
+          "facebook": "brandibradleyfor39",
+          "instagram": "rep.brandi.bradley"
+        }
+      }
+    ],
+    "CO:state-house:027": [
+      {
+        "id": "ocd-person/fa9b604d-5981-4de1-97bc-9400e03909c9",
+        "name": "Brianna Titone",
+        "office": "state-house",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "brianna.titone.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/brianna-titone",
+        "social": {
+          "x": "BriannaForCO",
+          "facebook": "BriannaForColorado",
+          "instagram": "briannaforcolorado"
+        }
+      }
+    ],
+    "CO:state-house:048": [
+      {
+        "id": "ocd-person/5f8d1bd0-329b-4a87-8d2f-cb62b8f2e921",
+        "name": "Carlos Barron",
+        "office": "state-house",
+        "districtCode": "048",
+        "contactUrl": null,
+        "email": "carlos.barron.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/carlos-barron",
+        "social": {
+          "x": "RepCarlosBarron"
+        }
+      }
+    ],
+    "CO:state-house:004": [
+      {
+        "id": "ocd-person/a34a6b10-12d9-4109-86d1-76c311463333",
+        "name": "Cecelia Espenoza",
+        "office": "state-house",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "cecelia.espenoza.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/cecelia-espenoza",
+        "social": {}
+      }
+    ],
+    "CO:state-house:037": [
+      {
+        "id": "ocd-person/faaae748-7c57-47df-bdf7-1811e0a61458",
+        "name": "Chad Clifford",
+        "office": "state-house",
+        "districtCode": "037",
+        "contactUrl": null,
+        "email": "chad.clifford.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/chad-clifford",
+        "social": {
+          "facebook": "chadforcolorado"
+        }
+      }
+    ],
+    "CO:state-house:056": [
+      {
+        "id": "ocd-person/0c428ee3-a327-4906-96c9-c46da7dfd7f1",
+        "name": "Chris Richardson",
+        "office": "state-house",
+        "districtCode": "056",
+        "contactUrl": null,
+        "email": "chris.richardson.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/chris-richardson",
+        "social": {}
+      }
+    ],
+    "CO:state-house:019": [
+      {
+        "id": "ocd-person/df050043-0b4f-4b51-8df0-ffd6cd6cd5b2",
+        "name": "Dan Woog",
+        "office": "state-house",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "dan.woog.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/dan-woog",
+        "social": {
+          "x": "danielpwoog",
+          "facebook": "representativedanwoog"
+        }
+      }
+    ],
+    "CO:state-house:063": [
+      {
+        "id": "ocd-person/f38f9f4b-9d3a-4e79-a96f-fab94d553d89",
+        "name": "Dusty Johnson",
+        "office": "state-house",
+        "districtCode": "063",
+        "contactUrl": null,
+        "email": "dustyforcolorado@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/dusty-johnson",
+        "social": {}
+      }
+    ],
+    "CO:state-house:061": [
+      {
+        "id": "ocd-person/c02b7bf5-a583-43c0-b6d6-2e757c7d42b7",
+        "name": "Eliza Hamrick",
+        "office": "state-house",
+        "districtCode": "061",
+        "contactUrl": null,
+        "email": "eliza.hamrick.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/eliza-hamrick",
+        "social": {
+          "x": "eliza4colorado",
+          "facebook": "eliza4colorado"
+        }
+      }
+    ],
+    "CO:state-house:057": [
+      {
+        "id": "ocd-person/bd50bf12-cf63-4a3d-a887-93008333e694",
+        "name": "Elizabeth Velasco",
+        "office": "state-house",
+        "districtCode": "057",
+        "contactUrl": null,
+        "email": "elizabeth.velasco.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/elizabeth-velasco",
+        "social": {
+          "facebook": "ElizabethforHD57"
+        }
+      }
+    ],
+    "CO:state-house:009": [
+      {
+        "id": "ocd-person/c8c1a9c5-c7c2-4894-8829-fc83251bcaf2",
+        "name": "Emily Sirota",
+        "office": "state-house",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "emily.sirota.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/emily-sirota",
+        "social": {
+          "x": "EmilyForCO",
+          "facebook": "EmilyForColorado"
+        }
+      }
+    ],
+    "CO:state-house:038": [
+      {
+        "id": "ocd-person/e0edd86c-a50d-4e78-96ac-f3e8217de4a8",
+        "name": "Gretchen Rydin",
+        "office": "state-house",
+        "districtCode": "038",
+        "contactUrl": null,
+        "email": "gretchen.rydin.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/gretchen-rydin",
+        "social": {
+          "x": "gretchenforCO",
+          "facebook": "gretchenforcolorado",
+          "instagram": "gretchenforcolorado"
+        }
+      }
+    ],
+    "CO:state-house:031": [
+      {
+        "id": "ocd-person/48d0af72-b21b-44a5-afc2-325b80f1c551",
+        "name": "Jacque Phillips",
+        "office": "state-house",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "jacqueline.phillips.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/jacque-phillips",
+        "social": {
+          "facebook": "jacquephillipsforstaterep"
+        }
+      }
+    ],
+    "CO:state-house:041": [
+      {
+        "id": "ocd-person/09ef4f5a-7c9d-463a-8ab6-52c861f97a74",
+        "name": "Jamie Jackson",
+        "office": "state-house",
+        "districtCode": "041",
+        "contactUrl": null,
+        "email": "jamie.jackson.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/jamie-jackson",
+        "social": {
+          "facebook": "JamieForColorado",
+          "instagram": "jamieforcolorado"
+        }
+      }
+    ],
+    "CO:state-house:020": [
+      {
+        "id": "ocd-person/544a4247-320e-456a-b5dd-f0373bdad788",
+        "name": "Jarvis Caldwell",
+        "office": "state-house",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "jarvis.caldwell.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/jarvis-caldwell",
+        "social": {
+          "x": "GOP_Jarvis",
+          "facebook": "jarviscaldwellforhd20",
+          "instagram": "jarvis.caldwell.colorado"
+        }
+      }
+    ],
+    "CO:state-house:001": [
+      {
+        "id": "ocd-person/d2b25169-0772-4e97-aa9e-49f82f0f5d08",
+        "name": "Javier Mabrey",
+        "office": "state-house",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "javier.mabrey.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/javier-mabrey",
+        "social": {
+          "x": "javier_mabrey",
+          "facebook": "JavierMabreyforCO",
+          "instagram": "javiermabrey"
+        }
+      }
+    ],
+    "CO:state-house:007": [
+      {
+        "id": "ocd-person/4aba3e11-9554-405d-b926-5435eb77fa26",
+        "name": "Jennifer Bacon",
+        "office": "state-house",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "jennifer.bacon.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/jennifer-bacon",
+        "social": {
+          "x": "baconforco",
+          "facebook": "BaconforColorado",
+          "instagram": "baconforco"
+        }
+      }
+    ],
+    "CO:state-house:034": [
+      {
+        "id": "ocd-person/655c629d-72f6-45d1-bd8f-a241e200d089",
+        "name": "Jenny Willford",
+        "office": "state-house",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "jenny.willford.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/jenny-willford",
+        "social": {
+          "x": "JennyforCO",
+          "facebook": "jennyforcolorado",
+          "instagram": "jennyforcolorado"
+        }
+      }
+    ],
+    "CO:state-house:013": [
+      {
+        "id": "ocd-person/53facaaf-5673-4c76-b15a-6b5061965ae1",
+        "name": "Julie McCluskie",
+        "office": "state-house",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "julie.mccluskie.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/julie-mccluskie",
+        "social": {
+          "x": "McCluskieforCO",
+          "facebook": "McCluskieforCO",
+          "instagram": "mccluskieforco"
+        }
+      }
+    ],
+    "CO:state-house:010": [
+      {
+        "id": "ocd-person/0c2271df-5808-42ff-9550-700f454b8b3a",
+        "name": "Junie Joseph",
+        "office": "state-house",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "junie.joseph.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/junie-joseph",
+        "social": {
+          "x": "Junie4Colorado",
+          "facebook": "junie4boulder"
+        }
+      }
+    ],
+    "CO:state-house:011": [
+      {
+        "id": "ocd-person/7631027c-2467-4112-8f03-abad6c6ed8f2",
+        "name": "Karen McCormick",
+        "office": "state-house",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "karen.mccormick.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/karen-mccormick",
+        "social": {
+          "x": "McCormickForCO",
+          "facebook": "McCormickForCO",
+          "instagram": "karenforco"
+        }
+      }
+    ],
+    "CO:state-house:059": [
+      {
+        "id": "ocd-person/fa06bf42-5305-4b04-95d0-a63f94ae8913",
+        "name": "Katie Stewart",
+        "office": "state-house",
+        "districtCode": "059",
+        "contactUrl": null,
+        "email": "katie.stewart.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/katie-stewart",
+        "social": {
+          "facebook": "katieforcolorado"
+        }
+      }
+    ],
+    "CO:state-house:022": [
+      {
+        "id": "ocd-person/767c8676-7cf0-45bf-9e20-e615d4d13c5e",
+        "name": "Ken DeGraaf",
+        "office": "state-house",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "ken.degraaf.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/ken-degraaf",
+        "social": {}
+      }
+    ],
+    "CO:state-house:033": [
+      {
+        "id": "ocd-person/f84befdc-bf1b-4b0b-92df-27155caf403f",
+        "name": "Kenny Nguyen",
+        "office": "state-house",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "kenny.nguyen.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/kenny-nguyen",
+        "social": {
+          "facebook": "NguyenforColorado",
+          "instagram": "nguyenforcolorado"
+        }
+      }
+    ],
+    "CO:state-house:012": [
+      {
+        "id": "ocd-person/f376a75e-e0b0-4bf7-95b1-0931ade3bdb8",
+        "name": "Kyle Brown",
+        "office": "state-house",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "kyle.brown.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/kyle-brown",
+        "social": {
+          "x": "KyleBrownHD12",
+          "facebook": "representativekylebrown",
+          "instagram": "repkylebrown"
+        }
+      }
+    ],
+    "CO:state-house:058": [
+      {
+        "id": "ocd-person/a2745e24-bcf2-40f8-aa77-fad08d873ab1",
+        "name": "Larry Suckla",
+        "office": "state-house",
+        "districtCode": "058",
+        "contactUrl": null,
+        "email": "larry.suckla.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/larry-don-suckla",
+        "social": {
+          "x": "LSuckla"
+        }
+      }
+    ],
+    "CO:state-house:049": [
+      {
+        "id": "ocd-person/475639af-fb56-4fde-9a78-213593db91d0",
+        "name": "Lesley Smith",
+        "office": "state-house",
+        "districtCode": "049",
+        "contactUrl": null,
+        "email": "lesley.smith.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/lesley-smith",
+        "social": {
+          "x": "LesleyForCU"
+        }
+      }
+    ],
+    "CO:state-house:008": [
+      {
+        "id": "ocd-person/d5ec869e-db7a-480f-b270-428805b90cee",
+        "name": "Lindsay Gilchrist",
+        "office": "state-house",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "lindsay.gilchrist.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/lindsay-gilchrist",
+        "social": {
+          "x": "LindsGilchrist",
+          "instagram": "gilchristlindsay"
+        }
+      }
+    ],
+    "CO:state-house:024": [
+      {
+        "id": "ocd-person/e1a861fa-2163-4ef5-a891-fc9d36c2504b",
+        "name": "Lisa Feret",
+        "office": "state-house",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "lisa.feret.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/lisa-feret",
+        "social": {
+          "facebook": "LisaFeretCO",
+          "instagram": "lisaferetcolorado"
+        }
+      }
+    ],
+    "CO:state-house:035": [
+      {
+        "id": "ocd-person/d7569723-ddde-4706-a857-422804198fa8",
+        "name": "Lorena García",
+        "office": "state-house",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "lorena.garcia.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/lorena-garcia",
+        "social": {
+          "x": "RepLorenaGarcia",
+          "facebook": "RepLorenaGarcia",
+          "instagram": "replorenagarciahd35"
+        }
+      }
+    ],
+    "CO:state-house:029": [
+      {
+        "id": "ocd-person/8de5b6ec-a488-4f1f-b96d-d78b90cb7fe7",
+        "name": "Lori Goldstein",
+        "office": "state-house",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "lori.goldstein.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/lori-goldstein",
+        "social": {
+          "instagram": "goldsteinforhd29"
+        }
+      }
+    ],
+    "CO:state-house:065": [
+      {
+        "id": "ocd-person/d450c0d3-b829-4855-ad0d-1228c5284a4f",
+        "name": "Lori Garcia Sander",
+        "office": "state-house",
+        "districtCode": "065",
+        "contactUrl": null,
+        "email": "lori.garciasander.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/lori-garcia-sander",
+        "social": {
+          "x": "LGSforHD65",
+          "instagram": "garciasanderforhouse"
+        }
+      }
+    ],
+    "CO:state-house:042": [
+      {
+        "id": "ocd-person/2582d3dd-20c0-4d15-83a0-3b6dab1e98d2",
+        "name": "Mandy Lindsay",
+        "office": "state-house",
+        "districtCode": "042",
+        "contactUrl": null,
+        "email": "mandy.lindsay.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/mandy-lindsay",
+        "social": {
+          "x": "MandyForCO",
+          "facebook": "RepLindsay",
+          "instagram": "rep_lindsay"
+        }
+      }
+    ],
+    "CO:state-house:021": [
+      {
+        "id": "ocd-person/9e1ed481-cc42-4186-a8fe-891abba60162",
+        "name": "Mary Bradfield",
+        "office": "state-house",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "mary.bradfield.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/mary-bradfield",
+        "social": {
+          "x": "BradfieldFor",
+          "facebook": "MaryBradfield4HD21"
+        }
+      }
+    ],
+    "CO:state-house:054": [
+      {
+        "id": "ocd-person/9e529237-916b-407c-a60e-abd8e0708329",
+        "name": "Matt Soper",
+        "office": "state-house",
+        "districtCode": "054",
+        "contactUrl": null,
+        "email": "matthew.soper.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/matt-soper",
+        "social": {
+          "x": "SoperMatthew",
+          "facebook": "Rep.Matt.Soper",
+          "instagram": "matt.soper.colorado"
+        }
+      }
+    ],
+    "CO:state-house:062": [
+      {
+        "id": "ocd-person/27716b46-14de-4097-a29c-1a882ae3cd3a",
+        "name": "Matt Martinez",
+        "office": "state-house",
+        "districtCode": "062",
+        "contactUrl": null,
+        "email": "matthew.martinez.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/matthew-martinez",
+        "social": {
+          "x": "MartinezforSoCo",
+          "facebook": "martinezinfo",
+          "instagram": "martinezforsoco"
+        }
+      }
+    ],
+    "CO:state-house:045": [
+      {
+        "id": "ocd-person/fe11081d-5ca9-4f88-a143-04aed94e45f9",
+        "name": "Max Brooks",
+        "office": "state-house",
+        "districtCode": "045",
+        "contactUrl": null,
+        "email": "max.brooks.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/max-brooks",
+        "social": {
+          "facebook": "MaxforHD45",
+          "instagram": "_max.brooks_"
+        }
+      }
+    ],
+    "CO:state-house:003": [
+      {
+        "id": "ocd-person/8e6bc6cb-fe7e-4640-a938-eb32536e95c5",
+        "name": "Meg Froelich",
+        "office": "state-house",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "meg.froelich.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/meg-froelich",
+        "social": {
+          "x": "RepMegFroe",
+          "facebook": "RepFroelich",
+          "instagram": "repmegfroe"
+        }
+      }
+    ],
+    "CO:state-house:026": [
+      {
+        "id": "ocd-person/c1a18202-08ad-487f-99bb-b1a606c15a22",
+        "name": "Meghan Lukens",
+        "office": "state-house",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "meghan.lukens.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/meghan-lukens",
+        "social": {
+          "x": "MeghanLukens",
+          "facebook": "MeghanLukensforColorado",
+          "instagram": "meghanlukensforcolorado"
+        }
+      }
+    ],
+    "CO:state-house:036": [
+      {
+        "id": "ocd-person/9c2accab-1bbf-495c-8036-137e48ba684d",
+        "name": "Michael Carter",
+        "office": "state-house",
+        "districtCode": "036",
+        "contactUrl": null,
+        "email": "michael.carter.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/michael-carter",
+        "social": {
+          "facebook": "carter_for_colorado",
+          "instagram": "carter_for_colorado"
+        }
+      }
+    ],
+    "CO:state-house:023": [
+      {
+        "id": "ocd-person/d8b6809c-61d9-4ea3-b21b-c846051468c2",
+        "name": "Monica Duran",
+        "office": "state-house",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "monica.duran.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/monica-duran",
+        "social": {
+          "x": "MonicaDuran23",
+          "facebook": "Monica.Duran.Colorado.House",
+          "instagram": "monicaduranhd23"
+        }
+      }
+    ],
+    "CO:state-house:040": [
+      {
+        "id": "ocd-person/64f01ef4-238f-4e48-9657-e221e0d030c0",
+        "name": "Naquetta Ricks",
+        "office": "state-house",
+        "districtCode": "040",
+        "contactUrl": null,
+        "email": "naquetta.ricks.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/naquetta-ricks",
+        "social": {
+          "x": "naquettaricks",
+          "facebook": "RicksforColorado",
+          "instagram": "ricks_cohd40"
+        }
+      }
+    ],
+    "CO:state-house:016": [
+      {
+        "id": "ocd-person/04df7ed2-3683-4e00-ae08-9660cd6d878b",
+        "name": "Rebecca Keltie",
+        "office": "state-house",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "rebecca.keltie.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/rebecca-keltie",
+        "social": {
+          "x": "Keltie4Congress"
+        }
+      }
+    ],
+    "CO:state-house:030": [
+      {
+        "id": "ocd-person/ef2507af-95ba-4a2f-84d5-84771785bfc2",
+        "name": "Rebekah Stewart",
+        "office": "state-house",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "rebekah.stewart.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/rebekah-stewart",
+        "social": {
+          "x": "RebekahforCO",
+          "facebook": "RebekahforCO",
+          "instagram": "rebekahforCO"
+        }
+      }
+    ],
+    "CO:state-house:017": [
+      {
+        "id": "ocd-person/d5be5146-f7a9-46eb-86f9-b0d1cebc4e9c",
+        "name": "Regina English",
+        "office": "state-house",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "regina.english.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/regina-english",
+        "social": {
+          "x": "ReginaEnglishCO",
+          "facebook": "ReginaEnglishCO",
+          "instagram": "reginaenglish_co"
+        }
+      }
+    ],
+    "CO:state-house:055": [
+      {
+        "id": "ocd-person/5dae0c7f-430e-42a2-906d-9e177782f91b",
+        "name": "Rick Taggart",
+        "office": "state-house",
+        "districtCode": "055",
+        "contactUrl": null,
+        "email": "rick.taggart.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/rick-taggart",
+        "social": {
+          "facebook": "repricktaggart",
+          "instagram": "repricktaggart"
+        }
+      }
+    ],
+    "CO:state-house:051": [
+      {
+        "id": "ocd-person/9b1256a4-11c6-4c9e-81e6-2e0a3c5871be",
+        "name": "Ron Weinberg",
+        "office": "state-house",
+        "districtCode": "051",
+        "contactUrl": null,
+        "email": "ron.weinberg.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/ron-weinberg",
+        "social": {
+          "x": "RepWeinberg",
+          "facebook": "WeinbergForColorado",
+          "instagram": "repweinberg"
+        }
+      }
+    ],
+    "CO:state-house:050": [
+      {
+        "id": "ocd-person/e7b1210b-3400-4ad4-a461-a55023e54042",
+        "name": "Ryan Gonzalez",
+        "office": "state-house",
+        "districtCode": "050",
+        "contactUrl": null,
+        "email": "ryan.gonzalez.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/ryan-gonzalez",
+        "social": {
+          "x": "RyanGonzalezCO",
+          "facebook": "Gonzalezfor50",
+          "instagram": "ryangonzalezco"
+        }
+      }
+    ],
+    "CO:state-house:015": [
+      {
+        "id": "ocd-person/66254480-6178-4312-8a18-268ec84153cc",
+        "name": "Scott Bottoms",
+        "office": "state-house",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "scott.bottoms.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/scott-bottoms",
+        "social": {
+          "x": "repscottbottoms",
+          "facebook": "scottbottomsco"
+        }
+      }
+    ],
+    "CO:state-house:064": [
+      {
+        "id": "ocd-person/cba33581-a61a-41c5-9773-c949f2b06d0a",
+        "name": "Scott Slaugh",
+        "office": "state-house",
+        "districtCode": "064",
+        "contactUrl": null,
+        "email": "scott.slaugh.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/scott-slaugh",
+        "social": {}
+      }
+    ],
+    "CO:state-house:006": [
+      {
+        "id": "ocd-person/56e058a4-2a75-4864-8d5e-18c1c98f6960",
+        "name": "Sean Camacho",
+        "office": "state-house",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "sean.camacho.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/sean-camacho",
+        "social": {
+          "x": "SeanCamachoCO",
+          "instagram": "camachoforcolorado"
+        }
+      }
+    ],
+    "CO:state-house:028": [
+      {
+        "id": "ocd-person/b44045eb-e2fb-4723-9e91-d68fb55c0bf7",
+        "name": "Sheila Lieder",
+        "office": "state-house",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "sheila.lieder.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/sheila-lieder",
+        "social": {
+          "instagram": "rep_sheila_lieder"
+        }
+      }
+    ],
+    "CO:state-house:060": [
+      {
+        "id": "ocd-person/3e7145a3-8729-497c-a168-db98d22cf015",
+        "name": "Stephanie Luck",
+        "office": "state-house",
+        "districtCode": "060",
+        "contactUrl": null,
+        "email": "stephanie.luck.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/stephanie-luck",
+        "social": {}
+      }
+    ],
+    "CO:state-house:002": [
+      {
+        "id": "ocd-person/09af4a19-c07e-49b2-b320-104f3784705b",
+        "name": "Steven Woodrow",
+        "office": "state-house",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "steven.woodrow.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/steven-woodrow",
+        "social": {
+          "x": "WoodrowForCO",
+          "facebook": "woodrowforco",
+          "instagram": "representative_steven_woodrow"
+        }
+      }
+    ],
+    "CO:state-house:025": [
+      {
+        "id": "ocd-person/489b3afa-1e08-40f4-918a-f01c186b6f73",
+        "name": "Tammy Story",
+        "office": "state-house",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "tammy.story.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/tammy-story",
+        "social": {
+          "x": "Story4CO",
+          "facebook": "Story4CO"
+        }
+      }
+    ],
+    "CO:state-house:046": [
+      {
+        "id": "ocd-person/851b5f31-0694-4674-a3b8-468b6eb1f0a8",
+        "name": "Tisha Mauro",
+        "office": "state-house",
+        "districtCode": "046",
+        "contactUrl": null,
+        "email": "tisha.mauro.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/tisha-mauro",
+        "social": {
+          "facebook": "tishamauroforhousedistrict46"
+        }
+      }
+    ],
+    "CO:state-house:047": [
+      {
+        "id": "ocd-person/f3cd2006-7729-41b0-a009-0c5cf64e95e0",
+        "name": "Ty Winter",
+        "office": "state-house",
+        "districtCode": "047",
+        "contactUrl": null,
+        "email": "ty.winter.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/ty-winter",
+        "social": {
+          "x": "RepTyWinter",
+          "instagram": "reptywinter"
+        }
+      }
+    ],
+    "CO:state-house:052": [
+      {
+        "id": "ocd-person/e8a7d2a2-1907-450d-8c61-8c328839e922",
+        "name": "Yara Zokaie",
+        "office": "state-house",
+        "districtCode": "052",
+        "contactUrl": null,
+        "email": "yara.zokaie.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/yara-zokaie",
+        "social": {
+          "x": "yzokaie",
+          "instagram": "yaraforco"
+        }
+      }
+    ],
+    "CO:state-senate:021": [
+      {
+        "id": "ocd-person/a033ad21-bdb7-4af2-be2e-e21c3e4cfa24",
+        "name": "Adrienne Benavidez",
+        "office": "state-senate",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "adrienne.benavidez.senate@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/adrienne-benavidez",
+        "social": {
+          "x": "benavidezhd32",
+          "facebook": "benavidezhd32",
+          "instagram": "benavidezhd32"
+        }
+      }
+    ],
+    "CO:state-senate:023": [
+      {
+        "id": "ocd-person/6d1fcaf0-ed3d-4772-876f-09dc5e931556",
+        "name": "Barbara Kirkmeyer",
+        "office": "state-senate",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "barbara.kirkmeyer.senate@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/barbara-kirkmeyer",
+        "social": {
+          "x": "SenKirkmeyer",
+          "instagram": "senkirkmeyer"
+        }
+      }
+    ],
+    "CO:state-senate:001": [
+      {
+        "id": "ocd-person/2d0d060c-6d5f-45da-a069-fe2be14547eb",
+        "name": "Byron Pelton",
+        "office": "state-senate",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "byron.pelton.senate@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/byron-pelton",
+        "social": {
+          "x": "commish_pelton"
+        }
+      }
+    ],
+    "CO:state-senate:014": [
+      {
+        "id": "ocd-person/0ddf3b75-c450-419e-8235-553157770e49",
+        "name": "Cathy Kipp",
+        "office": "state-senate",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "cathy.kipp.senate@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/cathy-kipp",
+        "social": {
+          "x": "cathy_kipp",
+          "facebook": "SenatorCathyKipp",
+          "instagram": "senatorcathykipp"
+        }
+      }
+    ],
+    "CO:state-senate:016": [
+      {
+        "id": "ocd-person/f72691ec-a5a0-413b-a344-e452009551a2",
+        "name": "Chris Kolker",
+        "office": "state-senate",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "chris.kolker.senate@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/chris-kolker",
+        "social": {
+          "x": "senatorkolker",
+          "facebook": "KolkerforColorado",
+          "instagram": "senatorchriskolker"
+        }
+      }
+    ],
+    "CO:state-senate:006": [
+      {
+        "id": "ocd-person/715df6f2-cef6-4b88-b745-0207c8ffb4ff",
+        "name": "Cleave Simpson",
+        "office": "state-senate",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "cleave.simpson.senate@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/cleave-simpson",
+        "social": {
+          "x": "SSenate35",
+          "facebook": "simpsonforsenate6"
+        }
+      }
+    ],
+    "CO:state-senate:008": [
+      {
+        "id": "ocd-person/4be512fb-5ebc-422c-a858-d250cb5568ad",
+        "name": "Dylan Roberts",
+        "office": "state-senate",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "dylan.roberts.senate@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/dylan-roberts",
+        "social": {
+          "x": "Dylan_RobertsCO",
+          "facebook": "DylanforColorado",
+          "instagram": "dylanroberts_co"
+        }
+      }
+    ],
+    "CO:state-senate:029": [
+      {
+        "id": "ocd-person/506f18ea-3611-408b-aa0e-73adf9681efe",
+        "name": "Iman Jodeh",
+        "office": "state-senate",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "iman.jodeh.senate@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/iman-jodeh",
+        "social": {
+          "x": "ImanforColorado",
+          "facebook": "ImanforColorado",
+          "instagram": "imanforcolorado"
+        }
+      }
+    ],
+    "CO:state-senate:033": [
+      {
+        "id": "ocd-person/e4e1f1a9-7134-4d90-9fed-2aa7a0e3a307",
+        "name": "James Coleman",
+        "office": "state-senate",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "james.coleman.senate@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/james-coleman",
+        "social": {
+          "x": "ColemanforCO",
+          "facebook": "colemanforcolorado",
+          "instagram": "colemanforcolorado"
+        }
+      }
+    ],
+    "CO:state-senate:015": [
+      {
+        "id": "ocd-person/2718c918-a38c-49c2-a120-5503164f959f",
+        "name": "Janice Marchman",
+        "office": "state-senate",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "janice.marchman.senate@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/janice-marchman",
+        "social": {
+          "x": "Janice_Marchman",
+          "facebook": "janiceforcolorado",
+          "instagram": "janiceforcolorado"
+        }
+      }
+    ],
+    "CO:state-senate:007": [
+      {
+        "id": "ocd-person/2372415a-2aea-4423-8a3a-bed2d40493a6",
+        "name": "Janice Rich",
+        "office": "state-senate",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "janice.rich.senate@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/janice-rich",
+        "social": {
+          "facebook": "JaniceRichforCO"
+        }
+      }
+    ],
+    "CO:state-senate:026": [
+      {
+        "id": "ocd-person/c2cade07-9c95-4439-938c-77ac4ed44fab",
+        "name": "Jeff Bridges",
+        "office": "state-senate",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "jeff.bridges.senate@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/jeff-bridges",
+        "social": {
+          "x": "JeffBridges",
+          "facebook": "bridgesforcolorado",
+          "instagram": "jeffbridges"
+        }
+      }
+    ],
+    "CO:state-senate:022": [
+      {
+        "id": "ocd-person/c06af980-c553-4f79-a39d-295b7226f029",
+        "name": "Jessie Danielson",
+        "office": "state-senate",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "jessie.danielson.senate@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/jessie-danielson",
+        "social": {
+          "x": "JessieDanielson",
+          "facebook": "jessiedanielsonforcolorado",
+          "instagram": "jessiedanielson_"
+        }
+      }
+    ],
+    "CO:state-senate:030": [
+      {
+        "id": "ocd-person/8e95ac06-ddbb-4f6c-ba7e-854a92860be4",
+        "name": "John Carson",
+        "office": "state-senate",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "john.carson.senate@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/john-carson",
+        "social": {}
+      }
+    ],
+    "CO:state-senate:018": [
+      {
+        "id": "ocd-person/829879ea-a9a3-42b6-8f5f-d209b1cc961d",
+        "name": "Judy Amabile",
+        "office": "state-senate",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "judy.amabile.senate@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/judy-amabile",
+        "social": {
+          "facebook": "JudyAmabileCO",
+          "instagram": "judyforcolorado"
+        }
+      }
+    ],
+    "CO:state-senate:034": [
+      {
+        "id": "ocd-person/8dae5ba5-6741-4aca-8c1e-24f014fda187",
+        "name": "Julie Gonzales",
+        "office": "state-senate",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "julie.gonzales.senate@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/julie-gonzales",
+        "social": {
+          "x": "SenadoraJulie",
+          "facebook": "senadorajulie",
+          "instagram": "senadorajulie"
+        }
+      }
+    ],
+    "CO:state-senate:017": [
+      {
+        "id": "ocd-person/f0fa561d-39cf-48f3-ae8c-84b4d30d2662",
+        "name": "Katie Wallace",
+        "office": "state-senate",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "katie.wallace.senate@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/katie-wallace",
+        "social": {}
+      }
+    ],
+    "CO:state-senate:024": [
+      {
+        "id": "ocd-person/ebf0c3de-2f58-436f-af67-12863f9cb552",
+        "name": "Kyle Mullica",
+        "office": "state-senate",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "kyle.mullica.senate@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/kyle-mullica",
+        "social": {
+          "x": "Kyle_Mullica",
+          "facebook": "VoteKyleMullica"
+        }
+      }
+    ],
+    "CO:state-senate:010": [
+      {
+        "id": "ocd-person/c9fd6b10-91a3-44ec-ac6a-48f73eee3ed1",
+        "name": "Larry Liston",
+        "office": "state-senate",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "larry.liston.senate@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/larry-liston",
+        "social": {
+          "instagram": "larryliston10"
+        }
+      }
+    ],
+    "CO:state-senate:019": [
+      {
+        "id": "ocd-person/2de0a3a1-a1e3-477f-88b9-3212fa52fb9c",
+        "name": "Lindsey Daugherty",
+        "office": "state-senate",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "lindsey.daugherty.senate@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/lindsey-daugherty",
+        "social": {
+          "x": "LindseyForCO",
+          "facebook": "lindseyforcolorado",
+          "instagram": "lindseyforcolorado"
+        }
+      }
+    ],
+    "CO:state-senate:020": [
+      {
+        "id": "ocd-person/5226ebdd-0710-49da-b446-61fac19765ce",
+        "name": "Lisa Cutter",
+        "office": "state-senate",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "lisa.cutter.senate@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/lisa-cutter",
+        "social": {
+          "x": "Cutter4Colorado",
+          "facebook": "CutterForColorado",
+          "instagram": "cutter4colorado"
+        }
+      }
+    ],
+    "CO:state-senate:002": [
+      {
+        "id": "ocd-person/fce5c955-f43d-4f80-bad5-8369223bc0ea",
+        "name": "Lisa Frizell",
+        "office": "state-senate",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "lisa.frizell.senate@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/lisa-frizell",
+        "social": {
+          "x": "lisa_frizell",
+          "facebook": "FrizellForSD2"
+        }
+      }
+    ],
+    "CO:state-senate:009": [
+      {
+        "id": "ocd-person/e5055578-02cb-435c-9fe0-b877318e3b1b",
+        "name": "Lynda Zamora Wilson",
+        "office": "state-senate",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "lynda.zamorawilson.senate@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/lynda-zamora-wilson",
+        "social": {}
+      }
+    ],
+    "CO:state-senate:005": [
+      {
+        "id": "ocd-person/c0cfa7d3-2c5e-4b68-8692-2e1b6f1b3372",
+        "name": "Marc Catlin",
+        "office": "state-senate",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "marc.catlin.senate@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/marc-catlin",
+        "social": {
+          "facebook": "CatlinForColorado",
+          "instagram": "catlinforcolorado"
+        }
+      }
+    ],
+    "CO:state-senate:012": [
+      {
+        "id": "ocd-person/5dbb7ac2-a4c8-42b8-bfb1-1b012737fa74",
+        "name": "Marc Snyder",
+        "office": "state-senate",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "marc.snyder.senate@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/marc-snyder",
+        "social": {
+          "x": "MarcSnyderHD18",
+          "instagram": "repmarcsnyder"
+        }
+      }
+    ],
+    "CO:state-senate:004": [
+      {
+        "id": "ocd-person/b4002b84-79a0-481a-94a8-00136c2dabb6",
+        "name": "Mark Baisley",
+        "office": "state-senate",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "mark.baisley@senate.co.com",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/mark-baisley",
+        "social": {
+          "instagram": "mark.baisley"
+        }
+      }
+    ],
+    "CO:state-senate:031": [
+      {
+        "id": "ocd-person/4a72c7ee-c3e5-4c61-8e79-3301cb70a599",
+        "name": "Matt Ball",
+        "office": "state-senate",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "matt.ball.senate@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/matt-ball",
+        "social": {
+          "instagram": "mattforcolorado"
+        }
+      }
+    ],
+    "CO:state-senate:028": [
+      {
+        "id": "ocd-person/b680cb39-442c-4dd2-81bd-88696cfe9df2",
+        "name": "Mike Weissman",
+        "office": "state-senate",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "mike.weissman.senate@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/mike-weissman",
+        "social": {
+          "x": "mjweissman",
+          "facebook": "mike4rep",
+          "instagram": "mjweissman"
+        }
+      }
+    ],
+    "CO:state-senate:003": [
+      {
+        "id": "ocd-person/4d753f6e-b7e3-420d-a684-e9a27f7ab27b",
+        "name": "Nick Hinrichsen",
+        "office": "state-senate",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "nick.hinrichsen.senate@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/nick-hinrichsen",
+        "social": {
+          "x": "NickForCO",
+          "facebook": "NickForColorado",
+          "instagram": "senatorhinrichsen"
+        }
+      }
+    ],
+    "CO:state-senate:032": [
+      {
+        "id": "ocd-person/ab377224-ab70-4c20-a535-baa429520e7c",
+        "name": "Robert Rodriguez",
+        "office": "state-senate",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "robert.rodriguez.senate@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/robert-rodriguez",
+        "social": {
+          "x": "SenRobRodriguez",
+          "facebook": "RobertRodriguezforColorado"
+        }
+      }
+    ],
+    "CO:state-senate:035": [
+      {
+        "id": "ocd-person/45cd06eb-9967-4468-9e4e-677549e7638d",
+        "name": "Rod Pelton",
+        "office": "state-senate",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "rod.pelton.senate@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/rod-pelton",
+        "social": {
+          "x": "SenRodPelton",
+          "facebook": "SenatorRodPelton"
+        }
+      }
+    ],
+    "CO:state-senate:013": [
+      {
+        "id": "ocd-person/fb530f21-a08e-473c-b215-9a4de6a86ee9",
+        "name": "Scott Bright",
+        "office": "state-senate",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "scott.bright.senate@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/scott-bright",
+        "social": {
+          "facebook": "ScottBrightforSenate"
+        }
+      }
+    ],
+    "CO:state-senate:027": [
+      {
+        "id": "ocd-person/dc9056b8-fb9c-4a66-99b8-210acce64bff",
+        "name": "Tom Sullivan",
+        "office": "state-senate",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "tom.sullivan.senate@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/tom-sullivan",
+        "social": {
+          "x": "Sully_720",
+          "facebook": "SullivanForColorado",
+          "instagram": "senatortomsullivan"
+        }
+      }
+    ],
+    "CO:state-senate:011": [
+      {
+        "id": "ocd-person/473bd095-778d-4418-8e61-96a2b8005c8e",
+        "name": "Tony Exum",
+        "office": "state-senate",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "tony.exum.senate@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/tony-exum",
+        "social": {
+          "x": "TonyExum",
+          "facebook": "SenTonyExum"
+        }
+      }
+    ],
+    "CO:state-senate:025": [
+      {
+        "id": "ocd-person/dbe86f29-2ecb-449e-aaf6-3fc91baf2e0e",
+        "name": "William Lindstedt",
+        "office": "state-senate",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "william.lindstedt.senate@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/william-lindstedt",
+        "social": {
+          "x": "WSLindstedt",
+          "facebook": "williamforcolorado"
+        }
+      }
+    ]
+  }
+}

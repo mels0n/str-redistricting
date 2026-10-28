@@ -1,0 +1,2032 @@
+{
+  "state": "WI",
+  "generatedFrom": {
+    "legislators-current.json": "ae8cb9477c48715df71a7d860854229d799dc90a254d61badc1efb770f892b2c",
+    "legislators-social-media.json": "c6eca1fcdb3a89901335eed51ca061daa4b60ad3243969a127e913bb9657fbc5",
+    "wi.csv": "378f66ab906302649559242814f8369e06abd050496570c8fe5b0eaed278964b"
+  },
+  "byKey": {
+    "WI:us-senate:state": [
+      {
+        "id": "B001230",
+        "name": "Tammy Baldwin",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.baldwin.senate.gov/feedback",
+        "email": null,
+        "phone": "202-224-5653",
+        "address": "141 Hart Senate Office Building Washington DC 20510",
+        "website": "https://www.baldwin.senate.gov",
+        "social": {
+          "x": "SenatorBaldwin",
+          "facebook": "senatortammybaldwin",
+          "instagram": "senatorbaldwin"
+        }
+      },
+      {
+        "id": "J000293",
+        "name": "Ron Johnson",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.ronjohnson.senate.gov/public/index.cfm/email-the-senator",
+        "email": null,
+        "phone": "202-224-5323",
+        "address": "328 Hart Senate Office Building Washington DC 20510",
+        "website": "https://www.ronjohnson.senate.gov",
+        "social": {
+          "x": "SenRonJohnson",
+          "facebook": "senronjohnson",
+          "instagram": "senronjohnson"
+        }
+      }
+    ],
+    "WI:us-house:04": [
+      {
+        "id": "M001160",
+        "name": "Gwen Moore",
+        "office": "us-house",
+        "districtCode": "04",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4572",
+        "address": "2252 Rayburn House Office Building Washington DC 20515-4904",
+        "website": "https://gwenmoore.house.gov",
+        "social": {
+          "x": "RepGwenMoore",
+          "facebook": "GwenSMoore",
+          "instagram": "RepGwenMoore"
+        }
+      }
+    ],
+    "WI:us-house:02": [
+      {
+        "id": "P000607",
+        "name": "Mark Pocan",
+        "office": "us-house",
+        "districtCode": "02",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2906",
+        "address": "1026 Longworth House Office Building Washington DC 20515-4902",
+        "website": "https://pocan.house.gov",
+        "social": {
+          "x": "RepMarkPocan",
+          "facebook": "repmarkpocan",
+          "instagram": "repmarkpocan"
+        }
+      }
+    ],
+    "WI:us-house:06": [
+      {
+        "id": "G000576",
+        "name": "Glenn Grothman",
+        "office": "us-house",
+        "districtCode": "06",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2476",
+        "address": "1211 Longworth House Office Building Washington DC 20515-4906",
+        "website": "https://grothman.house.gov",
+        "social": {
+          "x": "RepGrothman",
+          "facebook": "RepGrothman",
+          "instagram": "repglenngrothman"
+        }
+      }
+    ],
+    "WI:us-house:01": [
+      {
+        "id": "S001213",
+        "name": "Bryan Steil",
+        "office": "us-house",
+        "districtCode": "01",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-3031",
+        "address": "1526 Longworth House Office Building Washington DC 20515-4901",
+        "website": "https://steil.house.gov",
+        "social": {
+          "x": "RepBryanSteil"
+        }
+      }
+    ],
+    "WI:us-house:07": [
+      {
+        "id": "T000165",
+        "name": "Thomas P. Tiffany",
+        "office": "us-house",
+        "districtCode": "07",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-3365",
+        "address": "451 Cannon House Office Building Washington DC 20515-4907",
+        "website": "https://tiffany.house.gov",
+        "social": {
+          "x": "RepTiffany",
+          "facebook": "RepTiffany"
+        }
+      }
+    ],
+    "WI:us-house:05": [
+      {
+        "id": "F000471",
+        "name": "Scott Fitzgerald",
+        "office": "us-house",
+        "districtCode": "05",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5101",
+        "address": "2444 Rayburn House Office Building Washington DC 20515-4905",
+        "website": "https://fitzgerald.house.gov",
+        "social": {
+          "x": "RepFitzgerald",
+          "facebook": "CongressmanScottFitzgerald"
+        }
+      }
+    ],
+    "WI:us-house:03": [
+      {
+        "id": "V000135",
+        "name": "Derrick Van Orden",
+        "office": "us-house",
+        "districtCode": "03",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5506",
+        "address": "1513 Longworth House Office Building Washington DC 20515-4903",
+        "website": "https://vanorden.house.gov",
+        "social": {
+          "x": "RepVanOrden",
+          "facebook": "RepVanOrden",
+          "instagram": "RepVanOrden"
+        }
+      }
+    ],
+    "WI:us-house:08": [
+      {
+        "id": "W000829",
+        "name": "Tony Wied",
+        "office": "us-house",
+        "districtCode": "08",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5665",
+        "address": "424 Cannon House Office Building Washington DC 20515-4908",
+        "website": "https://wied.house.gov",
+        "social": {
+          "x": "RepTonyWied",
+          "facebook": "61568624194199",
+          "instagram": "reptonywied"
+        }
+      }
+    ],
+    "WI:state-house:015": [
+      {
+        "id": "ocd-person/22d8a510-3b36-432a-9d3d-08efe7e74d5e",
+        "name": "Adam Neylon",
+        "office": "state-house",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "rep.neylon@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2017/legislators/assembly/1592",
+        "social": {}
+      }
+    ],
+    "WI:state-house:039": [
+      {
+        "id": "ocd-person/c4afc94c-3bad-4e77-9f81-de613c406860",
+        "name": "Alex Dallman",
+        "office": "state-house",
+        "districtCode": "039",
+        "contactUrl": null,
+        "email": "rep.dallman@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alexdallman.com/",
+        "social": {}
+      }
+    ],
+    "WI:state-house:081": [
+      {
+        "id": "ocd-person/1638f0f9-1d5a-4790-aee2-63cad736b137",
+        "name": "Alex Joers",
+        "office": "state-house",
+        "districtCode": "081",
+        "contactUrl": null,
+        "email": "rep.joers@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2023/legislators/assembly/2553",
+        "social": {}
+      }
+    ],
+    "WI:state-house:090": [
+      {
+        "id": "ocd-person/998f8ecc-8772-44f4-a81d-622f567c0142",
+        "name": "Amaad Rivera-Wagner",
+        "office": "state-house",
+        "districtCode": "090",
+        "contactUrl": null,
+        "email": "rep.riverawagner@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2025/legislators/assembly/2902",
+        "social": {}
+      }
+    ],
+    "WI:state-house:032": [
+      {
+        "id": "ocd-person/5c70d5df-b7a6-471c-a766-05816ee009a5",
+        "name": "Amanda Nedweski",
+        "office": "state-house",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "rep.nedweski@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2023/legislators/assembly/2551",
+        "social": {}
+      }
+    ],
+    "WI:state-house:048": [
+      {
+        "id": "ocd-person/9dc4ee36-43d6-4392-b0f8-2d6b7d4121f3",
+        "name": "Andrew Hysell",
+        "office": "state-house",
+        "districtCode": "048",
+        "contactUrl": null,
+        "email": "rep.hysell@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2025/legislators/assembly/2892",
+        "social": {}
+      }
+    ],
+    "WI:state-house:073": [
+      {
+        "id": "ocd-person/68856392-7181-4a63-bcc0-2c414a67045e",
+        "name": "Angela Stroud",
+        "office": "state-house",
+        "districtCode": "073",
+        "contactUrl": null,
+        "email": "rep.stroud@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2025/legislators/assembly/2896",
+        "social": {}
+      }
+    ],
+    "WI:state-house:062": [
+      {
+        "id": "ocd-person/e47f88fc-e402-4b8d-a253-ee77ea95847d",
+        "name": "Angelina Cruz",
+        "office": "state-house",
+        "districtCode": "062",
+        "contactUrl": null,
+        "email": "rep.cruz@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2025/legislators/assembly/2893",
+        "social": {}
+      }
+    ],
+    "WI:state-house:014": [
+      {
+        "id": "ocd-person/fc8fe4ef-dfff-465c-92db-a369ac888afe",
+        "name": "Angelito Tenorio",
+        "office": "state-house",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "rep.tenorio@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2025/legislators/assembly/2881",
+        "social": {}
+      }
+    ],
+    "WI:state-house:044": [
+      {
+        "id": "ocd-person/92eb51fb-7865-4b2f-8ea1-c56b5f287b5c",
+        "name": "Ann Roe",
+        "office": "state-house",
+        "districtCode": "044",
+        "contactUrl": null,
+        "email": "rep.roe@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2025/legislators/assembly/2889",
+        "social": {}
+      }
+    ],
+    "WI:state-house:099": [
+      {
+        "id": "ocd-person/0580ebef-0cfa-40ae-a4ea-d960e0ea30ee",
+        "name": "Barbara Dittrich",
+        "office": "state-house",
+        "districtCode": "099",
+        "contactUrl": null,
+        "email": "rep.dittrich@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2019/legislators/assembly/1934",
+        "social": {}
+      }
+    ],
+    "WI:state-house:065": [
+      {
+        "id": "ocd-person/d4c9b78d-bb0b-40e8-b717-f606299c9737",
+        "name": "Ben DeSmidt",
+        "office": "state-house",
+        "districtCode": "065",
+        "contactUrl": null,
+        "email": "rep.desmidt@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2025/legislators/assembly/2894",
+        "social": {}
+      }
+    ],
+    "WI:state-house:088": [
+      {
+        "id": "ocd-person/04b709c6-b487-49c1-9bcf-dfbbc7082beb",
+        "name": "Ben Franklin",
+        "office": "state-house",
+        "districtCode": "088",
+        "contactUrl": null,
+        "email": "rep.franklin@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2025/legislators/assembly/2900",
+        "social": {}
+      }
+    ],
+    "WI:state-house:061": [
+      {
+        "id": "ocd-person/54522ac6-81ad-4b83-929f-b94e94b8acb4",
+        "name": "Bob Donovan",
+        "office": "state-house",
+        "districtCode": "061",
+        "contactUrl": null,
+        "email": "rep.donovan@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2023/legislators/assembly/2555",
+        "social": {}
+      }
+    ],
+    "WI:state-house:087": [
+      {
+        "id": "ocd-person/3089bcca-553d-4637-9b50-2d9698944d5a",
+        "name": "Brent Jacobson",
+        "office": "state-house",
+        "districtCode": "087",
+        "contactUrl": null,
+        "email": "rep.brent.jacobson@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2025/legislators/assembly/2899",
+        "social": {}
+      }
+    ],
+    "WI:state-house:043": [
+      {
+        "id": "ocd-person/f8f3683e-3615-4a4b-bafe-d4d042f291d0",
+        "name": "Brienne Brown",
+        "office": "state-house",
+        "districtCode": "043",
+        "contactUrl": null,
+        "email": "rep.brown@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2025/legislators/assembly/2888",
+        "social": {}
+      }
+    ],
+    "WI:state-house:035": [
+      {
+        "id": "ocd-person/23c03244-880a-4263-8e2f-18c0c5556b45",
+        "name": "Calvin Callahan",
+        "office": "state-house",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "rep.callahan@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2021/legislators/assembly/2260",
+        "social": {}
+      }
+    ],
+    "WI:state-house:074": [
+      {
+        "id": "ocd-person/2a6503b4-d030-4569-b5b2-8fe62ff6132d",
+        "name": "Chanz Green",
+        "office": "state-house",
+        "districtCode": "074",
+        "contactUrl": null,
+        "email": "rep.green@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2023/legislators/assembly/2558",
+        "social": {}
+      }
+    ],
+    "WI:state-house:093": [
+      {
+        "id": "ocd-person/ad79773d-d349-4adf-9e3c-00d2b38a90b2",
+        "name": "Christian Phelps",
+        "office": "state-house",
+        "districtCode": "093",
+        "contactUrl": null,
+        "email": "rep.phelps@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2025/legislators/assembly/2903",
+        "social": {}
+      }
+    ],
+    "WI:state-house:020": [
+      {
+        "id": "ocd-person/2da8406a-4a68-4167-887d-22fe1b872940",
+        "name": "Christine Sinicki",
+        "office": "state-house",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "rep.sinicki@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2017/legislators/assembly/1610",
+        "social": {}
+      }
+    ],
+    "WI:state-house:084": [
+      {
+        "id": "ocd-person/ef921fbc-cb1a-4208-a4ab-b2ea99114f0a",
+        "name": "Chuck Wichgers",
+        "office": "state-house",
+        "districtCode": "084",
+        "contactUrl": null,
+        "email": "rep.wichgers@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2017/legislators/assembly/1640",
+        "social": {}
+      }
+    ],
+    "WI:state-house:097": [
+      {
+        "id": "ocd-person/171aec6e-ba95-4244-9854-84cddf028d90",
+        "name": "Cindi Duchow",
+        "office": "state-house",
+        "districtCode": "097",
+        "contactUrl": null,
+        "email": "rep.duchow@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2017/legislators/assembly/1552",
+        "social": {}
+      }
+    ],
+    "WI:state-house:092": [
+      {
+        "id": "ocd-person/21e310b1-c14b-42e6-b3fc-84c1613c3063",
+        "name": "Clint Moses",
+        "office": "state-house",
+        "districtCode": "092",
+        "contactUrl": null,
+        "email": "rep.moses@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2021/legislators/assembly/2253",
+        "social": {}
+      }
+    ],
+    "WI:state-house:045": [
+      {
+        "id": "ocd-person/d670cb97-7d46-4d57-95ec-1a3654a6fe0c",
+        "name": "Clint Anderson",
+        "office": "state-house",
+        "districtCode": "045",
+        "contactUrl": null,
+        "email": "rep.canderson@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2023/legislators/assembly/2559",
+        "social": {}
+      }
+    ],
+    "WI:state-house:024": [
+      {
+        "id": "ocd-person/1152309b-c82f-4660-bd5d-3e16322f1200",
+        "name": "Dan Knodl",
+        "office": "state-house",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "rep.knodl@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2017/legislators/assembly/1574",
+        "social": {}
+      }
+    ],
+    "WI:state-house:010": [
+      {
+        "id": "ocd-person/d9f84b91-88ac-4abc-8d47-0672e2de5970",
+        "name": "Darrin Madison",
+        "office": "state-house",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "rep.madison@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2023/legislators/assembly/2536",
+        "social": {}
+      }
+    ],
+    "WI:state-house:083": [
+      {
+        "id": "ocd-person/f20f569f-1f36-4856-9193-b4b938dfcdaf",
+        "name": "Dave Maxey",
+        "office": "state-house",
+        "districtCode": "083",
+        "contactUrl": null,
+        "email": "rep.maxey@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2023/legislators/assembly/2537",
+        "social": {}
+      }
+    ],
+    "WI:state-house:067": [
+      {
+        "id": "ocd-person/28caa8bd-605b-4755-85a0-52434a9be02f",
+        "name": "Dave Armstrong",
+        "office": "state-house",
+        "districtCode": "067",
+        "contactUrl": null,
+        "email": "rep.armstrong@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2021/legislators/assembly/2268",
+        "social": {}
+      }
+    ],
+    "WI:state-house:056": [
+      {
+        "id": "ocd-person/1e2717f2-3426-47b6-8e86-a63f0a507c81",
+        "name": "Dave Murphy",
+        "office": "state-house",
+        "districtCode": "056",
+        "contactUrl": null,
+        "email": "rep.murphy@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2017/legislators/assembly/1588",
+        "social": {}
+      }
+    ],
+    "WI:state-house:004": [
+      {
+        "id": "ocd-person/2a067a93-dffc-4ce7-8975-d37fb67b4512",
+        "name": "David Steffen",
+        "office": "state-house",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "rep.steffen@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2017/legislators/assembly/1614",
+        "social": {}
+      }
+    ],
+    "WI:state-house:053": [
+      {
+        "id": "ocd-person/72aa0b66-48f0-41fd-8ac8-b33f610d97c7",
+        "name": "Dean Kaufert",
+        "office": "state-house",
+        "districtCode": "053",
+        "contactUrl": null,
+        "email": "rep.kaufert@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2025/legislators/assembly/2852",
+        "social": {}
+      }
+    ],
+    "WI:state-house:023": [
+      {
+        "id": "ocd-person/bcca1ebf-1a4c-4624-97a6-dbfd3e255191",
+        "name": "Deb Andraca",
+        "office": "state-house",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "rep.andraca@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2021/legislators/assembly/2266",
+        "social": {}
+      }
+    ],
+    "WI:state-house:075": [
+      {
+        "id": "ocd-person/2a047fc5-2adb-4c4b-9c67-0eda3aa07233",
+        "name": "Duke Tucker",
+        "office": "state-house",
+        "districtCode": "075",
+        "contactUrl": null,
+        "email": "rep.tucker@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2025/legislators/assembly/2897",
+        "social": {}
+      }
+    ],
+    "WI:state-house:006": [
+      {
+        "id": "ocd-person/de5dfe78-e3a2-4a58-a7f1-bb184bfd1ade",
+        "name": "Elijah Behnke",
+        "office": "state-house",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "rep.behnke@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2021/legislators/assembly/2396",
+        "social": {}
+      }
+    ],
+    "WI:state-house:076": [
+      {
+        "id": "ocd-person/17879a06-e9fc-4e11-88bf-3c684c460c07",
+        "name": "Francesca Hong",
+        "office": "state-house",
+        "districtCode": "076",
+        "contactUrl": null,
+        "email": "rep.hong@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2021/legislators/assembly/2261",
+        "social": {}
+      }
+    ],
+    "WI:state-house:066": [
+      {
+        "id": "ocd-person/62f218bf-b308-4240-84b3-4be181466b42",
+        "name": "Greta Neubauer",
+        "office": "state-house",
+        "districtCode": "066",
+        "contactUrl": null,
+        "email": "rep.neubauer@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2017/legislators/assembly/1782",
+        "social": {}
+      }
+    ],
+    "WI:state-house:036": [
+      {
+        "id": "ocd-person/5254db79-a23b-4496-ad9b-cc0e7a9b7f3a",
+        "name": "Jeff Mursau",
+        "office": "state-house",
+        "districtCode": "036",
+        "contactUrl": null,
+        "email": "rep.mursau@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2017/legislators/assembly/1589",
+        "social": {}
+      }
+    ],
+    "WI:state-house:050": [
+      {
+        "id": "ocd-person/a38a3643-e446-419c-b255-97d88f880634",
+        "name": "Jenna Jacobson",
+        "office": "state-house",
+        "districtCode": "050",
+        "contactUrl": null,
+        "email": "rep.jacobson@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2023/legislators/assembly/2545",
+        "social": {}
+      }
+    ],
+    "WI:state-house:060": [
+      {
+        "id": "ocd-person/4e1004c1-d397-4a50-baeb-2d3fbbd2912f",
+        "name": "Jerry O'Connor",
+        "office": "state-house",
+        "districtCode": "060",
+        "contactUrl": null,
+        "email": "rep.o'connor@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2023/legislators/assembly/2549",
+        "social": {}
+      }
+    ],
+    "WI:state-house:021": [
+      {
+        "id": "ocd-person/1dd290f4-6504-4967-9566-55cb3340d303",
+        "name": "Jessie Rodriguez",
+        "office": "state-house",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "rep.rodriguez@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2017/legislators/assembly/1604",
+        "social": {}
+      }
+    ],
+    "WI:state-house:095": [
+      {
+        "id": "ocd-person/7da63875-0a3c-4b03-aaa8-fe48c718eb45",
+        "name": "Jill Billings",
+        "office": "state-house",
+        "districtCode": "095",
+        "contactUrl": null,
+        "email": "rep.billings@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2017/legislators/assembly/1540",
+        "social": {}
+      }
+    ],
+    "WI:state-house:098": [
+      {
+        "id": "ocd-person/61dfe0c1-631f-401a-a4db-6641547db7ef",
+        "name": "Jim Piwowarczyk",
+        "office": "state-house",
+        "districtCode": "098",
+        "contactUrl": null,
+        "email": "rep.piwowarczyk@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2025/legislators/assembly/2905",
+        "social": {}
+      }
+    ],
+    "WI:state-house:046": [
+      {
+        "id": "ocd-person/fd8d6d12-9d66-4926-92b4-61c463cae027",
+        "name": "Joan Fitzgerald",
+        "office": "state-house",
+        "districtCode": "046",
+        "contactUrl": null,
+        "email": "rep.fitzgerald@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2025/legislators/assembly/2890",
+        "social": {}
+      }
+    ],
+    "WI:state-house:091": [
+      {
+        "id": "ocd-person/71d596fa-95f2-4411-9b7c-9e250380b701",
+        "name": "Jodi Emerson",
+        "office": "state-house",
+        "districtCode": "091",
+        "contactUrl": null,
+        "email": "rep.emerson@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2019/legislators/assembly/1939",
+        "social": {}
+      }
+    ],
+    "WI:state-house:026": [
+      {
+        "id": "ocd-person/28a7f0c8-0d9c-4436-bfe2-f92ae3871ee2",
+        "name": "Joe Sheehan",
+        "office": "state-house",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "rep.sheehan@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2025/legislators/assembly/2883",
+        "social": {}
+      }
+    ],
+    "WI:state-house:001": [
+      {
+        "id": "ocd-person/e127b754-c756-4017-a414-83cff1bb30f5",
+        "name": "Joel Kitchens",
+        "office": "state-house",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "rep.kitchens@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2017/legislators/assembly/1572",
+        "social": {}
+      }
+    ],
+    "WI:state-house:086": [
+      {
+        "id": "ocd-person/38070b4e-d50c-4bc1-86ad-6739c5edc60a",
+        "name": "John Spiros",
+        "office": "state-house",
+        "districtCode": "086",
+        "contactUrl": null,
+        "email": "rep.spiros@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2017/legislators/assembly/1612",
+        "social": {}
+      }
+    ],
+    "WI:state-house:005": [
+      {
+        "id": "ocd-person/b8666d84-956f-40a7-8faa-75709f9d4a12",
+        "name": "Joy Goeben",
+        "office": "state-house",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "rep.goeben@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2023/legislators/assembly/2542",
+        "social": {}
+      }
+    ],
+    "WI:state-house:016": [
+      {
+        "id": "ocd-person/ac00fa62-2863-4ce4-97fb-57c094eaa158",
+        "name": "Kalan Haywood",
+        "office": "state-house",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "rep.haywood@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2019/legislators/assembly/1929",
+        "social": {}
+      }
+    ],
+    "WI:state-house:040": [
+      {
+        "id": "ocd-person/521bd1d9-d819-4637-88be-f496966b7617",
+        "name": "Karen DeSanto",
+        "office": "state-house",
+        "districtCode": "040",
+        "contactUrl": null,
+        "email": "rep.desanto@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2025/legislators/assembly/2886",
+        "social": {}
+      }
+    ],
+    "WI:state-house:069": [
+      {
+        "id": "ocd-person/1332581f-d860-43a0-b7d9-ddf619451efa",
+        "name": "Karen Hurd",
+        "office": "state-house",
+        "districtCode": "069",
+        "contactUrl": null,
+        "email": "rep.hurd@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2023/legislators/assembly/2552",
+        "social": {}
+      }
+    ],
+    "WI:state-house:007": [
+      {
+        "id": "ocd-person/032a80c3-81a6-42a3-9fa7-f210f2407aa0",
+        "name": "Karen Kirsch",
+        "office": "state-house",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "rep.kirsch@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2025/legislators/assembly/2878",
+        "social": {}
+      }
+    ],
+    "WI:state-house:057": [
+      {
+        "id": "ocd-person/43c33bdc-3c41-47cc-8ffb-10a043ecdc93",
+        "name": "Kevin Petersen",
+        "office": "state-house",
+        "districtCode": "057",
+        "contactUrl": null,
+        "email": "rep.petersen@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2017/legislators/assembly/1598",
+        "social": {}
+      }
+    ],
+    "WI:state-house:052": [
+      {
+        "id": "ocd-person/54a3a633-bff9-47f1-9951-ae3a82d012a8",
+        "name": "Lee Snodgrass",
+        "office": "state-house",
+        "districtCode": "052",
+        "contactUrl": null,
+        "email": "rep.snodgrass@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2021/legislators/assembly/2267",
+        "social": {}
+      }
+    ],
+    "WI:state-house:027": [
+      {
+        "id": "ocd-person/a8bf9343-7c1b-4a9d-812c-eef5a89365a6",
+        "name": "Lindee Brill",
+        "office": "state-house",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "rep.brill@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2025/legislators/assembly/2884",
+        "social": {}
+      }
+    ],
+    "WI:state-house:079": [
+      {
+        "id": "ocd-person/eed49381-7c5b-4890-bba3-d63b8681463d",
+        "name": "Lisa Subeck",
+        "office": "state-house",
+        "districtCode": "079",
+        "contactUrl": null,
+        "email": "rep.subeck@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2017/legislators/assembly/1617",
+        "social": {}
+      }
+    ],
+    "WI:state-house:054": [
+      {
+        "id": "ocd-person/aef40b88-72b7-4001-b336-9210a55a2bde",
+        "name": "Lori Palmeri",
+        "office": "state-house",
+        "districtCode": "054",
+        "contactUrl": null,
+        "email": "rep.palmeri@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2023/legislators/assembly/2547",
+        "social": {}
+      }
+    ],
+    "WI:state-house:018": [
+      {
+        "id": "ocd-person/74ee2a17-e955-441b-9dca-32feb5fba9b0",
+        "name": "Margaret Arney",
+        "office": "state-house",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "rep.arney@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2025/legislators/assembly/2882",
+        "social": {}
+      }
+    ],
+    "WI:state-house:037": [
+      {
+        "id": "ocd-person/b6559841-9e69-4435-8788-0d8bc087baed",
+        "name": "Mark Born",
+        "office": "state-house",
+        "districtCode": "037",
+        "contactUrl": null,
+        "email": "rep.born@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2017/legislators/assembly/1541",
+        "social": {}
+      }
+    ],
+    "WI:state-house:042": [
+      {
+        "id": "ocd-person/0af151f7-2d0c-48d1-8560-f17d8bacc5a2",
+        "name": "Maureen McCarville",
+        "office": "state-house",
+        "districtCode": "042",
+        "contactUrl": null,
+        "email": "rep.mccarville@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2025/legislators/assembly/2887",
+        "social": {}
+      }
+    ],
+    "WI:state-house:080": [
+      {
+        "id": "ocd-person/1b0b0777-af08-40f2-a45b-3c2431b37722",
+        "name": "Mike Bare",
+        "office": "state-house",
+        "districtCode": "080",
+        "contactUrl": null,
+        "email": "rep.bare@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2023/legislators/assembly/2554",
+        "social": {}
+      }
+    ],
+    "WI:state-house:070": [
+      {
+        "id": "ocd-person/5858f406-f96a-4846-8a9e-0bede48d94ed",
+        "name": "Nancy VanderMeer",
+        "office": "state-house",
+        "districtCode": "070",
+        "contactUrl": null,
+        "email": "rep.vandermeer@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2017/legislators/assembly/1624",
+        "social": {}
+      }
+    ],
+    "WI:state-house:055": [
+      {
+        "id": "ocd-person/58b31138-e0a5-41ae-bd2f-5713e6c0cc0c",
+        "name": "Gus Gustafson",
+        "office": "state-house",
+        "districtCode": "055",
+        "contactUrl": null,
+        "email": "rep.gustafson@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2023/legislators/assembly/2550",
+        "social": {}
+      }
+    ],
+    "WI:state-house:085": [
+      {
+        "id": "ocd-person/38649f7a-eba4-4908-b264-f95fe908fc7a",
+        "name": "Pat Snyder",
+        "office": "state-house",
+        "districtCode": "085",
+        "contactUrl": null,
+        "email": "rep.snyder@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2017/legislators/assembly/1641",
+        "social": {}
+      }
+    ],
+    "WI:state-house:022": [
+      {
+        "id": "ocd-person/dab88795-9c78-44c5-a0c7-c93cb677f2e3",
+        "name": "Paul Melotik",
+        "office": "state-house",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "rep.melotik@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2023/legislators/assembly/2690",
+        "social": {}
+      }
+    ],
+    "WI:state-house:025": [
+      {
+        "id": "ocd-person/2e759534-4cf1-43f5-85d0-bf48fea3a048",
+        "name": "Paul Tittl",
+        "office": "state-house",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "rep.tittl@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2017/legislators/assembly/1622",
+        "social": {}
+      }
+    ],
+    "WI:state-house:009": [
+      {
+        "id": "ocd-person/898a7833-5441-4ef4-89f1-f25106589133",
+        "name": "Priscilla Prado",
+        "office": "state-house",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "rep.prado@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2025/legislators/assembly/2879",
+        "social": {}
+      }
+    ],
+    "WI:state-house:047": [
+      {
+        "id": "ocd-person/7743646d-bb5a-4771-9c2b-df3a8271609c",
+        "name": "Randy Udell",
+        "office": "state-house",
+        "districtCode": "047",
+        "contactUrl": null,
+        "email": "rep.udell@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2025/legislators/assembly/2891",
+        "social": {}
+      }
+    ],
+    "WI:state-house:077": [
+      {
+        "id": "ocd-person/8b54c039-be1b-4320-89f8-415ac1afa698",
+        "name": "Renuka Mayadev",
+        "office": "state-house",
+        "districtCode": "077",
+        "contactUrl": null,
+        "email": "rep.mayadev@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2025/legislators/assembly/2898",
+        "social": {}
+      }
+    ],
+    "WI:state-house:058": [
+      {
+        "id": "ocd-person/264f7afa-69cb-46f3-97f3-ff8f21a1d68a",
+        "name": "Rick Gundrum",
+        "office": "state-house",
+        "districtCode": "058",
+        "contactUrl": null,
+        "email": "rep.gundrum@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2017/legislators/assembly/1780",
+        "social": {}
+      }
+    ],
+    "WI:state-house:028": [
+      {
+        "id": "ocd-person/a5d9287a-c3e7-4457-8faf-31024e0e9ac6",
+        "name": "Rob Kreibich",
+        "office": "state-house",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "rep.kreibich@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2025/legislators/assembly/2885",
+        "social": {}
+      }
+    ],
+    "WI:state-house:068": [
+      {
+        "id": "ocd-person/e23ff9c6-f6d5-4ada-8974-74c6ce90c422",
+        "name": "Rob Summerfield",
+        "office": "state-house",
+        "districtCode": "068",
+        "contactUrl": null,
+        "email": "rep.summerfield@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2017/legislators/assembly/1639",
+        "social": {}
+      }
+    ],
+    "WI:state-house:034": [
+      {
+        "id": "ocd-person/3a7f3611-78c4-453a-ae50-3cad3761dc9b",
+        "name": "Rob Swearingen",
+        "office": "state-house",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "rep.swearingen@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2017/legislators/assembly/1618",
+        "social": {}
+      }
+    ],
+    "WI:state-house:059": [
+      {
+        "id": "ocd-person/d8956a67-d280-4219-853f-c21ec173f80a",
+        "name": "Rob Brooks",
+        "office": "state-house",
+        "districtCode": "059",
+        "contactUrl": null,
+        "email": "rep.rob.brooks@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2017/legislators/assembly/1545",
+        "social": {}
+      }
+    ],
+    "WI:state-house:063": [
+      {
+        "id": "ocd-person/ea4d8d73-19b6-408f-a802-22b2ddf816d9",
+        "name": "Bob Wittke",
+        "office": "state-house",
+        "districtCode": "063",
+        "contactUrl": null,
+        "email": "rep.wittke@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2019/legislators/assembly/1936",
+        "social": {}
+      }
+    ],
+    "WI:state-house:033": [
+      {
+        "id": "ocd-person/c8381cb6-1fcf-4a82-a6c5-5c60773a85e1",
+        "name": "Robin Vos",
+        "office": "state-house",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "rep.vos@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2017/legislators/assembly/1626",
+        "social": {}
+      }
+    ],
+    "WI:state-house:013": [
+      {
+        "id": "ocd-person/5faa0c8c-6ceb-4629-819b-b13779b93754",
+        "name": "Robyn Vining",
+        "office": "state-house",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "rep.vining@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2019/legislators/assembly/1945",
+        "social": {}
+      }
+    ],
+    "WI:state-house:003": [
+      {
+        "id": "ocd-person/1c2038cc-ee27-475c-a578-0236dba3f3f3",
+        "name": "Ron Tusler",
+        "office": "state-house",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "rep.tusler@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2017/legislators/assembly/1632",
+        "social": {}
+      }
+    ],
+    "WI:state-house:012": [
+      {
+        "id": "ocd-person/ccf7588a-e4da-4093-a532-8043b2534a06",
+        "name": "Russell Goodwin",
+        "office": "state-house",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "rep.goodwin@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2025/legislators/assembly/2906",
+        "social": {}
+      }
+    ],
+    "WI:state-house:019": [
+      {
+        "id": "ocd-person/91423371-a92c-4006-ad7d-e21f2f7e666b",
+        "name": "Ryan Clancy",
+        "office": "state-house",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "rep.clancy@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2023/legislators/assembly/2538",
+        "social": {}
+      }
+    ],
+    "WI:state-house:089": [
+      {
+        "id": "ocd-person/3d4582f2-ed69-468c-ad02-33cbd612199d",
+        "name": "Ryan Spaude",
+        "office": "state-house",
+        "districtCode": "089",
+        "contactUrl": null,
+        "email": "rep.spaude@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2025/legislators/assembly/2901",
+        "social": {}
+      }
+    ],
+    "WI:state-house:082": [
+      {
+        "id": "ocd-person/06b28490-4fb0-43fe-9577-60bdb921164b",
+        "name": "Scott Allen",
+        "office": "state-house",
+        "districtCode": "082",
+        "contactUrl": null,
+        "email": "rep.allen@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2017/legislators/assembly/1533",
+        "social": {}
+      }
+    ],
+    "WI:state-house:072": [
+      {
+        "id": "ocd-person/77257644-eb9a-447d-bcd8-f3e3de7e49e4",
+        "name": "Scott Krug",
+        "office": "state-house",
+        "districtCode": "072",
+        "contactUrl": null,
+        "email": "rep.krug@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2017/legislators/assembly/1579",
+        "social": {}
+      }
+    ],
+    "WI:state-house:011": [
+      {
+        "id": "ocd-person/a3db3b70-1e27-44a4-a5ae-025450ae4d3d",
+        "name": "Sequanna Taylor",
+        "office": "state-house",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "rep.taylor@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2025/legislators/assembly/2880",
+        "social": {}
+      }
+    ],
+    "WI:state-house:002": [
+      {
+        "id": "ocd-person/82745ad9-d4b8-48e7-bbb9-3c5d73535c30",
+        "name": "Shae Sortwell",
+        "office": "state-house",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "rep.sortwell@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2019/legislators/assembly/1932",
+        "social": {}
+      }
+    ],
+    "WI:state-house:030": [
+      {
+        "id": "ocd-person/d949fee5-765b-43ea-913c-386fe2b3c441",
+        "name": "Shannon Zimmerman",
+        "office": "state-house",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "rep.zimmerman@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2017/legislators/assembly/1636",
+        "social": {}
+      }
+    ],
+    "WI:state-house:078": [
+      {
+        "id": "ocd-person/5d04e8d6-f9aa-4c1e-b1d4-102a0caff933",
+        "name": "Shelia Stubbs",
+        "office": "state-house",
+        "districtCode": "078",
+        "contactUrl": null,
+        "email": "rep.stubbs@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2019/legislators/assembly/1931",
+        "social": {}
+      }
+    ],
+    "WI:state-house:094": [
+      {
+        "id": "ocd-person/b3064a65-976e-4324-a66d-dfd44a0f0e3e",
+        "name": "Steve Doyle",
+        "office": "state-house",
+        "districtCode": "094",
+        "contactUrl": null,
+        "email": "rep.doyle@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2017/legislators/assembly/1551",
+        "social": {}
+      }
+    ],
+    "WI:state-house:017": [
+      {
+        "id": "ocd-person/bf0fa47b-889e-49fb-8fab-059452acdbf9",
+        "name": "Supreme Moore Omokunde",
+        "office": "state-house",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "rep.mooreomokunde@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2021/legislators/assembly/2265",
+        "social": {}
+      }
+    ],
+    "WI:state-house:008": [
+      {
+        "id": "ocd-person/710a050b-1721-4e81-bc01-ad3193836e4d",
+        "name": "Sylvia Ortiz-Velez",
+        "office": "state-house",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "rep.ortiz-velez@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2021/legislators/assembly/2262",
+        "social": {}
+      }
+    ],
+    "WI:state-house:096": [
+      {
+        "id": "ocd-person/17b43cb0-9999-42ee-a5b4-c68aebc129b6",
+        "name": "Tara Johnson",
+        "office": "state-house",
+        "districtCode": "096",
+        "contactUrl": null,
+        "email": "rep.johnson@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2025/legislators/assembly/2904",
+        "social": {}
+      }
+    ],
+    "WI:state-house:064": [
+      {
+        "id": "ocd-person/c66ed13a-e5a7-49e0-9cce-02d677c5da15",
+        "name": "Tip McGuire",
+        "office": "state-house",
+        "districtCode": "064",
+        "contactUrl": null,
+        "email": "rep.mcguire@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2019/legislators/assembly/2075",
+        "social": {}
+      }
+    ],
+    "WI:state-house:051": [
+      {
+        "id": "ocd-person/c1e8d1c1-380d-4f59-893e-a18f77be21dd",
+        "name": "Todd Novak",
+        "office": "state-house",
+        "districtCode": "051",
+        "contactUrl": null,
+        "email": "rep.novak@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2017/legislators/assembly/1593",
+        "social": {}
+      }
+    ],
+    "WI:state-house:041": [
+      {
+        "id": "ocd-person/5967b2fb-a060-4262-b10d-6fd27d81bf3f",
+        "name": "Tony Kurtz",
+        "office": "state-house",
+        "districtCode": "041",
+        "contactUrl": null,
+        "email": "rep.kurtz@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2019/legislators/assembly/1935",
+        "social": {}
+      }
+    ],
+    "WI:state-house:049": [
+      {
+        "id": "ocd-person/97dae592-4e4a-4cf2-9d56-069d7432b8d9",
+        "name": "Travis Tranel",
+        "office": "state-house",
+        "districtCode": "049",
+        "contactUrl": null,
+        "email": "rep.tranel@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2017/legislators/assembly/1623",
+        "social": {}
+      }
+    ],
+    "WI:state-house:029": [
+      {
+        "id": "ocd-person/0ea516ae-e0f5-4d3e-baee-124e0b00d70e",
+        "name": "Treig Pronschinske",
+        "office": "state-house",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "rep.pronschinske@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2017/legislators/assembly/1642",
+        "social": {}
+      }
+    ],
+    "WI:state-house:031": [
+      {
+        "id": "ocd-person/b4554989-ede4-44a0-a541-c2aea2659d39",
+        "name": "Tyler August",
+        "office": "state-house",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "rep.august@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2017/legislators/assembly/1534",
+        "social": {}
+      }
+    ],
+    "WI:state-house:071": [
+      {
+        "id": "ocd-person/b4fedde3-c1a5-4cb5-976d-05f4c541e382",
+        "name": "Vinnie Miresse",
+        "office": "state-house",
+        "districtCode": "071",
+        "contactUrl": null,
+        "email": "rep.miresse@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2025/legislators/assembly/2895",
+        "social": {}
+      }
+    ],
+    "WI:state-house:038": [
+      {
+        "id": "ocd-person/790447a2-d03d-4bc7-b15c-a72b25689eb3",
+        "name": "Will Penterman",
+        "office": "state-house",
+        "districtCode": "038",
+        "contactUrl": null,
+        "email": "rep.penterman@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2021/legislators/assembly/2398",
+        "social": {}
+      }
+    ],
+    "WI:state-senate:001": [
+      {
+        "id": "ocd-person/b0101cd0-ad49-466b-a46e-8bb8671cb709",
+        "name": "André Jacque",
+        "office": "state-senate",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "sen.jacque@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2019/legislators/senate/1941",
+        "social": {}
+      }
+    ],
+    "WI:state-senate:032": [
+      {
+        "id": "ocd-person/1c95c957-d9c9-4905-8dc6-37b13272c1f0",
+        "name": "Brad Pfaff",
+        "office": "state-senate",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "sen.pfaff@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2021/legislators/senate/2247",
+        "social": {}
+      }
+    ],
+    "WI:state-senate:033": [
+      {
+        "id": "ocd-person/8d93f6ba-19eb-4684-a47d-6de08e009741",
+        "name": "Chris Kapenga",
+        "office": "state-senate",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "sen.kapenga@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2017/legislators/senate/1510",
+        "social": {}
+      }
+    ],
+    "WI:state-senate:007": [
+      {
+        "id": "ocd-person/48d90383-6c55-47c7-979c-2b95a806ec4c",
+        "name": "Chris Larson",
+        "office": "state-senate",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "sen.larson@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2017/legislators/senate/1511",
+        "social": {}
+      }
+    ],
+    "WI:state-senate:029": [
+      {
+        "id": "ocd-person/365aa5a9-3584-4baa-86b5-51f096764f69",
+        "name": "Cory Tomczyk",
+        "office": "state-senate",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "sen.tomczyk@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2023/legislators/senate/2567",
+        "social": {}
+      }
+    ],
+    "WI:state-senate:020": [
+      {
+        "id": "ocd-person/a0284290-ef4c-4f10-a5be-485115057ab5",
+        "name": "Dan Feyen",
+        "office": "state-senate",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "sen.feyen@legis.wi.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2017/legislators/senate/1644",
+        "social": {}
+      }
+    ],
+    "WI:state-senate:009": [
+      {
+        "id": "ocd-person/be7a6f06-6d2c-49d1-908d-451adef564eb",
+        "name": "Devin LeMahieu",
+        "office": "state-senate",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "sen.lemahieu@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://devinforsenate.com/",
+        "social": {}
+      }
+    ],
+    "WI:state-senate:027": [
+      {
+        "id": "ocd-person/57a316e3-b233-4460-abf5-193dd042291f",
+        "name": "Dianne Hesselbein",
+        "office": "state-senate",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "sen.hesselbein@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2017/legislators/assembly/1559",
+        "social": {}
+      }
+    ],
+    "WI:state-senate:004": [
+      {
+        "id": "ocd-person/798979da-9683-41b4-b663-d5c73ec93364",
+        "name": "Dora Drake",
+        "office": "state-senate",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "sen.drake@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2021/legislators/assembly/2263",
+        "social": {}
+      }
+    ],
+    "WI:state-senate:002": [
+      {
+        "id": "ocd-person/86a5289a-d18f-4869-ac53-432022c7f9c7",
+        "name": "Eric Wimberger",
+        "office": "state-senate",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "sen.wimberger@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2021/legislators/senate/2246",
+        "social": {}
+      }
+    ],
+    "WI:state-senate:017": [
+      {
+        "id": "ocd-person/c405ad68-fdbd-43fe-abc2-f449f33c89b0",
+        "name": "Howard Marklein",
+        "office": "state-senate",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "sen.marklein@legis.wi.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2017/legislators/senate/1516",
+        "social": {}
+      }
+    ],
+    "WI:state-senate:030": [
+      {
+        "id": "ocd-person/5d4675a4-34f3-47ea-8821-69669a2a8d05",
+        "name": "Jamie Wall",
+        "office": "state-senate",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "sen.wall@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2025/legislators/senate/2842",
+        "social": {}
+      }
+    ],
+    "WI:state-senate:031": [
+      {
+        "id": "ocd-person/8a1ee7b3-8450-45b4-a1cf-5e05788c0653",
+        "name": "Jeff Smith",
+        "office": "state-senate",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "sen.smith@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2019/legislators/senate/1944",
+        "social": {}
+      }
+    ],
+    "WI:state-senate:023": [
+      {
+        "id": "ocd-person/79d7550b-bb75-453b-bfd7-3f273debe3e4",
+        "name": "Jesse James",
+        "office": "state-senate",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "sen.james@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2019/legislators/assembly/1937",
+        "social": {}
+      }
+    ],
+    "WI:state-senate:008": [
+      {
+        "id": "ocd-person/225f946c-4812-435d-83f1-dad22a2fb0d6",
+        "name": "Jodi Habush Sinykin",
+        "office": "state-senate",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "sen.habushsinykin@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2025/legislators/senate/2839",
+        "social": {}
+      }
+    ],
+    "WI:state-senate:013": [
+      {
+        "id": "ocd-person/13728fa5-9484-4767-b642-8bf9adf80a8b",
+        "name": "John Jagler",
+        "office": "state-senate",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "sen.jagler@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2017/legislators/assembly/1564",
+        "social": {}
+      }
+    ],
+    "WI:state-senate:028": [
+      {
+        "id": "ocd-person/91a901ca-e295-4843-b368-e9da162c0ae4",
+        "name": "Julian Bradley",
+        "office": "state-senate",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "sen.bradley@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2021/legislators/senate/2245",
+        "social": {}
+      }
+    ],
+    "WI:state-senate:026": [
+      {
+        "id": "ocd-person/967afe3c-119d-4051-a8b1-674f328c4775",
+        "name": "Kelda Roys",
+        "office": "state-senate",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "sen.roys@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2021/legislators/senate/2252",
+        "social": {}
+      }
+    ],
+    "WI:state-senate:018": [
+      {
+        "id": "ocd-person/73b2bf4c-54e5-4da3-9a8c-c2c5bf4f102d",
+        "name": "Kristin Dassler-Alfheim",
+        "office": "state-senate",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "sen.dassler-alfheim@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2025/legislators/senate/2841",
+        "social": {}
+      }
+    ],
+    "WI:state-senate:006": [
+      {
+        "id": "ocd-person/eba6f26b-65c9-42fe-a8a5-09e11c8d089a",
+        "name": "LaTonya Johnson",
+        "office": "state-senate",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "sen.johnson@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2017/legislators/senate/1643",
+        "social": {}
+      }
+    ],
+    "WI:state-senate:015": [
+      {
+        "id": "ocd-person/3bd551f3-a086-4f32-9a6e-31d04d0529ce",
+        "name": "Mark Spreitzer",
+        "office": "state-senate",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "sen.spreitzer@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2017/legislators/assembly/1613",
+        "social": {}
+      }
+    ],
+    "WI:state-senate:012": [
+      {
+        "id": "ocd-person/c67b7b29-0932-4667-bb92-63f46cdfaef0",
+        "name": "Mary Felzkowski",
+        "office": "state-senate",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "rep.felzkowski@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2017/legislators/assembly/1549",
+        "social": {}
+      }
+    ],
+    "WI:state-senate:016": [
+      {
+        "id": "ocd-person/784b437c-b5d1-4adc-909a-2bc28c9d6e88",
+        "name": "Melissa Ratcliff",
+        "office": "state-senate",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "sen.ratcliff@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2023/legislators/assembly/2546",
+        "social": {}
+      }
+    ],
+    "WI:state-senate:024": [
+      {
+        "id": "ocd-person/13416c83-b50d-4578-b721-83ff5c1486ad",
+        "name": "Patrick Testin",
+        "office": "state-senate",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "sen.testin@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2017/legislators/senate/1645",
+        "social": {}
+      }
+    ],
+    "WI:state-senate:019": [
+      {
+        "id": "ocd-person/5fec547c-aff0-4c6c-880b-bc0f52d28e30",
+        "name": "Rachael Cabral-Guevara",
+        "office": "state-senate",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "sen.cabral-guevara@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2021/legislators/assembly/2254",
+        "social": {}
+      }
+    ],
+    "WI:state-senate:005": [
+      {
+        "id": "ocd-person/49d245a5-ad19-46cf-9857-581573c0b99b",
+        "name": "Rob Hutton",
+        "office": "state-senate",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "sen.hutton@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2017/legislators/assembly/1562",
+        "social": {}
+      }
+    ],
+    "WI:state-senate:010": [
+      {
+        "id": "ocd-person/a1407176-afc6-45ce-ad6c-d7f69b5b3b78",
+        "name": "Rob Stafsholt",
+        "office": "state-senate",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "sen.stafsholt@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2017/legislators/assembly/1635",
+        "social": {}
+      }
+    ],
+    "WI:state-senate:022": [
+      {
+        "id": "ocd-person/dc69e926-a090-4561-bb0f-2f81ec0dc977",
+        "name": "Bob Wirch",
+        "office": "state-senate",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "sen.wirch@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2017/legislators/senate/1532",
+        "social": {}
+      }
+    ],
+    "WI:state-senate:025": [
+      {
+        "id": "ocd-person/003644e8-cb82-45c6-b875-e52bc28424bb",
+        "name": "Romaine Quinn",
+        "office": "state-senate",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "sen.quinn@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2017/legislators/assembly/1601",
+        "social": {}
+      }
+    ],
+    "WI:state-senate:014": [
+      {
+        "id": "ocd-person/c7bbb253-91be-4cf1-ab53-ab7c1d902b48",
+        "name": "Sarah Keyeski",
+        "office": "state-senate",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "sen.keyeski@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2025/legislators/senate/2840",
+        "social": {}
+      }
+    ],
+    "WI:state-senate:011": [
+      {
+        "id": "ocd-person/0301a2cd-37fc-46f6-948a-f1fade57b5c0",
+        "name": "Steve Nass",
+        "office": "state-senate",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "sen.nass@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2017/legislators/senate/1519",
+        "social": {}
+      }
+    ],
+    "WI:state-senate:003": [
+      {
+        "id": "ocd-person/5afcecdf-8000-4e54-bcf2-329f919ed0bd",
+        "name": "Tim Carpenter",
+        "office": "state-senate",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "sen.carpenter@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2017/legislators/senate/1501",
+        "social": {}
+      }
+    ],
+    "WI:state-senate:021": [
+      {
+        "id": "ocd-person/b2ad4345-9408-4238-a1f9-13e747f599b3",
+        "name": "Van Wanggaard",
+        "office": "state-senate",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "sen.wanggaard@legis.wisconsin.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://docs.legis.wisconsin.gov/2017/legislators/senate/1531",
+        "social": {}
+      }
+    ]
+  }
+}

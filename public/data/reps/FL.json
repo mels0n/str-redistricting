@@ -1,0 +1,2682 @@
+{
+  "state": "FL",
+  "generatedFrom": {
+    "legislators-current.json": "ae8cb9477c48715df71a7d860854229d799dc90a254d61badc1efb770f892b2c",
+    "legislators-social-media.json": "c6eca1fcdb3a89901335eed51ca061daa4b60ad3243969a127e913bb9657fbc5",
+    "fl.csv": "bc5654343c40dce538f901ec3709d804e626b5225b10f2ad107fbb91b0b09d2a"
+  },
+  "byKey": {
+    "FL:us-house:12": [
+      {
+        "id": "B001257",
+        "name": "Gus M. Bilirakis",
+        "office": "us-house",
+        "districtCode": "12",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5755",
+        "address": "2306 Rayburn House Office Building Washington DC 20515-0912",
+        "website": "https://bilirakis.house.gov",
+        "social": {
+          "x": "RepGusBilirakis",
+          "facebook": "GusBilirakis",
+          "instagram": "gusbilirakis"
+        }
+      }
+    ],
+    "FL:us-house:16": [
+      {
+        "id": "B001260",
+        "name": "Vern Buchanan",
+        "office": "us-house",
+        "districtCode": "16",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5015",
+        "address": "2409 Rayburn House Office Building Washington DC 20515-0916",
+        "website": "https://buchanan.house.gov",
+        "social": {
+          "x": "VernBuchanan",
+          "facebook": "CongressmanBuchanan",
+          "instagram": "repvern"
+        }
+      }
+    ],
+    "FL:us-house:14": [
+      {
+        "id": "C001066",
+        "name": "Kathy Castor",
+        "office": "us-house",
+        "districtCode": "14",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-3376",
+        "address": "2188 Rayburn House Office Building Washington DC 20515-0914",
+        "website": "https://castor.house.gov",
+        "social": {
+          "x": "USRepKCastor",
+          "facebook": "USRepKathyCastor",
+          "instagram": "usrepkathycastor"
+        }
+      }
+    ],
+    "FL:us-house:26": [
+      {
+        "id": "D000600",
+        "name": "Mario Diaz-Balart",
+        "office": "us-house",
+        "districtCode": "26",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4211",
+        "address": "374 Cannon House Office Building Washington DC 20515-0926",
+        "website": "https://mariodiazbalart.house.gov",
+        "social": {
+          "x": "MarioDB",
+          "facebook": "mdiazbalart",
+          "instagram": "repmariodb"
+        }
+      }
+    ],
+    "FL:us-house:25": [
+      {
+        "id": "W000797",
+        "name": "Debbie Wasserman Schultz",
+        "office": "us-house",
+        "districtCode": "25",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-7931",
+        "address": "270 Cannon House Office Building Washington DC 20515-0925",
+        "website": "https://wassermanschultz.house.gov",
+        "social": {
+          "x": "RepDWStweets",
+          "facebook": "RepDWS",
+          "instagram": "RepDWSTweets"
+        }
+      }
+    ],
+    "FL:us-house:11": [
+      {
+        "id": "W000806",
+        "name": "Daniel Webster",
+        "office": "us-house",
+        "districtCode": "11",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-1002",
+        "address": "2184 Rayburn House Office Building Washington DC 20515-0911",
+        "website": "https://webster.house.gov",
+        "social": {
+          "x": "RepWebster",
+          "facebook": "RepWebster"
+        }
+      }
+    ],
+    "FL:us-house:24": [
+      {
+        "id": "W000808",
+        "name": "Frederica S. Wilson",
+        "office": "us-house",
+        "districtCode": "24",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4506",
+        "address": "2080 Rayburn House Office Building Washington DC 20515-0924",
+        "website": "https://wilson.house.gov",
+        "social": {
+          "x": "RepWilson",
+          "facebook": "RepWilson",
+          "instagram": "repwilson"
+        }
+      }
+    ],
+    "FL:us-house:22": [
+      {
+        "id": "F000462",
+        "name": "Lois Frankel",
+        "office": "us-house",
+        "districtCode": "22",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-9890",
+        "address": "2305 Rayburn House Office Building Washington DC 20515-0922",
+        "website": "https://frankel.house.gov",
+        "social": {
+          "x": "RepLoisFrankel",
+          "facebook": "RepLoisFrankel",
+          "instagram": "reploisfrankel"
+        }
+      }
+    ],
+    "FL:us-house:02": [
+      {
+        "id": "D000628",
+        "name": "Neal P. Dunn",
+        "office": "us-house",
+        "districtCode": "02",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5235",
+        "address": "466 Cannon House Office Building Washington DC 20515-0902",
+        "website": "https://dunn.house.gov",
+        "social": {
+          "x": "DrNealDunnFL2",
+          "facebook": "drnealdunnfl2"
+        }
+      }
+    ],
+    "FL:us-house:05": [
+      {
+        "id": "R000609",
+        "name": "John H. Rutherford",
+        "office": "us-house",
+        "districtCode": "05",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2501",
+        "address": "1711 Longworth House Office Building Washington DC 20515-0905",
+        "website": "https://rutherford.house.gov",
+        "social": {
+          "x": "RepRutherfordFL",
+          "facebook": "RepRutherfordFL",
+          "instagram": "reprutherfordfl"
+        }
+      }
+    ],
+    "FL:us-house:09": [
+      {
+        "id": "S001200",
+        "name": "Darren Soto",
+        "office": "us-house",
+        "districtCode": "09",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-9889",
+        "address": "2353 Rayburn House Office Building Washington DC 20515-0909",
+        "website": "https://soto.house.gov",
+        "social": {
+          "x": "RepDarrenSoto",
+          "facebook": "CongressmanDarrenSoto",
+          "instagram": "RepDarrenSoto"
+        }
+      }
+    ],
+    "FL:us-house:21": [
+      {
+        "id": "M001199",
+        "name": "Brian J. Mast",
+        "office": "us-house",
+        "districtCode": "21",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-3026",
+        "address": "2182 Rayburn House Office Building Washington DC 20515-0921",
+        "website": "https://mast.house.gov",
+        "social": {
+          "x": "RepBrianMast",
+          "facebook": "repbrianmast",
+          "instagram": "RepBrianMast"
+        }
+      }
+    ],
+    "FL:us-house:17": [
+      {
+        "id": "S001214",
+        "name": "W. Gregory Steube",
+        "office": "us-house",
+        "districtCode": "17",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5792",
+        "address": "2457 Rayburn House Office Building Washington DC 20515-0917",
+        "website": "https://steube.house.gov",
+        "social": {
+          "x": "RepGregSteube",
+          "facebook": "RepGregSteube",
+          "instagram": "repgregsteube"
+        }
+      }
+    ],
+    "FL:us-senate:state": [
+      {
+        "id": "S001217",
+        "name": "Rick Scott",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.rickscott.senate.gov/contact/contact",
+        "email": null,
+        "phone": "202-224-5274",
+        "address": "110 Hart Senate Office Building Washington DC 20510",
+        "website": "https://www.rickscott.senate.gov",
+        "social": {
+          "x": "SenRickScott",
+          "facebook": "RickScottSenOffice",
+          "instagram": "flsenrickscott"
+        }
+      },
+      {
+        "id": "M001244",
+        "name": "Ashley Moody",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-224-3041",
+        "address": "387 Russell Senate Office Building Washington DC 20510",
+        "website": "https://www.moody.senate.gov",
+        "social": {}
+      }
+    ],
+    "FL:us-house:03": [
+      {
+        "id": "C001039",
+        "name": "Kat Cammack",
+        "office": "us-house",
+        "districtCode": "03",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5744",
+        "address": "2421 Rayburn House Office Building Washington DC 20515-0903",
+        "website": "https://cammack.house.gov",
+        "social": {
+          "x": "RepKatCammack",
+          "facebook": "RepKatCammack",
+          "instagram": "repkatcammack"
+        }
+      }
+    ],
+    "FL:us-house:18": [
+      {
+        "id": "F000472",
+        "name": "Scott Franklin",
+        "office": "us-house",
+        "districtCode": "18",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-1252",
+        "address": "2301 Rayburn House Office Building Washington DC 20515-0918",
+        "website": "https://franklin.house.gov",
+        "social": {
+          "x": "RepFranklin",
+          "facebook": "RepFranklin",
+          "instagram": "RepFranklin"
+        }
+      }
+    ],
+    "FL:us-house:19": [
+      {
+        "id": "D000032",
+        "name": "Byron Donalds",
+        "office": "us-house",
+        "districtCode": "19",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2536",
+        "address": "1710 Longworth House Office Building Washington DC 20515-0919",
+        "website": "https://donalds.house.gov",
+        "social": {
+          "x": "RepDonaldsPress",
+          "instagram": "byrondonalds"
+        }
+      }
+    ],
+    "FL:us-house:28": [
+      {
+        "id": "G000593",
+        "name": "Carlos A. Gimenez",
+        "office": "us-house",
+        "districtCode": "28",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2778",
+        "address": "448 Cannon House Office Building Washington DC 20515-0001",
+        "website": "https://gimenez.house.gov",
+        "social": {
+          "x": "RepCarlos",
+          "facebook": "RepCarlosGimenez",
+          "instagram": "repcarlosfl"
+        }
+      }
+    ],
+    "FL:us-house:27": [
+      {
+        "id": "S000168",
+        "name": "Maria Elvira Salazar",
+        "office": "us-house",
+        "districtCode": "27",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-3931",
+        "address": "2162 Rayburn House Office Building Washington DC 20515-0927",
+        "website": "https://salazar.house.gov",
+        "social": {
+          "x": "RepMariaSalazar",
+          "facebook": "RepMariaSalazar",
+          "instagram": "repmariasalazar"
+        }
+      }
+    ],
+    "FL:us-house:04": [
+      {
+        "id": "B001314",
+        "name": "Aaron Bean",
+        "office": "us-house",
+        "districtCode": "04",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-0123",
+        "address": "2459 Rayburn House Office Building Washington DC 20515-0904",
+        "website": "https://bean.house.gov",
+        "social": {
+          "x": "RepAaronBean",
+          "facebook": "100089355874563",
+          "instagram": "RepAaronBean"
+        }
+      }
+    ],
+    "FL:us-house:07": [
+      {
+        "id": "M001216",
+        "name": "Cory Mills",
+        "office": "us-house",
+        "districtCode": "07",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4035",
+        "address": "346 Cannon House Office Building Washington DC 20515-0907",
+        "website": "https://mills.house.gov",
+        "social": {
+          "x": "RepMillsPress",
+          "facebook": "100089218152197",
+          "instagram": "repcorymills"
+        }
+      }
+    ],
+    "FL:us-house:10": [
+      {
+        "id": "F000476",
+        "name": "Maxwell Frost",
+        "office": "us-house",
+        "districtCode": "10",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2176",
+        "address": "1224 Longworth House Office Building Washington DC 20515-0910",
+        "website": "https://frost.house.gov",
+        "social": {
+          "x": "RepMaxwellFrost",
+          "facebook": "RepMaxwellFrost",
+          "instagram": "RepMaxwellFrost"
+        }
+      }
+    ],
+    "FL:us-house:13": [
+      {
+        "id": "L000596",
+        "name": "Anna Paulina Luna",
+        "office": "us-house",
+        "districtCode": "13",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5961",
+        "address": "226 Cannon House Office Building Washington DC 20515-0913",
+        "website": "https://luna.house.gov",
+        "social": {
+          "x": "RepLuna",
+          "instagram": "repluna"
+        }
+      }
+    ],
+    "FL:us-house:15": [
+      {
+        "id": "L000597",
+        "name": "Laurel M. Lee",
+        "office": "us-house",
+        "districtCode": "15",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5626",
+        "address": "2464 Rayburn House Office Building Washington DC 20515-0915",
+        "website": "https://laurellee.house.gov",
+        "social": {
+          "x": "RepLaurelLee",
+          "facebook": "RepLaurelLee",
+          "instagram": "replaurellee"
+        }
+      }
+    ],
+    "FL:us-house:23": [
+      {
+        "id": "M001217",
+        "name": "Jared Moskowitz",
+        "office": "us-house",
+        "districtCode": "23",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-3001",
+        "address": "242 Cannon House Office Building Washington DC 20515-0923",
+        "website": "https://moskowitz.house.gov",
+        "social": {
+          "x": "RepMoskowitz",
+          "facebook": "RepMoskowitz",
+          "instagram": "repmoskowitz"
+        }
+      }
+    ],
+    "FL:us-house:08": [
+      {
+        "id": "H001099",
+        "name": "Mike Haridopolos",
+        "office": "us-house",
+        "districtCode": "08",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-3671",
+        "address": "1039 Longworth House Office Building Washington DC 20515-0908",
+        "website": "https://haridopolos.house.gov",
+        "social": {
+          "x": "repharidopolos"
+        }
+      }
+    ],
+    "FL:us-house:01": [
+      {
+        "id": "P000622",
+        "name": "Jimmy Patronis",
+        "office": "us-house",
+        "districtCode": "01",
+        "contactUrl": "https://patronis.house.gov/contact/email-me",
+        "email": null,
+        "phone": "202-225-4136",
+        "address": "2021 Rayburn House Office Building Washington DC 20515-0901",
+        "website": "https://patronis.house.gov",
+        "social": {}
+      }
+    ],
+    "FL:us-house:06": [
+      {
+        "id": "F000484",
+        "name": "Randy Fine",
+        "office": "us-house",
+        "districtCode": "06",
+        "contactUrl": "hhttps://fine.house.gov/address_authentication?form=/contact/email-me",
+        "email": null,
+        "phone": "202-225-2706",
+        "address": "244 Cannon House Office Building Washington DC 20515-0906",
+        "website": "https://fine.house.gov",
+        "social": {}
+      }
+    ],
+    "FL:state-house:057": [
+      {
+        "id": "ocd-person/6a3fae94-a613-49f5-acec-355e4a2722d8",
+        "name": "Adam Anderson",
+        "office": "state-house",
+        "districtCode": "057",
+        "contactUrl": null,
+        "email": "adam.anderson@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4885&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:080": [
+      {
+        "id": "ocd-person/c94b1151-5034-482b-8d7b-f91f9bb5f951",
+        "name": "Adam Botana",
+        "office": "state-house",
+        "districtCode": "080",
+        "contactUrl": null,
+        "email": "adam.botana@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4782&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:112": [
+      {
+        "id": "ocd-person/b2fce1a8-4ba6-483b-a534-fa48cc43ee7f",
+        "name": "Alex Rizo",
+        "office": "state-house",
+        "districtCode": "112",
+        "contactUrl": null,
+        "email": "alex.rizo@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4796&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:009": [
+      {
+        "id": "ocd-person/c26599eb-5ef8-44c3-93a6-77cf23a9567e",
+        "name": "Allison Tant",
+        "office": "state-house",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "allison.tant@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4765&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:013": [
+      {
+        "id": "ocd-person/66c3a112-3008-4332-a6b0-8990a7d992d5",
+        "name": "Angie Nixon",
+        "office": "state-house",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "angela.nixon@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4766&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:042": [
+      {
+        "id": "ocd-person/1f8e10ad-0047-4854-b696-38e15fda7afa",
+        "name": "Anna Eskamani",
+        "office": "state-house",
+        "districtCode": "042",
+        "contactUrl": null,
+        "email": "anna.eskamani@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4746&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:093": [
+      {
+        "id": "ocd-person/ad877adf-e8f2-4f31-bdd2-38a6aaf74884",
+        "name": "Anne Gerwig",
+        "office": "state-house",
+        "districtCode": "093",
+        "contactUrl": null,
+        "email": "anne.gerwig@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.flhouse.gov/Sections/Representatives/custom/details.aspx?MemberId=4925",
+        "social": {}
+      }
+    ],
+    "FL:state-house:109": [
+      {
+        "id": "ocd-person/2c62c9ae-8d1d-4dc3-a86a-fcc5dd7ba286",
+        "name": "Ashley Gantt",
+        "office": "state-house",
+        "districtCode": "109",
+        "contactUrl": null,
+        "email": "ashley.gantt@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4897&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:059": [
+      {
+        "id": "ocd-person/8e396afa-17d2-404c-9024-7aa8d7e00e0d",
+        "name": "Berny Jacques",
+        "office": "state-house",
+        "districtCode": "059",
+        "contactUrl": null,
+        "email": "berny.jacques@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4886&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:072": [
+      {
+        "id": "ocd-person/43724cbb-0b19-4fad-ae9b-1e8bcd47c16d",
+        "name": "Bill Conerly",
+        "office": "state-house",
+        "districtCode": "072",
+        "contactUrl": null,
+        "email": "bill.conerly@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.flhouse.gov/Sections/Representatives/custom/details.aspx?MemberId=4920",
+        "social": {}
+      }
+    ],
+    "FL:state-house:028": [
+      {
+        "id": "ocd-person/92e88cfe-0a68-45e1-b84c-9f181a46554e",
+        "name": "Bill Partington",
+        "office": "state-house",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "bill.partington@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4912&LegislativeTermId=91",
+        "social": {}
+      }
+    ],
+    "FL:state-house:056": [
+      {
+        "id": "ocd-person/8d746fc8-370b-4d12-bcf8-3dd4a4061707",
+        "name": "Brad Yeager",
+        "office": "state-house",
+        "districtCode": "056",
+        "contactUrl": null,
+        "email": "brad.yeager@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4882&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:032": [
+      {
+        "id": "ocd-person/4737f2dc-8241-4329-85fc-59a9c405d7b6",
+        "name": "Brian Hodgers",
+        "office": "state-house",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "brian.hodgers@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.flhouse.gov/Sections/Representatives/custom/details.aspx?MemberId=5064&LegislativeTermId=91",
+        "social": {}
+      }
+    ],
+    "FL:state-house:041": [
+      {
+        "id": "ocd-person/617888c1-3369-49cd-a264-18ab663d2e8a",
+        "name": "Bruce Antone",
+        "office": "state-house",
+        "districtCode": "041",
+        "contactUrl": null,
+        "email": "bruce.antone@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4269&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:022": [
+      {
+        "id": "ocd-person/2aa3b059-b565-413d-9eac-24e34b541c1d",
+        "name": "Chad Johnson",
+        "office": "state-house",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "chad.johnson@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.flhouse.gov/Sections/Representatives/custom/details.aspx?MemberId=4908&LegislativeTermId=91",
+        "social": {}
+      }
+    ],
+    "FL:state-house:030": [
+      {
+        "id": "ocd-person/47cd160b-1e9e-469c-a939-002be336302f",
+        "name": "Chase Tramont",
+        "office": "state-house",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "chase.tramont@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4867&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:100": [
+      {
+        "id": "ocd-person/54cd0ebc-6f93-489e-a919-3583fa32b26a",
+        "name": "Chip LaMarca",
+        "office": "state-house",
+        "districtCode": "100",
+        "contactUrl": null,
+        "email": "chip.lamarca@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4722&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:095": [
+      {
+        "id": "ocd-person/89d7d4d0-82e7-4535-bb79-3260a7b432b5",
+        "name": "Christine Hunschofsky",
+        "office": "state-house",
+        "districtCode": "095",
+        "contactUrl": null,
+        "email": "christine.hunschofsky@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4799&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:096": [
+      {
+        "id": "ocd-person/66308162-9b64-4d34-a8bc-fac71407f7d5",
+        "name": "Dan Daley",
+        "office": "state-house",
+        "districtCode": "096",
+        "contactUrl": null,
+        "email": "dan.daley@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4757&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:084": [
+      {
+        "id": "ocd-person/767d2aef-21ee-4b6d-b64b-ed9350abaa60",
+        "name": "Dana Trabulsy",
+        "office": "state-house",
+        "districtCode": "084",
+        "contactUrl": null,
+        "email": "dana.trabulsy@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4788&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:069": [
+      {
+        "id": "ocd-person/5a852452-a855-44a6-aa71-1e07e48c0c89",
+        "name": "Danny Alvarez",
+        "office": "state-house",
+        "districtCode": "069",
+        "contactUrl": null,
+        "email": "danny.alvarez@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4889&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:075": [
+      {
+        "id": "ocd-person/971fb9ac-b0f3-45df-89f0-f24b6ba9b5a3",
+        "name": "Danny Nix",
+        "office": "state-house",
+        "districtCode": "075",
+        "contactUrl": null,
+        "email": "danny.nix@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4921&LegislativeTermId=91",
+        "social": {}
+      }
+    ],
+    "FL:state-house:099": [
+      {
+        "id": "ocd-person/2c1c37bb-fd17-46d6-9694-8f2757f6da3e",
+        "name": "Daryl Campbell",
+        "office": "state-house",
+        "districtCode": "099",
+        "contactUrl": null,
+        "email": "daryl.campbell@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4843&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:111": [
+      {
+        "id": "ocd-person/686a3de8-6df1-4144-85bc-edaad7fe1708",
+        "name": "David Borrero",
+        "office": "state-house",
+        "districtCode": "111",
+        "contactUrl": null,
+        "email": "david.borrero@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4794&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:038": [
+      {
+        "id": "ocd-person/e4bf077a-8468-49a6-a75c-24ee5076352e",
+        "name": "Dave Smith",
+        "office": "state-house",
+        "districtCode": "038",
+        "contactUrl": null,
+        "email": "david.smith@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4718&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:015": [
+      {
+        "id": "ocd-person/c082de7e-0a73-43a6-94e7-48180a1af3d6",
+        "name": "Dean Black",
+        "office": "state-house",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "dean.black@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4865&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:089": [
+      {
+        "id": "ocd-person/88b67b7d-e856-43b3-9ae3-90092919c4e5",
+        "name": "Debra Tendrich",
+        "office": "state-house",
+        "districtCode": "089",
+        "contactUrl": null,
+        "email": "debra.tendrich@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4924&LegislativeTermId=91",
+        "social": {}
+      }
+    ],
+    "FL:state-house:114": [
+      {
+        "id": "ocd-person/8407b440-b679-4d84-b642-de35869461a4",
+        "name": "Demi Busatta",
+        "office": "state-house",
+        "districtCode": "114",
+        "contactUrl": null,
+        "email": "demi.busatta@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4800&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:063": [
+      {
+        "id": "ocd-person/1be9ca60-ccf5-4beb-835a-3c292e04eaef",
+        "name": "Dianne Hart-Lowman",
+        "office": "state-house",
+        "districtCode": "063",
+        "contactUrl": null,
+        "email": "dianne.hart-lowman@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4736&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:108": [
+      {
+        "id": "ocd-person/bcb3b06f-882e-4012-af21-4c9ba68d093d",
+        "name": "Dotie Joseph",
+        "office": "state-house",
+        "districtCode": "108",
+        "contactUrl": null,
+        "email": "dotie.joseph@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4716&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:039": [
+      {
+        "id": "ocd-person/c585b9bb-83d4-4d01-8a02-778578cfe2d6",
+        "name": "Doug Bankson",
+        "office": "state-house",
+        "districtCode": "039",
+        "contactUrl": null,
+        "email": "doug.bankson@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4873&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:087": [
+      {
+        "id": "ocd-person/e2d16b6f-6522-46c6-9817-3d4f4d1b66ce",
+        "name": "Emily Gregory",
+        "office": "state-house",
+        "districtCode": "087",
+        "contactUrl": null,
+        "email": "emily.gregory@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.flhouse.gov/Sections/Representatives/details.aspx?MemberId=5069",
+        "social": {}
+      }
+    ],
+    "FL:state-house:035": [
+      {
+        "id": "ocd-person/30a6de56-a2b6-44b4-ab5a-e1bc6d944c93",
+        "name": "Erika Booth",
+        "office": "state-house",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "erika.booth@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4914&LegislativeTermId=91",
+        "social": {}
+      }
+    ],
+    "FL:state-house:106": [
+      {
+        "id": "ocd-person/38674fed-3bec-4623-a5eb-d31e4851323f",
+        "name": "Fabián Basabe",
+        "office": "state-house",
+        "districtCode": "106",
+        "contactUrl": null,
+        "email": "fabian.basabe@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4900&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:104": [
+      {
+        "id": "ocd-person/1d219f7c-140b-48fd-ac39-4683c48dbc87",
+        "name": "Felicia Robinson",
+        "office": "state-house",
+        "districtCode": "104",
+        "contactUrl": null,
+        "email": "felicia.robinson@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4791&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:067": [
+      {
+        "id": "ocd-person/5a138490-70a4-46fa-967e-8739d1ea7456",
+        "name": "Fentrice Driskell",
+        "office": "state-house",
+        "districtCode": "067",
+        "contactUrl": null,
+        "email": "fentrice.driskell@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4745&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:073": [
+      {
+        "id": "ocd-person/741003ec-e46f-4ae8-a3af-ce2a2aba5cd4",
+        "name": "Fiona McFarland",
+        "office": "state-house",
+        "districtCode": "073",
+        "contactUrl": null,
+        "email": "fiona.mcfarland@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4780&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:008": [
+      {
+        "id": "ocd-person/3c9e6522-75aa-40d0-870c-1792d5178b04",
+        "name": "Gallop Franklin",
+        "office": "state-house",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "gallop.franklin@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4863&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:051": [
+      {
+        "id": "ocd-person/fd753355-7d8a-4eda-ab3c-8a6478e1ac73",
+        "name": "Hilary Holley",
+        "office": "state-house",
+        "districtCode": "051",
+        "contactUrl": null,
+        "email": "hilary.holley@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.flhouse.gov/Sections/Representatives/details.aspx?MemberId=5072",
+        "social": {}
+      }
+    ],
+    "FL:state-house:101": [
+      {
+        "id": "ocd-person/d38a5a91-afd4-46d2-9bd3-7ccaf7aa0d2b",
+        "name": "Hillary Cassel",
+        "office": "state-house",
+        "districtCode": "101",
+        "contactUrl": null,
+        "email": "hillary.cassel@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4895&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:023": [
+      {
+        "id": "ocd-person/b65fb87d-0544-4058-8ad6-9cbd3622a330",
+        "name": "J.J. Grow",
+        "office": "state-house",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "jj.grow@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.flhouse.gov/Sections/Representatives/custom/details.aspx?MemberId=4909",
+        "social": {}
+      }
+    ],
+    "FL:state-house:074": [
+      {
+        "id": "ocd-person/797767ca-fadc-49d9-a7a5-5722baf6557e",
+        "name": "James Buchanan",
+        "office": "state-house",
+        "districtCode": "074",
+        "contactUrl": null,
+        "email": "james.buchanan@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4731&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:120": [
+      {
+        "id": "ocd-person/d03b8661-852b-44ab-b7c2-aa3bf14acd39",
+        "name": "Jim Mooney",
+        "office": "state-house",
+        "districtCode": "120",
+        "contactUrl": null,
+        "email": "james.mooney@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4797&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:007": [
+      {
+        "id": "ocd-person/2bae38cc-f703-446b-93ec-576c0e388760",
+        "name": "Jason Shoaf",
+        "office": "state-house",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "jason.shoaf@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4756&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:053": [
+      {
+        "id": "ocd-person/5bd19ebd-e225-49a5-b0f5-42f6380a9fa8",
+        "name": "Jeff Holcomb",
+        "office": "state-house",
+        "districtCode": "053",
+        "contactUrl": null,
+        "email": "jeff.holcomb@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4890&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:050": [
+      {
+        "id": "ocd-person/7fb5a540-2c3c-4661-8495-2e0e02ab8644",
+        "name": "Jennifer Canady",
+        "office": "state-house",
+        "districtCode": "050",
+        "contactUrl": null,
+        "email": "jennifer.canady@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4879&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:049": [
+      {
+        "id": "ocd-person/28e33eaa-f6cf-4158-83fe-aff91d0cd8f0",
+        "name": "Jennifer Kincart Jonsson",
+        "office": "state-house",
+        "districtCode": "049",
+        "contactUrl": null,
+        "email": "jennifer.jonsson@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.flhouse.gov/Sections/Representatives/custom/details.aspx?MemberId=4918",
+        "social": {}
+      }
+    ],
+    "FL:state-house:044": [
+      {
+        "id": "ocd-person/ca476441-7c7a-4f21-ba55-207c21a7d51d",
+        "name": "Rita Harris",
+        "office": "state-house",
+        "districtCode": "044",
+        "contactUrl": null,
+        "email": "rita.harris@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4877&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:088": [
+      {
+        "id": "ocd-person/bb2ae855-2e7a-4744-9271-a8ae1af89428",
+        "name": "Tae Edmonds",
+        "office": "state-house",
+        "districtCode": "088",
+        "contactUrl": null,
+        "email": "jervonte.edmonds@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4842&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:017": [
+      {
+        "id": "ocd-person/8dd703e2-8024-47c5-a22b-87a36db841cb",
+        "name": "Jessica Baker",
+        "office": "state-house",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "jessica.baker@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4866&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:043": [
+      {
+        "id": "ocd-person/fa6bc3c9-a107-4954-adf1-e1461e9f3520",
+        "name": "Johanna López",
+        "office": "state-house",
+        "districtCode": "043",
+        "contactUrl": null,
+        "email": "johanna.lopez@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4875&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:086": [
+      {
+        "id": "ocd-person/5055fc3a-3cdd-4f4d-addb-23634fd1df92",
+        "name": "John Snyder",
+        "office": "state-house",
+        "districtCode": "086",
+        "contactUrl": null,
+        "email": "john.snyder@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4787&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:048": [
+      {
+        "id": "ocd-person/c7ee0194-6ff9-4b95-83ee-bac26e80467d",
+        "name": "Jon Albert",
+        "office": "state-house",
+        "districtCode": "048",
+        "contactUrl": null,
+        "email": "jon.albert@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.flhouse.gov/Sections/Representatives/custom/details.aspx?MemberId=4917&LegislativeTermId=91",
+        "social": {}
+      }
+    ],
+    "FL:state-house:046": [
+      {
+        "id": "ocd-person/c3e8a214-183a-4b9c-970c-5332e83eb8e6",
+        "name": "Jose Alvarez",
+        "office": "state-house",
+        "districtCode": "046",
+        "contactUrl": null,
+        "email": "jose.alvarez@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4916&LegislativeTermId=91",
+        "social": {}
+      }
+    ],
+    "FL:state-house:119": [
+      {
+        "id": "ocd-person/6c673f21-8f64-44b7-831f-d3d2e9c78eb3",
+        "name": "Juan Porras",
+        "office": "state-house",
+        "districtCode": "119",
+        "contactUrl": null,
+        "email": "juancarlos.porras@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4898&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:020": [
+      {
+        "id": "ocd-person/09ff6379-dbcc-4aa2-bc70-0b2fa9fd69ec",
+        "name": "Judson Sapp",
+        "office": "state-house",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "judson.sapp@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.flhouse.gov/Sections/Representatives/details.aspx?MemberId=4907",
+        "social": {}
+      }
+    ],
+    "FL:state-house:065": [
+      {
+        "id": "ocd-person/d1296445-72e8-45e5-ad0e-4443275176ef",
+        "name": "Karen Gonzalez Pittman",
+        "office": "state-house",
+        "districtCode": "065",
+        "contactUrl": null,
+        "email": "karen.pittman@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4888&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:083": [
+      {
+        "id": "ocd-person/43356d29-3396-423e-9286-f7bd1e52ebde",
+        "name": "Kaylee Tuck",
+        "office": "state-house",
+        "districtCode": "083",
+        "contactUrl": null,
+        "email": "kaylee.tuck@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4776&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:092": [
+      {
+        "id": "ocd-person/8eff1a19-557d-4a5d-8a3b-c77015a7babe",
+        "name": "Kelly Skidmore",
+        "office": "state-house",
+        "districtCode": "092",
+        "contactUrl": null,
+        "email": "kelly.skidmore@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4786&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:117": [
+      {
+        "id": "ocd-person/313e81ee-19af-4d9d-9186-fbbca7e6d65d",
+        "name": "Kevin Chambliss",
+        "office": "state-house",
+        "districtCode": "117",
+        "contactUrl": null,
+        "email": "kevin.chambliss@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4798&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:018": [
+      {
+        "id": "ocd-person/e809e1f7-641f-47c7-8754-964f1ceae10d",
+        "name": "Kim Kendall",
+        "office": "state-house",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "kim.kendall@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.flhouse.gov/Sections/Representatives/custom/details.aspx?MemberId=4905",
+        "social": {}
+      }
+    ],
+    "FL:state-house:058": [
+      {
+        "id": "ocd-person/d6c0ddf5-2821-4510-83d1-da9eb422739a",
+        "name": "Kim Berfield",
+        "office": "state-house",
+        "districtCode": "058",
+        "contactUrl": null,
+        "email": "kim.berfield@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4210&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:014": [
+      {
+        "id": "ocd-person/469b8c3d-5133-43c1-8598-b63ea936f135",
+        "name": "Kim Daniels",
+        "office": "state-house",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "kimberly.daniels@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4652&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:016": [
+      {
+        "id": "ocd-person/efa5f0b9-e10e-4ae0-a352-db879b1e0d3b",
+        "name": "Kiyan Michael",
+        "office": "state-house",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "kiyan.michael@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4869&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:082": [
+      {
+        "id": "ocd-person/f835385b-0837-4cfc-a81c-54982ba185d7",
+        "name": "Lauren Melo",
+        "office": "state-house",
+        "districtCode": "082",
+        "contactUrl": null,
+        "email": "lauren.melo@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4784&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:068": [
+      {
+        "id": "ocd-person/56263ea0-3c5c-45cb-998d-ac7cf8db5446",
+        "name": "Lawrence McClure",
+        "office": "state-house",
+        "districtCode": "068",
+        "contactUrl": null,
+        "email": "lawrence.mcclure@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4686&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:045": [
+      {
+        "id": "ocd-person/69e5941c-0def-4c79-a33e-c318ff516c9a",
+        "name": "Leonard Spencer",
+        "office": "state-house",
+        "districtCode": "045",
+        "contactUrl": null,
+        "email": "leonard.spencer@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.flhouse.gov/Sections/Representatives/custom/details.aspx?MemberId=4915&LegislativeTermId=91",
+        "social": {}
+      }
+    ],
+    "FL:state-house:061": [
+      {
+        "id": "ocd-person/7d59a4fe-d0f1-43a8-93b4-bcd3b7fe5b4e",
+        "name": "Linda Chaney",
+        "office": "state-house",
+        "districtCode": "061",
+        "contactUrl": null,
+        "email": "linda.chaney@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4778&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:060": [
+      {
+        "id": "ocd-person/8bcd1df3-2697-42a9-842a-f3cced1fcb0f",
+        "name": "Lindsay Cross",
+        "office": "state-house",
+        "districtCode": "060",
+        "contactUrl": null,
+        "email": "lindsay.cross@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4887&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:097": [
+      {
+        "id": "ocd-person/314f9b75-2167-4b73-b7b8-9c7dee31aaee",
+        "name": "Lisa Dunkley",
+        "office": "state-house",
+        "districtCode": "097",
+        "contactUrl": null,
+        "email": "lisa.dunkley@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4893&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:105": [
+      {
+        "id": "ocd-person/5eb39c7e-3582-4269-a012-7a88c54623c9",
+        "name": "Marie Woodson",
+        "office": "state-house",
+        "districtCode": "105",
+        "contactUrl": null,
+        "email": "marie.woodson@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4789&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:094": [
+      {
+        "id": "ocd-person/7079537f-b144-4304-b389-8e572e62e1c9",
+        "name": "Meg Weinberger",
+        "office": "state-house",
+        "districtCode": "094",
+        "contactUrl": null,
+        "email": "meg.weinberger@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.flhouse.gov/Sections/Representatives/custom/details.aspx?MemberId=4926",
+        "social": {}
+      }
+    ],
+    "FL:state-house:102": [
+      {
+        "id": "ocd-person/1c170657-03fb-4ab7-ae9f-f8e83568471e",
+        "name": "Mike Gottlieb",
+        "office": "state-house",
+        "districtCode": "102",
+        "contactUrl": null,
+        "email": "mike.gottlieb@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4724&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:070": [
+      {
+        "id": "ocd-person/fc683ed7-c458-46b4-a133-6ab6916237d0",
+        "name": "Michael Owen",
+        "office": "state-house",
+        "districtCode": "070",
+        "contactUrl": null,
+        "email": "michael.owen@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.flhouse.gov/Sections/Representatives/custom/details.aspx?MemberId=4919",
+        "social": {}
+      }
+    ],
+    "FL:state-house:062": [
+      {
+        "id": "ocd-person/9b6f17f5-ec19-4302-8a45-2b40175bb39b",
+        "name": "Michele Rayner",
+        "office": "state-house",
+        "districtCode": "062",
+        "contactUrl": null,
+        "email": "michele.rayner@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4781&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:001": [
+      {
+        "id": "ocd-person/a3c0aa9f-c261-4904-b73b-4dc127778222",
+        "name": "Michelle Salzman",
+        "office": "state-house",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "michelle.salzman@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4763&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:079": [
+      {
+        "id": "ocd-person/9a44c892-cd4a-452b-88cb-435e8ece8d82",
+        "name": "Mike Giallombardo",
+        "office": "state-house",
+        "districtCode": "079",
+        "contactUrl": null,
+        "email": "mike.giallombardo@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4783&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:118": [
+      {
+        "id": "ocd-person/a4a0a7bf-62c4-412e-9501-007d712009ca",
+        "name": "Mike Redondo",
+        "office": "state-house",
+        "districtCode": "118",
+        "contactUrl": null,
+        "email": "mike.redondo@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4902&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:098": [
+      {
+        "id": "ocd-person/04a025da-737a-4580-9c0f-64531e9cbbec",
+        "name": "Mitch Rosenwald",
+        "office": "state-house",
+        "districtCode": "098",
+        "contactUrl": null,
+        "email": "mitch.rosenwald@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4927&LegislativeTermId=91",
+        "social": {}
+      }
+    ],
+    "FL:state-house:033": [
+      {
+        "id": "ocd-person/4a001cb2-e0ab-4036-a85d-b4f8ab3664cc",
+        "name": "Monique Miller",
+        "office": "state-house",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "monique.miller@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.flhouse.gov/Sections/Representatives/custom/details.aspx?MemberId=4913",
+        "social": {}
+      }
+    ],
+    "FL:state-house:026": [
+      {
+        "id": "ocd-person/609d82db-51d0-4705-a6c4-4d0bd487a61f",
+        "name": "Nan Cobb",
+        "office": "state-house",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "nan.cobb@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.flhouse.gov/Sections/Representatives/details.aspx?MemberId=4910",
+        "social": {}
+      }
+    ],
+    "FL:state-house:003": [
+      {
+        "id": "ocd-person/7fa0c00f-c006-401c-88e7-06485e394c34",
+        "name": "Nathan Boyles",
+        "office": "state-house",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "nathan.boyles@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.flhouse.gov/Sections/Representatives/custom/details.aspx?MemberId=5063",
+        "social": {}
+      }
+    ],
+    "FL:state-house:115": [
+      {
+        "id": "ocd-person/4bae75ba-b3df-4780-984b-144ae4d80a77",
+        "name": "Omar Blanco",
+        "office": "state-house",
+        "districtCode": "115",
+        "contactUrl": null,
+        "email": "omar.blanco@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.flhouse.gov/Sections/Representatives/custom/details.aspx?MemberId=4929",
+        "social": {}
+      }
+    ],
+    "FL:state-house:047": [
+      {
+        "id": "ocd-person/0a0ec0a3-4f1d-4cd8-b790-d51bff717798",
+        "name": "Paula Stark",
+        "office": "state-house",
+        "districtCode": "047",
+        "contactUrl": null,
+        "email": "paula.stark@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4878&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:091": [
+      {
+        "id": "ocd-person/ab654947-84ed-4526-9b00-487642499106",
+        "name": "Peggy Gossett-Seidman",
+        "office": "state-house",
+        "districtCode": "091",
+        "contactUrl": null,
+        "email": "peggy.gossettseidman@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4891&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:006": [
+      {
+        "id": "ocd-person/25748543-5a46-49c2-bc52-f7d39c18a2e6",
+        "name": "Griff Griffitts",
+        "office": "state-house",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "griff.griffitts@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4862&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:040": [
+      {
+        "id": "ocd-person/ff372569-d6f5-4bd0-8d36-569a7458f3e2",
+        "name": "RaShon Young",
+        "office": "state-house",
+        "districtCode": "040",
+        "contactUrl": null,
+        "email": "rashon.young@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.flhouse.gov/Sections/Representatives/custom/details.aspx?MemberId=5065",
+        "social": {}
+      }
+    ],
+    "FL:state-house:036": [
+      {
+        "id": "ocd-person/1b25c111-e59b-429e-a6b7-fd22a38c1581",
+        "name": "Rachel Plakon",
+        "office": "state-house",
+        "districtCode": "036",
+        "contactUrl": null,
+        "email": "rachel.plakon@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4871&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:054": [
+      {
+        "id": "ocd-person/2a415c08-da66-402b-ada6-93390a5df820",
+        "name": "Randy Maggard",
+        "office": "state-house",
+        "districtCode": "054",
+        "contactUrl": null,
+        "email": "randy.maggard@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4758&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:027": [
+      {
+        "id": "ocd-person/c95a0c72-09d5-40dc-8df8-a865051b9ea0",
+        "name": "Richard Gentry",
+        "office": "state-house",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "richard.gentry@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.flhouse.gov/Sections/Representatives/details.aspx?MemberId=4911",
+        "social": {}
+      }
+    ],
+    "FL:state-house:090": [
+      {
+        "id": "ocd-person/50be2c32-37ea-4b93-9525-21d7b6f0b463",
+        "name": "Rob Long",
+        "office": "state-house",
+        "districtCode": "090",
+        "contactUrl": null,
+        "email": "rob.long@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.flhouse.gov/Sections/Representatives/details.aspx?MemberId=5067",
+        "social": {}
+      }
+    ],
+    "FL:state-house:034": [
+      {
+        "id": "ocd-person/c63b8e5e-fd63-45a1-b7e9-16595039f34a",
+        "name": "Robbie Brackett",
+        "office": "state-house",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "robert.brackett@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4870&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:002": [
+      {
+        "id": "ocd-person/de5ddba1-d7fe-41da-9f36-16a03b0b22fc",
+        "name": "Alex Andrade",
+        "office": "state-house",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "alex.andrade@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4710&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:010": [
+      {
+        "id": "ocd-person/caf95c6f-3143-433e-8654-c17d39b94f88",
+        "name": "Chuck Brannan",
+        "office": "state-house",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "chuck.brannan@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4708&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:103": [
+      {
+        "id": "ocd-person/67c201cf-9aaa-4a06-8dda-28e93ea27f6b",
+        "name": "Robin Bartleman",
+        "office": "state-house",
+        "districtCode": "103",
+        "contactUrl": null,
+        "email": "robin.bartleman@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4793&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:024": [
+      {
+        "id": "ocd-person/baa03ffb-0948-4975-9e3a-c3fb9c0fcf40",
+        "name": "Ryan Chamberlin",
+        "office": "state-house",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "ryan.chamberlin@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4901&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:011": [
+      {
+        "id": "ocd-person/965e180a-177f-49ac-baba-0f0c7fe9a836",
+        "name": "Sam Garrison",
+        "office": "state-house",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "sam.garrison@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4767&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:019": [
+      {
+        "id": "ocd-person/2da96449-663b-48ed-ab70-ef4e433afda3",
+        "name": "Sam Greco",
+        "office": "state-house",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "sam.greco@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.flhouse.gov/Sections/Representatives/details.aspx?MemberId=4906",
+        "social": {}
+      }
+    ],
+    "FL:state-house:052": [
+      {
+        "id": "ocd-person/6e6024d7-d66b-437d-b4a7-1e96bc365d5d",
+        "name": "Samantha Scott",
+        "office": "state-house",
+        "districtCode": "052",
+        "contactUrl": null,
+        "email": "samantha.scott@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.flhouse.gov/Sections/Representatives/details.aspx?MemberId=5070",
+        "social": {}
+      }
+    ],
+    "FL:state-house:005": [
+      {
+        "id": "ocd-person/c844e345-f2a8-42fa-9ef9-d278bcb8fa4c",
+        "name": "Shane Abbott",
+        "office": "state-house",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "shane.abbott@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4864&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:064": [
+      {
+        "id": "ocd-person/811dfa67-2615-4d45-9cf9-bd1a587a34fe",
+        "name": "Susan Valdés",
+        "office": "state-house",
+        "districtCode": "064",
+        "contactUrl": null,
+        "email": "susan.valdes@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4752&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:037": [
+      {
+        "id": "ocd-person/a5af681e-9679-4fed-83a3-ed16405055cb",
+        "name": "Susan Plasencia",
+        "office": "state-house",
+        "districtCode": "037",
+        "contactUrl": null,
+        "email": "susan.plasencia@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4872&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:025": [
+      {
+        "id": "ocd-person/4ba15ff2-a717-4ea5-ad72-34e673ef63d8",
+        "name": "Taylor Yarkosky",
+        "office": "state-house",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "taylor.yarkosky@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4868&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:004": [
+      {
+        "id": "ocd-person/ed56c597-3652-45a5-9c01-de0bf3eb8ab9",
+        "name": "Patt Maney",
+        "office": "state-house",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "patt.maney@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4764&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:077": [
+      {
+        "id": "ocd-person/36219a90-2f5f-4ac6-b6ad-04139103c70c",
+        "name": "Tiffany Esposito",
+        "office": "state-house",
+        "districtCode": "077",
+        "contactUrl": null,
+        "email": "tiffany.esposito@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4892&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:085": [
+      {
+        "id": "ocd-person/a44181b6-df0b-466d-9989-d369083201aa",
+        "name": "Toby Overdorf",
+        "office": "state-house",
+        "districtCode": "085",
+        "contactUrl": null,
+        "email": "toby.overdorf@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4728&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:110": [
+      {
+        "id": "ocd-person/35f68144-b99b-4f86-b223-726897926bfa",
+        "name": "Tom Fabricio",
+        "office": "state-house",
+        "districtCode": "110",
+        "contactUrl": null,
+        "email": "tom.fabricio@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4792&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:066": [
+      {
+        "id": "ocd-person/217f848d-99c2-43aa-98d2-6fee2812c1e6",
+        "name": "Traci Koster",
+        "office": "state-house",
+        "districtCode": "066",
+        "contactUrl": null,
+        "email": "traci.koster@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4779&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:031": [
+      {
+        "id": "ocd-person/ac26aaa6-1f59-4893-ae7f-30f5d2e5d8fc",
+        "name": "Tyler Sirois",
+        "office": "state-house",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "tyler.sirois@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4748&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:076": [
+      {
+        "id": "ocd-person/2d1c1c14-3ff1-468e-920a-07a081df4775",
+        "name": "Vanessa Oliver",
+        "office": "state-house",
+        "districtCode": "076",
+        "contactUrl": null,
+        "email": "vanessa.oliver@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.flhouse.gov/Sections/Representatives/details.aspx?MemberId=4922",
+        "social": {}
+      }
+    ],
+    "FL:state-house:107": [
+      {
+        "id": "ocd-person/7cba4eb9-69b5-431d-817e-41f54ccf9ceb",
+        "name": "Wallace Aristide",
+        "office": "state-house",
+        "districtCode": "107",
+        "contactUrl": null,
+        "email": "wallace.aristide@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.flhouse.gov/Sections/Representatives/custom/details.aspx?MemberId=4928",
+        "social": {}
+      }
+    ],
+    "FL:state-house:029": [
+      {
+        "id": "ocd-person/f2b23850-7feb-484e-8ed2-68e2f6108fbf",
+        "name": "Webster Barnaby",
+        "office": "state-house",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "webster.barnaby@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4770&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:071": [
+      {
+        "id": "ocd-person/042b27f1-ec82-497e-958c-ebe5da28b706",
+        "name": "Will Robinson",
+        "office": "state-house",
+        "districtCode": "071",
+        "contactUrl": null,
+        "email": "will.robinson@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4733&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:012": [
+      {
+        "id": "ocd-person/17ae3cd7-1aa0-44b4-baab-ed839b6776a6",
+        "name": "Wyman Duggan",
+        "office": "state-house",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "wyman.duggan@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4712&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-house:081": [
+      {
+        "id": "ocd-person/88aacea0-124a-4980-b046-90cfb0cda4db",
+        "name": "Yvette Benarroch",
+        "office": "state-house",
+        "districtCode": "081",
+        "contactUrl": null,
+        "email": "yvette.benarroch@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.flhouse.gov/Sections/Representatives/custom/details.aspx?MemberId=4923",
+        "social": {}
+      }
+    ],
+    "FL:state-house:021": [
+      {
+        "id": "ocd-person/0f5d2710-6b7c-4444-8a45-ea3e917805ba",
+        "name": "Yvonne Hinson",
+        "office": "state-house",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "yvonne.hinson@flhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4768&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-senate:038": [
+      {
+        "id": "ocd-person/7f1e874f-ae8b-42a0-90d9-fe867cf9fb45",
+        "name": "Alexis Calatayud",
+        "office": "state-senate",
+        "districtCode": "038",
+        "contactUrl": null,
+        "email": "calatayud.alexis.web@flsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://flsenate.gov/Senators/2022-2024/S38",
+        "social": {}
+      }
+    ],
+    "FL:state-senate:040": [
+      {
+        "id": "ocd-person/afd55a58-b8f6-4dd7-9d93-a2207b65e425",
+        "name": "Ana Maria Rodriguez",
+        "office": "state-senate",
+        "districtCode": "040",
+        "contactUrl": null,
+        "email": "rodriguez.anamaria.web@flsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://flsenate.gov/Senators/2022-2024/S40",
+        "social": {}
+      }
+    ],
+    "FL:state-senate:035": [
+      {
+        "id": "ocd-person/2af7bd80-7f71-4530-8d69-ee448bc32255",
+        "name": "Barbara Sharief",
+        "office": "state-senate",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "sharief.barbara.web@flsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.flsenate.gov/Senators/S35",
+        "social": {}
+      }
+    ],
+    "FL:state-senate:027": [
+      {
+        "id": "ocd-person/5c81dfe7-1cec-45e8-8044-6d9cd324f2e8",
+        "name": "Ben Albritton",
+        "office": "state-senate",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "albritton.ben.web@flsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://flsenate.gov/Senators/2022-2024/S27",
+        "social": {}
+      }
+    ],
+    "FL:state-senate:014": [
+      {
+        "id": "ocd-person/528bc47a-e8c7-4a28-9923-aba1deefd976",
+        "name": "Brian Nathan",
+        "office": "state-senate",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "nathan.brian.web@flsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.flsenate.gov/Senators/S14",
+        "social": {}
+      }
+    ],
+    "FL:state-senate:017": [
+      {
+        "id": "ocd-person/df1d6ab6-b2cd-4a6f-b7cc-aa5a63d8011f",
+        "name": "Carlos Smith",
+        "office": "state-senate",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "smith.carlos.web@flsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.flsenate.gov/Senators/S17",
+        "social": {}
+      }
+    ],
+    "FL:state-senate:004": [
+      {
+        "id": "ocd-person/f1eda85d-37f2-4475-a318-8278a11c9466",
+        "name": "Clay Yarborough",
+        "office": "state-senate",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "yarborough.clay.web@flsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://flsenate.gov/Senators/2022-2024/S4",
+        "social": {}
+      }
+    ],
+    "FL:state-senate:012": [
+      {
+        "id": "ocd-person/50d5881b-ceac-49a2-98db-87ef6e09438c",
+        "name": "Colleen Burton",
+        "office": "state-senate",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "burton.colleen.web@flsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://flsenate.gov/Senators/2022-2024/S12",
+        "social": {}
+      }
+    ],
+    "FL:state-senate:003": [
+      {
+        "id": "ocd-person/fca5c9b2-da9e-4836-a3d5-366a25350976",
+        "name": "Corey Simon",
+        "office": "state-senate",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "simon.corey.web@flsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://flsenate.gov/Senators/2022-2024/S3",
+        "social": {}
+      }
+    ],
+    "FL:state-senate:023": [
+      {
+        "id": "ocd-person/55815523-33b5-4d42-9864-28e00b805e68",
+        "name": "Danny Burgess",
+        "office": "state-senate",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "burgess.danny.web@flsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://flsenate.gov/Senators/2022-2024/S23",
+        "social": {}
+      }
+    ],
+    "FL:state-senate:016": [
+      {
+        "id": "ocd-person/3de11937-c291-4561-bee5-4f747665cb37",
+        "name": "Darryl Rouson",
+        "office": "state-senate",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "rouson.darryl.web@flsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://flsenate.gov/Senators/2022-2024/S16",
+        "social": {}
+      }
+    ],
+    "FL:state-senate:019": [
+      {
+        "id": "ocd-person/a41e2c13-be68-4af3-8229-3c657b8d980d",
+        "name": "Debbie Mayfield",
+        "office": "state-senate",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "mayfield.debbie.web@flsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://flsenate.gov/Senators/2022-2024/S19",
+        "social": {}
+      }
+    ],
+    "FL:state-senate:001": [
+      {
+        "id": "ocd-person/c45cbed2-9b2e-4507-a6d1-3f960d330c34",
+        "name": "Don Gaetz",
+        "office": "state-senate",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "gaetz.don.web@flsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.flsenate.gov/Senators/s1",
+        "social": {}
+      }
+    ],
+    "FL:state-senate:021": [
+      {
+        "id": "ocd-person/0e375630-02a4-4e59-ac80-869f9a199b2a",
+        "name": "Ed Hooper",
+        "office": "state-senate",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "hooper.ed.web@flsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://flsenate.gov/Senators/2022-2024/S21",
+        "social": {}
+      }
+    ],
+    "FL:state-senate:029": [
+      {
+        "id": "ocd-person/9cf042e6-01c0-4f8e-aab5-68508a0fda66",
+        "name": "Erin Grall",
+        "office": "state-senate",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "grall.erin.web@flsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://flsenate.gov/Senators/2022-2024/S29",
+        "social": {}
+      }
+    ],
+    "FL:state-senate:031": [
+      {
+        "id": "ocd-person/cd3ba8e7-7c51-444b-bff3-e0c29de30660",
+        "name": "Gayle Harrell",
+        "office": "state-senate",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "harrell.gayle.web@flsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://flsenate.gov/Senators/2022-2024/S31",
+        "social": {}
+      }
+    ],
+    "FL:state-senate:036": [
+      {
+        "id": "ocd-person/3b65ecb0-8a3d-469c-9db4-b70c8724610f",
+        "name": "Ileana Garcia",
+        "office": "state-senate",
+        "districtCode": "036",
+        "contactUrl": null,
+        "email": "garcia.ileana.web@flsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://flsenate.gov/Senators/2022-2024/S36",
+        "social": {}
+      }
+    ],
+    "FL:state-senate:010": [
+      {
+        "id": "ocd-person/b1525f57-c2db-407e-bca9-66675cc4d3ff",
+        "name": "Jason Brodeur",
+        "office": "state-senate",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "brodeur.jason.web@flsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://flsenate.gov/Senators/2022-2024/S10",
+        "social": {}
+      }
+    ],
+    "FL:state-senate:037": [
+      {
+        "id": "ocd-person/42278250-8dc9-4fcc-ab11-964aa8e369e7",
+        "name": "Jason Pizzo",
+        "office": "state-senate",
+        "districtCode": "037",
+        "contactUrl": null,
+        "email": "pizzo.jason.web@flsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://flsenate.gov/Senators/2022-2024/S37",
+        "social": {}
+      }
+    ],
+    "FL:state-senate:002": [
+      {
+        "id": "ocd-person/29c38853-2773-45d3-bc17-0979def1ab54",
+        "name": "Jay Trumbull",
+        "office": "state-senate",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "trumbull.jay.web@flsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://flsenate.gov/Senators/2022-2024/S2",
+        "social": {}
+      }
+    ],
+    "FL:state-senate:006": [
+      {
+        "id": "ocd-person/68e0a17f-338b-497b-ba07-1f74e9623f1d",
+        "name": "Jennifer Bradley",
+        "office": "state-senate",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "bradley.jennifer.web@flsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://flsenate.gov/Senators/2022-2024/S6",
+        "social": {}
+      }
+    ],
+    "FL:state-senate:020": [
+      {
+        "id": "ocd-person/c70f231f-92e2-4a55-a59b-fcf113ab51af",
+        "name": "Jim Boyd",
+        "office": "state-senate",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "boyd.jim.web@flsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://flsenate.gov/Senators/2022-2024/S20",
+        "social": {}
+      }
+    ],
+    "FL:state-senate:022": [
+      {
+        "id": "ocd-person/24b4458a-bc61-42f8-805a-6bc43edf6acb",
+        "name": "Joe Gruters",
+        "office": "state-senate",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "gruters.joe.web@flsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://flsenate.gov/Senators/2022-2024/S22",
+        "social": {}
+      }
+    ],
+    "FL:state-senate:033": [
+      {
+        "id": "ocd-person/e5e1f892-4d9e-464e-b58d-6acf50069b75",
+        "name": "Jonathan Martin",
+        "office": "state-senate",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "martin.jonathan.web@flsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://flsenate.gov/Senators/2022-2024/S33",
+        "social": {}
+      }
+    ],
+    "FL:state-senate:028": [
+      {
+        "id": "ocd-person/ae123d54-1076-49b2-84f9-2897b7d60ebd",
+        "name": "Kathleen Passidomo",
+        "office": "state-senate",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "passidomo.kathleen.web@flsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://flsenate.gov/Senators/2022-2024/S28",
+        "social": {}
+      }
+    ],
+    "FL:state-senate:013": [
+      {
+        "id": "ocd-person/9c87088c-e5a4-4902-b3cb-4477e062de66",
+        "name": "Keith Truenow",
+        "office": "state-senate",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "truenow.keith.web@flsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4772&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-senate:025": [
+      {
+        "id": "ocd-person/e4a84025-e4fd-4d36-8e12-64bd9f61ed6d",
+        "name": "Kristen Arrington",
+        "office": "state-senate",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "arrington.kristen.web@flsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4774&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-senate:015": [
+      {
+        "id": "ocd-person/2f86f22f-b277-4441-b322-b1fbfb017b74",
+        "name": "LaVon Bracy Davis",
+        "office": "state-senate",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "bracydavis.lavon.web@flsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4874&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-senate:026": [
+      {
+        "id": "ocd-person/762d321c-5bbe-4513-b9f0-7e3d8a6972f5",
+        "name": "Lori Berman",
+        "office": "state-senate",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "berman.lori.web@flsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://flsenate.gov/Senators/2022-2024/S26",
+        "social": {}
+      }
+    ],
+    "FL:state-senate:024": [
+      {
+        "id": "ocd-person/3038008c-cb9b-4735-92b4-b8f2be9c5d8e",
+        "name": "Mack Bernard",
+        "office": "state-senate",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "bernard.mack.web@flsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.flhouse.gov/Sections/Representatives/details.aspx?MemberId=4422&SessionId=70",
+        "social": {}
+      }
+    ],
+    "FL:state-senate:018": [
+      {
+        "id": "ocd-person/618247ea-caa1-462c-a29a-636c1720fd14",
+        "name": "Nick DiCeglie",
+        "office": "state-senate",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "diceglie.nick.web@flsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://flsenate.gov/Senators/2022-2024/S18",
+        "social": {}
+      }
+    ],
+    "FL:state-senate:011": [
+      {
+        "id": "ocd-person/6d1623ae-0b24-4007-9c0f-af352ea22180",
+        "name": "Ralph Massullo",
+        "office": "state-senate",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "massullo.ralph.web@flsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4624&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-senate:032": [
+      {
+        "id": "ocd-person/3194701f-dfa8-40e9-9081-56aa20c63f6e",
+        "name": "Rosalind Osgood",
+        "office": "state-senate",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "osgood.rosalind.web@flsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://flsenate.gov/Senators/2022-2024/S32",
+        "social": {}
+      }
+    ],
+    "FL:state-senate:034": [
+      {
+        "id": "ocd-person/a8a2eaa4-449b-441f-96bb-d8a3e8191479",
+        "name": "Shev Jones",
+        "office": "state-senate",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "jones.shevrin.web@flsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://flsenate.gov/Senators/2022-2024/S34",
+        "social": {}
+      }
+    ],
+    "FL:state-senate:009": [
+      {
+        "id": "ocd-person/5844fc0a-b2d2-4a09-baa7-6774e684326a",
+        "name": "Stan McClain",
+        "office": "state-senate",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "mcclain.stan.web@flsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4658&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-senate:007": [
+      {
+        "id": "ocd-person/04066eef-919c-4dc9-a655-ebc5e185f0c7",
+        "name": "Tom Leek",
+        "office": "state-senate",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "leek.tom.web@flsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://myfloridahouse.gov/Sections/Representatives/details.aspx?MemberId=4662&LegislativeTermId=90",
+        "social": {}
+      }
+    ],
+    "FL:state-senate:030": [
+      {
+        "id": "ocd-person/8c728fd0-2a3b-48ea-88a9-c7d675eb05d0",
+        "name": "Tina Polsky",
+        "office": "state-senate",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "polsky.tina.web@flsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://flsenate.gov/Senators/2022-2024/S30",
+        "social": {}
+      }
+    ],
+    "FL:state-senate:008": [
+      {
+        "id": "ocd-person/4ae2bacf-d265-42a5-888d-5050015a6602",
+        "name": "Tommy Wright",
+        "office": "state-senate",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "wright.tom.web@flsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://flsenate.gov/Senators/2022-2024/S8",
+        "social": {}
+      }
+    ],
+    "FL:state-senate:005": [
+      {
+        "id": "ocd-person/03362949-948c-415d-a5b6-f99e8fbc6495",
+        "name": "Tracie Davis",
+        "office": "state-senate",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "davis.tracie.web@flsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://flsenate.gov/Senators/2022-2024/S5",
+        "social": {}
+      }
+    ]
+  }
+}

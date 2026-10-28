@@ -21,10 +21,11 @@ describe('structured data builders', () => {
 });
 
 describe('site files', () => {
-  it('lists the five pages in the sitemap with no lastmod', () => {
+  it('lists the seven pages in the sitemap with no lastmod', () => {
     const xml = sitemapXml('https://x.test', []);
-    expect(xml.match(/<loc>/g)).toHaveLength(5);
+    expect(xml.match(/<loc>/g)).toHaveLength(7);
     expect(xml).toContain('<loc>https://x.test/</loc>');
+    expect(xml).toContain('<loc>https://x.test/act</loc>');
     expect(xml).toContain('<loc>https://x.test/faq</loc>');
     expect(xml).toContain('<loc>https://x.test/privacy</loc>');
     expect(xml).not.toContain('lastmod');
@@ -33,8 +34,8 @@ describe('site files', () => {
   it('lists each share page after the fixed pages', () => {
     const xml = sitemapXml('https://x.test', ['CO', 'CO/house', 'CO/senate']);
     const locs = [...xml.matchAll(/<loc>([^<]*)<\/loc>/g)].map((m) => m[1]);
-    expect(locs).toHaveLength(8);
-    expect(locs.slice(5)).toEqual(['https://x.test/CO', 'https://x.test/CO/house', 'https://x.test/CO/senate']);
+    expect(locs).toHaveLength(10);
+    expect(locs.slice(7)).toEqual(['https://x.test/CO', 'https://x.test/CO/house', 'https://x.test/CO/senate']);
   });
 
   it('ends robots.txt with the sitemap line and keeps em dashes out', () => {

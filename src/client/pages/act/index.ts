@@ -1,0 +1,1 @@
+export { createActPage } from './ui';

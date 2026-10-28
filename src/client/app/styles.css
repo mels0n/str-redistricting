@@ -2799,7 +2799,7 @@ html:has(> body > #str-viewer) {
 
 /* Phones: one instruction, in the strip under the map. The empty ticket box waits for a chosen district. */
 @media (max-width: 63.99rem) {
-  .strv-state__ticket:has(> .strv-ticket[data-empty='true']):has(> .strv-located[hidden]) {
+  .strv-state__ticket:has(> .strv-ticket[data-empty='true']):has(> .strv-located[hidden]):has(> .strv-reps[hidden]) {
     display: none;
   }
 }
@@ -4820,23 +4820,34 @@ var {
   line-height: 1.5;
 }
 
+.strv-footer__versions {
+  margin: 0 0 var(--s-2);
+  color: var(--ink-2);
+}
+
+.strv-footer__versions[hidden] {
+  display: none;
+}
+
+/* One row of links; the gap is the only separator, so nothing dangles when the row wraps. */
+.strv-footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--s-1) var(--s-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
 .strv-footer__link {
   color: var(--ink-2);
-  text-decoration: none;
+  text-decoration: underline;
 }
 
 .strv-footer__link:hover,
 .strv-footer__link:focus-visible {
-  text-decoration: underline;
-}
-
-.strv-footer__reach {
-  margin-top: var(--s-1);
-  color: var(--ink-2);
-}
-
-.strv-footer__reach .strv-footer__link {
-  text-decoration: underline;
+  color: var(--ink);
 }
 
 /* ---------- Map credit strip ---------- */
@@ -5049,4 +5060,600 @@ var {
   max-width: 50vw;
   font: inherit;
   font-size: 0.8125rem;
+}
+
+/* ---------- Representatives and the ask letter ---------- */
+
+.strv-reps {
+  margin-top: var(--s-4);
+  padding-top: var(--s-3);
+  border-top: 1px solid var(--ink);
+}
+
+.strv-reps[hidden] {
+  display: none;
+}
+
+.strv-reps__none {
+  margin: 0 0 var(--s-3);
+  font-size: 0.875rem;
+  line-height: 1.45;
+  color: var(--ink-2);
+}
+
+.strv-reps__list {
+  display: grid;
+  gap: var(--s-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.strv-reps__row {
+  display: grid;
+  gap: var(--s-2);
+  font-size: 0.875rem;
+}
+
+.strv-reps__who {
+  display: grid;
+}
+
+.strv-reps__office {
+  color: var(--ink-2);
+}
+
+.strv-reps__actions,
+.strv-ask__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  align-items: center;
+}
+
+.strv-ask {
+  display: grid;
+  gap: var(--s-2);
+  padding: var(--s-3);
+  border: 1px solid var(--ink);
+}
+
+.strv-ask__subject {
+  margin: 0;
+}
+
+.strv-ask__where {
+  display: grid;
+  gap: var(--s-2);
+  padding-bottom: var(--s-2);
+  border-bottom: 1px solid var(--hairline);
+}
+
+.strv-ask__where-h,
+.strv-ask__none {
+  margin: 0;
+}
+
+.strv-ask__dests {
+  display: grid;
+  gap: var(--s-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.strv-ask__dest {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-1) var(--s-2);
+  align-items: center;
+}
+
+.strv-ask__addr {
+  overflow-wrap: anywhere;
+  font-weight: 600;
+}
+
+.strv-ask__hint {
+  flex-basis: 100%;
+  font-size: 0.8125rem;
+  color: var(--ink-2);
+}
+
+.strv-ask__letter {
+  margin: 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font: inherit;
+  line-height: 1.5;
+}
+
+.strv-ask__status {
+  font-size: 0.8125rem;
+  color: var(--ink-2);
+}
+
+/* Print only the letter whose Print button was pressed: everything outside its ancestor chain is removed from layout, and the chain itself is flattened to plain blocks. */
+@media print {
+  html[data-print-letter] body *:not(:has(.strv-ask[data-printing])):not(.strv-ask[data-printing]):not(.strv-ask[data-printing] *) {
+    display: none !important;
+  }
+
+  html[data-print-letter] body :has(.strv-ask[data-printing]) {
+    display: block !important;
+    position: static !important;
+    inset: auto !important;
+    width: auto !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow: visible !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: 0 !important;
+    container-type: normal !important;
+    transform: none !important;
+    columns: auto !important;
+  }
+
+  html[data-print-letter] .strv-ask[data-printing] {
+    border: 0;
+    padding: 0;
+    color: #000;
+    background: #fff;
+  }
+
+  html[data-print-letter] .strv-ask[data-printing] .strv-ask__actions,
+  html[data-print-letter] .strv-ask[data-printing] .strv-ask__where {
+    display: none;
+  }
+}
+
+/* ---------- Take action ---------- */
+
+.strv-act-page {
+  padding: var(--s-5) var(--gutter) var(--s-7);
+}
+
+.strv-act-page__inner {
+  display: grid;
+  gap: var(--s-4);
+  max-width: 68rem;
+  margin: 0 auto;
+}
+
+.strv-act-page__h1 {
+  margin: 0;
+  font-size: clamp(2rem, 1.4rem + 2.4vw, 3rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+
+.strv-act-page__lede {
+  max-width: 46ch;
+  margin: 0;
+  font-size: 1.0625rem;
+  color: var(--ink-2);
+}
+
+.strv-act {
+  display: grid;
+  gap: var(--s-5);
+  counter-reset: act-step;
+}
+
+.strv-act__cols {
+  display: grid;
+  gap: var(--s-5);
+  align-items: start;
+}
+
+/* Wide: the representatives on the left, the sign-on form beside them and pinned while the list scrolls. */
+@media (min-width: 60rem) {
+  .strv-act__cols {
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+    gap: var(--s-6);
+  }
+
+  .strv-act__step--sign {
+    position: sticky;
+    top: calc(var(--mast-h) + var(--s-4));
+  }
+}
+
+.strv-act__step {
+  display: grid;
+  gap: var(--s-3);
+  align-content: start;
+  min-width: 0;
+  padding: var(--s-4);
+  background: var(--paper);
+  border: 2px solid var(--ink);
+}
+
+.strv-act__step-h {
+  display: flex;
+  gap: var(--s-3);
+  align-items: center;
+  margin: 0;
+  font-size: 1.25rem;
+  line-height: 1.2;
+}
+
+.strv-act__step-h::before {
+  content: counter(act-step);
+  counter-increment: act-step;
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--paper);
+  background: var(--ink);
+}
+
+.strv-act .strv-button {
+  min-height: 2.75rem;
+}
+
+.strv-act .strv-search {
+  max-width: 40rem;
+}
+
+.strv-act .strv-sign {
+  padding: 0;
+  border: 0;
+}
+
+.strv-act__count {
+  margin: 0;
+  font-weight: 700;
+}
+
+.strv-act__count[hidden] {
+  display: none;
+}
+
+/* The representatives: one line for who, a row of small actions, and the letter opening under the row. */
+.strv-reps {
+  display: grid;
+  gap: var(--s-3);
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.strv-reps__empty {
+  margin: 0;
+  padding: var(--s-4);
+  color: var(--ink-2);
+  border: 1px dashed var(--rule);
+}
+
+.strv-reps__empty[data-tone='error'] {
+  font-weight: 600;
+  color: var(--ink);
+  border-style: solid;
+}
+
+.strv-reps__none {
+  margin: 0;
+  color: var(--ink-2);
+}
+
+.strv-reps__list {
+  gap: 0;
+}
+
+.strv-reps__row {
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--s-2) var(--s-4);
+  align-items: center;
+  padding: var(--s-3) 0;
+  border-top: 1px solid var(--hairline);
+}
+
+.strv-reps__row--missing {
+  grid-template-columns: minmax(0, 1fr);
+  color: var(--ink-2);
+}
+
+.strv-reps__who {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--s-2);
+  align-items: baseline;
+}
+
+.strv-reps__actions {
+  justify-content: flex-end;
+}
+
+.strv-reps__composer {
+  grid-column: 1 / -1;
+}
+
+.strv-reps__composer:empty {
+  display: none;
+}
+
+.strv-reps__done {
+  font-weight: 700;
+}
+
+.strv-reps__done::before {
+  content: '\2713\00a0';
+}
+
+.strv-reps__done[hidden] {
+  display: none;
+}
+
+.strv-reps__voices:empty {
+  display: none;
+}
+
+@media (max-width: 40rem) {
+  .strv-reps__row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .strv-reps__actions {
+    justify-content: flex-start;
+  }
+}
+
+/* One letter to everyone: the primary action of the step. */
+.strv-act__all {
+  display: grid;
+  gap: var(--s-2);
+  padding: var(--s-3);
+  background: var(--signal-tint);
+  border: 1px solid var(--ink);
+}
+
+.strv-act__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  align-items: center;
+}
+
+.strv-act__addrs {
+  margin: 0;
+  font-size: 0.875rem;
+  overflow-wrap: anywhere;
+}
+
+.strv-act__hint {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--ink-2);
+}
+
+.strv-act__letter summary {
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.strv-act__letter[open] {
+  display: grid;
+  gap: var(--s-2);
+}
+
+.strv-act__letter[open] .strv-ask__letter {
+  padding: var(--s-3);
+  background: var(--paper);
+}
+
+.strv-state__act {
+  display: inline-block;
+  margin-top: var(--s-3);
+  font-weight: 600;
+}
+
+/* The header's call to action stands out from the plain links beside it. */
+.strv .strv-masthead__act {
+  padding: 0 var(--s-3);
+  color: var(--ink);
+  background: var(--signal);
+  border-radius: 2px;
+}
+
+.strv .strv-masthead__act:hover,
+.strv .strv-masthead__act[aria-current='page'] {
+  background: var(--signal-hover);
+  text-decoration: none;
+}
+
+/* ---------- Pledges ---------- */
+
+.strv-pledges__body {
+  display: grid;
+  gap: var(--s-5);
+  padding: var(--s-5) var(--gutter);
+  max-width: 62ch;
+}
+
+.strv-pledges__quote {
+  margin: 0;
+  padding-left: var(--s-4);
+  border-left: 4px solid var(--ink);
+}
+
+.strv-pledges__ul {
+  display: grid;
+  gap: var(--s-3);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.strv-pledges__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2) var(--s-3);
+  align-items: baseline;
+}
+
+.strv-pledges__seat,
+.strv-pledges__empty {
+  color: var(--ink-2);
+}
+
+.strv-pledges__snippet {
+  overflow-x: auto;
+  padding: var(--s-3);
+  border: 2px solid var(--ink);
+}
+
+.strv-reps__pledged {
+  font-weight: 700;
+}
+
+.strv-national__signed {
+  margin: var(--s-2) 0 0;
+  font-weight: 700;
+}
+
+.strv-national__signed[hidden] {
+  display: none;
+}
+
+.strv-reps__candidates ul {
+  padding-left: 1.25em;
+}
+
+/* ---------- Sign-on form and privacy page ---------- */
+
+.strv-sign {
+  display: grid;
+  gap: var(--s-2);
+  padding: var(--s-3);
+  border: 1px solid var(--ink);
+  font-size: 0.875rem;
+}
+
+.strv-sign__h,
+.strv-sign__lede {
+  margin: 0;
+}
+
+.strv-sign__lede {
+  line-height: 1.45;
+  color: var(--ink-2);
+}
+
+.strv-sign__form {
+  display: grid;
+  gap: var(--s-3);
+}
+
+.strv-sign__field {
+  display: grid;
+  gap: var(--s-1);
+}
+
+.strv-sign__input {
+  min-height: 2.75rem;
+  padding: 0 var(--s-3);
+  font: inherit;
+  font-size: 1rem;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  border-radius: 2px;
+}
+
+.strv-sign__input:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.strv-sign__hint,
+.strv-sign__more {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: var(--ink-2);
+}
+
+.strv-sign__error {
+  margin: 0;
+  font-weight: 700;
+}
+
+.strv-sign__done {
+  margin: 0;
+  line-height: 1.45;
+}
+
+.strv-sign__note {
+  min-height: 5.5rem;
+  padding: var(--s-2) var(--s-3);
+  line-height: 1.45;
+  resize: vertical;
+}
+
+.strv-sign__dropped {
+  display: block;
+  margin-top: var(--s-2);
+}
+
+/* ---------- Voices: why people signed ---------- */
+
+.strv-voices {
+  display: grid;
+  gap: var(--s-2);
+  margin-top: var(--s-3);
+}
+
+.strv-voices[hidden],
+.strv-reps__voices:empty {
+  display: none;
+}
+
+.strv-voices__h {
+  margin: 0;
+}
+
+.strv-voices__list {
+  display: grid;
+  gap: var(--s-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.strv-voices__quote {
+  margin: 0;
+  padding-left: var(--s-3);
+  border-left: 2px solid var(--ink);
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+.strv-voices__by {
+  margin: var(--s-1) 0 0;
+  padding-left: var(--s-3);
+  font-size: 0.8125rem;
+  color: var(--ink-2);
+}
+
+.strv-privacy__body {
+  display: grid;
+  gap: var(--s-4);
+  max-width: 42rem;
+}
+
+.strv-privacy__body h2 {
+  margin: 0 0 var(--s-2);
+}
+
+.strv-privacy__body p,
+.strv-privacy__body ul {
+  margin: 0 0 var(--s-2);
+  line-height: 1.5;
 }

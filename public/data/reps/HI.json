@@ -1,0 +1,1225 @@
+{
+  "state": "HI",
+  "generatedFrom": {
+    "legislators-current.json": "ae8cb9477c48715df71a7d860854229d799dc90a254d61badc1efb770f892b2c",
+    "legislators-social-media.json": "c6eca1fcdb3a89901335eed51ca061daa4b60ad3243969a127e913bb9657fbc5",
+    "hi.csv": "d9988647e82cfa4a9c735b829e4793c8f7df5c8b0bbcd35660e3c9d1eae8675a"
+  },
+  "byKey": {
+    "HI:us-senate:state": [
+      {
+        "id": "H001042",
+        "name": "Mazie K. Hirono",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.hirono.senate.gov/contact",
+        "email": null,
+        "phone": "202-224-6361",
+        "address": "109 Hart Senate Office Building Washington DC 20510",
+        "website": "https://www.hirono.senate.gov",
+        "social": {
+          "x": "MazieHirono",
+          "facebook": "senatorhirono",
+          "instagram": "maziehirono"
+        }
+      },
+      {
+        "id": "S001194",
+        "name": "Brian Schatz",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.schatz.senate.gov/contact",
+        "email": null,
+        "phone": "202-224-3934",
+        "address": "722 Hart Senate Office Building Washington DC 20510",
+        "website": "https://www.schatz.senate.gov",
+        "social": {
+          "x": "SenBrianSchatz",
+          "facebook": "SenBrianSchatz",
+          "instagram": "senbrianschatz"
+        }
+      }
+    ],
+    "HI:us-house:01": [
+      {
+        "id": "C001055",
+        "name": "Ed Case",
+        "office": "us-house",
+        "districtCode": "01",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2726",
+        "address": "2210 Rayburn House Office Building Washington DC 20515-1101",
+        "website": "https://case.house.gov",
+        "social": {
+          "x": "RepEdCase",
+          "facebook": "RepEdCase",
+          "instagram": "repedcase"
+        }
+      }
+    ],
+    "HI:us-house:02": [
+      {
+        "id": "T000487",
+        "name": "Jill N. Tokuda",
+        "office": "us-house",
+        "districtCode": "02",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4906",
+        "address": "1027 Longworth House Office Building Washington DC 20515-1102",
+        "website": "https://tokuda.house.gov",
+        "social": {
+          "x": "RepJillTokuda",
+          "facebook": "RepJillTokuda",
+          "instagram": "repjilltokuda"
+        }
+      }
+    ],
+    "HI:state-house:024": [
+      {
+        "id": "ocd-person/0ce91900-de38-4ab2-a6fe-089b04b20b74",
+        "name": "Adrian Tam",
+        "office": "state-house",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "reptam@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.capitol.hawaii.gov/legislature/memberpage.aspx?member=132",
+        "social": {
+          "facebook": "repadriantam",
+          "instagram": "repadriantam"
+        }
+      }
+    ],
+    "HI:state-house:046": [
+      {
+        "id": "ocd-person/cb860f85-2006-4d5b-b1a8-1c56c1def2d7",
+        "name": "Amy Perruso",
+        "office": "state-house",
+        "districtCode": "046",
+        "contactUrl": null,
+        "email": "repperruso@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://capitol.hawaii.gov/memberpage.aspx?member=perruso&year=2019",
+        "social": {
+          "facebook": "representativeperruso"
+        }
+      }
+    ],
+    "HI:state-house:022": [
+      {
+        "id": "ocd-person/442e3aac-61ca-4efe-bbb8-716654554597",
+        "name": "Andrew Garrett",
+        "office": "state-house",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "repgarrett@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.capitol.hawaii.gov/legislature/memberpage.aspx?member=256",
+        "social": {
+          "facebook": "profile.php?id=100085131802111",
+          "instagram": "repgarrett"
+        }
+      }
+    ],
+    "HI:state-house:045": [
+      {
+        "id": "ocd-person/1a5995d1-114e-4e7e-a53f-d91017df2bc3",
+        "name": "Chris Muraoka",
+        "office": "state-house",
+        "districtCode": "045",
+        "contactUrl": null,
+        "email": "repmuraoka@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.capitol.hawaii.gov/legislature/memberpage.aspx?member=307",
+        "social": {}
+      }
+    ],
+    "HI:state-house:003": [
+      {
+        "id": "ocd-person/6f62978c-5c1e-4a93-b182-caa7b97d45e0",
+        "name": "Chris Todd",
+        "office": "state-house",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "reptodd@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://capitol.hawaii.gov/memberpage.aspx?member=todd&year=2019",
+        "social": {
+          "facebook": "staterepchristodd"
+        }
+      }
+    ],
+    "HI:state-house:035": [
+      {
+        "id": "ocd-person/00c3bae0-1087-4a2f-bee8-af0fbd2c6cf6",
+        "name": "Cory Chun",
+        "office": "state-house",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "repchun@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.capitol.hawaii.gov/legislature/memberpage.aspx?member=252",
+        "social": {}
+      }
+    ],
+    "HI:state-house:028": [
+      {
+        "id": "ocd-person/6003933a-c572-4df8-8ad8-d3a4f8e70882",
+        "name": "Cov Ratcliffe",
+        "office": "state-house",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "repratcliffe@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.capitol.hawaii.gov/legislature/memberpage.aspx?member=311",
+        "social": {}
+      }
+    ],
+    "HI:state-house:036": [
+      {
+        "id": "ocd-person/801d5517-e486-41e4-8c3d-53528a3a8bef",
+        "name": "Daisy Hartsfield",
+        "office": "state-house",
+        "districtCode": "036",
+        "contactUrl": null,
+        "email": "rephartsfield@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.capitol.hawaii.gov/legislature/memberpage.aspx?member=310",
+        "social": {}
+      }
+    ],
+    "HI:state-house:044": [
+      {
+        "id": "ocd-person/76c9a0ff-a9f0-47ac-bf3d-9f8ee134c411",
+        "name": "Darius Kila",
+        "office": "state-house",
+        "districtCode": "044",
+        "contactUrl": null,
+        "email": "repkila@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.capitol.hawaii.gov/legislature/memberpage.aspx?member=266",
+        "social": {}
+      }
+    ],
+    "HI:state-house:008": [
+      {
+        "id": "ocd-person/fca91474-67f3-4b01-a985-6b0ddbfb2227",
+        "name": "David Tarnas",
+        "office": "state-house",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "reptarnas@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://capitol.hawaii.gov/memberpage.aspx?member=tarnas&year=2019",
+        "social": {
+          "x": "reptarnas",
+          "facebook": "reptarnas",
+          "instagram": "reptarnas"
+        }
+      }
+    ],
+    "HI:state-house:041": [
+      {
+        "id": "ocd-person/21e33d30-ecf0-431b-ad89-429f026efc24",
+        "name": "David Alcos",
+        "office": "state-house",
+        "districtCode": "041",
+        "contactUrl": null,
+        "email": "repalcos@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.capitol.hawaii.gov/legislature/memberpage.aspx?member=249",
+        "social": {
+          "x": "repalcos",
+          "facebook": "votealcos",
+          "instagram": "repalcos"
+        }
+      }
+    ],
+    "HI:state-house:017": [
+      {
+        "id": "ocd-person/587a16dd-bb53-4164-829b-5e1703e06201",
+        "name": "Dee Morikawa",
+        "office": "state-house",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "repmorikawa@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://capitol.hawaii.gov/memberpage.aspx?member=morikawa&year=2019",
+        "social": {}
+      }
+    ],
+    "HI:state-house:026": [
+      {
+        "id": "ocd-person/b3a0c91b-d6fd-4a54-9a34-2ba48cc53984",
+        "name": "Della Belatti",
+        "office": "state-house",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "repbelatti@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://capitol.hawaii.gov/memberpage.aspx?member=belatti&year=2019",
+        "social": {
+          "facebook": "repbelatti",
+          "instagram": "repbelatti"
+        }
+      }
+    ],
+    "HI:state-house:042": [
+      {
+        "id": "ocd-person/810a94e5-8524-4de9-bdf2-2e0d6c64b7f2",
+        "name": "Diamond Garcia",
+        "office": "state-house",
+        "districtCode": "042",
+        "contactUrl": null,
+        "email": "repgarcia@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.capitol.hawaii.gov/legislature/memberpage.aspx?member=255",
+        "social": {
+          "facebook": "repdiamondgarcia",
+          "instagram": "repdiamondgarcia"
+        }
+      }
+    ],
+    "HI:state-house:039": [
+      {
+        "id": "ocd-person/313f96df-c94e-45d7-8cc6-19465ad40612",
+        "name": "Elijah Pierick",
+        "office": "state-house",
+        "districtCode": "039",
+        "contactUrl": null,
+        "email": "reppierick@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.capitol.hawaii.gov/legislature/memberpage.aspx?member=283",
+        "social": {
+          "x": "reppierick",
+          "facebook": "elijahforhawaii",
+          "instagram": "repelijahpierick"
+        }
+      }
+    ],
+    "HI:state-house:014": [
+      {
+        "id": "ocd-person/f7bd1cdd-c131-47eb-ab96-1a7c0599bfa7",
+        "name": "Elle Cochran",
+        "office": "state-house",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "repcochran@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.capitol.hawaii.gov/legislature/memberpage.aspx?member=253",
+        "social": {}
+      }
+    ],
+    "HI:state-house:032": [
+      {
+        "id": "ocd-person/9019d5ea-bfe8-4cca-9254-7960319a15bc",
+        "name": "Garner Shimizu",
+        "office": "state-house",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "repshimizu@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.capitol.hawaii.gov/legislature/memberpage.aspx?member=306",
+        "social": {}
+      }
+    ],
+    "HI:state-house:034": [
+      {
+        "id": "ocd-person/33584899-9773-4fa2-96aa-869a6da7cf19",
+        "name": "Gregg Takayama",
+        "office": "state-house",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "reptakayama@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://capitol.hawaii.gov/memberpage.aspx?member=takayama&year=2019",
+        "social": {
+          "facebook": "reptakayama",
+          "instagram": "repgreggtakayama"
+        }
+      }
+    ],
+    "HI:state-house:004": [
+      {
+        "id": "ocd-person/d56e9f60-c26e-4437-90d7-4414957e737d",
+        "name": "Greggor Ilagan",
+        "office": "state-house",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "repilagan@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://repilagan.com/",
+        "social": {
+          "facebook": "repilagan",
+          "instagram": "repilagan"
+        }
+      }
+    ],
+    "HI:state-house:029": [
+      {
+        "id": "ocd-person/2f96974d-decf-46e2-8aed-adf60e072e1e",
+        "name": "Ikaika Hussey",
+        "office": "state-house",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "rephussey@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.capitol.hawaii.gov/legislature/memberpage.aspx?member=302",
+        "social": {}
+      }
+    ],
+    "HI:state-house:023": [
+      {
+        "id": "ocd-person/c5582fc0-ff8a-4c69-85f9-efd464e1a482",
+        "name": "Ikaika Olds",
+        "office": "state-house",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "repolds@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.capitol.hawaii.gov/legislature/memberpage.aspx?member=300",
+        "social": {}
+      }
+    ],
+    "HI:state-house:021": [
+      {
+        "id": "ocd-person/451d1a20-20d4-4c75-95b9-ca4ba6dd3d1d",
+        "name": "Jackson Sayama",
+        "office": "state-house",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "repsayama@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.capitol.hawaii.gov/legislature/memberpage.aspx?member=120",
+        "social": {
+          "facebook": "repsayama",
+          "instagram": "repsayama"
+        }
+      }
+    ],
+    "HI:state-house:005": [
+      {
+        "id": "ocd-person/47a7e8c6-361d-4854-9253-e311b58d9e1c",
+        "name": "Jeanné Kapela",
+        "office": "state-house",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "repkapela@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.capitol.hawaii.gov/legislature/memberpage.aspx?member=71",
+        "social": {}
+      }
+    ],
+    "HI:state-house:027": [
+      {
+        "id": "ocd-person/928645f2-46ed-4153-ab60-5b7a8250dab3",
+        "name": "Jenna Takenouchi",
+        "office": "state-house",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "reptakenouchi@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.capitol.hawaii.gov/legislature/memberpage.aspx?member=290",
+        "social": {
+          "facebook": "reptakenouchi",
+          "instagram": "reptakenouchi"
+        }
+      }
+    ],
+    "HI:state-house:018": [
+      {
+        "id": "ocd-person/06d54403-a57b-40f8-96a6-94b58f4b2a0c",
+        "name": "Joe Gedeon",
+        "office": "state-house",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "repgedeon@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.capitol.hawaii.gov/legislature/memberpage.aspx?member=309",
+        "social": {}
+      }
+    ],
+    "HI:state-house:040": [
+      {
+        "id": "ocd-person/7d6cf0c1-16d4-4c56-bba5-a50c3c5c18ce",
+        "name": "Julie Reyes Oda",
+        "office": "state-house",
+        "districtCode": "040",
+        "contactUrl": null,
+        "email": "repreyesoda@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.capitol.hawaii.gov/legislature/memberpage.aspx?member=304",
+        "social": {}
+      }
+    ],
+    "HI:state-house:009": [
+      {
+        "id": "ocd-person/5d9e6c9d-a94b-4ff6-9828-ed2ce8ceeab0",
+        "name": "Justin Woodson",
+        "office": "state-house",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "repwoodson@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://capitol.hawaii.gov/memberpage.aspx?member=woodson&year=2019",
+        "social": {}
+      }
+    ],
+    "HI:state-house:043": [
+      {
+        "id": "ocd-person/207b309f-9e03-4834-85cb-083725f7a7ab",
+        "name": "Kanani Souza",
+        "office": "state-house",
+        "districtCode": "043",
+        "contactUrl": null,
+        "email": "repsouza@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.capitol.hawaii.gov/legislature/memberpage.aspx?member=288",
+        "social": {}
+      }
+    ],
+    "HI:state-house:025": [
+      {
+        "id": "ocd-person/824eca2b-d968-4807-a48b-7b3df400a904",
+        "name": "Kim Coco Iwamoto",
+        "office": "state-house",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "repiwamoto@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.capitol.hawaii.gov/legislature/memberpage.aspx?member=301",
+        "social": {}
+      }
+    ],
+    "HI:state-house:006": [
+      {
+        "id": "ocd-person/b6d9dda7-d2e1-443e-a19b-ee44ed891cad",
+        "name": "Kirstin Kahaloa",
+        "office": "state-house",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "repkahaloa@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.capitol.hawaii.gov/legislature/memberpage.aspx?member=264",
+        "social": {}
+      }
+    ],
+    "HI:state-house:012": [
+      {
+        "id": "ocd-person/51f31e1a-2fe4-4029-b49c-c3affa0b848d",
+        "name": "Kyle Yamashita",
+        "office": "state-house",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "repyamashita@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://capitol.hawaii.gov/memberpage.aspx?member=yamashita&year=2019",
+        "social": {
+          "facebook": "kyle.yamashita.77"
+        }
+      }
+    ],
+    "HI:state-house:038": [
+      {
+        "id": "ocd-person/8562d0d7-9915-4559-98bc-ac9c456efd02",
+        "name": "Lauren Matsumoto",
+        "office": "state-house",
+        "districtCode": "038",
+        "contactUrl": null,
+        "email": "repmatsumoto@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://capitol.hawaii.gov/memberpage.aspx?member=matsumoto&year=2019",
+        "social": {}
+      }
+    ],
+    "HI:state-house:031": [
+      {
+        "id": "ocd-person/546ef7bf-9015-4a09-b8d3-f37fd87ed97f",
+        "name": "Linda Ichiyama",
+        "office": "state-house",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "repichiyama@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.capitol.hawaii.gov/legislature/memberpage.aspx?member=60",
+        "social": {}
+      }
+    ],
+    "HI:state-house:048": [
+      {
+        "id": "ocd-person/1d8bd1da-7126-4248-8a1e-dce56626b746",
+        "name": "Lisa Kitagawa",
+        "office": "state-house",
+        "districtCode": "048",
+        "contactUrl": null,
+        "email": "repkitagawa@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://capitol.hawaii.gov/memberpage.aspx?member=Kitagawa&year=2019",
+        "social": {
+          "facebook": "representative-lisa-kitagawa-110741641505108",
+          "instagram": "repkitagawa"
+        }
+      }
+    ],
+    "HI:state-house:051": [
+      {
+        "id": "ocd-person/c4ea2b48-612d-42f4-b396-6f13c86bfe5b",
+        "name": "Lisa Marten",
+        "office": "state-house",
+        "districtCode": "051",
+        "contactUrl": null,
+        "email": "repmarten@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.capitol.hawaii.gov/legislature/memberpage.aspx?member=87",
+        "social": {}
+      }
+    ],
+    "HI:state-house:016": [
+      {
+        "id": "ocd-person/128214ae-53bd-4dfe-88e6-ad3a70c6a83d",
+        "name": "Luke Evslin",
+        "office": "state-house",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "repevslin@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.capitol.hawaii.gov/legislature/memberpage.aspx?member=291",
+        "social": {}
+      }
+    ],
+    "HI:state-house:013": [
+      {
+        "id": "ocd-person/c6f087db-713b-43c2-b557-7306f62ee15c",
+        "name": "Mahina Poepoe",
+        "office": "state-house",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "reppoepoe@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.capitol.hawaii.gov/legislature/memberpage.aspx?member=284",
+        "social": {
+          "facebook": "reppoepoe",
+          "instagram": "reppoepoe"
+        }
+      }
+    ],
+    "HI:state-house:019": [
+      {
+        "id": "ocd-person/f2d1de1a-c206-46f7-8c5f-a6193229642f",
+        "name": "Mark Hashem",
+        "office": "state-house",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "rephashem@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://capitol.hawaii.gov/memberpage.aspx?member=hashem&year=2019",
+        "social": {
+          "instagram": "repmarkhashem"
+        }
+      }
+    ],
+    "HI:state-house:001": [
+      {
+        "id": "ocd-person/fb23dd18-ee42-45da-9fc5-8379ced56c88",
+        "name": "Matthias Kusch",
+        "office": "state-house",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "repkusch@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.capitol.hawaii.gov/legislature/memberpage.aspx?member=297",
+        "social": {}
+      }
+    ],
+    "HI:state-house:050": [
+      {
+        "id": "ocd-person/12d661c2-2391-4504-973d-e905022d3134",
+        "name": "Mike Lee",
+        "office": "state-house",
+        "districtCode": "050",
+        "contactUrl": null,
+        "email": "replee@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.capitol.hawaii.gov/legislature/memberpage.aspx?member=305",
+        "social": {}
+      }
+    ],
+    "HI:state-house:015": [
+      {
+        "id": "ocd-person/aa2e4b09-2c1e-4fa2-b135-7d2427dca5b4",
+        "name": "Nadine Nakamura",
+        "office": "state-house",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "repnakamura@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.capitol.hawaii.gov/legislature/memberpage.aspx?member=100",
+        "social": {
+          "facebook": "representativenadinenakamura",
+          "instagram": "nakamuranadine"
+        }
+      }
+    ],
+    "HI:state-house:007": [
+      {
+        "id": "ocd-person/43795702-8cb7-40a5-945d-80fca537e085",
+        "name": "Nicole Lowen",
+        "office": "state-house",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "replowen@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://capitol.hawaii.gov/memberpage.aspx?member=lowen&year=2019",
+        "social": {}
+      }
+    ],
+    "HI:state-house:033": [
+      {
+        "id": "ocd-person/cbf4fe33-42cf-41c2-b689-5e4c0ff150f6",
+        "name": "Sam Kong",
+        "office": "state-house",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "repkong@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://capitol.hawaii.gov/memberpage.aspx?member=kong&year=2019",
+        "social": {}
+      }
+    ],
+    "HI:state-house:049": [
+      {
+        "id": "ocd-person/78cc3d2c-31b6-421f-a666-5a96ca3fe65a",
+        "name": "Scot Matayoshi",
+        "office": "state-house",
+        "districtCode": "049",
+        "contactUrl": null,
+        "email": "repmatayoshi@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://capitol.hawaii.gov/memberpage.aspx?member=Matayoshi&year=2019",
+        "social": {
+          "facebook": "repscotmatayoshi",
+          "instagram": "repscotmatayoshi"
+        }
+      }
+    ],
+    "HI:state-house:047": [
+      {
+        "id": "ocd-person/078931f6-9caa-4ba0-9f53-2b27e13ed400",
+        "name": "Sean Quinlan",
+        "office": "state-house",
+        "districtCode": "047",
+        "contactUrl": null,
+        "email": "repquinlan@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://capitol.hawaii.gov/memberpage.aspx?member=quinlan&year=2019",
+        "social": {}
+      }
+    ],
+    "HI:state-house:030": [
+      {
+        "id": "ocd-person/58181d36-e194-462d-a3cb-b3ab7615fbf9",
+        "name": "Shirley Templo",
+        "office": "state-house",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "reptemplo@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.capitol.hawaii.gov/legislature/memberpage.aspx?member=303",
+        "social": {}
+      }
+    ],
+    "HI:state-house:002": [
+      {
+        "id": "ocd-person/6311f34d-9611-42be-be12-017fcc0f7aa6",
+        "name": "Sue Lee Loy",
+        "office": "state-house",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "repleeloy@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.capitol.hawaii.gov/legislature/memberpage.aspx?member=298",
+        "social": {}
+      }
+    ],
+    "HI:state-house:011": [
+      {
+        "id": "ocd-person/3c16b940-790f-43f2-946d-998b6177dc5a",
+        "name": "Terez Amato",
+        "office": "state-house",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "repamato@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.capitol.hawaii.gov/legislature/memberpage.aspx?member=250",
+        "social": {}
+      }
+    ],
+    "HI:state-house:020": [
+      {
+        "id": "ocd-person/bce62096-6c4d-4923-8826-7f67a6aaf35d",
+        "name": "Tina Grandinetti",
+        "office": "state-house",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "repgrandinetti@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.capitol.hawaii.gov/legislature/memberpage.aspx?member=299",
+        "social": {}
+      }
+    ],
+    "HI:state-house:037": [
+      {
+        "id": "ocd-person/9957f6f1-9231-45b3-940f-2122c1caf3f7",
+        "name": "Trish La Chica",
+        "office": "state-house",
+        "districtCode": "037",
+        "contactUrl": null,
+        "email": "replachica@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.capitol.hawaii.gov/legislature/memberpage.aspx?member=292",
+        "social": {}
+      }
+    ],
+    "HI:state-house:010": [
+      {
+        "id": "ocd-person/6fb71afb-6ce8-4f21-ad16-a7255ca2bfec",
+        "name": "Tyson Miyake",
+        "office": "state-house",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "repmiyake@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.capitol.hawaii.gov/legislature/memberpage.aspx?member=294",
+        "social": {}
+      }
+    ],
+    "HI:state-senate:006": [
+      {
+        "id": "ocd-person/d31a4d99-d6f1-42f8-b902-b6bff3c667e8",
+        "name": "Angus McKelvey",
+        "office": "state-senate",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "senmckelvey@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://capitol.hawaii.gov/memberpage.aspx?member=mckelvey&year=2019",
+        "social": {}
+      }
+    ],
+    "HI:state-senate:016": [
+      {
+        "id": "ocd-person/22139704-8a26-4f4a-8a03-989990c21f37",
+        "name": "Brandon Elefante",
+        "office": "state-senate",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "senelefante@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.capitol.hawaii.gov/legislature/memberpage.aspx?member=229",
+        "social": {
+          "instagram": "senelefante"
+        }
+      }
+    ],
+    "HI:state-senate:023": [
+      {
+        "id": "ocd-person/be1149eb-5b0c-48fb-b9f2-9bee875479cc",
+        "name": "Brenton Awa",
+        "office": "state-senate",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "senawa@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.capitol.hawaii.gov/legislature/memberpage.aspx?member=225",
+        "social": {}
+      }
+    ],
+    "HI:state-senate:011": [
+      {
+        "id": "ocd-person/ca85a087-4a1f-450b-9386-11c13eb8c280",
+        "name": "Carol Fukunaga",
+        "office": "state-senate",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "senfukunaga@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://capitol.hawaii.gov//memberpage.aspx?member=fukunaga",
+        "social": {}
+      }
+    ],
+    "HI:state-senate:025": [
+      {
+        "id": "ocd-person/3484e323-b1a2-4c41-ad9f-8153445f8cd4",
+        "name": "Chris Lee",
+        "office": "state-senate",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "senlee@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://capitol.hawaii.gov/memberpage.aspx?member=clee&year=2019",
+        "social": {}
+      }
+    ],
+    "HI:state-senate:018": [
+      {
+        "id": "ocd-person/f0a277d4-dbc5-4dfe-952b-bdee42260d39",
+        "name": "Danielle Bass",
+        "office": "state-senate",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "senbass@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.capitol.hawaii.gov/legislature/memberpage.aspx?member=313",
+        "social": {}
+      }
+    ],
+    "HI:state-senate:014": [
+      {
+        "id": "ocd-person/f196e943-c8d6-4a35-96c2-252171c6529a",
+        "name": "Donna Kim",
+        "office": "state-senate",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "senkim@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://capitol.hawaii.gov/memberpage.aspx?member=kim&year=2019",
+        "social": {
+          "facebook": "senatordonnamercadokim"
+        }
+      }
+    ],
+    "HI:state-senate:017": [
+      {
+        "id": "ocd-person/0a9ef1d8-8fec-48f4-963c-50f39332cfa7",
+        "name": "Donovan Dela Cruz",
+        "office": "state-senate",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "sendelacruz@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://capitol.hawaii.gov/memberpage.aspx?member=delacruz&year=2019",
+        "social": {}
+      }
+    ],
+    "HI:state-senate:003": [
+      {
+        "id": "ocd-person/e75469cc-851a-4e63-9908-9e63b5215448",
+        "name": "Dru Kanuha",
+        "office": "state-senate",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "senkanuha@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://capitol.hawaii.gov/memberpage.aspx?member=kanuha&year=2019",
+        "social": {
+          "x": "senatorkanuha",
+          "facebook": "senatorkanuha",
+          "instagram": "senatorkanuha"
+        }
+      }
+    ],
+    "HI:state-senate:015": [
+      {
+        "id": "ocd-person/5ef4a0ba-e9b0-4a62-9ac7-42d88308f3df",
+        "name": "Glenn Wakai",
+        "office": "state-senate",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "senwakai@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://capitol.hawaii.gov/memberpage.aspx?member=wakai&year=2019",
+        "social": {}
+      }
+    ],
+    "HI:state-senate:004": [
+      {
+        "id": "ocd-person/ff0ea974-b3aa-4261-aa1b-fa9cf74b3728",
+        "name": "Tim Richards",
+        "office": "state-senate",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "senrichards@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.capitol.hawaii.gov/legislature/memberpage.aspx?member=244",
+        "social": {}
+      }
+    ],
+    "HI:state-senate:024": [
+      {
+        "id": "ocd-person/07ed1559-820e-4ea1-803e-024ce5359a87",
+        "name": "Jarrett Keohokalole",
+        "office": "state-senate",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "senkeohokalole@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://capitol.hawaii.gov/memberpage.aspx?member=jkeohokalole&year=2019",
+        "social": {}
+      }
+    ],
+    "HI:state-senate:002": [
+      {
+        "id": "ocd-person/cac74229-bacc-4358-8208-23cdac57d57c",
+        "name": "Joy San Buenaventura",
+        "office": "state-senate",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "sensanbuenaventura@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://capitol.hawaii.gov/memberpage.aspx?member=Sanbuenaventura&year=2019",
+        "social": {
+          "x": "senjoydistrict2",
+          "facebook": "senjoydistrict2",
+          "instagram": "senjoysanbuenaventura"
+        }
+      }
+    ],
+    "HI:state-senate:013": [
+      {
+        "id": "ocd-person/099756de-3b84-4531-b5da-6d1c5d4c89ee",
+        "name": "Karl Rhoads",
+        "office": "state-senate",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "senrhoads@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://capitol.hawaii.gov/memberpage.aspx?member=krhoads&year=2019",
+        "social": {}
+      }
+    ],
+    "HI:state-senate:020": [
+      {
+        "id": "ocd-person/e6bafd21-a2de-41b8-8139-fcbf5ea94cf4",
+        "name": "Kurt Fevella",
+        "office": "state-senate",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "senfevella@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://capitol.hawaii.gov/memberpage.aspx?member=fevella&year=2019",
+        "social": {}
+      }
+    ],
+    "HI:state-senate:010": [
+      {
+        "id": "ocd-person/94e42ecd-2e4d-4502-8b50-c1c6324617f1",
+        "name": "Les Ihara",
+        "office": "state-senate",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "senihara@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://capitol.hawaii.gov/memberpage.aspx?member=ihara&year=2019",
+        "social": {}
+      }
+    ],
+    "HI:state-senate:001": [
+      {
+        "id": "ocd-person/77991a5e-d7df-4282-b1cc-2398c56c18cc",
+        "name": "Lorraine Inouye",
+        "office": "state-senate",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "seninouye@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.capitol.hawaii.gov/legislature/memberpage.aspx?member=181&year=2023",
+        "social": {
+          "facebook": "senlorraineinouye"
+        }
+      }
+    ],
+    "HI:state-senate:007": [
+      {
+        "id": "ocd-person/d76e8f2c-2e55-4d2a-94e4-c13cc0a9e5e2",
+        "name": "Lynn DeCoite",
+        "office": "state-senate",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "sendecoite@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://capitol.hawaii.gov/memberpage.aspx?member=decoite&year=2019",
+        "social": {}
+      }
+    ],
+    "HI:state-senate:021": [
+      {
+        "id": "ocd-person/9f87e7d6-a307-45ab-b384-96a8599dab56",
+        "name": "Mike Gabbard",
+        "office": "state-senate",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "sengabbard@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.capitol.hawaii.gov/legislature/memberpage.aspx?member=169",
+        "social": {
+          "x": "senmikegabbard",
+          "facebook": "mikegabbardsenatedistrict21",
+          "instagram": "gabbardaloha"
+        }
+      }
+    ],
+    "HI:state-senate:019": [
+      {
+        "id": "ocd-person/19b5116e-d2b7-4f4b-8d7d-f4dfcbcbe1d6",
+        "name": "Rachele Lamosao",
+        "office": "state-senate",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "senlamosao@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.capitol.hawaii.gov/legislature/memberpage.aspx?member=270",
+        "social": {
+          "facebook": "rachelelamosao?mibextid=lqqt4d",
+          "instagram": "replamosao"
+        }
+      }
+    ],
+    "HI:state-senate:008": [
+      {
+        "id": "ocd-person/3ca1b2e5-0c68-4be1-ba5b-b0d935b85e6f",
+        "name": "Ron Kouchi",
+        "office": "state-senate",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "senkouchi@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://capitol.hawaii.gov/memberpage.aspx?member=kouchi&year=2019",
+        "social": {}
+      }
+    ],
+    "HI:state-senate:022": [
+      {
+        "id": "ocd-person/8a60db8b-b07f-45da-8169-46ddd043ce02",
+        "name": "Samantha DeCorte",
+        "office": "state-senate",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "sendecorte@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.capitol.hawaii.gov/legislature/memberpage.aspx?member=308",
+        "social": {}
+      }
+    ],
+    "HI:state-senate:012": [
+      {
+        "id": "ocd-person/7e04af29-c684-402f-a7b0-bdde0591197c",
+        "name": "Sharon Moriwaki",
+        "office": "state-senate",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "senmoriwaki@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://capitol.hawaii.gov/memberpage.aspx?member=moriwaki&year=2019",
+        "social": {
+          "facebook": "senatormoriwaki"
+        }
+      }
+    ],
+    "HI:state-senate:009": [
+      {
+        "id": "ocd-person/d6359473-e0b5-4040-8d7f-9d95a0518650",
+        "name": "Stanley Chang",
+        "office": "state-senate",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "senchang@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://capitol.hawaii.gov/memberpage.aspx?member=chang&year=2019",
+        "social": {}
+      }
+    ],
+    "HI:state-senate:005": [
+      {
+        "id": "ocd-person/3b99a717-698f-4bcf-a630-183bb63e623e",
+        "name": "Troy Hashimoto",
+        "office": "state-senate",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "senhashimoto@capitol.hawaii.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://capitol.hawaii.gov/memberpage.aspx?member=hashimoto&year=2019",
+        "social": {
+          "facebook": "rephashimoto"
+        }
+      }
+    ]
+  }
+}

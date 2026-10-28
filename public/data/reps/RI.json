@@ -1,0 +1,1646 @@
+{
+  "state": "RI",
+  "generatedFrom": {
+    "legislators-current.json": "ae8cb9477c48715df71a7d860854229d799dc90a254d61badc1efb770f892b2c",
+    "legislators-social-media.json": "c6eca1fcdb3a89901335eed51ca061daa4b60ad3243969a127e913bb9657fbc5",
+    "ri.csv": "672b903de1adba11a91e66bbe72436e779fb5bdb88195803a8c51e97380f35f7"
+  },
+  "byKey": {
+    "RI:us-senate:state": [
+      {
+        "id": "W000802",
+        "name": "Sheldon Whitehouse",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.whitehouse.senate.gov/contact/email-sheldon",
+        "email": null,
+        "phone": "202-224-2921",
+        "address": "530 Hart Senate Office Building Washington DC 20510",
+        "website": "https://www.whitehouse.senate.gov",
+        "social": {
+          "x": "SenWhitehouse",
+          "facebook": "SenatorWhitehouse",
+          "instagram": "SenWhitehouse"
+        }
+      },
+      {
+        "id": "R000122",
+        "name": "Jack Reed",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.reed.senate.gov/contact/",
+        "email": null,
+        "phone": "202-224-4642",
+        "address": "728 Hart Senate Office Building Washington DC 20510",
+        "website": "https://www.reed.senate.gov",
+        "social": {
+          "x": "SenJackReed",
+          "facebook": "SenJackReed"
+        }
+      }
+    ],
+    "RI:us-house:02": [
+      {
+        "id": "M001223",
+        "name": "Seth Magaziner",
+        "office": "us-house",
+        "districtCode": "02",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2735",
+        "address": "252 Cannon House Office Building Washington DC 20515-3902",
+        "website": "https://magaziner.house.gov",
+        "social": {
+          "x": "Rep_Magaziner",
+          "facebook": "repsethmagaziner"
+        }
+      }
+    ],
+    "RI:us-house:01": [
+      {
+        "id": "A000380",
+        "name": "Gabe Amo",
+        "office": "us-house",
+        "districtCode": "01",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4911",
+        "address": "1119 Longworth House Office Building Washington DC 20515-3901",
+        "website": "https://amo.house.gov",
+        "social": {
+          "x": "RepGabeAmo",
+          "facebook": "61553581414066",
+          "instagram": "repgabeamo"
+        }
+      }
+    ],
+    "RI:state-house:052": [
+      {
+        "id": "ocd-person/7769ff96-3f6e-4747-b14b-de0a8648af61",
+        "name": "Alex Marszalkowski",
+        "office": "state-house",
+        "districtCode": "052",
+        "contactUrl": null,
+        "email": "rep-marszalkowski@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:074": [
+      {
+        "id": "ocd-person/202a1def-abb3-4f77-8ef1-5c453d2d5423",
+        "name": "Alex Finkelman",
+        "office": "state-house",
+        "districtCode": "074",
+        "contactUrl": null,
+        "email": "rep-finkelman@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/finkelman/Pages/biography.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:005": [
+      {
+        "id": "ocd-person/b9359c6a-fbb2-4165-af9b-a6c63290d851",
+        "name": "Anthony DeSimone",
+        "office": "state-house",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "rep-desimone@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/desimone/Pages/Biography.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:018": [
+      {
+        "id": "ocd-person/6d4c7be7-4e68-4aa1-9262-81995fcc231e",
+        "name": "Arthur Handy",
+        "office": "state-house",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "rep-handy@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:055": [
+      {
+        "id": "ocd-person/6cb1ca03-2ea8-4ee8-9ecb-faa37f4c5966",
+        "name": "Doc Corvese",
+        "office": "state-house",
+        "districtCode": "055",
+        "contactUrl": null,
+        "email": "rep-corvese@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:016": [
+      {
+        "id": "ocd-person/6ddaaa6f-48c9-468e-a744-714728251586",
+        "name": "Brandon Potter",
+        "office": "state-house",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "rep-potter@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:057": [
+      {
+        "id": "ocd-person/f0206346-2c07-4316-a556-cee7fe595e9a",
+        "name": "Brandon Voas",
+        "office": "state-house",
+        "districtCode": "057",
+        "contactUrl": null,
+        "email": "rep-voas@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/voas/pages/biography.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:048": [
+      {
+        "id": "ocd-person/397f8729-c37c-4882-af7e-d7235e9f06f2",
+        "name": "Brian Newberry",
+        "office": "state-house",
+        "districtCode": "048",
+        "contactUrl": null,
+        "email": "rep-newberry@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:038": [
+      {
+        "id": "ocd-person/632b3bf0-a3f8-4c0d-9818-d03c861318dc",
+        "name": "Brian Kennedy",
+        "office": "state-house",
+        "districtCode": "038",
+        "contactUrl": null,
+        "email": "rep-kennedy@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:033": [
+      {
+        "id": "ocd-person/7daab32c-5d7f-4db2-b141-026d3595f69f",
+        "name": "Carol McEntee",
+        "office": "state-house",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "rep-mcentee@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:014": [
+      {
+        "id": "ocd-person/8fad7738-c303-432e-9442-ce2b6dfe87e5",
+        "name": "Charlene Lima",
+        "office": "state-house",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "rep-lima@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:058": [
+      {
+        "id": "ocd-person/386a8117-95b5-441f-91d0-665effac1af4",
+        "name": "Cherie Cruz",
+        "office": "state-house",
+        "districtCode": "058",
+        "contactUrl": null,
+        "email": "rep-cruz@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/cruz/Pages/Biography.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:015": [
+      {
+        "id": "ocd-person/4f6ac85b-f69f-4916-beaf-a30087ba1214",
+        "name": "Chris Paplauskas",
+        "office": "state-house",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "rep-paplauskas@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://rilegislature.gov/representatives/Paplauskas/Pages/Biography.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:002": [
+      {
+        "id": "ocd-person/a9ba95ac-22f3-4aeb-8fdd-eb236675d8d4",
+        "name": "Chris Blazejewski",
+        "office": "state-house",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "rep-blazejewski@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/blazejewski/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:020": [
+      {
+        "id": "ocd-person/b12f1651-fc9e-440c-9bc3-ff326505cca4",
+        "name": "David Bennett",
+        "office": "state-house",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "rep-bennett@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/bennett/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:047": [
+      {
+        "id": "ocd-person/785df766-de25-496b-a823-e4ad64c462cb",
+        "name": "David Place",
+        "office": "state-house",
+        "districtCode": "047",
+        "contactUrl": null,
+        "email": "rep-place@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:007": [
+      {
+        "id": "ocd-person/75bd1298-3fc9-42cc-87c6-23bdc20a7b56",
+        "name": "David Morales",
+        "office": "state-house",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "rep-morales@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:043": [
+      {
+        "id": "ocd-person/3efcf2f9-f7f8-4441-9ec7-4f6d8c17940f",
+        "name": "Deb Fellela",
+        "office": "state-house",
+        "districtCode": "043",
+        "contactUrl": null,
+        "email": "rep-fellela@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:042": [
+      {
+        "id": "ocd-person/0065fe7b-08cf-4d17-b358-c0c04ab45616",
+        "name": "Dick Fascia",
+        "office": "state-house",
+        "districtCode": "042",
+        "contactUrl": null,
+        "email": "rep-fascia@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://fasciarep42.com/",
+        "social": {}
+      }
+    ],
+    "RI:state-house:026": [
+      {
+        "id": "ocd-person/6e9979b1-f131-4d71-8146-71f10bd06e57",
+        "name": "Earl Read",
+        "office": "state-house",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "rep-read@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://rilegislature.gov/representatives/Read/Pages/Biography.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:001": [
+      {
+        "id": "ocd-person/e073b501-75f0-4fc6-9e61-392b9931f070",
+        "name": "Edith Ajello",
+        "office": "state-house",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "rep-ajello@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/ajello/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:009": [
+      {
+        "id": "ocd-person/e70e3449-7587-4a64-a940-922d543f5a2d",
+        "name": "Enrique Sanchez",
+        "office": "state-house",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "rep-sanchez@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/sanchez/Pages/biography.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:024": [
+      {
+        "id": "ocd-person/c5f9a1f5-502b-41b6-8848-bfa359b1bad9",
+        "name": "Evan Shanley",
+        "office": "state-house",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "rep-shanley@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:028": [
+      {
+        "id": "ocd-person/5d976bb8-2481-45d2-bae9-df4b565d9526",
+        "name": "George Nardone",
+        "office": "state-house",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "rep-nardone@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:011": [
+      {
+        "id": "ocd-person/44424388-03a6-452b-992b-3c082949f62f",
+        "name": "Grace Diaz",
+        "office": "state-house",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "rep-diaz@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:044": [
+      {
+        "id": "ocd-person/4b45cbc5-99f3-4a08-a154-cac0cc90ae1a",
+        "name": "Greg Costantino",
+        "office": "state-house",
+        "districtCode": "044",
+        "contactUrl": null,
+        "email": "rep-costantino@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:017": [
+      {
+        "id": "ocd-person/c2b18728-5409-42b0-a789-d7f5bd717780",
+        "name": "Jackie Baginski",
+        "office": "state-house",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "rep-baginski@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/baginski/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:067": [
+      {
+        "id": "ocd-person/cef11d28-cbbb-4ffd-b8f2-23c71e73f1b3",
+        "name": "Jason Knight",
+        "office": "state-house",
+        "districtCode": "067",
+        "contactUrl": null,
+        "email": "rep-knight@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:064": [
+      {
+        "id": "ocd-person/c937560c-277e-4c48-9656-bb385a7910f3",
+        "name": "Jenni Furtado",
+        "office": "state-house",
+        "districtCode": "064",
+        "contactUrl": null,
+        "email": "rep-furtado@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://rilegislature.gov/representatives/Furtado/Pages/Biography.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:059": [
+      {
+        "id": "ocd-person/c11b7057-fe39-42b6-8a38-91d9e7349118",
+        "name": "Jennifer Stewart",
+        "office": "state-house",
+        "districtCode": "059",
+        "contactUrl": null,
+        "email": "rep-stewart@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/stewart/pages/biography.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:066": [
+      {
+        "id": "ocd-person/32458c0f-8b82-4f49-a191-90d68c3f375f",
+        "name": "Jennifer Boylan",
+        "office": "state-house",
+        "districtCode": "066",
+        "contactUrl": null,
+        "email": "rep-boylan@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/boylan/Pages/Biography.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:070": [
+      {
+        "id": "ocd-person/85b2ef21-1f02-4d9e-9f74-a40a2e942f7c",
+        "name": "Jay Edwards",
+        "office": "state-house",
+        "districtCode": "070",
+        "contactUrl": null,
+        "email": "rep-edwards@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:008": [
+      {
+        "id": "ocd-person/f9877000-1919-4f5b-a8b7-f05a1092bdab",
+        "name": "John Lombardi",
+        "office": "state-house",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "rep-lombardi@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:049": [
+      {
+        "id": "ocd-person/89e9f600-0af5-471c-89bb-b27142def4c9",
+        "name": "Jon Brien",
+        "office": "state-house",
+        "districtCode": "049",
+        "contactUrl": null,
+        "email": "rep-brien@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/brien/Pages/biography.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:012": [
+      {
+        "id": "ocd-person/be85e7a9-0455-4e02-92f7-834710d0e401",
+        "name": "Jose Batista",
+        "office": "state-house",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "rep-batista@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/batista/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:022": [
+      {
+        "id": "ocd-person/0b700db6-fe30-4fb4-a988-05ae0d618720",
+        "name": "Joseph Solomon",
+        "office": "state-house",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "rep-solomon@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:019": [
+      {
+        "id": "ocd-person/ce92c860-ad04-4cc5-91eb-52add74c98e5",
+        "name": "Joseph McNamara",
+        "office": "state-house",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "rep-mcnamara@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:056": [
+      {
+        "id": "ocd-person/b6a9a38c-0f39-4150-b041-fd6c75f9c8ad",
+        "name": "Joshua Giraldo",
+        "office": "state-house",
+        "districtCode": "056",
+        "contactUrl": null,
+        "email": "rep-giraldo@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:068": [
+      {
+        "id": "ocd-person/9386224e-9603-4695-8f46-a1033d8534a5",
+        "name": "June Speakman",
+        "office": "state-house",
+        "districtCode": "068",
+        "contactUrl": null,
+        "email": "rep-speakman@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:030": [
+      {
+        "id": "ocd-person/38c539f2-0698-4fa2-a761-477608365838",
+        "name": "Justine Caldwell",
+        "office": "state-house",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "rep-caldwell@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/caldwell/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:023": [
+      {
+        "id": "ocd-person/00644fec-e128-4e7f-9af0-8e79d0903da3",
+        "name": "Joe Shekarchi",
+        "office": "state-house",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "rep-shekarchi@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://joeshekarchi.com/",
+        "social": {}
+      }
+    ],
+    "RI:state-house:060": [
+      {
+        "id": "ocd-person/016b40cf-1be0-4e66-acdf-78a029822e1c",
+        "name": "Karen Alzate",
+        "office": "state-house",
+        "districtCode": "060",
+        "contactUrl": null,
+        "email": "rep-alzate@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/alzate/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:063": [
+      {
+        "id": "ocd-person/bd30e693-11a2-412f-b81a-bebc78d91145",
+        "name": "Katie Kazarian",
+        "office": "state-house",
+        "districtCode": "063",
+        "contactUrl": null,
+        "email": "rep-kazarian@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:035": [
+      {
+        "id": "ocd-person/570c899e-34b2-4e30-93e2-79f588ff8aef",
+        "name": "Kathleen Fogarty",
+        "office": "state-house",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "rep-fogarty@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:075": [
+      {
+        "id": "ocd-person/320f08df-f7d3-4ebe-a696-9c2b8d98f75b",
+        "name": "Lauren Carson",
+        "office": "state-house",
+        "districtCode": "075",
+        "contactUrl": null,
+        "email": "rep-carson@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:061": [
+      {
+        "id": "ocd-person/ad453635-2239-4a63-a153-a9f925b32621",
+        "name": "Leo Felix",
+        "office": "state-house",
+        "districtCode": "061",
+        "contactUrl": null,
+        "email": "rep-felix@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:021": [
+      {
+        "id": "ocd-person/bc0b7591-fb22-44c1-9766-49ea0d70d894",
+        "name": "Marie Hopkins",
+        "office": "state-house",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "rep-hopkins@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://rilegislature.gov/representatives/Hopkins/Pages/Biography.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:073": [
+      {
+        "id": "ocd-person/ed735cca-8f53-4304-a1ec-9e212744ec17",
+        "name": "Marvin Abney",
+        "office": "state-house",
+        "districtCode": "073",
+        "contactUrl": null,
+        "email": "rep-abney@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/abney/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:046": [
+      {
+        "id": "ocd-person/20543a6c-f763-4297-a19b-c670fbe8a68b",
+        "name": "Mary Ann Shallcross-Smith",
+        "office": "state-house",
+        "districtCode": "046",
+        "contactUrl": null,
+        "email": "rep-shallcross-smith@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:062": [
+      {
+        "id": "ocd-person/cad61cfb-b3e8-417a-934e-1add601d4cba",
+        "name": "Mary Messier",
+        "office": "state-house",
+        "districtCode": "062",
+        "contactUrl": null,
+        "email": "rep-messier@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:065": [
+      {
+        "id": "ocd-person/bffdb553-5c5c-403e-8e2c-47b34a7b50f5",
+        "name": "Matthew Dawson",
+        "office": "state-house",
+        "districtCode": "065",
+        "contactUrl": null,
+        "email": "rep-dawson@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/dawson/Pages/Biography.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:039": [
+      {
+        "id": "ocd-person/4ad02cf0-3ead-4bc4-84e3-d1c08c3aa11a",
+        "name": "Megan Cotter",
+        "office": "state-house",
+        "districtCode": "039",
+        "contactUrl": null,
+        "email": "rep-cotter@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/cotter/Pages/Biography.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:045": [
+      {
+        "id": "ocd-person/7c4d8cad-55e5-474d-ac05-8db9a59da7fd",
+        "name": "Mia Ackerman",
+        "office": "state-house",
+        "districtCode": "045",
+        "contactUrl": null,
+        "email": "rep-ackerman@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/ackerman/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:040": [
+      {
+        "id": "ocd-person/02f4f018-3639-4fb1-aced-f8684161121d",
+        "name": "Mike Chippendale",
+        "office": "state-house",
+        "districtCode": "040",
+        "contactUrl": null,
+        "email": "rep-chippendale@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:071": [
+      {
+        "id": "ocd-person/8318a7d4-6d81-4825-8821-4e7aed69b4dc",
+        "name": "Michelle McGaw",
+        "office": "state-house",
+        "districtCode": "071",
+        "contactUrl": null,
+        "email": "rep-mcgaw@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:003": [
+      {
+        "id": "ocd-person/39bdc05c-bda5-4ea9-b4ad-4cc7172adf56",
+        "name": "Nathan Biah",
+        "office": "state-house",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "rep-biah@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/biah/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:027": [
+      {
+        "id": "ocd-person/45fd70a7-613e-405d-959f-2900eea0f264",
+        "name": "Pat Serpa",
+        "office": "state-house",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "rep-serpa@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:053": [
+      {
+        "id": "ocd-person/d28514b2-da9f-4c03-9590-781d3c1529ad",
+        "name": "Paul Santucci",
+        "office": "state-house",
+        "districtCode": "053",
+        "contactUrl": null,
+        "email": "rep-santucci@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://rilegislature.gov/representatives/Santucci/Pages/Biography.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:013": [
+      {
+        "id": "ocd-person/181465b6-b392-4222-acec-456182d23aa5",
+        "name": "Ramon Perez",
+        "office": "state-house",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "rep-perez@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:006": [
+      {
+        "id": "ocd-person/da9a4b15-1cbf-4645-bd98-58ce413b68e1",
+        "name": "Raymond Hull",
+        "office": "state-house",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "rep-hull@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rayhull.com/",
+        "social": {}
+      }
+    ],
+    "RI:state-house:004": [
+      {
+        "id": "ocd-person/dd5636ac-e9a1-4d98-8f21-6376b8977706",
+        "name": "Rebecca Kislak",
+        "office": "state-house",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "rep-kislak@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:051": [
+      {
+        "id": "ocd-person/53f07987-a534-4194-ba51-2fcd62f0f63e",
+        "name": "Bob Phillips",
+        "office": "state-house",
+        "districtCode": "051",
+        "contactUrl": null,
+        "email": "rep-phillips@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:032": [
+      {
+        "id": "ocd-person/a6d519b0-89bd-45d5-9067-3ae0b421eee7",
+        "name": "Robert Craven",
+        "office": "state-house",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "rep-craven@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:041": [
+      {
+        "id": "ocd-person/11bc8a51-bee7-422d-8bb7-6a9177e55735",
+        "name": "Bob Quattrocchi",
+        "office": "state-house",
+        "districtCode": "041",
+        "contactUrl": null,
+        "email": "rep-quattrocchi@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:037": [
+      {
+        "id": "ocd-person/c9229f5a-b4ac-4cf2-b227-a0b4e56cca2f",
+        "name": "Sam Azzinaro",
+        "office": "state-house",
+        "districtCode": "037",
+        "contactUrl": null,
+        "email": "rep-azzinaro@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/azzinaro/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:010": [
+      {
+        "id": "ocd-person/1cd78f67-6adb-47c6-98cd-f49ca8eb603f",
+        "name": "Scott Slater",
+        "office": "state-house",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "rep-slater@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:029": [
+      {
+        "id": "ocd-person/6c7285bd-fdd3-4629-be6f-4a01d19e9c25",
+        "name": "Sherry Roberts",
+        "office": "state-house",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "rep-roberts@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:050": [
+      {
+        "id": "ocd-person/0b20a11e-e90b-4ff2-aa25-5334a8592071",
+        "name": "Stephen Casey",
+        "office": "state-house",
+        "districtCode": "050",
+        "contactUrl": null,
+        "email": "rep-casey@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:069": [
+      {
+        "id": "ocd-person/160de7ca-e70f-4cd4-b218-e9600c24a5aa",
+        "name": "Susan Donovan",
+        "office": "state-house",
+        "districtCode": "069",
+        "contactUrl": null,
+        "email": "rep-donovan@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:034": [
+      {
+        "id": "ocd-person/bdccc3f1-4b2d-4f64-8653-ada4322d6a10",
+        "name": "Teresa Tanzi",
+        "office": "state-house",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "rep-tanzi@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:072": [
+      {
+        "id": "ocd-person/0e459c44-8d77-408e-9db6-c0e0b79274fd",
+        "name": "Terri Cortvriend",
+        "office": "state-house",
+        "districtCode": "072",
+        "contactUrl": null,
+        "email": "rep-cortvriend@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:025": [
+      {
+        "id": "ocd-person/1f8f3c9b-ba19-45de-af45-b0501d0607f0",
+        "name": "Tom Noret",
+        "office": "state-house",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "rep-noret@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:036": [
+      {
+        "id": "ocd-person/2c3d82e7-8bdc-4da9-bbab-e42bb5e223fb",
+        "name": "Tina Spears",
+        "office": "state-house",
+        "districtCode": "036",
+        "contactUrl": null,
+        "email": "rep-spears@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/spears/pages/biography.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-house:054": [
+      {
+        "id": "ocd-person/4352dbd3-90e5-4cf3-9bf6-accff7592c33",
+        "name": "Bill O'Brien",
+        "office": "state-house",
+        "districtCode": "054",
+        "contactUrl": null,
+        "email": "rep-obrien@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/representatives/carson/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-senate:036": [
+      {
+        "id": "ocd-person/9dbec823-aab4-40bb-a26a-e51a896dcc1f",
+        "name": "Alana DiMario",
+        "office": "state-senate",
+        "districtCode": "036",
+        "contactUrl": null,
+        "email": "sen-dimario@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/senators/algiere/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-senate:002": [
+      {
+        "id": "ocd-person/a857e27b-7ced-43ad-bd08-a954e5f781ac",
+        "name": "Ana Quezada",
+        "office": "state-senate",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "sen-quezada@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/senators/algiere/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-senate:025": [
+      {
+        "id": "ocd-person/89fadd1c-b02c-45aa-b008-bf31d3fea4a1",
+        "name": "Andrew Dimitri",
+        "office": "state-senate",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "sen-dimitri@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://rilegislature.gov/senators/Dimitri/Pages/Biography.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-senate:020": [
+      {
+        "id": "ocd-person/177cd512-2835-4b9b-b77c-60fe178ec26e",
+        "name": "Brian Thompson",
+        "office": "state-senate",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "sen-thompson@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://rilegislature.gov/senators/Thompson/Pages/Biography.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-senate:035": [
+      {
+        "id": "ocd-person/80931d0d-c52e-492a-8b92-c191aa00c03f",
+        "name": "Bridget Valverde",
+        "office": "state-senate",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "sen-valverde@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/senators/algiere/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-senate:022": [
+      {
+        "id": "ocd-person/63bb0194-1993-4149-b39d-23f229c3040e",
+        "name": "David Tikoian",
+        "office": "state-senate",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "sen-tikoian@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/Senators/tikoian/pages/biography.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-senate:013": [
+      {
+        "id": "ocd-person/b747e057-fdd2-480a-beb9-c4ef37ae1e12",
+        "name": "Dawn Euer",
+        "office": "state-senate",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "sen-euer@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/senators/algiere/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-senate:034": [
+      {
+        "id": "ocd-person/6913b936-2e96-414a-80d6-6518f5accb7e",
+        "name": "Elaine Morgan",
+        "office": "state-senate",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "sen-morgan@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/senators/algiere/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-senate:007": [
+      {
+        "id": "ocd-person/d688b16c-5bf2-41df-b1c9-e8c5de7e437c",
+        "name": "Frank Ciccone",
+        "office": "state-senate",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "sen-ciccone@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/senators/algiere/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-senate:021": [
+      {
+        "id": "ocd-person/961061c2-4ce9-4ac4-85c4-28b20c800e9d",
+        "name": "Gordon Rogers",
+        "office": "state-senate",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "sen-rogers@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/senators/algiere/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-senate:027": [
+      {
+        "id": "ocd-person/75750ad6-0bec-4d81-8561-85036c0d99df",
+        "name": "Hanna Gallo",
+        "office": "state-senate",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "sen-gallo@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/senators/algiere/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-senate:001": [
+      {
+        "id": "ocd-person/e9b6ecf5-de39-4026-83fa-3766ed43cc49",
+        "name": "Jake Bissaillon",
+        "office": "state-senate",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "sen-bissaillon@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/senators/bissaillon/Pages/Biography.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-senate:023": [
+      {
+        "id": "ocd-person/03fdc4f3-715d-4f83-ab31-1a63f86a4dcf",
+        "name": "Jessica de la Cruz",
+        "office": "state-senate",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "sen-delacruz@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/senators/algiere/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-senate:009": [
+      {
+        "id": "ocd-person/a5f646b2-0370-494c-aebc-25869f019a1b",
+        "name": "John Burke",
+        "office": "state-senate",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "sen-burke@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/senators/algiere/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-senate:016": [
+      {
+        "id": "ocd-person/23ac0ada-a340-4539-a4c9-33e4c437add6",
+        "name": "Jonathon Acosta",
+        "office": "state-senate",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "sen-acosta@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/senators/acosta/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-senate:028": [
+      {
+        "id": "ocd-person/5ab817c5-d86c-4bf0-9a8f-78ca20cdc56b",
+        "name": "Lammis Vargas",
+        "office": "state-senate",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "sen-vargas@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://rilegislature.gov/senators/Vargas/Pages/Biography.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-senate:033": [
+      {
+        "id": "ocd-person/ef7ddd55-3351-4ca9-adfc-aef71505ec95",
+        "name": "Lou Raptakis",
+        "office": "state-senate",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "sen-raptakis@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/senators/algiere/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-senate:011": [
+      {
+        "id": "ocd-person/825b006a-e38e-4f0c-81b7-4df73e2a90fa",
+        "name": "Linda Ujifusa",
+        "office": "state-senate",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "sen-ujifusa@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/Senators/ujifusa/pages/biography.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-senate:008": [
+      {
+        "id": "ocd-person/e676d270-0470-40c2-ab57-e8ced3471005",
+        "name": "Lori Urso",
+        "office": "state-senate",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "sen-urso@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://rilegislature.gov/senators/Urso/Pages/Biography.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-senate:012": [
+      {
+        "id": "ocd-person/71da5365-46a9-4f2c-abc8-308bde2577ec",
+        "name": "Lou DiPalma",
+        "office": "state-senate",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "sen-dipalma@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/senators/algiere/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-senate:030": [
+      {
+        "id": "ocd-person/580b2e15-faff-4b83-bbea-fb6110a9f975",
+        "name": "Mark McKenney",
+        "office": "state-senate",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "sen-mckenney@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/senators/mckenney/Pages/Biography.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-senate:031": [
+      {
+        "id": "ocd-person/57b194bd-2b6a-46b8-a7b4-35b629bb0b04",
+        "name": "Matt LaMountain",
+        "office": "state-senate",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "sen-lamountain@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/Senators/lamountain/pages/biography.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-senate:015": [
+      {
+        "id": "ocd-person/2cd8c21d-f576-4060-a311-0459e01ffef6",
+        "name": "Meghan Kallman",
+        "office": "state-senate",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "sen-kallman@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/senators/kallman/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-senate:024": [
+      {
+        "id": "ocd-person/e7d41b59-5619-4a67-a1ec-221fdc24e6c3",
+        "name": "Melissa Murray",
+        "office": "state-senate",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "sen-murray@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/senators/algiere/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-senate:032": [
+      {
+        "id": "ocd-person/c5991f11-e719-473e-93c4-cfc52fae3e6d",
+        "name": "Pam Lauria",
+        "office": "state-senate",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "sen-lauria@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/Senators/lauria/pages/biography.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-senate:029": [
+      {
+        "id": "ocd-person/66e402e8-4f13-44f3-b029-7d1c3aab99b7",
+        "name": "Pete Appollonio",
+        "office": "state-senate",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "sen-appollonio@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/senators/Appollonio/Pages/Biography.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-senate:018": [
+      {
+        "id": "ocd-person/01ddc920-772c-4098-b9f8-8704783940e5",
+        "name": "Bob Britto",
+        "office": "state-senate",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "sen-britto@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/senators/britto/Pages/Biography.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-senate:019": [
+      {
+        "id": "ocd-person/1378a3d6-95fe-4a21-8fcb-11fefdb97d84",
+        "name": "Ryan Pearson",
+        "office": "state-senate",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "sen-pearson@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/senators/algiere/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-senate:003": [
+      {
+        "id": "ocd-person/3a4fd015-1c56-4d7b-9e57-1a2a6b9b4c9b",
+        "name": "Sam Zurier",
+        "office": "state-senate",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "sen-zurier@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/senators/zurier/Pages/Biography.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-senate:005": [
+      {
+        "id": "ocd-person/8d466b6a-ea53-46bb-aa86-3131ac76533f",
+        "name": "Sam Bell",
+        "office": "state-senate",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "sen-bell@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/senators/algiere/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-senate:004": [
+      {
+        "id": "ocd-person/a2ff0de0-40d1-4ac1-a347-e1e9dedb6d30",
+        "name": "Stefano Famiglietti",
+        "office": "state-senate",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "sen-famiglietti@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/senators/famiglietti/Pages/Biography.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-senate:017": [
+      {
+        "id": "ocd-person/285c33e3-5c40-44d8-9c16-22e49b6a0a81",
+        "name": "Thomas Paolino",
+        "office": "state-senate",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "sen-paolino@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/senators/algiere/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-senate:006": [
+      {
+        "id": "ocd-person/b3d5296c-05df-46f5-9a93-4caf96121a84",
+        "name": "Tiara Mack",
+        "office": "state-senate",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "sen-mack@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/senators/algiere/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-senate:026": [
+      {
+        "id": "ocd-person/9f4a0209-d8b0-42e5-9217-d4fd2f0d67e6",
+        "name": "Todd Patalano",
+        "office": "state-senate",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "sen-patalano@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://rilegislature.gov/senators/Patalano/Pages/Biography.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-senate:037": [
+      {
+        "id": "ocd-person/c5757781-d437-4b9b-b7a1-9bb96c9b74ab",
+        "name": "Sue Sosnowski",
+        "office": "state-senate",
+        "districtCode": "037",
+        "contactUrl": null,
+        "email": "sen-sosnowski@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/senators/algiere/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-senate:014": [
+      {
+        "id": "ocd-person/bfb76f36-00b6-47da-89da-e1db5421ff55",
+        "name": "Val Lawson",
+        "office": "state-senate",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "sen-lawson@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/senators/algiere/default.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-senate:038": [
+      {
+        "id": "ocd-person/afeed427-2ef1-4197-840d-7ab06883e186",
+        "name": "Victoria Gu",
+        "office": "state-senate",
+        "districtCode": "038",
+        "contactUrl": null,
+        "email": "sen-gu@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/Senators/gu/Pages/biography.aspx",
+        "social": {}
+      }
+    ],
+    "RI:state-senate:010": [
+      {
+        "id": "ocd-person/037e3b02-7f48-4cab-bb04-2524aa9a883d",
+        "name": "Walter Felag",
+        "office": "state-senate",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "sen-felag@rilegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.rilegislature.gov/senators/algiere/default.aspx",
+        "social": {}
+      }
+    ]
+  }
+}

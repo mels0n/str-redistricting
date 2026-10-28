@@ -1,11 +1,15 @@
-import { canonicalPath, clear, config, formatHash, formatPath, getRouteMode, parseHash, parsePath, resetPageZoom, type Chamber, type Page, type Route } from '../shared';
+import { canonicalPath, captureSigned, clear, config, formatHash, formatPath, getRouteMode, parseHash, parsePath, resetPageZoom, type Chamber, type Page, type Route } from '../shared';
 import { loadIndex, liveChambers } from '../entities/state';
 import { createNationalPage } from '../pages/national';
 import { createStatePage } from '../pages/state';
 import { createHowPage } from '../pages/how';
 import { createChangelogPage } from '../pages/changelog';
-import { createFaqPage } from '../pages/faq';
+import { createActPage } from '../pages/act';
+import { createPledgesPage } from '../pages/pledges';
 import { createPrivacyPage } from '../pages/privacy';
+import { createRemovePage } from '../pages/remove';
+import { createConfirmPage } from '../pages/confirm';
+import { createFaqPage } from '../pages/faq';
 import { syncChamberSwitch } from '../widgets/site-header';
 
 /** Aborts the listeners of the router started before, so a second start (a test, a re-mount) never leaves two routers answering. */
@@ -111,7 +115,7 @@ export function startRouter(outlet: HTMLElement, root: HTMLElement = outlet.pare
     }
   };
 
-  /** The masthead's How it works and FAQ links say when their page is showing. */
+  /** The masthead's Take action, How it works and FAQ links say when their page is showing. */
   const markNav = (route: Route): void => {
     const mark = (nav: string, on: boolean): void => {
       const link = document.querySelector(`.strv-masthead [data-nav="${nav}"]`);
@@ -120,6 +124,7 @@ export function startRouter(outlet: HTMLElement, root: HTMLElement = outlet.pare
     };
     mark('how', route.page === 'how');
     mark('faq', route.page === 'faq');
+    mark('act', route.page === 'act');
     syncChamberSwitch(route, live);
   };
 
@@ -132,7 +137,7 @@ export function startRouter(outlet: HTMLElement, root: HTMLElement = outlet.pare
     clear(outlet);
     // A pinch-zoom from the last page would otherwise carry over (no reload between pages).
     if (!initial) resetPageZoom();
-    page = route.page === 'national' ? createNationalPage(navigate, route.chamber) : route.page === 'how' ? createHowPage(route) : route.page === 'faq' ? createFaqPage(route) : route.page === 'changelog' ? createChangelogPage() : route.page === 'privacy' ? createPrivacyPage() : createStatePage(route, navigate);
+    page = route.page === 'national' ? createNationalPage(navigate, route.chamber) : route.page === 'how' ? createHowPage(route) : route.page === 'faq' ? createFaqPage(route) : route.page === 'changelog' ? createChangelogPage() : route.page === 'act' ? createActPage(route.state) : route.page === 'pledges' ? createPledgesPage() : route.page === 'privacy' ? createPrivacyPage() : route.page === 'remove' ? createRemovePage(route.token) : route.page === 'confirm' ? createConfirmPage(route.token) : createStatePage(route, navigate);
     outlet.append(page.el);
     // On the first load the browser owns focus; after that, move it to the new page's heading.
     if (!initial) {
@@ -152,6 +157,8 @@ export function startRouter(outlet: HTMLElement, root: HTMLElement = outlet.pare
     pending = null;
   };
 
+  // The confirmation link's `?signed=` is read here, before the canonical address below drops it from the bar.
+  captureSigned(location.search);
   let first: Route;
   if (pathMode) {
     window.addEventListener(

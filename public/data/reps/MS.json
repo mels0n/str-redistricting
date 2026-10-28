@@ -1,0 +1,2509 @@
+{
+  "state": "MS",
+  "generatedFrom": {
+    "legislators-current.json": "ae8cb9477c48715df71a7d860854229d799dc90a254d61badc1efb770f892b2c",
+    "legislators-social-media.json": "c6eca1fcdb3a89901335eed51ca061daa4b60ad3243969a127e913bb9657fbc5",
+    "ms.csv": "fc65735a77bf84e8a75451aa7dbd5354125a5ca38c3a7bd86d34cf4b578156fe"
+  },
+  "byKey": {
+    "MS:us-senate:state": [
+      {
+        "id": "W000437",
+        "name": "Roger F. Wicker",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.wicker.senate.gov/public/index.cfm/contact",
+        "email": null,
+        "phone": "202-224-6253",
+        "address": "425 Russell Senate Office Building Washington DC 20510",
+        "website": "https://www.wicker.senate.gov",
+        "social": {
+          "x": "SenatorWicker",
+          "facebook": "SenatorWicker",
+          "instagram": "senatorwicker"
+        }
+      },
+      {
+        "id": "H001079",
+        "name": "Cindy Hyde-Smith",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.hydesmith.senate.gov/contact-senator",
+        "email": null,
+        "phone": "202-224-5054",
+        "address": "528 Hart Senate Office Building Washington DC 20510",
+        "website": "https://www.hydesmith.senate.gov",
+        "social": {
+          "x": "SenHydeSmith",
+          "facebook": "SenatorCindyHydeSmith",
+          "instagram": "sencindyhydesmith"
+        }
+      }
+    ],
+    "MS:us-house:02": [
+      {
+        "id": "T000193",
+        "name": "Bennie G. Thompson",
+        "office": "us-house",
+        "districtCode": "02",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5876",
+        "address": "2466 Rayburn House Office Building Washington DC 20515-2402",
+        "website": "https://benniethompson.house.gov",
+        "social": {
+          "x": "BennieGThompson",
+          "facebook": "CongressmanBennieGThompson",
+          "instagram": "benniegthompson"
+        }
+      }
+    ],
+    "MS:us-house:01": [
+      {
+        "id": "K000388",
+        "name": "Trent Kelly",
+        "office": "us-house",
+        "districtCode": "01",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4306",
+        "address": "2243 Rayburn House Office Building Washington DC 20515-2401",
+        "website": "https://trentkelly.house.gov",
+        "social": {
+          "x": "RepTrentKelly",
+          "facebook": "reptrentkelly",
+          "instagram": "reptrentkelly"
+        }
+      }
+    ],
+    "MS:us-house:03": [
+      {
+        "id": "G000591",
+        "name": "Michael Guest",
+        "office": "us-house",
+        "districtCode": "03",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5031",
+        "address": "450 Cannon House Office Building Washington DC 20515-2403",
+        "website": "https://guest.house.gov",
+        "social": {
+          "x": "RepMichaelGuest",
+          "facebook": "RepMichaelGuest"
+        }
+      }
+    ],
+    "MS:us-house:04": [
+      {
+        "id": "E000235",
+        "name": "Mike Ezell",
+        "office": "us-house",
+        "districtCode": "04",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5772",
+        "address": "443 Cannon House Office Building Washington DC 20515-2404",
+        "website": "https://ezell.house.gov",
+        "social": {
+          "x": "RepEzell",
+          "facebook": "repezell",
+          "instagram": "repmikeezell"
+        }
+      }
+    ],
+    "MS:state-house:037": [
+      {
+        "id": "ocd-person/95d25b69-8eb7-44cd-a789-54351e17970c",
+        "name": "Andy Boyd",
+        "office": "state-house",
+        "districtCode": "037",
+        "contactUrl": null,
+        "email": "aboyd@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/boyd_(37).xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:096": [
+      {
+        "id": "ocd-person/83f9f72e-ec2d-4351-a227-d8a6aec18eed",
+        "name": "Angela Cockerham",
+        "office": "state-house",
+        "districtCode": "096",
+        "contactUrl": null,
+        "email": "acockerham@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/cockerham.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:092": [
+      {
+        "id": "ocd-person/4b865b47-4811-4437-be08-0f3bf10d461c",
+        "name": "Becky Currie",
+        "office": "state-house",
+        "districtCode": "092",
+        "contactUrl": null,
+        "email": "bcurrie@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/currie.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:015": [
+      {
+        "id": "ocd-person/27f187c6-8755-4a18-a32a-dd5b5d7831c8",
+        "name": "Beth Waldo",
+        "office": "state-house",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "bwaldo@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/waldo.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:052": [
+      {
+        "id": "ocd-person/af66e7a0-2b1a-4fa0-a66c-e6e7a2541cb1",
+        "name": "Bill Kinkade",
+        "office": "state-house",
+        "districtCode": "052",
+        "contactUrl": null,
+        "email": "bkinkade@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/kinkade.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:099": [
+      {
+        "id": "ocd-person/2fed984f-0f51-40d2-9881-ec16131a6a2f",
+        "name": "Bill Pigott",
+        "office": "state-house",
+        "districtCode": "099",
+        "contactUrl": null,
+        "email": "bpigott@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/pigott.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:083": [
+      {
+        "id": "ocd-person/15f21051-d36c-4a2a-aa96-100bb8cb693b",
+        "name": "Billy Adam Calvert",
+        "office": "state-house",
+        "districtCode": "083",
+        "contactUrl": null,
+        "email": "bcalvert@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/calvert.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:091": [
+      {
+        "id": "ocd-person/7fe0478b-3777-490c-93cb-20f83baf3d3f",
+        "name": "Bob Evans",
+        "office": "state-house",
+        "districtCode": "091",
+        "contactUrl": null,
+        "email": "bevans@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/evans_%2891st%29.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:002": [
+      {
+        "id": "ocd-person/487214e9-b0e2-4741-8bd4-a043a1dd19a5",
+        "name": "Brad Mattox",
+        "office": "state-house",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "mattox@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/mattox.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:122": [
+      {
+        "id": "ocd-person/307ab2ac-eafb-4d68-8e02-1fff040f50e4",
+        "name": "Brent Anderson",
+        "office": "state-house",
+        "districtCode": "122",
+        "contactUrl": null,
+        "email": "banderson@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/anderson_(122nd).xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:059": [
+      {
+        "id": "ocd-person/222077fd-0e92-4437-a156-59521d7faffa",
+        "name": "Brent Powell",
+        "office": "state-house",
+        "districtCode": "059",
+        "contactUrl": null,
+        "email": "bpowell@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/powell.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:047": [
+      {
+        "id": "ocd-person/0d191683-0d9c-408f-812b-5d986a3030a6",
+        "name": "Bryant Clark",
+        "office": "state-house",
+        "districtCode": "047",
+        "contactUrl": null,
+        "email": "bclark@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/clark.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:044": [
+      {
+        "id": "ocd-person/796d8875-e1a2-4274-bdba-2e689d99929c",
+        "name": "Scott Bounds",
+        "office": "state-house",
+        "districtCode": "044",
+        "contactUrl": null,
+        "email": "sbounds@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/bounds.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:042": [
+      {
+        "id": "ocd-person/6e50b530-8c0e-485a-a568-6d40ba83127d",
+        "name": "Carl Mickens",
+        "office": "state-house",
+        "districtCode": "042",
+        "contactUrl": null,
+        "email": "cmickens@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/mickens.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:121": [
+      {
+        "id": "ocd-person/7e340127-bea2-48af-95a8-368b99160880",
+        "name": "Carolyn Crawford",
+        "office": "state-house",
+        "districtCode": "121",
+        "contactUrl": null,
+        "email": "ccrawford@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/crawford.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:116": [
+      {
+        "id": "ocd-person/7f1357e0-62b5-412c-b121-6cb5a5aced0e",
+        "name": "Casey Eure",
+        "office": "state-house",
+        "districtCode": "116",
+        "contactUrl": null,
+        "email": "ceure@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/eure.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:009": [
+      {
+        "id": "ocd-person/379b9fd9-2da7-4e20-b0ed-4319ead3a1db",
+        "name": "Cedric Burnett",
+        "office": "state-house",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "cburnett@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/burnett.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:075": [
+      {
+        "id": "ocd-person/c854a4e7-61d0-4c5e-8623-694a38f0ad20",
+        "name": "Celeste Hurst",
+        "office": "state-house",
+        "districtCode": "075",
+        "contactUrl": null,
+        "email": "churst@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/hurst.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:038": [
+      {
+        "id": "ocd-person/74ef0a3e-35c9-4729-b6fd-2c07c165864d",
+        "name": "Cheikh Taylor",
+        "office": "state-house",
+        "districtCode": "038",
+        "contactUrl": null,
+        "email": "ctaylor@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/taylor.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:065": [
+      {
+        "id": "ocd-person/5aa9d603-5bb2-4c1d-9a0b-1baaf91c425d",
+        "name": "Chris Bell",
+        "office": "state-house",
+        "districtCode": "065",
+        "contactUrl": null,
+        "email": "cbell@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/bell_(65th).xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:088": [
+      {
+        "id": "ocd-person/4a046f0b-1286-4bb3-aea0-7284adab76fd",
+        "name": "Chuck Blackwell",
+        "office": "state-house",
+        "districtCode": "088",
+        "contactUrl": null,
+        "email": "cblackwell@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/blackwell.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:012": [
+      {
+        "id": "ocd-person/0c9a7d35-4b91-42c7-8af2-39b6514c23d8",
+        "name": "Clay Deweese",
+        "office": "state-house",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "cdeweese@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/deweese.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:056": [
+      {
+        "id": "ocd-person/bb9ba950-b671-4c41-b851-4a2c86d2059d",
+        "name": "Clay Mansell",
+        "office": "state-house",
+        "districtCode": "056",
+        "contactUrl": null,
+        "email": "cmansell@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/mansell.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:025": [
+      {
+        "id": "ocd-person/48567f29-ec70-4ff5-bda5-873f2e42933b",
+        "name": "Dan Eubanks",
+        "office": "state-house",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "deubanks@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/eubanks.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:039": [
+      {
+        "id": "ocd-person/22afa0b0-e76a-4ac0-af9a-fa158c55daea",
+        "name": "Dana McLean",
+        "office": "state-house",
+        "districtCode": "039",
+        "contactUrl": null,
+        "email": "dmclean@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/mclean.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:098": [
+      {
+        "id": "ocd-person/da9d953d-a95f-4166-9b94-e6c5e5b40c86",
+        "name": "Daryl Porter",
+        "office": "state-house",
+        "districtCode": "098",
+        "contactUrl": null,
+        "email": "dporter@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/porter.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:028": [
+      {
+        "id": "ocd-person/7051aea6-71cf-4c6e-a3f7-5eebe826aa44",
+        "name": "Doc Harris",
+        "office": "state-house",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "wharris@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/harris.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:021": [
+      {
+        "id": "ocd-person/fd1a4542-8537-4af3-90c8-4052be561c66",
+        "name": "Donnie Bell",
+        "office": "state-house",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "dbell@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/bell_(21st).xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:089": [
+      {
+        "id": "ocd-person/2118023c-ed1d-455f-b3a6-faeefd0e87b5",
+        "name": "Donnie Scoggin",
+        "office": "state-house",
+        "districtCode": "089",
+        "contactUrl": null,
+        "email": "dscoggin@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/scoggin.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:067": [
+      {
+        "id": "ocd-person/4fa41145-35bf-442b-bdfe-cf54ea53da69",
+        "name": "Earle Banks",
+        "office": "state-house",
+        "districtCode": "067",
+        "contactUrl": null,
+        "email": "ebankslaw@aol.com",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/banks.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:057": [
+      {
+        "id": "ocd-person/c38da14f-37fd-48fd-9903-e63ce18c1215",
+        "name": "Lawrence Blackmon",
+        "office": "state-house",
+        "districtCode": "057",
+        "contactUrl": null,
+        "email": "lblackmon@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/blackmon.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:105": [
+      {
+        "id": "ocd-person/bb2a876e-ca55-46dd-842d-9b89a910848d",
+        "name": "Elliot Burch",
+        "office": "state-house",
+        "districtCode": "105",
+        "contactUrl": null,
+        "email": "burch@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/burch.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:066": [
+      {
+        "id": "ocd-person/706088db-555c-4dac-b9c4-ca6574241ca4",
+        "name": "Fabian Nelson",
+        "office": "state-house",
+        "districtCode": "066",
+        "contactUrl": null,
+        "email": "nelson@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/nelson.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:060": [
+      {
+        "id": "ocd-person/002bdecd-2374-44d8-8280-e0636c5f4897",
+        "name": "Fred Shanks",
+        "office": "state-house",
+        "districtCode": "060",
+        "contactUrl": null,
+        "email": "fshanks@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/shanks.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:061": [
+      {
+        "id": "ocd-person/2fe9c09d-6213-4576-b0e4-6e89330f41bc",
+        "name": "Gene Newman",
+        "office": "state-house",
+        "districtCode": "061",
+        "contactUrl": null,
+        "email": "gnewman@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/newman.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:118": [
+      {
+        "id": "ocd-person/c38f3e52-9594-4580-a280-bdaa11a33b66",
+        "name": "Greg Haney",
+        "office": "state-house",
+        "districtCode": "118",
+        "contactUrl": null,
+        "email": "ghaney@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/haney.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:082": [
+      {
+        "id": "ocd-person/9b5e1a7c-98cd-448e-9f75-d59a5591f1a4",
+        "name": "Gregory Elliott",
+        "office": "state-house",
+        "districtCode": "082",
+        "contactUrl": null,
+        "email": "gelliott@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/elliott.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:076": [
+      {
+        "id": "ocd-person/745b9724-e66d-46ec-874a-d658f01b78a6",
+        "name": "Greg Holloway",
+        "office": "state-house",
+        "districtCode": "076",
+        "contactUrl": null,
+        "email": "gholloway@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/holloway.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:113": [
+      {
+        "id": "ocd-person/4ead62fd-15e5-4662-8f9b-21a8b0fa8ebe",
+        "name": "Hank Zuber",
+        "office": "state-house",
+        "districtCode": "113",
+        "contactUrl": null,
+        "email": "hzuber@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/zuber.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:040": [
+      {
+        "id": "ocd-person/3a2e8f7d-e657-45e2-93d7-2f5e8499ccfd",
+        "name": "Hester Jackson-McCray",
+        "office": "state-house",
+        "districtCode": "040",
+        "contactUrl": null,
+        "email": "hmccray@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/mccray.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:106": [
+      {
+        "id": "ocd-person/8a829f4e-388e-41c5-bbc6-9e4292ff9539",
+        "name": "Jansen Owen",
+        "office": "state-house",
+        "districtCode": "106",
+        "contactUrl": null,
+        "email": "jowen@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/owen.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:048": [
+      {
+        "id": "ocd-person/fa29dc4f-e4cb-45dd-a450-a1911d529801",
+        "name": "Jason White",
+        "office": "state-house",
+        "districtCode": "048",
+        "contactUrl": null,
+        "email": "jwhite@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/White.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:095": [
+      {
+        "id": "ocd-person/7674b0fc-99c4-44a7-85ec-7edd5e6e85a0",
+        "name": "Jay McKnight",
+        "office": "state-house",
+        "districtCode": "095",
+        "contactUrl": null,
+        "email": "jmcknight@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/mcknight.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:024": [
+      {
+        "id": "ocd-person/ffba30ff-86d3-42db-ab94-0028df181da1",
+        "name": "Jeff Hale",
+        "office": "state-house",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "jhale@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/hale.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:085": [
+      {
+        "id": "ocd-person/73fee1dd-f8c0-40a7-a4f9-e7576b4ecc3f",
+        "name": "Jeffery Harness",
+        "office": "state-house",
+        "districtCode": "085",
+        "contactUrl": null,
+        "email": "jharness@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/harness.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:119": [
+      {
+        "id": "ocd-person/249c4603-1fce-4c28-84be-5fa6fc5420b4",
+        "name": "Jeffrey Hulum",
+        "office": "state-house",
+        "districtCode": "119",
+        "contactUrl": null,
+        "email": "jhulum@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/hulum.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:114": [
+      {
+        "id": "ocd-person/c5ec6885-a7dc-48f4-a2e4-7aa85397f337",
+        "name": "Jeff Guice",
+        "office": "state-house",
+        "districtCode": "114",
+        "contactUrl": null,
+        "email": "jguice@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/guice.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:110": [
+      {
+        "id": "ocd-person/29c08356-5e03-4aed-8518-28da6090a14b",
+        "name": "Jeramey Anderson",
+        "office": "state-house",
+        "districtCode": "110",
+        "contactUrl": null,
+        "email": "janderson@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/anderson.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:018": [
+      {
+        "id": "ocd-person/52d3da6f-c397-4795-9bd8-5a3f17657129",
+        "name": "Jerry Turner",
+        "office": "state-house",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "jturner@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/turner.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:073": [
+      {
+        "id": "ocd-person/922a1ebe-1f17-497b-af99-5f14b6b0f66a",
+        "name": "Jill Ford",
+        "office": "state-house",
+        "districtCode": "073",
+        "contactUrl": null,
+        "email": "jford@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/ford_(73rd).xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:033": [
+      {
+        "id": "ocd-person/822c7153-6b04-4db2-bec4-b6f9d074fb75",
+        "name": "Jim Estrada",
+        "office": "state-house",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "jestrada@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/estrada.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:111": [
+      {
+        "id": "ocd-person/af90acc6-0f51-4638-9b7a-51afc5acb0a3",
+        "name": "Jimmy Fondren",
+        "office": "state-house",
+        "districtCode": "111",
+        "contactUrl": null,
+        "email": "fondren@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/fondren.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:004": [
+      {
+        "id": "ocd-person/f4bd4ab9-cb95-4b3e-95cb-68312eda5b16",
+        "name": "Jody Steverson",
+        "office": "state-house",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "jsteverson@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/steverson.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:035": [
+      {
+        "id": "ocd-person/622761e7-fba1-4a35-879b-45a6dd021ab0",
+        "name": "Joey Hood",
+        "office": "state-house",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "jhood@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/hood.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:005": [
+      {
+        "id": "ocd-person/26c38427-62d3-440b-9253-c3e485fbd8ea",
+        "name": "John Faulkner",
+        "office": "state-house",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "jfaulkner@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/faulkner.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:112": [
+      {
+        "id": "ocd-person/6c7089b2-5e2d-4049-9aee-5fd76004af16",
+        "name": "John Read",
+        "office": "state-house",
+        "districtCode": "112",
+        "contactUrl": null,
+        "email": "jread@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/read.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:008": [
+      {
+        "id": "ocd-person/c655558e-dfac-468a-a633-85f380c538b6",
+        "name": "Trey Lamar",
+        "office": "state-house",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "jlamar@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/lamar.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:050": [
+      {
+        "id": "ocd-person/a432eb59-5656-4869-aedc-832b2206b4a5",
+        "name": "John Hines",
+        "office": "state-house",
+        "districtCode": "050",
+        "contactUrl": null,
+        "email": "jhines@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/hines.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:058": [
+      {
+        "id": "ocd-person/392af292-07d5-4bfd-9636-fe4257df61b3",
+        "name": "Jonathan McMillan",
+        "office": "state-house",
+        "districtCode": "058",
+        "contactUrl": null,
+        "email": "mcmillan@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/mcmillan.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:087": [
+      {
+        "id": "ocd-person/820dcd6c-fdeb-4244-8ceb-7f5ce3048674",
+        "name": "Bubba Tubb",
+        "office": "state-house",
+        "districtCode": "087",
+        "contactUrl": null,
+        "email": "jtubb@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/tubb.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:010": [
+      {
+        "id": "ocd-person/5ad5b396-01a0-40eb-8d4b-0f76f2727406",
+        "name": "Josh Hawkins",
+        "office": "state-house",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "jhawkins@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/hawkins.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:022": [
+      {
+        "id": "ocd-person/2289ffac-b812-4f76-89a8-d8e77df4de2c",
+        "name": "Justin Crosby",
+        "office": "state-house",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "jcrosby@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/crosby.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:006": [
+      {
+        "id": "ocd-person/9eae167e-9e7e-4334-a67e-5b686617c71c",
+        "name": "Justin Keen",
+        "office": "state-house",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "jkeen@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/keen.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:072": [
+      {
+        "id": "ocd-person/48af55d6-95ef-4e57-9ec3-a566af0ce517",
+        "name": "Justis Gibbs",
+        "office": "state-house",
+        "districtCode": "072",
+        "contactUrl": null,
+        "email": "jgibbs@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/gibbs_(72nd).xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:041": [
+      {
+        "id": "ocd-person/a1fef221-e3ca-4598-a7f9-cf6862b3007a",
+        "name": "Kabir Karriem",
+        "office": "state-house",
+        "districtCode": "041",
+        "contactUrl": null,
+        "email": "kkarriem@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/karriem.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:036": [
+      {
+        "id": "ocd-person/38d590c5-20ff-42d5-b9dd-af77664213cf",
+        "name": "Karl Gibbs",
+        "office": "state-house",
+        "districtCode": "036",
+        "contactUrl": null,
+        "email": "kgibbs@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/gibbs.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:046": [
+      {
+        "id": "ocd-person/761527db-bbe0-43e5-90e0-2a06528ebfa4",
+        "name": "Karl Oliver",
+        "office": "state-house",
+        "districtCode": "046",
+        "contactUrl": null,
+        "email": "koliver@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/oliver.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:045": [
+      {
+        "id": "ocd-person/0f07445d-ab7a-4c6f-9b3c-a402436afbed",
+        "name": "Keith Jackson",
+        "office": "state-house",
+        "districtCode": "045",
+        "contactUrl": null,
+        "email": "jackson@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/jackson_(45th).xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:100": [
+      {
+        "id": "ocd-person/da8a0173-20dc-4979-949d-57d902e744e0",
+        "name": "Ken Morgan",
+        "office": "state-house",
+        "districtCode": "100",
+        "contactUrl": null,
+        "email": "kmorgan@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/morgan.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:027": [
+      {
+        "id": "ocd-person/f0fd6950-d890-445b-834e-a635715b75d5",
+        "name": "Kenji Holloway",
+        "office": "state-house",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "holloway@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/holloway_(27th).xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:101": [
+      {
+        "id": "ocd-person/63655fb4-af7a-4b96-95f0-5aa1bd93da62",
+        "name": "Kent McCarty",
+        "office": "state-house",
+        "districtCode": "101",
+        "contactUrl": null,
+        "email": "kmccarty@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/mccarty.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:117": [
+      {
+        "id": "ocd-person/9967ba62-2eb6-452e-8445-d3422c62a813",
+        "name": "Kevin Felsher",
+        "office": "state-house",
+        "districtCode": "117",
+        "contactUrl": null,
+        "email": "kfelsher@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/felsher.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:054": [
+      {
+        "id": "ocd-person/7a9174a7-1301-407a-8c77-5f70e70fde92",
+        "name": "Kevin Ford",
+        "office": "state-house",
+        "districtCode": "054",
+        "contactUrl": null,
+        "email": "kford@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/ford.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:034": [
+      {
+        "id": "ocd-person/b339d980-af38-4e76-b53c-215c26191cc1",
+        "name": "Kevin Horan",
+        "office": "state-house",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "khoran@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/horan.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:007": [
+      {
+        "id": "ocd-person/58bd4b77-f7d6-45bd-bb3e-0386cf36bbf3",
+        "name": "Kimberly Remak",
+        "office": "state-house",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "remak@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/remak.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:062": [
+      {
+        "id": "ocd-person/f9eedb57-45af-4743-b869-ece1ccb643e2",
+        "name": "Lance Varner",
+        "office": "state-house",
+        "districtCode": "062",
+        "contactUrl": null,
+        "email": "varner@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/varner.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:104": [
+      {
+        "id": "ocd-person/57419404-003c-4a1d-93c0-dce987b11c00",
+        "name": "Larry Byrd",
+        "office": "state-house",
+        "districtCode": "104",
+        "contactUrl": null,
+        "email": "lbyrd@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/byrd.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:011": [
+      {
+        "id": "ocd-person/843ed177-0a3d-4f96-9df2-28ad7333c5a6",
+        "name": "Lataisha Jackson",
+        "office": "state-house",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "ljackson@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/2023/pdf/house_authors/jackson.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:074": [
+      {
+        "id": "ocd-person/fe627b98-efb2-43b0-a6e5-7ad967c1a2fc",
+        "name": "Lee Yancey",
+        "office": "state-house",
+        "districtCode": "074",
+        "contactUrl": null,
+        "email": "lyancey@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/yancey.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:001": [
+      {
+        "id": "ocd-person/dcc9906b-9a0a-4503-9128-006317d5ff3f",
+        "name": "Bubba Carpenter",
+        "office": "state-house",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "lcarpenter@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/carpenter.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:109": [
+      {
+        "id": "ocd-person/c3ea3d93-cd2d-48f4-babd-a47bbd951108",
+        "name": "Manly Barton",
+        "office": "state-house",
+        "districtCode": "109",
+        "contactUrl": null,
+        "email": "mbarton@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/barton.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:079": [
+      {
+        "id": "ocd-person/3439bb59-6632-4653-83e1-031422ad832f",
+        "name": "Mark Tullos",
+        "office": "state-house",
+        "districtCode": "079",
+        "contactUrl": null,
+        "email": "mtullos@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/tullos.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:102": [
+      {
+        "id": "ocd-person/e645db95-2862-40dd-b548-b84b6f0b5f3f",
+        "name": "Missy McGee",
+        "office": "state-house",
+        "districtCode": "102",
+        "contactUrl": null,
+        "email": "mmcgee@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/mcgee.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:090": [
+      {
+        "id": "ocd-person/86dbc7dc-6cd5-4005-b076-9b1bb674e331",
+        "name": "Noah Sanford",
+        "office": "state-house",
+        "districtCode": "090",
+        "contactUrl": null,
+        "email": "nsanford@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/sanford.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:080": [
+      {
+        "id": "ocd-person/ee6c2cb7-6d0f-4b45-9e06-2ba1dfae8ecb",
+        "name": "Omeria Scott",
+        "office": "state-house",
+        "districtCode": "080",
+        "contactUrl": null,
+        "email": "oscott@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/scott.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:055": [
+      {
+        "id": "ocd-person/5fb7e1d6-24ab-41e1-b0b2-d1445bf6abd3",
+        "name": "Oscar Denton",
+        "office": "state-house",
+        "districtCode": "055",
+        "contactUrl": null,
+        "email": "odenton@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/denton.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:026": [
+      {
+        "id": "ocd-person/c730cb69-8d30-4676-afe8-0fb513f3845f",
+        "name": "Otha Williams",
+        "office": "state-house",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "owilliams@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/williams.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:031": [
+      {
+        "id": "ocd-person/d4007757-e112-43b0-8261-1dd806f658c8",
+        "name": "Otis Anthony",
+        "office": "state-house",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "oanthony@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/anthony.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:103": [
+      {
+        "id": "ocd-person/7dcb0b5b-3eb3-4db2-8666-0eb83589289f",
+        "name": "Percy Watson",
+        "office": "state-house",
+        "districtCode": "103",
+        "contactUrl": null,
+        "email": "pwatson@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/watson.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:023": [
+      {
+        "id": "ocd-person/a91418ca-cbde-4a6f-8c9d-889f406c4ed8",
+        "name": "Perry Bailey",
+        "office": "state-house",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "pbailey@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/bailey_(23rd).xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:019": [
+      {
+        "id": "ocd-person/defa75f7-917e-42da-9d2c-403ad80d1995",
+        "name": "Randy Boyd",
+        "office": "state-house",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "rboyd@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/boyd.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:078": [
+      {
+        "id": "ocd-person/af2a8aef-177c-49d2-9b77-f1f19f7b8eaa",
+        "name": "Randy Rushing",
+        "office": "state-house",
+        "districtCode": "078",
+        "contactUrl": null,
+        "email": "rrushing@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/rushing.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:120": [
+      {
+        "id": "ocd-person/4b4c6bbd-fcbb-4c7e-9746-83acffe80898",
+        "name": "Richard Bennett",
+        "office": "state-house",
+        "districtCode": "120",
+        "contactUrl": null,
+        "email": "rbennett@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/bennett.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:016": [
+      {
+        "id": "ocd-person/f8b65fd8-7b11-4954-93fd-47a5cbbd53c8",
+        "name": "Rickey Thompson",
+        "office": "state-house",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "rthompson@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/thompson.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:043": [
+      {
+        "id": "ocd-person/e36cdae5-3437-48fc-93b4-280b09af661b",
+        "name": "Rob Roberson",
+        "office": "state-house",
+        "districtCode": "043",
+        "contactUrl": null,
+        "email": "rroberson@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/roberson.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:094": [
+      {
+        "id": "ocd-person/0de22359-9403-4bec-917a-985b26fd45ff",
+        "name": "Robert Johnson",
+        "office": "state-house",
+        "districtCode": "094",
+        "contactUrl": null,
+        "email": "rjohnson@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/johnson.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:029": [
+      {
+        "id": "ocd-person/e7684f57-ee0c-48ea-8157-8f04c2b8e685",
+        "name": "Robert Sanders",
+        "office": "state-house",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "rsanders@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/sanders.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:020": [
+      {
+        "id": "ocd-person/6d293363-c72f-479b-81fc-225071ac4913",
+        "name": "Rodney Hall",
+        "office": "state-house",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "rhall@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/hall.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:071": [
+      {
+        "id": "ocd-person/fee2ce67-1403-487e-b891-587e625ce15c",
+        "name": "Ronnie Crudup",
+        "office": "state-house",
+        "districtCode": "071",
+        "contactUrl": null,
+        "email": "rcrudup@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/crudup.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:097": [
+      {
+        "id": "ocd-person/0bf76f2b-9380-45c1-8809-315a682322a3",
+        "name": "Sam Mims",
+        "office": "state-house",
+        "districtCode": "097",
+        "contactUrl": null,
+        "email": "smims@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/mims.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:014": [
+      {
+        "id": "ocd-person/d79acfe3-5991-41ae-b245-f7b7f877febb",
+        "name": "Sam Creekmore",
+        "office": "state-house",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "screekmore@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/creekmore_iv.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:064": [
+      {
+        "id": "ocd-person/de5a9a25-1b08-45ba-9aff-e635905498ba",
+        "name": "Shanda Yates",
+        "office": "state-house",
+        "districtCode": "064",
+        "contactUrl": null,
+        "email": "syates@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/yates.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:017": [
+      {
+        "id": "ocd-person/4a73b9e6-c66b-4022-b380-6caea6b48265",
+        "name": "Shane Aguirre",
+        "office": "state-house",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "saguirre@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/aguirre.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:086": [
+      {
+        "id": "ocd-person/9b8df60b-26ba-4cdc-b862-87b15f81fdc1",
+        "name": "Shane Barnett",
+        "office": "state-house",
+        "districtCode": "086",
+        "contactUrl": null,
+        "email": "sbarnett@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/barnett.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:032": [
+      {
+        "id": "ocd-person/23d69b3d-2f17-4fa9-a23c-c9ad8db4f7a9",
+        "name": "Solomon Osborne",
+        "office": "state-house",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "sosborne@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/osborne.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:108": [
+      {
+        "id": "ocd-person/fa44d12a-cb19-426b-94d3-6fb68b4095c8",
+        "name": "Stacey Hobgood-Wilkes",
+        "office": "state-house",
+        "districtCode": "108",
+        "contactUrl": null,
+        "email": "swilkes@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/hobgood-wilkes.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:063": [
+      {
+        "id": "ocd-person/1253bd3e-36dd-4f23-a671-ab24dc4aed12",
+        "name": "Stephanie Foster",
+        "office": "state-house",
+        "districtCode": "063",
+        "contactUrl": null,
+        "email": "sfoster@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/foster.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:081": [
+      {
+        "id": "ocd-person/f1e7e5ba-29b7-42e2-bb70-5ab4c7923c77",
+        "name": "Steve Horne",
+        "office": "state-house",
+        "districtCode": "081",
+        "contactUrl": null,
+        "email": "shorne@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/horne.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:107": [
+      {
+        "id": "ocd-person/df77d55d-10c7-4ecb-9ed9-b8f989da339e",
+        "name": "Steve Lott",
+        "office": "state-house",
+        "districtCode": "107",
+        "contactUrl": null,
+        "email": "lott@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/lott.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:013": [
+      {
+        "id": "ocd-person/abfa015f-301e-4e17-9917-535bb9079768",
+        "name": "Steve Massengill",
+        "office": "state-house",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "smassengill@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/massengill.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:069": [
+      {
+        "id": "ocd-person/c135a4b0-9620-4eef-b561-2b08beda7289",
+        "name": "Grace Butler-Washington",
+        "office": "state-house",
+        "districtCode": "069",
+        "contactUrl": null,
+        "email": "gbutlerwashington@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/butler-washington.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:051": [
+      {
+        "id": "ocd-person/3312edf4-798e-4333-b2c8-4d73f246de01",
+        "name": "Timaka James-Jones",
+        "office": "state-house",
+        "districtCode": "051",
+        "contactUrl": null,
+        "email": "james-jones@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/james-jones.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:093": [
+      {
+        "id": "ocd-person/53869ff4-415d-466a-ad71-c13485b83318",
+        "name": "Timmy Ladner",
+        "office": "state-house",
+        "districtCode": "093",
+        "contactUrl": null,
+        "email": "tladner@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/ladner.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:030": [
+      {
+        "id": "ocd-person/b37913d2-9f6e-4f1c-b6c8-7a19863be463",
+        "name": "Tracey Rosebud",
+        "office": "state-house",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "trosebud@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/rosebud.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:084": [
+      {
+        "id": "ocd-person/5ff548a6-827f-4ab7-a4a5-5b510712f6a2",
+        "name": "Troy Smith",
+        "office": "state-house",
+        "districtCode": "084",
+        "contactUrl": null,
+        "email": "tsmith@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/smith.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:053": [
+      {
+        "id": "ocd-person/c0d8a1af-3036-4aee-89e7-f98cc40203cd",
+        "name": "Vince Mangold",
+        "office": "state-house",
+        "districtCode": "053",
+        "contactUrl": null,
+        "email": "vmangold@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/mangold.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:003": [
+      {
+        "id": "ocd-person/2601640f-867f-480f-83a1-c59c332c0b82",
+        "name": "Tracy Arnold",
+        "office": "state-house",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "warnold@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/arnold.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:049": [
+      {
+        "id": "ocd-person/bec0f8f6-7f4c-442b-be25-14e2a2c1f5cb",
+        "name": "Willie Bailey",
+        "office": "state-house",
+        "districtCode": "049",
+        "contactUrl": null,
+        "email": "wbailey@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/bailey.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:115": [
+      {
+        "id": "ocd-person/b62cfb62-68b6-4804-a1ff-f0259e7513b4",
+        "name": "Zack Grady",
+        "office": "state-house",
+        "districtCode": "115",
+        "contactUrl": null,
+        "email": "zgrady@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/grady.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-house:068": [
+      {
+        "id": "ocd-person/56158045-4973-4fd2-9589-01ad212f2975",
+        "name": "Zakiya Summers",
+        "office": "state-house",
+        "districtCode": "068",
+        "contactUrl": null,
+        "email": "zsummers@house.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/summers.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-senate:037": [
+      {
+        "id": "ocd-person/c012fed5-c753-4a01-9c3c-9924d178c24d",
+        "name": "Albert Butler",
+        "office": "state-senate",
+        "districtCode": "037",
+        "contactUrl": null,
+        "email": "abutler@senate.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/senate/butler.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-senate:035": [
+      {
+        "id": "ocd-person/80fca1ba-017c-4941-990c-a5e2ff34aea0",
+        "name": "Andy Berry",
+        "office": "state-senate",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "aberry@senate.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/senate/berry.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-senate:040": [
+      {
+        "id": "ocd-person/4004cf9a-6d23-4323-b158-00f22078d2b4",
+        "name": "Angela Hill",
+        "office": "state-senate",
+        "districtCode": "040",
+        "contactUrl": null,
+        "email": "ahill@senate.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/senate/hill.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-senate:016": [
+      {
+        "id": "ocd-person/74d0c9b2-58a2-41a7-b2a0-582924a45adf",
+        "name": "Angela Turner-Ford",
+        "office": "state-senate",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "aturner@senate.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/senate/turner-ford.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-senate:021": [
+      {
+        "id": "ocd-person/3b2b3cb2-3ef8-400d-b395-6b0895ea7631",
+        "name": "Bradford Blackmon",
+        "office": "state-senate",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "bblackmon@senate.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/senate/blackmon.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-senate:015": [
+      {
+        "id": "ocd-person/5f65f3a3-db2a-4573-a5c8-59b6cc0dbf40",
+        "name": "Bart Williams",
+        "office": "state-senate",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "bwilliams@senate.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/senate/williams.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-senate:008": [
+      {
+        "id": "ocd-person/ba13036f-790b-4745-b008-eeb74f1c86a1",
+        "name": "Ben Suber",
+        "office": "state-senate",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "bsuber@senate.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/senate/suber.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-senate:036": [
+      {
+        "id": "ocd-person/77852654-cea4-4555-899c-641494605220",
+        "name": "Brian Rhodes",
+        "office": "state-senate",
+        "districtCode": "036",
+        "contactUrl": null,
+        "email": "brhodes@senate.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/senate/rhodes.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-senate:052": [
+      {
+        "id": "ocd-person/7e27e9e0-fe62-4fc0-b8b0-c2ac9c9ce28d",
+        "name": "Brice Wiggins",
+        "office": "state-senate",
+        "districtCode": "052",
+        "contactUrl": null,
+        "email": "bwiggins@senate.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/senate/wiggins.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-senate:006": [
+      {
+        "id": "ocd-person/17a5d5bb-d52b-4d53-a6a0-bcaa7c5538d7",
+        "name": "Chad McMahan",
+        "office": "state-senate",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "cmcmahan@senate.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/senate/mcmahan.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-senate:044": [
+      {
+        "id": "ocd-person/20510bb3-edcd-4cb8-a41a-e0114e6215c9",
+        "name": "Chris Johnson",
+        "office": "state-senate",
+        "districtCode": "044",
+        "contactUrl": null,
+        "email": "chjohnson@senate.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/johnson_(87th).xml",
+        "social": {}
+      }
+    ],
+    "MS:state-senate:017": [
+      {
+        "id": "ocd-person/c22d208a-59c7-4e90-bbe0-37b953a00b41",
+        "name": "Chuck Younger",
+        "office": "state-senate",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "cyounger@senate.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/senate/younger.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-senate:005": [
+      {
+        "id": "ocd-person/32153f0b-aa40-4989-9787-e2608c55a87e",
+        "name": "Daniel Sparks",
+        "office": "state-senate",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "dsparks@senate.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/senate/sparks.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-senate:029": [
+      {
+        "id": "ocd-person/c8e4b4c1-6c8f-4b95-9b48-c73997b3f518",
+        "name": "David Blount",
+        "office": "state-senate",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "dblount@senate.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/senate/blount.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-senate:030": [
+      {
+        "id": "ocd-person/d1572354-a456-47fa-aa21-58be9884a3bb",
+        "name": "Dean Kirby",
+        "office": "state-senate",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "dkirby@senate.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/senate/Kirby.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-senate:043": [
+      {
+        "id": "ocd-person/8c139a04-43ed-48c5-98cc-e2d308efa65b",
+        "name": "Dennis DeBar",
+        "office": "state-senate",
+        "districtCode": "043",
+        "contactUrl": null,
+        "email": "ddebar@senate.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/senate/debar.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-senate:012": [
+      {
+        "id": "ocd-person/3ea1bab4-64f2-4ff3-b0a9-e04a8caa3e9f",
+        "name": "Derrick Simmons",
+        "office": "state-senate",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "dsimmons@senate.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/senate/simmons_(12th).xml",
+        "social": {}
+      }
+    ],
+    "MS:state-senate:042": [
+      {
+        "id": "ocd-person/035cf383-3d6b-401c-955e-2dcc3a95e4a5",
+        "name": "Don Hartness",
+        "office": "state-senate",
+        "districtCode": "042",
+        "contactUrl": null,
+        "email": "dhartness@senate.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/senate/hartness.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-senate:038": [
+      {
+        "id": "ocd-person/dcae79b5-ddc5-48e8-86c2-54d5c47f0656",
+        "name": "Gary Brumfield",
+        "office": "state-senate",
+        "districtCode": "038",
+        "contactUrl": null,
+        "email": "gbrumfield@senate.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/senate/brumfield.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-senate:027": [
+      {
+        "id": "ocd-person/92659a52-eda2-41a1-9300-40ca7fc3a46b",
+        "name": "Hillman Frazier",
+        "office": "state-senate",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "hfrazier@senate.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/senate/frazier.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-senate:007": [
+      {
+        "id": "ocd-person/717de4df-c8b0-4387-a767-4d37b577f370",
+        "name": "Hob Bryan",
+        "office": "state-senate",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "hbryan@senate.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/senate/bryan.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-senate:025": [
+      {
+        "id": "ocd-person/61c65e25-07c9-445c-8cef-1e6d53cbbfb3",
+        "name": "Walter Michel",
+        "office": "state-senate",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "wmichel@senate.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/senate/michel.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-senate:039": [
+      {
+        "id": "ocd-person/c664f98f-0d57-4d32-abf1-a95dcec7fa31",
+        "name": "Jason Barrett",
+        "office": "state-senate",
+        "districtCode": "039",
+        "contactUrl": null,
+        "email": "jbarrett@senate.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/senate/barrett.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-senate:033": [
+      {
+        "id": "ocd-person/9839c663-7ae3-4437-82d8-c985975309d8",
+        "name": "Jeff Tate",
+        "office": "state-senate",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "jtate@senate.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/senate/tate.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-senate:051": [
+      {
+        "id": "ocd-person/33ffa85f-af2b-41bc-89ce-3c59341d17ab",
+        "name": "Jeremy England",
+        "office": "state-senate",
+        "districtCode": "051",
+        "contactUrl": null,
+        "email": "jengland@senate.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/senate/england.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-senate:049": [
+      {
+        "id": "ocd-person/cc55837a-0a3e-4bcf-8255-b8786fc2b43f",
+        "name": "Joel Carter",
+        "office": "state-senate",
+        "districtCode": "049",
+        "contactUrl": null,
+        "email": "jcarter@senate.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/senate/carter.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-senate:041": [
+      {
+        "id": "ocd-person/bc0bd61c-da9a-40db-bf66-a0108b01275e",
+        "name": "Joey Fillingane",
+        "office": "state-senate",
+        "districtCode": "041",
+        "contactUrl": null,
+        "email": "jfillingane@senate.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/senate/fillingane.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-senate:045": [
+      {
+        "id": "ocd-person/b05ddbc1-7d61-4f78-bbd3-e0f9ea4de84a",
+        "name": "Johnny DuPree",
+        "office": "state-senate",
+        "districtCode": "045",
+        "contactUrl": null,
+        "email": "jdupree@senate.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/senate/dupree.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-senate:047": [
+      {
+        "id": "ocd-person/70b45762-64ee-4a16-b15a-194e4e3c9bf6",
+        "name": "Mike Seymour",
+        "office": "state-senate",
+        "districtCode": "047",
+        "contactUrl": null,
+        "email": "mseymour@senate.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/senate/seymour.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-senate:022": [
+      {
+        "id": "ocd-person/13131d55-19a4-49cd-aba9-e8eef7aedb06",
+        "name": "Joseph Thomas",
+        "office": "state-senate",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "jthomas@senate.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/senate/thomas.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-senate:020": [
+      {
+        "id": "ocd-person/13163ae5-a55d-4eff-8b23-b9f7df9e354a",
+        "name": "Josh Harkins",
+        "office": "state-senate",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "jharkins@senate.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/senate/harkins.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-senate:024": [
+      {
+        "id": "ocd-person/78171f60-d4f8-470f-85ef-0636656eb0d5",
+        "name": "Justin Pope",
+        "office": "state-senate",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "jpope@senate.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/senate/pope.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-senate:026": [
+      {
+        "id": "ocd-person/d0269daa-032c-482b-9faf-1d569a4645a9",
+        "name": "Kamesha Mumford",
+        "office": "state-senate",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "kmumford@senate.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/senate/mumford.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-senate:003": [
+      {
+        "id": "ocd-person/cc7b9351-ea3c-4436-8cc7-9ec0f34b3e0a",
+        "name": "Kathy Chism",
+        "office": "state-senate",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "kchism@senate.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/senate/chism.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-senate:019": [
+      {
+        "id": "ocd-person/b58c7115-6f1d-4de3-9327-eef3b6f0c83c",
+        "name": "Kevin Blackwell",
+        "office": "state-senate",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "kblackwell@senate.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/senate/blackwell.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-senate:018": [
+      {
+        "id": "ocd-person/b273517c-b673-4bf0-a084-b960bc943953",
+        "name": "Lane Taylor",
+        "office": "state-senate",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "ltaylor@senate.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/senate/taylor.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-senate:014": [
+      {
+        "id": "ocd-person/094c0731-4932-4400-ad96-84c83ba1dd59",
+        "name": "Lydia Chassaniol",
+        "office": "state-senate",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "lchassaniol@senate.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/senate/chassaniol.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-senate:001": [
+      {
+        "id": "ocd-person/017dec88-1105-454d-b55b-eeb3a3c85b55",
+        "name": "Michael McLendon",
+        "office": "state-senate",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "mmclendon@senate.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/senate/mclendon.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-senate:048": [
+      {
+        "id": "ocd-person/eaa39996-c8a7-4568-b01e-d7685667227b",
+        "name": "Mike Thompson",
+        "office": "state-senate",
+        "districtCode": "048",
+        "contactUrl": null,
+        "email": "mthompson@senate.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/senate/thompson.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-senate:010": [
+      {
+        "id": "ocd-person/60cdec6e-abad-4d5c-97ca-83da67ed7a67",
+        "name": "Neil Whaley",
+        "office": "state-senate",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "nwhaley@senate.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/senate/whaley.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-senate:009": [
+      {
+        "id": "ocd-person/befe53fc-f95d-49df-93f4-9985e00151e6",
+        "name": "Nicole Boyd",
+        "office": "state-senate",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "nboyd@senate.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/senate/boyd.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-senate:046": [
+      {
+        "id": "ocd-person/7aef9236-de61-47cf-8243-b5a21fcac9dc",
+        "name": "Philman Ladner",
+        "office": "state-senate",
+        "districtCode": "046",
+        "contactUrl": null,
+        "email": "pladner@senate.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/senate/ladner.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-senate:004": [
+      {
+        "id": "ocd-person/d618a68e-ed3a-47a5-be24-852af75d9ab3",
+        "name": "Rita Parks",
+        "office": "state-senate",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "rparks@senate.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/senate/parks.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-senate:011": [
+      {
+        "id": "ocd-person/0fde8bcf-e43a-4b39-a9a5-b7869424e2d9",
+        "name": "Reginald Jackson",
+        "office": "state-senate",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "rjackson@senate.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/senate/jackson.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-senate:032": [
+      {
+        "id": "ocd-person/eb5bde8b-1497-4a27-9806-128cf68cb00d",
+        "name": "Rod Hickman",
+        "office": "state-senate",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "rhickman@senate.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/senate/hickman.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-senate:013": [
+      {
+        "id": "ocd-person/f1012c43-9559-4f7a-8b70-8dd9cf88bab1",
+        "name": "Sarita Simmons",
+        "office": "state-senate",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "ssimmons@senate.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/senate/simmons_(13th).xml",
+        "social": {}
+      }
+    ],
+    "MS:state-senate:050": [
+      {
+        "id": "ocd-person/8467b994-f651-446b-b77f-0632ff790ff8",
+        "name": "Scott DeLano",
+        "office": "state-senate",
+        "districtCode": "050",
+        "contactUrl": null,
+        "email": "sdelano@senate.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/house/delano.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-senate:028": [
+      {
+        "id": "ocd-person/4b5fb3d4-b284-4886-bb0b-4c00febb1724",
+        "name": "Sollie Norwood",
+        "office": "state-senate",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "snorwood@senate.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/senate/norwood.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-senate:002": [
+      {
+        "id": "ocd-person/34b84276-9c36-4f69-b015-ba05a1c5ee58",
+        "name": "Theresa Gillespie Isom",
+        "office": "state-senate",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "tgillespie-isom@senate.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MS:state-senate:031": [
+      {
+        "id": "ocd-person/bd335f00-4e41-4972-b8f4-f2249b410614",
+        "name": "Tyler McCaughn",
+        "office": "state-senate",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "tmccaughn@senate.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/senate/mccaughn.xml",
+        "social": {}
+      }
+    ],
+    "MS:state-senate:023": [
+      {
+        "id": "ocd-person/f275881b-1096-4a6a-a607-b417eae41f2e",
+        "name": "Briggs Hopson",
+        "office": "state-senate",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "bhopson@senate.ms.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://billstatus.ls.state.ms.us/members/senate/hopson.xml",
+        "social": {}
+      }
+    ]
+  }
+}

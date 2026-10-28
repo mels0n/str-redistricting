@@ -1,0 +1,1558 @@
+{
+  "state": "UT",
+  "generatedFrom": {
+    "legislators-current.json": "ae8cb9477c48715df71a7d860854229d799dc90a254d61badc1efb770f892b2c",
+    "legislators-social-media.json": "c6eca1fcdb3a89901335eed51ca061daa4b60ad3243969a127e913bb9657fbc5",
+    "ut.csv": "2d09d4e0141eca1db8771b180fe70495fbed45a5e5eab06714b6dab3c19dff59"
+  },
+  "byKey": {
+    "UT:us-senate:state": [
+      {
+        "id": "L000577",
+        "name": "Mike Lee",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.lee.senate.gov/public/index.cfm/contact",
+        "email": null,
+        "phone": "202-224-5444",
+        "address": "363 Russell Senate Office Building Washington DC 20510",
+        "website": "https://www.lee.senate.gov",
+        "social": {
+          "x": "SenMikeLee",
+          "facebook": "senatormikelee",
+          "instagram": "senmikelee"
+        }
+      },
+      {
+        "id": "C001114",
+        "name": "John R. Curtis",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-224-5251",
+        "address": "502 Hart Senate Office Building Washington DC 20510",
+        "website": "https://www.curtis.senate.gov",
+        "social": {
+          "x": "RepJohnCurtis",
+          "facebook": "RepJohnCurtis",
+          "instagram": "repjohncurtis"
+        }
+      }
+    ],
+    "UT:us-house:01": [
+      {
+        "id": "M001213",
+        "name": "Blake D. Moore",
+        "office": "us-house",
+        "districtCode": "01",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-0453",
+        "address": "1131 Longworth House Office Building Washington DC 20515-4401",
+        "website": "https://blakemoore.house.gov",
+        "social": {
+          "x": "RepBlakeMoore",
+          "facebook": "RepBlakeMoore",
+          "instagram": "repblakemoore"
+        }
+      }
+    ],
+    "UT:us-house:04": [
+      {
+        "id": "O000086",
+        "name": "Burgess Owens",
+        "office": "us-house",
+        "districtCode": "04",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-3011",
+        "address": "309 Cannon House Office Building Washington DC 20515-4404",
+        "website": "https://owens.house.gov",
+        "social": {
+          "x": "RepBurgessOwens",
+          "facebook": "CongressmanBurgessOwens",
+          "instagram": "repburgessowens"
+        }
+      }
+    ],
+    "UT:us-house:02": [
+      {
+        "id": "M001228",
+        "name": "Celeste Maloy",
+        "office": "us-house",
+        "districtCode": "02",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-9730",
+        "address": "249 Cannon House Office Building Washington DC 20515-4402",
+        "website": "https://maloy.house.gov",
+        "social": {
+          "x": "RepMaloyUtah",
+          "facebook": "61555755717517",
+          "instagram": "RepCelesteMaloy"
+        }
+      }
+    ],
+    "UT:us-house:03": [
+      {
+        "id": "K000403",
+        "name": "Mike Kennedy",
+        "office": "us-house",
+        "districtCode": "03",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-7751",
+        "address": "1626 Longworth House Office Building Washington DC 20515-4403",
+        "website": "https://mikekennedy.house.gov",
+        "social": {
+          "x": "repmikekennedy",
+          "facebook": "RepMikeKennedy",
+          "instagram": "repmikekennedy"
+        }
+      }
+    ],
+    "UT:state-house:052": [
+      {
+        "id": "ocd-person/8487aadf-5bd8-46b1-97a3-2db855c534a0",
+        "name": "Cory Maloy",
+        "office": "state-house",
+        "districtCode": "052",
+        "contactUrl": null,
+        "email": "corymaloy@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1414486",
+        "social": {}
+      }
+    ],
+    "UT:state-house:040": [
+      {
+        "id": "ocd-person/eac36970-1c63-4b4c-81b1-3a39536bd69d",
+        "name": "Andrew Stoddard",
+        "office": "state-house",
+        "districtCode": "040",
+        "contactUrl": null,
+        "email": "astoddard@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1415014",
+        "social": {}
+      }
+    ],
+    "UT:state-house:025": [
+      {
+        "id": "ocd-person/d987aff4-abcf-4f2a-826d-b5741d065d44",
+        "name": "Angela Romero",
+        "office": "state-house",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "angelaromero@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1411502",
+        "social": {}
+      }
+    ],
+    "UT:state-house:027": [
+      {
+        "id": "ocd-person/7c0df02d-1ef0-4fa9-b708-ccafff35649e",
+        "name": "Anthony Loubet",
+        "office": "state-house",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "aloubet@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.utah.gov/rep/LOUBEA/",
+        "social": {}
+      }
+    ],
+    "UT:state-house:015": [
+      {
+        "id": "ocd-person/6d3d4043-1ec3-454c-a517-4036722c50ee",
+        "name": "Ariel Defay",
+        "office": "state-house",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "adefay@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.utah.gov/rep/DEFAYA/",
+        "social": {}
+      }
+    ],
+    "UT:state-house:037": [
+      {
+        "id": "ocd-person/8a770a9d-d24e-4468-9194-fa2ff1f422e3",
+        "name": "Ashlee Matthews",
+        "office": "state-house",
+        "districtCode": "037",
+        "contactUrl": null,
+        "email": "amatthews@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1415432",
+        "social": {}
+      }
+    ],
+    "UT:state-house:029": [
+      {
+        "id": "ocd-person/3e388e2d-1b4a-49dc-9aa5-38353166e08f",
+        "name": "Bridger Bolinder",
+        "office": "state-house",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "bbolinder@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.utah.gov/rep/BOLINB/",
+        "social": {}
+      }
+    ],
+    "UT:state-house:046": [
+      {
+        "id": "ocd-person/8e452a53-e405-49f9-9031-77d8a9f63bd3",
+        "name": "Cal Roberts",
+        "office": "state-house",
+        "districtCode": "046",
+        "contactUrl": null,
+        "email": "croberts@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.utleg.gov/rep/ROBERC/",
+        "social": {}
+      }
+    ],
+    "UT:state-house:049": [
+      {
+        "id": "ocd-person/b4977f98-8a0d-4e4b-a43f-b8ee80adba2b",
+        "name": "Candice Pierucci",
+        "office": "state-house",
+        "districtCode": "049",
+        "contactUrl": null,
+        "email": "cpierucci@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1415318",
+        "social": {}
+      }
+    ],
+    "UT:state-house:070": [
+      {
+        "id": "ocd-person/8967df77-dc79-46e0-873c-b79f9cf73e1f",
+        "name": "Carl Albrecht",
+        "office": "state-house",
+        "districtCode": "070",
+        "contactUrl": null,
+        "email": "carlalbrecht@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1414402",
+        "social": {}
+      }
+    ],
+    "UT:state-house:034": [
+      {
+        "id": "ocd-person/8d06fd93-cc42-47e3-a00c-2229718b7226",
+        "name": "Carol Moss",
+        "office": "state-house",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "csmoss@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1248",
+        "social": {}
+      }
+    ],
+    "UT:state-house:005": [
+      {
+        "id": "ocd-person/5d8ada2a-75c6-4aa6-b359-29720794fb7e",
+        "name": "Casey Snider",
+        "office": "state-house",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "csnider@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1414881",
+        "social": {}
+      }
+    ],
+    "UT:state-house:038": [
+      {
+        "id": "ocd-person/54fcc31c-a3e5-47ea-a044-d1223c6bce65",
+        "name": "Cheryl Acton",
+        "office": "state-house",
+        "districtCode": "038",
+        "contactUrl": null,
+        "email": "cacton@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1414828",
+        "social": {}
+      }
+    ],
+    "UT:state-house:067": [
+      {
+        "id": "ocd-person/052622aa-50ab-47c7-84b8-175d144a9d59",
+        "name": "Christine Watkins",
+        "office": "state-house",
+        "districtCode": "067",
+        "contactUrl": null,
+        "email": "christinewatkins@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/2078",
+        "social": {}
+      }
+    ],
+    "UT:state-house:042": [
+      {
+        "id": "ocd-person/12581dac-c07b-40a8-b309-3c9ea167f913",
+        "name": "Clint Okerlund",
+        "office": "state-house",
+        "districtCode": "042",
+        "contactUrl": null,
+        "email": "cokerlund@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.utleg.gov/rep/OKERLC/",
+        "social": {}
+      }
+    ],
+    "UT:state-house:073": [
+      {
+        "id": "ocd-person/2fb1aaec-83c2-41f3-b98a-8a8a34e7301e",
+        "name": "Colin Jack",
+        "office": "state-house",
+        "districtCode": "073",
+        "contactUrl": null,
+        "email": "cjack@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.utah.gov/rep/JACKC/",
+        "social": {}
+      }
+    ],
+    "UT:state-house:058": [
+      {
+        "id": "ocd-person/e26d3225-27da-440d-ac85-cad08bdb5ade",
+        "name": "Dave Shallenberger",
+        "office": "state-house",
+        "districtCode": "058",
+        "contactUrl": null,
+        "email": "dshallenberger@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.utleg.gov/rep/SHALLD/",
+        "social": {}
+      }
+    ],
+    "UT:state-house:048": [
+      {
+        "id": "ocd-person/ea11beb4-7128-4549-9174-fa7b40cacca8",
+        "name": "Doug Fiefia",
+        "office": "state-house",
+        "districtCode": "048",
+        "contactUrl": null,
+        "email": "dfiefa@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.utleg.gov/rep/FIEFID/",
+        "social": {}
+      }
+    ],
+    "UT:state-house:033": [
+      {
+        "id": "ocd-person/b60609f0-e6df-42fc-bbca-9b67a2ed7254",
+        "name": "Doug Owens",
+        "office": "state-house",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "dougowens@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1415426",
+        "social": {}
+      }
+    ],
+    "UT:state-house:065": [
+      {
+        "id": "ocd-person/725abf07-1cca-47a5-a5a7-223d763f5da0",
+        "name": "Doug Welton",
+        "office": "state-house",
+        "districtCode": "065",
+        "contactUrl": null,
+        "email": "dwelton@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1415458",
+        "social": {}
+      }
+    ],
+    "UT:state-house:024": [
+      {
+        "id": "ocd-person/82be86b6-0047-471e-8983-a061e5cc91e2",
+        "name": "Grant Miller",
+        "office": "state-house",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "gmiller@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.utleg.gov/rep/MILLGR/",
+        "social": {}
+      }
+    ],
+    "UT:state-house:060": [
+      {
+        "id": "ocd-person/83efadab-9aba-4506-96d7-04a79581348c",
+        "name": "Grant Pace",
+        "office": "state-house",
+        "districtCode": "060",
+        "contactUrl": null,
+        "email": "gpace@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.utleg.gov/rep/PACEG/",
+        "social": {}
+      }
+    ],
+    "UT:state-house:023": [
+      {
+        "id": "ocd-person/efcd1f01-061f-4b35-9202-407576e22e77",
+        "name": "Hoang Nguyen",
+        "office": "state-house",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "hnguyen@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.utleg.gov/rep/NGUYEH/",
+        "social": {}
+      }
+    ],
+    "UT:state-house:064": [
+      {
+        "id": "ocd-person/c078ef2d-7a7a-469a-a8bc-d6e5c16203c4",
+        "name": "Jackie Larson",
+        "office": "state-house",
+        "districtCode": "064",
+        "contactUrl": null,
+        "email": "jlarson@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.utleg.gov/rep/LARSOJ/",
+        "social": {}
+      }
+    ],
+    "UT:state-house:030": [
+      {
+        "id": "ocd-person/e68bfc15-5c1f-4903-ac1f-eb8ca44a816a",
+        "name": "Jake Fitisemanu",
+        "office": "state-house",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "jfitisemanu@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.utleg.gov/rep/FITISJ/",
+        "social": {}
+      }
+    ],
+    "UT:state-house:009": [
+      {
+        "id": "ocd-person/dd923550-9fd3-4476-9a43-219a199c8057",
+        "name": "Jake Sawyer",
+        "office": "state-house",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "jsawyer@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.utleg.gov/rep/SAWYEJ/",
+        "social": {}
+      }
+    ],
+    "UT:state-house:036": [
+      {
+        "id": "ocd-person/89b3cebe-884b-4798-b063-794d359ea891",
+        "name": "Jim Dunnigan",
+        "office": "state-house",
+        "districtCode": "036",
+        "contactUrl": null,
+        "email": "jdunnigan@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1389",
+        "social": {}
+      }
+    ],
+    "UT:state-house:008": [
+      {
+        "id": "ocd-person/cb6f79ec-b7b4-418e-950e-f5f066489929",
+        "name": "Jason Kyle",
+        "office": "state-house",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "jkyle@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.utah.gov/rep/KYLEJB/",
+        "social": {}
+      }
+    ],
+    "UT:state-house:003": [
+      {
+        "id": "ocd-person/d7b06a16-ad92-4d55-af46-93a1f13253e7",
+        "name": "Jason Thompson",
+        "office": "state-house",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "jthompson@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.utleg.gov/rep/THOMJA/",
+        "social": {}
+      }
+    ],
+    "UT:state-house:022": [
+      {
+        "id": "ocd-person/b32f9174-73af-4db3-877b-1c368bd4e62e",
+        "name": "Jen Dailey-Provost",
+        "office": "state-house",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "jdprovost@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1414811",
+        "social": {}
+      }
+    ],
+    "UT:state-house:010": [
+      {
+        "id": "ocd-person/598a8b34-ab05-4438-b927-77b20437035d",
+        "name": "Jill Koford",
+        "office": "state-house",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "jkoford@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.utleg.gov/rep/KOFORJ/",
+        "social": {}
+      }
+    ],
+    "UT:state-house:041": [
+      {
+        "id": "ocd-person/b5f1d356-e619-413b-8b9a-fec2d3d48362",
+        "name": "John Arthur",
+        "office": "state-house",
+        "districtCode": "041",
+        "contactUrl": null,
+        "email": "jarthur@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.utleg.gov/rep/ARTHUJ/",
+        "social": {}
+      }
+    ],
+    "UT:state-house:055": [
+      {
+        "id": "ocd-person/e214e4ef-2df9-41a2-9113-98715f5a791c",
+        "name": "Jon Hawkins",
+        "office": "state-house",
+        "districtCode": "055",
+        "contactUrl": null,
+        "email": "jhawkins@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1414969",
+        "social": {}
+      }
+    ],
+    "UT:state-house:044": [
+      {
+        "id": "ocd-person/4fb12ece-15d9-4fd2-9b0a-e96a0dbdd2ad",
+        "name": "Jordan Teuscher",
+        "office": "state-house",
+        "districtCode": "044",
+        "contactUrl": null,
+        "email": "jteuscher@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1415423",
+        "social": {}
+      }
+    ],
+    "UT:state-house:072": [
+      {
+        "id": "ocd-person/0d22b3d0-94f2-4f88-95e9-b830480f4be8",
+        "name": "Joseph Elison",
+        "office": "state-house",
+        "districtCode": "072",
+        "contactUrl": null,
+        "email": "jelison@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.utah.gov/rep/ELISOJ/",
+        "social": {}
+      }
+    ],
+    "UT:state-house:013": [
+      {
+        "id": "ocd-person/3c2d4efe-dd4e-48cf-a83b-2a15791706a3",
+        "name": "Karen Peterson",
+        "office": "state-house",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "kpeterson@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1415760",
+        "social": {}
+      }
+    ],
+    "UT:state-house:014": [
+      {
+        "id": "ocd-person/59eb30b5-da7b-4161-85b3-8b48c01f4c2b",
+        "name": "Karianne Lisonbee",
+        "office": "state-house",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "karilisonbee@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1414516",
+        "social": {}
+      }
+    ],
+    "UT:state-house:011": [
+      {
+        "id": "ocd-person/37301850-0f06-4bbd-ba85-faa7c4d39906",
+        "name": "Katy Hall",
+        "office": "state-house",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "khall@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.utah.gov/rep/HALLK/",
+        "social": {}
+      }
+    ],
+    "UT:state-house:053": [
+      {
+        "id": "ocd-person/aee56bc8-022b-4351-81c0-9b5050846a8b",
+        "name": "Kay Christofferson",
+        "office": "state-house",
+        "districtCode": "053",
+        "contactUrl": null,
+        "email": "kchristofferson@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1411621",
+        "social": {}
+      }
+    ],
+    "UT:state-house:039": [
+      {
+        "id": "ocd-person/c76bd4cf-9149-46e8-a001-e2c81c5942d5",
+        "name": "Ken Ivory",
+        "office": "state-house",
+        "districtCode": "039",
+        "contactUrl": null,
+        "email": "kivory@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1409302",
+        "social": {}
+      }
+    ],
+    "UT:state-house:054": [
+      {
+        "id": "ocd-person/d428d2ed-8644-459a-b374-7535561a1482",
+        "name": "Kristen Chevrier",
+        "office": "state-house",
+        "districtCode": "054",
+        "contactUrl": null,
+        "email": "kchevrier@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.utleg.gov/rep/CHEVRK/",
+        "social": {}
+      }
+    ],
+    "UT:state-house:051": [
+      {
+        "id": "ocd-person/72df7728-0455-4b7b-9432-745f4365d99e",
+        "name": "Leah Hansen",
+        "office": "state-house",
+        "districtCode": "051",
+        "contactUrl": null,
+        "email": "lhansen@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.utleg.gov/rep/LHANSEN/",
+        "social": {}
+      }
+    ],
+    "UT:state-house:061": [
+      {
+        "id": "ocd-person/cc269dc8-cef7-4e8d-a3fc-0d658d1dcfcc",
+        "name": "Lisa Shepherd",
+        "office": "state-house",
+        "districtCode": "061",
+        "contactUrl": null,
+        "email": "lshepherd@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.utleg.gov/rep/SHEPHL/",
+        "social": {}
+      }
+    ],
+    "UT:state-house:069": [
+      {
+        "id": "ocd-person/afd0bd15-a816-44ae-b28e-cecf50dda45b",
+        "name": "Logan Monson",
+        "office": "state-house",
+        "districtCode": "069",
+        "contactUrl": null,
+        "email": "lmonson@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.utleg.gov/rep/MONSOL/",
+        "social": {}
+      }
+    ],
+    "UT:state-house:047": [
+      {
+        "id": "ocd-person/5d383c2b-0450-48db-92bf-e20977953cd8",
+        "name": "Mark Strong",
+        "office": "state-house",
+        "districtCode": "047",
+        "contactUrl": null,
+        "email": "mstrong@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1415024",
+        "social": {}
+      }
+    ],
+    "UT:state-house:026": [
+      {
+        "id": "ocd-person/ad88a882-c27b-4ceb-8476-b7a3d2a9dd19",
+        "name": "Matt MacPherson",
+        "office": "state-house",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "mmacpherson@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.utah.gov/rep/MACPHM/",
+        "social": {}
+      }
+    ],
+    "UT:state-house:020": [
+      {
+        "id": "ocd-person/861428f5-6456-4c94-b1ed-838b01a7d845",
+        "name": "Melissa Ballard",
+        "office": "state-house",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "mballard@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1415006",
+        "social": {}
+      }
+    ],
+    "UT:state-house:059": [
+      {
+        "id": "ocd-person/656dec4e-3c95-43b1-9059-f2259300f88b",
+        "name": "Mike Kohler",
+        "office": "state-house",
+        "districtCode": "059",
+        "contactUrl": null,
+        "email": "mkohler@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1415490",
+        "social": {}
+      }
+    ],
+    "UT:state-house:002": [
+      {
+        "id": "ocd-person/e9792114-e077-4663-96c4-94d679c66ace",
+        "name": "Mike Petersen",
+        "office": "state-house",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "mpetersen@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1415376",
+        "social": {}
+      }
+    ],
+    "UT:state-house:012": [
+      {
+        "id": "ocd-person/d1046a0c-ddd3-4fed-be41-13da161d6231",
+        "name": "Mike Schultz",
+        "office": "state-house",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "mikeschultz@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1412688",
+        "social": {}
+      }
+    ],
+    "UT:state-house:057": [
+      {
+        "id": "ocd-person/00670b53-62f7-4c0f-b229-eb1fad6dbbbc",
+        "name": "Nelson Abbott",
+        "office": "state-house",
+        "districtCode": "057",
+        "contactUrl": null,
+        "email": "nabbott@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1415393",
+        "social": {}
+      }
+    ],
+    "UT:state-house:028": [
+      {
+        "id": "ocd-person/08c69398-e218-46a2-a843-9f1bfe088caa",
+        "name": "Nicholeen Peck",
+        "office": "state-house",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "npeck@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.utleg.gov/rep/PECKNI/",
+        "social": {}
+      }
+    ],
+    "UT:state-house:062": [
+      {
+        "id": "ocd-person/8e36fabe-9e2a-4ccd-b29a-1395d6318560",
+        "name": "Norm Thurston",
+        "office": "state-house",
+        "districtCode": "062",
+        "contactUrl": null,
+        "email": "normthurston@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1412615",
+        "social": {}
+      }
+    ],
+    "UT:state-house:018": [
+      {
+        "id": "ocd-person/d8c2c3ff-83a7-45f7-88bb-fb01b8cd624e",
+        "name": "Paul Cutler",
+        "office": "state-house",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "pcutler@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.utah.gov/rep/CUTLEP/",
+        "social": {}
+      }
+    ],
+    "UT:state-house:074": [
+      {
+        "id": "ocd-person/5b90793c-f90a-4b0e-b9e6-78943bfaab1c",
+        "name": "Neil Walter",
+        "office": "state-house",
+        "districtCode": "074",
+        "contactUrl": null,
+        "email": "nwalter@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.utah.gov/rep/WALTER/",
+        "social": {}
+      }
+    ],
+    "UT:state-house:019": [
+      {
+        "id": "ocd-person/dbd3789a-5040-4015-9474-ac27b4a32010",
+        "name": "Ray Ward",
+        "office": "state-house",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "rayward@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1412633",
+        "social": {}
+      }
+    ],
+    "UT:state-house:071": [
+      {
+        "id": "ocd-person/66ec0903-117f-4006-8e05-e7326330fc63",
+        "name": "Rex Shipp",
+        "office": "state-house",
+        "districtCode": "071",
+        "contactUrl": null,
+        "email": "rshipp@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1414994",
+        "social": {}
+      }
+    ],
+    "UT:state-house:006": [
+      {
+        "id": "ocd-person/b68ab473-0a2e-41f5-9732-fbffd6738865",
+        "name": "Rob Bishop",
+        "office": "state-house",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "rbishop@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.utleg.gov/rep/BISHORW/",
+        "social": {}
+      }
+    ],
+    "UT:state-house:035": [
+      {
+        "id": "ocd-person/6944b102-0d94-4267-916f-59fbd6f2bb18",
+        "name": "Rosalba Dominguez",
+        "office": "state-house",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "rdominguez@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.utleg.gov/rep/DOMINR/",
+        "social": {}
+      }
+    ],
+    "UT:state-house:007": [
+      {
+        "id": "ocd-person/9657724b-ade7-467e-b77d-b77fb98891c5",
+        "name": "Ryan Wilcox",
+        "office": "state-house",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "ryanwilcox@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1415472",
+        "social": {}
+      }
+    ],
+    "UT:state-house:032": [
+      {
+        "id": "ocd-person/b0a5ca40-5e04-495c-80e0-2c5d3608273d",
+        "name": "Sahara Hayes",
+        "office": "state-house",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "shayes@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.utah.gov/rep/HAYESS/",
+        "social": {}
+      }
+    ],
+    "UT:state-house:021": [
+      {
+        "id": "ocd-person/8c8d32a7-32ed-4ef1-a03d-9661ca98fc5a",
+        "name": "Sandra Hollins",
+        "office": "state-house",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "shollins@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1412641",
+        "social": {}
+      }
+    ],
+    "UT:state-house:068": [
+      {
+        "id": "ocd-person/d7a3c337-4395-4e23-9e11-74cb55744f14",
+        "name": "Scott Chew",
+        "office": "state-house",
+        "districtCode": "068",
+        "contactUrl": null,
+        "email": "scottchew@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1412742",
+        "social": {}
+      }
+    ],
+    "UT:state-house:050": [
+      {
+        "id": "ocd-person/236ec233-4d24-4514-82a5-05a028c1de14",
+        "name": "Stephanie Gricius",
+        "office": "state-house",
+        "districtCode": "050",
+        "contactUrl": null,
+        "email": "sgricius@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.utah.gov/rep/GRICIS/",
+        "social": {}
+      }
+    ],
+    "UT:state-house:063": [
+      {
+        "id": "ocd-person/451ecbcb-42a9-467b-98c7-e0b3e5bd32d3",
+        "name": "Stephen Whyte",
+        "office": "state-house",
+        "districtCode": "063",
+        "contactUrl": null,
+        "email": "swhyte@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1415754",
+        "social": {}
+      }
+    ],
+    "UT:state-house:043": [
+      {
+        "id": "ocd-person/06d334f0-dd19-4a8e-b1c9-5f1ae1d90e26",
+        "name": "Steve Eliason",
+        "office": "state-house",
+        "districtCode": "043",
+        "contactUrl": null,
+        "email": "seliason@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1409528",
+        "social": {}
+      }
+    ],
+    "UT:state-house:017": [
+      {
+        "id": "ocd-person/b5285658-1e71-48a2-8641-a2bc75957b24",
+        "name": "Stewart Barlow",
+        "office": "state-house",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "sbarlow@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1411299",
+        "social": {}
+      }
+    ],
+    "UT:state-house:001": [
+      {
+        "id": "ocd-person/faa88790-ac92-4a09-b00e-7049cc8521b6",
+        "name": "Tom Peterson",
+        "office": "state-house",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "tpeterson@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.utah.gov/rep/PETERT/",
+        "social": {}
+      }
+    ],
+    "UT:state-house:004": [
+      {
+        "id": "ocd-person/85745a94-5b45-4ac2-a258-1a1f48dc33db",
+        "name": "Tiara Auxier",
+        "office": "state-house",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "tauxier@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.utleg.gov/rep/AUXIET/",
+        "social": {}
+      }
+    ],
+    "UT:state-house:045": [
+      {
+        "id": "ocd-person/1460f74d-e7af-44a6-8e24-5c3fe8013251",
+        "name": "Tracy Miller",
+        "office": "state-house",
+        "districtCode": "045",
+        "contactUrl": null,
+        "email": "tmiller@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.utleg.gov/rep/MILLET/",
+        "social": {}
+      }
+    ],
+    "UT:state-house:066": [
+      {
+        "id": "ocd-person/7e80bacf-6b3d-4f33-b854-06dab80a29bd",
+        "name": "Troy Shelley",
+        "office": "state-house",
+        "districtCode": "066",
+        "contactUrl": null,
+        "email": "tshelley@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.utleg.gov/rep/SHELLT/",
+        "social": {}
+      }
+    ],
+    "UT:state-house:056": [
+      {
+        "id": "ocd-person/8662eb2d-1ff1-4bd2-9a3b-41fa8770cc18",
+        "name": "Val Peterson",
+        "office": "state-house",
+        "districtCode": "056",
+        "contactUrl": null,
+        "email": "vpeterson@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1409531",
+        "social": {}
+      }
+    ],
+    "UT:state-house:031": [
+      {
+        "id": "ocd-person/ba4559e4-0f36-4c48-afb9-3e142b670f86",
+        "name": "Verona Mauga",
+        "office": "state-house",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "vmauga@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.utleg.gov/rep/MAUGAV/",
+        "social": {}
+      }
+    ],
+    "UT:state-house:075": [
+      {
+        "id": "ocd-person/5cef5a01-f3ea-4c28-aa39-036449806388",
+        "name": "Walt Brooks",
+        "office": "state-house",
+        "districtCode": "075",
+        "contactUrl": null,
+        "email": "wbrooks@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1414382",
+        "social": {}
+      }
+    ],
+    "UT:state-senate:005": [
+      {
+        "id": "ocd-person/6b86542a-9b8a-418f-a275-6c261cdd86d2",
+        "name": "Ann Millner",
+        "office": "state-senate",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "amillner@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1412594",
+        "social": {}
+      }
+    ],
+    "UT:state-senate:021": [
+      {
+        "id": "ocd-person/b8751ce0-ba9b-44a0-8658-9cc9dc5f4c2c",
+        "name": "Brady Brammer",
+        "office": "state-senate",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "bbrammer@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1415048",
+        "social": {}
+      }
+    ],
+    "UT:state-senate:004": [
+      {
+        "id": "ocd-person/036ab735-ad82-450e-a5ca-098b1436cb90",
+        "name": "Cal Musselman",
+        "office": "state-senate",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "cmusselman@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1415056",
+        "social": {}
+      }
+    ],
+    "UT:state-senate:002": [
+      {
+        "id": "ocd-person/3acc854e-2a4d-43ff-9cfb-63d527bb8186",
+        "name": "Chris Wilson",
+        "office": "state-senate",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "cwilson@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1415396",
+        "social": {}
+      }
+    ],
+    "UT:state-senate:018": [
+      {
+        "id": "ocd-person/6540aa74-9456-4b29-9b56-cadd31104db2",
+        "name": "Dan McCay",
+        "office": "state-senate",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "dmccay@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1411368",
+        "social": {}
+      }
+    ],
+    "UT:state-senate:026": [
+      {
+        "id": "ocd-person/78b7c95c-45a7-40cb-a82c-681db75f9529",
+        "name": "David Hinkins",
+        "office": "state-senate",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "dhinkins@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/2095",
+        "social": {}
+      }
+    ],
+    "UT:state-senate:027": [
+      {
+        "id": "ocd-person/ef1c9af3-b4f9-4eeb-b63d-a22f01c84262",
+        "name": "Derrin Owens",
+        "office": "state-senate",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "derrinowens@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1414375",
+        "social": {}
+      }
+    ],
+    "UT:state-senate:029": [
+      {
+        "id": "ocd-person/cbfab19e-80f2-4edc-ae55-08f9e03a6d2f",
+        "name": "Don Ipson",
+        "office": "state-senate",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "dipson@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/2052",
+        "social": {}
+      }
+    ],
+    "UT:state-senate:011": [
+      {
+        "id": "ocd-person/f5149921-03c9-4420-bb21-9b54c19e0c65",
+        "name": "Emily Buss",
+        "office": "state-senate",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "ebuss@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senate.utah.gov/sen/BUSSEM/",
+        "social": {}
+      }
+    ],
+    "UT:state-senate:028": [
+      {
+        "id": "ocd-person/3ee27d8b-c865-4d86-b33e-9cfb34c3bac4",
+        "name": "Evan Vickers",
+        "office": "state-senate",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "evickers@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/2085",
+        "social": {}
+      }
+    ],
+    "UT:state-senate:022": [
+      {
+        "id": "ocd-person/650616ca-3c57-4995-a514-37644fe1fa8f",
+        "name": "Heidi Balderree",
+        "office": "state-senate",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "hbalderree@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://le.utah.gov/asp/billsintro/SenResults.asp?Listbox2=BALDEH",
+        "social": {}
+      }
+    ],
+    "UT:state-senate:007": [
+      {
+        "id": "ocd-person/5b47c889-e555-4d3c-9b30-97d52ee02960",
+        "name": "Stuart Adams",
+        "office": "state-senate",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "jsadams@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1408736",
+        "social": {}
+      }
+    ],
+    "UT:state-senate:009": [
+      {
+        "id": "ocd-person/bd870ade-5b3f-4ed3-9e6f-6bbab93a7d35",
+        "name": "Jen Plumb",
+        "office": "state-senate",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "jplumb@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://le.utah.gov/asp/billsintro/SenResults.asp?Listbox2=PLUMBJ",
+        "social": {}
+      }
+    ],
+    "UT:state-senate:006": [
+      {
+        "id": "ocd-person/3a04e48f-6d8c-47aa-b0aa-0e14994cd961",
+        "name": "Jerry Stevenson",
+        "office": "state-senate",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "jwstevenson@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1409402",
+        "social": {}
+      }
+    ],
+    "UT:state-senate:003": [
+      {
+        "id": "ocd-person/0c8df9e4-cb46-4dc1-ab5b-6d181efd58e0",
+        "name": "John Johnson",
+        "office": "state-senate",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "jjohnson@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1415473",
+        "social": {}
+      }
+    ],
+    "UT:state-senate:012": [
+      {
+        "id": "ocd-person/3ceb7500-0ea7-46ef-9a75-d00d378b86b7",
+        "name": "Karen Kwan",
+        "office": "state-senate",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "kkwan@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1412727",
+        "social": {}
+      }
+    ],
+    "UT:state-senate:015": [
+      {
+        "id": "ocd-person/67c6161b-0222-4702-85ce-7409bc5bc86a",
+        "name": "Kathleen Riebe",
+        "office": "state-senate",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "kriebe@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1414459",
+        "social": {}
+      }
+    ],
+    "UT:state-senate:023": [
+      {
+        "id": "ocd-person/7634ce2b-d172-4852-919c-7089eaa38db8",
+        "name": "Keith Grover",
+        "office": "state-senate",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "keithgrover@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1913",
+        "social": {}
+      }
+    ],
+    "UT:state-senate:024": [
+      {
+        "id": "ocd-person/a919fa9b-f3f7-480f-b578-4a49bb4b572e",
+        "name": "Keven Stratton",
+        "office": "state-senate",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "kstratton@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1413031",
+        "social": {}
+      }
+    ],
+    "UT:state-senate:019": [
+      {
+        "id": "ocd-person/c421a26f-c1c1-4398-be94-d77d312ea3fe",
+        "name": "Kirk Cullimore",
+        "office": "state-senate",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "kcullimore@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1415051",
+        "social": {}
+      }
+    ],
+    "UT:state-senate:017": [
+      {
+        "id": "ocd-person/74f25c67-1e6f-48f1-b3e3-49bbdf85539a",
+        "name": "Lincoln Fillmore",
+        "office": "state-senate",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "lfillmore@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1413349",
+        "social": {}
+      }
+    ],
+    "UT:state-senate:010": [
+      {
+        "id": "ocd-person/6983c74c-3687-4e48-b462-38a80caeb260",
+        "name": "Luz Escamilla",
+        "office": "state-senate",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "lescamilla@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1875",
+        "social": {}
+      }
+    ],
+    "UT:state-senate:025": [
+      {
+        "id": "ocd-person/8ffe791d-6a74-412b-a435-ee04045e0ad0",
+        "name": "Mike McKell",
+        "office": "state-senate",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "mmckell@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1411332",
+        "social": {}
+      }
+    ],
+    "UT:state-senate:013": [
+      {
+        "id": "ocd-person/c9f2ef36-ee69-4e91-9da9-6c9311334912",
+        "name": "Nate Blouin",
+        "office": "state-senate",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "nblouin@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://le.utah.gov/asp/billsintro/SenResults.asp?Listbox2=BLOUIN",
+        "social": {}
+      }
+    ],
+    "UT:state-senate:020": [
+      {
+        "id": "ocd-person/5079192a-3d15-4a00-b0c7-2cf29d320035",
+        "name": "Ron Winterton",
+        "office": "state-senate",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "rwinterton@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1414932",
+        "social": {}
+      }
+    ],
+    "UT:state-senate:001": [
+      {
+        "id": "ocd-person/d1a1c031-9dce-4727-a298-ec92cb34fe40",
+        "name": "Scott Sandall",
+        "office": "state-senate",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "ssandall@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1412644",
+        "social": {}
+      }
+    ],
+    "UT:state-senate:014": [
+      {
+        "id": "ocd-person/edf0f18c-4b89-4d34-a2eb-6ce79accdaa7",
+        "name": "Stephanie Pitcher",
+        "office": "state-senate",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "spitcher@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1414982",
+        "social": {}
+      }
+    ],
+    "UT:state-senate:008": [
+      {
+        "id": "ocd-person/6d49f384-ea91-41f2-b703-229a0a7452d9",
+        "name": "Todd Weiler",
+        "office": "state-senate",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "tweiler@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1411361",
+        "social": {}
+      }
+    ],
+    "UT:state-senate:016": [
+      {
+        "id": "ocd-person/c351d354-5397-4f6e-b67d-98c41cea0d2c",
+        "name": "Wayne Harper",
+        "office": "state-senate",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "wharper@le.utah.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://disclosures.utah.gov/Search/PublicSearch/FolderDetails/1070",
+        "social": {}
+      }
+    ]
+  }
+}

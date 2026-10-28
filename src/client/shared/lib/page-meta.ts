@@ -3,6 +3,8 @@ export interface PageMeta {
   title: string;
   description: string;
   path: string;
+  /** True for a page kept out of search results and the sitemap. */
+  noindex?: boolean;
 }
 
 export const PAGE_META = {
@@ -10,6 +12,11 @@ export const PAGE_META = {
     path: '/',
     title: 'Fair Maps: districts drawn by a rule',
     description: 'Gerrymandering lets politicians pick their voters. Fair Maps draws every state’s districts by one open rule that never sees party, race or past votes.',
+  },
+  act: {
+    path: '/act',
+    title: 'Take action | Fair Maps',
+    description: 'Find who represents you, email all of your representatives at once, and add your name to the people asking for districts drawn by one open rule.',
   },
   how: {
     path: '/how',
@@ -26,9 +33,26 @@ export const PAGE_META = {
     title: 'Changelog | Fair Maps',
     description: 'Every release of the Fair Maps engine, census input, published maps and website, and what changed in each.',
   },
+  pledges: {
+    path: '/pledges',
+    title: 'Who supports the Fair Maps rule | Fair Maps',
+    description: 'Officeholders and candidates who have publicly pledged to support drawing districts with the Fair Maps rule, each with a link to their own statement.',
+  },
   privacy: {
     path: '/privacy',
     title: 'Privacy | Fair Maps',
-    description: 'What Fair Maps counts and keeps: cookie-free visit totals, address lookups sent straight to the Census Bureau, and nothing else.',
+    description: 'What Fair Maps collects when you add your name, what it never keeps, what is public, how visits are counted without cookies, and how to be removed at any time.',
   },
-} as const satisfies Record<'home' | 'how' | 'faq' | 'changelog' | 'privacy', PageMeta>;
+  remove: {
+    path: '/remove',
+    title: 'Remove your signature | Fair Maps',
+    description: 'Remove your signature, your note and your email from Fair Maps for good.',
+    noindex: true,
+  },
+  confirm: {
+    path: '/confirm',
+    title: 'Confirm your signature | Fair Maps',
+    description: 'Confirm your signature for Fair Maps.',
+    noindex: true,
+  },
+} as const satisfies Record<'home' | 'act' | 'how' | 'faq' | 'changelog' | 'pledges' | 'privacy' | 'remove' | 'confirm', PageMeta>;

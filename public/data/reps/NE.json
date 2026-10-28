@@ -1,0 +1,878 @@
+{
+  "state": "NE",
+  "generatedFrom": {
+    "legislators-current.json": "ae8cb9477c48715df71a7d860854229d799dc90a254d61badc1efb770f892b2c",
+    "legislators-social-media.json": "c6eca1fcdb3a89901335eed51ca061daa4b60ad3243969a127e913bb9657fbc5",
+    "ne.csv": "81d69f8c03fb151004f05594b1d88306cdcacbd5e45e4aba1b51a081af4f43c2"
+  },
+  "byKey": {
+    "NE:us-house:03": [
+      {
+        "id": "S001172",
+        "name": "Adrian Smith",
+        "office": "us-house",
+        "districtCode": "03",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-6435",
+        "address": "502 Cannon House Office Building Washington DC 20515-2703",
+        "website": "https://adriansmith.house.gov",
+        "social": {
+          "x": "RepAdrianSmith",
+          "facebook": "repadriansmith",
+          "instagram": "RepAdrianSmith"
+        }
+      }
+    ],
+    "NE:us-senate:state": [
+      {
+        "id": "F000463",
+        "name": "Deb Fischer",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.fischer.senate.gov/public/index.cfm/contact",
+        "email": null,
+        "phone": "202-224-6551",
+        "address": "448 Russell Senate Office Building Washington DC 20510",
+        "website": "https://www.fischer.senate.gov",
+        "social": {
+          "x": "SenatorFischer",
+          "facebook": "senatordebfischer",
+          "instagram": "senatorfischer"
+        }
+      },
+      {
+        "id": "R000618",
+        "name": "Pete Ricketts",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.ricketts.senate.gov/contact/",
+        "email": null,
+        "phone": "202-224-4224",
+        "address": "139 Russell Senate Office Building Washington DC 20510",
+        "website": "https://www.ricketts.senate.gov",
+        "social": {
+          "x": "SenatorRicketts",
+          "facebook": "SenatorRicketts",
+          "instagram": "SenatorRicketts"
+        }
+      }
+    ],
+    "NE:us-house:02": [
+      {
+        "id": "B001298",
+        "name": "Don Bacon",
+        "office": "us-house",
+        "districtCode": "02",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4155",
+        "address": "2104 Rayburn House Office Building Washington DC 20515-2702",
+        "website": "https://bacon.house.gov",
+        "social": {
+          "x": "RepDonBacon",
+          "facebook": "RepDonBacon",
+          "instagram": "RepDonBacon"
+        }
+      }
+    ],
+    "NE:us-house:01": [
+      {
+        "id": "F000474",
+        "name": "Mike Flood",
+        "office": "us-house",
+        "districtCode": "01",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4806",
+        "address": "343 Cannon House Office Building Washington DC 20515-2701",
+        "website": "https://flood.house.gov",
+        "social": {
+          "x": "USRepMikeFlood",
+          "facebook": "Congressman-Mike-Flood-101986952582058"
+        }
+      }
+    ],
+    "NE:state-senate:013": [
+      {
+        "id": "ocd-person/03ee8938-314f-4db4-ac76-9507d85fc03c",
+        "name": "Ashlei Spivey",
+        "office": "state-senate",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "aspivey@leg.ne.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=13",
+        "social": {
+          "instagram": "ashleiforne"
+        }
+      }
+    ],
+    "NE:state-senate:040": [
+      {
+        "id": "ocd-person/01d5ca17-53a1-463a-b2f6-74fe24833c0f",
+        "name": "Barry DeKay",
+        "office": "state-senate",
+        "districtCode": "040",
+        "contactUrl": null,
+        "email": "barry.dekay@leg.ne.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=40",
+        "social": {}
+      }
+    ],
+    "NE:state-senate:021": [
+      {
+        "id": "ocd-person/3da787e9-f6ed-4069-bd74-58ec7c015efb",
+        "name": "Beau Ballard",
+        "office": "state-senate",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "beau.ballard@leg.ne.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=21",
+        "social": {}
+      }
+    ],
+    "NE:state-senate:016": [
+      {
+        "id": "ocd-person/bfc9dd37-6a7b-4ea2-acf5-c8e161a27764",
+        "name": "Ben Hansen",
+        "office": "state-senate",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "ben.hansen@leg.ne.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=16",
+        "social": {
+          "x": "BenWHansen",
+          "facebook": "BenHansenforNebraska"
+        }
+      }
+    ],
+    "NE:state-senate:049": [
+      {
+        "id": "ocd-person/db002bad-ee6a-4e22-b5c5-840c665ecad4",
+        "name": "Bob Andersen",
+        "office": "state-senate",
+        "districtCode": "049",
+        "contactUrl": null,
+        "email": "bob.andersen@leg.ne.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=49",
+        "social": {
+          "facebook": "Bob4NE"
+        }
+      }
+    ],
+    "NE:state-senate:001": [
+      {
+        "id": "ocd-person/cc0182c9-3cfe-46b1-8fd2-03e90385c6d5",
+        "name": "Bob Hallstrom",
+        "office": "state-senate",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "bhallstrom@leg.ne.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=1",
+        "social": {
+          "facebook": "bobhallstromforlegislature"
+        }
+      }
+    ],
+    "NE:state-senate:048": [
+      {
+        "id": "ocd-person/a98b3cf6-9bf8-40a3-94f3-1c196e233ebd",
+        "name": "Brian Hardin",
+        "office": "state-senate",
+        "districtCode": "048",
+        "contactUrl": null,
+        "email": "bhardin@leg.ne.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=48",
+        "social": {
+          "facebook": "brianhardin2022"
+        }
+      }
+    ],
+    "NE:state-senate:025": [
+      {
+        "id": "ocd-person/ecf3913e-8e18-4aec-8991-12549df820cd",
+        "name": "Carolyn Bosn",
+        "office": "state-senate",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "cbosn@leg.ne.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=25",
+        "social": {
+          "x": "SenCarolynBosn",
+          "facebook": "SenatorBosn"
+        }
+      }
+    ],
+    "NE:state-senate:018": [
+      {
+        "id": "ocd-person/fdac2d3a-3497-4e34-8247-af670c901dd8",
+        "name": "Christy Armendariz",
+        "office": "state-senate",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "carmendariz@leg.ne.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=18",
+        "social": {
+          "facebook": "ChristyforNE"
+        }
+      }
+    ],
+    "NE:state-senate:033": [
+      {
+        "id": "ocd-person/40eb4961-5467-4d1b-af44-59a2e4de6fae",
+        "name": "Dan Lonowski",
+        "office": "state-senate",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "dan.lonowski@leg.ne.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=33",
+        "social": {}
+      }
+    ],
+    "NE:state-senate:035": [
+      {
+        "id": "ocd-person/d3b8ad26-4cf1-4abf-ae4e-0f7a65f92fe6",
+        "name": "Dan Quick",
+        "office": "state-senate",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "dan.quick@leg.ne.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=35",
+        "social": {
+          "facebook": "votedanquick"
+        }
+      }
+    ],
+    "NE:state-senate:046": [
+      {
+        "id": "ocd-person/bf280e36-3547-4d6a-b5aa-d6c32bb5547a",
+        "name": "Danielle Conrad",
+        "office": "state-senate",
+        "districtCode": "046",
+        "contactUrl": null,
+        "email": "danielle.conrad@leg.ne.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=46",
+        "social": {
+          "x": "SenConrad",
+          "facebook": "ConradforLegislature"
+        }
+      }
+    ],
+    "NE:state-senate:038": [
+      {
+        "id": "ocd-person/25c29fce-5de4-46cd-97f0-887033d446ce",
+        "name": "Dave Murman",
+        "office": "state-senate",
+        "districtCode": "038",
+        "contactUrl": null,
+        "email": "dave.murman@leg.ne.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=38",
+        "social": {
+          "facebook": "senatormurman"
+        }
+      }
+    ],
+    "NE:state-senate:007": [
+      {
+        "id": "ocd-person/54fe68ba-6857-483f-b2ae-ba3233a548c4",
+        "name": "Dunixi Guereca",
+        "office": "state-senate",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "dguereca@leg.ne.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=7",
+        "social": {
+          "facebook": "DunixiGuerecaNE",
+          "instagram": "dunixiforleg"
+        }
+      }
+    ],
+    "NE:state-senate:029": [
+      {
+        "id": "ocd-person/5e6ca662-d4e3-405b-a060-d0150546eede",
+        "name": "Eliot Bostar",
+        "office": "state-senate",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "eliot.bostar@leg.ne.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=29",
+        "social": {
+          "x": "BostarEliot",
+          "facebook": "votebostar"
+        }
+      }
+    ],
+    "NE:state-senate:041": [
+      {
+        "id": "ocd-person/5868ed3b-2931-4080-a7c2-9b4eb0e3d487",
+        "name": "Fred Meyer",
+        "office": "state-senate",
+        "districtCode": "041",
+        "contactUrl": null,
+        "email": "fmeyer@leg.ne.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=41",
+        "social": {}
+      }
+    ],
+    "NE:state-senate:026": [
+      {
+        "id": "ocd-person/14507b1b-007f-4f87-adbb-a5e4669efba8",
+        "name": "George Dungan",
+        "office": "state-senate",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "george.dungan@leg.ne.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=26",
+        "social": {
+          "x": "George4NE",
+          "facebook": "George4Ne",
+          "instagram": "george4ne"
+        }
+      }
+    ],
+    "NE:state-senate:017": [
+      {
+        "id": "ocd-person/dae0883f-3a53-4873-99df-b0e10ea64066",
+        "name": "Glen Meyer",
+        "office": "state-senate",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "glen.meyer@leg.ne.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=17",
+        "social": {
+          "facebook": "MeyerForLegislature"
+        }
+      }
+    ],
+    "NE:state-senate:024": [
+      {
+        "id": "ocd-person/967bf436-18bf-444e-bd2f-d83e5ec78995",
+        "name": "Jana Hughes",
+        "office": "state-senate",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "jhughes@leg.ne.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=24",
+        "social": {}
+      }
+    ],
+    "NE:state-senate:028": [
+      {
+        "id": "ocd-person/0f176ff3-ed75-4605-9e8b-5bb5a3d3c4cf",
+        "name": "Jane Raybould",
+        "office": "state-senate",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "jane.raybould@leg.ne.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=28",
+        "social": {
+          "x": "JaneRaybould",
+          "facebook": "JaneRaybouldNE"
+        }
+      }
+    ],
+    "NE:state-senate:023": [
+      {
+        "id": "ocd-person/356c7606-4eaa-4494-83a5-68dbaf3e77f6",
+        "name": "Jared Storm",
+        "office": "state-senate",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "jstorm@leg.ne.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=23",
+        "social": {
+          "facebook": "StormForLegislature"
+        }
+      }
+    ],
+    "NE:state-senate:027": [
+      {
+        "id": "ocd-person/dda3cdbe-5e52-439e-ac68-02588b6d7cab",
+        "name": "Jason Prokop",
+        "office": "state-senate",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "jprokop@leg.ne.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://jasonprokop.com",
+        "social": {
+          "facebook": "prokopforleg"
+        }
+      }
+    ],
+    "NE:state-senate:014": [
+      {
+        "id": "ocd-person/f5d27385-af4c-4c08-8654-3e27ef120d94",
+        "name": "John Arch",
+        "office": "state-senate",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "john.arch@leg.ne.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=14",
+        "social": {
+          "facebook": "JohnArchLD14"
+        }
+      }
+    ],
+    "NE:state-senate:009": [
+      {
+        "id": "ocd-person/0436186a-3b62-46f1-8f36-55e09fca3e77",
+        "name": "John Cavanaugh",
+        "office": "state-senate",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "john.cavanaugh@leg.ne.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=9",
+        "social": {
+          "x": "Cavanaugh4NE",
+          "facebook": "JohnCavanaughNE",
+          "instagram": "cavanaugh4nebraska"
+        }
+      }
+    ],
+    "NE:state-senate:020": [
+      {
+        "id": "ocd-person/30b4a401-6f6b-4367-80c2-b9d60d7c527f",
+        "name": "John Fredrickson",
+        "office": "state-senate",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "john.fredrickson@leg.ne.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=20",
+        "social": {
+          "x": "JohnforNE",
+          "facebook": "SenatorFredrickson",
+          "instagram": "johnforne"
+        }
+      }
+    ],
+    "NE:state-senate:031": [
+      {
+        "id": "ocd-person/9d6fd408-5497-4038-9716-c1f487e348d2",
+        "name": "Kathleen Kauth",
+        "office": "state-senate",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "kathleen.kauth@leg.ne.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=31",
+        "social": {
+          "facebook": "electkathleenkauth"
+        }
+      }
+    ],
+    "NE:state-senate:034": [
+      {
+        "id": "ocd-person/2ad42fad-ae37-44a6-8933-0a942f7a85f7",
+        "name": "Loren Lippincott",
+        "office": "state-senate",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "loren.lippincott@leg.ne.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=34",
+        "social": {
+          "facebook": "LorenLippincottNE"
+        }
+      }
+    ],
+    "NE:state-senate:006": [
+      {
+        "id": "ocd-person/fd6e1947-c274-4ff5-b2ee-5e5a79d6a729",
+        "name": "Machaela Cavanaugh",
+        "office": "state-senate",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "machaela.cavanaugh@leg.ne.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=6",
+        "social": {
+          "x": "senatormachaela",
+          "facebook": "senatormachaela",
+          "instagram": "senatormachaela"
+        }
+      }
+    ],
+    "NE:state-senate:005": [
+      {
+        "id": "ocd-person/e586486b-002b-4dfb-8eec-a209c915dc95",
+        "name": "Margo Juarez",
+        "office": "state-senate",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "mjuarez@leg.ne.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=5",
+        "social": {}
+      }
+    ],
+    "NE:state-senate:008": [
+      {
+        "id": "ocd-person/1b988941-ec1a-4f87-b17a-51fb0309dea0",
+        "name": "Megan Hunt",
+        "office": "state-senate",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "megan.hunt@leg.ne.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=8",
+        "social": {
+          "x": "NebraskaMegan",
+          "facebook": "MeganHuntNE",
+          "instagram": "nebraskamegan"
+        }
+      }
+    ],
+    "NE:state-senate:012": [
+      {
+        "id": "ocd-person/3c015cf9-e3de-42cf-a364-64607ecc70ce",
+        "name": "Merv Riepe",
+        "office": "state-senate",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "merv.riepe@leg.ne.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=12",
+        "social": {
+          "x": "voteriepe"
+        }
+      }
+    ],
+    "NE:state-senate:042": [
+      {
+        "id": "ocd-person/70b3f826-87f3-43c6-9762-27a178156a55",
+        "name": "Mike Jacobson",
+        "office": "state-senate",
+        "districtCode": "042",
+        "contactUrl": null,
+        "email": "mike.jacobson@leg.ne.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=42",
+        "social": {
+          "facebook": "SenJacobson"
+        }
+      }
+    ],
+    "NE:state-senate:022": [
+      {
+        "id": "ocd-person/471fb0d6-b798-4c0c-bac1-021db8b68801",
+        "name": "Mike Moser",
+        "office": "state-senate",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "mmoser@leg.ne.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=22",
+        "social": {
+          "facebook": "senatormoser"
+        }
+      }
+    ],
+    "NE:state-senate:030": [
+      {
+        "id": "ocd-person/4a8d555a-4bba-4f76-a3e1-88eee6030413",
+        "name": "Myron Dorn",
+        "office": "state-senate",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "myron.dorn@leg.ne.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=30",
+        "social": {}
+      }
+    ],
+    "NE:state-senate:047": [
+      {
+        "id": "ocd-person/0ae0ba8c-757e-459f-aecc-4a0501a25cbb",
+        "name": "Paul Strommen",
+        "office": "state-senate",
+        "districtCode": "047",
+        "contactUrl": null,
+        "email": "paul.strommen@leg.ne.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=47",
+        "social": {}
+      }
+    ],
+    "NE:state-senate:004": [
+      {
+        "id": "ocd-person/63d2956a-a0be-40db-a0e3-6c32743951ab",
+        "name": "Brad von Gillern",
+        "office": "state-senate",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "brad.vongillern@leg.ne.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=4",
+        "social": {}
+      }
+    ],
+    "NE:state-senate:036": [
+      {
+        "id": "ocd-person/62ccba1d-4200-41c7-a051-21fa421a206a",
+        "name": "Rick Holdcroft",
+        "office": "state-senate",
+        "districtCode": "036",
+        "contactUrl": null,
+        "email": "rick.holdcroft@leg.ne.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=36",
+        "social": {}
+      }
+    ],
+    "NE:state-senate:045": [
+      {
+        "id": "ocd-person/de8d4e0a-36dd-4a84-96ee-e4b7bc4cf69d",
+        "name": "Rita Sanders",
+        "office": "state-senate",
+        "districtCode": "045",
+        "contactUrl": null,
+        "email": "rita.sanders@leg.ne.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=45",
+        "social": {
+          "facebook": "SenatorRitaSanders"
+        }
+      }
+    ],
+    "NE:state-senate:002": [
+      {
+        "id": "ocd-person/809c0698-2669-426a-819a-275a0773ff84",
+        "name": "Rob Clements",
+        "office": "state-senate",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "robert.clements@leg.ne.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=2",
+        "social": {
+          "facebook": "Senator.Clements"
+        }
+      }
+    ],
+    "NE:state-senate:019": [
+      {
+        "id": "ocd-person/a9cc86ff-602c-453f-9d6c-fd1567c7fbd7",
+        "name": "Robert Dover",
+        "office": "state-senate",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "robert.dover@leg.ne.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=19",
+        "social": {}
+      }
+    ],
+    "NE:state-senate:037": [
+      {
+        "id": "ocd-person/4bfe5183-1afc-42fa-92c1-7ffe5cbb1080",
+        "name": "Stan Clouse",
+        "office": "state-senate",
+        "districtCode": "037",
+        "contactUrl": null,
+        "email": "stan.clouse@leg.ne.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=37",
+        "social": {
+          "facebook": "StanClouseNE"
+        }
+      }
+    ],
+    "NE:state-senate:043": [
+      {
+        "id": "ocd-person/70751bb8-56af-4fd1-b2dc-21943dc7bb2d",
+        "name": "Tanya Storer",
+        "office": "state-senate",
+        "districtCode": "043",
+        "contactUrl": null,
+        "email": "tanya.storer@leg.ne.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=43",
+        "social": {
+          "x": "ForLegislature",
+          "facebook": "TanyaStorerForLegislature",
+          "instagram": "tanyaforlegislature"
+        }
+      }
+    ],
+    "NE:state-senate:044": [
+      {
+        "id": "ocd-person/374b6dc4-5b90-4028-814c-84895a293c84",
+        "name": "Teresa Ibach",
+        "office": "state-senate",
+        "districtCode": "044",
+        "contactUrl": null,
+        "email": "teresa.ibach@leg.ne.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=44",
+        "social": {
+          "facebook": "teresaibachforlegislature",
+          "instagram": "senteresaibach"
+        }
+      }
+    ],
+    "NE:state-senate:011": [
+      {
+        "id": "ocd-person/27784792-d54f-4a64-8408-a4a1ce0c26b1",
+        "name": "Terrell McKinney",
+        "office": "state-senate",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "terrell.mckinney@leg.ne.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=11",
+        "social": {
+          "x": "SenMcKinneyLD11",
+          "facebook": "SenMcKinneyLD11",
+          "instagram": "terrellmckinneyld11"
+        }
+      }
+    ],
+    "NE:state-senate:032": [
+      {
+        "id": "ocd-person/37ed5b35-3aea-40a2-95ed-ecc5120fbe82",
+        "name": "Tom Brandt",
+        "office": "state-senate",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "tom.brandt@leg.ne.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=32",
+        "social": {
+          "facebook": "tombrandt32"
+        }
+      }
+    ],
+    "NE:state-senate:039": [
+      {
+        "id": "ocd-person/7093e661-0dbc-4c75-91e0-09a3e171caf1",
+        "name": "Tony Sorrentino",
+        "office": "state-senate",
+        "districtCode": "039",
+        "contactUrl": null,
+        "email": "tony.sorrentino@leg.ne.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=39",
+        "social": {
+          "facebook": "SorrentinoforNebraska"
+        }
+      }
+    ],
+    "NE:state-senate:003": [
+      {
+        "id": "ocd-person/1e43a5b4-e63c-434a-977c-592174c2c635",
+        "name": "Victor Rountree",
+        "office": "state-senate",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "victor.rountree@leg.ne.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=3",
+        "social": {
+          "facebook": "rountreeforleg"
+        }
+      }
+    ],
+    "NE:state-senate:010": [
+      {
+        "id": "ocd-person/bc906a77-5932-4042-9ede-a13b24924236",
+        "name": "Wendy DeBoer",
+        "office": "state-senate",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "wendy.deboer@leg.ne.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=10",
+        "social": {
+          "facebook": "WendyDeBoerNE"
+        }
+      }
+    ],
+    "NE:state-senate:015": [
+      {
+        "id": "ocd-person/86a9643e-4777-48d4-a79a-5ed192fb7f70",
+        "name": "Woody Wordekemper",
+        "office": "state-senate",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "dave.wordekemper@leg.ne.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=15",
+        "social": {}
+      }
+    ]
+  }
+}

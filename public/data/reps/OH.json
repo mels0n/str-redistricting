@@ -1,0 +1,2155 @@
+{
+  "state": "OH",
+  "generatedFrom": {
+    "legislators-current.json": "ae8cb9477c48715df71a7d860854229d799dc90a254d61badc1efb770f892b2c",
+    "legislators-social-media.json": "c6eca1fcdb3a89901335eed51ca061daa4b60ad3243969a127e913bb9657fbc5",
+    "oh.csv": "3e467d29c355e81a21e845bfe5c265241c8eba1c2a6b215b0a89ba10013a3ee5"
+  },
+  "byKey": {
+    "OH:us-house:04": [
+      {
+        "id": "J000289",
+        "name": "Jim Jordan",
+        "office": "us-house",
+        "districtCode": "04",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2676",
+        "address": "2056 Rayburn House Office Building Washington DC 20515-3504",
+        "website": "https://jordan.house.gov",
+        "social": {
+          "x": "Jim_Jordan",
+          "facebook": "repjimjordan"
+        }
+      }
+    ],
+    "OH:us-house:09": [
+      {
+        "id": "K000009",
+        "name": "Marcy Kaptur",
+        "office": "us-house",
+        "districtCode": "09",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4146",
+        "address": "2314 Rayburn House Office Building Washington DC 20515-3509",
+        "website": "https://kaptur.house.gov",
+        "social": {
+          "x": "RepMarcyKaptur",
+          "facebook": "RepresentativeMarcyKaptur",
+          "instagram": "repmarcykaptur"
+        }
+      }
+    ],
+    "OH:us-house:05": [
+      {
+        "id": "L000566",
+        "name": "Robert E. Latta",
+        "office": "us-house",
+        "districtCode": "05",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-6405",
+        "address": "2470 Rayburn House Office Building Washington DC 20515-3505",
+        "website": "https://latta.house.gov",
+        "social": {
+          "x": "BobLatta",
+          "facebook": "boblatta",
+          "instagram": "boblatta"
+        }
+      }
+    ],
+    "OH:us-house:10": [
+      {
+        "id": "T000463",
+        "name": "Michael R. Turner",
+        "office": "us-house",
+        "districtCode": "10",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-6465",
+        "address": "2183 Rayburn House Office Building Washington DC 20515-3510",
+        "website": "https://turner.house.gov",
+        "social": {
+          "x": "RepMikeTurner",
+          "facebook": "RepMikeTurner",
+          "instagram": "repmiketurner"
+        }
+      }
+    ],
+    "OH:us-house:03": [
+      {
+        "id": "B001281",
+        "name": "Joyce Beatty",
+        "office": "us-house",
+        "districtCode": "03",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4324",
+        "address": "2079 Rayburn House Office Building Washington DC 20515-3503",
+        "website": "https://beatty.house.gov",
+        "social": {
+          "x": "RepBeatty",
+          "facebook": "RepJoyceBeatty",
+          "instagram": "repbeatty"
+        }
+      }
+    ],
+    "OH:us-house:14": [
+      {
+        "id": "J000295",
+        "name": "David P. Joyce",
+        "office": "us-house",
+        "districtCode": "14",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5731",
+        "address": "2065 Rayburn House Office Building Washington DC 20515-3514",
+        "website": "https://joyce.house.gov",
+        "social": {
+          "x": "RepDaveJoyce",
+          "facebook": "RepDaveJoyce",
+          "instagram": "repdavejoyce"
+        }
+      }
+    ],
+    "OH:us-house:08": [
+      {
+        "id": "D000626",
+        "name": "Warren Davidson",
+        "office": "us-house",
+        "districtCode": "08",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-6205",
+        "address": "2113 Rayburn House Office Building Washington DC 20515-3508",
+        "website": "https://davidson.house.gov",
+        "social": {
+          "x": "WarrenDavidson",
+          "facebook": "CongressmanWarrenDavidson",
+          "instagram": "instawarrendavidson"
+        }
+      }
+    ],
+    "OH:us-house:12": [
+      {
+        "id": "B001306",
+        "name": "Troy Balderson",
+        "office": "us-house",
+        "districtCode": "12",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5355",
+        "address": "2429 Rayburn House Office Building Washington DC 20515-3512",
+        "website": "https://balderson.house.gov",
+        "social": {
+          "x": "RepBalderson",
+          "facebook": "RepTroyBalderson"
+        }
+      }
+    ],
+    "OH:us-house:11": [
+      {
+        "id": "B001313",
+        "name": "Shontel M. Brown",
+        "office": "us-house",
+        "districtCode": "11",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-7032",
+        "address": "2455 Rayburn House Office Building Washington DC 20515-3511",
+        "website": "https://shontelbrown.house.gov",
+        "social": {
+          "x": "RepShontelBrown",
+          "facebook": "RepShontelBrown"
+        }
+      }
+    ],
+    "OH:us-house:15": [
+      {
+        "id": "C001126",
+        "name": "Mike Carey",
+        "office": "us-house",
+        "districtCode": "15",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2015",
+        "address": "1433 Longworth House Office Building Washington DC 20515-3515",
+        "website": "https://carey.house.gov",
+        "social": {
+          "x": "RepMikeCarey",
+          "facebook": "RepMikeCarey"
+        }
+      }
+    ],
+    "OH:us-house:01": [
+      {
+        "id": "L000601",
+        "name": "Greg Landsman",
+        "office": "us-house",
+        "districtCode": "01",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2216",
+        "address": "2244 Rayburn House Office Building Washington DC 20515-3501",
+        "website": "https://landsman.house.gov",
+        "social": {
+          "x": "repgreglandsman",
+          "facebook": "RepGregLandsman",
+          "instagram": "repgreglandsman"
+        }
+      }
+    ],
+    "OH:us-house:07": [
+      {
+        "id": "M001222",
+        "name": "Max L. Miller",
+        "office": "us-house",
+        "districtCode": "07",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-3876",
+        "address": "143 Cannon House Office Building Washington DC 20515-3507",
+        "website": "https://maxmiller.house.gov",
+        "social": {
+          "x": "repmaxmiller",
+          "facebook": "CongressmanMaxMiller",
+          "instagram": "repmaxmiller"
+        }
+      }
+    ],
+    "OH:us-house:13": [
+      {
+        "id": "S001223",
+        "name": "Emilia Strong Sykes",
+        "office": "us-house",
+        "districtCode": "13",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-6265",
+        "address": "1217 Longworth House Office Building Washington DC 20515-3513",
+        "website": "https://sykes.house.gov",
+        "social": {
+          "x": "RepEmiliaSykes",
+          "facebook": "repemiliasykes",
+          "instagram": "RepEmiliaSykes"
+        }
+      }
+    ],
+    "OH:us-house:06": [
+      {
+        "id": "R000619",
+        "name": "Michael A. Rulli",
+        "office": "us-house",
+        "districtCode": "06",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5705",
+        "address": "421 Cannon House Office Building Washington DC 20515-3506",
+        "website": "https://rulli.house.gov",
+        "social": {}
+      }
+    ],
+    "OH:us-senate:state": [
+      {
+        "id": "M001242",
+        "name": "Bernie Moreno",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-224-2315",
+        "address": "284 Russell Senate Office Building Washington DC 20510",
+        "website": "https://www.moreno.senate.gov",
+        "social": {
+          "x": "berniemoreno",
+          "instagram": "Berniemorenoforohio"
+        }
+      },
+      {
+        "id": "H001104",
+        "name": "Jon Husted",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-224-3353",
+        "address": "304 Russell Senate Office Building Washington DC 20510",
+        "website": "https://www.husted.senate.gov",
+        "social": {}
+      }
+    ],
+    "OH:us-house:02": [
+      {
+        "id": "T000490",
+        "name": "David J. Taylor",
+        "office": "us-house",
+        "districtCode": "02",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-3164",
+        "address": "325 Cannon House Office Building Washington DC 20515-3502",
+        "website": "https://taylor.house.gov",
+        "social": {
+          "x": "RepDaveTaylor",
+          "facebook": "61571224837800",
+          "instagram": "repdavetaylor"
+        }
+      }
+    ],
+    "OH:state-house:063": [
+      {
+        "id": "ocd-person/0c6a7bcf-e990-41a0-b59c-923f05771880",
+        "name": "Adam Bird",
+        "office": "state-house",
+        "districtCode": "063",
+        "contactUrl": null,
+        "email": "rep63@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/adam-c-bird",
+        "social": {}
+      }
+    ],
+    "OH:state-house:097": [
+      {
+        "id": "ocd-person/78912d95-3dac-4487-810a-74be41508ebb",
+        "name": "Adam Holmes",
+        "office": "state-house",
+        "districtCode": "097",
+        "contactUrl": null,
+        "email": "rep97@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/adam-holmes",
+        "social": {}
+      }
+    ],
+    "OH:state-house:056": [
+      {
+        "id": "ocd-person/b04e2962-e7c6-46b8-9a99-d7a6d3a32717",
+        "name": "Adam Mathews",
+        "office": "state-house",
+        "districtCode": "056",
+        "contactUrl": null,
+        "email": "rep56@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.ohiohouse.gov/members/adam-mathews",
+        "social": {}
+      }
+    ],
+    "OH:state-house:036": [
+      {
+        "id": "ocd-person/07c054e9-9a51-41b2-994a-8f63b0148d07",
+        "name": "Andrea White",
+        "office": "state-house",
+        "districtCode": "036",
+        "contactUrl": null,
+        "email": "rep36@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/andrea-white",
+        "social": {}
+      }
+    ],
+    "OH:state-house:084": [
+      {
+        "id": "ocd-person/4ed8184a-01ff-4bdc-a06c-cbf8b4c73fd6",
+        "name": "Angie King",
+        "office": "state-house",
+        "districtCode": "084",
+        "contactUrl": null,
+        "email": "rep84@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.ohiohouse.gov/members/angela-n-king",
+        "social": {}
+      }
+    ],
+    "OH:state-house:008": [
+      {
+        "id": "ocd-person/3bfe0748-5423-4fcf-9962-905d2b747f23",
+        "name": "Anita Somani",
+        "office": "state-house",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "rep08@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.ohiohouse.gov/members/anita-somani",
+        "social": {}
+      }
+    ],
+    "OH:state-house:026": [
+      {
+        "id": "ocd-person/6d39391d-7068-4ad3-866d-4ee59890ce6e",
+        "name": "Ashley Bryant Bailey",
+        "office": "state-house",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "rep26@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/members/ashley-bryant-bailey",
+        "social": {}
+      }
+    ],
+    "OH:state-house:074": [
+      {
+        "id": "ocd-person/550986e6-b595-4fa8-9424-8e09327cf060",
+        "name": "Bernie Willis",
+        "office": "state-house",
+        "districtCode": "074",
+        "contactUrl": null,
+        "email": "rep74@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.ohiohouse.gov/members/bernard-willis",
+        "social": {}
+      }
+    ],
+    "OH:state-house:004": [
+      {
+        "id": "ocd-person/dc1a25bf-ebf6-4d5c-b5c3-32f9fdb8b2ed",
+        "name": "Beryl Piccolantonio",
+        "office": "state-house",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "rep04@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/members/beryl-brown-piccolantonio",
+        "social": {}
+      }
+    ],
+    "OH:state-house:061": [
+      {
+        "id": "ocd-person/de0a6483-7c16-43e1-a76b-c0cc98a9d7ed",
+        "name": "Beth Lear",
+        "office": "state-house",
+        "districtCode": "061",
+        "contactUrl": null,
+        "email": "rep61@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.ohiohouse.gov/members/beth-lear",
+        "social": {}
+      }
+    ],
+    "OH:state-house:031": [
+      {
+        "id": "ocd-person/4cece9f3-e252-438b-8255-a2150a4ed599",
+        "name": "Bill Roemer",
+        "office": "state-house",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "rep31@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/bill-roemer",
+        "social": {}
+      }
+    ],
+    "OH:state-house:091": [
+      {
+        "id": "ocd-person/cdc9f705-514e-4445-ac17-9aeac8f67e97",
+        "name": "Bob Peterson",
+        "office": "state-house",
+        "districtCode": "091",
+        "contactUrl": null,
+        "email": "rep91@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/members/bob-peterson",
+        "social": {}
+      }
+    ],
+    "OH:state-house:070": [
+      {
+        "id": "ocd-person/1895e223-ba42-4e25-8cd0-915ca5cc2829",
+        "name": "Brian Lampton",
+        "office": "state-house",
+        "districtCode": "070",
+        "contactUrl": null,
+        "email": "rep70@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/members/brian-e-lampton",
+        "social": {}
+      }
+    ],
+    "OH:state-house:060": [
+      {
+        "id": "ocd-person/a3ccce64-ea28-47dc-8bab-3af6ed2dd860",
+        "name": "Brian Lorenz",
+        "office": "state-house",
+        "districtCode": "060",
+        "contactUrl": null,
+        "email": "rep60@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/members/brian-lorenz",
+        "social": {}
+      }
+    ],
+    "OH:state-house:012": [
+      {
+        "id": "ocd-person/f4e6c51a-89bd-4841-848b-b1097fd3fc9d",
+        "name": "Brian Stewart",
+        "office": "state-house",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "rep12@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/brian-stewart",
+        "social": {}
+      }
+    ],
+    "OH:state-house:016": [
+      {
+        "id": "ocd-person/2481dfc7-d260-49c6-9461-9e6048ed27a2",
+        "name": "Bride Sweeney",
+        "office": "state-house",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "rep16@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/bride-rose-sweeney",
+        "social": {}
+      }
+    ],
+    "OH:state-house:007": [
+      {
+        "id": "ocd-person/c58b6767-730d-4486-a08e-462ea3af3bfe",
+        "name": "Allison Russo",
+        "office": "state-house",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "rep07@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/c-allison-russo",
+        "social": {}
+      }
+    ],
+    "OH:state-house:025": [
+      {
+        "id": "ocd-person/5ba7ae7d-2f10-42b7-8784-8e734507ce33",
+        "name": "Cecil Thomas",
+        "office": "state-house",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "rep25@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/members/cecil-thomas",
+        "social": {}
+      }
+    ],
+    "OH:state-house:015": [
+      {
+        "id": "ocd-person/80daf159-0742-4a3f-9575-e6492155c911",
+        "name": "Chris Glassburn",
+        "office": "state-house",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "rep15@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/members/chris-glassburn",
+        "social": {}
+      }
+    ],
+    "OH:state-house:006": [
+      {
+        "id": "ocd-person/b76c6e1e-8b9d-42bf-b615-73270b132773",
+        "name": "Christine Cockley",
+        "office": "state-house",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "rep06@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/members/christine-cockley",
+        "social": {}
+      }
+    ],
+    "OH:state-house:029": [
+      {
+        "id": "ocd-person/9ae0194c-0f5b-44c6-b84f-a0ec4d3f3a61",
+        "name": "Cindy Abrams",
+        "office": "state-house",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "rep29@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/cindy-abrams",
+        "social": {}
+      }
+    ],
+    "OH:state-house:011": [
+      {
+        "id": "ocd-person/aede29b6-7798-45b7-8401-5004cf1c29f9",
+        "name": "Crystal Lett",
+        "office": "state-house",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "rep11@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/members/crystal-lett",
+        "social": {}
+      }
+    ],
+    "OH:state-house:089": [
+      {
+        "id": "ocd-person/cb2ddd04-e5b0-4c96-b217-d02b732eb896",
+        "name": "D.J. Swearingen",
+        "office": "state-house",
+        "districtCode": "089",
+        "contactUrl": null,
+        "email": "rep89@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/d-j-swearingen",
+        "social": {}
+      }
+    ],
+    "OH:state-house:024": [
+      {
+        "id": "ocd-person/1cc15373-6101-48fb-9597-d731c115eb70",
+        "name": "Dani Isaacsohn",
+        "office": "state-house",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "rep24@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.ohiohouse.gov/members/dani-isaacsohn",
+        "social": {}
+      }
+    ],
+    "OH:state-house:023": [
+      {
+        "id": "ocd-person/04d4dc4f-a38a-4d50-8962-ea961550b2ff",
+        "name": "Dan Troy",
+        "office": "state-house",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "rep23@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/daniel-p-troy",
+        "social": {}
+      }
+    ],
+    "OH:state-house:022": [
+      {
+        "id": "ocd-person/a75181f0-f0e8-4af3-aefd-6cc08543af1a",
+        "name": "Darnell Brewer",
+        "office": "state-house",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "rep22@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/members/darnell-t-brewer",
+        "social": {}
+      }
+    ],
+    "OH:state-house:065": [
+      {
+        "id": "ocd-person/170299dd-f2e4-463e-8b8b-ea3b75946120",
+        "name": "David Thomas",
+        "office": "state-house",
+        "districtCode": "065",
+        "contactUrl": null,
+        "email": "rep65@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/members/david-thomas",
+        "social": {}
+      }
+    ],
+    "OH:state-house:034": [
+      {
+        "id": "ocd-person/826530cc-f105-42c8-96db-e5ff7d1a966d",
+        "name": "Derrick Hall",
+        "office": "state-house",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "rep34@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/members/derrick-hall",
+        "social": {}
+      }
+    ],
+    "OH:state-house:038": [
+      {
+        "id": "ocd-person/86352961-5ebc-408a-9f16-8d801c7476dc",
+        "name": "Desireè Tims",
+        "office": "state-house",
+        "districtCode": "038",
+        "contactUrl": null,
+        "email": "rep38@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/members/desiree-tims",
+        "social": {}
+      }
+    ],
+    "OH:state-house:047": [
+      {
+        "id": "ocd-person/deed175e-5c44-48f0-b2c0-baa342b2baf1",
+        "name": "Diane Mullins",
+        "office": "state-house",
+        "districtCode": "047",
+        "contactUrl": null,
+        "email": "rep47@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/members/diane-mullins",
+        "social": {}
+      }
+    ],
+    "OH:state-house:001": [
+      {
+        "id": "ocd-person/74c1210d-fb56-4522-8d3a-0a2bb08c972b",
+        "name": "Dontavius Jarrells",
+        "office": "state-house",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "rep01@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/dontavius-l-jarrells",
+        "social": {}
+      }
+    ],
+    "OH:state-house:042": [
+      {
+        "id": "ocd-person/bfe003c4-6a28-46d6-b831-07bfe8662926",
+        "name": "Elgin Rogers",
+        "office": "state-house",
+        "districtCode": "042",
+        "contactUrl": null,
+        "email": "rep42@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/members/elgin-rogers-jr",
+        "social": {}
+      }
+    ],
+    "OH:state-house:021": [
+      {
+        "id": "ocd-person/1ebfe182-1b49-4e69-b7f3-2fd528c70d73",
+        "name": "Eric Synenberg",
+        "office": "state-house",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "rep21@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/members/eric-synenberg",
+        "social": {}
+      }
+    ],
+    "OH:state-house:041": [
+      {
+        "id": "ocd-person/ab851536-a9e6-45d7-b2fe-fad70f5acf07",
+        "name": "Erika White",
+        "office": "state-house",
+        "districtCode": "041",
+        "contactUrl": null,
+        "email": "rep41@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/members/erika-white",
+        "social": {}
+      }
+    ],
+    "OH:state-house:088": [
+      {
+        "id": "ocd-person/04e3c98a-4ede-4501-b914-4fa13fbad194",
+        "name": "Gary Click",
+        "office": "state-house",
+        "districtCode": "088",
+        "contactUrl": null,
+        "email": "rep88@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/gary-click",
+        "social": {}
+      }
+    ],
+    "OH:state-house:052": [
+      {
+        "id": "ocd-person/b29aadca-f2da-4f09-8a1d-7aa328768507",
+        "name": "Gayle Manning",
+        "office": "state-house",
+        "districtCode": "052",
+        "contactUrl": null,
+        "email": "rep52@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/gayle-manning",
+        "social": {}
+      }
+    ],
+    "OH:state-house:075": [
+      {
+        "id": "ocd-person/82dd3548-078a-41a8-8c5b-6c652d88d0d2",
+        "name": "Haraz Ghanbari",
+        "office": "state-house",
+        "districtCode": "075",
+        "contactUrl": null,
+        "email": "rep75@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/haraz-n-ghanbari",
+        "social": {}
+      }
+    ],
+    "OH:state-house:072": [
+      {
+        "id": "ocd-person/098614cd-1972-4b98-ade6-4f5fa7cefe5b",
+        "name": "Heidi Workman",
+        "office": "state-house",
+        "districtCode": "072",
+        "contactUrl": null,
+        "email": "rep72@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/members/heidi-workman",
+        "social": {}
+      }
+    ],
+    "OH:state-house:003": [
+      {
+        "id": "ocd-person/ed31c4e5-e835-4c4c-9352-217f5dcf1037",
+        "name": "Ismail Mohamed",
+        "office": "state-house",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "rep03@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.ohiohouse.gov/members/ismail-mohamed",
+        "social": {}
+      }
+    ],
+    "OH:state-house:032": [
+      {
+        "id": "ocd-person/9c459852-5ff7-4607-a09a-6ee2480dece1",
+        "name": "Jack Daniels",
+        "office": "state-house",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "rep32@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.ohiohouse.gov/members/jack-k-daniels",
+        "social": {}
+      }
+    ],
+    "OH:state-house:081": [
+      {
+        "id": "ocd-person/1a598246-01e8-44c8-beca-2c41e1bafb77",
+        "name": "Jim Hoops",
+        "office": "state-house",
+        "districtCode": "081",
+        "contactUrl": null,
+        "email": "rep81@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/james-m-hoops",
+        "social": {}
+      }
+    ],
+    "OH:state-house:057": [
+      {
+        "id": "ocd-person/4b7cbc16-7a67-4a61-8fd5-77a857270774",
+        "name": "Jamie Callender",
+        "office": "state-house",
+        "districtCode": "057",
+        "contactUrl": null,
+        "email": "rep57@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/jamie-callender",
+        "social": {}
+      }
+    ],
+    "OH:state-house:093": [
+      {
+        "id": "ocd-person/fbd5ca34-d2ed-41d0-a0f8-03ee8eca8a4d",
+        "name": "Jason Stephens",
+        "office": "state-house",
+        "districtCode": "093",
+        "contactUrl": null,
+        "email": "rep93@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/jason-stephens",
+        "social": {}
+      }
+    ],
+    "OH:state-house:062": [
+      {
+        "id": "ocd-person/392629a2-7bb2-47df-8128-d4cd7d858324",
+        "name": "Jean Schmidt",
+        "office": "state-house",
+        "districtCode": "062",
+        "contactUrl": null,
+        "email": "rep62@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/jean-schmidt",
+        "social": {}
+      }
+    ],
+    "OH:state-house:073": [
+      {
+        "id": "ocd-person/60fdc824-a8ab-44fa-80ca-053d8698218e",
+        "name": "Jeff LaRe",
+        "office": "state-house",
+        "districtCode": "073",
+        "contactUrl": null,
+        "email": "rep73@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/jeff-lare",
+        "social": {}
+      }
+    ],
+    "OH:state-house:045": [
+      {
+        "id": "ocd-person/4817cf28-df1f-4ccc-bc09-25809222e530",
+        "name": "Jennifer Gross",
+        "office": "state-house",
+        "districtCode": "045",
+        "contactUrl": null,
+        "email": "rep45@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/jennifer-gross",
+        "social": {}
+      }
+    ],
+    "OH:state-house:049": [
+      {
+        "id": "ocd-person/ba95511f-3692-426c-bf85-c41ff737eeec",
+        "name": "Jim Thomas",
+        "office": "state-house",
+        "districtCode": "049",
+        "contactUrl": null,
+        "email": "rep49@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.ohiohouse.gov/members/jim-thomas",
+        "social": {}
+      }
+    ],
+    "OH:state-house:051": [
+      {
+        "id": "ocd-person/f1715f7b-6a29-4dd2-a34f-b94c87088890",
+        "name": "Jodi Salvo",
+        "office": "state-house",
+        "districtCode": "051",
+        "contactUrl": null,
+        "email": "rep51@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/members/jodi-salvo",
+        "social": {}
+      }
+    ],
+    "OH:state-house:080": [
+      {
+        "id": "ocd-person/9d7cc971-9ed9-4918-b93f-39d41d35e565",
+        "name": "Johnathan Newman",
+        "office": "state-house",
+        "districtCode": "080",
+        "contactUrl": null,
+        "email": "rep80@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/members/johnathan-newman",
+        "social": {}
+      }
+    ],
+    "OH:state-house:053": [
+      {
+        "id": "ocd-person/9b5a9ff9-b35a-49aa-aa64-5d2bab574843",
+        "name": "Joe Miller",
+        "office": "state-house",
+        "districtCode": "053",
+        "contactUrl": null,
+        "email": "rep53@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/joseph-a-miller-iii",
+        "social": {}
+      }
+    ],
+    "OH:state-house:044": [
+      {
+        "id": "ocd-person/1e52d1da-3e5c-442e-a460-d63b62709edf",
+        "name": "Josh Williams",
+        "office": "state-house",
+        "districtCode": "044",
+        "contactUrl": null,
+        "email": "rep44@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.ohiohouse.gov/members/josh-williams",
+        "social": {}
+      }
+    ],
+    "OH:state-house:018": [
+      {
+        "id": "ocd-person/ede2c8b0-9c35-4ebf-9a4a-4349fe4cc224",
+        "name": "Juanita Brent",
+        "office": "state-house",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "rep18@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/juanita-o-brent",
+        "social": {}
+      }
+    ],
+    "OH:state-house:090": [
+      {
+        "id": "ocd-person/9892fcd7-9432-425f-85a6-7599fbe3177d",
+        "name": "Justin Pizzulli",
+        "office": "state-house",
+        "districtCode": "090",
+        "contactUrl": null,
+        "email": "rep90@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/members/justin-pizzulli",
+        "social": {}
+      }
+    ],
+    "OH:state-house:028": [
+      {
+        "id": "ocd-person/a13af74a-5ade-4769-8a76-db942fe71002",
+        "name": "Karen Brownlee",
+        "office": "state-house",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "rep28@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/members/karen-brownlee",
+        "social": {}
+      }
+    ],
+    "OH:state-house:054": [
+      {
+        "id": "ocd-person/97821235-4116-44d1-b58b-acf822bbdc58",
+        "name": "Kellie Deeter",
+        "office": "state-house",
+        "districtCode": "054",
+        "contactUrl": null,
+        "email": "rep54@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/members/kellie-deeter",
+        "social": {}
+      }
+    ],
+    "OH:state-house:069": [
+      {
+        "id": "ocd-person/cefb7a31-f46c-4145-9f38-901be3b70e60",
+        "name": "Kevin Miller",
+        "office": "state-house",
+        "districtCode": "069",
+        "contactUrl": null,
+        "email": "rep69@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/kevin-d-miller",
+        "social": {}
+      }
+    ],
+    "OH:state-house:094": [
+      {
+        "id": "ocd-person/94df9e98-c52e-466a-ba6b-29cc21ee02ea",
+        "name": "Kevin Ritter",
+        "office": "state-house",
+        "districtCode": "094",
+        "contactUrl": null,
+        "email": "rep94@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/members/kevin-ritter",
+        "social": {}
+      }
+    ],
+    "OH:state-house:002": [
+      {
+        "id": "ocd-person/b2c76bf8-569f-4e80-bd3d-fa8273a8356c",
+        "name": "Latyna Humphrey",
+        "office": "state-house",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "rep02@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/latyna-m-humphrey",
+        "social": {}
+      }
+    ],
+    "OH:state-house:058": [
+      {
+        "id": "ocd-person/19cbe255-2cdb-47c4-b70a-693b6bf6665b",
+        "name": "Lauren McNally",
+        "office": "state-house",
+        "districtCode": "058",
+        "contactUrl": null,
+        "email": "rep58@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.ohiohouse.gov/members/lauren-mcnally",
+        "social": {}
+      }
+    ],
+    "OH:state-house:071": [
+      {
+        "id": "ocd-person/1dcb1bfa-861d-4d16-8d7d-02364e1b4def",
+        "name": "Levi Dean",
+        "office": "state-house",
+        "districtCode": "071",
+        "contactUrl": null,
+        "email": "rep71@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/members/levi-dean",
+        "social": {}
+      }
+    ],
+    "OH:state-house:076": [
+      {
+        "id": "ocd-person/e4f9416c-1043-4737-899e-31410e94af1d",
+        "name": "Marilyn John",
+        "office": "state-house",
+        "districtCode": "076",
+        "contactUrl": null,
+        "email": "rep76@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/members/marilyn-john",
+        "social": {}
+      }
+    ],
+    "OH:state-house:098": [
+      {
+        "id": "ocd-person/292d1329-8a45-402b-8d6e-8f3b4726187a",
+        "name": "Mark Hiner",
+        "office": "state-house",
+        "districtCode": "098",
+        "contactUrl": null,
+        "email": "rep98@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/members/mark-hiner",
+        "social": {}
+      }
+    ],
+    "OH:state-house:092": [
+      {
+        "id": "ocd-person/4af0e8db-ad18-424f-abfa-ce31e37c0b7d",
+        "name": "Mark Johnson",
+        "office": "state-house",
+        "districtCode": "092",
+        "contactUrl": null,
+        "email": "rep92@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/mark-johnson",
+        "social": {}
+      }
+    ],
+    "OH:state-house:010": [
+      {
+        "id": "ocd-person/8750be20-9a0c-41e4-bb32-4061c787a7e2",
+        "name": "Mark Sigrist",
+        "office": "state-house",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "rep10@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/members/mark-sigrist",
+        "social": {}
+      }
+    ],
+    "OH:state-house:078": [
+      {
+        "id": "ocd-person/23d51717-c6eb-4a2c-bd55-038c72593a61",
+        "name": "Matt Huffman",
+        "office": "state-house",
+        "districtCode": "078",
+        "contactUrl": null,
+        "email": "rep78@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/members/matt-huffman",
+        "social": {
+          "x": "matthuffman1"
+        }
+      }
+    ],
+    "OH:state-house:050": [
+      {
+        "id": "ocd-person/7ab0cf86-d569-4a6e-8677-8cd7721a9475",
+        "name": "Matt Kishman",
+        "office": "state-house",
+        "districtCode": "050",
+        "contactUrl": null,
+        "email": "rep50@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/members/matthew-kishman",
+        "social": {}
+      }
+    ],
+    "OH:state-house:067": [
+      {
+        "id": "ocd-person/fb957ddc-f41c-400d-ae32-47f7e729555b",
+        "name": "Melanie Miller",
+        "office": "state-house",
+        "districtCode": "067",
+        "contactUrl": null,
+        "email": "rep67@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.ohiohouse.gov/members/melanie-miller",
+        "social": {}
+      }
+    ],
+    "OH:state-house:077": [
+      {
+        "id": "ocd-person/75257af6-5d83-4d3b-b127-744aaa377c9f",
+        "name": "Meredith Craig",
+        "office": "state-house",
+        "districtCode": "077",
+        "contactUrl": null,
+        "email": "rep77@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/members/meredith-craig",
+        "social": {}
+      }
+    ],
+    "OH:state-house:005": [
+      {
+        "id": "ocd-person/4b1e7c00-c159-407e-83d8-2eb24ba175db",
+        "name": "Meredith Lawson‐Rowe",
+        "office": "state-house",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "rep05@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/members/meredith-r-lawson-rowe",
+        "social": {}
+      }
+    ],
+    "OH:state-house:043": [
+      {
+        "id": "ocd-person/100ae6b0-0c5d-4b97-9ac5-8ccb42b9168b",
+        "name": "Michele Grim",
+        "office": "state-house",
+        "districtCode": "043",
+        "contactUrl": null,
+        "email": "rep43@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.ohiohouse.gov/members/michele-grim",
+        "social": {}
+      }
+    ],
+    "OH:state-house:055": [
+      {
+        "id": "ocd-person/d06c06f8-2f63-4a29-8388-ed0747b97f48",
+        "name": "Michelle Teska",
+        "office": "state-house",
+        "districtCode": "055",
+        "contactUrl": null,
+        "email": "rep55@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/members/michelle-teska",
+        "social": {}
+      }
+    ],
+    "OH:state-house:017": [
+      {
+        "id": "ocd-person/cc85c295-299f-4de7-bb56-1de3a451951e",
+        "name": "Mike Dovilla",
+        "office": "state-house",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "rep17@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.ohiohouse.gov/members/michael-d-dovilla",
+        "social": {}
+      }
+    ],
+    "OH:state-house:030": [
+      {
+        "id": "ocd-person/72bb7360-10c1-42d9-8781-32ddf8fef5fd",
+        "name": "Mike Odioso",
+        "office": "state-house",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "rep30@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/members/mike-odioso",
+        "social": {}
+      }
+    ],
+    "OH:state-house:079": [
+      {
+        "id": "ocd-person/062b9622-c2fa-4af2-bbea-704f0450dd47",
+        "name": "Monica Blasdel",
+        "office": "state-house",
+        "districtCode": "079",
+        "contactUrl": null,
+        "email": "rep79@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.ohiohouse.gov/members/monica-robb-blasdel",
+        "social": {}
+      }
+    ],
+    "OH:state-house:009": [
+      {
+        "id": "ocd-person/538fefb8-d8ae-48f5-bb07-4161e2ccac55",
+        "name": "Munira Abdullahi",
+        "office": "state-house",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "rep09@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.ohiohouse.gov/members/munira-abdullahi",
+        "social": {}
+      }
+    ],
+    "OH:state-house:064": [
+      {
+        "id": "ocd-person/64305698-f25c-486e-b57f-00298cfbe15d",
+        "name": "Nick Santucci",
+        "office": "state-house",
+        "districtCode": "064",
+        "contactUrl": null,
+        "email": "rep64@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.ohiohouse.gov/members/nick-santucci",
+        "social": {}
+      }
+    ],
+    "OH:state-house:039": [
+      {
+        "id": "ocd-person/1e218942-95f6-43fe-b935-b19ab70fd5fc",
+        "name": "Phil Plummer",
+        "office": "state-house",
+        "districtCode": "039",
+        "contactUrl": null,
+        "email": "rep39@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/phil-plummer",
+        "social": {}
+      }
+    ],
+    "OH:state-house:019": [
+      {
+        "id": "ocd-person/78d5adbb-ec6a-4212-9cc7-335f5d9ded8c",
+        "name": "Phil Robinson",
+        "office": "state-house",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "rep19@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/phillip-m-robinson-jr",
+        "social": {}
+      }
+    ],
+    "OH:state-house:027": [
+      {
+        "id": "ocd-person/36f320a8-be34-43c2-ac73-ee87fbce6b0c",
+        "name": "Rachel Baker",
+        "office": "state-house",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "rep27@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.ohiohouse.gov/members/rachel-b-baker",
+        "social": {}
+      }
+    ],
+    "OH:state-house:087": [
+      {
+        "id": "ocd-person/d6ca7e4f-dcf2-4aad-a919-a2740bae649a",
+        "name": "Riordan McClain",
+        "office": "state-house",
+        "districtCode": "087",
+        "contactUrl": null,
+        "email": "rep87@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/members/riordan-t-mcclain",
+        "social": {}
+      }
+    ],
+    "OH:state-house:040": [
+      {
+        "id": "ocd-person/c34a852a-71fc-4b21-a594-bc4a75b799c8",
+        "name": "Rodney Creech",
+        "office": "state-house",
+        "districtCode": "040",
+        "contactUrl": null,
+        "email": "rep40@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/members/rodney-creech",
+        "social": {}
+      }
+    ],
+    "OH:state-house:096": [
+      {
+        "id": "ocd-person/52608475-9678-45ce-823a-74f9c931682c",
+        "name": "Ron Ferguson",
+        "office": "state-house",
+        "districtCode": "096",
+        "contactUrl": null,
+        "email": "rep96@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/members/ron-ferguson",
+        "social": {}
+      }
+    ],
+    "OH:state-house:082": [
+      {
+        "id": "ocd-person/73e72147-0d40-4478-bbf6-3419f0e00b46",
+        "name": "Roy Klopfenstein",
+        "office": "state-house",
+        "districtCode": "082",
+        "contactUrl": null,
+        "email": "rep82@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.ohiohouse.gov/members/roy-klopfenstein",
+        "social": {}
+      }
+    ],
+    "OH:state-house:099": [
+      {
+        "id": "ocd-person/5b3a7d10-e745-4985-ade9-d7fff6ae6af4",
+        "name": "Sarah Fowler Arthur",
+        "office": "state-house",
+        "districtCode": "099",
+        "contactUrl": null,
+        "email": "rep99@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/members/sarah-fowler-arthur",
+        "social": {}
+      }
+    ],
+    "OH:state-house:048": [
+      {
+        "id": "ocd-person/52424e91-a002-4908-a205-4ea27cfe68da",
+        "name": "Scott Oelslager",
+        "office": "state-house",
+        "districtCode": "048",
+        "contactUrl": null,
+        "email": "rep48@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/scott-oelslager",
+        "social": {}
+      }
+    ],
+    "OH:state-house:066": [
+      {
+        "id": "ocd-person/f578440a-e5ea-4775-bb41-94adad15fa73",
+        "name": "Sean Hutson",
+        "office": "state-house",
+        "districtCode": "066",
+        "contactUrl": null,
+        "email": "rep66@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/members/sean-hutson",
+        "social": {}
+      }
+    ],
+    "OH:state-house:014": [
+      {
+        "id": "ocd-person/993f089c-60bf-418d-9704-fa92e4f01c71",
+        "name": "Sean Brennan",
+        "office": "state-house",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "rep14@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.ohiohouse.gov/members/sean-p-brennan",
+        "social": {}
+      }
+    ],
+    "OH:state-house:035": [
+      {
+        "id": "ocd-person/854b6ce3-a4e1-46db-959a-aa286e4e8942",
+        "name": "Steve Demetriou",
+        "office": "state-house",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "rep35@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.ohiohouse.gov/members/steve-demetriou",
+        "social": {}
+      }
+    ],
+    "OH:state-house:020": [
+      {
+        "id": "ocd-person/a4c53220-d4a7-4591-b2d8-109516dc9401",
+        "name": "Terrence Upchurch",
+        "office": "state-house",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "rep20@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/terrence-upchurch",
+        "social": {}
+      }
+    ],
+    "OH:state-house:059": [
+      {
+        "id": "ocd-person/16e469e4-8014-4ba2-8fc4-91804d6ef491",
+        "name": "Tex Fischer",
+        "office": "state-house",
+        "districtCode": "059",
+        "contactUrl": null,
+        "email": "rep59@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.ohiohouse.gov/members/tex-fischer",
+        "social": {}
+      }
+    ],
+    "OH:state-house:068": [
+      {
+        "id": "ocd-person/081534e7-8952-47f0-a722-ed627fb32069",
+        "name": "Thad Claggett",
+        "office": "state-house",
+        "districtCode": "068",
+        "contactUrl": null,
+        "email": "rep68@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.ohiohouse.gov/members/thaddeus-j-claggett",
+        "social": {}
+      }
+    ],
+    "OH:state-house:046": [
+      {
+        "id": "ocd-person/7948afad-ec3c-4e4c-a073-305fb8cd1b21",
+        "name": "Thomas Hall",
+        "office": "state-house",
+        "districtCode": "046",
+        "contactUrl": null,
+        "email": "rep46@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/members/thomas-hall",
+        "social": {}
+      }
+    ],
+    "OH:state-house:085": [
+      {
+        "id": "ocd-person/fa5ff978-34ff-49d1-958e-4e356a8ef9d4",
+        "name": "Tim Barhorst",
+        "office": "state-house",
+        "districtCode": "085",
+        "contactUrl": null,
+        "email": "rep85@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.ohiohouse.gov/members/tim-barhorst",
+        "social": {}
+      }
+    ],
+    "OH:state-house:037": [
+      {
+        "id": "ocd-person/d2ecec1d-db13-4a47-836b-9e75f3a31c78",
+        "name": "Tom Young",
+        "office": "state-house",
+        "districtCode": "037",
+        "contactUrl": null,
+        "email": "rep37@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/members/tom-young",
+        "social": {}
+      }
+    ],
+    "OH:state-house:086": [
+      {
+        "id": "ocd-person/7bcb4dfa-e4d3-46cd-b158-057b1b4b9a0a",
+        "name": "Tracy Richardson",
+        "office": "state-house",
+        "districtCode": "086",
+        "contactUrl": null,
+        "email": "rep86@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/tracy-m-richardson",
+        "social": {}
+      }
+    ],
+    "OH:state-house:013": [
+      {
+        "id": "ocd-person/18864718-3e48-4236-9afb-b1a61e4c52e2",
+        "name": "Tristan Rader",
+        "office": "state-house",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "rep13@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/members/tristan-rader",
+        "social": {}
+      }
+    ],
+    "OH:state-house:083": [
+      {
+        "id": "ocd-person/09c752d1-59eb-4f43-b401-5092d801f4c1",
+        "name": "Ty Mathews",
+        "office": "state-house",
+        "districtCode": "083",
+        "contactUrl": null,
+        "email": "rep83@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/members/ty-d-mathews",
+        "social": {}
+      }
+    ],
+    "OH:state-house:095": [
+      {
+        "id": "ocd-person/392b392f-7424-4826-9f65-6b84a805473b",
+        "name": "Ty Moore",
+        "office": "state-house",
+        "districtCode": "095",
+        "contactUrl": null,
+        "email": "rep95@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/members/ty-moore",
+        "social": {}
+      }
+    ],
+    "OH:state-house:033": [
+      {
+        "id": "ocd-person/8b367fce-9be2-4848-837a-a475c3d531e4",
+        "name": "Veronica Sims",
+        "office": "state-house",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "rep33@ohiohouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/members/veronica-r-sims",
+        "social": {}
+      }
+    ],
+    "OH:state-senate:033": [
+      {
+        "id": "ocd-person/6a1fc3b1-ebfd-47b7-adec-ddcd84d137c9",
+        "name": "Al Cutrona",
+        "office": "state-senate",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "sd33@ohiosenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.ohiohouse.gov/members/al-cutrona",
+        "social": {}
+      }
+    ],
+    "OH:state-senate:031": [
+      {
+        "id": "ocd-person/debec71d-fcfb-4422-9c9e-c6a8709cbb3a",
+        "name": "Al Landis",
+        "office": "state-senate",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "sd31@ohiosenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiosenate.gov/members/al-landis",
+        "social": {}
+      }
+    ],
+    "OH:state-senate:019": [
+      {
+        "id": "ocd-person/c61c8eaf-1de9-419d-a5dc-c96787315578",
+        "name": "Andrew Brenner",
+        "office": "state-senate",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "sd19@ohiosenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.ohiosenate.gov/members/andrew-o-brenner",
+        "social": {}
+      }
+    ],
+    "OH:state-senate:016": [
+      {
+        "id": "ocd-person/2d01ff0c-25a8-49a2-b571-ab3a7866fcf2",
+        "name": "Beth Liston",
+        "office": "state-senate",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "sd16@ohiosenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiosenate.gov/members/beth-liston",
+        "social": {}
+      }
+    ],
+    "OH:state-senate:026": [
+      {
+        "id": "ocd-person/10733ff7-ee19-4e86-9b5e-65619ddbf7bf",
+        "name": "Bill Reineke",
+        "office": "state-senate",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "sd26@ohiosenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.ohiosenate.gov/members/bill-reineke",
+        "social": {}
+      }
+    ],
+    "OH:state-senate:030": [
+      {
+        "id": "ocd-person/eb5ff860-2126-4ac5-8267-9d2d924c3967",
+        "name": "Brian Chavez",
+        "office": "state-senate",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "sd30@ohiosenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.ohiosenate.gov/members/brian-m-chavez",
+        "social": {}
+      }
+    ],
+    "OH:state-senate:028": [
+      {
+        "id": "ocd-person/d7949531-f267-4e99-9611-87b3ec3e04ac",
+        "name": "Casey Weinstein",
+        "office": "state-senate",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "sd28@ohiosenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiosenate.gov/members/casey-weinstein",
+        "social": {}
+      }
+    ],
+    "OH:state-senate:009": [
+      {
+        "id": "ocd-person/94ba65dd-57c5-4ab0-b607-5e310d50cae0",
+        "name": "Catherine Ingram",
+        "office": "state-senate",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "sd09@ohiosenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.ohiosenate.gov/members/catherine-d-ingram",
+        "social": {
+          "x": "cingram32"
+        }
+      }
+    ],
+    "OH:state-senate:004": [
+      {
+        "id": "ocd-person/445d3fc7-d9a5-48d8-8869-f023aa274ae7",
+        "name": "George Lang",
+        "office": "state-senate",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "sd04@ohiosenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.ohiosenate.gov/members/george-f-lang",
+        "social": {}
+      }
+    ],
+    "OH:state-senate:015": [
+      {
+        "id": "ocd-person/ed858ef9-97dc-4be8-97ab-006ea96923ae",
+        "name": "Hearcel Craig",
+        "office": "state-senate",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "sd15@ohiosenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.ohiosenate.gov/members/hearcel-f-craig",
+        "social": {
+          "x": "hearcelcraig",
+          "facebook": "senatorhearcelcraig",
+          "instagram": "hearcelcraig"
+        }
+      }
+    ],
+    "OH:state-senate:029": [
+      {
+        "id": "ocd-person/c3b1dc5e-4913-4e2f-b2a8-4db5b3faa1bd",
+        "name": "Jane Timken",
+        "office": "state-senate",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "sd29@ohiosenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.ohiosenate.gov/members/jane-m-timken",
+        "social": {}
+      }
+    ],
+    "OH:state-senate:018": [
+      {
+        "id": "ocd-person/b27fdceb-e9c1-46b8-9fc2-323c3f6f784c",
+        "name": "Jerry Cirino",
+        "office": "state-senate",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "sd18@ohiosenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiosenate.gov/members/jerry-c-cirino",
+        "social": {}
+      }
+    ],
+    "OH:state-senate:021": [
+      {
+        "id": "ocd-person/d9c3dfce-8b7f-402f-9dec-5179e38b528f",
+        "name": "Kent Smith",
+        "office": "state-senate",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "sd21@ohiosenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiosenate.gov/members/kent-smith",
+        "social": {}
+      }
+    ],
+    "OH:state-senate:027": [
+      {
+        "id": "ocd-person/936e5d50-e145-494b-a397-f56570530816",
+        "name": "Kristina Roegner",
+        "office": "state-senate",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "sd27@ohiosenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.ohiosenate.gov/members/kristina-d-roegner",
+        "social": {}
+      }
+    ],
+    "OH:state-senate:010": [
+      {
+        "id": "ocd-person/f2e79c7c-7e3a-496d-8f87-d43b62eb54a5",
+        "name": "Kyle Koehler",
+        "office": "state-senate",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "sd10@ohiosenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiosenate.gov/members/kyle-koehler",
+        "social": {}
+      }
+    ],
+    "OH:state-senate:008": [
+      {
+        "id": "ocd-person/5a9b2a16-6827-4e00-961a-f3de39538749",
+        "name": "Bill Blessing",
+        "office": "state-senate",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "sd08@ohiosenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.ohiosenate.gov/members/louis-w-blessing-iii",
+        "social": {}
+      }
+    ],
+    "OH:state-senate:022": [
+      {
+        "id": "ocd-person/2ae62dc8-e902-4a8e-99b7-182477c50bc3",
+        "name": "Mark Romanchuk",
+        "office": "state-senate",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "sd22@ohiosenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.ohiosenate.gov/members/mark-romanchuk",
+        "social": {}
+      }
+    ],
+    "OH:state-senate:003": [
+      {
+        "id": "ocd-person/79af20c0-6eb6-44a2-ba79-9c7e5e10ea04",
+        "name": "Michele Reynolds",
+        "office": "state-senate",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "reynolds@ohiosenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.ohiosenate.gov/members/michele-reynolds",
+        "social": {}
+      }
+    ],
+    "OH:state-senate:023": [
+      {
+        "id": "ocd-person/df5c391c-65e8-4d61-a9b9-0249ff6eddb7",
+        "name": "Nickie Antonio",
+        "office": "state-senate",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "sd23@ohiosenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.ohiosenate.gov/members/nickie-j-antonio",
+        "social": {}
+      }
+    ],
+    "OH:state-senate:011": [
+      {
+        "id": "ocd-person/3329274c-22b6-4b0a-b12a-e64c5733bef9",
+        "name": "Paula Hicks-Hudson",
+        "office": "state-senate",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "sd11@ohiosenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiosenate.gov/members/paula-hicks-hudson",
+        "social": {
+          "x": "paulahickshuds1",
+          "instagram": "hickshudsonpaula"
+        }
+      }
+    ],
+    "OH:state-senate:001": [
+      {
+        "id": "ocd-person/e0d52f86-e997-4299-9e50-972a2c208c20",
+        "name": "Rob McColley",
+        "office": "state-senate",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "sd01@ohiosenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.ohiosenate.gov/members/rob-mccolley",
+        "social": {
+          "x": "rob_mccolley",
+          "facebook": "mccolley4ohio"
+        }
+      }
+    ],
+    "OH:state-senate:032": [
+      {
+        "id": "ocd-person/d665e333-f7e3-43e2-b440-17920f62c60b",
+        "name": "Sandy O'Brien",
+        "office": "state-senate",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "sd32@ohiosenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.ohiosenate.gov/members/sandra-obrien",
+        "social": {}
+      }
+    ],
+    "OH:state-senate:017": [
+      {
+        "id": "ocd-person/bb1ae016-cdfe-48aa-8bc5-9e3636e430f3",
+        "name": "Shane Wilkin",
+        "office": "state-senate",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "sd17@ohiosenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiosenate.gov/members/shane-wilkin",
+        "social": {}
+      }
+    ],
+    "OH:state-senate:005": [
+      {
+        "id": "ocd-person/b21d9dcd-21e9-4071-936d-f89fc5d8f643",
+        "name": "Steve Huffman",
+        "office": "state-senate",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "sd05@ohiosenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.ohiosenate.gov/members/stephen-a-huffman",
+        "social": {}
+      }
+    ],
+    "OH:state-senate:007": [
+      {
+        "id": "ocd-person/26444e7e-72b2-4838-bc24-31899c90d504",
+        "name": "Steve Wilson",
+        "office": "state-senate",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "sd07@ohiosenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.ohiosenate.gov/members/steve-wilson",
+        "social": {
+          "x": "stevewilsonoh",
+          "facebook": "stevewilsonoh"
+        }
+      }
+    ],
+    "OH:state-senate:012": [
+      {
+        "id": "ocd-person/0e44b586-f6a4-44ee-b6b7-37fa8dc2e8cd",
+        "name": "Susan Manchester",
+        "office": "state-senate",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "sd12@ohiosenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiosenate.gov/members/susan-manchester",
+        "social": {}
+      }
+    ],
+    "OH:state-senate:014": [
+      {
+        "id": "ocd-person/57300c34-0e2d-4e85-bdce-c4fb8c781541",
+        "name": "Terry Johnson",
+        "office": "state-senate",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "sd14@ohiosenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.ohiosenate.gov/members/terry-johnson",
+        "social": {}
+      }
+    ],
+    "OH:state-senate:002": [
+      {
+        "id": "ocd-person/0fe32749-fe89-4f96-87d3-3d831bea2459",
+        "name": "Theresa Gavarone",
+        "office": "state-senate",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "sd02@ohiosenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.ohiosenate.gov/members/theresa-gavarone",
+        "social": {}
+      }
+    ],
+    "OH:state-senate:024": [
+      {
+        "id": "ocd-person/a57f6c78-ac58-4f7d-870e-0d8052984cd9",
+        "name": "Tom Patton",
+        "office": "state-senate",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "sd24@ohiosenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiosenate.gov/members/thomas-f-patton",
+        "social": {}
+      }
+    ],
+    "OH:state-senate:020": [
+      {
+        "id": "ocd-person/01a80305-a667-4dda-9676-1e678bddde12",
+        "name": "Tim Schaffer",
+        "office": "state-senate",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "sd20@ohiosenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.ohiosenate.gov/members/tim-schaffer",
+        "social": {}
+      }
+    ],
+    "OH:state-senate:025": [
+      {
+        "id": "ocd-person/bdc3493a-a22f-4a6b-b50e-b590216d8cfd",
+        "name": "Bill DeMora",
+        "office": "state-senate",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "sd25@ohiosenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.ohiosenate.gov/members/william-p-demora",
+        "social": {
+          "x": "senbilldemora",
+          "instagram": "senbilldemora"
+        }
+      }
+    ],
+    "OH:state-senate:006": [
+      {
+        "id": "ocd-person/23c443b0-e2f7-4c7a-af1e-d67d7aa366ce",
+        "name": "Willis Blackshear",
+        "office": "state-senate",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "sd06@ohiosenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ohiohouse.gov/members/willis-e-blackshear-jr",
+        "social": {}
+      }
+    ]
+  }
+}

@@ -1,4 +1,4 @@
-import { PAGE_META } from '../src/client/shared/lib/page-meta';
+import { PAGE_META, type PageMeta } from '../src/client/shared/lib/page-meta';
 import { CODE_LICENSE_NAME, CREDIT_TEXT, DATA_LICENSE_NAME, REPO_URL, jsonLd, jsonLdScript, type FaqEntry, type PageKey } from './structured-data';
 
 export { jsonLd, jsonLdScript };
@@ -7,9 +7,9 @@ export type { FaqEntry, PageKey };
 /** Every fixed page, in the order PAGE_META lists them: the one list the sitemap and the prerender both walk. */
 export const PAGE_KEYS = Object.keys(PAGE_META) as PageKey[];
 
-/** The fixed pages, then each share page path (`CO`, `CO/house`) the published index calls for. */
+/** The fixed pages that are indexable, then each share page path (`CO`, `CO/house`) the published index calls for. */
 export function sitemapXml(site: string, sharePaths: readonly string[]): string {
-  const paths = [...PAGE_KEYS.map((k) => PAGE_META[k].path), ...sharePaths.map((p) => `/${p}`)];
+  const paths = [...PAGE_KEYS.filter((k) => !(PAGE_META[k] as PageMeta).noindex).map((k) => PAGE_META[k].path), ...sharePaths.map((p) => `/${p}`)];
   const urls = paths.map((p) => `  <url><loc>${site}${p}</loc></url>`);
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join('\n')}\n</urlset>\n`;
 }
@@ -46,6 +46,9 @@ Gerrymandering is drawing election districts to decide who wins before anyone vo
 - [How are districts drawn today?](${site}/faq/today): legislatures and commissions
 - [How Fair Maps draws districts](${site}/how): the rule, step by step, with worked examples
 - [All questions](${site}/faq)
+- [Who supports the Fair Maps rule](${site}/pledges): officeholders and candidates who pledged, each with a link to their own statement
+- [Take action](${site}/act): find your representatives, email all of them at once, and add your name
+- [Privacy](${site}/privacy): what is collected when someone adds their name, what is never kept, and how to be removed
 
 ## Maps
 - [Every state's map](${site}/): Federal House for all 50 states, State House and State Senate where the chamber exists; find your district by address

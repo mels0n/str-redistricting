@@ -2,6 +2,7 @@ import {
   h,
   clear,
   announce,
+  takeSigned,
   describeError,
   describeRouteIssue,
   fitRouteToState,
@@ -25,6 +26,7 @@ import {
   createSplitter,
   stateRoute,
   howRoute,
+  actRoute,
   NATIONAL,
   MapUnavailableError,
   UnknownStateError,
@@ -554,7 +556,7 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
     stage.append(scrubber.el);
     controls = scrubber.el;
     splitWatch?.observe(scrubber.el);
-    const ticketBox = h('div', { class: 'strv-state__ticket' }, ticket.el, locatedNote);
+    const ticketBox = h('div', { class: 'strv-state__ticket' }, ticket.el, locatedNote, h('a', { class: 'strv-state__act', href: routeHref(actRoute(initial.abbr)) }, 'Ask your representatives'));
     let pickKey = '';
     const renderPick = (plan: string, d: { district: number; pop: number } | null, color: string | null): void => {
       const key = `${plan}|${d?.district ?? ''}`;
@@ -782,6 +784,11 @@ export function createStatePage(initial: StateRoute, nav: Navigate): Page {
     located = { districts, lonLat: at, matchedAddress: l.matchedAddress, exact };
   }
 
+  // Arriving from the confirmation link: say so (the router has already cleared `?signed=` from the address bar).
+  if (takeSigned() === 'ok') {
+    setNotice('You’re signed. Thanks for adding your name.');
+    noticeHash = formatPath(route);
+  }
   void start();
 
   return {

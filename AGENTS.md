@@ -21,6 +21,9 @@ restate the code itself.
 - Redraw the fixture states and compare with `tests/fingerprints/engine.json`: `npm run fingerprints -- --check --base origin/main` (`--record` writes new ones)
 - Ask the Census Bureau whether a pinned file was reissued: `npm run census:watch -- --check --report report.json` (`--record` stores what it serves now)
 - Publish over data made before versioning existed: `npm run publish-data -- --baseline`
+- Pin the open representative data sources: `npm run reps:pin`; publish them to `public/data/reps/`: `npm run reps:publish`
+- Write the Markdown summary of a district's public notes and signer count (needs the backend variables): `npm run digest -- --key CO:us-house:03` (`--out file.md` writes a file)
+- Database migrations in `supabase/migrations/` are applied by `npm run build`, only in a Vercel production build; any other build skips them
 - Lint: none
 
 ## Layout

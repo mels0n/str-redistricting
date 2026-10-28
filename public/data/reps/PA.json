@@ -1,0 +1,4409 @@
+{
+  "state": "PA",
+  "generatedFrom": {
+    "legislators-current.json": "ae8cb9477c48715df71a7d860854229d799dc90a254d61badc1efb770f892b2c",
+    "legislators-social-media.json": "c6eca1fcdb3a89901335eed51ca061daa4b60ad3243969a127e913bb9657fbc5",
+    "pa.csv": "03cfef702b341ca47db304a337c9792bdc6a1790d9ed4f930aed286a9cee3675"
+  },
+  "byKey": {
+    "PA:us-house:16": [
+      {
+        "id": "K000376",
+        "name": "Mike Kelly",
+        "office": "us-house",
+        "districtCode": "16",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5406",
+        "address": "1707 Longworth House Office Building Washington DC 20515-3816",
+        "website": "https://kelly.house.gov",
+        "social": {
+          "x": "MikeKellyPA",
+          "facebook": "191056827594903"
+        }
+      }
+    ],
+    "PA:us-house:15": [
+      {
+        "id": "T000467",
+        "name": "Glenn Thompson",
+        "office": "us-house",
+        "districtCode": "15",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5121",
+        "address": "400 Cannon House Office Building Washington DC 20515-3815",
+        "website": "https://thompson.house.gov",
+        "social": {
+          "x": "CongressmanGT",
+          "facebook": "CongressmanGT",
+          "instagram": "congressman_gt"
+        }
+      }
+    ],
+    "PA:us-house:10": [
+      {
+        "id": "P000605",
+        "name": "Scott Perry",
+        "office": "us-house",
+        "districtCode": "10",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5836",
+        "address": "2160 Rayburn House Office Building Washington DC 20515-3810",
+        "website": "https://perry.house.gov",
+        "social": {
+          "x": "RepScottPerry",
+          "facebook": "repscottperry",
+          "instagram": "repscottperry"
+        }
+      }
+    ],
+    "PA:us-house:02": [
+      {
+        "id": "B001296",
+        "name": "Brendan F. Boyle",
+        "office": "us-house",
+        "districtCode": "02",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-6111",
+        "address": "1502 Longworth House Office Building Washington DC 20515-3802",
+        "website": "https://boyle.house.gov",
+        "social": {
+          "x": "CongBoyle",
+          "facebook": "CongressmanBoyle"
+        }
+      }
+    ],
+    "PA:us-house:03": [
+      {
+        "id": "E000296",
+        "name": "Dwight Evans",
+        "office": "us-house",
+        "districtCode": "03",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4001",
+        "address": "1105 Longworth House Office Building Washington DC 20515-3803",
+        "website": "https://evans.house.gov",
+        "social": {
+          "x": "RepDwightEvans",
+          "facebook": "RepDwightEvans",
+          "instagram": "repdwightevans"
+        }
+      }
+    ],
+    "PA:us-house:01": [
+      {
+        "id": "F000466",
+        "name": "Brian K. Fitzpatrick",
+        "office": "us-house",
+        "districtCode": "01",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4276",
+        "address": "271 Cannon House Office Building Washington DC 20515-3801",
+        "website": "https://fitzpatrick.house.gov",
+        "social": {
+          "x": "RepBrianFitz",
+          "facebook": "repbrianfitzpatrick",
+          "instagram": "repbrianfitz"
+        }
+      }
+    ],
+    "PA:us-house:11": [
+      {
+        "id": "S001199",
+        "name": "Lloyd Smucker",
+        "office": "us-house",
+        "districtCode": "11",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2411",
+        "address": "302 Cannon House Office Building Washington DC 20515-3811",
+        "website": "https://smucker.house.gov",
+        "social": {
+          "x": "RepSmucker",
+          "facebook": "RepSmucker"
+        }
+      }
+    ],
+    "PA:us-house:05": [
+      {
+        "id": "S001205",
+        "name": "Mary Gay Scanlon",
+        "office": "us-house",
+        "districtCode": "05",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2011",
+        "address": "1214 Longworth House Office Building Washington DC 20515-3805",
+        "website": "https://scanlon.house.gov",
+        "social": {
+          "x": "RepMGS",
+          "facebook": "repmgs",
+          "instagram": "repmgs"
+        }
+      }
+    ],
+    "PA:us-house:04": [
+      {
+        "id": "D000631",
+        "name": "Madeleine Dean",
+        "office": "us-house",
+        "districtCode": "04",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4731",
+        "address": "150 Cannon House Office Building Washington DC 20515-3804",
+        "website": "https://dean.house.gov",
+        "social": {
+          "x": "RepDean",
+          "facebook": "RepMadeleineDean",
+          "instagram": "repmadeleinedean"
+        }
+      }
+    ],
+    "PA:us-house:06": [
+      {
+        "id": "H001085",
+        "name": "Chrissy Houlahan",
+        "office": "us-house",
+        "districtCode": "06",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4315",
+        "address": "1727 Longworth House Office Building Washington DC 20515-3806",
+        "website": "https://houlahan.house.gov",
+        "social": {
+          "x": "RepHoulahan",
+          "facebook": "RepChrissyHoulahan",
+          "instagram": "repchrissyhoulahan"
+        }
+      }
+    ],
+    "PA:us-house:09": [
+      {
+        "id": "M001204",
+        "name": "Daniel Meuser",
+        "office": "us-house",
+        "districtCode": "09",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-6511",
+        "address": "350 Cannon House Office Building Washington DC 20515-3809",
+        "website": "https://meuser.house.gov",
+        "social": {
+          "x": "RepMeuser",
+          "facebook": "RepMeuser"
+        }
+      }
+    ],
+    "PA:us-house:13": [
+      {
+        "id": "J000302",
+        "name": "John Joyce",
+        "office": "us-house",
+        "districtCode": "13",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2431",
+        "address": "2102 Rayburn House Office Building Washington DC 20515-3813",
+        "website": "https://johnjoyce.house.gov",
+        "social": {
+          "x": "RepJohnJoyce"
+        }
+      }
+    ],
+    "PA:us-house:14": [
+      {
+        "id": "R000610",
+        "name": "Guy Reschenthaler",
+        "office": "us-house",
+        "districtCode": "14",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2065",
+        "address": "2209 Rayburn House Office Building Washington DC 20515-3814",
+        "website": "https://reschenthaler.house.gov",
+        "social": {
+          "x": "GReschenthaler",
+          "facebook": "GReschenthaler",
+          "instagram": "greschenthaler"
+        }
+      }
+    ],
+    "PA:us-senate:state": [
+      {
+        "id": "F000479",
+        "name": "John Fetterman",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.fetterman.senate.gov/contact/",
+        "email": null,
+        "phone": "202-224-4254",
+        "address": "142 Russell Senate Office Building Washington DC 20510",
+        "website": "https://www.fetterman.senate.gov",
+        "social": {
+          "facebook": "SenFettermanPA",
+          "instagram": "senfettermanpa"
+        }
+      },
+      {
+        "id": "M001243",
+        "name": "David McCormick",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://mccormick.senate.gov/",
+        "email": null,
+        "phone": "202-224-6324",
+        "address": "702 Hart Senate Office Building Washington DC 20510",
+        "website": "https://www.mccormick.senate.gov",
+        "social": {
+          "facebook": "SenMcCormickPA",
+          "instagram": "senmccormickpa"
+        }
+      }
+    ],
+    "PA:us-house:12": [
+      {
+        "id": "L000602",
+        "name": "Summer L. Lee",
+        "office": "us-house",
+        "districtCode": "12",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2135",
+        "address": "2437 Rayburn House Office Building Washington DC 20515-3812",
+        "website": "https://summerlee.house.gov",
+        "social": {
+          "x": "RepSummerLee",
+          "facebook": "RepSummerLee",
+          "instagram": "repsummerlee"
+        }
+      }
+    ],
+    "PA:us-house:17": [
+      {
+        "id": "D000530",
+        "name": "Christopher R. Deluzio",
+        "office": "us-house",
+        "districtCode": "17",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2301",
+        "address": "1222 Longworth House Office Building Washington DC 20515-3817",
+        "website": "https://deluzio.house.gov",
+        "social": {
+          "x": "RepDeluzio",
+          "facebook": "RepChrisDeluzio",
+          "instagram": "RepDeluzio"
+        }
+      }
+    ],
+    "PA:us-house:07": [
+      {
+        "id": "M001230",
+        "name": "Ryan Mackenzie",
+        "office": "us-house",
+        "districtCode": "07",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-6411",
+        "address": "121 Cannon House Office Building Washington DC 20515-3807",
+        "website": "https://mackenzie.house.gov",
+        "social": {
+          "x": "RepMackenzie",
+          "facebook": "repmackenzie",
+          "instagram": "RepMackenzie"
+        }
+      }
+    ],
+    "PA:us-house:08": [
+      {
+        "id": "B001327",
+        "name": "Robert P. Bresnahan, Jr.",
+        "office": "us-house",
+        "districtCode": "08",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5546",
+        "address": "1133 Longworth House Office Building Washington DC 20515-3808",
+        "website": "https://bresnahan.house.gov",
+        "social": {
+          "x": "RepBresnahan",
+          "facebook": "RepBresnahan",
+          "instagram": "RepBresnahan"
+        }
+      }
+    ],
+    "PA:state-house:008": [
+      {
+        "id": "ocd-person/844f3ed7-03df-420f-81bd-3f547c12e61e",
+        "name": "Aaron Bernstine",
+        "office": "state-house",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "abernstine@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1742",
+        "social": {
+          "facebook": "repbernstine"
+        }
+      }
+    ],
+    "PA:state-house:060": [
+      {
+        "id": "ocd-person/db196239-5fca-4218-82ee-ce1f6cf03ec4",
+        "name": "Abby Major",
+        "office": "state-house",
+        "districtCode": "060",
+        "contactUrl": null,
+        "email": "amajor@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1926",
+        "social": {}
+      }
+    ],
+    "PA:state-house:034": [
+      {
+        "id": "ocd-person/4bc74848-3896-4a0a-9310-970458f48d1a",
+        "name": "Abigail Salisbury",
+        "office": "state-house",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "repsalisbury@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=2012",
+        "social": {}
+      }
+    ],
+    "PA:state-house:019": [
+      {
+        "id": "ocd-person/1b5abb1e-0028-49a3-ae86-cfb90296c796",
+        "name": "Aerion Abney",
+        "office": "state-house",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "aabney@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1933",
+        "social": {}
+      }
+    ],
+    "PA:state-house:119": [
+      {
+        "id": "ocd-person/be809fa5-6ef4-4071-bb94-ed10fb051f69",
+        "name": "Alec Ryncavage",
+        "office": "state-house",
+        "districtCode": "119",
+        "contactUrl": null,
+        "email": "aryncavage@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1967",
+        "social": {}
+      }
+    ],
+    "PA:state-house:010": [
+      {
+        "id": "ocd-person/a41016aa-660f-4af7-afcd-ef182e544533",
+        "name": "Amen Brown",
+        "office": "state-house",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "repbrown@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1919",
+        "social": {
+          "x": "RepAmenBrown",
+          "facebook": "RepAmenBrown"
+        }
+      }
+    ],
+    "PA:state-house:022": [
+      {
+        "id": "ocd-person/19dca465-48d8-4b4a-84e2-79ef9797c986",
+        "name": "Ana Tiburcio",
+        "office": "state-house",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "reptiburcio@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.pahouse.com/Tiburcio/",
+        "social": {}
+      }
+    ],
+    "PA:state-house:201": [
+      {
+        "id": "ocd-person/628312bf-7920-44b7-b226-90c92f92a123",
+        "name": "Andre Carroll",
+        "office": "state-house",
+        "districtCode": "201",
+        "contactUrl": null,
+        "email": "repcarroll@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.pahouse.com/Carroll/",
+        "social": {}
+      }
+    ],
+    "PA:state-house:079": [
+      {
+        "id": "ocd-person/23f12d9a-928a-445e-abbe-4976cb082809",
+        "name": "Andrea Verobish",
+        "office": "state-house",
+        "districtCode": "079",
+        "contactUrl": null,
+        "email": null,
+        "phone": null,
+        "address": null,
+        "website": "https://www.palegis.us/house/members/bio/2065/rep-verobish",
+        "social": {}
+      }
+    ],
+    "PA:state-house:039": [
+      {
+        "id": "ocd-person/0d86d77b-ff68-4182-be53-09ff196b8174",
+        "name": "Andrew Kuzma",
+        "office": "state-house",
+        "districtCode": "039",
+        "contactUrl": null,
+        "email": "akuzma@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1946",
+        "social": {
+          "facebook": "RepKuzma"
+        }
+      }
+    ],
+    "PA:state-house:045": [
+      {
+        "id": "ocd-person/999d1ffd-b893-4aac-9fbb-ae43b3039038",
+        "name": "Anita Kulik",
+        "office": "state-house",
+        "districtCode": "045",
+        "contactUrl": null,
+        "email": "akulik@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1744",
+        "social": {}
+      }
+    ],
+    "PA:state-house:138": [
+      {
+        "id": "ocd-person/e00e0f63-7058-46a4-8b63-f31dc804c614",
+        "name": "Ann Flood",
+        "office": "state-house",
+        "districtCode": "138",
+        "contactUrl": null,
+        "email": "aflood@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1910",
+        "social": {
+          "facebook": "PA-State-Rep-Ann-Flood-102454235027275"
+        }
+      }
+    ],
+    "PA:state-house:203": [
+      {
+        "id": "ocd-person/57be936d-802b-4d09-b95e-2a5354cb9984",
+        "name": "Anthony Bellmon",
+        "office": "state-house",
+        "districtCode": "203",
+        "contactUrl": null,
+        "email": "repbellmon@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1984",
+        "social": {
+          "x": "RepBellmon",
+          "facebook": "RepBellmon"
+        }
+      }
+    ],
+    "PA:state-house:030": [
+      {
+        "id": "ocd-person/f4e98ad8-2ee6-45e4-8594-0deaaa51190e",
+        "name": "Arvind Venkat",
+        "office": "state-house",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "repvenkat@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1944",
+        "social": {
+          "x": "RepVenkat",
+          "facebook": "RepVenkat"
+        }
+      }
+    ],
+    "PA:state-house:199": [
+      {
+        "id": "ocd-person/48c5b966-eef2-456a-8ca0-f47d584e7883",
+        "name": "Barb Gleim",
+        "office": "state-house",
+        "districtCode": "199",
+        "contactUrl": null,
+        "email": "bgleim@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1864",
+        "social": {
+          "x": "repgleim",
+          "facebook": "RepGleim"
+        }
+      }
+    ],
+    "PA:state-house:182": [
+      {
+        "id": "ocd-person/1f2c3093-8ce7-41f7-8df0-6cd14ddd354b",
+        "name": "Ben Waxman",
+        "office": "state-house",
+        "districtCode": "182",
+        "contactUrl": null,
+        "email": "repwaxman@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1981",
+        "social": {
+          "x": "RepBenWaxman",
+          "facebook": "RepBenWaxman"
+        }
+      }
+    ],
+    "PA:state-house:153": [
+      {
+        "id": "ocd-person/b64463e2-41f6-4d58-a725-03db71798c1c",
+        "name": "Ben Sanchez",
+        "office": "state-house",
+        "districtCode": "153",
+        "contactUrl": null,
+        "email": "repsanchez@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1849",
+        "social": {
+          "x": "RepBenSanchez",
+          "facebook": "RepBenSanchez"
+        }
+      }
+    ],
+    "PA:state-house:006": [
+      {
+        "id": "ocd-person/979ea568-4c43-41bd-ba1e-4c2da172bb82",
+        "name": "Brad Roae",
+        "office": "state-house",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "broae@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1083",
+        "social": {
+          "x": "RepRoae"
+        }
+      }
+    ],
+    "PA:state-house:012": [
+      {
+        "id": "ocd-person/f619eb4d-d296-46b9-af60-12f33d90e6e0",
+        "name": "Brandon Dukes",
+        "office": "state-house",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "repdukes@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.pahouse.com/dukes/",
+        "social": {}
+      }
+    ],
+    "PA:state-house:025": [
+      {
+        "id": "ocd-person/9aea39f8-1503-4fea-9440-1e0e9c2f8fa3",
+        "name": "Brandon Markosek",
+        "office": "state-house",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "repmarkosek@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1825",
+        "social": {
+          "x": "RepMarkosek",
+          "facebook": "RepMarkosek"
+        }
+      }
+    ],
+    "PA:state-house:120": [
+      {
+        "id": "ocd-person/e12dc574-f19b-4c9c-9a30-42b68371ea4a",
+        "name": "Brenda Pugh",
+        "office": "state-house",
+        "districtCode": "120",
+        "contactUrl": null,
+        "email": "bpugh@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.palegis.us/house/members/bio/2033/rep-pugh",
+        "social": {}
+      }
+    ],
+    "PA:state-house:041": [
+      {
+        "id": "ocd-person/1a6e36d3-ff44-4e21-bb9d-397a56482b34",
+        "name": "Brett Miller",
+        "office": "state-house",
+        "districtCode": "041",
+        "contactUrl": null,
+        "email": "bmiller@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1699",
+        "social": {
+          "facebook": "RepMiller"
+        }
+      }
+    ],
+    "PA:state-house:144": [
+      {
+        "id": "ocd-person/0f035e7e-d035-4d8c-bc5b-876ba70452cc",
+        "name": "Brian Munroe",
+        "office": "state-house",
+        "districtCode": "144",
+        "contactUrl": null,
+        "email": "repmunroe@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1972",
+        "social": {
+          "x": "RepMunroe",
+          "facebook": "RepMunroe"
+        }
+      }
+    ],
+    "PA:state-house:056": [
+      {
+        "id": "ocd-person/7ec5f0f0-0899-4f54-b284-c4c5931c25bc",
+        "name": "Brian Rasel",
+        "office": "state-house",
+        "districtCode": "056",
+        "contactUrl": null,
+        "email": "brasel@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://reprasel.com/",
+        "social": {}
+      }
+    ],
+    "PA:state-house:066": [
+      {
+        "id": "ocd-person/ac7d02d3-9bb7-4cc1-8cee-4283094fe604",
+        "name": "Brian Smith",
+        "office": "state-house",
+        "districtCode": "066",
+        "contactUrl": null,
+        "email": "bsmith@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1902",
+        "social": {
+          "facebook": "PA-State-Rep-Brian-Smith-104029998216098"
+        }
+      }
+    ],
+    "PA:state-house:114": [
+      {
+        "id": "ocd-person/e5149ed2-f2bb-4054-8064-e2331ffaf1c0",
+        "name": "Bridget Malloy Kosierowski",
+        "office": "state-house",
+        "districtCode": "114",
+        "contactUrl": null,
+        "email": "repkosierowski@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1866",
+        "social": {
+          "x": "RepBridget",
+          "facebook": "RepBridget"
+        }
+      }
+    ],
+    "PA:state-house:100": [
+      {
+        "id": "ocd-person/fd5d0580-766c-482c-a12f-e4689e0bcf30",
+        "name": "Bryan Cutler",
+        "office": "state-house",
+        "districtCode": "100",
+        "contactUrl": null,
+        "email": "bcutler@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1105",
+        "social": {
+          "x": "repbryancutler",
+          "facebook": "RepBryanCutler"
+        }
+      }
+    ],
+    "PA:state-house:050": [
+      {
+        "id": "ocd-person/9b9857aa-5fad-4678-a4f9-7e40bc642f64",
+        "name": "Bud Cook",
+        "office": "state-house",
+        "districtCode": "050",
+        "contactUrl": null,
+        "email": "bcook@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1745",
+        "social": {
+          "facebook": "repbudcook"
+        }
+      }
+    ],
+    "PA:state-house:069": [
+      {
+        "id": "ocd-person/462fc474-e481-436e-b47a-7bbde2de3e3a",
+        "name": "Carl Metzgar",
+        "office": "state-house",
+        "districtCode": "069",
+        "contactUrl": null,
+        "email": "cmetzgar@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1174",
+        "social": {}
+      }
+    ],
+    "PA:state-house:095": [
+      {
+        "id": "ocd-person/cafbffed-be4d-4e5b-9d99-9aec024675e2",
+        "name": "Carol Hill-Evans",
+        "office": "state-house",
+        "districtCode": "095",
+        "contactUrl": null,
+        "email": "rephill-evans@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1749",
+        "social": {
+          "x": "RepHillEvans",
+          "facebook": "RepHillEvans"
+        }
+      }
+    ],
+    "PA:state-house:159": [
+      {
+        "id": "ocd-person/05f5a4fa-4a1e-4242-8664-eca508f36a3c",
+        "name": "Carol Kazeem",
+        "office": "state-house",
+        "districtCode": "159",
+        "contactUrl": null,
+        "email": "repkazeem@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1976",
+        "social": {
+          "x": "RepKazeem",
+          "facebook": "RepKazeem"
+        }
+      }
+    ],
+    "PA:state-house:193": [
+      {
+        "id": "ocd-person/d881386d-8aad-45c7-8705-27f3288f20ea",
+        "name": "Catherine Wallen",
+        "office": "state-house",
+        "districtCode": "193",
+        "contactUrl": null,
+        "email": null,
+        "phone": null,
+        "address": null,
+        "website": "https://repwallen.com/",
+        "social": {}
+      }
+    ],
+    "PA:state-house:090": [
+      {
+        "id": "ocd-person/851902e6-5649-4c0c-948a-57fb9c1dd40d",
+        "name": "Chad Reichard",
+        "office": "state-house",
+        "districtCode": "090",
+        "contactUrl": null,
+        "email": "creichard@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://repreichard.com/",
+        "social": {}
+      }
+    ],
+    "PA:state-house:051": [
+      {
+        "id": "ocd-person/d5bd036c-03f5-4111-b770-15cb2dbe3278",
+        "name": "Charity Krupa",
+        "office": "state-house",
+        "districtCode": "051",
+        "contactUrl": null,
+        "email": "ckrupa@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1949",
+        "social": {
+          "facebook": "RepGrimmKrupa"
+        }
+      }
+    ],
+    "PA:state-house:156": [
+      {
+        "id": "ocd-person/d83a0679-02c9-469b-89ed-11f9b46166c5",
+        "name": "Chris Pielli",
+        "office": "state-house",
+        "districtCode": "156",
+        "contactUrl": null,
+        "email": "reppielli@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1975",
+        "social": {
+          "x": "RepPielli",
+          "facebook": "RepPielli"
+        }
+      }
+    ],
+    "PA:state-house:158": [
+      {
+        "id": "ocd-person/43d9c3c2-aeec-416c-859d-ad90600bbe0e",
+        "name": "Christina Sappey",
+        "office": "state-house",
+        "districtCode": "158",
+        "contactUrl": null,
+        "email": "repsappey@pahouse.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1852",
+        "social": {
+          "x": "RepSappey",
+          "facebook": "RepSappey"
+        }
+      }
+    ],
+    "PA:state-house:200": [
+      {
+        "id": "ocd-person/e6a8e555-0d65-4a1f-9673-56ad1e3c7855",
+        "name": "Chris Rabb",
+        "office": "state-house",
+        "districtCode": "200",
+        "contactUrl": null,
+        "email": "reprabb@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1760",
+        "social": {}
+      }
+    ],
+    "PA:state-house:068": [
+      {
+        "id": "ocd-person/626de4be-b2f3-4a37-bbbc-ede598381d6b",
+        "name": "Clint Owlett",
+        "office": "state-house",
+        "districtCode": "068",
+        "contactUrl": null,
+        "email": "cowlett@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1796",
+        "social": {}
+      }
+    ],
+    "PA:state-house:145": [
+      {
+        "id": "ocd-person/bb324f66-3a5c-4e90-9c75-d142cce81c92",
+        "name": "Craig Staats",
+        "office": "state-house",
+        "districtCode": "145",
+        "contactUrl": null,
+        "email": "cstaats@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1707",
+        "social": {
+          "facebook": "PA-State-Rep-Craig-Staats"
+        }
+      }
+    ],
+    "PA:state-house:160": [
+      {
+        "id": "ocd-person/e17c51da-556e-4afe-aad4-137ee3a0881e",
+        "name": "Craig Williams",
+        "office": "state-house",
+        "districtCode": "160",
+        "contactUrl": null,
+        "email": "craig.williams@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1916",
+        "social": {
+          "facebook": "PA-State-Rep-Craig-Williams-100998925196205"
+        }
+      }
+    ],
+    "PA:state-house:073": [
+      {
+        "id": "ocd-person/70d0ff46-746e-47a0-8c5f-cbe73dbf72ce",
+        "name": "Dallas Kephart",
+        "office": "state-house",
+        "districtCode": "073",
+        "contactUrl": null,
+        "email": "dkephart@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1952",
+        "social": {
+          "facebook": "RepKephart"
+        }
+      }
+    ],
+    "PA:state-house:023": [
+      {
+        "id": "ocd-person/96667f6d-d967-4f6a-9cd9-23bf480a98c1",
+        "name": "Dan Frankel",
+        "office": "state-house",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "repfrankel@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=84",
+        "social": {
+          "x": "RepDanFrankel",
+          "facebook": "RepDanFrankel"
+        }
+      }
+    ],
+    "PA:state-house:035": [
+      {
+        "id": "ocd-person/b42a625f-25e4-4f25-b942-928c8a3e0bb2",
+        "name": "Dan Goughnour",
+        "office": "state-house",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "repgergely@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.pahouse.com/gergely",
+        "social": {}
+      }
+    ],
+    "PA:state-house:074": [
+      {
+        "id": "ocd-person/8cb5e285-fdd9-4c63-b7c7-480bf9e477e1",
+        "name": "Dan Williams",
+        "office": "state-house",
+        "districtCode": "074",
+        "contactUrl": null,
+        "email": "dwilliams@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1837",
+        "social": {
+          "x": "RepDanWilliams",
+          "facebook": "RepDanWilliams"
+        }
+      }
+    ],
+    "PA:state-house:091": [
+      {
+        "id": "ocd-person/f4071288-fa18-48bb-99f1-41abd60d215e",
+        "name": "Dan Moul",
+        "office": "state-house",
+        "districtCode": "091",
+        "contactUrl": null,
+        "email": "dmoul@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1101",
+        "social": {}
+      }
+    ],
+    "PA:state-house:116": [
+      {
+        "id": "ocd-person/d4de5cc2-b3b9-49a0-9f20-62c6f4f6a052",
+        "name": "Dane Watro",
+        "office": "state-house",
+        "districtCode": "116",
+        "contactUrl": null,
+        "email": "dwatro@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1964",
+        "social": {
+          "facebook": "RepWatro"
+        }
+      }
+    ],
+    "PA:state-house:027": [
+      {
+        "id": "ocd-person/2608882d-9ae2-4522-b8b2-83d905913d3f",
+        "name": "Dan Deasy",
+        "office": "state-house",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "ddeasy@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1166",
+        "social": {}
+      }
+    ],
+    "PA:state-house:155": [
+      {
+        "id": "ocd-person/6678bcaf-292f-408a-aa36-90ed8bc8fd08",
+        "name": "Danielle Otten",
+        "office": "state-house",
+        "districtCode": "155",
+        "contactUrl": null,
+        "email": "repotten@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1850",
+        "social": {
+          "x": "RepDanielle",
+          "facebook": "RepDanielle"
+        }
+      }
+    ],
+    "PA:state-house:197": [
+      {
+        "id": "ocd-person/a2579707-5a31-4f4b-a9ed-49847d35eae6",
+        "name": "Danilo Burgos",
+        "office": "state-house",
+        "districtCode": "197",
+        "contactUrl": null,
+        "email": "dburgos@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1863",
+        "social": {
+          "x": "RepBurgos",
+          "facebook": "RepBurgos"
+        }
+      }
+    ],
+    "PA:state-house:198": [
+      {
+        "id": "ocd-person/943fdd89-fe0a-43f6-8077-82cd252bdeb2",
+        "name": "Darisha Parker",
+        "office": "state-house",
+        "districtCode": "198",
+        "contactUrl": null,
+        "email": "repparker@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1920",
+        "social": {
+          "x": "RepDarisha",
+          "facebook": "RepDarishaParker"
+        }
+      }
+    ],
+    "PA:state-house:162": [
+      {
+        "id": "ocd-person/c05046a6-87dd-4956-a172-cad035960391",
+        "name": "Dave Delloso",
+        "office": "state-house",
+        "districtCode": "162",
+        "contactUrl": null,
+        "email": "repdelloso@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1853",
+        "social": {
+          "x": "RepDelloso",
+          "facebook": "RepDelloso"
+        }
+      }
+    ],
+    "PA:state-house:104": [
+      {
+        "id": "ocd-person/4a0c9e5e-07cc-4b4b-a47a-22be60d1623e",
+        "name": "Dave Madsen",
+        "office": "state-house",
+        "districtCode": "104",
+        "contactUrl": null,
+        "email": "repmadsen@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1959",
+        "social": {
+          "x": "RepMadsen",
+          "facebook": "RepMadsen"
+        }
+      }
+    ],
+    "PA:state-house:099": [
+      {
+        "id": "ocd-person/2fbada46-9c48-4be5-a49f-e1ca0af132ed",
+        "name": "Dave Zimmerman",
+        "office": "state-house",
+        "districtCode": "099",
+        "contactUrl": null,
+        "email": "dzimmerman@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1711",
+        "social": {
+          "facebook": "PA-State-Rep-Dave-Zimmerman"
+        }
+      }
+    ],
+    "PA:state-house:130": [
+      {
+        "id": "ocd-person/fb4a0115-dd63-4e25-8d36-0ea6afc55faf",
+        "name": "David Maloney",
+        "office": "state-house",
+        "districtCode": "130",
+        "contactUrl": null,
+        "email": "dmaloney@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1226",
+        "social": {
+          "facebook": "RepMaloney"
+        }
+      }
+    ],
+    "PA:state-house:085": [
+      {
+        "id": "ocd-person/c88ccd9a-3378-4284-9dc6-767a4826526e",
+        "name": "David Rowe",
+        "office": "state-house",
+        "districtCode": "085",
+        "contactUrl": null,
+        "email": "drowe@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1871",
+        "social": {}
+      }
+    ],
+    "PA:state-house:147": [
+      {
+        "id": "ocd-person/5913495d-53f8-4c39-8507-650cfe51c08b",
+        "name": "Donna Scheuren",
+        "office": "state-house",
+        "districtCode": "147",
+        "contactUrl": null,
+        "email": "dscheuren@pahousegop.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1973",
+        "social": {
+          "facebook": "RepScheuren"
+        }
+      }
+    ],
+    "PA:state-house:122": [
+      {
+        "id": "ocd-person/885e9a2a-c18b-4f68-b5d0-0b867ec3268d",
+        "name": "Doyle Heffley",
+        "office": "state-house",
+        "districtCode": "122",
+        "contactUrl": null,
+        "email": "dheffley@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1211",
+        "social": {
+          "facebook": "RepHeffley"
+        }
+      }
+    ],
+    "PA:state-house:174": [
+      {
+        "id": "ocd-person/3d3d4070-dadd-4382-9d40-be2892745773",
+        "name": "Ed Neilson",
+        "office": "state-house",
+        "districtCode": "174",
+        "contactUrl": null,
+        "email": "repneilson@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1615",
+        "social": {
+          "x": "RepNeilson",
+          "facebook": "RepNeilson"
+        }
+      }
+    ],
+    "PA:state-house:121": [
+      {
+        "id": "ocd-person/c1cb6f95-37c8-4e25-802e-80387e70ad74",
+        "name": "Eddie Pashinski",
+        "office": "state-house",
+        "districtCode": "121",
+        "contactUrl": null,
+        "email": "reppashinski@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://pahouse.com/Pashinski",
+        "social": {
+          "x": "RepPashinski",
+          "facebook": "Rep-Eddie-Day-Pashinski"
+        }
+      }
+    ],
+    "PA:state-house:184": [
+      {
+        "id": "ocd-person/90d95881-f6ae-4b29-af31-31a8821b8a7c",
+        "name": "Elizabeth Fiedler",
+        "office": "state-house",
+        "districtCode": "184",
+        "contactUrl": null,
+        "email": "repfiedler@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1861",
+        "social": {
+          "x": "RepFiedler",
+          "facebook": "RepFiedler"
+        }
+      }
+    ],
+    "PA:state-house:020": [
+      {
+        "id": "ocd-person/875b1add-2803-4cc3-964b-0e351ed6ca1c",
+        "name": "Emily Kinkead",
+        "office": "state-house",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "repkinkead@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1896",
+        "social": {
+          "x": "RepKinkead",
+          "facebook": "RepKinkead"
+        }
+      }
+    ],
+    "PA:state-house:058": [
+      {
+        "id": "ocd-person/80abce94-a517-4357-a70d-cbc791aa34a1",
+        "name": "Eric Davanzo",
+        "office": "state-house",
+        "districtCode": "058",
+        "contactUrl": null,
+        "email": "edavanzo@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1875",
+        "social": {
+          "facebook": "RepDavanzo"
+        }
+      }
+    ],
+    "PA:state-house:057": [
+      {
+        "id": "ocd-person/0910d394-3c42-48ee-aea7-6d4c0c144130",
+        "name": "Eric Nelson",
+        "office": "state-house",
+        "districtCode": "057",
+        "contactUrl": null,
+        "email": "enelson@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1738",
+        "social": {}
+      }
+    ],
+    "PA:state-house:005": [
+      {
+        "id": "ocd-person/b7373c43-580b-4044-a405-054073ac687b",
+        "name": "Eric Weaknecht",
+        "office": "state-house",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "eweaknecht@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://repweaknecht.com/",
+        "social": {}
+      }
+    ],
+    "PA:state-house:072": [
+      {
+        "id": "ocd-person/a60da669-bae3-4e1d-a241-370a7ad2c769",
+        "name": "Frank Burns",
+        "office": "state-house",
+        "districtCode": "072",
+        "contactUrl": null,
+        "email": "repburns@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1163",
+        "social": {
+          "x": "RepFrankBurns",
+          "facebook": "RepFrankBurns"
+        }
+      }
+    ],
+    "PA:state-house:190": [
+      {
+        "id": "ocd-person/c3ad9b17-c8f5-450e-9aaa-f002e1414bd5",
+        "name": "Roni Green",
+        "office": "state-house",
+        "districtCode": "190",
+        "contactUrl": null,
+        "email": "repgreen@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1874",
+        "social": {
+          "x": "RepRoniGreen",
+          "facebook": "RepRoniGreen"
+        }
+      }
+    ],
+    "PA:state-house:187": [
+      {
+        "id": "ocd-person/3088ff8e-d2d9-46b9-8ea3-bd35af9438c2",
+        "name": "Gary Day",
+        "office": "state-house",
+        "districtCode": "187",
+        "contactUrl": null,
+        "email": "gday@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1190",
+        "social": {
+          "facebook": "RepGaryDay"
+        }
+      }
+    ],
+    "PA:state-house:196": [
+      {
+        "id": "ocd-person/3beadda2-daa5-4006-a2eb-32f9d9abdc71",
+        "name": "George Margetas",
+        "office": "state-house",
+        "districtCode": "196",
+        "contactUrl": null,
+        "email": "gmargetas@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://repmargetas.com/",
+        "social": {}
+      }
+    ],
+    "PA:state-house:164": [
+      {
+        "id": "ocd-person/4c88ce64-4ba6-4f5e-a22f-86bf6a0d5b7f",
+        "name": "Gina Curry",
+        "office": "state-house",
+        "districtCode": "164",
+        "contactUrl": null,
+        "email": "repcurry@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1932",
+        "social": {}
+      }
+    ],
+    "PA:state-house:054": [
+      {
+        "id": "ocd-person/969ce6cb-ddcb-4347-b69d-2019cfbd6e18",
+        "name": "Greg Scott",
+        "office": "state-house",
+        "districtCode": "054",
+        "contactUrl": null,
+        "email": "repscott@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1950",
+        "social": {
+          "x": "RepGregScott",
+          "facebook": "RepGregScott"
+        }
+      }
+    ],
+    "PA:state-house:166": [
+      {
+        "id": "ocd-person/7a1f510f-12e0-4018-b6da-556b404399be",
+        "name": "Greg Vitali",
+        "office": "state-house",
+        "districtCode": "166",
+        "contactUrl": null,
+        "email": "repvitali@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=210",
+        "social": {
+          "x": "GregVitali",
+          "facebook": "RepVitali"
+        }
+      }
+    ],
+    "PA:state-house:163": [
+      {
+        "id": "ocd-person/d5f1bbaf-5daf-4266-9b18-16042f49db1b",
+        "name": "Heather Boyd",
+        "office": "state-house",
+        "districtCode": "163",
+        "contactUrl": null,
+        "email": "hboyd@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=2015",
+        "social": {}
+      }
+    ],
+    "PA:state-house:049": [
+      {
+        "id": "ocd-person/fefff26b-b89a-4400-b633-99e5aa09523b",
+        "name": "Izzy Smith-Wade-El",
+        "office": "state-house",
+        "districtCode": "049",
+        "contactUrl": null,
+        "email": "repsmithwadeel@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1948",
+        "social": {
+          "x": "RepIzzy",
+          "facebook": "RepIzzy"
+        }
+      }
+    ],
+    "PA:state-house:176": [
+      {
+        "id": "ocd-person/abca93cc-5058-473c-93bc-c8e099c7fa20",
+        "name": "Jack Rader",
+        "office": "state-house",
+        "districtCode": "176",
+        "contactUrl": null,
+        "email": "jrader@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1703",
+        "social": {
+          "facebook": "PA-State-Rep-Jack-Rader"
+        }
+      }
+    ],
+    "PA:state-house:126": [
+      {
+        "id": "ocd-person/fe624f82-e44d-4071-a49f-3a0d4965b7b9",
+        "name": "Jacklyn Rusnock",
+        "office": "state-house",
+        "districtCode": "126",
+        "contactUrl": null,
+        "email": "jrusnock@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.pahouse.com/Rusnock/",
+        "social": {}
+      }
+    ],
+    "PA:state-house:004": [
+      {
+        "id": "ocd-person/4657c161-af68-44a8-bd60-8b8e88e702d1",
+        "name": "Jake Banta",
+        "office": "state-house",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "jbanta@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1937",
+        "social": {
+          "facebook": "RepBanta"
+        }
+      }
+    ],
+    "PA:state-house:062": [
+      {
+        "id": "ocd-person/4a24dcc2-5619-4bb1-acb3-bf7a7d08e6b1",
+        "name": "Jim Struzzi",
+        "office": "state-house",
+        "districtCode": "062",
+        "contactUrl": null,
+        "email": "jstruzzi@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1835",
+        "social": {
+          "facebook": "RepStruzzi"
+        }
+      }
+    ],
+    "PA:state-house:124": [
+      {
+        "id": "ocd-person/82938e14-97ce-44f0-942f-5bd2d7c532ba",
+        "name": "Jamie Barton",
+        "office": "state-house",
+        "districtCode": "124",
+        "contactUrl": null,
+        "email": "jbarton@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1968",
+        "social": {
+          "facebook": "RepBarton"
+        }
+      }
+    ],
+    "PA:state-house:083": [
+      {
+        "id": "ocd-person/e396f514-a357-404f-bdb9-1ba33d97d0a7",
+        "name": "Jamie Flick",
+        "office": "state-house",
+        "districtCode": "083",
+        "contactUrl": null,
+        "email": "jflick@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1954",
+        "social": {
+          "facebook": "RepFlick"
+        }
+      }
+    ],
+    "PA:state-house:117": [
+      {
+        "id": "ocd-person/96cbec5b-b9a4-4325-8346-bd4d08d87237",
+        "name": "Jamie Walsh",
+        "office": "state-house",
+        "districtCode": "117",
+        "contactUrl": null,
+        "email": "jwalsh@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://repwalsh.com/",
+        "social": {}
+      }
+    ],
+    "PA:state-house:202": [
+      {
+        "id": "ocd-person/6b6602c0-8b45-4e1e-89ba-1782da5d67c6",
+        "name": "Jared Solomon",
+        "office": "state-house",
+        "districtCode": "202",
+        "contactUrl": null,
+        "email": "jsolomon@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1761",
+        "social": {}
+      }
+    ],
+    "PA:state-house:179": [
+      {
+        "id": "ocd-person/4a2176cc-292b-4d19-aff6-8b4c4b460ba0",
+        "name": "Jason Dawkins",
+        "office": "state-house",
+        "districtCode": "179",
+        "contactUrl": null,
+        "email": "jdawkins@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1685",
+        "social": {}
+      }
+    ],
+    "PA:state-house:046": [
+      {
+        "id": "ocd-person/1871b5c7-35c4-4d32-9e09-9febf8ba3f66",
+        "name": "Jason Ortitay",
+        "office": "state-house",
+        "districtCode": "046",
+        "contactUrl": null,
+        "email": "jortitay@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1701",
+        "social": {
+          "facebook": "PA-State-Rep-Jason-Ortitay"
+        }
+      }
+    ],
+    "PA:state-house:133": [
+      {
+        "id": "ocd-person/ddd14a2f-ebef-4918-bf91-578b71c085e4",
+        "name": "Jeanne McNeill",
+        "office": "state-house",
+        "districtCode": "133",
+        "contactUrl": null,
+        "email": "jmcneill@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1793",
+        "social": {
+          "x": "RepMcNeill",
+          "facebook": "RepMcNeill"
+        }
+      }
+    ],
+    "PA:state-house:139": [
+      {
+        "id": "ocd-person/08211014-af0e-4d71-92a7-e0045ba8062a",
+        "name": "Jeff Olsommer",
+        "office": "state-house",
+        "districtCode": "139",
+        "contactUrl": null,
+        "email": "jolsommer@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=2018",
+        "social": {}
+      }
+    ],
+    "PA:state-house:042": [
+      {
+        "id": "ocd-person/65b852b7-0c73-487d-aaf4-2b6648fa6383",
+        "name": "Jen Mazzocco",
+        "office": "state-house",
+        "districtCode": "042",
+        "contactUrl": null,
+        "email": "repmazzocco@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.pahouse.com/Mazzocco/",
+        "social": {}
+      }
+    ],
+    "PA:state-house:165": [
+      {
+        "id": "ocd-person/7c8e87fe-1c8e-4736-a03c-35cf729b80e9",
+        "name": "Jenn O'Mara",
+        "office": "state-house",
+        "districtCode": "165",
+        "contactUrl": null,
+        "email": "repomara@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1855",
+        "social": {
+          "x": "RepOMara",
+          "facebook": "RepOMara"
+        }
+      }
+    ],
+    "PA:state-house:028": [
+      {
+        "id": "ocd-person/0df3f8d5-b6df-4cd8-a2c7-1dee651e60a8",
+        "name": "Jeremy Shaffer",
+        "office": "state-house",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "jshaffer@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.palegis.us/house/members/bio/2023/rep-shaffer",
+        "social": {}
+      }
+    ],
+    "PA:state-house:078": [
+      {
+        "id": "ocd-person/865dbfc4-e6ec-400e-bd5c-257f9a947519",
+        "name": "Jesse Topper",
+        "office": "state-house",
+        "districtCode": "078",
+        "contactUrl": null,
+        "email": "jtopper@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1681",
+        "social": {}
+      }
+    ],
+    "PA:state-house:036": [
+      {
+        "id": "ocd-person/8b6409e9-8ab6-4222-b6f3-fb8f33800c95",
+        "name": "Jessica Benham",
+        "office": "state-house",
+        "districtCode": "036",
+        "contactUrl": null,
+        "email": "repbenham@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1899",
+        "social": {
+          "x": "RepBenham",
+          "facebook": "RepBenham"
+        }
+      }
+    ],
+    "PA:state-house:055": [
+      {
+        "id": "ocd-person/6ae972c8-aff3-4886-a7d7-bd2cc5e40a38",
+        "name": "Jill Cooper",
+        "office": "state-house",
+        "districtCode": "055",
+        "contactUrl": null,
+        "email": "jcooper@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1951",
+        "social": {
+          "facebook": "RepJillCooper"
+        }
+      }
+    ],
+    "PA:state-house:118": [
+      {
+        "id": "ocd-person/3b91abb8-4b49-4fa2-85ed-beea4919bccc",
+        "name": "Jim Haddock",
+        "office": "state-house",
+        "districtCode": "118",
+        "contactUrl": null,
+        "email": "rephaddock@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1966",
+        "social": {
+          "x": "RepHaddock",
+          "facebook": "RepHaddock"
+        }
+      }
+    ],
+    "PA:state-house:140": [
+      {
+        "id": "ocd-person/3c3cd25a-658f-4aab-a648-ef2509469c34",
+        "name": "Jim Prokopiak",
+        "office": "state-house",
+        "districtCode": "140",
+        "contactUrl": null,
+        "email": "repprokopiak@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=2017",
+        "social": {}
+      }
+    ],
+    "PA:state-house:071": [
+      {
+        "id": "ocd-person/343e541b-fbd3-4622-bf42-7843494b1714",
+        "name": "Jim Rigby",
+        "office": "state-house",
+        "districtCode": "071",
+        "contactUrl": null,
+        "email": "jrigby@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1836",
+        "social": {
+          "facebook": "RepJimRigby"
+        }
+      }
+    ],
+    "PA:state-house:191": [
+      {
+        "id": "ocd-person/1951ae06-881a-4c43-9635-224878c3ecb5",
+        "name": "Joanna McClinton",
+        "office": "state-house",
+        "districtCode": "191",
+        "contactUrl": null,
+        "email": "repmcclinton@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1734",
+        "social": {}
+      }
+    ],
+    "PA:state-house:107": [
+      {
+        "id": "ocd-person/6e7b8baa-4fa3-404e-b8f8-bab3077221b7",
+        "name": "Joanne Stehr",
+        "office": "state-house",
+        "districtCode": "107",
+        "contactUrl": null,
+        "email": "jstehr@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1961",
+        "social": {
+          "facebook": "RepStehr"
+        }
+      }
+    ],
+    "PA:state-house:146": [
+      {
+        "id": "ocd-person/c9521d0e-56ca-40d2-b9bc-7a1f1be639bc",
+        "name": "Joe Ciresi",
+        "office": "state-house",
+        "districtCode": "146",
+        "contactUrl": null,
+        "email": "jciresi@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1847",
+        "social": {
+          "x": "RepCiresi",
+          "facebook": "RepCiresi",
+          "instagram": "repciresi"
+        }
+      }
+    ],
+    "PA:state-house:137": [
+      {
+        "id": "ocd-person/0e873ea0-c8a2-4fbb-a408-de0c5bd36de9",
+        "name": "Joe Emrick",
+        "office": "state-house",
+        "districtCode": "137",
+        "contactUrl": null,
+        "email": "jemrick@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1207",
+        "social": {
+          "facebook": "RepEmrick"
+        }
+      }
+    ],
+    "PA:state-house:084": [
+      {
+        "id": "ocd-person/acc00fca-50e5-46f7-8676-d502ecfc94ac",
+        "name": "Joe Hamm",
+        "office": "state-house",
+        "districtCode": "084",
+        "contactUrl": null,
+        "email": "jhamm@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1904",
+        "social": {
+          "facebook": "PA-State-Rep-Joe-Hamm-106088111338800"
+        }
+      }
+    ],
+    "PA:state-house:142": [
+      {
+        "id": "ocd-person/b1beaa5c-93d2-479e-9408-47c7687cd212",
+        "name": "Joe Hogan",
+        "office": "state-house",
+        "districtCode": "142",
+        "contactUrl": null,
+        "email": "jhogan@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1971",
+        "social": {
+          "facebook": "RepHogan"
+        }
+      }
+    ],
+    "PA:state-house:125": [
+      {
+        "id": "ocd-person/8a7494a6-3d82-432b-a5c2-6dc46d192611",
+        "name": "Joe Kerwin",
+        "office": "state-house",
+        "districtCode": "125",
+        "contactUrl": null,
+        "email": "jkerwin@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1907",
+        "social": {
+          "facebook": "PA-State-Rep-Joe-Kerwin-100763238533524"
+        }
+      }
+    ],
+    "PA:state-house:032": [
+      {
+        "id": "ocd-person/d31e549e-2c3d-4ea3-850b-5285955c3c2f",
+        "name": "Joe McAndrew",
+        "office": "state-house",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "repmcandrew@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=2011",
+        "social": {}
+      }
+    ],
+    "PA:state-house:150": [
+      {
+        "id": "ocd-person/676410b6-c3aa-4c17-856f-7d896e6fbc83",
+        "name": "Joe Webster",
+        "office": "state-house",
+        "districtCode": "150",
+        "contactUrl": null,
+        "email": "repwebster@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1848",
+        "social": {
+          "x": "RepJoeWebster",
+          "facebook": "RepJoeWebster"
+        }
+      }
+    ],
+    "PA:state-house:129": [
+      {
+        "id": "ocd-person/8d5ab463-45d5-4cf0-9c65-85820c08e506",
+        "name": "Johanny Cepeda-Freytiz",
+        "office": "state-house",
+        "districtCode": "129",
+        "contactUrl": null,
+        "email": "repcepedafreytiz@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1969",
+        "social": {
+          "x": "RepJohanny",
+          "facebook": "RepJohanny"
+        }
+      }
+    ],
+    "PA:state-house:013": [
+      {
+        "id": "ocd-person/8c1966e4-80f4-4a98-bf55-b1de0b9705b3",
+        "name": "John Lawrence",
+        "office": "state-house",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "jlawrenc@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1215",
+        "social": {
+          "facebook": "RepLawrence"
+        }
+      }
+    ],
+    "PA:state-house:101": [
+      {
+        "id": "ocd-person/b6a10f6b-3f2e-42df-adf9-7184222af2c2",
+        "name": "John Schlegel",
+        "office": "state-house",
+        "districtCode": "101",
+        "contactUrl": null,
+        "email": "jschlegel@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1958",
+        "social": {
+          "facebook": "RepSchlegel"
+        }
+      }
+    ],
+    "PA:state-house:038": [
+      {
+        "id": "ocd-person/0b0beeaf-a1b0-4049-95cb-4ad5a3952336",
+        "name": "John Inglis",
+        "office": "state-house",
+        "districtCode": "038",
+        "contactUrl": null,
+        "email": "repinglis@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.pahouse.com/inglis/",
+        "social": {}
+      }
+    ],
+    "PA:state-house:111": [
+      {
+        "id": "ocd-person/23a2b079-dc91-49b0-b08e-f3ae80fba11f",
+        "name": "Jonathan Fritz",
+        "office": "state-house",
+        "districtCode": "111",
+        "contactUrl": null,
+        "email": "jfritz@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1752",
+        "social": {
+          "facebook": "repfritz"
+        }
+      }
+    ],
+    "PA:state-house:186": [
+      {
+        "id": "ocd-person/2313ce98-7ac4-44b9-a61d-5b128338a405",
+        "name": "Jordan Harris",
+        "office": "state-house",
+        "districtCode": "186",
+        "contactUrl": null,
+        "email": "repharris@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1633",
+        "social": {
+          "x": "RepHarris",
+          "facebook": "RepJordanHarris"
+        }
+      }
+    ],
+    "PA:state-house:180": [
+      {
+        "id": "ocd-person/d390f1ac-1f16-478a-9e0d-462c9ed79818",
+        "name": "José Giral",
+        "office": "state-house",
+        "districtCode": "180",
+        "contactUrl": null,
+        "email": "repgiral@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1980",
+        "social": {
+          "x": "repgiral",
+          "facebook": "RepGiral"
+        }
+      }
+    ],
+    "PA:state-house:177": [
+      {
+        "id": "ocd-person/99728978-f905-406c-8b52-f2912f374602",
+        "name": "Joe Hohenstein",
+        "office": "state-house",
+        "districtCode": "177",
+        "contactUrl": null,
+        "email": "jhohenstein@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1858",
+        "social": {
+          "x": "RepHohenstein",
+          "facebook": "RepHohenstein"
+        }
+      }
+    ],
+    "PA:state-house:047": [
+      {
+        "id": "ocd-person/b698d343-137d-423b-a102-c471f1fd1768",
+        "name": "Joe D'Orsie",
+        "office": "state-house",
+        "districtCode": "047",
+        "contactUrl": null,
+        "email": "jdorsie@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1947",
+        "social": {
+          "facebook": "RepJoeD"
+        }
+      }
+    ],
+    "PA:state-house:063": [
+      {
+        "id": "ocd-person/2062ecc5-049f-44c4-83bf-850a34b75531",
+        "name": "Josh Bashline",
+        "office": "state-house",
+        "districtCode": "063",
+        "contactUrl": null,
+        "email": "jbashline@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://repbashline.com/",
+        "social": {}
+      }
+    ],
+    "PA:state-house:015": [
+      {
+        "id": "ocd-person/fbb14b8a-8940-4679-9ed8-3ec48096a3a2",
+        "name": "Josh Kail",
+        "office": "state-house",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "jkail@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1823",
+        "social": {
+          "facebook": "RepKail"
+        }
+      }
+    ],
+    "PA:state-house:105": [
+      {
+        "id": "ocd-person/98b96b05-81eb-4871-a81b-2e03c0b92267",
+        "name": "Justin Fleming",
+        "office": "state-house",
+        "districtCode": "105",
+        "contactUrl": null,
+        "email": "repfleming@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1960",
+        "social": {
+          "x": "RepJFleming",
+          "facebook": "RepFleming"
+        }
+      }
+    ],
+    "PA:state-house:169": [
+      {
+        "id": "ocd-person/08283fbe-18bc-4daf-972c-617d1e35d746",
+        "name": "Kate Klunk",
+        "office": "state-house",
+        "districtCode": "169",
+        "contactUrl": null,
+        "email": "kklunk@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1694",
+        "social": {
+          "facebook": "repklunk"
+        }
+      }
+    ],
+    "PA:state-house:018": [
+      {
+        "id": "ocd-person/26925ace-f614-409d-80a2-9b6a42e7ddb5",
+        "name": "K.C. Tomlinson",
+        "office": "state-house",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "ktomlinson@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1876",
+        "social": {
+          "facebook": "RepTomlinson"
+        }
+      }
+    ],
+    "PA:state-house:065": [
+      {
+        "id": "ocd-person/36348b5e-47fe-404a-b6c3-99359115846c",
+        "name": "Kathy Rapp",
+        "office": "state-house",
+        "districtCode": "065",
+        "contactUrl": null,
+        "email": "klrapp@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1028",
+        "social": {}
+      }
+    ],
+    "PA:state-house:195": [
+      {
+        "id": "ocd-person/99c32bc9-33c2-4394-94e6-2f9d0ff43133",
+        "name": "Keith Harris",
+        "office": "state-house",
+        "districtCode": "195",
+        "contactUrl": null,
+        "email": "kharris@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.pahouse.com/KHarris/",
+        "social": {}
+      }
+    ],
+    "PA:state-house:043": [
+      {
+        "id": "ocd-person/dcd0037e-7833-416d-9523-5f25802bd43a",
+        "name": "Keith Greiner",
+        "office": "state-house",
+        "districtCode": "043",
+        "contactUrl": null,
+        "email": "kgreiner@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1632",
+        "social": {
+          "facebook": "RepGreiner"
+        }
+      }
+    ],
+    "PA:state-house:171": [
+      {
+        "id": "ocd-person/5a5a7a42-bc5e-4a07-aee1-d1a01e810385",
+        "name": "Kerry Benninghoff",
+        "office": "state-house",
+        "districtCode": "171",
+        "contactUrl": null,
+        "email": "kbenning@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.kerrybenninghoff.com/",
+        "social": {
+          "facebook": "RepBenninghoff"
+        }
+      }
+    ],
+    "PA:state-house:178": [
+      {
+        "id": "ocd-person/f1c8d8ab-0220-4b1e-96d0-6e0ae0b6df87",
+        "name": "Kristin Marcell",
+        "office": "state-house",
+        "districtCode": "178",
+        "contactUrl": null,
+        "email": "kmarcell@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1979",
+        "social": {
+          "facebook": "RepMarcell"
+        }
+      }
+    ],
+    "PA:state-house:167": [
+      {
+        "id": "ocd-person/f451e90b-e93a-4768-a294-67d1ff000396",
+        "name": "Kristine Howard",
+        "office": "state-house",
+        "districtCode": "167",
+        "contactUrl": null,
+        "email": "khoward@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1856",
+        "social": {
+          "x": "RepKHoward",
+          "facebook": "RepKHoward"
+        }
+      }
+    ],
+    "PA:state-house:113": [
+      {
+        "id": "ocd-person/009be4f2-d613-4353-8126-6b5642d868bc",
+        "name": "Kyle Donahue",
+        "office": "state-house",
+        "districtCode": "113",
+        "contactUrl": null,
+        "email": "repdonahue@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1963",
+        "social": {
+          "x": "RepDonahue",
+          "facebook": "RepDonahue"
+        }
+      }
+    ],
+    "PA:state-house:112": [
+      {
+        "id": "ocd-person/625784c9-4cd0-417c-9c44-1acd53b34307",
+        "name": "Kyle Mullins",
+        "office": "state-house",
+        "districtCode": "112",
+        "contactUrl": null,
+        "email": "repmullins@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1844",
+        "social": {
+          "x": "RepKyleMullins",
+          "facebook": "RepKyleMullins"
+        }
+      }
+    ],
+    "PA:state-house:024": [
+      {
+        "id": "ocd-person/526967db-cef3-4f64-a380-1377f5c6f1fe",
+        "name": "La'Tasha Mayes",
+        "office": "state-house",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "repmayes@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1941",
+        "social": {
+          "x": "RepMayes",
+          "facebook": "RepMayes"
+        }
+      }
+    ],
+    "PA:state-house:161": [
+      {
+        "id": "ocd-person/8187ecb2-3e4b-4ba0-819e-a7cfb4b9ac93",
+        "name": "Leanne Krueger",
+        "office": "state-house",
+        "districtCode": "161",
+        "contactUrl": null,
+        "email": "repkrueger@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1735",
+        "social": {
+          "x": "RepLeanne",
+          "facebook": "RepLeanne"
+        }
+      }
+    ],
+    "PA:state-house:059": [
+      {
+        "id": "ocd-person/71bb086e-11d9-496d-b274-91d7a8b85eaf",
+        "name": "Leslie Rossi",
+        "office": "state-house",
+        "districtCode": "059",
+        "contactUrl": null,
+        "email": "lrossi@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1927",
+        "social": {}
+      }
+    ],
+    "PA:state-house:021": [
+      {
+        "id": "ocd-person/b7c8d063-8db4-4cdf-a159-a0b064b7cae5",
+        "name": "Lindsay Powell",
+        "office": "state-house",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "reppowell@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=2016",
+        "social": {}
+      }
+    ],
+    "PA:state-house:168": [
+      {
+        "id": "ocd-person/d927a6f9-9878-4375-ac7d-9996e8968c9d",
+        "name": "Lisa Borowski",
+        "office": "state-house",
+        "districtCode": "168",
+        "contactUrl": null,
+        "email": "repborowski@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1977",
+        "social": {
+          "x": "RepBorowski",
+          "facebook": "RepBorowski"
+        }
+      }
+    ],
+    "PA:state-house:061": [
+      {
+        "id": "ocd-person/0aa9e1d6-4552-4ad4-b660-e2f3cc17b7dd",
+        "name": "Liz Hanbidge",
+        "office": "state-house",
+        "districtCode": "061",
+        "contactUrl": null,
+        "email": "lhanbidge@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1834",
+        "social": {
+          "x": "RepHanbidge",
+          "facebook": "RepHanbidge"
+        }
+      }
+    ],
+    "PA:state-house:181": [
+      {
+        "id": "ocd-person/96711736-a47d-4bd6-bcc3-92297ec01516",
+        "name": "Malcolm Kenyatta",
+        "office": "state-house",
+        "districtCode": "181",
+        "contactUrl": null,
+        "email": "mkenyatta@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1860",
+        "social": {
+          "x": "RepKenyatta",
+          "facebook": "RepKenyatta"
+        }
+      }
+    ],
+    "PA:state-house:033": [
+      {
+        "id": "ocd-person/63f8d7ea-b621-48b7-a326-4e2a732a521c",
+        "name": "Mandy Steele",
+        "office": "state-house",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "repsteele@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1945",
+        "social": {
+          "x": "RepSteele",
+          "facebook": "RepSteele"
+        }
+      }
+    ],
+    "PA:state-house:127": [
+      {
+        "id": "ocd-person/d26c016b-27e5-4171-849b-94773178023d",
+        "name": "Manny Guzman",
+        "office": "state-house",
+        "districtCode": "127",
+        "contactUrl": null,
+        "email": "repguzman@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1908",
+        "social": {
+          "x": "RepMannyGuzman",
+          "facebook": "RepGuzman"
+        }
+      }
+    ],
+    "PA:state-house:092": [
+      {
+        "id": "ocd-person/8d16f666-803c-4946-8adc-32f1e80d79d9",
+        "name": "Marc Anderson",
+        "office": "state-house",
+        "districtCode": "092",
+        "contactUrl": null,
+        "email": "manderson@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://repmarcanderson.com/",
+        "social": {}
+      }
+    ],
+    "PA:state-house:011": [
+      {
+        "id": "ocd-person/dc7a449c-43cf-4522-b2a3-efb4707907c4",
+        "name": "Marci Mustello",
+        "office": "state-house",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "mmustello@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1868",
+        "social": {
+          "facebook": "RepMustello"
+        }
+      }
+    ],
+    "PA:state-house:128": [
+      {
+        "id": "ocd-person/cd92c819-d5aa-4df3-ba96-2315dbdf4555",
+        "name": "Mark Gillen",
+        "office": "state-house",
+        "districtCode": "128",
+        "contactUrl": null,
+        "email": "mgillen@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1209",
+        "social": {
+          "facebook": "RepGillen"
+        }
+      }
+    ],
+    "PA:state-house:009": [
+      {
+        "id": "ocd-person/68e26db9-10ba-414b-9d06-440dd1fd3f10",
+        "name": "Marla Brown",
+        "office": "state-house",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "mbrown@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1938",
+        "social": {
+          "facebook": "RepMarlaBrown"
+        }
+      }
+    ],
+    "PA:state-house:067": [
+      {
+        "id": "ocd-person/171af8ac-41e0-4047-be38-654cc912053b",
+        "name": "Marty Causer",
+        "office": "state-house",
+        "districtCode": "067",
+        "contactUrl": null,
+        "email": "mcauser@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=982",
+        "social": {
+          "facebook": "RepCauser"
+        }
+      }
+    ],
+    "PA:state-house:170": [
+      {
+        "id": "ocd-person/93435394-e853-45f2-9e88-65399b3f9042",
+        "name": "Martina White",
+        "office": "state-house",
+        "districtCode": "170",
+        "contactUrl": null,
+        "email": "mwhite@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1732",
+        "social": {
+          "facebook": "repmartinawhite"
+        }
+      }
+    ],
+    "PA:state-house:148": [
+      {
+        "id": "ocd-person/2b9c199b-dd4e-477a-a5d0-849180c956a0",
+        "name": "Mary Jo Daley",
+        "office": "state-house",
+        "districtCode": "148",
+        "contactUrl": null,
+        "email": "repmaryjodaley@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1622",
+        "social": {
+          "x": "RepMJDaley",
+          "facebook": "RepMJDaley"
+        }
+      }
+    ],
+    "PA:state-house:175": [
+      {
+        "id": "ocd-person/ac9d319c-4df3-489a-890e-f7daba8c4bda",
+        "name": "Mary Isaacson",
+        "office": "state-house",
+        "districtCode": "175",
+        "contactUrl": null,
+        "email": "misaacson@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1857",
+        "social": {
+          "x": "RepMaryIsaacson",
+          "facebook": "RepMaryIsaacson"
+        }
+      }
+    ],
+    "PA:state-house:070": [
+      {
+        "id": "ocd-person/a15da78b-2475-4606-854f-7477dfc4233d",
+        "name": "Matt Bradford",
+        "office": "state-house",
+        "districtCode": "070",
+        "contactUrl": null,
+        "email": "repbradford@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1161",
+        "social": {
+          "x": "RepBradford",
+          "facebook": "RepBradford"
+        }
+      }
+    ],
+    "PA:state-house:115": [
+      {
+        "id": "ocd-person/8ec333cd-97c4-4f5a-92de-13bf8cbc0020",
+        "name": "Maureen Madden",
+        "office": "state-house",
+        "districtCode": "115",
+        "contactUrl": null,
+        "email": "repmadden@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1753",
+        "social": {
+          "x": "RepMadden",
+          "facebook": "RepMaureenMadden"
+        }
+      }
+    ],
+    "PA:state-house:151": [
+      {
+        "id": "ocd-person/610a353c-8973-48ea-a4d4-dac21efc3422",
+        "name": "Missy Cerrato",
+        "office": "state-house",
+        "districtCode": "151",
+        "contactUrl": null,
+        "email": "repcerrato@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1974",
+        "social": {
+          "x": "RepCerrato",
+          "facebook": "RepCerrato"
+        }
+      }
+    ],
+    "PA:state-house:157": [
+      {
+        "id": "ocd-person/2cb7688e-e8ea-431e-9f56-34ee9a9a3ecc",
+        "name": "Melissa Shusterman",
+        "office": "state-house",
+        "districtCode": "157",
+        "contactUrl": null,
+        "email": "repshusterman@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1851",
+        "social": {
+          "x": "RepShusterman",
+          "facebook": "RepShusterman"
+        }
+      }
+    ],
+    "PA:state-house:108": [
+      {
+        "id": "ocd-person/ef4ff98e-baba-4655-b24f-66ec5933fcb0",
+        "name": "Michael Stender",
+        "office": "state-house",
+        "districtCode": "108",
+        "contactUrl": null,
+        "email": "mstender@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=2014",
+        "social": {
+          "facebook": "repstender"
+        }
+      }
+    ],
+    "PA:state-house:132": [
+      {
+        "id": "ocd-person/fc1f0752-9166-4d7f-987a-ec15b8bf4048",
+        "name": "Mike Schlossberg",
+        "office": "state-house",
+        "districtCode": "132",
+        "contactUrl": null,
+        "email": "repschlossberg@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1649",
+        "social": {
+          "x": "RepSchlossberg",
+          "facebook": "RepSchlossberg"
+        }
+      }
+    ],
+    "PA:state-house:075": [
+      {
+        "id": "ocd-person/32c83f92-2bcc-4c2f-bcd0-8b367af29e28",
+        "name": "Mike Armanini",
+        "office": "state-house",
+        "districtCode": "075",
+        "contactUrl": null,
+        "email": "marmanini@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1903",
+        "social": {
+          "facebook": "PA-State-Rep-Mike-Armanini-101954888430243"
+        }
+      }
+    ],
+    "PA:state-house:093": [
+      {
+        "id": "ocd-person/ce5d2c01-e29c-4eac-b06b-208d8c302dff",
+        "name": "Mike Jones",
+        "office": "state-house",
+        "districtCode": "093",
+        "contactUrl": null,
+        "email": "mjones@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1842",
+        "social": {
+          "facebook": "RepMikeJonesPA"
+        }
+      }
+    ],
+    "PA:state-house:131": [
+      {
+        "id": "ocd-person/b4559406-2139-4c7c-9ce9-7a2a604a8a95",
+        "name": "Milou Mackenzie",
+        "office": "state-house",
+        "districtCode": "131",
+        "contactUrl": null,
+        "email": "mmackenzie@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1909",
+        "social": {
+          "facebook": "PA-State-Rep-Milou-Mackenzie-100834955213333"
+        }
+      }
+    ],
+    "PA:state-house:037": [
+      {
+        "id": "ocd-person/f5b2ec4d-1d69-483a-a6ec-143d50ad395b",
+        "name": "Mindy Fee",
+        "office": "state-house",
+        "districtCode": "037",
+        "contactUrl": null,
+        "email": "mfee@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1625",
+        "social": {
+          "facebook": "RepFee"
+        }
+      }
+    ],
+    "PA:state-house:192": [
+      {
+        "id": "ocd-person/05326e52-202a-46cd-bbbe-cc8d01d9a44b",
+        "name": "Morgan Cephas",
+        "office": "state-house",
+        "districtCode": "192",
+        "contactUrl": null,
+        "email": "mcephas@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1759",
+        "social": {
+          "x": "RepCephas",
+          "facebook": "RepCephas"
+        }
+      }
+    ],
+    "PA:state-house:152": [
+      {
+        "id": "ocd-person/d18ccbd7-270a-46c2-8bbd-a19ea82d0e51",
+        "name": "Nancy Guenst",
+        "office": "state-house",
+        "districtCode": "152",
+        "contactUrl": null,
+        "email": "repguenst@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1913",
+        "social": {
+          "x": "RepGuenst",
+          "facebook": "RepGuenst"
+        }
+      }
+    ],
+    "PA:state-house:154": [
+      {
+        "id": "ocd-person/94e57e39-e58d-4374-9506-ece1a01e0ebd",
+        "name": "Napoleon Nelson",
+        "office": "state-house",
+        "districtCode": "154",
+        "contactUrl": null,
+        "email": "repnelson@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1914",
+        "social": {
+          "x": "RepNapoleon",
+          "facebook": "RepNapoleon"
+        }
+      }
+    ],
+    "PA:state-house:040": [
+      {
+        "id": "ocd-person/c5e053dd-a874-4a51-a071-661a20db33ab",
+        "name": "Natalie Mihalek",
+        "office": "state-house",
+        "districtCode": "040",
+        "contactUrl": null,
+        "email": "nmihalek@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1830",
+        "social": {
+          "facebook": "RepMihalek"
+        }
+      }
+    ],
+    "PA:state-house:103": [
+      {
+        "id": "ocd-person/c7f76970-11d0-483e-81b4-b4750220932c",
+        "name": "Nate Davidson",
+        "office": "state-house",
+        "districtCode": "103",
+        "contactUrl": null,
+        "email": "repdavidson@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.pahouse.com/davidson/",
+        "social": {}
+      }
+    ],
+    "PA:state-house:096": [
+      {
+        "id": "ocd-person/5df981dc-0f0f-498e-8e0e-72cfa5410b2a",
+        "name": "Nikki Rivera",
+        "office": "state-house",
+        "districtCode": "096",
+        "contactUrl": null,
+        "email": "reprivera@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.pahouse.com/Rivera/",
+        "social": {}
+      }
+    ],
+    "PA:state-house:007": [
+      {
+        "id": "ocd-person/8f7a2783-e165-4bf2-aead-113d98dd7dd2",
+        "name": "Parke Wentling",
+        "office": "state-house",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "pwentling@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1709",
+        "social": {
+          "facebook": "PA-State-Rep-Parke-Wentling"
+        }
+      }
+    ],
+    "PA:state-house:173": [
+      {
+        "id": "ocd-person/36e7e815-87a3-4c58-baae-71f210e48114",
+        "name": "Pat Gallagher",
+        "office": "state-house",
+        "districtCode": "173",
+        "contactUrl": null,
+        "email": "repgallagher@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1978",
+        "social": {
+          "x": "ReppGallagher",
+          "facebook": "RepGallagher"
+        }
+      }
+    ],
+    "PA:state-house:001": [
+      {
+        "id": "ocd-person/c4a1a8f4-cb29-4700-8235-b103fcb40279",
+        "name": "Pat Harkins",
+        "office": "state-house",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "pharkins@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://pahouse.com/Harkins",
+        "social": {}
+      }
+    ],
+    "PA:state-house:026": [
+      {
+        "id": "ocd-person/494797a5-3d84-414a-9c8c-caaadd621cdd",
+        "name": "Paul Friel",
+        "office": "state-house",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "repfriel@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1942",
+        "social": {
+          "x": "RepFriel",
+          "facebook": "RepFriel"
+        }
+      }
+    ],
+    "PA:state-house:082": [
+      {
+        "id": "ocd-person/dd35ae63-5dee-4f87-b64e-65907b8adaba",
+        "name": "Paul Takac",
+        "office": "state-house",
+        "districtCode": "082",
+        "contactUrl": null,
+        "email": "reptakac@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1953",
+        "social": {
+          "x": "RepTakac",
+          "facebook": "RepTakac"
+        }
+      }
+    ],
+    "PA:state-house:086": [
+      {
+        "id": "ocd-person/eb33e206-fb08-40bc-8b9b-1d9a72fcb8fc",
+        "name": "Perry Stambaugh",
+        "office": "state-house",
+        "districtCode": "086",
+        "contactUrl": null,
+        "email": "pstambaugh@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1905",
+        "social": {
+          "facebook": "PA-State-Rep-Perry-Stambaugh-102591118365034"
+        }
+      }
+    ],
+    "PA:state-house:031": [
+      {
+        "id": "ocd-person/e2bc8bc4-33ab-46dd-8f67-da218949efb6",
+        "name": "Perry Warren",
+        "office": "state-house",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "repwarren@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1743",
+        "social": {
+          "x": "RepPerryWarren",
+          "facebook": "RepPerryWarren"
+        }
+      }
+    ],
+    "PA:state-house:134": [
+      {
+        "id": "ocd-person/63936c68-ec65-40a9-9a68-0d956939404a",
+        "name": "Pete Schweyer",
+        "office": "state-house",
+        "districtCode": "134",
+        "contactUrl": null,
+        "email": "repschweyer@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1706",
+        "social": {
+          "x": "RepSchweyer",
+          "facebook": "RepSchweyer"
+        }
+      }
+    ],
+    "PA:state-house:064": [
+      {
+        "id": "ocd-person/b29f8685-d054-4c6c-a8ad-d64f80bd840f",
+        "name": "Lee James",
+        "office": "state-house",
+        "districtCode": "064",
+        "contactUrl": null,
+        "email": "rljames@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1634",
+        "social": {
+          "facebook": "RepLeeJames"
+        }
+      }
+    ],
+    "PA:state-house:185": [
+      {
+        "id": "ocd-person/a737f4d4-5b45-469b-8d51-98c7aa78183a",
+        "name": "Regina Young",
+        "office": "state-house",
+        "districtCode": "185",
+        "contactUrl": null,
+        "email": "repyoung@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1917",
+        "social": {
+          "x": "RepReginaYoung",
+          "facebook": "RepReginaYoung"
+        }
+      }
+    ],
+    "PA:state-house:081": [
+      {
+        "id": "ocd-person/ff2471f3-f3ff-4a46-8ca7-be5094f0dfdc",
+        "name": "Rich Irvin",
+        "office": "state-house",
+        "districtCode": "081",
+        "contactUrl": null,
+        "email": "rirvin@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1691",
+        "social": {
+          "facebook": "PA-State-Rep-Rich-Irvin"
+        }
+      }
+    ],
+    "PA:state-house:188": [
+      {
+        "id": "ocd-person/42ffbed1-2284-4018-a60f-b5bfa3f35833",
+        "name": "Rick Krajewski",
+        "office": "state-house",
+        "districtCode": "188",
+        "contactUrl": null,
+        "email": "repkrajewski@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1918",
+        "social": {
+          "x": "RepKrajewski",
+          "facebook": "RepKrajewski"
+        }
+      }
+    ],
+    "PA:state-house:089": [
+      {
+        "id": "ocd-person/17e1e676-8e83-4883-8cf5-4c8ddcce076e",
+        "name": "Rob Kauffman",
+        "office": "state-house",
+        "districtCode": "089",
+        "contactUrl": null,
+        "email": "rkauffma@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1022",
+        "social": {}
+      }
+    ],
+    "PA:state-house:002": [
+      {
+        "id": "ocd-person/bd4c3d05-059a-4084-b8f8-e8598e4eb955",
+        "name": "Bob Merski",
+        "office": "state-house",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "rmerski@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1822",
+        "social": {
+          "x": "bobmerski",
+          "facebook": "bobmerski"
+        }
+      }
+    ],
+    "PA:state-house:016": [
+      {
+        "id": "ocd-person/a7b2e50f-90a6-4f35-b1fb-c33406dc4277",
+        "name": "Rob Matzie",
+        "office": "state-house",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "rmatzie@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1173",
+        "social": {
+          "x": "RobMatzie"
+        }
+      }
+    ],
+    "PA:state-house:136": [
+      {
+        "id": "ocd-person/13bfe11c-06e2-4a1d-844d-d195ef18dc06",
+        "name": "Bob Freeman",
+        "office": "state-house",
+        "districtCode": "136",
+        "contactUrl": null,
+        "email": "rfreeman@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=136",
+        "social": {}
+      }
+    ],
+    "PA:state-house:109": [
+      {
+        "id": "ocd-person/1d775faf-9231-420a-b62e-979bb6a1fc78",
+        "name": "Robert Leadbeter",
+        "office": "state-house",
+        "districtCode": "109",
+        "contactUrl": null,
+        "email": "rleadbeter@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1962",
+        "social": {
+          "facebook": "RepLeadbeter"
+        }
+      }
+    ],
+    "PA:state-house:014": [
+      {
+        "id": "ocd-person/69faf85a-c63c-4d75-9801-047fffddf228",
+        "name": "Roman Kozak",
+        "office": "state-house",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "rkozak@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.palegis.us/house/members/bio/2022/rep-kozak",
+        "social": {}
+      }
+    ],
+    "PA:state-house:102": [
+      {
+        "id": "ocd-person/5348e28d-bbbe-493f-8f77-a509cb315abe",
+        "name": "Russ Diamond",
+        "office": "state-house",
+        "districtCode": "102",
+        "contactUrl": null,
+        "email": "rdiamond@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1686",
+        "social": {
+          "facebook": "repdiamond"
+        }
+      }
+    ],
+    "PA:state-house:003": [
+      {
+        "id": "ocd-person/32370423-acb8-4a8e-8336-67af5ed32bb9",
+        "name": "Ryan Bizzarro",
+        "office": "state-house",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "repbizzarro@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1619",
+        "social": {
+          "x": "ryanbizzarro",
+          "facebook": "RepRyanBizzarro"
+        }
+      }
+    ],
+    "PA:state-house:052": [
+      {
+        "id": "ocd-person/0d747b7a-0a5a-42cf-8bb6-1eb0fa69090f",
+        "name": "Ryan Warner",
+        "office": "state-house",
+        "districtCode": "052",
+        "contactUrl": null,
+        "email": "rwarner@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1708",
+        "social": {
+          "facebook": "RepWarner"
+        }
+      }
+    ],
+    "PA:state-house:080": [
+      {
+        "id": "ocd-person/983dc33a-559e-4f01-9c60-08fed48a1415",
+        "name": "Scott Barger",
+        "office": "state-house",
+        "districtCode": "080",
+        "contactUrl": null,
+        "email": "sbarger@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://repbarger.com/",
+        "social": {}
+      }
+    ],
+    "PA:state-house:077": [
+      {
+        "id": "ocd-person/97b012cd-5cd7-4039-a9ae-fed936aabe37",
+        "name": "Scott Conklin",
+        "office": "state-house",
+        "districtCode": "077",
+        "contactUrl": null,
+        "email": "sconklin@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1096",
+        "social": {
+          "x": "scottconklin"
+        }
+      }
+    ],
+    "PA:state-house:172": [
+      {
+        "id": "ocd-person/d8624d56-a38e-4918-98ac-d7795569ad06",
+        "name": "Sean Dougherty",
+        "office": "state-house",
+        "districtCode": "172",
+        "contactUrl": null,
+        "email": "repdougherty@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.pahouse.com/dougherty/",
+        "social": {}
+      }
+    ],
+    "PA:state-house:143": [
+      {
+        "id": "ocd-person/7c0b9792-8ece-4ae8-b0f3-f5d4b79ff9f1",
+        "name": "Shelby Labs",
+        "office": "state-house",
+        "districtCode": "143",
+        "contactUrl": null,
+        "email": "slabs@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1911",
+        "social": {
+          "facebook": "PA-State-Rep-Shelby-Labs-103315218289766"
+        }
+      }
+    ],
+    "PA:state-house:088": [
+      {
+        "id": "ocd-person/9e4954ab-971c-4620-9f9d-ebb68311e3f1",
+        "name": "Sheryl Delozier",
+        "office": "state-house",
+        "districtCode": "088",
+        "contactUrl": null,
+        "email": "sdelozie@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1167",
+        "social": {
+          "facebook": "RepDelozier"
+        }
+      }
+    ],
+    "PA:state-house:076": [
+      {
+        "id": "ocd-person/bccfe530-42ce-47b0-aadf-ae863b37cf9a",
+        "name": "Stephanie Borowicz",
+        "office": "state-house",
+        "districtCode": "076",
+        "contactUrl": null,
+        "email": "sborowicz@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1838",
+        "social": {
+          "facebook": "RepBorowicz"
+        }
+      }
+    ],
+    "PA:state-house:135": [
+      {
+        "id": "ocd-person/34472dfb-dae9-4db4-8901-088457d74904",
+        "name": "Steve Samuelson",
+        "office": "state-house",
+        "districtCode": "135",
+        "contactUrl": null,
+        "email": "ssamuels@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=80",
+        "social": {}
+      }
+    ],
+    "PA:state-house:097": [
+      {
+        "id": "ocd-person/4463dd94-6a9d-41bd-830f-0d03e192f896",
+        "name": "Steve Mentzer",
+        "office": "state-house",
+        "districtCode": "097",
+        "contactUrl": null,
+        "email": "smentzer@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1642",
+        "social": {
+          "facebook": "RepMentzer"
+        }
+      }
+    ],
+    "PA:state-house:053": [
+      {
+        "id": "ocd-person/fa1e1564-0a13-4b26-8416-098b39627df7",
+        "name": "Steve Malagari",
+        "office": "state-house",
+        "districtCode": "053",
+        "contactUrl": null,
+        "email": "repmalagari@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1832",
+        "social": {
+          "x": "RepMalagari",
+          "facebook": "RepMalagari"
+        }
+      }
+    ],
+    "PA:state-house:189": [
+      {
+        "id": "ocd-person/8caab7df-f601-45f0-9be5-35d94175e766",
+        "name": "Tarah Probst",
+        "office": "state-house",
+        "districtCode": "189",
+        "contactUrl": null,
+        "email": "repprobst@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1982",
+        "social": {
+          "x": "RepProbst",
+          "facebook": "RepProbst"
+        }
+      }
+    ],
+    "PA:state-house:194": [
+      {
+        "id": "ocd-person/6fa30029-d933-4f6d-b0fb-343a0c82772c",
+        "name": "Tarik Khan",
+        "office": "state-house",
+        "districtCode": "194",
+        "contactUrl": null,
+        "email": "reptarik@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1983",
+        "social": {
+          "x": "RepTarik",
+          "facebook": "RepTarik"
+        }
+      }
+    ],
+    "PA:state-house:087": [
+      {
+        "id": "ocd-person/932682ef-c7da-4383-8c50-58879fba0ca6",
+        "name": "Thomas Kutz",
+        "office": "state-house",
+        "districtCode": "087",
+        "contactUrl": null,
+        "email": "tkutz@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1955",
+        "social": {
+          "facebook": "RepKutz"
+        }
+      }
+    ],
+    "PA:state-house:106": [
+      {
+        "id": "ocd-person/bda0ab75-036f-49bd-9dd5-cfc9c55eec02",
+        "name": "Tom Mehaffie",
+        "office": "state-house",
+        "districtCode": "106",
+        "contactUrl": null,
+        "email": "tmehaffie@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1751",
+        "social": {
+          "facebook": "repmehaffie"
+        }
+      }
+    ],
+    "PA:state-house:029": [
+      {
+        "id": "ocd-person/de68158e-3cc9-4651-b3a1-71f5e77b7dab",
+        "name": "Tim Brennan",
+        "office": "state-house",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "repbrennan@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1943",
+        "social": {
+          "x": "RepTimBrennan",
+          "facebook": "RepTimBrennan"
+        }
+      }
+    ],
+    "PA:state-house:149": [
+      {
+        "id": "ocd-person/5c752a95-ba5d-4f1f-81aa-6cb1c7875581",
+        "name": "Tim Briggs",
+        "office": "state-house",
+        "districtCode": "149",
+        "contactUrl": null,
+        "email": "repbriggs@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1159",
+        "social": {
+          "x": "RepBriggs",
+          "facebook": "Rep-Tim-Briggs"
+        }
+      }
+    ],
+    "PA:state-house:123": [
+      {
+        "id": "ocd-person/686cdc9c-8133-4c1b-a7f0-34b420884559",
+        "name": "Tim Twardzik",
+        "office": "state-house",
+        "districtCode": "123",
+        "contactUrl": null,
+        "email": "ttwardzik@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1906",
+        "social": {
+          "facebook": "PA-State-Rep-Tim-Twardzik-102703721686271"
+        }
+      }
+    ],
+    "PA:state-house:048": [
+      {
+        "id": "ocd-person/2c5551d6-71a8-4099-b1a4-a30721320869",
+        "name": "Tim O'Neal",
+        "office": "state-house",
+        "districtCode": "048",
+        "contactUrl": null,
+        "email": "toneal@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1797",
+        "social": {
+          "facebook": "RepTimONeal"
+        }
+      }
+    ],
+    "PA:state-house:017": [
+      {
+        "id": "ocd-person/105c6361-0cb6-46f4-9222-ff0ffb727d29",
+        "name": "Tim Bonner",
+        "office": "state-house",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "tbonner@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1877",
+        "social": {
+          "facebook": "RepBonner"
+        }
+      }
+    ],
+    "PA:state-house:141": [
+      {
+        "id": "ocd-person/f9a1f1ab-9538-424c-87f1-65e2a4f4bfc7",
+        "name": "Tina Davis",
+        "office": "state-house",
+        "districtCode": "141",
+        "contactUrl": null,
+        "email": "repdavis@pahouse.net",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1204",
+        "social": {
+          "x": "RepTinaDavis",
+          "facebook": "RepTinaDavis"
+        }
+      }
+    ],
+    "PA:state-house:110": [
+      {
+        "id": "ocd-person/8e174923-d514-4240-b6cd-cbb7927410ba",
+        "name": "Tina Pickett",
+        "office": "state-house",
+        "districtCode": "110",
+        "contactUrl": null,
+        "email": "tpickett@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=97",
+        "social": {
+          "facebook": "RepPickett"
+        }
+      }
+    ],
+    "PA:state-house:098": [
+      {
+        "id": "ocd-person/7f6b3c0e-4446-4243-ae49-d2d33ab30273",
+        "name": "Tom Jones",
+        "office": "state-house",
+        "districtCode": "098",
+        "contactUrl": null,
+        "email": "tjones@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1957",
+        "social": {
+          "facebook": "RepTomJones"
+        }
+      }
+    ],
+    "PA:state-house:044": [
+      {
+        "id": "ocd-person/590df273-5587-46bd-98dc-f3943cd1ddd8",
+        "name": "Valerie Gaydos",
+        "office": "state-house",
+        "districtCode": "044",
+        "contactUrl": null,
+        "email": "vgaydos@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1831",
+        "social": {
+          "facebook": "RepGaydos",
+          "instagram": "repgaydos"
+        }
+      }
+    ],
+    "PA:state-house:094": [
+      {
+        "id": "ocd-person/1300735f-1441-4861-b20f-c1fa3e222c08",
+        "name": "Wendy Fink",
+        "office": "state-house",
+        "districtCode": "094",
+        "contactUrl": null,
+        "email": "wfink@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1956",
+        "social": {
+          "facebook": "RepWendyFink"
+        }
+      }
+    ],
+    "PA:state-house:183": [
+      {
+        "id": "ocd-person/c3b27985-614c-434d-b3c0-3e032fad4d6c",
+        "name": "Zach Mako",
+        "office": "state-house",
+        "districtCode": "183",
+        "contactUrl": null,
+        "email": "zmako@pahousegop.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1758",
+        "social": {
+          "facebook": "repmako"
+        }
+      }
+    ],
+    "PA:state-senate:017": [
+      {
+        "id": "ocd-person/77755456-0f2a-4bbd-ac96-03d83398d6fc",
+        "name": "Amanda Cappelletti",
+        "office": "state-senate",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "cappelletti@pasenate.com",
+        "phone": null,
+        "address": null,
+        "website": "https://pasenatorcappelletti.com/",
+        "social": {}
+      }
+    ],
+    "PA:state-senate:008": [
+      {
+        "id": "ocd-person/fe79a0f0-7dfd-442a-8b79-f8792613a4de",
+        "name": "Tony Williams",
+        "office": "state-senate",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "williams@pasenate.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/Senate_bio.cfm?id=153",
+        "social": {
+          "x": "SenTonyWilliams",
+          "facebook": "anthony.h.williams",
+          "instagram": "senator_anthonyhwilliams"
+        }
+      }
+    ],
+    "PA:state-senate:004": [
+      {
+        "id": "ocd-person/ea712eba-1da5-45e2-8d9f-022e8307a614",
+        "name": "Art Haywood",
+        "office": "state-senate",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "senatorhaywood@pasenate.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/Senate_bio.cfm?id=1689",
+        "social": {
+          "x": "SenatorHaywood",
+          "facebook": "SenatorArtHaywood"
+        }
+      }
+    ],
+    "PA:state-senate:046": [
+      {
+        "id": "ocd-person/66b8c0a7-f8be-4acd-aafb-29ca02fcde65",
+        "name": "Camera Bartolotta",
+        "office": "state-senate",
+        "districtCode": "046",
+        "contactUrl": null,
+        "email": "cbartolotta@pasen.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/Senate_bio.cfm?id=1698",
+        "social": {
+          "x": "senbartolotta",
+          "facebook": "senatorbartolotta"
+        }
+      }
+    ],
+    "PA:state-senate:019": [
+      {
+        "id": "ocd-person/91c58c1d-de9d-471b-8178-f6ef89c1286b",
+        "name": "Carolyn Comitta",
+        "office": "state-senate",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "senatorcomitta@pasenate.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1790",
+        "social": {
+          "x": "senatorcomitta",
+          "facebook": "SenatorComitta",
+          "instagram": "senatorcomitta"
+        }
+      }
+    ],
+    "PA:state-senate:002": [
+      {
+        "id": "ocd-person/f3b4fe8c-05f9-4610-81ef-354c0fcb0cdd",
+        "name": "Tina Tartaglione",
+        "office": "state-senate",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "tartaglione@pasenate.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/Senate_bio.cfm?id=277",
+        "social": {
+          "x": "sentartaglione",
+          "facebook": "SenatorTinaTartaglione"
+        }
+      }
+    ],
+    "PA:state-senate:048": [
+      {
+        "id": "ocd-person/965b26f8-5a4a-4458-a327-a25d89605e65",
+        "name": "Chris Gebhard",
+        "office": "state-senate",
+        "districtCode": "048",
+        "contactUrl": null,
+        "email": "cgebhard@pasen.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senatorgebhard.com/",
+        "social": {
+          "x": "SenatorGebhard",
+          "facebook": "SenatorGebhard48"
+        }
+      }
+    ],
+    "PA:state-senate:025": [
+      {
+        "id": "ocd-person/402d7e3b-1935-47fa-8124-61490037d016",
+        "name": "Cris Dush",
+        "office": "state-senate",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "cdush@pasen.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senatordush.com/",
+        "social": {}
+      }
+    ],
+    "PA:state-senate:049": [
+      {
+        "id": "ocd-person/431a823e-0268-4921-a62d-5f698211e706",
+        "name": "Dan Laughlin",
+        "office": "state-senate",
+        "districtCode": "049",
+        "contactUrl": null,
+        "email": "dlaughlin@pasen.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/Senate_bio.cfm?id=1766",
+        "social": {
+          "x": "senatorlaughlin",
+          "facebook": "senatorlaughlin"
+        }
+      }
+    ],
+    "PA:state-senate:029": [
+      {
+        "id": "ocd-person/2a2df3c1-9ede-46b7-8d73-896b1e317aff",
+        "name": "Dave Argall",
+        "office": "state-senate",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "dargall@pasen.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/Senate_bio.cfm?id=69",
+        "social": {
+          "x": "SenatorArgall",
+          "facebook": "SenatorArgall"
+        }
+      }
+    ],
+    "PA:state-senate:031": [
+      {
+        "id": "ocd-person/2a13f9df-b7e6-4281-82e4-f7263b6fa12e",
+        "name": "Dawn Keefer",
+        "office": "state-senate",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "dkeefer@pasen.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senatorkeefer.com/",
+        "social": {
+          "facebook": "repkeefer"
+        }
+      }
+    ],
+    "PA:state-senate:037": [
+      {
+        "id": "ocd-person/5271803b-8b46-449c-bf89-44f7d09c6cd2",
+        "name": "Devlin Robinson",
+        "office": "state-senate",
+        "districtCode": "037",
+        "contactUrl": null,
+        "email": "drobinson@pasen.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senatorrobinson.com/",
+        "social": {
+          "x": "SenRobinsonPA",
+          "facebook": "SenRobinsonPA"
+        }
+      }
+    ],
+    "PA:state-senate:033": [
+      {
+        "id": "ocd-person/cda65f80-13e8-463c-88fa-6f5569a599bf",
+        "name": "Doug Mastriano",
+        "office": "state-senate",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "dmastriano@pasen.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senatormastriano.com/",
+        "social": {
+          "x": "senmastriano",
+          "facebook": "SenatorDougMastriano",
+          "instagram": "senatormastriano"
+        }
+      }
+    ],
+    "PA:state-senate:047": [
+      {
+        "id": "ocd-person/8a2a9b56-cdfa-45e0-a26e-b45b547a2eae",
+        "name": "Elder Vogel",
+        "office": "state-senate",
+        "districtCode": "047",
+        "contactUrl": null,
+        "email": "evogel@pasen.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/Senate_bio.cfm?id=1189",
+        "social": {
+          "x": "SenElderVogelJr",
+          "facebook": "senator.elder.vogel",
+          "instagram": "seneldervogel"
+        }
+      }
+    ],
+    "PA:state-senate:006": [
+      {
+        "id": "ocd-person/611d3c65-f30f-4dde-8f80-7db4ec405a36",
+        "name": "Frank Farry",
+        "office": "state-senate",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "ffarry@pasen.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senatorfarry.com/",
+        "social": {
+          "x": "SenFrankFarry",
+          "facebook": "SenatorFarry"
+        }
+      }
+    ],
+    "PA:state-senate:023": [
+      {
+        "id": "ocd-person/18127660-d04e-43c2-b931-084f0c87142c",
+        "name": "Gene Yaw",
+        "office": "state-senate",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "gyaw@pasen.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/Senate_bio.cfm?id=1186",
+        "social": {
+          "x": "SenatorGeneYaw",
+          "facebook": "SenatorGeneYaw",
+          "instagram": "senatoryaw"
+        }
+      }
+    ],
+    "PA:state-senate:034": [
+      {
+        "id": "ocd-person/3e99b4f3-2efa-4330-b0b9-fb273b1322ea",
+        "name": "Greg Rothman",
+        "office": "state-senate",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "grothman@pasen.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senatorrothman.com/",
+        "social": {
+          "x": "rothman_greg",
+          "facebook": "SenatorRothman",
+          "instagram": "senatorrothman"
+        }
+      }
+    ],
+    "PA:state-senate:036": [
+      {
+        "id": "ocd-person/fea0b7c4-d51a-463f-964a-75722678083b",
+        "name": "James Malone",
+        "office": "state-senate",
+        "districtCode": "036",
+        "contactUrl": null,
+        "email": "malone@pasenate.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.palegis.us/senate/members/bio/2061/sen-malone",
+        "social": {}
+      }
+    ],
+    "PA:state-senate:016": [
+      {
+        "id": "ocd-person/ecd51b53-a59b-4b92-b203-c1d24f748cb1",
+        "name": "Jarrett Coleman",
+        "office": "state-senate",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "jcoleman@pasen.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senatorcoleman.com/",
+        "social": {
+          "x": "SenatorJColeman",
+          "facebook": "SenatorJarrettColeman"
+        }
+      }
+    ],
+    "PA:state-senate:043": [
+      {
+        "id": "ocd-person/ee6b52c3-d92c-4cd6-a6ea-6869a8c93df0",
+        "name": "Jay Costa",
+        "office": "state-senate",
+        "districtCode": "043",
+        "contactUrl": null,
+        "email": "costa@pasenate.com",
+        "phone": null,
+        "address": null,
+        "website": "https://senatorcosta.com/",
+        "social": {
+          "x": "senatorcosta",
+          "facebook": "senatorjaycosta",
+          "instagram": "senatorcosta"
+        }
+      }
+    ],
+    "PA:state-senate:005": [
+      {
+        "id": "ocd-person/00e98952-3983-44cd-aeca-09fb6cd84f3d",
+        "name": "Joe Picozzi",
+        "office": "state-senate",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "jpicozzi@pasen.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "PA:state-senate:041": [
+      {
+        "id": "ocd-person/722f324f-db47-4ce2-9cbc-93f29ae38158",
+        "name": "Joe Pittman",
+        "office": "state-senate",
+        "districtCode": "041",
+        "contactUrl": null,
+        "email": null,
+        "phone": null,
+        "address": null,
+        "website": "https://senatorpittman.com/",
+        "social": {
+          "facebook": "SenatorPittman"
+        }
+      }
+    ],
+    "PA:state-senate:009": [
+      {
+        "id": "ocd-person/c45052c1-f3e4-485e-a3d2-f346fa51839b",
+        "name": "John Kane",
+        "office": "state-senate",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "kane@pasenate.com",
+        "phone": null,
+        "address": null,
+        "website": "https://pasenatorkane.com/",
+        "social": {
+          "x": "senatorjohnkane",
+          "facebook": "SenatorJohnKane",
+          "instagram": "senatorjohnkane"
+        }
+      }
+    ],
+    "PA:state-senate:011": [
+      {
+        "id": "ocd-person/35362d6e-d00a-4cf1-806d-b4f2f2a55f72",
+        "name": "Judy Schwank",
+        "office": "state-senate",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "senatorschwank@pasenate.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/Senate_bio.cfm?id=1234",
+        "social": {
+          "x": "senjudyschwank",
+          "facebook": "senatorjudyschwank"
+        }
+      }
+    ],
+    "PA:state-senate:030": [
+      {
+        "id": "ocd-person/b6ed7151-9ea4-4828-b639-785f9e358eb1",
+        "name": "Judy Ward",
+        "office": "state-senate",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "jward@pasen.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senatorjudyward.com/",
+        "social": {
+          "facebook": "SenJudyWard"
+        }
+      }
+    ],
+    "PA:state-senate:044": [
+      {
+        "id": "ocd-person/ade3ef98-a98c-4448-a974-ec4e0eede98f",
+        "name": "Katie Muth",
+        "office": "state-senate",
+        "districtCode": "044",
+        "contactUrl": null,
+        "email": "senatormuth@pasenate.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/Senate_bio.cfm?id=1802",
+        "social": {
+          "x": "senatormuth",
+          "facebook": "senatormuth"
+        }
+      }
+    ],
+    "PA:state-senate:039": [
+      {
+        "id": "ocd-person/c48a0179-5770-410d-ba97-bdbc05d20786",
+        "name": "Kim Ward",
+        "office": "state-senate",
+        "districtCode": "039",
+        "contactUrl": null,
+        "email": "kward@pasen.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senatorward.com/",
+        "social": {
+          "x": "SenatorKimWard"
+        }
+      }
+    ],
+    "PA:state-senate:028": [
+      {
+        "id": "ocd-person/cb724e4a-0e5e-4ebd-ac0c-f3dfda73aef6",
+        "name": "Kristin Phillips-Hill",
+        "office": "state-senate",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "senatorkristin@pasen.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senatorkristin.com/",
+        "social": {
+          "x": "SenatorKristin",
+          "facebook": "SenatorKristin",
+          "instagram": "SenatorKristin"
+        }
+      }
+    ],
+    "PA:state-senate:038": [
+      {
+        "id": "ocd-person/bc64322a-faaf-4b33-b6c2-cf5059f4121c",
+        "name": "Lindsey Williams",
+        "office": "state-senate",
+        "districtCode": "038",
+        "contactUrl": null,
+        "email": "senatorlindseywilliams@pasenate.com",
+        "phone": null,
+        "address": null,
+        "website": "https://senatorlindseywilliams.com/",
+        "social": {
+          "x": "SenWilliamsPA",
+          "facebook": "SenWilliamsPA",
+          "instagram": "SenWilliamsPA"
+        }
+      }
+    ],
+    "PA:state-senate:020": [
+      {
+        "id": "ocd-person/aa421a2c-4203-45b7-9766-8826c02a659d",
+        "name": "Lisa Baker",
+        "office": "state-senate",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "lbaker@pasen.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/Senate_bio.cfm?id=1077",
+        "social": {
+          "x": "SenLisaBaker",
+          "facebook": "senatorlisabaker"
+        }
+      }
+    ],
+    "PA:state-senate:018": [
+      {
+        "id": "ocd-person/de81d407-bc84-48e6-9796-4a56be984cbd",
+        "name": "Lisa Boscola",
+        "office": "state-senate",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "boscola@pasenate.com",
+        "phone": null,
+        "address": null,
+        "website": "https://senatorboscola.com/",
+        "social": {
+          "x": "SenLisaBoscola",
+          "facebook": "lisa.boscola"
+        }
+      }
+    ],
+    "PA:state-senate:027": [
+      {
+        "id": "ocd-person/02117eb4-a7b3-4095-831b-1857910660fb",
+        "name": "Lynda Culver",
+        "office": "state-senate",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "lculver@pasen.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senatorculver.com/",
+        "social": {
+          "facebook": "SenatorCulver"
+        }
+      }
+    ],
+    "PA:state-senate:012": [
+      {
+        "id": "ocd-person/323c52e8-f841-4a0b-a49e-91103949fbc8",
+        "name": "Maria Collett",
+        "office": "state-senate",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "senatorcollett@pasenate.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/Senate_bio.cfm?id=1799",
+        "social": {
+          "x": "SenatorCollett",
+          "facebook": "senatorcollett",
+          "instagram": "senatorcollett"
+        }
+      }
+    ],
+    "PA:state-senate:022": [
+      {
+        "id": "ocd-person/7061c75d-7eeb-40aa-841e-8121edba5d8a",
+        "name": "Marty Flynn",
+        "office": "state-senate",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "flynn@pasenate.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/House_bio.cfm?id=1626",
+        "social": {
+          "x": "senmartyflynn",
+          "facebook": "SenatorMartyFlynn",
+          "instagram": "senmartyflynn"
+        }
+      }
+    ],
+    "PA:state-senate:050": [
+      {
+        "id": "ocd-person/406baa79-8352-4fa4-a1fa-70cc55e34406",
+        "name": "Michele Brooks",
+        "office": "state-senate",
+        "districtCode": "050",
+        "contactUrl": null,
+        "email": "mbrooks@pasen.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/Senate_bio.cfm?id=1087",
+        "social": {
+          "facebook": "senatormichelebrooks"
+        }
+      }
+    ],
+    "PA:state-senate:014": [
+      {
+        "id": "ocd-person/a160699d-cc7d-4ed7-b486-57008ee0e642",
+        "name": "Nick Miller",
+        "office": "state-senate",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "miller@pasenate.com",
+        "phone": null,
+        "address": null,
+        "website": "https://pasenatormiller.com/",
+        "social": {}
+      }
+    ],
+    "PA:state-senate:045": [
+      {
+        "id": "ocd-person/c9f6833a-470e-480f-b3ad-d91c887aa4f9",
+        "name": "Nick Pisciottano",
+        "office": "state-senate",
+        "districtCode": "045",
+        "contactUrl": null,
+        "email": "nick.pisciottano@pasenate.com",
+        "phone": null,
+        "address": null,
+        "website": "https://pasenatornick.com/",
+        "social": {
+          "x": "RepPisciottano",
+          "facebook": "RepPisciottano"
+        }
+      }
+    ],
+    "PA:state-senate:001": [
+      {
+        "id": "ocd-person/6f172bc8-50b0-4dd3-aed6-b5fd48b70eeb",
+        "name": "Nikil Saval",
+        "office": "state-senate",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "saval@pasenate.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/Senate_bio.cfm?id=1921",
+        "social": {
+          "x": "senatorsaval",
+          "facebook": "SenatorSaval",
+          "instagram": "senatorsaval"
+        }
+      }
+    ],
+    "PA:state-senate:032": [
+      {
+        "id": "ocd-person/14106428-709f-4018-8881-5c31ee078ff8",
+        "name": "Pat Stefano",
+        "office": "state-senate",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "pstefano@pasen.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/Senate_bio.cfm?id=1697",
+        "social": {
+          "x": "Senatorstefano",
+          "facebook": "Senatorstefano",
+          "instagram": "Senator_Stefano"
+        }
+      }
+    ],
+    "PA:state-senate:015": [
+      {
+        "id": "ocd-person/b5ff17d0-36e8-4f29-8c9b-e51bb9b3ea29",
+        "name": "Patty Kim",
+        "office": "state-senate",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "patty.kim@pasenate.com",
+        "phone": null,
+        "address": null,
+        "website": "https://pasenatorkim.com/",
+        "social": {
+          "x": "RepPattyKim",
+          "facebook": "RepPattyKim"
+        }
+      }
+    ],
+    "PA:state-senate:040": [
+      {
+        "id": "ocd-person/3e2840e6-f904-43be-911e-235b906458a5",
+        "name": "Rosemary Brown",
+        "office": "state-senate",
+        "districtCode": "040",
+        "contactUrl": null,
+        "email": "rbrown@pasen.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senatorbrown40.com/",
+        "social": {
+          "x": "SenatorRBrown",
+          "facebook": "SenatorRosemaryBrown"
+        }
+      }
+    ],
+    "PA:state-senate:021": [
+      {
+        "id": "ocd-person/5d3e2203-b11c-4471-8f35-5106c30263ec",
+        "name": "Scott Hutchinson",
+        "office": "state-senate",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "shutchinson@pasen.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/Senate_bio.cfm?id=1629",
+        "social": {
+          "x": "SenHutchinson",
+          "facebook": "SenatorScottEHutchinson"
+        }
+      }
+    ],
+    "PA:state-senate:013": [
+      {
+        "id": "ocd-person/c2fcd2dc-22f8-4ec2-b70a-439bc6d60802",
+        "name": "Scott Martin",
+        "office": "state-senate",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "smartin@pasen.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senatorscottmartinpa.com/",
+        "social": {
+          "x": "ScottFMartin",
+          "facebook": "SenatorScottMartinPA"
+        }
+      }
+    ],
+    "PA:state-senate:003": [
+      {
+        "id": "ocd-person/b0d20b05-428a-4e3a-bda1-bbba5c3cfd6a",
+        "name": "Sharif Street",
+        "office": "state-senate",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "street@pasenate.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/Senate_bio.cfm?id=1767",
+        "social": {
+          "x": "SenSharifStreet",
+          "facebook": "SenSharifStreet",
+          "instagram": "SenSharifstreet"
+        }
+      }
+    ],
+    "PA:state-senate:010": [
+      {
+        "id": "ocd-person/91f290d0-3405-4091-bb16-822a97f45af5",
+        "name": "Steve Santarsiero",
+        "office": "state-senate",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "senatorsantarsiero@pasenate.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/Senate_bio.cfm?id=1179",
+        "social": {
+          "x": "SenSantarsiero",
+          "facebook": "SenSantarsiero"
+        }
+      }
+    ],
+    "PA:state-senate:026": [
+      {
+        "id": "ocd-person/f9f2479f-0c37-47d1-a4eb-666146e2856f",
+        "name": "Tim Kearney",
+        "office": "state-senate",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "senatorkearney@pasenate.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/Senate_bio.cfm?id=1800",
+        "social": {
+          "x": "SenTimKearney",
+          "facebook": "SenTimKearney",
+          "instagram": "sentimkearney"
+        }
+      }
+    ],
+    "PA:state-senate:024": [
+      {
+        "id": "ocd-person/d9ad47a6-7e74-45f2-93a5-1b7e40ad36db",
+        "name": "Tracy Pennycuick",
+        "office": "state-senate",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "tpennycuick@pasen.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senatorpennycuick.com/",
+        "social": {
+          "facebook": "PA-State-Rep-Tracy-Pennycuick-106417357971506"
+        }
+      }
+    ],
+    "PA:state-senate:007": [
+      {
+        "id": "ocd-person/53a598e0-3595-4b19-8f65-4a538bdc7a74",
+        "name": "Vincent Hughes",
+        "office": "state-senate",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "hughes@pasenate.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/Senate_bio.cfm?id=152",
+        "social": {
+          "x": "SenatorHughes",
+          "facebook": "vincent.hughes.7",
+          "instagram": "senhughesoffice"
+        }
+      }
+    ],
+    "PA:state-senate:042": [
+      {
+        "id": "ocd-person/b93e4f38-764f-4e95-bd51-4d40dba0aaa4",
+        "name": "Wayne Fontana",
+        "office": "state-senate",
+        "districtCode": "042",
+        "contactUrl": null,
+        "email": "fontana@pasenate.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/Senate_bio.cfm?id=1041",
+        "social": {
+          "x": "waynedfontana"
+        }
+      }
+    ],
+    "PA:state-senate:035": [
+      {
+        "id": "ocd-person/7b3a6244-335b-4407-957d-b7d6b6ab1d97",
+        "name": "Wayne Langerholc",
+        "office": "state-senate",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "wlangerholc@pasen.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.state.pa.us/cfdocs/legis/home/member_information/Senate_bio.cfm?id=1764",
+        "social": {
+          "x": "senlangerholc",
+          "facebook": "senatorwaynelangerholcjr",
+          "instagram": "senlangerholc"
+        }
+      }
+    ]
+  }
+}

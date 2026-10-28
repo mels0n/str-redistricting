@@ -1,0 +1,2817 @@
+{
+  "state": "IL",
+  "generatedFrom": {
+    "legislators-current.json": "ae8cb9477c48715df71a7d860854229d799dc90a254d61badc1efb770f892b2c",
+    "legislators-social-media.json": "c6eca1fcdb3a89901335eed51ca061daa4b60ad3243969a127e913bb9657fbc5",
+    "il.csv": "48bb8e63f3cd837f81ef7f2b42ca5155688050b074d4efd08f9a9d211cf79853"
+  },
+  "byKey": {
+    "IL:us-senate:state": [
+      {
+        "id": "D000563",
+        "name": "Richard J. Durbin",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.durbin.senate.gov/contact/",
+        "email": null,
+        "phone": "202-224-2152",
+        "address": "711 Hart Senate Office Building Washington DC 20510",
+        "website": "https://www.durbin.senate.gov",
+        "social": {
+          "x": "SenatorDurbin",
+          "facebook": "SenatorDurbin"
+        }
+      },
+      {
+        "id": "D000622",
+        "name": "Tammy Duckworth",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.duckworth.senate.gov/content/contact-senator",
+        "email": null,
+        "phone": "202-224-2854",
+        "address": "524 Hart Senate Office Building Washington DC 20510",
+        "website": "https://www.duckworth.senate.gov",
+        "social": {
+          "x": "SenDuckworth",
+          "facebook": "SenDuckworth",
+          "instagram": "SenDuckworth"
+        }
+      }
+    ],
+    "IL:us-house:07": [
+      {
+        "id": "D000096",
+        "name": "Danny K. Davis",
+        "office": "us-house",
+        "districtCode": "07",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5006",
+        "address": "2159 Rayburn House Office Building Washington DC 20515-1307",
+        "website": "https://davis.house.gov",
+        "social": {
+          "x": "RepDannyDavis",
+          "facebook": "CongressmanDKDavis"
+        }
+      }
+    ],
+    "IL:us-house:05": [
+      {
+        "id": "Q000023",
+        "name": "Mike Quigley",
+        "office": "us-house",
+        "districtCode": "05",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4061",
+        "address": "2083 Rayburn House Office Building Washington DC 20515-1305",
+        "website": "https://quigley.house.gov",
+        "social": {
+          "x": "RepMikeQuigley",
+          "facebook": "repmikequigley",
+          "instagram": "repmikequigley"
+        }
+      }
+    ],
+    "IL:us-house:09": [
+      {
+        "id": "S001145",
+        "name": "Janice D. Schakowsky",
+        "office": "us-house",
+        "districtCode": "09",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2111",
+        "address": "2408 Rayburn House Office Building Washington DC 20515-1309",
+        "website": "https://schakowsky.house.gov",
+        "social": {
+          "x": "JanSchakowsky",
+          "facebook": "janschakowsky",
+          "instagram": "JanSchakowsky"
+        }
+      }
+    ],
+    "IL:us-house:11": [
+      {
+        "id": "F000454",
+        "name": "Bill Foster",
+        "office": "us-house",
+        "districtCode": "11",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-3515",
+        "address": "2366 Rayburn House Office Building Washington DC 20515-1311",
+        "website": "https://foster.house.gov",
+        "social": {
+          "x": "RepBillFoster",
+          "facebook": "CongressmanBillFoster"
+        }
+      }
+    ],
+    "IL:us-house:02": [
+      {
+        "id": "K000385",
+        "name": "Robin L. Kelly",
+        "office": "us-house",
+        "districtCode": "02",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-0773",
+        "address": "2329 Rayburn House Office Building Washington DC 20515-1302",
+        "website": "https://robinkelly.house.gov",
+        "social": {
+          "x": "RepRobinKelly",
+          "facebook": "reprobinkelly",
+          "instagram": "reprobinkelly"
+        }
+      }
+    ],
+    "IL:us-house:12": [
+      {
+        "id": "B001295",
+        "name": "Mike Bost",
+        "office": "us-house",
+        "districtCode": "12",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5661",
+        "address": "352 Cannon House Office Building Washington DC 20515-1312",
+        "website": "https://bost.house.gov",
+        "social": {
+          "x": "RepBost",
+          "facebook": "RepBost"
+        }
+      }
+    ],
+    "IL:us-house:16": [
+      {
+        "id": "L000585",
+        "name": "Darin LaHood",
+        "office": "us-house",
+        "districtCode": "16",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-6201",
+        "address": "503 Cannon House Office Building Washington DC 20515-1316",
+        "website": "https://lahood.house.gov",
+        "social": {
+          "x": "RepLaHood",
+          "facebook": "replahood"
+        }
+      }
+    ],
+    "IL:us-house:10": [
+      {
+        "id": "S001190",
+        "name": "Bradley Scott Schneider",
+        "office": "us-house",
+        "districtCode": "10",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4835",
+        "address": "300 Cannon House Office Building Washington DC 20515-1310",
+        "website": "https://schneider.house.gov",
+        "social": {
+          "x": "RepSchneider",
+          "facebook": "CongressmanBradSchneider",
+          "instagram": "repschneider"
+        }
+      }
+    ],
+    "IL:us-house:08": [
+      {
+        "id": "K000391",
+        "name": "Raja Krishnamoorthi",
+        "office": "us-house",
+        "districtCode": "08",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-3711",
+        "address": "2367 Rayburn House Office Building Washington DC 20515-1308",
+        "website": "https://krishnamoorthi.house.gov",
+        "social": {
+          "x": "CongressmanRaja",
+          "facebook": "congressmanraja",
+          "instagram": "congressmanraja"
+        }
+      }
+    ],
+    "IL:us-house:04": [
+      {
+        "id": "G000586",
+        "name": "Jesús G. \"Chuy\" García",
+        "office": "us-house",
+        "districtCode": "04",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-8203",
+        "address": "2334 Rayburn House Office Building Washington DC 20515-1304",
+        "website": "https://chuygarcia.house.gov",
+        "social": {
+          "x": "RepChuyGarcia",
+          "facebook": "RepChuyGarcia"
+        }
+      }
+    ],
+    "IL:us-house:06": [
+      {
+        "id": "C001117",
+        "name": "Sean Casten",
+        "office": "us-house",
+        "districtCode": "06",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4561",
+        "address": "2440 Rayburn House Office Building Washington DC 20515-1306",
+        "website": "https://casten.house.gov",
+        "social": {
+          "x": "RepCasten",
+          "facebook": "RepSeanCasten",
+          "instagram": "repseancasten"
+        }
+      }
+    ],
+    "IL:us-house:14": [
+      {
+        "id": "U000040",
+        "name": "Lauren Underwood",
+        "office": "us-house",
+        "districtCode": "14",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2976",
+        "address": "2228 Rayburn House Office Building Washington DC 20515-1314",
+        "website": "https://underwood.house.gov",
+        "social": {
+          "x": "RepUnderwood"
+        }
+      }
+    ],
+    "IL:us-house:15": [
+      {
+        "id": "M001211",
+        "name": "Mary E. Miller",
+        "office": "us-house",
+        "districtCode": "15",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5271",
+        "address": "1740 Longworth House Office Building Washington DC 20515-1315",
+        "website": "https://marymiller.house.gov",
+        "social": {
+          "x": "RepMaryMiller",
+          "facebook": "RepMaryMiller"
+        }
+      }
+    ],
+    "IL:us-house:01": [
+      {
+        "id": "J000309",
+        "name": "Jonathan L. Jackson",
+        "office": "us-house",
+        "districtCode": "01",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4372",
+        "address": "1632 Longworth House Office Building Washington DC 20515-1301",
+        "website": "https://jonathanjackson.house.gov",
+        "social": {
+          "facebook": "repjackson",
+          "instagram": "repjackson"
+        }
+      }
+    ],
+    "IL:us-house:03": [
+      {
+        "id": "R000617",
+        "name": "Delia C. Ramirez",
+        "office": "us-house",
+        "districtCode": "03",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5701",
+        "address": "1523 Longworth House Office Building Washington DC 20515-1303",
+        "website": "https://ramirez.house.gov",
+        "social": {
+          "x": "repdeliaramirez",
+          "facebook": "Repdeliaramirez",
+          "instagram": "repdeliaramirez"
+        }
+      }
+    ],
+    "IL:us-house:13": [
+      {
+        "id": "B001315",
+        "name": "Nikki Budzinski",
+        "office": "us-house",
+        "districtCode": "13",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2371",
+        "address": "1717 Longworth House Office Building Washington DC 20515-1313",
+        "website": "https://budzinski.house.gov",
+        "social": {
+          "x": "RepNikkiB",
+          "facebook": "RepNikkiBudzinski",
+          "instagram": "repnikki"
+        }
+      }
+    ],
+    "IL:us-house:17": [
+      {
+        "id": "S001225",
+        "name": "Eric Sorensen",
+        "office": "us-house",
+        "districtCode": "17",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5905",
+        "address": "1314 Longworth House Office Building Washington DC 20515-1317",
+        "website": "https://sorensen.house.gov",
+        "social": {
+          "x": "RepEricSorensen",
+          "instagram": "repericsorensen"
+        }
+      }
+    ],
+    "IL:state-house:001": [
+      {
+        "id": "ocd-person/a76e0c0e-81d3-4f3b-8cc8-b8360d3cecb4",
+        "name": "Aarón Ortíz",
+        "office": "state-house",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "district@repaaronortiz.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2752",
+        "social": {}
+      }
+    ],
+    "IL:state-house:021": [
+      {
+        "id": "ocd-person/4101db1f-a913-4d16-88fb-001f120bb092",
+        "name": "Abdelnasser Rashid",
+        "office": "state-house",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "office@reprashid.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=103&MemberID=3229",
+        "social": {}
+      }
+    ],
+    "IL:state-house:102": [
+      {
+        "id": "ocd-person/9729745e-386d-4f4b-8d04-0e762dcd87b2",
+        "name": "Adam Niemerg",
+        "office": "state-house",
+        "districtCode": "102",
+        "contactUrl": null,
+        "email": "niemerg@ilhousegop.org",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=102&MemberID=3001",
+        "social": {}
+      }
+    ],
+    "IL:state-house:111": [
+      {
+        "id": "ocd-person/b13c7ff5-806e-426d-afd5-181f53e9fed1",
+        "name": "Amy Elik",
+        "office": "state-house",
+        "districtCode": "111",
+        "contactUrl": null,
+        "email": "elik@ilhousegop.org",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=102&MemberID=3002",
+        "social": {}
+      }
+    ],
+    "IL:state-house:047": [
+      {
+        "id": "ocd-person/f8dc94db-66cf-4d5e-b1af-0b6307140524",
+        "name": "Amy Grant",
+        "office": "state-house",
+        "districtCode": "047",
+        "contactUrl": null,
+        "email": "grant@ilhousegop.org",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2754",
+        "social": {}
+      }
+    ],
+    "IL:state-house:022": [
+      {
+        "id": "ocd-person/8b2bc102-d62b-47b2-91d8-5f9b3a172cea",
+        "name": "Angie Guerrero-Cuellar",
+        "office": "state-house",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "angieguerrerocuellar22@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=102&MemberID=3011",
+        "social": {}
+      }
+    ],
+    "IL:state-house:011": [
+      {
+        "id": "ocd-person/02f2799d-4633-48e9-b5ab-379d48e70b40",
+        "name": "Ann Williams",
+        "office": "state-house",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "ann@repannwilliams.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2595",
+        "social": {}
+      }
+    ],
+    "IL:state-house:043": [
+      {
+        "id": "ocd-person/f38a2b8a-b0e4-4e7d-92cf-7855d42e9c2d",
+        "name": "Anna Moeller",
+        "office": "state-house",
+        "districtCode": "043",
+        "contactUrl": null,
+        "email": "staterepmoeller@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2647",
+        "social": {}
+      }
+    ],
+    "IL:state-house:081": [
+      {
+        "id": "ocd-person/8dfe2e37-8a40-4be0-b44d-0bf65861f4e0",
+        "name": "Anne Stava",
+        "office": "state-house",
+        "districtCode": "081",
+        "contactUrl": null,
+        "email": "office@repstavamurray.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2740",
+        "social": {}
+      }
+    ],
+    "IL:state-house:080": [
+      {
+        "id": "ocd-person/aecf9fb4-3e54-4963-941f-8dc6b4658584",
+        "name": "Anthony DeLuca",
+        "office": "state-house",
+        "districtCode": "080",
+        "contactUrl": null,
+        "email": "repdeluca@sbcglobal.net",
+        "phone": null,
+        "address": null,
+        "website": "https://anthonydeluca.org/",
+        "social": {}
+      }
+    ],
+    "IL:state-house:050": [
+      {
+        "id": "ocd-person/fb481641-3999-4fe4-9bac-878becdde97d",
+        "name": "Barbara Hernandez",
+        "office": "state-house",
+        "districtCode": "050",
+        "contactUrl": null,
+        "email": "repbarbarahernandez@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2766",
+        "social": {}
+      }
+    ],
+    "IL:state-house:110": [
+      {
+        "id": "ocd-person/500ffee4-de06-4a0b-b4df-f8e6f52c4e96",
+        "name": "Blaine Wilhour",
+        "office": "state-house",
+        "districtCode": "110",
+        "contactUrl": null,
+        "email": "wilhour@ilhousegop.org",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2761",
+        "social": {}
+      }
+    ],
+    "IL:state-house:058": [
+      {
+        "id": "ocd-person/55a824f4-04c7-4834-8a5d-d204ca3bece5",
+        "name": "Bob Morgan",
+        "office": "state-house",
+        "districtCode": "058",
+        "contactUrl": null,
+        "email": "info@repbobmorgan.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2745",
+        "social": {}
+      }
+    ],
+    "IL:state-house:107": [
+      {
+        "id": "ocd-person/e05f1a87-b75d-450e-9cd1-3b7a66cb703e",
+        "name": "Brad Halbrook",
+        "office": "state-house",
+        "districtCode": "107",
+        "contactUrl": null,
+        "email": "halbrook@ilhousegop.org",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2697",
+        "social": {}
+      }
+    ],
+    "IL:state-house:074": [
+      {
+        "id": "ocd-person/be767c3e-58d9-41c0-b930-79c0f47b9960",
+        "name": "Brad Fritts",
+        "office": "state-house",
+        "districtCode": "074",
+        "contactUrl": null,
+        "email": "fritts@ilhousegop.org",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=103&MemberID=3237",
+        "social": {}
+      }
+    ],
+    "IL:state-house:020": [
+      {
+        "id": "ocd-person/49c0fac1-8cf0-48d2-8166-811afe9ac5c5",
+        "name": "Brad Stephens",
+        "office": "state-house",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "stephens@ilhousegop.org",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2770",
+        "social": {}
+      }
+    ],
+    "IL:state-house:104": [
+      {
+        "id": "ocd-person/8c6f0ed1-f28f-408a-9b59-156fa7a7f1e0",
+        "name": "Brandun Schweizer",
+        "office": "state-house",
+        "districtCode": "104",
+        "contactUrl": null,
+        "email": "repschweizer@district104.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=103&MemberID=3257",
+        "social": {}
+      }
+    ],
+    "IL:state-house:100": [
+      {
+        "id": "ocd-person/384c08f3-49fd-45a7-bb7b-5689bdeae7a7",
+        "name": "C.D. Davidsmeyer",
+        "office": "state-house",
+        "districtCode": "100",
+        "contactUrl": null,
+        "email": "davidsmeyer@ilhousegop.org",
+        "phone": null,
+        "address": null,
+        "website": "https://cddavidsmeyer.org/",
+        "social": {}
+      }
+    ],
+    "IL:state-house:078": [
+      {
+        "id": "ocd-person/a51455ff-b0ae-47f6-b3ee-2722adbe38c2",
+        "name": "Camille Lilly",
+        "office": "state-house",
+        "districtCode": "078",
+        "contactUrl": null,
+        "email": "staterepcamilleylilly@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2584",
+        "social": {}
+      }
+    ],
+    "IL:state-house:103": [
+      {
+        "id": "ocd-person/bc409660-f360-4624-914f-ba785bbf9b7b",
+        "name": "Carol Ammons",
+        "office": "state-house",
+        "districtCode": "103",
+        "contactUrl": null,
+        "email": "assistance@staterepcarolammons.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2651",
+        "social": {}
+      }
+    ],
+    "IL:state-house:109": [
+      {
+        "id": "ocd-person/c425f2ef-cad0-4dad-93c4-be11b80af613",
+        "name": "Charlie Meier",
+        "office": "state-house",
+        "districtCode": "109",
+        "contactUrl": null,
+        "email": "repcmeier@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://charliemeier.net/",
+        "social": {}
+      }
+    ],
+    "IL:state-house:101": [
+      {
+        "id": "ocd-person/f5a10a95-3160-4cac-9f4e-ba31e5362e7b",
+        "name": "Chris Miller",
+        "office": "state-house",
+        "districtCode": "101",
+        "contactUrl": null,
+        "email": "miller@ilhousegop.org",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2758",
+        "social": {}
+      }
+    ],
+    "IL:state-house:025": [
+      {
+        "id": "ocd-person/7a4c9172-6836-453c-94a8-1254b76fa08f",
+        "name": "Curtis Tarver",
+        "office": "state-house",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "office@repcurtisjtarverii.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2748",
+        "social": {}
+      }
+    ],
+    "IL:state-house:085": [
+      {
+        "id": "ocd-person/4c05af2c-7756-4002-a45d-cc9f2f5acbfd",
+        "name": "Dee Avelar",
+        "office": "state-house",
+        "districtCode": "085",
+        "contactUrl": null,
+        "email": "info@repdagmara.org",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=102&MemberID=2999",
+        "social": {}
+      }
+    ],
+    "IL:state-house:065": [
+      {
+        "id": "ocd-person/ab6db17a-e7dc-43c8-9770-32c1da1d7f40",
+        "name": "Dan Ugaste",
+        "office": "state-house",
+        "districtCode": "065",
+        "contactUrl": null,
+        "email": "ugaste@ilhousegop.org",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2753",
+        "social": {}
+      }
+    ],
+    "IL:state-house:059": [
+      {
+        "id": "ocd-person/c5786e99-12fd-41eb-b40e-372187dde261",
+        "name": "Dan Didech",
+        "office": "state-house",
+        "districtCode": "059",
+        "contactUrl": null,
+        "email": "info@repdidech.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2737",
+        "social": {}
+      }
+    ],
+    "IL:state-house:071": [
+      {
+        "id": "ocd-person/6e9ee3b5-fb44-49f3-81f6-5a470bfaf009",
+        "name": "Dan Swanson",
+        "office": "state-house",
+        "districtCode": "071",
+        "contactUrl": null,
+        "email": "swanson@ilhousegop.org",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2696",
+        "social": {}
+      }
+    ],
+    "IL:state-house:116": [
+      {
+        "id": "ocd-person/cbbd1430-7c0b-4be0-9d45-deabdb0c3d0f",
+        "name": "Dave Severin",
+        "office": "state-house",
+        "districtCode": "116",
+        "contactUrl": null,
+        "email": "severin@ilhousegop.org",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2691",
+        "social": {}
+      }
+    ],
+    "IL:state-house:068": [
+      {
+        "id": "ocd-person/5da7b2ff-c086-49cd-80bc-9802e426cc00",
+        "name": "Dave Vella",
+        "office": "state-house",
+        "districtCode": "068",
+        "contactUrl": null,
+        "email": "repdavevella@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=102&MemberID=2998",
+        "social": {}
+      }
+    ],
+    "IL:state-house:115": [
+      {
+        "id": "ocd-person/abda0ae5-9ecb-4363-9a6a-487f1cf8899e",
+        "name": "David Friess",
+        "office": "state-house",
+        "districtCode": "115",
+        "contactUrl": null,
+        "email": "friess@ilhousegop.org",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=102&MemberID=3004",
+        "social": {}
+      }
+    ],
+    "IL:state-house:038": [
+      {
+        "id": "ocd-person/e1d4b5b4-34b8-4d91-ab9f-08c8a361e12a",
+        "name": "Debbie Meyers-Martin",
+        "office": "state-house",
+        "districtCode": "038",
+        "contactUrl": null,
+        "email": "staterepdebbiemm@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2741",
+        "social": {}
+      }
+    ],
+    "IL:state-house:105": [
+      {
+        "id": "ocd-person/13dc4688-95d1-4a5d-abc7-fb9a46a432c8",
+        "name": "Dennis Tipsword",
+        "office": "state-house",
+        "districtCode": "105",
+        "contactUrl": null,
+        "email": "tipsword@ilhousegop.org",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=103&MemberID=3242",
+        "social": {}
+      }
+    ],
+    "IL:state-house:046": [
+      {
+        "id": "ocd-person/d5c22b1c-8057-40bf-aea6-0298070ad67b",
+        "name": "Diane Blair-Sherlock",
+        "office": "state-house",
+        "districtCode": "046",
+        "contactUrl": null,
+        "email": "staterep46@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=103&MemberID=3234",
+        "social": {}
+      }
+    ],
+    "IL:state-house:023": [
+      {
+        "id": "ocd-person/e8bba8fb-50a8-4ddd-9bed-785c5f1bb70d",
+        "name": "Edgar González",
+        "office": "state-house",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "office@repedgargonzalez.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2776",
+        "social": {}
+      }
+    ],
+    "IL:state-house:002": [
+      {
+        "id": "ocd-person/b6ebf45f-ac97-423b-b5c3-eba0a5766a8d",
+        "name": "Lisa Hernandez",
+        "office": "state-house",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "office@repehernandez.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2568",
+        "social": {}
+      }
+    ],
+    "IL:state-house:007": [
+      {
+        "id": "ocd-person/00cc6415-b2a7-45ab-8f69-be5c3ca6752a",
+        "name": "Chris Welch",
+        "office": "state-house",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "repwelch@emanuelchriswelch.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=103&MemberID=3071",
+        "social": {}
+      }
+    ],
+    "IL:state-house:003": [
+      {
+        "id": "ocd-person/01201203-526d-4d02-b6fc-cbe5a749b6ab",
+        "name": "Eva-Dina Delgado",
+        "office": "state-house",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "staterepdelgado@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2775",
+        "social": {}
+      }
+    ],
+    "IL:state-house:044": [
+      {
+        "id": "ocd-person/3806ac4f-5290-4eb7-ba30-aa406036dd7a",
+        "name": "Fred Crespo",
+        "office": "state-house",
+        "districtCode": "044",
+        "contactUrl": null,
+        "email": "fred@fredcrespo.com",
+        "phone": null,
+        "address": null,
+        "website": "https://fredcrespo.com/",
+        "social": {}
+      }
+    ],
+    "IL:state-house:072": [
+      {
+        "id": "ocd-person/26a0642d-d0b6-450f-9438-018a36b04cbf",
+        "name": "Gregg Johnson",
+        "office": "state-house",
+        "districtCode": "072",
+        "contactUrl": null,
+        "email": "support@repgreggjohnson.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=103&MemberID=3236",
+        "social": {}
+      }
+    ],
+    "IL:state-house:013": [
+      {
+        "id": "ocd-person/c7156dc3-31a6-4582-bf3a-b325c9dc868f",
+        "name": "Hoan Huynh",
+        "office": "state-house",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "hello@rephoanhuynh.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=103&MemberID=3227",
+        "social": {}
+      }
+    ],
+    "IL:state-house:079": [
+      {
+        "id": "ocd-person/5da74880-f9e4-4c20-bc17-74d88526a7a4",
+        "name": "Jackie Haas",
+        "office": "state-house",
+        "districtCode": "079",
+        "contactUrl": null,
+        "email": "haas@ilhousegop.org",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=102&MemberID=2981",
+        "social": {}
+      }
+    ],
+    "IL:state-house:040": [
+      {
+        "id": "ocd-person/c0d481c5-9d31-4780-b2b0-bc5327291d6b",
+        "name": "Jaime Andrade",
+        "office": "state-house",
+        "districtCode": "040",
+        "contactUrl": null,
+        "email": "info@staterep40.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2645",
+        "social": {}
+      }
+    ],
+    "IL:state-house:041": [
+      {
+        "id": "ocd-person/dc08395b-8a74-4795-b104-d7b11c1e42ca",
+        "name": "Janet Yang Rohr",
+        "office": "state-house",
+        "districtCode": "041",
+        "contactUrl": null,
+        "email": "info@repyangrohr.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=102&MemberID=2993",
+        "social": {}
+      }
+    ],
+    "IL:state-house:106": [
+      {
+        "id": "ocd-person/4a588ccf-b32f-4b66-978a-3415f71d2774",
+        "name": "Jason Bunting",
+        "office": "state-house",
+        "districtCode": "106",
+        "contactUrl": null,
+        "email": "bunting@ilhousegop.org",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=103&MemberID=3250",
+        "social": {}
+      }
+    ],
+    "IL:state-house:010": [
+      {
+        "id": "ocd-person/b79ed17d-30a6-4d03-af90-ad3b34610395",
+        "name": "Omar Williams",
+        "office": "state-house",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "repwilliamsoffice@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2768",
+        "social": {}
+      }
+    ],
+    "IL:state-house:113": [
+      {
+        "id": "ocd-person/21e2f7d1-8073-4ee1-a5b5-b32ccdd321d5",
+        "name": "Jay Hoffman",
+        "office": "state-house",
+        "districtCode": "113",
+        "contactUrl": null,
+        "email": "repjayhoffman@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2643",
+        "social": {}
+      }
+    ],
+    "IL:state-house:075": [
+      {
+        "id": "ocd-person/a9c919a3-8fba-4bad-8589-315491cd9b0e",
+        "name": "Jed Davis",
+        "office": "state-house",
+        "districtCode": "075",
+        "contactUrl": null,
+        "email": "davisstaff@ilhousegop.org",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=103&MemberID=3223",
+        "social": {}
+      }
+    ],
+    "IL:state-house:070": [
+      {
+        "id": "ocd-person/1055f952-0000-4628-9584-c2a3fc9e991c",
+        "name": "Jeff Keicher",
+        "office": "state-house",
+        "districtCode": "070",
+        "contactUrl": null,
+        "email": "keicher@ilhousegop.org",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2706",
+        "social": {}
+      }
+    ],
+    "IL:state-house:092": [
+      {
+        "id": "ocd-person/968d7e1e-e0e8-47f0-a258-586eb6cfbac9",
+        "name": "Jehan Gordon-Booth",
+        "office": "state-house",
+        "districtCode": "092",
+        "contactUrl": null,
+        "email": "repjgordon@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2576",
+        "social": {}
+      }
+    ],
+    "IL:state-house:017": [
+      {
+        "id": "ocd-person/cf97f459-e1cd-474b-8306-3c55d7c009b0",
+        "name": "Jen Gong-Gershowitz",
+        "office": "state-house",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "info@gonggershowitz.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2744",
+        "social": {}
+      }
+    ],
+    "IL:state-house:048": [
+      {
+        "id": "ocd-person/0069021e-b341-44fd-9d02-d876839c5c23",
+        "name": "Jennifer Sanalitro",
+        "office": "state-house",
+        "districtCode": "048",
+        "contactUrl": null,
+        "email": "sanalitro@ilhousegop.org",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=103&MemberID=3231",
+        "social": {}
+      }
+    ],
+    "IL:state-house:097": [
+      {
+        "id": "ocd-person/5ea8a157-c31c-407b-8378-6d80aa7280f9",
+        "name": "Jessica Dixon Heitman",
+        "office": "state-house",
+        "districtCode": "097",
+        "contactUrl": null,
+        "email": "repdixonheitman@repjdh.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.ilga.gov/House/Members/Details/3465",
+        "social": {}
+      }
+    ],
+    "IL:state-house:069": [
+      {
+        "id": "ocd-person/6471a51f-0707-4966-b122-9597554d3c19",
+        "name": "Joe Sosnowski",
+        "office": "state-house",
+        "districtCode": "069",
+        "contactUrl": null,
+        "email": "sosnowski@ilhousegop.org",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2594",
+        "social": {}
+      }
+    ],
+    "IL:state-house:090": [
+      {
+        "id": "ocd-person/b442db35-fab4-4318-a07b-0e88c314fbaa",
+        "name": "John Cabello",
+        "office": "state-house",
+        "districtCode": "090",
+        "contactUrl": null,
+        "email": "cabello@ilhousegop.org",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2607",
+        "social": {}
+      }
+    ],
+    "IL:state-house:061": [
+      {
+        "id": "ocd-person/96f00b4c-0a56-4fe0-bd59-7d49eb93531c",
+        "name": "Joyce Mason",
+        "office": "state-house",
+        "districtCode": "061",
+        "contactUrl": null,
+        "email": "info@repjoycemason.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2751",
+        "social": {}
+      }
+    ],
+    "IL:state-house:055": [
+      {
+        "id": "ocd-person/afff2974-37d0-428c-be7a-0240395544f6",
+        "name": "Justin Cochran",
+        "office": "state-house",
+        "districtCode": "055",
+        "contactUrl": null,
+        "email": "contact@repjustincochran.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.ilga.gov/House/Members/Details/3462",
+        "social": {}
+      }
+    ],
+    "IL:state-house:027": [
+      {
+        "id": "ocd-person/c296134a-f9b3-4c65-9ed5-3ecccde59386",
+        "name": "Justin Slaughter",
+        "office": "state-house",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "justin@repslaughter.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2682",
+        "social": {}
+      }
+    ],
+    "IL:state-house:026": [
+      {
+        "id": "ocd-person/8b7174cd-4081-4717-8ba9-184518f7b31e",
+        "name": "Kam Buckner",
+        "office": "state-house",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "buckner@illinois26.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2765",
+        "social": {}
+      }
+    ],
+    "IL:state-house:112": [
+      {
+        "id": "ocd-person/ceb7f558-3a2c-4041-bf3b-f5a9a511e8b3",
+        "name": "Katie Stuart",
+        "office": "state-house",
+        "districtCode": "112",
+        "contactUrl": null,
+        "email": "repkatiestuart@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2695",
+        "social": {}
+      }
+    ],
+    "IL:state-house:014": [
+      {
+        "id": "ocd-person/e1652f78-fa2e-46de-8630-f3e1e69040a3",
+        "name": "Kelly Cassidy",
+        "office": "state-house",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "info@repcassidy.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2601",
+        "social": {}
+      }
+    ],
+    "IL:state-house:016": [
+      {
+        "id": "ocd-person/c2c8c6a1-ef1b-4a38-92fa-bde7563b7f23",
+        "name": "Kevin Olickal",
+        "office": "state-house",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "info@repkevinolickal.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=103&MemberID=3228",
+        "social": {}
+      }
+    ],
+    "IL:state-house:114": [
+      {
+        "id": "ocd-person/266780c2-6b08-469e-9d78-10d618e16f4e",
+        "name": "Kevin Schmidt",
+        "office": "state-house",
+        "districtCode": "114",
+        "contactUrl": null,
+        "email": "schmidt@ilhousegop.org",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=103&MemberID=3245",
+        "social": {}
+      }
+    ],
+    "IL:state-house:005": [
+      {
+        "id": "ocd-person/3b2af944-b2b7-4b13-87db-1c8cdd45de3c",
+        "name": "Kimberly Du Buclet",
+        "office": "state-house",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "rep5information@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=103&MemberID=3252",
+        "social": {}
+      }
+    ],
+    "IL:state-house:099": [
+      {
+        "id": "ocd-person/6f9e28df-bdf5-4493-aac1-68f1b7be39cb",
+        "name": "Kyle Moore",
+        "office": "state-house",
+        "districtCode": "099",
+        "contactUrl": null,
+        "email": "moore@ilhousegop.org",
+        "phone": null,
+        "address": null,
+        "website": "https://repmoore.com/",
+        "social": {}
+      }
+    ],
+    "IL:state-house:008": [
+      {
+        "id": "ocd-person/91164a3d-fc17-4252-a31f-a8d0d113b74b",
+        "name": "La Shawn Ford",
+        "office": "state-house",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "repford@lashawnford.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2567",
+        "social": {}
+      }
+    ],
+    "IL:state-house:062": [
+      {
+        "id": "ocd-person/f0ab36db-6498-4d90-9b11-0191637421d2",
+        "name": "Laura Faver Dias",
+        "office": "state-house",
+        "districtCode": "062",
+        "contactUrl": null,
+        "email": "info@repfaverdias.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=103&MemberID=3235",
+        "social": {}
+      }
+    ],
+    "IL:state-house:086": [
+      {
+        "id": "ocd-person/9eda7be9-b2c6-45e6-bea6-098bd7f47595",
+        "name": "Larry Walsh",
+        "office": "state-house",
+        "districtCode": "086",
+        "contactUrl": null,
+        "email": "statereplarrywalshjr@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2605",
+        "social": {}
+      }
+    ],
+    "IL:state-house:004": [
+      {
+        "id": "ocd-person/256a1090-5fef-4f0c-b016-263735573c77",
+        "name": "Lilian Jiménez",
+        "office": "state-house",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "info@replilianjimenez.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=103&MemberID=3226",
+        "social": {}
+      }
+    ],
+    "IL:state-house:019": [
+      {
+        "id": "ocd-person/ea4595af-64f9-4d91-9c12-48accdc04ff8",
+        "name": "Lindsey LaPointe",
+        "office": "state-house",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "info@replapointe.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2771",
+        "social": {}
+      }
+    ],
+    "IL:state-house:032": [
+      {
+        "id": "ocd-person/607e0b8f-4f4a-46ae-bfac-24b179d67542",
+        "name": "Lisa Davis",
+        "office": "state-house",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "districtdirector32@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.ilga.gov/House/Members/Details/3458",
+        "social": {}
+      }
+    ],
+    "IL:state-house:033": [
+      {
+        "id": "ocd-person/4e02286b-b560-4837-8b9c-efa2c679e437",
+        "name": "Marcus Evans",
+        "office": "state-house",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "marcus@repevans.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2604",
+        "social": {}
+      }
+    ],
+    "IL:state-house:012": [
+      {
+        "id": "ocd-person/adf823d2-7e3e-4a4d-898c-2dd404679012",
+        "name": "Margaret Croke",
+        "office": "state-house",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "info@repcroke.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=102&MemberID=2986",
+        "social": {}
+      }
+    ],
+    "IL:state-house:042": [
+      {
+        "id": "ocd-person/9e3e61af-e205-47a0-8d7c-d50475941ba8",
+        "name": "Margaret DeLaRosa",
+        "office": "state-house",
+        "districtCode": "042",
+        "contactUrl": null,
+        "email": "ilhouse42@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.ilga.gov/House/Members/Details/3461",
+        "social": {}
+      }
+    ],
+    "IL:state-house:045": [
+      {
+        "id": "ocd-person/035b25c2-e97c-413e-8d84-d5c618f6a2fa",
+        "name": "Marti Deuter",
+        "office": "state-house",
+        "districtCode": "045",
+        "contactUrl": null,
+        "email": "office@repmartideuter.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.ilga.gov/House/Members/Details/3455",
+        "social": {}
+      }
+    ],
+    "IL:state-house:052": [
+      {
+        "id": "ocd-person/eb9a9c6e-1173-4c03-848e-167eb2762673",
+        "name": "Marty McLaughlin",
+        "office": "state-house",
+        "districtCode": "052",
+        "contactUrl": null,
+        "email": "mclaughlin@ilhousegop.org",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=102&MemberID=2997",
+        "social": {}
+      }
+    ],
+    "IL:state-house:054": [
+      {
+        "id": "ocd-person/48d73b90-0109-4fb2-8689-57e803c8294a",
+        "name": "Mary Beth Canty",
+        "office": "state-house",
+        "districtCode": "054",
+        "contactUrl": null,
+        "email": "info@repmbc.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=103&MemberID=3233",
+        "social": {}
+      }
+    ],
+    "IL:state-house:035": [
+      {
+        "id": "ocd-person/f2231f6c-1ed7-4106-8909-1d87557b2f04",
+        "name": "Mary Gill",
+        "office": "state-house",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "repmarygill@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=103&MemberID=3251",
+        "social": {}
+      }
+    ],
+    "IL:state-house:083": [
+      {
+        "id": "ocd-person/14b940c9-8843-4709-97a9-9faee25bb201",
+        "name": "Matt Hanson",
+        "office": "state-house",
+        "districtCode": "083",
+        "contactUrl": null,
+        "email": "info@repmatthanson.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=103&MemberID=3225",
+        "social": {}
+      }
+    ],
+    "IL:state-house:049": [
+      {
+        "id": "ocd-person/ef519ea9-e143-44e0-95b2-49d37c4ea3c8",
+        "name": "Maura Hirschauer",
+        "office": "state-house",
+        "districtCode": "049",
+        "contactUrl": null,
+        "email": "office@repmaura49.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=102&MemberID=2995",
+        "social": {}
+      }
+    ],
+    "IL:state-house:067": [
+      {
+        "id": "ocd-person/77906cdf-58a8-4329-bb24-c65e6e38342f",
+        "name": "Maurice West",
+        "office": "state-house",
+        "districtCode": "067",
+        "contactUrl": null,
+        "email": "assistance@staterepwest.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2736",
+        "social": {}
+      }
+    ],
+    "IL:state-house:095": [
+      {
+        "id": "ocd-person/868db7f8-5f9e-48a4-83ba-a5404b87276a",
+        "name": "Mike Coffey",
+        "office": "state-house",
+        "districtCode": "095",
+        "contactUrl": null,
+        "email": "coffey@ilhousegop.org",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=103&MemberID=3246",
+        "social": {}
+      }
+    ],
+    "IL:state-house:015": [
+      {
+        "id": "ocd-person/c98bae02-b0dd-40ea-96a8-8a5fa994d211",
+        "name": "Michael Kelly",
+        "office": "state-house",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "district@repkelly.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=102&MemberID=3013",
+        "social": {}
+      }
+    ],
+    "IL:state-house:056": [
+      {
+        "id": "ocd-person/394eec6a-ad20-447e-b72c-f09d76e66fa2",
+        "name": "Michelle Mussman",
+        "office": "state-house",
+        "districtCode": "056",
+        "contactUrl": null,
+        "email": "staterepmussman@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2593",
+        "social": {}
+      }
+    ],
+    "IL:state-house:031": [
+      {
+        "id": "ocd-person/08699f92-8a4f-4dfa-8e8c-8bf129fb08d0",
+        "name": "Mike Crawford",
+        "office": "state-house",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "districtdirector31@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.ilga.gov/House/Members/Details/3452",
+        "social": {}
+      }
+    ],
+    "IL:state-house:076": [
+      {
+        "id": "ocd-person/d717abc0-a4ec-4ce9-bd24-cbda0a48c361",
+        "name": "Murri Briel",
+        "office": "state-house",
+        "districtCode": "076",
+        "contactUrl": null,
+        "email": "contact@staterepbriel.com",
+        "phone": null,
+        "address": null,
+        "website": "https://staterepbriel.com/",
+        "social": {}
+      }
+    ],
+    "IL:state-house:051": [
+      {
+        "id": "ocd-person/3115335b-b84e-49e5-b0ed-8ee2ab139784",
+        "name": "Nabeela Syed",
+        "office": "state-house",
+        "districtCode": "051",
+        "contactUrl": null,
+        "email": "info@repsyed.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=103&MemberID=3232",
+        "social": {}
+      }
+    ],
+    "IL:state-house:098": [
+      {
+        "id": "ocd-person/d7b735a6-3b70-4a3d-ae53-948fde86e4e7",
+        "name": "Natalie Manley",
+        "office": "state-house",
+        "districtCode": "098",
+        "contactUrl": null,
+        "email": "repmanley@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2639",
+        "social": {}
+      }
+    ],
+    "IL:state-house:034": [
+      {
+        "id": "ocd-person/a5e32db2-c1a9-4b4a-b42e-d2d541bd5825",
+        "name": "Nick Smith",
+        "office": "state-house",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "repsmith34@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2704",
+        "social": {}
+      }
+    ],
+    "IL:state-house:082": [
+      {
+        "id": "ocd-person/3846d812-409f-4726-8e46-3624bfe92812",
+        "name": "Nicole La Ha",
+        "office": "state-house",
+        "districtCode": "082",
+        "contactUrl": null,
+        "email": "repnicolelaha@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=103&MemberID=3256",
+        "social": {}
+      }
+    ],
+    "IL:state-house:053": [
+      {
+        "id": "ocd-person/0394df12-4d09-4844-80aa-269ccc9c1d54",
+        "name": "Nicolle Grasse",
+        "office": "state-house",
+        "districtCode": "053",
+        "contactUrl": null,
+        "email": "contact@staterepgrasse.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.ilga.gov/House/Members/Details/3450",
+        "social": {}
+      }
+    ],
+    "IL:state-house:094": [
+      {
+        "id": "ocd-person/cce820c8-7ce2-4b30-8ebd-4734eab16a94",
+        "name": "Norine Hammond",
+        "office": "state-house",
+        "districtCode": "094",
+        "contactUrl": null,
+        "email": "rephammond@macomb.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2597",
+        "social": {}
+      }
+    ],
+    "IL:state-house:077": [
+      {
+        "id": "ocd-person/c0d6eed8-422f-4e17-a4df-5e546b704e91",
+        "name": "Norma Hernandez",
+        "office": "state-house",
+        "districtCode": "077",
+        "contactUrl": null,
+        "email": "district@repnormahernandez.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=103&MemberID=3224",
+        "social": {}
+      }
+    ],
+    "IL:state-house:037": [
+      {
+        "id": "ocd-person/075c5ab4-12bf-4573-8091-1539a081256e",
+        "name": "Patrick Sheehan",
+        "office": "state-house",
+        "districtCode": "037",
+        "contactUrl": null,
+        "email": "sheehan@ilhousegop.org",
+        "phone": null,
+        "address": null,
+        "website": "https://repsheehan.com/",
+        "social": {}
+      }
+    ],
+    "IL:state-house:117": [
+      {
+        "id": "ocd-person/6cb9bc2c-97b3-4dd1-b5ba-36a644360057",
+        "name": "Patrick Windhorst",
+        "office": "state-house",
+        "districtCode": "117",
+        "contactUrl": null,
+        "email": "windhorst@ilhousegop.org",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2760",
+        "social": {}
+      }
+    ],
+    "IL:state-house:088": [
+      {
+        "id": "ocd-person/8d81a4e9-f895-4a60-8064-2ddd2bd785c8",
+        "name": "Regan Deering",
+        "office": "state-house",
+        "districtCode": "088",
+        "contactUrl": null,
+        "email": "deering@ilhousegop.org",
+        "phone": null,
+        "address": null,
+        "website": "https://repdeering.com/",
+        "social": {}
+      }
+    ],
+    "IL:state-house:036": [
+      {
+        "id": "ocd-person/749cc87c-81a8-48ba-9cee-a6be77e1d333",
+        "name": "Rick Ryan",
+        "office": "state-house",
+        "districtCode": "036",
+        "contactUrl": null,
+        "email": "ryanrep36@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.ilga.gov/House/Members/Details/3457",
+        "social": {}
+      }
+    ],
+    "IL:state-house:060": [
+      {
+        "id": "ocd-person/cb9d1283-1029-46cf-8507-1e7ed6937606",
+        "name": "Rita Mayfield",
+        "office": "state-house",
+        "districtCode": "060",
+        "contactUrl": null,
+        "email": "60thdistrict@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2585",
+        "social": {}
+      }
+    ],
+    "IL:state-house:028": [
+      {
+        "id": "ocd-person/3ce631a4-7a4f-4905-a959-574f1f0d3d6d",
+        "name": "Bob Rita",
+        "office": "state-house",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "robertbobrita@aol.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2547",
+        "social": {}
+      }
+    ],
+    "IL:state-house:018": [
+      {
+        "id": "ocd-person/7d68f174-3504-4479-80c5-e3fbe69fd354",
+        "name": "Robyn Gabel",
+        "office": "state-house",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "contact@robyngabel.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2583",
+        "social": {}
+      }
+    ],
+    "IL:state-house:073": [
+      {
+        "id": "ocd-person/139cce29-08b9-4731-a7e9-bdeec8129eaa",
+        "name": "Ryan Spain",
+        "office": "state-house",
+        "districtCode": "073",
+        "contactUrl": null,
+        "email": "repryanspain@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2693",
+        "social": {}
+      }
+    ],
+    "IL:state-house:118": [
+      {
+        "id": "ocd-person/4f34a22a-48e9-4439-8cab-cf5360cd8433",
+        "name": "Scott Doody",
+        "office": "state-house",
+        "districtCode": "118",
+        "contactUrl": null,
+        "email": "doody@ilhousegop.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.ilga.gov/House/Members/Details/3464",
+        "social": {}
+      }
+    ],
+    "IL:state-house:091": [
+      {
+        "id": "ocd-person/95032a7e-18c4-40be-b89f-1f61b132533a",
+        "name": "Sharon Chung",
+        "office": "state-house",
+        "districtCode": "091",
+        "contactUrl": null,
+        "email": "info@repchung.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=103&MemberID=3240",
+        "social": {}
+      }
+    ],
+    "IL:state-house:006": [
+      {
+        "id": "ocd-person/8a39d16f-edbf-454b-8a77-33030fa9a8c2",
+        "name": "Sonya Harper",
+        "office": "state-house",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "repsonyaharper@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2670",
+        "social": {}
+      }
+    ],
+    "IL:state-house:084": [
+      {
+        "id": "ocd-person/0ecdbb3f-7593-4959-8b27-4a03a925d927",
+        "name": "Stephanie Kifowit",
+        "office": "state-house",
+        "districtCode": "084",
+        "contactUrl": null,
+        "email": "stephanie.kifowit@att.net",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2637",
+        "social": {}
+      }
+    ],
+    "IL:state-house:063": [
+      {
+        "id": "ocd-person/56914fff-eda2-403a-869a-895764908cd9",
+        "name": "Steve Reick",
+        "office": "state-house",
+        "districtCode": "063",
+        "contactUrl": null,
+        "email": "reick@ilhousegop.org",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2690",
+        "social": {}
+      }
+    ],
+    "IL:state-house:096": [
+      {
+        "id": "ocd-person/e9bf3918-daaa-4fa4-b58d-538c147335dd",
+        "name": "Sue Scherer",
+        "office": "state-house",
+        "districtCode": "096",
+        "contactUrl": null,
+        "email": "staterepsue@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2640",
+        "social": {}
+      }
+    ],
+    "IL:state-house:066": [
+      {
+        "id": "ocd-person/68505842-e93c-42ce-adc8-9354f4a0db7a",
+        "name": "Suzanne Ness",
+        "office": "state-house",
+        "districtCode": "066",
+        "contactUrl": null,
+        "email": "info@repsnessil66.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=102&MemberID=3005",
+        "social": {}
+      }
+    ],
+    "IL:state-house:029": [
+      {
+        "id": "ocd-person/a38c9ab5-48b6-417c-baf1-bae5e8f3b7c0",
+        "name": "Thaddeus Jones",
+        "office": "state-house",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "repjones.jones@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2591",
+        "social": {}
+      }
+    ],
+    "IL:state-house:024": [
+      {
+        "id": "ocd-person/c1ebba3c-4fc2-4b66-9ecc-e20aa4f793a9",
+        "name": "Theresa Mah",
+        "office": "state-house",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "office@reptheresamah.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2687",
+        "social": {}
+      }
+    ],
+    "IL:state-house:064": [
+      {
+        "id": "ocd-person/ba3dd226-a1c6-47af-917a-e12696d5aae5",
+        "name": "Tom Weber",
+        "office": "state-house",
+        "districtCode": "064",
+        "contactUrl": null,
+        "email": "weber@ilhousegop.org",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2755",
+        "social": {}
+      }
+    ],
+    "IL:state-house:089": [
+      {
+        "id": "ocd-person/d6d5becd-7733-4849-b2a2-b543bbfea1ec",
+        "name": "Tony McCombie",
+        "office": "state-house",
+        "districtCode": "089",
+        "contactUrl": null,
+        "email": "mccombie@ilhousegop.org",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2688",
+        "social": {}
+      }
+    ],
+    "IL:state-house:057": [
+      {
+        "id": "ocd-person/4b7dfbae-dc1a-4226-9b42-00c8bbc46b06",
+        "name": "Tracy Katz Muhl",
+        "office": "state-house",
+        "districtCode": "057",
+        "contactUrl": null,
+        "email": "info@staterepkatzmuhl.com",
+        "phone": null,
+        "address": null,
+        "website": "https://staterepkatzmuhl.com/",
+        "social": {}
+      }
+    ],
+    "IL:state-house:093": [
+      {
+        "id": "ocd-person/63883963-04b0-454c-8d18-81dcca230b55",
+        "name": "Travis Weaver",
+        "office": "state-house",
+        "districtCode": "093",
+        "contactUrl": null,
+        "email": "weaver@ilhousegop.org",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=103&MemberID=3244",
+        "social": {}
+      }
+    ],
+    "IL:state-house:108": [
+      {
+        "id": "ocd-person/5a23473f-1af0-4f7d-8b08-cb287d93db6f",
+        "name": "Wayne Rosenthal",
+        "office": "state-house",
+        "districtCode": "108",
+        "contactUrl": null,
+        "email": "rosenthal@ilhousegop.org",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=103&MemberID=3243",
+        "social": {}
+      }
+    ],
+    "IL:state-house:039": [
+      {
+        "id": "ocd-person/df11068d-eb77-4eb8-90c8-95056891e633",
+        "name": "Will Guzzardi",
+        "office": "state-house",
+        "districtCode": "039",
+        "contactUrl": null,
+        "email": "will@repguzzardi.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2662",
+        "social": {}
+      }
+    ],
+    "IL:state-house:030": [
+      {
+        "id": "ocd-person/fcc072f5-5cbc-4c8e-bc3d-e70b0e102878",
+        "name": "Will Davis",
+        "office": "state-house",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "williamd@ilga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2544",
+        "social": {}
+      }
+    ],
+    "IL:state-house:087": [
+      {
+        "id": "ocd-person/fb6cc95a-0c98-41e3-a481-8d5dc51d6c54",
+        "name": "Bill Hauter",
+        "office": "state-house",
+        "districtCode": "087",
+        "contactUrl": null,
+        "email": "hauter@ilhousegop.org",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=103&MemberID=3238",
+        "social": {}
+      }
+    ],
+    "IL:state-house:009": [
+      {
+        "id": "ocd-person/753dc145-9162-4e02-9b76-836be48498cb",
+        "name": "Yolonda Morris",
+        "office": "state-house",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "9thdistrictinfo@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=103&MemberID=3255",
+        "social": {}
+      }
+    ],
+    "IL:state-senate:030": [
+      {
+        "id": "ocd-person/e4e9607b-dd1b-4c3d-b3a3-f09927800864",
+        "name": "Adriane Johnson",
+        "office": "state-senate",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "info@senatoradrianejohnson.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/senate/Senator.asp?GA=102&MemberID=2980",
+        "social": {}
+      }
+    ],
+    "IL:state-senate:045": [
+      {
+        "id": "ocd-person/9def23d3-81e9-4baf-b0c8-eeb4e5587778",
+        "name": "Andrew Chesney",
+        "office": "state-senate",
+        "districtCode": "045",
+        "contactUrl": null,
+        "email": "chesney@ilsenategop.org",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=103&MemberID=3157",
+        "social": {}
+      }
+    ],
+    "IL:state-senate:012": [
+      {
+        "id": "ocd-person/013d012f-a50e-43c8-af40-f12aa852a0da",
+        "name": "Celina Villanueva",
+        "office": "state-senate",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "district@senatorvillanueva.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/senate/Senator.asp?GA=101&MemberID=2777",
+        "social": {}
+      }
+    ],
+    "IL:state-senate:051": [
+      {
+        "id": "ocd-person/b748f1e8-6cfd-47d6-9398-5817aa879f39",
+        "name": "Chapin Rose",
+        "office": "state-senate",
+        "districtCode": "051",
+        "contactUrl": null,
+        "email": "senatorchapinrose@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/senate/Senator.asp?GA=101&MemberID=2621",
+        "social": {}
+      }
+    ],
+    "IL:state-senate:053": [
+      {
+        "id": "ocd-person/fe9dc27f-4e47-4cb0-a008-df80642f6be0",
+        "name": "Chris Balkema",
+        "office": "state-senate",
+        "districtCode": "053",
+        "contactUrl": null,
+        "email": "balkema@ilsenategop.org",
+        "phone": null,
+        "address": null,
+        "website": "https://www.ilga.gov/Senate/Members/Details/3413",
+        "social": {}
+      }
+    ],
+    "IL:state-senate:057": [
+      {
+        "id": "ocd-person/ce79408a-9923-4ab4-9c3a-805a2b4162d5",
+        "name": "Christopher Belt",
+        "office": "state-senate",
+        "districtCode": "057",
+        "contactUrl": null,
+        "email": "christophbeltforilsenate@yahoo.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/senate/Senator.asp?GA=101&MemberID=2721",
+        "social": {}
+      }
+    ],
+    "IL:state-senate:032": [
+      {
+        "id": "ocd-person/07e2527a-ae7d-4c58-b20b-ea2266a03a9e",
+        "name": "Craig Wilcox",
+        "office": "state-senate",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "senatorwilcox@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/senate/Senator.asp?GA=101&MemberID=2711",
+        "social": {}
+      }
+    ],
+    "IL:state-senate:022": [
+      {
+        "id": "ocd-person/f5add4b7-0c7e-4909-8e31-3042698f5b49",
+        "name": "Cristina Castro",
+        "office": "state-senate",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "senatorcastro@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/senate/Senator.asp?GA=101&MemberID=2677",
+        "social": {}
+      }
+    ],
+    "IL:state-senate:026": [
+      {
+        "id": "ocd-person/3249a901-9d57-4623-a9a0-4cbb1240f2a1",
+        "name": "Darby Hills",
+        "office": "state-senate",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": null,
+        "phone": null,
+        "address": null,
+        "website": "https://www.ilga.gov/Senate/Members/Details/3460",
+        "social": {}
+      }
+    ],
+    "IL:state-senate:035": [
+      {
+        "id": "ocd-person/d02beb7e-1f30-48f2-8418-4c9287452562",
+        "name": "Dave Syverson",
+        "office": "state-senate",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "info@senatordavesyverson.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/senate/Senator.asp?GA=101&MemberID=2540",
+        "social": {}
+      }
+    ],
+    "IL:state-senate:046": [
+      {
+        "id": "ocd-person/997e8947-dadd-4c8d-9538-0b58c077a812",
+        "name": "Dave Koehler",
+        "office": "state-senate",
+        "districtCode": "046",
+        "contactUrl": null,
+        "email": "46illinois@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/senate/Senator.asp?GA=101&MemberID=2565",
+        "social": {}
+      }
+    ],
+    "IL:state-senate:039": [
+      {
+        "id": "ocd-person/15c56180-21e1-492d-874f-25d511f804ee",
+        "name": "Don Harmon",
+        "office": "state-senate",
+        "districtCode": "039",
+        "contactUrl": null,
+        "email": "dharmon@senatedem.ilga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/senate/Senator.asp?GA=101&MemberID=2551",
+        "social": {}
+      }
+    ],
+    "IL:state-senate:033": [
+      {
+        "id": "ocd-person/c4a1e37c-3c81-448c-9349-199a8fa5c2d3",
+        "name": "Don DeWitte",
+        "office": "state-senate",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "dewitte@ilsenategop.org",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/senate/Senator.asp?GA=101&MemberID=2709",
+        "social": {}
+      }
+    ],
+    "IL:state-senate:048": [
+      {
+        "id": "ocd-person/5db8d260-f850-406c-8e26-d618762c10cd",
+        "name": "Doris Turner",
+        "office": "state-senate",
+        "districtCode": "048",
+        "contactUrl": null,
+        "email": "senatorturnermac@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/senate/Senator.asp?GA=102&MemberID=3009",
+        "social": {}
+      }
+    ],
+    "IL:state-senate:017": [
+      {
+        "id": "ocd-person/50ad4838-140d-4cb7-80cb-46da37a8827f",
+        "name": "Elgie Sims",
+        "office": "state-senate",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "info@senatorelgiesims.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/senate/Senator.asp?GA=101&MemberID=2703",
+        "social": {}
+      }
+    ],
+    "IL:state-senate:014": [
+      {
+        "id": "ocd-person/05030c23-9600-4d1c-ab77-46c17aec2059",
+        "name": "Emil Jones",
+        "office": "state-senate",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "ejones3@senatedem.ilga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/senate/Senator.asp?GA=101&MemberID=2579",
+        "social": {}
+      }
+    ],
+    "IL:state-senate:056": [
+      {
+        "id": "ocd-person/4dadb374-d534-4ba0-8323-6e41a19933f5",
+        "name": "Erica Harriss",
+        "office": "state-senate",
+        "districtCode": "056",
+        "contactUrl": null,
+        "email": "harriss@ilsenategop.org",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/senate/Senator.asp?GA=103&MemberID=3216",
+        "social": {}
+      }
+    ],
+    "IL:state-senate:020": [
+      {
+        "id": "ocd-person/95d8f5ae-4cc9-483b-913f-ccd07aa73e13",
+        "name": "Graciela Guzmán",
+        "office": "state-senate",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "info@senatorguzman.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.ilga.gov/Senate/Members/Details/3442",
+        "social": {}
+      }
+    ],
+    "IL:state-senate:055": [
+      {
+        "id": "ocd-person/d868bc8f-f51c-4f5b-a9a3-3608b8b44b29",
+        "name": "Jason Plummer",
+        "office": "state-senate",
+        "districtCode": "055",
+        "contactUrl": null,
+        "email": "senator@senatorjasonplummer.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/senate/Senator.asp?GA=101&MemberID=2730",
+        "social": {}
+      }
+    ],
+    "IL:state-senate:001": [
+      {
+        "id": "ocd-person/caf27c44-2fec-4e26-a102-e6a30ca56be0",
+        "name": "Javier Cervantes",
+        "office": "state-senate",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "senator.jcervantes@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/senate/Senator.asp?GA=103&MemberID=3206",
+        "social": {}
+      }
+    ],
+    "IL:state-senate:050": [
+      {
+        "id": "ocd-person/be85f354-7f46-48aa-afc7-850502fda3cb",
+        "name": "Jil Tracy",
+        "office": "state-senate",
+        "districtCode": "050",
+        "contactUrl": null,
+        "email": "tracy@ilsenategop.org",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/senate/Senator.asp?GA=101&MemberID=2680",
+        "social": {}
+      }
+    ],
+    "IL:state-senate:041": [
+      {
+        "id": "ocd-person/cb63cb04-f84b-4fc9-91cf-05c4e1f93345",
+        "name": "John Curran",
+        "office": "state-senate",
+        "districtCode": "041",
+        "contactUrl": null,
+        "email": "senatorcurran@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/senate/Senator.asp?GA=101&MemberID=2699",
+        "social": {}
+      }
+    ],
+    "IL:state-senate:029": [
+      {
+        "id": "ocd-person/1e106d7c-5aba-40d1-932b-760b599c70ae",
+        "name": "Julie Morrison",
+        "office": "state-senate",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "morrison@senatedem.illinois.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/senate/Senator.asp?GA=101&MemberID=2619",
+        "social": {}
+      }
+    ],
+    "IL:state-senate:025": [
+      {
+        "id": "ocd-person/ca80672a-9d02-4287-9cd2-d2a7d08f604a",
+        "name": "Karina Villa",
+        "office": "state-senate",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "info@senatorvilla.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2742",
+        "social": {}
+      }
+    ],
+    "IL:state-senate:004": [
+      {
+        "id": "ocd-person/595f7bf4-5bd7-4238-94a3-e14d8b6d4545",
+        "name": "Kimberly Lightford",
+        "office": "state-senate",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "majorityleader@senatorlightford.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/senate/Senator.asp?GA=101&MemberID=2535",
+        "social": {}
+      }
+    ],
+    "IL:state-senate:005": [
+      {
+        "id": "ocd-person/37f0e4e6-fd0c-4bae-8def-f0ab80f722ff",
+        "name": "Lakesia Collins",
+        "office": "state-senate",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "office@lakesiacollins.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=102&MemberID=2979",
+        "social": {}
+      }
+    ],
+    "IL:state-senate:021": [
+      {
+        "id": "ocd-person/9bc8c9e8-ed36-42a1-ae80-4b2dfe591839",
+        "name": "Laura Ellman",
+        "office": "state-senate",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "info@senatorlauraellman.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/senate/Senator.asp?GA=101&MemberID=2725",
+        "social": {}
+      }
+    ],
+    "IL:state-senate:009": [
+      {
+        "id": "ocd-person/0ce44c13-37aa-4560-8489-67c309da913a",
+        "name": "Laura Fine",
+        "office": "state-senate",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "info@senatorfine.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/senate/Senator.asp?GA=101&MemberID=2724",
+        "social": {}
+      }
+    ],
+    "IL:state-senate:028": [
+      {
+        "id": "ocd-person/55be467f-1dd9-4cb7-96b8-050c113f5975",
+        "name": "Laura Murphy",
+        "office": "state-senate",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "lmurphy@senatedem.ilga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/senate/Senator.asp?GA=101&MemberID=2668",
+        "social": {}
+      }
+    ],
+    "IL:state-senate:037": [
+      {
+        "id": "ocd-person/8f61ddbc-3976-49b0-8c80-1d24cca80dc0",
+        "name": "Li Arellano",
+        "office": "state-senate",
+        "districtCode": "037",
+        "contactUrl": null,
+        "email": "liandroarellano@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://www.ilga.gov/Senate/Members/Details/3383",
+        "social": {}
+      }
+    ],
+    "IL:state-senate:042": [
+      {
+        "id": "ocd-person/8d0beff8-000c-470a-a6c8-a05e1b6816cb",
+        "name": "Linda Holmes",
+        "office": "state-senate",
+        "districtCode": "042",
+        "contactUrl": null,
+        "email": "holmes42@senatedem.illinois.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/senate/Senator.asp?GA=101&MemberID=2564",
+        "social": {}
+      }
+    ],
+    "IL:state-senate:027": [
+      {
+        "id": "ocd-person/d1c2870a-8fee-47bf-a48e-4320311f06fd",
+        "name": "Mark Walker",
+        "office": "state-senate",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "contact@staterepwalker53.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2743",
+        "social": {}
+      }
+    ],
+    "IL:state-senate:031": [
+      {
+        "id": "ocd-person/1a1cd310-b42c-4da3-b9ac-6278b1e95a02",
+        "name": "Mary Edly-Allen",
+        "office": "state-senate",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "info@senatoredlyallen.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/senate/Senator.asp?GA=103&MemberID=3212",
+        "social": {}
+      }
+    ],
+    "IL:state-senate:003": [
+      {
+        "id": "ocd-person/879afbe3-9394-4a84-b57f-af36ca92cb14",
+        "name": "Mattie Hunter",
+        "office": "state-senate",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "senator03district@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/senate/Senator.asp?GA=101&MemberID=2554",
+        "social": {}
+      }
+    ],
+    "IL:state-senate:049": [
+      {
+        "id": "ocd-person/d218f82f-ce03-4277-9408-119857d1e61f",
+        "name": "Meg Loughran Cappel",
+        "office": "state-senate",
+        "districtCode": "049",
+        "contactUrl": null,
+        "email": "info@senatorloughrancappel.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/senate/Senator.asp?GA=102&MemberID=2982",
+        "social": {}
+      }
+    ],
+    "IL:state-senate:019": [
+      {
+        "id": "ocd-person/fb433923-65ca-475a-b106-7293c3483c57",
+        "name": "Mike Hastings",
+        "office": "state-senate",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "mhastings@senatedem.ilga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/senate/Senator.asp?GA=101&MemberID=2616",
+        "social": {}
+      }
+    ],
+    "IL:state-senate:036": [
+      {
+        "id": "ocd-person/8021b51f-4acc-459e-a038-786ebaca8666",
+        "name": "Mike Halpin",
+        "office": "state-senate",
+        "districtCode": "036",
+        "contactUrl": null,
+        "email": "senatormikehalpin@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2685",
+        "social": {}
+      }
+    ],
+    "IL:state-senate:011": [
+      {
+        "id": "ocd-person/4666ba31-e78b-48f5-9d88-f4823527df6b",
+        "name": "Mike Porfirio",
+        "office": "state-senate",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "info@senatorporfirio.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/senate/Senator.asp?GA=103&MemberID=3208",
+        "social": {}
+      }
+    ],
+    "IL:state-senate:007": [
+      {
+        "id": "ocd-person/0125b0ac-65ba-443e-b418-53cdf42b9f85",
+        "name": "Mike Simmons-Gessesse",
+        "office": "state-senate",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "senatormikesimmons@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/senate/Senator.asp?GA=102&MemberID=3008",
+        "social": {}
+      }
+    ],
+    "IL:state-senate:015": [
+      {
+        "id": "ocd-person/f8e78760-4ec7-44f4-a00f-54f42fb834d5",
+        "name": "Napoleon Harris",
+        "office": "state-senate",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "nharris@senatedem.ilga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/senate/Senator.asp?GA=101&MemberID=2615",
+        "social": {}
+      }
+    ],
+    "IL:state-senate:047": [
+      {
+        "id": "ocd-person/b676c70e-0bc2-45d2-bd4c-9f3fa70bf60e",
+        "name": "Neil Anderson",
+        "office": "state-senate",
+        "districtCode": "047",
+        "contactUrl": null,
+        "email": "senatorneilanderson@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/senate/Senator.asp?GA=101&MemberID=2664",
+        "social": {}
+      }
+    ],
+    "IL:state-senate:002": [
+      {
+        "id": "ocd-person/436c1e53-1203-4ce3-9931-d22f9e3c406a",
+        "name": "Omar Aquino",
+        "office": "state-senate",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "aquino.senate2il@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/senate/Senator.asp?GA=101&MemberID=2673",
+        "social": {}
+      }
+    ],
+    "IL:state-senate:040": [
+      {
+        "id": "ocd-person/1ae7c123-b1a4-4c6e-b4d3-dc22db461e44",
+        "name": "Patrick Joyce",
+        "office": "state-senate",
+        "districtCode": "040",
+        "contactUrl": null,
+        "email": "pjoyce2133@yahoo.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/senate/Senator.asp?GA=101&MemberID=2774",
+        "social": {}
+      }
+    ],
+    "IL:state-senate:052": [
+      {
+        "id": "ocd-person/8392abef-edd4-4e47-b649-ce4ac82ebb21",
+        "name": "Paul Faraci",
+        "office": "state-senate",
+        "districtCode": "052",
+        "contactUrl": null,
+        "email": null,
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/senate/Senator.asp?GA=103&MemberID=3221",
+        "social": {}
+      }
+    ],
+    "IL:state-senate:059": [
+      {
+        "id": "ocd-person/2febe0de-8b57-43c9-b8cd-a5363af4eae3",
+        "name": "Paul Jacobs",
+        "office": "state-senate",
+        "districtCode": "059",
+        "contactUrl": null,
+        "email": "jacobs@ilsenategop.org",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=102&MemberID=3003",
+        "social": {}
+      }
+    ],
+    "IL:state-senate:043": [
+      {
+        "id": "ocd-person/ed666567-961a-43f1-8ca3-ddd29e07f8af",
+        "name": "Rachel Ventura",
+        "office": "state-senate",
+        "districtCode": "043",
+        "contactUrl": null,
+        "email": "info@senatorventura.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/senate/Senator.asp?GA=103&MemberID=3214",
+        "social": {}
+      }
+    ],
+    "IL:state-senate:008": [
+      {
+        "id": "ocd-person/d01a10b0-e391-4c65-ba1f-304ee6130f5c",
+        "name": "Ram Villivalam",
+        "office": "state-senate",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "info@senatorram.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/senate/Senator.asp?GA=101&MemberID=2731",
+        "social": {}
+      }
+    ],
+    "IL:state-senate:010": [
+      {
+        "id": "ocd-person/4a3645fe-2a56-400f-ae2a-18e50f2b0bea",
+        "name": "Rob Martwick",
+        "office": "state-senate",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "info@senatormartwick.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/senate/Senator.asp?GA=101&MemberID=2769",
+        "social": {}
+      }
+    ],
+    "IL:state-senate:013": [
+      {
+        "id": "ocd-person/86ee52dd-dc32-4895-bf16-746eb76df012",
+        "name": "Robert Peters",
+        "office": "state-senate",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "info@senatorrobertpeters.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/senate/Senator.asp?GA=101&MemberID=2729",
+        "social": {}
+      }
+    ],
+    "IL:state-senate:044": [
+      {
+        "id": "ocd-person/cb406eb3-673a-4715-8d87-d5963220ad6b",
+        "name": "Sally Turner",
+        "office": "state-senate",
+        "districtCode": "044",
+        "contactUrl": null,
+        "email": "turner@ilsenategop.org",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/senate/Senator.asp?GA=102&MemberID=3007",
+        "social": {}
+      }
+    ],
+    "IL:state-senate:006": [
+      {
+        "id": "ocd-person/6c0069de-c064-412e-ae45-9e87d6ee3dae",
+        "name": "Sara Feigenholtz",
+        "office": "state-senate",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "sara@senatorsara.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/senate/Senator.asp?GA=101&MemberID=2778",
+        "social": {}
+      }
+    ],
+    "IL:state-senate:024": [
+      {
+        "id": "ocd-person/0b9e2838-eeb0-4d10-8292-64a9e9f54dc1",
+        "name": "Seth Lewis",
+        "office": "state-senate",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "lewis@ilsenategop.org",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=102&MemberID=2994",
+        "social": {}
+      }
+    ],
+    "IL:state-senate:054": [
+      {
+        "id": "ocd-person/d3450848-4552-4b8f-97dc-fb3c26c2566c",
+        "name": "Steve McClure",
+        "office": "state-senate",
+        "districtCode": "054",
+        "contactUrl": null,
+        "email": "senatormcclure@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/senate/Senator.asp?GA=101&MemberID=2728",
+        "social": {}
+      }
+    ],
+    "IL:state-senate:034": [
+      {
+        "id": "ocd-person/ba9c4927-bf9b-4bd5-879f-c515a12a046c",
+        "name": "Steve Stadelman",
+        "office": "state-senate",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "stadelman@senatedem.ilga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/senate/Senator.asp?GA=101&MemberID=2622",
+        "social": {}
+      }
+    ],
+    "IL:state-senate:038": [
+      {
+        "id": "ocd-person/a1ac69ba-49db-4529-926f-999e73ef9654",
+        "name": "Sue Rezin",
+        "office": "state-senate",
+        "districtCode": "038",
+        "contactUrl": null,
+        "email": "senatorrezin@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/senate/Senator.asp?GA=101&MemberID=2588",
+        "social": {}
+      }
+    ],
+    "IL:state-senate:023": [
+      {
+        "id": "ocd-person/16483678-e06e-4551-8cec-266335b56fff",
+        "name": "Suzy Glowiak Hilton",
+        "office": "state-senate",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "suzy@suzyforsenate.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/senate/Senator.asp?GA=101&MemberID=2727",
+        "social": {}
+      }
+    ],
+    "IL:state-senate:058": [
+      {
+        "id": "ocd-person/372be8dc-8177-47e7-b128-1e6a81621f3a",
+        "name": "Terri Bryant",
+        "office": "state-senate",
+        "districtCode": "058",
+        "contactUrl": null,
+        "email": "senterribryant58@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/house/Rep.asp?GA=101&MemberID=2656",
+        "social": {}
+      }
+    ],
+    "IL:state-senate:018": [
+      {
+        "id": "ocd-person/5fe6a4a5-da36-4fa0-8c36-739648b9ce0c",
+        "name": "Bill Cunningham",
+        "office": "state-senate",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "cunningham@senatedem.illinois.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/senate/Senator.asp?GA=101&MemberID=2614",
+        "social": {}
+      }
+    ],
+    "IL:state-senate:016": [
+      {
+        "id": "ocd-person/34274113-7ea1-4e6e-aa7a-da2c9d1037b4",
+        "name": "Willie Preston",
+        "office": "state-senate",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": null,
+        "phone": null,
+        "address": null,
+        "website": "https://ilga.gov/senate/Senator.asp?GA=103&MemberID=3209",
+        "social": {}
+      }
+    ]
+  }
+}

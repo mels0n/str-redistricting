@@ -231,7 +231,7 @@ export function breadcrumbNode(id: string, items: readonly { name: string; url: 
 const graph = (nodes: Node[]): Graph => ({ '@context': 'https://schema.org', '@graph': nodes });
 
 const HOME_URL = `${SITE}/`;
-const PAGE_NAMES: Record<PageKey, string> = { home: 'Fair Maps', how: 'How it works', faq: 'FAQ', changelog: 'Changelog', privacy: 'Privacy' };
+const PAGE_NAMES: Record<PageKey, string> = { home: 'Fair Maps', act: 'Take action', how: 'How it works', faq: 'FAQ', changelog: 'Changelog', pledges: 'Who supports the rule', privacy: 'Privacy', remove: 'Remove your signature', confirm: 'Confirm your signature' };
 const pageUrl = (key: PageKey): string => (key === 'home' ? HOME_URL : `${SITE}${PAGE_META[key].path}`);
 
 /** The crumbs of a page below Home. The home page has none: a trail of one item is not worth marking up. */
@@ -355,9 +355,29 @@ function changelogNodes(): Node[] {
   ];
 }
 
+function pledgesNodes(): Node[] {
+  const url = pageUrl('pledges');
+  return [...siteNodes(), webPage('pledges', 'WebPage', {}), breadcrumbNode(`${url}#breadcrumb`, pageCrumbs('pledges'))];
+}
+
+function actNodes(): Node[] {
+  const url = pageUrl('act');
+  return [...siteNodes(), webPage('act', 'WebPage', {}), breadcrumbNode(`${url}#breadcrumb`, pageCrumbs('act'))];
+}
+
 function privacyNodes(): Node[] {
   const url = pageUrl('privacy');
   return [...siteNodes(), webPage('privacy', 'WebPage', {}), breadcrumbNode(`${url}#breadcrumb`, pageCrumbs('privacy'))];
+}
+
+function removeNodes(): Node[] {
+  const url = pageUrl('remove');
+  return [...siteNodes(), webPage('remove', 'WebPage', {}), breadcrumbNode(`${url}#breadcrumb`, pageCrumbs('remove'))];
+}
+
+function confirmNodes(): Node[] {
+  const url = pageUrl('confirm');
+  return [...siteNodes(), webPage('confirm', 'WebPage', {}), breadcrumbNode(`${url}#breadcrumb`, pageCrumbs('confirm'))];
 }
 
 /** The structured data each prerendered page carries, as one `@graph`; the FAQ entries feed the FAQ page's `FAQPage`. */
@@ -371,8 +391,16 @@ export function jsonLd(key: PageKey, faq: readonly FaqEntry[]): Graph[] {
       return [graph(faqNodes(faq))];
     case 'changelog':
       return [graph(changelogNodes())];
+    case 'pledges':
+      return [graph(pledgesNodes())];
+    case 'act':
+      return [graph(actNodes())];
     case 'privacy':
       return [graph(privacyNodes())];
+    case 'remove':
+      return [graph(removeNodes())];
+    case 'confirm':
+      return [graph(confirmNodes())];
   }
 }
 

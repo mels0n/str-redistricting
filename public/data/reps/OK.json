@@ -1,0 +1,2172 @@
+{
+  "state": "OK",
+  "generatedFrom": {
+    "legislators-current.json": "ae8cb9477c48715df71a7d860854229d799dc90a254d61badc1efb770f892b2c",
+    "legislators-social-media.json": "c6eca1fcdb3a89901335eed51ca061daa4b60ad3243969a127e913bb9657fbc5",
+    "ok.csv": "0bc86b912f7a9be279c02fcf03690adc61085af78fb60e419d073ceee2a5a3f4"
+  },
+  "byKey": {
+    "OK:us-house:04": [
+      {
+        "id": "C001053",
+        "name": "Tom Cole",
+        "office": "us-house",
+        "districtCode": "04",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-6165",
+        "address": "2207 Rayburn House Office Building Washington DC 20515-3604",
+        "website": "https://cole.house.gov",
+        "social": {
+          "x": "TomColeOK04",
+          "facebook": "TomColeOK04",
+          "instagram": "TomColeOK04"
+        }
+      }
+    ],
+    "OK:us-senate:state": [
+      {
+        "id": "L000575",
+        "name": "James Lankford",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.lankford.senate.gov/contact/email",
+        "email": null,
+        "phone": "202-224-5754",
+        "address": "731 Hart Senate Office Building Washington DC 20510",
+        "website": "https://www.lankford.senate.gov",
+        "social": {
+          "x": "SenatorLankford",
+          "facebook": "SenatorLankford",
+          "instagram": "senatorlankford"
+        }
+      },
+      {
+        "id": "A000383",
+        "name": "Alan Armstrong",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-224-4721",
+        "address": "330 Hart Senate Office Building Washington DC 20510",
+        "website": "https://www.armstrong.senate.gov",
+        "social": {}
+      }
+    ],
+    "OK:us-house:03": [
+      {
+        "id": "L000491",
+        "name": "Frank D. Lucas",
+        "office": "us-house",
+        "districtCode": "03",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5565",
+        "address": "2405 Rayburn House Office Building Washington DC 20515-3603",
+        "website": "https://lucas.house.gov",
+        "social": {
+          "x": "RepFrankLucas",
+          "facebook": "RepFrankLucas",
+          "instagram": "repfranklucas"
+        }
+      }
+    ],
+    "OK:us-house:01": [
+      {
+        "id": "H001082",
+        "name": "Kevin Hern",
+        "office": "us-house",
+        "districtCode": "01",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2211",
+        "address": "171 Cannon House Office Building Washington DC 20515-3601",
+        "website": "https://hern.house.gov",
+        "social": {
+          "x": "repkevinhern",
+          "facebook": "repkevinhern"
+        }
+      }
+    ],
+    "OK:us-house:05": [
+      {
+        "id": "B000740",
+        "name": "Stephanie I. Bice",
+        "office": "us-house",
+        "districtCode": "05",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2132",
+        "address": "2402 Rayburn House Office Building Washington DC 20515-3605",
+        "website": "https://bice.house.gov",
+        "social": {
+          "x": "RepBice",
+          "facebook": "RepStephanieBice"
+        }
+      }
+    ],
+    "OK:us-house:02": [
+      {
+        "id": "B001317",
+        "name": "Josh Brecheen",
+        "office": "us-house",
+        "districtCode": "02",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2701",
+        "address": "351 Cannon House Office Building Washington DC 20515-3602",
+        "website": "https://brecheen.house.gov",
+        "social": {
+          "x": "repbrecheen",
+          "facebook": "100089040632497",
+          "instagram": "repbrecheen"
+        }
+      }
+    ],
+    "OK:state-house:097": [
+      {
+        "id": "ocd-person/a91af3e5-8f27-4aa3-9c5d-6166eeb7ec8a",
+        "name": "Aletia Timmons",
+        "office": "state-house",
+        "districtCode": "097",
+        "contactUrl": null,
+        "email": "aletia.timmons@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/aletia-timmons",
+        "social": {}
+      }
+    ],
+    "OK:state-house:071": [
+      {
+        "id": "ocd-person/8dac97e3-d74f-4f58-bb7d-83412600975f",
+        "name": "Amanda Clinton",
+        "office": "state-house",
+        "districtCode": "071",
+        "contactUrl": null,
+        "email": "amanda.clinton@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/amanda-clinton",
+        "social": {}
+      }
+    ],
+    "OK:state-house:094": [
+      {
+        "id": "ocd-person/987fd457-5b14-4300-95f1-e92f7cd5f748",
+        "name": "Andy Fugate",
+        "office": "state-house",
+        "districtCode": "094",
+        "contactUrl": null,
+        "email": "andy.fugate@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/andy-fugate",
+        "social": {}
+      }
+    ],
+    "OK:state-house:045": [
+      {
+        "id": "ocd-person/3a5828d9-b8bf-491c-adfe-19f5331d1e20",
+        "name": "Annie Menz",
+        "office": "state-house",
+        "districtCode": "045",
+        "contactUrl": null,
+        "email": "annie.menz@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/annie-menz",
+        "social": {}
+      }
+    ],
+    "OK:state-house:057": [
+      {
+        "id": "ocd-person/c1f71291-89c1-4109-a15c-2483743d333a",
+        "name": "Anthony Moore",
+        "office": "state-house",
+        "districtCode": "057",
+        "contactUrl": null,
+        "email": "anthony.moore@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/anthony-moore",
+        "social": {}
+      }
+    ],
+    "OK:state-house:089": [
+      {
+        "id": "ocd-person/4d0b52d3-ad1f-45c9-b46e-3676194ef82c",
+        "name": "Arturo Alonso",
+        "office": "state-house",
+        "districtCode": "089",
+        "contactUrl": null,
+        "email": "arturo.alonso@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/arturo-alonsosandoval",
+        "social": {}
+      }
+    ],
+    "OK:state-house:004": [
+      {
+        "id": "ocd-person/246cfe54-edbd-4844-9bdc-0213c4b501e9",
+        "name": "Bob Culver",
+        "office": "state-house",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "bob.culver@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/bob-culver",
+        "social": {}
+      }
+    ],
+    "OK:state-house:051": [
+      {
+        "id": "ocd-person/be4edaae-b522-4ce0-bc1d-98b813424f57",
+        "name": "Brad Boles",
+        "office": "state-house",
+        "districtCode": "051",
+        "contactUrl": null,
+        "email": "brad.boles@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/brad-boles",
+        "social": {}
+      }
+    ],
+    "OK:state-house:047": [
+      {
+        "id": "ocd-person/03af3716-0ac4-49f5-b25a-ff757420d87d",
+        "name": "Brian Hill",
+        "office": "state-house",
+        "districtCode": "047",
+        "contactUrl": null,
+        "email": "brian.hill@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/brian-hill",
+        "social": {}
+      }
+    ],
+    "OK:state-house:058": [
+      {
+        "id": "ocd-person/6cfaac2f-52af-4aad-8ec4-6373bb45bf24",
+        "name": "Carl Newton",
+        "office": "state-house",
+        "districtCode": "058",
+        "contactUrl": null,
+        "email": "carl.newton@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/carl-newton",
+        "social": {}
+      }
+    ],
+    "OK:state-house:040": [
+      {
+        "id": "ocd-person/c5909558-d02d-438e-9c0c-50eb8c88f862",
+        "name": "Chad Caldwell",
+        "office": "state-house",
+        "districtCode": "040",
+        "contactUrl": null,
+        "email": "chad.caldwell@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/chad-caldwell",
+        "social": {}
+      }
+    ],
+    "OK:state-house:024": [
+      {
+        "id": "ocd-person/442374ea-1ad4-4793-bdbc-a5db81a1d219",
+        "name": "Chris Banning",
+        "office": "state-house",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "chris.banning@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/59th-chris-banning",
+        "social": {}
+      }
+    ],
+    "OK:state-house:091": [
+      {
+        "id": "ocd-person/5b2d71b9-21c7-4291-ac09-e2840fee2919",
+        "name": "Chris Kannady",
+        "office": "state-house",
+        "districtCode": "091",
+        "contactUrl": null,
+        "email": "chris.kannady@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/chris-kannady",
+        "social": {}
+      }
+    ],
+    "OK:state-house:014": [
+      {
+        "id": "ocd-person/f4d5b128-a016-4eda-b6c6-e298fe29bc29",
+        "name": "Chris Sneed",
+        "office": "state-house",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "chris.sneed@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/chris-sneed",
+        "social": {}
+      }
+    ],
+    "OK:state-house:066": [
+      {
+        "id": "ocd-person/82e04ad9-64c8-4439-9853-cbc3e273d637",
+        "name": "Clay Staires",
+        "office": "state-house",
+        "districtCode": "066",
+        "contactUrl": null,
+        "email": "clay.staires@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/clay-staires",
+        "social": {}
+      }
+    ],
+    "OK:state-house:021": [
+      {
+        "id": "ocd-person/17d5c3a4-a468-4aca-b58c-314605214857",
+        "name": "Cody Maynard",
+        "office": "state-house",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "cody.maynard@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/cody-maynard",
+        "social": {}
+      }
+    ],
+    "OK:state-house:031": [
+      {
+        "id": "ocd-person/0cffa048-1b45-4609-a1b6-9e741ca1948c",
+        "name": "Collin Duel",
+        "office": "state-house",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "collin.duel@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/collin-duel",
+        "social": {}
+      }
+    ],
+    "OK:state-house:085": [
+      {
+        "id": "ocd-person/f9153735-938a-418b-ac4f-6881904861ac",
+        "name": "Cyndi Munson",
+        "office": "state-house",
+        "districtCode": "085",
+        "contactUrl": null,
+        "email": "cyndi.munson@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/cyndi-munson",
+        "social": {}
+      }
+    ],
+    "OK:state-house:042": [
+      {
+        "id": "ocd-person/382dfd67-bd2a-4271-bb79-62fe045102ea",
+        "name": "Cindy Roe",
+        "office": "state-house",
+        "districtCode": "042",
+        "contactUrl": null,
+        "email": "cynthia.roe@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/cynthia-roe",
+        "social": {}
+      }
+    ],
+    "OK:state-house:062": [
+      {
+        "id": "ocd-person/62d0d568-33cf-4ec6-b90e-5c2b45be82ba",
+        "name": "Daniel Pae",
+        "office": "state-house",
+        "districtCode": "062",
+        "contactUrl": null,
+        "email": "daniel.pae@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/daniel-pae",
+        "social": {}
+      }
+    ],
+    "OK:state-house:027": [
+      {
+        "id": "ocd-person/61966500-f9d7-4f45-ad6b-761d6d839036",
+        "name": "Danny Sterling",
+        "office": "state-house",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "danny.sterling@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/danny-sterling",
+        "social": {}
+      }
+    ],
+    "OK:state-house:028": [
+      {
+        "id": "ocd-person/db2c481d-6dc5-455e-905c-2daac4bbc631",
+        "name": "Danny Williams",
+        "office": "state-house",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "danny.williams@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/danny-williams",
+        "social": {}
+      }
+    ],
+    "OK:state-house:086": [
+      {
+        "id": "ocd-person/b2857b06-9290-4141-9bc4-2a105bc51ce8",
+        "name": "David Hardin",
+        "office": "state-house",
+        "districtCode": "086",
+        "contactUrl": null,
+        "email": "david.hardin@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/david-hardin",
+        "social": {}
+      }
+    ],
+    "OK:state-house:018": [
+      {
+        "id": "ocd-person/84087e63-a192-4be6-9367-64b2c93a2dcc",
+        "name": "David Smith",
+        "office": "state-house",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "david.smith@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/david-smith",
+        "social": {}
+      }
+    ],
+    "OK:state-house:026": [
+      {
+        "id": "ocd-person/4d473c48-88f9-495a-a8da-b8e2d0310280",
+        "name": "Dell Kerbs",
+        "office": "state-house",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "dell.kerbs@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/dell-kerbs",
+        "social": {}
+      }
+    ],
+    "OK:state-house:041": [
+      {
+        "id": "ocd-person/e825fe1a-a46d-4a07-b9e4-c9e82e357c90",
+        "name": "Denise Crosswhite Hader",
+        "office": "state-house",
+        "districtCode": "041",
+        "contactUrl": null,
+        "email": "denise.crosswhitehader@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/denise-crosswhitehader",
+        "social": {}
+      }
+    ],
+    "OK:state-house:023": [
+      {
+        "id": "ocd-person/a7eb5f03-0a2a-4235-b2f8-b4983e1a8cf2",
+        "name": "Derrick Hildebrant",
+        "office": "state-house",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "derrick.hildebrant@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/derrick.hildebrant",
+        "social": {}
+      }
+    ],
+    "OK:state-house:056": [
+      {
+        "id": "ocd-person/dc094bcd-66c1-47f4-b9b0-94272636a7fe",
+        "name": "Dick Lowe",
+        "office": "state-house",
+        "districtCode": "056",
+        "contactUrl": null,
+        "email": "dick.lowe@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/dick-lowe",
+        "social": {}
+      }
+    ],
+    "OK:state-house:035": [
+      {
+        "id": "ocd-person/14d6a46d-124c-4274-ae72-bfe5541a4a0a",
+        "name": "Dillon Travis",
+        "office": "state-house",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "dillon.travis@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/dillon-travis",
+        "social": {}
+      }
+    ],
+    "OK:state-house:001": [
+      {
+        "id": "ocd-person/d93c695c-f9d6-4f97-b92e-73249f89545a",
+        "name": "Eddy Dempsey",
+        "office": "state-house",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "eddy.dempsey@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/eddy-dempsey",
+        "social": {}
+      }
+    ],
+    "OK:state-house:088": [
+      {
+        "id": "ocd-person/c63ddc9a-5f9d-4cb5-b152-4828f4870682",
+        "name": "Ellen Pogemiller",
+        "office": "state-house",
+        "districtCode": "088",
+        "contactUrl": null,
+        "email": "ellen.pogemiller@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/ellen-pogemiller",
+        "social": {}
+      }
+    ],
+    "OK:state-house:087": [
+      {
+        "id": "ocd-person/c9e547ff-6762-49f8-807c-32c78ce569cf",
+        "name": "Ellyn Hefner",
+        "office": "state-house",
+        "districtCode": "087",
+        "contactUrl": null,
+        "email": "ellyn.hefner@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/ellyn-hefner",
+        "social": {}
+      }
+    ],
+    "OK:state-house:090": [
+      {
+        "id": "ocd-person/09b3acaf-ac32-4f74-9bfe-37d84beb09c8",
+        "name": "Emily Gise",
+        "office": "state-house",
+        "districtCode": "090",
+        "contactUrl": null,
+        "email": "emily.gise@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/emily-gise",
+        "social": {}
+      }
+    ],
+    "OK:state-house:083": [
+      {
+        "id": "ocd-person/752b02fd-2ce1-46d3-88a3-337d64df6b1a",
+        "name": "Eric Roberts",
+        "office": "state-house",
+        "districtCode": "083",
+        "contactUrl": null,
+        "email": "eric.roberts@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/eric-roberts",
+        "social": {}
+      }
+    ],
+    "OK:state-house:039": [
+      {
+        "id": "ocd-person/57fd0b98-5608-470a-a70b-971165572afb",
+        "name": "Erick Harris",
+        "office": "state-house",
+        "districtCode": "039",
+        "contactUrl": null,
+        "email": "erick.harris@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/erick-harris",
+        "social": {}
+      }
+    ],
+    "OK:state-house:098": [
+      {
+        "id": "ocd-person/b0168a8a-bf16-4ddb-85ef-a7503cdb4d66",
+        "name": "Gabe Woolley",
+        "office": "state-house",
+        "districtCode": "098",
+        "contactUrl": null,
+        "email": "gabe.woolley@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/gabe-woolley",
+        "social": {}
+      }
+    ],
+    "OK:state-house:052": [
+      {
+        "id": "ocd-person/1120aff3-9773-4cc8-9c47-18026559363a",
+        "name": "Gerrid Kendrix",
+        "office": "state-house",
+        "districtCode": "052",
+        "contactUrl": null,
+        "email": "gerrid.kendrix@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/gerrid-kendrix",
+        "social": {}
+      }
+    ],
+    "OK:state-house:046": [
+      {
+        "id": "ocd-person/df4d2b89-39a6-4157-90ea-fd229c84f98b",
+        "name": "Jacob Rosecrants",
+        "office": "state-house",
+        "districtCode": "046",
+        "contactUrl": null,
+        "email": "jacob.rosecrants@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/jacob-rosecrants",
+        "social": {}
+      }
+    ],
+    "OK:state-house:044": [
+      {
+        "id": "ocd-person/a4127dd3-e7f6-4bab-9910-8372e141f160",
+        "name": "Jared Deck",
+        "office": "state-house",
+        "districtCode": "044",
+        "contactUrl": null,
+        "email": "jared.deck@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/jared-deck",
+        "social": {}
+      }
+    ],
+    "OK:state-house:053": [
+      {
+        "id": "ocd-person/a791f43c-0ca9-42aa-b90a-98968718a7e1",
+        "name": "Jason Blair",
+        "office": "state-house",
+        "districtCode": "053",
+        "contactUrl": null,
+        "email": "jason.blair@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/jason-blair",
+        "social": {}
+      }
+    ],
+    "OK:state-house:043": [
+      {
+        "id": "ocd-person/0389a5f1-0777-4a48-8faf-98779dc16849",
+        "name": "Jay Steagall",
+        "office": "state-house",
+        "districtCode": "043",
+        "contactUrl": null,
+        "email": "jay.steagall@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/jay-steagall",
+        "social": {}
+      }
+    ],
+    "OK:state-house:017": [
+      {
+        "id": "ocd-person/612db560-defe-471a-a45f-cf259a4ffeaa",
+        "name": "Jim Grego",
+        "office": "state-house",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "jim.grego@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/jim-grego",
+        "social": {}
+      }
+    ],
+    "OK:state-house:002": [
+      {
+        "id": "ocd-person/f7a4c019-6e5c-40d8-8faf-9f7d44b83062",
+        "name": "Jim Olsen",
+        "office": "state-house",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "jim.olsen@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/jim-olsen",
+        "social": {}
+      }
+    ],
+    "OK:state-house:032": [
+      {
+        "id": "ocd-person/df9c291c-e14f-487a-8ff6-9182734ababf",
+        "name": "Jim Shaw",
+        "office": "state-house",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "jim.shaw@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/jim-shaw",
+        "social": {}
+      }
+    ],
+    "OK:state-house:036": [
+      {
+        "id": "ocd-person/3af08d09-7d36-4f0b-b257-a0206a8c2778",
+        "name": "John George",
+        "office": "state-house",
+        "districtCode": "036",
+        "contactUrl": null,
+        "email": "john.george@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/john-george",
+        "social": {}
+      }
+    ],
+    "OK:state-house:011": [
+      {
+        "id": "ocd-person/f7ab3ee8-1ec5-4218-ac6b-dba652f2a6d6",
+        "name": "John Kane",
+        "office": "state-house",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "john.kane@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/john-kane",
+        "social": {}
+      }
+    ],
+    "OK:state-house:038": [
+      {
+        "id": "ocd-person/671bd947-18c8-4b39-906e-675209b80b73",
+        "name": "John Pfeiffer",
+        "office": "state-house",
+        "districtCode": "038",
+        "contactUrl": null,
+        "email": "john.pfeiffer@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/john-pfeiffer",
+        "social": {}
+      }
+    ],
+    "OK:state-house:020": [
+      {
+        "id": "ocd-person/d8c6a83e-cdac-439d-af83-d90d9f543541",
+        "name": "Jonathan Wilk",
+        "office": "state-house",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "jonathan.wilk@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/jonathan-wilk",
+        "social": {}
+      }
+    ],
+    "OK:state-house:049": [
+      {
+        "id": "ocd-person/7bfc4244-9498-4a20-bdf7-44383688b608",
+        "name": "Josh Cantrell",
+        "office": "state-house",
+        "districtCode": "049",
+        "contactUrl": null,
+        "email": "josh.cantrell@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/josh-cantrell",
+        "social": {}
+      }
+    ],
+    "OK:state-house:005": [
+      {
+        "id": "ocd-person/6b71e61a-6f78-49b0-90ef-64b233dab860",
+        "name": "Josh West",
+        "office": "state-house",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "josh.west@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/josh-west",
+        "social": {}
+      }
+    ],
+    "OK:state-house:010": [
+      {
+        "id": "ocd-person/47e6f0cc-bf0d-4375-b0f7-3e0c88779ca5",
+        "name": "Judd Strom",
+        "office": "state-house",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "judd.strom@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/judd-strom",
+        "social": {}
+      }
+    ],
+    "OK:state-house:019": [
+      {
+        "id": "ocd-person/0b9df925-a78c-4ee4-a58c-5d7c2ace10fd",
+        "name": "Justin Humphrey",
+        "office": "state-house",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "justin.humphrey@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/justin-humphrey",
+        "social": {}
+      }
+    ],
+    "OK:state-house:037": [
+      {
+        "id": "ocd-person/428ba1b3-23b7-433a-8f18-ca53f6eed9aa",
+        "name": "Ken Luttrell",
+        "office": "state-house",
+        "districtCode": "037",
+        "contactUrl": null,
+        "email": "ken.luttrell@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/ken-luttrell",
+        "social": {}
+      }
+    ],
+    "OK:state-house:061": [
+      {
+        "id": "ocd-person/91b38015-8cd5-410e-b850-34961760b8d7",
+        "name": "Kenton Patzkowsky",
+        "office": "state-house",
+        "districtCode": "061",
+        "contactUrl": null,
+        "email": "kenton.patzkowsky@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/kenton-patzkowsky",
+        "social": {}
+      }
+    ],
+    "OK:state-house:074": [
+      {
+        "id": "ocd-person/7a7aca64-e9e6-465e-a423-6e4cf939c67a",
+        "name": "Kevin Norwood",
+        "office": "state-house",
+        "districtCode": "074",
+        "contactUrl": null,
+        "email": "kevin.norwood@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/kevin-norwood",
+        "social": {}
+      }
+    ],
+    "OK:state-house:054": [
+      {
+        "id": "ocd-person/fa002548-470f-4cf0-8365-f6f5aa0c50c7",
+        "name": "Kevin West",
+        "office": "state-house",
+        "districtCode": "054",
+        "contactUrl": null,
+        "email": "kevin.west@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/kevin-west",
+        "social": {}
+      }
+    ],
+    "OK:state-house:029": [
+      {
+        "id": "ocd-person/b0ab4df0-8cc1-43f6-9ed1-567b75e91468",
+        "name": "Kyle Hilbert",
+        "office": "state-house",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "kyle.hilbert@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/kyle-hilbert",
+        "social": {}
+      }
+    ],
+    "OK:state-house:100": [
+      {
+        "id": "ocd-person/aefe24ff-5a23-48bd-a5df-faa7b3dd0af9",
+        "name": "Marilyn Stark",
+        "office": "state-house",
+        "districtCode": "100",
+        "contactUrl": null,
+        "email": "marilyn.stark@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/marilyn-stark",
+        "social": {}
+      }
+    ],
+    "OK:state-house:012": [
+      {
+        "id": "ocd-person/a688f8ac-d265-4830-963f-617b726524ed",
+        "name": "Mark Chapman",
+        "office": "state-house",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "mark.chapman@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/mark-chapman",
+        "social": {}
+      }
+    ],
+    "OK:state-house:030": [
+      {
+        "id": "ocd-person/97351530-ef54-4859-acdd-effcb11eaf1f",
+        "name": "Mark Lawson",
+        "office": "state-house",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "mark.lawson@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/mark-lawson",
+        "social": {}
+      }
+    ],
+    "OK:state-house:009": [
+      {
+        "id": "ocd-person/a1d5d401-d767-4088-b9b6-e03af9d5ed49",
+        "name": "Mark Lepak",
+        "office": "state-house",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "mark.lepak@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/mark-lepak",
+        "social": {}
+      }
+    ],
+    "OK:state-house:069": [
+      {
+        "id": "ocd-person/6cac2a71-37ce-41be-8e9a-059f7a8667c5",
+        "name": "Mark Tedford",
+        "office": "state-house",
+        "districtCode": "069",
+        "contactUrl": null,
+        "email": "mark.tedford@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/mark-tedford",
+        "social": {}
+      }
+    ],
+    "OK:state-house:095": [
+      {
+        "id": "ocd-person/190ef3e9-fdd4-4434-80da-06ebb08f2eaf",
+        "name": "Max Wolfley",
+        "office": "state-house",
+        "districtCode": "095",
+        "contactUrl": null,
+        "email": "max.wolfley@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/max-wolfley",
+        "social": {}
+      }
+    ],
+    "OK:state-house:079": [
+      {
+        "id": "ocd-person/4085a19f-1853-48e4-88c8-8b5b9089054a",
+        "name": "Melissa Provenzano",
+        "office": "state-house",
+        "districtCode": "079",
+        "contactUrl": null,
+        "email": "melissa.provenzano@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/melissa-provenzano",
+        "social": {}
+      }
+    ],
+    "OK:state-house:078": [
+      {
+        "id": "ocd-person/e9c3844d-e861-4848-8737-539fdb553eb9",
+        "name": "Meloyde Blancett",
+        "office": "state-house",
+        "districtCode": "078",
+        "contactUrl": null,
+        "email": "meloyde.blancett@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/meloyde-blancett",
+        "social": {}
+      }
+    ],
+    "OK:state-house:072": [
+      {
+        "id": "ocd-person/5822cf27-1b1f-40bd-ace3-a06a7f304820",
+        "name": "Michelle McCane",
+        "office": "state-house",
+        "districtCode": "072",
+        "contactUrl": null,
+        "email": "michelle.mccane@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/michelle-mccane",
+        "social": {}
+      }
+    ],
+    "OK:state-house:093": [
+      {
+        "id": "ocd-person/2c065b7f-f5eb-4c15-bd69-10a7fa339b28",
+        "name": "Mickey Dollens",
+        "office": "state-house",
+        "districtCode": "093",
+        "contactUrl": null,
+        "email": "mickey.dollens@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/mickey-dollens",
+        "social": {}
+      }
+    ],
+    "OK:state-house:059": [
+      {
+        "id": "ocd-person/527c315f-7d62-4de1-a543-6c81a0ac11a3",
+        "name": "Mike Dobrinski",
+        "office": "state-house",
+        "districtCode": "059",
+        "contactUrl": null,
+        "email": "mike.dobrinski@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/mike-dobrinski",
+        "social": {}
+      }
+    ],
+    "OK:state-house:060": [
+      {
+        "id": "ocd-person/8746752e-619b-454d-9ef6-7f4434acdd71",
+        "name": "Mike Kelley",
+        "office": "state-house",
+        "districtCode": "060",
+        "contactUrl": null,
+        "email": "mike.kelley@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/mike-kelley",
+        "social": {}
+      }
+    ],
+    "OK:state-house:068": [
+      {
+        "id": "ocd-person/65f17e9b-aa29-4241-80c8-a800aea8ddae",
+        "name": "Mike Lay",
+        "office": "state-house",
+        "districtCode": "068",
+        "contactUrl": null,
+        "email": "mike.lay@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/mike-lay",
+        "social": {}
+      }
+    ],
+    "OK:state-house:081": [
+      {
+        "id": "ocd-person/95734f94-939c-4774-82a5-c9222201f62f",
+        "name": "Mike Osburn",
+        "office": "state-house",
+        "districtCode": "081",
+        "contactUrl": null,
+        "email": "mike.osburn@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/mike-osburn",
+        "social": {}
+      }
+    ],
+    "OK:state-house:033": [
+      {
+        "id": "ocd-person/82b98199-7b85-488b-b5e8-7f135aad668f",
+        "name": "Molly Jenkins",
+        "office": "state-house",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "molly.jenkins@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/molly-jenkins",
+        "social": {}
+      }
+    ],
+    "OK:state-house:013": [
+      {
+        "id": "ocd-person/3eb936f1-5bc8-40bb-832e-c617d461115c",
+        "name": "Neil Hays",
+        "office": "state-house",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "neil.hays@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/neil-hays",
+        "social": {}
+      }
+    ],
+    "OK:state-house:055": [
+      {
+        "id": "ocd-person/479b4def-b284-426b-8290-86bdce854bce",
+        "name": "Nick Archer",
+        "office": "state-house",
+        "districtCode": "055",
+        "contactUrl": null,
+        "email": "nick.archer@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/nick-archer",
+        "social": {}
+      }
+    ],
+    "OK:state-house:082": [
+      {
+        "id": "ocd-person/4af77a1a-7011-4901-89fe-4619d558d34c",
+        "name": "Nicole Miller",
+        "office": "state-house",
+        "districtCode": "082",
+        "contactUrl": null,
+        "email": "nicole.miller@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/nicole-miller",
+        "social": {}
+      }
+    ],
+    "OK:state-house:096": [
+      {
+        "id": "ocd-person/016593c8-d702-434a-ba7c-aee48b14b6b3",
+        "name": "Preston Stinson",
+        "office": "state-house",
+        "districtCode": "096",
+        "contactUrl": null,
+        "email": "preston.stinson@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/preston-stinson",
+        "social": {}
+      }
+    ],
+    "OK:state-house:064": [
+      {
+        "id": "ocd-person/cfa7e540-ce4e-4230-9f82-9784d11733cb",
+        "name": "Rande Worthen",
+        "office": "state-house",
+        "districtCode": "064",
+        "contactUrl": null,
+        "email": "rande.worthen@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/rande-worthen",
+        "social": {}
+      }
+    ],
+    "OK:state-house:003": [
+      {
+        "id": "ocd-person/bae91554-72c9-4dbd-b042-b4bd800e4732",
+        "name": "Rick West",
+        "office": "state-house",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "rick.west@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/rick-west",
+        "social": {}
+      }
+    ],
+    "OK:state-house:067": [
+      {
+        "id": "ocd-person/a73e2372-a002-448b-afbb-31398aed55b1",
+        "name": "Rob Hall",
+        "office": "state-house",
+        "districtCode": "067",
+        "contactUrl": null,
+        "email": "rob.hall@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/rob-hall",
+        "social": {}
+      }
+    ],
+    "OK:state-house:101": [
+      {
+        "id": "ocd-person/a865c489-d177-4058-af64-51c2f0abef68",
+        "name": "Robert Manger",
+        "office": "state-house",
+        "districtCode": "101",
+        "contactUrl": null,
+        "email": "robert.manger@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/robert-manger",
+        "social": {}
+      }
+    ],
+    "OK:state-house:073": [
+      {
+        "id": "ocd-person/bdd6a3f7-c76a-459e-aad3-e833a9e110f8",
+        "name": "Ron Stewart",
+        "office": "state-house",
+        "districtCode": "073",
+        "contactUrl": null,
+        "email": "ronald.stewart@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/ronald-stewart",
+        "social": {}
+      }
+    ],
+    "OK:state-house:025": [
+      {
+        "id": "ocd-person/e5d78f97-752b-4bff-a413-4704ed7c230a",
+        "name": "Ronny Johns",
+        "office": "state-house",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "ronny.johns@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/ronny-johns",
+        "social": {}
+      }
+    ],
+    "OK:state-house:076": [
+      {
+        "id": "ocd-person/a6aa7540-02db-458d-9031-e6af94d63b44",
+        "name": "Ross Ford",
+        "office": "state-house",
+        "districtCode": "076",
+        "contactUrl": null,
+        "email": "ross.ford@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/ross-ford",
+        "social": {}
+      }
+    ],
+    "OK:state-house:006": [
+      {
+        "id": "ocd-person/818eac04-d5b7-49be-b740-84a8432cf5b3",
+        "name": "Rusty Cornwell",
+        "office": "state-house",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "rusty.cornwell@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/rusty-cornwell",
+        "social": {}
+      }
+    ],
+    "OK:state-house:022": [
+      {
+        "id": "ocd-person/f61f3be0-ac28-411d-9641-917af1eb6753",
+        "name": "Ryan Eaves",
+        "office": "state-house",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "ryan.eaves@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/ryan-eaves",
+        "social": {}
+      }
+    ],
+    "OK:state-house:092": [
+      {
+        "id": "ocd-person/2e541dab-e87d-431a-91f5-e524aa301d5f",
+        "name": "Sam Wargin Grimaldo",
+        "office": "state-house",
+        "districtCode": "092",
+        "contactUrl": null,
+        "email": "sam.wargingrimaldo@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/sam-wargingrimaldo",
+        "social": {}
+      }
+    ],
+    "OK:state-house:016": [
+      {
+        "id": "ocd-person/a2be8726-7870-43b3-bbac-381824466f9c",
+        "name": "Scott Fetgatter",
+        "office": "state-house",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "scott.fetgatter@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/scott-fetgatter",
+        "social": {}
+      }
+    ],
+    "OK:state-house:050": [
+      {
+        "id": "ocd-person/d93d9d8d-1299-423a-bb9e-ade2bcb0fa11",
+        "name": "Stacy Adams",
+        "office": "state-house",
+        "districtCode": "050",
+        "contactUrl": null,
+        "email": "stacy.adams@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/stacy-adams",
+        "social": {}
+      }
+    ],
+    "OK:state-house:080": [
+      {
+        "id": "ocd-person/1ba99d3e-ebea-4426-b91a-0560da625e83",
+        "name": "Stan May",
+        "office": "state-house",
+        "districtCode": "080",
+        "contactUrl": null,
+        "email": "stan.may@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/stan-may",
+        "social": {}
+      }
+    ],
+    "OK:state-house:007": [
+      {
+        "id": "ocd-person/bf810dce-34f8-4db5-b242-efc008311228",
+        "name": "Steve Bashore",
+        "office": "state-house",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "steve.bashore@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/steve-bashore",
+        "social": {}
+      }
+    ],
+    "OK:state-house:070": [
+      {
+        "id": "ocd-person/3d8b5070-b96a-4976-b886-e889214ffd0b",
+        "name": "Suzanne Schreiber",
+        "office": "state-house",
+        "districtCode": "070",
+        "contactUrl": null,
+        "email": "suzanne.schreiber@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/suzanne-schreiber",
+        "social": {}
+      }
+    ],
+    "OK:state-house:075": [
+      {
+        "id": "ocd-person/71996394-7250-43ab-b69f-8c0afa3b144a",
+        "name": "T.J. Marti",
+        "office": "state-house",
+        "districtCode": "075",
+        "contactUrl": null,
+        "email": "tj.marti@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/tj-marti",
+        "social": {}
+      }
+    ],
+    "OK:state-house:048": [
+      {
+        "id": "ocd-person/1d6bc21f-6774-45de-b805-23cd8b5c32aa",
+        "name": "Tammy Townley",
+        "office": "state-house",
+        "districtCode": "048",
+        "contactUrl": null,
+        "email": "tammy.townley@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/tammy-townley",
+        "social": {}
+      }
+    ],
+    "OK:state-house:084": [
+      {
+        "id": "ocd-person/8a0a65fd-9a33-4f93-a94a-131e0ec39e6b",
+        "name": "Tammy West",
+        "office": "state-house",
+        "districtCode": "084",
+        "contactUrl": null,
+        "email": "tammy.west@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/tammy-west",
+        "social": {}
+      }
+    ],
+    "OK:state-house:015": [
+      {
+        "id": "ocd-person/d3bf80d0-be37-4e25-b7c6-7e30e54fe158",
+        "name": "Tim Turner",
+        "office": "state-house",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "tim.turner@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/tim-turner",
+        "social": {}
+      }
+    ],
+    "OK:state-house:008": [
+      {
+        "id": "ocd-person/fc634688-e6d0-4b9b-919c-0c1f001d51a7",
+        "name": "Tom Gann",
+        "office": "state-house",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "tom.gann@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/tom-gann",
+        "social": {}
+      }
+    ],
+    "OK:state-house:065": [
+      {
+        "id": "ocd-person/25f65ce4-eb63-4beb-92d0-0d07db7f851a",
+        "name": "Toni Hasenbeck",
+        "office": "state-house",
+        "districtCode": "065",
+        "contactUrl": null,
+        "email": "toni.hasenbeck@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/toni-hasenbeck",
+        "social": {}
+      }
+    ],
+    "OK:state-house:063": [
+      {
+        "id": "ocd-person/da01678a-03b7-4c2f-b93b-f98338c638b0",
+        "name": "Trey Caldwell",
+        "office": "state-house",
+        "districtCode": "063",
+        "contactUrl": null,
+        "email": "trey.caldwell@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/trey-caldwell",
+        "social": {}
+      }
+    ],
+    "OK:state-house:034": [
+      {
+        "id": "ocd-person/d3a66cdd-0469-4c20-90da-620f60c4b4be",
+        "name": "Trish Ranson",
+        "office": "state-house",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "trish.ranson@okhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.okhouse.gov/representatives/trish-ranson",
+        "social": {}
+      }
+    ],
+    "OK:state-senate:037": [
+      {
+        "id": "ocd-person/78900b72-692c-4b5f-ac8b-290577d6abd4",
+        "name": "Aaron Reinhardt",
+        "office": "state-senate",
+        "districtCode": "037",
+        "contactUrl": null,
+        "email": "aaron.reinhardt@oksenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://oksenate.gov/senators/aaron-reinhardt",
+        "social": {}
+      }
+    ],
+    "OK:state-senate:041": [
+      {
+        "id": "ocd-person/7e356581-ff96-4e5d-b6bc-94b3c8e0005c",
+        "name": "Adam Pugh",
+        "office": "state-senate",
+        "districtCode": "041",
+        "contactUrl": null,
+        "email": "pugh@oksenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://oksenate.gov/contact-senator?sid=1899",
+        "social": {}
+      }
+    ],
+    "OK:state-senate:002": [
+      {
+        "id": "ocd-person/0e3e261d-437a-4e04-8328-70adb16c82d9",
+        "name": "Ally Seifried",
+        "office": "state-senate",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "alexandra.seifried@oksenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://oksenate.gov/contact-senator?sid=1523279",
+        "social": {}
+      }
+    ],
+    "OK:state-senate:009": [
+      {
+        "id": "ocd-person/f2bc8c9d-050a-4531-84eb-1f233ad7042a",
+        "name": "Avery Frix",
+        "office": "state-senate",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "avery.frix@oksenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://oksenate.gov/senators/avery-frix",
+        "social": {}
+      }
+    ],
+    "OK:state-senate:010": [
+      {
+        "id": "ocd-person/446468ba-e7a8-49ff-8edc-e9f96da9d613",
+        "name": "Bill Coleman",
+        "office": "state-senate",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "bill.coleman@oksenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://oksenate.gov/contact-senator?sid=1844",
+        "social": {}
+      }
+    ],
+    "OK:state-senate:042": [
+      {
+        "id": "ocd-person/55b572a7-2951-4597-b70c-e37b51163b03",
+        "name": "Brenda Stanley",
+        "office": "state-senate",
+        "districtCode": "042",
+        "contactUrl": null,
+        "email": "brenda.stanley@oksenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://oksenate.gov/contact-senator?sid=1900",
+        "social": {}
+      }
+    ],
+    "OK:state-senate:038": [
+      {
+        "id": "ocd-person/bc85e399-f4bc-4690-b34b-685e15242904",
+        "name": "Brent Howard",
+        "office": "state-senate",
+        "districtCode": "038",
+        "contactUrl": null,
+        "email": "brent.howard@oksenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://oksenate.gov/contact-senator?sid=1853",
+        "social": {}
+      }
+    ],
+    "OK:state-senate:025": [
+      {
+        "id": "ocd-person/19a4841c-4571-4803-8f5d-262f664fb31a",
+        "name": "Brian Guthrie",
+        "office": "state-senate",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "brian.guthrie@oksenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://oksenate.gov/senators/brian-guthrie",
+        "social": {}
+      }
+    ],
+    "OK:state-senate:008": [
+      {
+        "id": "ocd-person/a3c36ebe-151f-4632-ab04-31963f55f9d8",
+        "name": "Bryan Logan",
+        "office": "state-senate",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "bryan.logan@oksenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://oksenate.gov/senators/bryan-logan",
+        "social": {}
+      }
+    ],
+    "OK:state-senate:040": [
+      {
+        "id": "ocd-person/6ecf8a12-033a-41da-9b5f-3fbcf41f4841",
+        "name": "Carri Hicks",
+        "office": "state-senate",
+        "districtCode": "040",
+        "contactUrl": null,
+        "email": "carri.hicks@oksenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://oksenate.gov/contact-senator?sid=1852",
+        "social": {}
+      }
+    ],
+    "OK:state-senate:027": [
+      {
+        "id": "ocd-person/8c8517c3-75ee-4b27-8d8c-3444c036ba78",
+        "name": "Casey Murdock",
+        "office": "state-senate",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "murdock@oksenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://oksenate.gov/contact-senator?sid=1862",
+        "social": {}
+      }
+    ],
+    "OK:state-senate:033": [
+      {
+        "id": "ocd-person/b8b4337f-5741-4fad-bcf3-38c526cf6c5a",
+        "name": "Christi Gillespie",
+        "office": "state-senate",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "christi.gillespie@oksenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://oksenate.gov/senators/christi-gillespie",
+        "social": {}
+      }
+    ],
+    "OK:state-senate:020": [
+      {
+        "id": "ocd-person/95f06268-cdfb-463b-aa2e-fb789fbc97c4",
+        "name": "Chuck Hall",
+        "office": "state-senate",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "chuck.hall@oksenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://oksenate.gov/contact-senator?sid=1850",
+        "social": {}
+      }
+    ],
+    "OK:state-senate:034": [
+      {
+        "id": "ocd-person/74fd77d2-ffa9-42cd-9849-0b64464bcc6f",
+        "name": "Dana Prieto",
+        "office": "state-senate",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "dana.prieto@oksenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://oksenate.gov/contact-senator?sid=1523287",
+        "social": {}
+      }
+    ],
+    "OK:state-senate:026": [
+      {
+        "id": "ocd-person/7143be5e-df9e-40ad-8591-dd4c9ea51261",
+        "name": "Darcy Jech",
+        "office": "state-senate",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "darcy.jech@oksenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://oksenate.gov/contact-senator?sid=1855",
+        "social": {}
+      }
+    ],
+    "OK:state-senate:039": [
+      {
+        "id": "ocd-person/3714523f-ea6d-4bd5-a801-1397dd508208",
+        "name": "Dave Rader",
+        "office": "state-senate",
+        "districtCode": "039",
+        "contactUrl": null,
+        "email": "rader@oksenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://oksenate.gov/contact-senator?sid=1898",
+        "social": {}
+      }
+    ],
+    "OK:state-senate:006": [
+      {
+        "id": "ocd-person/f7e51701-fb8a-4d48-8f61-951096c0c76d",
+        "name": "David Bullard",
+        "office": "state-senate",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "david.bullard@oksenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://oksenate.gov/contact-senator?sid=1843",
+        "social": {}
+      }
+    ],
+    "OK:state-senate:032": [
+      {
+        "id": "ocd-person/56666b37-2788-433a-9c32-19af826613e4",
+        "name": "Dusty Deevers",
+        "office": "state-senate",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "dusty.deevers@oksenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://oksenate.gov/contact-senator?sid=1861",
+        "social": {}
+      }
+    ],
+    "OK:state-senate:005": [
+      {
+        "id": "ocd-person/a0948c13-b3a0-4040-b0db-9f8f8c67eeac",
+        "name": "George Burns",
+        "office": "state-senate",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "george.burns@oksenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://oksenate.gov/contact-senator?sid=1521373",
+        "social": {}
+      }
+    ],
+    "OK:state-senate:028": [
+      {
+        "id": "ocd-person/9f0cacea-112a-425a-b212-4fa3cfd3b3a0",
+        "name": "Grant Green",
+        "office": "state-senate",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "grant.green@oksenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://oksenate.gov/contact-senator?sid=1523286",
+        "social": {}
+      }
+    ],
+    "OK:state-senate:018": [
+      {
+        "id": "ocd-person/8e22d71d-fd9a-4d9d-aa7c-09af3da43118",
+        "name": "Jack Stewart",
+        "office": "state-senate",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "jack.stewart@oksenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://oksenate.gov/contact-senator?sid=1523284",
+        "social": {}
+      }
+    ],
+    "OK:state-senate:014": [
+      {
+        "id": "ocd-person/edf90069-7569-4cd7-9a8e-e3890e395ac7",
+        "name": "Jerry Alvord",
+        "office": "state-senate",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "jerry.alvord@oksenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://oksenate.gov/contact-senator?sid=1523283",
+        "social": {}
+      }
+    ],
+    "OK:state-senate:035": [
+      {
+        "id": "ocd-person/164b3ba9-47d4-4c24-870d-4e6679e15cf8",
+        "name": "Jo Anna Dossett",
+        "office": "state-senate",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "joanna.dossett@oksenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://oksenate.gov/contact-senator?sid=1521376",
+        "social": {}
+      }
+    ],
+    "OK:state-senate:036": [
+      {
+        "id": "ocd-person/08dca8d5-4264-4509-aebd-bbf7736b9e90",
+        "name": "John Haste",
+        "office": "state-senate",
+        "districtCode": "036",
+        "contactUrl": null,
+        "email": "john.haste@oksenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://oksenate.gov/contact-senator?sid=1851",
+        "social": {}
+      }
+    ],
+    "OK:state-senate:013": [
+      {
+        "id": "ocd-person/077e2743-495e-4198-a096-5675796d78a4",
+        "name": "Jonathan Wingard",
+        "office": "state-senate",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "jonathan.wingard@oksenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://oksenate.gov/senators/jonathan-wingard",
+        "social": {}
+      }
+    ],
+    "OK:state-senate:030": [
+      {
+        "id": "ocd-person/986cbe76-2b10-4fc8-92b0-39432b761e1a",
+        "name": "Julia Kirt",
+        "office": "state-senate",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "julia.kirt@oksenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://oksenate.gov/contact-senator?sid=1857",
+        "social": {}
+      }
+    ],
+    "OK:state-senate:029": [
+      {
+        "id": "ocd-person/14ac3593-aa7a-491e-aba0-93474e93673d",
+        "name": "Julie Daniels",
+        "office": "state-senate",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "julie.daniels@oksenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://oksenate.gov/contact-senator?sid=1846",
+        "social": {}
+      }
+    ],
+    "OK:state-senate:003": [
+      {
+        "id": "ocd-person/3219df30-79cf-43c5-814d-b1f4b02d53bb",
+        "name": "Julie McIntosh",
+        "office": "state-senate",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "julie.mcintosh@oksenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://oksenate.gov/senators/julie-mcintosh",
+        "social": {}
+      }
+    ],
+    "OK:state-senate:047": [
+      {
+        "id": "ocd-person/595024d3-b5fd-45e4-a980-4774f531d051",
+        "name": "Kelly Hines",
+        "office": "state-senate",
+        "districtCode": "047",
+        "contactUrl": null,
+        "email": "kelly.hines@oksenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://oksenate.gov/senators/kelly-hines",
+        "social": {}
+      }
+    ],
+    "OK:state-senate:043": [
+      {
+        "id": "ocd-person/8a183515-ff32-4660-8e9c-1317f274a603",
+        "name": "Kendal Sacchieri",
+        "office": "state-senate",
+        "districtCode": "043",
+        "contactUrl": null,
+        "email": "kendal.sacchieri@oksenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://oksenate.gov/senators/kendal-sacchieri",
+        "social": {}
+      }
+    ],
+    "OK:state-senate:022": [
+      {
+        "id": "ocd-person/c768c730-142e-4582-a137-ee09a0240784",
+        "name": "Kristen Thompson",
+        "office": "state-senate",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "kristen.thompson@oksenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://oksenate.gov/contact-senator?sid=1523285",
+        "social": {}
+      }
+    ],
+    "OK:state-senate:015": [
+      {
+        "id": "ocd-person/6bf75215-5df0-4dfc-adfb-98c60a6871bd",
+        "name": "Lisa Standridge",
+        "office": "state-senate",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "lisa.standridge@oksenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://oksenate.gov/senators/lisa-standridge",
+        "social": {}
+      }
+    ],
+    "OK:state-senate:023": [
+      {
+        "id": "ocd-person/fe64cfd8-d85e-472e-8761-27b6a3774971",
+        "name": "Lonnie Paxton",
+        "office": "state-senate",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "paxton@oksenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://oksenate.gov/contact-senator?sid=1893",
+        "social": {}
+      }
+    ],
+    "OK:state-senate:046": [
+      {
+        "id": "ocd-person/7bf07db8-9661-4f98-859d-9817cb4362dd",
+        "name": "Mark Mann",
+        "office": "state-senate",
+        "districtCode": "046",
+        "contactUrl": null,
+        "email": "mark.mann@oksenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://oksenate.gov/senators/mark-mann",
+        "social": {}
+      }
+    ],
+    "OK:state-senate:016": [
+      {
+        "id": "ocd-person/0172970c-3434-470b-98c8-6f7f0b167afb",
+        "name": "Mary Boren",
+        "office": "state-senate",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "mary.boren@oksenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://oksenate.gov/contact-senator?sid=1841",
+        "social": {}
+      }
+    ],
+    "OK:state-senate:044": [
+      {
+        "id": "ocd-person/faabecda-dfa0-4995-b574-2b0a33b039ef",
+        "name": "Michael Brooks",
+        "office": "state-senate",
+        "districtCode": "044",
+        "contactUrl": null,
+        "email": "michael.brooks@oksenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://oksenate.gov/contact-senator?sid=1842",
+        "social": {}
+      }
+    ],
+    "OK:state-senate:001": [
+      {
+        "id": "ocd-person/49a41053-6a43-44a8-92b9-9fd5e97a56fe",
+        "name": "Micheal Bergstrom",
+        "office": "state-senate",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "bergstrom@oksenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://oksenate.gov/contact-senator?sid=1838",
+        "social": {}
+      }
+    ],
+    "OK:state-senate:048": [
+      {
+        "id": "ocd-person/365647a0-0840-4a40-aac8-697ab21dbcd5",
+        "name": "Nikki Nice",
+        "office": "state-senate",
+        "districtCode": "048",
+        "contactUrl": null,
+        "email": "nikki.nice@oksenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://oksenate.gov/senators/nikki-nice",
+        "social": {}
+      }
+    ],
+    "OK:state-senate:045": [
+      {
+        "id": "ocd-person/0388a9a8-8de3-4620-8c44-e887e0f1cecd",
+        "name": "Paul Rosino",
+        "office": "state-senate",
+        "districtCode": "045",
+        "contactUrl": null,
+        "email": "paul.rosino@oksenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://oksenate.gov/contact-senator?sid=1902",
+        "social": {}
+      }
+    ],
+    "OK:state-senate:021": [
+      {
+        "id": "ocd-person/812abf8c-ed2d-4b91-8d69-0917a39adeed",
+        "name": "Randy Grellner",
+        "office": "state-senate",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "randy.grellner@oksenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://oksenate.gov/senators/randy-grellner",
+        "social": {}
+      }
+    ],
+    "OK:state-senate:011": [
+      {
+        "id": "ocd-person/2d438999-104f-4405-8cdc-d53ba4715a19",
+        "name": "Regina Goodwin",
+        "office": "state-senate",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "regina.goodwin@oksenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://oksenate.gov/senators/regina-goodwin",
+        "social": {}
+      }
+    ],
+    "OK:state-senate:019": [
+      {
+        "id": "ocd-person/c0db5455-8d12-4525-ab57-afa8ed7e1d7f",
+        "name": "Roland Pederson",
+        "office": "state-senate",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "roland.pederson@oksenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://oksenate.gov/contact-senator?sid=1892",
+        "social": {}
+      }
+    ],
+    "OK:state-senate:017": [
+      {
+        "id": "ocd-person/97650810-9219-451e-97d1-e3d3318c5d53",
+        "name": "Shane Jett",
+        "office": "state-senate",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "shane.jett@oksenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://oksenate.gov/contact-senator?sid=1521375",
+        "social": {}
+      }
+    ],
+    "OK:state-senate:031": [
+      {
+        "id": "ocd-person/4d4f5043-830c-498d-806c-5b1e9eb183df",
+        "name": "Spencer Kern",
+        "office": "state-senate",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "spencer.kern@oksenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://oksenate.gov/senators/spencer-kern",
+        "social": {}
+      }
+    ],
+    "OK:state-senate:012": [
+      {
+        "id": "ocd-person/54d37a3d-68cb-4e87-9916-c38f2f0f8ed3",
+        "name": "Todd Gollihare",
+        "office": "state-senate",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "todd.gollihare@oksenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://oksenate.gov/contact-senator?sid=1523282",
+        "social": {}
+      }
+    ],
+    "OK:state-senate:004": [
+      {
+        "id": "ocd-person/9b993707-70c1-4e3f-96ee-4257c0cf04e6",
+        "name": "Tom Woods",
+        "office": "state-senate",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "tom.woods@oksenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://oksenate.gov/contact-senator?sid=1523280",
+        "social": {}
+      }
+    ],
+    "OK:state-senate:007": [
+      {
+        "id": "ocd-person/48d6aa7c-97e1-4c69-8014-8818ae9ad055",
+        "name": "Warren Hamilton",
+        "office": "state-senate",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "warren.hamilton@oksenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://oksenate.gov/contact-senator?sid=1521374",
+        "social": {}
+      }
+    ]
+  }
+}

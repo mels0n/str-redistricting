@@ -1,0 +1,2348 @@
+{
+  "state": "MI",
+  "generatedFrom": {
+    "legislators-current.json": "ae8cb9477c48715df71a7d860854229d799dc90a254d61badc1efb770f892b2c",
+    "legislators-social-media.json": "c6eca1fcdb3a89901335eed51ca061daa4b60ad3243969a127e913bb9657fbc5",
+    "mi.csv": "069945aedf1af46b4b60d4fc8257057bc686aca36f5dd17ed98e720d19c5fe33"
+  },
+  "byKey": {
+    "MI:us-house:04": [
+      {
+        "id": "H001058",
+        "name": "Bill Huizenga",
+        "office": "us-house",
+        "districtCode": "04",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4401",
+        "address": "2232 Rayburn House Office Building Washington DC 20515-2204",
+        "website": "https://huizenga.house.gov",
+        "social": {
+          "x": "RepHuizenga",
+          "facebook": "RepHuizenga",
+          "instagram": "RepHuizenga"
+        }
+      }
+    ],
+    "MI:us-senate:state": [
+      {
+        "id": "P000595",
+        "name": "Gary C. Peters",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.peters.senate.gov/contact/email-gary",
+        "email": null,
+        "phone": "202-224-6221",
+        "address": "724 Hart Senate Office Building Washington DC 20510",
+        "website": "https://www.peters.senate.gov",
+        "social": {
+          "x": "SenGaryPeters",
+          "facebook": "SenGaryPeters",
+          "instagram": "sengarypeters"
+        }
+      },
+      {
+        "id": "S001208",
+        "name": "Elissa Slotkin",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-224-4822",
+        "address": "291 Russell Senate Office Building Washington DC 20510",
+        "website": "https://www.slotkin.senate.gov",
+        "social": {
+          "x": "RepSlotkin",
+          "facebook": "SenElissaSlotkin",
+          "instagram": "senslotkin"
+        }
+      }
+    ],
+    "MI:us-house:05": [
+      {
+        "id": "W000798",
+        "name": "Tim Walberg",
+        "office": "us-house",
+        "districtCode": "05",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-6276",
+        "address": "2266 Rayburn House Office Building Washington DC 20515-2205",
+        "website": "https://walberg.house.gov",
+        "social": {
+          "x": "RepWalberg",
+          "facebook": "RepWalberg",
+          "instagram": "repwalberg"
+        }
+      }
+    ],
+    "MI:us-house:02": [
+      {
+        "id": "M001194",
+        "name": "John R. Moolenaar",
+        "office": "us-house",
+        "districtCode": "02",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-3561",
+        "address": "246 Cannon House Office Building Washington DC 20515-2202",
+        "website": "https://moolenaar.house.gov",
+        "social": {
+          "x": "RepMoolenaar",
+          "facebook": "RepMoolenaar",
+          "instagram": "RepMoolenaar"
+        }
+      }
+    ],
+    "MI:us-house:06": [
+      {
+        "id": "D000624",
+        "name": "Debbie Dingell",
+        "office": "us-house",
+        "districtCode": "06",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4071",
+        "address": "102 Cannon House Office Building Washington DC 20515-2206",
+        "website": "https://debbiedingell.house.gov",
+        "social": {
+          "x": "RepDebDingell",
+          "facebook": "RepDebbieDingell",
+          "instagram": "repdingell"
+        }
+      }
+    ],
+    "MI:us-house:01": [
+      {
+        "id": "B001301",
+        "name": "Jack Bergman",
+        "office": "us-house",
+        "districtCode": "01",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4735",
+        "address": "566 Cannon House Office Building Washington DC 20515-2201",
+        "website": "https://bergman.house.gov",
+        "social": {
+          "x": "RepJackBergman",
+          "facebook": "RepJackBergman",
+          "instagram": "RepJackBergman"
+        }
+      }
+    ],
+    "MI:us-house:11": [
+      {
+        "id": "S001215",
+        "name": "Haley M. Stevens",
+        "office": "us-house",
+        "districtCode": "11",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-8171",
+        "address": "2411 Rayburn House Office Building Washington DC 20515-2211",
+        "website": "https://stevens.house.gov",
+        "social": {
+          "x": "RepHaleyStevens",
+          "facebook": "RepHaleyStevens"
+        }
+      }
+    ],
+    "MI:us-house:12": [
+      {
+        "id": "T000481",
+        "name": "Rashida Tlaib",
+        "office": "us-house",
+        "districtCode": "12",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5126",
+        "address": "2438 Rayburn House Office Building Washington DC 20515-2212",
+        "website": "https://tlaib.house.gov",
+        "social": {
+          "x": "RepRashida",
+          "facebook": "RepRashida",
+          "instagram": "reprashida"
+        }
+      }
+    ],
+    "MI:us-house:09": [
+      {
+        "id": "M001136",
+        "name": "Lisa C. McClain",
+        "office": "us-house",
+        "districtCode": "09",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2106",
+        "address": "562 Cannon House Office Building Washington DC 20515-2209",
+        "website": "https://mcclain.house.gov",
+        "social": {
+          "x": "RepLisaMcClain",
+          "facebook": "RepLisaMcClain",
+          "instagram": "replisamcclain"
+        }
+      }
+    ],
+    "MI:us-house:03": [
+      {
+        "id": "S001221",
+        "name": "Hillary J. Scholten",
+        "office": "us-house",
+        "districtCode": "03",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-3831",
+        "address": "1317 Longworth House Office Building Washington DC 20515-2203",
+        "website": "https://scholten.house.gov",
+        "social": {
+          "x": "RepScholten",
+          "facebook": "100089476625799",
+          "instagram": "RepScholten"
+        }
+      }
+    ],
+    "MI:us-house:10": [
+      {
+        "id": "J000307",
+        "name": "John James",
+        "office": "us-house",
+        "districtCode": "10",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4961",
+        "address": "1519 Longworth House Office Building Washington DC 20515-2210",
+        "website": "https://james.house.gov",
+        "social": {
+          "x": "RepJames",
+          "facebook": "RepJohnJames",
+          "instagram": "RepJohnJames"
+        }
+      }
+    ],
+    "MI:us-house:13": [
+      {
+        "id": "T000488",
+        "name": "Shri Thanedar",
+        "office": "us-house",
+        "districtCode": "13",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5802",
+        "address": "154 Cannon House Office Building Washington DC 20515-2213",
+        "website": "https://thanedar.house.gov",
+        "social": {
+          "x": "RepShriThanedar",
+          "facebook": "CongressmanShriThanedar",
+          "instagram": "RepShriThanedar"
+        }
+      }
+    ],
+    "MI:us-house:07": [
+      {
+        "id": "B001321",
+        "name": "Tom Barrett",
+        "office": "us-house",
+        "districtCode": "07",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4872",
+        "address": "1232 Longworth House Office Building Washington DC 20515-2207",
+        "website": "https://barrett.house.gov",
+        "social": {
+          "x": "reptombarrett",
+          "facebook": "RepTomBarrett"
+        }
+      }
+    ],
+    "MI:us-house:08": [
+      {
+        "id": "M001237",
+        "name": "Kristen McDonald Rivet",
+        "office": "us-house",
+        "districtCode": "08",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-3611",
+        "address": "1408 Longworth House Office Building Washington DC 20515-2208",
+        "website": "https://mcdonaldrivet.house.gov",
+        "social": {
+          "x": "repkmr",
+          "facebook": "repmcdonaldrivet",
+          "instagram": "repmcdonaldrivet"
+        }
+      }
+    ],
+    "MI:state-house:003": [
+      {
+        "id": "ocd-person/788d408d-cb80-43fd-802a-4778a930894d",
+        "name": "Alabas Farhat",
+        "office": "state-house",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "alabasfarhat@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:062": [
+      {
+        "id": "ocd-person/81da0894-0569-4c8d-9c4e-befd39650fee",
+        "name": "Alicia St. Germaine",
+        "office": "state-house",
+        "districtCode": "062",
+        "contactUrl": null,
+        "email": "aliciastgermaine@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:094": [
+      {
+        "id": "ocd-person/5f160dff-1ce1-4606-a469-fdd08125beb4",
+        "name": "Amos O'Neal",
+        "office": "state-house",
+        "districtCode": "094",
+        "contactUrl": null,
+        "email": "amosoneal@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:079": [
+      {
+        "id": "ocd-person/527d59db-a346-4a91-8f98-e1b57947b58c",
+        "name": "Angela Rigas",
+        "office": "state-house",
+        "districtCode": "079",
+        "contactUrl": null,
+        "email": "angelarigas@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:076": [
+      {
+        "id": "ocd-person/0db39d07-a543-4e52-82b0-457f406855e8",
+        "name": "Angela Witwer",
+        "office": "state-house",
+        "districtCode": "076",
+        "contactUrl": null,
+        "email": "angelawitwer@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:049": [
+      {
+        "id": "ocd-person/3a9d71dc-da5b-4bd3-8062-c8387292dc52",
+        "name": "Ann Bollin",
+        "office": "state-house",
+        "districtCode": "049",
+        "contactUrl": null,
+        "email": "annbollin@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:103": [
+      {
+        "id": "ocd-person/80ccf9a5-7303-4218-be3e-0ab6f8e90eee",
+        "name": "Betsy Coffia",
+        "office": "state-house",
+        "districtCode": "103",
+        "contactUrl": null,
+        "email": "betsycoffia@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:095": [
+      {
+        "id": "ocd-person/5355f558-55bb-4f29-81eb-89179f55d69a",
+        "name": "Bill Schuette",
+        "office": "state-house",
+        "districtCode": "095",
+        "contactUrl": null,
+        "email": "billschuette@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:037": [
+      {
+        "id": "ocd-person/04a88313-6387-44ab-972c-b000b3c316f4",
+        "name": "Brad Paquette",
+        "office": "state-house",
+        "districtCode": "037",
+        "contactUrl": null,
+        "email": "bradpaquette@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:085": [
+      {
+        "id": "ocd-person/38c62407-9471-40de-8a1c-44142573c79a",
+        "name": "Brad Slagh",
+        "office": "state-house",
+        "districtCode": "085",
+        "contactUrl": null,
+        "email": "bradleyslagh@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:053": [
+      {
+        "id": "ocd-person/0019e62f-6671-4085-b2d3-55d3c4a23717",
+        "name": "Brenda Carter",
+        "office": "state-house",
+        "districtCode": "053",
+        "contactUrl": null,
+        "email": "brendacarter@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:071": [
+      {
+        "id": "ocd-person/172b6e7c-3765-4978-bc03-3d19a92d5164",
+        "name": "Brian BeGole",
+        "office": "state-house",
+        "districtCode": "071",
+        "contactUrl": null,
+        "email": "brianbegole@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:090": [
+      {
+        "id": "ocd-person/c925c469-552f-448d-a89f-ef456e15da21",
+        "name": "Bryan Posthumus",
+        "office": "state-house",
+        "districtCode": "090",
+        "contactUrl": null,
+        "email": "bryanposthumus@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:106": [
+      {
+        "id": "ocd-person/60ae519b-a739-4dc5-80bb-c0161269607a",
+        "name": "Cam Cavitt",
+        "office": "state-house",
+        "districtCode": "106",
+        "contactUrl": null,
+        "email": "camcavitt@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:084": [
+      {
+        "id": "ocd-person/86812673-e63a-4f36-aa3e-26de84380657",
+        "name": "Carol Glanville",
+        "office": "state-house",
+        "districtCode": "084",
+        "contactUrl": null,
+        "email": "caglanville@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:047": [
+      {
+        "id": "ocd-person/2f75473d-b2e6-49fd-914e-1e552ebc38a6",
+        "name": "Carrie Rheingans",
+        "office": "state-house",
+        "districtCode": "047",
+        "contactUrl": null,
+        "email": "carrierheingans@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:102": [
+      {
+        "id": "ocd-person/b0804883-3f8c-4341-bbc1-26a0346b37c4",
+        "name": "Curt VanderWall",
+        "office": "state-house",
+        "districtCode": "102",
+        "contactUrl": null,
+        "email": "curtisvanderwall@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:070": [
+      {
+        "id": "ocd-person/7e3c6932-35bd-43f6-b1ca-d8fd6d5c0040",
+        "name": "Cynthia Neeley",
+        "office": "state-house",
+        "districtCode": "070",
+        "contactUrl": null,
+        "email": "cynthianeeley@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:068": [
+      {
+        "id": "ocd-person/95434509-a8fd-4e25-9f04-a952416d6da3",
+        "name": "David Martin",
+        "office": "state-house",
+        "districtCode": "068",
+        "contactUrl": null,
+        "email": "davidmartin@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:108": [
+      {
+        "id": "ocd-person/addfe9a4-4b73-4dec-95a9-4bb7cd0d6bd2",
+        "name": "Dave Prestin",
+        "office": "state-house",
+        "districtCode": "108",
+        "contactUrl": null,
+        "email": "daveprestin@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:061": [
+      {
+        "id": "ocd-person/7e4be084-8c26-421f-ab31-81893f7ac525",
+        "name": "Denise Mentzer",
+        "office": "state-house",
+        "districtCode": "061",
+        "contactUrl": null,
+        "email": "denisementzer@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:011": [
+      {
+        "id": "ocd-person/36e87b55-c5db-4331-8088-8fe1dbc544f9",
+        "name": "Donavan McKinney",
+        "office": "state-house",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "donavanmckinney@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:054": [
+      {
+        "id": "ocd-person/4a5a14f9-56b4-4f7a-ad0c-bfe3750912a3",
+        "name": "Donni Steele",
+        "office": "state-house",
+        "districtCode": "054",
+        "contactUrl": null,
+        "email": "donnisteele@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:059": [
+      {
+        "id": "ocd-person/2e512bae-42f3-4ce8-b565-df48469da08a",
+        "name": "Doug Wozniak",
+        "office": "state-house",
+        "districtCode": "059",
+        "contactUrl": null,
+        "email": "douglaswozniak@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:026": [
+      {
+        "id": "ocd-person/07ff51f1-6cd0-4004-b618-bc70e5a2e551",
+        "name": "Dylan Wegela",
+        "office": "state-house",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "dylanwegela@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:077": [
+      {
+        "id": "ocd-person/10e1b0b6-8c1d-4f2b-b29a-08770991b1d4",
+        "name": "Emily Dievendorf",
+        "office": "state-house",
+        "districtCode": "077",
+        "contactUrl": null,
+        "email": "emilydievendorf@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:015": [
+      {
+        "id": "ocd-person/3d6727ea-1a91-414d-aac4-ba312cbfaabc",
+        "name": "Erin Byrnes",
+        "office": "state-house",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "erinbyrnes@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:078": [
+      {
+        "id": "ocd-person/37cbe31c-4d9d-4f77-847f-ce463e1bec58",
+        "name": "Gina Johnsen",
+        "office": "state-house",
+        "districtCode": "078",
+        "contactUrl": null,
+        "email": "ginajohnsen@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:088": [
+      {
+        "id": "ocd-person/960d6487-b202-46fa-8905-e001b6954d5a",
+        "name": "Greg VanWoerkom",
+        "office": "state-house",
+        "districtCode": "088",
+        "contactUrl": null,
+        "email": "gregvanwoerkom@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:098": [
+      {
+        "id": "ocd-person/fc7627d7-6c08-49e7-9edc-6f419443ffaa",
+        "name": "Greg Alexander",
+        "office": "state-house",
+        "districtCode": "098",
+        "contactUrl": null,
+        "email": "gregalexander@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:110": [
+      {
+        "id": "ocd-person/a3b57cdd-ae52-49af-9456-bc1f212fe970",
+        "name": "Greg Markkanen",
+        "office": "state-house",
+        "districtCode": "110",
+        "contactUrl": null,
+        "email": "gregmarkkanen@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:008": [
+      {
+        "id": "ocd-person/6751fa70-04e4-45e1-b3c5-6e0a5a397f8f",
+        "name": "Helena Scott",
+        "office": "state-house",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "helenascott@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:065": [
+      {
+        "id": "ocd-person/fe33333e-a9ff-4279-ae47-1cc27703ee5c",
+        "name": "Jaime Greene",
+        "office": "state-house",
+        "districtCode": "065",
+        "contactUrl": null,
+        "email": "jaimegreene@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:029": [
+      {
+        "id": "ocd-person/af4a0996-bcf0-4e8f-9165-4290343e905f",
+        "name": "Jim DeSana",
+        "office": "state-house",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "jamesdesana@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:028": [
+      {
+        "id": "ocd-person/ea1e2bf8-dd08-4785-a7f7-48e7c9e8a53c",
+        "name": "Jamie Thompson",
+        "office": "state-house",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "jamiethompson@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:018": [
+      {
+        "id": "ocd-person/d6da4c9b-26ef-4fa9-a1c6-a79d843abe09",
+        "name": "Jason Hoskins",
+        "office": "state-house",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "jasonhoskins@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:023": [
+      {
+        "id": "ocd-person/9b0967d9-1238-4f90-8e03-233a17fc03e0",
+        "name": "Jason Morgan",
+        "office": "state-house",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "jasonmorgan@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:050": [
+      {
+        "id": "ocd-person/4831928f-e1e5-4905-928b-633128aefa77",
+        "name": "Jason Woolford",
+        "office": "state-house",
+        "districtCode": "050",
+        "contactUrl": null,
+        "email": "jasonwoolford@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:069": [
+      {
+        "id": "ocd-person/124196c5-fa79-4958-97c1-364026ae5f36",
+        "name": "Jaz Martus",
+        "office": "state-house",
+        "districtCode": "069",
+        "contactUrl": null,
+        "email": "jaspermartus@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:063": [
+      {
+        "id": "ocd-person/569bf706-64ce-4dd7-8639-886beb018d8c",
+        "name": "Jay DeBoyer",
+        "office": "state-house",
+        "districtCode": "063",
+        "contactUrl": null,
+        "email": "jaydeboyer@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:048": [
+      {
+        "id": "ocd-person/99ac6698-e0f9-4ddf-9df6-2d82aa70468f",
+        "name": "Jennifer Conlin",
+        "office": "state-house",
+        "districtCode": "048",
+        "contactUrl": null,
+        "email": "jenniferconlin@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:035": [
+      {
+        "id": "ocd-person/be12c20b-e96b-4326-a1c2-8cabe83f4f2b",
+        "name": "Jennifer Wortz",
+        "office": "state-house",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "jenniferwortz@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:092": [
+      {
+        "id": "ocd-person/549e485e-c1ea-4582-8db3-91d1e15fe27a",
+        "name": "Jerry Neyer",
+        "office": "state-house",
+        "districtCode": "092",
+        "contactUrl": null,
+        "email": "jerryneyer@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:032": [
+      {
+        "id": "ocd-person/8560a009-9142-4824-bec4-67559d8d0add",
+        "name": "Jimmie Wilson",
+        "office": "state-house",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "jimmiewilson@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:064": [
+      {
+        "id": "ocd-person/65bb5257-9a90-4b14-a7bd-aee9efd0ab55",
+        "name": "Joe Pavlov",
+        "office": "state-house",
+        "districtCode": "064",
+        "contactUrl": null,
+        "email": "josephpavlov@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:009": [
+      {
+        "id": "ocd-person/19b8cf37-0b98-4194-9d2c-db6da3fae35c",
+        "name": "Joe Tate",
+        "office": "state-house",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "joetate@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:038": [
+      {
+        "id": "ocd-person/fd51ab83-f1b7-4044-b794-871ba167b504",
+        "name": "Joey Andrews",
+        "office": "state-house",
+        "districtCode": "038",
+        "contactUrl": null,
+        "email": "joeyandrews@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:083": [
+      {
+        "id": "ocd-person/9f4f8b82-e4ee-4e50-a2ea-d46bbf264d34",
+        "name": "John Fitzgerald",
+        "office": "state-house",
+        "districtCode": "083",
+        "contactUrl": null,
+        "email": "johnfitzgerald@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:104": [
+      {
+        "id": "ocd-person/e1147656-e038-47fa-ad70-4d206233db72",
+        "name": "J.R. Roth",
+        "office": "state-house",
+        "districtCode": "104",
+        "contactUrl": null,
+        "email": "johnroth@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:060": [
+      {
+        "id": "ocd-person/f66dcbe7-c834-4c23-83ca-38eb5d1a1ba9",
+        "name": "Joe Aragona",
+        "office": "state-house",
+        "districtCode": "060",
+        "contactUrl": null,
+        "email": "josepharagona@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:101": [
+      {
+        "id": "ocd-person/ba49b4ef-08fb-48a0-b8a9-495a3605ef0a",
+        "name": "Joseph Fox",
+        "office": "state-house",
+        "districtCode": "101",
+        "contactUrl": null,
+        "email": "josephfox@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:066": [
+      {
+        "id": "ocd-person/f6df9fad-c6ec-4abf-b175-ac1e9d672759",
+        "name": "Josh Schriver",
+        "office": "state-house",
+        "districtCode": "066",
+        "contactUrl": null,
+        "email": "joshschriver@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:073": [
+      {
+        "id": "ocd-person/192ea166-adcc-4d74-b497-2fd4db882a00",
+        "name": "Julie Brixie",
+        "office": "state-house",
+        "districtCode": "073",
+        "contactUrl": null,
+        "email": "juliebrixie@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:041": [
+      {
+        "id": "ocd-person/5154033e-e367-449c-a719-9437a309e269",
+        "name": "Julie Rogers",
+        "office": "state-house",
+        "districtCode": "041",
+        "contactUrl": null,
+        "email": "julierogers@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:074": [
+      {
+        "id": "ocd-person/f5c9b37d-39a5-4c63-a526-6f35f45cf5cf",
+        "name": "Kara Hope",
+        "office": "state-house",
+        "districtCode": "074",
+        "contactUrl": null,
+        "email": "karahope@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:004": [
+      {
+        "id": "ocd-person/1b71cbce-bf12-4009-b1cd-79da2f22b9aa",
+        "name": "Karen Whitsett",
+        "office": "state-house",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "karenwhitsett@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:109": [
+      {
+        "id": "ocd-person/e3bae1dd-d4b9-48c3-8e40-112987214638",
+        "name": "Karl Bohnak",
+        "office": "state-house",
+        "districtCode": "109",
+        "contactUrl": null,
+        "email": "karlbohnak@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:046": [
+      {
+        "id": "ocd-person/e21ee6f1-0fdc-4ee6-8432-6149de16046d",
+        "name": "Kathy Schmaltz",
+        "office": "state-house",
+        "districtCode": "046",
+        "contactUrl": null,
+        "email": "kathyschmaltz@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:021": [
+      {
+        "id": "ocd-person/6f366c7a-8dab-4d39-90b0-3a25760d2234",
+        "name": "Kelly Breen",
+        "office": "state-house",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "kellybreen@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:105": [
+      {
+        "id": "ocd-person/f38453af-388f-48fc-a18e-f709dba5153c",
+        "name": "Ken Borton",
+        "office": "state-house",
+        "districtCode": "105",
+        "contactUrl": null,
+        "email": "kenborton@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:012": [
+      {
+        "id": "ocd-person/e1d87954-4ee4-4668-9075-c6240dbe8c9b",
+        "name": "Kimberly Edwards",
+        "office": "state-house",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "kimberlyedwards@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:082": [
+      {
+        "id": "ocd-person/642baa61-66d3-44c1-997f-58b2c5740b4f",
+        "name": "Kristian Grant",
+        "office": "state-house",
+        "districtCode": "082",
+        "contactUrl": null,
+        "email": "kristiangrant@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:017": [
+      {
+        "id": "ocd-person/64f12acb-0356-4726-ab8e-0c9c1945d5b0",
+        "name": "Laurie Pohutsky",
+        "office": "state-house",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "lauriepohutsky@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:089": [
+      {
+        "id": "ocd-person/187a5c10-ccc0-4c94-a4c9-4c208ace4776",
+        "name": "Luke Meerman",
+        "office": "state-house",
+        "districtCode": "089",
+        "contactUrl": null,
+        "email": "lukemeerman@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:013": [
+      {
+        "id": "ocd-person/cd44a574-079b-4fd8-82cd-0daea8d7ff96",
+        "name": "Mai Xiong",
+        "office": "state-house",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "maixiong@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:055": [
+      {
+        "id": "ocd-person/a5bb89cb-ac42-47c0-bcc8-96bf18e4d865",
+        "name": "Mark Tisdel",
+        "office": "state-house",
+        "districtCode": "055",
+        "contactUrl": null,
+        "email": "marktisdel@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:097": [
+      {
+        "id": "ocd-person/33fdbffe-7e3d-4146-bd91-bddc098a7bf3",
+        "name": "Matt Bierlein",
+        "office": "state-house",
+        "districtCode": "097",
+        "contactUrl": null,
+        "email": "matthewbierlein@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:042": [
+      {
+        "id": "ocd-person/dc7344e8-b8bf-4f0d-924d-4f4b5ea40554",
+        "name": "Matt Hall",
+        "office": "state-house",
+        "districtCode": "042",
+        "contactUrl": null,
+        "email": "matthall@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:022": [
+      {
+        "id": "ocd-person/42a456fa-8979-468f-b2a6-30f81ff20299",
+        "name": "Matt Koleszar",
+        "office": "state-house",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "mattkoleszar@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:040": [
+      {
+        "id": "ocd-person/cf865d78-f3ea-43f7-b843-a06dbb4bf4be",
+        "name": "Matt Longjohn",
+        "office": "state-house",
+        "districtCode": "040",
+        "contactUrl": null,
+        "email": "mattlongjohn@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:051": [
+      {
+        "id": "ocd-person/241c969f-c72f-4acb-9a37-529e6ec0d955",
+        "name": "Matt Maddock",
+        "office": "state-house",
+        "districtCode": "051",
+        "contactUrl": null,
+        "email": "mattmaddock@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:052": [
+      {
+        "id": "ocd-person/a93eaebe-bdac-4292-a28f-6a3b04efd191",
+        "name": "Mike Harris",
+        "office": "state-house",
+        "districtCode": "052",
+        "contactUrl": null,
+        "email": "mikeharris@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:099": [
+      {
+        "id": "ocd-person/0991c39a-0216-491e-a2c1-e7b61b11275d",
+        "name": "Mike Hoadley",
+        "office": "state-house",
+        "districtCode": "099",
+        "contactUrl": null,
+        "email": "mikehoadley@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:014": [
+      {
+        "id": "ocd-person/b34263be-1f2e-49db-a261-b30e76ba790a",
+        "name": "Mike McFall",
+        "office": "state-house",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "mikemcfall@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:072": [
+      {
+        "id": "ocd-person/bdbada04-5616-4e9c-91db-f709e24d43f3",
+        "name": "Mike Mueller",
+        "office": "state-house",
+        "districtCode": "072",
+        "contactUrl": null,
+        "email": "mikemueller@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:033": [
+      {
+        "id": "ocd-person/0cec5462-4aa6-423a-a946-c13d03370565",
+        "name": "Morgan Foreman",
+        "office": "state-house",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "morganforeman@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:086": [
+      {
+        "id": "ocd-person/ffae0dee-fb80-4434-bc8c-8e510d3bc495",
+        "name": "Nancy DeBoer",
+        "office": "state-house",
+        "districtCode": "086",
+        "contactUrl": null,
+        "email": "nancydeboer@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:034": [
+      {
+        "id": "ocd-person/b8703f11-7463-4df6-aedb-9b3d51560bcb",
+        "name": "Nancy Jenkins-Arno",
+        "office": "state-house",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "nancyjenkinsarno@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:006": [
+      {
+        "id": "ocd-person/2c6f93a7-f08a-4ad4-9424-cdd857401e6e",
+        "name": "Natalie Price",
+        "office": "state-house",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "natalieprice@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:020": [
+      {
+        "id": "ocd-person/3b59f672-58f4-4d87-8b6e-6f9cc63a4d4c",
+        "name": "Noah Arbit",
+        "office": "state-house",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "noaharbit@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:107": [
+      {
+        "id": "ocd-person/9cf66125-7bd7-4991-bee6-ddc21fd23b5d",
+        "name": "Parker Fairbairn",
+        "office": "state-house",
+        "districtCode": "107",
+        "contactUrl": null,
+        "email": "parker.fairbairn@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:091": [
+      {
+        "id": "ocd-person/1a809c60-e0a4-4b43-bdba-43f097021b1f",
+        "name": "Pat Outman",
+        "office": "state-house",
+        "districtCode": "091",
+        "contactUrl": null,
+        "email": "patoutman@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:039": [
+      {
+        "id": "ocd-person/f749bf7e-46bc-482d-ac6e-60288f3b722e",
+        "name": "Pauline Wendzel",
+        "office": "state-house",
+        "districtCode": "039",
+        "contactUrl": null,
+        "email": "paulinewendzel@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:075": [
+      {
+        "id": "ocd-person/026c8d4d-bdd5-4b1f-838e-12c191323540",
+        "name": "Penelope Tsernoglou",
+        "office": "state-house",
+        "districtCode": "075",
+        "contactUrl": null,
+        "email": "penelopetsernoglou@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:025": [
+      {
+        "id": "ocd-person/8e6c8809-d207-477d-8bdc-6646878249c5",
+        "name": "Peter Herzberg",
+        "office": "state-house",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "peterherzberg@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:067": [
+      {
+        "id": "ocd-person/67081474-baf6-465a-bcd2-b2b84ab5c36b",
+        "name": "Phil Green",
+        "office": "state-house",
+        "districtCode": "067",
+        "contactUrl": null,
+        "email": "repphilgreen@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:080": [
+      {
+        "id": "ocd-person/a61c6338-85df-446c-854a-17991386d252",
+        "name": "Phil Skaggs",
+        "office": "state-house",
+        "districtCode": "080",
+        "contactUrl": null,
+        "email": "philskaggs@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:043": [
+      {
+        "id": "ocd-person/6c955ba2-9448-43ae-8d7f-c3d76329ad60",
+        "name": "Rachelle Smit",
+        "office": "state-house",
+        "districtCode": "043",
+        "contactUrl": null,
+        "email": "rachellesmit@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:024": [
+      {
+        "id": "ocd-person/1a16bef8-b655-46da-a5c5-07a8c5569eed",
+        "name": "Ranjeev Puri",
+        "office": "state-house",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "ranjeevpuri@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:031": [
+      {
+        "id": "ocd-person/50d75ced-0a70-4f88-aada-57015d799fd0",
+        "name": "Reggie Miller",
+        "office": "state-house",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "reggiemiller@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:005": [
+      {
+        "id": "ocd-person/ae5a3a48-9948-4c6c-95c2-c2d0915fd866",
+        "name": "Regina Weiss",
+        "office": "state-house",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "reginaweiss@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:058": [
+      {
+        "id": "ocd-person/cda45c1f-0a65-4c08-b912-a90cd945f4ec",
+        "name": "Ron Robinson",
+        "office": "state-house",
+        "districtCode": "058",
+        "contactUrl": null,
+        "email": "ronrobinson@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:027": [
+      {
+        "id": "ocd-person/c1ac9f88-970a-4930-8249-7c15e77210ed",
+        "name": "Rylee Linting",
+        "office": "state-house",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "ryleelinting@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:019": [
+      {
+        "id": "ocd-person/5a99ab1c-62e3-4424-9bb1-310ffcecc3e3",
+        "name": "Samantha Steckloff",
+        "office": "state-house",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "samanthasteckloff@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:045": [
+      {
+        "id": "ocd-person/ef5b60a6-d301-4433-8e85-6c14ba254011",
+        "name": "Sarah Lightner",
+        "office": "state-house",
+        "districtCode": "045",
+        "contactUrl": null,
+        "email": "sarahlightner@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:056": [
+      {
+        "id": "ocd-person/55a6fa48-006b-48ee-bffd-655ed7e56fce",
+        "name": "Sharon MacDonell",
+        "office": "state-house",
+        "districtCode": "056",
+        "contactUrl": null,
+        "email": "sharonmacdonell@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:016": [
+      {
+        "id": "ocd-person/ea254169-e403-4e29-ab06-8f40fb869ac2",
+        "name": "Stephanie Young",
+        "office": "state-house",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "stephanieyoung@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:081": [
+      {
+        "id": "ocd-person/a071cb31-2347-40a8-a88b-ec72bacdeffd",
+        "name": "Stephen Wooden",
+        "office": "state-house",
+        "districtCode": "081",
+        "contactUrl": null,
+        "email": "stephenwooden@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:036": [
+      {
+        "id": "ocd-person/4dee484b-79f4-4ca2-92dc-2ed7e0623d6b",
+        "name": "Steve Carra",
+        "office": "state-house",
+        "districtCode": "036",
+        "contactUrl": null,
+        "email": "stevecarra@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:044": [
+      {
+        "id": "ocd-person/c62d1d8e-1e35-48c2-a869-6801ad396875",
+        "name": "Steve Frisbie",
+        "office": "state-house",
+        "districtCode": "044",
+        "contactUrl": null,
+        "email": "stevefrisbie@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:057": [
+      {
+        "id": "ocd-person/58e6e432-e6a2-44f4-8dda-cc3d8e01ca7e",
+        "name": "Tom Kuhn",
+        "office": "state-house",
+        "districtCode": "057",
+        "contactUrl": null,
+        "email": "tomkuhn@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:093": [
+      {
+        "id": "ocd-person/679924dd-c6da-467c-9a9c-1f5a22aa1787",
+        "name": "Tim Kelly",
+        "office": "state-house",
+        "districtCode": "093",
+        "contactUrl": null,
+        "email": "timkelly@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:096": [
+      {
+        "id": "ocd-person/6b7aadaf-f690-487f-bec8-95f095f6b565",
+        "name": "Timmy Beson",
+        "office": "state-house",
+        "districtCode": "096",
+        "contactUrl": null,
+        "email": "timothybeson@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:100": [
+      {
+        "id": "ocd-person/462dc80a-8642-40d7-9c22-f6234da5451e",
+        "name": "Tom Kunse",
+        "office": "state-house",
+        "districtCode": "100",
+        "contactUrl": null,
+        "email": "tomkunse@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:007": [
+      {
+        "id": "ocd-person/787d9bda-d4dd-47fe-aaf0-348c505211e4",
+        "name": "Tonya Phillips",
+        "office": "state-house",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "tonyamyersphillips@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:002": [
+      {
+        "id": "ocd-person/4d548157-c00e-4131-bf2b-5838ffc5281a",
+        "name": "Tullio Liberati",
+        "office": "state-house",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "tullioliberati@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:001": [
+      {
+        "id": "ocd-person/38d2f8c4-f40c-44b7-a2dd-57a4d5375572",
+        "name": "Tyrone Carter",
+        "office": "state-house",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "tyronecarter@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:010": [
+      {
+        "id": "ocd-person/8c335851-e7f6-40d6-b83c-fe413f21934e",
+        "name": "Veronica Paiz",
+        "office": "state-house",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "veronicapaiz@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:030": [
+      {
+        "id": "ocd-person/a9f36e83-23ad-4912-a183-8b1e93ef3e81",
+        "name": "Will Bruck",
+        "office": "state-house",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "williambruck@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-house:087": [
+      {
+        "id": "ocd-person/6f36a657-51ea-4c74-b1fd-7bc69ad222bd",
+        "name": "Will Snyder",
+        "office": "state-house",
+        "districtCode": "087",
+        "contactUrl": null,
+        "email": "willsnyder@house.mi.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-senate:020": [
+      {
+        "id": "ocd-person/6d11944d-f19f-4697-811c-0c9dca750c57",
+        "name": "Aric Nesbitt",
+        "office": "state-senate",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "senanesbitt@senate.michigan.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senatoraricnesbitt.com",
+        "social": {}
+      }
+    ],
+    "MI:state-senate:035": [
+      {
+        "id": "ocd-person/b5b41ca8-2f16-4df4-9808-66b2a13bfecc",
+        "name": "Chedrick Greene",
+        "office": "state-senate",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "sencgreene@senate.michigan.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-senate:025": [
+      {
+        "id": "ocd-person/30afc35e-fa35-448c-b303-e0f6cc456c77",
+        "name": "Dan Lauwers",
+        "office": "state-senate",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "sendlauwers@senate.michigan.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senatordanlauwers.com",
+        "social": {}
+      }
+    ],
+    "MI:state-senate:004": [
+      {
+        "id": "ocd-person/5d2fbcb4-0e27-4cb5-99bf-f94693b3aa12",
+        "name": "Darrin Camilleri",
+        "office": "state-senate",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "sendcamilleri@senate.michigan.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-senate:005": [
+      {
+        "id": "ocd-person/f266a938-3705-4c7c-994f-859b2b6024dc",
+        "name": "Dayna Polehanki",
+        "office": "state-senate",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "sendpolehanki@senate.michigan.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-senate:038": [
+      {
+        "id": "ocd-person/4fc7e235-2446-405d-9a56-5e010017f617",
+        "name": "Ed McBroom",
+        "office": "state-senate",
+        "districtCode": "038",
+        "contactUrl": null,
+        "email": "senemcbroom@senate.michigan.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senatoredmcbroom.com/",
+        "social": {}
+      }
+    ],
+    "MI:state-senate:001": [
+      {
+        "id": "ocd-person/ebc9981a-cbe1-4d37-99b0-89d3c350fd3f",
+        "name": "Erika Geiss",
+        "office": "state-senate",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "senegeiss@senate.michigan.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-senate:015": [
+      {
+        "id": "ocd-person/a1c1163d-af8d-4b88-9365-07717d4a45c3",
+        "name": "Jeff Irwin",
+        "office": "state-senate",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "senjirwin@senate.michigan.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-senate:007": [
+      {
+        "id": "ocd-person/d1c4631b-145d-4418-8a29-24683b83ae44",
+        "name": "Jeremy Moss",
+        "office": "state-senate",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "senjmoss@senate.michigan.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-senate:023": [
+      {
+        "id": "ocd-person/e0a8928d-8ccc-4e1e-9ca5-d7f50642ff91",
+        "name": "Jim Runestad",
+        "office": "state-senate",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "senjrunestad@senate.michigan.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senatorjimrunestad.com",
+        "social": {}
+      }
+    ],
+    "MI:state-senate:027": [
+      {
+        "id": "ocd-person/de1a4de4-aa34-4487-98f8-27b140fed784",
+        "name": "John Cherry",
+        "office": "state-senate",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "senjcherry@senate.michigan.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-senate:037": [
+      {
+        "id": "ocd-person/071e391f-da3d-4e66-ae78-61a63bc23729",
+        "name": "John Damoose",
+        "office": "state-senate",
+        "districtCode": "037",
+        "contactUrl": null,
+        "email": "senjdamoose@senate.michigan.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://repdamoose.com",
+        "social": {}
+      }
+    ],
+    "MI:state-senate:032": [
+      {
+        "id": "ocd-person/5a58fa81-639b-4304-87ca-7471ba9ade96",
+        "name": "Jon Bumstead",
+        "office": "state-senate",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "senjbumstead@senate.michigan.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senatorjonbumstead.com",
+        "social": {}
+      }
+    ],
+    "MI:state-senate:017": [
+      {
+        "id": "ocd-person/a16e3693-0703-40fb-b508-3b2812079548",
+        "name": "Jonathan Lindsey",
+        "office": "state-senate",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "senjlindsey@senate.michigan.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senatorjonathanlindsey.com",
+        "social": {}
+      }
+    ],
+    "MI:state-senate:016": [
+      {
+        "id": "ocd-person/e394293d-abd7-46a9-a60f-6c75e369468e",
+        "name": "Joe Bellino",
+        "office": "state-senate",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "senjbellino@senate.michigan.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-senate:026": [
+      {
+        "id": "ocd-person/cf7ed8de-2df4-41ff-9dcb-489980b031a0",
+        "name": "Kevin Daley",
+        "office": "state-senate",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "senkdaley@senate.michigan.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senatorkevindaley.com/",
+        "social": {}
+      }
+    ],
+    "MI:state-senate:012": [
+      {
+        "id": "ocd-person/cbfd5eae-d312-4498-a988-bcb52883f637",
+        "name": "Kevin Hertel",
+        "office": "state-senate",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "senkhertel@senate.michigan.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-senate:022": [
+      {
+        "id": "ocd-person/4fa99fea-71fd-4f21-9f75-157e6a946c80",
+        "name": "Lana Theis",
+        "office": "state-senate",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "senltheis@senate.michigan.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senatorlanatheis.com",
+        "social": {}
+      }
+    ],
+    "MI:state-senate:008": [
+      {
+        "id": "ocd-person/dc6ff9c0-f2b1-433d-a96b-292cf05bcb50",
+        "name": "Mallory McMorrow",
+        "office": "state-senate",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "senmmcmorrow@senate.michigan.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-senate:030": [
+      {
+        "id": "ocd-person/8564d477-bb39-47a4-87e1-3ceacd7d3abe",
+        "name": "Mark Huizenga",
+        "office": "state-senate",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "senmhuizenga@senate.michigan.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://SenatorMarkHuizenga.com",
+        "social": {}
+      }
+    ],
+    "MI:state-senate:006": [
+      {
+        "id": "ocd-person/a9e6b2e4-016d-481e-9f34-1f1b33d857ca",
+        "name": "Mary Cavanagh",
+        "office": "state-senate",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "senmcavanagh@senate.michigan.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-senate:009": [
+      {
+        "id": "ocd-person/be2c96ad-1304-4c25-8cab-2c8ec5d6475f",
+        "name": "Michael Webber",
+        "office": "state-senate",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "senmwebber@senate.michigan.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senatormichaelwebber.com",
+        "social": {}
+      }
+    ],
+    "MI:state-senate:036": [
+      {
+        "id": "ocd-person/0c9a2c44-5a9a-44cd-8470-5dad5c7b2c53",
+        "name": "Michele Hoitenga",
+        "office": "state-senate",
+        "districtCode": "036",
+        "contactUrl": null,
+        "email": "senmhoitenga@senate.michigan.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senatormichelehoitenga.com",
+        "social": {}
+      }
+    ],
+    "MI:state-senate:010": [
+      {
+        "id": "ocd-person/1d71200f-5f95-46e8-ac9b-a35c6c0178d8",
+        "name": "Paul Wojno",
+        "office": "state-senate",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "senpwojno@senate.michigan.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-senate:033": [
+      {
+        "id": "ocd-person/9c525554-fb85-45f3-87fa-cf6a3208ce32",
+        "name": "Rick Outman",
+        "office": "state-senate",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "senroutman@senate.michigan.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senatorrickoutman.com",
+        "social": {}
+      }
+    ],
+    "MI:state-senate:034": [
+      {
+        "id": "ocd-person/b6d8b86d-2975-4d07-83fe-a1841f39806b",
+        "name": "Roger Hauck",
+        "office": "state-senate",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "senrhauck@senate.michigan.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-senate:031": [
+      {
+        "id": "ocd-person/cd36ab04-a62b-41fa-8b91-d6c792f6719e",
+        "name": "Roger Victory",
+        "office": "state-senate",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "senrvictory@senate.michigan.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senatorrogervictory.com",
+        "social": {}
+      }
+    ],
+    "MI:state-senate:013": [
+      {
+        "id": "ocd-person/3e24c95f-2ed8-442a-a41f-1a3a9a0b95ed",
+        "name": "Rosemary Bayer",
+        "office": "state-senate",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "senrbayer@senate.michigan.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-senate:024": [
+      {
+        "id": "ocd-person/8d0d58dd-a718-4f8f-bb7f-c530e039c0c5",
+        "name": "Ruth Johnson",
+        "office": "state-senate",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "senrjohnson@senate.michigan.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senatorruthjohnson.com",
+        "social": {}
+      }
+    ],
+    "MI:state-senate:028": [
+      {
+        "id": "ocd-person/9271c2c7-01d8-44f1-95a4-1496b8716268",
+        "name": "Sam Singh",
+        "office": "state-senate",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "senssingh@senate.michigan.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-senate:021": [
+      {
+        "id": "ocd-person/08eac592-a25a-444f-aea7-db0cdfa79e7b",
+        "name": "Sarah Anthony",
+        "office": "state-senate",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "sensanthony@senate.michigan.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-senate:019": [
+      {
+        "id": "ocd-person/c15f272e-73f2-410c-8afe-1cc91ad3603a",
+        "name": "Sean McCann",
+        "office": "state-senate",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "sensmccann@senate.michigan.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-senate:003": [
+      {
+        "id": "ocd-person/1d297b7e-2e51-4e1a-a208-2f5505e9f1f7",
+        "name": "Stephanie Chang",
+        "office": "state-senate",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "senschang@senate.michigan.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-senate:014": [
+      {
+        "id": "ocd-person/38c58e5f-715a-4943-a8d9-2b557db3db02",
+        "name": "Sue Shink",
+        "office": "state-senate",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "sensshink@senate.michigan.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-senate:002": [
+      {
+        "id": "ocd-person/8e302b97-4868-4575-a56f-3881e91ae0f8",
+        "name": "Sylvia Santana",
+        "office": "state-senate",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "senssantana@senate.michigan.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-senate:018": [
+      {
+        "id": "ocd-person/c96aa62f-6a2c-4d37-9074-2c25875c639b",
+        "name": "Thomas Albert",
+        "office": "state-senate",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "sentalbert@senate.michigan.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-senate:011": [
+      {
+        "id": "ocd-person/3cef42f4-ef0b-43c2-b0b8-01f7f399af2f",
+        "name": "Veronica Klinefelt",
+        "office": "state-senate",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "senvklinefelt@senate.michigan.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "MI:state-senate:029": [
+      {
+        "id": "ocd-person/de38477b-6f3e-44cd-96d0-bd81ff831948",
+        "name": "Winnie Brinks",
+        "office": "state-senate",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "senwbrinks@senate.michigan.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ]
+  }
+}

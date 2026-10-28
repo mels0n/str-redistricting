@@ -1,0 +1,2961 @@
+{
+  "state": "MA",
+  "generatedFrom": {
+    "legislators-current.json": "ae8cb9477c48715df71a7d860854229d799dc90a254d61badc1efb770f892b2c",
+    "legislators-social-media.json": "c6eca1fcdb3a89901335eed51ca061daa4b60ad3243969a127e913bb9657fbc5",
+    "ma.csv": "f423850fa9aea0feedd8d0c4123e1724dbbc4af67490faf534f83a9b3f892627"
+  },
+  "byKey": {
+    "MA:us-house:09": [
+      {
+        "id": "K000375",
+        "name": "William R. Keating",
+        "office": "us-house",
+        "districtCode": "09",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-3111",
+        "address": "2372 Rayburn House Office Building Washington DC 20515-2109",
+        "website": "https://keating.house.gov",
+        "social": {
+          "x": "USRepKeating",
+          "facebook": "Congressman.Keating"
+        }
+      }
+    ],
+    "MA:us-house:08": [
+      {
+        "id": "L000562",
+        "name": "Stephen F. Lynch",
+        "office": "us-house",
+        "districtCode": "08",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-8273",
+        "address": "2109 Rayburn House Office Building Washington DC 20515-2108",
+        "website": "https://lynch.house.gov",
+        "social": {
+          "x": "RepStephenLynch",
+          "facebook": "repstephenlynch",
+          "instagram": "repstephenlynch"
+        }
+      }
+    ],
+    "MA:us-senate:state": [
+      {
+        "id": "M000133",
+        "name": "Edward J. Markey",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.markey.senate.gov/contact",
+        "email": null,
+        "phone": "202-224-2742",
+        "address": "255 Dirksen Senate Office Building Washington DC 20510",
+        "website": "https://www.markey.senate.gov",
+        "social": {
+          "x": "SenMarkey",
+          "facebook": "EdJMarkey",
+          "instagram": "senmarkeymemes"
+        }
+      },
+      {
+        "id": "W000817",
+        "name": "Elizabeth Warren",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.warren.senate.gov/?p=email_senator",
+        "email": null,
+        "phone": "202-224-4543",
+        "address": "311 Hart Senate Office Building Washington DC 20510",
+        "website": "https://www.warren.senate.gov",
+        "social": {
+          "x": "SenWarren",
+          "facebook": "senatorelizabethwarren",
+          "instagram": "senwarren"
+        }
+      }
+    ],
+    "MA:us-house:02": [
+      {
+        "id": "M000312",
+        "name": "James P. McGovern",
+        "office": "us-house",
+        "districtCode": "02",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-6101",
+        "address": "370 Cannon House Office Building Washington DC 20515-2102",
+        "website": "https://mcgovern.house.gov",
+        "social": {
+          "x": "RepMcGovern",
+          "facebook": "RepJimMcGovern",
+          "instagram": "repmcgovern"
+        }
+      }
+    ],
+    "MA:us-house:01": [
+      {
+        "id": "N000015",
+        "name": "Richard E. Neal",
+        "office": "us-house",
+        "districtCode": "01",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5601",
+        "address": "372 Cannon House Office Building Washington DC 20515-2101",
+        "website": "https://neal.house.gov",
+        "social": {
+          "x": "RepRichardNeal",
+          "facebook": "reprichardneal"
+        }
+      }
+    ],
+    "MA:us-house:05": [
+      {
+        "id": "C001101",
+        "name": "Katherine M. Clark",
+        "office": "us-house",
+        "districtCode": "05",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2836",
+        "address": "2368 Rayburn House Office Building Washington DC 20515-2105",
+        "website": "https://katherineclark.house.gov",
+        "social": {
+          "x": "RepKClark",
+          "facebook": "CongresswomanClark",
+          "instagram": "repkclark"
+        }
+      }
+    ],
+    "MA:us-house:06": [
+      {
+        "id": "M001196",
+        "name": "Seth Moulton",
+        "office": "us-house",
+        "districtCode": "06",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-8020",
+        "address": "1126 Longworth House Office Building Washington DC 20515-2106",
+        "website": "https://moulton.house.gov",
+        "social": {
+          "x": "RepMoulton",
+          "facebook": "CongressmanSethMoulton",
+          "instagram": "repmoulton"
+        }
+      }
+    ],
+    "MA:us-house:03": [
+      {
+        "id": "T000482",
+        "name": "Lori Trahan",
+        "office": "us-house",
+        "districtCode": "03",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-3411",
+        "address": "2233 Rayburn House Office Building Washington DC 20515-2103",
+        "website": "https://trahan.house.gov",
+        "social": {
+          "x": "RepLoriTrahan",
+          "facebook": "reploritrahan",
+          "instagram": "reploritrahan"
+        }
+      }
+    ],
+    "MA:us-house:07": [
+      {
+        "id": "P000617",
+        "name": "Ayanna Pressley",
+        "office": "us-house",
+        "districtCode": "07",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5111",
+        "address": "402 Cannon House Office Building Washington DC 20515-2107",
+        "website": "https://pressley.house.gov",
+        "social": {
+          "x": "RepPressley",
+          "facebook": "RepAyannaPressley",
+          "instagram": "RepAyannaPressley"
+        }
+      }
+    ],
+    "MA:us-house:04": [
+      {
+        "id": "A000148",
+        "name": "Jake Auchincloss",
+        "office": "us-house",
+        "districtCode": "04",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5931",
+        "address": "1524 Longworth House Office Building Washington DC 20515-2104",
+        "website": "https://auchincloss.house.gov",
+        "social": {
+          "x": "RepAuchincloss",
+          "facebook": "RepAuchincloss"
+        }
+      }
+    ],
+    "MA:state-house:050": [
+      {
+        "id": "ocd-person/c3d23eba-caa6-4d2a-bbd2-5b8b2ca184ae",
+        "name": "Aaron Saunders",
+        "office": "state-house",
+        "districtCode": "050",
+        "contactUrl": null,
+        "email": "aaron.saunders@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/ALS1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:125": [
+      {
+        "id": "ocd-person/4183f327-e2a6-4b1a-9d23-161da1b5e261",
+        "name": "Aaron Michlewitz",
+        "office": "state-house",
+        "districtCode": "125",
+        "contactUrl": null,
+        "email": "aaron.m.michlewitz@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/AMM1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:023": [
+      {
+        "id": "ocd-person/804c5518-7fdf-43c9-ba24-f2c24eb3b0ab",
+        "name": "Adam Scanlon",
+        "office": "state-house",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "adam.scanlon@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/AJS1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:123": [
+      {
+        "id": "ocd-person/f8772f1e-29f7-42e2-8a8c-ab4005153b05",
+        "name": "Adrian Madaro",
+        "office": "state-house",
+        "districtCode": "123",
+        "contactUrl": null,
+        "email": "adrian.madaro@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/ACM1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:037": [
+      {
+        "id": "ocd-person/300d40b3-9479-43c0-99d3-18f94e1110cc",
+        "name": "Adrianne Ramos",
+        "office": "state-house",
+        "districtCode": "037",
+        "contactUrl": null,
+        "email": "adrianne.ramos@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/APR1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:016": [
+      {
+        "id": "ocd-person/6e81dcb7-4a04-4a88-b5f2-728a3336cf9d",
+        "name": "Alan Silvia",
+        "office": "state-house",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "alan.silvia@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/A_S1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:109": [
+      {
+        "id": "ocd-person/2a9569a0-feaf-431d-8a8d-012d8ebccbf8",
+        "name": "Alice Peisch",
+        "office": "state-house",
+        "districtCode": "109",
+        "contactUrl": null,
+        "email": "alice.peisch@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/AHP1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:117": [
+      {
+        "id": "ocd-person/bed31f9a-e759-41a5-80b6-8b6bb9a64762",
+        "name": "Alyson Sullivan-Almeida",
+        "office": "state-house",
+        "districtCode": "117",
+        "contactUrl": null,
+        "email": "alyson.sullivan@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/AMS2",
+        "social": {}
+      }
+    ],
+    "MA:state-house:069": [
+      {
+        "id": "ocd-person/adb7ebb2-480f-4215-859e-3a1194e9a598",
+        "name": "Amy Sangiolo",
+        "office": "state-house",
+        "districtCode": "069",
+        "contactUrl": null,
+        "email": "amy.sangiolo@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/AMS3",
+        "social": {}
+      }
+    ],
+    "MA:state-house:026": [
+      {
+        "id": "ocd-person/c1f81bec-d032-4f41-940c-ca32f2b5af12",
+        "name": "Andy Vargas",
+        "office": "state-house",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "andy.vargas@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/AXV1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:055": [
+      {
+        "id": "ocd-person/8302648f-4ed2-454e-ad1e-d7389e25b8dc",
+        "name": "Angelo Puppolo",
+        "office": "state-house",
+        "districtCode": "055",
+        "contactUrl": null,
+        "email": "angelo.puppolo@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/AJP1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:022": [
+      {
+        "id": "ocd-person/59aed143-c5c1-4760-ac55-eab18600c451",
+        "name": "Tony Cabral",
+        "office": "state-house",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "antonio.cabral@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/AFC1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:078": [
+      {
+        "id": "ocd-person/368c3f95-1124-4f0a-9ab5-7361cb2805d3",
+        "name": "Brad Jones",
+        "office": "state-house",
+        "districtCode": "078",
+        "contactUrl": null,
+        "email": "bradley.jones@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/BHJ1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:134": [
+      {
+        "id": "ocd-person/99c9c9e7-f0e3-480b-ad38-de297e6c635a",
+        "name": "Brandy Fluker-Reid",
+        "office": "state-house",
+        "districtCode": "134",
+        "contactUrl": null,
+        "email": "brandy.flukerreid@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/BFO1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:045": [
+      {
+        "id": "ocd-person/503a0888-f086-4b52-b03c-c5293378bc51",
+        "name": "Brian Ashe",
+        "office": "state-house",
+        "districtCode": "045",
+        "contactUrl": null,
+        "email": "brian.ashe@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/BMA1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:151": [
+      {
+        "id": "ocd-person/66e7c819-cd52-4034-bace-bfec476c106d",
+        "name": "Brian Murray",
+        "office": "state-house",
+        "districtCode": "151",
+        "contactUrl": null,
+        "email": "brian.murray@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/BWM1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:119": [
+      {
+        "id": "ocd-person/2b6d0884-6638-410e-87b7-243c7ca18a16",
+        "name": "Bridget Plouffe",
+        "office": "state-house",
+        "districtCode": "119",
+        "contactUrl": null,
+        "email": "bridget.plouffe@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/BMP1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:096": [
+      {
+        "id": "ocd-person/f81b07bd-cc43-47be-95ea-dca26f19a647",
+        "name": "Bruce Ayers",
+        "office": "state-house",
+        "districtCode": "096",
+        "contactUrl": null,
+        "email": "bruce.ayers@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/BJA1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:054": [
+      {
+        "id": "ocd-person/b23dd64e-a05c-4fe1-8562-c29436ca79bb",
+        "name": "Bud Williams",
+        "office": "state-house",
+        "districtCode": "054",
+        "contactUrl": null,
+        "email": "bud.williams@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/BLW1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:053": [
+      {
+        "id": "ocd-person/c4d03c0e-713d-4195-ba23-1394f225494b",
+        "name": "Carlos González",
+        "office": "state-house",
+        "districtCode": "053",
+        "contactUrl": null,
+        "email": "carlos.gonzalez@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/C_G1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:071": [
+      {
+        "id": "ocd-person/b9a91cec-bad7-43a7-8fd2-60cd704bd7ab",
+        "name": "Carmine Gentile",
+        "office": "state-house",
+        "districtCode": "071",
+        "contactUrl": null,
+        "email": "carmine.gentile@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/CLG1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:015": [
+      {
+        "id": "ocd-person/af41924a-7c46-4b6b-b71b-bba683c62c5f",
+        "name": "Carole Fiola",
+        "office": "state-house",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "carole.fiola@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/CAF1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:092": [
+      {
+        "id": "ocd-person/35396516-6096-4336-ab74-80d6d8e53bcd",
+        "name": "Christine Barber",
+        "office": "state-house",
+        "districtCode": "092",
+        "contactUrl": null,
+        "email": "christine.barber@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/CPB2",
+        "social": {}
+      }
+    ],
+    "MA:state-house:020": [
+      {
+        "id": "ocd-person/9750bdb4-4dce-4003-85ec-672185a3a5a4",
+        "name": "Chris Hendricks",
+        "office": "state-house",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "chris.hendricks@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/C_H1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:127": [
+      {
+        "id": "ocd-person/59539448-5c3b-4d4d-8e96-48fabb01b10f",
+        "name": "Chris Worrell",
+        "office": "state-house",
+        "districtCode": "127",
+        "contactUrl": null,
+        "email": "christopher.worrell@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/CJW1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:018": [
+      {
+        "id": "ocd-person/560c5ca3-d9b4-4c47-998c-a9baa16a8309",
+        "name": "Christopher Markey",
+        "office": "state-house",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "christopher.markey@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/CMM1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:001": [
+      {
+        "id": "ocd-person/c30f76b4-73d6-4795-be75-c46973d17f59",
+        "name": "Chris Flanagan",
+        "office": "state-house",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "christopher.flanagan@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/CRF1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:129": [
+      {
+        "id": "ocd-person/3b92fb1f-d268-40d8-8a4e-851f11fe81ff",
+        "name": "Chynah Tyler",
+        "office": "state-house",
+        "districtCode": "129",
+        "contactUrl": null,
+        "email": "chynah.tyler@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/C_T1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:094": [
+      {
+        "id": "ocd-person/0e38852a-52b0-4aac-8a65-fa3fc964c88e",
+        "name": "Colleen Garry",
+        "office": "state-house",
+        "districtCode": "094",
+        "contactUrl": null,
+        "email": "colleen.garry@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/CMG1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:033": [
+      {
+        "id": "ocd-person/5f227f77-f58b-4ac6-b193-9f406bde4055",
+        "name": "Dan Cahill",
+        "office": "state-house",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "daniel.cahill@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/DFC1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:135": [
+      {
+        "id": "ocd-person/2990f236-cb76-4d93-af19-7792fa77290b",
+        "name": "Dan Hunt",
+        "office": "state-house",
+        "districtCode": "135",
+        "contactUrl": null,
+        "email": "daniel.hunt@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/djh1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:124": [
+      {
+        "id": "ocd-person/c0519476-08fc-44af-9114-c77d197f883d",
+        "name": "Danny Ryan",
+        "office": "state-house",
+        "districtCode": "124",
+        "contactUrl": null,
+        "email": "dan.ryan@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/djr1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:157": [
+      {
+        "id": "ocd-person/d70e97f1-b8ec-489d-ab5a-2b7f3775ae8a",
+        "name": "Dan Donahue",
+        "office": "state-house",
+        "districtCode": "157",
+        "contactUrl": null,
+        "email": "daniel.donahue@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/DMD1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:062": [
+      {
+        "id": "ocd-person/5696763c-5fd6-44dd-9dce-7be56632cedd",
+        "name": "Danielle Gregoire",
+        "office": "state-house",
+        "districtCode": "062",
+        "contactUrl": null,
+        "email": "danielle.gregoire@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/DWG1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:095": [
+      {
+        "id": "ocd-person/8f480d9c-0741-43bb-83a4-179745e1f3b2",
+        "name": "Dan Sena",
+        "office": "state-house",
+        "districtCode": "095",
+        "contactUrl": null,
+        "email": "danillo.sena@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/DAS1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:077": [
+      {
+        "id": "ocd-person/f3dd7fd8-5d7f-4fa3-b2fe-910e375f2edd",
+        "name": "Dave Robertson",
+        "office": "state-house",
+        "districtCode": "077",
+        "contactUrl": null,
+        "email": "david.robertson@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/D_R1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:126": [
+      {
+        "id": "ocd-person/5fde161f-7456-4006-bffd-eaf6fedc5aa3",
+        "name": "David Biele",
+        "office": "state-house",
+        "districtCode": "126",
+        "contactUrl": null,
+        "email": "david.biele@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/D_B1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:115": [
+      {
+        "id": "ocd-person/cf295962-4f8d-427a-84e9-c7615ff94c8c",
+        "name": "David DeCoste",
+        "office": "state-house",
+        "districtCode": "115",
+        "contactUrl": null,
+        "email": "david.decoste@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/DFD1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:158": [
+      {
+        "id": "ocd-person/ca659c30-e49e-420b-8213-797cfeb3c378",
+        "name": "David LeBoeuf",
+        "office": "state-house",
+        "districtCode": "158",
+        "contactUrl": null,
+        "email": "david.leboeuf@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/DAL1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:150": [
+      {
+        "id": "ocd-person/b601dee7-1ad1-4f36-b585-b0fb5077fd89",
+        "name": "Dave Muradian",
+        "office": "state-house",
+        "districtCode": "150",
+        "contactUrl": null,
+        "email": "david.muradian@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/DKM1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:082": [
+      {
+        "id": "ocd-person/51adc4d9-23d8-442f-b692-c4e4204f552e",
+        "name": "Dave Rogers",
+        "office": "state-house",
+        "districtCode": "082",
+        "contactUrl": null,
+        "email": "dave.rogers@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/DMR1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:063": [
+      {
+        "id": "ocd-person/06867e5f-9de5-4cb2-a3ae-a039e890718c",
+        "name": "David Linsky",
+        "office": "state-house",
+        "districtCode": "063",
+        "contactUrl": null,
+        "email": "david.linsky@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/DPL1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:003": [
+      {
+        "id": "ocd-person/5c798735-2f95-40a6-9ef7-4cd25eb638f6",
+        "name": "Dave Vieira",
+        "office": "state-house",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "david.vieira@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/DTV1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:024": [
+      {
+        "id": "ocd-person/6c49bb2c-7c53-4f22-bfb9-04af813b95b0",
+        "name": "Dawne Shand",
+        "office": "state-house",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "dawne.shand@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/D_S1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:118": [
+      {
+        "id": "ocd-person/3601344e-8a37-488b-a3b1-f355f4e52ea7",
+        "name": "Dennis Gallagher",
+        "office": "state-house",
+        "districtCode": "118",
+        "contactUrl": null,
+        "email": "dennis.gallagher@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/DCG2",
+        "social": {}
+      }
+    ],
+    "MA:state-house:032": [
+      {
+        "id": "ocd-person/e8071049-2a8d-4633-b6cb-c1f6ae83bb7a",
+        "name": "Donald Wong",
+        "office": "state-house",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "donald.wong@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/DHW1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:146": [
+      {
+        "id": "ocd-person/5a276629-f50a-4d9a-a54e-2c0e07f84968",
+        "name": "Donnie Berthiaume",
+        "office": "state-house",
+        "districtCode": "146",
+        "contactUrl": null,
+        "email": "donald.berthiaume@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/DRB1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:028": [
+      {
+        "id": "ocd-person/b4f97e46-d8cd-45f7-88c4-94926b0bf60b",
+        "name": "Dru Tarr",
+        "office": "state-house",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "andrew.tarr@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/AFT1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:103": [
+      {
+        "id": "ocd-person/73394d70-485b-4fbf-a512-bf2da4e4cb3b",
+        "name": "Ted Philips",
+        "office": "state-house",
+        "districtCode": "103",
+        "contactUrl": null,
+        "email": "edward.philips@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/ERP1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:085": [
+      {
+        "id": "ocd-person/a3f4c05a-b51a-4b8f-bc5d-d4cb82d74164",
+        "name": "Erika Uyterhoeven",
+        "office": "state-house",
+        "districtCode": "085",
+        "contactUrl": null,
+        "email": "erika.uyterhoeven@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/E_U1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:027": [
+      {
+        "id": "ocd-person/824532f7-8dc9-4a1a-a7b3-16b2d0e78941",
+        "name": "Estela Reyes",
+        "office": "state-house",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "estela.reyes@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/EAR1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:039": [
+      {
+        "id": "ocd-person/99109961-27e8-4e58-8269-3a1deb29f228",
+        "name": "Francisco Paulino",
+        "office": "state-house",
+        "districtCode": "039",
+        "contactUrl": null,
+        "email": "francisco.paulino@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/FEP1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:040": [
+      {
+        "id": "ocd-person/8c42603e-4483-44f1-995f-5956fa09c73c",
+        "name": "Frank Moran",
+        "office": "state-house",
+        "districtCode": "040",
+        "contactUrl": null,
+        "email": "frank.moran@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/FAM1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:070": [
+      {
+        "id": "ocd-person/2770216d-1802-435d-b147-4ca1d684dc45",
+        "name": "Greg Schwartz",
+        "office": "state-house",
+        "districtCode": "070",
+        "contactUrl": null,
+        "email": "greg.schwartz@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/G_S1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:004": [
+      {
+        "id": "ocd-person/8d481937-69c5-477d-ba72-e3b682ed0a4d",
+        "name": "Hadley Luddy",
+        "office": "state-house",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "hadley.luddy@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/H_L1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:029": [
+      {
+        "id": "ocd-person/f9a6f401-206b-43df-a1b9-0fc1cd8a3417",
+        "name": "Hannah Bowen",
+        "office": "state-house",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "hannah.bowen@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/HLB1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:152": [
+      {
+        "id": "ocd-person/3dd1e2a8-3fdd-4d3a-9504-88a04f3fc973",
+        "name": "Hannah Kane",
+        "office": "state-house",
+        "districtCode": "152",
+        "contactUrl": null,
+        "email": "hannah.kane@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/HEK1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:057": [
+      {
+        "id": "ocd-person/6b27dd86-5c03-4223-957c-9efd12c70e04",
+        "name": "Homar Gomez",
+        "office": "state-house",
+        "districtCode": "057",
+        "contactUrl": null,
+        "email": "homar.gomez@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/H_G1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:065": [
+      {
+        "id": "ocd-person/e3dc06b1-8523-4a33-959f-21ed0d5da851",
+        "name": "Jack Lewis",
+        "office": "state-house",
+        "districtCode": "065",
+        "contactUrl": null,
+        "email": "jack.lewis@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/JPL1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:060": [
+      {
+        "id": "ocd-person/70e42c78-89e1-43cb-bc65-7d0da132daa2",
+        "name": "Jim Arciero",
+        "office": "state-house",
+        "districtCode": "060",
+        "contactUrl": null,
+        "email": "james.arciero@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/J_A1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:066": [
+      {
+        "id": "ocd-person/47ffc61b-0cae-4386-ae68-12b20eadd83f",
+        "name": "James Arena-DeRosa",
+        "office": "state-house",
+        "districtCode": "066",
+        "contactUrl": null,
+        "email": "james.arena-derosa@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/JCD1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:155": [
+      {
+        "id": "ocd-person/67f64532-7f9a-4cd3-8c89-dc9b5df06517",
+        "name": "Jim O'Day",
+        "office": "state-house",
+        "districtCode": "155",
+        "contactUrl": null,
+        "email": "james.o'day@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/JJO1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:011": [
+      {
+        "id": "ocd-person/c8936e7c-f0f5-4dc4-b9e9-774e38638787",
+        "name": "Jim Hawkins",
+        "office": "state-house",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "james.hawkins@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/JKH1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:099": [
+      {
+        "id": "ocd-person/ef175304-020e-4f79-b71f-dc961b738254",
+        "name": "Jamie Murphy",
+        "office": "state-house",
+        "districtCode": "099",
+        "contactUrl": null,
+        "email": "james.murphy@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/JMM1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:130": [
+      {
+        "id": "ocd-person/033bf9eb-2706-4c5f-9f93-8e8d222bf2c0",
+        "name": "Jay Livingstone",
+        "office": "state-house",
+        "districtCode": "130",
+        "contactUrl": null,
+        "email": "jay.livingstone@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/J_L1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:105": [
+      {
+        "id": "ocd-person/b23d4ed5-1994-4355-a102-cdf15ae57230",
+        "name": "Jeff Roy",
+        "office": "state-house",
+        "districtCode": "105",
+        "contactUrl": null,
+        "email": "jeffrey.roy@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/JNR1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:141": [
+      {
+        "id": "ocd-person/cd89185f-f928-4b26-bb47-60f1bccad0dd",
+        "name": "Jeff Turco",
+        "office": "state-house",
+        "districtCode": "141",
+        "contactUrl": null,
+        "email": "jeffrey.turco@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/JRT1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:031": [
+      {
+        "id": "ocd-person/eab9b69f-0434-4307-972c-6acce9deb370",
+        "name": "Jenny Armini",
+        "office": "state-house",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "jennifer.armini@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/JBA1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:138": [
+      {
+        "id": "ocd-person/0ed98993-456c-4630-bd52-894bdde0c0b0",
+        "name": "Jessica Giannino",
+        "office": "state-house",
+        "districtCode": "138",
+        "contactUrl": null,
+        "email": "jessica.giannino@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/JAG1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:113": [
+      {
+        "id": "ocd-person/03d1f31d-1431-41d2-88b7-67b57d50f323",
+        "name": "Joan Meschino",
+        "office": "state-house",
+        "districtCode": "113",
+        "contactUrl": null,
+        "email": "joan.meschino@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/J_M1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:007": [
+      {
+        "id": "ocd-person/da8051b7-de05-4c30-9d37-5d7223906356",
+        "name": "John Barrett",
+        "office": "state-house",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "john.barrett@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/J_B1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:131": [
+      {
+        "id": "ocd-person/15ff9d00-e05e-470a-b89c-36038b1dd5bb",
+        "name": "John Moran",
+        "office": "state-house",
+        "districtCode": "131",
+        "contactUrl": null,
+        "email": "john.moran@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/JFM1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:112": [
+      {
+        "id": "ocd-person/013e94ee-496e-42f3-8b1b-f96c737f1f8e",
+        "name": "John Gaskey",
+        "office": "state-house",
+        "districtCode": "112",
+        "contactUrl": null,
+        "email": "john.gaskey@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/JRG2",
+        "social": {}
+      }
+    ],
+    "MA:state-house:107": [
+      {
+        "id": "ocd-person/50942563-77bb-49ec-a54c-6e26048a31a3",
+        "name": "John Rogers",
+        "office": "state-house",
+        "districtCode": "107",
+        "contactUrl": null,
+        "email": "john.rogers@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/JHR1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:068": [
+      {
+        "id": "ocd-person/1ea6937d-a39e-41e2-92fb-47c2966cd52e",
+        "name": "John Lawn",
+        "office": "state-house",
+        "districtCode": "068",
+        "contactUrl": null,
+        "email": "john.lawn@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/JJL2",
+        "social": {}
+      }
+    ],
+    "MA:state-house:154": [
+      {
+        "id": "ocd-person/2abbc0cb-6339-42d9-9947-69412a24301b",
+        "name": "John Mahoney",
+        "office": "state-house",
+        "districtCode": "154",
+        "contactUrl": null,
+        "email": "john.mahoney@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/JJM2",
+        "social": {}
+      }
+    ],
+    "MA:state-house:147": [
+      {
+        "id": "ocd-person/0e8c6c71-bca0-46fd-86d1-223d41ed5517",
+        "name": "John Marsi",
+        "office": "state-house",
+        "districtCode": "147",
+        "contactUrl": null,
+        "email": "john.marsi@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/JJM1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:143": [
+      {
+        "id": "ocd-person/49c4bb4e-fadd-4136-953f-6bd64a970acb",
+        "name": "Jon Zlotnik",
+        "office": "state-house",
+        "districtCode": "143",
+        "contactUrl": null,
+        "email": "jon.zlotnik@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/JDZ1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:159": [
+      {
+        "id": "ocd-person/0e6c20bd-bfcb-445c-a1ce-3be99e26398e",
+        "name": "Joe McKenna",
+        "office": "state-house",
+        "districtCode": "159",
+        "contactUrl": null,
+        "email": "joseph.mckenna@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/JDM1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:086": [
+      {
+        "id": "ocd-person/6c3b63a2-ef13-43e5-b6de-d5e0901aa65a",
+        "name": "Joe McGonagle",
+        "office": "state-house",
+        "districtCode": "086",
+        "contactUrl": null,
+        "email": "joseph.mcgonagle@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/jwm1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:108": [
+      {
+        "id": "ocd-person/9c847f4f-a48b-4d42-95cb-2b6a219f89ac",
+        "name": "Josh Tarsky",
+        "office": "state-house",
+        "districtCode": "108",
+        "contactUrl": null,
+        "email": "joshua.tarsky@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/J_T1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:133": [
+      {
+        "id": "ocd-person/6f15f647-07f5-4739-a340-497798a474e7",
+        "name": "Judith García",
+        "office": "state-house",
+        "districtCode": "133",
+        "contactUrl": null,
+        "email": "judith.garcia@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/JAG2",
+        "social": {}
+      }
+    ],
+    "MA:state-house:014": [
+      {
+        "id": "ocd-person/4002361d-3211-4f02-b627-95d6e6a3f76c",
+        "name": "Justin Thurber",
+        "office": "state-house",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "justin.thurber@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/J_T2",
+        "social": {}
+      }
+    ],
+    "MA:state-house:160": [
+      {
+        "id": "ocd-person/e2aa2c0f-d6e6-49d7-8483-d595a3a1eb3a",
+        "name": "Kate Donaghue",
+        "office": "state-house",
+        "districtCode": "160",
+        "contactUrl": null,
+        "email": "kate.donaghue@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/K_D1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:061": [
+      {
+        "id": "ocd-person/3d709a64-6cd2-49c6-ad0d-b007e834bfec",
+        "name": "Kate Hogan",
+        "office": "state-house",
+        "districtCode": "061",
+        "contactUrl": null,
+        "email": "kate.hogan@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/K_H1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:090": [
+      {
+        "id": "ocd-person/7d66e1ca-1fb3-4194-bb18-f9924c528df2",
+        "name": "Kate Lipper-Garabedian",
+        "office": "state-house",
+        "districtCode": "090",
+        "contactUrl": null,
+        "email": "kate.lipper-garabedian@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/KLG1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:122": [
+      {
+        "id": "ocd-person/fbbda637-7a45-43f2-a13a-388dc50b02ee",
+        "name": "Kathy LaNatra",
+        "office": "state-house",
+        "districtCode": "122",
+        "contactUrl": null,
+        "email": "kathleen.lanatra@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/KPL1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:047": [
+      {
+        "id": "ocd-person/72eea330-24b4-4207-a016-0b1e568e0b6e",
+        "name": "Kelly Pease",
+        "office": "state-house",
+        "districtCode": "047",
+        "contactUrl": null,
+        "email": "kelly.pease@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/KWP1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:116": [
+      {
+        "id": "ocd-person/1eece00d-5b31-4be0-9263-b594863b295c",
+        "name": "Ken Sweezey",
+        "office": "state-house",
+        "districtCode": "116",
+        "contactUrl": null,
+        "email": "ken.sweezey@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/KPS1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:079": [
+      {
+        "id": "ocd-person/47c42957-b618-41b7-a557-5d24c33568cf",
+        "name": "Ken Gordon",
+        "office": "state-house",
+        "districtCode": "079",
+        "contactUrl": null,
+        "email": "ken.gordon@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/KIG1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:139": [
+      {
+        "id": "ocd-person/9e4b8b32-233e-443f-a147-46fbaa778a58",
+        "name": "Kevin Honan",
+        "office": "state-house",
+        "districtCode": "139",
+        "contactUrl": null,
+        "email": "kevin.honan@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/KGH1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:142": [
+      {
+        "id": "ocd-person/888457ba-c348-4826-b2c6-450dba5e38bd",
+        "name": "Kim Ferguson",
+        "office": "state-house",
+        "districtCode": "142",
+        "contactUrl": null,
+        "email": "kimberly.ferguson@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/KNF1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:002": [
+      {
+        "id": "ocd-person/df1a3cfc-1555-4a05-8a5c-03a7e53932aa",
+        "name": "Kip Diggs",
+        "office": "state-house",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "kip.diggs@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/KAD1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:025": [
+      {
+        "id": "ocd-person/1129a0d9-c280-4bf0-af34-20879293a2b5",
+        "name": "Kristin Kassner",
+        "office": "state-house",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "kristin.kassner@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/K_K2",
+        "social": {}
+      }
+    ],
+    "MA:state-house:009": [
+      {
+        "id": "ocd-person/386c6121-a2a4-4c92-b093-4abea066d840",
+        "name": "Leigh Davis",
+        "office": "state-house",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "leigh.davis@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/LSD1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:056": [
+      {
+        "id": "ocd-person/05f9b238-283f-4529-8989-ff7d1bda60a8",
+        "name": "Lindsay Sabadosa",
+        "office": "state-house",
+        "districtCode": "056",
+        "contactUrl": null,
+        "email": "lindsay.sabadosa@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/L_S1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:012": [
+      {
+        "id": "ocd-person/0a14e19e-3761-4aa2-887f-8b335d6e3eed",
+        "name": "Lisa Field",
+        "office": "state-house",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "lisa.field@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/LMF1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:030": [
+      {
+        "id": "ocd-person/5ae88c49-8938-4472-8de2-1c0f0bc0e2f0",
+        "name": "Manny Cruz",
+        "office": "state-house",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "manny.cruz@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/M_C3",
+        "social": {}
+      }
+    ],
+    "MA:state-house:080": [
+      {
+        "id": "ocd-person/398f9a47-bc65-4c2a-b12e-347f375d8fac",
+        "name": "Marc Lombardo",
+        "office": "state-house",
+        "districtCode": "080",
+        "contactUrl": null,
+        "email": "marc.lombardo@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/MTL1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:104": [
+      {
+        "id": "ocd-person/2dd65a68-0ea5-4c15-b5fe-bcde086eb357",
+        "name": "Marcus Vaughn",
+        "office": "state-house",
+        "districtCode": "104",
+        "contactUrl": null,
+        "email": "marcus.vaughn@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/MSV1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:059": [
+      {
+        "id": "ocd-person/a25fd374-e502-43bb-91fe-99c4b6c493a5",
+        "name": "Margaret Scarsdale",
+        "office": "state-house",
+        "districtCode": "059",
+        "contactUrl": null,
+        "email": "margaret.scarsdale@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/MRS1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:083": [
+      {
+        "id": "ocd-person/b9019024-899b-41b3-a283-69c50866fabd",
+        "name": "Marjorie Decker",
+        "office": "state-house",
+        "districtCode": "083",
+        "contactUrl": null,
+        "email": "marjorie.decker@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/MCD1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:100": [
+      {
+        "id": "ocd-person/b51c5c27-7da0-42f5-b67b-22085173af7a",
+        "name": "Mark Cusack",
+        "office": "state-house",
+        "districtCode": "100",
+        "contactUrl": null,
+        "email": "mark.cusack@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/MJC1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:019": [
+      {
+        "id": "ocd-person/7446bdd1-f6b4-40cb-a039-41f4be68833e",
+        "name": "Mark Sylvia",
+        "office": "state-house",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "mark.sylvia@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/MDS1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:156": [
+      {
+        "id": "ocd-person/4d0b5dda-d9d1-4c25-9c94-ce8fbd8ff398",
+        "name": "Mary Keefe",
+        "office": "state-house",
+        "districtCode": "156",
+        "contactUrl": null,
+        "email": "mary.keefe@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/MSK1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:153": [
+      {
+        "id": "ocd-person/b61c923f-3598-465b-8051-6507b6f6c6c2",
+        "name": "Meg Kilcoyne",
+        "office": "state-house",
+        "districtCode": "153",
+        "contactUrl": null,
+        "email": "meghan.kilcoyne@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/M_K1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:049": [
+      {
+        "id": "ocd-person/b61922e8-c775-4c74-8ecb-557d79162195",
+        "name": "Mike Finn",
+        "office": "state-house",
+        "districtCode": "049",
+        "contactUrl": null,
+        "email": "michael.finn@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/MJF1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:140": [
+      {
+        "id": "ocd-person/2fd8669d-a5e2-40fd-bb2f-595210f1bf49",
+        "name": "Mike Moran",
+        "office": "state-house",
+        "districtCode": "140",
+        "contactUrl": null,
+        "email": "michael.moran@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/MJM1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:149": [
+      {
+        "id": "ocd-person/4cec2aa4-c17b-4749-b0e9-58a25695bf2f",
+        "name": "Mike Soter",
+        "office": "state-house",
+        "districtCode": "149",
+        "contactUrl": null,
+        "email": "michael.soter@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/MJS3",
+        "social": {}
+      }
+    ],
+    "MA:state-house:144": [
+      {
+        "id": "ocd-person/591dc6dd-40b8-4713-83b8-f236ff6250bf",
+        "name": "Mike Kushmerek",
+        "office": "state-house",
+        "districtCode": "144",
+        "contactUrl": null,
+        "email": "michael.kushmerek@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/MPK1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:089": [
+      {
+        "id": "ocd-person/2e198563-4aeb-499b-8333-b4a46b605491",
+        "name": "Mike Day",
+        "office": "state-house",
+        "districtCode": "089",
+        "contactUrl": null,
+        "email": "michael.day@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/MSD1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:111": [
+      {
+        "id": "ocd-person/a0c80d02-beb0-42c3-b7ff-31fc0d5351f5",
+        "name": "Michelle Badger",
+        "office": "state-house",
+        "districtCode": "111",
+        "contactUrl": null,
+        "email": "michelle.badger@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/MLB1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:073": [
+      {
+        "id": "ocd-person/ea385faa-049c-4743-ad41-3bbe58ee40e2",
+        "name": "Michelle Ciccolo",
+        "office": "state-house",
+        "districtCode": "073",
+        "contactUrl": null,
+        "email": "michelle.ciccolo@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/M_C2",
+        "social": {}
+      }
+    ],
+    "MA:state-house:120": [
+      {
+        "id": "ocd-person/f41834f0-0d73-4e8e-8758-66184772c081",
+        "name": "Michelle DuBois",
+        "office": "state-house",
+        "districtCode": "120",
+        "contactUrl": null,
+        "email": "michelle.dubois@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/MMD1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:010": [
+      {
+        "id": "ocd-person/0a74c581-eb5c-4935-b5c3-f4a77e6dcd31",
+        "name": "Mike Chaisson",
+        "office": "state-house",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "michael.chaisson@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/MSC1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:084": [
+      {
+        "id": "ocd-person/a8225754-d88c-4343-8829-aa168b564cbd",
+        "name": "Mike Connolly",
+        "office": "state-house",
+        "districtCode": "084",
+        "contactUrl": null,
+        "email": "mike.connolly@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/M_C1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:058": [
+      {
+        "id": "ocd-person/65617e1a-1834-4ec8-9f19-4ac801ce9764",
+        "name": "Mindy Domb",
+        "office": "state-house",
+        "districtCode": "058",
+        "contactUrl": null,
+        "email": "mindy.domb@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/M_D2",
+        "social": {}
+      }
+    ],
+    "MA:state-house:145": [
+      {
+        "id": "ocd-person/17c3ac90-1218-4d61-ae47-bc5ef6ee4a74",
+        "name": "Natalie Higgins",
+        "office": "state-house",
+        "districtCode": "145",
+        "contactUrl": null,
+        "email": "natalie.higgins@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/N_H1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:046": [
+      {
+        "id": "ocd-person/0e72fc19-89be-49b9-8baf-5f35f938ec87",
+        "name": "Nick Boldyga",
+        "office": "state-house",
+        "districtCode": "046",
+        "contactUrl": null,
+        "email": "nicholas.boldyga@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/NAG1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:021": [
+      {
+        "id": "ocd-person/6d186dd3-a4a0-4d65-aaf1-2f0a63cd42ec",
+        "name": "Norm Orrall",
+        "office": "state-house",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "norman.orrall@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/NJO1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:052": [
+      {
+        "id": "ocd-person/a1a94ad4-7b75-46be-896e-548c86b23d0c",
+        "name": "Orlando Ramos",
+        "office": "state-house",
+        "districtCode": "052",
+        "contactUrl": null,
+        "email": "orlando.ramos@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/O_R1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:048": [
+      {
+        "id": "ocd-person/e50e8121-bc6f-4aaa-8cf2-f1cbd53c9172",
+        "name": "Pat Duffy",
+        "office": "state-house",
+        "districtCode": "048",
+        "contactUrl": null,
+        "email": "patricia.duffy@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/PAD1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:114": [
+      {
+        "id": "ocd-person/0a288f3d-397f-4e7b-8bfd-b5032ae1421f",
+        "name": "Patrick Kearney",
+        "office": "state-house",
+        "districtCode": "114",
+        "contactUrl": null,
+        "email": "patrick.kearney@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/PJK1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:093": [
+      {
+        "id": "ocd-person/18bf433d-24e5-46cb-9d83-c2f9373204bd",
+        "name": "Paul Donato",
+        "office": "state-house",
+        "districtCode": "093",
+        "contactUrl": null,
+        "email": "paul.donato@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/PJD1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:148": [
+      {
+        "id": "ocd-person/fdc5586f-0db3-4614-af1f-72a42cf5e6f0",
+        "name": "Paul Frost",
+        "office": "state-house",
+        "districtCode": "148",
+        "contactUrl": null,
+        "email": "paul.frost@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/PKF1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:106": [
+      {
+        "id": "ocd-person/d0e66289-022e-4a99-ac8c-f20fb7557e7f",
+        "name": "Paul McMurtry",
+        "office": "state-house",
+        "districtCode": "106",
+        "contactUrl": null,
+        "email": "paul.mcmurtry@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/P_M1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:064": [
+      {
+        "id": "ocd-person/a148ff77-2e73-4e42-a525-20e8d1ed569a",
+        "name": "Priscila Sousa",
+        "office": "state-house",
+        "districtCode": "064",
+        "contactUrl": null,
+        "email": "priscila.sousa@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/PSS1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:088": [
+      {
+        "id": "ocd-person/521620ea-1e5b-4a0c-94f8-abe888370e05",
+        "name": "Rich Haggerty",
+        "office": "state-house",
+        "districtCode": "088",
+        "contactUrl": null,
+        "email": "richard.haggerty@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/RMH1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:102": [
+      {
+        "id": "ocd-person/e988f332-eba5-40a4-b55f-554728360e6c",
+        "name": "Richard Wells",
+        "office": "state-house",
+        "districtCode": "102",
+        "contactUrl": null,
+        "email": "richard.wells@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/RGW1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:121": [
+      {
+        "id": "ocd-person/87e3afd8-390c-45a3-97c6-2bb164ec1e90",
+        "name": "Rita Mendes",
+        "office": "state-house",
+        "districtCode": "121",
+        "contactUrl": null,
+        "email": "rita.mendes@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/RAM1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:136": [
+      {
+        "id": "ocd-person/edcd5892-2488-4945-a3da-86f40012d396",
+        "name": "Rob Consalvo",
+        "office": "state-house",
+        "districtCode": "136",
+        "contactUrl": null,
+        "email": "rob.consalvo@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/R_C1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:098": [
+      {
+        "id": "ocd-person/e142d28d-e57a-4ff9-afa4-c3cd149f2114",
+        "name": "Ron Mariano",
+        "office": "state-house",
+        "districtCode": "098",
+        "contactUrl": null,
+        "email": "ronald.mariano@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/R_M1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:128": [
+      {
+        "id": "ocd-person/078692f2-2afe-4aa1-a320-d4747edacbbb",
+        "name": "Russell Holmes",
+        "office": "state-house",
+        "districtCode": "128",
+        "contactUrl": null,
+        "email": "russell.holmes@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/REH1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:038": [
+      {
+        "id": "ocd-person/799d49f3-28e5-46a1-bcc8-6370e9fbf44a",
+        "name": "Ryan Hamilton",
+        "office": "state-house",
+        "districtCode": "038",
+        "contactUrl": null,
+        "email": "ryan.hamilton@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/RMH2",
+        "social": {}
+      }
+    ],
+    "MA:state-house:036": [
+      {
+        "id": "ocd-person/308b15a0-dc30-41be-be53-9e5827522cac",
+        "name": "Sally Kerans",
+        "office": "state-house",
+        "districtCode": "036",
+        "contactUrl": null,
+        "email": "sally.kerans@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/SPK1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:137": [
+      {
+        "id": "ocd-person/668db267-f9e1-4839-918d-c092741f96f9",
+        "name": "Sam Montaño",
+        "office": "state-house",
+        "districtCode": "137",
+        "contactUrl": null,
+        "email": "samantha.montano@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/S_M1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:081": [
+      {
+        "id": "ocd-person/1e9d742c-c20b-45cf-9e22-e7752189fa7a",
+        "name": "Sean Garballey",
+        "office": "state-house",
+        "districtCode": "081",
+        "contactUrl": null,
+        "email": "sean.garballey@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/S_G1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:034": [
+      {
+        "id": "ocd-person/d3ad855a-567f-443a-bb9f-480a0c95fb06",
+        "name": "Sean Reid",
+        "office": "state-house",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "sean.reid@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/S_R1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:051": [
+      {
+        "id": "ocd-person/ff433cf6-2895-4e01-b143-26747500f8a4",
+        "name": "Shirley Arriaga",
+        "office": "state-house",
+        "districtCode": "051",
+        "contactUrl": null,
+        "email": "shirley.arriaga@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/SBA1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:072": [
+      {
+        "id": "ocd-person/f43366ee-ff27-43ac-aa55-629be715b4a9",
+        "name": "Simon Cataldo",
+        "office": "state-house",
+        "districtCode": "072",
+        "contactUrl": null,
+        "email": "simon.cataldo@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/S_C1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:087": [
+      {
+        "id": "ocd-person/f20dd448-92ef-458c-bf92-90e7e766072a",
+        "name": "Steve Owens",
+        "office": "state-house",
+        "districtCode": "087",
+        "contactUrl": null,
+        "email": "steven.owens@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/SCO1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:005": [
+      {
+        "id": "ocd-person/485e001e-95e9-4b79-9226-cf028a307138",
+        "name": "Steve Xiarhos",
+        "office": "state-house",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "steven.xiarhos@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/SGX1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:017": [
+      {
+        "id": "ocd-person/0fbe25ff-563e-4563-8523-f151bd839e3c",
+        "name": "Steven Ouellette",
+        "office": "state-house",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "steve.ouellette@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/SJO1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:013": [
+      {
+        "id": "ocd-person/54487f49-5377-4c41-bd97-60b748cc240a",
+        "name": "Steven Howitt",
+        "office": "state-house",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "steven.howitt@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/SSH1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:091": [
+      {
+        "id": "ocd-person/209427dd-91f0-45d6-ae8c-05a51872c10c",
+        "name": "Steve Ultrino",
+        "office": "state-house",
+        "districtCode": "091",
+        "contactUrl": null,
+        "email": "steven.ultrino@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/S_G2",
+        "social": {}
+      }
+    ],
+    "MA:state-house:043": [
+      {
+        "id": "ocd-person/76b07f35-1876-4259-9c0a-bdf595541c39",
+        "name": "Susannah Whipps",
+        "office": "state-house",
+        "districtCode": "043",
+        "contactUrl": null,
+        "email": "susannah.whipps@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/SLG1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:097": [
+      {
+        "id": "ocd-person/6b420d2a-f12d-40ca-a13f-04cf9061a66b",
+        "name": "Tackey Chan",
+        "office": "state-house",
+        "districtCode": "097",
+        "contactUrl": null,
+        "email": "tackey.chan@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/T_C1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:076": [
+      {
+        "id": "ocd-person/e5b9b2d0-1626-4151-93cf-73c16035a584",
+        "name": "Tara Hong",
+        "office": "state-house",
+        "districtCode": "076",
+        "contactUrl": null,
+        "email": "tara.hong@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/TTH1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:067": [
+      {
+        "id": "ocd-person/2becbe4e-5b5e-4b42-be87-b4abf57550c7",
+        "name": "Tom Stanley",
+        "office": "state-house",
+        "districtCode": "067",
+        "contactUrl": null,
+        "email": "thomas.stanley@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/TMS1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:006": [
+      {
+        "id": "ocd-person/ebfdda03-c083-4a13-b3a4-f87f6e24adac",
+        "name": "Thomas Moakley",
+        "office": "state-house",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "thomas.moakley@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/TWM1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:035": [
+      {
+        "id": "ocd-person/5f796cb3-08ae-40c4-8c11-a2758f317cc2",
+        "name": "Tom Walsh",
+        "office": "state-house",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "thomas.walsh@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/TJW1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:044": [
+      {
+        "id": "ocd-person/d8895862-a95b-4982-bb2e-31c8ffa4bf57",
+        "name": "Todd Smola",
+        "office": "state-house",
+        "districtCode": "044",
+        "contactUrl": null,
+        "email": "todd.smola@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/TMS2",
+        "social": {}
+      }
+    ],
+    "MA:state-house:110": [
+      {
+        "id": "ocd-person/7a234dbf-2f9f-466f-8db1-44ac0f3975a8",
+        "name": "Tommy Vitolo",
+        "office": "state-house",
+        "districtCode": "110",
+        "contactUrl": null,
+        "email": "tommy.vitolo@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/T_V1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:041": [
+      {
+        "id": "ocd-person/1e7b8d51-56fa-4faf-93e6-9b485812ddf9",
+        "name": "Tram Nguyen",
+        "office": "state-house",
+        "districtCode": "041",
+        "contactUrl": null,
+        "email": "tram.nguyen@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/TTN1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:008": [
+      {
+        "id": "ocd-person/1f444dfe-d3b3-4852-ab10-0682206d773d",
+        "name": "Tricia Farley-Bouvier",
+        "office": "state-house",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "tricia.farley-bouvier@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/TFB1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:101": [
+      {
+        "id": "ocd-person/04997a33-67a9-4535-95d2-c9a4c260519d",
+        "name": "Bill Galvin",
+        "office": "state-house",
+        "districtCode": "101",
+        "contactUrl": null,
+        "email": "william.galvin@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/WCG1",
+        "social": {}
+      }
+    ],
+    "MA:state-house:132": [
+      {
+        "id": "ocd-person/9f0c5984-accf-45a3-8922-07aa7ade0030",
+        "name": "Billy MacGregor",
+        "office": "state-house",
+        "districtCode": "132",
+        "contactUrl": null,
+        "email": "bill.macgregor@mahouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/WFM1",
+        "social": {}
+      }
+    ],
+    "MA:state-senate:D03": [
+      {
+        "id": "ocd-person/d2a82a0d-fbd1-4448-be2d-b786a7e11168",
+        "name": "Adam Gómez",
+        "office": "state-senate",
+        "districtCode": "D03",
+        "contactUrl": null,
+        "email": "adam.gomez@masenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/A_G0",
+        "social": {}
+      }
+    ],
+    "MA:state-senate:D20": [
+      {
+        "id": "ocd-person/49397268-3fc9-4c83-a385-f55be18597f4",
+        "name": "Barry Finegold",
+        "office": "state-senate",
+        "districtCode": "D20",
+        "contactUrl": null,
+        "email": "barry.finegold@masenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/BRF0",
+        "social": {}
+      }
+    ],
+    "MA:state-senate:D24": [
+      {
+        "id": "ocd-person/77994b2c-f88c-4a5f-bf9d-7abd1875d8dc",
+        "name": "Brendan Crighton",
+        "office": "state-senate",
+        "districtCode": "D24",
+        "contactUrl": null,
+        "email": "brendan.crighton@masenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/BPC0",
+        "social": {}
+      }
+    ],
+    "MA:state-senate:D21": [
+      {
+        "id": "ocd-person/429f87cf-f7a1-4201-ade4-9efeb9149d03",
+        "name": "Bruce Tarr",
+        "office": "state-senate",
+        "districtCode": "D21",
+        "contactUrl": null,
+        "email": "bruce.tarr@masenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/BET0",
+        "social": {}
+      }
+    ],
+    "MA:state-senate:D16": [
+      {
+        "id": "ocd-person/456b0061-febd-4ff7-8547-42be0685526f",
+        "name": "Cindy Friedman",
+        "office": "state-senate",
+        "districtCode": "D16",
+        "contactUrl": null,
+        "email": "cindy.friedman@masenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://cindyfriedman.org/",
+        "social": {}
+      }
+    ],
+    "MA:state-senate:D17": [
+      {
+        "id": "ocd-person/ece82669-b6f6-4f0f-ae5d-7b238b1cd1dd",
+        "name": "Cynthia Creem",
+        "office": "state-senate",
+        "districtCode": "D17",
+        "contactUrl": null,
+        "email": "cynthia.creem@masenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/CSC0",
+        "social": {}
+      }
+    ],
+    "MA:state-senate:D39": [
+      {
+        "id": "ocd-person/cd05a88c-19f0-4fc5-bc3b-d339572842b7",
+        "name": "Dylan Fernandes",
+        "office": "state-senate",
+        "districtCode": "D39",
+        "contactUrl": null,
+        "email": "dylan.fernandes@masenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/DAF0",
+        "social": {}
+      }
+    ],
+    "MA:state-senate:D04": [
+      {
+        "id": "ocd-person/b857e2f7-b65a-4d34-a680-50dfff745a16",
+        "name": "Jake Oliveira",
+        "office": "state-senate",
+        "districtCode": "D04",
+        "contactUrl": null,
+        "email": "jacob.oliveira@masenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/JRO0",
+        "social": {}
+      }
+    ],
+    "MA:state-senate:D12": [
+      {
+        "id": "ocd-person/23704722-a50c-4148-8f14-98c7d78324b9",
+        "name": "Jamie Eldridge",
+        "office": "state-senate",
+        "districtCode": "D12",
+        "contactUrl": null,
+        "email": "james.eldridge@masenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/JBE0",
+        "social": {}
+      }
+    ],
+    "MA:state-senate:D23": [
+      {
+        "id": "ocd-person/92a770ae-a348-4f86-92ad-c4a8ebc568f6",
+        "name": "Jason Lewis",
+        "office": "state-senate",
+        "districtCode": "D23",
+        "contactUrl": null,
+        "email": "jason.lewis@masenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/jml0",
+        "social": {}
+      }
+    ],
+    "MA:state-senate:D22": [
+      {
+        "id": "ocd-person/d0956cb2-93df-4096-82ce-d39fbf0b9e36",
+        "name": "Joan Lovely",
+        "office": "state-senate",
+        "districtCode": "D22",
+        "contactUrl": null,
+        "email": "joan.lovely@masenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/JBL0",
+        "social": {}
+      }
+    ],
+    "MA:state-senate:D05": [
+      {
+        "id": "ocd-person/2998b05b-b83e-4a9b-9659-a609ddc63a34",
+        "name": "Jo Comerford",
+        "office": "state-senate",
+        "districtCode": "D05",
+        "contactUrl": null,
+        "email": "jo.comerford@masenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/JMC0",
+        "social": {}
+      }
+    ],
+    "MA:state-senate:D02": [
+      {
+        "id": "ocd-person/a37a3f66-83a2-4a7e-90e3-8de41be7262d",
+        "name": "John Velis",
+        "office": "state-senate",
+        "districtCode": "D02",
+        "contactUrl": null,
+        "email": "john.velis@masenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/JCV0",
+        "social": {}
+      }
+    ],
+    "MA:state-senate:D10": [
+      {
+        "id": "ocd-person/5a333327-70bb-4b95-9cfd-fadd701e9348",
+        "name": "John Cronin",
+        "office": "state-senate",
+        "districtCode": "D10",
+        "contactUrl": null,
+        "email": "john.cronin@masenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://johnjcronin.com/",
+        "social": {}
+      }
+    ],
+    "MA:state-senate:D32": [
+      {
+        "id": "ocd-person/7be04e69-85c6-44e4-a933-88c59c0675a5",
+        "name": "John Keenan",
+        "office": "state-senate",
+        "districtCode": "D32",
+        "contactUrl": null,
+        "email": "john.keenan@masenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/JFK0",
+        "social": {}
+      }
+    ],
+    "MA:state-senate:D40": [
+      {
+        "id": "ocd-person/5a0688ef-c0cd-469d-bd3c-fe9848724387",
+        "name": "Julian Cyr",
+        "office": "state-senate",
+        "districtCode": "D40",
+        "contactUrl": null,
+        "email": "julian.cyr@masenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/JAC0",
+        "social": {}
+      }
+    ],
+    "MA:state-senate:D13": [
+      {
+        "id": "ocd-person/e48879ef-ed74-4f93-8e5b-c0f3752d4fd7",
+        "name": "Karen Spilka",
+        "office": "state-senate",
+        "districtCode": "D13",
+        "contactUrl": null,
+        "email": "karen.spilka@masenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://karenspilka.com/",
+        "social": {}
+      }
+    ],
+    "MA:state-senate:D36": [
+      {
+        "id": "ocd-person/062618e6-3ba4-4170-8b4f-9d0fa325a9ab",
+        "name": "Kelly Dooner",
+        "office": "state-senate",
+        "districtCode": "D36",
+        "contactUrl": null,
+        "email": "kelly.dooner@masenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/KAD0",
+        "social": {}
+      }
+    ],
+    "MA:state-senate:D29": [
+      {
+        "id": "ocd-person/703d6d4e-3a1d-4a2e-82e3-3c9693b75953",
+        "name": "Liz Miranda",
+        "office": "state-senate",
+        "districtCode": "D29",
+        "contactUrl": null,
+        "email": "liz.miranda@masenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/L M0",
+        "social": {}
+      }
+    ],
+    "MA:state-senate:D25": [
+      {
+        "id": "ocd-person/5278711f-55ec-4a67-acc9-edd1db1c4e8c",
+        "name": "Lydia Edwards",
+        "office": "state-senate",
+        "districtCode": "D25",
+        "contactUrl": null,
+        "email": "lydia.edwards@masenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/LME0",
+        "social": {}
+      }
+    ],
+    "MA:state-senate:D38": [
+      {
+        "id": "ocd-person/31600b44-797b-4baf-80aa-0762b4f0aff5",
+        "name": "Mark Montigny",
+        "office": "state-senate",
+        "districtCode": "D38",
+        "contactUrl": null,
+        "email": "mark.montigny@masenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/MCM0",
+        "social": {}
+      }
+    ],
+    "MA:state-senate:D34": [
+      {
+        "id": "ocd-person/c3cdd26f-1314-4366-89f6-17c4c540bce9",
+        "name": "Mike Brady",
+        "office": "state-senate",
+        "districtCode": "D34",
+        "contactUrl": null,
+        "email": "michael.brady@masenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/MDB0",
+        "social": {}
+      }
+    ],
+    "MA:state-senate:D18": [
+      {
+        "id": "ocd-person/6a82d675-3496-48af-88cf-23c26355b01f",
+        "name": "Mike Rush",
+        "office": "state-senate",
+        "districtCode": "D18",
+        "contactUrl": null,
+        "email": "mike.rush@masenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/MFR0",
+        "social": {}
+      }
+    ],
+    "MA:state-senate:D15": [
+      {
+        "id": "ocd-person/2cf31d35-c3e8-4627-a534-08dce38078db",
+        "name": "Mike Barrett",
+        "office": "state-senate",
+        "districtCode": "D15",
+        "contactUrl": null,
+        "email": "mike.barrett@masenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/MJB0",
+        "social": {}
+      }
+    ],
+    "MA:state-senate:D37": [
+      {
+        "id": "ocd-person/af0d6647-3a7b-48d0-971c-bde55a75e78c",
+        "name": "Michael Rodrigues",
+        "office": "state-senate",
+        "districtCode": "D37",
+        "contactUrl": null,
+        "email": "michael.rodrigues@masenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/MJR0",
+        "social": {}
+      }
+    ],
+    "MA:state-senate:D08": [
+      {
+        "id": "ocd-person/7b48bd48-8d27-4dd8-958d-703571efe150",
+        "name": "Mike Moore",
+        "office": "state-senate",
+        "districtCode": "D08",
+        "contactUrl": null,
+        "email": "michael.moore@masenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/MOM0",
+        "social": {}
+      }
+    ],
+    "MA:state-senate:D30": [
+      {
+        "id": "ocd-person/8ca6ea6c-1121-40b3-a5cf-9b55dfe6a2b0",
+        "name": "Nick Collins",
+        "office": "state-senate",
+        "districtCode": "D30",
+        "contactUrl": null,
+        "email": "nick.collins@masenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/N_C0",
+        "social": {}
+      }
+    ],
+    "MA:state-senate:D27": [
+      {
+        "id": "ocd-person/6de50ed2-4fe8-4b98-894d-0bc391c876b5",
+        "name": "Pat Jehlen",
+        "office": "state-senate",
+        "districtCode": "D27",
+        "contactUrl": null,
+        "email": "patricia.jehlen@masenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/PDJ0",
+        "social": {}
+      }
+    ],
+    "MA:state-senate:D31": [
+      {
+        "id": "ocd-person/493988da-4de8-49a0-8d6c-090097e89920",
+        "name": "Patrick O'Connor",
+        "office": "state-senate",
+        "districtCode": "D31",
+        "contactUrl": null,
+        "email": "patrick.oconnor@masenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/PMO",
+        "social": {}
+      }
+    ],
+    "MA:state-senate:D35": [
+      {
+        "id": "ocd-person/b390af07-1fa2-4516-b8f0-b6bd1b62121a",
+        "name": "Paul Feeney",
+        "office": "state-senate",
+        "districtCode": "D35",
+        "contactUrl": null,
+        "email": "paul.feeney@masenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/PRF0",
+        "social": {}
+      }
+    ],
+    "MA:state-senate:D01": [
+      {
+        "id": "ocd-person/fd5aaac8-48f5-42c2-82a8-abaf6c5de650",
+        "name": "Paul Mark",
+        "office": "state-senate",
+        "districtCode": "D01",
+        "contactUrl": null,
+        "email": "paul.mark@masenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/PWM0",
+        "social": {}
+      }
+    ],
+    "MA:state-senate:D19": [
+      {
+        "id": "ocd-person/1d33d1e7-dae9-4e98-aa9e-626b0d711d9a",
+        "name": "Pavel Payano",
+        "office": "state-senate",
+        "districtCode": "D19",
+        "contactUrl": null,
+        "email": "pavel.payano@masenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/PMP0",
+        "social": {}
+      }
+    ],
+    "MA:state-senate:D06": [
+      {
+        "id": "ocd-person/c674060b-4568-43fa-b72d-0921f4876713",
+        "name": "Peter Durant",
+        "office": "state-senate",
+        "districtCode": "D06",
+        "contactUrl": null,
+        "email": "peter.durant@masenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/PJD0",
+        "social": {}
+      }
+    ],
+    "MA:state-senate:D14": [
+      {
+        "id": "ocd-person/fb97b139-c0dd-41b5-ae52-159528f47b11",
+        "name": "Becca Rausch",
+        "office": "state-senate",
+        "districtCode": "D14",
+        "contactUrl": null,
+        "email": "becca.rausch@masenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/RLR0",
+        "social": {}
+      }
+    ],
+    "MA:state-senate:D09": [
+      {
+        "id": "ocd-person/2fb1c0e0-edaa-4b55-9bbb-b6fe6b3e5dcc",
+        "name": "Robyn Kennedy",
+        "office": "state-senate",
+        "districtCode": "D09",
+        "contactUrl": null,
+        "email": "robyn.kennedy@masenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/RKK0",
+        "social": {}
+      }
+    ],
+    "MA:state-senate:D07": [
+      {
+        "id": "ocd-person/edebef62-78d9-4f8b-a94d-65a29dbc09f6",
+        "name": "Ryan Fattman",
+        "office": "state-senate",
+        "districtCode": "D07",
+        "contactUrl": null,
+        "email": "ryan.fattman@masenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/RCF0",
+        "social": {}
+      }
+    ],
+    "MA:state-senate:D26": [
+      {
+        "id": "ocd-person/d691b834-a68d-44da-8140-9582ee37d8a6",
+        "name": "Sal DiDomenico",
+        "office": "state-senate",
+        "districtCode": "D26",
+        "contactUrl": null,
+        "email": "sal.didomenico@masenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/SND0",
+        "social": {}
+      }
+    ],
+    "MA:state-senate:D11": [
+      {
+        "id": "ocd-person/053aae1e-ae76-41b0-912c-39f27f3f6d6f",
+        "name": "Vanna Howard",
+        "office": "state-senate",
+        "districtCode": "D11",
+        "contactUrl": null,
+        "email": "vanna.howard@masenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/V_H0",
+        "social": {}
+      }
+    ],
+    "MA:state-senate:D33": [
+      {
+        "id": "ocd-person/1b7d1710-da71-46cd-9ee3-fc891556f3a9",
+        "name": "Bill Driscoll",
+        "office": "state-senate",
+        "districtCode": "D33",
+        "contactUrl": null,
+        "email": "william.driscoll@masenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/WJD0",
+        "social": {}
+      }
+    ],
+    "MA:state-senate:D28": [
+      {
+        "id": "ocd-person/94929da6-2219-4a44-99c3-d6561eead9f5",
+        "name": "Will Brownsberger",
+        "office": "state-senate",
+        "districtCode": "D28",
+        "contactUrl": null,
+        "email": "william.brownsberger@masenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://malegislature.gov/Legislators/Profile/WNB0",
+        "social": {}
+      }
+    ]
+  }
+}

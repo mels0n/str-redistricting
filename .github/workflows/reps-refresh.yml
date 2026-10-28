@@ -1,0 +1,321 @@
+name: Representative data refresh
+
+# Once a week, downloads the current congress-legislators and Open States files, re-pins them in
+# config/reps-sources.json, republishes public/data/reps/ and, when anything changed, opens a pull request with the new
+# data and the version bump and changelog entry a hand-made data change needs (the same `npm run release` the repo uses).
+# The checks run here, before the pull request exists, because a pull request opened with GITHUB_TOKEN does not trigger
+# the other workflows (so Code Standards, standards.yml, does not start on it until a person closes and reopens it).
+# Needs the repository setting "Allow GitHub Actions to create and approve pull requests" (Settings > Actions > General).
+# This workflow only ever opens a pull request; a person reviews and merges it. It fails (and GitHub reports a failed
+# scheduled run) when a download, the pinned-hash check, the publish step or any later check fails.
+#
+# State districts that the sources name differently from the Census Bureau cannot be paired automatically. They are
+# listed in public/data/reps/coverage.json, and the pull request body shows every change in that list so a person can
+# add an alias to config/reps-district-aliases.json.
+#
+# Two jobs, so that no code from a dependency ever runs holding a token that can write:
+#   build    runs npm, the tests and the build with a read-only token, and hands over only the files the refresh may change.
+#   open-pr  holds the write token and runs no npm or repository script. It treats the build job's output as untrusted
+#            data: the artifact is downloaded outside the workspace, every entry is checked in plain bash (regular files
+#            only, names on an exact allowlist), and only then are those files copied to their fixed places. The checkout
+#            keeps no credentials; the token is handed only to the one push and the one gh call that need it.
+
+on:
+  schedule:
+    - cron: '23 9 * * 1'
+  workflow_dispatch:
+
+concurrency:
+  group: reps-refresh
+  cancel-in-progress: false
+
+permissions: {}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      changed: ${{ steps.changes.outputs.changed }}
+      release_subject: ${{ steps.release.outputs.subject }}
+
+    steps:
+      # Full history and tags: the release step reads the commits since each component's newest release tag.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+          cache: npm
+
+      # Restore only, never save: the Census files the release step's fixture gate needs, from the entry that
+      # census-cache.yml keeps on main. The sources downloaded below must not end up in that entry.
+      - uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: data/raw
+          key: census-${{ hashFiles('config/census-sha256.json') }}
+
+      - name: Install
+        run: npm ci
+
+      - name: Pin the current source files
+        run: npm run reps:pin
+
+      # Stops the run (and fails the job) if a source differs from its pin or the data looks broken.
+      - name: Publish
+        run: npm run reps:publish
+
+      - name: Only the expected files changed
+        id: changes
+        run: |
+          set -euo pipefail
+          if [ -z "$(git status --porcelain --untracked-files=all)" ]; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "The sources did not change. Nothing to do."
+            exit 0
+          fi
+          unexpected=$(git status --porcelain --untracked-files=all | cut -c4- \
+            | grep -Ev '^(config/reps-sources\.json|public/data/reps/([A-Z]{2}|coverage)\.json)$' || true)
+          if [ -n "$unexpected" ]; then
+            echo "::error::The refresh touched files it should not have:"
+            echo "$unexpected"
+            exit 1
+          fi
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      # The same script a person runs: proposes the versions from the commit subjects since each release tag, so the
+      # data change is committed first. The commits stay in this job; open-pr makes its own from the handed-over files.
+      - name: Version bump and changelog
+        id: release
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add config/reps-sources.json public/data/reps
+          git commit -q -m "chore(data): refresh representative data"
+          npm run release
+          if [ "$(git log -1 --format=%s)" = "chore(data): refresh representative data" ]; then
+            echo "::error::npm run release changed nothing, but a data change needs a version bump."
+            exit 1
+          fi
+          echo "subject=$(git log -1 --format=%s)" >> "$GITHUB_OUTPUT"
+
+      - name: Only the expected files changed in the release
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          set -euo pipefail
+          unexpected=$(git diff --name-only HEAD~1 HEAD \
+            | grep -Ev '^(config/versions\.json|changelog/(engine|input|maps|schema|web|docs)\.md)$' || true)
+          if [ -n "$unexpected" ]; then
+            echo "::error::The release step touched files it should not have:"
+            echo "$unexpected"
+            exit 1
+          fi
+
+      - name: Typecheck
+        if: steps.changes.outputs.changed == 'true'
+        run: npm run typecheck
+
+      - name: Layer direction and public-API rules
+        if: steps.changes.outputs.changed == 'true'
+        run: npm run depcruise
+
+      - name: Test
+        if: steps.changes.outputs.changed == 'true'
+        run: npm test
+
+      - name: Build the viewer
+        if: steps.changes.outputs.changed == 'true'
+        run: npm run build
+
+      # Only the files the refresh may change leave this job.
+      - name: Hand over the changed files
+        if: steps.changes.outputs.changed == 'true'
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: reps-refresh
+          if-no-files-found: error
+          retention-days: 1
+          path: |
+            config/reps-sources.json
+            config/versions.json
+            changelog/*.md
+            public/data/reps/*.json
+
+  open-pr:
+    needs: build
+    if: needs.build.outputs.changed == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          persist-credentials: false
+
+      # An earlier refresh that nobody has merged or closed yet would be duplicated by this one.
+      - name: Skip while an earlier refresh is still open
+        id: existing
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          # A pull request from a fork can pick any branch name, so only this repository's own branches count.
+          open=$(gh pr list --state open --json headRefName,isCrossRepository --jq '[.[] | select(.isCrossRepository == false and (.headRefName | startswith("chore/refresh-reps-data-")))] | length')
+          if [ "$open" != "0" ]; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            echo "::warning::An earlier representative data refresh pull request is still open. Merge or close it, and the next run opens a new one."
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      # Outside the workspace, so nothing in it can land on .git/ or a tracked path before it has been checked.
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        if: steps.existing.outputs.skip == 'false'
+        with:
+          name: reps-refresh
+          path: ${{ runner.temp }}/reps-artifact
+
+      - name: Check the artifact and copy in the expected files
+        if: steps.existing.outputs.skip == 'false'
+        env:
+          ARTIFACT: ${{ runner.temp }}/reps-artifact
+        run: |
+          set -euo pipefail
+          allowed='^(config/(reps-sources|versions)\.json|changelog/(engine|input|maps|schema|web|docs)\.md|public/data/reps/([A-Z]{2}|coverage)\.json)$'
+          dir="$ARTIFACT"
+          files=()
+          while IFS= read -r -d '' entry; do
+            rel="${entry#"$dir"/}"
+            if [ -L "$entry" ]; then
+              echo "::error::The artifact holds a symbolic link: $rel"
+              exit 1
+            fi
+            if [ -d "$entry" ]; then
+              continue
+            fi
+            if ! [ -f "$entry" ]; then
+              echo "::error::The artifact holds something other than a directory or a regular file: $rel"
+              exit 1
+            fi
+            if ! [[ "$rel" =~ $allowed ]]; then
+              echo "::error::The artifact holds a file the refresh should not touch: $rel"
+              exit 1
+            fi
+            files+=("$rel")
+          done < <(find "$dir" -mindepth 1 -print0)
+          if [ "${#files[@]}" -eq 0 ]; then
+            echo "::error::The artifact holds no files."
+            exit 1
+          fi
+          # What is published now, for the pull request body.
+          cp public/data/reps/coverage.json "$RUNNER_TEMP/coverage-before.json"
+          for rel in "${files[@]}"; do
+            parent=$(dirname "$rel")
+            test -d "$parent" || { echo "::error::No such directory in the checkout: $parent"; exit 1; }
+            cp -- "$dir/$rel" "$rel"
+          done
+          unexpected=$(git status --porcelain --untracked-files=all | cut -c4- | grep -Ev "$allowed" || true)
+          if [ -n "$unexpected" ]; then
+            echo "::error::The copied files include ones the refresh should not touch:"
+            echo "$unexpected"
+            exit 1
+          fi
+          if [ -z "$(git status --porcelain --untracked-files=all)" ]; then
+            echo "::error::The downloaded files change nothing."
+            exit 1
+          fi
+
+      - name: Write the pull request body
+        if: steps.existing.outputs.skip == 'false'
+        env:
+          BEFORE: ${{ runner.temp }}/coverage-before.json
+          BODY: ${{ runner.temp }}/body.md
+          PROGRAM: |
+            def unmatched: [to_entries[] | .key as $s | .value | to_entries[] | select(.key | startswith("state-")) | .key as $c | .value.unmatched[] | "\($s) \($c) \(.)"] | sort;
+            def vacant: [to_entries[] | .value["us-house"].vacant? // empty | .[]] | sort;
+            def items(l): if (l | length) == 0 then "- none" else (l | map("- `" + . + "`") | join("\n")) end;
+            ($before[0] | unmatched) as $ub | ($after[0] | unmatched) as $ua | ($before[0] | vacant) as $vb | ($after[0] | vacant) as $va |
+            [
+              "The weekly refresh of the representative data found newer source files.",
+              "",
+              "Changed files: `config/reps-sources.json` (the new pinned hashes), `public/data/reps/`, and the version bump and changelog entry that the repository release script proposes for them.",
+              "",
+              "## State districts with no match",
+              "",
+              "Unmatched state districts: \($ub | length) before, \($ua | length) now.",
+              "",
+              "Newly unmatched (add an alias in `config/reps-district-aliases.json` if the source names the district differently):",
+              "",
+              items($ua - $ub),
+              "",
+              "No longer unmatched:",
+              "",
+              items($ub - $ua),
+              "",
+              "## U.S. House seats",
+              "",
+              "Became vacant (no member in the source):",
+              "",
+              items($va - $vb),
+              "",
+              "Filled again:",
+              "",
+              items($vb - $va),
+              "",
+              "Typecheck, the dependency rules, the tests and the build all passed in the workflow run that opened this pull request. Review the data, then merge. This workflow never approves or merges a pull request. The required checks do not start by themselves on a pull request a workflow opened: close and reopen it to run them before merging."
+            ] | join("\n")
+        run: |
+          set -euo pipefail
+          jq -n -r --slurpfile before "$BEFORE" --slurpfile after public/data/reps/coverage.json "$PROGRAM" > "$BODY"
+
+      # The branch belongs to this workflow and has no open pull request (checked above), so replacing it is safe.
+      - name: Commit and push a branch
+        if: steps.existing.outputs.skip == 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_SUBJECT: ${{ needs.build.outputs.release_subject }}
+        run: |
+          set -euo pipefail
+          if ! [[ "$RELEASE_SUBJECT" =~ ^release:\ [A-Za-z0-9\ .,-]+$ ]]; then
+            echo "::error::Unexpected release subject."
+            exit 1
+          fi
+          branch="chore/refresh-reps-data-$(date -u +%F)"
+          echo "BRANCH=$branch" >> "$GITHUB_ENV"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$branch"
+          git add config/reps-sources.json public/data/reps
+          git commit -q -m "chore(data): refresh representative data"
+          git add config/versions.json changelog
+          git commit -q -m "$RELEASE_SUBJECT"
+          git -c http.https://github.com/.extraheader="AUTHORIZATION: basic $(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w0)" push --force origin "$branch"
+
+      - name: Open the pull request
+        if: steps.existing.outputs.skip == 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          BASE: ${{ github.event.repository.default_branch }}
+          BODY: ${{ runner.temp }}/body.md
+        run: |
+          set -euo pipefail
+          if ! gh pr create --base "$BASE" --head "$BRANCH" --title "chore(data): refresh representative data" --body-file "$BODY"; then
+            git -c http.https://github.com/.extraheader="AUTHORIZATION: basic $(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w0)" push origin --delete "$BRANCH" || true
+            echo "::error::Could not open the pull request. The likely cause is that the repository setting \"Allow GitHub Actions to create and approve pull requests\" (Settings > Actions > General) is off. The branch was deleted so the next run can try again."
+            exit 1
+          fi

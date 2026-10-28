@@ -51,6 +51,37 @@ describe('prerendered pages', () => {
     expect(html).not.toMatch(/<[^>]* style="/);
   });
 
+  it('writes the pledges page and publishes the validated pledges', () => {
+    const html = read('dist/pledges/index.html');
+    expect(titleOf(html)).toBe(PAGE_META.pledges.title);
+    expect(html).toContain('No one has pledged yet.');
+    expect(read('dist/sitemap.xml')).toContain('<loc>https://fairmaps.melson.us/pledges</loc>');
+    expect(JSON.parse(read('dist/data/pledges.json'))).toEqual({ pledges: [] });
+  });
+
+  it('writes the Take action page and lists it in the sitemap and llms.txt, and the home page links to it with no action block', () => {
+    const html = read('dist/act/index.html');
+    expect(titleOf(html)).toBe('Take action | Fair Maps');
+    expect(html).toContain('Find your representatives');
+    expect(html).toContain('Ask them');
+    expect(html).toContain('Add your name');
+    expect(html).not.toContain('challenges.cloudflare.com');
+    expect(html).not.toContain('—');
+    expect(read('dist/sitemap.xml')).toContain('<loc>https://fairmaps.melson.us/act</loc>');
+    expect(read('dist/llms.txt')).toContain('https://fairmaps.melson.us/act');
+    expect(read('dist/index.html')).toContain('href="/act"');
+    expect(read('dist/index.html')).not.toContain('strv-act__step');
+  });
+
+  it('writes the privacy page and lists it in the sitemap', () => {
+    const html = read('dist/privacy/index.html');
+    expect(titleOf(html)).toBe(PAGE_META.privacy.title);
+    expect(html).toContain('What we never keep');
+    expect(html).toContain('href="/remove"');
+    expect(html).not.toContain('2014');
+    expect(read('dist/sitemap.xml')).toContain('<loc>https://fairmaps.melson.us/privacy</loc>');
+  });
+
   it('writes the home file and the not-found page', () => {
     expect(titleOf(read('dist/index.html'))).toBe(PAGE_META.home.title);
     const missing = read('dist/404.html');

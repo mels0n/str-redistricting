@@ -1,0 +1,2348 @@
+{
+  "state": "VA",
+  "generatedFrom": {
+    "legislators-current.json": "ae8cb9477c48715df71a7d860854229d799dc90a254d61badc1efb770f892b2c",
+    "legislators-social-media.json": "c6eca1fcdb3a89901335eed51ca061daa4b60ad3243969a127e913bb9657fbc5",
+    "va.csv": "0e1510bc9c85a10d9b72364aae61bb306fbf115f506864b8c38f0fe61cde6f76"
+  },
+  "byKey": {
+    "VA:us-senate:state": [
+      {
+        "id": "W000805",
+        "name": "Mark R. Warner",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.warner.senate.gov/public/index.cfm?p=Contact",
+        "email": null,
+        "phone": "202-224-2023",
+        "address": "703 Hart Senate Office Building Washington DC 20510",
+        "website": "https://www.warner.senate.gov",
+        "social": {
+          "x": "MarkWarner",
+          "facebook": "MarkRWarner",
+          "instagram": "senatorwarner"
+        }
+      },
+      {
+        "id": "K000384",
+        "name": "Tim Kaine",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.kaine.senate.gov/contact",
+        "email": null,
+        "phone": "202-224-4024",
+        "address": "231 Russell Senate Office Building Washington DC 20510",
+        "website": "https://www.kaine.senate.gov",
+        "social": {
+          "facebook": "SenatorKaine",
+          "instagram": "sentimkaine"
+        }
+      }
+    ],
+    "VA:us-house:09": [
+      {
+        "id": "G000568",
+        "name": "H. Morgan Griffith",
+        "office": "us-house",
+        "districtCode": "09",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-3861",
+        "address": "2110 Rayburn House Office Building Washington DC 20515-4609",
+        "website": "https://morgangriffith.house.gov",
+        "social": {
+          "x": "RepMGriffith",
+          "facebook": "RepMorganGriffith",
+          "instagram": "hmorgangriffith"
+        }
+      }
+    ],
+    "VA:us-house:03": [
+      {
+        "id": "S000185",
+        "name": "Robert C. \"Bobby\" Scott",
+        "office": "us-house",
+        "districtCode": "03",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-8351",
+        "address": "2328 Rayburn House Office Building Washington DC 20515-4603",
+        "website": "https://bobbyscott.house.gov",
+        "social": {
+          "x": "BobbyScott",
+          "facebook": "RepBobbyScott",
+          "instagram": "repbobbyscott"
+        }
+      }
+    ],
+    "VA:us-house:01": [
+      {
+        "id": "W000804",
+        "name": "Robert J. Wittman",
+        "office": "us-house",
+        "districtCode": "01",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4261",
+        "address": "2055 Rayburn House Office Building Washington DC 20515-4601",
+        "website": "https://wittman.house.gov",
+        "social": {
+          "x": "RobWittman",
+          "facebook": "RepRobWittman",
+          "instagram": "reprobwittman"
+        }
+      }
+    ],
+    "VA:us-house:08": [
+      {
+        "id": "B001292",
+        "name": "Donald S. Beyer, Jr.",
+        "office": "us-house",
+        "districtCode": "08",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4376",
+        "address": "1226 Longworth House Office Building Washington DC 20515-4608",
+        "website": "https://beyer.house.gov",
+        "social": {
+          "x": "RepDonBeyer",
+          "facebook": "RepDonBeyer",
+          "instagram": "repdonbeyer"
+        }
+      }
+    ],
+    "VA:us-house:06": [
+      {
+        "id": "C001118",
+        "name": "Ben Cline",
+        "office": "us-house",
+        "districtCode": "06",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5431",
+        "address": "2443 Rayburn House Office Building Washington DC 20515-4606",
+        "website": "https://cline.house.gov",
+        "social": {
+          "x": "RepBenCline",
+          "facebook": "RepBenCline",
+          "instagram": "repbencline"
+        }
+      }
+    ],
+    "VA:us-house:02": [
+      {
+        "id": "K000399",
+        "name": "Jennifer A. Kiggans",
+        "office": "us-house",
+        "districtCode": "02",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4215",
+        "address": "152 Cannon House Office Building Washington DC 20515-4602",
+        "website": "https://kiggans.house.gov",
+        "social": {
+          "x": "RepJenKiggans",
+          "facebook": "repjenkiggans",
+          "instagram": "repjenkiggans"
+        }
+      }
+    ],
+    "VA:us-house:04": [
+      {
+        "id": "M001227",
+        "name": "Jennifer L. McClellan",
+        "office": "us-house",
+        "districtCode": "04",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-6365",
+        "address": "1628 Longworth House Office Building Washington DC 20515-4604",
+        "website": "https://mcclellan.house.gov",
+        "social": {
+          "x": "RepMcClellan",
+          "instagram": "repmcclellan"
+        }
+      }
+    ],
+    "VA:us-house:05": [
+      {
+        "id": "M001239",
+        "name": "John J. McGuire III",
+        "office": "us-house",
+        "districtCode": "05",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4711",
+        "address": "1013 Longworth House Office Building Washington DC 20515-4605",
+        "website": "https://mcguire.house.gov",
+        "social": {
+          "x": "RepJohnMcGuire",
+          "facebook": "RepJohnMcGuire",
+          "instagram": "repjohnmcguire"
+        }
+      }
+    ],
+    "VA:us-house:07": [
+      {
+        "id": "V000138",
+        "name": "Eugene Simon Vindman",
+        "office": "us-house",
+        "districtCode": "07",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2815",
+        "address": "1005 Longworth House Office Building Washington DC 20515-4607",
+        "website": "https://vindman.house.gov",
+        "social": {
+          "x": "RepVindman",
+          "facebook": "CongressmanEugeneVindman",
+          "instagram": "repvindman"
+        }
+      }
+    ],
+    "VA:us-house:10": [
+      {
+        "id": "S001230",
+        "name": "Suhas Subramanyam",
+        "office": "us-house",
+        "districtCode": "10",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5136",
+        "address": "1009 Longworth House Office Building Washington DC 20515-4610",
+        "website": "https://subramanyam.house.gov",
+        "social": {
+          "x": "RepSuhas",
+          "facebook": "RepSuhasSubramanyam",
+          "instagram": "repsuhas"
+        }
+      }
+    ],
+    "VA:us-house:11": [
+      {
+        "id": "W000831",
+        "name": "James R. Walkinshaw",
+        "office": "us-house",
+        "districtCode": "11",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-1492",
+        "address": "2265 Rayburn House Office Building Washington DC 20515-4611",
+        "website": "https://walkinshaw.house.gov",
+        "social": {}
+      }
+    ],
+    "VA:state-house:002": [
+      {
+        "id": "ocd-person/d0de7acb-ce8d-4bb2-b6e5-99cefe5e76a6",
+        "name": "Adele McClure",
+        "office": "state-house",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "delamcclure@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0375",
+        "social": {}
+      }
+    ],
+    "VA:state-house:095": [
+      {
+        "id": "ocd-person/3a48fc34-a650-4fd5-acea-e703e2b8de90",
+        "name": "Alex Askew",
+        "office": "state-house",
+        "districtCode": "095",
+        "contactUrl": null,
+        "email": "delaaskew@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0311",
+        "social": {}
+      }
+    ],
+    "VA:state-house:003": [
+      {
+        "id": "ocd-person/ed935430-db59-4962-91f7-c0eeca2ef8e2",
+        "name": "Alfonso Lopez",
+        "office": "state-house",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "delalopez@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0239",
+        "social": {
+          "x": "Lopez4VA",
+          "facebook": "Lopez4VA"
+        }
+      }
+    ],
+    "VA:state-house:055": [
+      {
+        "id": "ocd-person/7e0776e4-a915-4758-a7b3-70ca42ce3fe4",
+        "name": "Amy Laufer",
+        "office": "state-house",
+        "districtCode": "055",
+        "contactUrl": null,
+        "email": "delalaufer@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0371",
+        "social": {}
+      }
+    ],
+    "VA:state-house:098": [
+      {
+        "id": "ocd-person/7517f920-b2ba-4759-a80a-246816ebb09b",
+        "name": "Andrew Rice",
+        "office": "state-house",
+        "districtCode": "098",
+        "contactUrl": null,
+        "email": "delarice@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0407",
+        "social": {}
+      }
+    ],
+    "VA:state-house:099": [
+      {
+        "id": "ocd-person/9fd6fbd7-5e4e-4426-9d5a-43173ab01489",
+        "name": "Anne Ferrell Tata",
+        "office": "state-house",
+        "districtCode": "099",
+        "contactUrl": null,
+        "email": "delaftata@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0345",
+        "social": {}
+      }
+    ],
+    "VA:state-house:027": [
+      {
+        "id": "ocd-person/38f25fcb-2f54-411a-84d5-2d1f748d4183",
+        "name": "Atoosa Reaser",
+        "office": "state-house",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "delareaser@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0380",
+        "social": {}
+      }
+    ],
+    "VA:state-house:078": [
+      {
+        "id": "ocd-person/a6f78488-1c78-4409-8c4a-bf0d0920e852",
+        "name": "Betsy Carr",
+        "office": "state-house",
+        "districtCode": "078",
+        "contactUrl": null,
+        "email": "delbcarr@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0212",
+        "social": {
+          "facebook": "delegatebetsycarr"
+        }
+      }
+    ],
+    "VA:state-house:092": [
+      {
+        "id": "ocd-person/725be36e-2485-4f9f-a15f-86c574cc8d4b",
+        "name": "Bonita Anthony",
+        "office": "state-house",
+        "districtCode": "092",
+        "contactUrl": null,
+        "email": "delbanthony@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0353",
+        "social": {}
+      }
+    ],
+    "VA:state-house:025": [
+      {
+        "id": "ocd-person/23775904-887c-4a2c-9424-0683608193ba",
+        "name": "Briana Sewell",
+        "office": "state-house",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "delbsewell@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0343",
+        "social": {}
+      }
+    ],
+    "VA:state-house:091": [
+      {
+        "id": "ocd-person/77b071e3-b8fa-4455-b2e6-3d487a8145c8",
+        "name": "Cliff Hayes",
+        "office": "state-house",
+        "districtCode": "091",
+        "contactUrl": null,
+        "email": "delchayes@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0285",
+        "social": {
+          "x": "CliffHayesJr",
+          "facebook": "CliffHayesJr"
+        }
+      }
+    ],
+    "VA:state-house:077": [
+      {
+        "id": "ocd-person/2bb39b59-47d3-4e05-aa76-fc0df791faa7",
+        "name": "Charlie Schmidt",
+        "office": "state-house",
+        "districtCode": "077",
+        "contactUrl": null,
+        "email": "delcschmidt@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0402",
+        "social": {}
+      }
+    ],
+    "VA:state-house:004": [
+      {
+        "id": "ocd-person/a0b9b444-ee25-48a1-ab61-cf0be462e89d",
+        "name": "Charniele Herring",
+        "office": "state-house",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "delcherring@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0208",
+        "social": {
+          "x": "c_herring",
+          "facebook": "charnieleherring"
+        }
+      }
+    ],
+    "VA:state-house:035": [
+      {
+        "id": "ocd-person/bbb38d6c-3b3d-4ce8-bb2f-3d9346ff86f7",
+        "name": "Chris Runion",
+        "office": "state-house",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "delcrunion@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0321",
+        "social": {
+          "x": "chrisrunionva",
+          "facebook": "chrisrunionforva"
+        }
+      }
+    ],
+    "VA:state-house:010": [
+      {
+        "id": "ocd-person/5e5e025d-7e50-4c2f-ba81-720f19aa0d81",
+        "name": "Dan Helmer",
+        "office": "state-house",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "deldhelmer@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0317",
+        "social": {
+          "x": "helmerVA",
+          "facebook": "HelmerVA"
+        }
+      }
+    ],
+    "VA:state-house:028": [
+      {
+        "id": "ocd-person/0258144f-e8e8-4710-a80c-362f2077f57b",
+        "name": "David Reid",
+        "office": "state-house",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "deldreid@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0301",
+        "social": {
+          "x": "davidreidva",
+          "facebook": "delegatedavid"
+        }
+      }
+    ],
+    "VA:state-house:076": [
+      {
+        "id": "ocd-person/28a2a753-16db-4236-baf0-398c0cafa259",
+        "name": "Debra Gardner",
+        "office": "state-house",
+        "districtCode": "076",
+        "contactUrl": null,
+        "email": "deldgardner@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0361",
+        "social": {}
+      }
+    ],
+    "VA:state-house:081": [
+      {
+        "id": "ocd-person/4ae07d5d-1da3-4370-b796-7698013ca994",
+        "name": "Delores McQuinn",
+        "office": "state-house",
+        "districtCode": "081",
+        "contactUrl": null,
+        "email": "deldmcquinn@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0207",
+        "social": {
+          "facebook": "mcquinncampaign"
+        }
+      }
+    ],
+    "VA:state-house:031": [
+      {
+        "id": "ocd-person/aabaa796-77f3-4b39-a626-ae05944ec484",
+        "name": "Delores Oates",
+        "office": "state-house",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "deldoates@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0377",
+        "social": {}
+      }
+    ],
+    "VA:state-house:080": [
+      {
+        "id": "ocd-person/43d936f6-2ae8-42fe-a9a9-a4f139842afa",
+        "name": "Destiny LeVere Bolling",
+        "office": "state-house",
+        "districtCode": "080",
+        "contactUrl": null,
+        "email": "deldleverebolling@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0372",
+        "social": {}
+      }
+    ],
+    "VA:state-house:088": [
+      {
+        "id": "ocd-person/f8cafb3b-ed12-40e9-b062-318790434179",
+        "name": "Don Scott",
+        "office": "state-house",
+        "districtCode": "088",
+        "contactUrl": null,
+        "email": "deldscott@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0322",
+        "social": {
+          "x": "donscott757",
+          "facebook": "friendsofdonscott"
+        }
+      }
+    ],
+    "VA:state-house:022": [
+      {
+        "id": "ocd-person/34c31079-0077-4ce5-9985-d0f2a95a12a7",
+        "name": "Liz Guzmán",
+        "office": "state-house",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "deleguzman@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0297",
+        "social": {
+          "x": "delegateguzman",
+          "facebook": "elizabethguzmanva"
+        }
+      }
+    ],
+    "VA:state-house:036": [
+      {
+        "id": "ocd-person/318cc276-b981-4744-82ff-1c7cc7d0c0b6",
+        "name": "Ellen McLaughlin",
+        "office": "state-house",
+        "districtCode": "036",
+        "contactUrl": null,
+        "email": "delemclaughlin@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0350",
+        "social": {}
+      }
+    ],
+    "VA:state-house:048": [
+      {
+        "id": "ocd-person/704cecad-ef53-44e4-ad55-6c7a7e385e5c",
+        "name": "Eric Phillips",
+        "office": "state-house",
+        "districtCode": "048",
+        "contactUrl": null,
+        "email": "delephillips@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0384",
+        "social": {}
+      }
+    ],
+    "VA:state-house:051": [
+      {
+        "id": "ocd-person/0bd1b9d6-e02e-4cb4-91c8-c87466ebf1db",
+        "name": "Eric Zehr",
+        "office": "state-house",
+        "districtCode": "051",
+        "contactUrl": null,
+        "email": "delezehr@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0383",
+        "social": {}
+      }
+    ],
+    "VA:state-house:017": [
+      {
+        "id": "ocd-person/418a32b0-5822-4673-9293-e8363038805b",
+        "name": "Garrett McGuire",
+        "office": "state-house",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "delgmcguire@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0405",
+        "social": {}
+      }
+    ],
+    "VA:state-house:011": [
+      {
+        "id": "ocd-person/b151be46-5943-466a-afc5-93355840fe90",
+        "name": "Gretchen Bulova",
+        "office": "state-house",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "delgbulova@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0403",
+        "social": {}
+      }
+    ],
+    "VA:state-house:083": [
+      {
+        "id": "ocd-person/496f9aa1-91ba-4386-9530-f52ea56e17bf",
+        "name": "Otto Wachsmann",
+        "office": "state-house",
+        "districtCode": "083",
+        "contactUrl": null,
+        "email": "delowachsmann@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0347",
+        "social": {}
+      }
+    ],
+    "VA:state-house:067": [
+      {
+        "id": "ocd-person/ec11a019-459d-4184-b0d7-8e88ab5f7dd6",
+        "name": "Hillary Pugh Kent",
+        "office": "state-house",
+        "districtCode": "067",
+        "contactUrl": null,
+        "email": "delhkent@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0369",
+        "social": {}
+      }
+    ],
+    "VA:state-house:012": [
+      {
+        "id": "ocd-person/745d2197-96c4-4e10-be1d-19f70c35f541",
+        "name": "Holly Seibold",
+        "office": "state-house",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "delhseibold@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0351",
+        "social": {}
+      }
+    ],
+    "VA:state-house:059": [
+      {
+        "id": "ocd-person/e2ce02ec-6a92-435d-8ae2-bead5abe5ace",
+        "name": "Buddy Fowler",
+        "office": "state-house",
+        "districtCode": "059",
+        "contactUrl": null,
+        "email": "delbfowler@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0259",
+        "social": {
+          "facebook": "H-Buddy-Fowler-55th-District-of-VA-House-of-Delegates-580739761936432"
+        }
+      }
+    ],
+    "VA:state-house:008": [
+      {
+        "id": "ocd-person/3f02dc5d-5107-4620-add7-c32a2ea8bf44",
+        "name": "Irene Shin",
+        "office": "state-house",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "delishin@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0344",
+        "social": {}
+      }
+    ],
+    "VA:state-house:044": [
+      {
+        "id": "ocd-person/4524f0db-f682-4b90-9cd5-628eb1d16ca7",
+        "name": "Israel O'Quinn",
+        "office": "state-house",
+        "districtCode": "044",
+        "contactUrl": null,
+        "email": "delioquinn@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0242",
+        "social": {
+          "x": "IsraelOQuinn",
+          "facebook": "israeloquinn"
+        }
+      }
+    ],
+    "VA:state-house:026": [
+      {
+        "id": "ocd-person/837c9441-c0d2-497e-80e9-955bf152831b",
+        "name": "J.J. Singh",
+        "office": "state-house",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "deljsingh@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0385",
+        "social": {}
+      }
+    ],
+    "VA:state-house:093": [
+      {
+        "id": "ocd-person/dae8ce89-647a-407a-9550-60c404a89e29",
+        "name": "Jackie Glass",
+        "office": "state-house",
+        "districtCode": "093",
+        "contactUrl": null,
+        "email": "deljglass@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0349",
+        "social": {}
+      }
+    ],
+    "VA:state-house:090": [
+      {
+        "id": "ocd-person/a551cb4b-014c-4423-a9d7-7a35cc0c7bdd",
+        "name": "Jay Leftwich",
+        "office": "state-house",
+        "districtCode": "090",
+        "contactUrl": null,
+        "email": "deljleftwich@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0262",
+        "social": {
+          "facebook": "Delegate-Jay-Leftwich-237237813089964"
+        }
+      }
+    ],
+    "VA:state-house:043": [
+      {
+        "id": "ocd-person/0f77b7d1-a89e-41cd-ae83-28d267dab0e2",
+        "name": "Will Morefield",
+        "office": "state-house",
+        "districtCode": "043",
+        "contactUrl": null,
+        "email": "deljmorefield@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0224",
+        "social": {
+          "facebook": "DelegateMorefield"
+        }
+      }
+    ],
+    "VA:state-house:042": [
+      {
+        "id": "ocd-person/80c98569-2ce0-44e9-8cf4-632f2dce684c",
+        "name": "Jason Ballard",
+        "office": "state-house",
+        "districtCode": "042",
+        "contactUrl": null,
+        "email": "deljballard@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0333",
+        "social": {}
+      }
+    ],
+    "VA:state-house:087": [
+      {
+        "id": "ocd-person/f3e15ab0-8419-43c2-ab7a-f3984419d1eb",
+        "name": "Jeion Ward",
+        "office": "state-house",
+        "districtCode": "087",
+        "contactUrl": null,
+        "email": "deljward@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0173",
+        "social": {
+          "x": "jeionward",
+          "facebook": "delegatejeionward"
+        }
+      }
+    ],
+    "VA:state-house:071": [
+      {
+        "id": "ocd-person/f2a47eb9-0839-48e8-baf2-c2d638bf380b",
+        "name": "Jessica Anderson",
+        "office": "state-house",
+        "districtCode": "071",
+        "contactUrl": null,
+        "email": "deljanderson@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0386",
+        "social": {}
+      }
+    ],
+    "VA:state-house:030": [
+      {
+        "id": "ocd-person/fef2f7f3-d388-4bf6-818f-6a58ae193721",
+        "name": "John McAuliff",
+        "office": "state-house",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "deljmcauliff@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0395",
+        "social": {}
+      }
+    ],
+    "VA:state-house:040": [
+      {
+        "id": "ocd-person/a0178eeb-c6bb-4e20-9024-f859d4780be6",
+        "name": "Joe McNamara",
+        "office": "state-house",
+        "districtCode": "040",
+        "contactUrl": null,
+        "email": "deljmcnamara@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0308",
+        "social": {
+          "x": "JoeforVA",
+          "facebook": "JoeForVA"
+        }
+      }
+    ],
+    "VA:state-house:021": [
+      {
+        "id": "ocd-person/b6db5cc9-d9d3-4cbd-9532-6126a47c2ab3",
+        "name": "Josh Thomas",
+        "office": "state-house",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "deljthomas@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0382",
+        "social": {}
+      }
+    ],
+    "VA:state-house:065": [
+      {
+        "id": "ocd-person/986f0601-025b-4fa7-acda-b2d3c2280784",
+        "name": "Josh Cole",
+        "office": "state-house",
+        "districtCode": "065",
+        "contactUrl": null,
+        "email": "deljcole@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0314",
+        "social": {
+          "x": "jcole4va",
+          "facebook": "jcole4VA"
+        }
+      }
+    ],
+    "VA:state-house:033": [
+      {
+        "id": "ocd-person/ee82c166-4df9-4e98-8399-1e10d48dcd06",
+        "name": "Justin Pence",
+        "office": "state-house",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "deljpence@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0398",
+        "social": {}
+      }
+    ],
+    "VA:state-house:089": [
+      {
+        "id": "ocd-person/aeba499e-3396-4787-bd81-e9b16a8898f7",
+        "name": "Kacey Carnegie",
+        "office": "state-house",
+        "districtCode": "089",
+        "contactUrl": null,
+        "email": "delkcarnegie@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0387",
+        "social": {}
+      }
+    ],
+    "VA:state-house:062": [
+      {
+        "id": "ocd-person/b209f24e-0f1f-4f80-b2d9-1c05ee94ba4e",
+        "name": "Karen Hamilton",
+        "office": "state-house",
+        "districtCode": "062",
+        "contactUrl": null,
+        "email": "delkhamilton@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0394",
+        "social": {}
+      }
+    ],
+    "VA:state-house:007": [
+      {
+        "id": "ocd-person/7c045b50-e18d-422e-b87f-26eb7b61d651",
+        "name": "Karen Keys-Gamarra",
+        "office": "state-house",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "delkkeys-gamarra@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0370",
+        "social": {}
+      }
+    ],
+    "VA:state-house:009": [
+      {
+        "id": "ocd-person/7ec1cbe4-667d-4dbb-a840-459449ccd5df",
+        "name": "Karrie Delaney",
+        "office": "state-house",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "delkdelaney@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0294",
+        "social": {
+          "x": "karriekdelaney",
+          "facebook": "DelegateKarrieDelaney"
+        }
+      }
+    ],
+    "VA:state-house:018": [
+      {
+        "id": "ocd-person/ddba8b1b-8a1d-42c2-aba5-adc1331ee6f1",
+        "name": "Kathy Tran",
+        "office": "state-house",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "delktran@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0305",
+        "social": {
+          "x": "kathykltran",
+          "facebook": "KathyForDelegate"
+        }
+      }
+    ],
+    "VA:state-house:054": [
+      {
+        "id": "ocd-person/d0263d88-91b1-414d-b58b-1ff0523f75ec",
+        "name": "Katrina Callsen",
+        "office": "state-house",
+        "districtCode": "054",
+        "contactUrl": null,
+        "email": "delkcallsen@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0354",
+        "social": {}
+      }
+    ],
+    "VA:state-house:096": [
+      {
+        "id": "ocd-person/bf558d98-23da-41c4-8ae2-4dc45631808c",
+        "name": "Kelly Fowler",
+        "office": "state-house",
+        "districtCode": "096",
+        "contactUrl": null,
+        "email": "delkconvirs-fowler@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0295",
+        "social": {
+          "x": "delegatefowler",
+          "facebook": "DelegateFowler"
+        }
+      }
+    ],
+    "VA:state-house:082": [
+      {
+        "id": "ocd-person/9f8c35c8-2a50-407f-815a-603b9c9d8bad",
+        "name": "Kim Adams",
+        "office": "state-house",
+        "districtCode": "082",
+        "contactUrl": null,
+        "email": "delkpopeadams@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0399",
+        "social": {}
+      }
+    ],
+    "VA:state-house:005": [
+      {
+        "id": "ocd-person/b0a785c3-d317-455f-9d0e-ab08a727e44f",
+        "name": "Kirk McPike",
+        "office": "state-house",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "delkmcpike@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0406",
+        "social": {}
+      }
+    ],
+    "VA:state-house:015": [
+      {
+        "id": "ocd-person/6840c55c-6496-44ce-8a60-3288e222ddc0",
+        "name": "Laura Jane Cohen",
+        "office": "state-house",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "delljcohen@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0355",
+        "social": {}
+      }
+    ],
+    "VA:state-house:073": [
+      {
+        "id": "ocd-person/9c41c70b-7162-48e5-a868-aca213cf8f6d",
+        "name": "Leslie Mehta",
+        "office": "state-house",
+        "districtCode": "073",
+        "contactUrl": null,
+        "email": "dellmehta@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0396",
+        "social": {}
+      }
+    ],
+    "VA:state-house:041": [
+      {
+        "id": "ocd-person/ae28ba3f-6c53-463c-ac43-a5549ef51d48",
+        "name": "Lily Franklin",
+        "office": "state-house",
+        "districtCode": "041",
+        "contactUrl": null,
+        "email": "dellfranklin@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0393",
+        "social": {}
+      }
+    ],
+    "VA:state-house:075": [
+      {
+        "id": "ocd-person/1084ab28-a14a-4814-8501-96cfd1b17d1d",
+        "name": "Lindsey Dougherty",
+        "office": "state-house",
+        "districtCode": "075",
+        "contactUrl": null,
+        "email": "delldougherty@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0391",
+        "social": {}
+      }
+    ],
+    "VA:state-house:024": [
+      {
+        "id": "ocd-person/44ebbeab-055c-402b-a56e-bb7487d0da62",
+        "name": "Luke Torian",
+        "office": "state-house",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "delltorian@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0227",
+        "social": {
+          "x": "DelegateTorian",
+          "facebook": "luke.torian"
+        }
+      }
+    ],
+    "VA:state-house:068": [
+      {
+        "id": "ocd-person/06c0d909-22c8-4d71-9b6c-cc363a0c9553",
+        "name": "Keith Hodges",
+        "office": "state-house",
+        "districtCode": "068",
+        "contactUrl": null,
+        "email": "delkhodges@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0238",
+        "social": {
+          "facebook": "FriendsOfKeithHodges"
+        }
+      }
+    ],
+    "VA:state-house:049": [
+      {
+        "id": "ocd-person/b448d4e4-ec11-452e-ae35-2bffc0662f75",
+        "name": "Madison Whittle",
+        "office": "state-house",
+        "districtCode": "049",
+        "contactUrl": null,
+        "email": "delmwhittle@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0401",
+        "social": {}
+      }
+    ],
+    "VA:state-house:085": [
+      {
+        "id": "ocd-person/58b46062-f618-4b27-b0ec-3bbb57db839b",
+        "name": "Cia Price",
+        "office": "state-house",
+        "districtCode": "085",
+        "contactUrl": null,
+        "email": "delmprice@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0284",
+        "social": {
+          "x": "PriceForDel95",
+          "facebook": "PriceForDel95"
+        }
+      }
+    ],
+    "VA:state-house:013": [
+      {
+        "id": "ocd-person/ca122856-dfc5-4ba1-84bb-48fdcf7a36f5",
+        "name": "Marcus Simon",
+        "office": "state-house",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "delmsimon@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0264",
+        "social": {
+          "x": "marcussimon",
+          "facebook": "DelegateSimon"
+        }
+      }
+    ],
+    "VA:state-house:023": [
+      {
+        "id": "ocd-person/71c20dff-ae7b-4799-bd80-7e0c03c402fc",
+        "name": "Margaret Franklin",
+        "office": "state-house",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "delmfranklin@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0404",
+        "social": {}
+      }
+    ],
+    "VA:state-house:069": [
+      {
+        "id": "ocd-person/3ae2755c-8274-4d09-bad4-243275577ba2",
+        "name": "Mark Downey",
+        "office": "state-house",
+        "districtCode": "069",
+        "contactUrl": null,
+        "email": "delmdowney@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0392",
+        "social": {}
+      }
+    ],
+    "VA:state-house:029": [
+      {
+        "id": "ocd-person/beaab5ae-3e8d-4c12-b388-a59cdc467771",
+        "name": "Marty Martinez",
+        "office": "state-house",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "delmmartinez@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0374",
+        "social": {}
+      }
+    ],
+    "VA:state-house:057": [
+      {
+        "id": "ocd-person/50a18b88-f257-4234-920f-cfa531a28be4",
+        "name": "May Nivar",
+        "office": "state-house",
+        "districtCode": "057",
+        "contactUrl": null,
+        "email": "delmnivar@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0397",
+        "social": {}
+      }
+    ],
+    "VA:state-house:097": [
+      {
+        "id": "ocd-person/cbf3268e-ced2-4aad-8ed1-18e4f37534ec",
+        "name": "Michael Feggans",
+        "office": "state-house",
+        "districtCode": "097",
+        "contactUrl": null,
+        "email": "delmfeggans@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0360",
+        "social": {}
+      }
+    ],
+    "VA:state-house:061": [
+      {
+        "id": "ocd-person/bf425b62-d078-45bd-957c-baceb4bfad1b",
+        "name": "Mike Webert",
+        "office": "state-house",
+        "districtCode": "061",
+        "contactUrl": null,
+        "email": "delmwebert@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0247",
+        "social": {
+          "x": "MichaelWebert",
+          "facebook": "michaelwebertfordelegate"
+        }
+      }
+    ],
+    "VA:state-house:074": [
+      {
+        "id": "ocd-person/32b96a0d-662a-4c8f-9b2b-f86365640624",
+        "name": "Mike Cherry",
+        "office": "state-house",
+        "districtCode": "074",
+        "contactUrl": null,
+        "email": "delmcherry@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0335",
+        "social": {}
+      }
+    ],
+    "VA:state-house:046": [
+      {
+        "id": "ocd-person/e766f1e0-8651-4cc2-a394-904fa6f3aea0",
+        "name": "Mitchell Cornett",
+        "office": "state-house",
+        "districtCode": "046",
+        "contactUrl": null,
+        "email": "delmcornett@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0390",
+        "social": {}
+      }
+    ],
+    "VA:state-house:084": [
+      {
+        "id": "ocd-person/a7fd18db-f30c-45c6-aa90-bdb6f2ce412b",
+        "name": "Nadarius Clark",
+        "office": "state-house",
+        "districtCode": "084",
+        "contactUrl": null,
+        "email": "delnclark@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0336",
+        "social": {}
+      }
+    ],
+    "VA:state-house:066": [
+      {
+        "id": "ocd-person/f09abfed-0fb2-4ef3-966c-4cc0246b701d",
+        "name": "Nicole Cole",
+        "office": "state-house",
+        "districtCode": "066",
+        "contactUrl": null,
+        "email": "delncole@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0389",
+        "social": {}
+      }
+    ],
+    "VA:state-house:001": [
+      {
+        "id": "ocd-person/c10414ad-5251-4fba-8ad9-a541311f2b9f",
+        "name": "Patrick Hope",
+        "office": "state-house",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "delphope@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0219",
+        "social": {
+          "x": "HopeforVirginia",
+          "facebook": "hopeforvirginia"
+        }
+      }
+    ],
+    "VA:state-house:016": [
+      {
+        "id": "ocd-person/d90e6a36-4464-4481-b00d-74ed9964d45e",
+        "name": "Paul Krizek",
+        "office": "state-house",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "delpkrizek@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0281",
+        "social": {
+          "x": "KrizekForVA",
+          "facebook": "KrizekForVA"
+        }
+      }
+    ],
+    "VA:state-house:094": [
+      {
+        "id": "ocd-person/bbd31428-1b2b-48c6-aa76-cb785e91ca8f",
+        "name": "Phil Hernandez",
+        "office": "state-house",
+        "districtCode": "094",
+        "contactUrl": null,
+        "email": "delphernandez@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0366",
+        "social": {}
+      }
+    ],
+    "VA:state-house:063": [
+      {
+        "id": "ocd-person/6a07d7b6-a4b4-42f8-9a06-6a860249f5b9",
+        "name": "Phil Scott",
+        "office": "state-house",
+        "districtCode": "063",
+        "contactUrl": null,
+        "email": "delpscott@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0342",
+        "social": {}
+      }
+    ],
+    "VA:state-house:072": [
+      {
+        "id": "ocd-person/865dace5-518d-4f4f-b393-c197064affe6",
+        "name": "Lee Ware",
+        "office": "state-house",
+        "districtCode": "072",
+        "contactUrl": null,
+        "email": "dellware@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0124",
+        "social": {}
+      }
+    ],
+    "VA:state-house:079": [
+      {
+        "id": "ocd-person/359eaeba-903c-42b4-b9e3-5c5b4e9d721d",
+        "name": "Rae Cousins",
+        "office": "state-house",
+        "districtCode": "079",
+        "contactUrl": null,
+        "email": "delrcousins@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0356",
+        "social": {}
+      }
+    ],
+    "VA:state-house:006": [
+      {
+        "id": "ocd-person/658209cc-5e85-4c57-aa94-878089f3d816",
+        "name": "Rip Sullivan",
+        "office": "state-house",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "delrsullivan@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0269",
+        "social": {
+          "x": "RipSullivan48",
+          "facebook": "RipSullivanVA"
+        }
+      }
+    ],
+    "VA:state-house:100": [
+      {
+        "id": "ocd-person/10868c64-b4b8-41ca-90ac-a981f9fa47ff",
+        "name": "Rob Bloxom",
+        "office": "state-house",
+        "districtCode": "100",
+        "contactUrl": null,
+        "email": "delrbloxom@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0267",
+        "social": {
+          "facebook": "electbloxomfordelegate"
+        }
+      }
+    ],
+    "VA:state-house:058": [
+      {
+        "id": "ocd-person/8ec90d7b-fd5f-4157-b779-1979e7a54e76",
+        "name": "Rod Willett",
+        "office": "state-house",
+        "districtCode": "058",
+        "contactUrl": null,
+        "email": "delrwillett@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0327",
+        "social": {
+          "facebook": "RodneyforDelegate"
+        }
+      }
+    ],
+    "VA:state-house:019": [
+      {
+        "id": "ocd-person/892b7901-d71e-4d8b-b8d0-9034a3d4a066",
+        "name": "J.R. Henson",
+        "office": "state-house",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "delrhenson@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0365",
+        "social": {}
+      }
+    ],
+    "VA:state-house:038": [
+      {
+        "id": "ocd-person/6ab67007-e48a-4048-bb7b-20a608a88f77",
+        "name": "Sam Rasoul",
+        "office": "state-house",
+        "districtCode": "038",
+        "contactUrl": null,
+        "email": "delsrasoul@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0266",
+        "social": {
+          "x": "Sam_Rasoul",
+          "facebook": "DelSamRasoul"
+        }
+      }
+    ],
+    "VA:state-house:060": [
+      {
+        "id": "ocd-person/2a831795-d6fc-4635-88bf-4fd5f72ab1e7",
+        "name": "Scott Wyatt",
+        "office": "state-house",
+        "districtCode": "060",
+        "contactUrl": null,
+        "email": "delswyatt@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0328",
+        "social": {
+          "facebook": "DelSWyatt"
+        }
+      }
+    ],
+    "VA:state-house:070": [
+      {
+        "id": "ocd-person/8329b3a6-9d6f-427e-9342-e53277e7c6ff",
+        "name": "Shelly Simonds",
+        "office": "state-house",
+        "districtCode": "070",
+        "contactUrl": null,
+        "email": "delssimonds@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0323",
+        "social": {
+          "x": "shelly_simonds",
+          "facebook": "simondsfordelegate"
+        }
+      }
+    ],
+    "VA:state-house:064": [
+      {
+        "id": "ocd-person/4caa245e-038f-4a7f-8cb3-ecd9da716885",
+        "name": "Stacey Carroll",
+        "office": "state-house",
+        "districtCode": "064",
+        "contactUrl": null,
+        "email": "delscarroll@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0388",
+        "social": {}
+      }
+    ],
+    "VA:state-house:045": [
+      {
+        "id": "ocd-person/9303514b-3bce-4ddc-87d2-17a6ba4d6194",
+        "name": "Terry Kilgore",
+        "office": "state-house",
+        "districtCode": "045",
+        "contactUrl": null,
+        "email": "deltkilgore@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0056",
+        "social": {
+          "x": "delterrykilgore",
+          "facebook": "DelTerryKilgore"
+        }
+      }
+    ],
+    "VA:state-house:037": [
+      {
+        "id": "ocd-person/cb9573ab-1bf6-45d5-a8d7-476d7bed94a8",
+        "name": "Terry Austin",
+        "office": "state-house",
+        "districtCode": "037",
+        "contactUrl": null,
+        "email": "deltaustin@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0253",
+        "social": {
+          "x": "TerryAustin4HOD",
+          "facebook": "TerryAustin4delegate"
+        }
+      }
+    ],
+    "VA:state-house:050": [
+      {
+        "id": "ocd-person/894118dd-1470-48b7-b84b-831ddba58e1b",
+        "name": "Tommy Wright",
+        "office": "state-house",
+        "districtCode": "050",
+        "contactUrl": null,
+        "email": "deltwright@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0136",
+        "social": {}
+      }
+    ],
+    "VA:state-house:053": [
+      {
+        "id": "ocd-person/d112b6c3-e52f-4da4-a6fe-5866bf3f6799",
+        "name": "Tim Griffin",
+        "office": "state-house",
+        "districtCode": "053",
+        "contactUrl": null,
+        "email": "deltgriffin@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0364",
+        "social": {}
+      }
+    ],
+    "VA:state-house:056": [
+      {
+        "id": "ocd-person/0bba07ba-7713-4ca7-8f44-699c832e0d2a",
+        "name": "Tom Garrett",
+        "office": "state-house",
+        "districtCode": "056",
+        "contactUrl": null,
+        "email": "deltgarrett@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0362",
+        "social": {}
+      }
+    ],
+    "VA:state-house:034": [
+      {
+        "id": "ocd-person/94fa59c7-00b0-4e15-9887-8af534217476",
+        "name": "Tony Wilt",
+        "office": "state-house",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "deltwilt@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0231",
+        "social": {
+          "x": "DelTonyWilt",
+          "facebook": "DelTonyWilt"
+        }
+      }
+    ],
+    "VA:state-house:086": [
+      {
+        "id": "ocd-person/63c0c8ef-ded6-406e-9d5d-a114fa35e26a",
+        "name": "Virgil Thornton",
+        "office": "state-house",
+        "districtCode": "086",
+        "contactUrl": null,
+        "email": "delvthornton@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0400",
+        "social": {}
+      }
+    ],
+    "VA:state-house:014": [
+      {
+        "id": "ocd-person/b251a648-d2d3-4799-8213-e803fed621de",
+        "name": "Vivian Watts",
+        "office": "state-house",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "delvwatts@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0108",
+        "social": {}
+      }
+    ],
+    "VA:state-house:052": [
+      {
+        "id": "ocd-person/18756686-0b6c-4a7d-ade9-db2cafcac870",
+        "name": "Wendell Walker",
+        "office": "state-house",
+        "districtCode": "052",
+        "contactUrl": null,
+        "email": "delwwalker@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0325",
+        "social": {
+          "facebook": "DelegateWendellWalker"
+        }
+      }
+    ],
+    "VA:state-house:039": [
+      {
+        "id": "ocd-person/53937ad8-9c5b-4493-95fc-a18565577dd8",
+        "name": "Will Davis",
+        "office": "state-house",
+        "districtCode": "039",
+        "contactUrl": null,
+        "email": "delwdavis@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0357",
+        "social": {}
+      }
+    ],
+    "VA:state-house:032": [
+      {
+        "id": "ocd-person/ec0c5f08-2974-4f9c-896c-34c9d5d33fac",
+        "name": "Bill Wiley",
+        "office": "state-house",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "delbwiley@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0329",
+        "social": {}
+      }
+    ],
+    "VA:state-house:047": [
+      {
+        "id": "ocd-person/d3a4b614-4a6f-4b38-b3cc-8990f0f7d4d3",
+        "name": "Wren Williams",
+        "office": "state-house",
+        "districtCode": "047",
+        "contactUrl": null,
+        "email": "delwwilliams@house.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.vga.virginia.gov/members/H0348",
+        "social": {}
+      }
+    ],
+    "VA:state-senate:022": [
+      {
+        "id": "ocd-person/4a329580-86d3-4db3-915e-9f1af71e0a5a",
+        "name": "Aaron Rouse",
+        "office": "state-senate",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "district07@senate.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S113",
+        "social": {}
+      }
+    ],
+    "VA:state-senate:021": [
+      {
+        "id": "ocd-person/f747c790-f609-4da1-b125-73f1807e1430",
+        "name": "Angelia Graves",
+        "office": "state-senate",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "senatorwilliamsgraves@senate.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S130",
+        "social": {
+          "x": "AWGNorfolk",
+          "facebook": "awgnorfolk"
+        }
+      }
+    ],
+    "VA:state-senate:040": [
+      {
+        "id": "ocd-person/72ecc30c-7175-4aef-9762-fda3ba5b451e",
+        "name": "Barbara Favola",
+        "office": "state-senate",
+        "districtCode": "040",
+        "contactUrl": null,
+        "email": "senatorfavola@senate.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S86",
+        "social": {
+          "x": "BarbaraFavola",
+          "facebook": "BarbaraFavola"
+        }
+      }
+    ],
+    "VA:state-senate:020": [
+      {
+        "id": "ocd-person/ec14a514-ce1c-4fba-b053-fcf133793445",
+        "name": "Bill DeSteph",
+        "office": "state-senate",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "senatordesteph@senate.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S96",
+        "social": {
+          "x": "BillDeSteph",
+          "facebook": "destephforva"
+        }
+      }
+    ],
+    "VA:state-senate:028": [
+      {
+        "id": "ocd-person/adb58f21-f2fd-4830-85b6-f490b0867d14",
+        "name": "Bryce Reeves",
+        "office": "state-senate",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "senatorreeves@senate.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S88",
+        "social": {
+          "x": "ReevesVA",
+          "facebook": "BryceReevesVA"
+        }
+      }
+    ],
+    "VA:state-senate:019": [
+      {
+        "id": "ocd-person/f17d0fd9-266c-4192-af9b-2cf9a621867a",
+        "name": "Christie Craig",
+        "office": "state-senate",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "senatorcraig@senate.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S118",
+        "social": {}
+      }
+    ],
+    "VA:state-senate:003": [
+      {
+        "id": "ocd-person/3a8cbf64-e1b7-43b6-ade9-57808519405a",
+        "name": "Chris Head",
+        "office": "state-senate",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "senatorhead@senate.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S122",
+        "social": {
+          "x": "DelChrisHead",
+          "facebook": "DelChrisHead"
+        }
+      }
+    ],
+    "VA:state-senate:030": [
+      {
+        "id": "ocd-person/3a2855f7-5ff7-4c5e-9d28-803d99f19d3f",
+        "name": "Danica Roem",
+        "office": "state-senate",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "senatorroem@senate.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S126",
+        "social": {
+          "x": "pwcdanica",
+          "facebook": "danicafordelegate"
+        }
+      }
+    ],
+    "VA:state-senate:004": [
+      {
+        "id": "ocd-person/73e0de29-93b1-4c5c-af72-6c4a3d3950bd",
+        "name": "David Suetterlein",
+        "office": "state-senate",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "senatorsuetterlein@senate.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S101",
+        "social": {
+          "x": "DRSuetterlein",
+          "facebook": "suetterlein"
+        }
+      }
+    ],
+    "VA:state-senate:035": [
+      {
+        "id": "ocd-person/22817a2c-911a-458a-b2a6-b7f237ef68f0",
+        "name": "Dave Marsden",
+        "office": "state-senate",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "senatormarsden@senate.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S80",
+        "social": {
+          "x": "SenDaveMarsden",
+          "facebook": "Dave-Marsden-for-Senate-193359812373"
+        }
+      }
+    ],
+    "VA:state-senate:039": [
+      {
+        "id": "ocd-person/c3b0c2fc-c7bf-45f8-8ee3-50d5a57bad08",
+        "name": "Elizabeth Bennett-Parker",
+        "office": "state-senate",
+        "districtCode": "039",
+        "contactUrl": null,
+        "email": "senatorbennett-parker@senate.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://lis.virginia.gov/cgi-bin/legp604.exe?221+mbr+H334",
+        "social": {}
+      }
+    ],
+    "VA:state-senate:017": [
+      {
+        "id": "ocd-person/f1a906cd-6602-492c-88dc-61887401c346",
+        "name": "Emily Jordan",
+        "office": "state-senate",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "senatorjordan@senate.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S116",
+        "social": {
+          "x": "BrewerForVA",
+          "facebook": "BrewerForVA"
+        }
+      }
+    ],
+    "VA:state-senate:012": [
+      {
+        "id": "ocd-person/815f7b31-d344-481a-9922-ad77d16b808a",
+        "name": "Glen Sturtevant",
+        "office": "state-senate",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "senatorsturtevant@senate.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S99",
+        "social": {}
+      }
+    ],
+    "VA:state-senate:024": [
+      {
+        "id": "ocd-person/ebdc449e-b987-4c44-895b-5047e343c0a0",
+        "name": "Danny Diggs",
+        "office": "state-senate",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "senatordiggs@senate.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S119",
+        "social": {}
+      }
+    ],
+    "VA:state-senate:038": [
+      {
+        "id": "ocd-person/27eeaa71-8938-412b-90ce-f83370824485",
+        "name": "Jennifer Boysko",
+        "office": "state-senate",
+        "districtCode": "038",
+        "contactUrl": null,
+        "email": "senatorboysko@senate.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S106",
+        "social": {
+          "x": "JenniferBoysko",
+          "facebook": "BoyskoForSenate"
+        }
+      }
+    ],
+    "VA:state-senate:033": [
+      {
+        "id": "ocd-person/32dae8e8-9901-4705-b012-f8ce186f8403",
+        "name": "Jennifer Carroll Foy",
+        "office": "state-senate",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "senatorcarrollfoy@senate.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S117",
+        "social": {}
+      }
+    ],
+    "VA:state-senate:029": [
+      {
+        "id": "ocd-person/500ff29f-8ae7-4886-93ec-eec1ad91d299",
+        "name": "Jeremy McPike",
+        "office": "state-senate",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "senatormcpike@senate.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S98",
+        "social": {
+          "x": "jeremymcpike",
+          "facebook": "McPikeforSenate"
+        }
+      }
+    ],
+    "VA:state-senate:032": [
+      {
+        "id": "ocd-person/eb7a5152-f275-4dfe-a303-742f7218fb27",
+        "name": "Kannan Srinivasan",
+        "office": "state-senate",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "senatorsrinivasan@senate.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S133",
+        "social": {}
+      }
+    ],
+    "VA:state-senate:018": [
+      {
+        "id": "ocd-person/5be2e2f9-b644-4fb4-bfbf-d4c38e858ee2",
+        "name": "Louise Lucas",
+        "office": "state-senate",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "senatorlucas@senate.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S19",
+        "social": {
+          "x": "SenLouiseLucas",
+          "facebook": "SenLouiseLucas"
+        }
+      }
+    ],
+    "VA:state-senate:014": [
+      {
+        "id": "ocd-person/fa49c701-d235-4f56-b9af-b772dec36d02",
+        "name": "Lamont Bagby",
+        "office": "state-senate",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "lbagby@senate.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S114",
+        "social": {
+          "x": "delegatebagby",
+          "facebook": "lamont.bagby"
+        }
+      }
+    ],
+    "VA:state-senate:013": [
+      {
+        "id": "ocd-person/448bfee3-3314-4608-8531-811fdf9d0c23",
+        "name": "Lashrecse Aird",
+        "office": "state-senate",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "senatoraird@senate.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S115",
+        "social": {}
+      }
+    ],
+    "VA:state-senate:010": [
+      {
+        "id": "ocd-person/e58b604d-0c92-489e-8d03-7d0126d07eeb",
+        "name": "Luther Cifers",
+        "office": "state-senate",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "senatorcifers@senate.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S132",
+        "social": {}
+      }
+    ],
+    "VA:state-senate:023": [
+      {
+        "id": "ocd-person/48911708-f8c9-4fa5-bf7c-7d035b08874e",
+        "name": "Mamie Locke",
+        "office": "state-senate",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "senatorlocke@senate.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S67",
+        "social": {
+          "x": "SenatorLocke",
+          "facebook": "SenatorLocke"
+        }
+      }
+    ],
+    "VA:state-senate:002": [
+      {
+        "id": "ocd-person/b5ce9d0e-c76e-4424-bb84-57ceb335dc52",
+        "name": "Mark Obenshain",
+        "office": "state-senate",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "senatorobenshain@senate.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S68",
+        "social": {
+          "x": "MarkObenshain",
+          "facebook": "markobenshain"
+        }
+      }
+    ],
+    "VA:state-senate:008": [
+      {
+        "id": "ocd-person/e4396bfa-d22d-457e-b79a-f4bc36046a08",
+        "name": "Mark Peake",
+        "office": "state-senate",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "senatorpeake@senate.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S105",
+        "social": {
+          "facebook": "peakeforsenate"
+        }
+      }
+    ],
+    "VA:state-senate:015": [
+      {
+        "id": "ocd-person/3ceca66a-bf31-47c8-a1a6-e2f789b41be3",
+        "name": "Mike Jones",
+        "office": "state-senate",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "senatorjones@senate.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S134",
+        "social": {}
+      }
+    ],
+    "VA:state-senate:011": [
+      {
+        "id": "ocd-person/ad107e73-7e1e-45dd-ab19-52005a0b948c",
+        "name": "Creigh Deeds",
+        "office": "state-senate",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "senatordeeds@senate.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S62",
+        "social": {
+          "x": "CreighDeeds",
+          "facebook": "creigh"
+        }
+      }
+    ],
+    "VA:state-senate:025": [
+      {
+        "id": "ocd-person/52e67ab6-2039-458e-b7a8-9bb5f3694e11",
+        "name": "Richard Stuart",
+        "office": "state-senate",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "senatorstuart@senate.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S78",
+        "social": {
+          "x": "RichardStuartVA",
+          "facebook": "richardhstuart"
+        }
+      }
+    ],
+    "VA:state-senate:031": [
+      {
+        "id": "ocd-person/bf0211bf-d8ac-4343-bcd8-181e2d2e58a6",
+        "name": "Russet Perry",
+        "office": "state-senate",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "senatorperry@senate.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S125",
+        "social": {}
+      }
+    ],
+    "VA:state-senate:026": [
+      {
+        "id": "ocd-person/995be769-49d1-40b6-8177-e8ee31087af1",
+        "name": "Ryan McDougle",
+        "office": "state-senate",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "senatormcdougle@senate.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S69",
+        "social": {
+          "x": "ryanmcdougle",
+          "facebook": "SenatorRyanMcDougle"
+        }
+      }
+    ],
+    "VA:state-senate:037": [
+      {
+        "id": "ocd-person/8a50ceeb-1ded-4586-a04a-19115fddc3c5",
+        "name": "Saddam Salim",
+        "office": "state-senate",
+        "districtCode": "037",
+        "contactUrl": null,
+        "email": "senatorsalim@senate.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S127",
+        "social": {}
+      }
+    ],
+    "VA:state-senate:016": [
+      {
+        "id": "ocd-person/aec7ee58-7da0-41e1-88d0-5c9e68737a0f",
+        "name": "Schuyler VanValkenburg",
+        "office": "state-senate",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "senatorvanvalkenburg@senate.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S129",
+        "social": {
+          "x": "vvfordelegate",
+          "facebook": "VanValkenburg4VA"
+        }
+      }
+    ],
+    "VA:state-senate:034": [
+      {
+        "id": "ocd-person/50a6c704-2ba7-4ecc-a24c-8f55b400709b",
+        "name": "Scott Surovell",
+        "office": "state-senate",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "senatorsurovell@senate.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S100",
+        "social": {
+          "x": "ssurovell",
+          "facebook": "Surovell"
+        }
+      }
+    ],
+    "VA:state-senate:036": [
+      {
+        "id": "ocd-person/138f964d-7137-487b-96d6-ad836b67db83",
+        "name": "Stella Pekarsky",
+        "office": "state-senate",
+        "districtCode": "036",
+        "contactUrl": null,
+        "email": "senatorpekarsky@senate.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S124",
+        "social": {}
+      }
+    ],
+    "VA:state-senate:005": [
+      {
+        "id": "ocd-person/3605a4dd-d800-4820-a50c-6cd3b0ab4511",
+        "name": "Travis Hackworth",
+        "office": "state-senate",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "senatorhackworth@senate.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S112",
+        "social": {}
+      }
+    ],
+    "VA:state-senate:009": [
+      {
+        "id": "ocd-person/c3391ffd-a783-4d34-81ca-ecad4cd6d16a",
+        "name": "Tammy Mulchi",
+        "office": "state-senate",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "senatormulchi@senate.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S131",
+        "social": {}
+      }
+    ],
+    "VA:state-senate:027": [
+      {
+        "id": "ocd-person/e142c869-a7a9-411a-8d73-563403f6ddd4",
+        "name": "Tara Durant",
+        "office": "state-senate",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "senatordurant@senate.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S120",
+        "social": {}
+      }
+    ],
+    "VA:state-senate:001": [
+      {
+        "id": "ocd-person/ba57d68e-01e5-46ed-b305-ec08dece665b",
+        "name": "Timmy French",
+        "office": "state-senate",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "senatorfrench@senate.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S121",
+        "social": {}
+      }
+    ],
+    "VA:state-senate:006": [
+      {
+        "id": "ocd-person/0d2983ef-93a5-4d84-9fa3-2c796024562a",
+        "name": "Todd Pillion",
+        "office": "state-senate",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "senatorpillion@senate.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S111",
+        "social": {}
+      }
+    ],
+    "VA:state-senate:007": [
+      {
+        "id": "ocd-person/eacc546e-93d4-4189-92fb-8c969b1b545c",
+        "name": "Bill Stanley",
+        "office": "state-senate",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "senatorstanley@senate.virginia.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://apps.senate.virginia.gov/Senator/memberpage.php?id=S82",
+        "social": {
+          "x": "BillStanley",
+          "facebook": "stanleyforsenate"
+        }
+      }
+    ]
+  }
+}

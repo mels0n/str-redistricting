@@ -52,7 +52,7 @@ function assertAllowedUrl(url: string, label: string, hosts: ReadonlySet<string>
     throw new DownloadRefusedError(`download for ${label} refused: not a valid address`);
   }
   if (!isAllowedUrl(url, hosts)) {
-    throw new DownloadRefusedError(`download for ${label} refused: ${parsed.protocol}//${parsed.host} is not an allowed Census host`);
+    throw new DownloadRefusedError(`download for ${label} refused: ${parsed.protocol}//${parsed.host} is not an allowed host`);
   }
 }
 
@@ -123,7 +123,8 @@ async function fetchToPart(url: string, path: string, part: string, label: strin
       await file.write(value);
     }
     const expected = res.headers.get('content-length');
-    if (expected !== null && Number(expected) !== size) {
+    // A compressed body (the reps sources are served gzipped) is decoded before it is counted, so its length cannot be compared.
+    if (expected !== null && !res.headers.has('content-encoding') && Number(expected) !== size) {
       throw new DownloadError(`download for ${label} truncated: expected ${expected} bytes, got ${size}`);
     }
     const digest = hash.digest('hex');

@@ -1,0 +1,1053 @@
+{
+  "state": "AK",
+  "generatedFrom": {
+    "legislators-current.json": "ae8cb9477c48715df71a7d860854229d799dc90a254d61badc1efb770f892b2c",
+    "legislators-social-media.json": "c6eca1fcdb3a89901335eed51ca061daa4b60ad3243969a127e913bb9657fbc5",
+    "ak.csv": "73cfe9dd8aa9e2548856fc04f897e4417faa02a0cad549cb176ceb1527e08369"
+  },
+  "byKey": {
+    "AK:us-senate:state": [
+      {
+        "id": "M001153",
+        "name": "Lisa Murkowski",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.murkowski.senate.gov/public/index.cfm/contact",
+        "email": null,
+        "phone": "202-224-6665",
+        "address": "522 Hart Senate Office Building Washington DC 20510",
+        "website": "https://www.murkowski.senate.gov",
+        "social": {
+          "x": "LisaMurkowski",
+          "facebook": "SenLisaMurkowski",
+          "instagram": "senlisamurkowski"
+        }
+      },
+      {
+        "id": "S001198",
+        "name": "Dan Sullivan",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.sullivan.senate.gov/contact/email",
+        "email": null,
+        "phone": "202-224-3004",
+        "address": "706 Hart Senate Office Building Washington DC 20510",
+        "website": "https://www.sullivan.senate.gov",
+        "social": {
+          "x": "SenDanSullivan",
+          "facebook": "SenDanSullivan",
+          "instagram": "sen_dansullivan"
+        }
+      }
+    ],
+    "AK:us-house:00": [
+      {
+        "id": "B001323",
+        "name": "Nicholas J. Begich III",
+        "office": "us-house",
+        "districtCode": "00",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5765",
+        "address": "153 Cannon House Office Building Washington DC 20515-0200",
+        "website": "https://begich.house.gov",
+        "social": {
+          "x": "repnickbegich",
+          "facebook": "RepNickBegich",
+          "instagram": "RepNickBegich"
+        }
+      }
+    ],
+    "AK:state-house:014": [
+      {
+        "id": "ocd-person/2a1a6b8f-1f9c-4a1b-9059-7b2f8cc93ed9",
+        "name": "Alyse Galvin",
+        "office": "state-house",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "representative.alyse.galvin@akleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://akhouse.org/rep-galvin/",
+        "social": {
+          "x": "AlyseGalvin",
+          "facebook": "repalysegalvin",
+          "instagram": "representative_alyse_galvin"
+        }
+      }
+    ],
+    "AK:state-house:003": [
+      {
+        "id": "ocd-person/7db414a5-dd7e-48a9-aba2-9c0204f93a5c",
+        "name": "Andi Story",
+        "office": "state-house",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "representative.andi.story@akleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://akhouse.org/rep-story/",
+        "social": {
+          "facebook": "RepAndiStory"
+        }
+      }
+    ],
+    "AK:state-house:020": [
+      {
+        "id": "ocd-person/822df52b-f962-478d-8bf5-3bbe3c9dd811",
+        "name": "Andrew Gray",
+        "office": "state-house",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "representative.andrew.gray@akleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://akhouse.org/rep-gray/",
+        "social": {
+          "x": "rep_gray",
+          "facebook": "repandrewgray"
+        }
+      }
+    ],
+    "AK:state-house:013": [
+      {
+        "id": "ocd-person/e1989648-fdd3-4e88-a0f0-9e27e75c0f03",
+        "name": "Andy Josephson",
+        "office": "state-house",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "representative.andy.josephson@akleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://akhouse.org/rep_josephson/",
+        "social": {
+          "x": "RepAndyJ",
+          "facebook": "RepAndyJosephson",
+          "instagram": "rep_andy_josephson"
+        }
+      }
+    ],
+    "AK:state-house:035": [
+      {
+        "id": "ocd-person/1ac31dd3-6e42-43b1-91b0-4da4a1399543",
+        "name": "Ashley Carrick",
+        "office": "state-house",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "representative.ashley.carrick@akleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://akhouse.org/rep-carrick/",
+        "social": {
+          "x": "RepCarrick",
+          "facebook": "RepCarrick",
+          "instagram": "repcarrick"
+        }
+      }
+    ],
+    "AK:state-house:036": [
+      {
+        "id": "ocd-person/a160c8f2-f8a9-4429-9bc2-e14831545503",
+        "name": "Becky Schwanke",
+        "office": "state-house",
+        "districtCode": "036",
+        "contactUrl": null,
+        "email": "representative.rebecca.schwanke@akleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.akleg.gov/basis/Member/Detail/34?code=scw",
+        "social": {
+          "instagram": "schwankeforstatehouse"
+        }
+      }
+    ],
+    "AK:state-house:008": [
+      {
+        "id": "ocd-person/354dc869-cbaf-4298-89cd-c691c0f52a1e",
+        "name": "Bill Elam",
+        "office": "state-house",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "representative.bill.elam@akleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.akleg.gov/basis/Member/Detail/34?code=ela",
+        "social": {}
+      }
+    ],
+    "AK:state-house:037": [
+      {
+        "id": "ocd-person/b097e069-345d-42da-b821-0c2c9747ccfc",
+        "name": "Bryce Edgmon",
+        "office": "state-house",
+        "districtCode": "037",
+        "contactUrl": null,
+        "email": "representative.bryce.edgmon@akleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://akhousemajority.com/rep-edgmon/",
+        "social": {
+          "x": "BryceEdgmon",
+          "facebook": "RepEdgmon"
+        }
+      }
+    ],
+    "AK:state-house:012": [
+      {
+        "id": "ocd-person/8ed150a0-45be-4844-abe5-d921c9f5a435",
+        "name": "Calvin Schrage",
+        "office": "state-house",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "representative.calvin.schrage@akleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://akhouse.org/rep-schrage/",
+        "social": {
+          "facebook": "repcalvinschrage",
+          "instagram": "calvinschrage"
+        }
+      }
+    ],
+    "AK:state-house:016": [
+      {
+        "id": "ocd-person/c9bf1b47-3ed8-49e8-9535-2a7094c52d1a",
+        "name": "Carolyn Hall",
+        "office": "state-house",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "representative.carolyn.hall@akleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.akleg.gov/basis/Member/Detail/34?code=hll",
+        "social": {
+          "x": "CHall_AK",
+          "facebook": "CarolynforAlaska",
+          "instagram": "carolynforalaska"
+        }
+      }
+    ],
+    "AK:state-house:010": [
+      {
+        "id": "ocd-person/7474d172-6c90-47f9-aae1-9f66c9518be2",
+        "name": "Chuck Kopp",
+        "office": "state-house",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "representative.chuck.kopp@akleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.akleg.gov/basis/Member/Detail/30?code=kop",
+        "social": {
+          "facebook": "RepChuckKopp",
+          "instagram": "rep.chuck.kopp"
+        }
+      }
+    ],
+    "AK:state-house:024": [
+      {
+        "id": "ocd-person/7dcdf7b8-530a-4b81-85b6-745af9224eb1",
+        "name": "Dan Saddler",
+        "office": "state-house",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "representative.dan.saddler@akleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://akhousemajority.com/rep-saddler/",
+        "social": {
+          "facebook": "dansaddleralaska"
+        }
+      }
+    ],
+    "AK:state-house:018": [
+      {
+        "id": "ocd-person/e1a32811-98f9-484f-8d4b-12df7eab4183",
+        "name": "David Nelson",
+        "office": "state-house",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "representative.david.nelson@akleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.akleg.gov/basis/Member/Detail/32?code=ned",
+        "social": {
+          "facebook": "NelsonforAlaska"
+        }
+      }
+    ],
+    "AK:state-house:025": [
+      {
+        "id": "ocd-person/d7d4a21d-942e-46f7-92b6-237f1741b025",
+        "name": "DeLena Johnson",
+        "office": "state-house",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "representative.delena.johnson@akleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://akhousemajority.com/rep-d-johnson/",
+        "social": {
+          "x": "RepDeLena",
+          "facebook": "RepDeLena",
+          "instagram": "delenaalaska"
+        }
+      }
+    ],
+    "AK:state-house:021": [
+      {
+        "id": "ocd-person/fbe52f5e-1dd2-4d44-9205-b2ebbbe39eee",
+        "name": "Donna Mears",
+        "office": "state-house",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "representative.donna.mears@akleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://akhouse.org/rep-mears/",
+        "social": {
+          "x": "DonnaMears",
+          "facebook": "Rep.Mears"
+        }
+      }
+    ],
+    "AK:state-house:028": [
+      {
+        "id": "ocd-person/6e6762ad-37ca-4166-982c-75aab9701d0c",
+        "name": "Elexie Moore",
+        "office": "state-house",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "representative.elexie.moore@akleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.akleg.gov/basis/Member/Detail/34?code=moo",
+        "social": {}
+      }
+    ],
+    "AK:state-house:034": [
+      {
+        "id": "ocd-person/498eadb3-9999-4055-9358-84ccfe64f788",
+        "name": "Frank Tomaszewski",
+        "office": "state-house",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "representative.frank.tomaszewski@akleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.akleg.gov/basis/Member/Detail/33?code=tmz",
+        "social": {
+          "facebook": "RepTomaszewski"
+        }
+      }
+    ],
+    "AK:state-house:029": [
+      {
+        "id": "ocd-person/abb33c56-f4ba-4c95-938e-658677368ca4",
+        "name": "Garret Nelson",
+        "office": "state-house",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "representative.garret.nelson@akleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.akleg.gov/basis/Member/Detail/34?code=neg",
+        "social": {}
+      }
+    ],
+    "AK:state-house:019": [
+      {
+        "id": "ocd-person/a1adb2e5-3c63-4032-81e8-9e787976ca63",
+        "name": "Genevieve Mina",
+        "office": "state-house",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "representative.genevieve.mina@akleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://akhouse.org/rep-mina/",
+        "social": {
+          "instagram": "repmina"
+        }
+      }
+    ],
+    "AK:state-house:023": [
+      {
+        "id": "ocd-person/9d56634b-f2d0-43fe-b20e-ed2465b0ad9c",
+        "name": "Jamie Allard",
+        "office": "state-house",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "representative.jamie.allard@akleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://akhousemajority.com/rep-allard/",
+        "social": {
+          "instagram": "allardforak"
+        }
+      }
+    ],
+    "AK:state-house:001": [
+      {
+        "id": "ocd-person/b2eaa848-d651-4521-9abb-21b68da5d5c6",
+        "name": "Jeremy Bynum",
+        "office": "state-house",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "representative.jeremy.bynum@akleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.akleg.gov/basis/Member/Detail/34?code=byn",
+        "social": {
+          "facebook": "votebynum",
+          "instagram": "votebynum"
+        }
+      }
+    ],
+    "AK:state-house:027": [
+      {
+        "id": "ocd-person/a5fc1d39-03f4-427f-9266-8baf789b6ac6",
+        "name": "Jubilee Underwood",
+        "office": "state-house",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "representative.jubilee.underwood@akleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.akleg.gov/basis/Member/Detail/34?code=und",
+        "social": {
+          "facebook": "jubileeforstatehouse",
+          "instagram": "jubileeunderwood"
+        }
+      }
+    ],
+    "AK:state-house:011": [
+      {
+        "id": "ocd-person/a66f1539-56d3-458c-8ac0-3aff6907a69d",
+        "name": "Julie Coulombe",
+        "office": "state-house",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "representative.julie.coulombe@akleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://akhousemajority.com/rep-coulombe/",
+        "social": {
+          "x": "RepCoulombe"
+        }
+      }
+    ],
+    "AK:state-house:007": [
+      {
+        "id": "ocd-person/722ec3e9-7e0d-4dda-bf19-11d873df7031",
+        "name": "Justin Ruffridge",
+        "office": "state-house",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "representative.justin.ruffridge@akleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://akhousemajority.com/rep-ruffridge/",
+        "social": {
+          "facebook": "repruffridge"
+        }
+      }
+    ],
+    "AK:state-house:030": [
+      {
+        "id": "ocd-person/0160c6d2-4090-4143-8e23-f8501501bdd0",
+        "name": "Kevin McCabe",
+        "office": "state-house",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "representative.kevin.mccabe@akleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://akhousemajority.com/rep-mccabe/",
+        "social": {
+          "facebook": "RepKevinJMcCabe",
+          "instagram": "representativekevinmccabe"
+        }
+      }
+    ],
+    "AK:state-house:009": [
+      {
+        "id": "ocd-person/a669e6fd-ba4c-42db-b2e8-079600a60f58",
+        "name": "Ky Holland",
+        "office": "state-house",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "representative.ky.holland@akleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.akleg.gov/basis/Member/Detail/34?code=hla",
+        "social": {
+          "x": "KyHollandAK",
+          "facebook": "RepKyHolland"
+        }
+      }
+    ],
+    "AK:state-house:005": [
+      {
+        "id": "ocd-person/2d74c456-7818-42bc-a284-63026fbbfc56",
+        "name": "Louise Stutes",
+        "office": "state-house",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "representative.louise.stutes@akleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://akhouse.org/rep_stutes",
+        "social": {
+          "x": "RepLouiseStutes",
+          "facebook": "replouisestutes"
+        }
+      }
+    ],
+    "AK:state-house:031": [
+      {
+        "id": "ocd-person/5ef3ef20-0fd1-41a3-be56-7844d169bba8",
+        "name": "Maxine Dibert",
+        "office": "state-house",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "representative.maxine.dibert@akleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://akhouse.org/rep-dibert/",
+        "social": {
+          "x": "maxine_dibert",
+          "facebook": "Repmaxinedibert",
+          "instagram": "rep_maxine_dibert"
+        }
+      }
+    ],
+    "AK:state-house:015": [
+      {
+        "id": "ocd-person/aea19844-4572-4086-9462-e50ad3ff4b76",
+        "name": "Mia Costello",
+        "office": "state-house",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "representative.mia.costello@akleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://akleg.gov/legislator.php?id=cos",
+        "social": {
+          "x": "MiaCostelloAK",
+          "facebook": "VoteMia",
+          "instagram": "votemia_ak"
+        }
+      }
+    ],
+    "AK:state-house:033": [
+      {
+        "id": "ocd-person/3f4670ef-c5b7-4a5b-bd91-9f8605a0affa",
+        "name": "Mike Prax",
+        "office": "state-house",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "representative.mike.prax@akleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://akhousemajority.com/rep-prax/",
+        "social": {
+          "facebook": "rep.mikeprax"
+        }
+      }
+    ],
+    "AK:state-house:039": [
+      {
+        "id": "ocd-person/14f39e67-1604-4eb4-8000-99c699f196a0",
+        "name": "Neal Foster",
+        "office": "state-house",
+        "districtCode": "039",
+        "contactUrl": null,
+        "email": "representative.neal.foster@akleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://akhousemajority.com/rep-foster/",
+        "social": {
+          "facebook": "Repnealfoster"
+        }
+      }
+    ],
+    "AK:state-house:038": [
+      {
+        "id": "ocd-person/1454451c-f821-4b6d-903e-07bef45ab0de",
+        "name": "Nellie Jimmie",
+        "office": "state-house",
+        "districtCode": "038",
+        "contactUrl": null,
+        "email": "representative.nellie.unangiq.jimmie@akleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.akleg.gov/basis/Member/Detail/34?code=jim",
+        "social": {
+          "instagram": "repnelliejimmie"
+        }
+      }
+    ],
+    "AK:state-house:002": [
+      {
+        "id": "ocd-person/5637be3f-7a59-48cc-8f8a-ad7a8bac8ee9",
+        "name": "Rebecca Himschoot",
+        "office": "state-house",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "representative.rebecca.himschoot@akleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://akhouse.org/rep-himschoot/",
+        "social": {
+          "facebook": "rep.himschoot",
+          "instagram": "rep.himschoot"
+        }
+      }
+    ],
+    "AK:state-house:040": [
+      {
+        "id": "ocd-person/c3b004d2-d62a-45de-a212-382396a20b59",
+        "name": "Robyn Frier",
+        "office": "state-house",
+        "districtCode": "040",
+        "contactUrl": null,
+        "email": "representative.robyn.frier@akleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.akleg.gov/basis/Member/Detail/34?code=bur",
+        "social": {
+          "x": "RobynBurkeHD40",
+          "facebook": "Robynburkehd40"
+        }
+      }
+    ],
+    "AK:state-house:004": [
+      {
+        "id": "ocd-person/6cec7228-ed13-47f6-b896-59f927789f6d",
+        "name": "Sara Hannan",
+        "office": "state-house",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "representative.sara.hannan@akleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://akhouse.org/rep-hannan/",
+        "social": {
+          "x": "RepSaraHannan",
+          "facebook": "RepSaraHannan"
+        }
+      }
+    ],
+    "AK:state-house:006": [
+      {
+        "id": "ocd-person/e8756722-e9e9-4246-95e3-13019cb3bd50",
+        "name": "Sarah Vance",
+        "office": "state-house",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "representative.sarah.vance@akleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://akhousemajority.com/rep-vance/",
+        "social": {
+          "facebook": "repsarahvance",
+          "instagram": "rep.sarah.vance"
+        }
+      }
+    ],
+    "AK:state-house:026": [
+      {
+        "id": "ocd-person/6692f2e6-2ad5-4b9c-a3f5-a0243c087064",
+        "name": "Steve St. Clair",
+        "office": "state-house",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "representative.steve.st.clair@akleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.akleg.gov/basis/Member/Detail/34?code=stc",
+        "social": {}
+      }
+    ],
+    "AK:state-house:022": [
+      {
+        "id": "ocd-person/132c5970-0ed3-4a8c-baa9-2917196daedb",
+        "name": "Ted Eischeid",
+        "office": "state-house",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "representative.ted.eischeid@akleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.akleg.gov/basis/Member/Detail/34?code=eis",
+        "social": {
+          "x": "TedForAlaska",
+          "facebook": "TedForAlaska"
+        }
+      }
+    ],
+    "AK:state-house:032": [
+      {
+        "id": "ocd-person/ede005ce-9d29-4b8e-8b24-b2136d05edf6",
+        "name": "Will Stapp",
+        "office": "state-house",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "representative.will.stapp@akleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://akhousemajority.com/rep-stapp/",
+        "social": {
+          "facebook": "willstappforalaska"
+        }
+      }
+    ],
+    "AK:state-house:017": [
+      {
+        "id": "ocd-person/c1d170a4-d099-43cb-b7e5-5a9db63ae716",
+        "name": "Zack Fields",
+        "office": "state-house",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "representative.zack.fields@akleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://akhouse.org/rep-fields/",
+        "social": {
+          "x": "repzackfields",
+          "facebook": "repzackfields",
+          "instagram": "rep.zack.fields"
+        }
+      }
+    ],
+    "AK:state-senate:00A": [
+      {
+        "id": "ocd-person/bfdc2ee2-7760-4119-9d68-4962f1e1a285",
+        "name": "Bert Stedman",
+        "office": "state-senate",
+        "districtCode": "00A",
+        "contactUrl": null,
+        "email": "senator.bert.stedman@akleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alaskasenate.org/stedman/",
+        "social": {
+          "x": "SenStedman"
+        }
+      }
+    ],
+    "AK:state-senate:00K": [
+      {
+        "id": "ocd-person/57554431-caac-4074-a8d8-40a4e6289ec1",
+        "name": "Bill Wielechowski",
+        "office": "state-senate",
+        "districtCode": "00K",
+        "contactUrl": null,
+        "email": "senator.bill.wielechowski@akleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alaskasenate.org/wielechowski/",
+        "social": {
+          "x": "SenWielechowski",
+          "facebook": "bill.wielechowski"
+        }
+      }
+    ],
+    "AK:state-senate:00E": [
+      {
+        "id": "ocd-person/4ac9a4bf-e2d9-4257-a360-9e91dc234deb",
+        "name": "Cathy Giessel",
+        "office": "state-senate",
+        "districtCode": "00E",
+        "contactUrl": null,
+        "email": "senator.cathy.giessel@akleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alaskasenate.org/giessel/",
+        "social": {
+          "facebook": "SenatorCathyGiessel"
+        }
+      }
+    ],
+    "AK:state-senate:00M": [
+      {
+        "id": "ocd-person/f1816065-31d1-4757-b8b9-714e15daeccf",
+        "name": "Cathy Tilton",
+        "office": "state-senate",
+        "districtCode": "00M",
+        "contactUrl": null,
+        "email": "senator.cathy.tilton@akleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://akhousemajority.com/rep-tilton/",
+        "social": {
+          "facebook": "Tilton4Alaska"
+        }
+      }
+    ],
+    "AK:state-senate:00T": [
+      {
+        "id": "ocd-person/cd3ca264-553d-4e21-a993-e3f5097b1b77",
+        "name": "Donny Olson",
+        "office": "state-senate",
+        "districtCode": "00T",
+        "contactUrl": null,
+        "email": "senator.donald.olson@akleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alaskasenate.org/olson/",
+        "social": {}
+      }
+    ],
+    "AK:state-senate:00G": [
+      {
+        "id": "ocd-person/2ba2d14f-a08a-4f05-a9d4-5ca63d09561e",
+        "name": "Elvi Gray-Jackson",
+        "office": "state-senate",
+        "districtCode": "00G",
+        "contactUrl": null,
+        "email": "senator.elvi.gray-jackson@akleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alaskasenate.org/gray-jackson/",
+        "social": {
+          "facebook": "SenatorElviGrayJackson",
+          "instagram": "senator_elvi"
+        }
+      }
+    ],
+    "AK:state-senate:00J": [
+      {
+        "id": "ocd-person/4511370e-1ac8-4135-a622-d5b533faeb43",
+        "name": "Forrest Dunbar",
+        "office": "state-senate",
+        "districtCode": "00J",
+        "contactUrl": null,
+        "email": "senator.forrest.dunbar@akleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alaskasenate.org/dunbar/",
+        "social": {
+          "x": "ForrestDunbarAK",
+          "facebook": "sendunbar",
+          "instagram": "sendunbar"
+        }
+      }
+    ],
+    "AK:state-senate:00C": [
+      {
+        "id": "ocd-person/f5c83068-a809-4f57-8b77-1e77c87ee93b",
+        "name": "Gary Stevens",
+        "office": "state-senate",
+        "districtCode": "00C",
+        "contactUrl": null,
+        "email": "senator.gary.stevens@akleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.akleg.gov/basis/Member/Detail/30?code=stg",
+        "social": {}
+      }
+    ],
+    "AK:state-senate:00O": [
+      {
+        "id": "ocd-person/627922d3-e631-4c32-841f-148f061b0c75",
+        "name": "George Rauscher",
+        "office": "state-senate",
+        "districtCode": "00O",
+        "contactUrl": null,
+        "email": "senator.george.rauscher@akleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://akhousemajority.com/rep-rauscher/",
+        "social": {
+          "facebook": "Rep.George.Rauscher"
+        }
+      }
+    ],
+    "AK:state-senate:00F": [
+      {
+        "id": "ocd-person/f6cd7b64-a3f3-44ec-89a1-68c17fa6d4c9",
+        "name": "James Kaufman",
+        "office": "state-senate",
+        "districtCode": "00F",
+        "contactUrl": null,
+        "email": "senator.james.kaufman@akleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alaskasenate.org/kaufman/",
+        "social": {
+          "facebook": "senatorkaufman",
+          "instagram": "senatorkaufman"
+        }
+      }
+    ],
+    "AK:state-senate:00D": [
+      {
+        "id": "ocd-person/e14b5980-9a38-4420-8903-70738802edf6",
+        "name": "Jesse Bjorkman",
+        "office": "state-senate",
+        "districtCode": "00D",
+        "contactUrl": null,
+        "email": "senator.jesse.bjorkman@akleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alaskasenate.org/bjorkman/",
+        "social": {
+          "x": "JJBinAK",
+          "facebook": "Senator.Jesse.Bjorkman",
+          "instagram": "senbjorkman"
+        }
+      }
+    ],
+    "AK:state-senate:00B": [
+      {
+        "id": "ocd-person/1ae3974e-660d-4526-b351-fff9b689b51a",
+        "name": "Jesse Kiehl",
+        "office": "state-senate",
+        "districtCode": "00B",
+        "contactUrl": null,
+        "email": "senator.jesse.kiehl@akleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alaskasenate.org/kiehl/",
+        "social": {
+          "x": "JesseKiehl",
+          "facebook": "senatorkiehl",
+          "instagram": "jessekiehl"
+        }
+      }
+    ],
+    "AK:state-senate:00L": [
+      {
+        "id": "ocd-person/ddad148b-d8ed-4eff-826d-3861709eb500",
+        "name": "Kelly Merrick",
+        "office": "state-senate",
+        "districtCode": "00L",
+        "contactUrl": null,
+        "email": "senator.kelly.merrick@akleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alaskasenate.org/merrick/",
+        "social": {
+          "facebook": "SenKellyMerrick"
+        }
+      }
+    ],
+    "AK:state-senate:00I": [
+      {
+        "id": "ocd-person/c66c309d-1612-4eab-863c-59e34b643e2c",
+        "name": "Löki Tobin",
+        "office": "state-senate",
+        "districtCode": "00I",
+        "contactUrl": null,
+        "email": "senator.loki.tobin@akleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alaskasenate.org/tobin/",
+        "social": {
+          "facebook": "senatorloki",
+          "instagram": "lgtobin"
+        }
+      }
+    ],
+    "AK:state-senate:00S": [
+      {
+        "id": "ocd-person/e187d603-9202-4f64-80b0-6366702aec11",
+        "name": "Lyman Hoffman",
+        "office": "state-senate",
+        "districtCode": "00S",
+        "contactUrl": null,
+        "email": "senator.lyman.hoffman@akleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alaskasenate.org/hoffman/",
+        "social": {}
+      }
+    ],
+    "AK:state-senate:00H": [
+      {
+        "id": "ocd-person/0b2d5ec3-c1b2-4b09-8444-144c92125cc4",
+        "name": "Matt Claman",
+        "office": "state-senate",
+        "districtCode": "00H",
+        "contactUrl": null,
+        "email": "senator.matt.claman@akleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alaskasenate.org/matt-claman/",
+        "social": {
+          "x": "mattclaman",
+          "facebook": "SenMattClaman",
+          "instagram": "senmattclaman"
+        }
+      }
+    ],
+    "AK:state-senate:00R": [
+      {
+        "id": "ocd-person/c50de9c3-90a3-4c6d-9003-50e12c6c5246",
+        "name": "Mike Cronk",
+        "office": "state-senate",
+        "districtCode": "00R",
+        "contactUrl": null,
+        "email": "senator.mike.cronk@akleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://akhousemajority.com/rep-cronk/",
+        "social": {
+          "facebook": "RepMikeCronk"
+        }
+      }
+    ],
+    "AK:state-senate:00N": [
+      {
+        "id": "ocd-person/82334f7b-8119-4494-bf3e-a7ddb09536bd",
+        "name": "Rob Yundt",
+        "office": "state-senate",
+        "districtCode": "00N",
+        "contactUrl": null,
+        "email": "senator.robert.yundt@akleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.akleg.gov/basis/Member/Detail/34?code=yun",
+        "social": {
+          "facebook": "robyundtforalaska"
+        }
+      }
+    ],
+    "AK:state-senate:00Q": [
+      {
+        "id": "ocd-person/697cb834-6aa1-44f1-9c6e-9cf57ad30774",
+        "name": "Robb Myers",
+        "office": "state-senate",
+        "districtCode": "00Q",
+        "contactUrl": null,
+        "email": "senator.robert.myers@akleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.akleg.gov/basis/Member/Detail/32?code=mye",
+        "social": {
+          "facebook": "SenRobertMyers"
+        }
+      }
+    ],
+    "AK:state-senate:00P": [
+      {
+        "id": "ocd-person/53f7b86b-ce31-4199-86ef-f566ae9aa02c",
+        "name": "Scott Kawasaki",
+        "office": "state-senate",
+        "districtCode": "00P",
+        "contactUrl": null,
+        "email": "senator.scott.kawasaki@akleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alaskasenate.org/kawasaki/",
+        "social": {
+          "x": "alaskascott",
+          "facebook": "scottforalaska",
+          "instagram": "alaskascotty"
+        }
+      }
+    ]
+  }
+}

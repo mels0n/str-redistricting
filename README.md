@@ -67,7 +67,7 @@ On the site:
 - The footer names the maps release, engine, Census vintage and revision, and site version, and links to the changelog and the privacy page.
 - `/changelog` lists what changed in each release, per component.
 - `/privacy` says what the site counts, keeps in the browser and sends elsewhere. `tests/client/privacy-page.test.ts` checks its claims against `vercel.json`, the built pages' analytics tags, the path-only hook and the browser storage the code uses.
-- Pages use real paths: `/how`, `/faq`, `/changelog`, `/privacy`, `/<ST>/d/<n>` for one district. Links written with the old `#/` form (for example `/#/CO/d/3`) still work and are rewritten to the path form on load.
+- Pages use real paths: `/act`, `/how`, `/faq`, `/changelog`, `/privacy`, `/<ST>/d/<n>` for one district. Links written with the old `#/` form (for example `/#/CO/d/3`) still work and are rewritten to the path form on load.
 - To embed the viewer in a page you do not control, set `window.STR_VIEWER_CONFIG = { dataBase: '…' }` before the script loads. Links and the address bar then use `#/` and the host page's own path is left alone. Embedders can set `routing: 'path'` in the same object to opt in to real paths. `dataBase` in the same object points the viewer at another copy of the published data.
 - Each state's proof panel shows the engine version and the maps release that drew it, and its "reproduce" command checks out the matching tag (`git clone --branch maps-<n> --depth 1 ...`), so you rebuild that state with exactly the code that drew it.
 - Every map carries a small credit line with the site address, the maps release, the engine and the first characters of the map's fingerprint, so a screenshot says where it came from.
@@ -89,6 +89,8 @@ npm run publish-data   # writes public/data/ from the generated plans in out/
 npm run dev            # serves the viewer locally
 npm run build          # builds the static site into dist/, with public/data copied in
 ```
+
+`npm run dev` stubs the /api routes so every screen can be viewed; open any page with `?fakeCounts=low` to see the screens as they look while the signer total is below the display threshold (`?fakeCounts=high` switches back).
 
 `explore` flags. `--chamber` picks what to draw: `federal-house` (the default), `state-house` or `state-senate`. `--states` is required and takes two-letter state abbreviations, comma separated (for example `RI,CT,CO`). A state that fails is reported in the summary table and the run continues with the others. `--out-dir` sets the output directory (default `out`). `--cache-dir` sets where downloaded Census files are kept (default `data/raw`). `--threads` sets how many threads sweep the directions for each cut (default: the computer's hardware threads minus two, lowered to one thread per 400 MiB of free memory; `1` uses a single thread). The thread count never changes a map. A state whose folder already holds plans drawn from the same Census file, seat count, engine major and code is skipped and reported as unchanged; `--force` draws it again anyway. `docs/explanation/how-districts-are-drawn.md` lists exactly what is compared.
 
@@ -125,11 +127,59 @@ The number of districts in each state chamber lives in `config/legislative-distr
 
 Every Census file is downloaded once into `data/raw/` and checked against a pinned SHA-256 in `config/census-sha256.json`, both when it is downloaded and each time the cached copy is reused, so the maps are always built from the exact same bytes. A failed or interrupted download is retried up to three times. If a file fails the check, the cached copy is corrupt or the Census Bureau has reissued it: delete the file to download it again, and if the new file still differs, the Census Bureau reissued it, so update the manifest only knowing that it changes the maps.
 
+## Representative data
+The Take action page (`/act`) shows who represents an address and lets a visitor ask those people to adopt the rule, one at a time or all at once in a single email. The names come from two open sources, pinned by SHA-256 in `config/reps-sources.json`:
+
+- U.S. House and Senate members from the [congress-legislators](https://github.com/unitedstates/congress-legislators) files, which are public domain.
+- State legislators from the [Open States](https://open.pluralpolicy.com/) people files (`data.openstates.org/people/current/<st>.csv`), released under CC0.
+
+`npm run reps:pin` downloads the files into `data/raw/reps/` and records their hashes in `config/reps-sources.json`. `npm run reps:publish` checks every file against those hashes and writes `public/data/reps/<ST>.json` (one file per state) and `public/data/reps/coverage.json`, which lists, for each state and chamber, how many districts were matched and which district codes found no person. Both take `--cache-dir`, `--config-dir` and `--public-dir`. Party is never written to the published files.
+
+A U.S. House seat that has no member in the source (a vacancy) is published as vacant: it has no entry in the state file, the panel says that seat has no contact details yet, and `coverage.json` lists it under `us-house` for its state. Nothing is edited by hand for this. The run stops instead if a state has no senators or more than two, or if more than 15 House seats are empty, since that means the source is broken.
+
+`config/reps-district-aliases.json` is the one file kept by hand. It maps a district code as the Census Bureau writes it to the code (or codes, separated by `|`, for a district with several seats) the source uses, such as `AK:state-senate:00A` to `A` or `ID:state-house:001` to `1A|1B`. A state district that the sources name differently stays unmatched, and is listed in `coverage.json`, until an alias is added.
+
+### Weekly refresh
+The data refreshes itself every Monday through `.github/workflows/reps-refresh.yml`. It runs `npm run reps:pin` and `npm run reps:publish`, and when anything changed it runs `npm run release` for the version bump and changelog entry, runs the typecheck, layer rules, tests and build, and opens a pull request from a `chore/refresh-reps-data-<date>` branch. The pull request body shows how many state districts are unmatched now compared with before, which are newly unmatched (those need an alias), and which House seats became vacant or were filled. A person reviews and merges it; nothing merges automatically. If an earlier refresh pull request is still open, the run opens no second one and says so in its log.
+
+A pull request that a workflow opens with the default `GITHUB_TOKEN` does not start other workflows, so the required checks (Code Standards) do not start by themselves on it: close and reopen the pull request to run them before merging. The workflow already ran the same checks before opening it. It needs the repository setting "Allow GitHub Actions to create and approve pull requests" (Settings > Actions > General) turned on. To run it by hand, use "Run workflow" on the Actions page, or do the same locally: `npm run reps:pin`, `npm run reps:publish`, then commit with a `chore(data):` subject and run `npm run release`.
+
+## The backend
+Signatures, notes and removal requests are handled by a small backend: serverless functions on Vercel and a Supabase Postgres database. It is configured only through environment variables, read once at boot by `src/server/shared/config/backend.ts` (the Postgres one is read by `build/migrate.ts`). The names:
+
+- `NEXT_PUBLIC_BACKERS_SUPABASE_URL`, `BACKERS_SUPABASE_SECRET_KEY` and `BACKERS_POSTGRES_URL_NON_POOLING` for the database
+- `RESEND_API_KEY` for sending mail, plus the optional `SIGNON_FROM`
+- `TURNSTILE_SECRET_KEY` for the bot check
+- `SIGNON_HASH_SECRET` and `SIGNON_ENCRYPTION_KEY` (each base64 of 32 bytes) for hashing and sealing personal data
+- `SITE_ORIGIN` (default `https://fairmaps.melson.us`), `EMAIL_DAILY_CAP` (default 20) and `CRON_SECRET` (you create it: 16 or more random characters, as a Production environment variable in Vercel; Vercel then sends it as a bearer token on the daily cron call, and without it the daily mail job cannot authenticate and nothing queued is sent)
+
+Signing needs an email and a state; the street address is optional. With an address, the server asks the Census Bureau geocoder, takes the state and the districts from the match (the geocoder's state wins over any state sent with it) and keeps only the state, the district codes and, if the signer chose to be shown, the town. Without one, the signer is stored with the chosen state and no districts, and counts for that state (and its U.S. Senate seats) but under no district. The address is never stored or logged.
+
+Migrations are the numbered files in `supabase/migrations/`. They are append-only: a file that was applied and then edited, or removed, stops the build. `npm run build` applies the ones not yet recorded, but only in the Vercel production build (`VERCEL_ENV=production`); preview builds and local builds skip it. The migrations are applied before the new code goes live and are not undone by a rollback: keep a migration compatible with the previous deployment, because Vercel's Instant Rollback serves the old code against the new schema. Set `BACKERS_POSTGRES_URL_NON_POOLING` in Vercel before the first production build, or that build fails at the migration step.
+
+Every file in `api/` is a thin wrapper of at most 15 lines that imports one handler from `src/server/api/`. The logic, validation and error mapping live in `src/server/`, and the browser code in `src/client/` never imports it.
+
+Mail goes through a queue. A confirmation or removal email is written to the outbox, and a daily job (`/api/cron-drain`) sends what fits under `EMAIL_DAILY_CAP`; removal emails are limited to half of each day's cap, and confirmations carry on past that. The same job also deletes old rate-limit rows and unconfirmed sign-ups (the sign endpoint does it too): those whose link went out and expired more than a week ago, and those whose email never went out and is no longer waiting, about 9 days after their last attempt. When the mail provider refuses an address outright (a 400 or 422 answer), the unconfirmed signer is deleted at once. A sign-up whose email is still queued is never deleted: it is kept until the email goes out. Rate-limit rows older than a day are deleted by the same job, so an IP hash can stay for up to two days. The email link opens `/confirm`, whose page script confirms the signature as soon as it loads (a POST to `/api/confirm`; the API refuses GET, so a mail scanner that only fetches the link confirms no one). While an email is queued, the address is stored sealed in the outbox row and is deleted when the email is sent. A removal link opens a page that does nothing until the person presses its button, and that button deletes the signer and their note.
+
+## Pledges
+`/pledges` lists public statements of support for the rule. Each entry in `config/pledges.json` needs a name, an office, a state, a district where one applies, and a URL where the statement can be read; party is never listed. To add one, open a GitHub issue with the "Add a pledge" form, or send a pull request that edits `config/pledges.json`. An entry is listed only if its statement URL shows the pledge publicly.
+
+## Notes
+A person who signs can add a note of up to 280 characters, and, if they tick the box to show their name and town, the note can appear on the site once approved. Notes are screened by rules in `config/note-rules.json`:
+
+- A note is rejected, and the sender sees why, if it is over 280 characters or holds a link or handle, an email address, a phone number, a street address or a blocked word (whole word, after normalizing case, accents and letter swaps).
+- A note that uses a party or election word (for example "vote for" or "defeat") or seems to name a person is flagged. Flags only help the reader decide; they never publish or reject.
+- Every note that passes is stored as pending. A note is shown on the site only after it has been approved by hand in the database table editor, and only if its signer is confirmed and ticked the box to show their name and town. Nothing else is shown.
+
+`npm run digest -- --key CO:us-house:03 [--out file.md]` writes a Markdown summary for one district: the number of confirmed signers and every note that is public on the site, with no limit of 10. It reads the database and encryption keys from the local `.env` or the environment.
+
+The blocked-word list starts from the `badwords-list` npm package (version 1.0.0, MIT License, Copyright (c) 2013 Maurice Butler). The rules file records which upstream entries were removed and which words this project added; the license text is in `NOTICE`.
+
 ## Deploy
-Deployed on Vercel at https://fairmaps.melson.us (the `str-redistricting.vercel.app` address also serves it) from the `main` branch: every push to `main` builds the site with `npm run build` and serves the static output in `dist/` (settings in `vercel.json`). `vercel.json` sets a Content-Security-Policy, a no-referrer policy, `nosniff`, a restrictive Permissions-Policy and long-lived caching for built assets. `public/_headers` carries the same headers for hosts that read that file, such as Cloudflare Pages. The one outside request the viewer makes is the address lookup, a script from the Census Bureau geocoder, which the policy allows. Built pages also load Vercel Web Analytics from the site's own `/_vercel/insights/` path (added by `build/web-analytics.ts`, left out of the dev server), after `public/va-path-only.js`, which makes it send each page's path without the query or fragment. It counts page views without cookies; it reports nothing until Web Analytics is turned on for the project in Vercel.
+Deployed on Vercel at https://fairmaps.melson.us (the `str-redistricting.vercel.app` address also serves it) from the `main` branch: every push to `main` builds the site with `npm run build` and serves the static output in `dist/` (settings in `vercel.json`). `vercel.json` sets a Content-Security-Policy, a no-referrer policy, `nosniff`, a restrictive Permissions-Policy and long-lived caching for built assets. `public/_headers` carries the same headers for hosts that read that file, such as Cloudflare Pages. The outside requests the viewer makes are the address lookup, a script from the Census Bureau geocoder, and, only when the sign-on form is opened or the `/remove` page loads, the Cloudflare Turnstile bot check (a script and a frame from `challenges.cloudflare.com`); the policy allows both. Built pages also load Vercel Web Analytics from the site's own `/_vercel/insights/` path (added by `build/web-analytics.ts`, left out of the dev server), after `public/va-path-only.js`, which makes it send each page's path without the query or fragment. It counts page views without cookies; it reports nothing until Web Analytics is turned on for the project in Vercel.
 
 ## Where secrets live
-None. Census data is downloaded from public endpoints.
+The Census data and the representative data come from public endpoints and need no keys. The backend's keys are environment variables set in the hosting dashboard; they are never in the repository (see "The backend" for the names).
 
 ## License
 The code is licensed under the [Apache License 2.0](LICENSE). You may use, change and redistribute it, including commercially, as long as you keep the copyright notice and pass along the [NOTICE](NOTICE) file, which credits the original work.

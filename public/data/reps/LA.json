@@ -1,0 +1,2124 @@
+{
+  "state": "LA",
+  "generatedFrom": {
+    "legislators-current.json": "ae8cb9477c48715df71a7d860854229d799dc90a254d61badc1efb770f892b2c",
+    "legislators-social-media.json": "c6eca1fcdb3a89901335eed51ca061daa4b60ad3243969a127e913bb9657fbc5",
+    "la.csv": "e9f15e323358cdfcc6fadcb4dcd8b09c94a70ebd99975fe8892348a66e68ba0b"
+  },
+  "byKey": {
+    "LA:us-senate:state": [
+      {
+        "id": "C001075",
+        "name": "Bill Cassidy",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.cassidy.senate.gov/contact",
+        "email": null,
+        "phone": "202-224-5824",
+        "address": "455 Dirksen Senate Office Building Washington DC 20510",
+        "website": "https://www.cassidy.senate.gov",
+        "social": {
+          "x": "SenBillCassidy",
+          "facebook": "SenBillCassidy",
+          "instagram": "senbillcassidy"
+        }
+      },
+      {
+        "id": "K000393",
+        "name": "John Kennedy",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.kennedy.senate.gov/public/email-me",
+        "email": null,
+        "phone": "202-224-4623",
+        "address": "437 Russell Senate Office Building Washington DC 20510",
+        "website": "https://www.kennedy.senate.gov/public",
+        "social": {
+          "x": "SenJohnKennedy",
+          "facebook": "JohnKennedyLouisiana",
+          "instagram": "SenJohnKennedy"
+        }
+      }
+    ],
+    "LA:us-house:01": [
+      {
+        "id": "S001176",
+        "name": "Steve Scalise",
+        "office": "us-house",
+        "districtCode": "01",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-3015",
+        "address": "266 Cannon House Office Building Washington DC 20515-1801",
+        "website": "https://scalise.house.gov",
+        "social": {
+          "x": "SteveScalise",
+          "facebook": "RepSteveScalise",
+          "instagram": "stevescalise"
+        }
+      }
+    ],
+    "LA:us-house:03": [
+      {
+        "id": "H001077",
+        "name": "Clay Higgins",
+        "office": "us-house",
+        "districtCode": "03",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2031",
+        "address": "572 Cannon House Office Building Washington DC 20515-1803",
+        "website": "https://clayhiggins.house.gov",
+        "social": {
+          "x": "RepClayHiggins",
+          "facebook": "CongressmanClayHiggins",
+          "instagram": "RepClayHiggins"
+        }
+      }
+    ],
+    "LA:us-house:04": [
+      {
+        "id": "J000299",
+        "name": "Mike Johnson",
+        "office": "us-house",
+        "districtCode": "04",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2777",
+        "address": "521 Cannon House Office Building Washington DC 20515-1804",
+        "website": "https://mikejohnson.house.gov",
+        "social": {
+          "x": "RepMikeJohnson",
+          "facebook": "RepMikeJohnson",
+          "instagram": "RepMikeJohnson"
+        }
+      }
+    ],
+    "LA:us-house:05": [
+      {
+        "id": "L000595",
+        "name": "Julia Letlow",
+        "office": "us-house",
+        "districtCode": "05",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-8490",
+        "address": "142 Cannon House Office Building Washington DC 20515-1805",
+        "website": "https://letlow.house.gov",
+        "social": {
+          "x": "RepJuliaLetlow",
+          "facebook": "repjulialetlow"
+        }
+      }
+    ],
+    "LA:us-house:02": [
+      {
+        "id": "C001125",
+        "name": "Troy A. Carter",
+        "office": "us-house",
+        "districtCode": "02",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-6636",
+        "address": "442 Cannon House Office Building Washington DC 20515-1802",
+        "website": "https://troycarter.house.gov",
+        "social": {
+          "x": "RepTroyCarter",
+          "facebook": "RepTroyCarter"
+        }
+      }
+    ],
+    "LA:us-house:06": [
+      {
+        "id": "F000110",
+        "name": "Cleo Fields",
+        "office": "us-house",
+        "districtCode": "06",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-3901",
+        "address": "2349 Rayburn House Office Building Washington DC 20515-1806",
+        "website": "https://fields.house.gov",
+        "social": {
+          "x": "repfields",
+          "facebook": "Congressman-Cleo-Fields",
+          "instagram": "repcleofields_"
+        }
+      }
+    ],
+    "LA:state-house:016": [
+      {
+        "id": "ocd-person/5d1fade2-4678-406c-b4ed-657baed1db2b",
+        "name": "Adrian Fisher",
+        "office": "state-house",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "hse016@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=16",
+        "social": {}
+      }
+    ],
+    "LA:state-house:098": [
+      {
+        "id": "ocd-person/3937cef1-8c62-428c-8837-aa6a6a8b60e7",
+        "name": "Aimee Freeman",
+        "office": "state-house",
+        "districtCode": "098",
+        "contactUrl": null,
+        "email": "hse098@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=98",
+        "social": {}
+      }
+    ],
+    "LA:state-house:093": [
+      {
+        "id": "ocd-person/967fa557-fcdc-4a75-a13e-dabf05b85905",
+        "name": "Alonzo Knox",
+        "office": "state-house",
+        "districtCode": "093",
+        "contactUrl": null,
+        "email": "hse093@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=93",
+        "social": {}
+      }
+    ],
+    "LA:state-house:045": [
+      {
+        "id": "ocd-person/a6a9544c-d12b-44cc-a52d-f2ec0e01f556",
+        "name": "Annie Spell",
+        "office": "state-house",
+        "districtCode": "045",
+        "contactUrl": null,
+        "email": "hse045@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members?ID=45",
+        "social": {}
+      }
+    ],
+    "LA:state-house:070": [
+      {
+        "id": "ocd-person/bd179bf7-f90d-4e3a-baea-a590c3002586",
+        "name": "Barbara Freiberg",
+        "office": "state-house",
+        "districtCode": "070",
+        "contactUrl": null,
+        "email": "hse070@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=70",
+        "social": {}
+      }
+    ],
+    "LA:state-house:063": [
+      {
+        "id": "ocd-person/ad514eed-2832-4ae3-a0c5-62d8f2721297",
+        "name": "Barbara Carpenter",
+        "office": "state-house",
+        "districtCode": "063",
+        "contactUrl": null,
+        "email": "carpenterb@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=63",
+        "social": {}
+      }
+    ],
+    "LA:state-house:051": [
+      {
+        "id": "ocd-person/cbe53992-3b3c-4ec0-a94a-58ddf96e6edd",
+        "name": "Beryl Amedée",
+        "office": "state-house",
+        "districtCode": "051",
+        "contactUrl": null,
+        "email": "amedeeb@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=51",
+        "social": {}
+      }
+    ],
+    "LA:state-house:056": [
+      {
+        "id": "ocd-person/5d15439d-4139-448a-8f61-25ab54e68b19",
+        "name": "Beth Billings",
+        "office": "state-house",
+        "districtCode": "056",
+        "contactUrl": null,
+        "email": "hse056@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members?ID=56",
+        "social": {}
+      }
+    ],
+    "LA:state-house:035": [
+      {
+        "id": "ocd-person/9ffd05e6-a127-4896-b60e-fc2722fa8779",
+        "name": "Brett Geymann",
+        "office": "state-house",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "hse035@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=35",
+        "social": {}
+      }
+    ],
+    "LA:state-house:090": [
+      {
+        "id": "ocd-person/96385d4e-bfae-4929-9845-502fd2ed2cc7",
+        "name": "Brian Glorioso",
+        "office": "state-house",
+        "districtCode": "090",
+        "contactUrl": null,
+        "email": "hse090@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members?ID=90",
+        "social": {}
+      }
+    ],
+    "LA:state-house:055": [
+      {
+        "id": "ocd-person/90b6f6c3-9620-4fbb-8c23-f8ab7b163de7",
+        "name": "Bryan Fontenot",
+        "office": "state-house",
+        "districtCode": "055",
+        "contactUrl": null,
+        "email": "hse055@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=55",
+        "social": {}
+      }
+    ],
+    "LA:state-house:061": [
+      {
+        "id": "ocd-person/20def39d-ba5c-45d7-ba6c-5cf43590d4b0",
+        "name": "Denise Marcelle",
+        "office": "state-house",
+        "districtCode": "061",
+        "contactUrl": null,
+        "email": "marcelled@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=61",
+        "social": {}
+      }
+    ],
+    "LA:state-house:021": [
+      {
+        "id": "ocd-person/871d5c01-9710-46f4-aeba-b321bdf11e30",
+        "name": "Travis Johnson",
+        "office": "state-house",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "hse021@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=21",
+        "social": {}
+      }
+    ],
+    "LA:state-house:099": [
+      {
+        "id": "ocd-person/85a96a1b-a8a0-4ddd-acd7-9452b48f5ace",
+        "name": "Candace Newell",
+        "office": "state-house",
+        "districtCode": "099",
+        "contactUrl": null,
+        "email": "hse099@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=99",
+        "social": {}
+      }
+    ],
+    "LA:state-house:046": [
+      {
+        "id": "ocd-person/a31429da-4cde-4dbe-9510-af2dfa8ab2ed",
+        "name": "Chad Boyer",
+        "office": "state-house",
+        "districtCode": "046",
+        "contactUrl": null,
+        "email": "hse046@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members?ID=46",
+        "social": {}
+      }
+    ],
+    "LA:state-house:042": [
+      {
+        "id": "ocd-person/75101b55-81b9-465a-8ec6-297fa75cdd07",
+        "name": "Chance Henry",
+        "office": "state-house",
+        "districtCode": "042",
+        "contactUrl": null,
+        "email": "hse042@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members?ID=42",
+        "social": {}
+      }
+    ],
+    "LA:state-house:030": [
+      {
+        "id": "ocd-person/2a4d4c31-ee06-4f32-a67b-c55db60502e4",
+        "name": "Chuck Owen",
+        "office": "state-house",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "hse030@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=30",
+        "social": {}
+      }
+    ],
+    "LA:state-house:060": [
+      {
+        "id": "ocd-person/c58cdaf8-5e0d-4a0c-ac40-7e95c38ac83e",
+        "name": "Chasity Martinez",
+        "office": "state-house",
+        "districtCode": "060",
+        "contactUrl": null,
+        "email": "hse060@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members?ID=60",
+        "social": {}
+      }
+    ],
+    "LA:state-house:012": [
+      {
+        "id": "ocd-person/a07b757e-a57b-4dda-aa6a-7bf5e6b3561d",
+        "name": "Chris Turner",
+        "office": "state-house",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "hse012@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=12",
+        "social": {}
+      }
+    ],
+    "LA:state-house:100": [
+      {
+        "id": "ocd-person/1175d9fd-94fc-4988-98ee-de8d0029de06",
+        "name": "Dana Henry",
+        "office": "state-house",
+        "districtCode": "100",
+        "contactUrl": null,
+        "email": "hse100@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members?ID=100",
+        "social": {}
+      }
+    ],
+    "LA:state-house:001": [
+      {
+        "id": "ocd-person/dc59ede6-164c-4fd4-adc1-7e080309776b",
+        "name": "Danny McCormick",
+        "office": "state-house",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "hse001@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=1",
+        "social": {}
+      }
+    ],
+    "LA:state-house:028": [
+      {
+        "id": "ocd-person/2ace9f60-8f90-43ab-a45d-d1c64bdb7462",
+        "name": "Daryl Deshotel",
+        "office": "state-house",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "hse028@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=28",
+        "social": {}
+      }
+    ],
+    "LA:state-house:079": [
+      {
+        "id": "ocd-person/aefc2237-5913-4b96-9354-18fb7e58884c",
+        "name": "Debbie Villio",
+        "office": "state-house",
+        "districtCode": "079",
+        "contactUrl": null,
+        "email": "hse079@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=79",
+        "social": {}
+      }
+    ],
+    "LA:state-house:102": [
+      {
+        "id": "ocd-person/d107ae2b-6cb6-4545-a185-d63408f46033",
+        "name": "Delisha Boyd",
+        "office": "state-house",
+        "districtCode": "102",
+        "contactUrl": null,
+        "email": "hse102@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=102",
+        "social": {}
+      }
+    ],
+    "LA:state-house:005": [
+      {
+        "id": "ocd-person/a900feca-75c7-434e-8d00-dd67170f2b01",
+        "name": "Dennis Bamburg",
+        "office": "state-house",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "hse005@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members?ID=5",
+        "social": {}
+      }
+    ],
+    "LA:state-house:068": [
+      {
+        "id": "ocd-person/d3cae3e7-f6eb-4a9c-8c63-8719902f771d",
+        "name": "Dixon McMakin",
+        "office": "state-house",
+        "districtCode": "068",
+        "contactUrl": null,
+        "email": "hse068@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members?ID=68",
+        "social": {}
+      }
+    ],
+    "LA:state-house:009": [
+      {
+        "id": "ocd-person/4661fe94-874c-4884-99a2-c60516c811ff",
+        "name": "Dodie Horton",
+        "office": "state-house",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "hortond@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=9",
+        "social": {}
+      }
+    ],
+    "LA:state-house:039": [
+      {
+        "id": "ocd-person/c725a955-93ff-415e-91df-a7398f823474",
+        "name": "Doyle Boudreaux",
+        "office": "state-house",
+        "districtCode": "039",
+        "contactUrl": null,
+        "email": "hse039@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/h_reps/members?ID=39",
+        "social": {}
+      }
+    ],
+    "LA:state-house:040": [
+      {
+        "id": "ocd-person/dcf2c7e1-e124-424c-ac0c-8d1e6600e970",
+        "name": "Dustin Miller",
+        "office": "state-house",
+        "districtCode": "040",
+        "contactUrl": null,
+        "email": "millerd@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=40",
+        "social": {}
+      }
+    ],
+    "LA:state-house:026": [
+      {
+        "id": "ocd-person/9a91a848-9d01-46b6-84f1-cc868681e912",
+        "name": "Ed Larvadain",
+        "office": "state-house",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "hse026@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=26",
+        "social": {}
+      }
+    ],
+    "LA:state-house:097": [
+      {
+        "id": "ocd-person/807a71ac-5657-4933-add4-024d35529e38",
+        "name": "Ed Murray",
+        "office": "state-house",
+        "districtCode": "097",
+        "contactUrl": null,
+        "email": "hse097@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members?ID=97",
+        "social": {}
+      }
+    ],
+    "LA:state-house:029": [
+      {
+        "id": "ocd-person/efdf7ee4-4d37-4e57-8f0c-e0db52ee7f70",
+        "name": "Edmond Jordan",
+        "office": "state-house",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "jordane@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=29",
+        "social": {}
+      }
+    ],
+    "LA:state-house:066": [
+      {
+        "id": "ocd-person/9661594c-df1e-402a-b2c5-fe2c88366506",
+        "name": "Emily Chenevert",
+        "office": "state-house",
+        "districtCode": "066",
+        "contactUrl": null,
+        "email": "hse066@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members?ID=66",
+        "social": {}
+      }
+    ],
+    "LA:state-house:015": [
+      {
+        "id": "ocd-person/040e17ea-a4d0-47ce-8f45-527a6bdc83a7",
+        "name": "Foy Gadberry",
+        "office": "state-house",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "hse015@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=15",
+        "social": {}
+      }
+    ],
+    "LA:state-house:019": [
+      {
+        "id": "ocd-person/7796b73e-f06a-4d0b-8a85-cfde955a4cd1",
+        "name": "Francis Thompson",
+        "office": "state-house",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "thompsof@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=19",
+        "social": {}
+      }
+    ],
+    "LA:state-house:048": [
+      {
+        "id": "ocd-person/c5ea395a-7594-4585-b193-000e05f08005",
+        "name": "Beau Beaullieu",
+        "office": "state-house",
+        "districtCode": "048",
+        "contactUrl": null,
+        "email": "hse048@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=48",
+        "social": {}
+      }
+    ],
+    "LA:state-house:013": [
+      {
+        "id": "ocd-person/2ed9a2e2-0f61-4de1-af10-e9e0dbf02492",
+        "name": "Jack McFarland",
+        "office": "state-house",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "mcfarlandj@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=13",
+        "social": {}
+      }
+    ],
+    "LA:state-house:105": [
+      {
+        "id": "ocd-person/bfe2d39a-39a1-4992-86cd-6ab25767de92",
+        "name": "Jacob Braud",
+        "office": "state-house",
+        "districtCode": "105",
+        "contactUrl": null,
+        "email": "hse105@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members?ID=105",
+        "social": {}
+      }
+    ],
+    "LA:state-house:049": [
+      {
+        "id": "ocd-person/80ea23c0-16f8-4a57-aa48-2c5cf478a3e1",
+        "name": "Jacob Landry",
+        "office": "state-house",
+        "districtCode": "049",
+        "contactUrl": null,
+        "email": "hse049@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members?ID=49",
+        "social": {}
+      }
+    ],
+    "LA:state-house:025": [
+      {
+        "id": "ocd-person/daa3d2db-d395-4c08-9020-b90d6bc2c498",
+        "name": "Jason DeWitt",
+        "office": "state-house",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "hse025@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members?ID=25",
+        "social": {}
+      }
+    ],
+    "LA:state-house:104": [
+      {
+        "id": "ocd-person/ef1c54d6-d162-48d3-b3b5-b02da086c1ee",
+        "name": "Jay Gallé",
+        "office": "state-house",
+        "districtCode": "104",
+        "contactUrl": null,
+        "email": "hse104@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members?ID=104",
+        "social": {}
+      }
+    ],
+    "LA:state-house:081": [
+      {
+        "id": "ocd-person/b96a872c-91bd-47ea-a50f-f82294b3d91b",
+        "name": "Jeff Wiley",
+        "office": "state-house",
+        "districtCode": "081",
+        "contactUrl": null,
+        "email": "hse081@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members?ID=81",
+        "social": {}
+      }
+    ],
+    "LA:state-house:018": [
+      {
+        "id": "ocd-person/9ae6b490-4fe0-435c-93fd-ad316e474204",
+        "name": "Jeremy LaCombe",
+        "office": "state-house",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "hse018@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=18",
+        "social": {}
+      }
+    ],
+    "LA:state-house:052": [
+      {
+        "id": "ocd-person/2dafe5b8-cb5a-411a-b270-322dcaf18293",
+        "name": "Jerome Zeringue",
+        "office": "state-house",
+        "districtCode": "052",
+        "contactUrl": null,
+        "email": "zeringuej@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=52",
+        "social": {}
+      }
+    ],
+    "LA:state-house:053": [
+      {
+        "id": "ocd-person/95e28ef0-84f6-45ec-97fe-a58f360a2ad9",
+        "name": "Jessica Domangue",
+        "office": "state-house",
+        "districtCode": "053",
+        "contactUrl": null,
+        "email": "hse053@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members?ID=53",
+        "social": {}
+      }
+    ],
+    "LA:state-house:078": [
+      {
+        "id": "ocd-person/3c0eeaa2-cf62-4b17-9b62-2531c078dd42",
+        "name": "John Illg",
+        "office": "state-house",
+        "districtCode": "078",
+        "contactUrl": null,
+        "email": "hse078@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=78",
+        "social": {}
+      }
+    ],
+    "LA:state-house:075": [
+      {
+        "id": "ocd-person/8bc5e1d1-fe97-4466-a11d-415f56c5151a",
+        "name": "John Wyble",
+        "office": "state-house",
+        "districtCode": "075",
+        "contactUrl": null,
+        "email": "hse075@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members?ID=75",
+        "social": {}
+      }
+    ],
+    "LA:state-house:054": [
+      {
+        "id": "ocd-person/9002c3a7-c0d9-4112-ad34-e0c6fa909ce1",
+        "name": "Joe Orgeron",
+        "office": "state-house",
+        "districtCode": "054",
+        "contactUrl": null,
+        "email": "hse054@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=54",
+        "social": {}
+      }
+    ],
+    "LA:state-house:043": [
+      {
+        "id": "ocd-person/85df7a11-9edb-4e27-b7ce-60ffe7b35d39",
+        "name": "Josh Carlson",
+        "office": "state-house",
+        "districtCode": "043",
+        "contactUrl": null,
+        "email": "hse043@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members?ID=43",
+        "social": {}
+      }
+    ],
+    "LA:state-house:004": [
+      {
+        "id": "ocd-person/378995b0-0c3e-49a4-aa93-4633f06d5509",
+        "name": "Joy Walters",
+        "office": "state-house",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "waltersj@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members?ID=4",
+        "social": {}
+      }
+    ],
+    "LA:state-house:088": [
+      {
+        "id": "ocd-person/92f7834e-8ce3-437f-bdbf-8dad3528ae3b",
+        "name": "Kathy Edmonston",
+        "office": "state-house",
+        "districtCode": "088",
+        "contactUrl": null,
+        "email": "hse088@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=88",
+        "social": {}
+      }
+    ],
+    "LA:state-house:064": [
+      {
+        "id": "ocd-person/c64e6628-efa4-4ffe-8b2f-d9df80f4f313",
+        "name": "Kellee Hennessy",
+        "office": "state-house",
+        "districtCode": "064",
+        "contactUrl": null,
+        "email": "hse064@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members?ID=64",
+        "social": {}
+      }
+    ],
+    "LA:state-house:058": [
+      {
+        "id": "ocd-person/43a80737-e614-475d-aace-2d1324cb516a",
+        "name": "Ken Brass",
+        "office": "state-house",
+        "districtCode": "058",
+        "contactUrl": null,
+        "email": "brassk@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=58",
+        "social": {}
+      }
+    ],
+    "LA:state-house:089": [
+      {
+        "id": "ocd-person/bd6d41fc-8ad8-468f-8259-223d38d42bd8",
+        "name": "Kim Carver",
+        "office": "state-house",
+        "districtCode": "089",
+        "contactUrl": null,
+        "email": "hse089@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members?ID=89",
+        "social": {}
+      }
+    ],
+    "LA:state-house:073": [
+      {
+        "id": "ocd-person/d6dba94d-0167-4391-992d-af96c6525253",
+        "name": "Kim Coates",
+        "office": "state-house",
+        "districtCode": "073",
+        "contactUrl": null,
+        "email": "hse073@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members?ID=73",
+        "social": {}
+      }
+    ],
+    "LA:state-house:083": [
+      {
+        "id": "ocd-person/8ffaa2bd-ff67-464a-b639-19a6069e28a2",
+        "name": "Kyle Green",
+        "office": "state-house",
+        "districtCode": "083",
+        "contactUrl": null,
+        "email": "hse083@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=83",
+        "social": {}
+      }
+    ],
+    "LA:state-house:065": [
+      {
+        "id": "ocd-person/d2ecd14d-09ce-4e45-8969-149531759584",
+        "name": "Lauren Ventrella",
+        "office": "state-house",
+        "districtCode": "065",
+        "contactUrl": null,
+        "email": "hse065@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members?ID=65",
+        "social": {}
+      }
+    ],
+    "LA:state-house:082": [
+      {
+        "id": "ocd-person/1dbd875c-89b6-4ea1-a73b-7c8efdb203a3",
+        "name": "Laurie Schlegel",
+        "office": "state-house",
+        "districtCode": "082",
+        "contactUrl": null,
+        "email": "hse082@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=82",
+        "social": {}
+      }
+    ],
+    "LA:state-house:007": [
+      {
+        "id": "ocd-person/d6e47850-c123-4060-8309-74192011981b",
+        "name": "Larry Bagley",
+        "office": "state-house",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "bagleyl@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=7",
+        "social": {}
+      }
+    ],
+    "LA:state-house:033": [
+      {
+        "id": "ocd-person/81379952-373b-4e6e-a29f-b9bb60e7593b",
+        "name": "Les Farnum",
+        "office": "state-house",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "hse033@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=33",
+        "social": {}
+      }
+    ],
+    "LA:state-house:091": [
+      {
+        "id": "ocd-person/6e106343-c9e7-4993-aca8-201210f61d64",
+        "name": "Mandie Landry",
+        "office": "state-house",
+        "districtCode": "091",
+        "contactUrl": null,
+        "email": "hse091@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=91",
+        "social": {}
+      }
+    ],
+    "LA:state-house:096": [
+      {
+        "id": "ocd-person/4d1c2a6e-0339-4b7a-ac52-dfd9064bfbbf",
+        "name": "Marcus Bryant",
+        "office": "state-house",
+        "districtCode": "096",
+        "contactUrl": null,
+        "email": "hse096@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=96",
+        "social": {}
+      }
+    ],
+    "LA:state-house:014": [
+      {
+        "id": "ocd-person/22590bd7-29fe-454d-b61d-2c54c4562274",
+        "name": "Michael Echols",
+        "office": "state-house",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "hse014@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=14",
+        "social": {}
+      }
+    ],
+    "LA:state-house:022": [
+      {
+        "id": "ocd-person/50b42a20-9d29-4388-b06f-b4511eda2131",
+        "name": "Gabe Firment",
+        "office": "state-house",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "hse022@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=22",
+        "social": {}
+      }
+    ],
+    "LA:state-house:006": [
+      {
+        "id": "ocd-person/b38eb9d5-c27d-443e-995d-f9681e3a992e",
+        "name": "Michael Melerine",
+        "office": "state-house",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "hse006@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members?ID=6",
+        "social": {}
+      }
+    ],
+    "LA:state-house:027": [
+      {
+        "id": "ocd-person/0e901294-3718-49df-9922-0ac4503acee2",
+        "name": "Mike Johnson",
+        "office": "state-house",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "hse027@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=27",
+        "social": {}
+      }
+    ],
+    "LA:state-house:103": [
+      {
+        "id": "ocd-person/e06c4ec7-9051-4489-b572-5b55e5fd4a68",
+        "name": "Mike Bayham",
+        "office": "state-house",
+        "districtCode": "103",
+        "contactUrl": null,
+        "email": "hse103@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members?ID=103",
+        "social": {}
+      }
+    ],
+    "LA:state-house:020": [
+      {
+        "id": "ocd-person/8ce9b8d1-a92d-4351-a098-617599dde680",
+        "name": "Neil Riser",
+        "office": "state-house",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "risern@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=20",
+        "social": {}
+      }
+    ],
+    "LA:state-house:086": [
+      {
+        "id": "ocd-person/bc967860-a12b-4285-bd97-36379803f119",
+        "name": "Nicky Muscarello",
+        "office": "state-house",
+        "districtCode": "086",
+        "contactUrl": null,
+        "email": "muscarellon@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=86",
+        "social": {}
+      }
+    ],
+    "LA:state-house:017": [
+      {
+        "id": "ocd-person/88548c7a-b637-4821-b336-c99cfa475e22",
+        "name": "Pat Moore",
+        "office": "state-house",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "hse017@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=17",
+        "social": {}
+      }
+    ],
+    "LA:state-house:069": [
+      {
+        "id": "ocd-person/a05f602f-6eb8-4668-9f25-f438adb5faea",
+        "name": "Paul Sawyer",
+        "office": "state-house",
+        "districtCode": "069",
+        "contactUrl": null,
+        "email": "hse069@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members?ID=69",
+        "social": {}
+      }
+    ],
+    "LA:state-house:074": [
+      {
+        "id": "ocd-person/52df3631-4ef7-4b52-ab11-8a8eeb7bf499",
+        "name": "Peter Egan",
+        "office": "state-house",
+        "districtCode": "074",
+        "contactUrl": null,
+        "email": "hse074@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members?ID=74",
+        "social": {}
+      }
+    ],
+    "LA:state-house:036": [
+      {
+        "id": "ocd-person/04a524b7-1f7a-4d01-8491-c52df47e20cc",
+        "name": "Phil Tarver",
+        "office": "state-house",
+        "districtCode": "036",
+        "contactUrl": null,
+        "email": "hse036@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=36",
+        "social": {}
+      }
+    ],
+    "LA:state-house:041": [
+      {
+        "id": "ocd-person/ee23b4bf-f5f7-498c-9fcc-f3b2d6f8fb1d",
+        "name": "Phillip DeVillier",
+        "office": "state-house",
+        "districtCode": "041",
+        "contactUrl": null,
+        "email": "devillierp@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=41",
+        "social": {}
+      }
+    ],
+    "LA:state-house:080": [
+      {
+        "id": "ocd-person/d95410b8-a66c-4662-bcc6-1884252e061b",
+        "name": "Polly Thomas",
+        "office": "state-house",
+        "districtCode": "080",
+        "contactUrl": null,
+        "email": "thomaspj@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=80",
+        "social": {}
+      }
+    ],
+    "LA:state-house:032": [
+      {
+        "id": "ocd-person/2bf8549d-d379-4c42-af8c-b5b9d270f17d",
+        "name": "Dewith Carrier",
+        "office": "state-house",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "hse032@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=32",
+        "social": {}
+      }
+    ],
+    "LA:state-house:011": [
+      {
+        "id": "ocd-person/17cf7c94-788b-49f9-bca2-2f413974a927",
+        "name": "Rashid Young",
+        "office": "state-house",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "hse011@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members?ID=11",
+        "social": {}
+      }
+    ],
+    "LA:state-house:008": [
+      {
+        "id": "ocd-person/126879ce-50c0-4741-a7e7-fb23fecb9d29",
+        "name": "Raymond Crews",
+        "office": "state-house",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "crewsr@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=8",
+        "social": {}
+      }
+    ],
+    "LA:state-house:038": [
+      {
+        "id": "ocd-person/6c232d36-fe39-4006-8397-de9cb1e5454c",
+        "name": "Rhonda Butler",
+        "office": "state-house",
+        "districtCode": "038",
+        "contactUrl": null,
+        "email": "hse038@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=38",
+        "social": {}
+      }
+    ],
+    "LA:state-house:072": [
+      {
+        "id": "ocd-person/a24e242f-3fd9-479c-8423-cf0c6e2c6273",
+        "name": "Robby Carter",
+        "office": "state-house",
+        "districtCode": "072",
+        "contactUrl": null,
+        "email": "carterr@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=72",
+        "social": {}
+      }
+    ],
+    "LA:state-house:087": [
+      {
+        "id": "ocd-person/71696836-b261-4646-8127-407c40e2c35b",
+        "name": "Rodney Lyons",
+        "office": "state-house",
+        "districtCode": "087",
+        "contactUrl": null,
+        "email": "lyonsr@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=87",
+        "social": {}
+      }
+    ],
+    "LA:state-house:024": [
+      {
+        "id": "ocd-person/01cb17b2-a215-4cd5-916a-43c3e91723c7",
+        "name": "Rodney Schamerhorn",
+        "office": "state-house",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "hse024@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=24",
+        "social": {}
+      }
+    ],
+    "LA:state-house:071": [
+      {
+        "id": "ocd-person/c6f00cae-9826-4be6-934e-1a9516b20c4d",
+        "name": "Roger Wilder",
+        "office": "state-house",
+        "districtCode": "071",
+        "contactUrl": null,
+        "email": "hse071@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members?ID=71",
+        "social": {}
+      }
+    ],
+    "LA:state-house:062": [
+      {
+        "id": "ocd-person/0353532c-93a0-41cb-9621-278c8ef19178",
+        "name": "Roy Adams",
+        "office": "state-house",
+        "districtCode": "062",
+        "contactUrl": null,
+        "email": "hse062@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=62",
+        "social": {}
+      }
+    ],
+    "LA:state-house:047": [
+      {
+        "id": "ocd-person/85ef927c-d038-4534-a8ff-b99ad6656bda",
+        "name": "Ryan Bourriaque",
+        "office": "state-house",
+        "districtCode": "047",
+        "contactUrl": null,
+        "email": "hse047@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=47",
+        "social": {}
+      }
+    ],
+    "LA:state-house:023": [
+      {
+        "id": "ocd-person/6fdcb100-c1e5-450e-a3dd-cf42c06cff1e",
+        "name": "Shaun Mena",
+        "office": "state-house",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "hse023@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members?ID=23",
+        "social": {}
+      }
+    ],
+    "LA:state-house:095": [
+      {
+        "id": "ocd-person/46b660af-1c4c-46a1-905e-ffd89a9cc32f",
+        "name": "Shane Mack",
+        "office": "state-house",
+        "districtCode": "095",
+        "contactUrl": null,
+        "email": "hse095@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=95",
+        "social": {}
+      }
+    ],
+    "LA:state-house:037": [
+      {
+        "id": "ocd-person/b114df8c-8388-44b1-8274-c346addd67c4",
+        "name": "Skip Broussard",
+        "office": "state-house",
+        "districtCode": "037",
+        "contactUrl": null,
+        "email": "hse037@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members?ID=37",
+        "social": {}
+      }
+    ],
+    "LA:state-house:076": [
+      {
+        "id": "ocd-person/f05b1c80-c85c-42f5-8336-84bcd7b0c847",
+        "name": "Stephanie Berault",
+        "office": "state-house",
+        "districtCode": "076",
+        "contactUrl": null,
+        "email": "hse076@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members?ID=76",
+        "social": {}
+      }
+    ],
+    "LA:state-house:094": [
+      {
+        "id": "ocd-person/de7591e7-6ae0-47c3-b1ea-12073106498c",
+        "name": "Stephanie Hilferty",
+        "office": "state-house",
+        "districtCode": "094",
+        "contactUrl": null,
+        "email": "hilfertys@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=94",
+        "social": {}
+      }
+    ],
+    "LA:state-house:002": [
+      {
+        "id": "ocd-person/9c50a5a9-a217-4644-b29d-68d498d9e16d",
+        "name": "Steven Jackson",
+        "office": "state-house",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "hse002@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members?ID=2",
+        "social": {}
+      }
+    ],
+    "LA:state-house:057": [
+      {
+        "id": "ocd-person/586f002d-71da-4836-a306-6e8a3d485263",
+        "name": "Sylvia Taylor",
+        "office": "state-house",
+        "districtCode": "057",
+        "contactUrl": null,
+        "email": "hse057@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members?ID=57",
+        "social": {}
+      }
+    ],
+    "LA:state-house:003": [
+      {
+        "id": "ocd-person/a838e3b6-52ea-4ad0-a308-2337762a492b",
+        "name": "Tammy Phelps",
+        "office": "state-house",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "hse003@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=3",
+        "social": {}
+      }
+    ],
+    "LA:state-house:044": [
+      {
+        "id": "ocd-person/8d0bbdce-eaab-4b3a-8385-bf8c6a2e0b87",
+        "name": "Tehmi Chassion",
+        "office": "state-house",
+        "districtCode": "044",
+        "contactUrl": null,
+        "email": "hse044@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members?ID=44",
+        "social": {}
+      }
+    ],
+    "LA:state-house:067": [
+      {
+        "id": "ocd-person/709dfea8-f9a9-4734-8b6d-e495f4d51aa3",
+        "name": "Terry Landry",
+        "office": "state-house",
+        "districtCode": "067",
+        "contactUrl": null,
+        "email": "hse067@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members?ID=67",
+        "social": {}
+      }
+    ],
+    "LA:state-house:084": [
+      {
+        "id": "ocd-person/1ebb9d9b-329d-4a43-a33c-e3608ef09cc8",
+        "name": "Tim Kerner",
+        "office": "state-house",
+        "districtCode": "084",
+        "contactUrl": null,
+        "email": "hse084@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=84",
+        "social": {}
+      }
+    ],
+    "LA:state-house:059": [
+      {
+        "id": "ocd-person/9fde5725-d1b2-4afc-9897-2706dda502c8",
+        "name": "Tony Bacala",
+        "office": "state-house",
+        "districtCode": "059",
+        "contactUrl": null,
+        "email": "bacalat@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=59",
+        "social": {}
+      }
+    ],
+    "LA:state-house:031": [
+      {
+        "id": "ocd-person/ba2902d5-5a0e-4e71-b396-6e85358511de",
+        "name": "Troy Hebert",
+        "office": "state-house",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "hse031@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members?ID=31",
+        "social": {}
+      }
+    ],
+    "LA:state-house:101": [
+      {
+        "id": "ocd-person/9510158f-4e63-4b68-ad44-daef2987b780",
+        "name": "Vanessa LaFleur",
+        "office": "state-house",
+        "districtCode": "101",
+        "contactUrl": null,
+        "email": "hse101@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=101",
+        "social": {}
+      }
+    ],
+    "LA:state-house:085": [
+      {
+        "id": "ocd-person/fe1e7481-9bbb-4e58-8d19-9be18558f12b",
+        "name": "Vincent Cox",
+        "office": "state-house",
+        "districtCode": "085",
+        "contactUrl": null,
+        "email": "hse085@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members?ID=85",
+        "social": {}
+      }
+    ],
+    "LA:state-house:050": [
+      {
+        "id": "ocd-person/c75a9e00-6017-4e74-95fd-70fbfa803c58",
+        "name": "Vinney St. Blanc",
+        "office": "state-house",
+        "districtCode": "050",
+        "contactUrl": null,
+        "email": "hse050@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=50",
+        "social": {}
+      }
+    ],
+    "LA:state-house:010": [
+      {
+        "id": "ocd-person/c3e1299d-034f-4e70-9c86-c003c6e35964",
+        "name": "Wayne McMahen",
+        "office": "state-house",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "mcmahenw@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=10",
+        "social": {}
+      }
+    ],
+    "LA:state-house:034": [
+      {
+        "id": "ocd-person/3ced6b49-7f72-41d0-a84c-0e7cff17e88b",
+        "name": "Wilford Carter",
+        "office": "state-house",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "hse034@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=34",
+        "social": {}
+      }
+    ],
+    "LA:state-senate:036": [
+      {
+        "id": "ocd-person/0d1a7b74-9ed8-4d8c-a1fc-f2caafc3d364",
+        "name": "Adam Bass",
+        "office": "state-senate",
+        "districtCode": "036",
+        "contactUrl": null,
+        "email": "sen36@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senate.la.gov/smembers?ID=36",
+        "social": {}
+      }
+    ],
+    "LA:state-senate:031": [
+      {
+        "id": "ocd-person/5032448a-7275-4a02-8dc1-d251cdde8ad9",
+        "name": "Alan Seabaugh",
+        "office": "state-senate",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "sen31@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=5",
+        "social": {}
+      }
+    ],
+    "LA:state-senate:012": [
+      {
+        "id": "ocd-person/b6e8a5cf-ec5c-494b-b9ff-efa0fb92e1c1",
+        "name": "Beth Mizell",
+        "office": "state-senate",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "mizellb@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senate.la.gov/smembers.aspx?ID=12",
+        "social": {}
+      }
+    ],
+    "LA:state-senate:037": [
+      {
+        "id": "ocd-person/20547e38-711f-4012-9217-b739f4450b91",
+        "name": "Bill Wheat",
+        "office": "state-senate",
+        "districtCode": "037",
+        "contactUrl": null,
+        "email": "sen37@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senate.la.gov/smembers?ID=37",
+        "social": {}
+      }
+    ],
+    "LA:state-senate:022": [
+      {
+        "id": "ocd-person/8574f94d-93ed-49b0-a5f6-aa1832b5542a",
+        "name": "Blake Miguez",
+        "office": "state-senate",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "sen22@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=49",
+        "social": {}
+      }
+    ],
+    "LA:state-senate:026": [
+      {
+        "id": "ocd-person/7dac3861-2ffb-45ba-b690-a8e199eb2acd",
+        "name": "Bob Hensgens",
+        "office": "state-senate",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "sen26@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senate.la.gov/smembers.aspx?ID=26",
+        "social": {}
+      }
+    ],
+    "LA:state-senate:001": [
+      {
+        "id": "ocd-person/cfe19d33-7048-4fb7-9d56-0fa0f5f985f5",
+        "name": "Bob Owen",
+        "office": "state-senate",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "sen01@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senate.la.gov/smembers?ID=1",
+        "social": {}
+      }
+    ],
+    "LA:state-senate:023": [
+      {
+        "id": "ocd-person/92439b80-4646-445b-939f-5414e309f183",
+        "name": "Brach Myers",
+        "office": "state-senate",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "sen23@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members?ID=45",
+        "social": {}
+      }
+    ],
+    "LA:state-senate:017": [
+      {
+        "id": "ocd-person/75f165af-66d1-464e-99b0-4176b8636501",
+        "name": "Caleb Kleinpeter",
+        "office": "state-senate",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "sen17@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senate.la.gov/smembers.aspx?ID=17",
+        "social": {}
+      }
+    ],
+    "LA:state-senate:018": [
+      {
+        "id": "ocd-person/c89a156e-8426-4001-8364-94a179482d76",
+        "name": "Eddie Lambert",
+        "office": "state-senate",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "lamberte@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senate.la.gov/smembers.aspx?ID=18",
+        "social": {}
+      }
+    ],
+    "LA:state-senate:002": [
+      {
+        "id": "ocd-person/1899dc2e-bac6-4951-b3fc-87ea5e2d4969",
+        "name": "Ed Price",
+        "office": "state-senate",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "pricee@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senate.la.gov/smembers.aspx?ID=2",
+        "social": {}
+      }
+    ],
+    "LA:state-senate:016": [
+      {
+        "id": "ocd-person/a8344aaa-aff7-42b3-b1a2-59539191fbb2",
+        "name": "Franklin Foil",
+        "office": "state-senate",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "foilf@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=70",
+        "social": {}
+      }
+    ],
+    "LA:state-senate:007": [
+      {
+        "id": "ocd-person/60ffe8d0-0469-4eca-a69a-deec93c203b3",
+        "name": "Gary Carter",
+        "office": "state-senate",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "carterg@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=102",
+        "social": {}
+      }
+    ],
+    "LA:state-senate:024": [
+      {
+        "id": "ocd-person/379e9992-463c-4188-9702-668457a75c3d",
+        "name": "Gerald Boudreaux",
+        "office": "state-senate",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "boudreauxg@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senate.la.gov/smembers.aspx?ID=24",
+        "social": {}
+      }
+    ],
+    "LA:state-senate:032": [
+      {
+        "id": "ocd-person/25923053-3679-443e-bbb1-e2f63a50585c",
+        "name": "Glen Womack",
+        "office": "state-senate",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "sen32@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senate.la.gov/smembers.aspx?ID=32",
+        "social": {}
+      }
+    ],
+    "LA:state-senate:019": [
+      {
+        "id": "ocd-person/77166b5f-e299-431c-869d-ab2fff79cd33",
+        "name": "Greg Miller",
+        "office": "state-senate",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "sen19@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senate.la.gov/smembers?ID=19",
+        "social": {}
+      }
+    ],
+    "LA:state-senate:028": [
+      {
+        "id": "ocd-person/aa2da413-7e13-4c2b-93e8-784edc0a495e",
+        "name": "Heather Cloud",
+        "office": "state-senate",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "sen28@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senate.la.gov/smembers.aspx?ID=28",
+        "social": {}
+      }
+    ],
+    "LA:state-senate:009": [
+      {
+        "id": "ocd-person/684d1cc7-cce3-4545-a6ab-d689c7c56105",
+        "name": "Cameron Henry",
+        "office": "state-senate",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "henryc@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senate.la.gov/smembers.aspx?ID=9",
+        "social": {}
+      }
+    ],
+    "LA:state-senate:035": [
+      {
+        "id": "ocd-person/9d6aa1d9-76b2-41ad-a3e0-4fa86da08645",
+        "name": "Jay Morris",
+        "office": "state-senate",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "morrisjc@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=14",
+        "social": {}
+      }
+    ],
+    "LA:state-senate:027": [
+      {
+        "id": "ocd-person/e8c847e2-5ee6-4f9c-a4e4-d7d8daa8464c",
+        "name": "Jeremy Stine",
+        "office": "state-senate",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "sen27@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senate.la.gov/smembers.aspx?ID=27",
+        "social": {}
+      }
+    ],
+    "LA:state-senate:004": [
+      {
+        "id": "ocd-person/ce11601e-9a67-48a1-9408-b80943312303",
+        "name": "Jimmy Harris",
+        "office": "state-senate",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "harrisj@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=99",
+        "social": {}
+      }
+    ],
+    "LA:state-senate:034": [
+      {
+        "id": "ocd-person/acdaa5e6-3b22-44b9-8b47-480b801483dd",
+        "name": "Katrina Jackson-Andrews",
+        "office": "state-senate",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "jacksonk@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senate.la.gov/smembers.aspx?ID=34",
+        "social": {}
+      }
+    ],
+    "LA:state-senate:010": [
+      {
+        "id": "ocd-person/f6f401f7-7fb4-40df-84a0-b5a3f0fe9ec2",
+        "name": "Kirk Talbot",
+        "office": "state-senate",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "talbotk@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=78",
+        "social": {}
+      }
+    ],
+    "LA:state-senate:025": [
+      {
+        "id": "ocd-person/addae848-cfaf-4637-a23e-595e45c6e14f",
+        "name": "Mark Abraham",
+        "office": "state-senate",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "abrahamm@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=36",
+        "social": {}
+      }
+    ],
+    "LA:state-senate:020": [
+      {
+        "id": "ocd-person/750a2868-c9b0-4124-95c7-3516f93ff087",
+        "name": "Mike Fési",
+        "office": "state-senate",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "sen20@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senate.la.gov/smembers.aspx?ID=20",
+        "social": {}
+      }
+    ],
+    "LA:state-senate:030": [
+      {
+        "id": "ocd-person/723f3444-f927-44b0-8659-7ac00370aa92",
+        "name": "Mike Reese",
+        "office": "state-senate",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "sen30@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senate.la.gov/smembers.aspx?ID=30",
+        "social": {}
+      }
+    ],
+    "LA:state-senate:008": [
+      {
+        "id": "ocd-person/a5240587-95aa-4135-befc-de2ea2aa1d51",
+        "name": "Patrick Connick",
+        "office": "state-senate",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "connickp@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=84",
+        "social": {}
+      }
+    ],
+    "LA:state-senate:011": [
+      {
+        "id": "ocd-person/d4a6db65-2f6f-464f-ae26-58176f2b68e6",
+        "name": "Patrick McMath",
+        "office": "state-senate",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "sen11@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senate.la.gov/smembers.aspx?ID=11",
+        "social": {}
+      }
+    ],
+    "LA:state-senate:021": [
+      {
+        "id": "ocd-person/655ddc35-ecd0-4db2-a3fe-cd86f1cb7d61",
+        "name": "Robert Allain",
+        "office": "state-senate",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "sen21@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senate.la.gov/smembers.aspx?ID=21",
+        "social": {}
+      }
+    ],
+    "LA:state-senate:015": [
+      {
+        "id": "ocd-person/8710f3da-9aea-41a9-acd2-181377cc6ae7",
+        "name": "Regina Barrow",
+        "office": "state-senate",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "barrowr@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senate.la.gov/smembers.aspx?ID=15",
+        "social": {}
+      }
+    ],
+    "LA:state-senate:006": [
+      {
+        "id": "ocd-person/e49647e3-b5c3-4329-9472-27048115441c",
+        "name": "Rick Edmonds",
+        "office": "state-senate",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "sen06@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=66",
+        "social": {}
+      }
+    ],
+    "LA:state-senate:005": [
+      {
+        "id": "ocd-person/7d852e7a-ae99-4f89-b4c0-4d7cb7e816db",
+        "name": "Royce Duplessis",
+        "office": "state-senate",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "duplessisr@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=93",
+        "social": {}
+      }
+    ],
+    "LA:state-senate:039": [
+      {
+        "id": "ocd-person/fc43b9e1-5e0d-4767-a12e-b2e801444d22",
+        "name": "Sam Jenkins",
+        "office": "state-senate",
+        "districtCode": "039",
+        "contactUrl": null,
+        "email": "sen39@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senate.la.gov/smembers?ID=39",
+        "social": {}
+      }
+    ],
+    "LA:state-senate:003": [
+      {
+        "id": "ocd-person/7b4128f7-b147-4cdd-b6ee-0d7d3f2edb6f",
+        "name": "Sidney Barthelemy",
+        "office": "state-senate",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "sen03@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senate.la.gov/smembers?ID=3",
+        "social": {}
+      }
+    ],
+    "LA:state-senate:033": [
+      {
+        "id": "ocd-person/dd47283c-c202-461f-b56a-8cc2c0b14f15",
+        "name": "Stewart Cathey",
+        "office": "state-senate",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "sen33@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senate.la.gov/smembers.aspx?ID=33",
+        "social": {}
+      }
+    ],
+    "LA:state-senate:038": [
+      {
+        "id": "ocd-person/577fe2a3-275b-4b82-b508-c0ce29deb2fa",
+        "name": "Thomas Pressly",
+        "office": "state-senate",
+        "districtCode": "038",
+        "contactUrl": null,
+        "email": "sen38@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senate.la.gov/smembers?ID=38",
+        "social": {}
+      }
+    ],
+    "LA:state-senate:013": [
+      {
+        "id": "ocd-person/33e76c3a-a834-444c-9872-fc2af5c83837",
+        "name": "Valarie Hodges",
+        "office": "state-senate",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "sen13@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.louisiana.gov/H_Reps/members.aspx?ID=64",
+        "social": {}
+      }
+    ],
+    "LA:state-senate:029": [
+      {
+        "id": "ocd-person/b4a4657a-e588-4036-9a0f-48847e22a140",
+        "name": "Jay Luneau",
+        "office": "state-senate",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "luneauj@legis.la.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senate.la.gov/smembers.aspx?ID=29",
+        "social": {}
+      }
+    ]
+  }
+}

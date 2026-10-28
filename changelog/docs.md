@@ -1,5 +1,9 @@
 # Docs changelog
 
+## 1.2.0 (2026-10-27)
+
+- Described how representative data is pinned, published and refreshed each week, how the sign-on backend and its automatic migrations work, how to add a pledge, and what the note rules block.
+
 ## 1.1.0 (2026-10-27)
 
 - Described the privacy page and the visit counter, and how the tests keep the page's claims true.

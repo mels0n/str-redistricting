@@ -1,0 +1,42 @@
+[
+  {
+    "id": {
+      "bioguide": "B001267",
+      "thomas": "01965",
+      "govtrack": 412330
+    },
+    "social": {
+      "facebook": "senbennetco",
+      "youtube": "SenatorBennet",
+      "youtube_id": "UCXB3cljpMwTyCUyLr2ZVLow",
+      "twitter": "SenatorBennet",
+      "twitter_id": "224285242",
+      "instagram": "SenBennetCO"
+    }
+  },
+  {
+    "id": {
+      "bioguide": "B001318",
+      "govtrack": 456948
+    },
+    "social": {
+      "twitter": "RepBeccaB",
+      "twitter_id": "1606115178210365448",
+      "facebook": "repbeccab",
+      "instagram": "repbeccab",
+      "youtube": "YouTubeChannelID"
+    }
+  },
+  {
+    "id": {
+      "bioguide": "H001100",
+      "govtrack": 456982
+    },
+    "social": {
+      "twitter": "RepJeffHurd",
+      "facebook": "61571570223582",
+      "instagram": "repjeffhurd",
+      "youtube": "@RepJeffHurd03"
+    }
+  }
+]

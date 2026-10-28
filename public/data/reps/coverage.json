@@ -1,0 +1,589 @@
+{
+  "AL": {
+    "state-house": {
+      "matched": 105,
+      "unmatched": []
+    },
+    "state-senate": {
+      "matched": 35,
+      "unmatched": []
+    }
+  },
+  "AK": {
+    "state-house": {
+      "matched": 40,
+      "unmatched": []
+    },
+    "state-senate": {
+      "matched": 20,
+      "unmatched": []
+    }
+  },
+  "AZ": {
+    "state-house": {
+      "matched": 30,
+      "unmatched": []
+    },
+    "state-senate": {
+      "matched": 30,
+      "unmatched": []
+    }
+  },
+  "AR": {
+    "state-house": {
+      "matched": 99,
+      "unmatched": [
+        "008"
+      ]
+    },
+    "state-senate": {
+      "matched": 33,
+      "unmatched": [
+        "001",
+        "018"
+      ]
+    }
+  },
+  "CA": {
+    "state-house": {
+      "matched": 79,
+      "unmatched": [
+        "003"
+      ]
+    },
+    "state-senate": {
+      "matched": 39,
+      "unmatched": [
+        "010"
+      ]
+    }
+  },
+  "CO": {
+    "state-house": {
+      "matched": 64,
+      "unmatched": [
+        "032"
+      ]
+    },
+    "state-senate": {
+      "matched": 35,
+      "unmatched": []
+    }
+  },
+  "CT": {
+    "state-house": {
+      "matched": 151,
+      "unmatched": []
+    },
+    "state-senate": {
+      "matched": 36,
+      "unmatched": []
+    }
+  },
+  "DE": {
+    "state-house": {
+      "matched": 41,
+      "unmatched": []
+    },
+    "state-senate": {
+      "matched": 21,
+      "unmatched": []
+    }
+  },
+  "FL": {
+    "us-house": {
+      "vacant": [
+        "FL-20"
+      ]
+    },
+    "state-house": {
+      "matched": 116,
+      "unmatched": [
+        "055",
+        "078",
+        "113",
+        "116"
+      ]
+    },
+    "state-senate": {
+      "matched": 39,
+      "unmatched": [
+        "039"
+      ]
+    }
+  },
+  "GA": {
+    "state-house": {
+      "matched": 180,
+      "unmatched": []
+    },
+    "state-senate": {
+      "matched": 55,
+      "unmatched": [
+        "012"
+      ]
+    }
+  },
+  "HI": {
+    "state-house": {
+      "matched": 51,
+      "unmatched": []
+    },
+    "state-senate": {
+      "matched": 25,
+      "unmatched": []
+    }
+  },
+  "ID": {
+    "state-house": {
+      "matched": 35,
+      "unmatched": []
+    },
+    "state-senate": {
+      "matched": 35,
+      "unmatched": []
+    }
+  },
+  "IL": {
+    "state-house": {
+      "matched": 118,
+      "unmatched": []
+    },
+    "state-senate": {
+      "matched": 59,
+      "unmatched": []
+    }
+  },
+  "IN": {
+    "state-house": {
+      "matched": 100,
+      "unmatched": []
+    },
+    "state-senate": {
+      "matched": 50,
+      "unmatched": []
+    }
+  },
+  "IA": {
+    "state-house": {
+      "matched": 99,
+      "unmatched": [
+        "038"
+      ]
+    },
+    "state-senate": {
+      "matched": 49,
+      "unmatched": [
+        "011"
+      ]
+    }
+  },
+  "KS": {
+    "state-house": {
+      "matched": 125,
+      "unmatched": []
+    },
+    "state-senate": {
+      "matched": 40,
+      "unmatched": []
+    }
+  },
+  "KY": {
+    "state-house": {
+      "matched": 100,
+      "unmatched": []
+    },
+    "state-senate": {
+      "matched": 38,
+      "unmatched": []
+    }
+  },
+  "LA": {
+    "state-house": {
+      "matched": 103,
+      "unmatched": [
+        "077",
+        "092"
+      ]
+    },
+    "state-senate": {
+      "matched": 38,
+      "unmatched": [
+        "014"
+      ]
+    }
+  },
+  "ME": {
+    "state-house": {
+      "matched": 151,
+      "unmatched": []
+    },
+    "state-senate": {
+      "matched": 35,
+      "unmatched": []
+    }
+  },
+  "MD": {
+    "state-house": {
+      "matched": 71,
+      "unmatched": []
+    },
+    "state-senate": {
+      "matched": 47,
+      "unmatched": []
+    }
+  },
+  "MA": {
+    "state-house": {
+      "matched": 157,
+      "unmatched": [
+        "042",
+        "074",
+        "075"
+      ]
+    },
+    "state-senate": {
+      "matched": 40,
+      "unmatched": []
+    }
+  },
+  "MI": {
+    "state-house": {
+      "matched": 110,
+      "unmatched": []
+    },
+    "state-senate": {
+      "matched": 38,
+      "unmatched": []
+    }
+  },
+  "MN": {
+    "state-house": {
+      "matched": 133,
+      "unmatched": [
+        "21A"
+      ]
+    },
+    "state-senate": {
+      "matched": 67,
+      "unmatched": []
+    }
+  },
+  "MS": {
+    "state-house": {
+      "matched": 120,
+      "unmatched": [
+        "070",
+        "077"
+      ]
+    },
+    "state-senate": {
+      "matched": 51,
+      "unmatched": [
+        "034"
+      ]
+    }
+  },
+  "MO": {
+    "state-house": {
+      "matched": 155,
+      "unmatched": [
+        "029",
+        "095",
+        "099",
+        "110",
+        "114",
+        "149",
+        "159",
+        "160"
+      ]
+    },
+    "state-senate": {
+      "matched": 33,
+      "unmatched": [
+        "010"
+      ]
+    }
+  },
+  "MT": {
+    "state-house": {
+      "matched": 100,
+      "unmatched": []
+    },
+    "state-senate": {
+      "matched": 50,
+      "unmatched": []
+    }
+  },
+  "NE": {
+    "state-senate": {
+      "matched": 49,
+      "unmatched": []
+    }
+  },
+  "NV": {
+    "state-house": {
+      "matched": 42,
+      "unmatched": []
+    },
+    "state-senate": {
+      "matched": 21,
+      "unmatched": []
+    }
+  },
+  "NH": {
+    "state-house": {
+      "matched": 160,
+      "unmatched": [
+        "201",
+        "306",
+        "409",
+        "722"
+      ]
+    },
+    "state-senate": {
+      "matched": 24,
+      "unmatched": []
+    }
+  },
+  "NJ": {
+    "state-house": {
+      "matched": 40,
+      "unmatched": []
+    },
+    "state-senate": {
+      "matched": 40,
+      "unmatched": []
+    }
+  },
+  "NM": {
+    "state-house": {
+      "matched": 68,
+      "unmatched": [
+        "037",
+        "041"
+      ]
+    },
+    "state-senate": {
+      "matched": 42,
+      "unmatched": []
+    }
+  },
+  "NY": {
+    "state-house": {
+      "matched": 150,
+      "unmatched": []
+    },
+    "state-senate": {
+      "matched": 62,
+      "unmatched": [
+        "012"
+      ]
+    }
+  },
+  "NC": {
+    "state-house": {
+      "matched": 120,
+      "unmatched": []
+    },
+    "state-senate": {
+      "matched": 50,
+      "unmatched": []
+    }
+  },
+  "ND": {
+    "state-house": {
+      "matched": 48,
+      "unmatched": []
+    },
+    "state-senate": {
+      "matched": 47,
+      "unmatched": []
+    }
+  },
+  "OH": {
+    "state-house": {
+      "matched": 99,
+      "unmatched": []
+    },
+    "state-senate": {
+      "matched": 32,
+      "unmatched": [
+        "013"
+      ]
+    }
+  },
+  "OK": {
+    "state-house": {
+      "matched": 99,
+      "unmatched": [
+        "077",
+        "099"
+      ]
+    },
+    "state-senate": {
+      "matched": 47,
+      "unmatched": [
+        "024"
+      ]
+    }
+  },
+  "OR": {
+    "state-house": {
+      "matched": 60,
+      "unmatched": []
+    },
+    "state-senate": {
+      "matched": 30,
+      "unmatched": []
+    }
+  },
+  "PA": {
+    "state-house": {
+      "matched": 203,
+      "unmatched": []
+    },
+    "state-senate": {
+      "matched": 50,
+      "unmatched": []
+    }
+  },
+  "RI": {
+    "state-house": {
+      "matched": 74,
+      "unmatched": [
+        "031"
+      ]
+    },
+    "state-senate": {
+      "matched": 38,
+      "unmatched": []
+    }
+  },
+  "SC": {
+    "state-house": {
+      "matched": 124,
+      "unmatched": []
+    },
+    "state-senate": {
+      "matched": 46,
+      "unmatched": []
+    }
+  },
+  "SD": {
+    "state-house": {
+      "matched": 37,
+      "unmatched": []
+    },
+    "state-senate": {
+      "matched": 35,
+      "unmatched": []
+    }
+  },
+  "TN": {
+    "state-house": {
+      "matched": 98,
+      "unmatched": [
+        "084"
+      ]
+    },
+    "state-senate": {
+      "matched": 33,
+      "unmatched": []
+    }
+  },
+  "TX": {
+    "us-house": {
+      "vacant": [
+        "TX-23"
+      ]
+    },
+    "state-house": {
+      "matched": 148,
+      "unmatched": [
+        "001",
+        "093"
+      ]
+    },
+    "state-senate": {
+      "matched": 30,
+      "unmatched": [
+        "022"
+      ]
+    }
+  },
+  "UT": {
+    "state-house": {
+      "matched": 74,
+      "unmatched": [
+        "016"
+      ]
+    },
+    "state-senate": {
+      "matched": 29,
+      "unmatched": []
+    }
+  },
+  "VT": {
+    "state-house": {
+      "matched": 109,
+      "unmatched": []
+    },
+    "state-senate": {
+      "matched": 16,
+      "unmatched": []
+    }
+  },
+  "VA": {
+    "state-house": {
+      "matched": 99,
+      "unmatched": [
+        "020"
+      ]
+    },
+    "state-senate": {
+      "matched": 40,
+      "unmatched": []
+    }
+  },
+  "WA": {
+    "state-house": {
+      "matched": 49,
+      "unmatched": []
+    },
+    "state-senate": {
+      "matched": 49,
+      "unmatched": []
+    }
+  },
+  "WV": {
+    "state-house": {
+      "matched": 100,
+      "unmatched": []
+    },
+    "state-senate": {
+      "matched": 17,
+      "unmatched": []
+    }
+  },
+  "WI": {
+    "state-house": {
+      "matched": 99,
+      "unmatched": []
+    },
+    "state-senate": {
+      "matched": 33,
+      "unmatched": []
+    }
+  },
+  "WY": {
+    "state-house": {
+      "matched": 62,
+      "unmatched": []
+    },
+    "state-senate": {
+      "matched": 31,
+      "unmatched": []
+    }
+  }
+}

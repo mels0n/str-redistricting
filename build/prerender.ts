@@ -3,14 +3,16 @@ import { dirname, join } from 'node:path';
 import { register } from 'node:module';
 import { pathToFileURL } from 'node:url';
 import { JSDOM } from 'jsdom';
-import { PAGE_META } from '../src/client/shared/lib/page-meta';
+import { PAGE_META, type PageMeta } from '../src/client/shared/lib/page-meta';
 import { SITE_HOST } from '../src/server/features/publish/site';
+import { readPledgesFile } from '../src/server/features/pledges';
 import { esc, sharePagePaths, swap } from './share-pages';
 import { Resvg } from '@resvg/resvg-js';
 import { toMarkdown } from './markdown';
 import { LLMS_SUMMARY, PAGE_KEYS, jsonLd, jsonLdScript, llmsTxt, robotsTxt, sitemapXml, type FaqEntry, type PageKey } from './seo';
 
 const DIST = 'dist';
+const PLEDGES_FILE = join('config', 'pledges.json');
 const PUBLIC = 'public';
 const ROOT_TAG = '<div id="str-viewer"></div>';
 
@@ -60,22 +62,31 @@ function modules(): NonNullable<typeof loaded> {
   loaded ??= (async () => {
     // The changelog page imports its markdown with Vite's `?raw`; this gives that suffix the same meaning here.
     register('./raw-loader.mjs', import.meta.url);
-    const [{ mountShell }, { createNationalPage }, { createHowPage }, { createFaqPage }, { createChangelogPage }, { createPrivacyPage }] = await Promise.all([
+    const [{ mountShell }, { createNationalPage }, { createHowPage }, { createFaqPage }, { createChangelogPage }, { createPledgesPage }, { createPrivacyPage }, { createRemovePage }, { createConfirmPage }, { createActPage }] = await Promise.all([
       import('../src/client/app/shell'),
       import('../src/client/pages/national'),
       import('../src/client/pages/how'),
       import('../src/client/pages/faq'),
       import('../src/client/pages/changelog'),
+      import('../src/client/pages/pledges'),
       import('../src/client/pages/privacy'),
+      import('../src/client/pages/remove'),
+      import('../src/client/pages/confirm'),
+      import('../src/client/pages/act'),
     ]);
     return {
       mountShell,
       pages: {
         home: () => createNationalPage(() => undefined, 'federal-house'),
+        act: () => createActPage(null),
         how: () => createHowPage({ page: 'how', section: null }),
         faq: () => createFaqPage({ page: 'faq', question: null }),
         changelog: () => createChangelogPage(),
+        pledges: () => createPledgesPage(readPledgesFile(PLEDGES_FILE).pledges),
         privacy: () => createPrivacyPage(),
+        remove: () => createRemovePage(null),
+        // The static page never starts the confirmation: only the page script, running with a token, does.
+        confirm: () => createConfirmPage(null, 'static'),
       },
     };
   })();
@@ -103,7 +114,7 @@ function faqEntries(root: Element): FaqEntry[] {
 }
 
 function headFor(key: PageKey, shell: string): string {
-  const { title, description, path } = PAGE_META[key];
+  const { title, description, path, noindex }: PageMeta = PAGE_META[key];
   const url = `https://${SITE_HOST}${path === '/' ? '/' : path}`;
   const meta = (attr: 'name' | 'property', k: string, value: string): [RegExp, string, string] =>
     [new RegExp(`<meta ${attr}="${k}" content="[^"]*" ?/?>`), `<meta ${attr}="${k}" content="${esc(value)}" />`, `${k} meta`];
@@ -115,7 +126,9 @@ function headFor(key: PageKey, shell: string): string {
     meta('property', 'og:title', title),
     meta('property', 'og:description', description),
   ];
-  return swaps.reduce((html, [pattern, replacement, what]) => swap(html, pattern, replacement, what), shell);
+  const head = swaps.reduce((html, [pattern, replacement, what]) => swap(html, pattern, replacement, what), shell);
+  // A page kept out of search results says so in its own head.
+  return noindex ? swap(head, /<meta charset="utf-8" ?\/?>/, '<meta charset="utf-8" />\n    <meta name="robots" content="noindex">', 'charset meta') : head;
 }
 
 /** The shell with this page's contents, head tags and structured data. */
@@ -165,6 +178,9 @@ export async function main(): Promise<void> {
     markdown.set(key, toMarkdown(rendered.html, site));
     outputs.set(file, pageHtml(key, shell, rendered));
   }
+  // The pledges are validated here, so an invalid file fails the build, then published as data/pledges.json.
+  outputs.set(join(DIST, 'data', 'pledges.json'), `${JSON.stringify(readPledgesFile(PLEDGES_FILE))}
+`);
   outputs.set(join(DIST, 'sitemap.xml'), sitemapXml(site, sharePagePaths(PUBLIC)));
   outputs.set(join(DIST, 'robots.txt'), robotsTxt(site));
   outputs.set(join(DIST, 'llms.txt'), llmsTxt(site));

@@ -1,0 +1,210 @@
+{
+  "ak.csv": {
+    "url": "https://data.openstates.org/people/current/ak.csv",
+    "sha256": "73cfe9dd8aa9e2548856fc04f897e4417faa02a0cad549cb176ceb1527e08369"
+  },
+  "al.csv": {
+    "url": "https://data.openstates.org/people/current/al.csv",
+    "sha256": "11ea1a05785251ebb29abd93b771dbf3d0f6113911bfd6c67e030590a6d5559b"
+  },
+  "ar.csv": {
+    "url": "https://data.openstates.org/people/current/ar.csv",
+    "sha256": "7a322270a61203fd444e7ca91ae29b44d53231af4b5e3af51f3b515e80d445fe"
+  },
+  "az.csv": {
+    "url": "https://data.openstates.org/people/current/az.csv",
+    "sha256": "a8a0fdf7d36d0cb88410d41dd91f7b53b0bf6f22446923fc0c8c36bdc3b4ff27"
+  },
+  "ca.csv": {
+    "url": "https://data.openstates.org/people/current/ca.csv",
+    "sha256": "cd1d23f2dd2fe0c123260e392d33ef481639c5c10710969d801a1cff43c27525"
+  },
+  "co.csv": {
+    "url": "https://data.openstates.org/people/current/co.csv",
+    "sha256": "9520abbafebc90941e79dfd39660c2283ae79b38c43aef35075e59c61649910d"
+  },
+  "ct.csv": {
+    "url": "https://data.openstates.org/people/current/ct.csv",
+    "sha256": "44c61cc950586acd498bbbb5161f2e568be33e1b81619baec28493bef33c3928"
+  },
+  "de.csv": {
+    "url": "https://data.openstates.org/people/current/de.csv",
+    "sha256": "2f50408528912358dda21559fef9264ed1fb611a6b4e7a45e96d1287f458fb18"
+  },
+  "fl.csv": {
+    "url": "https://data.openstates.org/people/current/fl.csv",
+    "sha256": "bc5654343c40dce538f901ec3709d804e626b5225b10f2ad107fbb91b0b09d2a"
+  },
+  "ga.csv": {
+    "url": "https://data.openstates.org/people/current/ga.csv",
+    "sha256": "1d6f29f8757fdefd63dd011e0b4c934388a9922b44be9b5aefab3f2df13acb14"
+  },
+  "hi.csv": {
+    "url": "https://data.openstates.org/people/current/hi.csv",
+    "sha256": "d9988647e82cfa4a9c735b829e4793c8f7df5c8b0bbcd35660e3c9d1eae8675a"
+  },
+  "ia.csv": {
+    "url": "https://data.openstates.org/people/current/ia.csv",
+    "sha256": "c71ed1d7bbcd3bb8fbad51154b30c4319f4bc4ea5f3073eb7b79a9b81702eaa4"
+  },
+  "id.csv": {
+    "url": "https://data.openstates.org/people/current/id.csv",
+    "sha256": "7bb1b7bb0f247d0bb959ca0113a47ffa795ee2c65635699a80ed5a4771e5b9d7"
+  },
+  "il.csv": {
+    "url": "https://data.openstates.org/people/current/il.csv",
+    "sha256": "48bb8e63f3cd837f81ef7f2b42ca5155688050b074d4efd08f9a9d211cf79853"
+  },
+  "in.csv": {
+    "url": "https://data.openstates.org/people/current/in.csv",
+    "sha256": "87589a47e5952b852e5845f30fa78921f0677642d85b035ac614e8516d9baa9a"
+  },
+  "ks.csv": {
+    "url": "https://data.openstates.org/people/current/ks.csv",
+    "sha256": "fa59e711867ea26ff7f1d2a02a29793a9ea11ec654108eef1d9eef0371fd46d5"
+  },
+  "ky.csv": {
+    "url": "https://data.openstates.org/people/current/ky.csv",
+    "sha256": "9262427807944c3918fffd494e5e6da4807dab07963854c47c6787130bcf56df"
+  },
+  "la.csv": {
+    "url": "https://data.openstates.org/people/current/la.csv",
+    "sha256": "e9f15e323358cdfcc6fadcb4dcd8b09c94a70ebd99975fe8892348a66e68ba0b"
+  },
+  "legislators-current.json": {
+    "url": "https://unitedstates.github.io/congress-legislators/legislators-current.json",
+    "sha256": "ae8cb9477c48715df71a7d860854229d799dc90a254d61badc1efb770f892b2c"
+  },
+  "legislators-social-media.json": {
+    "url": "https://unitedstates.github.io/congress-legislators/legislators-social-media.json",
+    "sha256": "c6eca1fcdb3a89901335eed51ca061daa4b60ad3243969a127e913bb9657fbc5"
+  },
+  "ma.csv": {
+    "url": "https://data.openstates.org/people/current/ma.csv",
+    "sha256": "f423850fa9aea0feedd8d0c4123e1724dbbc4af67490faf534f83a9b3f892627"
+  },
+  "md.csv": {
+    "url": "https://data.openstates.org/people/current/md.csv",
+    "sha256": "499dd766bb468d0ed57a2323c6f9bcfa759799e2ac586b11e0328ae2f5ce71bd"
+  },
+  "me.csv": {
+    "url": "https://data.openstates.org/people/current/me.csv",
+    "sha256": "a7be946d1e922158d028ecb31d2a6f37af9a5c7ca2c438f933b363d2e26871be"
+  },
+  "mi.csv": {
+    "url": "https://data.openstates.org/people/current/mi.csv",
+    "sha256": "069945aedf1af46b4b60d4fc8257057bc686aca36f5dd17ed98e720d19c5fe33"
+  },
+  "mn.csv": {
+    "url": "https://data.openstates.org/people/current/mn.csv",
+    "sha256": "24ed9cf712ea0680e7e895832aa3ca90cf7450f10875e6a99eee5f5292e7cc7d"
+  },
+  "mo.csv": {
+    "url": "https://data.openstates.org/people/current/mo.csv",
+    "sha256": "e8c39ac863c68c71377d457bb8ef8875231bf0dd15ce9f1ffa45d26965669114"
+  },
+  "ms.csv": {
+    "url": "https://data.openstates.org/people/current/ms.csv",
+    "sha256": "fc65735a77bf84e8a75451aa7dbd5354125a5ca38c3a7bd86d34cf4b578156fe"
+  },
+  "mt.csv": {
+    "url": "https://data.openstates.org/people/current/mt.csv",
+    "sha256": "0fb1c6a06a8f25e2a919eeb0a847cceacf59a0fddc5b5c040a7f8acab1531661"
+  },
+  "nc.csv": {
+    "url": "https://data.openstates.org/people/current/nc.csv",
+    "sha256": "a1e616de89039292ba64a62382cfdf6e43ca1298d3db13b7ddb1747de9c852af"
+  },
+  "nd.csv": {
+    "url": "https://data.openstates.org/people/current/nd.csv",
+    "sha256": "18aa947c4ba0100c8e827ac684775aa3323e02a30bb9b2234433700579b176dd"
+  },
+  "ne.csv": {
+    "url": "https://data.openstates.org/people/current/ne.csv",
+    "sha256": "81d69f8c03fb151004f05594b1d88306cdcacbd5e45e4aba1b51a081af4f43c2"
+  },
+  "nh.csv": {
+    "url": "https://data.openstates.org/people/current/nh.csv",
+    "sha256": "d6b5d157cdd3a044b078799c06e5d836a94379b276ea47ab8895b8fadc1d635a"
+  },
+  "nj.csv": {
+    "url": "https://data.openstates.org/people/current/nj.csv",
+    "sha256": "df3f952467c31823c7126270643c65b93d45e5f6c64c42a069970d95c2cf8f6a"
+  },
+  "nm.csv": {
+    "url": "https://data.openstates.org/people/current/nm.csv",
+    "sha256": "25b4ec994db7c039c958a552f282d8a658f47ccc89432681659a57d40cc0724c"
+  },
+  "nv.csv": {
+    "url": "https://data.openstates.org/people/current/nv.csv",
+    "sha256": "747048f67e7045017772efc80150dad71ba32b73dcd6eb8754290c2f3d98593c"
+  },
+  "ny.csv": {
+    "url": "https://data.openstates.org/people/current/ny.csv",
+    "sha256": "c72bf93f8346ee0eb320492a27629377375ba11911dadb11ac5d25983ef91c80"
+  },
+  "oh.csv": {
+    "url": "https://data.openstates.org/people/current/oh.csv",
+    "sha256": "3e467d29c355e81a21e845bfe5c265241c8eba1c2a6b215b0a89ba10013a3ee5"
+  },
+  "ok.csv": {
+    "url": "https://data.openstates.org/people/current/ok.csv",
+    "sha256": "0bc86b912f7a9be279c02fcf03690adc61085af78fb60e419d073ceee2a5a3f4"
+  },
+  "or.csv": {
+    "url": "https://data.openstates.org/people/current/or.csv",
+    "sha256": "14688bc973f8405d63fd4083d721d54195244a6114fb2a632fcf57493be5ce46"
+  },
+  "pa.csv": {
+    "url": "https://data.openstates.org/people/current/pa.csv",
+    "sha256": "03cfef702b341ca47db304a337c9792bdc6a1790d9ed4f930aed286a9cee3675"
+  },
+  "ri.csv": {
+    "url": "https://data.openstates.org/people/current/ri.csv",
+    "sha256": "672b903de1adba11a91e66bbe72436e779fb5bdb88195803a8c51e97380f35f7"
+  },
+  "sc.csv": {
+    "url": "https://data.openstates.org/people/current/sc.csv",
+    "sha256": "48ae4261cf94fd3d3693cbabceddc9ea4003aec887a24a41cbc726c5ad414869"
+  },
+  "sd.csv": {
+    "url": "https://data.openstates.org/people/current/sd.csv",
+    "sha256": "29c58c346c83d22b9cff8ae7fa22e44a0bee489d98d2a18979c42353a21f3b85"
+  },
+  "tn.csv": {
+    "url": "https://data.openstates.org/people/current/tn.csv",
+    "sha256": "65617cccbfb94058e22de16219bd84745ccc4cb171bf434e6c029961ec7e910a"
+  },
+  "tx.csv": {
+    "url": "https://data.openstates.org/people/current/tx.csv",
+    "sha256": "09703ceab0a55d62525a48e16db048d0437edda03244be0f6b5f4bb6c9d1defa"
+  },
+  "ut.csv": {
+    "url": "https://data.openstates.org/people/current/ut.csv",
+    "sha256": "2d09d4e0141eca1db8771b180fe70495fbed45a5e5eab06714b6dab3c19dff59"
+  },
+  "va.csv": {
+    "url": "https://data.openstates.org/people/current/va.csv",
+    "sha256": "0e1510bc9c85a10d9b72364aae61bb306fbf115f506864b8c38f0fe61cde6f76"
+  },
+  "vt.csv": {
+    "url": "https://data.openstates.org/people/current/vt.csv",
+    "sha256": "aa8d4c40bb3d46c697f14b12f9c0a34a4436d7f1b09cbe034f7f85dbb3294408"
+  },
+  "wa.csv": {
+    "url": "https://data.openstates.org/people/current/wa.csv",
+    "sha256": "6178873de8fb5c5d634043a4992493124171853973e7401085318cf685a79453"
+  },
+  "wi.csv": {
+    "url": "https://data.openstates.org/people/current/wi.csv",
+    "sha256": "378f66ab906302649559242814f8369e06abd050496570c8fe5b0eaed278964b"
+  },
+  "wv.csv": {
+    "url": "https://data.openstates.org/people/current/wv.csv",
+    "sha256": "803bc7fb715aedac9144809a0c4645acfece5623c128989db947c78c8756f9b9"
+  },
+  "wy.csv": {
+    "url": "https://data.openstates.org/people/current/wy.csv",
+    "sha256": "3c8680377a3f2e86249948be4066ad91e7c6b1f480e5a5cc82d7442d10147837"
+  }
+}

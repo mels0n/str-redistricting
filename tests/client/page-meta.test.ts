@@ -26,6 +26,13 @@ describe('PAGE_META', () => {
     expect(document.title).toBe(PAGE_META.privacy.title);
   });
 
+  it('titles the Take action page', async () => {
+    const { createActPage } = await import('../../src/client/pages/act');
+    createActPage(null);
+    expect(document.title).toBe('Take action | Fair Maps');
+    expect(PAGE_META.act.path).toBe('/act');
+  });
+
   it('keeps the literal page titles', () => {
     createHowPage({ page: 'how', section: null });
     expect(document.title).toBe('How the districts are drawn | Fair Maps');

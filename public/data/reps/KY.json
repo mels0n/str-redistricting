@@ -1,0 +1,2186 @@
+{
+  "state": "KY",
+  "generatedFrom": {
+    "legislators-current.json": "ae8cb9477c48715df71a7d860854229d799dc90a254d61badc1efb770f892b2c",
+    "legislators-social-media.json": "c6eca1fcdb3a89901335eed51ca061daa4b60ad3243969a127e913bb9657fbc5",
+    "ky.csv": "9262427807944c3918fffd494e5e6da4807dab07963854c47c6787130bcf56df"
+  },
+  "byKey": {
+    "KY:us-senate:state": [
+      {
+        "id": "M000355",
+        "name": "Mitch McConnell",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.mcconnell.senate.gov/public/index.cfm?p=contact",
+        "email": null,
+        "phone": "202-224-2541",
+        "address": "317 Russell Senate Office Building Washington DC 20510",
+        "website": "https://www.mcconnell.senate.gov",
+        "social": {
+          "x": "McConnellPress",
+          "facebook": "mitchmcconnell",
+          "instagram": "mcconnellpress"
+        }
+      },
+      {
+        "id": "P000603",
+        "name": "Rand Paul",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.paul.senate.gov/connect/email-rand",
+        "email": null,
+        "phone": "202-224-4343",
+        "address": "295 Russell Senate Office Building Washington DC 20510",
+        "website": "https://www.paul.senate.gov",
+        "social": {
+          "x": "SenRandPaul",
+          "facebook": "SenatorRandPaul",
+          "instagram": "senatorrandpaul"
+        }
+      }
+    ],
+    "KY:us-house:02": [
+      {
+        "id": "G000558",
+        "name": "Brett Guthrie",
+        "office": "us-house",
+        "districtCode": "02",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-3501",
+        "address": "2161 Rayburn House Office Building Washington DC 20515-1702",
+        "website": "https://guthrie.house.gov",
+        "social": {
+          "x": "RepGuthrie",
+          "facebook": "CongressmanGuthrie",
+          "instagram": "repguthrie"
+        }
+      }
+    ],
+    "KY:us-house:05": [
+      {
+        "id": "R000395",
+        "name": "Harold Rogers",
+        "office": "us-house",
+        "districtCode": "05",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4601",
+        "address": "2406 Rayburn House Office Building Washington DC 20515-1705",
+        "website": "https://halrogers.house.gov",
+        "social": {
+          "x": "RepHalRogers",
+          "facebook": "CongressmanHalRogers",
+          "instagram": "rephalrogers"
+        }
+      }
+    ],
+    "KY:us-house:04": [
+      {
+        "id": "M001184",
+        "name": "Thomas Massie",
+        "office": "us-house",
+        "districtCode": "04",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-3465",
+        "address": "2371 Rayburn House Office Building Washington DC 20515-1704",
+        "website": "https://massie.house.gov",
+        "social": {
+          "x": "RepThomasMassie",
+          "facebook": "RepThomasMassie",
+          "instagram": "repthomasmassie"
+        }
+      }
+    ],
+    "KY:us-house:06": [
+      {
+        "id": "B001282",
+        "name": "Andy Barr",
+        "office": "us-house",
+        "districtCode": "06",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4706",
+        "address": "2430 Rayburn House Office Building Washington DC 20515-1706",
+        "website": "https://barr.house.gov",
+        "social": {
+          "x": "RepAndyBarr",
+          "facebook": "RepAndyBarr",
+          "instagram": "RepAndyBarr"
+        }
+      }
+    ],
+    "KY:us-house:01": [
+      {
+        "id": "C001108",
+        "name": "James Comer",
+        "office": "us-house",
+        "districtCode": "01",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-3115",
+        "address": "2410 Rayburn House Office Building Washington DC 20515-1701",
+        "website": "https://comer.house.gov",
+        "social": {
+          "x": "RepJamesComer",
+          "facebook": "congressmancomer",
+          "instagram": "congressmancomer"
+        }
+      }
+    ],
+    "KY:us-house:03": [
+      {
+        "id": "M001220",
+        "name": "Morgan McGarvey",
+        "office": "us-house",
+        "districtCode": "03",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5401",
+        "address": "1527 Longworth House Office Building Washington DC 20515-1703",
+        "website": "https://mcgarvey.house.gov",
+        "social": {
+          "x": "RepMcGarvey",
+          "facebook": "RepMcGarvey",
+          "instagram": "repmcgarvey"
+        }
+      }
+    ],
+    "KY:state-house:098": [
+      {
+        "id": "ocd-person/1439bad2-f18b-49e2-94ca-21f2b563dfdd",
+        "name": "Aaron Thompson",
+        "office": "state-house",
+        "districtCode": "098",
+        "contactUrl": null,
+        "email": "aaron.thompson@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=98",
+        "social": {}
+      }
+    ],
+    "KY:state-house:087": [
+      {
+        "id": "ocd-person/e7f7a316-4eb0-4be9-adf9-e7067b20dcfc",
+        "name": "Adam Bowling",
+        "office": "state-house",
+        "districtCode": "087",
+        "contactUrl": null,
+        "email": "adam.bowling@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=87",
+        "social": {
+          "x": "ABowlingKY"
+        }
+      }
+    ],
+    "KY:state-house:045": [
+      {
+        "id": "ocd-person/1ce736fd-c1ca-4366-a235-9509fdb2dcaf",
+        "name": "Adam Moore",
+        "office": "state-house",
+        "districtCode": "045",
+        "contactUrl": null,
+        "email": "adam.moore@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=45",
+        "social": {}
+      }
+    ],
+    "KY:state-house:093": [
+      {
+        "id": "ocd-person/943724d5-5e02-4d0f-bd79-a74e30f18d1a",
+        "name": "Adrielle Camuel",
+        "office": "state-house",
+        "districtCode": "093",
+        "contactUrl": null,
+        "email": "adrielle.camuel@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=93",
+        "social": {
+          "x": "camuelforky"
+        }
+      }
+    ],
+    "KY:state-house:046": [
+      {
+        "id": "ocd-person/dfaa3769-decc-4c1c-9c0b-7195153ab6c8",
+        "name": "Al Gentry",
+        "office": "state-house",
+        "districtCode": "046",
+        "contactUrl": null,
+        "email": "al.gentry@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=46",
+        "social": {
+          "x": "kyalgentry"
+        }
+      }
+    ],
+    "KY:state-house:021": [
+      {
+        "id": "ocd-person/f7bb262c-026f-4af2-9e17-939692c96e89",
+        "name": "Amy Neighbors",
+        "office": "state-house",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "amy.neighbors@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=21",
+        "social": {
+          "x": "aneigh"
+        }
+      }
+    ],
+    "KY:state-house:076": [
+      {
+        "id": "ocd-person/2b9ac6b5-8979-40b1-b2d1-8241b93061a7",
+        "name": "Anne Donworth",
+        "office": "state-house",
+        "districtCode": "076",
+        "contactUrl": null,
+        "email": "anne.donworth@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=76",
+        "social": {}
+      }
+    ],
+    "KY:state-house:095": [
+      {
+        "id": "ocd-person/6bc2a8c3-3370-4586-b0b7-a5028f336d12",
+        "name": "Ashley Laferty",
+        "office": "state-house",
+        "districtCode": "095",
+        "contactUrl": null,
+        "email": "ashley.tackettlaferty@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=95",
+        "social": {}
+      }
+    ],
+    "KY:state-house:044": [
+      {
+        "id": "ocd-person/c8a9f2cf-9a79-45f6-94df-346b546e1d9b",
+        "name": "Beverly Chester-Burton",
+        "office": "state-house",
+        "districtCode": "044",
+        "contactUrl": null,
+        "email": "beverly.chesterburton@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=44",
+        "social": {}
+      }
+    ],
+    "KY:state-house:091": [
+      {
+        "id": "ocd-person/91eec267-436a-49a5-9d41-b6b2632d0a51",
+        "name": "Bill Wesley",
+        "office": "state-house",
+        "districtCode": "091",
+        "contactUrl": null,
+        "email": "bill.wesley@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=91",
+        "social": {}
+      }
+    ],
+    "KY:state-house:097": [
+      {
+        "id": "ocd-person/22e056d2-728a-425a-a0a1-19e0e5cc59cb",
+        "name": "Bobby McCool",
+        "office": "state-house",
+        "districtCode": "097",
+        "contactUrl": null,
+        "email": "bobby.mccool@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=97",
+        "social": {}
+      }
+    ],
+    "KY:state-house:050": [
+      {
+        "id": "ocd-person/70d58905-dd36-4e9a-b281-639600e6b945",
+        "name": "Candy Massaroni",
+        "office": "state-house",
+        "districtCode": "050",
+        "contactUrl": null,
+        "email": "candy.massaroni@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=50",
+        "social": {}
+      }
+    ],
+    "KY:state-house:079": [
+      {
+        "id": "ocd-person/51dc7033-7377-44d4-a5d8-7bd36b371896",
+        "name": "Chad Aull",
+        "office": "state-house",
+        "districtCode": "079",
+        "contactUrl": null,
+        "email": "chad.aull@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=79",
+        "social": {
+          "x": "chadaull"
+        }
+      }
+    ],
+    "KY:state-house:006": [
+      {
+        "id": "ocd-person/db36edd8-6c2f-4441-aa30-5b4dc48b3357",
+        "name": "Chris Freeland",
+        "office": "state-house",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "chris.freeland@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=6",
+        "social": {}
+      }
+    ],
+    "KY:state-house:084": [
+      {
+        "id": "ocd-person/6843e90b-a30a-4dbf-885c-7321ccc8f73f",
+        "name": "Chris Fugate",
+        "office": "state-house",
+        "districtCode": "084",
+        "contactUrl": null,
+        "email": "chris.fugate@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=84",
+        "social": {}
+      }
+    ],
+    "KY:state-house:029": [
+      {
+        "id": "ocd-person/7da80b33-fc71-4d7f-8c96-e6068bd4c19b",
+        "name": "Chris Lewis",
+        "office": "state-house",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "chris.lewis@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=29",
+        "social": {}
+      }
+    ],
+    "KY:state-house:013": [
+      {
+        "id": "ocd-person/ed9307f1-cd95-4004-9e72-46970ea64adf",
+        "name": "D.J. Johnson",
+        "office": "state-house",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "dj.johnson@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=13",
+        "social": {}
+      }
+    ],
+    "KY:state-house:054": [
+      {
+        "id": "ocd-person/d93e2493-49a8-4395-b7e0-5842893344e1",
+        "name": "Daniel Elliott",
+        "office": "state-house",
+        "districtCode": "054",
+        "contactUrl": null,
+        "email": "daniel.elliott@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=54",
+        "social": {}
+      }
+    ],
+    "KY:state-house:056": [
+      {
+        "id": "ocd-person/c88c6162-de24-4d8b-98a9-f1788390d043",
+        "name": "Dan Fister",
+        "office": "state-house",
+        "districtCode": "056",
+        "contactUrl": null,
+        "email": "daniel.fister@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=56",
+        "social": {}
+      }
+    ],
+    "KY:state-house:030": [
+      {
+        "id": "ocd-person/d4dd968d-1508-476b-bde1-7504a47288f0",
+        "name": "Daniel Grossberg",
+        "office": "state-house",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "daniel.grossberg@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=30",
+        "social": {
+          "x": "Grossberg4KY"
+        }
+      }
+    ],
+    "KY:state-house:074": [
+      {
+        "id": "ocd-person/ebd5f90d-e3cc-45ef-97ff-d51ff1685bcc",
+        "name": "David Hale",
+        "office": "state-house",
+        "districtCode": "074",
+        "contactUrl": null,
+        "email": "david.hale@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=74",
+        "social": {}
+      }
+    ],
+    "KY:state-house:080": [
+      {
+        "id": "ocd-person/3643503c-1da8-4a57-90f1-54f063b1d25e",
+        "name": "David Meade",
+        "office": "state-house",
+        "districtCode": "080",
+        "contactUrl": null,
+        "email": "david.meade@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=80",
+        "social": {
+          "x": "DavidMeadeKY"
+        }
+      }
+    ],
+    "KY:state-house:059": [
+      {
+        "id": "ocd-person/bf8bfdc3-66f2-417c-8178-9ed16bf8843f",
+        "name": "David Osborne",
+        "office": "state-house",
+        "districtCode": "059",
+        "contactUrl": null,
+        "email": "david.osborne@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=59",
+        "social": {
+          "x": "reposborne"
+        }
+      }
+    ],
+    "KY:state-house:081": [
+      {
+        "id": "ocd-person/96ab59e2-44c2-4c3d-ac8a-1ee24acc5b55",
+        "name": "Deanna Gordon",
+        "office": "state-house",
+        "districtCode": "081",
+        "contactUrl": null,
+        "email": "deanna.gordon@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=81",
+        "social": {
+          "x": "deanna_ky"
+        }
+      }
+    ],
+    "KY:state-house:090": [
+      {
+        "id": "ocd-person/60ef609e-8aed-4698-a626-664f536a6122",
+        "name": "Derek Lewis",
+        "office": "state-house",
+        "districtCode": "090",
+        "contactUrl": null,
+        "email": "derek.lewis@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=90",
+        "social": {}
+      }
+    ],
+    "KY:state-house:037": [
+      {
+        "id": "ocd-person/67b233b8-474d-49ce-81a8-7f48eec3c79a",
+        "name": "Emily Callaway",
+        "office": "state-house",
+        "districtCode": "037",
+        "contactUrl": null,
+        "email": "emily.callaway@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=37",
+        "social": {
+          "x": "Miz_Emc"
+        }
+      }
+    ],
+    "KY:state-house:057": [
+      {
+        "id": "ocd-person/4ce23404-165d-4c96-9130-56acaf2e73a7",
+        "name": "Erika Hancock",
+        "office": "state-house",
+        "districtCode": "057",
+        "contactUrl": null,
+        "email": "erika.hancock@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=57",
+        "social": {}
+      }
+    ],
+    "KY:state-house:047": [
+      {
+        "id": "ocd-person/4342be62-2791-4d48-b601-43949239cd94",
+        "name": "Felicia Rabourn",
+        "office": "state-house",
+        "districtCode": "047",
+        "contactUrl": null,
+        "email": "felicia.rabourn@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=47",
+        "social": {}
+      }
+    ],
+    "KY:state-house:077": [
+      {
+        "id": "ocd-person/bb3e5fee-3bda-4a5d-95ee-dc31ff9defed",
+        "name": "George Brown",
+        "office": "state-house",
+        "districtCode": "077",
+        "contactUrl": null,
+        "email": "george.brown@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=77",
+        "social": {
+          "x": "GeorgeBrownky77"
+        }
+      }
+    ],
+    "KY:state-house:011": [
+      {
+        "id": "ocd-person/fded60a9-de72-47ba-bf20-90dddd9f9138",
+        "name": "J.T. Payne",
+        "office": "state-house",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "jt.payne@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=11",
+        "social": {}
+      }
+    ],
+    "KY:state-house:053": [
+      {
+        "id": "ocd-person/d6c9aa9b-3c6b-411a-bff1-fc1c38d4bce0",
+        "name": "James Tipton",
+        "office": "state-house",
+        "districtCode": "053",
+        "contactUrl": null,
+        "email": "james.tipton@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=53",
+        "social": {
+          "x": "JamesATipton"
+        }
+      }
+    ],
+    "KY:state-house:028": [
+      {
+        "id": "ocd-person/b86f4912-39b1-44a0-90a8-0b233921a094",
+        "name": "Jared Bauman",
+        "office": "state-house",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "jared.bauman@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=28",
+        "social": {}
+      }
+    ],
+    "KY:state-house:033": [
+      {
+        "id": "ocd-person/c56fc398-975e-47b9-919a-fbdd0c9f721d",
+        "name": "Jason Nemes",
+        "office": "state-house",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "jason.nemes@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=33",
+        "social": {
+          "x": "jmnemes"
+        }
+      }
+    ],
+    "KY:state-house:016": [
+      {
+        "id": "ocd-person/3fac3a9c-78ad-4b24-8483-f1786fac9c9e",
+        "name": "Jason Petrie",
+        "office": "state-house",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "jason.petrie@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=16",
+        "social": {}
+      }
+    ],
+    "KY:state-house:058": [
+      {
+        "id": "ocd-person/2c5c20cc-807b-44c8-a1a9-582fe69ca87c",
+        "name": "Jennifer Decker",
+        "office": "state-house",
+        "districtCode": "058",
+        "contactUrl": null,
+        "email": "jennifer.decker@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=58",
+        "social": {}
+      }
+    ],
+    "KY:state-house:012": [
+      {
+        "id": "ocd-person/f40ed494-ce37-43f4-b323-1bc2b6197831",
+        "name": "Jim Gooch",
+        "office": "state-house",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "jim.gooch@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=12",
+        "social": {}
+      }
+    ],
+    "KY:state-house:092": [
+      {
+        "id": "ocd-person/7cda4251-f26b-4bab-bf88-ed61b947018e",
+        "name": "John Blanton",
+        "office": "state-house",
+        "districtCode": "092",
+        "contactUrl": null,
+        "email": "john.blanton@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=92",
+        "social": {
+          "x": "repblanton92"
+        }
+      }
+    ],
+    "KY:state-house:036": [
+      {
+        "id": "ocd-person/2f3255d6-7801-4089-a275-f01e00444ee0",
+        "name": "John Hodgson",
+        "office": "state-house",
+        "districtCode": "036",
+        "contactUrl": null,
+        "email": "john.hodgson@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=36",
+        "social": {}
+      }
+    ],
+    "KY:state-house:083": [
+      {
+        "id": "ocd-person/ff91cf3b-77a1-47b0-81b3-1c18f006349a",
+        "name": "Josh Branscum",
+        "office": "state-house",
+        "districtCode": "083",
+        "contactUrl": null,
+        "email": "josh.branscum@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=83",
+        "social": {
+          "x": "BranscumforKY"
+        }
+      }
+    ],
+    "KY:state-house:071": [
+      {
+        "id": "ocd-person/a110d6ba-f17f-4847-b0e9-327c82cd7122",
+        "name": "Josh Bray",
+        "office": "state-house",
+        "districtCode": "071",
+        "contactUrl": null,
+        "email": "josh.bray@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=71",
+        "social": {
+          "x": "BrayforKy"
+        }
+      }
+    ],
+    "KY:state-house:010": [
+      {
+        "id": "ocd-person/f218fb5a-2336-4f82-b192-acc3893dabdf",
+        "name": "Josh Calloway",
+        "office": "state-house",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "josh.calloway@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=10",
+        "social": {}
+      }
+    ],
+    "KY:state-house:042": [
+      {
+        "id": "ocd-person/118003d1-9f48-4ef8-bbd0-748d17ebb699",
+        "name": "Joshua Watkins",
+        "office": "state-house",
+        "districtCode": "042",
+        "contactUrl": null,
+        "email": "joshua.watkins@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=42",
+        "social": {}
+      }
+    ],
+    "KY:state-house:048": [
+      {
+        "id": "ocd-person/d7b86c25-2f90-4d8b-a92e-4b4ef5dd0512",
+        "name": "Ken Fleming",
+        "office": "state-house",
+        "districtCode": "048",
+        "contactUrl": null,
+        "email": "ken.fleming@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=48",
+        "social": {}
+      }
+    ],
+    "KY:state-house:052": [
+      {
+        "id": "ocd-person/7aa13bf4-126a-4901-bfeb-2244bd2d3cc3",
+        "name": "Ken Upchurch",
+        "office": "state-house",
+        "districtCode": "052",
+        "contactUrl": null,
+        "email": "ken.upchurch@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=52",
+        "social": {
+          "x": "KenUpchurch"
+        }
+      }
+    ],
+    "KY:state-house:020": [
+      {
+        "id": "ocd-person/0e905c68-fbcc-4392-865e-a4dbc5d2ea42",
+        "name": "Kevin Jackson",
+        "office": "state-house",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "kevin.jackson@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=20",
+        "social": {}
+      }
+    ],
+    "KY:state-house:063": [
+      {
+        "id": "ocd-person/27b951aa-c951-4160-9373-721ca3b6a9db",
+        "name": "Kim Banta",
+        "office": "state-house",
+        "districtCode": "063",
+        "contactUrl": null,
+        "email": "kim.banta@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=63",
+        "social": {}
+      }
+    ],
+    "KY:state-house:002": [
+      {
+        "id": "ocd-person/5cb48d67-2db5-4b6e-89b1-1509110bd708",
+        "name": "Kim Holloway",
+        "office": "state-house",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "kim.holloway@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=2",
+        "social": {}
+      }
+    ],
+    "KY:state-house:055": [
+      {
+        "id": "ocd-person/cd95ada0-14f0-4b63-aeea-f4a92525eeaf",
+        "name": "Kim King",
+        "office": "state-house",
+        "districtCode": "055",
+        "contactUrl": null,
+        "email": "kim.king@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=55",
+        "social": {
+          "x": "KimberlyKingGOP"
+        }
+      }
+    ],
+    "KY:state-house:064": [
+      {
+        "id": "ocd-person/92511255-ca06-4241-bd91-0cafd92e3d5c",
+        "name": "Kim Moser",
+        "office": "state-house",
+        "districtCode": "064",
+        "contactUrl": null,
+        "email": "kimberly.moser@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=64",
+        "social": {}
+      }
+    ],
+    "KY:state-house:075": [
+      {
+        "id": "ocd-person/8048f367-9d46-4be5-9cb8-7a249d06cb13",
+        "name": "Lindsey Burke",
+        "office": "state-house",
+        "districtCode": "075",
+        "contactUrl": null,
+        "email": "lindsey.burke@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=75",
+        "social": {}
+      }
+    ],
+    "KY:state-house:035": [
+      {
+        "id": "ocd-person/6dd815a4-fc3c-4e79-8cd5-a574d8cf0af8",
+        "name": "Lisa Willner",
+        "office": "state-house",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "lisa.willner@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=35",
+        "social": {
+          "x": "lgwillner"
+        }
+      }
+    ],
+    "KY:state-house:060": [
+      {
+        "id": "ocd-person/1ad4657b-84d4-4ce1-864e-2f1f75686cc7",
+        "name": "Marianne Proctor",
+        "office": "state-house",
+        "districtCode": "060",
+        "contactUrl": null,
+        "email": "marianne.proctor@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=60",
+        "social": {}
+      }
+    ],
+    "KY:state-house:078": [
+      {
+        "id": "ocd-person/b1a31b02-5d89-42be-97d4-7d08d99161d8",
+        "name": "Mark Hart",
+        "office": "state-house",
+        "districtCode": "078",
+        "contactUrl": null,
+        "email": "mark.hart@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=78",
+        "social": {}
+      }
+    ],
+    "KY:state-house:005": [
+      {
+        "id": "ocd-person/ad063b4f-a860-48c3-abfb-18e977a21caf",
+        "name": "Mary Beth Imes",
+        "office": "state-house",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "marybeth.imes@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=5",
+        "social": {}
+      }
+    ],
+    "KY:state-house:041": [
+      {
+        "id": "ocd-person/86342422-7a28-4631-b3d7-3912eb444ffd",
+        "name": "Mary Lou Marzian",
+        "office": "state-house",
+        "districtCode": "041",
+        "contactUrl": null,
+        "email": "marylou.marzian@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=34",
+        "social": {}
+      }
+    ],
+    "KY:state-house:067": [
+      {
+        "id": "ocd-person/7afd2d36-9415-44ff-b96d-0010cf4f864e",
+        "name": "Matt Lehman",
+        "office": "state-house",
+        "districtCode": "067",
+        "contactUrl": null,
+        "email": "matt.lehman@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=67",
+        "social": {}
+      }
+    ],
+    "KY:state-house:039": [
+      {
+        "id": "ocd-person/9a6d1b5a-6cb4-421e-b7c2-2cb27cfa4cc9",
+        "name": "Matt Lockett",
+        "office": "state-house",
+        "districtCode": "039",
+        "contactUrl": null,
+        "email": "matt.lockett@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=39",
+        "social": {}
+      }
+    ],
+    "KY:state-house:072": [
+      {
+        "id": "ocd-person/1b8bc567-b895-4fae-8b3f-7a7160ca5138",
+        "name": "Matt Koch",
+        "office": "state-house",
+        "districtCode": "072",
+        "contactUrl": null,
+        "email": "matthew.koch@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=72",
+        "social": {}
+      }
+    ],
+    "KY:state-house:019": [
+      {
+        "id": "ocd-person/f013115a-6bbc-48ac-aab4-7949dd902701",
+        "name": "Michael Meredith",
+        "office": "state-house",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "michael.meredith@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=19",
+        "social": {}
+      }
+    ],
+    "KY:state-house:051": [
+      {
+        "id": "ocd-person/3e417407-423f-45d3-b18a-c2845cd1ec57",
+        "name": "Sarge Pollock",
+        "office": "state-house",
+        "districtCode": "051",
+        "contactUrl": null,
+        "email": "sarge.pollock@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=51",
+        "social": {}
+      }
+    ],
+    "KY:state-house:068": [
+      {
+        "id": "ocd-person/34a39b2d-1ff6-4ced-adf2-32f92fa781b1",
+        "name": "Mike Clines",
+        "office": "state-house",
+        "districtCode": "068",
+        "contactUrl": null,
+        "email": "mike.clines@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=68",
+        "social": {}
+      }
+    ],
+    "KY:state-house:094": [
+      {
+        "id": "ocd-person/3f4b9459-8c62-4d89-b2d6-9d0e951ed24f",
+        "name": "Mitch Whitaker",
+        "office": "state-house",
+        "districtCode": "094",
+        "contactUrl": null,
+        "email": "mitchum.whitaker@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=94",
+        "social": {}
+      }
+    ],
+    "KY:state-house:009": [
+      {
+        "id": "ocd-person/c6904810-37a8-428d-8342-7831d7dc100c",
+        "name": "Myron Dossett",
+        "office": "state-house",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "myron.dossett@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=9",
+        "social": {}
+      }
+    ],
+    "KY:state-house:027": [
+      {
+        "id": "ocd-person/911af3e2-7435-4f82-a477-99cb078ea99b",
+        "name": "Nancy Tate",
+        "office": "state-house",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "nancy.tate@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=27",
+        "social": {}
+      }
+    ],
+    "KY:state-house:082": [
+      {
+        "id": "ocd-person/716d7b2c-0576-4bf8-b5a9-b6fa2c1f8024",
+        "name": "Nick Wilson",
+        "office": "state-house",
+        "districtCode": "082",
+        "contactUrl": null,
+        "email": "nick.wilson@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=82",
+        "social": {}
+      }
+    ],
+    "KY:state-house:040": [
+      {
+        "id": "ocd-person/bee3f0dd-450a-41a2-b9b9-e056d0a0f14d",
+        "name": "Nima Kulkarni",
+        "office": "state-house",
+        "districtCode": "040",
+        "contactUrl": null,
+        "email": "nima.kulkarni@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=40",
+        "social": {}
+      }
+    ],
+    "KY:state-house:043": [
+      {
+        "id": "ocd-person/897f811e-273d-4fc1-9268-0087e57444cf",
+        "name": "Pamela Stevenson",
+        "office": "state-house",
+        "districtCode": "043",
+        "contactUrl": null,
+        "email": "pamela.stevenson@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=43",
+        "social": {}
+      }
+    ],
+    "KY:state-house:096": [
+      {
+        "id": "ocd-person/8ae56ea2-3f37-490b-a3dc-0dec9fe85c7c",
+        "name": "Patrick Flannery",
+        "office": "state-house",
+        "districtCode": "096",
+        "contactUrl": null,
+        "email": "patrick.flannery@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=96",
+        "social": {}
+      }
+    ],
+    "KY:state-house:026": [
+      {
+        "id": "ocd-person/eddce954-34a0-4b9a-aaca-6114e6bf418f",
+        "name": "Peyton Griffee",
+        "office": "state-house",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "peyton.griffee@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=26",
+        "social": {}
+      }
+    ],
+    "KY:state-house:038": [
+      {
+        "id": "ocd-person/1217ac1a-4ca4-4fe4-953b-572beb008bed",
+        "name": "Rachel Roarx",
+        "office": "state-house",
+        "districtCode": "038",
+        "contactUrl": null,
+        "email": "rachel.roarx@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=38",
+        "social": {
+          "x": "rachelroarx"
+        }
+      }
+    ],
+    "KY:state-house:003": [
+      {
+        "id": "ocd-person/c033dd77-f8d7-4558-8582-9e0088ae5406",
+        "name": "Randy Bridges",
+        "office": "state-house",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "randy.bridges@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=3",
+        "social": {}
+      }
+    ],
+    "KY:state-house:015": [
+      {
+        "id": "ocd-person/be2fd4e3-6dfe-4d54-8c45-631eac63bc27",
+        "name": "Rebecca Raymer",
+        "office": "state-house",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "rebecca.raymer@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=15",
+        "social": {
+          "x": "raymerforky"
+        }
+      }
+    ],
+    "KY:state-house:099": [
+      {
+        "id": "ocd-person/29b248e1-4033-41f6-ba30-136f2aa55045",
+        "name": "Richard White",
+        "office": "state-house",
+        "districtCode": "099",
+        "contactUrl": null,
+        "email": "richard.white@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=99",
+        "social": {
+          "x": "RichardWhiteKY"
+        }
+      }
+    ],
+    "KY:state-house:017": [
+      {
+        "id": "ocd-person/ad2d1d2a-b838-4727-ac0f-a6fb64298b14",
+        "name": "Robert Duvall",
+        "office": "state-house",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "robert.duvall@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=17",
+        "social": {}
+      }
+    ],
+    "KY:state-house:024": [
+      {
+        "id": "ocd-person/af59339a-aedf-4d1c-94b6-de071030773b",
+        "name": "Ryan Bivens",
+        "office": "state-house",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "ryan.bivens@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=24",
+        "social": {}
+      }
+    ],
+    "KY:state-house:073": [
+      {
+        "id": "ocd-person/718ec3d2-325d-4ddf-b72b-728cea857222",
+        "name": "Ryan Dotson",
+        "office": "state-house",
+        "districtCode": "073",
+        "contactUrl": null,
+        "email": "ryan.dotson@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=73",
+        "social": {}
+      }
+    ],
+    "KY:state-house:018": [
+      {
+        "id": "ocd-person/d3176059-683c-48be-9c43-a57da08a2f49",
+        "name": "Samara Heavrin",
+        "office": "state-house",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "samara.heavrin@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=18",
+        "social": {}
+      }
+    ],
+    "KY:state-house:034": [
+      {
+        "id": "ocd-person/bb3f614a-7fa0-4e55-a76b-dedfea0fdaa9",
+        "name": "Sarah Stalker",
+        "office": "state-house",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "sarah.stalker@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=34",
+        "social": {
+          "x": "sarahforky"
+        }
+      }
+    ],
+    "KY:state-house:061": [
+      {
+        "id": "ocd-person/a8988de2-d65f-461c-96d1-4f1cddc6a969",
+        "name": "Savannah Maddox",
+        "office": "state-house",
+        "districtCode": "061",
+        "contactUrl": null,
+        "email": "savannah.maddox@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=61",
+        "social": {
+          "x": "SavannahLMaddox"
+        }
+      }
+    ],
+    "KY:state-house:014": [
+      {
+        "id": "ocd-person/07773b3f-387f-4e4e-ba79-571940c186f0",
+        "name": "Scott Lewis",
+        "office": "state-house",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "scott.lewis@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=14",
+        "social": {}
+      }
+    ],
+    "KY:state-house:100": [
+      {
+        "id": "ocd-person/65469c71-edc2-4c9f-87da-bcf4d3277591",
+        "name": "Scott Sharp",
+        "office": "state-house",
+        "districtCode": "100",
+        "contactUrl": null,
+        "email": "scott.sharp@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=100",
+        "social": {}
+      }
+    ],
+    "KY:state-house:085": [
+      {
+        "id": "ocd-person/2eab3a78-154d-43cd-8278-73ad2e166b08",
+        "name": "Shane Baker",
+        "office": "state-house",
+        "districtCode": "085",
+        "contactUrl": null,
+        "email": "shane.baker@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=85",
+        "social": {}
+      }
+    ],
+    "KY:state-house:022": [
+      {
+        "id": "ocd-person/5a327e3b-ae91-4279-ae17-9214aad32fa9",
+        "name": "Shawn McPherson",
+        "office": "state-house",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "shawn.mcpherson@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=22",
+        "social": {}
+      }
+    ],
+    "KY:state-house:065": [
+      {
+        "id": "ocd-person/737ae037-a61c-4649-9c08-bf5fe052ff36",
+        "name": "Stephanie Dietz",
+        "office": "state-house",
+        "districtCode": "065",
+        "contactUrl": null,
+        "email": "stephanie.dietz@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=65",
+        "social": {
+          "x": "sdietz2"
+        }
+      }
+    ],
+    "KY:state-house:025": [
+      {
+        "id": "ocd-person/e0860aa8-43ba-4bf2-94d7-3632c7375ab6",
+        "name": "Steve Bratcher",
+        "office": "state-house",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "steve.bratcher@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=25",
+        "social": {}
+      }
+    ],
+    "KY:state-house:023": [
+      {
+        "id": "ocd-person/817df40b-8e76-460d-81cf-63277866268a",
+        "name": "Steve Riley",
+        "office": "state-house",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "steve.riley@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=23",
+        "social": {}
+      }
+    ],
+    "KY:state-house:069": [
+      {
+        "id": "ocd-person/a41c47ce-cbfa-49e3-8a21-5666f24ef96a",
+        "name": "Steven Doan",
+        "office": "state-house",
+        "districtCode": "069",
+        "contactUrl": null,
+        "email": "steven.doan@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=69",
+        "social": {
+          "x": "stevedoanlaw"
+        }
+      }
+    ],
+    "KY:state-house:001": [
+      {
+        "id": "ocd-person/f73e54d0-9547-4688-b97d-4818b104d160",
+        "name": "Steven Rudy",
+        "office": "state-house",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "steven.rudy@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=1",
+        "social": {
+          "x": "kyrudy"
+        }
+      }
+    ],
+    "KY:state-house:031": [
+      {
+        "id": "ocd-person/c85ace8f-67e3-438d-afeb-e6442aec43cd",
+        "name": "Susan Witten",
+        "office": "state-house",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "susan.witten@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=31",
+        "social": {
+          "x": "catfaninthevill"
+        }
+      }
+    ],
+    "KY:state-house:007": [
+      {
+        "id": "ocd-person/92576283-508e-4613-b1a0-3d227edf4068",
+        "name": "Suzanne Miles",
+        "office": "state-house",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "suzanne.miles@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=7",
+        "social": {
+          "x": "MilesForKY"
+        }
+      }
+    ],
+    "KY:state-house:066": [
+      {
+        "id": "ocd-person/1c369689-ed04-484c-ab53-c50bd6011192",
+        "name": "T.J. Roberts",
+        "office": "state-house",
+        "districtCode": "066",
+        "contactUrl": null,
+        "email": "tj.roberts@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=66",
+        "social": {}
+      }
+    ],
+    "KY:state-house:049": [
+      {
+        "id": "ocd-person/7d2b01df-9356-4eaa-923f-144e3f229860",
+        "name": "Thomas Huff",
+        "office": "state-house",
+        "districtCode": "049",
+        "contactUrl": null,
+        "email": "thomas.huff@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=49",
+        "social": {}
+      }
+    ],
+    "KY:state-house:089": [
+      {
+        "id": "ocd-person/b2834b48-3186-4fbd-aa3e-daa1d38fa308",
+        "name": "Timmy Truett",
+        "office": "state-house",
+        "districtCode": "089",
+        "contactUrl": null,
+        "email": "timmy.truett@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=89",
+        "social": {}
+      }
+    ],
+    "KY:state-house:032": [
+      {
+        "id": "ocd-person/77db7bcf-dfa8-4365-bb3a-4ca0351a8368",
+        "name": "Tina Bojanowski",
+        "office": "state-house",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "tina.bojanowski@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=32",
+        "social": {
+          "x": "tinaforkentucky"
+        }
+      }
+    ],
+    "KY:state-house:086": [
+      {
+        "id": "ocd-person/5764151d-bf80-422b-bc46-93ac2be910cc",
+        "name": "Tom Smith",
+        "office": "state-house",
+        "districtCode": "086",
+        "contactUrl": null,
+        "email": "tom.smith@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=86",
+        "social": {}
+      }
+    ],
+    "KY:state-house:062": [
+      {
+        "id": "ocd-person/79a62906-5436-4ac8-adea-0c566273bbde",
+        "name": "Tony Hampton",
+        "office": "state-house",
+        "districtCode": "062",
+        "contactUrl": null,
+        "email": "tony.hampton@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=62",
+        "social": {}
+      }
+    ],
+    "KY:state-house:088": [
+      {
+        "id": "ocd-person/bc34f3ad-05ad-494c-bb80-bd2eb99e4fe9",
+        "name": "Vanessa Grossl",
+        "office": "state-house",
+        "districtCode": "088",
+        "contactUrl": null,
+        "email": "vanessa.grossl@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=88",
+        "social": {}
+      }
+    ],
+    "KY:state-house:004": [
+      {
+        "id": "ocd-person/66619aa2-a521-4318-b5d7-b4c36954b43d",
+        "name": "Wade Williams",
+        "office": "state-house",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "wade.williams@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=4",
+        "social": {}
+      }
+    ],
+    "KY:state-house:008": [
+      {
+        "id": "ocd-person/ec846db3-c75b-4460-ba72-3e2b3fd9e04d",
+        "name": "Walker Thomas",
+        "office": "state-house",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "walker.thomas@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=8",
+        "social": {
+          "x": "walkerthomas_ky"
+        }
+      }
+    ],
+    "KY:state-house:070": [
+      {
+        "id": "ocd-person/3d3b33bc-8852-48fe-90cf-42ce9551424c",
+        "name": "William Lawrence",
+        "office": "state-house",
+        "districtCode": "070",
+        "contactUrl": null,
+        "email": "william.lawrence@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=70",
+        "social": {}
+      }
+    ],
+    "KY:state-senate:007": [
+      {
+        "id": "ocd-person/e46eb488-2e34-4f33-840f-917496473c64",
+        "name": "Aaron Reed",
+        "office": "state-senate",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "aaron.reed@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=107",
+        "social": {}
+      }
+    ],
+    "KY:state-senate:012": [
+      {
+        "id": "ocd-person/7c03bd44-8541-49b0-9794-a9e606c292ce",
+        "name": "Amanda Bledsoe",
+        "office": "state-senate",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "amanda.maysbledsoe@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=112",
+        "social": {
+          "x": "amandambledsoe"
+        }
+      }
+    ],
+    "KY:state-senate:030": [
+      {
+        "id": "ocd-person/209d5334-d4a2-45f3-b910-0cd52f96dd4e",
+        "name": "Brandon Smith",
+        "office": "state-senate",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "brandon.smith@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=130",
+        "social": {
+          "x": "Smithkysenate"
+        }
+      }
+    ],
+    "KY:state-senate:021": [
+      {
+        "id": "ocd-person/257271f3-68b1-4481-94e5-f98300493413",
+        "name": "Brandon Storm",
+        "office": "state-senate",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "brandon.storm@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=121",
+        "social": {}
+      }
+    ],
+    "KY:state-senate:019": [
+      {
+        "id": "ocd-person/8dbecabb-ef15-4925-8e50-26331e738a05",
+        "name": "Cassie Armstrong",
+        "office": "state-senate",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "cassie.armstrong@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=119",
+        "social": {
+          "x": "cassieforky"
+        }
+      }
+    ],
+    "KY:state-senate:023": [
+      {
+        "id": "ocd-person/b32a95c9-42ba-449b-8581-97b9cef73c6a",
+        "name": "Chris McDaniel",
+        "office": "state-senate",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "chris.mcdaniel@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=123",
+        "social": {
+          "x": "kychrismcdaniel"
+        }
+      }
+    ],
+    "KY:state-senate:003": [
+      {
+        "id": "ocd-person/3109e3ae-10c1-417e-bf7f-bf4f539bd3c8",
+        "name": "Craig Richardson",
+        "office": "state-senate",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "craig.richardson@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=103",
+        "social": {}
+      }
+    ],
+    "KY:state-senate:002": [
+      {
+        "id": "ocd-person/0ec7d376-4235-44e7-a6d7-d63962dff167",
+        "name": "Danny Carroll",
+        "office": "state-senate",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "danny.carroll@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=102",
+        "social": {
+          "x": "dannycarrollky"
+        }
+      }
+    ],
+    "KY:state-senate:009": [
+      {
+        "id": "ocd-person/5594a97f-7358-427e-af84-43150a21c97e",
+        "name": "David Givens",
+        "office": "state-senate",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "david.givens@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=109",
+        "social": {
+          "x": "kydavidgivens"
+        }
+      }
+    ],
+    "KY:state-senate:022": [
+      {
+        "id": "ocd-person/a7cd8577-c315-4bf0-b95f-3259ab7dfce7",
+        "name": "Don Douglas",
+        "office": "state-senate",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "donald.douglas@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=122",
+        "social": {}
+      }
+    ],
+    "KY:state-senate:008": [
+      {
+        "id": "ocd-person/2d6a7358-f685-4476-aa31-b92cf72b11ec",
+        "name": "Gary Boswell",
+        "office": "state-senate",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "gary.boswell@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=108",
+        "social": {}
+      }
+    ],
+    "KY:state-senate:037": [
+      {
+        "id": "ocd-person/b0cb8f76-4b91-472c-97e2-106ef21f3342",
+        "name": "Gary Clemons",
+        "office": "state-senate",
+        "districtCode": "037",
+        "contactUrl": null,
+        "email": "gary.clemons@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=137",
+        "social": {}
+      }
+    ],
+    "KY:state-senate:033": [
+      {
+        "id": "ocd-person/0d92a09c-ce23-46cd-9582-b7d1b08d76dd",
+        "name": "Gerald Neal",
+        "office": "state-senate",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "gerald.neal@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=133",
+        "social": {
+          "x": "GeraldNeal33"
+        }
+      }
+    ],
+    "KY:state-senate:020": [
+      {
+        "id": "ocd-person/6aa07729-a16f-4465-a605-7afbbe982882",
+        "name": "Gex Williams",
+        "office": "state-senate",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "gex.williams@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=120",
+        "social": {}
+      }
+    ],
+    "KY:state-senate:028": [
+      {
+        "id": "ocd-person/139d004c-7a19-4153-a58b-919a1b70180e",
+        "name": "Greg Elkins",
+        "office": "state-senate",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "greg.elkins@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=128",
+        "social": {}
+      }
+    ],
+    "KY:state-senate:034": [
+      {
+        "id": "ocd-person/b2299f51-c122-46ac-9937-3a6a7b682bb8",
+        "name": "Jared Carpenter",
+        "office": "state-senate",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "jared.carpenter@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=134",
+        "social": {
+          "x": "JCarpenterKY"
+        }
+      }
+    ],
+    "KY:state-senate:001": [
+      {
+        "id": "ocd-person/a796965c-0c0f-43b2-975b-d9726b34acd8",
+        "name": "Jason Howell",
+        "office": "state-senate",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "jason.howell@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=101",
+        "social": {
+          "x": "jasonghowell"
+        }
+      }
+    ],
+    "KY:state-senate:014": [
+      {
+        "id": "ocd-person/4042b29b-c6bb-407e-856d-9197a03d55ff",
+        "name": "Jimmy Higdon",
+        "office": "state-senate",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "jimmy.higdon@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=114",
+        "social": {
+          "x": "SenatorJimmy"
+        }
+      }
+    ],
+    "KY:state-senate:036": [
+      {
+        "id": "ocd-person/38ae421f-f4fa-40f6-b025-a75bc6b42f35",
+        "name": "Julie Adams",
+        "office": "state-senate",
+        "districtCode": "036",
+        "contactUrl": null,
+        "email": "julie.adams@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=136",
+        "social": {
+          "x": "jrajra"
+        }
+      }
+    ],
+    "KY:state-senate:026": [
+      {
+        "id": "ocd-person/b45a3156-f662-4884-9c13-b33a4c2d9105",
+        "name": "Karen Berg",
+        "office": "state-senate",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "karen.berg@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=126",
+        "social": {}
+      }
+    ],
+    "KY:state-senate:035": [
+      {
+        "id": "ocd-person/15b970f1-bd55-4876-80d5-13570b8f1a1a",
+        "name": "Keturah Herron",
+        "office": "state-senate",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "keturah.herron@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=135",
+        "social": {}
+      }
+    ],
+    "KY:state-senate:006": [
+      {
+        "id": "ocd-person/db2324a8-1ae2-4e3a-81e5-ac83cb7bbb05",
+        "name": "Lindsey Tichenor",
+        "office": "state-senate",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "lindsey.tichenor@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=106",
+        "social": {
+          "x": "tichenor4ky"
+        }
+      }
+    ],
+    "KY:state-senate:017": [
+      {
+        "id": "ocd-person/86bd13c4-c404-4a34-aaf4-561621f2b2d8",
+        "name": "Matt Nunn",
+        "office": "state-senate",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "matt.nunn@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=117",
+        "social": {}
+      }
+    ],
+    "KY:state-senate:010": [
+      {
+        "id": "ocd-person/b76a3218-b1bd-475c-a775-7a6cbefbc1f3",
+        "name": "Matt Deneen",
+        "office": "state-senate",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "matthew.deneen@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=110",
+        "social": {
+          "x": "MatthewDeneen1"
+        }
+      }
+    ],
+    "KY:state-senate:016": [
+      {
+        "id": "ocd-person/32b5035e-6d1a-44b8-9f7a-4173a1cdb940",
+        "name": "Max Wise",
+        "office": "state-senate",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "max.wise@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=116",
+        "social": {
+          "x": "maxwellwise"
+        }
+      }
+    ],
+    "KY:state-senate:038": [
+      {
+        "id": "ocd-person/230c230d-7313-4a94-8eb3-60f57a86543c",
+        "name": "Mike Nemes",
+        "office": "state-senate",
+        "districtCode": "038",
+        "contactUrl": null,
+        "email": "mike.nemes@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=138",
+        "social": {}
+      }
+    ],
+    "KY:state-senate:032": [
+      {
+        "id": "ocd-person/64af8584-1675-47fd-acfb-1cec59dfdda5",
+        "name": "Mike Wilson",
+        "office": "state-senate",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "mike.wilson@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=132",
+        "social": {
+          "x": "mikewilson2018"
+        }
+      }
+    ],
+    "KY:state-senate:031": [
+      {
+        "id": "ocd-person/18063ded-67cb-46a9-b558-14d5da92b860",
+        "name": "Phillip Wheeler",
+        "office": "state-senate",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "phillip.wheeler@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=131",
+        "social": {}
+      }
+    ],
+    "KY:state-senate:013": [
+      {
+        "id": "ocd-person/42b259db-9ddb-4588-a463-b1a38c944c66",
+        "name": "Reggie Thomas",
+        "office": "state-senate",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "reginald.thomas@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=113",
+        "social": {
+          "x": "ReggieThomasKY"
+        }
+      }
+    ],
+    "KY:state-senate:015": [
+      {
+        "id": "ocd-person/34ed9881-46b8-41ba-b625-3d350140d2b9",
+        "name": "Rick Girdler",
+        "office": "state-senate",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "rick.girdler@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=115",
+        "social": {}
+      }
+    ],
+    "KY:state-senate:004": [
+      {
+        "id": "ocd-person/366daab1-a877-49b9-86b8-e3c497143bf0",
+        "name": "Robby Mills",
+        "office": "state-senate",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "robby.mills@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=104",
+        "social": {
+          "x": "robbymillsforky"
+        }
+      }
+    ],
+    "KY:state-senate:025": [
+      {
+        "id": "ocd-person/8659c7e3-ec01-4c40-b7ee-d21f37facff5",
+        "name": "Robert Stivers",
+        "office": "state-senate",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "robert.stivers@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=125",
+        "social": {
+          "x": "kysenatepres"
+        }
+      }
+    ],
+    "KY:state-senate:018": [
+      {
+        "id": "ocd-person/42990da5-7020-4327-bbd8-496955b00040",
+        "name": "Robin Webb",
+        "office": "state-senate",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "robin.webb@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=118",
+        "social": {}
+      }
+    ],
+    "KY:state-senate:029": [
+      {
+        "id": "ocd-person/d7adea26-9f4f-477f-a0bd-4b29ae9072b4",
+        "name": "Scott Madon",
+        "office": "state-senate",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "scott.madon@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=129",
+        "social": {}
+      }
+    ],
+    "KY:state-senate:024": [
+      {
+        "id": "ocd-person/b7112818-3357-413d-acae-a46bf3442b1d",
+        "name": "Shelley Frommeyer",
+        "office": "state-senate",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "shelley.funkefrommeyer@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=124",
+        "social": {
+          "x": "FunkeShelley"
+        }
+      }
+    ],
+    "KY:state-senate:005": [
+      {
+        "id": "ocd-person/8915acb8-6089-451f-be08-c79b0be59c40",
+        "name": "Steve Meredith",
+        "office": "state-senate",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "stephen.meredith@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=105",
+        "social": {}
+      }
+    ],
+    "KY:state-senate:027": [
+      {
+        "id": "ocd-person/1f3bbab4-2be0-496c-9c3b-b8f340f6b404",
+        "name": "Steve West",
+        "office": "state-senate",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "steve.west@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=127",
+        "social": {
+          "x": "SteveWestKY"
+        }
+      }
+    ],
+    "KY:state-senate:011": [
+      {
+        "id": "ocd-person/b702771e-135c-4444-b148-a321ee8088b2",
+        "name": "Steve Rawlings",
+        "office": "state-senate",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "steve.rawlings@kylegislature.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legislature.ky.gov/Legislators/Pages/Legislator-Profile.aspx?DistrictNumber=111",
+        "social": {}
+      }
+    ]
+  }
+}

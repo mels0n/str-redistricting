@@ -1,5 +1,14 @@
 # Web changelog
 
+## 1.8.0 (2026-10-27)
+
+- A new Take action page, linked from the header, shows who represents you today: your state senator and state representative, your U.S. House member and both U.S. senators. Enter a street address and the site finds your districts in your browser. Each representative has a ready-made letter asking them to support the Fair Maps rule, with their email, contact form, website and phone number where we have them. One button opens a single email to every representative who lists an address, and another copies all of the addresses.
+- You can sign on with just an email and your state. Adding a street address is optional and counts you in your district. The address is used only to find the district and is never kept. A confirmation email makes the signature count: its link opens a page that confirms you as soon as it loads. You can remove your signature at any time from the Remove page, linked from the privacy page and from every email.
+- A "Why I signed" note is optional. Every note is read by hand before it can appear. A note shows publicly only after it is approved and only if you chose to show your name and town. Notes with links, contact details, street addresses or blocked words are not added, and your signature still counts.
+- A Pledges page lists officeholders who have publicly said they support the rule, each with a link to their own statement, and a badge anyone can add to their site. Candidates stay hidden for now. Party is never shown.
+- Counts of people who signed stay hidden until the national total reaches 1,000.
+- The privacy page now explains what sign-on keeps, what is encrypted, what is public and how long things are kept. The footer is tidier.
+
 ## 1.7.0 (2026-10-27)
 
 - The site counts visits with Vercel Web Analytics, which sets no cookies. Each page view is sent with its path only, never the part of the address after a ? or #, where other sites add click and campaign codes.

@@ -253,7 +253,7 @@ describe('download hardening', () => {
   it('refuses a redirect to another host or to plain http before requesting it, leaving no file behind', async () => {
     for (const to of ['https://evil.example/f.zip', 'http://www2.census.gov/f.zip']) {
       const f = vi.fn<typeof fetch>(async () => redirect(to));
-      await expect(at('https://www2.census.gov/f.zip', f)).rejects.toThrow(/not an allowed Census host/);
+      await expect(at('https://www2.census.gov/f.zip', f)).rejects.toThrow(/not an allowed host/);
       expect(f).toHaveBeenCalledTimes(1);
       expect(existsSync(path)).toBe(false);
       expect(await partFiles()).toEqual([]);

@@ -48,7 +48,11 @@ describe('hosting routes for path URLs', () => {
     ['/faq', null],
     ['/changelog', null],
     ['/privacy', null],
+    ['/act', null],
     ['/changelog/x', null],
+    ['/pledges', null],
+    ['/remove', null],
+    ['/confirm', null],
     ['/CO', null],
     // files, assets and data are never rewritten
     ['/data/CO/og.png', null],
@@ -72,6 +76,23 @@ describe('hosting routes for path URLs', () => {
     ['/wp-admin/x', null],
   ])('routes %s to %s', (path, expected) => {
     expect(route(path)).toBe(expected);
+  });
+
+  describe('Content-Security-Policy', () => {
+    const fromVercel = (JSON.parse(readFileSync('vercel.json', 'utf8')) as { headers: { source: string; headers: { key: string; value: string }[] }[] }).headers
+      .find((h) => h.source === '/(.*)')!
+      .headers.find((h) => h.key === 'Content-Security-Policy')!.value;
+    const fromFile = /^\s+Content-Security-Policy:\s*(.+)$/m.exec(readFileSync('public/_headers', 'utf8'))![1]!.trim();
+    const directive = (policy: string, name: string): string[] => (policy.split(';').map((d) => d.trim().split(/\s+/)).find((d) => d[0] === name) ?? []).slice(1);
+
+    it('is the same in vercel.json and public/_headers', () => {
+      expect(fromFile).toBe(fromVercel);
+    });
+    it('lets the Turnstile script load and frame, and nothing else leave the site', () => {
+      expect(directive(fromVercel, 'script-src')).toContain('https://challenges.cloudflare.com');
+      expect(directive(fromVercel, 'frame-src')).toEqual(['https://challenges.cloudflare.com']);
+      expect(directive(fromVercel, 'connect-src')).toEqual(["'self'", 'blob:']);
+    });
   });
 
   it('has a prerendered file for every fixed page, with its title, canonical link and one viewer root', () => {

@@ -1,0 +1,2600 @@
+{
+  "state": "CA",
+  "generatedFrom": {
+    "legislators-current.json": "ae8cb9477c48715df71a7d860854229d799dc90a254d61badc1efb770f892b2c",
+    "legislators-social-media.json": "c6eca1fcdb3a89901335eed51ca061daa4b60ad3243969a127e913bb9657fbc5",
+    "ca.csv": "cd1d23f2dd2fe0c123260e392d33ef481639c5c10710969d801a1cff43c27525"
+  },
+  "byKey": {
+    "CA:us-house:41": [
+      {
+        "id": "C000059",
+        "name": "Ken Calvert",
+        "office": "us-house",
+        "districtCode": "41",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-1986",
+        "address": "2205 Rayburn House Office Building Washington DC 20515-0541",
+        "website": "https://calvert.house.gov",
+        "social": {
+          "x": "KenCalvert",
+          "facebook": "70063393423",
+          "instagram": "repkencalvert"
+        }
+      }
+    ],
+    "CA:us-house:28": [
+      {
+        "id": "C001080",
+        "name": "Judy Chu",
+        "office": "us-house",
+        "districtCode": "28",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5464",
+        "address": "2423 Rayburn House Office Building Washington DC 20515-0528",
+        "website": "https://chu.house.gov",
+        "social": {
+          "x": "RepJudyChu",
+          "facebook": "RepJudyChu",
+          "instagram": "repjudychu"
+        }
+      }
+    ],
+    "CA:us-house:21": [
+      {
+        "id": "C001059",
+        "name": "Jim Costa",
+        "office": "us-house",
+        "districtCode": "21",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-3341",
+        "address": "2081 Rayburn House Office Building Washington DC 20515-0521",
+        "website": "https://costa.house.gov",
+        "social": {
+          "x": "RepJimCosta",
+          "facebook": "RepJimCosta"
+        }
+      }
+    ],
+    "CA:us-house:08": [
+      {
+        "id": "G000559",
+        "name": "John Garamendi",
+        "office": "us-house",
+        "districtCode": "08",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-1880",
+        "address": "2428 Rayburn House Office Building Washington DC 20515-0508",
+        "website": "https://garamendi.house.gov",
+        "social": {
+          "x": "RepGaramendi",
+          "facebook": "repgaramendi",
+          "instagram": "repgaramendi"
+        }
+      }
+    ],
+    "CA:us-house:18": [
+      {
+        "id": "L000397",
+        "name": "Zoe Lofgren",
+        "office": "us-house",
+        "districtCode": "18",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-3072",
+        "address": "1401 Longworth House Office Building Washington DC 20515-0518",
+        "website": "https://lofgren.house.gov",
+        "social": {
+          "x": "RepZoeLofgren",
+          "facebook": "zoelofgren"
+        }
+      }
+    ],
+    "CA:us-house:07": [
+      {
+        "id": "M001163",
+        "name": "Doris O. Matsui",
+        "office": "us-house",
+        "districtCode": "07",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-7163",
+        "address": "2206 Rayburn House Office Building Washington DC 20515-0507",
+        "website": "https://matsui.house.gov",
+        "social": {
+          "x": "DorisMatsui",
+          "facebook": "doris.matsui",
+          "instagram": "repdorismatsui"
+        }
+      }
+    ],
+    "CA:us-house:05": [
+      {
+        "id": "M001177",
+        "name": "Tom McClintock",
+        "office": "us-house",
+        "districtCode": "05",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2511",
+        "address": "2256 Rayburn House Office Building Washington DC 20515-0505",
+        "website": "https://mcclintock.house.gov",
+        "social": {
+          "x": "RepMcClintock",
+          "facebook": "81125319109",
+          "instagram": "repmcclintock"
+        }
+      }
+    ],
+    "CA:us-house:11": [
+      {
+        "id": "P000197",
+        "name": "Nancy Pelosi",
+        "office": "us-house",
+        "districtCode": "11",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4965",
+        "address": "1236 Longworth House Office Building Washington DC 20515-0511",
+        "website": "https://pelosi.house.gov",
+        "social": {
+          "x": "SpeakerPelosi",
+          "facebook": "NancyPelosi"
+        }
+      }
+    ],
+    "CA:us-senate:state": [
+      {
+        "id": "S001150",
+        "name": "Adam B. Schiff",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-224-3841",
+        "address": "112 Hart Senate Office Building Washington DC 20510",
+        "website": "https://www.schiff.senate.gov",
+        "social": {
+          "x": "SenAdamSchiff",
+          "facebook": "SenAdamSchiff",
+          "instagram": "SenAdamSchiff"
+        }
+      },
+      {
+        "id": "P000145",
+        "name": "Alex Padilla",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.padilla.senate.gov/contact/",
+        "email": null,
+        "phone": "202-224-3553",
+        "address": "331 Hart Senate Office Building Washington DC 20510",
+        "website": "https://www.padilla.senate.gov",
+        "social": {
+          "x": "SenAlexPadilla",
+          "facebook": "SenAlexPadilla",
+          "instagram": "SenAlexPadilla"
+        }
+      }
+    ],
+    "CA:us-house:32": [
+      {
+        "id": "S000344",
+        "name": "Brad Sherman",
+        "office": "us-house",
+        "districtCode": "32",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5911",
+        "address": "2365 Rayburn House Office Building Washington DC 20515-0532",
+        "website": "https://sherman.house.gov",
+        "social": {
+          "x": "BradSherman",
+          "facebook": "63158229861",
+          "instagram": "congressmansherman"
+        }
+      }
+    ],
+    "CA:us-house:38": [
+      {
+        "id": "S001156",
+        "name": "Linda T. Sánchez",
+        "office": "us-house",
+        "districtCode": "38",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-6676",
+        "address": "2309 Rayburn House Office Building Washington DC 20515-0538",
+        "website": "https://lindasanchez.house.gov",
+        "social": {
+          "x": "RepLindaSanchez",
+          "facebook": "CongresswomanLindaSanchez",
+          "instagram": "replindasanchez"
+        }
+      }
+    ],
+    "CA:us-house:04": [
+      {
+        "id": "T000460",
+        "name": "Mike Thompson",
+        "office": "us-house",
+        "districtCode": "04",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-3311",
+        "address": "268 Cannon House Office Building Washington DC 20515-0504",
+        "website": "https://mikethompson.house.gov",
+        "social": {
+          "x": "RepThompson",
+          "facebook": "RepMikeThompson"
+        }
+      }
+    ],
+    "CA:us-house:43": [
+      {
+        "id": "W000187",
+        "name": "Maxine Waters",
+        "office": "us-house",
+        "districtCode": "43",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2201",
+        "address": "2221 Rayburn House Office Building Washington DC 20515-0543",
+        "website": "https://waters.house.gov",
+        "social": {
+          "x": "RepMaxineWaters",
+          "facebook": "MaxineWaters",
+          "instagram": "repmaxinewaters"
+        }
+      }
+    ],
+    "CA:us-house:02": [
+      {
+        "id": "H001068",
+        "name": "Jared Huffman",
+        "office": "us-house",
+        "districtCode": "02",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5161",
+        "address": "2330 Rayburn House Office Building Washington DC 20515-0502",
+        "website": "https://huffman.house.gov",
+        "social": {
+          "x": "RepHuffman",
+          "facebook": "RepHuffman",
+          "instagram": "rephuffman"
+        }
+      }
+    ],
+    "CA:us-house:06": [
+      {
+        "id": "B001287",
+        "name": "Ami Bera",
+        "office": "us-house",
+        "districtCode": "06",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5716",
+        "address": "172 Cannon House Office Building Washington DC 20515-0506",
+        "website": "https://bera.house.gov",
+        "social": {
+          "x": "RepBera",
+          "facebook": "RepAmiBera",
+          "instagram": "repbera"
+        }
+      }
+    ],
+    "CA:us-house:26": [
+      {
+        "id": "B001285",
+        "name": "Julia Brownley",
+        "office": "us-house",
+        "districtCode": "26",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5811",
+        "address": "2262 Rayburn House Office Building Washington DC 20515-0526",
+        "website": "https://juliabrownley.house.gov",
+        "social": {
+          "x": "RepBrownley",
+          "facebook": "RepJuliaBrownley",
+          "instagram": "RepBrownley"
+        }
+      }
+    ],
+    "CA:us-house:25": [
+      {
+        "id": "R000599",
+        "name": "Raul Ruiz",
+        "office": "us-house",
+        "districtCode": "25",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5330",
+        "address": "2342 Rayburn House Office Building Washington DC 20515-0525",
+        "website": "https://ruiz.house.gov",
+        "social": {
+          "x": "RepRaulRuizMD",
+          "facebook": "CongressmanRaulRuizMD"
+        }
+      }
+    ],
+    "CA:us-house:39": [
+      {
+        "id": "T000472",
+        "name": "Mark Takano",
+        "office": "us-house",
+        "districtCode": "39",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2305",
+        "address": "2078 Rayburn House Office Building Washington DC 20515-0539",
+        "website": "https://takano.house.gov",
+        "social": {
+          "x": "RepMarkTakano",
+          "facebook": "RepMarkTakano",
+          "instagram": "repmarktakano"
+        }
+      }
+    ],
+    "CA:us-house:52": [
+      {
+        "id": "V000130",
+        "name": "Juan Vargas",
+        "office": "us-house",
+        "districtCode": "52",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-8045",
+        "address": "2467 Rayburn House Office Building Washington DC 20515-0552",
+        "website": "https://vargas.house.gov",
+        "social": {
+          "x": "RepJuanVargas",
+          "facebook": "RepJuanVargas",
+          "instagram": "repjuanvargas"
+        }
+      }
+    ],
+    "CA:us-house:50": [
+      {
+        "id": "P000608",
+        "name": "Scott H. Peters",
+        "office": "us-house",
+        "districtCode": "50",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-0508",
+        "address": "2369 Rayburn House Office Building Washington DC 20515-0550",
+        "website": "https://scottpeters.house.gov",
+        "social": {
+          "x": "RepScottPeters",
+          "facebook": "RepScottPeters",
+          "instagram": "repscottpeters"
+        }
+      }
+    ],
+    "CA:us-house:10": [
+      {
+        "id": "D000623",
+        "name": "Mark DeSaulnier",
+        "office": "us-house",
+        "districtCode": "10",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2095",
+        "address": "2134 Rayburn House Office Building Washington DC 20515-0510",
+        "website": "https://desaulnier.house.gov",
+        "social": {
+          "x": "RepDeSaulnier",
+          "facebook": "RepMarkDeSaulnier",
+          "instagram": "repdesaulnier"
+        }
+      }
+    ],
+    "CA:us-house:33": [
+      {
+        "id": "A000371",
+        "name": "Pete Aguilar",
+        "office": "us-house",
+        "districtCode": "33",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-3201",
+        "address": "108 Cannon House Office Building Washington DC 20515-0533",
+        "website": "https://aguilar.house.gov",
+        "social": {
+          "x": "RepPeteAguilar",
+          "facebook": "reppeteaguilar"
+        }
+      }
+    ],
+    "CA:us-house:36": [
+      {
+        "id": "L000582",
+        "name": "Ted Lieu",
+        "office": "us-house",
+        "districtCode": "36",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-3976",
+        "address": "2454 Rayburn House Office Building Washington DC 20515-0536",
+        "website": "https://lieu.house.gov",
+        "social": {
+          "x": "RepTedLieu",
+          "facebook": "RepTedLieu",
+          "instagram": "RepTedLieu"
+        }
+      }
+    ],
+    "CA:us-house:35": [
+      {
+        "id": "T000474",
+        "name": "Norma J. Torres",
+        "office": "us-house",
+        "districtCode": "35",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-6161",
+        "address": "2227 Rayburn House Office Building Washington DC 20515-0535",
+        "website": "https://torres.house.gov",
+        "social": {
+          "x": "NormaJTorres",
+          "facebook": "RepNormaTorres",
+          "instagram": "repnormatorres"
+        }
+      }
+    ],
+    "CA:us-house:17": [
+      {
+        "id": "K000389",
+        "name": "Ro Khanna",
+        "office": "us-house",
+        "districtCode": "17",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2631",
+        "address": "306 Cannon House Office Building Washington DC 20515-0517",
+        "website": "https://khanna.house.gov",
+        "social": {
+          "x": "RepRoKhanna",
+          "facebook": "RepRoKhanna",
+          "instagram": "reprokhanna"
+        }
+      }
+    ],
+    "CA:us-house:19": [
+      {
+        "id": "P000613",
+        "name": "Jimmy Panetta",
+        "office": "us-house",
+        "districtCode": "19",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2861",
+        "address": "200 Cannon House Office Building Washington DC 20515-0519",
+        "website": "https://panetta.house.gov",
+        "social": {
+          "x": "RepJimmyPanetta",
+          "facebook": "RepJimmyPanetta",
+          "instagram": "repjimmypanetta"
+        }
+      }
+    ],
+    "CA:us-house:24": [
+      {
+        "id": "C001112",
+        "name": "Salud O. Carbajal",
+        "office": "us-house",
+        "districtCode": "24",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-3601",
+        "address": "2331 Rayburn House Office Building Washington DC 20515-0524",
+        "website": "https://carbajal.house.gov",
+        "social": {
+          "x": "RepCarbajal",
+          "facebook": "repsaludcarbajal",
+          "instagram": "repcarbajal"
+        }
+      }
+    ],
+    "CA:us-house:44": [
+      {
+        "id": "B001300",
+        "name": "Nanette Diaz Barragán",
+        "office": "us-house",
+        "districtCode": "44",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-8220",
+        "address": "2312 Rayburn House Office Building Washington DC 20515-0544",
+        "website": "https://barragan.house.gov",
+        "social": {
+          "x": "RepBarragan",
+          "facebook": "CongresswomanBarragan",
+          "instagram": "repbarragan"
+        }
+      }
+    ],
+    "CA:us-house:46": [
+      {
+        "id": "C001110",
+        "name": "J. Luis Correa",
+        "office": "us-house",
+        "districtCode": "46",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2965",
+        "address": "2082 Rayburn House Office Building Washington DC 20515-0546",
+        "website": "https://correa.house.gov",
+        "social": {
+          "x": "RepLouCorrea",
+          "facebook": "RepLouCorrea",
+          "instagram": "reploucorrea"
+        }
+      }
+    ],
+    "CA:us-house:34": [
+      {
+        "id": "G000585",
+        "name": "Jimmy Gomez",
+        "office": "us-house",
+        "districtCode": "34",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-6235",
+        "address": "506 Cannon House Office Building Washington DC 20515-0534",
+        "website": "https://gomez.house.gov",
+        "social": {
+          "x": "RepJimmyGomez",
+          "facebook": "RepJimmyGomez",
+          "instagram": "repjimmygomez"
+        }
+      }
+    ],
+    "CA:us-house:09": [
+      {
+        "id": "H001090",
+        "name": "Josh Harder",
+        "office": "us-house",
+        "districtCode": "09",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4540",
+        "address": "209 Cannon House Office Building Washington DC 20515-0509",
+        "website": "https://harder.house.gov",
+        "social": {
+          "x": "RepJoshHarder"
+        }
+      }
+    ],
+    "CA:us-house:49": [
+      {
+        "id": "L000593",
+        "name": "Mike Levin",
+        "office": "us-house",
+        "districtCode": "49",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-3906",
+        "address": "2352 Rayburn House Office Building Washington DC 20515-0549",
+        "website": "https://levin.house.gov",
+        "social": {
+          "x": "RepMikeLevin",
+          "facebook": "RepMikeLevin",
+          "instagram": "RepMikeLevin"
+        }
+      }
+    ],
+    "CA:us-house:48": [
+      {
+        "id": "I000056",
+        "name": "Darrell Issa",
+        "office": "us-house",
+        "districtCode": "48",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5672",
+        "address": "2108 Rayburn House Office Building Washington DC 20515-0548",
+        "website": "https://issa.house.gov",
+        "social": {
+          "x": "repdarrellissa",
+          "facebook": "congressmandarrellissa"
+        }
+      }
+    ],
+    "CA:us-house:22": [
+      {
+        "id": "V000129",
+        "name": "David G. Valadao",
+        "office": "us-house",
+        "districtCode": "22",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4695",
+        "address": "2465 Rayburn House Office Building Washington DC 20515-0522",
+        "website": "https://valadao.house.gov",
+        "social": {
+          "x": "RepDavidValadao",
+          "facebook": "CongressmanDavidValadao"
+        }
+      }
+    ],
+    "CA:us-house:23": [
+      {
+        "id": "O000019",
+        "name": "Jay Obernolte",
+        "office": "us-house",
+        "districtCode": "23",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5861",
+        "address": "2433 Rayburn House Office Building Washington DC 20515-0523",
+        "website": "https://obernolte.house.gov",
+        "social": {
+          "x": "JayObernolte"
+        }
+      }
+    ],
+    "CA:us-house:40": [
+      {
+        "id": "K000397",
+        "name": "Young Kim",
+        "office": "us-house",
+        "districtCode": "40",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4111",
+        "address": "2439 Rayburn House Office Building Washington DC 20515-0540",
+        "website": "https://youngkim.house.gov",
+        "social": {
+          "x": "RepYoungKim",
+          "facebook": "RepYoungKim",
+          "instagram": "repyoungkim"
+        }
+      }
+    ],
+    "CA:us-house:51": [
+      {
+        "id": "J000305",
+        "name": "Sara Jacobs",
+        "office": "us-house",
+        "districtCode": "51",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2040",
+        "address": "2348 Rayburn House Office Building Washington DC 20515-0551",
+        "website": "https://sarajacobs.house.gov",
+        "social": {
+          "x": "RepSaraJacobs",
+          "facebook": "RepSaraJacobs",
+          "instagram": "repsarajacobs"
+        }
+      }
+    ],
+    "CA:us-house:03": [
+      {
+        "id": "K000401",
+        "name": "Kevin Kiley",
+        "office": "us-house",
+        "districtCode": "03",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2523",
+        "address": "2445 Rayburn House Office Building Washington DC 20515-0503",
+        "website": "https://kiley.house.gov",
+        "social": {
+          "x": "RepKiley",
+          "facebook": "100089382125341"
+        }
+      }
+    ],
+    "CA:us-house:15": [
+      {
+        "id": "M001225",
+        "name": "Kevin Mullin",
+        "office": "us-house",
+        "districtCode": "15",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-3531",
+        "address": "1404 Longworth House Office Building Washington DC 20515-0515",
+        "website": "https://kevinmullin.house.gov",
+        "social": {
+          "x": "RepKevinMullin",
+          "facebook": "CongressmanKevinMullin",
+          "instagram": "repkevinmullin"
+        }
+      }
+    ],
+    "CA:us-house:37": [
+      {
+        "id": "K000400",
+        "name": "Sydney Kamlager-Dove",
+        "office": "us-house",
+        "districtCode": "37",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-7084",
+        "address": "144 Cannon House Office Building Washington DC 20515-0537",
+        "website": "https://kamlager-dove.house.gov",
+        "social": {
+          "x": "RepKamlagerDove",
+          "facebook": "RepKamlagerDove",
+          "instagram": "rep_kamlagerdove"
+        }
+      }
+    ],
+    "CA:us-house:42": [
+      {
+        "id": "G000598",
+        "name": "Robert Garcia",
+        "office": "us-house",
+        "districtCode": "42",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-7924",
+        "address": "109 Cannon House Office Building Washington DC 20515-0542",
+        "website": "https://robertgarcia.house.gov",
+        "social": {
+          "x": "RepRobertGarcia",
+          "facebook": "reprobertgarcia",
+          "instagram": "RepRobertGarcia"
+        }
+      }
+    ],
+    "CA:us-house:20": [
+      {
+        "id": "F000480",
+        "name": "Vince Fong",
+        "office": "us-house",
+        "districtCode": "20",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2915",
+        "address": "243 Cannon House Office Building Washington DC 20515-0520",
+        "website": "https://fong.house.gov",
+        "social": {
+          "x": "RepVinceFong",
+          "instagram": "repvincefong"
+        }
+      }
+    ],
+    "CA:us-house:31": [
+      {
+        "id": "C001123",
+        "name": "Gilbert Ray Cisneros, Jr.",
+        "office": "us-house",
+        "districtCode": "31",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5256",
+        "address": "2463 Rayburn House Office Building Washington DC 20515-0531",
+        "website": "https://cisneros.house.gov",
+        "social": {
+          "facebook": "RepGilCisneros",
+          "instagram": "repgilcisneros"
+        }
+      }
+    ],
+    "CA:us-house:12": [
+      {
+        "id": "S001231",
+        "name": "Lateefah Simon",
+        "office": "us-house",
+        "districtCode": "12",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2661",
+        "address": "1023 Longworth House Office Building Washington DC 20515-0512",
+        "website": "https://simon.house.gov",
+        "social": {
+          "x": "RepLSimon",
+          "facebook": "RepLSimon",
+          "instagram": "RepLSimon"
+        }
+      }
+    ],
+    "CA:us-house:13": [
+      {
+        "id": "G000605",
+        "name": "Adam Gray",
+        "office": "us-house",
+        "districtCode": "13",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-1947",
+        "address": "1230 Longworth House Office Building Washington DC 20515-0513",
+        "website": "https://gray.house.gov",
+        "social": {
+          "x": "RepAdamGrayCA",
+          "facebook": "repadamgrayca",
+          "instagram": "repadamgrayca"
+        }
+      }
+    ],
+    "CA:us-house:16": [
+      {
+        "id": "L000607",
+        "name": "Sam T. Liccardo",
+        "office": "us-house",
+        "districtCode": "16",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-8104",
+        "address": "1117 Longworth House Office Building Washington DC 20515-0516",
+        "website": "https://liccardo.house.gov",
+        "social": {
+          "x": "repliccardo",
+          "instagram": "repliccardo"
+        }
+      }
+    ],
+    "CA:us-house:27": [
+      {
+        "id": "W000830",
+        "name": "George Whitesides",
+        "office": "us-house",
+        "districtCode": "27",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-1956",
+        "address": "1504 Longworth House Office Building Washington DC 20515-0527",
+        "website": "https://whitesides.house.gov",
+        "social": {
+          "x": "Rep_Whitesides",
+          "facebook": "repwhitesides",
+          "instagram": "repwhitesides"
+        }
+      }
+    ],
+    "CA:us-house:29": [
+      {
+        "id": "R000620",
+        "name": "Luz M. Rivas",
+        "office": "us-house",
+        "districtCode": "29",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-6131",
+        "address": "1319 Longworth House Office Building Washington DC 20515-0529",
+        "website": "https://rivas.house.gov",
+        "social": {
+          "x": "RepLuzRivas",
+          "facebook": "congresswomanluzrivas",
+          "instagram": "RepLuzRivas"
+        }
+      }
+    ],
+    "CA:us-house:30": [
+      {
+        "id": "F000483",
+        "name": "Laura Friedman",
+        "office": "us-house",
+        "districtCode": "30",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4176",
+        "address": "1517 Longworth House Office Building Washington DC 20515-0530",
+        "website": "https://friedman.house.gov",
+        "social": {
+          "x": "RepFriedmanCA",
+          "facebook": "RepLauraFriedman",
+          "instagram": "RepLauraFriedman"
+        }
+      }
+    ],
+    "CA:us-house:45": [
+      {
+        "id": "T000491",
+        "name": "Derek Tran",
+        "office": "us-house",
+        "districtCode": "45",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2415",
+        "address": "1127 Longworth House Office Building Washington DC 20515-0545",
+        "website": "https://tran.house.gov",
+        "social": {}
+      }
+    ],
+    "CA:us-house:47": [
+      {
+        "id": "M001241",
+        "name": "Dave Min",
+        "office": "us-house",
+        "districtCode": "47",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5611",
+        "address": "1034 Longworth House Office Building Washington DC 20515-0547",
+        "website": "https://min.house.gov",
+        "social": {}
+      }
+    ],
+    "CA:us-house:01": [
+      {
+        "id": "G000607",
+        "name": "James Gallagher",
+        "office": "us-house",
+        "districtCode": "01",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-3076",
+        "address": "408 Cannon House Office Building Washington DC 20515-0501",
+        "website": "https://gallagher.house.gov/",
+        "social": {}
+      }
+    ],
+    "CA:us-house:14": [
+      {
+        "id": "W000832",
+        "name": "Aisha Wahab",
+        "office": "us-house",
+        "districtCode": "14",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5065",
+        "address": "174 Cannon House Office Building Washington DC 20515-0514",
+        "website": "https://wahab.house.gov/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:066": [
+      {
+        "id": "ocd-person/78610d0e-c790-4fc9-ab8e-0887adbbe063",
+        "name": "Al Muratsuchi",
+        "office": "state-house",
+        "districtCode": "066",
+        "contactUrl": null,
+        "email": "assemblymember.muratsuchi@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://a66.asmdc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:024": [
+      {
+        "id": "ocd-person/5d0057a2-e04d-44ca-b1d5-fc55e113351a",
+        "name": "Alex Lee",
+        "office": "state-house",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "assemblymember.lee@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://a24.asmdc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:033": [
+      {
+        "id": "ocd-person/eb9c8103-ac9d-4342-9d95-5086d867a9bd",
+        "name": "Ali Macedo",
+        "office": "state-house",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "assemblymember.macedo@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ad33.asmrc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:015": [
+      {
+        "id": "ocd-person/c3921173-9680-4387-a70e-ebba5c599846",
+        "name": "Anamarie Avila Farias",
+        "office": "state-house",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "assemblymember.avilafarias@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://avilafarias.asmdc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:025": [
+      {
+        "id": "ocd-person/820619fd-d053-4915-b099-1d134a880228",
+        "name": "Ash Kalra",
+        "office": "state-house",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "assemblymember.kalra@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://a25.asmdc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:068": [
+      {
+        "id": "ocd-person/87062971-b583-4983-8ac5-4af98bef354d",
+        "name": "Avelino Valencia",
+        "office": "state-house",
+        "districtCode": "068",
+        "contactUrl": null,
+        "email": "assemblymember.valencia@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://a68.asmdc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:048": [
+      {
+        "id": "ocd-person/82cbb6e9-8486-44ec-8450-86d1e700f828",
+        "name": "Blanca Rubio",
+        "office": "state-house",
+        "districtCode": "048",
+        "contactUrl": null,
+        "email": "assemblymember.rubio@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://rubio.asmdc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:064": [
+      {
+        "id": "ocd-person/f2ba8154-6bf3-4e5e-af05-9412e2a189f2",
+        "name": "Blanca Pacheco",
+        "office": "state-house",
+        "districtCode": "064",
+        "contactUrl": null,
+        "email": "assemblymember.pacheco@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://a64.asmdc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:014": [
+      {
+        "id": "ocd-person/8230907e-9ae3-4ae9-b52a-c8464a157f64",
+        "name": "Buffy Wicks",
+        "office": "state-house",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "assemblymember.wicks@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://a14.asmdc.org",
+        "social": {}
+      }
+    ],
+    "CA:state-house:075": [
+      {
+        "id": "ocd-person/053d119b-847e-43bf-9a22-18b5f309067f",
+        "name": "Carl DeMaio",
+        "office": "state-house",
+        "districtCode": "075",
+        "contactUrl": null,
+        "email": "assemblymember.demaio@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ad75.asmrc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:019": [
+      {
+        "id": "ocd-person/3864202e-3b40-430e-a218-cfe56d83cee5",
+        "name": "Catherine Stefani",
+        "office": "state-house",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "assemblymember.stefani@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://a19.asmdc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:004": [
+      {
+        "id": "ocd-person/434bcfb4-1279-40cc-916b-f89af5805a9c",
+        "name": "Cecilia Aguiar-Curry",
+        "office": "state-house",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "assemblymember.aguiar-curry@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://a04.asmdc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:043": [
+      {
+        "id": "ocd-person/1dbf574d-4c03-40ce-8c30-a6727c4bd5ab",
+        "name": "Celeste Rodriguez",
+        "office": "state-house",
+        "districtCode": "043",
+        "contactUrl": null,
+        "email": "assemblymember.celesterodriguez@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://crodriguez.asmdc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:002": [
+      {
+        "id": "ocd-person/84a80bdb-37d5-4f52-8f55-e116fb97ca58",
+        "name": "Chris Rogers",
+        "office": "state-house",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "assemblymember.rogers@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://a02.asmdc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:078": [
+      {
+        "id": "ocd-person/71590420-10d6-4deb-8d59-453256d625b6",
+        "name": "Chris Ward",
+        "office": "state-house",
+        "districtCode": "078",
+        "contactUrl": null,
+        "email": "assemblymember.ward@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ward.asmdc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:060": [
+      {
+        "id": "ocd-person/e351eaa3-8aa1-4f26-a8ff-2a260a0ad383",
+        "name": "Corey Jackson",
+        "office": "state-house",
+        "districtCode": "060",
+        "contactUrl": null,
+        "email": "assemblymember.jackson@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://jackson.asmdc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:073": [
+      {
+        "id": "ocd-person/c766abf8-06ca-4a98-9665-82b87149ca96",
+        "name": "Cottie Petrie-Norris",
+        "office": "state-house",
+        "districtCode": "073",
+        "contactUrl": null,
+        "email": "assemblymember.petrie-norris@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://a73.asmdc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:012": [
+      {
+        "id": "ocd-person/32e06e60-77ac-4c5e-af1e-2110b602dc97",
+        "name": "Damon Connolly",
+        "office": "state-house",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "assemblymember.connolly@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://a12.asmdc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:076": [
+      {
+        "id": "ocd-person/86218623-ea63-4b2a-ab5c-7694e3f4a18a",
+        "name": "Darsh Patel",
+        "office": "state-house",
+        "districtCode": "076",
+        "contactUrl": null,
+        "email": "assemblymember.patel@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://a76.asmdc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:080": [
+      {
+        "id": "ocd-person/52f6ccc1-eb4a-4c09-8614-5e4022395605",
+        "name": "David Alvarez",
+        "office": "state-house",
+        "districtCode": "080",
+        "contactUrl": null,
+        "email": "assemblymember.alvarez@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://a80.asmdc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:008": [
+      {
+        "id": "ocd-person/748ce69c-a2bc-41a7-95e2-b09fba6e5ecd",
+        "name": "David Tangipa",
+        "office": "state-house",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "assemblymember.tangipa@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ad08.asmrc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:030": [
+      {
+        "id": "ocd-person/eddfcfb5-2d07-4e5b-81a0-88e5703dc0bb",
+        "name": "Dawn Addis",
+        "office": "state-house",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "dawn.addis@asm.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://a30.asmdc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:072": [
+      {
+        "id": "ocd-person/0c4e1b43-c3d7-4a13-87c4-92e29903cb73",
+        "name": "Diane Dixon",
+        "office": "state-house",
+        "districtCode": "072",
+        "contactUrl": null,
+        "email": "assemblymember.dixon@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ad72.asmrc.org",
+        "social": {}
+      }
+    ],
+    "CA:state-house:021": [
+      {
+        "id": "ocd-person/20c72bef-f518-4677-bbcb-83c502c36ede",
+        "name": "Diane Papan",
+        "office": "state-house",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "assemblymember.papan@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://papan.asmdc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:031": [
+      {
+        "id": "ocd-person/e2da0f08-1bd8-4ac2-95f1-002870238527",
+        "name": "Joaquin Arambula",
+        "office": "state-house",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "assemblymember.arambula@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://a31.asmdc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:027": [
+      {
+        "id": "ocd-person/d2a8e29a-5eac-4e2a-a686-d1bdb04927e7",
+        "name": "Esmeralda Soria",
+        "office": "state-house",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "assemblymember.soria@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://a27.asmdc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:028": [
+      {
+        "id": "ocd-person/2944d19a-c288-4f32-b6a0-72e35f48e570",
+        "name": "Gail Pellerin",
+        "office": "state-house",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "assemblymember.pellerin@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://a28.asmdc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:047": [
+      {
+        "id": "ocd-person/50e55c91-8b18-45ea-a074-bf500e7a299e",
+        "name": "Greg Wallis",
+        "office": "state-house",
+        "districtCode": "047",
+        "contactUrl": null,
+        "email": "assemblymember.wallis@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ad47.asmrc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:037": [
+      {
+        "id": "ocd-person/57f76b8e-63ba-4aa7-93c9-0b0853ce2279",
+        "name": "Gregg Hart",
+        "office": "state-house",
+        "districtCode": "037",
+        "contactUrl": null,
+        "email": "assemblymember.hart@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://hart.asmdc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:009": [
+      {
+        "id": "ocd-person/c830a90c-8964-4c0f-b31b-729cab1144fd",
+        "name": "Heath Flora",
+        "office": "state-house",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "assemblymember.flora@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ad09.asmrc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:001": [
+      {
+        "id": "ocd-person/3b125433-5362-42e2-a2b5-b608962c9481",
+        "name": "Heather Hadwick",
+        "office": "state-house",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "assemblymember.hadwick@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ad01.asmrc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:055": [
+      {
+        "id": "ocd-person/e9e56c3e-1c7d-4eab-a3ac-35cfc7c6a651",
+        "name": "Isaac Bryan",
+        "office": "state-house",
+        "districtCode": "055",
+        "contactUrl": null,
+        "email": "assemblymember.bryan@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://bryan.asmdc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:042": [
+      {
+        "id": "ocd-person/e7ad99fd-fda5-4114-af3e-320f5be9be3c",
+        "name": "Jacqui Irwin",
+        "office": "state-house",
+        "districtCode": "042",
+        "contactUrl": null,
+        "email": "assemblymember.irwin@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://irwin.asmdc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:045": [
+      {
+        "id": "ocd-person/156660b1-4c3f-45e3-8384-53cda60d7ea5",
+        "name": "James Ramos",
+        "office": "state-house",
+        "districtCode": "045",
+        "contactUrl": null,
+        "email": "assemblymember.ramos@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ramos.asmdc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:035": [
+      {
+        "id": "ocd-person/b08199e4-63d9-4bd4-9be3-99e628fa7059",
+        "name": "Jasmeet Bains",
+        "office": "state-house",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "assemblymember.bains@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://bains.asmdc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:036": [
+      {
+        "id": "ocd-person/552b5bf7-472d-48a4-bb9a-132c1f044737",
+        "name": "Jeff Gonzalez",
+        "office": "state-house",
+        "districtCode": "036",
+        "contactUrl": null,
+        "email": "assemblymember.gonzalez@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ad36.asmrc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:046": [
+      {
+        "id": "ocd-person/407f6fda-8638-4cca-9704-7aa8df7de26e",
+        "name": "Jesse Gabriel",
+        "office": "state-house",
+        "districtCode": "046",
+        "contactUrl": null,
+        "email": "assemblymember.gabriel@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://a46.asmdc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:052": [
+      {
+        "id": "ocd-person/81d9225e-7584-43c9-9e9b-f12b7e7dbd4e",
+        "name": "Jessica Caloza",
+        "office": "state-house",
+        "districtCode": "052",
+        "contactUrl": null,
+        "email": "assemblymember.caloza@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://a52.asmdc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:005": [
+      {
+        "id": "ocd-person/c7a404d9-03f7-4e82-b730-1623da31d4cc",
+        "name": "Joe Patterson",
+        "office": "state-house",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "assemblymember.joepatterson@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ad05.asmrc.org",
+        "social": {}
+      }
+    ],
+    "CA:state-house:041": [
+      {
+        "id": "ocd-person/0253bb3f-2fcb-49ed-a85d-578fee726be8",
+        "name": "John Harabedian",
+        "office": "state-house",
+        "districtCode": "041",
+        "contactUrl": null,
+        "email": "assemblymember.harabedian@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://harabedian.asmdc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:062": [
+      {
+        "id": "ocd-person/b9c75c1e-6ea8-4fae-9efa-a7bf0a0cb2cc",
+        "name": "José Solache",
+        "office": "state-house",
+        "districtCode": "062",
+        "contactUrl": null,
+        "email": "assemblymember.solache@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://solache.asmdc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:007": [
+      {
+        "id": "ocd-person/71aa54c0-3fad-499c-928e-ffbb692a970b",
+        "name": "Joshua Hoover",
+        "office": "state-house",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "assemblymember.hoover@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ad07.asmrc.org",
+        "social": {}
+      }
+    ],
+    "CA:state-house:069": [
+      {
+        "id": "ocd-person/b20254b0-437a-4d3d-9aa9-baa5db2bc5ef",
+        "name": "Josh Lowenthal",
+        "office": "state-house",
+        "districtCode": "069",
+        "contactUrl": null,
+        "email": "assemblymember.lowenthal@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://a69.asmdc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:022": [
+      {
+        "id": "ocd-person/dfb00d6c-1d0d-410f-8a06-d54841495a62",
+        "name": "Juan Alanis",
+        "office": "state-house",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "assemblymember.alanis@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ad22.asmrc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:039": [
+      {
+        "id": "ocd-person/092bda0e-23a9-4d25-92a9-5808e996702b",
+        "name": "Juan Carrillo",
+        "office": "state-house",
+        "districtCode": "039",
+        "contactUrl": null,
+        "email": "assemblymember.juancarrillo@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://carrillo.asmdc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:071": [
+      {
+        "id": "ocd-person/76378b56-7ad9-463c-a4fd-47c665b26ee8",
+        "name": "Kate Sanchez",
+        "office": "state-house",
+        "districtCode": "071",
+        "contactUrl": null,
+        "email": "assemblymember.sanchez@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ad71.asmrc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:079": [
+      {
+        "id": "ocd-person/895f777d-ae7b-429a-aa0f-1b2895c13945",
+        "name": "LaShae Sharp-Collins",
+        "office": "state-house",
+        "districtCode": "079",
+        "contactUrl": null,
+        "email": "assemblymember.sharpcollins@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://a79.asmdc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:074": [
+      {
+        "id": "ocd-person/1b3ac39e-7b50-4263-bd1d-add1e91d71b9",
+        "name": "Laurie Davies",
+        "office": "state-house",
+        "districtCode": "074",
+        "contactUrl": null,
+        "email": "assemblymember.davies@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ad74.asmrc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:058": [
+      {
+        "id": "ocd-person/06d4d543-2374-436f-978d-b924c7ec7d53",
+        "name": "Leticia Castillo",
+        "office": "state-house",
+        "districtCode": "058",
+        "contactUrl": null,
+        "email": "assemblymember.castillo@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ad58.asmrc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:056": [
+      {
+        "id": "ocd-person/ed58ae30-ffe5-4395-9353-141e4018cbe3",
+        "name": "Lisa Calderon",
+        "office": "state-house",
+        "districtCode": "056",
+        "contactUrl": null,
+        "email": "assemblymember.calderon@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://a56.asmdc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:020": [
+      {
+        "id": "ocd-person/54e48d10-22e1-43da-b114-c1d3f741faff",
+        "name": "Liz Ortega",
+        "office": "state-house",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "assemblymember.ortega@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://a20.asmdc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:011": [
+      {
+        "id": "ocd-person/926d1337-0318-4c12-a291-178f10199b23",
+        "name": "Lori Wilson",
+        "office": "state-house",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "assemblymember.wilson@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://a11.asmdc.org",
+        "social": {}
+      }
+    ],
+    "CA:state-house:006": [
+      {
+        "id": "ocd-person/e8ac7b26-03a5-4818-b05d-0f379029bbdb",
+        "name": "Maggy Krell",
+        "office": "state-house",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "assemblymember.krell@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://a06.asmdc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:023": [
+      {
+        "id": "ocd-person/24facf9e-7fb1-4475-9120-05cd0145c7c1",
+        "name": "Marc Berman",
+        "office": "state-house",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "assemblymember.berman@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://berman.asmdc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:054": [
+      {
+        "id": "ocd-person/4a6f5a5d-275e-4fb2-a8bf-bb1272d4dfbb",
+        "name": "Mark González",
+        "office": "state-house",
+        "districtCode": "054",
+        "contactUrl": null,
+        "email": "assemblymember.gonzalez@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://a54.asmdc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:017": [
+      {
+        "id": "ocd-person/cc6eb833-e16b-472a-83ec-31e7df1b1cd9",
+        "name": "Matt Haney",
+        "office": "state-house",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "assemblymember.haney@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://a17.asmdc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:018": [
+      {
+        "id": "ocd-person/a467d09d-289d-4e5a-a2af-a0ce20af14e1",
+        "name": "Mia Bonta",
+        "office": "state-house",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "assemblymember.mbonta@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://a18.asmdc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:053": [
+      {
+        "id": "ocd-person/c8e36b71-c739-4afb-b8e9-cbdd4d362693",
+        "name": "Michelle Rodriguez",
+        "office": "state-house",
+        "districtCode": "053",
+        "contactUrl": null,
+        "email": "assemblymember.michellerodriguez@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://mrodriguez.asmdc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:065": [
+      {
+        "id": "ocd-person/404dbee4-6b74-4249-ab26-9644cab7c7d5",
+        "name": "Mike Gipson",
+        "office": "state-house",
+        "districtCode": "065",
+        "contactUrl": null,
+        "email": "assemblymember.gipson@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://a65.asmdc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:049": [
+      {
+        "id": "ocd-person/3a7bde9c-8709-49c7-89e4-0835ea1f9eb6",
+        "name": "Mike Fong",
+        "office": "state-house",
+        "districtCode": "049",
+        "contactUrl": null,
+        "email": "assemblymember.mikefong@asm.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://fong.asmdc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:063": [
+      {
+        "id": "ocd-person/0c47a1ba-99a2-44a9-8c65-fcad12aeee97",
+        "name": "Natasha Johnson",
+        "office": "state-house",
+        "districtCode": "063",
+        "contactUrl": null,
+        "email": "assemblymember.johnson@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ad63.asmrc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:044": [
+      {
+        "id": "ocd-person/06ae0707-255b-4af9-8e3e-c940e8f29600",
+        "name": "Nick Schultz",
+        "office": "state-house",
+        "districtCode": "044",
+        "contactUrl": null,
+        "email": "assemblymember.schultz@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://a44.asmdc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:026": [
+      {
+        "id": "ocd-person/a86994f3-ffe3-4dc6-9e79-bcba7346f919",
+        "name": "Patrick Ahrens",
+        "office": "state-house",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "assemblymember.ahrens@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://a26.asmdc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:059": [
+      {
+        "id": "ocd-person/6ba768a4-2756-42b5-a5c5-f6b8b5db0491",
+        "name": "Phillip Chen",
+        "office": "state-house",
+        "districtCode": "059",
+        "contactUrl": null,
+        "email": "assemblymember.chen@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ad59.asmrc.org",
+        "social": {}
+      }
+    ],
+    "CA:state-house:040": [
+      {
+        "id": "ocd-person/d12d3275-2086-4bf5-886b-c4de3823fbf9",
+        "name": "Pilar Schiavo",
+        "office": "state-house",
+        "districtCode": "040",
+        "contactUrl": null,
+        "email": "assemblymember.schiavo@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://schiavo.asmdc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:016": [
+      {
+        "id": "ocd-person/2918acca-40a2-4819-a79a-b2873c7895bc",
+        "name": "Rebecca Bauer-Kahan",
+        "office": "state-house",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "assemblymember.bauer-kahan@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://a16.asmdc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:013": [
+      {
+        "id": "ocd-person/86d18985-f35b-4e16-9fcc-663394a156ff",
+        "name": "Rhodesia Ransom",
+        "office": "state-house",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "assemblymember.ransom@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://a13.asmdc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:051": [
+      {
+        "id": "ocd-person/6b7e3458-361f-4fce-8a8c-069282db2af7",
+        "name": "Rick Zbur",
+        "office": "state-house",
+        "districtCode": "051",
+        "contactUrl": null,
+        "email": "assemblymember.zbur@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.assembly.ca.gov/assemblymembers/51",
+        "social": {}
+      }
+    ],
+    "CA:state-house:050": [
+      {
+        "id": "ocd-person/8b2f37bc-65b7-40ed-af14-5d93cb765a5d",
+        "name": "Robert Garcia",
+        "office": "state-house",
+        "districtCode": "050",
+        "contactUrl": null,
+        "email": "assemblymember.garcia@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://a50.asmdc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:029": [
+      {
+        "id": "ocd-person/68f5ee30-aa70-489b-84b7-6501e6188751",
+        "name": "Robert Rivas",
+        "office": "state-house",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "assemblymember.robertrivas@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://speaker.asmdc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:057": [
+      {
+        "id": "ocd-person/6d83a613-6815-48c9-bb31-94adb1ee92ea",
+        "name": "Sade Elhawary",
+        "office": "state-house",
+        "districtCode": "057",
+        "contactUrl": null,
+        "email": "assemblymember.elhawary@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://a57.asmdc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:067": [
+      {
+        "id": "ocd-person/840aa009-3ae4-4484-b9f0-5c5f5060e7db",
+        "name": "Sharon Quirk-Silva",
+        "office": "state-house",
+        "districtCode": "067",
+        "contactUrl": null,
+        "email": "assemblymember.quirk-silva@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://a67.asmdc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:032": [
+      {
+        "id": "ocd-person/01fddc24-a5ac-40b7-a9e1-80e918fee609",
+        "name": "Stan Ellis",
+        "office": "state-house",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "assemblymember.ellis@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ad32.asmrc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:010": [
+      {
+        "id": "ocd-person/62102f53-b531-4290-9699-05a0d7687cae",
+        "name": "Stephanie Nguyen",
+        "office": "state-house",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "assemblymember.stephanienguyen@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://a10.asmdc.org",
+        "social": {}
+      }
+    ],
+    "CA:state-house:038": [
+      {
+        "id": "ocd-person/1e0ccfc0-2d57-4e57-8d16-589d07c1bc72",
+        "name": "Steve Bennett",
+        "office": "state-house",
+        "districtCode": "038",
+        "contactUrl": null,
+        "email": "assemblymember.bennett@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://a38.asmdc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:077": [
+      {
+        "id": "ocd-person/9e69729e-4383-410b-840e-ad4ea0f1ab4a",
+        "name": "Tasha Boerner",
+        "office": "state-house",
+        "districtCode": "077",
+        "contactUrl": null,
+        "email": "assemblymember.boerner@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://a77.asmdc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:061": [
+      {
+        "id": "ocd-person/1aa5dff4-3d71-4642-a5e6-e3d00a5b99f9",
+        "name": "Tina McKinnor",
+        "office": "state-house",
+        "districtCode": "061",
+        "contactUrl": null,
+        "email": "assemblymember.mckinnor@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://a61.asmdc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:034": [
+      {
+        "id": "ocd-person/a8879d70-713c-4d0c-b723-77d0e96c18df",
+        "name": "Tom Lackey",
+        "office": "state-house",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "assemblymember.lackey@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ad34.asmrc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-house:070": [
+      {
+        "id": "ocd-person/75229920-399d-4216-9b76-c27ea398665a",
+        "name": "Tri Ta",
+        "office": "state-house",
+        "districtCode": "070",
+        "contactUrl": null,
+        "email": "assemblymember.ta@assembly.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ad70.asmrc.org",
+        "social": {}
+      }
+    ],
+    "CA:state-senate:039": [
+      {
+        "id": "ocd-person/6c2a35d5-c04c-44d0-8bd9-92a625e2b525",
+        "name": "Akilah Weber Pierson",
+        "office": "state-senate",
+        "districtCode": "039",
+        "contactUrl": null,
+        "email": "senator.weber@senate.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sd39.senate.ca.gov/",
+        "social": {}
+      }
+    ],
+    "CA:state-senate:008": [
+      {
+        "id": "ocd-person/564f2203-7cae-4a40-bc93-5c05a935b98f",
+        "name": "Angelique Ashby",
+        "office": "state-senate",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "senator.ashby@senate.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sd08.senate.ca.gov/",
+        "social": {}
+      }
+    ],
+    "CA:state-senate:014": [
+      {
+        "id": "ocd-person/fe462917-df55-4a43-9fd8-970541544ca6",
+        "name": "Anna Caballero",
+        "office": "state-senate",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "senator.caballero@senate.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sd14.senate.ca.gov/",
+        "social": {}
+      }
+    ],
+    "CA:state-senate:024": [
+      {
+        "id": "ocd-person/e725b91e-1f7f-4510-a9cc-0b9a39d283c3",
+        "name": "Ben Allen",
+        "office": "state-senate",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "senator.allen@senate.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sd24.senate.ca.gov/",
+        "social": {}
+      }
+    ],
+    "CA:state-senate:030": [
+      {
+        "id": "ocd-person/a76028df-5730-47b0-b617-1565621def41",
+        "name": "Bob Archuleta",
+        "office": "state-senate",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "senator.archuleta@senate.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sd30.senate.ca.gov/",
+        "social": {}
+      }
+    ],
+    "CA:state-senate:040": [
+      {
+        "id": "ocd-person/ea5c3b3d-bbad-41f6-a912-69f60f1553a4",
+        "name": "Brian Jones",
+        "office": "state-senate",
+        "districtCode": "040",
+        "contactUrl": null,
+        "email": "senator.jones@senate.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senate.ca.gov/sd38",
+        "social": {}
+      }
+    ],
+    "CA:state-senate:020": [
+      {
+        "id": "ocd-person/b19c0361-ca41-4cba-bcf4-b7342a67f28b",
+        "name": "Caroline Menjivar",
+        "office": "state-senate",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "senator.menjivar@senate.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sd20.senate.ca.gov/",
+        "social": {}
+      }
+    ],
+    "CA:state-senate:038": [
+      {
+        "id": "ocd-person/39e3ce0f-c2e2-4480-9e99-76e1e62f366d",
+        "name": "Catherine Blakespear",
+        "office": "state-senate",
+        "districtCode": "038",
+        "contactUrl": null,
+        "email": "senator.blakespear@senate.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sd38.senate.ca.gov/",
+        "social": {}
+      }
+    ],
+    "CA:state-senate:003": [
+      {
+        "id": "ocd-person/8833976f-b95a-45bf-bbd9-ccdb66946d20",
+        "name": "Christopher Cabaldon",
+        "office": "state-senate",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "senator.cabaldon@senate.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sd03.senate.ca.gov/",
+        "social": {}
+      }
+    ],
+    "CA:state-senate:015": [
+      {
+        "id": "ocd-person/0fa65d2c-6020-4586-a6f1-5dfd41db38ff",
+        "name": "Dave Cortese",
+        "office": "state-senate",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "senator.cortese@senate.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sd15.senate.ca.gov/",
+        "social": {}
+      }
+    ],
+    "CA:state-senate:029": [
+      {
+        "id": "ocd-person/19f694d8-b409-40e5-9f87-d8e3e84afc7f",
+        "name": "Eloise Reyes",
+        "office": "state-senate",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "senator.reyes@senate.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sd29.senate.ca.gov/",
+        "social": {}
+      }
+    ],
+    "CA:state-senate:027": [
+      {
+        "id": "ocd-person/66bd4b32-5536-4bae-ab55-08c0b70ca5fd",
+        "name": "Henry Stern",
+        "office": "state-senate",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "senator.stern@senate.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sd27.senate.ca.gov/",
+        "social": {}
+      }
+    ],
+    "CA:state-senate:005": [
+      {
+        "id": "ocd-person/e9733632-df5d-48b4-b4a3-4768e7dcb5f7",
+        "name": "Jerry McNerney",
+        "office": "state-senate",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "senator.mcnerney@senate.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sd05.senate.ca.gov/",
+        "social": {}
+      }
+    ],
+    "CA:state-senate:007": [
+      {
+        "id": "ocd-person/83a64401-d95d-42c5-8cfc-03bd29e4adc8",
+        "name": "Jesse Arreguín",
+        "office": "state-senate",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "senator.arreguin@senate.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sd07.senate.ca.gov/",
+        "social": {}
+      }
+    ],
+    "CA:state-senate:017": [
+      {
+        "id": "ocd-person/7476789f-49a4-491a-b294-9d1486f24193",
+        "name": "John Laird",
+        "office": "state-senate",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "senator.laird@senate.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sd17.senate.ca.gov/",
+        "social": {}
+      }
+    ],
+    "CA:state-senate:013": [
+      {
+        "id": "ocd-person/c71137b2-3fc3-48bf-b0ad-6c29aff98268",
+        "name": "Josh Becker",
+        "office": "state-senate",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "senator.becker@senate.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sd13.senate.ca.gov/",
+        "social": {}
+      }
+    ],
+    "CA:state-senate:032": [
+      {
+        "id": "ocd-person/d9462f08-2b27-4969-8436-9a1c21534a40",
+        "name": "Kelly Seyarto",
+        "office": "state-senate",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "senator.seyarto@senate.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senate.ca.gov/sd32",
+        "social": {}
+      }
+    ],
+    "CA:state-senate:035": [
+      {
+        "id": "ocd-person/bd78b1b9-6d92-4c67-a1f4-0548575f3aa5",
+        "name": "Laura Richardson",
+        "office": "state-senate",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "senator.richardson@senate.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sd35.senate.ca.gov/",
+        "social": {}
+      }
+    ],
+    "CA:state-senate:033": [
+      {
+        "id": "ocd-person/cb6cc457-59f8-4dd8-aeb5-691c3795ffb7",
+        "name": "Lena Gonzalez",
+        "office": "state-senate",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "senator.gonzalez@senate.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sd33.senate.ca.gov/",
+        "social": {}
+      }
+    ],
+    "CA:state-senate:028": [
+      {
+        "id": "ocd-person/37f2dc9f-d788-4f71-b794-093c8816333b",
+        "name": "Lola Smallwood-Cuevas",
+        "office": "state-senate",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "senator.smallwood-cuevas@senate.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sd28.senate.ca.gov/",
+        "social": {}
+      }
+    ],
+    "CA:state-senate:026": [
+      {
+        "id": "ocd-person/b3f55460-f87b-4db4-b6a5-35a735f34076",
+        "name": "María Elena Durazo",
+        "office": "state-senate",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "senator.durazo@senate.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sd26.senate.ca.gov/",
+        "social": {}
+      }
+    ],
+    "CA:state-senate:004": [
+      {
+        "id": "ocd-person/b6907bd6-05e1-44a4-bfc6-db4b672ff8b4",
+        "name": "Marie Alvarado-Gil",
+        "office": "state-senate",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "senator.alvarado-gil@senate.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sd04.senate.ca.gov/",
+        "social": {}
+      }
+    ],
+    "CA:state-senate:001": [
+      {
+        "id": "ocd-person/1509d608-4d2b-4ebc-be73-b4cd6c06b7c6",
+        "name": "Megan Dahle",
+        "office": "state-senate",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "senator.dahle@senate.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ad01.asmrc.org/",
+        "social": {}
+      }
+    ],
+    "CA:state-senate:016": [
+      {
+        "id": "ocd-person/ee9910a2-0b27-46e0-be87-43c800596b41",
+        "name": "Melissa Hurtado",
+        "office": "state-senate",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "senator.hurtado@senate.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sd16.senate.ca.gov/",
+        "social": {}
+      }
+    ],
+    "CA:state-senate:002": [
+      {
+        "id": "ocd-person/a1394aeb-094a-4fc0-b4d5-005104ceddc0",
+        "name": "Mike McGuire",
+        "office": "state-senate",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "senator.mcguire@senate.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sd02.senate.ca.gov/",
+        "social": {}
+      }
+    ],
+    "CA:state-senate:021": [
+      {
+        "id": "ocd-person/e924a3ec-c7c0-4094-8504-7611bcf8979f",
+        "name": "Monique Limón",
+        "office": "state-senate",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "senator.limon@senate.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sd21.senate.ca.gov/",
+        "social": {}
+      }
+    ],
+    "CA:state-senate:006": [
+      {
+        "id": "ocd-person/ee85bc79-20ee-4046-905e-ad797995fa41",
+        "name": "Roger Niello",
+        "office": "state-senate",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "senator.niello@senate.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senate.ca.gov/sd06",
+        "social": {}
+      }
+    ],
+    "CA:state-senate:019": [
+      {
+        "id": "ocd-person/cb5b9356-6798-44d2-8dc2-caf5651ac4e3",
+        "name": "Rosilicie Ochoa Bogh",
+        "office": "state-senate",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "senator.ochoabogh@senate.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senate.ca.gov/sd23",
+        "social": {}
+      }
+    ],
+    "CA:state-senate:031": [
+      {
+        "id": "ocd-person/61cc77e3-551f-40e6-bb6f-16edd89b04db",
+        "name": "Sabrina Cervantes",
+        "office": "state-senate",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "senator.cervantes@senate.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sd31.senate.ca.gov/",
+        "social": {}
+      }
+    ],
+    "CA:state-senate:025": [
+      {
+        "id": "ocd-person/aa59bbc8-0f05-4974-a88a-2e805deb26b4",
+        "name": "Sasha Pérez",
+        "office": "state-senate",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "senator.perez@senate.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sd25.senate.ca.gov/",
+        "social": {}
+      }
+    ],
+    "CA:state-senate:011": [
+      {
+        "id": "ocd-person/de84277e-1c23-4036-bd64-b27c310a1c0e",
+        "name": "Scott Wiener",
+        "office": "state-senate",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "senator.wiener@senate.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sd11.senate.ca.gov/",
+        "social": {}
+      }
+    ],
+    "CA:state-senate:012": [
+      {
+        "id": "ocd-person/b4b8e8fb-831b-4cae-9081-b8f75477fcd0",
+        "name": "Shannon Grove",
+        "office": "state-senate",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "senator.grove@senate.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senate.ca.gov/sd12",
+        "social": {}
+      }
+    ],
+    "CA:state-senate:018": [
+      {
+        "id": "ocd-person/eb745b9e-4ced-494a-a298-fdffa9207b0d",
+        "name": "Steve Padilla",
+        "office": "state-senate",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "senator.padilla@senate.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sd18.senate.ca.gov/",
+        "social": {}
+      }
+    ],
+    "CA:state-senate:037": [
+      {
+        "id": "ocd-person/8b61aa87-d573-47e2-b17b-bd0edd3c8cf2",
+        "name": "Steve Choi",
+        "office": "state-senate",
+        "districtCode": "037",
+        "contactUrl": null,
+        "email": "senator.choi@senate.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sr37.senate.ca.gov/",
+        "social": {}
+      }
+    ],
+    "CA:state-senate:022": [
+      {
+        "id": "ocd-person/cb0f6477-568f-49db-aba3-f88e7bccbefc",
+        "name": "Susan Rubio",
+        "office": "state-senate",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "senator.rubio@senate.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sd22.senate.ca.gov/",
+        "social": {}
+      }
+    ],
+    "CA:state-senate:023": [
+      {
+        "id": "ocd-person/fb1c2c06-108c-41bf-9f08-44a9f8e0cb08",
+        "name": "Suzette Valladares",
+        "office": "state-senate",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "senator.valladares@senate.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sr23.senate.ca.gov/",
+        "social": {}
+      }
+    ],
+    "CA:state-senate:034": [
+      {
+        "id": "ocd-person/cecabb81-51ab-46f5-9815-cc3486da0632",
+        "name": "Tom Umberg",
+        "office": "state-senate",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "senator.umberg@senate.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sd34.senate.ca.gov/",
+        "social": {}
+      }
+    ],
+    "CA:state-senate:009": [
+      {
+        "id": "ocd-person/972cffb0-32a6-4cef-8a0f-a8cd901395b0",
+        "name": "Tim Grayson",
+        "office": "state-senate",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "senator.grayson@senate.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sd09.senate.ca.gov/",
+        "social": {}
+      }
+    ],
+    "CA:state-senate:036": [
+      {
+        "id": "ocd-person/3dae8bef-7fb2-40a0-afee-78d79212521b",
+        "name": "Tony Strickland",
+        "office": "state-senate",
+        "districtCode": "036",
+        "contactUrl": null,
+        "email": "senator.strickland@senate.ca.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://sr36.senate.ca.gov/",
+        "social": {}
+      }
+    ]
+  }
+}

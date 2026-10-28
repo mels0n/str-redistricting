@@ -1,0 +1,1094 @@
+{
+  "state": "DE",
+  "generatedFrom": {
+    "legislators-current.json": "ae8cb9477c48715df71a7d860854229d799dc90a254d61badc1efb770f892b2c",
+    "legislators-social-media.json": "c6eca1fcdb3a89901335eed51ca061daa4b60ad3243969a127e913bb9657fbc5",
+    "de.csv": "2f50408528912358dda21559fef9264ed1fb611a6b4e7a45e96d1287f458fb18"
+  },
+  "byKey": {
+    "DE:us-senate:state": [
+      {
+        "id": "C001088",
+        "name": "Christopher A. Coons",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.coons.senate.gov/contact",
+        "email": null,
+        "phone": "202-224-5042",
+        "address": "218 Russell Senate Office Building Washington DC 20510",
+        "website": "https://www.coons.senate.gov",
+        "social": {
+          "x": "ChrisCoons",
+          "facebook": "senatorchriscoons",
+          "instagram": "senatorchriscoons"
+        }
+      },
+      {
+        "id": "B001303",
+        "name": "Lisa Blunt Rochester",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-224-2441",
+        "address": "513 Hart Senate Office Building Washington DC 20510",
+        "website": "https://www.bluntrochester.senate.gov",
+        "social": {
+          "x": "SenLBR",
+          "facebook": "Rep.BluntRochester",
+          "instagram": "senlbr"
+        }
+      }
+    ],
+    "DE:us-house:00": [
+      {
+        "id": "M001238",
+        "name": "Sarah McBride",
+        "office": "us-house",
+        "districtCode": "00",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4165",
+        "address": "1306 Longworth House Office Building Washington DC 20515-0800",
+        "website": "https://mcbride.house.gov",
+        "social": {
+          "facebook": "CongresswomanSarahMcBride",
+          "instagram": "congresswomansarahmcbride"
+        }
+      }
+    ],
+    "DE:state-house:020": [
+      {
+        "id": "ocd-person/e9301c44-8042-4031-8ed0-4731c64a5a66",
+        "name": "Alonna Berry",
+        "office": "state-house",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "alonna.berry@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {
+          "facebook": "RepAlonnaBerry",
+          "instagram": "repalonnaberry"
+        }
+      }
+    ],
+    "DE:state-house:036": [
+      {
+        "id": "ocd-person/11732933-9dce-46b4-8683-67e8449b315b",
+        "name": "Bryan Shupe",
+        "office": "state-house",
+        "districtCode": "036",
+        "contactUrl": null,
+        "email": "bryan.shupe@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {
+          "facebook": "BryanShupeDelaware",
+          "instagram": "bryanshupedelaware"
+        }
+      }
+    ],
+    "DE:state-house:033": [
+      {
+        "id": "ocd-person/4f6f337c-16e7-4d39-a503-6b4b36650d2d",
+        "name": "Charles Postles",
+        "office": "state-house",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "charles.postles@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {
+          "facebook": "Postles33rd"
+        }
+      }
+    ],
+    "DE:state-house:014": [
+      {
+        "id": "ocd-person/933a1f48-bea2-43f7-9ccb-a793ac4ac71d",
+        "name": "Claire Snyder-Hall",
+        "office": "state-house",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "claire.snyder-hall@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "DE:state-house:025": [
+      {
+        "id": "ocd-person/d187436c-b3d3-4512-9172-b7a868942fe4",
+        "name": "Cyndie Romer",
+        "office": "state-house",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "cyndie.romer@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {
+          "facebook": "RepCyndieRomer",
+          "instagram": "repcyndieromer"
+        }
+      }
+    ],
+    "DE:state-house:039": [
+      {
+        "id": "ocd-person/947a912f-49e7-4697-896e-fbcd1bcf41d3",
+        "name": "Danny Short",
+        "office": "state-house",
+        "districtCode": "039",
+        "contactUrl": null,
+        "email": "daniel.short@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {
+          "facebook": "dannyshort39th"
+        }
+      }
+    ],
+    "DE:state-house:013": [
+      {
+        "id": "ocd-person/5c5f5bf8-d155-4911-8e06-eb6cc664859e",
+        "name": "DeShanna Neal",
+        "office": "state-house",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "deshanna.neal@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {
+          "x": "DeShanna4DE13",
+          "facebook": "RepDeShannaNeal"
+        }
+      }
+    ],
+    "DE:state-house:006": [
+      {
+        "id": "ocd-person/7e631da1-ef0f-4c6f-ba17-e5ae2860dad6",
+        "name": "Debra Heffernan",
+        "office": "state-house",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "debra.heffernan@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {
+          "x": "DebraHeffernan",
+          "facebook": "RepDebraHeffernan",
+          "instagram": "repdebheffernan"
+        }
+      }
+    ],
+    "DE:state-house:024": [
+      {
+        "id": "ocd-person/07cb3c97-de4e-4210-8c83-b7276c001024",
+        "name": "Ed Osienski",
+        "office": "state-house",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "edward.osienski@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {
+          "facebook": "EdOsienski",
+          "instagram": "repedosienski"
+        }
+      }
+    ],
+    "DE:state-house:027": [
+      {
+        "id": "ocd-person/bfab3b33-30ff-45fc-a45f-ae796d43de68",
+        "name": "Eric Morrison",
+        "office": "state-house",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "eric.morrison@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {
+          "x": "EricMorrison_DE",
+          "facebook": "RepEricMorrison",
+          "instagram": "de_state_rep_morrison"
+        }
+      }
+    ],
+    "DE:state-house:021": [
+      {
+        "id": "ocd-person/f94d59b8-6120-43d2-9788-b30fe945d8d2",
+        "name": "Frank Burns",
+        "office": "state-house",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "frank.burns@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {
+          "facebook": "RepresentativeFrankBurns",
+          "instagram": "repfrankburns"
+        }
+      }
+    ],
+    "DE:state-house:016": [
+      {
+        "id": "ocd-person/0cac3293-534b-4188-93e3-37ef6cd333ae",
+        "name": "Frank Cooke",
+        "office": "state-house",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "franklind.cooke@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {
+          "facebook": "repfranklincooke",
+          "instagram": "repfranklincooke"
+        }
+      }
+    ],
+    "DE:state-house:004": [
+      {
+        "id": "ocd-person/aa0846e8-7d8d-46ed-b4c9-54c9c2243d16",
+        "name": "Jeff Hilovsky",
+        "office": "state-house",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "jeff.hilovsky@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "DE:state-house:011": [
+      {
+        "id": "ocd-person/ef94fe15-3a43-405c-8ec6-d446784dfb32",
+        "name": "Jeff Spiegelman",
+        "office": "state-house",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "jeff.spiegelman@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {
+          "facebook": "friends4jeff"
+        }
+      }
+    ],
+    "DE:state-house:035": [
+      {
+        "id": "ocd-person/4932afab-9381-40d2-837f-f735d1c14b88",
+        "name": "Jesse Vanderwende",
+        "office": "state-house",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "jesse.vanderwende@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "DE:state-house:003": [
+      {
+        "id": "ocd-person/d020ca16-1926-4279-adc8-c0a6cddeac6e",
+        "name": "Josue Ortega",
+        "office": "state-house",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "josue.ortega@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {
+          "facebook": "RepOrtega",
+          "instagram": "electjosueortega"
+        }
+      }
+    ],
+    "DE:state-house:015": [
+      {
+        "id": "ocd-person/5b43a977-2fe9-49e8-b3de-6873eab0692c",
+        "name": "Kam Smith",
+        "office": "state-house",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "kamela.smith@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {
+          "facebook": "RepKamSmith",
+          "instagram": "repkamelasmith"
+        }
+      }
+    ],
+    "DE:state-house:005": [
+      {
+        "id": "ocd-person/b24cb06f-0cb1-4682-8038-d31b8ebc76fb",
+        "name": "Kendra Johnson",
+        "office": "state-house",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "kendra.johnson@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {
+          "facebook": "RepKendraJohnson"
+        }
+      }
+    ],
+    "DE:state-house:032": [
+      {
+        "id": "ocd-person/7ae371b6-0fd5-457a-af26-032432dd381b",
+        "name": "Kerri Harris",
+        "office": "state-house",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "kerrievelyn.harris@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {
+          "x": "KEEVHA_DE",
+          "facebook": "RepKerriEvelynHarris",
+          "instagram": "repkerrievelynharris"
+        }
+      }
+    ],
+    "DE:state-house:009": [
+      {
+        "id": "ocd-person/d1020a85-27a1-4458-9ae2-90b09367be2c",
+        "name": "Kevin Hensley",
+        "office": "state-house",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "kevin.hensley@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {
+          "facebook": "repkevinhensley"
+        }
+      }
+    ],
+    "DE:state-house:019": [
+      {
+        "id": "ocd-person/80dfa709-d199-4950-a067-2dafc40241b9",
+        "name": "Kim Williams",
+        "office": "state-house",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "kimberly.williams@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {
+          "x": "kimwilliamsde",
+          "facebook": "KimWilliamsForStateRepresentative"
+        }
+      }
+    ],
+    "DE:state-house:012": [
+      {
+        "id": "ocd-person/0dc99b9c-115c-4da0-81b1-22aa5b6750e0",
+        "name": "Krista Griffith",
+        "office": "state-house",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "krista.griffith@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {
+          "facebook": "RepKristaGriffith",
+          "instagram": "repkristagriffith"
+        }
+      }
+    ],
+    "DE:state-house:007": [
+      {
+        "id": "ocd-person/1e6f6e97-5c95-4351-afe2-d8843f7897bc",
+        "name": "Larry Lambert",
+        "office": "state-house",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "larry.lambert@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {
+          "x": "LarryForDel",
+          "facebook": "RepLarryLambert"
+        }
+      }
+    ],
+    "DE:state-house:034": [
+      {
+        "id": "ocd-person/85f716aa-751a-4258-a68b-f6ed94b2daa0",
+        "name": "Lyndon Yearick",
+        "office": "state-house",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "lyndon.yearick@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {
+          "facebook": "YearickforDelaware"
+        }
+      }
+    ],
+    "DE:state-house:026": [
+      {
+        "id": "ocd-person/6c816294-3378-48c1-b2fd-bb5cd57a9deb",
+        "name": "Madinah Wilson-Anton",
+        "office": "state-house",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "madinah.wilson-anton@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {
+          "x": "MadinahForDE",
+          "facebook": "RepMadinah",
+          "instagram": "madinahfordelaware"
+        }
+      }
+    ],
+    "DE:state-house:023": [
+      {
+        "id": "ocd-person/1f51da39-f7e2-4489-9307-f2121e9e8adf",
+        "name": "Mara Gorman",
+        "office": "state-house",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "mara.gorman@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {
+          "facebook": "RepMaraGorman",
+          "instagram": "repmaragorman"
+        }
+      }
+    ],
+    "DE:state-house:010": [
+      {
+        "id": "ocd-person/ec594c77-7bbe-45c5-9ffd-0f6a3aad1e36",
+        "name": "Melanie Ross Levin",
+        "office": "state-house",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "melanie.rosslevin@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {
+          "facebook": "RepRossLevin",
+          "instagram": "repmelanierosslevin"
+        }
+      }
+    ],
+    "DE:state-house:017": [
+      {
+        "id": "ocd-person/2ceeb021-8aee-405f-afd6-f53f0c3d0bb7",
+        "name": "Melissa Minor-Brown",
+        "office": "state-house",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "melissa.minorbrown@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {
+          "x": "RepMinor",
+          "facebook": "RepMelissaMinorBrown",
+          "instagram": "speakerminorbrown"
+        }
+      }
+    ],
+    "DE:state-house:022": [
+      {
+        "id": "ocd-person/c9f1393e-01c8-4597-a6e5-6d43330264dc",
+        "name": "Mike Smith",
+        "office": "state-house",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "michael.f.smith@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {
+          "x": "ILikeMikeSmith",
+          "facebook": "staterepresentativemikesmith",
+          "instagram": "ilikemikesmith"
+        }
+      }
+    ],
+    "DE:state-house:001": [
+      {
+        "id": "ocd-person/fdf8cd7b-933f-469b-b1b7-119b39ba5e86",
+        "name": "Nnamdi Chukwuocha",
+        "office": "state-house",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "nnamdi.chukwuocha@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {
+          "facebook": "RepNnamdiChukwuocha",
+          "instagram": "nnamdi1ststaterep"
+        }
+      }
+    ],
+    "DE:state-house:041": [
+      {
+        "id": "ocd-person/26490cf5-c29c-485e-bdc5-1e340a4c10f6",
+        "name": "Rich Collins",
+        "office": "state-house",
+        "districtCode": "041",
+        "contactUrl": null,
+        "email": "rich.collins@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "DE:state-house:038": [
+      {
+        "id": "ocd-person/5cd844e2-9346-40d9-a804-7531aa49ccd4",
+        "name": "Ron Gray",
+        "office": "state-house",
+        "districtCode": "038",
+        "contactUrl": null,
+        "email": "ronald.gray@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {
+          "facebook": "statereprongray"
+        }
+      }
+    ],
+    "DE:state-house:031": [
+      {
+        "id": "ocd-person/6fd6e720-822c-45ee-8fac-933b4eb9ccb5",
+        "name": "Sean Lynn",
+        "office": "state-house",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "sean.lynn@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "DE:state-house:008": [
+      {
+        "id": "ocd-person/6a8995a4-deab-416f-89ce-987c8c6557aa",
+        "name": "Rae Moore",
+        "office": "state-house",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "rae.moore@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {
+          "x": "MooreforDE",
+          "facebook": "RepRaeMoore",
+          "instagram": "mooreforde"
+        }
+      }
+    ],
+    "DE:state-house:018": [
+      {
+        "id": "ocd-person/0a452e37-d7e7-403d-97ff-740c1d257eda",
+        "name": "Sophie Phillips",
+        "office": "state-house",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "sophie.phillips@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {
+          "x": "sophiekp4de",
+          "facebook": "RepSophiePhillips",
+          "instagram": "repsophiekp"
+        }
+      }
+    ],
+    "DE:state-house:002": [
+      {
+        "id": "ocd-person/3ad8467d-5ec5-4626-aab5-11e42b62ad60",
+        "name": "Stephanie Bolden",
+        "office": "state-house",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "stephaniet.bolden@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {
+          "facebook": "RepBolden",
+          "instagram": "repbolden"
+        }
+      }
+    ],
+    "DE:state-house:040": [
+      {
+        "id": "ocd-person/101c752d-fbe4-471c-ae50-f2b1409a328f",
+        "name": "Tim Dukes",
+        "office": "state-house",
+        "districtCode": "040",
+        "contactUrl": null,
+        "email": "timothy.dukes@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {
+          "x": "timothydukes",
+          "facebook": "RepresentativeTimDukes",
+          "instagram": "timothydukes"
+        }
+      }
+    ],
+    "DE:state-house:037": [
+      {
+        "id": "ocd-person/312de86b-37d6-4ffe-a47c-63163e4177c0",
+        "name": "Valerie Giltner",
+        "office": "state-house",
+        "districtCode": "037",
+        "contactUrl": null,
+        "email": "valerie.jonesgiltner@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {
+          "facebook": "StateRepresentativeValerieJonesGiltner"
+        }
+      }
+    ],
+    "DE:state-house:030": [
+      {
+        "id": "ocd-person/1952d6d2-3cd8-4a2c-b663-f16052b948c3",
+        "name": "Shannon Morris",
+        "office": "state-house",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "shannon.morris@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {
+          "facebook": "staterepshannonmorris"
+        }
+      }
+    ],
+    "DE:state-house:029": [
+      {
+        "id": "ocd-person/fccfb524-6aee-40a9-8469-081e961dd072",
+        "name": "Bill Bush",
+        "office": "state-house",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "william.bush@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {
+          "facebook": "RepBillBush"
+        }
+      }
+    ],
+    "DE:state-house:028": [
+      {
+        "id": "ocd-person/35bf376a-ffc2-4468-b6ab-0ef72cc8d05b",
+        "name": "Bill Carson",
+        "office": "state-house",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "william.carson@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {
+          "facebook": "RepWilliamCarson",
+          "instagram": "repwilliamcarson"
+        }
+      }
+    ],
+    "DE:state-senate:019": [
+      {
+        "id": "ocd-person/8b5f6201-6c2f-4847-8d69-737ae776c44b",
+        "name": "Brian Pettyjohn",
+        "office": "state-senate",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "brian.pettyjohn@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legis.delaware.gov/AssemblyMember/150/Pettyjohn",
+        "social": {
+          "x": "brianpettyjohn",
+          "facebook": "BrianGPettyjohn",
+          "instagram": "senatorpettyjohn"
+        }
+      }
+    ],
+    "DE:state-senate:011": [
+      {
+        "id": "ocd-person/f35b571a-d734-4086-b358-ff21382d802f",
+        "name": "Bryan Townsend",
+        "office": "state-senate",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "bryan.townsend@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legis.delaware.gov/AssemblyMember/150/Townsend",
+        "social": {
+          "x": "BryanTownsendDE",
+          "facebook": "BryanTownsendDE"
+        }
+      }
+    ],
+    "DE:state-senate:021": [
+      {
+        "id": "ocd-person/5a29dfb1-14b5-4535-b8ee-da8f432d0727",
+        "name": "Bryant Richardson",
+        "office": "state-senate",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "bryant.richardson@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legis.delaware.gov/AssemblyMember/151/Richardson",
+        "social": {
+          "instagram": "brichardson19973"
+        }
+      }
+    ],
+    "DE:state-senate:001": [
+      {
+        "id": "ocd-person/2341b6b1-2501-4aae-908a-b83346da21eb",
+        "name": "Dan Cruce",
+        "office": "state-senate",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "daniel.cruce@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {
+          "facebook": "SenDanCruce",
+          "instagram": "cruceforsenate"
+        }
+      }
+    ],
+    "DE:state-senate:002": [
+      {
+        "id": "ocd-person/8c5ff346-9896-489e-be96-db9d46d846da",
+        "name": "Darius Brown",
+        "office": "state-senate",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "darius.brown@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legis.delaware.gov/AssemblyMember/150/Brown",
+        "social": {
+          "x": "votefordarius",
+          "facebook": "SenatorDariusBrown",
+          "instagram": "votefordarius"
+        }
+      }
+    ],
+    "DE:state-senate:015": [
+      {
+        "id": "ocd-person/44e38555-6698-43cb-aa8b-f47de87ba4e3",
+        "name": "Dave Lawson",
+        "office": "state-senate",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "dave.lawson@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legis.delaware.gov/AssemblyMember/150/Lawson",
+        "social": {
+          "x": "Lawson4Senate",
+          "facebook": "davelawsonforsenate"
+        }
+      }
+    ],
+    "DE:state-senate:018": [
+      {
+        "id": "ocd-person/0b53dd28-648e-4fe1-a05a-36a21ec12e63",
+        "name": "Dave Wilson",
+        "office": "state-senate",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "david.l.wilson@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legis.delaware.gov/AssemblyMember/150/Wilson",
+        "social": {
+          "facebook": "DaveWilsonforStateSenate"
+        }
+      }
+    ],
+    "DE:state-senate:008": [
+      {
+        "id": "ocd-person/25071aeb-2a5c-4e8b-b166-4a313b3ac22d",
+        "name": "Dave Sokola",
+        "office": "state-senate",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "david.sokola@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legis.delaware.gov/AssemblyMember/150/Sokola",
+        "social": {
+          "facebook": "SenDaveSokola"
+        }
+      }
+    ],
+    "DE:state-senate:016": [
+      {
+        "id": "ocd-person/fb743246-9c86-45f5-95eb-34bc1e11bef1",
+        "name": "Eric Buckson",
+        "office": "state-senate",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "eric.buckson@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legis.delaware.gov/AssemblyMember/152/Buckson",
+        "social": {
+          "facebook": "SenEricBuckson",
+          "instagram": "buckson.eric"
+        }
+      }
+    ],
+    "DE:state-senate:020": [
+      {
+        "id": "ocd-person/7d5fb783-232d-4cc2-b7c7-fdbf4d06eb69",
+        "name": "Gerald Hocker",
+        "office": "state-senate",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "gerald.hocker@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legis.delaware.gov/AssemblyMember/150/Hocker",
+        "social": {
+          "facebook": "Senatorgeraldhocker"
+        }
+      }
+    ],
+    "DE:state-senate:009": [
+      {
+        "id": "ocd-person/7188a518-8d78-42e8-b618-ee38a10d20a4",
+        "name": "Jack Walsh",
+        "office": "state-senate",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "john.walsh@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legis.delaware.gov/AssemblyMember/150/Walsh",
+        "social": {
+          "x": "SenWalshOffice",
+          "facebook": "SenJackWalsh"
+        }
+      }
+    ],
+    "DE:state-senate:014": [
+      {
+        "id": "ocd-person/b5a52e58-da64-49a2-85b2-84f55427fa83",
+        "name": "Kyra Hoffner",
+        "office": "state-senate",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "kyra.hoffner@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legis.delaware.gov/AssemblyMember/152/Hoffner",
+        "social": {
+          "facebook": "SenKyraHoffner"
+        }
+      }
+    ],
+    "DE:state-senate:004": [
+      {
+        "id": "ocd-person/e0bd9610-eafd-4e25-931a-6674762e4c03",
+        "name": "Laura Sturgeon",
+        "office": "state-senate",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "laura.sturgeon@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legis.delaware.gov/AssemblyMember/150/Sturgeon",
+        "social": {
+          "facebook": "SenLauraSturgeon",
+          "instagram": "laurasturgeonsd4"
+        }
+      }
+    ],
+    "DE:state-senate:013": [
+      {
+        "id": "ocd-person/eee736fd-ee29-403a-9bbc-713961c734b7",
+        "name": "Marie Pinkney",
+        "office": "state-senate",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "marie.pinkney@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legis.delaware.gov/AssemblyMember/151/Pinkney",
+        "social": {
+          "x": "Marie4Senate",
+          "facebook": "SenMariePinkney",
+          "instagram": "marie4senate"
+        }
+      }
+    ],
+    "DE:state-senate:012": [
+      {
+        "id": "ocd-person/5e54d79a-5ba8-4966-93aa-2e05788a3ddc",
+        "name": "Nicole Poore",
+        "office": "state-senate",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "nicole.poore@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legis.delaware.gov/AssemblyMember/150/Poore",
+        "social": {
+          "facebook": "SenatorNicolePoore",
+          "instagram": "sennicolepoore"
+        }
+      }
+    ],
+    "DE:state-senate:005": [
+      {
+        "id": "ocd-person/e841e17b-6ea1-4401-b3d3-9b99237b6366",
+        "name": "Ray Seigfried",
+        "office": "state-senate",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "ray.seigfried@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {
+          "facebook": "SenRaySeigfried"
+        }
+      }
+    ],
+    "DE:state-senate:006": [
+      {
+        "id": "ocd-person/d96a4018-ca3f-40a6-a12c-cc38d757e9f0",
+        "name": "Russ Huxtable",
+        "office": "state-senate",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "russell.huxtable@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legis.delaware.gov/AssemblyMember/152/Huxtable",
+        "social": {
+          "x": "RussSenate",
+          "facebook": "SenRussellHuxtable"
+        }
+      }
+    ],
+    "DE:state-senate:003": [
+      {
+        "id": "ocd-person/ca88dc3b-bbc6-4eb8-af32-9821268ebda5",
+        "name": "Tizzy Lockman",
+        "office": "state-senate",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "elizabeth.lockman@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legis.delaware.gov/AssemblyMember/150/Lockman",
+        "social": {
+          "x": "tizzylockmande",
+          "facebook": "SenatorLockman"
+        }
+      }
+    ],
+    "DE:state-senate:007": [
+      {
+        "id": "ocd-person/a42132e6-9070-44a4-81be-70797c4ea2bb",
+        "name": "Spiros Mantzavinos",
+        "office": "state-senate",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "spiros.mantzavinos@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legis.delaware.gov/AssemblyMember/151/Mantzavinos",
+        "social": {
+          "facebook": "SenSpiros"
+        }
+      }
+    ],
+    "DE:state-senate:010": [
+      {
+        "id": "ocd-person/24e001be-be7a-4110-8488-2e385315ff5b",
+        "name": "Stephanie Hansen",
+        "office": "state-senate",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "stephanie.hansen@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legis.delaware.gov/AssemblyMember/150/Hansen",
+        "social": {
+          "x": "HansenForSenate",
+          "facebook": "SenatorStephanieHansen"
+        }
+      }
+    ],
+    "DE:state-senate:017": [
+      {
+        "id": "ocd-person/89be0266-5ecf-40ac-9f5c-3dba2ce79a0d",
+        "name": "Trey Paradee",
+        "office": "state-senate",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "trey.paradee@delaware.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://legis.delaware.gov/AssemblyMember/150/Paradee",
+        "social": {
+          "facebook": "SenTreyParadee"
+        }
+      }
+    ]
+  }
+}

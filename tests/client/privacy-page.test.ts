@@ -13,7 +13,19 @@ describe('privacy page', () => {
   it('has a heading, a section per topic and no em dash', () => {
     const page = createPrivacyPage();
     expect(page.focusTarget()?.textContent).toBe('Privacy');
-    expect([...page.el.querySelectorAll('h2')].map((h) => h.textContent)).toEqual(['Visit counts', 'Address lookups', 'Kept in your browser', 'Hosting', 'Nothing else']);
+    expect([...page.el.querySelectorAll('h2')].map((h) => h.textContent)).toEqual([
+      'What we collect',
+      'What we never keep',
+      'What is public',
+      'Who sees your email',
+      'How to be removed',
+      'Services we use',
+      'Visit counts',
+      'Address lookups',
+      'Kept in your browser',
+      'Hosting',
+      'Nothing else',
+    ]);
     expect(page.el.textContent).not.toContain('—');
   });
 
@@ -26,8 +38,10 @@ describe('privacy page', () => {
 });
 
 describe('what the page claims holds for the hosting policy', () => {
-  it('loads scripts only from the site and the Census geocoder, the one outside service the page names', () => {
-    expect(directive(header('Content-Security-Policy'), 'script-src')).toEqual(["'self'", 'https://geocoding.geo.census.gov']);
+  it('loads scripts only from the site, the Census geocoder and the Turnstile bot check, the outside services the page names', () => {
+    const csp = header('Content-Security-Policy');
+    expect(directive(csp, 'script-src')).toEqual(["'self'", 'https://geocoding.geo.census.gov', 'https://challenges.cloudflare.com']);
+    expect(directive(csp, 'frame-src')).toEqual(['https://challenges.cloudflare.com']);
   });
 
   it('fetches nothing from other sites and loads no outside fonts', () => {

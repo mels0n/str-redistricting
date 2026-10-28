@@ -1,0 +1,2128 @@
+{
+  "state": "AL",
+  "generatedFrom": {
+    "legislators-current.json": "ae8cb9477c48715df71a7d860854229d799dc90a254d61badc1efb770f892b2c",
+    "legislators-social-media.json": "c6eca1fcdb3a89901335eed51ca061daa4b60ad3243969a127e913bb9657fbc5",
+    "al.csv": "11ea1a05785251ebb29abd93b771dbf3d0f6113911bfd6c67e030590a6d5559b"
+  },
+  "byKey": {
+    "AL:us-house:04": [
+      {
+        "id": "A000055",
+        "name": "Robert B. Aderholt",
+        "office": "us-house",
+        "districtCode": "04",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4876",
+        "address": "272 Cannon House Office Building Washington DC 20515-0104",
+        "website": "https://aderholt.house.gov",
+        "social": {
+          "x": "Robert_Aderholt",
+          "facebook": "RobertAderholt"
+        }
+      }
+    ],
+    "AL:us-house:03": [
+      {
+        "id": "R000575",
+        "name": "Mike Rogers",
+        "office": "us-house",
+        "districtCode": "03",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-3261",
+        "address": "2469 Rayburn House Office Building Washington DC 20515-0103",
+        "website": "https://mikerogers.house.gov",
+        "social": {
+          "x": "RepMikeRogersAL",
+          "facebook": "CongressmanMikeDRogers",
+          "instagram": "repmikerogersal"
+        }
+      }
+    ],
+    "AL:us-house:07": [
+      {
+        "id": "S001185",
+        "name": "Terri A. Sewell",
+        "office": "us-house",
+        "districtCode": "07",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2665",
+        "address": "1035 Longworth House Office Building Washington DC 20515-0107",
+        "website": "https://sewell.house.gov",
+        "social": {
+          "x": "RepTerriSewell",
+          "facebook": "RepSewell",
+          "instagram": "repterriasewell"
+        }
+      }
+    ],
+    "AL:us-house:06": [
+      {
+        "id": "P000609",
+        "name": "Gary J. Palmer",
+        "office": "us-house",
+        "districtCode": "06",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4921",
+        "address": "170 Cannon House Office Building Washington DC 20515-0106",
+        "website": "https://palmer.house.gov",
+        "social": {
+          "x": "USRepGaryPalmer",
+          "facebook": "CongressmanGaryPalmer",
+          "instagram": "repgarypalmer"
+        }
+      }
+    ],
+    "AL:us-senate:state": [
+      {
+        "id": "T000278",
+        "name": "Tommy Tuberville",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.tuberville.senate.gov/contact/contact-form/",
+        "email": null,
+        "phone": "202-224-4124",
+        "address": "455 Russell Senate Office Building Washington DC 20510",
+        "website": "https://www.tuberville.senate.gov",
+        "social": {
+          "x": "SenTuberville",
+          "facebook": "SenatorTuberville",
+          "instagram": "sentuberville"
+        }
+      },
+      {
+        "id": "B001319",
+        "name": "Katie Boyd Britt",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.britt.senate.gov/contact/",
+        "email": null,
+        "phone": "202-224-5744",
+        "address": "416 Russell Senate Office Building Washington DC 20510",
+        "website": "https://www.britt.senate.gov",
+        "social": {
+          "x": "SenKatieBritt",
+          "facebook": "senkatiebritt",
+          "instagram": "senkatiebritt"
+        }
+      }
+    ],
+    "AL:us-house:01": [
+      {
+        "id": "M001212",
+        "name": "Barry Moore",
+        "office": "us-house",
+        "districtCode": "01",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2901",
+        "address": "1511 Longworth House Office Building Washington DC 20515-0101",
+        "website": "https://barrymoore.house.gov",
+        "social": {
+          "x": "RepBarryMoore",
+          "facebook": "RepBarryMoore"
+        }
+      }
+    ],
+    "AL:us-house:05": [
+      {
+        "id": "S001220",
+        "name": "Dale W. Strong",
+        "office": "us-house",
+        "districtCode": "05",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4801",
+        "address": "449 Cannon House Office Building Washington DC 20515-0105",
+        "website": "https://strong.house.gov",
+        "social": {
+          "x": "RepDaleStrong",
+          "facebook": "repdalestrong",
+          "instagram": "repdalestrong"
+        }
+      }
+    ],
+    "AL:us-house:02": [
+      {
+        "id": "F000481",
+        "name": "Shomari Figures",
+        "office": "us-house",
+        "districtCode": "02",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4931",
+        "address": "225 Cannon House Office Building Washington DC 20515-0102",
+        "website": "https://figures.house.gov",
+        "social": {
+          "x": "repscfigures",
+          "facebook": "congressman.shomari.figures",
+          "instagram": "repscfigures"
+        }
+      }
+    ],
+    "AL:state-house:097": [
+      {
+        "id": "ocd-person/4cb1aeb5-d822-4f2c-a7e6-ae2a132acf17",
+        "name": "Adline Clarke",
+        "office": "state-house",
+        "districtCode": "097",
+        "contactUrl": null,
+        "email": "adline.clarke@alhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:066": [
+      {
+        "id": "ocd-person/cb2488d5-f0b6-4e9f-948b-ff7e9f4e1907",
+        "name": "Alan Baker",
+        "office": "state-house",
+        "districtCode": "066",
+        "contactUrl": null,
+        "email": "staterep@co.escambia.al.us",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:051": [
+      {
+        "id": "ocd-person/3f96a690-e9a3-4774-8484-49a5a079b18c",
+        "name": "Allen Treadaway",
+        "office": "state-house",
+        "districtCode": "051",
+        "contactUrl": null,
+        "email": "allen.treadaway@alhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:006": [
+      {
+        "id": "ocd-person/c128ed12-dd1b-4b5f-8c64-9d86bf9d6580",
+        "name": "Andy Whitt",
+        "office": "state-house",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "andy.whitt@alhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:053": [
+      {
+        "id": "ocd-person/95f7541d-5429-41aa-85e5-7fc9cf33d688",
+        "name": "Anthony Daniels",
+        "office": "state-house",
+        "districtCode": "053",
+        "contactUrl": null,
+        "email": "anthony.daniels@alhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:043": [
+      {
+        "id": "ocd-person/02655110-0839-4b2e-9f4b-b3a43788e275",
+        "name": "Arnold Mooney",
+        "office": "state-house",
+        "districtCode": "043",
+        "contactUrl": null,
+        "email": "arnold.mooney@alhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:071": [
+      {
+        "id": "ocd-person/474c3552-b3cd-4015-ac15-3c6301a0ce0e",
+        "name": "A.J. McCampbell",
+        "office": "state-house",
+        "districtCode": "071",
+        "contactUrl": null,
+        "email": "artis.mccampbell@alhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:032": [
+      {
+        "id": "ocd-person/a1033b9f-f53e-46b8-ab4e-508d87e0d8e8",
+        "name": "Barbara Boyd",
+        "office": "state-house",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "barbara.boyd@alhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:103": [
+      {
+        "id": "ocd-person/375419e1-4626-4a9a-92ed-15962de5be09",
+        "name": "Barbara Drummond",
+        "office": "state-house",
+        "districtCode": "103",
+        "contactUrl": null,
+        "email": "drummondbarbara@comcast.net",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:002": [
+      {
+        "id": "ocd-person/a2413268-fe7d-4a14-839c-14e9723da23a",
+        "name": "Ben Harrison",
+        "office": "state-house",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "ben.harrison@alhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:033": [
+      {
+        "id": "ocd-person/7da5c799-bd67-458a-b3b1-a0cdda8f474e",
+        "name": "Ben Robbins",
+        "office": "state-house",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "ben.robbins@alhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:084": [
+      {
+        "id": "ocd-person/a5d0ab78-e643-4ea1-86f2-2dad948b498a",
+        "name": "Berry Forte",
+        "office": "state-house",
+        "districtCode": "084",
+        "contactUrl": null,
+        "email": "berry.forte@alhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:062": [
+      {
+        "id": "ocd-person/f470053d-6f95-4ed1-b641-5d0e7b236ed5",
+        "name": "Bill Lamb",
+        "office": "state-house",
+        "districtCode": "062",
+        "contactUrl": null,
+        "email": "lambbama@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:037": [
+      {
+        "id": "ocd-person/03d6bca3-9630-4173-a3c0-4ab4b5aaaedb",
+        "name": "Bob Fincher",
+        "office": "state-house",
+        "districtCode": "037",
+        "contactUrl": null,
+        "email": "rsfincher77@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:065": [
+      {
+        "id": "ocd-person/def57a9e-a907-4e62-b990-41dc19661c06",
+        "name": "Brett Easterbrook",
+        "office": "state-house",
+        "districtCode": "065",
+        "contactUrl": null,
+        "email": "brett.easterbrook@yahoo.com",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:026": [
+      {
+        "id": "ocd-person/aaffbe89-25dd-4454-85f7-81e4ed89c749",
+        "name": "Brock Colvin",
+        "office": "state-house",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "brock.colvin@alhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:016": [
+      {
+        "id": "ocd-person/ed6f9cbb-3180-4e8e-b9c1-c56dd888ce38",
+        "name": "Bryan Brinyark",
+        "office": "state-house",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "bryan.brinyark@alhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members?tab=1&search=brinyark",
+        "social": {}
+      }
+    ],
+    "AL:state-house:040": [
+      {
+        "id": "ocd-person/60ec1e11-da78-43be-90e5-5d850bf3edc7",
+        "name": "Chad Robertson",
+        "office": "state-house",
+        "districtCode": "040",
+        "contactUrl": null,
+        "email": "chadrobertsond40@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:105": [
+      {
+        "id": "ocd-person/04a1794d-93f0-435f-8c68-1b435f2fc1a0",
+        "name": "Chip Brown",
+        "office": "state-house",
+        "districtCode": "105",
+        "contactUrl": null,
+        "email": "chip.brown@alhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:080": [
+      {
+        "id": "ocd-person/6b644492-bb54-496c-8ad3-22ec002056d4",
+        "name": "Chris Blackshear",
+        "office": "state-house",
+        "districtCode": "080",
+        "contactUrl": null,
+        "email": "chris.blackshear@alhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:070": [
+      {
+        "id": "ocd-person/b57cc6b9-3627-431f-8a01-4c3c7ba973d4",
+        "name": "Chris England",
+        "office": "state-house",
+        "districtCode": "070",
+        "contactUrl": null,
+        "email": "cengland1@hotmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:101": [
+      {
+        "id": "ocd-person/f4133b43-f822-4d95-b1e0-a0a524de56f6",
+        "name": "Chris Pringle",
+        "office": "state-house",
+        "districtCode": "101",
+        "contactUrl": null,
+        "email": "chris.pringle@alhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:090": [
+      {
+        "id": "ocd-person/39a26498-6bb6-4627-8c49-d9c453c9aab8",
+        "name": "Chris Sells",
+        "office": "state-house",
+        "districtCode": "090",
+        "contactUrl": null,
+        "email": "repcsells@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:012": [
+      {
+        "id": "ocd-person/cbfd2b4e-f512-4176-b2f6-1df9d2d9c99c",
+        "name": "Cindy Myrex",
+        "office": "state-house",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "cindy.myrex@alhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members?tab=1&search=myrex",
+        "social": {}
+      }
+    ],
+    "AL:state-house:041": [
+      {
+        "id": "ocd-person/3b1a631d-35d4-47bd-a37c-a98fed7a5bd4",
+        "name": "Corley Ellis",
+        "office": "state-house",
+        "districtCode": "041",
+        "contactUrl": null,
+        "email": "corley.ellis@alhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:030": [
+      {
+        "id": "ocd-person/63e7d9b8-136c-4ebc-bb87-19660eb7b624",
+        "name": "Craig Lipscomb",
+        "office": "state-house",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "craig.lipscomb@alhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:072": [
+      {
+        "id": "ocd-person/583c130d-a97a-48c9-9a18-03e94aa93930",
+        "name": "Curtis Travis",
+        "office": "state-house",
+        "districtCode": "072",
+        "contactUrl": null,
+        "email": "cltravis620@charter.net",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:005": [
+      {
+        "id": "ocd-person/749e2cb2-e087-4920-aea3-b40d28f56db5",
+        "name": "Danny Crawford",
+        "office": "state-house",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "danny.crawford@alhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:044": [
+      {
+        "id": "ocd-person/4aab5f96-d36a-4274-9591-9922a353c10b",
+        "name": "Danny Garrett",
+        "office": "state-house",
+        "districtCode": "044",
+        "contactUrl": null,
+        "email": "dannygarrett44@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:046": [
+      {
+        "id": "ocd-person/9b9fd235-1045-4935-a097-bd5e51d2c592",
+        "name": "David Faulkner",
+        "office": "state-house",
+        "districtCode": "046",
+        "contactUrl": null,
+        "email": "david@davidfaulkneral46.com",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:034": [
+      {
+        "id": "ocd-person/0efb60b3-60e6-4248-a264-41a2a1d35036",
+        "name": "David Standridge",
+        "office": "state-house",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "david.standridge@alhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:064": [
+      {
+        "id": "ocd-person/ef19bb65-dc3c-4815-ac71-b1ffd9abf28b",
+        "name": "Donna Givens",
+        "office": "state-house",
+        "districtCode": "064",
+        "contactUrl": null,
+        "email": "donnagivens55@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:081": [
+      {
+        "id": "ocd-person/9ec989cb-f503-46c1-aa2a-2913e2bc16bd",
+        "name": "Ed Oliver",
+        "office": "state-house",
+        "districtCode": "081",
+        "contactUrl": null,
+        "email": "ed.oliver@alhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:007": [
+      {
+        "id": "ocd-person/5658aa05-6ffa-4774-a8a4-f49c169769d2",
+        "name": "Ernie Yarbrough",
+        "office": "state-house",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "yarbrough4house@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:095": [
+      {
+        "id": "ocd-person/3bc2e263-71cf-41e2-80c5-3f97cad999ff",
+        "name": "Frances Holk-Jones",
+        "office": "state-house",
+        "districtCode": "095",
+        "contactUrl": null,
+        "email": "frances.holk-jones@alhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:039": [
+      {
+        "id": "ocd-person/08fce57e-b511-4572-bcb8-7c712d8e7d05",
+        "name": "Ginny Shaver",
+        "office": "state-house",
+        "districtCode": "039",
+        "contactUrl": null,
+        "email": "ginny.shaver@alhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:013": [
+      {
+        "id": "ocd-person/319cc74b-3113-4053-8bda-0e1903227207",
+        "name": "Greg Barnes",
+        "office": "state-house",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "greg.barnes@alhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members?tab=1&search=barnes",
+        "social": {}
+      }
+    ],
+    "AL:state-house:011": [
+      {
+        "id": "ocd-person/de4c986e-ec06-437e-8d3d-b7ca591606bc",
+        "name": "Heath Allbright",
+        "office": "state-house",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "heathallbright@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members?tab=1&search=Allbright",
+        "social": {}
+      }
+    ],
+    "AL:state-house:042": [
+      {
+        "id": "ocd-person/2e9b60b3-d931-412e-a9f6-803aa7c7b085",
+        "name": "Van Smith",
+        "office": "state-house",
+        "districtCode": "042",
+        "contactUrl": null,
+        "email": "ivan.smith@alhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:020": [
+      {
+        "id": "ocd-person/d54b8dfc-7921-4f35-ad22-ad2efdaad100",
+        "name": "James Lomax",
+        "office": "state-house",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "jamesoliverlomax@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:018": [
+      {
+        "id": "ocd-person/390ee0ed-0b5e-4f45-a740-63511c4fa3fd",
+        "name": "Jamie Kiel",
+        "office": "state-house",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "jamie.kiel@alhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:027": [
+      {
+        "id": "ocd-person/70d0256c-91eb-4338-b86d-181e1db4d8f7",
+        "name": "Jeana Ross",
+        "office": "state-house",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "jeana.ross@alhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members?tab=1&search=Ross",
+        "social": {}
+      }
+    ],
+    "AL:state-house:087": [
+      {
+        "id": "ocd-person/18af5645-53f2-4571-b24d-3173abf2b567",
+        "name": "Jeff Sorrells",
+        "office": "state-house",
+        "districtCode": "087",
+        "contactUrl": null,
+        "email": "jeffs@fnbhartford.com",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:094": [
+      {
+        "id": "ocd-person/48d9f4e1-ec8b-4353-9207-a70db34449a9",
+        "name": "Jennifer Fidler",
+        "office": "state-house",
+        "districtCode": "094",
+        "contactUrl": null,
+        "email": "jennifer.fidler@alhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:083": [
+      {
+        "id": "ocd-person/15372a5d-6a78-40f2-aebf-fd7692c41cb0",
+        "name": "Jeremy Gray",
+        "office": "state-house",
+        "districtCode": "083",
+        "contactUrl": null,
+        "email": "jeremy.gray@alhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:088": [
+      {
+        "id": "ocd-person/8394a967-dcf1-4901-a8d5-9ca120da382e",
+        "name": "Jerry Starnes",
+        "office": "state-house",
+        "districtCode": "088",
+        "contactUrl": null,
+        "email": "jerry.starnes@alhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:048": [
+      {
+        "id": "ocd-person/0d7f5989-df17-4c90-8267-4914f5598712",
+        "name": "Jim Carns",
+        "office": "state-house",
+        "districtCode": "048",
+        "contactUrl": null,
+        "email": "jwcarns@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:050": [
+      {
+        "id": "ocd-person/1fda4118-bfb1-4ffa-b71a-a9d131feec6b",
+        "name": "Jim Hill",
+        "office": "state-house",
+        "districtCode": "050",
+        "contactUrl": null,
+        "email": "jim.hill@alhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:079": [
+      {
+        "id": "ocd-person/972dcfd0-f2a2-438b-b5de-276ceb398a91",
+        "name": "Joe Lovvorn",
+        "office": "state-house",
+        "districtCode": "079",
+        "contactUrl": null,
+        "email": "joe.lovvorn@alhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:060": [
+      {
+        "id": "ocd-person/73cebf90-bf5a-444a-857e-b5bbddc374bf",
+        "name": "Juandalynn Givan",
+        "office": "state-house",
+        "districtCode": "060",
+        "contactUrl": null,
+        "email": "juandalynn.givan@alhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:052": [
+      {
+        "id": "ocd-person/441922a8-63c1-498b-9de5-f5ee85d9dcf3",
+        "name": "Kelvin Datcher",
+        "office": "state-house",
+        "districtCode": "052",
+        "contactUrl": null,
+        "email": "kelvin.datcher@alhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
+      }
+    ],
+    "AL:state-house:069": [
+      {
+        "id": "ocd-person/0e1643ee-370a-499d-80df-96116d63c216",
+        "name": "Kelvin Lawrence",
+        "office": "state-house",
+        "districtCode": "069",
+        "contactUrl": null,
+        "email": "kelvinj73@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:073": [
+      {
+        "id": "ocd-person/ab6d4114-8d0a-4439-934b-10197234473c",
+        "name": "Kenneth Paschal",
+        "office": "state-house",
+        "districtCode": "073",
+        "contactUrl": null,
+        "email": "kenneth.paschal@alhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:078": [
+      {
+        "id": "ocd-person/63c5bc01-757d-474a-9c75-286da0076e3e",
+        "name": "Kenyatté Hassell",
+        "office": "state-house",
+        "districtCode": "078",
+        "contactUrl": null,
+        "email": "ken.hassell@alhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:003": [
+      {
+        "id": "ocd-person/3828d8e6-1f22-4cb1-be51-b3d3a0c36b98",
+        "name": "Bubba Underwood",
+        "office": "state-house",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "kerryucpa@me.com",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:038": [
+      {
+        "id": "ocd-person/730c7d27-9f0a-4a8b-839b-8de86f6b012e",
+        "name": "Kristin Nelson",
+        "office": "state-house",
+        "districtCode": "038",
+        "contactUrl": null,
+        "email": "kristin.nelson@alhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members?tab=1&search=nelson",
+        "social": {}
+      }
+    ],
+    "AL:state-house:019": [
+      {
+        "id": "ocd-person/9314859d-000f-447c-9aa7-4993b13e8010",
+        "name": "Laura Hall",
+        "office": "state-house",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "annihall19@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:015": [
+      {
+        "id": "ocd-person/f2489dbf-ac57-427f-8200-4cf6e6610980",
+        "name": "Leigh Hulsey",
+        "office": "state-house",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "leigh.hulsey@alhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:028": [
+      {
+        "id": "ocd-person/5071243c-3e2d-4acb-ac8d-0d3a8af3eb8a",
+        "name": "Mack Butler",
+        "office": "state-house",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "mack.butler@alhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:089": [
+      {
+        "id": "ocd-person/723a971e-91d9-4717-8f19-45f16e18690f",
+        "name": "Marcus Paramore",
+        "office": "state-house",
+        "districtCode": "089",
+        "contactUrl": null,
+        "email": "marcusforhouse@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:104": [
+      {
+        "id": "ocd-person/050e1a72-402d-46ae-a9c3-1c5dff003ee6",
+        "name": "Margie Wilcox",
+        "office": "state-house",
+        "districtCode": "104",
+        "contactUrl": null,
+        "email": "margie.wilcox@alhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:010": [
+      {
+        "id": "ocd-person/eb947430-2674-4158-8290-0d973c59e834",
+        "name": "Marilyn Lands",
+        "office": "state-house",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "marilyn.lands@alhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members?tab=1&search=lands",
+        "social": {}
+      }
+    ],
+    "AL:state-house:029": [
+      {
+        "id": "ocd-person/97514731-a41d-4328-841f-afdcaac1c6e2",
+        "name": "Mark Gidley",
+        "office": "state-house",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "mark.gidley@alhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:100": [
+      {
+        "id": "ocd-person/41debaee-f705-453d-a46f-3e8282b8a4b0",
+        "name": "Mark Shirey",
+        "office": "state-house",
+        "districtCode": "100",
+        "contactUrl": null,
+        "email": "mark.shirey@alhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:059": [
+      {
+        "id": "ocd-person/63c58557-7c03-41f5-934a-866daed33ec8",
+        "name": "Mary Moore",
+        "office": "state-house",
+        "districtCode": "059",
+        "contactUrl": null,
+        "email": "mamoor48@bellsouth.net",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:096": [
+      {
+        "id": "ocd-person/52046189-0464-4140-9cdf-b6c66312d49d",
+        "name": "Matt Simpson",
+        "office": "state-house",
+        "districtCode": "096",
+        "contactUrl": null,
+        "email": "mattsimpsonal96@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:092": [
+      {
+        "id": "ocd-person/ff14c161-755d-44c8-a1e5-c2e3930a5317",
+        "name": "Matthew Hammett",
+        "office": "state-house",
+        "districtCode": "092",
+        "contactUrl": null,
+        "email": "matthew.hammett@alhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:023": [
+      {
+        "id": "ocd-person/c2e0fa74-36df-4d34-8203-962c546442fa",
+        "name": "Mike Kirkland",
+        "office": "state-house",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "kirklandmike75@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:047": [
+      {
+        "id": "ocd-person/cff09a3a-b81e-433d-80f5-45f6472f4642",
+        "name": "Mike Shaw",
+        "office": "state-house",
+        "districtCode": "047",
+        "contactUrl": null,
+        "email": "mike.shaw@alabama47.com",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:098": [
+      {
+        "id": "ocd-person/947c7906-7825-442f-9241-d777b9bbe999",
+        "name": "Napoleon Bracy",
+        "office": "state-house",
+        "districtCode": "098",
+        "contactUrl": null,
+        "email": "napoleon.bracy@alhouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:024": [
+      {
+        "id": "ocd-person/097b764f-5d8c-462e-a962-3330c50721a4",
+        "name": "Nathaniel Ledbetter",
+        "office": "state-house",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "nathaniel.ledbetter@alhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:054": [
+      {
+        "id": "ocd-person/dc6e41ae-d1b3-47c7-b225-1d5ec88a9fdc",
+        "name": "Neil Rafferty",
+        "office": "state-house",
+        "districtCode": "054",
+        "contactUrl": null,
+        "email": "reprafferty@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:063": [
+      {
+        "id": "ocd-person/3a86c192-f9b1-4b58-9f5b-2119d1fe4e0d",
+        "name": "Norman Crow",
+        "office": "state-house",
+        "districtCode": "063",
+        "contactUrl": null,
+        "email": "norman.crow@alhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members?tab=1&search=crow",
+        "social": {}
+      }
+    ],
+    "AL:state-house:056": [
+      {
+        "id": "ocd-person/a86c6f40-304e-49fd-a312-3aa30660fcdf",
+        "name": "Ontario Tillman",
+        "office": "state-house",
+        "districtCode": "056",
+        "contactUrl": null,
+        "email": "ojtillman@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:004": [
+      {
+        "id": "ocd-person/95e63d6f-1815-4364-8817-0d26e360013f",
+        "name": "Parker Moore",
+        "office": "state-house",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "parker.moore@alhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:076": [
+      {
+        "id": "ocd-person/c4b563a3-2b20-4c2d-8f54-2b7ed6a3af3f",
+        "name": "Penni McClammy",
+        "office": "state-house",
+        "districtCode": "076",
+        "contactUrl": null,
+        "email": "patrice.mcclammy@alhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:057": [
+      {
+        "id": "ocd-person/19244bfa-5953-4304-8955-cc58d0c5d16d",
+        "name": "Patrick Sellers",
+        "office": "state-house",
+        "districtCode": "057",
+        "contactUrl": null,
+        "email": "sellersfor57@yahoo.com",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:086": [
+      {
+        "id": "ocd-person/37a5dfa8-e69f-4567-b8c0-3ea35a69f181",
+        "name": "Paul Lee",
+        "office": "state-house",
+        "districtCode": "086",
+        "contactUrl": null,
+        "email": "pleed86@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:082": [
+      {
+        "id": "ocd-person/7c93c20f-6b0b-4743-8118-3cb4e9194c26",
+        "name": "Pebblin Warren",
+        "office": "state-house",
+        "districtCode": "082",
+        "contactUrl": null,
+        "email": "pebblinwarren@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:074": [
+      {
+        "id": "ocd-person/397cb6b4-54fe-42e2-9135-7b440d925649",
+        "name": "Phillip Ensler",
+        "office": "state-house",
+        "districtCode": "074",
+        "contactUrl": null,
+        "email": "phillip.ensler@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:001": [
+      {
+        "id": "ocd-person/a84a3fe8-5444-4db3-9f64-06ea0cba0e90",
+        "name": "Phillip Pettus",
+        "office": "state-house",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "phillip.pettus@alhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:025": [
+      {
+        "id": "ocd-person/78f07b0c-9939-4e03-81f8-f851511a46cb",
+        "name": "Phillip Rigsby",
+        "office": "state-house",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "reprigsbydistrict25@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:067": [
+      {
+        "id": "ocd-person/b1e60061-fb98-4c20-8532-b734d08cdbc3",
+        "name": "Prince Chestnut",
+        "office": "state-house",
+        "districtCode": "067",
+        "contactUrl": null,
+        "email": "chestnut4house@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:036": [
+      {
+        "id": "ocd-person/451a4cb7-3585-46d3-86c7-61b345f7a601",
+        "name": "Randy Wood",
+        "office": "state-house",
+        "districtCode": "036",
+        "contactUrl": null,
+        "email": "strep36@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:075": [
+      {
+        "id": "ocd-person/bd08d7a5-b1f3-484f-80c1-bddf2d636413",
+        "name": "Reed Ingram",
+        "office": "state-house",
+        "districtCode": "075",
+        "contactUrl": null,
+        "email": "reedingram75@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:021": [
+      {
+        "id": "ocd-person/e95b6e20-1207-4cdc-9875-15d14bfd72d2",
+        "name": "Rex Reynolds",
+        "office": "state-house",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "rex.reynolds@alhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:091": [
+      {
+        "id": "ocd-person/d9d5a3a8-71f6-4c2e-8805-3fa715b315f4",
+        "name": "Rhett Marques",
+        "office": "state-house",
+        "districtCode": "091",
+        "contactUrl": null,
+        "email": "rhett.marques@alhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:085": [
+      {
+        "id": "ocd-person/31629cc7-81e6-4422-9aa3-89e6b9073259",
+        "name": "Rick Rehm",
+        "office": "state-house",
+        "districtCode": "085",
+        "contactUrl": null,
+        "email": "rrehm46@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:022": [
+      {
+        "id": "ocd-person/7e00e45e-24bf-4939-83b8-a56a90e3ea61",
+        "name": "Ritchie Whorton",
+        "office": "state-house",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "ritchie.whorton@alhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:058": [
+      {
+        "id": "ocd-person/721421f8-e118-4163-bae9-72f3662696e9",
+        "name": "Rolanda Hollis",
+        "office": "state-house",
+        "districtCode": "058",
+        "contactUrl": null,
+        "email": "rolanda.hollis@alhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:061": [
+      {
+        "id": "ocd-person/b94526a8-1564-43f5-ad38-98b795e95f02",
+        "name": "Ron Bolton",
+        "office": "state-house",
+        "districtCode": "061",
+        "contactUrl": null,
+        "email": "ronaldbolton1@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:049": [
+      {
+        "id": "ocd-person/af4e689f-d9f8-4a90-a883-1ed68e476aa9",
+        "name": "Russell Bedsole",
+        "office": "state-house",
+        "districtCode": "049",
+        "contactUrl": null,
+        "email": "russell.bedsole@alhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:099": [
+      {
+        "id": "ocd-person/1c825e04-ad1e-4009-a8d8-157abc001f3e",
+        "name": "Sam Jones",
+        "office": "state-house",
+        "districtCode": "099",
+        "contactUrl": null,
+        "email": "sam.jones@alhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:009": [
+      {
+        "id": "ocd-person/9877dd5b-c3ee-459f-bb8d-d9d954ae343c",
+        "name": "Scott Stadthagen",
+        "office": "state-house",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "scott.stadthagen@alhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:102": [
+      {
+        "id": "ocd-person/6a24df4b-b8e2-449a-8f18-d12d15f2bc5b",
+        "name": "Shane Stringer",
+        "office": "state-house",
+        "districtCode": "102",
+        "contactUrl": null,
+        "email": "shane.stringer@alhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:093": [
+      {
+        "id": "ocd-person/6b191fda-698d-4061-8396-fef9771847ee",
+        "name": "Steve Clouse",
+        "office": "state-house",
+        "districtCode": "093",
+        "contactUrl": null,
+        "email": "steve.clouse@alhouse.org",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:035": [
+      {
+        "id": "ocd-person/4f0a4d5d-b27a-4f33-b394-f27d306f8a42",
+        "name": "Steve Hurst",
+        "office": "state-house",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "repstevehurst98@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:045": [
+      {
+        "id": "ocd-person/03612130-d61e-43dd-9768-ddca8f27d4ea",
+        "name": "Susan DuBose",
+        "office": "state-house",
+        "districtCode": "045",
+        "contactUrl": null,
+        "email": "susan.dubose@alhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:077": [
+      {
+        "id": "ocd-person/2ba6dc9a-31db-4371-9d69-7fa000e7a08a",
+        "name": "TaShina Morris",
+        "office": "state-house",
+        "districtCode": "077",
+        "contactUrl": null,
+        "email": "tashina.morris@alhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:008": [
+      {
+        "id": "ocd-person/902f0f81-a34c-4714-a3eb-bf563abbea96",
+        "name": "Terri Collins",
+        "office": "state-house",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "terri@terricollins.org",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:068": [
+      {
+        "id": "ocd-person/3d737a2a-6fdf-4939-838d-4f035a647e23",
+        "name": "Thomas Jackson",
+        "office": "state-house",
+        "districtCode": "068",
+        "contactUrl": null,
+        "email": "jthomase68@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:014": [
+      {
+        "id": "ocd-person/04f7bd8e-094b-433c-9e91-7ebe64c75604",
+        "name": "Tim Wadsworth",
+        "office": "state-house",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "wadsworth.tim654321@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:017": [
+      {
+        "id": "ocd-person/25308613-cda5-4e1c-aef7-821ada580575",
+        "name": "Tracy Estes",
+        "office": "state-house",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "tracy.estes@alhouse.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:055": [
+      {
+        "id": "ocd-person/03ab8e26-365c-4dab-8e49-df2a8b7613f8",
+        "name": "Travis Hendrix",
+        "office": "state-house",
+        "districtCode": "055",
+        "contactUrl": null,
+        "email": "hendrixfor55@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-house:031": [
+      {
+        "id": "ocd-person/82715f9c-12a1-4e99-8020-a47b37dfa92b",
+        "name": "Troy Stubbs",
+        "office": "state-house",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "troy.stubbs@hotmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-senate:010": [
+      {
+        "id": "ocd-person/84d43460-8578-4b85-b2ee-7f6849e270d8",
+        "name": "Andrew Jones",
+        "office": "state-senate",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "andrew.jones@alsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/senate-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-senate:014": [
+      {
+        "id": "ocd-person/15ebe01e-1447-4bdb-8dfb-e9d5948b872d",
+        "name": "April Weaver",
+        "office": "state-senate",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "april.weaver@alsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/senate-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-senate:003": [
+      {
+        "id": "ocd-person/b38546ec-f8fb-4e99-8e0c-46715b2e8578",
+        "name": "Arthur Orr",
+        "office": "state-senate",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "arthur.orr@alsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/senate-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-senate:024": [
+      {
+        "id": "ocd-person/6e6d5e12-363b-42dc-b0d1-191c82aa6493",
+        "name": "Bobby Singleton",
+        "office": "state-senate",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "bsingle362@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/senate-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-senate:032": [
+      {
+        "id": "ocd-person/67479855-f23e-4119-b886-91dddc09a47a",
+        "name": "Chris Elliott",
+        "office": "state-senate",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "chris.elliott@alsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/senate-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-senate:030": [
+      {
+        "id": "ocd-person/d1307771-6d50-4d56-9995-b5d799917d7b",
+        "name": "Clyde Chambliss",
+        "office": "state-senate",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "clyde.chambliss@alsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/senate-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-senate:015": [
+      {
+        "id": "ocd-person/c58c02cd-0f5c-4454-b5d9-6eb0e604ea25",
+        "name": "Dan Roberts",
+        "office": "state-senate",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "dan.roberts@alsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/senate-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-senate:035": [
+      {
+        "id": "ocd-person/fa2c59ea-1a07-429d-85e4-9c60652919aa",
+        "name": "David Sessions",
+        "office": "state-senate",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "d.r.sessions@att.net",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/senate-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-senate:029": [
+      {
+        "id": "ocd-person/c1ce8b3f-ea56-4c8f-ab74-2a02b8d10063",
+        "name": "Donnie Chesteen",
+        "office": "state-senate",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "donnie.chesteen@alsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/senate-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-senate:004": [
+      {
+        "id": "ocd-person/cf025dad-05a0-4a54-ba0b-bbeecb87c10e",
+        "name": "Garlan Gudger",
+        "office": "state-senate",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "garlan.gudger@alsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/senate-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-senate:021": [
+      {
+        "id": "ocd-person/adbf5614-9045-4cb7-86eb-2d88f25a357a",
+        "name": "Gerald Allen",
+        "office": "state-senate",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "gerald.allen@alsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/senate-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-senate:022": [
+      {
+        "id": "ocd-person/7b9adc85-fd70-470a-b1bf-44ed412f3ba0",
+        "name": "Greg Albritton",
+        "office": "state-senate",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "greg.albritton@alsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/senate-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-senate:016": [
+      {
+        "id": "ocd-person/bdfa9580-2ce0-4828-8f9e-52e6f066fbce",
+        "name": "Jabo Waggoner",
+        "office": "state-senate",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "jabo.waggoner@alsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/senate-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-senate:034": [
+      {
+        "id": "ocd-person/a7e333c5-03f2-4343-9981-956bcc1ea38e",
+        "name": "Jack Williams",
+        "office": "state-senate",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "jackwilliams55@icloud.com",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/senate-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-senate:027": [
+      {
+        "id": "ocd-person/d581a562-c33c-44c0-a707-c21dddf140aa",
+        "name": "Jay Hovey",
+        "office": "state-senate",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "jay.hovey@alsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/senate-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-senate:031": [
+      {
+        "id": "ocd-person/51b33504-a943-4091-a3bd-f0b8feb124be",
+        "name": "Josh Carnley",
+        "office": "state-senate",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "josh.carnley@alsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/senate-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-senate:012": [
+      {
+        "id": "ocd-person/e259674a-2a78-4423-b8d0-3d759ee90912",
+        "name": "Keith Kelley",
+        "office": "state-senate",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "keith.kelley@alsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/senate-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-senate:026": [
+      {
+        "id": "ocd-person/e0a28b79-3df1-491b-af90-4c0414ba72c8",
+        "name": "Kirk Hatcher",
+        "office": "state-senate",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "kirk.hatcher@alsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/senate-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-senate:011": [
+      {
+        "id": "ocd-person/889eac7b-10b6-4f00-9bd6-e93a93d93211",
+        "name": "Lance Bell",
+        "office": "state-senate",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "lance.bell@alsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/senate-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-senate:006": [
+      {
+        "id": "ocd-person/abc69c3a-3f86-4880-a1ea-a2a52677b877",
+        "name": "Larry Stutts",
+        "office": "state-senate",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "larry.stutts@alsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/senate-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-senate:020": [
+      {
+        "id": "ocd-person/8ffbb88c-c323-436f-aab0-91a41bf6c8dd",
+        "name": "Linda Coleman-Madison",
+        "office": "state-senate",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "lcolemanmadison926@yahoo.com",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/senate-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-senate:005": [
+      {
+        "id": "ocd-person/e6c4edb0-48af-4db8-aa0a-57570f0aef1e",
+        "name": "Matt Woods",
+        "office": "state-senate",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "matt.woods@alsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-senate:019": [
+      {
+        "id": "ocd-person/764f926b-598f-458e-84c4-5cc13c2302e5",
+        "name": "Merika Coleman",
+        "office": "state-senate",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "merika.coleman@alsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/senate-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-senate:013": [
+      {
+        "id": "ocd-person/040b7935-b32a-4d6d-9fa4-ec86e5ffd303",
+        "name": "Randy Price",
+        "office": "state-senate",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "randyprice.sd13@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/senate-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-senate:023": [
+      {
+        "id": "ocd-person/cd2d1a70-0bb3-49b3-871c-9e227392653d",
+        "name": "Rob Stewart",
+        "office": "state-senate",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "robert.stewart@alsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/senate-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-senate:018": [
+      {
+        "id": "ocd-person/3b925820-55f7-4d24-b4df-d924fd3d1bf7",
+        "name": "Rodger Smitherman",
+        "office": "state-senate",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "rodger.smitherman@alsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/senate-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-senate:007": [
+      {
+        "id": "ocd-person/21753744-c2a0-45d4-90f8-3d4082c794d4",
+        "name": "Sam Givhan",
+        "office": "state-senate",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "sam.givhan@alsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/senate-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-senate:017": [
+      {
+        "id": "ocd-person/9487b441-352c-43be-a2bb-8abc45e20671",
+        "name": "Shay Shelnutt",
+        "office": "state-senate",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "shay.sd17@gmail.com",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/senate-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-senate:008": [
+      {
+        "id": "ocd-person/dd765598-9bed-4301-9f49-7e06fffd7fce",
+        "name": "Steve Livingston",
+        "office": "state-senate",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "steve.livingston@alsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/senate-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-senate:001": [
+      {
+        "id": "ocd-person/2f934a90-dc27-4289-b571-36e80ea4384b",
+        "name": "Tim Melson",
+        "office": "state-senate",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "tim.melson@alsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/senate-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-senate:002": [
+      {
+        "id": "ocd-person/32e10f9c-d38c-472f-8fb0-03450c4b538a",
+        "name": "Tom Butler",
+        "office": "state-senate",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "tom.butler@alsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/senate-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-senate:033": [
+      {
+        "id": "ocd-person/63d0a35f-ec68-48e2-be94-d5e3cb60b3c3",
+        "name": "Vivian Figures",
+        "office": "state-senate",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "vivian.figures@alsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/senate-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-senate:009": [
+      {
+        "id": "ocd-person/3f143edf-eac6-4bee-89b3-c5ac0b0b856e",
+        "name": "Wes Kitchens",
+        "office": "state-senate",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "wes.kitchens@alsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/house-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-senate:025": [
+      {
+        "id": "ocd-person/8cca1495-936e-4ac5-920a-cc4aa22e495e",
+        "name": "Will Barfoot",
+        "office": "state-senate",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "will.barfoot@alsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/senate-leaders-members",
+        "social": {}
+      }
+    ],
+    "AL:state-senate:028": [
+      {
+        "id": "ocd-person/38c5b433-f53c-4073-a2da-a969e4c31696",
+        "name": "Billy Beasley",
+        "office": "state-senate",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "billy.beasley@alsenate.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://alison.legislature.state.al.us/senate-leaders-members",
+        "social": {}
+      }
+    ]
+  }
+}

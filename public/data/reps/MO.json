@@ -1,0 +1,2818 @@
+{
+  "state": "MO",
+  "generatedFrom": {
+    "legislators-current.json": "ae8cb9477c48715df71a7d860854229d799dc90a254d61badc1efb770f892b2c",
+    "legislators-social-media.json": "c6eca1fcdb3a89901335eed51ca061daa4b60ad3243969a127e913bb9657fbc5",
+    "mo.csv": "e8c39ac863c68c71377d457bb8ef8875231bf0dd15ce9f1ffa45d26965669114"
+  },
+  "byKey": {
+    "MO:us-house:05": [
+      {
+        "id": "C001061",
+        "name": "Emanuel Cleaver",
+        "office": "us-house",
+        "districtCode": "05",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4535",
+        "address": "2217 Rayburn House Office Building Washington DC 20515-2505",
+        "website": "https://cleaver.house.gov",
+        "social": {
+          "x": "RepCleaver",
+          "facebook": "emanuelcleaverii",
+          "instagram": "repcleaver"
+        }
+      }
+    ],
+    "MO:us-house:06": [
+      {
+        "id": "G000546",
+        "name": "Sam Graves",
+        "office": "us-house",
+        "districtCode": "06",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-7041",
+        "address": "1135 Longworth House Office Building Washington DC 20515-2506",
+        "website": "https://graves.house.gov",
+        "social": {
+          "x": "RepSamGraves",
+          "facebook": "118514606128",
+          "instagram": "repsamgraves"
+        }
+      }
+    ],
+    "MO:us-house:02": [
+      {
+        "id": "W000812",
+        "name": "Ann Wagner",
+        "office": "us-house",
+        "districtCode": "02",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-1621",
+        "address": "2350 Rayburn House Office Building Washington DC 20515-2502",
+        "website": "https://wagner.house.gov",
+        "social": {
+          "x": "RepAnnWagner",
+          "facebook": "RepAnnWagner",
+          "instagram": "repannwagner"
+        }
+      }
+    ],
+    "MO:us-house:08": [
+      {
+        "id": "S001195",
+        "name": "Jason Smith",
+        "office": "us-house",
+        "districtCode": "08",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4404",
+        "address": "1011 Longworth House Office Building Washington DC 20515-2508",
+        "website": "https://jasonsmith.house.gov",
+        "social": {
+          "x": "RepJasonSmith",
+          "facebook": "repjasonsmith"
+        }
+      }
+    ],
+    "MO:us-senate:state": [
+      {
+        "id": "H001089",
+        "name": "Josh Hawley",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.hawley.senate.gov/contact-senator-hawley",
+        "email": null,
+        "phone": "202-224-6154",
+        "address": "381 Russell Senate Office Building Washington DC 20510",
+        "website": "https://www.hawley.senate.gov",
+        "social": {
+          "x": "SenHawleyPress",
+          "facebook": "SenatorHawley",
+          "instagram": "senatorhawley"
+        }
+      },
+      {
+        "id": "S001227",
+        "name": "Eric Schmitt",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.schmitt.senate.gov/contact/",
+        "email": null,
+        "phone": "202-224-5721",
+        "address": "404 Russell Senate Office Building Washington DC 20510",
+        "website": "https://www.schmitt.senate.gov",
+        "social": {
+          "x": "SenEricSchmitt",
+          "facebook": "116059838031776",
+          "instagram": "senericschmitt"
+        }
+      }
+    ],
+    "MO:us-house:04": [
+      {
+        "id": "A000379",
+        "name": "Mark Alford",
+        "office": "us-house",
+        "districtCode": "04",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2876",
+        "address": "328 Cannon House Office Building Washington DC 20515-2504",
+        "website": "https://alford.house.gov",
+        "social": {
+          "x": "RepMarkAlford",
+          "facebook": "100089595940547",
+          "instagram": "RepMarkAlford"
+        }
+      }
+    ],
+    "MO:us-house:07": [
+      {
+        "id": "B001316",
+        "name": "Eric Burlison",
+        "office": "us-house",
+        "districtCode": "07",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-6536",
+        "address": "1108 Longworth House Office Building Washington DC 20515-2507",
+        "website": "https://burlison.house.gov",
+        "social": {
+          "x": "RepEricBurlison",
+          "facebook": "100089208900263",
+          "instagram": "RepEricBurlison"
+        }
+      }
+    ],
+    "MO:us-house:01": [
+      {
+        "id": "B001324",
+        "name": "Wesley Bell",
+        "office": "us-house",
+        "districtCode": "01",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2406",
+        "address": "1429 Longworth House Office Building Washington DC 20515-2501",
+        "website": "https://bell.house.gov",
+        "social": {
+          "x": "RepWesleyBellMO",
+          "facebook": "61571538239904"
+        }
+      }
+    ],
+    "MO:us-house:03": [
+      {
+        "id": "O000177",
+        "name": "Robert F. Onder, Jr.",
+        "office": "us-house",
+        "districtCode": "03",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2956",
+        "address": "1113 Longworth House Office Building Washington DC 20515-2503",
+        "website": "https://onder.house.gov",
+        "social": {
+          "x": "RepBobOnder",
+          "facebook": "RepBobOnder",
+          "instagram": "repbobonder"
+        }
+      }
+    ],
+    "MO:state-house:047": [
+      {
+        "id": "ocd-person/f2e657d5-999a-4d77-98e3-b06a7c3771f4",
+        "name": "Adrian Plank",
+        "office": "state-house",
+        "districtCode": "047",
+        "contactUrl": null,
+        "email": "adrian.plank@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=047",
+        "social": {}
+      }
+    ],
+    "MO:state-house:134": [
+      {
+        "id": "ocd-person/b11b5a8d-08e8-4cf3-802c-42a842102cfa",
+        "name": "Alex Riley",
+        "office": "state-house",
+        "districtCode": "134",
+        "contactUrl": null,
+        "email": "alex.riley@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=134",
+        "social": {}
+      }
+    ],
+    "MO:state-house:127": [
+      {
+        "id": "ocd-person/fff43ce1-d209-4556-ba74-32f9ba46d3c0",
+        "name": "Ann Kelley",
+        "office": "state-house",
+        "districtCode": "127",
+        "contactUrl": null,
+        "email": "ann.kelley@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/memberdetails.aspx?district=127",
+        "social": {}
+      }
+    ],
+    "MO:state-house:036": [
+      {
+        "id": "ocd-person/a5cc5083-e44a-4379-b4db-74c4a930821b",
+        "name": "Anthony Ealy",
+        "office": "state-house",
+        "districtCode": "036",
+        "contactUrl": null,
+        "email": "anthony.ealy@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=36",
+        "social": {}
+      }
+    ],
+    "MO:state-house:014": [
+      {
+        "id": "ocd-person/1ff1dec0-c449-4ff8-aa22-0830817c2070",
+        "name": "Ashley Aune",
+        "office": "state-house",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "ashley.aune@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=014",
+        "social": {}
+      }
+    ],
+    "MO:state-house:146": [
+      {
+        "id": "ocd-person/54f9145f-2529-448e-8238-b00d049a782c",
+        "name": "Barry Hovis",
+        "office": "state-house",
+        "districtCode": "146",
+        "contactUrl": null,
+        "email": "barry.hovis@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=146",
+        "social": {}
+      }
+    ],
+    "MO:state-house:117": [
+      {
+        "id": "ocd-person/483aaa6b-d64a-48d0-8bc4-bca6c252f8dc",
+        "name": "Becky Laubinger",
+        "office": "state-house",
+        "districtCode": "117",
+        "contactUrl": null,
+        "email": "becky.laubinger@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?&district=117",
+        "social": {}
+      }
+    ],
+    "MO:state-house:101": [
+      {
+        "id": "ocd-person/1f082953-c9f5-4a72-a281-cdb9fe4bda5e",
+        "name": "Ben Keathley",
+        "office": "state-house",
+        "districtCode": "101",
+        "contactUrl": null,
+        "email": "ben.keathley@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=101",
+        "social": {}
+      }
+    ],
+    "MO:state-house:143": [
+      {
+        "id": "ocd-person/9c485ac1-4ad5-4466-9392-a9014827ef56",
+        "name": "Bennie Cook",
+        "office": "state-house",
+        "districtCode": "143",
+        "contactUrl": null,
+        "email": "bennie.cook@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=143",
+        "social": {}
+      }
+    ],
+    "MO:state-house:135": [
+      {
+        "id": "ocd-person/55b3b80d-f69c-4f9f-aaed-4d1e5cd2634d",
+        "name": "Betsy Fogle",
+        "office": "state-house",
+        "districtCode": "135",
+        "contactUrl": null,
+        "email": "betsy.fogle@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/memberdetails.aspx?district=135",
+        "social": {}
+      }
+    ],
+    "MO:state-house:017": [
+      {
+        "id": "ocd-person/7472aac6-4730-456b-8e2f-3b79e45da74c",
+        "name": "Bill Allen",
+        "office": "state-house",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "bill.allen@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/memberdetails.aspx?district=017",
+        "social": {}
+      }
+    ],
+    "MO:state-house:010": [
+      {
+        "id": "ocd-person/28245e55-fddc-46db-85a7-ce9ca55da6d7",
+        "name": "Bill Falkner",
+        "office": "state-house",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "bill.falkner@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/memberdetails.aspx?district=010",
+        "social": {}
+      }
+    ],
+    "MO:state-house:121": [
+      {
+        "id": "ocd-person/6b7c5c9c-05ba-4a2e-8f23-117edbf2969b",
+        "name": "Bill Hardwick",
+        "office": "state-house",
+        "districtCode": "121",
+        "contactUrl": null,
+        "email": "bill.hardwick@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=121",
+        "social": {}
+      }
+    ],
+    "MO:state-house:055": [
+      {
+        "id": "ocd-person/21a85544-7b2f-4d34-9654-a1ebfaa34881",
+        "name": "Bill Irwin",
+        "office": "state-house",
+        "districtCode": "055",
+        "contactUrl": null,
+        "email": "bill.irwin@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=055",
+        "social": {}
+      }
+    ],
+    "MO:state-house:115": [
+      {
+        "id": "ocd-person/720cb5cb-6d39-4cdf-be60-020493ac19d9",
+        "name": "Bill Lucas",
+        "office": "state-house",
+        "districtCode": "115",
+        "contactUrl": null,
+        "email": "william.lucas@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?&district=115",
+        "social": {}
+      }
+    ],
+    "MO:state-house:131": [
+      {
+        "id": "ocd-person/d9dd5492-e605-4fc6-a18a-8772a7682a08",
+        "name": "Bill Owen",
+        "office": "state-house",
+        "districtCode": "131",
+        "contactUrl": null,
+        "email": "bill.owen@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=131",
+        "social": {}
+      }
+    ],
+    "MO:state-house:130": [
+      {
+        "id": "ocd-person/163f458d-ad80-4bad-9223-69e1f6fec4d2",
+        "name": "Bishop Davidson",
+        "office": "state-house",
+        "districtCode": "130",
+        "contactUrl": null,
+        "email": "bishop.davidson@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=130",
+        "social": {}
+      }
+    ],
+    "MO:state-house:162": [
+      {
+        "id": "ocd-person/4d763e2a-ab08-46ea-8561-9b3b74b34971",
+        "name": "Bob Bromley",
+        "office": "state-house",
+        "districtCode": "162",
+        "contactUrl": null,
+        "email": "bob.bromley@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=162",
+        "social": {}
+      }
+    ],
+    "MO:state-house:139": [
+      {
+        "id": "ocd-person/b2f744fa-f71d-4865-a704-afcd3d030ff7",
+        "name": "Bob Titus",
+        "office": "state-house",
+        "districtCode": "139",
+        "contactUrl": null,
+        "email": "bob.titus@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=139",
+        "social": {}
+      }
+    ],
+    "MO:state-house:119": [
+      {
+        "id": "ocd-person/e0e9f47c-af7c-45f3-9d7e-1a158a19b362",
+        "name": "Brad Banderman",
+        "office": "state-house",
+        "districtCode": "119",
+        "contactUrl": null,
+        "email": "brad.banderman@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=119",
+        "social": {}
+      }
+    ],
+    "MO:state-house:096": [
+      {
+        "id": "ocd-person/8f5928b4-5528-4506-8075-4e69c5864b42",
+        "name": "Brad Christ",
+        "office": "state-house",
+        "districtCode": "096",
+        "contactUrl": null,
+        "email": "brad.christ@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=096",
+        "social": {}
+      }
+    ],
+    "MO:state-house:052": [
+      {
+        "id": "ocd-person/4cfed488-abe6-46e5-a3aa-55a73e2984ca",
+        "name": "Brad Pollitt",
+        "office": "state-house",
+        "districtCode": "052",
+        "contactUrl": null,
+        "email": "bradley.pollitt@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=052",
+        "social": {}
+      }
+    ],
+    "MO:state-house:054": [
+      {
+        "id": "ocd-person/18f02633-c607-4c80-9088-742b28a49122",
+        "name": "Brandon Phelps",
+        "office": "state-house",
+        "districtCode": "054",
+        "contactUrl": null,
+        "email": "brandon.phelps@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=054",
+        "social": {}
+      }
+    ],
+    "MO:state-house:011": [
+      {
+        "id": "ocd-person/b7d28fcb-9563-420c-91bb-01d3202124fd",
+        "name": "Brenda Shields",
+        "office": "state-house",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "brenda.shields@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=011",
+        "social": {}
+      }
+    ],
+    "MO:state-house:156": [
+      {
+        "id": "ocd-person/83283f83-e8d3-4e03-949c-1bdfae4bfd7f",
+        "name": "Brian Seitz",
+        "office": "state-house",
+        "districtCode": "156",
+        "contactUrl": null,
+        "email": "brian.seitz@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=156",
+        "social": {}
+      }
+    ],
+    "MO:state-house:093": [
+      {
+        "id": "ocd-person/d29468e7-eb61-45e7-89ad-4dfb93a0baf2",
+        "name": "Bridget Moore",
+        "office": "state-house",
+        "districtCode": "093",
+        "contactUrl": null,
+        "email": "bridget.walshmoore@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=093",
+        "social": {}
+      }
+    ],
+    "MO:state-house:061": [
+      {
+        "id": "ocd-person/d01a9b1a-a262-4d27-9de9-b7ad0ff8c7f0",
+        "name": "Bruce Sassmann",
+        "office": "state-house",
+        "districtCode": "061",
+        "contactUrl": null,
+        "email": "bruce.sassmann@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=061",
+        "social": {}
+      }
+    ],
+    "MO:state-house:145": [
+      {
+        "id": "ocd-person/06f2e023-3786-4c2f-b057-fd9087a6a1db",
+        "name": "Bryant Wolfin",
+        "office": "state-house",
+        "districtCode": "145",
+        "contactUrl": null,
+        "email": "bryant.wolfin@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=145",
+        "social": {}
+      }
+    ],
+    "MO:state-house:138": [
+      {
+        "id": "ocd-person/89ef08d6-96fd-4d5f-9a48-d8093ba60052",
+        "name": "Burt Whaley",
+        "office": "state-house",
+        "districtCode": "138",
+        "contactUrl": null,
+        "email": "burt.whaley@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=138",
+        "social": {}
+      }
+    ],
+    "MO:state-house:150": [
+      {
+        "id": "ocd-person/08f76b3a-4317-4d18-a44b-f2d6a673f1e3",
+        "name": "Cameron Parker",
+        "office": "state-house",
+        "districtCode": "150",
+        "contactUrl": null,
+        "email": "cameron.parker@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=150",
+        "social": {}
+      }
+    ],
+    "MO:state-house:033": [
+      {
+        "id": "ocd-person/34df0cd7-f366-4d01-a1e7-d6241e34deec",
+        "name": "Carolyn Caton",
+        "office": "state-house",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "carolyn.caton@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=033",
+        "social": {}
+      }
+    ],
+    "MO:state-house:163": [
+      {
+        "id": "ocd-person/0d50b579-ab89-4b9c-ae24-eb0d4216f3bd",
+        "name": "Cathy Loy",
+        "office": "state-house",
+        "districtCode": "163",
+        "contactUrl": null,
+        "email": "cathyjo.loy@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=163",
+        "social": {}
+      }
+    ],
+    "MO:state-house:111": [
+      {
+        "id": "ocd-person/66b84db3-dd1a-4c94-8a78-bbf219068347",
+        "name": "Cecelie Williams",
+        "office": "state-house",
+        "districtCode": "111",
+        "contactUrl": null,
+        "email": "cecelie.williams@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=111",
+        "social": {}
+      }
+    ],
+    "MO:state-house:040": [
+      {
+        "id": "ocd-person/b1fb2c50-2091-4264-abed-e89079479bc0",
+        "name": "Chad Perkins",
+        "office": "state-house",
+        "districtCode": "040",
+        "contactUrl": null,
+        "email": "chad.perkins@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?&district=40",
+        "social": {}
+      }
+    ],
+    "MO:state-house:075": [
+      {
+        "id": "ocd-person/ef435f26-5456-4e1b-9d53-16d972983db0",
+        "name": "Chanel Mosley",
+        "office": "state-house",
+        "districtCode": "075",
+        "contactUrl": null,
+        "email": "chanel.mosley@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?&district=075",
+        "social": {}
+      }
+    ],
+    "MO:state-house:016": [
+      {
+        "id": "ocd-person/43f13a74-64cd-41b6-b03a-51af80dbfc10",
+        "name": "Chris Brown",
+        "office": "state-house",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "chris.brown@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=016",
+        "social": {}
+      }
+    ],
+    "MO:state-house:128": [
+      {
+        "id": "ocd-person/075c14fd-b8dd-433d-ae30-69fb9d210979",
+        "name": "Chris Warwick",
+        "office": "state-house",
+        "districtCode": "128",
+        "contactUrl": null,
+        "email": "christopher.warwick@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/memberdetails.aspx?district=128",
+        "social": {}
+      }
+    ],
+    "MO:state-house:105": [
+      {
+        "id": "ocd-person/0c02ea62-5611-4292-bf13-316c50c3a866",
+        "name": "Colin Wellenkamp",
+        "office": "state-house",
+        "districtCode": "105",
+        "contactUrl": null,
+        "email": "colin.wellenkamp@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=105",
+        "social": {}
+      }
+    ],
+    "MO:state-house:087": [
+      {
+        "id": "ocd-person/a4d25b21-09c7-49d8-aaca-a07a18dad245",
+        "name": "Connie Steinmetz",
+        "office": "state-house",
+        "districtCode": "087",
+        "contactUrl": null,
+        "email": "connie.steinmetz@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=087",
+        "social": {}
+      }
+    ],
+    "MO:state-house:116": [
+      {
+        "id": "ocd-person/616dd247-4438-44de-97b4-cd3a5a3e554d",
+        "name": "Dale Wright",
+        "office": "state-house",
+        "districtCode": "116",
+        "contactUrl": null,
+        "email": "dale.wright@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=116",
+        "social": {}
+      }
+    ],
+    "MO:state-house:125": [
+      {
+        "id": "ocd-person/0f4f5a2e-bc86-4c2a-9ab1-041d1c844283",
+        "name": "Dane Diehl",
+        "office": "state-house",
+        "districtCode": "125",
+        "contactUrl": null,
+        "email": "dane.diehl@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=125",
+        "social": {}
+      }
+    ],
+    "MO:state-house:003": [
+      {
+        "id": "ocd-person/ace530aa-6fbb-40a0-b91e-94820a287b2e",
+        "name": "Danny Busick",
+        "office": "state-house",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "danny.busick@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=003",
+        "social": {}
+      }
+    ],
+    "MO:state-house:137": [
+      {
+        "id": "ocd-person/1cd15a85-b074-4d67-8fcd-1cbccfc924f4",
+        "name": "Darin Chappell",
+        "office": "state-house",
+        "districtCode": "137",
+        "contactUrl": null,
+        "email": "darin.chappell@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=137",
+        "social": {}
+      }
+    ],
+    "MO:state-house:060": [
+      {
+        "id": "ocd-person/841b8b5c-a701-43c0-bb81-8e9515e61ea0",
+        "name": "Dave Griffith",
+        "office": "state-house",
+        "districtCode": "060",
+        "contactUrl": null,
+        "email": "dave.griffith@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=060",
+        "social": {}
+      }
+    ],
+    "MO:state-house:103": [
+      {
+        "id": "ocd-person/49609474-e343-4c1d-8e6b-677f31c228b7",
+        "name": "Dave Hinman",
+        "office": "state-house",
+        "districtCode": "103",
+        "contactUrl": null,
+        "email": "dave.hinman@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?\\district=103",
+        "social": {}
+      }
+    ],
+    "MO:state-house:097": [
+      {
+        "id": "ocd-person/6db49039-f2b0-42ea-990d-92ffef2494c3",
+        "name": "David Casteel",
+        "office": "state-house",
+        "districtCode": "097",
+        "contactUrl": null,
+        "email": "david.casteel@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=097",
+        "social": {}
+      }
+    ],
+    "MO:state-house:148": [
+      {
+        "id": "ocd-person/3055e426-4c34-404c-b286-820e978cb05c",
+        "name": "David Dolan",
+        "office": "state-house",
+        "districtCode": "148",
+        "contactUrl": null,
+        "email": "david.dolan@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=148",
+        "social": {}
+      }
+    ],
+    "MO:state-house:046": [
+      {
+        "id": "ocd-person/c509449e-070c-462c-810e-f14315c9df42",
+        "name": "David Smith",
+        "office": "state-house",
+        "districtCode": "046",
+        "contactUrl": null,
+        "email": "david.smith@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=046",
+        "social": {}
+      }
+    ],
+    "MO:state-house:009": [
+      {
+        "id": "ocd-person/f3250139-5c42-40d9-b535-2e7137f83f1e",
+        "name": "Dean VanSchoiack",
+        "office": "state-house",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "dean.vanschoiack@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=9",
+        "social": {}
+      }
+    ],
+    "MO:state-house:064": [
+      {
+        "id": "ocd-person/b24e59bc-bc91-456f-9b96-bd1f501c1d49",
+        "name": "Deanna Self",
+        "office": "state-house",
+        "districtCode": "064",
+        "contactUrl": null,
+        "email": "deanna.self@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?&district=064",
+        "social": {}
+      }
+    ],
+    "MO:state-house:084": [
+      {
+        "id": "ocd-person/4a6e4da5-0cbd-4033-89a3-5bd749b37108",
+        "name": "Del Taylor",
+        "office": "state-house",
+        "districtCode": "084",
+        "contactUrl": null,
+        "email": "del.taylor@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=084",
+        "social": {}
+      }
+    ],
+    "MO:state-house:124": [
+      {
+        "id": "ocd-person/af64f0a2-f3ff-4c6d-b24f-62c3941d1da4",
+        "name": "Don Mayhew",
+        "office": "state-house",
+        "districtCode": "124",
+        "contactUrl": null,
+        "email": "don.mayhew@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=124",
+        "social": {}
+      }
+    ],
+    "MO:state-house:028": [
+      {
+        "id": "ocd-person/fb57ce9b-bd82-4f93-8774-2cfef191289a",
+        "name": "Donna Barnes",
+        "office": "state-house",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "donna.barnes@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=028",
+        "social": {}
+      }
+    ],
+    "MO:state-house:072": [
+      {
+        "id": "ocd-person/c2ccbec5-9ad2-4210-9029-3c9968b72d2f",
+        "name": "Doug Clemens",
+        "office": "state-house",
+        "districtCode": "072",
+        "contactUrl": null,
+        "email": "doug.clemens@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=072",
+        "social": {}
+      }
+    ],
+    "MO:state-house:041": [
+      {
+        "id": "ocd-person/f3eb420f-df97-4edf-b8c9-e0fa231c6860",
+        "name": "Doyle Justus",
+        "office": "state-house",
+        "districtCode": "041",
+        "contactUrl": null,
+        "email": "doyle.justus@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=41",
+        "social": {}
+      }
+    ],
+    "MO:state-house:006": [
+      {
+        "id": "ocd-person/c53c50aa-49b2-415a-9a50-eb947daf3d7f",
+        "name": "Ed Lewis",
+        "office": "state-house",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "ed.lewis@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=006",
+        "social": {}
+      }
+    ],
+    "MO:state-house:024": [
+      {
+        "id": "ocd-person/f7c7d32d-5d88-489a-9adf-76c9837b3272",
+        "name": "Emily Weber",
+        "office": "state-house",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "emily.weber@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=024",
+        "social": {}
+      }
+    ],
+    "MO:state-house:018": [
+      {
+        "id": "ocd-person/76bc7488-cc9e-4b47-91da-4557fb577ff5",
+        "name": "Eric Woods",
+        "office": "state-house",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "eric.woods@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=018",
+        "social": {}
+      }
+    ],
+    "MO:state-house:089": [
+      {
+        "id": "ocd-person/5e3e358e-622b-462c-ba56-ea42bf7c1fc2",
+        "name": "George Hruza",
+        "office": "state-house",
+        "districtCode": "089",
+        "contactUrl": null,
+        "email": "george.hruza@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=089",
+        "social": {}
+      }
+    ],
+    "MO:state-house:004": [
+      {
+        "id": "ocd-person/d6be1f75-f237-41ad-af36-a7d1c6e3a9c6",
+        "name": "Greg Sharpe",
+        "office": "state-house",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "greg.sharpe@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=004",
+        "social": {}
+      }
+    ],
+    "MO:state-house:050": [
+      {
+        "id": "ocd-person/ec53a7aa-4a63-4c8f-8f74-8002d5c654e5",
+        "name": "Gregg Bush",
+        "office": "state-house",
+        "districtCode": "050",
+        "contactUrl": null,
+        "email": "gregg.bush@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=050",
+        "social": {}
+      }
+    ],
+    "MO:state-house:152": [
+      {
+        "id": "ocd-person/a9a55831-48ad-4f2e-b548-0b7652b2b681",
+        "name": "Hardy Billington",
+        "office": "state-house",
+        "districtCode": "152",
+        "contactUrl": null,
+        "email": "hardy.billington@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=152",
+        "social": {}
+      }
+    ],
+    "MO:state-house:088": [
+      {
+        "id": "ocd-person/c47d84db-02de-4687-bd5b-c6dbc71cc8c4",
+        "name": "Holly Jones",
+        "office": "state-house",
+        "districtCode": "088",
+        "contactUrl": null,
+        "email": "holly.jones@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=088",
+        "social": {}
+      }
+    ],
+    "MO:state-house:098": [
+      {
+        "id": "ocd-person/b7335950-e605-45b7-9c64-1e725315deca",
+        "name": "Jaclyn Zimmermann",
+        "office": "state-house",
+        "districtCode": "098",
+        "contactUrl": null,
+        "email": "jaclyn.zimmermann@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=098",
+        "social": {}
+      }
+    ],
+    "MO:state-house:140": [
+      {
+        "id": "ocd-person/1235305e-980d-4eb8-8743-8d0d8a455c4e",
+        "name": "Jamie Ray Gragg",
+        "office": "state-house",
+        "districtCode": "140",
+        "contactUrl": null,
+        "email": "jamieray.gragg@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=140",
+        "social": {}
+      }
+    ],
+    "MO:state-house:032": [
+      {
+        "id": "ocd-person/100ec26e-d90f-4707-822c-db61c8f1b370",
+        "name": "Jeff Coleman",
+        "office": "state-house",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "jeff.coleman@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=32",
+        "social": {}
+      }
+    ],
+    "MO:state-house:001": [
+      {
+        "id": "ocd-person/633fd335-98a2-42a7-acac-cb78eeca9a12",
+        "name": "Jeff Farnan",
+        "office": "state-house",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "jeff.farnan@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=1",
+        "social": {}
+      }
+    ],
+    "MO:state-house:086": [
+      {
+        "id": "ocd-person/92aabb0f-94de-4d54-b4d0-23f09035d8a0",
+        "name": "Jeff Hales",
+        "office": "state-house",
+        "districtCode": "086",
+        "contactUrl": null,
+        "email": "jeffrey.hales@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?&district=086",
+        "social": {}
+      }
+    ],
+    "MO:state-house:142": [
+      {
+        "id": "ocd-person/fa6c1b05-02e8-4c6f-9a84-d1f58885ea04",
+        "name": "Jeff Knight",
+        "office": "state-house",
+        "districtCode": "142",
+        "contactUrl": null,
+        "email": "jeff.knight@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=142",
+        "social": {}
+      }
+    ],
+    "MO:state-house:042": [
+      {
+        "id": "ocd-person/acd99a81-de49-4ab0-9bb5-bb4fa72c02c5",
+        "name": "Jeff Myers",
+        "office": "state-house",
+        "districtCode": "042",
+        "contactUrl": null,
+        "email": "jeff.myers@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=42",
+        "social": {}
+      }
+    ],
+    "MO:state-house:123": [
+      {
+        "id": "ocd-person/0b281a28-10f1-496b-aa00-29e59a57d253",
+        "name": "Jeff Vernetti",
+        "office": "state-house",
+        "districtCode": "123",
+        "contactUrl": null,
+        "email": "jeff.vernetti@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/memberdetails.aspx?district=123",
+        "social": {}
+      }
+    ],
+    "MO:state-house:132": [
+      {
+        "id": "ocd-person/98bc3ac1-1f5d-4a1c-bac8-356dfbbfa875",
+        "name": "Jeremy Dean",
+        "office": "state-house",
+        "districtCode": "132",
+        "contactUrl": null,
+        "email": "jeremy.dean@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=132",
+        "social": {}
+      }
+    ],
+    "MO:state-house:126": [
+      {
+        "id": "ocd-person/49c68d0e-cf5d-4b46-9890-c887a428929e",
+        "name": "Jim Kalberloh",
+        "office": "state-house",
+        "districtCode": "126",
+        "contactUrl": null,
+        "email": "jim.kalberloh@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=126",
+        "social": {}
+      }
+    ],
+    "MO:state-house:094": [
+      {
+        "id": "ocd-person/06e17e6f-a17c-4654-9ead-d0aa98a95110",
+        "name": "Jim Murphy",
+        "office": "state-house",
+        "districtCode": "094",
+        "contactUrl": null,
+        "email": "jim.murphy@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=094",
+        "social": {}
+      }
+    ],
+    "MO:state-house:049": [
+      {
+        "id": "ocd-person/9814247b-44fc-473f-b770-a44c77292d77",
+        "name": "Jim Schulte",
+        "office": "state-house",
+        "districtCode": "049",
+        "contactUrl": null,
+        "email": "jim.schulte@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=049",
+        "social": {}
+      }
+    ],
+    "MO:state-house:091": [
+      {
+        "id": "ocd-person/0f113187-3958-449e-9c4e-3e81390c1dd4",
+        "name": "Jo Doll",
+        "office": "state-house",
+        "districtCode": "091",
+        "contactUrl": null,
+        "email": "jo.doll@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=091",
+        "social": {}
+      }
+    ],
+    "MO:state-house:129": [
+      {
+        "id": "ocd-person/1250ea3d-fe5c-46ea-bead-f7249d234e68",
+        "name": "John Black",
+        "office": "state-house",
+        "districtCode": "129",
+        "contactUrl": null,
+        "email": "john.black@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=129",
+        "social": {}
+      }
+    ],
+    "MO:state-house:120": [
+      {
+        "id": "ocd-person/5fae2678-d379-4ef0-9481-0f78f544d0c4",
+        "name": "John Hewkin",
+        "office": "state-house",
+        "districtCode": "120",
+        "contactUrl": null,
+        "email": "john.hewkin@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=120",
+        "social": {}
+      }
+    ],
+    "MO:state-house:044": [
+      {
+        "id": "ocd-person/6e5b11bc-fc9c-4822-9a82-1a5a59771c00",
+        "name": "John Martin",
+        "office": "state-house",
+        "districtCode": "044",
+        "contactUrl": null,
+        "email": "john.martin@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?&district=044",
+        "social": {}
+      }
+    ],
+    "MO:state-house:109": [
+      {
+        "id": "ocd-person/3de9f0e2-7062-4363-91d0-c3f17084ced4",
+        "name": "John Simmons",
+        "office": "state-house",
+        "districtCode": "109",
+        "contactUrl": null,
+        "email": "john.simmons@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=109",
+        "social": {}
+      }
+    ],
+    "MO:state-house:147": [
+      {
+        "id": "ocd-person/709dba3b-3a48-4429-94e7-fada7faa0d90",
+        "name": "John Voss",
+        "office": "state-house",
+        "districtCode": "147",
+        "contactUrl": null,
+        "email": "john.voss@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=147",
+        "social": {}
+      }
+    ],
+    "MO:state-house:030": [
+      {
+        "id": "ocd-person/419c30c0-b3f2-4d4b-a2f1-ee08050e845b",
+        "name": "Jon Patterson",
+        "office": "state-house",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "jonathan.patterson@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=030",
+        "social": {}
+      }
+    ],
+    "MO:state-house:008": [
+      {
+        "id": "ocd-person/1da3a25b-64fa-48d4-8441-e1dca4526f7f",
+        "name": "Josh Hurlbert",
+        "office": "state-house",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "josh.hurlbert@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=008",
+        "social": {}
+      }
+    ],
+    "MO:state-house:045": [
+      {
+        "id": "ocd-person/6ee52a1a-7c1b-4ebb-ac4f-8602d03b2034",
+        "name": "Kathy Steinhoff",
+        "office": "state-house",
+        "districtCode": "045",
+        "contactUrl": null,
+        "email": "kathy.steinhoff@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=045",
+        "social": {}
+      }
+    ],
+    "MO:state-house:153": [
+      {
+        "id": "ocd-person/31ee0443-77bc-415d-9774-d09dee750243",
+        "name": "Keith Elliott",
+        "office": "state-house",
+        "districtCode": "153",
+        "contactUrl": null,
+        "email": "keith.elliot@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=153",
+        "social": {}
+      }
+    ],
+    "MO:state-house:068": [
+      {
+        "id": "ocd-person/e4b24233-89d2-41eb-b360-ae297e3385ba",
+        "name": "Kem Smith",
+        "office": "state-house",
+        "districtCode": "068",
+        "contactUrl": null,
+        "email": "kem.smith@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=068",
+        "social": {}
+      }
+    ],
+    "MO:state-house:034": [
+      {
+        "id": "ocd-person/c140221e-dfad-45d7-9371-faf3cc12ff17",
+        "name": "Kemp Strickler",
+        "office": "state-house",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "kemp.strickler@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=034",
+        "social": {}
+      }
+    ],
+    "MO:state-house:015": [
+      {
+        "id": "ocd-person/34a05fb9-bb36-416e-ada9-6be70b48b6b2",
+        "name": "Ken Jamison",
+        "office": "state-house",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "ken.jamison@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?&district=015",
+        "social": {}
+      }
+    ],
+    "MO:state-house:043": [
+      {
+        "id": "ocd-person/96d0d8da-dcff-4f59-b051-e0da15584b7b",
+        "name": "Kent Haden",
+        "office": "state-house",
+        "districtCode": "043",
+        "contactUrl": null,
+        "email": "kent.haden@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=43",
+        "social": {}
+      }
+    ],
+    "MO:state-house:035": [
+      {
+        "id": "ocd-person/7f91f845-d612-45d2-bc08-421c4e91357a",
+        "name": "Keri Ingle",
+        "office": "state-house",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "keri.ingle@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=35",
+        "social": {}
+      }
+    ],
+    "MO:state-house:077": [
+      {
+        "id": "ocd-person/6b417baa-36e5-4928-bb3d-b6b8f2cc95dd",
+        "name": "Kimberly-Ann Collins",
+        "office": "state-house",
+        "districtCode": "077",
+        "contactUrl": null,
+        "email": "kimberlyann.collins@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=077",
+        "social": {}
+      }
+    ],
+    "MO:state-house:071": [
+      {
+        "id": "ocd-person/6c3609dd-62d2-4030-9b24-7b5d49a16677",
+        "name": "LaDonna Appelbaum",
+        "office": "state-house",
+        "districtCode": "071",
+        "contactUrl": null,
+        "email": "ladonna.appelbaum@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=071",
+        "social": {}
+      }
+    ],
+    "MO:state-house:079": [
+      {
+        "id": "ocd-person/24c9a1f1-0023-4733-aa18-80f252645723",
+        "name": "LaKeySha Bosley",
+        "office": "state-house",
+        "districtCode": "079",
+        "contactUrl": null,
+        "email": "lakeysha.bosley@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=079",
+        "social": {}
+      }
+    ],
+    "MO:state-house:161": [
+      {
+        "id": "ocd-person/56f5920f-46d9-4991-b029-5984b80cd7ff",
+        "name": "Lane Roberts",
+        "office": "state-house",
+        "districtCode": "161",
+        "contactUrl": null,
+        "email": "lane.roberts@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=161",
+        "social": {}
+      }
+    ],
+    "MO:state-house:080": [
+      {
+        "id": "ocd-person/733d6ca4-9be3-4541-bcc9-75b7431cfc39",
+        "name": "Lilly Fuchs",
+        "office": "state-house",
+        "districtCode": "080",
+        "contactUrl": null,
+        "email": "elizabeth.fuchs@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=080",
+        "social": {}
+      }
+    ],
+    "MO:state-house:154": [
+      {
+        "id": "ocd-person/5f182358-80ec-4463-a8b0-2dd660ac97ab",
+        "name": "Lisa Durnell",
+        "office": "state-house",
+        "districtCode": "154",
+        "contactUrl": null,
+        "email": "lisa.durnell@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?&district=154",
+        "social": {}
+      }
+    ],
+    "MO:state-house:005": [
+      {
+        "id": "ocd-person/9a78c55e-0f06-4dd9-b86e-287db7332d98",
+        "name": "Louis Riggs",
+        "office": "state-house",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "louis.riggs@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=005",
+        "social": {}
+      }
+    ],
+    "MO:state-house:090": [
+      {
+        "id": "ocd-person/3a6ee726-1e30-4f9a-82cc-af57163e571b",
+        "name": "Mark Boyko",
+        "office": "state-house",
+        "districtCode": "090",
+        "contactUrl": null,
+        "email": "mark.boyko@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=090",
+        "social": {}
+      }
+    ],
+    "MO:state-house:107": [
+      {
+        "id": "ocd-person/661f49f4-e075-491e-aad8-4dde65ecb6df",
+        "name": "Mark Matthiesen",
+        "office": "state-house",
+        "districtCode": "107",
+        "contactUrl": null,
+        "email": "mark.matthiesen@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=107",
+        "social": {}
+      }
+    ],
+    "MO:state-house:039": [
+      {
+        "id": "ocd-person/ba1cff78-9a39-4e6e-a998-c8dc324d7b80",
+        "name": "Mark Meirath",
+        "office": "state-house",
+        "districtCode": "039",
+        "contactUrl": null,
+        "email": "mark.meirath@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?&district=039",
+        "social": {}
+      }
+    ],
+    "MO:state-house:051": [
+      {
+        "id": "ocd-person/443938dd-c7a0-4061-890a-8bd4ec4a1924",
+        "name": "Mark Nolte",
+        "office": "state-house",
+        "districtCode": "051",
+        "contactUrl": null,
+        "email": "mark.nolte@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?&district=051",
+        "social": {}
+      }
+    ],
+    "MO:state-house:037": [
+      {
+        "id": "ocd-person/0fddc5af-b1f0-49ca-84d9-fc6458edf362",
+        "name": "Mark Sharp",
+        "office": "state-house",
+        "districtCode": "037",
+        "contactUrl": null,
+        "email": "mark.sharp@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=37",
+        "social": {}
+      }
+    ],
+    "MO:state-house:074": [
+      {
+        "id": "ocd-person/56a68a64-7a44-4052-b5f2-e9f7c626e311",
+        "name": "Marla Smith",
+        "office": "state-house",
+        "districtCode": "074",
+        "contactUrl": null,
+        "email": "marla.smith@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?&district=074",
+        "social": {}
+      }
+    ],
+    "MO:state-house:066": [
+      {
+        "id": "ocd-person/47f4d77d-149c-410a-a324-067172efda3c",
+        "name": "Marlene Terry",
+        "office": "state-house",
+        "districtCode": "066",
+        "contactUrl": null,
+        "email": "marlene.terry@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=066",
+        "social": {}
+      }
+    ],
+    "MO:state-house:076": [
+      {
+        "id": "ocd-person/500e226f-ea79-4915-ab13-a11ab4d9e48e",
+        "name": "Marlon Anderson",
+        "office": "state-house",
+        "districtCode": "076",
+        "contactUrl": null,
+        "email": "marlon.anderson@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=076",
+        "social": {}
+      }
+    ],
+    "MO:state-house:038": [
+      {
+        "id": "ocd-person/e5a2f458-8afb-41b6-9bf0-79143ea24a25",
+        "name": "Marty Jacobs",
+        "office": "state-house",
+        "districtCode": "038",
+        "contactUrl": null,
+        "email": "martin.jacobs@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?&district=038",
+        "social": {}
+      }
+    ],
+    "MO:state-house:078": [
+      {
+        "id": "ocd-person/f36fd5fa-6d20-43d4-9555-ce4d2d472849",
+        "name": "Marty Murray",
+        "office": "state-house",
+        "districtCode": "078",
+        "contactUrl": null,
+        "email": "marty.murray@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=078",
+        "social": {}
+      }
+    ],
+    "MO:state-house:155": [
+      {
+        "id": "ocd-person/c22f94cc-641f-4a45-a2a6-610f829e7c43",
+        "name": "Matthew Overcast",
+        "office": "state-house",
+        "districtCode": "155",
+        "contactUrl": null,
+        "email": "matthew.overcast@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=155",
+        "social": {}
+      }
+    ],
+    "MO:state-house:002": [
+      {
+        "id": "ocd-person/22e282f9-afbf-46b8-ac81-0780f5372d0d",
+        "name": "Mazzie Christensen",
+        "office": "state-house",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "mazzie.christensen@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=002",
+        "social": {}
+      }
+    ],
+    "MO:state-house:133": [
+      {
+        "id": "ocd-person/1df6dc2e-0d12-40d6-b368-4d0b3a19ef95",
+        "name": "Melanie Stinnett",
+        "office": "state-house",
+        "districtCode": "133",
+        "contactUrl": null,
+        "email": "melanie.stinnett@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=133",
+        "social": {}
+      }
+    ],
+    "MO:state-house:027": [
+      {
+        "id": "ocd-person/9815268f-50dc-451b-9bb2-b36f3c556ac4",
+        "name": "Melissa Douglas",
+        "office": "state-house",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "melissa.douglas@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?&district=027",
+        "social": {}
+      }
+    ],
+    "MO:state-house:141": [
+      {
+        "id": "ocd-person/7839a137-9de7-440a-bad8-20db1e0ead3b",
+        "name": "Melissa Schmidt",
+        "office": "state-house",
+        "districtCode": "141",
+        "contactUrl": null,
+        "email": "melissa.schmidt@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=141",
+        "social": {}
+      }
+    ],
+    "MO:state-house:092": [
+      {
+        "id": "ocd-person/24dc0503-f4cf-48b1-afdf-e57157bafec3",
+        "name": "Michael Burton",
+        "office": "state-house",
+        "districtCode": "092",
+        "contactUrl": null,
+        "email": "michael.burton@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=092",
+        "social": {}
+      }
+    ],
+    "MO:state-house:056": [
+      {
+        "id": "ocd-person/dc271660-9483-4b46-8c96-4794078b130f",
+        "name": "Michael Davis",
+        "office": "state-house",
+        "districtCode": "056",
+        "contactUrl": null,
+        "email": "michael.davis@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=056",
+        "social": {}
+      }
+    ],
+    "MO:state-house:023": [
+      {
+        "id": "ocd-person/8014964b-117f-40a4-a466-ac597dd70983",
+        "name": "Michael Johnson",
+        "office": "state-house",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "michael.johnson@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=023",
+        "social": {}
+      }
+    ],
+    "MO:state-house:108": [
+      {
+        "id": "ocd-person/c08a9151-fdfe-4da9-97c2-5536ed96f255",
+        "name": "Mike Costlow",
+        "office": "state-house",
+        "districtCode": "108",
+        "contactUrl": null,
+        "email": "mike.costlow@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=108",
+        "social": {}
+      }
+    ],
+    "MO:state-house:012": [
+      {
+        "id": "ocd-person/8e0bb3e7-085b-471c-a588-a1de9b466706",
+        "name": "Mike Jones",
+        "office": "state-house",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "michael.jones@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?&district=012",
+        "social": {}
+      }
+    ],
+    "MO:state-house:118": [
+      {
+        "id": "ocd-person/1a644e87-8691-4e86-af73-6a2af0f56c82",
+        "name": "Mike McGirl",
+        "office": "state-house",
+        "districtCode": "118",
+        "contactUrl": null,
+        "email": "mike.mcgirl@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=118",
+        "social": {}
+      }
+    ],
+    "MO:state-house:020": [
+      {
+        "id": "ocd-person/df4d176b-2a0b-41be-977f-efa722d6a321",
+        "name": "Mike Steinmeyer",
+        "office": "state-house",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "mike.steinmeyer@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=020",
+        "social": {}
+      }
+    ],
+    "MO:state-house:157": [
+      {
+        "id": "ocd-person/c5b24334-9dfa-4356-8aa2-8f91c2a3d692",
+        "name": "Mitch Boggs",
+        "office": "state-house",
+        "districtCode": "157",
+        "contactUrl": null,
+        "email": "mitch.boggs@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=157",
+        "social": {}
+      }
+    ],
+    "MO:state-house:082": [
+      {
+        "id": "ocd-person/e6caa351-c418-431a-bf50-1bd16923ae49",
+        "name": "Nick Kimble",
+        "office": "state-house",
+        "districtCode": "082",
+        "contactUrl": null,
+        "email": "nick.kimble@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=082",
+        "social": {}
+      }
+    ],
+    "MO:state-house:025": [
+      {
+        "id": "ocd-person/a0be4ce1-fdbd-47d2-a74c-aaee85644992",
+        "name": "Pattie Mansur",
+        "office": "state-house",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "pattie.mansur@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=025",
+        "social": {}
+      }
+    ],
+    "MO:state-house:007": [
+      {
+        "id": "ocd-person/920c5b79-73a0-477b-a90d-1a290e48e014",
+        "name": "Peggy McGaugh",
+        "office": "state-house",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "peggy.mcgaugh@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=007",
+        "social": {}
+      }
+    ],
+    "MO:state-house:113": [
+      {
+        "id": "ocd-person/1d96c354-2527-4449-9b40-36bb78fe2cb7",
+        "name": "Phil Amato",
+        "office": "state-house",
+        "districtCode": "113",
+        "contactUrl": null,
+        "email": "phil.amato@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=113",
+        "social": {}
+      }
+    ],
+    "MO:state-house:100": [
+      {
+        "id": "ocd-person/4d403f59-65f6-484f-9aeb-fe05380d4bcf",
+        "name": "Philip Oehlerking",
+        "office": "state-house",
+        "districtCode": "100",
+        "contactUrl": null,
+        "email": "philip.oehlerking@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=100",
+        "social": {}
+      }
+    ],
+    "MO:state-house:083": [
+      {
+        "id": "ocd-person/41f72deb-7981-4053-bb15-7eb3580b9ade",
+        "name": "Ray Reed",
+        "office": "state-house",
+        "districtCode": "083",
+        "contactUrl": null,
+        "email": "ray.reed@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=083",
+        "social": {}
+      }
+    ],
+    "MO:state-house:073": [
+      {
+        "id": "ocd-person/e0d1f714-8603-40c6-8c3e-04934648caa4",
+        "name": "Raychel Proudie",
+        "office": "state-house",
+        "districtCode": "073",
+        "contactUrl": null,
+        "email": "raychel.proudie@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=073",
+        "social": {}
+      }
+    ],
+    "MO:state-house:112": [
+      {
+        "id": "ocd-person/64a3bd7d-7dc8-4ce6-bd30-6101b2b7926e",
+        "name": "Renee Reuter",
+        "office": "state-house",
+        "districtCode": "112",
+        "contactUrl": null,
+        "email": "renee.reuter@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=112",
+        "social": {}
+      }
+    ],
+    "MO:state-house:102": [
+      {
+        "id": "ocd-person/4209f53e-18f3-4c9e-8183-caa385c319ec",
+        "name": "Richard West",
+        "office": "state-house",
+        "districtCode": "102",
+        "contactUrl": null,
+        "email": "richard.west@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=102",
+        "social": {}
+      }
+    ],
+    "MO:state-house:057": [
+      {
+        "id": "ocd-person/bd63f6e7-ed53-4a4c-98b6-925588710b0b",
+        "name": "Rodger Reedy",
+        "office": "state-house",
+        "districtCode": "057",
+        "contactUrl": null,
+        "email": "rodger.reedy@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=057",
+        "social": {}
+      }
+    ],
+    "MO:state-house:031": [
+      {
+        "id": "ocd-person/7a66b805-a3a7-4440-b404-a562c1e00059",
+        "name": "Ron Fowler",
+        "office": "state-house",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "william.fowler@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?&district=031",
+        "social": {}
+      }
+    ],
+    "MO:state-house:059": [
+      {
+        "id": "ocd-person/fe941ee4-f34a-4685-873c-29adbb732b2c",
+        "name": "Rudy Veit",
+        "office": "state-house",
+        "districtCode": "059",
+        "contactUrl": null,
+        "email": "rudy.veit@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=059",
+        "social": {}
+      }
+    ],
+    "MO:state-house:158": [
+      {
+        "id": "ocd-person/515b97f2-7c88-40e5-b127-04146435e50e",
+        "name": "Scott Cupps",
+        "office": "state-house",
+        "districtCode": "158",
+        "contactUrl": null,
+        "email": "scott.cupps@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=158",
+        "social": {}
+      }
+    ],
+    "MO:state-house:069": [
+      {
+        "id": "ocd-person/3e251c9a-ef4d-436d-9c10-9aa447b3fcbd",
+        "name": "Scott Miller",
+        "office": "state-house",
+        "districtCode": "069",
+        "contactUrl": null,
+        "email": "scott.miller@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=069",
+        "social": {}
+      }
+    ],
+    "MO:state-house:013": [
+      {
+        "id": "ocd-person/e1a53185-3c84-4f82-87f0-09bd607cf2e7",
+        "name": "Sean Pouche",
+        "office": "state-house",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "sean.pouche@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=013",
+        "social": {}
+      }
+    ],
+    "MO:state-house:062": [
+      {
+        "id": "ocd-person/272db469-eb67-4752-8307-c46a95eaace0",
+        "name": "Sherri Gallick",
+        "office": "state-house",
+        "districtCode": "062",
+        "contactUrl": null,
+        "email": "sherri.gallick@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=062",
+        "social": {}
+      }
+    ],
+    "MO:state-house:070": [
+      {
+        "id": "ocd-person/129ff7c8-e210-47d5-a30c-777571984925",
+        "name": "Stephanie Boykin",
+        "office": "state-house",
+        "districtCode": "070",
+        "contactUrl": null,
+        "email": "stephanie.boykin@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=070",
+        "social": {}
+      }
+    ],
+    "MO:state-house:136": [
+      {
+        "id": "ocd-person/9adf60fd-19a0-429c-ab41-5cbc8e6391fc",
+        "name": "Stephanie Hein",
+        "office": "state-house",
+        "districtCode": "136",
+        "contactUrl": null,
+        "email": "stephanie.hein@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=136",
+        "social": {}
+      }
+    ],
+    "MO:state-house:081": [
+      {
+        "id": "ocd-person/6ad9db86-5e30-4693-be71-41bacad5b843",
+        "name": "Steve Butz",
+        "office": "state-house",
+        "districtCode": "081",
+        "contactUrl": null,
+        "email": "steve.butz@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=081",
+        "social": {}
+      }
+    ],
+    "MO:state-house:151": [
+      {
+        "id": "ocd-person/7ff101ee-474f-410d-9644-88bb17ae7519",
+        "name": "Steve Jordan",
+        "office": "state-house",
+        "districtCode": "151",
+        "contactUrl": null,
+        "email": "steve.jordan@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?&district=151",
+        "social": {}
+      }
+    ],
+    "MO:state-house:122": [
+      {
+        "id": "ocd-person/ae8a2d25-fbb2-4254-976a-f9dcf0c92c6f",
+        "name": "Tara Peters",
+        "office": "state-house",
+        "districtCode": "122",
+        "contactUrl": null,
+        "email": "tara.peters@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=122",
+        "social": {}
+      }
+    ],
+    "MO:state-house:104": [
+      {
+        "id": "ocd-person/ea5a5b0f-1c94-4c8d-a39f-e76357ebb2bf",
+        "name": "Terri Violet",
+        "office": "state-house",
+        "districtCode": "104",
+        "contactUrl": null,
+        "email": "terri.violet@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=104",
+        "social": {}
+      }
+    ],
+    "MO:state-house:053": [
+      {
+        "id": "ocd-person/da48983a-852b-4d3b-b635-285f37d8d012",
+        "name": "Terry Thompson",
+        "office": "state-house",
+        "districtCode": "053",
+        "contactUrl": null,
+        "email": "terry.thompson@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=053",
+        "social": {}
+      }
+    ],
+    "MO:state-house:026": [
+      {
+        "id": "ocd-person/53e00142-c4a0-41e7-bef7-fedb8de2bcdc",
+        "name": "Tiffany Price",
+        "office": "state-house",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "tiffany.price@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?&district=026",
+        "social": {}
+      }
+    ],
+    "MO:state-house:048": [
+      {
+        "id": "ocd-person/14c919a7-4443-4bc7-8221-34a59cc3bfef",
+        "name": "Tim Taylor",
+        "office": "state-house",
+        "districtCode": "048",
+        "contactUrl": null,
+        "email": "tim.taylor@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=048",
+        "social": {}
+      }
+    ],
+    "MO:state-house:144": [
+      {
+        "id": "ocd-person/b3e74d72-fdba-4c02-b75c-1ba8cc5b44b2",
+        "name": "Tony Harbison",
+        "office": "state-house",
+        "districtCode": "144",
+        "contactUrl": null,
+        "email": "tony.harbison@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?&district=144",
+        "social": {}
+      }
+    ],
+    "MO:state-house:067": [
+      {
+        "id": "ocd-person/b45073a9-ed4d-4d2c-89cd-edf310e7d373",
+        "name": "Tonya Rush",
+        "office": "state-house",
+        "districtCode": "067",
+        "contactUrl": null,
+        "email": "latondra.rush@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?&district=067",
+        "social": {}
+      }
+    ],
+    "MO:state-house:106": [
+      {
+        "id": "ocd-person/350514c2-7875-44c4-8ef3-20da25540793",
+        "name": "Travis Wilson",
+        "office": "state-house",
+        "districtCode": "106",
+        "contactUrl": null,
+        "email": "travis.wilson@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=106",
+        "social": {}
+      }
+    ],
+    "MO:state-house:063": [
+      {
+        "id": "ocd-person/4f9135f0-db97-4860-af00-182d0026feae",
+        "name": "Tricia Byrnes",
+        "office": "state-house",
+        "districtCode": "063",
+        "contactUrl": null,
+        "email": "tricia.byrnes@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=063",
+        "social": {}
+      }
+    ],
+    "MO:state-house:065": [
+      {
+        "id": "ocd-person/b6ab609a-1abc-40ee-9ac1-889ccb08a9f0",
+        "name": "Wendy Hausman",
+        "office": "state-house",
+        "districtCode": "065",
+        "contactUrl": null,
+        "email": "wendy.hausman@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=065",
+        "social": {}
+      }
+    ],
+    "MO:state-house:019": [
+      {
+        "id": "ocd-person/39bcc093-37e9-469a-866d-5b6f10c52381",
+        "name": "Wick Thomas",
+        "office": "state-house",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "wick.thomas@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=019",
+        "social": {}
+      }
+    ],
+    "MO:state-house:021": [
+      {
+        "id": "ocd-person/9c6a9708-529e-422f-82b7-e92385a32688",
+        "name": "Will Jobe",
+        "office": "state-house",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "will.jobe@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=021",
+        "social": {}
+      }
+    ],
+    "MO:state-house:058": [
+      {
+        "id": "ocd-person/05c84580-b849-4320-9aa4-e34d8b977aca",
+        "name": "Willard Haley",
+        "office": "state-house",
+        "districtCode": "058",
+        "contactUrl": null,
+        "email": "willard.haley@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=058",
+        "social": {}
+      }
+    ],
+    "MO:state-house:022": [
+      {
+        "id": "ocd-person/e2fb607f-9af9-4d80-b473-8ed33e3d942d",
+        "name": "Yolanda Young",
+        "office": "state-house",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "yolanda.young@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=022",
+        "social": {}
+      }
+    ],
+    "MO:state-house:085": [
+      {
+        "id": "ocd-person/6f65a218-7bef-4fa3-b86c-907ed92296d8",
+        "name": "Yolonda Fountain-Henderson",
+        "office": "state-house",
+        "districtCode": "085",
+        "contactUrl": null,
+        "email": "yolonda.fountainhend@house.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=085",
+        "social": {}
+      }
+    ],
+    "MO:state-senate:023": [
+      {
+        "id": "ocd-person/f436aa10-c006-4128-9748-050bf50c4e21",
+        "name": "Adam Schnelting",
+        "office": "state-senate",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "adam.schnelting@senate.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=069",
+        "social": {}
+      }
+    ],
+    "MO:state-senate:013": [
+      {
+        "id": "ocd-person/048bc29f-0bab-4fa1-8a1e-647b0eba4dcd",
+        "name": "Angela Mosley",
+        "office": "state-senate",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "angela.mosley@senate.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mo.gov/Senators/Member?id=20",
+        "social": {}
+      }
+    ],
+    "MO:state-senate:009": [
+      {
+        "id": "ocd-person/de8806cc-fa03-4745-ae1e-198c56492f9a",
+        "name": "Barbara Washington",
+        "office": "state-senate",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "barbara.washington@senate.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mo.gov/MemberDetails.aspx?district=23",
+        "social": {}
+      }
+    ],
+    "MO:state-senate:026": [
+      {
+        "id": "ocd-person/c44ce433-7957-40b8-98dd-221b2f7d1436",
+        "name": "Ben Brown",
+        "office": "state-senate",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "ben.brown@senate.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mo.gov/Senators/Member?id=271",
+        "social": {}
+      }
+    ],
+    "MO:state-senate:033": [
+      {
+        "id": "ocd-person/9f6b3ff8-f439-44d0-bdf7-315451e52cb7",
+        "name": "Brad Hudson",
+        "office": "state-senate",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "brad.hudson@senate.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/memberdetails.aspx?district=138",
+        "social": {}
+      }
+    ],
+    "MO:state-senate:014": [
+      {
+        "id": "ocd-person/4f5340d3-7637-4eb2-be68-890073af50af",
+        "name": "Brian Williams",
+        "office": "state-senate",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "brian.williams@senate.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mo.gov/Senators/Member?id=34",
+        "social": {}
+      }
+    ],
+    "MO:state-senate:018": [
+      {
+        "id": "ocd-person/77b71863-3523-489a-a6a8-953ffa0d8955",
+        "name": "Cindy O'Laughlin",
+        "office": "state-senate",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "cindy.olaughlin@senate.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mo.gov/Senators/Member?id=21",
+        "social": {}
+      }
+    ],
+    "MO:state-senate:020": [
+      {
+        "id": "ocd-person/c5e38dee-7f82-4795-a134-b984b6878458",
+        "name": "Curtis Trent",
+        "office": "state-senate",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "curtis.trent@senate.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mo.gov/Senators/Member/20",
+        "social": {}
+      }
+    ],
+    "MO:state-senate:015": [
+      {
+        "id": "ocd-person/2f4b4782-bc17-40fd-88b7-53840c68ee3a",
+        "name": "David Gregory",
+        "office": "state-senate",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "david.gregory@senate.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?year=2021&code=R&district=096",
+        "social": {}
+      }
+    ],
+    "MO:state-senate:001": [
+      {
+        "id": "ocd-person/f6f3c354-c65e-4d9a-a713-5fce1ad2c403",
+        "name": "Doug Beck",
+        "office": "state-senate",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "doug.beck@senate.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mo.gov/MemberDetails.aspx?district=92",
+        "social": {}
+      }
+    ],
+    "MO:state-senate:027": [
+      {
+        "id": "ocd-person/87967de8-0f0d-45d5-9248-2767f9157d7b",
+        "name": "Jamie Burger",
+        "office": "state-senate",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "jamie.burger@senate.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=148",
+        "social": {}
+      }
+    ],
+    "MO:state-senate:025": [
+      {
+        "id": "ocd-person/87d06121-1f5c-49ed-88dc-f5c70e88533e",
+        "name": "Jason Bean",
+        "office": "state-senate",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "jason.bean@senate.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mo.gov/Senators/Member?id=2",
+        "social": {}
+      }
+    ],
+    "MO:state-senate:032": [
+      {
+        "id": "ocd-person/29fe2ddb-6025-4e60-942d-fd0880ebad5b",
+        "name": "Jill Carter",
+        "office": "state-senate",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "jill.carter@senate.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mo.gov/Senators/Member?id=273",
+        "social": {}
+      }
+    ],
+    "MO:state-senate:011": [
+      {
+        "id": "ocd-person/a93088fa-ad80-49de-aa94-d03da0add0bc",
+        "name": "Joe Nicola",
+        "office": "state-senate",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "joe.nicola@senate.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senatorjoenicola.com/",
+        "social": {}
+      }
+    ],
+    "MO:state-senate:016": [
+      {
+        "id": "ocd-person/867469f6-f988-49ec-be8c-4a065db3f223",
+        "name": "Justin Brown",
+        "office": "state-senate",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "justin.brown@senate.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mo.gov/Senators/Member?id=6",
+        "social": {}
+      }
+    ],
+    "MO:state-senate:004": [
+      {
+        "id": "ocd-person/fbeafead-44b9-4f08-9854-ad516fb6c838",
+        "name": "Karla May",
+        "office": "state-senate",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "karla.may@senate.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mo.gov/Senators/Member?id=18",
+        "social": {}
+      }
+    ],
+    "MO:state-senate:021": [
+      {
+        "id": "ocd-person/1ab01adf-962d-47ac-977c-2cf25712f583",
+        "name": "Kurtis Gregory",
+        "office": "state-senate",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "kurtis.gregory@senate.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?year=2021&code=R&district=051",
+        "social": {}
+      }
+    ],
+    "MO:state-senate:030": [
+      {
+        "id": "ocd-person/934fdfca-5cdf-4c67-a3b0-b23e433f87f6",
+        "name": "Lincoln Hough",
+        "office": "state-senate",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "lincoln.hough@senate.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mo.gov/Senators/Member?id=15",
+        "social": {}
+      }
+    ],
+    "MO:state-senate:017": [
+      {
+        "id": "ocd-person/d8594030-4826-48c5-af43-674470f1dd44",
+        "name": "Maggie Nurrenbern",
+        "office": "state-senate",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "maggie.nurrenbern@senate.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=015",
+        "social": {}
+      }
+    ],
+    "MO:state-senate:022": [
+      {
+        "id": "ocd-person/f1d83642-4aa6-4fea-80f1-4c3f422c63ed",
+        "name": "Mary Elizabeth Coleman",
+        "office": "state-senate",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "maryelizabeth.coleman@senate.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mo.gov/Senators/Member?id=272",
+        "social": {}
+      }
+    ],
+    "MO:state-senate:006": [
+      {
+        "id": "ocd-person/8df40920-38e1-4892-aa6b-764467bf79b7",
+        "name": "Mike Bernskoetter",
+        "office": "state-senate",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "mike.bernskoetter@senate.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mo.gov/Senators/Member?id=4",
+        "social": {}
+      }
+    ],
+    "MO:state-senate:008": [
+      {
+        "id": "ocd-person/70c04c22-b1a9-4c3c-96f9-36761e63f3f8",
+        "name": "Mike Cierpiot",
+        "office": "state-senate",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "mike.cierpiot@senate.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mo.gov/Senators/Member?id=8",
+        "social": {}
+      }
+    ],
+    "MO:state-senate:003": [
+      {
+        "id": "ocd-person/bfad4ef7-fad2-46e6-8f12-f8ea9feaa0cb",
+        "name": "Mike Henderson",
+        "office": "state-senate",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "mike.henderson@senate.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=117",
+        "social": {}
+      }
+    ],
+    "MO:state-senate:029": [
+      {
+        "id": "ocd-person/43563b48-1d26-4a85-bad2-615971201d41",
+        "name": "Mike Moon",
+        "office": "state-senate",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "mike.moon@senate.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mo.gov/MemberDetails.aspx?district=157",
+        "social": {}
+      }
+    ],
+    "MO:state-senate:002": [
+      {
+        "id": "ocd-person/ecbee637-2b07-4028-acb3-b82df2edb42a",
+        "name": "Nick Schroer",
+        "office": "state-senate",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "nick.schroer@senate.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mo.gov/Senators/Member?id=276",
+        "social": {}
+      }
+    ],
+    "MO:state-senate:007": [
+      {
+        "id": "ocd-person/618e91b0-663d-4095-9a38-eefab6304e5f",
+        "name": "Patty Lewis",
+        "office": "state-senate",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "patty.lewis@senate.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.mo.gov/MemberDetails.aspx?district=025",
+        "social": {}
+      }
+    ],
+    "MO:state-senate:031": [
+      {
+        "id": "ocd-person/e4811e7a-7df7-4275-917d-8bdcc2778fb1",
+        "name": "Rick Brattin",
+        "office": "state-senate",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "rick.brattin@senate.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.mo.gov/MemberDetails.aspx?district=55",
+        "social": {}
+      }
+    ],
+    "MO:state-senate:012": [
+      {
+        "id": "ocd-person/bb98b6a0-ba5f-45f8-ad14-b798515fa8a0",
+        "name": "Rusty Black",
+        "office": "state-senate",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "rusty.black@senate.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mo.gov/Senators/Member?id=270",
+        "social": {}
+      }
+    ],
+    "MO:state-senate:028": [
+      {
+        "id": "ocd-person/4f194218-3d95-4f08-8963-7e3440fdb671",
+        "name": "Sandy Crawford",
+        "office": "state-senate",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "sandy.crawford@senate.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mo.gov/Senators/Member?id=9",
+        "social": {}
+      }
+    ],
+    "MO:state-senate:019": [
+      {
+        "id": "ocd-person/63dea1c8-8916-4ca8-8821-223a7fef95a9",
+        "name": "Stephen Webber",
+        "office": "state-senate",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "stephen.webber@senate.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mo.gov/Senators/Member?id=6373",
+        "social": {}
+      }
+    ],
+    "MO:state-senate:005": [
+      {
+        "id": "ocd-person/20ad6a34-2965-4068-b819-49c5e0d27831",
+        "name": "Steve Roberts",
+        "office": "state-senate",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "steven.roberts@senate.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mo.gov/Senators/Member?id=26",
+        "social": {}
+      }
+    ],
+    "MO:state-senate:034": [
+      {
+        "id": "ocd-person/98b8120c-7a9c-4415-9e7b-8bfcdc8fa8a5",
+        "name": "Tony Luetkemeyer",
+        "office": "state-senate",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "tony.luetkemeyer@senate.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mo.gov/Senators/Member?id=17",
+        "social": {}
+      }
+    ],
+    "MO:state-senate:024": [
+      {
+        "id": "ocd-person/802c155f-8979-418f-b13b-b75de93caf31",
+        "name": "Tracy McCreery",
+        "office": "state-senate",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "tracy.mccreery@senate.mo.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.mo.gov/Senators/Member?id=277",
+        "social": {}
+      }
+    ]
+  }
+}

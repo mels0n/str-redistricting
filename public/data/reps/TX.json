@@ -1,0 +1,3187 @@
+{
+  "state": "TX",
+  "generatedFrom": {
+    "legislators-current.json": "ae8cb9477c48715df71a7d860854229d799dc90a254d61badc1efb770f892b2c",
+    "legislators-social-media.json": "c6eca1fcdb3a89901335eed51ca061daa4b60ad3243969a127e913bb9657fbc5",
+    "tx.csv": "09703ceab0a55d62525a48e16db048d0437edda03244be0f6b5f4bb6c9d1defa"
+  },
+  "byKey": {
+    "TX:us-senate:state": [
+      {
+        "id": "C001056",
+        "name": "John Cornyn",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.cornyn.senate.gov/contact",
+        "email": null,
+        "phone": "202-224-2934",
+        "address": "517 Hart Senate Office Building Washington DC 20510",
+        "website": "https://www.cornyn.senate.gov",
+        "social": {
+          "x": "JohnCornyn",
+          "facebook": "sen.johncornyn"
+        }
+      },
+      {
+        "id": "C001098",
+        "name": "Ted Cruz",
+        "office": "us-senate",
+        "districtCode": null,
+        "contactUrl": "https://www.cruz.senate.gov/?p=form&id=16",
+        "email": null,
+        "phone": "202-224-5922",
+        "address": "167 Russell Senate Office Building Washington DC 20510",
+        "website": "https://www.cruz.senate.gov",
+        "social": {
+          "x": "SenTedCruz",
+          "facebook": "SenatorTedCruz",
+          "instagram": "sentedcruz"
+        }
+      }
+    ],
+    "TX:us-house:31": [
+      {
+        "id": "C001051",
+        "name": "John R. Carter",
+        "office": "us-house",
+        "districtCode": "31",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-3864",
+        "address": "2208 Rayburn House Office Building Washington DC 20515-4331",
+        "website": "https://carter.house.gov",
+        "social": {
+          "x": "JudgeCarter",
+          "facebook": "judgecarter",
+          "instagram": "judgecarter"
+        }
+      }
+    ],
+    "TX:us-house:28": [
+      {
+        "id": "C001063",
+        "name": "Henry Cuellar",
+        "office": "us-house",
+        "districtCode": "28",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-1640",
+        "address": "2308 Rayburn House Office Building Washington DC 20515-4328",
+        "website": "https://cuellar.house.gov",
+        "social": {
+          "x": "RepCuellar",
+          "facebook": "152569121550",
+          "instagram": "RepCuellar"
+        }
+      }
+    ],
+    "TX:us-house:37": [
+      {
+        "id": "D000399",
+        "name": "Lloyd Doggett",
+        "office": "us-house",
+        "districtCode": "37",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4865",
+        "address": "2307 Rayburn House Office Building Washington DC 20515-0001",
+        "website": "https://doggett.house.gov",
+        "social": {
+          "x": "RepLloydDoggett",
+          "facebook": "lloyddoggett",
+          "instagram": "replloyddoggett"
+        }
+      }
+    ],
+    "TX:us-house:09": [
+      {
+        "id": "G000553",
+        "name": "Al Green",
+        "office": "us-house",
+        "districtCode": "09",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-7508",
+        "address": "2347 Rayburn House Office Building Washington DC 20515-4309",
+        "website": "https://algreen.house.gov",
+        "social": {
+          "x": "RepAlGreen",
+          "facebook": "repalgreen",
+          "instagram": "repalgreen"
+        }
+      }
+    ],
+    "TX:us-house:10": [
+      {
+        "id": "M001157",
+        "name": "Michael T. McCaul",
+        "office": "us-house",
+        "districtCode": "10",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2401",
+        "address": "2300 Rayburn House Office Building Washington DC 20515-4310",
+        "website": "https://mccaul.house.gov",
+        "social": {
+          "x": "RepMcCaul",
+          "facebook": "michaeltmccaul",
+          "instagram": "congressman_mccaul"
+        }
+      }
+    ],
+    "TX:us-house:14": [
+      {
+        "id": "W000814",
+        "name": "Randy K. Weber, Sr.",
+        "office": "us-house",
+        "districtCode": "14",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2831",
+        "address": "107 Cannon House Office Building Washington DC 20515-4314",
+        "website": "https://weber.house.gov",
+        "social": {
+          "x": "TXRandy14",
+          "facebook": "TXRandy14",
+          "instagram": "TXRandy14"
+        }
+      }
+    ],
+    "TX:us-house:20": [
+      {
+        "id": "C001091",
+        "name": "Joaquin Castro",
+        "office": "us-house",
+        "districtCode": "20",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-3236",
+        "address": "2241 Rayburn House Office Building Washington DC 20515-4320",
+        "website": "https://castro.house.gov",
+        "social": {
+          "x": "JoaquinCastrotx",
+          "facebook": "326420614138023",
+          "instagram": "joaquincastrotx"
+        }
+      }
+    ],
+    "TX:us-house:25": [
+      {
+        "id": "W000816",
+        "name": "Roger Williams",
+        "office": "us-house",
+        "districtCode": "25",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-9896",
+        "address": "2336 Rayburn House Office Building Washington DC 20515-4325",
+        "website": "https://williams.house.gov",
+        "social": {
+          "x": "RepRWilliams",
+          "facebook": "RepRogerWilliams"
+        }
+      }
+    ],
+    "TX:us-house:33": [
+      {
+        "id": "V000131",
+        "name": "Marc A. Veasey",
+        "office": "us-house",
+        "districtCode": "33",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-9897",
+        "address": "2186 Rayburn House Office Building Washington DC 20515-4333",
+        "website": "https://veasey.house.gov",
+        "social": {
+          "x": "RepVeasey",
+          "facebook": "CongressmanMarcVeasey",
+          "instagram": "repveasey"
+        }
+      }
+    ],
+    "TX:us-house:36": [
+      {
+        "id": "B001291",
+        "name": "Brian Babin",
+        "office": "us-house",
+        "districtCode": "36",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-1555",
+        "address": "2236 Rayburn House Office Building Washington DC 20515-4336",
+        "website": "https://babin.house.gov",
+        "social": {
+          "x": "RepBrianBabin",
+          "facebook": "RepBrianBabin"
+        }
+      }
+    ],
+    "TX:us-house:34": [
+      {
+        "id": "G000581",
+        "name": "Vicente Gonzalez",
+        "office": "us-house",
+        "districtCode": "34",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2531",
+        "address": "1201 Longworth House Office Building Washington DC 20515-4334",
+        "website": "https://gonzalez.house.gov",
+        "social": {
+          "x": "RepGonzalez",
+          "facebook": "USCongressmanVicenteGonzalez",
+          "instagram": "repvicentegonzaleztx"
+        }
+      }
+    ],
+    "TX:us-house:19": [
+      {
+        "id": "A000375",
+        "name": "Jodey C. Arrington",
+        "office": "us-house",
+        "districtCode": "19",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4005",
+        "address": "1111 Longworth House Office Building Washington DC 20515-4319",
+        "website": "https://arrington.house.gov",
+        "social": {
+          "x": "RepArrington",
+          "facebook": "JodeyArrington",
+          "instagram": "repjodeyarrington"
+        }
+      }
+    ],
+    "TX:us-house:27": [
+      {
+        "id": "C001115",
+        "name": "Michael Cloud",
+        "office": "us-house",
+        "districtCode": "27",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-7742",
+        "address": "304 Cannon House Office Building Washington DC 20515-4327",
+        "website": "https://cloud.house.gov",
+        "social": {
+          "x": "RepCloudTX",
+          "facebook": "RepCloudTX",
+          "instagram": "repcloudtx"
+        }
+      }
+    ],
+    "TX:us-house:02": [
+      {
+        "id": "C001120",
+        "name": "Dan Crenshaw",
+        "office": "us-house",
+        "districtCode": "02",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-6565",
+        "address": "248 Cannon House Office Building Washington DC 20515-4302",
+        "website": "https://crenshaw.house.gov",
+        "social": {
+          "x": "RepDanCrenshaw",
+          "facebook": "RepDanCrenshaw",
+          "instagram": "dancrenshawtx"
+        }
+      }
+    ],
+    "TX:us-house:05": [
+      {
+        "id": "G000589",
+        "name": "Lance Gooden",
+        "office": "us-house",
+        "districtCode": "05",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-3484",
+        "address": "2431 Rayburn House Office Building Washington DC 20515-4305",
+        "website": "https://gooden.house.gov",
+        "social": {}
+      }
+    ],
+    "TX:us-house:07": [
+      {
+        "id": "F000468",
+        "name": "Lizzie Fletcher",
+        "office": "us-house",
+        "districtCode": "07",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2571",
+        "address": "2004 Rayburn House Office Building Washington DC 20515-4307",
+        "website": "https://fletcher.house.gov",
+        "social": {
+          "x": "RepFletcher",
+          "facebook": "RepFletcher",
+          "instagram": "repfletcher"
+        }
+      }
+    ],
+    "TX:us-house:16": [
+      {
+        "id": "E000299",
+        "name": "Veronica Escobar",
+        "office": "us-house",
+        "districtCode": "16",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4831",
+        "address": "2448 Rayburn House Office Building Washington DC 20515-4316",
+        "website": "https://escobar.house.gov",
+        "social": {
+          "x": "RepEscobar",
+          "facebook": "RepEscobar",
+          "instagram": "repescobar"
+        }
+      }
+    ],
+    "TX:us-house:21": [
+      {
+        "id": "R000614",
+        "name": "Chip Roy",
+        "office": "us-house",
+        "districtCode": "21",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4236",
+        "address": "103 Cannon House Office Building Washington DC 20515-4321",
+        "website": "https://roy.house.gov",
+        "social": {
+          "x": "RepChipRoy"
+        }
+      }
+    ],
+    "TX:us-house:29": [
+      {
+        "id": "G000587",
+        "name": "Sylvia R. Garcia",
+        "office": "us-house",
+        "districtCode": "29",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-1688",
+        "address": "2419 Rayburn House Office Building Washington DC 20515-4329",
+        "website": "https://sylviagarcia.house.gov",
+        "social": {
+          "x": "RepSylviaGarcia",
+          "facebook": "RepSylviaGarcia"
+        }
+      }
+    ],
+    "TX:us-house:17": [
+      {
+        "id": "S000250",
+        "name": "Pete Sessions",
+        "office": "us-house",
+        "districtCode": "17",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-6105",
+        "address": "2204 Rayburn House Office Building Washington DC 20515-4317",
+        "website": "https://sessions.house.gov",
+        "social": {
+          "x": "PeteSessions",
+          "facebook": "petesessions",
+          "instagram": "congressmanpetesessions"
+        }
+      }
+    ],
+    "TX:us-house:04": [
+      {
+        "id": "F000246",
+        "name": "Pat Fallon",
+        "office": "us-house",
+        "districtCode": "04",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-6673",
+        "address": "2416 Rayburn House Office Building Washington DC 20515-4304",
+        "website": "https://fallon.house.gov",
+        "social": {
+          "x": "RepPatFallon",
+          "facebook": "RepPatFallon",
+          "instagram": "RepPatFallon"
+        }
+      }
+    ],
+    "TX:us-house:11": [
+      {
+        "id": "P000048",
+        "name": "August Pfluger",
+        "office": "us-house",
+        "districtCode": "11",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-3605",
+        "address": "2202 Rayburn House Office Building Washington DC 20515-4311",
+        "website": "https://pfluger.house.gov",
+        "social": {
+          "x": "RepPfluger",
+          "facebook": "RepAugustPfluger",
+          "instagram": "repaugustpfluger"
+        }
+      }
+    ],
+    "TX:us-house:13": [
+      {
+        "id": "J000304",
+        "name": "Ronny Jackson",
+        "office": "us-house",
+        "districtCode": "13",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-3706",
+        "address": "125 Cannon House Office Building Washington DC 20515-4313",
+        "website": "https://jackson.house.gov",
+        "social": {
+          "x": "RepRonnyJackson",
+          "facebook": "RepRonnyJackson",
+          "instagram": "RepRonnyJackson"
+        }
+      }
+    ],
+    "TX:us-house:22": [
+      {
+        "id": "N000026",
+        "name": "Troy E. Nehls",
+        "office": "us-house",
+        "districtCode": "22",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5951",
+        "address": "1104 Longworth House Office Building Washington DC 20515-4322",
+        "website": "https://nehls.house.gov",
+        "social": {
+          "x": "RepTroyNehls",
+          "facebook": "RepTroyNehls",
+          "instagram": "reptroynehls"
+        }
+      }
+    ],
+    "TX:us-house:24": [
+      {
+        "id": "V000134",
+        "name": "Beth Van Duyne",
+        "office": "us-house",
+        "districtCode": "24",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-6605",
+        "address": "1725 Longworth House Office Building Washington DC 20515-4324",
+        "website": "https://vanduyne.house.gov",
+        "social": {
+          "x": "RepBethVanDuyne",
+          "facebook": "RepBethVanDuyne",
+          "instagram": "repbethvanduyne"
+        }
+      }
+    ],
+    "TX:us-house:06": [
+      {
+        "id": "E000071",
+        "name": "Jake Ellzey",
+        "office": "us-house",
+        "districtCode": "06",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2002",
+        "address": "1721 Longworth House Office Building Washington DC 20515-4306",
+        "website": "https://ellzey.house.gov",
+        "social": {
+          "x": "RepEllzey",
+          "facebook": "RepJakeEllzey"
+        }
+      }
+    ],
+    "TX:us-house:01": [
+      {
+        "id": "M001224",
+        "name": "Nathaniel Moran",
+        "office": "us-house",
+        "districtCode": "01",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-3035",
+        "address": "1605 Longworth House Office Building Washington DC 20515-4301",
+        "website": "https://moran.house.gov",
+        "social": {
+          "x": "RepNateMoran",
+          "facebook": "RepNateMoran",
+          "instagram": "RepNateMoran"
+        }
+      }
+    ],
+    "TX:us-house:03": [
+      {
+        "id": "S001224",
+        "name": "Keith Self",
+        "office": "us-house",
+        "districtCode": "03",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4201",
+        "address": "1030 Longworth House Office Building Washington DC 20515-4303",
+        "website": "https://keithself.house.gov",
+        "social": {
+          "x": "repkeithself",
+          "facebook": "repkeithself",
+          "instagram": "repkeithself"
+        }
+      }
+    ],
+    "TX:us-house:08": [
+      {
+        "id": "L000603",
+        "name": "Morgan Luttrell",
+        "office": "us-house",
+        "districtCode": "08",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-4901",
+        "address": "444 Cannon House Office Building Washington DC 20515-4308",
+        "website": "https://luttrell.house.gov",
+        "social": {
+          "x": "RepLuttrell",
+          "facebook": "100089328790942",
+          "instagram": "repluttrelltx"
+        }
+      }
+    ],
+    "TX:us-house:15": [
+      {
+        "id": "D000594",
+        "name": "Monica De La Cruz",
+        "office": "us-house",
+        "districtCode": "15",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-9901",
+        "address": "1415 Longworth House Office Building Washington DC 20515-4315",
+        "website": "https://delacruz.house.gov",
+        "social": {
+          "x": "RepMonicaDLC",
+          "facebook": "RepMonicaDLC",
+          "instagram": "RepMonicaDLC"
+        }
+      }
+    ],
+    "TX:us-house:30": [
+      {
+        "id": "C001130",
+        "name": "Jasmine Crockett",
+        "office": "us-house",
+        "districtCode": "30",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-8885",
+        "address": "1616 Longworth House Office Building Washington DC 20515-4330",
+        "website": "https://crockett.house.gov",
+        "social": {
+          "x": "RepJasmine",
+          "facebook": "RepJasmine",
+          "instagram": "RepJasmine"
+        }
+      }
+    ],
+    "TX:us-house:35": [
+      {
+        "id": "C001131",
+        "name": "Greg Casar",
+        "office": "us-house",
+        "districtCode": "35",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5645",
+        "address": "446 Cannon House Office Building Washington DC 20515-4335",
+        "website": "https://casar.house.gov",
+        "social": {
+          "x": "RepCasar",
+          "facebook": "RepCasar",
+          "instagram": "RepCasar"
+        }
+      }
+    ],
+    "TX:us-house:38": [
+      {
+        "id": "H001095",
+        "name": "Wesley Hunt",
+        "office": "us-house",
+        "districtCode": "38",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5646",
+        "address": "1520 Longworth House Office Building Washington DC 20515-0001",
+        "website": "https://hunt.house.gov",
+        "social": {
+          "x": "RepWesleyHunt",
+          "facebook": "RepWesleyHunt",
+          "instagram": "repwph"
+        }
+      }
+    ],
+    "TX:us-house:12": [
+      {
+        "id": "G000601",
+        "name": "Craig A. Goldman",
+        "office": "us-house",
+        "districtCode": "12",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-5071",
+        "address": "1716 Longworth House Office Building Washington DC 20515-4312",
+        "website": "https://craiggoldman.house.gov",
+        "social": {
+          "x": "RepCraigGoldman",
+          "facebook": "61571449239416",
+          "instagram": "repcraiggoldman"
+        }
+      }
+    ],
+    "TX:us-house:26": [
+      {
+        "id": "G000603",
+        "name": "Brandon Gill",
+        "office": "us-house",
+        "districtCode": "26",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-7772",
+        "address": "1305 Longworth House Office Building Washington DC 20515-4326",
+        "website": "https://gill.house.gov",
+        "social": {
+          "x": "repbrandongill",
+          "facebook": "RepBrandonGill",
+          "instagram": "repbrandongill"
+        }
+      }
+    ],
+    "TX:us-house:32": [
+      {
+        "id": "J000310",
+        "name": "Julie Johnson",
+        "office": "us-house",
+        "districtCode": "32",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-2231",
+        "address": "221 Cannon House Office Building Washington DC 20515-4332",
+        "website": "https://juliejohnson.house.gov",
+        "social": {
+          "x": "RepJulieJohnson",
+          "facebook": "61569064997067",
+          "instagram": "repjuliejohnson"
+        }
+      }
+    ],
+    "TX:us-house:18": [
+      {
+        "id": "M001245",
+        "name": "Christian D. Menefee",
+        "office": "us-house",
+        "districtCode": "18",
+        "contactUrl": null,
+        "email": null,
+        "phone": "202-225-3816",
+        "address": "1318 Longworth House Office Building Washington DC 20515-4318",
+        "website": "https://menefee.house.gov",
+        "social": {}
+      }
+    ],
+    "TX:state-house:030": [
+      {
+        "id": "ocd-person/dd3e49ca-2b2b-4a83-ae63-0ade6ccef73f",
+        "name": "A.J. Louderback",
+        "office": "state-house",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "aj.louderback@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://ajlouderback.com/",
+        "social": {}
+      }
+    ],
+    "TX:state-house:109": [
+      {
+        "id": "ocd-person/c55d85ff-7172-42d4-9c8f-da2f258dc19b",
+        "name": "Aicha Davis",
+        "office": "state-house",
+        "districtCode": "109",
+        "contactUrl": null,
+        "email": "aicha.davis@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.texas.gov/members/109",
+        "social": {}
+      }
+    ],
+    "TX:state-house:044": [
+      {
+        "id": "ocd-person/1493b76f-b77d-48db-9ecd-26d0e2dfc843",
+        "name": "Alan Schoolcraft",
+        "office": "state-house",
+        "districtCode": "044",
+        "contactUrl": null,
+        "email": "alan.schoolcraft@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/4745",
+        "social": {}
+      }
+    ],
+    "TX:state-house:131": [
+      {
+        "id": "ocd-person/2fd6fcd3-9676-42a4-b879-e317576ff18f",
+        "name": "Alma Allen",
+        "office": "state-house",
+        "districtCode": "131",
+        "contactUrl": null,
+        "email": "alma.allen@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/2100",
+        "social": {}
+      }
+    ],
+    "TX:state-house:143": [
+      {
+        "id": "ocd-person/4f98520b-d88b-4053-acc5-3cb2fff14660",
+        "name": "Ana Hernandez",
+        "office": "state-house",
+        "districtCode": "143",
+        "contactUrl": null,
+        "email": "ana.hernandez@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/3155",
+        "social": {}
+      }
+    ],
+    "TX:state-house:102": [
+      {
+        "id": "ocd-person/7f893a20-0547-4ad9-9a94-1084a9ef6469",
+        "name": "Ana-Maria Rodriguez Ramos",
+        "office": "state-house",
+        "districtCode": "102",
+        "contactUrl": null,
+        "email": "ana-maria.ramos@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/3735",
+        "social": {}
+      }
+    ],
+    "TX:state-house:064": [
+      {
+        "id": "ocd-person/ee8cc382-84b7-47e3-824f-e05cf6455161",
+        "name": "Andy Hopper",
+        "office": "state-house",
+        "districtCode": "064",
+        "contactUrl": null,
+        "email": "andy.hopper@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.texas.gov/members/64",
+        "social": {}
+      }
+    ],
+    "TX:state-house:013": [
+      {
+        "id": "ocd-person/aa0d12c3-c318-4c97-a0d4-c63795ec50d9",
+        "name": "Angelia Orr",
+        "office": "state-house",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "angelia.orr@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/4340",
+        "social": {}
+      }
+    ],
+    "TX:state-house:112": [
+      {
+        "id": "ocd-person/2a9478ef-b573-4de6-ab96-bb3f6091346f",
+        "name": "Angie Button",
+        "office": "state-house",
+        "districtCode": "112",
+        "contactUrl": null,
+        "email": "angie.button@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/2510",
+        "social": {}
+      }
+    ],
+    "TX:state-house:134": [
+      {
+        "id": "ocd-person/45f3ddfb-5994-4f05-b2c8-e0e3b2a99c47",
+        "name": "Ann Johnson",
+        "office": "state-house",
+        "districtCode": "134",
+        "contactUrl": null,
+        "email": "ann.johnson@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/134",
+        "social": {}
+      }
+    ],
+    "TX:state-house:039": [
+      {
+        "id": "ocd-person/e2d786e9-5e46-4807-be42-546203016996",
+        "name": "Mando Martinez",
+        "office": "state-house",
+        "districtCode": "039",
+        "contactUrl": null,
+        "email": "mando.martinez@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/3780",
+        "social": {}
+      }
+    ],
+    "TX:state-house:140": [
+      {
+        "id": "ocd-person/3caafbc8-6561-4bf8-8247-aaf398573ba8",
+        "name": "Armando Walle",
+        "office": "state-house",
+        "districtCode": "140",
+        "contactUrl": null,
+        "email": "armando.walle@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/4930",
+        "social": {}
+      }
+    ],
+    "TX:state-house:120": [
+      {
+        "id": "ocd-person/9c37e80d-af10-4433-a78a-408b2b798fb6",
+        "name": "Barbara Gervin-Hawkins",
+        "office": "state-house",
+        "districtCode": "120",
+        "contactUrl": null,
+        "email": "barbara.gervin-hawkins@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/120",
+        "social": {}
+      }
+    ],
+    "TX:state-house:063": [
+      {
+        "id": "ocd-person/ba43365e-63dc-4bdc-aadc-e3939aa7465b",
+        "name": "Ben Bumgarner",
+        "office": "state-house",
+        "districtCode": "063",
+        "contactUrl": null,
+        "email": "ben.bumgarner@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/63",
+        "social": {}
+      }
+    ],
+    "TX:state-house:041": [
+      {
+        "id": "ocd-person/51591894-e9ff-48d3-81c5-897ec1c5e600",
+        "name": "Bobby Guerra",
+        "office": "state-house",
+        "districtCode": "041",
+        "contactUrl": null,
+        "email": "bobby.guerra@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/2325",
+        "social": {}
+      }
+    ],
+    "TX:state-house:054": [
+      {
+        "id": "ocd-person/e3533cbc-f3ab-46bc-a591-c68657f82527",
+        "name": "Brad Buckley",
+        "office": "state-house",
+        "districtCode": "054",
+        "contactUrl": null,
+        "email": "brad.buckley@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/54",
+        "social": {}
+      }
+    ],
+    "TX:state-house:002": [
+      {
+        "id": "ocd-person/469f1932-49dc-4a46-8341-b2cd9bc0f96d",
+        "name": "Brent Money",
+        "office": "state-house",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "brent.money@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.texas.gov/members/2",
+        "social": {}
+      }
+    ],
+    "TX:state-house:010": [
+      {
+        "id": "ocd-person/b1bf46ac-e99e-49f6-8f40-cf07aca12187",
+        "name": "Brian Harrison",
+        "office": "state-house",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "brian.harrison@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/4085",
+        "social": {}
+      }
+    ],
+    "TX:state-house:128": [
+      {
+        "id": "ocd-person/065c24a0-401a-4dc5-a19c-e7d96dcbffc5",
+        "name": "Briscoe Cain",
+        "office": "state-house",
+        "districtCode": "128",
+        "contactUrl": null,
+        "email": "briscoe.cain@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/3265",
+        "social": {}
+      }
+    ],
+    "TX:state-house:081": [
+      {
+        "id": "ocd-person/83030f8b-5f1f-4475-b564-a07ae42f6d98",
+        "name": "Brooks Landgraf",
+        "office": "state-house",
+        "districtCode": "081",
+        "contactUrl": null,
+        "email": "brooks.landgraf@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/3040",
+        "social": {}
+      }
+    ],
+    "TX:state-house:089": [
+      {
+        "id": "ocd-person/f4976334-0e0e-4474-b5b4-3264e8d73f1d",
+        "name": "Candy Noble",
+        "office": "state-house",
+        "districtCode": "089",
+        "contactUrl": null,
+        "email": "candy.noble@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/3740",
+        "social": {}
+      }
+    ],
+    "TX:state-house:084": [
+      {
+        "id": "ocd-person/8f7f161e-6ef4-4c12-8eea-de88a313b36c",
+        "name": "Carl Tepper",
+        "office": "state-house",
+        "districtCode": "084",
+        "contactUrl": null,
+        "email": "carl.tepper@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/4360",
+        "social": {}
+      }
+    ],
+    "TX:state-house:087": [
+      {
+        "id": "ocd-person/5c40c2b0-07c1-4c73-b15b-14d0ef6df40e",
+        "name": "Caroline Dunmoyer",
+        "office": "state-house",
+        "districtCode": "087",
+        "contactUrl": null,
+        "email": "caroline.fairly@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.texas.gov/members/87",
+        "social": {}
+      }
+    ],
+    "TX:state-house:052": [
+      {
+        "id": "ocd-person/72920206-cbe7-4429-b42b-c6fc746a1d56",
+        "name": "Caroline Harris Davila",
+        "office": "state-house",
+        "districtCode": "052",
+        "contactUrl": null,
+        "email": "caroline.harrisdavila@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/4205",
+        "social": {}
+      }
+    ],
+    "TX:state-house:073": [
+      {
+        "id": "ocd-person/64221b86-e3ca-4b67-b2bb-3f4f9641e133",
+        "name": "Carrie Isaac",
+        "office": "state-house",
+        "districtCode": "073",
+        "contactUrl": null,
+        "email": "carrie.isaac@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/73",
+        "social": {}
+      }
+    ],
+    "TX:state-house:115": [
+      {
+        "id": "ocd-person/f331962f-370b-4b74-876e-aa6a8e2e58e2",
+        "name": "Cas Garcia Hernandez",
+        "office": "state-house",
+        "districtCode": "115",
+        "contactUrl": null,
+        "email": "cassandra.garciahernandez@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.texas.gov/members/115",
+        "social": {}
+      }
+    ],
+    "TX:state-house:003": [
+      {
+        "id": "ocd-person/33f871c9-15a6-4094-9181-ff822cd9eca4",
+        "name": "Cecil Bell",
+        "office": "state-house",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "cecil.bell@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/2335",
+        "social": {}
+      }
+    ],
+    "TX:state-house:139": [
+      {
+        "id": "ocd-person/e6ccd3a9-8f52-46d4-af8d-d0301a8e3a05",
+        "name": "Charlene Ward Johnson",
+        "office": "state-house",
+        "districtCode": "139",
+        "contactUrl": null,
+        "email": "charlene.wardjohnson@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.texas.gov/members/139",
+        "social": {}
+      }
+    ],
+    "TX:state-house:127": [
+      {
+        "id": "ocd-person/41f4a5e2-a2d5-4e54-aae3-9c99f9ea5eba",
+        "name": "Charles Cunningham",
+        "office": "state-house",
+        "districtCode": "127",
+        "contactUrl": null,
+        "email": "charles.cunningham@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/4130",
+        "social": {}
+      }
+    ],
+    "TX:state-house:099": [
+      {
+        "id": "ocd-person/65a42043-6243-4f79-b1e0-69b3b8b4af29",
+        "name": "Charlie Geren",
+        "office": "state-house",
+        "districtCode": "099",
+        "contactUrl": null,
+        "email": "charlie.geren@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/2945",
+        "social": {}
+      }
+    ],
+    "TX:state-house:101": [
+      {
+        "id": "ocd-person/a5e2021c-8221-41ba-b45c-cc89d13b2af2",
+        "name": "Chris Turner",
+        "office": "state-house",
+        "districtCode": "101",
+        "contactUrl": null,
+        "email": "chris.turner@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/4680",
+        "social": {}
+      }
+    ],
+    "TX:state-house:022": [
+      {
+        "id": "ocd-person/26090510-8782-4d64-b981-3d1cde573090",
+        "name": "Christian Manuel",
+        "office": "state-house",
+        "districtCode": "022",
+        "contactUrl": null,
+        "email": "christian.manuel@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/4255",
+        "social": {}
+      }
+    ],
+    "TX:state-house:145": [
+      {
+        "id": "ocd-person/791e4399-56bb-4d4c-8561-71f0979fb999",
+        "name": "Christina Morales",
+        "office": "state-house",
+        "districtCode": "145",
+        "contactUrl": null,
+        "email": "christina.morales@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/3910",
+        "social": {}
+      }
+    ],
+    "TX:state-house:079": [
+      {
+        "id": "ocd-person/6feda596-fd20-429b-ae4e-bedab7e5a1c5",
+        "name": "Claudia Ordaz",
+        "office": "state-house",
+        "districtCode": "079",
+        "contactUrl": null,
+        "email": "claudia.ordaz@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/4015",
+        "social": {}
+      }
+    ],
+    "TX:state-house:008": [
+      {
+        "id": "ocd-person/baafecd4-6f74-4a97-b564-691c1e938291",
+        "name": "Cody Harris",
+        "office": "state-house",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "cody.harris@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/3580",
+        "social": {}
+      }
+    ],
+    "TX:state-house:025": [
+      {
+        "id": "ocd-person/3194ee5e-f4d8-4449-8ff6-ec47c0822a3d",
+        "name": "Cody Vasut",
+        "office": "state-house",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "cody.vasut@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/4065",
+        "social": {}
+      }
+    ],
+    "TX:state-house:005": [
+      {
+        "id": "ocd-person/43bbf34a-6bc4-41f9-9bdc-3e944c5b8495",
+        "name": "Cole Hefner",
+        "office": "state-house",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "cole.hefner@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/3505",
+        "social": {}
+      }
+    ],
+    "TX:state-house:021": [
+      {
+        "id": "ocd-person/7952d7d7-0fe5-4712-9967-6cb9bcedff05",
+        "name": "Dade Phelan",
+        "office": "state-house",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "dade.phelan@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/2905",
+        "social": {}
+      }
+    ],
+    "TX:state-house:006": [
+      {
+        "id": "ocd-person/f602a657-8951-4dcb-9bd8-c04bcce4ba56",
+        "name": "Daniel Alders",
+        "office": "state-house",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "daniel.alders@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.texas.gov/members/4395",
+        "social": {}
+      }
+    ],
+    "TX:state-house:096": [
+      {
+        "id": "ocd-person/2d5f629c-76a7-455b-aff7-262d8c1c23f6",
+        "name": "David Cook",
+        "office": "state-house",
+        "districtCode": "096",
+        "contactUrl": null,
+        "email": "david.cook@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/3960",
+        "social": {}
+      }
+    ],
+    "TX:state-house:091": [
+      {
+        "id": "ocd-person/15ce6502-645c-4031-994d-b228e1c69bb4",
+        "name": "David Lowe",
+        "office": "state-house",
+        "districtCode": "091",
+        "contactUrl": null,
+        "email": "david.lowe@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.texas.gov/members/91",
+        "social": {}
+      }
+    ],
+    "TX:state-house:068": [
+      {
+        "id": "ocd-person/36338558-c2b0-4b43-b656-261dccbee871",
+        "name": "David Spiller",
+        "office": "state-house",
+        "districtCode": "068",
+        "contactUrl": null,
+        "email": "david.spiller@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/4075",
+        "social": {}
+      }
+    ],
+    "TX:state-house:034": [
+      {
+        "id": "ocd-person/42c40e86-b355-4724-8582-995125377240",
+        "name": "Denise Villalobos",
+        "office": "state-house",
+        "districtCode": "034",
+        "contactUrl": null,
+        "email": "denise.villalobos@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/34",
+        "social": {}
+      }
+    ],
+    "TX:state-house:129": [
+      {
+        "id": "ocd-person/e05f502a-0d27-4c51-8cad-d3b5eca585b1",
+        "name": "Dennis Paul",
+        "office": "state-house",
+        "districtCode": "129",
+        "contactUrl": null,
+        "email": "dennis.paul@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/3090",
+        "social": {}
+      }
+    ],
+    "TX:state-house:123": [
+      {
+        "id": "ocd-person/7847295c-78f3-4f8c-adb6-3536fca2782e",
+        "name": "Diego Bernal",
+        "office": "state-house",
+        "districtCode": "123",
+        "contactUrl": null,
+        "email": "diego.bernal@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/3110",
+        "social": {}
+      }
+    ],
+    "TX:state-house:080": [
+      {
+        "id": "ocd-person/0941f4bf-2ac8-48d0-8675-191514e06850",
+        "name": "Don McLaughlin",
+        "office": "state-house",
+        "districtCode": "080",
+        "contactUrl": null,
+        "email": "don.mclaughlin@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/4655",
+        "social": {}
+      }
+    ],
+    "TX:state-house:048": [
+      {
+        "id": "ocd-person/349071fd-3c36-43c6-aaca-6d7f9d04322d",
+        "name": "Donna Howard",
+        "office": "state-house",
+        "districtCode": "048",
+        "contactUrl": null,
+        "email": "donna.howard@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/3310",
+        "social": {}
+      }
+    ],
+    "TX:state-house:072": [
+      {
+        "id": "ocd-person/40f0e868-e021-4453-8675-a9d2357e41e1",
+        "name": "Drew Darby",
+        "office": "state-house",
+        "districtCode": "072",
+        "contactUrl": null,
+        "email": "drew.darby@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/2645",
+        "social": {}
+      }
+    ],
+    "TX:state-house:083": [
+      {
+        "id": "ocd-person/fff5eb4f-2c41-4d00-a1c5-e566a15b063e",
+        "name": "Dustin Burrows",
+        "office": "state-house",
+        "districtCode": "083",
+        "contactUrl": null,
+        "email": "dustin.burrows@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/3055",
+        "social": {}
+      }
+    ],
+    "TX:state-house:074": [
+      {
+        "id": "ocd-person/c84056d0-47e0-4a0c-94e1-9f90c2d90a15",
+        "name": "Eddie Morales",
+        "office": "state-house",
+        "districtCode": "074",
+        "contactUrl": null,
+        "email": "eddie.morales@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/4000",
+        "social": {}
+      }
+    ],
+    "TX:state-house:119": [
+      {
+        "id": "ocd-person/b91e1420-1732-4063-9f3d-edcc5e71d416",
+        "name": "Liz Campos",
+        "office": "state-house",
+        "districtCode": "119",
+        "contactUrl": null,
+        "email": "elizabeth.campos@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/119",
+        "social": {}
+      }
+    ],
+    "TX:state-house:019": [
+      {
+        "id": "ocd-person/34590156-1109-4ab6-84bc-bbe07764f365",
+        "name": "Ellen Troxclair",
+        "office": "state-house",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "ellen.troxclair@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/19",
+        "social": {}
+      }
+    ],
+    "TX:state-house:038": [
+      {
+        "id": "ocd-person/2cadcb59-210a-4a71-af9f-7dba9ab06112",
+        "name": "Erin Gámez",
+        "office": "state-house",
+        "districtCode": "038",
+        "contactUrl": null,
+        "email": "erin.gamez@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/38",
+        "social": {}
+      }
+    ],
+    "TX:state-house:045": [
+      {
+        "id": "ocd-person/b55d57f4-bd06-4487-8860-0b6eeb9a1dea",
+        "name": "Erin Zwiener",
+        "office": "state-house",
+        "districtCode": "045",
+        "contactUrl": null,
+        "email": "erin.zwiener@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/3710",
+        "social": {}
+      }
+    ],
+    "TX:state-house:028": [
+      {
+        "id": "ocd-person/5ff88048-ebd8-4ac3-af9c-d02e1305ef37",
+        "name": "Gary Gates",
+        "office": "state-house",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "gary.gates@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/3920",
+        "social": {}
+      }
+    ],
+    "TX:state-house:137": [
+      {
+        "id": "ocd-person/5556a81a-eca2-451d-bb29-74cfb00d1959",
+        "name": "Gene Wu",
+        "office": "state-house",
+        "districtCode": "137",
+        "contactUrl": null,
+        "email": "gene.wu@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/2865",
+        "social": {}
+      }
+    ],
+    "TX:state-house:049": [
+      {
+        "id": "ocd-person/1f9ed42e-27de-4cd1-b2bf-f890ee33cb49",
+        "name": "Gina Hinojosa",
+        "office": "state-house",
+        "districtCode": "049",
+        "contactUrl": null,
+        "email": "gina.hinojosa@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/3210",
+        "social": {}
+      }
+    ],
+    "TX:state-house:098": [
+      {
+        "id": "ocd-person/40ecf6ee-92a4-4daf-b950-ac70b6cdfeee",
+        "name": "Giovanni Capriglione",
+        "office": "state-house",
+        "districtCode": "098",
+        "contactUrl": null,
+        "email": "giovanni.capriglione@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/98",
+        "social": {}
+      }
+    ],
+    "TX:state-house:024": [
+      {
+        "id": "ocd-person/d0fbfb15-2f0c-4167-b8b4-d6135bbb6616",
+        "name": "Greg Bonnen",
+        "office": "state-house",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "greg.bonnen@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/24",
+        "social": {}
+      }
+    ],
+    "TX:state-house:142": [
+      {
+        "id": "ocd-person/85d064ed-6f3d-4a81-93ee-1baf49c7f2c3",
+        "name": "Harold Dutton",
+        "office": "state-house",
+        "districtCode": "142",
+        "contactUrl": null,
+        "email": "harold.dutton@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/2650",
+        "social": {}
+      }
+    ],
+    "TX:state-house:058": [
+      {
+        "id": "ocd-person/92b45572-c15c-4270-8356-6c3db1846c7b",
+        "name": "Helen Kerwin",
+        "office": "state-house",
+        "districtCode": "058",
+        "contactUrl": null,
+        "email": "helen.kerwin@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.texas.gov/members/58",
+        "social": {}
+      }
+    ],
+    "TX:state-house:055": [
+      {
+        "id": "ocd-person/ef5a2ea8-61b0-484c-bbe1-b52c5ad2f075",
+        "name": "Hillary Hickland",
+        "office": "state-house",
+        "districtCode": "055",
+        "contactUrl": null,
+        "email": "hillary.hickland@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.texas.gov/members/55",
+        "social": {}
+      }
+    ],
+    "TX:state-house:149": [
+      {
+        "id": "ocd-person/5c2743d2-fe0e-41d6-969d-de830d5787f8",
+        "name": "Hubert Vo",
+        "office": "state-house",
+        "districtCode": "149",
+        "contactUrl": null,
+        "email": "hubert.vo@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/4900",
+        "social": {}
+      }
+    ],
+    "TX:state-house:043": [
+      {
+        "id": "ocd-person/a43f2db5-4b24-4dfa-af7f-a2c7cbc5ea21",
+        "name": "J.M. Lozano",
+        "office": "state-house",
+        "districtCode": "043",
+        "contactUrl": null,
+        "email": "jm.lozano@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/2065",
+        "social": {}
+      }
+    ],
+    "TX:state-house:069": [
+      {
+        "id": "ocd-person/6cbb02e6-5876-47a1-86aa-98566fe0073a",
+        "name": "James Frank",
+        "office": "state-house",
+        "districtCode": "069",
+        "contactUrl": null,
+        "email": "james.frank@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/2385",
+        "social": {}
+      }
+    ],
+    "TX:state-house:050": [
+      {
+        "id": "ocd-person/5e4e2fd2-e8a9-46f3-aab5-ffbc782afa8b",
+        "name": "James Talarico",
+        "office": "state-house",
+        "districtCode": "050",
+        "contactUrl": null,
+        "email": "james.talarico@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/3685",
+        "social": {}
+      }
+    ],
+    "TX:state-house:037": [
+      {
+        "id": "ocd-person/a732704e-9b03-449c-b24f-f4c567b5acdd",
+        "name": "Janie Lopez",
+        "office": "state-house",
+        "districtCode": "037",
+        "contactUrl": null,
+        "email": "janie.lopez@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/37",
+        "social": {}
+      }
+    ],
+    "TX:state-house:018": [
+      {
+        "id": "ocd-person/0deb3053-0d5d-46b4-93d2-8eb9de0c4ffd",
+        "name": "Janis Holt",
+        "office": "state-house",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "janis.holt@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.texas.gov/members/18",
+        "social": {}
+      }
+    ],
+    "TX:state-house:106": [
+      {
+        "id": "ocd-person/e926ca11-64dd-4e15-97bd-1f7b0915de36",
+        "name": "Jared Patterson",
+        "office": "state-house",
+        "districtCode": "106",
+        "contactUrl": null,
+        "email": "jared.patterson@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/3655",
+        "social": {}
+      }
+    ],
+    "TX:state-house:007": [
+      {
+        "id": "ocd-person/37886d81-901f-43b4-841b-f3ffbfeeb257",
+        "name": "Jay Dean",
+        "office": "state-house",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "jay.dean@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/3515",
+        "social": {}
+      }
+    ],
+    "TX:state-house:029": [
+      {
+        "id": "ocd-person/988efb07-ace2-4419-ac40-ccec69ebe875",
+        "name": "Jeff Barry",
+        "office": "state-house",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "jeff.barry@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.texas.gov/members/29",
+        "social": {}
+      }
+    ],
+    "TX:state-house:067": [
+      {
+        "id": "ocd-person/40a678a3-7d85-486e-bf38-5d070142aa83",
+        "name": "Jeff Leach",
+        "office": "state-house",
+        "districtCode": "067",
+        "contactUrl": null,
+        "email": "jeff.leach@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/2475",
+        "social": {}
+      }
+    ],
+    "TX:state-house:104": [
+      {
+        "id": "ocd-person/8eeb1aad-24b6-487b-bbc0-31c2238b1ccd",
+        "name": "Jessica González",
+        "office": "state-house",
+        "districtCode": "104",
+        "contactUrl": null,
+        "email": "jessica.gonzalez@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/3335",
+        "social": {}
+      }
+    ],
+    "TX:state-house:011": [
+      {
+        "id": "ocd-person/b39cf891-a259-422c-945a-94b65430ea0a",
+        "name": "Joanne Shofner",
+        "office": "state-house",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "joanne.shofner@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.texas.gov/members/11",
+        "social": {}
+      }
+    ],
+    "TX:state-house:078": [
+      {
+        "id": "ocd-person/5898294d-5b10-4aaf-a084-b8522e69623c",
+        "name": "Joe Moody",
+        "office": "state-house",
+        "districtCode": "078",
+        "contactUrl": null,
+        "email": "joe.moody@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/3850",
+        "social": {}
+      }
+    ],
+    "TX:state-house:114": [
+      {
+        "id": "ocd-person/4e07d8dc-f5b5-47e7-a1de-83f36d3b734f",
+        "name": "John Bryant",
+        "office": "state-house",
+        "districtCode": "114",
+        "contactUrl": null,
+        "email": "john.bryant@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/4120",
+        "social": {}
+      }
+    ],
+    "TX:state-house:136": [
+      {
+        "id": "ocd-person/53b19d1e-5b07-4f6e-87a9-27baecddaf70",
+        "name": "John Bucy",
+        "office": "state-house",
+        "districtCode": "136",
+        "contactUrl": null,
+        "email": "john.bucy@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/136",
+        "social": {}
+      }
+    ],
+    "TX:state-house:118": [
+      {
+        "id": "ocd-person/fbd66d9f-2a93-4cbf-b75d-b51cb01e955e",
+        "name": "John Lujan",
+        "office": "state-house",
+        "districtCode": "118",
+        "contactUrl": null,
+        "email": "john.lujan@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/3145",
+        "social": {}
+      }
+    ],
+    "TX:state-house:097": [
+      {
+        "id": "ocd-person/f926d7a8-7ec7-4020-9e18-5a475565fd41",
+        "name": "John McQueeney",
+        "office": "state-house",
+        "districtCode": "097",
+        "contactUrl": null,
+        "email": "john.mcqueeney@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.texas.gov/members/97",
+        "social": {}
+      }
+    ],
+    "TX:state-house:086": [
+      {
+        "id": "ocd-person/3cac81cd-62ca-41d6-aa4a-8e4156244dec",
+        "name": "John Smithee",
+        "office": "state-house",
+        "districtCode": "086",
+        "contactUrl": null,
+        "email": "john.smithee@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/4530",
+        "social": {}
+      }
+    ],
+    "TX:state-house:147": [
+      {
+        "id": "ocd-person/45cd43ff-77b3-467c-aa61-890ebee8ece5",
+        "name": "Jo Jones",
+        "office": "state-house",
+        "districtCode": "147",
+        "contactUrl": null,
+        "email": "jolanda.jones@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/4105",
+        "social": {}
+      }
+    ],
+    "TX:state-house:135": [
+      {
+        "id": "ocd-person/ab211984-06a9-447c-9ded-564d200bee60",
+        "name": "Jon Rosenthal",
+        "office": "state-house",
+        "districtCode": "135",
+        "contactUrl": null,
+        "email": "jon.rosenthal@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/135",
+        "social": {}
+      }
+    ],
+    "TX:state-house:124": [
+      {
+        "id": "ocd-person/1ec50565-379f-4a8b-ab18-c54d31df9929",
+        "name": "Josey Garcia",
+        "office": "state-house",
+        "districtCode": "124",
+        "contactUrl": null,
+        "email": "josey.garcia@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/124",
+        "social": {}
+      }
+    ],
+    "TX:state-house:033": [
+      {
+        "id": "ocd-person/1205faf4-7ced-4d21-aa8c-aad9239e3157",
+        "name": "Katrina Pierson",
+        "office": "state-house",
+        "districtCode": "033",
+        "contactUrl": null,
+        "email": "katrina.pierson@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.texas.gov/members/33",
+        "social": {}
+      }
+    ],
+    "TX:state-house:004": [
+      {
+        "id": "ocd-person/fe47f6d5-2db3-495b-8da6-5cd12e0dc677",
+        "name": "Keith Bell",
+        "office": "state-house",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "keith.bell@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/3695",
+        "social": {}
+      }
+    ],
+    "TX:state-house:088": [
+      {
+        "id": "ocd-person/d9f32e07-7835-4edf-b986-7a2cf16d608b",
+        "name": "Ken King",
+        "office": "state-house",
+        "districtCode": "088",
+        "contactUrl": null,
+        "email": "ken.king@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/2455",
+        "social": {}
+      }
+    ],
+    "TX:state-house:061": [
+      {
+        "id": "ocd-person/2b79c268-eaf3-4915-a0e0-faec03b652d8",
+        "name": "Keresa Richardson",
+        "office": "state-house",
+        "districtCode": "061",
+        "contactUrl": null,
+        "email": "keresa.richardson@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/61",
+        "social": {}
+      }
+    ],
+    "TX:state-house:138": [
+      {
+        "id": "ocd-person/2609ba13-abf1-40b5-9f4c-a4c1135e56e2",
+        "name": "Lacey Hull",
+        "office": "state-house",
+        "districtCode": "138",
+        "contactUrl": null,
+        "email": "lacey.hull@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/3975",
+        "social": {}
+      }
+    ],
+    "TX:state-house:146": [
+      {
+        "id": "ocd-person/9dc31ea5-fd89-4909-a9bf-d732ea02282a",
+        "name": "Lauren Simmons",
+        "office": "state-house",
+        "districtCode": "146",
+        "contactUrl": null,
+        "email": "laurena.simmons@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/4765",
+        "social": {}
+      }
+    ],
+    "TX:state-house:107": [
+      {
+        "id": "ocd-person/5d3626bb-c865-4c92-a717-a72036c6ce5a",
+        "name": "Linda Garcia",
+        "office": "state-house",
+        "districtCode": "107",
+        "contactUrl": null,
+        "email": "linda.garcia@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.texas.gov/members/107",
+        "social": {}
+      }
+    ],
+    "TX:state-house:051": [
+      {
+        "id": "ocd-person/ab3ddc65-0fb9-476b-993f-b3dc4050127e",
+        "name": "Lulu Flores",
+        "office": "state-house",
+        "districtCode": "051",
+        "contactUrl": null,
+        "email": "lulu.flores@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/4150",
+        "social": {}
+      }
+    ],
+    "TX:state-house:133": [
+      {
+        "id": "ocd-person/a61b0fd1-9fdf-4b4c-abe6-b790cc856023",
+        "name": "Mano DeAyala",
+        "office": "state-house",
+        "districtCode": "133",
+        "contactUrl": null,
+        "email": "mano.deayala@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/4135",
+        "social": {}
+      }
+    ],
+    "TX:state-house:121": [
+      {
+        "id": "ocd-person/d34eead2-bd19-49ce-8131-6d314d58e6a1",
+        "name": "Marc LaHood",
+        "office": "state-house",
+        "districtCode": "121",
+        "contactUrl": null,
+        "email": "marc.lahood@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.texas.gov/members/121",
+        "social": {}
+      }
+    ],
+    "TX:state-house:122": [
+      {
+        "id": "ocd-person/2c0a4352-9871-4122-97fd-832ec998e907",
+        "name": "Mark Dorazio",
+        "office": "state-house",
+        "districtCode": "122",
+        "contactUrl": null,
+        "email": "mark.dorazio@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/122",
+        "social": {}
+      }
+    ],
+    "TX:state-house:144": [
+      {
+        "id": "ocd-person/26244d6a-f0d5-4dbe-b9ed-a38df74a7bac",
+        "name": "Mary Ann Perez",
+        "office": "state-house",
+        "districtCode": "144",
+        "contactUrl": null,
+        "email": "maryann.perez@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/2535",
+        "social": {}
+      }
+    ],
+    "TX:state-house:075": [
+      {
+        "id": "ocd-person/93379bbe-5fb3-400f-853a-d0b3553e7772",
+        "name": "Mary González",
+        "office": "state-house",
+        "districtCode": "075",
+        "contactUrl": null,
+        "email": "mary.gonzalez@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/2410",
+        "social": {}
+      }
+    ],
+    "TX:state-house:026": [
+      {
+        "id": "ocd-person/07951419-b5d5-430b-a3e6-678e1d4aec21",
+        "name": "Matt Morgan",
+        "office": "state-house",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "matt.morgan@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.texas.gov/members/26",
+        "social": {}
+      }
+    ],
+    "TX:state-house:066": [
+      {
+        "id": "ocd-person/71555c46-28b0-4887-98a1-997dc7482e75",
+        "name": "Matt Shaheen",
+        "office": "state-house",
+        "districtCode": "066",
+        "contactUrl": null,
+        "email": "matt.shaheen@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/66",
+        "social": {}
+      }
+    ],
+    "TX:state-house:070": [
+      {
+        "id": "ocd-person/b69579f7-74de-4a71-86ba-033264cc5bc7",
+        "name": "Mihaela Pleșa",
+        "office": "state-house",
+        "districtCode": "070",
+        "contactUrl": null,
+        "email": "mihaela.plesa@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/70",
+        "social": {}
+      }
+    ],
+    "TX:state-house:060": [
+      {
+        "id": "ocd-person/4b70019b-d7c1-4414-bcb1-7bf917081ed5",
+        "name": "Mike Olcott",
+        "office": "state-house",
+        "districtCode": "060",
+        "contactUrl": null,
+        "email": "mike.olcott@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.texas.gov/members/60",
+        "social": {}
+      }
+    ],
+    "TX:state-house:132": [
+      {
+        "id": "ocd-person/df010291-7350-4262-9220-4c576730b2db",
+        "name": "Mike Schofield",
+        "office": "state-house",
+        "districtCode": "132",
+        "contactUrl": null,
+        "email": "mike.schofield@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/3095",
+        "social": {}
+      }
+    ],
+    "TX:state-house:065": [
+      {
+        "id": "ocd-person/96dfe856-d5b0-4f7a-86f6-06c2175a4d4a",
+        "name": "Mitch Little",
+        "office": "state-house",
+        "districtCode": "065",
+        "contactUrl": null,
+        "email": "mitch.little@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/4615",
+        "social": {}
+      }
+    ],
+    "TX:state-house:108": [
+      {
+        "id": "ocd-person/2639e096-d327-4c4d-823f-759b1ce373e0",
+        "name": "Morgan Meyer",
+        "office": "state-house",
+        "districtCode": "108",
+        "contactUrl": null,
+        "email": "morgan.meyer@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/3075",
+        "social": {}
+      }
+    ],
+    "TX:state-house:095": [
+      {
+        "id": "ocd-person/ea169f77-0bd8-4ca0-ac59-f894c9a09e71",
+        "name": "Nicole Collier",
+        "office": "state-house",
+        "districtCode": "095",
+        "contactUrl": null,
+        "email": "nicole.collier@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/95",
+        "social": {}
+      }
+    ],
+    "TX:state-house:035": [
+      {
+        "id": "ocd-person/896e8f9c-7dca-4f7d-8554-c0324cfa7265",
+        "name": "Oscar Longoria",
+        "office": "state-house",
+        "districtCode": "035",
+        "contactUrl": null,
+        "email": "oscar.longoria@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/2485",
+        "social": {}
+      }
+    ],
+    "TX:state-house:056": [
+      {
+        "id": "ocd-person/0e79cc57-2894-432e-9aca-505a41d4de2c",
+        "name": "Pat Curry",
+        "office": "state-house",
+        "districtCode": "056",
+        "contactUrl": null,
+        "email": "pat.curry@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/4415",
+        "social": {}
+      }
+    ],
+    "TX:state-house:014": [
+      {
+        "id": "ocd-person/89b43853-82e0-434c-9946-4fd9057e1842",
+        "name": "Paul Dyson",
+        "office": "state-house",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "paul.dyson@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.texas.gov/members/14",
+        "social": {}
+      }
+    ],
+    "TX:state-house:148": [
+      {
+        "id": "ocd-person/51a281ff-2983-4b4b-baf4-63ee17812835",
+        "name": "Penny Morales Shaw",
+        "office": "state-house",
+        "districtCode": "148",
+        "contactUrl": null,
+        "email": "penny.moralesshaw@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/4035",
+        "social": {}
+      }
+    ],
+    "TX:state-house:117": [
+      {
+        "id": "ocd-person/12d67093-ab4c-425d-afa3-e5777db09d1c",
+        "name": "Philip Cortez",
+        "office": "state-house",
+        "districtCode": "117",
+        "contactUrl": null,
+        "email": "philip.cortez@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/2365",
+        "social": {}
+      }
+    ],
+    "TX:state-house:103": [
+      {
+        "id": "ocd-person/f72eb41b-2ff9-434f-96cf-75b9724289ab",
+        "name": "Rafael Anchía",
+        "office": "state-house",
+        "districtCode": "103",
+        "contactUrl": null,
+        "email": "rafael.anchia@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/2150",
+        "social": {}
+      }
+    ],
+    "TX:state-house:090": [
+      {
+        "id": "ocd-person/c0fc4283-3ed5-4165-a066-80de16f492b7",
+        "name": "Ramon Romero",
+        "office": "state-house",
+        "districtCode": "090",
+        "contactUrl": null,
+        "email": "ramon.romero@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/3060",
+        "social": {}
+      }
+    ],
+    "TX:state-house:125": [
+      {
+        "id": "ocd-person/01ce2f6b-0500-4baa-a47f-386f9c6286b0",
+        "name": "Ray Lopez",
+        "office": "state-house",
+        "districtCode": "125",
+        "contactUrl": null,
+        "email": "ray.lopez@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/3915",
+        "social": {}
+      }
+    ],
+    "TX:state-house:113": [
+      {
+        "id": "ocd-person/69ef7d69-9a5e-42be-b463-8873cb52ad10",
+        "name": "Rhetta Bowers",
+        "office": "state-house",
+        "districtCode": "113",
+        "contactUrl": null,
+        "email": "rhetta.bowers@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/3565",
+        "social": {}
+      }
+    ],
+    "TX:state-house:057": [
+      {
+        "id": "ocd-person/f8e0a89e-889a-4fcf-8a0a-1e0e091d89d0",
+        "name": "Richard Hayes",
+        "office": "state-house",
+        "districtCode": "057",
+        "contactUrl": null,
+        "email": "richard.hayes@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/4165",
+        "social": {}
+      }
+    ],
+    "TX:state-house:042": [
+      {
+        "id": "ocd-person/d4a94a68-02a7-44c0-901f-9cd57350229a",
+        "name": "Richard Raymond",
+        "office": "state-house",
+        "districtCode": "042",
+        "contactUrl": null,
+        "email": "richard.raymond@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/4215",
+        "social": {}
+      }
+    ],
+    "TX:state-house:027": [
+      {
+        "id": "ocd-person/72bad853-b403-49c2-9a99-32c5fb3222c7",
+        "name": "Ron Reynolds",
+        "office": "state-house",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "ron.reynolds@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/2040",
+        "social": {}
+      }
+    ],
+    "TX:state-house:031": [
+      {
+        "id": "ocd-person/f0ede995-2253-4f7b-a922-6da34e4de194",
+        "name": "Ryan Guillen",
+        "office": "state-house",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "ryan.guillen@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/3045",
+        "social": {}
+      }
+    ],
+    "TX:state-house:092": [
+      {
+        "id": "ocd-person/4fb2e1fd-fbb3-4a55-8417-761da2f6048e",
+        "name": "Salman Bhojani",
+        "office": "state-house",
+        "districtCode": "092",
+        "contactUrl": null,
+        "email": "salman.bhojani@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/92",
+        "social": {}
+      }
+    ],
+    "TX:state-house:126": [
+      {
+        "id": "ocd-person/2db06a9d-ae17-4881-98b4-5172fdfca19f",
+        "name": "Sam Harless",
+        "office": "state-house",
+        "districtCode": "126",
+        "contactUrl": null,
+        "email": "sam.harless@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/3775",
+        "social": {}
+      }
+    ],
+    "TX:state-house:141": [
+      {
+        "id": "ocd-person/ace50d18-fc98-4460-9d90-928c0e88c79a",
+        "name": "Senfronia Thompson",
+        "office": "state-house",
+        "districtCode": "141",
+        "contactUrl": null,
+        "email": "senfronia.thompson@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/4630",
+        "social": {}
+      }
+    ],
+    "TX:state-house:036": [
+      {
+        "id": "ocd-person/b7c4e0e7-4949-4dff-bc4c-fdaaada3f37d",
+        "name": "Sergio Muñoz",
+        "office": "state-house",
+        "districtCode": "036",
+        "contactUrl": null,
+        "email": "sergio.munoz@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/2060",
+        "social": {}
+      }
+    ],
+    "TX:state-house:059": [
+      {
+        "id": "ocd-person/ddebb940-33f9-4b5c-a8fa-e22c63a594e9",
+        "name": "Shelby Slawson",
+        "office": "state-house",
+        "districtCode": "059",
+        "contactUrl": null,
+        "email": "shelby.slawson@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/4055",
+        "social": {}
+      }
+    ],
+    "TX:state-house:062": [
+      {
+        "id": "ocd-person/89e814c4-6091-4156-b3b5-42a7980f8b4d",
+        "name": "Shelley Luther",
+        "office": "state-house",
+        "districtCode": "062",
+        "contactUrl": null,
+        "email": "shelley.luther@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.texas.gov/members/62",
+        "social": {}
+      }
+    ],
+    "TX:state-house:046": [
+      {
+        "id": "ocd-person/97805dd7-1f42-482c-bac3-049dfccda311",
+        "name": "Sheryl Cole",
+        "office": "state-house",
+        "districtCode": "046",
+        "contactUrl": null,
+        "email": "sheryl.cole@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/3625",
+        "social": {}
+      }
+    ],
+    "TX:state-house:017": [
+      {
+        "id": "ocd-person/97fc1e34-35fb-470f-a098-4ba8f0c3c8d4",
+        "name": "Stan Gerdes",
+        "office": "state-house",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "stan.gerdes@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/4195",
+        "social": {}
+      }
+    ],
+    "TX:state-house:085": [
+      {
+        "id": "ocd-person/2662f888-95e0-4de3-be5b-3d023623c447",
+        "name": "Stan Kitzman",
+        "office": "state-house",
+        "districtCode": "085",
+        "contactUrl": null,
+        "email": "stan.kitzman@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/4280",
+        "social": {}
+      }
+    ],
+    "TX:state-house:071": [
+      {
+        "id": "ocd-person/a4e4115b-d488-4e93-8354-80e361c0c260",
+        "name": "Stan Lambert",
+        "office": "state-house",
+        "districtCode": "071",
+        "contactUrl": null,
+        "email": "stan.lambert@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/3225",
+        "social": {}
+      }
+    ],
+    "TX:state-house:015": [
+      {
+        "id": "ocd-person/6c80914d-b07b-4d27-95e2-0e5aa2b0c7d9",
+        "name": "Steve Toth",
+        "office": "state-house",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "steve.toth@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/2825",
+        "social": {}
+      }
+    ],
+    "TX:state-house:076": [
+      {
+        "id": "ocd-person/51927936-c6fc-453b-8afd-5f0b53de7d46",
+        "name": "Suleman Lalani",
+        "office": "state-house",
+        "districtCode": "076",
+        "contactUrl": null,
+        "email": "suleman.lalani@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/4285",
+        "social": {}
+      }
+    ],
+    "TX:state-house:023": [
+      {
+        "id": "ocd-person/cee6cb7a-8d88-4c34-be27-dd10d1f31768",
+        "name": "Terri Leo-Wilson",
+        "office": "state-house",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "terri.leo-wilson@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/4290",
+        "social": {}
+      }
+    ],
+    "TX:state-house:040": [
+      {
+        "id": "ocd-person/3e4ae7d4-dbb2-4991-8b44-8ada6023d7da",
+        "name": "Terry Canales",
+        "office": "state-house",
+        "districtCode": "040",
+        "contactUrl": null,
+        "email": "terry.canales@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/2340",
+        "social": {}
+      }
+    ],
+    "TX:state-house:020": [
+      {
+        "id": "ocd-person/ec19bc97-3146-4100-8294-329b88aec0e8",
+        "name": "Terry Wilson",
+        "office": "state-house",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "terry.wilson@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/3525",
+        "social": {}
+      }
+    ],
+    "TX:state-house:105": [
+      {
+        "id": "ocd-person/bdecc388-4028-48e2-b211-75c59c1c5ec2",
+        "name": "Terry Meza",
+        "office": "state-house",
+        "districtCode": "105",
+        "contactUrl": null,
+        "email": "terry.meza@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/3455",
+        "social": {}
+      }
+    ],
+    "TX:state-house:032": [
+      {
+        "id": "ocd-person/9447575b-d8a1-45dd-bd68-77b12fe347ab",
+        "name": "Todd Hunter",
+        "office": "state-house",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "todd.hunter@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/3365",
+        "social": {}
+      }
+    ],
+    "TX:state-house:082": [
+      {
+        "id": "ocd-person/d4d5c127-1ef6-445d-a89b-d9f02c812365",
+        "name": "Tom Craddick",
+        "office": "state-house",
+        "districtCode": "082",
+        "contactUrl": null,
+        "email": "tom.craddick@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/2610",
+        "social": {}
+      }
+    ],
+    "TX:state-house:130": [
+      {
+        "id": "ocd-person/79ffab1c-4d79-4cfa-89b4-5f7ee95ca1bf",
+        "name": "Tom Oliverson",
+        "office": "state-house",
+        "districtCode": "130",
+        "contactUrl": null,
+        "email": "tom.oliverson@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/3535",
+        "social": {}
+      }
+    ],
+    "TX:state-house:110": [
+      {
+        "id": "ocd-person/0acfbb85-b501-45ce-9a9b-90537090a455",
+        "name": "Toni Rose",
+        "office": "state-house",
+        "districtCode": "110",
+        "contactUrl": null,
+        "email": "toni.rose@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/2555",
+        "social": {}
+      }
+    ],
+    "TX:state-house:094": [
+      {
+        "id": "ocd-person/1ca78d00-1ede-4486-b14e-16bd81ba73e4",
+        "name": "Tony Tinderholt",
+        "office": "state-house",
+        "districtCode": "094",
+        "contactUrl": null,
+        "email": "tony.tinderholt@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/3065",
+        "social": {}
+      }
+    ],
+    "TX:state-house:009": [
+      {
+        "id": "ocd-person/68f05872-16c8-4d3a-ab5f-ea667ca52b27",
+        "name": "Trent Ashby",
+        "office": "state-house",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "trent.ashby@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/2330",
+        "social": {}
+      }
+    ],
+    "TX:state-house:116": [
+      {
+        "id": "ocd-person/07f5e898-8d5d-435a-bf97-7bfb26fce5ac",
+        "name": "Trey Martinez Fischer",
+        "office": "state-house",
+        "districtCode": "116",
+        "contactUrl": null,
+        "email": "trey.martinezfischer@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/2835",
+        "social": {}
+      }
+    ],
+    "TX:state-house:012": [
+      {
+        "id": "ocd-person/afd236d4-4266-4777-8d3d-be7616a7e43f",
+        "name": "Trey Wharton",
+        "office": "state-house",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "trey.wharton@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/4795",
+        "social": {}
+      }
+    ],
+    "TX:state-house:150": [
+      {
+        "id": "ocd-person/7298c6a9-c6be-41cd-a2ba-0cc79c851373",
+        "name": "Valoree Swanson",
+        "office": "state-house",
+        "districtCode": "150",
+        "contactUrl": null,
+        "email": "valoree.swanson@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/3425",
+        "social": {}
+      }
+    ],
+    "TX:state-house:100": [
+      {
+        "id": "ocd-person/6b2d7f89-d7e0-44d1-b861-3167915f6925",
+        "name": "Venton Jones",
+        "office": "state-house",
+        "districtCode": "100",
+        "contactUrl": null,
+        "email": "venton.jones@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/4275",
+        "social": {}
+      }
+    ],
+    "TX:state-house:047": [
+      {
+        "id": "ocd-person/25157308-7474-4600-8b83-173d79e16a21",
+        "name": "Vikki Goodwin",
+        "office": "state-house",
+        "districtCode": "047",
+        "contactUrl": null,
+        "email": "vikki.goodwin@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/3820",
+        "social": {}
+      }
+    ],
+    "TX:state-house:077": [
+      {
+        "id": "ocd-person/5236ee6e-a57c-4d81-90b4-50a9abde8e5e",
+        "name": "Vince Perez",
+        "office": "state-house",
+        "districtCode": "077",
+        "contactUrl": null,
+        "email": "vincent.perez@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.texas.gov/members/77",
+        "social": {}
+      }
+    ],
+    "TX:state-house:053": [
+      {
+        "id": "ocd-person/436ab2a5-12ca-4a9c-b8ec-73b1bae4ee68",
+        "name": "Wes Virdell",
+        "office": "state-house",
+        "districtCode": "053",
+        "contactUrl": null,
+        "email": "wes.virdell@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.house.texas.gov/members/53",
+        "social": {}
+      }
+    ],
+    "TX:state-house:016": [
+      {
+        "id": "ocd-person/e7a379ec-9de2-48a2-918b-5ba58e1fd3f3",
+        "name": "Will Metcalf",
+        "office": "state-house",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "will.metcalf@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/2900",
+        "social": {}
+      }
+    ],
+    "TX:state-house:111": [
+      {
+        "id": "ocd-person/3f38bf62-86ba-4833-9737-2e084ae6255d",
+        "name": "Yvonne Davis",
+        "office": "state-house",
+        "districtCode": "111",
+        "contactUrl": null,
+        "email": "yvonne.davis@house.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/2625",
+        "social": {}
+      }
+    ],
+    "TX:state-senate:027": [
+      {
+        "id": "ocd-person/7f748f58-e6f2-4c86-ad01-52c7ca3435ca",
+        "name": "Adam Hinojosa",
+        "office": "state-senate",
+        "districtCode": "027",
+        "contactUrl": null,
+        "email": "adam.hinojosa@senate.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senate.texas.gov/member.php?d=27",
+        "social": {}
+      }
+    ],
+    "TX:state-senate:008": [
+      {
+        "id": "ocd-person/895887ba-73cd-4321-827d-bb06d4eedfdf",
+        "name": "Angela Paxton",
+        "office": "state-senate",
+        "districtCode": "008",
+        "contactUrl": null,
+        "email": "angela.paxton@senate.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senate.texas.gov/member.php?d=8",
+        "social": {}
+      }
+    ],
+    "TX:state-senate:002": [
+      {
+        "id": "ocd-person/013d69b7-a958-490c-a4a2-7224a30efa08",
+        "name": "Bob Hall",
+        "office": "state-senate",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": "bob.hall@senate.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senate.texas.gov/member.php?d=2",
+        "social": {}
+      }
+    ],
+    "TX:state-senate:013": [
+      {
+        "id": "ocd-person/3475b324-1c9b-4513-90e6-063aba5ac04e",
+        "name": "Borris Miles",
+        "office": "state-senate",
+        "districtCode": "013",
+        "contactUrl": null,
+        "email": "borris.miles@senate.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senate.texas.gov/member.php?d=13",
+        "social": {}
+      }
+    ],
+    "TX:state-senate:030": [
+      {
+        "id": "ocd-person/c15c9bf3-f28a-4c01-9a10-383bc7a05cb9",
+        "name": "Brent Hagenbuch",
+        "office": "state-senate",
+        "districtCode": "030",
+        "contactUrl": null,
+        "email": "brent.hagenbuch@senate.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.senate.texas.gov/member.php?d=30",
+        "social": {}
+      }
+    ],
+    "TX:state-senate:004": [
+      {
+        "id": "ocd-person/6fde08be-f7c0-464a-83a7-430c60617beb",
+        "name": "Brett Ligon",
+        "office": "state-senate",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": "brett.ligon@senate.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senate.texas.gov/member.php?d=4",
+        "social": {}
+      }
+    ],
+    "TX:state-senate:001": [
+      {
+        "id": "ocd-person/8326538c-c907-43b2-a6db-76434036afd7",
+        "name": "Bryan Hughes",
+        "office": "state-senate",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": "bryan.hughes@senate.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senate.texas.gov/member.php?d=1",
+        "social": {}
+      }
+    ],
+    "TX:state-senate:006": [
+      {
+        "id": "ocd-person/e78373de-6d96-44db-b552-6da34ed992fc",
+        "name": "Carol Alvarado",
+        "office": "state-senate",
+        "districtCode": "006",
+        "contactUrl": null,
+        "email": "carol.alvarado@senate.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senate.texas.gov/member.php?d=6",
+        "social": {}
+      }
+    ],
+    "TX:state-senate:028": [
+      {
+        "id": "ocd-person/6522ba2d-f263-455a-9470-cec0aa03033b",
+        "name": "Charles Perry",
+        "office": "state-senate",
+        "districtCode": "028",
+        "contactUrl": null,
+        "email": "charles.perry@senate.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senate.texas.gov/member.php?d=28",
+        "social": {}
+      }
+    ],
+    "TX:state-senate:005": [
+      {
+        "id": "ocd-person/d7d0bd69-2615-4d0c-84df-4cdb75809343",
+        "name": "Charles Schwertner",
+        "office": "state-senate",
+        "districtCode": "005",
+        "contactUrl": null,
+        "email": "charles.schwertner@senate.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senate.texas.gov/member.php?d=5",
+        "social": {}
+      }
+    ],
+    "TX:state-senate:029": [
+      {
+        "id": "ocd-person/3e0f0e51-20c0-4da4-82b5-ff81606148d0",
+        "name": "César Blanco",
+        "office": "state-senate",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": "cesar.blanco@senate.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/member-page/?district=76",
+        "social": {}
+      }
+    ],
+    "TX:state-senate:025": [
+      {
+        "id": "ocd-person/9f80cd7f-1067-4322-8777-62bc129cd6f2",
+        "name": "Donna Campbell",
+        "office": "state-senate",
+        "districtCode": "025",
+        "contactUrl": null,
+        "email": "donna.campbell@senate.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senate.texas.gov/member.php?d=25",
+        "social": {}
+      }
+    ],
+    "TX:state-senate:017": [
+      {
+        "id": "ocd-person/1997b231-45f7-4f29-a435-9f52e60ebea4",
+        "name": "Joan Huffman",
+        "office": "state-senate",
+        "districtCode": "017",
+        "contactUrl": null,
+        "email": "joan.huffman@senate.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senate.texas.gov/member.php?d=17",
+        "social": {}
+      }
+    ],
+    "TX:state-senate:026": [
+      {
+        "id": "ocd-person/8bb90ee9-e764-44da-b27f-b5bc3cdb394e",
+        "name": "José Menéndez",
+        "office": "state-senate",
+        "districtCode": "026",
+        "contactUrl": null,
+        "email": "jose.menendez@senate.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senate.texas.gov/member.php?d=26",
+        "social": {}
+      }
+    ],
+    "TX:state-senate:020": [
+      {
+        "id": "ocd-person/72766791-084c-4a20-a12c-6e809b51e95c",
+        "name": "Chuy Hinojosa",
+        "office": "state-senate",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": "juan.hinojosa@senate.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senate.texas.gov/member.php?d=20",
+        "social": {}
+      }
+    ],
+    "TX:state-senate:021": [
+      {
+        "id": "ocd-person/c7aad3b7-ca16-4989-bf68-87ed72498a6b",
+        "name": "Judith Zaffirini",
+        "office": "state-senate",
+        "districtCode": "021",
+        "contactUrl": null,
+        "email": "judith.zaffirini@senate.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senate.texas.gov/member.php?d=21",
+        "social": {}
+      }
+    ],
+    "TX:state-senate:031": [
+      {
+        "id": "ocd-person/aa6deb86-b21b-4ed2-ad67-bd6217238afc",
+        "name": "Kevin Sparks",
+        "office": "state-senate",
+        "districtCode": "031",
+        "contactUrl": null,
+        "email": "kevin.sparks@senate.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senate.texas.gov/member.php?d=31",
+        "social": {}
+      }
+    ],
+    "TX:state-senate:018": [
+      {
+        "id": "ocd-person/28eb71be-bce7-4b32-908d-289ecc265c3c",
+        "name": "Lois Kolkhorst",
+        "office": "state-senate",
+        "districtCode": "018",
+        "contactUrl": null,
+        "email": "lois.kolkhorst@senate.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senate.texas.gov/member.php?d=18",
+        "social": {}
+      }
+    ],
+    "TX:state-senate:011": [
+      {
+        "id": "ocd-person/1399b6ba-cbfa-45ca-bf91-6ba89fe777bf",
+        "name": "Mayes Middleton",
+        "office": "state-senate",
+        "districtCode": "011",
+        "contactUrl": null,
+        "email": "mayes.middleton@senate.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/member-page/?district=23",
+        "social": {}
+      }
+    ],
+    "TX:state-senate:015": [
+      {
+        "id": "ocd-person/06aed58e-f403-43a5-b4b9-8785a4acf981",
+        "name": "Molly Cook",
+        "office": "state-senate",
+        "districtCode": "015",
+        "contactUrl": null,
+        "email": "molly.cook@senate.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senate.texas.gov/member.php?d=15",
+        "social": {}
+      }
+    ],
+    "TX:state-senate:016": [
+      {
+        "id": "ocd-person/dee454b1-6da0-4b1b-a232-033e7de8551f",
+        "name": "Nathan Johnson",
+        "office": "state-senate",
+        "districtCode": "016",
+        "contactUrl": null,
+        "email": "nathan.johnson@senate.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senate.texas.gov/member.php?d=16",
+        "social": {}
+      }
+    ],
+    "TX:state-senate:007": [
+      {
+        "id": "ocd-person/a9f861bf-1a13-4d3b-816a-69589e9b25e7",
+        "name": "Paul Bettencourt",
+        "office": "state-senate",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": "paul.bettencourt@senate.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senate.texas.gov/member.php?d=7",
+        "social": {}
+      }
+    ],
+    "TX:state-senate:024": [
+      {
+        "id": "ocd-person/682e8ef8-8fc1-4490-a04d-63a7c6d92185",
+        "name": "Pete Flores",
+        "office": "state-senate",
+        "districtCode": "024",
+        "contactUrl": null,
+        "email": "pete.flores@senate.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senate.texas.gov/member.php?d=24",
+        "social": {}
+      }
+    ],
+    "TX:state-senate:010": [
+      {
+        "id": "ocd-person/98bef50a-73c7-4139-9b8e-628d0e89d659",
+        "name": "Phil King",
+        "office": "state-senate",
+        "districtCode": "010",
+        "contactUrl": null,
+        "email": "phil.king@senate.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/member-page/?district=61",
+        "social": {}
+      }
+    ],
+    "TX:state-senate:003": [
+      {
+        "id": "ocd-person/26b83cfe-10c0-4ac6-ae02-dac30e2856b1",
+        "name": "Robert Nichols",
+        "office": "state-senate",
+        "districtCode": "003",
+        "contactUrl": null,
+        "email": "robert.nichols@senate.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senate.texas.gov/member.php?d=3",
+        "social": {}
+      }
+    ],
+    "TX:state-senate:019": [
+      {
+        "id": "ocd-person/68767ec3-151c-413f-aeb8-f35dd6c5f35c",
+        "name": "Roland Gutierrez",
+        "office": "state-senate",
+        "districtCode": "019",
+        "contactUrl": null,
+        "email": "roland.gutierrez@senate.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/member-page/?district=119",
+        "social": {}
+      }
+    ],
+    "TX:state-senate:023": [
+      {
+        "id": "ocd-person/d6f40682-7b90-4735-980c-7c95ef402a78",
+        "name": "Royce West",
+        "office": "state-senate",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": "royce.west@senate.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senate.texas.gov/member.php?d=23",
+        "social": {}
+      }
+    ],
+    "TX:state-senate:014": [
+      {
+        "id": "ocd-person/20cda9bf-a1e6-4427-8115-e5655ddd8eb0",
+        "name": "Sarah Eckhardt",
+        "office": "state-senate",
+        "districtCode": "014",
+        "contactUrl": null,
+        "email": "sarah.eckhardt@senate.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senate.texas.gov/member.php?d=14",
+        "social": {}
+      }
+    ],
+    "TX:state-senate:012": [
+      {
+        "id": "ocd-person/fa4817bf-6dc6-4deb-9965-cf3f208ec976",
+        "name": "Tan Parker",
+        "office": "state-senate",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "tan.parker@senate.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://house.texas.gov/members/member-page/?district=63",
+        "social": {}
+      }
+    ],
+    "TX:state-senate:009": [
+      {
+        "id": "ocd-person/9647d335-a650-4aa7-b11f-973c4e86b5a6",
+        "name": "Taylor Rehmet",
+        "office": "state-senate",
+        "districtCode": "009",
+        "contactUrl": null,
+        "email": "taylor.rehmet@senate.texas.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://senate.texas.gov/member.php?d=9",
+        "social": {}
+      }
+    ]
+  }
+}

@@ -205,24 +205,38 @@ describe('rep panel', () => {
   });
 
   describe('the badge', () => {
-    const site = (host: string, url = `https://${host}/`) => ({ url, host, title: null, name: null, office: null });
+    const site = (host: string, id: string | null, url = `https://${host}/`) => ({ url, host, title: null, name: id ? 'Someone' : null, office: null, id });
+    const withWebsite = (website: string | null) => {
+      (file.byKey['CO:us-house:03'] as unknown[])[0] = rep('H', 'us-house', { email: 'h@x.gov', contactUrl: 'https://x.gov/contact', phone: '+1 (202) 225-4431 x5', website });
+    };
 
-    it('marks the rep whose website host is in the list (www ignored), with a link to the exact page', async () => {
-      badgeSites = [site('hurd.example.gov', 'https://hurd.example.gov/about')];
-      (file.byKey['CO:us-house:03'] as unknown[])[0] = rep('H', 'us-house', { email: 'h@x.gov', contactUrl: 'https://x.gov/contact', phone: '+1 (202) 225-4431 x5', website: 'https://www.hurd.example.gov/' });
+    it('marks the rep whose id the list carries, with a link to the exact page', async () => {
+      badgeSites = [site('hurd.example.gov', 'H', 'https://hurd.example.gov/')];
+      withWebsite('https://www.hurd.example.gov/');
       const p = createRepPanel();
       await p.update(input);
       const rows = [...p.el.querySelectorAll('li')];
       expect(rows[2]!.textContent).toContain('Shows the Fair Maps badge');
       const link = rows[2]!.querySelector('a.strv-reps__badge-page')!;
       expect(link.textContent).toBe('View the page');
-      expect(link.getAttribute('href')).toBe('https://hurd.example.gov/about');
+      expect(link.getAttribute('href')).toBe('https://hurd.example.gov/');
       expect(rows[0]!.textContent).not.toContain('Shows the Fair Maps badge');
       expect(p.el.textContent).not.toContain('Pledged');
     });
 
-    it('marks no one when the list is empty, will not load, or the host differs', async () => {
-      for (const list of [[], null, [site('other.example.org')]]) {
+    it('does not mark a rep because a site shares their website host: only the id counts', async () => {
+      withWebsite('https://hurd.example.gov/');
+      for (const list of [[site('hurd.example.gov', null)], [site('hurd.example.gov', 'OTHER')]]) {
+        badgeSites = list;
+        const p = createRepPanel();
+        await p.update(input);
+        expect(p.el.textContent).not.toContain('Shows the Fair Maps badge');
+      }
+    });
+
+    it('marks no one when the list is empty or will not load', async () => {
+      withWebsite('https://hurd.example.gov/');
+      for (const list of [[], null]) {
         badgeSites = list;
         const p = createRepPanel();
         await p.update(input);

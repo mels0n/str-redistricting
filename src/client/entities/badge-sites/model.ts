@@ -8,24 +8,14 @@ export const BadgeSiteSchema = z.strictObject({
   title: z.string().nullable(),
   name: z.string().nullable(),
   office: z.string().nullable(),
+  /** The representative whose own site this is (badge on its home page), or null. */
+  id: z.string().nullable(),
 });
 export type BadgeSite = z.infer<typeof BadgeSiteSchema>;
 
 export const BadgeSitesSchema = z.strictObject({ sites: z.array(BadgeSiteSchema) });
 
-/** A host without a leading "www.", lower-case. */
-export function bareHost(host: string): string {
-  return host.toLowerCase().replace(/^www\./, '');
-}
-
-/** The listed site that is on the same host as a website address (www ignored), or undefined. */
-export function siteForWebsite(sites: readonly BadgeSite[], website: string | null | undefined): BadgeSite | undefined {
-  if (!website) return undefined;
-  let host: string;
-  try {
-    host = bareHost(new URL(website.trim()).hostname);
-  } catch {
-    return undefined;
-  }
-  return sites.find((s) => bareHost(s.host) === host);
+/** The listed site that belongs to the representative with this id, or undefined. Matching is by id, never by website address. */
+export function siteForRep(sites: readonly BadgeSite[], repId: string): BadgeSite | undefined {
+  return sites.find((s) => s.id !== null && s.id === repId);
 }

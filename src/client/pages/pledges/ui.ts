@@ -7,16 +7,17 @@ export const BADGE_SNIPPET = `<a href="https://${config.siteHost}/pledges"><img 
 export const LEDE = 'These websites show our badge. Each entry links to the page where it appears. Showing the badge is the only thing we check. Party is not shown.';
 export const EMPTY_COPY = 'No sites show the badge yet.';
 export const FAILED_COPY = 'We couldn’t load the list. Try again later.';
-export const LOADING_COPY = 'Loading the list…';
+/** What the static page says before the list arrives (it is fetched in the browser). */
+export const LOADING_COPY = 'The list of sites is shown here.';
 
 function siteRow(s: BadgeSite): HTMLElement {
-  const title = s.name ?? s.title ?? s.host;
+  // The bold label is the representative's name when the site is theirs, else the host. The page's own title is untrusted text: smaller, and only ever text.
   return h(
     'li',
     { class: 'strv-pledges__row' },
-    h('strong', null, title),
+    h('strong', null, s.name ?? s.host),
     s.name !== null && s.office !== null && h('span', { class: 'strv-pledges__seat' }, s.office),
-    h('span', { class: 'strv-pledges__seat' }, s.host),
+    s.title !== null && h('small', { class: 'strv-pledges__title' }, s.title),
     h('a', { href: s.url, rel: 'noopener' }, 'View the page'),
   );
 }
@@ -68,8 +69,9 @@ export function createPledgesPage(preloaded?: readonly BadgeSite[]): Page {
         h('h2', null, 'Show the badge on your site'),
         h('p', null, h('img', { src: '/badge.svg', alt: 'I back Fair Maps', width: '200', height: '40' })),
         h('pre', { class: 'strv-pledges__snippet' }, h('code', null, BADGE_SNIPPET)),
-        h('p', null, `Add the badge to your home page and link it to ${config.siteHost}/pledges. It shows up within minutes of the first visitor loading the page.`),
-        h('p', null, 'Put it on your home page. We check each site about once a day; if the badge is removed, the site drops off the list.'),
+        h('p', null, `Add the badge to your home page and link it to ${config.siteHost}/pledges. It usually shows up within minutes, otherwise within a day.`),
+        h('p', null, 'Put it on your home page. We check each site about once a day; if the badge is gone for two daily checks, the site comes off the list.'),
+        h('p', null, 'Older snippets that point at /badge.svg are not noticed. Use the snippet above.'),
         h(
           'p',
           null,

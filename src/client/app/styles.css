@@ -5494,8 +5494,13 @@ var {
 }
 
 .strv-pledges__seat,
+.strv-pledges__title,
 .strv-pledges__empty {
   color: var(--ink-2);
+}
+
+.strv-pledges__title {
+  font-size: 0.875em;
 }
 
 .strv-pledges__snippet {

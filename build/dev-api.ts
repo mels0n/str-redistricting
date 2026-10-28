@@ -17,9 +17,9 @@ const NOTES = [
 
 /** A few made-up sites for the badge page. Their hosts carry the mark, so a leak into a build is caught by the same check. */
 const BADGE_SITES = [
-  { url: 'https://jane-hurd.dev-api-mock.example/about', host: 'jane-hurd.dev-api-mock.example', title: 'Jane Hurd for Colorado', name: 'Jane Hurd', office: 'U.S. House, CO' },
-  { url: 'https://neighbors.dev-api-mock.example/', host: 'neighbors.dev-api-mock.example', title: 'Maple Street Neighbors', name: null, office: null },
-  { url: 'https://reform-club.dev-api-mock.example/fair-maps', host: 'reform-club.dev-api-mock.example', title: 'Reform Club', name: null, office: null },
+  { url: 'https://jane-hurd.dev-api-mock.example/', host: 'jane-hurd.dev-api-mock.example', title: 'Jane Hurd for Colorado', name: 'Jane Hurd', office: 'U.S. House, CO', id: 'dev-rep-1' },
+  { url: 'https://neighbors.dev-api-mock.example/', host: 'neighbors.dev-api-mock.example', title: 'Maple Street Neighbors', name: null, office: null, id: null },
+  { url: 'https://reform-club.dev-api-mock.example/fair-maps', host: 'reform-club.dev-api-mock.example', title: 'Reform Club', name: null, office: null, id: null },
 ];
 
 /** `low` answers with totals under the site's display threshold, so the hidden-counts state can be seen. */

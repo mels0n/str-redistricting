@@ -168,7 +168,7 @@ describe('scanForBadge', () => {
       expect(scan(`<a href="http://${HOST}/pledges"><img src="http://${HOST}/api/badge"></a>`)).toMatchObject(ok);
       expect(scan(`<a href="https://www.${HOST}/pledges"><img src="https://www.${HOST}/badge.svg"></a>`)).toMatchObject(ok);
     });
-    it('does not require lazy-loading attributes, srcset, picture, object or CSS backgrounds', () => {
+    it('does not recognise lazy-loading attributes, srcset, picture, object or CSS backgrounds', () => {
       expect(scan(`<a href="https://${HOST}/pledges"><img data-src="https://${HOST}/api/badge" src="data:image/gif;base64,R0lG"></a>`)).toMatchObject({ badge: false });
       expect(scan(`<a href="https://${HOST}/pledges"><picture><source srcset="https://${HOST}/api/badge"></picture></a>`)).toMatchObject({ badge: false });
       expect(scan(`<a href="https://${HOST}/pledges"><object data="https://${HOST}/api/badge"></object></a>`)).toMatchObject({ badge: false });
@@ -196,8 +196,15 @@ describe('scanForBadge', () => {
   });
   it('reports a badge with no link back as present but not linked', () => {
     expect(scan(`<img src="https://${HOST}/api/badge">`)).toMatchObject({ badge: true, link: false });
-    expect(scan(`<a href="https://${HOST}/api/badge">badge</a>`)).toMatchObject({ badge: true, link: false });
+    expect(scan(`<a href="https://${HOST}/api/badge">badge</a>`)).toMatchObject({ badge: false, link: false });
     expect(scan(`<img src="https://${HOST}/api/badge"><a href="https://other.example.com/">x</a>`)).toMatchObject({ badge: true, link: false });
+  });
+  it('does not verify a page with two anchors and no image', async () => {
+    const repo = new MemoryRepo();
+    await repo.touch('https://example.com/', 'example.com', NOW.toISOString());
+    const html = `<a href="https://${HOST}/pledges">Fair Maps</a><a href="https://${HOST}/api/badge">badge file</a>`;
+    await runBadgeChecks({ repo, siteHost: HOST, now: () => NOW, deadline: Date.now() + 60_000, log: () => undefined, fetchPage: async (u) => (u.endsWith('/robots.txt') ? { status: 404, url: u, contentType: null, body: '' } : { status: 200, url: u, contentType: 'text/html', body: html }) });
+    expect(repo.rows.get('https://example.com/')).toMatchObject({ verifiedAt: null, consecutiveFailures: 1 });
   });
   it('reports a link with no badge', () => {
     expect(scan(`<a href="https://${HOST}/pledges">Fair Maps</a>`)).toMatchObject({ badge: false, link: true });
@@ -496,7 +503,7 @@ describe('runBadgeChecks', () => {
 });
 
 describe('readBadgeSites', () => {
-  const sighting = (url: string, firstSeen: string, over: Partial<Sighting> = {}): Sighting => ({ url, host: new URL(url).hostname, firstSeen, lastSeen: firstSeen, verifiedAt: firstSeen, lastChecked: firstSeen, consecutiveFailures: 0, title: 'T', foundUrl: null, ...over });
+  const sighting = (url: string, firstSeen: string, over: Partial<Sighting> = {}): Sighting => ({ url, host: new URL(url).hostname, firstSeen, lastSeen: firstSeen, verifiedAt: firstSeen, lastChecked: firstSeen, consecutiveFailures: 0, title: 'T', foundUrl: url, ...over });
 
   it('lists verified sites newest first with the shape the page needs, one per host', async () => {
     const repo = new MemoryRepo();
@@ -509,18 +516,25 @@ describe('readBadgeSites', () => {
     ]) repo.rows.set(s.url, s);
     const { sites } = await readBadgeSites(repo, {});
     expect(sites).toEqual([
-      { url: 'https://www.new.example.com/x', host: 'www.new.example.com', title: 'T', name: null, office: null },
-      { url: 'https://old.example.com/', host: 'old.example.com', title: 'T', name: null, office: null },
+      { url: 'https://www.new.example.com/x', host: 'www.new.example.com', title: 'T', name: null, office: null, id: null },
+      { url: 'https://old.example.com/', host: 'old.example.com', title: 'T', name: null, office: null, id: null },
     ]);
   });
 
-  it('adds a representative name and seat when the host is their website host (www ignored), and nothing else', async () => {
+  it('adds a representative name, seat and id when the host is their website host (www ignored) and the badge is on its home page, and nothing else', async () => {
     const repo = new MemoryRepo();
-    for (const s of [sighting('https://www.hurd.house.gov/news', '2026-10-20T00:00:00.000Z'), sighting('https://plain.example.com/', '2026-10-19T00:00:00.000Z')]) repo.rows.set(s.url, s);
+    for (const s of [sighting('https://www.hurd.house.gov/news', '2026-10-20T00:00:00.000Z', { foundUrl: 'https://www.hurd.house.gov/' }), sighting('https://plain.example.com/', '2026-10-19T00:00:00.000Z')]) repo.rows.set(s.url, s);
     const { sites } = await readBadgeSites(repo, { 'hurd.house.gov': { name: 'Jane Hurd', office: 'us-house' as const, state: 'CO', id: 'H1' }, 'constructor': { name: 'X', office: 'us-senate' as const, state: 'CO', id: 'S' } });
-    expect(sites[0]).toEqual({ url: 'https://www.hurd.house.gov/news', host: 'www.hurd.house.gov', title: 'T', name: 'Jane Hurd', office: 'U.S. House, CO' });
+    expect(sites[0]).toEqual({ url: 'https://www.hurd.house.gov/', host: 'www.hurd.house.gov', title: 'T', name: 'Jane Hurd', office: 'U.S. House, CO', id: 'H1' });
     expect(sites[1]).toMatchObject({ name: null, office: null });
-    expect(Object.keys(sites[0]!).sort()).toEqual(['host', 'name', 'office', 'title', 'url']);
+    expect(Object.keys(sites[0]!).sort()).toEqual(['host', 'id', 'name', 'office', 'title', 'url']);
+  });
+
+  it('attaches no name, seat or id when the badge was found on an inner page, or the host is not in the map (shared hosts are left out of it)', async () => {
+    const repo = new MemoryRepo();
+    const map = { 'hurd.house.gov': { name: 'Jane Hurd', office: 'us-house' as const, state: 'CO', id: 'H1' } };
+    for (const s of [sighting('https://hurd.house.gov/supporters/jo', '2026-10-20T00:00:00.000Z'), sighting('https://shared.example.org/', '2026-10-19T00:00:00.000Z')]) repo.rows.set(s.url, s);
+    for (const site of (await readBadgeSites(repo, map)).sites) expect(site, site.host).toMatchObject({ name: null, office: null, id: null });
   });
 
   it('lists at most 200', async () => {
@@ -540,7 +554,7 @@ describe('badge-sites handler', () => {
     const res = await badgeSitesHandler({ repo: () => repo, websites: async () => ({}) })(new Request('https://fairmaps.melson.us/api/badge-sites'));
     expect(res.status).toBe(200);
     expect(res.headers.get('cache-control')).toBe('public, s-maxage=300, stale-while-revalidate=600');
-    expect(await res.json()).toEqual({ sites: [{ url: 'https://example.com/', host: 'example.com', title: 'Home', name: null, office: null }] });
+    expect(await res.json()).toEqual({ sites: [{ url: 'https://example.com/', host: 'example.com', title: 'Home', name: null, office: null, id: null }] });
   });
   it('answers an error code, not details, when the database fails', async () => {
     const repo = new MemoryRepo();

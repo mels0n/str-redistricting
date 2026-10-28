@@ -1,7 +1,7 @@
 import { h, clear, config, sharePath, toStateFrame, districtKey, type LocatedAddress, type Office } from '../../shared';
 import { loadStateReps, type Rep } from '../../entities/reps';
 import { recordAsk } from '../../entities/counts';
-import { loadBadgeSites, siteForWebsite, type BadgeSite } from '../../entities/badge-sites';
+import { loadBadgeSites, siteForRep, type BadgeSite } from '../../entities/badge-sites';
 import { todaysDistrictsAt, repsFor, type RepsRow } from '../../features/todays-districts';
 import { createAskComposer, isWebUrl, mailtoHref, telHref } from '../../features/ask-rep';
 import { createEveryone, type EveryoneRep } from './everyone';
@@ -198,7 +198,7 @@ export function createRepPanel(makeVoices?: MakeVoices): RepPanel {
         continue;
       }
       for (const rep of row.reps) {
-        list.append(repRow(input, row, rep, mapUrl, siteForWebsite(badgeSites, rep.website)));
+        list.append(repRow(input, row, rep, mapUrl, siteForRep(badgeSites, rep.id)));
         everyone.push({ key: row.key, office: row.office, label: officeLabel(input.state, row.office, codeOf(row.key)), rep });
       }
     }

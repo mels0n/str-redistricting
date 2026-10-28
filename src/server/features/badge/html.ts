@@ -74,8 +74,10 @@ export function scanForBadge(html: string, pageUrl: string, siteHost: string): B
     const target = resolve(attrs.get(tag === 'a' ? 'href' : 'src'), base);
     if (!target || bareHost(target.hostname) !== ours) continue;
     const isBadge = BADGE_PATHS.has(target.pathname.replace(/\/+$/, ''));
-    if (isBadge) badge = true;
-    else if (tag === 'a') link = true;
+    // Only an image counts as the badge; a plain link to the badge file shows nothing. A link counts when it points anywhere else on our site.
+    if (tag === 'img') {
+      if (isBadge) badge = true;
+    } else if (!isBadge) link = true;
   }
   const t = /<title\b[^>]*>([\s\S]*?)<\/title\s*>/i.exec(bare);
   return { badge, link, title: t ? cleanTitle(t[1]!) : null };

@@ -1,17 +1,18 @@
 // @vitest-environment jsdom
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { BadgeSitesSchema, loadBadgeSites, resetBadgeSites, siteForWebsite, type BadgeSite } from '../../src/client/entities/badge-sites';
+import { BadgeSitesSchema, loadBadgeSites, resetBadgeSites, siteForRep, type BadgeSite } from '../../src/client/entities/badge-sites';
 
-const site = (host: string, url = `https://${host}/`): BadgeSite => ({ url, host, title: null, name: null, office: null });
+const site = (host: string, url = `https://${host}/`): BadgeSite => ({ url, host, title: null, name: null, office: null, id: null });
 
-describe('siteForWebsite', () => {
-  const sites = [site('hurd.example.gov', 'https://hurd.example.gov/about'), site('www.other.example.org')];
-  it('matches on the host, ignoring www, case and the path', () => {
-    expect(siteForWebsite(sites, 'https://www.hurd.example.gov/news')?.url).toBe('https://hurd.example.gov/about');
-    expect(siteForWebsite(sites, 'HTTP://OTHER.example.org')?.host).toBe('www.other.example.org');
+describe('siteForRep', () => {
+  const sites = [{ ...site('hurd.example.gov', 'https://hurd.example.gov/'), id: 'H1' }, site('plain.example.org')];
+  it('matches only on the representative id', () => {
+    expect(siteForRep(sites, 'H1')?.host).toBe('hurd.example.gov');
+    expect(siteForRep(sites, 'H2')).toBeUndefined();
+    expect(siteForRep(sites, '')).toBeUndefined();
   });
-  it('matches nothing for another host, a sub-domain, an empty or bad address', () => {
-    for (const w of ['https://example.gov/', 'https://x.hurd.example.gov/', '', null, undefined, 'not a url']) expect(siteForWebsite(sites, w), String(w)).toBeUndefined();
+  it('never matches a site that carries no id, whatever its host', () => {
+    expect(siteForRep([site('hurd.example.gov')], 'H1')).toBeUndefined();
   });
 });
 
@@ -20,6 +21,8 @@ describe('BadgeSitesSchema', () => {
     expect(BadgeSitesSchema.safeParse({ sites: [site('a.example.org')] }).success).toBe(true);
     expect(BadgeSitesSchema.safeParse({ sites: [{ ...site('a.example.org'), url: 'javascript:alert(1)' }] }).success).toBe(false);
     expect(BadgeSitesSchema.safeParse({ sites: [{ ...site('a.example.org'), party: 'x' }] }).success).toBe(false);
+    const { id: _id, ...noId } = site('a.example.org');
+    expect(BadgeSitesSchema.safeParse({ sites: [noId] }).success).toBe(false);
   });
 });
 

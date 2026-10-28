@@ -1,4 +1,5 @@
 import { lookup } from 'node:dns/promises';
+import { isIP } from 'node:net';
 import { request } from 'node:https';
 import { isPublicAddress } from './address.js';
 import { parsePublicHttpsUrl } from './url.js';
@@ -96,6 +97,17 @@ export const httpsTransport: Transport = (r) =>
     req.end();
   });
 
+/** The promise's answer, or SsrfError('timeout') once `ms` have passed. */
+function withDeadline<T>(p: Promise<T>, ms: number): Promise<T> {
+  if (ms <= 0) return Promise.reject(new SsrfError('timeout'));
+  let timer: ReturnType<typeof setTimeout>;
+  const late = new Promise<never>((_, reject) => {
+    timer = setTimeout(() => reject(new SsrfError('timeout')), ms);
+  });
+  p.catch(() => undefined);
+  return Promise.race([p, late]).finally(() => clearTimeout(timer));
+}
+
 /**
  * Fetches a page the server was handed by a stranger. Refuses anything but a public https site on port 443; looks up the name
  * itself and refuses it if ANY address is private, loopback, link-local, shared, multicast or otherwise not public; connects to
@@ -113,12 +125,15 @@ export async function fetchPublic(raw: string, opts: FetchPublicOptions): Promis
     if (!url) throw new SsrfError('bad-url');
     let addresses: string[];
     try {
-      addresses = await resolve(url.hostname);
-    } catch {
-      throw new SsrfError('dns');
+      // A name server that never answers must not hold the call past its time.
+      addresses = await withDeadline(resolve(url.hostname), deadline - Date.now());
+    } catch (e) {
+      throw e instanceof SsrfError ? e : new SsrfError('dns');
     }
     if (addresses.length === 0) throw new SsrfError('dns');
     if (!addresses.every(isPublicAddress)) throw new SsrfError('private-address');
+    // Every address is public here; IPv4 first, as the more widely reachable.
+    addresses = [...addresses].sort((a, b) => Number(isIP(b) === 4) - Number(isIP(a) === 4));
     const left = deadline - Date.now();
     if (left <= 0) throw new SsrfError('timeout');
     const res = await transport({

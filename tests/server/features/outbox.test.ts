@@ -374,7 +374,7 @@ describe('templates', () => {
 });
 
 describe('GET /api/cron-drain', () => {
-  const make = (secret: string | undefined, checkBadges?: () => Promise<void>) => {
+  const make = (secret: string | undefined, checkBadges?: (startedAt: number) => Promise<void>) => {
     const s = setup();
     const signers = { cleanups: 0, fail: false, async cleanup() { signers.cleanups++; if (signers.fail) throw new Error('db down'); } };
     const handler = cronDrainHandler({
@@ -425,11 +425,14 @@ describe('GET /api/cron-drain', () => {
 
   it('runs the badge check after the drain and the bearer check, and its failure does not change the answer', async () => {
     let runs = 0;
-    const a = make('s3cret', async () => void runs++);
+    let given = 0;
+    const a = make('s3cret', async (startedAt) => void (runs++, (given = startedAt)));
     await a.handler(req('Bearer wrong'));
     expect(runs).toBe(0);
     expect((await a.handler(req('Bearer s3cret'))).status).toBe(200);
     expect(runs).toBe(1);
+    // it is handed the time the call began, so its budget counts from there and not from after the drain
+    expect(Math.abs(Date.now() - given)).toBeLessThan(5000);
     const b = make('s3cret', async () => Promise.reject(new Error('boom')));
     const res = await b.handler(req('Bearer s3cret'));
     expect(res.status).toBe(200);

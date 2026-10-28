@@ -3,7 +3,7 @@ import { fetchPublic, isPublicAddress, isPublicHostname, parsePublicHttpsUrl, Ss
 
 describe('isPublicAddress', () => {
   it('refuses private, loopback, link-local, shared, reserved and multicast IPv4', () => {
-    for (const ip of ['0.0.0.0', '10.0.0.1', '10.255.255.255', '127.0.0.1', '127.1.2.3', '169.254.169.254', '169.254.0.1', '172.16.0.1', '172.31.255.255', '192.168.1.1', '100.64.0.1', '100.127.255.255', '192.0.0.1', '192.0.2.1', '198.18.0.1', '198.51.100.1', '203.0.113.9', '224.0.0.1', '239.255.255.255', '240.0.0.1', '255.255.255.255']) {
+    for (const ip of ['0.0.0.0', '10.0.0.1', '10.255.255.255', '127.0.0.1', '127.1.2.3', '169.254.169.254', '169.254.0.1', '172.16.0.1', '172.31.255.255', '192.168.1.1', '100.64.0.1', '100.127.255.255', '192.0.0.1', '192.0.2.1', '198.18.0.1', '198.19.0.1', '192.88.99.1', '198.51.100.1', '203.0.113.9', '224.0.0.1', '239.255.255.255', '240.0.0.1', '255.255.255.255']) {
       expect(isPublicAddress(ip), ip).toBe(false);
     }
   });
@@ -137,6 +137,24 @@ describe('fetchPublic', () => {
       await expect(fetchPublic('https://a.example.com/', f.opts), target).rejects.toBeInstanceOf(SsrfError);
       expect(f.calls.map((c) => c.url)).toEqual(['https://a.example.com/']);
     }
+  });
+
+  it('connects to an IPv4 address before an IPv6 one when a name has both', async () => {
+    const f = fake({ 'example.com': ['2606:4700:4700::1111', '93.184.216.34'] }, { 'https://example.com/': ok('x') });
+    await fetchPublic('https://example.com/', f.opts);
+    expect(f.calls[0]!.address).toBe('93.184.216.34');
+    const g = fake({ 'example.com': ['2606:4700:4700::1111'] }, { 'https://example.com/': ok('x') });
+    await fetchPublic('https://example.com/', g.opts);
+    expect(g.calls[0]!.address).toBe('2606:4700:4700::1111');
+  });
+
+  it('gives up with a timeout when the name server never answers', async () => {
+    const f = fake({}, {});
+    f.opts.resolve = () => new Promise(() => undefined);
+    const started = Date.now();
+    await expect(fetchPublic('https://example.com/', { ...f.opts, timeoutMs: 40 })).rejects.toMatchObject({ code: 'timeout' });
+    expect(Date.now() - started).toBeLessThan(2000);
+    expect(f.calls).toHaveLength(0);
   });
 
   it('stops after three redirects', async () => {

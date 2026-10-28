@@ -1,15 +1,19 @@
 import type { BadgeRepo, Sighting } from '../../entities/badge-db/index.js';
 import { fetchPublic, parsePublicHttpsUrl, SsrfError, type FetchedPage } from '../../shared/ssrf/index.js';
 import { scanForBadge } from './html.js';
+import { bareHost } from './referrer.js';
 import { CHECKER_NAME, robotsAllows } from './robots.js';
 
-export const CHECKER_USER_AGENT = `${CHECKER_NAME} (+https://fairmaps.melson.us/pledges)`;
+/** The User-Agent of the checker, naming the page that explains it. */
+export const checkerUserAgent = (siteHost: string): string => `${CHECKER_NAME} (+https://${siteHost}/pledges)`;
 /** The most sites one daily run looks at. */
 export const SITES_PER_RUN = 100;
 /** Sites fetched at the same time in the daily run. */
 export const CHECK_CONCURRENCY = 5;
-/** Time the daily run may spend before it starts no new site (the function itself is allowed 60 seconds). */
-export const RUN_BUDGET_MS = 50_000;
+/** Time, counted from the start of the cron call, after which the daily run starts no new site (the function itself is allowed 60 seconds). */
+export const RUN_BUDGET_MS = 40_000;
+/** The most one site may take in all (its robots.txt, two pages, every redirect). */
+export const SITE_CHECK_MS = 8000;
 /** A page is looked at again by the daily run when its last check is older than this. */
 export const CHECK_EVERY_MS = 20 * 3_600_000;
 /** Checks started right after a badge request, across the whole site. Beyond this a page waits for the daily run. */
@@ -19,7 +23,7 @@ export const FORGET_AFTER_MS = 60 * 86_400_000;
 export type FetchPage = (url: string, accept?: string) => Promise<FetchedPage>;
 
 /** The real fetch: public https sites only, 5 seconds, 1 MB, three redirects, each hop checked. */
-export const fetchPage: FetchPage = (url, accept) => fetchPublic(url, { userAgent: CHECKER_USER_AGENT, timeoutMs: 5000, maxBytes: 1_048_576, maxRedirects: 3, ...(accept ? { accept } : {}) });
+export const fetchPageFor = (siteHost: string): FetchPage => (url, accept) => fetchPublic(url, { userAgent: checkerUserAgent(siteHost), timeoutMs: 5000, maxBytes: 1_048_576, maxRedirects: 3, ...(accept ? { accept } : {}) });
 
 export interface CheckContext {
   repo: BadgeRepo;
@@ -29,6 +33,8 @@ export interface CheckContext {
   fetchPage?: FetchPage;
   /** Logs a code only: never an address, a header or a body. */
   log?: (code: string) => void;
+  /** Replaces SITE_CHECK_MS (tests). */
+  siteCheckMs?: number;
 }
 
 export interface VerifyDeps extends CheckContext {
@@ -90,6 +96,11 @@ export async function checkSighting(row: Sighting, siteHost: string, get: FetchP
         continue;
       }
       const page = await get(target);
+      // A redirect to another site (http to https and www to bare are fine) says nothing about this one.
+      if (bareHost(new URL(page.url).hostname) !== bareHost(url.hostname)) {
+        log('elsewhere');
+        continue;
+      }
       if (page.status < 200 || page.status >= 300 || !/html/i.test(page.contentType ?? '')) {
         log('status');
         continue;
@@ -104,11 +115,23 @@ export async function checkSighting(row: Sighting, siteHost: string, get: FetchP
   return failed;
 }
 
+/** A check that takes longer than SITE_CHECK_MS in all counts as failed. */
+function withinCap(check: Promise<CheckFinding>, log: (code: string) => void, ms: number): Promise<CheckFinding> {
+  let timer: ReturnType<typeof setTimeout>;
+  const late = new Promise<CheckFinding>((resolve) => {
+    timer = setTimeout(() => {
+      log('timeout');
+      resolve({ outcome: 'failed', title: null, foundUrl: null });
+    }, ms);
+  });
+  return Promise.race([check, late]).finally(() => clearTimeout(timer));
+}
+
 /** Checks one row and records the result. False when the result could not be recorded. */
 async function checkAndRecord(row: Sighting, ctx: CheckContext, robots: Robots): Promise<CheckOutcome | null> {
   const log = ctx.log ?? defaultLog;
-  const get = ctx.fetchPage ?? fetchPage;
-  const found = await checkSighting(row, ctx.siteHost, get, robots, log);
+  const get = ctx.fetchPage ?? fetchPageFor(ctx.siteHost);
+  const found = await withinCap(checkSighting(row, ctx.siteHost, get, robots, log), log, ctx.siteCheckMs ?? SITE_CHECK_MS);
   const checkedAt = ctx.now().toISOString();
   try {
     await ctx.repo.recordCheck(
@@ -126,16 +149,22 @@ async function checkAndRecord(row: Sighting, ctx: CheckContext, robots: Robots):
 
 /**
  * The daily check: the pages not looked at for about a day, never-checked first and then the oldest check, at most 100, five at a
- * time, and no new one after the deadline. Each result is recorded as it comes. A page that fails twice in a row is no longer
- * listed; pages nobody has seen showing the badge for 60 days are deleted. It never throws.
+ * time, and no new one after the deadline (each site gets at most SITE_CHECK_MS). Each result is recorded as it comes. A page that fails twice in a row is no longer
+ * listed; pages nobody has seen showing the badge for 60 days are deleted (before the checks start). It never throws.
  */
 export async function runBadgeChecks(deps: VerifyDeps): Promise<{ checked: number; verified: number }> {
   const log = deps.log ?? defaultLog;
   const stats = { checked: 0, verified: 0 };
   try {
     const now = deps.now();
+    // Housekeeping first, on its own, so a slow or failing round of checks never leaves old rows behind.
+    try {
+      await deps.repo.prune(new Date(now.getTime() - FORGET_AFTER_MS).toISOString());
+    } catch {
+      log('prune');
+    }
     const due = await deps.repo.dueForCheck(new Date(now.getTime() - CHECK_EVERY_MS).toISOString(), deps.sitesPerRun ?? SITES_PER_RUN);
-    const robots = robotsLoader(deps.fetchPage ?? fetchPage);
+    const robots = robotsLoader(deps.fetchPage ?? fetchPageFor(deps.siteHost));
     const queue = [...due];
     const worker = async (): Promise<void> => {
       for (let row = queue.shift(); row; row = queue.shift()) {
@@ -147,7 +176,6 @@ export async function runBadgeChecks(deps: VerifyDeps): Promise<{ checked: numbe
       }
     };
     await Promise.all(Array.from({ length: Math.min(CHECK_CONCURRENCY, due.length) }, worker));
-    await deps.repo.prune(new Date(now.getTime() - FORGET_AFTER_MS).toISOString());
   } catch {
     log('run');
   }
@@ -171,7 +199,7 @@ export async function verifyNow(url: string, deps: VerifyNowDeps): Promise<Verif
     const row = await deps.repo.find(url);
     if (!row) return 'missing';
     if (!(await deps.allow())) return 'limited';
-    const outcome = await checkAndRecord(row, deps, robotsLoader(deps.fetchPage ?? fetchPage));
+    const outcome = await checkAndRecord(row, deps, robotsLoader(deps.fetchPage ?? fetchPageFor(deps.siteHost)));
     return outcome ?? 'error';
   } catch {
     (deps.log ?? defaultLog)('now');

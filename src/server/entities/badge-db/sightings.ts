@@ -30,6 +30,8 @@ export interface BadgeRepo {
   /** The page's row, or null if it is not in the table. */
   find(url: string): Promise<Sighting | null>;
   count(): Promise<number>;
+  /** Rows of one host. */
+  countHost(host: string): Promise<number>;
   /** Adds the page or, if it is there, only moves last_seen: what the checks found is kept. */
   touch(url: string, host: string, nowIso: string): Promise<void>;
   /** Pages not checked since `beforeIso` (never checked first, then the oldest check), up to `limit`. */
@@ -37,7 +39,7 @@ export interface BadgeRepo {
   recordCheck(url: string, result: CheckResult): Promise<void>;
   /** Verified pages that are still listed, newest first. */
   listed(limit: number): Promise<Sighting[]>;
-  /** Deletes pages not seen and not verified since `beforeIso`. */
+  /** Deletes pages not seen and not verified since `beforeIso`, and pages that never passed and have failed too often to be listed. */
   prune(beforeIso: string): Promise<void>;
 }
 
@@ -84,6 +86,11 @@ export function badgeRepo(client: SupabaseClient): BadgeRepo {
       if (error) fail();
       return count ?? 0;
     },
+    async countHost(host) {
+      const { count, error } = await client.from('badge_sightings').select('url', { count: 'exact', head: true }).eq('host', host);
+      if (error) fail();
+      return count ?? 0;
+    },
     async touch(url, host, nowIso) {
       // Only these columns are written, so an existing row keeps its first_seen and its check results.
       const { error } = await client.from('badge_sightings').upsert({ url, host, last_seen: nowIso }, { onConflict: 'url' });
@@ -117,8 +124,10 @@ export function badgeRepo(client: SupabaseClient): BadgeRepo {
       return ((data ?? []) as unknown as Row[]).map(toSighting);
     },
     async prune(beforeIso) {
-      const { error } = await client.from('badge_sightings').delete().lt('last_seen', beforeIso).or(`verified_at.is.null,verified_at.lt.${beforeIso}`);
-      if (error) fail();
+      const stale = await client.from('badge_sightings').delete().lt('last_seen', beforeIso).or(`verified_at.is.null,verified_at.lt.${beforeIso}`);
+      if (stale.error) fail();
+      const never = await client.from('badge_sightings').delete().is('verified_at', null).gte('consecutive_failures', UNLIST_AFTER_FAILURES);
+      if (never.error) fail();
     },
   };
 }

@@ -19,7 +19,8 @@ export interface BadgeHandlerDeps {
 /**
  * GET /api/badge: the badge image. The image is always sent; noting which site asked for it is best effort and happens only in
  * production. Only the page address from the Referer header is kept (see recordSighting); an address is hashed for the rate limit and
- * never stored. Browsers keep the image for an hour, and shared caches are not asked to, so a page's next visitor reaches us again.
+ * never stored. Browsers keep the image for an hour; shared caches are told not to (private, and it varies by Referer), so the
+ * next visitor of a page reaches us again.
  * A page that is new, or not verified in a day, is checked right after the response, within a site-wide limit per hour.
  */
 export function badgeHandler(deps: BadgeHandlerDeps): (req: Request) => Promise<Response> {
@@ -32,6 +33,7 @@ export function badgeHandler(deps: BadgeHandlerDeps): (req: Request) => Promise<
         const now = deps.now();
         const repo = deps.repo();
         const seen = await recordSighting(req.headers.get('referer'), { repo, ownHosts, limit: () => checkRateLimit(deps.rateRepo(), ipHash, now), now });
+        if (seen.outcome === 'full') console.error(JSON.stringify({ code: 'badge-full' }));
         if (seen.url !== null && seen.needsCheck) {
           const siteHost = ownHosts[0]!;
           const everyone = hashIp('all', config.hashSecret, 'badge-check');
@@ -49,7 +51,7 @@ export function badgeHandler(deps: BadgeHandlerDeps): (req: Request) => Promise<
     } catch {
       console.error(JSON.stringify({ code: 'badge-record' }));
     }
-    return new Response(BADGE_SVG, { headers: { 'content-type': 'image/svg+xml', 'cache-control': 'public, max-age=3600' } });
+    return new Response(BADGE_SVG, { headers: { 'content-type': 'image/svg+xml', 'cache-control': 'private, max-age=3600', vary: 'Referer' } });
   };
 }
 

@@ -36,6 +36,18 @@ describe('badgeRepo', () => {
     expect(calls.find((c) => c.op === 'lt')!.args).toEqual(['consecutive_failures', 2]);
     expect(out).toEqual([{ url: 'https://example.com/', host: 'example.com', firstSeen: 'a', lastSeen: 'b', verifiedAt: 'c', lastChecked: 'd', consecutiveFailures: 1, title: 'T', foundUrl: 'https://example.com/x' }]);
   });
+  it('counts one host with a head count on the host column', async () => {
+    calls.length = 0;
+    expect(await badgeRepo(client()).countHost('example.com')).toBe(3);
+    expect(calls.find((c) => c.op === 'eq')!.args).toEqual(['host', 'example.com']);
+  });
+  it('prune makes two deletes: stale pages, and pages that never passed and failed twice', async () => {
+    calls.length = 0;
+    await badgeRepo(client()).prune('2026-08-01T00:00:00.000Z');
+    expect(calls.filter((c) => c.op === 'delete')).toHaveLength(2);
+    expect(calls.find((c) => c.op === 'is')!.args).toEqual(['verified_at', null]);
+    expect(calls.find((c) => c.op === 'gte')!.args).toEqual(['consecutive_failures', 2]);
+  });
   it('turns a database error into a plain one with no details', async () => {
     const failing = (): unknown => new Proxy(() => undefined, { get: (_t, p) => (p === 'then' ? (ok: (v: unknown) => unknown) => ok({ data: null, error: { message: 'secret detail' } }) : () => failing()) });
     const bad = { from: () => failing() } as unknown as SupabaseClient;

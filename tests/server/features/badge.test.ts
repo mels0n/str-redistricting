@@ -1,10 +1,10 @@
 import { readFileSync } from 'node:fs';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import type { BadgeRepo, CheckResult, Sighting } from '../../../src/server/entities/badge-db/index.js';
 import { UNLIST_AFTER_FAILURES } from '../../../src/server/entities/badge-db/index.js';
 import { badgeHandler } from '../../../src/server/api/badge.js';
 import { badgeSitesHandler } from '../../../src/server/api/badge-sites.js';
-import { BADGE_SVG, CHECK_CONCURRENCY, IMMEDIATE_CHECKS_PER_HOUR, RUN_BUDGET_MS, SITES_PER_RUN, cleanTitle, clearWebsitesCache, loadWebsites, normalizeReferrer, readBadgeSites, recordSighting, robotsAllows, runBadgeChecks, scanForBadge, verifyNow, type FetchPage } from '../../../src/server/features/badge/index.js';
+import { BADGE_SVG, CHECK_CONCURRENCY, IMMEDIATE_CHECKS_PER_HOUR, MAX_PER_HOST, MAX_SIGHTINGS, RUN_BUDGET_MS, SITE_CHECK_MS, checkerUserAgent, SITES_PER_RUN, cleanTitle, clearWebsitesCache, loadWebsites, normalizeReferrer, readBadgeSites, recordSighting, robotsAllows, runBadgeChecks, scanForBadge, verifyNow, type FetchPage } from '../../../src/server/features/badge/index.js';
 import { SsrfError } from '../../../src/server/shared/ssrf/index.js';
 
 const HOST = 'fairmaps.melson.us';
@@ -17,6 +17,9 @@ class MemoryRepo implements BadgeRepo {
   }
   async count(): Promise<number> {
     return this.rows.size;
+  }
+  async countHost(host: string): Promise<number> {
+    return [...this.rows.values()].filter((r) => r.host === host).length;
   }
   async touch(url: string, host: string, nowIso: string): Promise<void> {
     const old = this.rows.get(url);
@@ -39,7 +42,9 @@ class MemoryRepo implements BadgeRepo {
       .slice(0, limit);
   }
   async prune(beforeIso: string): Promise<void> {
-    for (const [k, r] of this.rows) if (r.lastSeen < beforeIso && (r.verifiedAt === null || r.verifiedAt < beforeIso)) this.rows.delete(k);
+    for (const [k, r] of this.rows) {
+      if ((r.lastSeen < beforeIso && (r.verifiedAt === null || r.verifiedAt < beforeIso)) || (r.verifiedAt === null && r.consecutiveFailures >= UNLIST_AFTER_FAILURES)) this.rows.delete(k);
+    }
   }
 }
 
@@ -96,22 +101,34 @@ describe('recordSighting', () => {
     expect([...repo.rows.keys()]).toEqual(['https://example.com/news']);
     expect(repo.rows.get('https://example.com/news')!.host).toBe('example.com');
   });
-  it('asks for an immediate check of a new page, and of one not verified for a day, but not of one verified or looked at lately', async () => {
-    const first = await recordSighting('https://example.com/', deps());
-    expect(first).toMatchObject({ outcome: 'recorded', url: 'https://example.com/', needsCheck: true });
+  it('asks for an immediate check of a new page and of one never checked, but leaves failing and never-verified pages to the daily run', async () => {
     const at = (h: number) => new Date(NOW.getTime() + h * 3_600_000);
-    // looked at an hour ago and failed: left for later
-    await repo.recordCheck('https://example.com/', { checkedAt: NOW.toISOString(), consecutiveFailures: 1, verified: null });
-    expect((await recordSighting('https://example.com/', deps({ now: at(0.5 + 1) }))).needsCheck).toBe(true);
-    await repo.recordCheck('https://example.com/', { checkedAt: at(2.2).toISOString(), consecutiveFailures: 1, verified: null });
-    expect((await recordSighting('https://example.com/', deps({ now: at(2.6) }))).needsCheck).toBe(false);
-    // verified this morning: no check until a day has passed
-    await repo.recordCheck('https://example.com/', { checkedAt: at(3).toISOString(), consecutiveFailures: 0, verified: { title: null, foundUrl: 'https://example.com/' } });
-    expect((await recordSighting('https://example.com/', deps({ now: at(5) }))).needsCheck).toBe(false);
-    expect((await recordSighting('https://example.com/', deps({ now: at(28) }))).needsCheck).toBe(true);
+    const url = 'https://example.com/';
+    expect(await recordSighting(url, deps())).toMatchObject({ outcome: 'recorded', url, needsCheck: true });
+    // seen again after the first check was lost (never checked): check now
+    expect((await recordSighting(url, deps({ now: at(1.5) }))).needsCheck).toBe(true);
+    // checked and failed, never verified: not again until the daily run, however often it is seen
+    await repo.recordCheck(url, { checkedAt: at(1.6).toISOString(), consecutiveFailures: 1, verified: null });
+    expect((await recordSighting(url, deps({ now: at(3) }))).needsCheck).toBe(false);
+    expect((await recordSighting(url, deps({ now: at(40) }))).needsCheck).toBe(false);
+    // verified, then failing: also left alone
+    await repo.recordCheck(url, { checkedAt: at(41).toISOString(), consecutiveFailures: 0, verified: { title: null, foundUrl: url } });
+    await repo.recordCheck(url, { checkedAt: at(42).toISOString(), consecutiveFailures: 1, verified: null });
+    expect((await recordSighting(url, deps({ now: at(80) }))).needsCheck).toBe(false);
+    // verified and passing: no check until a day has passed
+    await repo.recordCheck(url, { checkedAt: at(81).toISOString(), consecutiveFailures: 0, verified: { title: null, foundUrl: url } });
+    expect((await recordSighting(url, deps({ now: at(83) }))).needsCheck).toBe(false);
+    expect((await recordSighting(url, deps({ now: at(106) }))).needsCheck).toBe(true);
     // a page that was not written (fresh, ignored, limited) never asks for a check
-    expect(await recordSighting('https://example.com/', deps({ now: at(28.1) }))).toMatchObject({ outcome: 'fresh', url: null, needsCheck: false });
+    expect(await recordSighting(url, deps({ now: at(106.1) }))).toMatchObject({ outcome: 'fresh', url: null, needsCheck: false });
     expect(await recordSighting(`https://${HOST}/`, deps())).toMatchObject({ outcome: 'ignored', needsCheck: false });
+  });
+  it('refuses a fourth new page of one host, but still refreshes the three it has and takes other hosts', async () => {
+    for (const p of ['a', 'b', 'c']) expect((await recordSighting(`https://example.com/${p}`, deps())).outcome).toBe('recorded');
+    expect((await recordSighting('https://example.com/d', deps())).outcome).toBe('crowded');
+    expect(repo.rows.has('https://example.com/d')).toBe(false);
+    expect((await recordSighting('https://example.com/a', deps({ now: new Date(NOW.getTime() + 2 * 3_600_000) }))).outcome).toBe('recorded');
+    expect((await recordSighting('https://other.example.org/', deps())).outcome).toBe('recorded');
   });
   it('writes a page at most once an hour, and a repeat does not use the visitor allowance', async () => {
     await recordSighting('https://example.com/', deps());
@@ -267,7 +284,7 @@ describe('runBadgeChecks', () => {
     if (url.endsWith('/robots.txt')) return { status: robots === '' ? 404 : 200, url, contentType: 'text/plain', body: robots };
     const p = pages[url];
     if (!p || p === 'error') throw new SsrfError('network');
-    return p;
+    return { ...p, url: p.url === 'https://example.com/' ? url : p.url };
   };
   const seed = async (url = 'https://example.com/') => {
     await repo.touch(url, new URL(url).hostname, clock.toISOString());
@@ -369,11 +386,75 @@ describe('runBadgeChecks', () => {
     expect(urls.filter((u) => u.endsWith('/robots.txt'))).toHaveLength(1);
   });
 
+  it('fails a check whose page was reached through a redirect to another site, but accepts http to https and www to bare', async () => {
+    await seed('https://elsewhere.example.com/');
+    await seed('https://moved.example.org/');
+    await seed('https://plain.example.net/');
+    const logged: string[] = [];
+    const get: FetchPage = async (url) => {
+      if (url.endsWith('/robots.txt')) return { status: 404, url, contentType: null, body: '' };
+      if (url.startsWith('https://elsewhere.')) return { ...html(SNIPPET), url: 'https://someone-famous.example.net/' };
+      if (url.startsWith('https://moved.')) return { ...html(SNIPPET), url: 'https://www.moved.example.org/home' };
+      return { ...html(SNIPPET), url: url.replace('https://plain.', 'https://www.plain.') };
+    };
+    await run(get, { log: (c) => logged.push(c) });
+    expect(repo.rows.get('https://elsewhere.example.com/')).toMatchObject({ verifiedAt: null, consecutiveFailures: 1 });
+    expect(logged).toContain('elsewhere');
+    expect(repo.rows.get('https://moved.example.org/')!.verifiedAt).not.toBeNull();
+    expect(repo.rows.get('https://plain.example.net/')!.verifiedAt).not.toBeNull();
+  });
+
+  it('gives a slow site at most its own time, counts it as failed, and goes on with the others', async () => {
+    await seed('https://slow.example.com/');
+    await seed('https://fast.example.org/');
+    const get: FetchPage = (url) => {
+      if (url.endsWith('/robots.txt')) return Promise.resolve({ status: 404, url, contentType: null, body: '' });
+      return url.includes('slow.') ? new Promise(() => undefined) : Promise.resolve({ ...html(SNIPPET), url });
+    };
+    const logged: string[] = [];
+    const out = await run(get, { siteCheckMs: 30, log: (c) => logged.push(c) });
+    expect(out).toEqual({ checked: 2, verified: 1 });
+    expect(logged).toContain('timeout');
+    expect(repo.rows.get('https://slow.example.com/')).toMatchObject({ verifiedAt: null, consecutiveFailures: 1 });
+  });
+
+  it('deletes old pages before it starts the checks, even when the checks cannot run', async () => {
+    await seed('https://old.example.com/');
+    clock = new Date(clock.getTime() + 61 * 86_400_000);
+    const order: string[] = [];
+    const prune = repo.prune.bind(repo);
+    repo.prune = async (b) => (order.push('prune'), prune(b));
+    await run(async (u) => (order.push('fetch'), serve({})(u)));
+    expect(order[0]).toBe('prune');
+    expect(repo.rows.size).toBe(0);
+    repo.prune = async () => Promise.reject(new Error('db'));
+    await seed('https://new.example.com/');
+    await expect(run(serve({ 'https://new.example.com/': html(SNIPPET) }))).resolves.toEqual({ checked: 1, verified: 1 });
+  });
+
+  it('deletes pages that never passed and have failed twice, and keeps a verified one that is failing', async () => {
+    await seed('https://never.example.com/');
+    await seed('https://once.example.com/');
+    await seed('https://was.example.com/');
+    await repo.recordCheck('https://never.example.com/', { checkedAt: clock.toISOString(), consecutiveFailures: 2, verified: null });
+    await repo.recordCheck('https://once.example.com/', { checkedAt: clock.toISOString(), consecutiveFailures: 1, verified: null });
+    await repo.recordCheck('https://was.example.com/', { checkedAt: clock.toISOString(), consecutiveFailures: 0, verified: { title: null, foundUrl: 'https://was.example.com/' } });
+    await repo.recordCheck('https://was.example.com/', { checkedAt: clock.toISOString(), consecutiveFailures: 3, verified: null });
+    await run(serve({}));
+    expect([...repo.rows.keys()].sort()).toEqual(['https://once.example.com/', 'https://was.example.com/']);
+  });
+
+  it('names the checker after the site it runs for', () => {
+    expect(checkerUserAgent('fairmaps.melson.us')).toBe('FairMapsBadgeCheck (+https://fairmaps.melson.us/pledges)');
+    expect(checkerUserAgent('example.test')).toBe('FairMapsBadgeCheck (+https://example.test/pledges)');
+  });
+
   it('checks at most SITES_PER_RUN per run, never-checked first and then the oldest check, and not a page checked in the last day', async () => {
-    expect([SITES_PER_RUN, CHECK_CONCURRENCY, IMMEDIATE_CHECKS_PER_HOUR, RUN_BUDGET_MS]).toEqual([100, 5, 60, 50_000]);
+    expect([SITES_PER_RUN, CHECK_CONCURRENCY, IMMEDIATE_CHECKS_PER_HOUR, RUN_BUDGET_MS]).toEqual([100, 5, 60, 40_000]);
+    expect([MAX_SIGHTINGS, MAX_PER_HOST, SITE_CHECK_MS]).toEqual([5000, 3, 8000]);
     const total = SITES_PER_RUN + 5;
     for (let i = 0; i < total; i++) await seed(`https://s${String(i).padStart(3, '0')}.example.com/`);
-    const get: FetchPage = async (url) => (url.endsWith('/robots.txt') ? { status: 404, url, contentType: null, body: '' } : html(SNIPPET));
+    const get: FetchPage = async (url) => (url.endsWith('/robots.txt') ? { status: 404, url, contentType: null, body: '' } : { ...html(SNIPPET), url });
     expect((await run(get)).checked).toBe(SITES_PER_RUN);
     expect((await run(get)).checked).toBe(5);
     expect((await run(get)).checked).toBe(0);
@@ -390,7 +471,7 @@ describe('runBadgeChecks', () => {
     const order: string[] = [];
     await run(async (url) => {
       if (!url.endsWith('/robots.txt')) order.push(new URL(url).hostname);
-      return url.endsWith('/robots.txt') ? { status: 404, url, contentType: null, body: '' } : html(SNIPPET);
+      return url.endsWith('/robots.txt') ? { status: 404, url, contentType: null, body: '' } : { ...html(SNIPPET), url };
     }, { sitesPerRun: 2 });
     // two slots: the never-checked page and the oldest check; the newer check waits for tomorrow
     expect(order.sort()).toEqual(['new.example.com', 'older.example.com']);
@@ -601,11 +682,12 @@ describe('badge handler', () => {
   const call = (env: string | undefined, referer: string | null, repo: MemoryRepo, r: { repo: never } = rate(), headers: Record<string, string> = {}, extra: Partial<Parameters<typeof badgeHandler>[0]> = {}) =>
     badgeHandler({ loadConfig: () => config(env), rateRepo: () => r.repo, repo: () => repo, now: () => NOW, after: (w) => void afterWork.push(w), fetchPage: async () => Promise.reject(new SsrfError('network')), ...extra })(new Request(`https://${HOST}/api/badge`, { headers: { ...(referer ? { referer } : {}), 'x-real-ip': '203.0.113.7', ...headers } }));
 
-  it('sends the image with an hour of browser caching and no shared caching', async () => {
+  it('sends the image with an hour of browser caching only, varying by Referer, so shared caches never answer for it', async () => {
     const res = await call('production', 'https://example.com/page?x=1', new MemoryRepo());
     expect(res.status).toBe(200);
     expect(res.headers.get('content-type')).toBe('image/svg+xml');
-    expect(res.headers.get('cache-control')).toBe('public, max-age=3600');
+    expect(res.headers.get('cache-control')).toBe('private, max-age=3600');
+    expect(res.headers.get('vary')).toBe('Referer');
     expect(await res.text()).toBe(BADGE_SVG);
   });
   it('notes the referring page in production, storing the page address and no visitor data', async () => {
@@ -679,6 +761,17 @@ describe('badge handler', () => {
       expect(fetched).toBe(IMMEDIATE_CHECKS_PER_HOUR);
       expect(repo.rows.size).toBe(IMMEDIATE_CHECKS_PER_HOUR + 10);
       expect([...repo.rows.values()].filter((x) => x.lastChecked === null)).toHaveLength(10);
+    });
+    it('logs a code only, once, when the table is full, and still sends the image', async () => {
+      const repo = new MemoryRepo();
+      repo.count = async () => MAX_SIGHTINGS;
+      const errors: string[] = [];
+      const spy = vi.spyOn(console, 'error').mockImplementation((m: string) => void errors.push(m));
+      const res = await call('production', 'https://example.com/', repo);
+      spy.mockRestore();
+      expect(res.status).toBe(200);
+      expect(errors).toEqual([JSON.stringify({ code: 'badge-full' })]);
+      expect(repo.rows.size).toBe(0);
     });
     it('swallows every error in the background work', async () => {
       const repo = new MemoryRepo();

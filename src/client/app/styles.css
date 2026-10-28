@@ -5478,12 +5478,6 @@ var {
   max-width: 62ch;
 }
 
-.strv-pledges__quote {
-  margin: 0;
-  padding-left: var(--s-4);
-  border-left: 4px solid var(--ink);
-}
-
 .strv-pledges__ul {
   display: grid;
   gap: var(--s-3);
@@ -5510,7 +5504,7 @@ var {
   border: 2px solid var(--ink);
 }
 
-.strv-reps__pledged {
+.strv-reps__badge {
   font-weight: 700;
 }
 
@@ -5521,10 +5515,6 @@ var {
 
 .strv-national__signed[hidden] {
   display: none;
-}
-
-.strv-reps__candidates ul {
-  padding-left: 1.25em;
 }
 
 /* ---------- Sign-on form and privacy page ---------- */

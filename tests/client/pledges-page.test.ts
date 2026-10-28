@@ -1,65 +1,78 @@
 // @vitest-environment jsdom
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { config, PAGE_META } from '../../src/client/shared';
-import type { Pledge } from '../../src/client/entities/pledges';
+import { PAGE_META } from '../../src/client/shared';
+import type { BadgeSite } from '../../src/client/entities/badge-sites';
 
-let fixture: Pledge[] = [];
-vi.mock('../../src/client/entities/pledges', async (orig) => ({
-  ...(await orig<typeof import('../../src/client/entities/pledges')>()),
-  loadPledges: async () => fixture,
+let fixture: BadgeSite[] | null = [];
+vi.mock('../../src/client/entities/badge-sites', async (orig) => ({
+  ...(await orig<typeof import('../../src/client/entities/badge-sites')>()),
+  loadBadgeSites: async () => fixture,
 }));
 
 import { createPledgesPage } from '../../src/client/pages/pledges';
 
-const pledge = (id: string, over: Partial<Pledge> = {}): Pledge => ({
-  id, name: `Name ${id}`, role: 'incumbent', personId: id, office: 'us-house', state: 'CO', districtCode: '03',
-  statementUrl: `https://example.org/${id}`, campaignUrl: null, pledgedOn: '2026-10-01', cycle: null, ...over,
-});
+const site = (host: string, over: Partial<BadgeSite> = {}): BadgeSite => ({ url: `https://${host}/`, host, title: `Title of ${host}`, name: null, office: null, ...over });
 const flush = () => new Promise((r) => setTimeout(r, 0));
 
-describe('pledges page', () => {
-  afterEach(() => {
-    config.showCandidates = false;
-    document.body.replaceChildren();
-  });
+describe('sites that show the badge page', () => {
+  afterEach(() => document.body.replaceChildren());
 
-  it('has the heading, lede, pledge sentence, issue form link and badge snippet', async () => {
+  it('has the heading, lede, how-to section and the exact snippet', async () => {
     const page = createPledgesPage();
     await flush();
-    expect(page.el.querySelector('h1')!.textContent).toBe('Who supports the Fair Maps rule');
-    expect(page.el.querySelector('.strv-how__lede')!.textContent).toBe(
-      'Officeholders and candidates listed here have said publicly that they support drawing districts with the Fair Maps rule. Each links to their own statement. Listed in the order they pledged. Party is not shown.',
-    );
-    expect(page.el.querySelector('blockquote')!.textContent).toContain('split the state along the shortest line that divides its people evenly');
-    expect([...page.el.querySelectorAll('h2')].map((e) => e.textContent)).toEqual(['How to be listed', 'Add the badge to your site']);
-    expect(page.el.querySelector('a[href$="/issues/new?template=pledge.yml"]')).not.toBeNull();
-    expect(page.el.querySelector('pre')!.textContent).toBe('<a href="https://fairmaps.melson.us/pledges"><img src="https://fairmaps.melson.us/badge.svg" alt="I back Fair Maps" width="200" height="40"></a>');
+    expect(page.el.querySelector('h1')!.textContent).toBe('Sites that show the Fair Maps badge');
+    expect(page.el.querySelector('.strv-how__lede')!.textContent).toBe('These websites show our badge. Each entry links to the page where it appears. Showing the badge is the only thing we check. Party is not shown.');
+    expect([...page.el.querySelectorAll('h2')].map((e) => e.textContent)).toEqual(['Show the badge on your site']);
+    expect(page.el.querySelector('pre')!.textContent).toBe('<a href="https://fairmaps.melson.us/pledges"><img src="https://fairmaps.melson.us/api/badge" alt="I back Fair Maps" width="200" height="40"></a>');
+    const text = page.el.textContent!;
+    expect(text).toContain('Put it on your home page. We check each site about once a day; if the badge is removed, the site drops off the list.');
+    expect(text).toContain('Add the badge to your home page and link it to fairmaps.melson.us/pledges. It shows up within minutes of the first visitor loading the page.');
+    expect(text).toContain('What we look for: the badge image (fairmaps.melson.us/api/badge) and a link to fairmaps.melson.us on the same page.');
     expect(document.title).toBe(PAGE_META.pledges.title);
-    expect(page.el.textContent).not.toContain('—');
+    expect(PAGE_META.pledges.title).toBe('Sites that show the Fair Maps badge | Fair Maps');
+    expect(text).not.toContain('—');
+    expect(PAGE_META.pledges.description).not.toContain('—');
   });
 
-  it('says so when no one has pledged', async () => {
+  it('says so when no site shows the badge', async () => {
     fixture = [];
     const page = createPledgesPage();
     await flush();
-    expect(page.el.querySelector('.strv-pledges__empty')!.textContent).toBe('No one has pledged yet.');
+    expect(page.el.querySelector('.strv-pledges__empty')!.textContent).toBe('No sites show the badge yet.');
   });
 
-  it('lists incumbents oldest first and hides candidates while showCandidates is false', async () => {
-    fixture = [pledge('b', { pledgedOn: '2026-10-05' }), pledge('c', { role: 'candidate', personId: null, pledgedOn: '2026-10-02' }), pledge('a', { pledgedOn: '2026-10-01' })];
+  it('says so when the list will not load', async () => {
+    fixture = null;
     const page = createPledgesPage();
     await flush();
-    expect([...page.el.querySelectorAll('.strv-pledges__row strong')].map((e) => e.textContent)).toEqual(['Name a', 'Name b']);
-    expect(page.el.querySelector('.strv-pledges__row a')!.getAttribute('href')).toBe('https://example.org/a');
-    config.showCandidates = true;
-    const again = createPledgesPage();
-    await flush();
-    expect([...again.el.querySelectorAll('.strv-pledges__row strong')].map((e) => e.textContent)).toEqual(['Name a', 'Name c', 'Name b']);
+    expect(page.el.querySelector('.strv-pledges__empty')!.textContent).toBe('We couldn’t load the list. Try again later.');
   });
 
-  it('takes pledges handed in for prerendering and shows no party', () => {
-    const page = createPledgesPage([pledge('z')]);
-    expect(page.el.querySelectorAll('.strv-pledges__row')).toHaveLength(1);
+  it('lists each site with its name or title, its host and a link to the exact page, in the order given', async () => {
+    fixture = [site('a.example.org', { url: 'https://a.example.org/about', name: 'Jane Hurd', office: 'U.S. House, CO' }), site('b.example.org')];
+    const page = createPledgesPage();
+    await flush();
+    const rows = [...page.el.querySelectorAll('.strv-pledges__row')];
+    expect(rows.map((r) => r.querySelector('strong')!.textContent)).toEqual(['Jane Hurd', 'Title of b.example.org']);
+    expect(rows[0]!.textContent).toContain('U.S. House, CO');
+    expect(rows[0]!.textContent).toContain('a.example.org');
+    const link = rows[0]!.querySelector('a')!;
+    expect(link.textContent).toBe('View the page');
+    expect(link.getAttribute('href')).toBe('https://a.example.org/about');
+    expect(link.getAttribute('rel')).toBe('noopener');
+  });
+
+  it('shows page text as text, never as markup, and no party', async () => {
+    fixture = [site('c.example.org', { title: '<b onclick=alert(1)>hi</b>' })];
+    const page = createPledgesPage();
+    await flush();
+    expect(page.el.querySelector('.strv-pledges__row b')).toBeNull();
+    expect(page.el.textContent).toContain('<b onclick=alert(1)>hi</b>');
     expect(page.el.textContent!.toLowerCase()).not.toMatch(/republican|democrat/);
+  });
+
+  it('takes a list handed in directly', () => {
+    const page = createPledgesPage([site('z.example.org')]);
+    expect(page.el.querySelectorAll('.strv-pledges__row')).toHaveLength(1);
   });
 });

@@ -1,7 +1,7 @@
 import { h, clear, config, sharePath, toStateFrame, districtKey, type LocatedAddress, type Office } from '../../shared';
-import { loadStateReps, STATEWIDE_CODE, type Rep } from '../../entities/reps';
+import { loadStateReps, type Rep } from '../../entities/reps';
 import { recordAsk } from '../../entities/counts';
-import { loadPledges, inPledgeOrder, type Pledge } from '../../entities/pledges';
+import { loadBadgeSites, siteForWebsite, type BadgeSite } from '../../entities/badge-sites';
 import { todaysDistrictsAt, repsFor, type RepsRow } from '../../features/todays-districts';
 import { createAskComposer, isWebUrl, mailtoHref, telHref } from '../../features/ask-rep';
 import { createEveryone, type EveryoneRep } from './everyone';
@@ -65,7 +65,7 @@ export function createRepPanel(makeVoices?: MakeVoices): RepPanel {
     clear(voicesSlot);
   };
 
-  const repRow = (input: RepPanelInput, row: RepsRow, rep: Rep, mapUrl: string, pledge: Pledge | undefined): HTMLElement => {
+  const repRow = (input: RepPanelInput, row: RepsRow, rep: Rep, mapUrl: string, badge: BadgeSite | undefined): HTMLElement => {
     const code = codeOf(row.key);
     const letter = letterText({ rep, office: row.office, stateName: input.stateName, districtCode: code, mapUrl });
     const slot = h('div', { class: 'strv-reps__composer' });
@@ -118,8 +118,8 @@ export function createRepPanel(makeVoices?: MakeVoices): RepPanel {
         { class: 'strv-reps__who' },
         h('strong', null, rep.name),
         h('span', { class: 'strv-reps__office' }, officeLabel(input.state, row.office, code)),
-        pledge && h('span', { class: 'strv-reps__pledged' }, 'Pledged'),
-        pledge && h('a', { class: 'strv-reps__statement', href: pledge.statementUrl, rel: 'noopener' }, 'Statement'),
+        badge && h('span', { class: 'strv-reps__badge' }, 'Shows the Fair Maps badge'),
+        badge && h('a', { class: 'strv-reps__badge-page', href: badge.url, rel: 'noopener' }, 'View the page'),
         done,
       ),
       h(
@@ -162,26 +162,6 @@ export function createRepPanel(makeVoices?: MakeVoices): RepPanel {
     return li;
   };
 
-  /** Candidates for the seats shown who have pledged; nothing unless the site is set to show candidates. */
-  const candidatesSection = (input: RepPanelInput, rows: RepsRow[], pledges: Pledge[]): HTMLElement[] => {
-    if (!config.showCandidates) return [];
-    const keys = new Set(rows.map((r) => r.key));
-    const mine = inPledgeOrder(pledges).filter((p) => p.role === 'candidate' && keys.has(`${p.state}:${p.office}:${p.districtCode ?? STATEWIDE_CODE}`));
-    if (mine.length === 0) return [];
-    return [
-      h(
-        'div',
-        { class: 'strv-reps__candidates' },
-        h('h4', null, 'Candidates for this seat who support the rule'),
-        h(
-          'ul',
-          null,
-          mine.map((p) => h('li', null, h('strong', null, p.name), ' ', officeLabel(input.state, p.office, p.districtCode ?? ''), ' ', h('a', { href: p.statementUrl, rel: 'noopener' }, 'Statement'))),
-        ),
-      ),
-    ];
-  };
-
   async function update(input: RepPanelInput): Promise<void> {
     const mine = ++token;
     closeOpen = null;
@@ -194,12 +174,12 @@ export function createRepPanel(makeVoices?: MakeVoices): RepPanel {
     let rows: RepsRow[];
     let found: boolean;
     let usHouse: string | null;
-    let pledges: Pledge[] = [];
+    let badgeSites: BadgeSite[] = [];
     try {
       const at = toStateFrame(input.state, input.located.lonLat);
-      // A pledges list that will not load only means no badges; it never hides the representatives.
-      const [reps, d, pl] = await Promise.all([loadStateReps(input.state), todaysDistrictsAt(input.state, at), loadPledges().catch((): Pledge[] => [])]);
-      pledges = pl;
+      // A badge list that will not load only means no badge marks; it never hides the representatives.
+      const [reps, d, sites] = await Promise.all([loadStateReps(input.state), todaysDistrictsAt(input.state, at), loadBadgeSites()]);
+      badgeSites = sites ?? [];
       rows = repsFor(reps, d);
       usHouse = d.usHouse;
       found = d.usHouse !== null || d.stateHouse !== null || d.stateSenate !== null;
@@ -218,8 +198,7 @@ export function createRepPanel(makeVoices?: MakeVoices): RepPanel {
         continue;
       }
       for (const rep of row.reps) {
-        const pledge = pledges.find((p) => p.role === 'incumbent' && p.personId === rep.id);
-        list.append(repRow(input, row, rep, mapUrl, pledge));
+        list.append(repRow(input, row, rep, mapUrl, siteForWebsite(badgeSites, rep.website)));
         everyone.push({ key: row.key, office: row.office, label: officeLabel(input.state, row.office, codeOf(row.key)), rep });
       }
     }
@@ -228,7 +207,6 @@ export function createRepPanel(makeVoices?: MakeVoices): RepPanel {
       ...(found ? [] : [h('p', { class: 'strv-reps__none' }, NOT_PLACED_COPY)]),
       ...(everyone.length > 0 ? [createEveryone({ stateName: input.stateName, places, mapUrl, reps: everyone })] : []),
       list,
-      ...candidatesSection(input, rows, pledges),
     );
     if (usHouse !== null && makeVoices) {
       voices = makeVoices(districtKey(input.state, 'us-house', usHouse));

@@ -5,14 +5,12 @@ import { pathToFileURL } from 'node:url';
 import { JSDOM } from 'jsdom';
 import { PAGE_META, type PageMeta } from '../src/client/shared/lib/page-meta';
 import { SITE_HOST } from '../src/server/features/publish/site';
-import { readPledgesFile } from '../src/server/features/pledges';
 import { esc, sharePagePaths, swap } from './share-pages';
 import { Resvg } from '@resvg/resvg-js';
 import { toMarkdown } from './markdown';
 import { LLMS_SUMMARY, PAGE_KEYS, jsonLd, jsonLdScript, llmsTxt, robotsTxt, sitemapXml, type FaqEntry, type PageKey } from './seo';
 
 const DIST = 'dist';
-const PLEDGES_FILE = join('config', 'pledges.json');
 const PUBLIC = 'public';
 const ROOT_TAG = '<div id="str-viewer"></div>';
 
@@ -82,7 +80,8 @@ function modules(): NonNullable<typeof loaded> {
         how: () => createHowPage({ page: 'how', section: null }),
         faq: () => createFaqPage({ page: 'faq', question: null }),
         changelog: () => createChangelogPage(),
-        pledges: () => createPledgesPage(readPledgesFile(PLEDGES_FILE).pledges),
+        // The list of sites is fetched in the browser; the static page holds only the fixed text.
+        pledges: () => createPledgesPage(),
         privacy: () => createPrivacyPage(),
         remove: () => createRemovePage(null),
         // The static page never starts the confirmation: only the page script, running with a token, does.
@@ -178,9 +177,6 @@ export async function main(): Promise<void> {
     markdown.set(key, toMarkdown(rendered.html, site));
     outputs.set(file, pageHtml(key, shell, rendered));
   }
-  // The pledges are validated here, so an invalid file fails the build, then published as data/pledges.json.
-  outputs.set(join(DIST, 'data', 'pledges.json'), `${JSON.stringify(readPledgesFile(PLEDGES_FILE))}
-`);
   outputs.set(join(DIST, 'sitemap.xml'), sitemapXml(site, sharePagePaths(PUBLIC)));
   outputs.set(join(DIST, 'robots.txt'), robotsTxt(site));
   outputs.set(join(DIST, 'llms.txt'), llmsTxt(site));

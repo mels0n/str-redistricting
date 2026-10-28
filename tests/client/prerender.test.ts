@@ -1,5 +1,5 @@
 // @vitest-environment node
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { renderPage } from '../../build/prerender';
 import { sharePagePaths } from '../../build/share-pages';
@@ -51,12 +51,16 @@ describe('prerendered pages', () => {
     expect(html).not.toMatch(/<[^>]* style="/);
   });
 
-  it('writes the pledges page and publishes the validated pledges', () => {
+  it('writes the badge sites page with the fixed text and the snippet, and publishes no list', () => {
     const html = read('dist/pledges/index.html');
     expect(titleOf(html)).toBe(PAGE_META.pledges.title);
-    expect(html).toContain('No one has pledged yet.');
+    expect(html).toContain('Sites that show the Fair Maps badge');
+    expect(html).toContain('Show the badge on your site');
+    expect(html).toContain('/api/badge');
+    // The list is fetched in the browser, so the static page claims neither a list nor an empty one.
+    expect(html).not.toContain('No sites show the badge yet.');
     expect(read('dist/sitemap.xml')).toContain('<loc>https://fairmaps.melson.us/pledges</loc>');
-    expect(JSON.parse(read('dist/data/pledges.json'))).toEqual({ pledges: [] });
+    expect(existsSync('dist/data/pledges.json')).toBe(false);
   });
 
   it('writes the Take action page and lists it in the sitemap and llms.txt, and the home page links to it with no action block', () => {

@@ -13,7 +13,7 @@
       "src/server/app/rule-examples/**",
       "src/server/features/metrics/**"
     ],
-    "web": ["src/client/**", "index.html", "public/*", "build/**", "vercel.json", "config/reps-sources.json", "config/reps-district-aliases.json", "config/pledges.json", "config/note-rules.json", "api/**", "supabase/**", "src/server/api/**", "src/server/entities/signon-db/**", "src/server/shared/crypto/**", "src/server/shared/config/backend.ts", "src/server/shared/config/geocoder.ts", "src/server/shared/config/note-rules.ts", "src/server/features/notes/**", "src/server/features/signon/**", "src/server/features/counts/**", "src/server/features/outbox/**", "src/server/app/digest.ts", "src/server/shared/geo/contains.ts", "src/server/shared/geo/index.ts", "src/server/shared/errors/signon.ts", ".github/ISSUE_TEMPLATE/**"],
+    "web": ["src/client/**", "index.html", "public/*", "build/**", "vercel.json", "config/reps-sources.json", "config/reps-district-aliases.json", "config/note-rules.json", "api/**", "supabase/**", "src/server/api/**", "src/server/entities/signon-db/**", "src/server/entities/badge-db/**", "src/server/features/badge/**", "src/server/shared/ssrf/**", "src/server/shared/crypto/**", "src/server/shared/config/backend.ts", "src/server/shared/config/geocoder.ts", "src/server/shared/config/note-rules.ts", "src/server/features/notes/**", "src/server/features/signon/**", "src/server/features/counts/**", "src/server/features/outbox/**", "src/server/app/digest.ts", "src/server/shared/geo/contains.ts", "src/server/shared/geo/index.ts", "src/server/shared/errors/signon.ts", ".github/ISSUE_TEMPLATE/**"],
     "docs": ["docs/**", "README.md"]
   },
   "exclude": {
@@ -46,9 +46,11 @@
       "src/server/app/reps.ts",
       "src/server/shared/config/reps.ts",
       "src/server/shared/config/reps-hosts.ts",
-      "src/server/features/pledges/**",
       "src/server/api/**",
       "src/server/entities/signon-db/**",
+      "src/server/entities/badge-db/**",
+      "src/server/features/badge/**",
+      "src/server/shared/ssrf/**",
       "src/server/shared/crypto/**",
       "src/server/shared/config/backend.ts",
       "src/server/shared/config/geocoder.ts",

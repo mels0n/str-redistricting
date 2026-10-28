@@ -6,7 +6,7 @@
  *   /changelog                 release notes for maps, engine and input
  *   /how/balancing             the same page, at one of its sections
  *   /faq                       common questions
- *   /pledges                   who supports the rule
+ *   /pledges                   sites that show the Fair Maps badge
  *   /act                       find your representatives, email them, add your name; /act?state=CO starts on a state
  *   /privacy                   what the sign-on collects and keeps
  *   /remove                    ask for a removal link; /remove?token=... confirms a removal

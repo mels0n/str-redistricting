@@ -1,59 +1,51 @@
-import { h, clear, config, PAGE_META, routeHref, iconArrowLeft, NATIONAL, type Office, type Page } from '../../shared';
-import { loadPledges, inPledgeOrder, type Pledge } from '../../entities/pledges';
+import { h, clear, config, PAGE_META, routeHref, iconArrowLeft, NATIONAL, type Page } from '../../shared';
+import { loadBadgeSites, type BadgeSite } from '../../entities/badge-sites';
 
-/** The sentence a person pledges. */
-export const PLEDGE_SENTENCE =
-  "I support drawing [state]'s districts with the Fair Maps rule: split the state along the shortest line that divides its people evenly, repeat until each piece is one district, and publish the code so anyone can check the result.";
+/** What to paste into a page. The image comes from our function, which is how we learn which site shows it. */
+export const BADGE_SNIPPET = `<a href="https://${config.siteHost}/pledges"><img src="https://${config.siteHost}/api/badge" alt="I back Fair Maps" width="200" height="40"></a>`;
 
-export const BADGE_SNIPPET = `<a href="https://${config.siteHost}/pledges"><img src="https://${config.siteHost}/badge.svg" alt="I back Fair Maps" width="200" height="40"></a>`;
+export const LEDE = 'These websites show our badge. Each entry links to the page where it appears. Showing the badge is the only thing we check. Party is not shown.';
+export const EMPTY_COPY = 'No sites show the badge yet.';
+export const FAILED_COPY = 'We couldn’t load the list. Try again later.';
+export const LOADING_COPY = 'Loading the list…';
 
-function seat(office: Office, state: string, code: string | null): string {
-  if (office === 'us-senate') return `U.S. Senate, ${state}`;
-  const num = code !== null && /^\d+$/.test(code) ? String(Number(code)) : (code ?? '');
-  if (office === 'us-house') return `U.S. House, ${state}-${code}`;
-  return `${office === 'state-senate' ? 'State Senate' : 'State House'}, ${state} district ${num}`;
-}
-
-function pledgeRow(p: Pledge): HTMLElement {
+function siteRow(s: BadgeSite): HTMLElement {
+  const title = s.name ?? s.title ?? s.host;
   return h(
     'li',
     { class: 'strv-pledges__row' },
-    h('strong', null, p.name),
-    h('span', { class: 'strv-pledges__seat' }, seat(p.office, p.state, p.districtCode)),
-    h('time', { datetime: p.pledgedOn }, p.pledgedOn),
-    h('a', { href: p.statementUrl, rel: 'noopener' }, 'Statement'),
+    h('strong', null, title),
+    s.name !== null && s.office !== null && h('span', { class: 'strv-pledges__seat' }, s.office),
+    h('span', { class: 'strv-pledges__seat' }, s.host),
+    h('a', { href: s.url, rel: 'noopener' }, 'View the page'),
   );
 }
 
-/** The pledges page. Prerendering passes the pledges in; in the browser they are fetched. */
-export function createPledgesPage(preloaded?: readonly Pledge[]): Page {
-  const h1 = h('h1', { class: 'strv-how__h1', tabindex: -1 }, 'Who supports the Fair Maps rule');
+/** The page of sites that show the badge. Tests hand the list in; in the browser it is fetched, and prerendering shows only the fixed text. */
+export function createPledgesPage(preloaded?: readonly BadgeSite[]): Page {
+  const h1 = h('h1', { class: 'strv-how__h1', tabindex: -1 }, 'Sites that show the Fair Maps badge');
   const listSlot = h('div', { class: 'strv-pledges__list' });
   let dead = false;
 
-  const fill = (all: readonly Pledge[]): void => {
+  const fill = (sites: readonly BadgeSite[]): void => {
     clear(listSlot);
-    const shown = inPledgeOrder(all).filter((p) => p.role === 'incumbent' || config.showCandidates);
-    if (shown.length === 0) {
-      listSlot.append(h('p', { class: 'strv-pledges__empty' }, 'No one has pledged yet.'));
+    if (sites.length === 0) {
+      listSlot.append(h('p', { class: 'strv-pledges__empty' }, EMPTY_COPY));
       return;
     }
-    listSlot.append(h('ul', { class: 'strv-pledges__ul' }, shown.map(pledgeRow)));
+    listSlot.append(h('ul', { class: 'strv-pledges__ul' }, sites.map(siteRow)));
   };
 
   if (preloaded) fill(preloaded);
   else {
-    loadPledges().then(
-      (all) => {
-        if (!dead) fill(all);
-      },
-      () => {
-        if (!dead) {
-          clear(listSlot);
-          listSlot.append(h('p', { class: 'strv-pledges__empty' }, 'We couldn’t load the list. Try again later.'));
-        }
-      },
-    );
+    listSlot.append(h('p', { class: 'strv-pledges__empty' }, LOADING_COPY));
+    void loadBadgeSites().then((sites) => {
+      if (dead) return;
+      if (sites === null) {
+        clear(listSlot);
+        listSlot.append(h('p', { class: 'strv-pledges__empty' }, FAILED_COPY));
+      } else fill(sites);
+    });
   }
 
   const el = h(
@@ -64,25 +56,27 @@ export function createPledgesPage(preloaded?: readonly Pledge[]): Page {
       { class: 'strv-how__head' },
       h('a', { href: routeHref(NATIONAL), class: 'strv-back' }, iconArrowLeft(), 'All states'),
       h1,
-      h('p', { class: 'strv-how__lede' }, 'Officeholders and candidates listed here have said publicly that they support drawing districts with the Fair Maps rule. Each links to their own statement. Listed in the order they pledged. Party is not shown.'),
+      h('p', { class: 'strv-how__lede' }, LEDE),
     ),
     h(
       'div',
       { class: 'strv-pledges__body' },
-      h('blockquote', { class: 'strv-pledges__quote' }, PLEDGE_SENTENCE),
       listSlot,
       h(
         'section',
         null,
-        h('h2', null, 'How to be listed'),
-        h('p', null, 'Say it publicly, then ', h('a', { href: `${config.repoUrl}/issues/new?template=pledge.yml`, rel: 'noopener' }, 'tell us where'), '. A pledge is listed only if the statement it links to shows it publicly.'),
-      ),
-      h(
-        'section',
-        null,
-        h('h2', null, 'Add the badge to your site'),
+        h('h2', null, 'Show the badge on your site'),
         h('p', null, h('img', { src: '/badge.svg', alt: 'I back Fair Maps', width: '200', height: '40' })),
         h('pre', { class: 'strv-pledges__snippet' }, h('code', null, BADGE_SNIPPET)),
+        h('p', null, `Add the badge to your home page and link it to ${config.siteHost}/pledges. It shows up within minutes of the first visitor loading the page.`),
+        h('p', null, 'Put it on your home page. We check each site about once a day; if the badge is removed, the site drops off the list.'),
+        h(
+          'p',
+          null,
+          `What we look for: the badge image (${config.siteHost}/api/badge) and a link to ${config.siteHost} on the same page. Either wrap the image in a link, as above, or keep the image and add a link to us anywhere else on the page. The image has to be in the page’s own HTML (an `,
+          h('code', null, '<img>'),
+          ' tag), not added by a script.',
+        ),
       ),
     ),
   );

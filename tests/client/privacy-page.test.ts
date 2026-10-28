@@ -22,6 +22,7 @@ describe('privacy page', () => {
       'Services we use',
       'Visit counts',
       'Address lookups',
+      'The badge',
       'Kept in your browser',
       'Hosting',
       'Nothing else',

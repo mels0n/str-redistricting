@@ -25,16 +25,16 @@ describe('badgeRepo', () => {
     await badgeRepo(client()).recordCheck('u', { checkedAt: 'T', consecutiveFailures: 1, verified: null });
     expect(calls[0]).toEqual({ op: 'update', args: [{ last_checked: 'T', consecutive_failures: 1 }] });
     calls.length = 0;
-    await badgeRepo(client()).recordCheck('u', { checkedAt: 'T', consecutiveFailures: 0, verified: { title: 'Home' } });
-    expect(calls[0]!.args[0]).toEqual({ last_checked: 'T', consecutive_failures: 0, verified_at: 'T', title: 'Home' });
+    await badgeRepo(client()).recordCheck('u', { checkedAt: 'T', consecutiveFailures: 0, verified: { title: 'Home', foundUrl: 'https://example.com/' } });
+    expect(calls[0]!.args[0]).toEqual({ last_checked: 'T', consecutive_failures: 0, verified_at: 'T', title: 'Home', found_url: 'https://example.com/' });
   });
   it('lists only verified rows that have failed fewer than twice, and maps columns', async () => {
     calls.length = 0;
-    const row = { url: 'https://example.com/', host: 'example.com', first_seen: 'a', last_seen: 'b', verified_at: 'c', last_checked: 'd', consecutive_failures: 1, title: 'T' };
+    const row = { url: 'https://example.com/', host: 'example.com', first_seen: 'a', last_seen: 'b', verified_at: 'c', last_checked: 'd', consecutive_failures: 1, title: 'T', found_url: 'https://example.com/x' };
     const out = await badgeRepo(client([row])).listed(10);
     expect(calls.find((c) => c.op === 'not')!.args).toEqual(['verified_at', 'is', null]);
     expect(calls.find((c) => c.op === 'lt')!.args).toEqual(['consecutive_failures', 2]);
-    expect(out).toEqual([{ url: 'https://example.com/', host: 'example.com', firstSeen: 'a', lastSeen: 'b', verifiedAt: 'c', lastChecked: 'd', consecutiveFailures: 1, title: 'T' }]);
+    expect(out).toEqual([{ url: 'https://example.com/', host: 'example.com', firstSeen: 'a', lastSeen: 'b', verifiedAt: 'c', lastChecked: 'd', consecutiveFailures: 1, title: 'T', foundUrl: 'https://example.com/x' }]);
   });
   it('turns a database error into a plain one with no details', async () => {
     const failing = (): unknown => new Proxy(() => undefined, { get: (_t, p) => (p === 'then' ? (ok: (v: unknown) => unknown) => ok({ data: null, error: { message: 'secret detail' } }) : () => failing()) });
@@ -47,7 +47,7 @@ describe('0006_badge.sql', () => {
   const sql = readFileSync('supabase/migrations/0006_badge.sql', 'utf8');
   it('adds only the one table, with the columns the code uses and no personal data', () => {
     expect(sql.match(/create table/gi)).toHaveLength(1);
-    for (const c of ['url text primary key', 'host text not null', 'first_seen', 'last_seen', 'verified_at', 'last_checked', 'consecutive_failures', 'title']) expect(sql).toContain(c);
+    for (const c of ['url text primary key', 'host text not null', 'first_seen', 'last_seen', 'verified_at', 'last_checked', 'consecutive_failures', 'found_url', 'title']) expect(sql).toContain(c);
     const code = sql.replace(/--.*$/gm, '');
     expect(code).not.toMatch(/\bip\b|ip_hash|email/i);
     expect(code).not.toMatch(/drop |alter table (?!badge_sightings)/i);

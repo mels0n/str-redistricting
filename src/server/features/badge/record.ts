@@ -17,22 +17,37 @@ export interface RecordDeps {
 
 export type RecordOutcome = 'recorded' | 'ignored' | 'fresh' | 'limited' | 'full';
 
+/** A page not verified in this long is checked again right after it is seen. */
+export const RECHECK_AFTER_MS = 24 * 3_600_000;
+
+export interface Recorded {
+  outcome: RecordOutcome;
+  /** The stored page address when something was written; the caller may check it right away. */
+  url: string | null;
+  /** True when the page is new or has not been verified in the last 24 hours. */
+  needsCheck: boolean;
+}
+
 /**
  * Notes that the badge image was asked for by a page of another site. Only the page address from the Referer header is kept, with
  * its query and fragment removed. At most one write per page per hour (a page seen within the hour costs one read and nothing
  * else), writes are limited per visitor network through `limit`, and a new page is refused once the table holds `maxRows`.
  */
-export async function recordSighting(referer: string | null, deps: RecordDeps): Promise<RecordOutcome> {
+export async function recordSighting(referer: string | null, deps: RecordDeps): Promise<Recorded> {
+  const none = (outcome: RecordOutcome): Recorded => ({ outcome, url: null, needsCheck: false });
   const page = normalizeReferrer(referer, deps.ownHosts);
-  if (!page) return 'ignored';
-  const seen = await deps.repo.lastSeen(page.url);
-  if (seen !== null && deps.now.getTime() - Date.parse(seen) < REWRITE_AFTER_MS) return 'fresh';
+  if (!page) return none('ignored');
+  const row = await deps.repo.find(page.url);
+  if (row !== null && deps.now.getTime() - Date.parse(row.lastSeen) < REWRITE_AFTER_MS) return none('fresh');
   try {
     await deps.limit();
   } catch {
-    return 'limited';
+    return none('limited');
   }
-  if (seen === null && (await deps.repo.count()) >= (deps.maxRows ?? MAX_SIGHTINGS)) return 'full';
+  if (row === null && (await deps.repo.count()) >= (deps.maxRows ?? MAX_SIGHTINGS)) return none('full');
   await deps.repo.touch(page.url, page.host, deps.now.toISOString());
-  return 'recorded';
+  const old = (iso: string | null, ms: number): boolean => iso === null || deps.now.getTime() - Date.parse(iso) >= ms;
+  // A page that was looked at within the hour is left to the next hour or the daily run, even if it has not been verified.
+  const stale = row === null || (old(row.verifiedAt, RECHECK_AFTER_MS) && old(row.lastChecked, REWRITE_AFTER_MS));
+  return { outcome: 'recorded', url: page.url, needsCheck: stale };
 }

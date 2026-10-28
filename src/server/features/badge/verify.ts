@@ -4,35 +4,53 @@ import { scanForBadge } from './html.js';
 import { CHECKER_NAME, robotsAllows } from './robots.js';
 
 export const CHECKER_USER_AGENT = `${CHECKER_NAME} (+https://fairmaps.melson.us/pledges)`;
-export const SITES_PER_RUN = 25;
+/** The most sites one daily run looks at. */
+export const SITES_PER_RUN = 100;
+/** Sites fetched at the same time in the daily run. */
+export const CHECK_CONCURRENCY = 5;
+/** Time the daily run may spend before it starts no new site (the function itself is allowed 60 seconds). */
+export const RUN_BUDGET_MS = 50_000;
+/** A page is looked at again by the daily run when its last check is older than this. */
 export const CHECK_EVERY_MS = 20 * 3_600_000;
+/** Checks started right after a badge request, across the whole site. Beyond this a page waits for the daily run. */
+export const IMMEDIATE_CHECKS_PER_HOUR = 60;
 export const FORGET_AFTER_MS = 60 * 86_400_000;
-const WORKERS = 5;
 
 export type FetchPage = (url: string, accept?: string) => Promise<FetchedPage>;
 
 /** The real fetch: public https sites only, 5 seconds, 1 MB, three redirects, each hop checked. */
 export const fetchPage: FetchPage = (url, accept) => fetchPublic(url, { userAgent: CHECKER_USER_AGENT, timeoutMs: 5000, maxBytes: 1_048_576, maxRedirects: 3, ...(accept ? { accept } : {}) });
 
-export interface VerifyDeps {
+export interface CheckContext {
   repo: BadgeRepo;
   /** Our own host, the one a page must show the badge from and link to. */
   siteHost: string;
   now: () => Date;
   fetchPage?: FetchPage;
-  /** Epoch milliseconds after which no new site is started. */
-  deadline: number;
   /** Logs a code only: never an address, a header or a body. */
   log?: (code: string) => void;
+}
+
+export interface VerifyDeps extends CheckContext {
+  /** Epoch milliseconds after which no new site is started. */
+  deadline: number;
   sitesPerRun?: number;
 }
 
 export type CheckOutcome = 'verified' | 'failed';
+export interface CheckFinding {
+  outcome: CheckOutcome;
+  title: string | null;
+  /** The page the badge was found on. */
+  foundUrl: string | null;
+}
 
+type Robots = (host: string) => Promise<string | null>;
+const defaultLog = (code: string): void => console.error(JSON.stringify({ badgeCheck: code }));
 const codeOf = (e: unknown): string => (e instanceof SsrfError ? e.code : 'error');
 
 /** The text of a site's robots.txt, or null when it has none we can read (which allows the check). One fetch per host per run. */
-function robotsLoader(get: FetchPage): (host: string) => Promise<string | null> {
+function robotsLoader(get: FetchPage): Robots {
   const seen = new Map<string, Promise<string | null>>();
   return (host) => {
     let p = seen.get(host);
@@ -47,73 +65,116 @@ function robotsLoader(get: FetchPage): (host: string) => Promise<string | null> 
   };
 }
 
-/**
- * Looks at one stored page: robots.txt must allow it, and the page (after at most three checked redirects) must show our badge and
- * link to our site. Anything else, including an error, is a failed check; no error text leaves this function.
- */
-export async function checkSighting(row: Sighting, siteHost: string, get: FetchPage, robots: (host: string) => Promise<string | null>, log: (code: string) => void): Promise<{ outcome: CheckOutcome; title: string | null }> {
-  const failed = { outcome: 'failed' as const, title: null };
-  const url = parsePublicHttpsUrl(row.url);
-  if (!url) return failed;
-  try {
-    const txt = await robots(url.hostname);
-    if (txt !== null && !robotsAllows(txt, `${url.pathname}${url.search}`)) {
-      log('robots');
-      return failed;
-    }
-    const page = await get(url.href);
-    if (page.status < 200 || page.status >= 300 || !/html/i.test(page.contentType ?? '')) {
-      log('status');
-      return failed;
-    }
-    const scan = scanForBadge(page.body, page.url, siteHost);
-    if (!scan.badge || !scan.link) {
-      log('no-badge');
-      return failed;
-    }
-    return { outcome: 'verified', title: scan.title };
-  } catch (e) {
-    log(codeOf(e));
-    return failed;
-  }
+/** The pages to look at: the stored page first (it is where the badge was seen), then the site's home page. */
+function pagesOf(url: URL): string[] {
+  const home = `${url.origin}/`;
+  return url.href === home ? [home] : [url.href, home];
 }
 
 /**
- * The daily check: the pages not looked at for about a day, never-checked first and then oldest, at most 25, five at a time, and
- * no new one after the deadline. Each result is recorded as it comes. A page that fails twice in a row is no longer listed; pages
- * nobody has seen showing the badge for 60 days are deleted. It never throws.
+ * Looks at one stored page and, when it differs, the site's home page. robots.txt must allow each page; the page (after at most
+ * three checked redirects) must show our badge and link to our site, either by wrapping the badge image in a link to our site or by
+ * having a link to our site elsewhere on the page. The first page that does is the one reported. Anything else, including an error,
+ * is a failed check; no error text leaves this function.
+ */
+export async function checkSighting(row: Sighting, siteHost: string, get: FetchPage, robots: Robots, log: (code: string) => void): Promise<CheckFinding> {
+  const failed: CheckFinding = { outcome: 'failed', title: null, foundUrl: null };
+  const url = parsePublicHttpsUrl(row.url);
+  if (!url) return failed;
+  for (const target of pagesOf(url)) {
+    try {
+      const where = new URL(target);
+      const txt = await robots(where.hostname);
+      if (txt !== null && !robotsAllows(txt, `${where.pathname}${where.search}`)) {
+        log('robots');
+        continue;
+      }
+      const page = await get(target);
+      if (page.status < 200 || page.status >= 300 || !/html/i.test(page.contentType ?? '')) {
+        log('status');
+        continue;
+      }
+      const scan = scanForBadge(page.body, page.url, siteHost);
+      if (scan.badge && scan.link) return { outcome: 'verified', title: scan.title, foundUrl: target };
+      log('no-badge');
+    } catch (e) {
+      log(codeOf(e));
+    }
+  }
+  return failed;
+}
+
+/** Checks one row and records the result. False when the result could not be recorded. */
+async function checkAndRecord(row: Sighting, ctx: CheckContext, robots: Robots): Promise<CheckOutcome | null> {
+  const log = ctx.log ?? defaultLog;
+  const get = ctx.fetchPage ?? fetchPage;
+  const found = await checkSighting(row, ctx.siteHost, get, robots, log);
+  const checkedAt = ctx.now().toISOString();
+  try {
+    await ctx.repo.recordCheck(
+      row.url,
+      found.outcome === 'verified' && found.foundUrl !== null
+        ? { checkedAt, consecutiveFailures: 0, verified: { title: found.title, foundUrl: found.foundUrl } }
+        : { checkedAt, consecutiveFailures: row.consecutiveFailures + 1, verified: null },
+    );
+  } catch {
+    log('record');
+    return null;
+  }
+  return found.outcome;
+}
+
+/**
+ * The daily check: the pages not looked at for about a day, never-checked first and then the oldest check, at most 100, five at a
+ * time, and no new one after the deadline. Each result is recorded as it comes. A page that fails twice in a row is no longer
+ * listed; pages nobody has seen showing the badge for 60 days are deleted. It never throws.
  */
 export async function runBadgeChecks(deps: VerifyDeps): Promise<{ checked: number; verified: number }> {
-  const log = deps.log ?? ((code: string) => console.error(JSON.stringify({ badgeCheck: code })));
-  const get = deps.fetchPage ?? fetchPage;
+  const log = deps.log ?? defaultLog;
   const stats = { checked: 0, verified: 0 };
   try {
     const now = deps.now();
     const due = await deps.repo.dueForCheck(new Date(now.getTime() - CHECK_EVERY_MS).toISOString(), deps.sitesPerRun ?? SITES_PER_RUN);
-    const robots = robotsLoader(get);
+    const robots = robotsLoader(deps.fetchPage ?? fetchPage);
     const queue = [...due];
     const worker = async (): Promise<void> => {
       for (let row = queue.shift(); row; row = queue.shift()) {
         if (Date.now() > deps.deadline) return;
-        const result = await checkSighting(row, deps.siteHost, get, robots, log);
-        const checkedAt = deps.now().toISOString();
-        try {
-          await deps.repo.recordCheck(
-            row.url,
-            result.outcome === 'verified' ? { checkedAt, consecutiveFailures: 0, verified: { title: result.title } } : { checkedAt, consecutiveFailures: row.consecutiveFailures + 1, verified: null },
-          );
-        } catch {
-          log('record');
-          continue;
-        }
+        const outcome = await checkAndRecord(row, deps, robots);
+        if (outcome === null) continue;
         stats.checked++;
-        if (result.outcome === 'verified') stats.verified++;
+        if (outcome === 'verified') stats.verified++;
       }
     };
-    await Promise.all(Array.from({ length: Math.min(WORKERS, due.length) }, worker));
+    await Promise.all(Array.from({ length: Math.min(CHECK_CONCURRENCY, due.length) }, worker));
     await deps.repo.prune(new Date(now.getTime() - FORGET_AFTER_MS).toISOString());
   } catch {
     log('run');
   }
   return stats;
+}
+
+export interface VerifyNowDeps extends CheckContext {
+  /** Asks for one of the site-wide immediate checks of the hour; false (or a throw) means it is used up. */
+  allow: () => Promise<boolean>;
+}
+
+export type VerifyNowOutcome = 'verified' | 'failed' | 'limited' | 'missing' | 'error';
+
+/**
+ * Checks one page right after the badge was requested from it, so a new site shows up within minutes. It first asks `allow`, which
+ * holds the site-wide hourly limit, so a flood of made-up referrers cannot make the server crawl the web; a page over the limit
+ * waits for the daily run. It follows the same rules as the daily run and never throws.
+ */
+export async function verifyNow(url: string, deps: VerifyNowDeps): Promise<VerifyNowOutcome> {
+  try {
+    const row = await deps.repo.find(url);
+    if (!row) return 'missing';
+    if (!(await deps.allow())) return 'limited';
+    const outcome = await checkAndRecord(row, deps, robotsLoader(deps.fetchPage ?? fetchPage));
+    return outcome ?? 'error';
+  } catch {
+    (deps.log ?? defaultLog)('now');
+    return 'error';
+  }
 }

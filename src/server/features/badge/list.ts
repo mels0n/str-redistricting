@@ -14,6 +14,7 @@ export const WebsitesFileSchema = z.record(
 export type WebsitesFile = z.infer<typeof WebsitesFileSchema>;
 
 export interface BadgeSite {
+  /** The page where the badge was found: the exact page to link to. */
   url: string;
   host: string;
   title: string | null;
@@ -34,7 +35,7 @@ export async function readBadgeSites(repo: BadgeRepo, websites: WebsitesFile): P
     if (seen.has(key)) continue;
     seen.add(key);
     const rep = Object.hasOwn(websites, key) ? websites[key] : undefined;
-    sites.push({ url: r.url, host: r.host, title: r.title, name: rep?.name ?? null, office: rep ? `${OFFICE_LABEL[rep.office]}, ${rep.state}` : null });
+    sites.push({ url: r.foundUrl ?? r.url, host: r.host, title: r.title, name: rep?.name ?? null, office: rep ? `${OFFICE_LABEL[rep.office]}, ${rep.state}` : null });
     if (sites.length === MAX_LISTED) break;
   }
   return { sites };

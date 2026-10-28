@@ -10,6 +10,8 @@ export interface Sighting {
   lastChecked: string | null;
   consecutiveFailures: number;
   title: string | null;
+  /** The page where the badge was last found (the stored page or the site's home page), or null before the first pass. */
+  foundUrl: string | null;
 }
 
 /** What one check found. A failed check carries the new failure count. */
@@ -17,7 +19,7 @@ export interface CheckResult {
   checkedAt: string;
   consecutiveFailures: number;
   /** Set only by a check that found the badge: the page's title (or null) and the time it was verified. */
-  verified: { title: string | null } | null;
+  verified: { title: string | null; foundUrl: string } | null;
 }
 
 /** A failed check count at or above this unlists a site. */
@@ -25,8 +27,8 @@ export const UNLIST_AFTER_FAILURES = 2;
 
 /** The data access for badge sightings. Tests pass an in-memory implementation. */
 export interface BadgeRepo {
-  /** When the page was last seen, or null if it is not in the table. */
-  lastSeen(url: string): Promise<string | null>;
+  /** The page's row, or null if it is not in the table. */
+  find(url: string): Promise<Sighting | null>;
   count(): Promise<number>;
   /** Adds the page or, if it is there, only moves last_seen: what the checks found is kept. */
   touch(url: string, host: string, nowIso: string): Promise<void>;
@@ -43,7 +45,7 @@ const fail = (): never => {
   throw new Error('database error');
 };
 
-const COLUMNS = 'url, host, first_seen, last_seen, verified_at, last_checked, consecutive_failures, title';
+const COLUMNS = 'url, host, first_seen, last_seen, verified_at, last_checked, consecutive_failures, title, found_url';
 
 interface Row {
   url: string;
@@ -54,6 +56,7 @@ interface Row {
   last_checked: string | null;
   consecutive_failures: number;
   title: string | null;
+  found_url: string | null;
 }
 
 const toSighting = (r: Row): Sighting => ({
@@ -65,15 +68,16 @@ const toSighting = (r: Row): Sighting => ({
   lastChecked: r.last_checked,
   consecutiveFailures: r.consecutive_failures,
   title: r.title,
+  foundUrl: r.found_url,
 });
 
 /** The service-role client is handed in (the api layer owns the connection). */
 export function badgeRepo(client: SupabaseClient): BadgeRepo {
   return {
-    async lastSeen(url) {
-      const { data, error } = await client.from('badge_sightings').select('last_seen').eq('url', url).maybeSingle();
+    async find(url) {
+      const { data, error } = await client.from('badge_sightings').select(COLUMNS).eq('url', url).maybeSingle();
       if (error) fail();
-      return data ? String((data as { last_seen: string }).last_seen) : null;
+      return data ? toSighting(data as unknown as Row) : null;
     },
     async count() {
       const { count, error } = await client.from('badge_sightings').select('url', { count: 'exact', head: true });
@@ -97,7 +101,7 @@ export function badgeRepo(client: SupabaseClient): BadgeRepo {
     },
     async recordCheck(url, result) {
       const patch: Record<string, unknown> = { last_checked: result.checkedAt, consecutive_failures: result.consecutiveFailures };
-      if (result.verified) Object.assign(patch, { verified_at: result.checkedAt, title: result.verified.title });
+      if (result.verified) Object.assign(patch, { verified_at: result.checkedAt, title: result.verified.title, found_url: result.verified.foundUrl });
       const { error } = await client.from('badge_sightings').update(patch).eq('url', url);
       if (error) fail();
     },

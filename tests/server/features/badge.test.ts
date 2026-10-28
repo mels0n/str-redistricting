@@ -4,7 +4,7 @@ import type { BadgeRepo, CheckResult, Sighting } from '../../../src/server/entit
 import { UNLIST_AFTER_FAILURES } from '../../../src/server/entities/badge-db/index.js';
 import { badgeHandler } from '../../../src/server/api/badge.js';
 import { badgeSitesHandler } from '../../../src/server/api/badge-sites.js';
-import { BADGE_SVG, cleanTitle, clearWebsitesCache, loadWebsites, normalizeReferrer, readBadgeSites, recordSighting, robotsAllows, runBadgeChecks, scanForBadge, type FetchPage } from '../../../src/server/features/badge/index.js';
+import { BADGE_SVG, CHECK_CONCURRENCY, IMMEDIATE_CHECKS_PER_HOUR, RUN_BUDGET_MS, SITES_PER_RUN, cleanTitle, clearWebsitesCache, loadWebsites, normalizeReferrer, readBadgeSites, recordSighting, robotsAllows, runBadgeChecks, scanForBadge, verifyNow, type FetchPage } from '../../../src/server/features/badge/index.js';
 import { SsrfError } from '../../../src/server/shared/ssrf/index.js';
 
 const HOST = 'fairmaps.melson.us';
@@ -12,15 +12,15 @@ const OWN = [HOST, 'localhost'];
 
 class MemoryRepo implements BadgeRepo {
   rows = new Map<string, Sighting>();
-  async lastSeen(url: string): Promise<string | null> {
-    return this.rows.get(url)?.lastSeen ?? null;
+  async find(url: string): Promise<Sighting | null> {
+    return this.rows.get(url) ?? null;
   }
   async count(): Promise<number> {
     return this.rows.size;
   }
   async touch(url: string, host: string, nowIso: string): Promise<void> {
     const old = this.rows.get(url);
-    this.rows.set(url, old ? { ...old, lastSeen: nowIso } : { url, host, firstSeen: nowIso, lastSeen: nowIso, verifiedAt: null, lastChecked: null, consecutiveFailures: 0, title: null });
+    this.rows.set(url, old ? { ...old, lastSeen: nowIso } : { url, host, firstSeen: nowIso, lastSeen: nowIso, verifiedAt: null, lastChecked: null, consecutiveFailures: 0, title: null, foundUrl: null });
   }
   async dueForCheck(beforeIso: string, limit: number): Promise<Sighting[]> {
     return [...this.rows.values()]
@@ -30,7 +30,7 @@ class MemoryRepo implements BadgeRepo {
   }
   async recordCheck(url: string, r: CheckResult): Promise<void> {
     const old = this.rows.get(url)!;
-    this.rows.set(url, { ...old, lastChecked: r.checkedAt, consecutiveFailures: r.consecutiveFailures, ...(r.verified ? { verifiedAt: r.checkedAt, title: r.verified.title } : {}) });
+    this.rows.set(url, { ...old, lastChecked: r.checkedAt, consecutiveFailures: r.consecutiveFailures, ...(r.verified ? { verifiedAt: r.checkedAt, title: r.verified.title, foundUrl: r.verified.foundUrl } : {}) });
   }
   async listed(limit: number): Promise<Sighting[]> {
     return [...this.rows.values()]
@@ -92,41 +92,58 @@ describe('recordSighting', () => {
   });
 
   it('records a page once, with the query dropped', async () => {
-    expect(await recordSighting('https://example.com/news?a=1', deps())).toBe('recorded');
+    expect((await recordSighting('https://example.com/news?a=1', deps())).outcome).toBe('recorded');
     expect([...repo.rows.keys()]).toEqual(['https://example.com/news']);
     expect(repo.rows.get('https://example.com/news')!.host).toBe('example.com');
+  });
+  it('asks for an immediate check of a new page, and of one not verified for a day, but not of one verified or looked at lately', async () => {
+    const first = await recordSighting('https://example.com/', deps());
+    expect(first).toMatchObject({ outcome: 'recorded', url: 'https://example.com/', needsCheck: true });
+    const at = (h: number) => new Date(NOW.getTime() + h * 3_600_000);
+    // looked at an hour ago and failed: left for later
+    await repo.recordCheck('https://example.com/', { checkedAt: NOW.toISOString(), consecutiveFailures: 1, verified: null });
+    expect((await recordSighting('https://example.com/', deps({ now: at(0.5 + 1) }))).needsCheck).toBe(true);
+    await repo.recordCheck('https://example.com/', { checkedAt: at(2.2).toISOString(), consecutiveFailures: 1, verified: null });
+    expect((await recordSighting('https://example.com/', deps({ now: at(2.6) }))).needsCheck).toBe(false);
+    // verified this morning: no check until a day has passed
+    await repo.recordCheck('https://example.com/', { checkedAt: at(3).toISOString(), consecutiveFailures: 0, verified: { title: null, foundUrl: 'https://example.com/' } });
+    expect((await recordSighting('https://example.com/', deps({ now: at(5) }))).needsCheck).toBe(false);
+    expect((await recordSighting('https://example.com/', deps({ now: at(28) }))).needsCheck).toBe(true);
+    // a page that was not written (fresh, ignored, limited) never asks for a check
+    expect(await recordSighting('https://example.com/', deps({ now: at(28.1) }))).toMatchObject({ outcome: 'fresh', url: null, needsCheck: false });
+    expect(await recordSighting(`https://${HOST}/`, deps())).toMatchObject({ outcome: 'ignored', needsCheck: false });
   });
   it('writes a page at most once an hour, and a repeat does not use the visitor allowance', async () => {
     await recordSighting('https://example.com/', deps());
     expect(limited).toBe(1);
-    expect(await recordSighting('https://example.com/', deps({ now: new Date(NOW.getTime() + 30 * 60_000) }))).toBe('fresh');
+    expect((await recordSighting('https://example.com/', deps({ now: new Date(NOW.getTime() + 30 * 60_000) }))).outcome).toBe('fresh');
     expect(limited).toBe(1);
-    expect(await recordSighting('https://example.com/', deps({ now: new Date(NOW.getTime() + 61 * 60_000) }))).toBe('recorded');
+    expect((await recordSighting('https://example.com/', deps({ now: new Date(NOW.getTime() + 61 * 60_000) }))).outcome).toBe('recorded');
     expect(repo.rows.get('https://example.com/')!.lastSeen).toBe(new Date(NOW.getTime() + 61 * 60_000).toISOString());
   });
   it('keeps what the checks found when a page is seen again', async () => {
     await recordSighting('https://example.com/', deps());
-    await repo.recordCheck('https://example.com/', { checkedAt: NOW.toISOString(), consecutiveFailures: 0, verified: { title: 'Home' } });
+    await repo.recordCheck('https://example.com/', { checkedAt: NOW.toISOString(), consecutiveFailures: 0, verified: { title: 'Home', foundUrl: 'https://example.com/' } });
     await recordSighting('https://example.com/', deps({ now: new Date(NOW.getTime() + 2 * 3_600_000) }));
     expect(repo.rows.get('https://example.com/')).toMatchObject({ verifiedAt: NOW.toISOString(), title: 'Home' });
   });
   it('ignores our own site and bad referrers without touching the limit or the table', async () => {
-    expect(await recordSighting(`https://${HOST}/pledges`, deps())).toBe('ignored');
-    expect(await recordSighting('http://127.0.0.1/', deps())).toBe('ignored');
-    expect(await recordSighting(null, deps())).toBe('ignored');
+    expect((await recordSighting(`https://${HOST}/pledges`, deps())).outcome).toBe('ignored');
+    expect((await recordSighting('http://127.0.0.1/', deps())).outcome).toBe('ignored');
+    expect((await recordSighting(null, deps())).outcome).toBe('ignored');
     expect(limited).toBe(0);
     expect(repo.rows.size).toBe(0);
   });
   it('writes nothing when the visitor is over the limit', async () => {
-    expect(await recordSighting('https://example.com/', deps({ limit: async () => Promise.reject(new Error('rate-limit')) }))).toBe('limited');
+    expect((await recordSighting('https://example.com/', deps({ limit: async () => Promise.reject(new Error('rate-limit')) }))).outcome).toBe('limited');
     expect(repo.rows.size).toBe(0);
   });
   it('refuses a new page once the table is full, but still refreshes a known one', async () => {
     await recordSighting('https://a.example.com/', deps({ maxRows: 2 }));
     await recordSighting('https://b.example.com/', deps({ maxRows: 2 }));
-    expect(await recordSighting('https://c.example.com/', deps({ maxRows: 2 }))).toBe('full');
+    expect((await recordSighting('https://c.example.com/', deps({ maxRows: 2 }))).outcome).toBe('full');
     expect(repo.rows.size).toBe(2);
-    expect(await recordSighting('https://a.example.com/', deps({ maxRows: 2, now: new Date(NOW.getTime() + 2 * 3_600_000) }))).toBe('recorded');
+    expect((await recordSighting('https://a.example.com/', deps({ maxRows: 2, now: new Date(NOW.getTime() + 2 * 3_600_000) }))).outcome).toBe('recorded');
   });
 });
 
@@ -137,6 +154,30 @@ describe('scanForBadge', () => {
 
   it('finds the image from /api/badge and a link to the pledges page', () => {
     expect(scan(`<html><body>${both()}</body></html>`)).toMatchObject({ badge: true, link: true });
+  });
+  describe('the recognised setups', () => {
+    const ok = { badge: true, link: true };
+    it('A: the badge image wrapped in a link to our site (any path)', () => {
+      for (const path of ['', '/', '/pledges', '/how', '/MA/house']) expect(scan(`<a href="https://${HOST}${path}"><img src="https://${HOST}/api/badge"></a>`), path).toMatchObject(ok);
+    });
+    it('B: the badge image plus a link to our site elsewhere on the page, wrapped or not', () => {
+      expect(scan(`<img src="https://${HOST}/api/badge"><footer><a href="https://${HOST}/pledges">Fair Maps</a></footer>`)).toMatchObject(ok);
+      expect(scan(`<p><a href="https://other.example.org/"><img src="https://${HOST}/api/badge"></a></p><a href="https://${HOST}/">Fair Maps</a>`)).toMatchObject(ok);
+    });
+    it('accepts the http spelling, www, and the older /badge.svg address', () => {
+      expect(scan(`<a href="http://${HOST}/pledges"><img src="http://${HOST}/api/badge"></a>`)).toMatchObject(ok);
+      expect(scan(`<a href="https://www.${HOST}/pledges"><img src="https://www.${HOST}/badge.svg"></a>`)).toMatchObject(ok);
+    });
+    it('does not require lazy-loading attributes, srcset, picture, object or CSS backgrounds', () => {
+      expect(scan(`<a href="https://${HOST}/pledges"><img data-src="https://${HOST}/api/badge" src="data:image/gif;base64,R0lG"></a>`)).toMatchObject({ badge: false });
+      expect(scan(`<a href="https://${HOST}/pledges"><picture><source srcset="https://${HOST}/api/badge"></picture></a>`)).toMatchObject({ badge: false });
+      expect(scan(`<a href="https://${HOST}/pledges"><object data="https://${HOST}/api/badge"></object></a>`)).toMatchObject({ badge: false });
+    });
+    it('is not satisfied by the badge alone, a link alone, or a link from another site', () => {
+      expect(scan(`<img src="https://${HOST}/api/badge">`)).toMatchObject({ badge: true, link: false });
+      expect(scan(`<a href="https://${HOST}/pledges">x</a>`)).toMatchObject({ badge: false, link: true });
+      expect(scan(`<a href="https://other.example.org/"><img src="https://${HOST}/api/badge"></a>`)).toMatchObject({ link: false });
+    });
   });
   it('finds the image from /badge.svg too', () => {
     expect(scan(`<a href="https://${HOST}/"><img src="https://${HOST}/badge.svg"></a>`)).toMatchObject({ badge: true, link: true });
@@ -321,14 +362,98 @@ describe('runBadgeChecks', () => {
     expect(urls.filter((u) => u.endsWith('/robots.txt'))).toHaveLength(1);
   });
 
-  it('checks the oldest first, at most 25 per run, and not a page checked in the last day', async () => {
-    for (let i = 0; i < 30; i++) await seed(`https://s${String(i).padStart(2, '0')}.example.com/`);
+  it('checks at most SITES_PER_RUN per run, never-checked first and then the oldest check, and not a page checked in the last day', async () => {
+    expect([SITES_PER_RUN, CHECK_CONCURRENCY, IMMEDIATE_CHECKS_PER_HOUR, RUN_BUDGET_MS]).toEqual([100, 5, 60, 50_000]);
+    const total = SITES_PER_RUN + 5;
+    for (let i = 0; i < total; i++) await seed(`https://s${String(i).padStart(3, '0')}.example.com/`);
     const get: FetchPage = async (url) => (url.endsWith('/robots.txt') ? { status: 404, url, contentType: null, body: '' } : html(SNIPPET));
-    expect((await run(get)).checked).toBe(25);
+    expect((await run(get)).checked).toBe(SITES_PER_RUN);
     expect((await run(get)).checked).toBe(5);
     expect((await run(get)).checked).toBe(0);
     nextDay();
-    expect((await run(get)).checked).toBe(25);
+    expect((await run(get)).checked).toBe(SITES_PER_RUN);
+  });
+
+  it('does not let old pages starve new ones: never-checked pages go before checked ones, and the oldest check before newer ones', async () => {
+    await seed('https://old.example.com/');
+    await seed('https://older.example.com/');
+    await repo.recordCheck('https://old.example.com/', { checkedAt: '2026-10-20T00:00:00.000Z', consecutiveFailures: 0, verified: null });
+    await repo.recordCheck('https://older.example.com/', { checkedAt: '2026-10-10T00:00:00.000Z', consecutiveFailures: 0, verified: null });
+    await seed('https://new.example.com/');
+    const order: string[] = [];
+    await run(async (url) => {
+      if (!url.endsWith('/robots.txt')) order.push(new URL(url).hostname);
+      return url.endsWith('/robots.txt') ? { status: 404, url, contentType: null, body: '' } : html(SNIPPET);
+    }, { sitesPerRun: 2 });
+    // two slots: the never-checked page and the oldest check; the newer check waits for tomorrow
+    expect(order.sort()).toEqual(['new.example.com', 'older.example.com']);
+  });
+
+  it('finds the badge on the home page when the stored page no longer has it, and reports the page it was found on', async () => {
+    await seed('https://example.com/news/post');
+    const pages = { 'https://example.com/news/post': html('<p>moved</p>'), 'https://example.com/': html(SNIPPET) };
+    await run(serve(pages));
+    expect(repo.rows.get('https://example.com/news/post')).toMatchObject({ foundUrl: 'https://example.com/', consecutiveFailures: 0 });
+    expect((await readBadgeSites(repo, {})).sites[0]!.url).toBe('https://example.com/');
+  });
+  it('reports the stored page itself when the badge is there, and checks the home page only if it must', async () => {
+    await seed('https://example.com/news/post');
+    const seen: string[] = [];
+    const inner = serve({ 'https://example.com/news/post': html(SNIPPET) });
+    await run(async (u, a) => {
+      seen.push(u);
+      return inner(u, a);
+    });
+    expect(repo.rows.get('https://example.com/news/post')!.foundUrl).toBe('https://example.com/news/post');
+    expect(seen.filter((u) => !u.endsWith('/robots.txt'))).toEqual(['https://example.com/news/post']);
+    expect((await readBadgeSites(repo, {})).sites[0]!.url).toBe('https://example.com/news/post');
+  });
+  it('fails when neither the stored page nor the home page has the badge', async () => {
+    await seed('https://example.com/news/post');
+    await run(serve({ 'https://example.com/news/post': html('<p>x</p>'), 'https://example.com/': html('<p>y</p>') }));
+    expect(repo.rows.get('https://example.com/news/post')).toMatchObject({ verifiedAt: null, consecutiveFailures: 1 });
+  });
+
+  describe('verifyNow (right after a badge request)', () => {
+    const now = (allow: () => Promise<boolean>, get: FetchPage, log: (c: string) => void = () => undefined) => ({ repo, siteHost: HOST, now: () => clock, fetchPage: get, allow, log });
+
+    it('verifies the page and lists it', async () => {
+      await seed();
+      expect(await verifyNow('https://example.com/', now(async () => true, serve({ 'https://example.com/': html(SNIPPET) })))).toBe('verified');
+      expect((await readBadgeSites(repo, {})).sites).toHaveLength(1);
+    });
+    it('does nothing, and fetches nothing, once the hourly allowance is used up', async () => {
+      await seed();
+      let fetched = 0;
+      const get: FetchPage = async () => {
+        fetched++;
+        return html(SNIPPET);
+      };
+      expect(await verifyNow('https://example.com/', now(async () => false, get))).toBe('limited');
+      expect(await verifyNow('https://example.com/', now(async () => Promise.reject(new Error('db')), get))).toBe('error');
+      expect(fetched).toBe(0);
+      expect(repo.rows.get('https://example.com/')).toMatchObject({ lastChecked: null, verifiedAt: null });
+    });
+    it('does not ask for an allowance for a page that is not in the table', async () => {
+      let asked = false;
+      expect(await verifyNow('https://nope.example.com/', now(async () => ((asked = true), true), serve({})))).toBe('missing');
+      expect(asked).toBe(false);
+    });
+    it('counts a failed fetch as a failed check, swallows errors, and logs codes only', async () => {
+      await seed();
+      const logged: string[] = [];
+      expect(await verifyNow('https://example.com/', now(async () => true, serve({ 'https://example.com/': 'error' }), (c) => logged.push(c)))).toBe('failed');
+      expect(repo.rows.get('https://example.com/')!.consecutiveFailures).toBe(1);
+      repo.recordCheck = async () => Promise.reject(new Error('https://secret.example.com'));
+      expect(await verifyNow('https://example.com/', now(async () => true, serve({ 'https://example.com/': html(SNIPPET) }), (c) => logged.push(c)))).toBe('error');
+      expect(logged.join(' ')).not.toMatch(/example|secret/);
+    });
+    it('still refuses an address that is not a public https page', async () => {
+      repo.rows.set('http://example.com/', { url: 'http://example.com/', host: 'example.com', firstSeen: 'a', lastSeen: 'a', verifiedAt: null, lastChecked: null, consecutiveFailures: 0, title: null, foundUrl: null });
+      let fetched = 0;
+      expect(await verifyNow('http://example.com/', now(async () => true, async () => (fetched++, html(SNIPPET))))).toBe('failed');
+      expect(fetched).toBe(0);
+    });
   });
 
   it('starts no new site after the deadline', async () => {
@@ -358,7 +483,7 @@ describe('runBadgeChecks', () => {
 
   it('refuses to fetch a stored address that is not a public https page', async () => {
     for (const bad of ['http://example.com/', 'https://127.0.0.1/', 'https://example.com:8443/', 'https://user@example.com/']) {
-      repo.rows.set(bad, { url: bad, host: 'x', firstSeen: clock.toISOString(), lastSeen: clock.toISOString(), verifiedAt: null, lastChecked: null, consecutiveFailures: 0, title: null });
+      repo.rows.set(bad, { url: bad, host: 'x', firstSeen: clock.toISOString(), lastSeen: clock.toISOString(), verifiedAt: null, lastChecked: null, consecutiveFailures: 0, title: null, foundUrl: null });
     }
     const fetched: string[] = [];
     await run(async (u) => {
@@ -371,7 +496,7 @@ describe('runBadgeChecks', () => {
 });
 
 describe('readBadgeSites', () => {
-  const sighting = (url: string, firstSeen: string, over: Partial<Sighting> = {}): Sighting => ({ url, host: new URL(url).hostname, firstSeen, lastSeen: firstSeen, verifiedAt: firstSeen, lastChecked: firstSeen, consecutiveFailures: 0, title: 'T', ...over });
+  const sighting = (url: string, firstSeen: string, over: Partial<Sighting> = {}): Sighting => ({ url, host: new URL(url).hostname, firstSeen, lastSeen: firstSeen, verifiedAt: firstSeen, lastChecked: firstSeen, consecutiveFailures: 0, title: 'T', foundUrl: null, ...over });
 
   it('lists verified sites newest first with the shape the page needs, one per host', async () => {
     const repo = new MemoryRepo();
@@ -411,7 +536,7 @@ describe('readBadgeSites', () => {
 describe('badge-sites handler', () => {
   it('answers { sites } with the shared-cache header', async () => {
     const repo = new MemoryRepo();
-    repo.rows.set('https://example.com/', { url: 'https://example.com/', host: 'example.com', firstSeen: NOW.toISOString(), lastSeen: NOW.toISOString(), verifiedAt: NOW.toISOString(), lastChecked: NOW.toISOString(), consecutiveFailures: 0, title: 'Home' });
+    repo.rows.set('https://example.com/', { url: 'https://example.com/', host: 'example.com', firstSeen: NOW.toISOString(), lastSeen: NOW.toISOString(), verifiedAt: NOW.toISOString(), lastChecked: NOW.toISOString(), consecutiveFailures: 0, title: 'Home', foundUrl: null });
     const res = await badgeSitesHandler({ repo: () => repo, websites: async () => ({}) })(new Request('https://fairmaps.melson.us/api/badge-sites'));
     expect(res.status).toBe(200);
     expect(res.headers.get('cache-control')).toBe('public, s-maxage=300, stale-while-revalidate=600');
@@ -458,8 +583,9 @@ describe('badge handler', () => {
     const attempts: string[] = [];
     return { attempts, repo: { countAttempts: async () => attempts.length, recordAttempt: async (h: string) => void attempts.push(h) } as never };
   };
-  const call = (env: string | undefined, referer: string | null, repo: MemoryRepo, r = rate(), headers: Record<string, string> = {}) =>
-    badgeHandler({ loadConfig: () => config(env), rateRepo: () => r.repo, repo: () => repo, now: () => NOW })(new Request(`https://${HOST}/api/badge`, { headers: { ...(referer ? { referer } : {}), 'x-real-ip': '203.0.113.7', ...headers } }));
+  const afterWork: Promise<unknown>[] = [];
+  const call = (env: string | undefined, referer: string | null, repo: MemoryRepo, r: { repo: never } = rate(), headers: Record<string, string> = {}, extra: Partial<Parameters<typeof badgeHandler>[0]> = {}) =>
+    badgeHandler({ loadConfig: () => config(env), rateRepo: () => r.repo, repo: () => repo, now: () => NOW, after: (w) => void afterWork.push(w), fetchPage: async () => Promise.reject(new SsrfError('network')), ...extra })(new Request(`https://${HOST}/api/badge`, { headers: { ...(referer ? { referer } : {}), 'x-real-ip': '203.0.113.7', ...headers } }));
 
   it('sends the image with an hour of browser caching and no shared caching', async () => {
     const res = await call('production', 'https://example.com/page?x=1', new MemoryRepo());
@@ -472,7 +598,7 @@ describe('badge handler', () => {
     const repo = new MemoryRepo();
     const r = rate();
     await call('production', 'https://example.com/page?x=1#top', repo, r);
-    expect([...repo.rows.values()]).toEqual([{ url: 'https://example.com/page', host: 'example.com', firstSeen: NOW.toISOString(), lastSeen: NOW.toISOString(), verifiedAt: null, lastChecked: null, consecutiveFailures: 0, title: null }]);
+    expect([...repo.rows.values()]).toEqual([{ url: 'https://example.com/page', host: 'example.com', firstSeen: NOW.toISOString(), lastSeen: NOW.toISOString(), verifiedAt: null, lastChecked: null, consecutiveFailures: 0, title: null, foundUrl: null }]);
     expect(r.attempts).toHaveLength(1);
     expect(r.attempts[0]).toMatch(/^[0-9a-f]{64}$/);
     expect(JSON.stringify([...repo.rows.values()])).not.toContain('203.0.113.7');
@@ -487,12 +613,70 @@ describe('badge handler', () => {
   });
   it('still sends the image when the database or the configuration fails', async () => {
     const repo = new MemoryRepo();
-    repo.lastSeen = async () => Promise.reject(new Error('down'));
+    repo.find = async () => Promise.reject(new Error('down'));
     expect((await call('production', 'https://example.com/', repo)).status).toBe(200);
     const res = await badgeHandler({ loadConfig: () => {
         throw new Error('x');
-      }, rateRepo: () => rate().repo, repo: () => repo, now: () => NOW })(new Request(`https://${HOST}/api/badge`));
+      }, rateRepo: () => rate().repo, repo: () => repo, now: () => NOW, after: () => undefined })(new Request(`https://${HOST}/api/badge`));
     expect(res.status).toBe(200);
+  });
+  describe('immediate verification', () => {
+    const SNIP = `<a href="https://${HOST}/pledges"><img src="https://${HOST}/api/badge"></a>`;
+    const page = async (url: string) => ({ status: 200, url, contentType: 'text/html', body: SNIP });
+    const keyed = () => {
+      const byKey = new Map<string, number>();
+      return { byKey, repo: { countAttempts: async (k: string) => byKey.get(k) ?? 0, recordAttempt: async (k: string) => void byKey.set(k, (byKey.get(k) ?? 0) + 1) } as never };
+    };
+    const drain = async () => {
+      await Promise.all(afterWork.splice(0));
+    };
+
+    it('checks a new page after the response through waitUntil, and lists it', async () => {
+      const repo = new MemoryRepo();
+      afterWork.length = 0;
+      const res = await call('production', 'https://example.com/news?x=1', repo, keyed() as never, {}, { fetchPage: async (u) => (u.endsWith('/robots.txt') ? { status: 404, url: u, contentType: null, body: '' } : page(u)) });
+      expect(res.status).toBe(200);
+      expect(afterWork).toHaveLength(1);
+      expect(repo.rows.get('https://example.com/news')!.verifiedAt).toBeNull();
+      await drain();
+      expect(repo.rows.get('https://example.com/news')).toMatchObject({ foundUrl: 'https://example.com/news', consecutiveFailures: 0 });
+      expect((await readBadgeSites(repo, {})).sites).toHaveLength(1);
+    });
+    it('does not schedule a check for our own site, a page seen within the hour, or outside production', async () => {
+      const repo = new MemoryRepo();
+      afterWork.length = 0;
+      await call('production', `https://${HOST}/pledges`, repo);
+      await call('preview', 'https://example.com/', repo);
+      expect(afterWork).toHaveLength(0);
+      await call('production', 'https://example.com/', repo);
+      await call('production', 'https://example.com/', repo);
+      expect(afterWork).toHaveLength(1);
+      await drain();
+    });
+    it('stops after 60 immediate checks in an hour across the whole site, counted in the shared allowance table', async () => {
+      const repo = new MemoryRepo();
+      const r = keyed();
+      let fetched = 0;
+      const fetchPage = async (u: string) => (u.endsWith('/robots.txt') ? { status: 404, url: u, contentType: null, body: '' } : (fetched++, page(u)));
+      afterWork.length = 0;
+      // different visitors (networks) so the per-visitor limit never gets in the way
+      for (let i = 0; i < IMMEDIATE_CHECKS_PER_HOUR + 10; i++) await call('production', `https://s${i}.example.com/`, repo, r as never, { 'x-real-ip': `203.0.${i}.9` }, { fetchPage });
+      await drain();
+      expect(fetched).toBe(IMMEDIATE_CHECKS_PER_HOUR);
+      expect(repo.rows.size).toBe(IMMEDIATE_CHECKS_PER_HOUR + 10);
+      expect([...repo.rows.values()].filter((x) => x.lastChecked === null)).toHaveLength(10);
+    });
+    it('swallows every error in the background work', async () => {
+      const repo = new MemoryRepo();
+      afterWork.length = 0;
+      await call('production', 'https://example.com/', repo, keyed() as never, {}, { fetchPage: async () => Promise.reject(new Error('boom')) });
+      await expect(drain()).resolves.toBeUndefined();
+      expect(repo.rows.get('https://example.com/')).toMatchObject({ consecutiveFailures: 1 });
+      const broken = new MemoryRepo();
+      broken.recordCheck = async () => Promise.reject(new Error('db'));
+      await call('production', 'https://example.com/', broken, keyed() as never, {}, { fetchPage: async (u) => page(u) });
+      await expect(drain()).resolves.toBeUndefined();
+    });
   });
   it('stops writing for a visitor network that is over the limit', async () => {
     const repo = new MemoryRepo();

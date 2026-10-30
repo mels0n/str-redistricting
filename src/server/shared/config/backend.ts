@@ -10,6 +10,8 @@ const key32 = z
   .transform((s) => Buffer.from(s, 'base64'))
   .refine((b) => b.length === 32, 'must be base64 that decodes to 32 bytes');
 
+const DEFAULT_SITE_ORIGIN = 'https://fairmaps.melson.us';
+
 const httpsUrl = z.url({ protocol: /^https$/ });
 const httpsOrLocal = z.string().refine((s) => /^https:\/\/[^/]/.test(s) || /^http:\/\/localhost(:\d+)?$/.test(s), 'must be https');
 
@@ -28,7 +30,7 @@ const Schema = DbSchema.extend({
     .string()
     .refine((s) => /^[^\s<>@,]+@[^\s<>@,]+$/.test(s) || /^[^<>@,\r\n]+\s<[^\s<>@,]+@[^\s<>@,]+>$/.test(s), 'must be addr@host or Name <addr@host>')
     .default('Fair Maps <signon@fairmaps.melson.us>'),
-  SITE_ORIGIN: httpsOrLocal.default('https://fairmaps.melson.us'),
+  SITE_ORIGIN: httpsOrLocal.default(DEFAULT_SITE_ORIGIN),
   EMAIL_DAILY_CAP: z.coerce.number().int().min(1).max(100000).default(20),
   // Not created by Vercel: the owner adds it as a Production environment variable (16 or more random characters). Vercel then sends it
   // as a bearer token on the daily cron call, and the drain endpoint refuses every request without it.
@@ -93,4 +95,11 @@ export function loadEncryptionKey(env: NodeJS.ProcessEnv = process.env): Buffer 
   const parsed = z.object({ SIGNON_ENCRYPTION_KEY: key32 }).safeParse(env);
   if (!parsed.success) throw new ConfigError('Invalid backend configuration: SIGNON_ENCRYPTION_KEY');
   return parsed.data.SIGNON_ENCRYPTION_KEY;
+}
+
+/** Just the site's own origin (where the published data files are served), so a public read does not depend on the secret keys. */
+export function loadSiteOrigin(env: NodeJS.ProcessEnv = process.env): string {
+  const parsed = z.object({ SITE_ORIGIN: httpsOrLocal.default(DEFAULT_SITE_ORIGIN) }).safeParse(env);
+  if (!parsed.success) throw new ConfigError('Invalid backend configuration: SITE_ORIGIN');
+  return parsed.data.SITE_ORIGIN;
 }

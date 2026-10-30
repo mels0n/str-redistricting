@@ -38,6 +38,16 @@ describe('dev API stand-in', () => {
     expect((devReply('GET', '/api/counts', new URLSearchParams(), {})!.body as { national: number }).national).toBe(1234);
   });
 
+  it('answers /api/badge-sites with a few made-up sites in the shape the page reads, and no em dash', async () => {
+    const { BadgeSitesSchema } = await import('../../src/client/entities/badge-sites');
+    const reply = devReply('GET', '/api/badge-sites', new URLSearchParams(), {})!;
+    expect(reply.status).toBe(200);
+    const parsed = BadgeSitesSchema.parse(reply.body);
+    expect(parsed.sites.length).toBeGreaterThanOrEqual(2);
+    expect(JSON.stringify(reply.body)).toContain(DEV_API_MARK);
+    expect(JSON.stringify(reply.body)).not.toContain('\u2014');
+  });
+
   it('has no em dash in the made-up notes', () => {
     expect(JSON.stringify(devReply('GET', '/api/notes', new URLSearchParams(), {}))).not.toContain('—');
   });
@@ -46,7 +56,7 @@ describe('dev API stand-in', () => {
 /** The built scripts, styles and pages; the published data files hold no code. */
 function builtCode(): string[] {
   const assets = readdirSync('dist/assets').map((f) => join('dist/assets', f));
-  return [...assets, 'dist/index.html', 'dist/act/index.html'].filter((f) => /\.(js|html|css)$/.test(f));
+  return [...assets, 'dist/index.html', 'dist/act/index.html', 'dist/pledges/index.html'].filter((f) => /\.(js|html|css)$/.test(f));
 }
 
 describe('the build carries none of the dev stand-in', () => {

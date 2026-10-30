@@ -1,5 +1,10 @@
 # Web changelog
 
+## 1.9.0 (2026-10-28)
+
+- The Pledges page now lists the websites that show the Fair Maps badge, each with a link to the page where it appears. Showing the badge is the only thing we check: there is nothing to apply for, and no claim is made about who supports what. Add the badge to your home page and link it to fairmaps.melson.us/pledges, and the site lists you within minutes of the first visit, or within a day. If the badge stays off for two daily checks, the site comes off the list. A representative whose own home page shows the badge is marked "Shows the Fair Maps badge" in the Take action list.
+- The privacy page says what is kept about a website that shows the badge: its page address, the page title, where the badge was found and when it was seen and checked, deleted after 60 days unseen.
+
 ## 1.8.0 (2026-10-27)
 
 - A new Take action page, linked from the header, shows who represents you today: your state senator and state representative, your U.S. House member and both U.S. senators. Enter a street address and the site finds your districts in your browser. Each representative has a ready-made letter asking them to support the Fair Maps rule, with their email, contact form, website and phone number where we have them. One button opens a single email to every representative who lists an address, and another copies all of the addresses.

@@ -32,9 +32,9 @@ vi.mock('../../src/client/entities/reps', async (orig) => ({
   ...(await orig<typeof import('../../src/client/entities/reps')>()),
   loadStateReps: async () => file,
 }));
-vi.mock('../../src/client/entities/pledges', async (orig) => ({
-  ...(await orig<typeof import('../../src/client/entities/pledges')>()),
-  loadPledges: async () => [],
+vi.mock('../../src/client/entities/badge-sites', async (orig) => ({
+  ...(await orig<typeof import('../../src/client/entities/badge-sites')>()),
+  loadBadgeSites: async () => [],
 }));
 
 import { loadCounts, shownCounts, recordAsk, resetAsks } from '../../src/client/entities/counts';

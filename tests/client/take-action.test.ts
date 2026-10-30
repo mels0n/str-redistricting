@@ -21,9 +21,9 @@ vi.mock('../../src/client/entities/reps', async (orig) => ({
     byKey: { 'CO:us-house:03': [{ id: 'H', name: 'Name H', office: 'us-house', districtCode: '03', contactUrl: null, email: 'h@x.gov', phone: null, address: null, website: null, social: {} }] },
   }),
 }));
-vi.mock('../../src/client/entities/pledges', async (orig) => ({
-  ...(await orig<typeof import('../../src/client/entities/pledges')>()),
-  loadPledges: async () => [],
+vi.mock('../../src/client/entities/badge-sites', async (orig) => ({
+  ...(await orig<typeof import('../../src/client/entities/badge-sites')>()),
+  loadBadgeSites: async () => [],
 }));
 const mounts: number[] = [];
 vi.mock('../../src/client/features/sign-on/turnstile', () => ({

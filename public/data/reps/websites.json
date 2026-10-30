@@ -1,0 +1,4616 @@
+{
+  "a02.asmdc.org": {
+    "name": "Chris Rogers",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/84a80bdb-37d5-4f52-8f55-e116fb97ca58"
+  },
+  "a04.asmdc.org": {
+    "name": "Cecilia Aguiar-Curry",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/434bcfb4-1279-40cc-916b-f89af5805a9c"
+  },
+  "a06.asmdc.org": {
+    "name": "Maggy Krell",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/e8ac7b26-03a5-4818-b05d-0f379029bbdb"
+  },
+  "a10.asmdc.org": {
+    "name": "Stephanie Nguyen",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/62102f53-b531-4290-9699-05a0d7687cae"
+  },
+  "a11.asmdc.org": {
+    "name": "Lori Wilson",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/926d1337-0318-4c12-a291-178f10199b23"
+  },
+  "a12.asmdc.org": {
+    "name": "Damon Connolly",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/32e06e60-77ac-4c5e-af1e-2110b602dc97"
+  },
+  "a13.asmdc.org": {
+    "name": "Rhodesia Ransom",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/86d18985-f35b-4e16-9fcc-663394a156ff"
+  },
+  "a14.asmdc.org": {
+    "name": "Buffy Wicks",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/8230907e-9ae3-4ae9-b52a-c8464a157f64"
+  },
+  "a16.asmdc.org": {
+    "name": "Rebecca Bauer-Kahan",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/2918acca-40a2-4819-a79a-b2873c7895bc"
+  },
+  "a17.asmdc.org": {
+    "name": "Matt Haney",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/cc6eb833-e16b-472a-83ec-31e7df1b1cd9"
+  },
+  "a18.asmdc.org": {
+    "name": "Mia Bonta",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/a467d09d-289d-4e5a-a2af-a0ce20af14e1"
+  },
+  "a19.asmdc.org": {
+    "name": "Catherine Stefani",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/3864202e-3b40-430e-a218-cfe56d83cee5"
+  },
+  "a20.asmdc.org": {
+    "name": "Liz Ortega",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/54e48d10-22e1-43da-b114-c1d3f741faff"
+  },
+  "a24.asmdc.org": {
+    "name": "Alex Lee",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/5d0057a2-e04d-44ca-b1d5-fc55e113351a"
+  },
+  "a25.asmdc.org": {
+    "name": "Ash Kalra",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/820619fd-d053-4915-b099-1d134a880228"
+  },
+  "a26.asmdc.org": {
+    "name": "Patrick Ahrens",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/a86994f3-ffe3-4dc6-9e79-bcba7346f919"
+  },
+  "a27.asmdc.org": {
+    "name": "Esmeralda Soria",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/d2a8e29a-5eac-4e2a-a686-d1bdb04927e7"
+  },
+  "a28.asmdc.org": {
+    "name": "Gail Pellerin",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/2944d19a-c288-4f32-b6a0-72e35f48e570"
+  },
+  "a30.asmdc.org": {
+    "name": "Dawn Addis",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/eddfcfb5-2d07-4e5b-81a0-88e5703dc0bb"
+  },
+  "a31.asmdc.org": {
+    "name": "Joaquin Arambula",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/e2da0f08-1bd8-4ac2-95f1-002870238527"
+  },
+  "a38.asmdc.org": {
+    "name": "Steve Bennett",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/1e0ccfc0-2d57-4e57-8d16-589d07c1bc72"
+  },
+  "a44.asmdc.org": {
+    "name": "Nick Schultz",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/06ae0707-255b-4af9-8e3e-c940e8f29600"
+  },
+  "a46.asmdc.org": {
+    "name": "Jesse Gabriel",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/407f6fda-8638-4cca-9704-7aa8df7de26e"
+  },
+  "a50.asmdc.org": {
+    "name": "Robert Garcia",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/8b2f37bc-65b7-40ed-af14-5d93cb765a5d"
+  },
+  "a52.asmdc.org": {
+    "name": "Jessica Caloza",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/81d9225e-7584-43c9-9e9b-f12b7e7dbd4e"
+  },
+  "a54.asmdc.org": {
+    "name": "Mark González",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/4a6f5a5d-275e-4fb2-a8bf-bb1272d4dfbb"
+  },
+  "a56.asmdc.org": {
+    "name": "Lisa Calderon",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/ed58ae30-ffe5-4395-9353-141e4018cbe3"
+  },
+  "a57.asmdc.org": {
+    "name": "Sade Elhawary",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/6d83a613-6815-48c9-bb31-94adb1ee92ea"
+  },
+  "a61.asmdc.org": {
+    "name": "Tina McKinnor",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/1aa5dff4-3d71-4642-a5e6-e3d00a5b99f9"
+  },
+  "a64.asmdc.org": {
+    "name": "Blanca Pacheco",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/f2ba8154-6bf3-4e5e-af05-9412e2a189f2"
+  },
+  "a65.asmdc.org": {
+    "name": "Mike Gipson",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/404dbee4-6b74-4249-ab26-9644cab7c7d5"
+  },
+  "a66.asmdc.org": {
+    "name": "Al Muratsuchi",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/78610d0e-c790-4fc9-ab8e-0887adbbe063"
+  },
+  "a67.asmdc.org": {
+    "name": "Sharon Quirk-Silva",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/840aa009-3ae4-4484-b9f0-5c5f5060e7db"
+  },
+  "a68.asmdc.org": {
+    "name": "Avelino Valencia",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/87062971-b583-4983-8ac5-4af98bef354d"
+  },
+  "a69.asmdc.org": {
+    "name": "Josh Lowenthal",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/b20254b0-437a-4d3d-9aa9-baa5db2bc5ef"
+  },
+  "a73.asmdc.org": {
+    "name": "Cottie Petrie-Norris",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/c766abf8-06ca-4a98-9665-82b87149ca96"
+  },
+  "a76.asmdc.org": {
+    "name": "Darsh Patel",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/86218623-ea63-4b2a-ab5c-7694e3f4a18a"
+  },
+  "a77.asmdc.org": {
+    "name": "Tasha Boerner",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/9e69729e-4383-410b-840e-ad4ea0f1ab4a"
+  },
+  "a79.asmdc.org": {
+    "name": "LaShae Sharp-Collins",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/895f777d-ae7b-429a-aa0f-1b2895c13945"
+  },
+  "a80.asmdc.org": {
+    "name": "David Alvarez",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/52f6ccc1-eb4a-4c09-8614-5e4022395605"
+  },
+  "ad05.asmrc.org": {
+    "name": "Joe Patterson",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/c7a404d9-03f7-4e82-b730-1623da31d4cc"
+  },
+  "ad07.asmrc.org": {
+    "name": "Joshua Hoover",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/71aa54c0-3fad-499c-928e-ffbb692a970b"
+  },
+  "ad08.asmrc.org": {
+    "name": "David Tangipa",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/748ce69c-a2bc-41a7-95e2-b09fba6e5ecd"
+  },
+  "ad09.asmrc.org": {
+    "name": "Heath Flora",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/c830a90c-8964-4c0f-b31b-729cab1144fd"
+  },
+  "ad22.asmrc.org": {
+    "name": "Juan Alanis",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/dfb00d6c-1d0d-410f-8a06-d54841495a62"
+  },
+  "ad32.asmrc.org": {
+    "name": "Stan Ellis",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/01fddc24-a5ac-40b7-a9e1-80e918fee609"
+  },
+  "ad33.asmrc.org": {
+    "name": "Ali Macedo",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/eb9c8103-ac9d-4342-9d95-5086d867a9bd"
+  },
+  "ad34.asmrc.org": {
+    "name": "Tom Lackey",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/a8879d70-713c-4d0c-b723-77d0e96c18df"
+  },
+  "ad36.asmrc.org": {
+    "name": "Jeff Gonzalez",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/552b5bf7-472d-48a4-bb9a-132c1f044737"
+  },
+  "ad47.asmrc.org": {
+    "name": "Greg Wallis",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/50e55c91-8b18-45ea-a074-bf500e7a299e"
+  },
+  "ad58.asmrc.org": {
+    "name": "Leticia Castillo",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/06d4d543-2374-436f-978d-b924c7ec7d53"
+  },
+  "ad59.asmrc.org": {
+    "name": "Phillip Chen",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/6ba768a4-2756-42b5-a5c5-f6b8b5db0491"
+  },
+  "ad63.asmrc.org": {
+    "name": "Natasha Johnson",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/0c47a1ba-99a2-44a9-8c65-fcad12aeee97"
+  },
+  "ad70.asmrc.org": {
+    "name": "Tri Ta",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/75229920-399d-4216-9b76-c27ea398665a"
+  },
+  "ad71.asmrc.org": {
+    "name": "Kate Sanchez",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/76378b56-7ad9-463c-a4fd-47c665b26ee8"
+  },
+  "ad72.asmrc.org": {
+    "name": "Diane Dixon",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/0c4e1b43-c3d7-4a13-87c4-92e29903cb73"
+  },
+  "ad74.asmrc.org": {
+    "name": "Laurie Davies",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/1b3ac39e-7b50-4263-bd1d-add1e91d71b9"
+  },
+  "ad75.asmrc.org": {
+    "name": "Carl DeMaio",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/053d119b-847e-43bf-9a22-18b5f309067f"
+  },
+  "adams.house.gov": {
+    "name": "Alma S. Adams",
+    "office": "us-house",
+    "state": "NC",
+    "id": "A000370"
+  },
+  "adamsmith.house.gov": {
+    "name": "Adam Smith",
+    "office": "us-house",
+    "state": "WA",
+    "id": "S000510"
+  },
+  "aderholt.house.gov": {
+    "name": "Robert B. Aderholt",
+    "office": "us-house",
+    "state": "AL",
+    "id": "A000055"
+  },
+  "adriansmith.house.gov": {
+    "name": "Adrian Smith",
+    "office": "us-house",
+    "state": "NE",
+    "id": "S001172"
+  },
+  "aguilar.house.gov": {
+    "name": "Pete Aguilar",
+    "office": "us-house",
+    "state": "CA",
+    "id": "A000371"
+  },
+  "ajlouderback.com": {
+    "name": "A.J. Louderback",
+    "office": "state-house",
+    "state": "TX",
+    "id": "ocd-person/dd3e49ca-2b2b-4a83-ae63-0ade6ccef73f"
+  },
+  "alexdallman.com": {
+    "name": "Alex Dallman",
+    "office": "state-house",
+    "state": "WI",
+    "id": "ocd-person/c4afc94c-3bad-4e77-9f81-de613c406860"
+  },
+  "alford.house.gov": {
+    "name": "Mark Alford",
+    "office": "us-house",
+    "state": "MO",
+    "id": "A000379"
+  },
+  "algreen.house.gov": {
+    "name": "Al Green",
+    "office": "us-house",
+    "state": "TX",
+    "id": "G000553"
+  },
+  "allen.house.gov": {
+    "name": "Rick W. Allen",
+    "office": "us-house",
+    "state": "GA",
+    "id": "A000372"
+  },
+  "alsobrooks.senate.gov": {
+    "name": "Angela D. Alsobrooks",
+    "office": "us-senate",
+    "state": "MD",
+    "id": "A000382"
+  },
+  "amo.house.gov": {
+    "name": "Gabe Amo",
+    "office": "us-house",
+    "state": "RI",
+    "id": "A000380"
+  },
+  "amodei.house.gov": {
+    "name": "Mark E. Amodei",
+    "office": "us-house",
+    "state": "NV",
+    "id": "A000369"
+  },
+  "andrewzwicker.com": {
+    "name": "Andrew Zwicker",
+    "office": "state-senate",
+    "state": "NJ",
+    "id": "ocd-person/7782ffcd-73df-41b5-9857-fd7b10953bf3"
+  },
+  "ansari.house.gov": {
+    "name": "Yassamin Ansari",
+    "office": "us-house",
+    "state": "AZ",
+    "id": "A000381"
+  },
+  "anthonydeluca.org": {
+    "name": "Anthony DeLuca",
+    "office": "state-house",
+    "state": "IL",
+    "id": "ocd-person/aecf9fb4-3e54-4963-941f-8dc6b4658584"
+  },
+  "arkelect.com": {
+    "name": "Alyssa Brown",
+    "office": "state-house",
+    "state": "AR",
+    "id": "ocd-person/4dc31c5c-a5a5-417f-bbaa-d99442259b4f"
+  },
+  "armstrong.senate.gov": {
+    "name": "Alan Armstrong",
+    "office": "us-senate",
+    "state": "OK",
+    "id": "A000383"
+  },
+  "arrington.house.gov": {
+    "name": "Jodey C. Arrington",
+    "office": "us-house",
+    "state": "TX",
+    "id": "A000375"
+  },
+  "assembly.ca.gov": {
+    "name": "Rick Zbur",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/6b7e3458-361f-4fce-8a8c-069282db2af7"
+  },
+  "auchincloss.house.gov": {
+    "name": "Jake Auchincloss",
+    "office": "us-house",
+    "state": "MA",
+    "id": "A000148"
+  },
+  "austinscott.house.gov": {
+    "name": "Austin Scott",
+    "office": "us-house",
+    "state": "GA",
+    "id": "S001189"
+  },
+  "avilafarias.asmdc.org": {
+    "name": "Anamarie Avila Farias",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/c3921173-9680-4387-a70e-ebba5c599846"
+  },
+  "babin.house.gov": {
+    "name": "Brian Babin",
+    "office": "us-house",
+    "state": "TX",
+    "id": "B001291"
+  },
+  "bacon.house.gov": {
+    "name": "Don Bacon",
+    "office": "us-house",
+    "state": "NE",
+    "id": "B001298"
+  },
+  "bains.asmdc.org": {
+    "name": "Jasmeet Bains",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/b08199e4-63d9-4bd4-9be3-99e628fa7059"
+  },
+  "baird.house.gov": {
+    "name": "James R. Baird",
+    "office": "us-house",
+    "state": "IN",
+    "id": "B001307"
+  },
+  "balderson.house.gov": {
+    "name": "Troy Balderson",
+    "office": "us-house",
+    "state": "OH",
+    "id": "B001306"
+  },
+  "baldwin.senate.gov": {
+    "name": "Tammy Baldwin",
+    "office": "us-senate",
+    "state": "WI",
+    "id": "B001230"
+  },
+  "balint.house.gov": {
+    "name": "Becca Balint",
+    "office": "us-house",
+    "state": "VT",
+    "id": "B001318"
+  },
+  "banks.senate.gov": {
+    "name": "Jim Banks",
+    "office": "us-senate",
+    "state": "IN",
+    "id": "B001299"
+  },
+  "barr.house.gov": {
+    "name": "Andy Barr",
+    "office": "us-house",
+    "state": "KY",
+    "id": "B001282"
+  },
+  "barragan.house.gov": {
+    "name": "Nanette Diaz Barragán",
+    "office": "us-house",
+    "state": "CA",
+    "id": "B001300"
+  },
+  "barrasso.senate.gov": {
+    "name": "John Barrasso",
+    "office": "us-senate",
+    "state": "WY",
+    "id": "B001261"
+  },
+  "barrett.house.gov": {
+    "name": "Tom Barrett",
+    "office": "us-house",
+    "state": "MI",
+    "id": "B001321"
+  },
+  "barrymoore.house.gov": {
+    "name": "Barry Moore",
+    "office": "us-house",
+    "state": "AL",
+    "id": "M001212"
+  },
+  "baumgartner.house.gov": {
+    "name": "Michael Baumgartner",
+    "office": "us-house",
+    "state": "WA",
+    "id": "B001322"
+  },
+  "bean.house.gov": {
+    "name": "Aaron Bean",
+    "office": "us-house",
+    "state": "FL",
+    "id": "B001314"
+  },
+  "beatty.house.gov": {
+    "name": "Joyce Beatty",
+    "office": "us-house",
+    "state": "OH",
+    "id": "B001281"
+  },
+  "begich.house.gov": {
+    "name": "Nicholas J. Begich III",
+    "office": "us-house",
+    "state": "AK",
+    "id": "B001323"
+  },
+  "bell.house.gov": {
+    "name": "Wesley Bell",
+    "office": "us-house",
+    "state": "MO",
+    "id": "B001324"
+  },
+  "bennet.senate.gov": {
+    "name": "Michael F. Bennet",
+    "office": "us-senate",
+    "state": "CO",
+    "id": "B001267"
+  },
+  "benniethompson.house.gov": {
+    "name": "Bennie G. Thompson",
+    "office": "us-house",
+    "state": "MS",
+    "id": "T000193"
+  },
+  "bentz.house.gov": {
+    "name": "Cliff Bentz",
+    "office": "us-house",
+    "state": "OR",
+    "id": "B000668"
+  },
+  "bera.house.gov": {
+    "name": "Ami Bera",
+    "office": "us-house",
+    "state": "CA",
+    "id": "B001287"
+  },
+  "bergman.house.gov": {
+    "name": "Jack Bergman",
+    "office": "us-house",
+    "state": "MI",
+    "id": "B001301"
+  },
+  "berman.asmdc.org": {
+    "name": "Marc Berman",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/24facf9e-7fb1-4475-9120-05cd0145c7c1"
+  },
+  "beyer.house.gov": {
+    "name": "Donald S. Beyer, Jr.",
+    "office": "us-house",
+    "state": "VA",
+    "id": "B001292"
+  },
+  "bice.house.gov": {
+    "name": "Stephanie I. Bice",
+    "office": "us-house",
+    "state": "OK",
+    "id": "B000740"
+  },
+  "biggs.house.gov": {
+    "name": "Andy Biggs",
+    "office": "us-house",
+    "state": "AZ",
+    "id": "B001302"
+  },
+  "bilirakis.house.gov": {
+    "name": "Gus M. Bilirakis",
+    "office": "us-house",
+    "state": "FL",
+    "id": "B001257"
+  },
+  "billhixon.com": {
+    "name": "Bill Hixon",
+    "office": "state-house",
+    "state": "SC",
+    "id": "ocd-person/d1f25d1c-bd0e-4d0d-be0e-f8f3edad8a3d"
+  },
+  "bishop.house.gov": {
+    "name": "Sanford D. Bishop, Jr.",
+    "office": "us-house",
+    "state": "GA",
+    "id": "B000490"
+  },
+  "blackburn.senate.gov": {
+    "name": "Marsha Blackburn",
+    "office": "us-senate",
+    "state": "TN",
+    "id": "B001243"
+  },
+  "blair.house.gov": {
+    "name": "Everton Blair Jr.",
+    "office": "us-house",
+    "state": "GA",
+    "id": "B001328"
+  },
+  "blakemoore.house.gov": {
+    "name": "Blake D. Moore",
+    "office": "us-house",
+    "state": "UT",
+    "id": "M001213"
+  },
+  "blumenthal.senate.gov": {
+    "name": "Richard Blumenthal",
+    "office": "us-senate",
+    "state": "CT",
+    "id": "B001277"
+  },
+  "bluntrochester.senate.gov": {
+    "name": "Lisa Blunt Rochester",
+    "office": "us-senate",
+    "state": "DE",
+    "id": "B001303"
+  },
+  "bobbyscott.house.gov": {
+    "name": "Robert C. \"Bobby\" Scott",
+    "office": "us-house",
+    "state": "VA",
+    "id": "S000185"
+  },
+  "boebert.house.gov": {
+    "name": "Lauren Boebert",
+    "office": "us-house",
+    "state": "CO",
+    "id": "B000825"
+  },
+  "bonamici.house.gov": {
+    "name": "Suzanne Bonamici",
+    "office": "us-house",
+    "state": "OR",
+    "id": "B001278"
+  },
+  "booker.senate.gov": {
+    "name": "Cory A. Booker",
+    "office": "us-senate",
+    "state": "NJ",
+    "id": "B001288"
+  },
+  "boozman.senate.gov": {
+    "name": "John Boozman",
+    "office": "us-senate",
+    "state": "AR",
+    "id": "B001236"
+  },
+  "bost.house.gov": {
+    "name": "Mike Bost",
+    "office": "us-house",
+    "state": "IL",
+    "id": "B001295"
+  },
+  "boyle.house.gov": {
+    "name": "Brendan F. Boyle",
+    "office": "us-house",
+    "state": "PA",
+    "id": "B001296"
+  },
+  "bramnick.senatenj.com": {
+    "name": "Jon Bramnick",
+    "office": "state-senate",
+    "state": "NJ",
+    "id": "ocd-person/08a758f9-92fb-4e59-ac8f-edc75aaf3390"
+  },
+  "brecheen.house.gov": {
+    "name": "Josh Brecheen",
+    "office": "us-house",
+    "state": "OK",
+    "id": "B001317"
+  },
+  "bresnahan.house.gov": {
+    "name": "Robert P. Bresnahan, Jr.",
+    "office": "us-house",
+    "state": "PA",
+    "id": "B001327"
+  },
+  "britt.senate.gov": {
+    "name": "Katie Boyd Britt",
+    "office": "us-senate",
+    "state": "AL",
+    "id": "B001319"
+  },
+  "brookeforiowa.us7.list-manage.com": {
+    "name": "Brooke Boden",
+    "office": "state-house",
+    "state": "IA",
+    "id": "ocd-person/942429d9-5b4a-4ad7-8da7-d43eb7828dff"
+  },
+  "bryan.asmdc.org": {
+    "name": "Isaac Bryan",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/e9e56c3e-1c7d-4eab-a3ac-35cfc7c6a651"
+  },
+  "bucco.senatenj.com": {
+    "name": "Tony Bucco",
+    "office": "state-senate",
+    "state": "NJ",
+    "id": "ocd-person/f321f20f-b8af-4d0b-85ba-e7b8dcf9ae03"
+  },
+  "buchanan.house.gov": {
+    "name": "Vern Buchanan",
+    "office": "us-house",
+    "state": "FL",
+    "id": "B001260"
+  },
+  "budd.senate.gov": {
+    "name": "Ted Budd",
+    "office": "us-senate",
+    "state": "NC",
+    "id": "B001305"
+  },
+  "buddycarter.house.gov": {
+    "name": "Earl L. \"Buddy\" Carter",
+    "office": "us-house",
+    "state": "GA",
+    "id": "C001103"
+  },
+  "budzinski.house.gov": {
+    "name": "Nikki Budzinski",
+    "office": "us-house",
+    "state": "IL",
+    "id": "B001315"
+  },
+  "burchett.house.gov": {
+    "name": "Tim Burchett",
+    "office": "us-house",
+    "state": "TN",
+    "id": "B001309"
+  },
+  "burlison.house.gov": {
+    "name": "Eric Burlison",
+    "office": "us-house",
+    "state": "MO",
+    "id": "B001316"
+  },
+  "bynum.house.gov": {
+    "name": "Janelle S. Bynum",
+    "office": "us-house",
+    "state": "OR",
+    "id": "B001326"
+  },
+  "calvert.house.gov": {
+    "name": "Ken Calvert",
+    "office": "us-house",
+    "state": "CA",
+    "id": "C000059"
+  },
+  "cammack.house.gov": {
+    "name": "Kat Cammack",
+    "office": "us-house",
+    "state": "FL",
+    "id": "C001039"
+  },
+  "cantwell.senate.gov": {
+    "name": "Maria Cantwell",
+    "office": "us-senate",
+    "state": "WA",
+    "id": "C000127"
+  },
+  "capito.senate.gov": {
+    "name": "Shelley Moore Capito",
+    "office": "us-senate",
+    "state": "WV",
+    "id": "C001047"
+  },
+  "carbajal.house.gov": {
+    "name": "Salud O. Carbajal",
+    "office": "us-house",
+    "state": "CA",
+    "id": "C001112"
+  },
+  "carey.house.gov": {
+    "name": "Mike Carey",
+    "office": "us-house",
+    "state": "OH",
+    "id": "C001126"
+  },
+  "carrillo.asmdc.org": {
+    "name": "Juan Carrillo",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/092bda0e-23a9-4d25-92a9-5808e996702b"
+  },
+  "carson.house.gov": {
+    "name": "André Carson",
+    "office": "us-house",
+    "state": "IN",
+    "id": "C001072"
+  },
+  "carter.house.gov": {
+    "name": "John R. Carter",
+    "office": "us-house",
+    "state": "TX",
+    "id": "C001051"
+  },
+  "casar.house.gov": {
+    "name": "Greg Casar",
+    "office": "us-house",
+    "state": "TX",
+    "id": "C001131"
+  },
+  "case.house.gov": {
+    "name": "Ed Case",
+    "office": "us-house",
+    "state": "HI",
+    "id": "C001055"
+  },
+  "cassandralevesque4nh.wordpress.com": {
+    "name": "Cassandra Levesque",
+    "office": "state-house",
+    "state": "NH",
+    "id": "ocd-person/711423e3-ff28-4150-8a89-ec568a4f2c5d"
+  },
+  "cassidy.senate.gov": {
+    "name": "Bill Cassidy",
+    "office": "us-senate",
+    "state": "LA",
+    "id": "C001075"
+  },
+  "casten.house.gov": {
+    "name": "Sean Casten",
+    "office": "us-house",
+    "state": "IL",
+    "id": "C001117"
+  },
+  "castor.house.gov": {
+    "name": "Kathy Castor",
+    "office": "us-house",
+    "state": "FL",
+    "id": "C001066"
+  },
+  "castro.house.gov": {
+    "name": "Joaquin Castro",
+    "office": "us-house",
+    "state": "TX",
+    "id": "C001091"
+  },
+  "cddavidsmeyer.org": {
+    "name": "C.D. Davidsmeyer",
+    "office": "state-house",
+    "state": "IL",
+    "id": "ocd-person/384c08f3-49fd-45a7-bb7b-5689bdeae7a7"
+  },
+  "charliemeier.net": {
+    "name": "Charlie Meier",
+    "office": "state-house",
+    "state": "IL",
+    "id": "ocd-person/c425f2ef-cad0-4dad-93c4-be11b80af613"
+  },
+  "chrisgildon.src.wastateleg.org": {
+    "name": "Chris Gildon",
+    "office": "state-senate",
+    "state": "WA",
+    "id": "ocd-person/1e20aaf3-ffbb-4666-82c2-374b232b41ac"
+  },
+  "chrissmith.house.gov": {
+    "name": "Christopher H. Smith",
+    "office": "us-house",
+    "state": "NJ",
+    "id": "S000522"
+  },
+  "chu.house.gov": {
+    "name": "Judy Chu",
+    "office": "us-house",
+    "state": "CA",
+    "id": "C001080"
+  },
+  "chuygarcia.house.gov": {
+    "name": "Jesús G. \"Chuy\" García",
+    "office": "us-house",
+    "state": "IL",
+    "id": "G000586"
+  },
+  "cindyfriedman.org": {
+    "name": "Cindy Friedman",
+    "office": "state-senate",
+    "state": "MA",
+    "id": "ocd-person/456b0061-febd-4ff7-8547-42be0685526f"
+  },
+  "ciscomani.house.gov": {
+    "name": "Juan Ciscomani",
+    "office": "us-house",
+    "state": "AZ",
+    "id": "C001133"
+  },
+  "cisneros.house.gov": {
+    "name": "Gilbert Ray Cisneros, Jr.",
+    "office": "us-house",
+    "state": "CA",
+    "id": "C001123"
+  },
+  "clarke.house.gov": {
+    "name": "Yvette D. Clarke",
+    "office": "us-house",
+    "state": "NY",
+    "id": "C001067"
+  },
+  "clayhiggins.house.gov": {
+    "name": "Clay Higgins",
+    "office": "us-house",
+    "state": "LA",
+    "id": "H001077"
+  },
+  "cleaver.house.gov": {
+    "name": "Emanuel Cleaver",
+    "office": "us-house",
+    "state": "MO",
+    "id": "C001061"
+  },
+  "cline.house.gov": {
+    "name": "Ben Cline",
+    "office": "us-house",
+    "state": "VA",
+    "id": "C001118"
+  },
+  "cloud.house.gov": {
+    "name": "Michael Cloud",
+    "office": "us-house",
+    "state": "TX",
+    "id": "C001115"
+  },
+  "clyburn.house.gov": {
+    "name": "James E. Clyburn",
+    "office": "us-house",
+    "state": "SC",
+    "id": "C000537"
+  },
+  "clyde.house.gov": {
+    "name": "Andrew S. Clyde",
+    "office": "us-house",
+    "state": "GA",
+    "id": "C001116"
+  },
+  "cohen.house.gov": {
+    "name": "Steve Cohen",
+    "office": "us-house",
+    "state": "TN",
+    "id": "C001068"
+  },
+  "cole.house.gov": {
+    "name": "Tom Cole",
+    "office": "us-house",
+    "state": "OK",
+    "id": "C001053"
+  },
+  "collins.house.gov": {
+    "name": "Mike Collins",
+    "office": "us-house",
+    "state": "GA",
+    "id": "C001129"
+  },
+  "collins.senate.gov": {
+    "name": "Susan M. Collins",
+    "office": "us-senate",
+    "state": "ME",
+    "id": "C001035"
+  },
+  "comer.house.gov": {
+    "name": "James Comer",
+    "office": "us-house",
+    "state": "KY",
+    "id": "C001108"
+  },
+  "conaway.house.gov": {
+    "name": "Herbert C. Conaway, Jr.",
+    "office": "us-house",
+    "state": "NJ",
+    "id": "C001136"
+  },
+  "coons.senate.gov": {
+    "name": "Christopher A. Coons",
+    "office": "us-senate",
+    "state": "DE",
+    "id": "C001088"
+  },
+  "cornyn.senate.gov": {
+    "name": "John Cornyn",
+    "office": "us-senate",
+    "state": "TX",
+    "id": "C001056"
+  },
+  "corrado.senatenj.com": {
+    "name": "Kristin Corrado",
+    "office": "state-senate",
+    "state": "NJ",
+    "id": "ocd-person/0880a4b0-8e91-484b-aa12-6e0444838c44"
+  },
+  "correa.house.gov": {
+    "name": "J. Luis Correa",
+    "office": "us-house",
+    "state": "CA",
+    "id": "C001110"
+  },
+  "cortezmasto.senate.gov": {
+    "name": "Catherine Cortez Masto",
+    "office": "us-senate",
+    "state": "NV",
+    "id": "C001113"
+  },
+  "costa.house.gov": {
+    "name": "Jim Costa",
+    "office": "us-house",
+    "state": "CA",
+    "id": "C001059"
+  },
+  "cotton.senate.gov": {
+    "name": "Tom Cotton",
+    "office": "us-senate",
+    "state": "AR",
+    "id": "C001095"
+  },
+  "courtney.house.gov": {
+    "name": "Joe Courtney",
+    "office": "us-house",
+    "state": "CT",
+    "id": "C001069"
+  },
+  "craig.house.gov": {
+    "name": "Angie Craig",
+    "office": "us-house",
+    "state": "MN",
+    "id": "C001119"
+  },
+  "craiggoldman.house.gov": {
+    "name": "Craig A. Goldman",
+    "office": "us-house",
+    "state": "TX",
+    "id": "G000601"
+  },
+  "cramer.senate.gov": {
+    "name": "Kevin Cramer",
+    "office": "us-senate",
+    "state": "ND",
+    "id": "C001096"
+  },
+  "crane.house.gov": {
+    "name": "Elijah Crane",
+    "office": "us-house",
+    "state": "AZ",
+    "id": "C001132"
+  },
+  "crank.house.gov": {
+    "name": "Jeff Crank",
+    "office": "us-house",
+    "state": "CO",
+    "id": "C001137"
+  },
+  "crapo.senate.gov": {
+    "name": "Mike Crapo",
+    "office": "us-senate",
+    "state": "ID",
+    "id": "C000880"
+  },
+  "crawford.house.gov": {
+    "name": "Eric A. \"Rick\" Crawford",
+    "office": "us-house",
+    "state": "AR",
+    "id": "C001087"
+  },
+  "crenshaw.house.gov": {
+    "name": "Dan Crenshaw",
+    "office": "us-house",
+    "state": "TX",
+    "id": "C001120"
+  },
+  "crockett.house.gov": {
+    "name": "Jasmine Crockett",
+    "office": "us-house",
+    "state": "TX",
+    "id": "C001130"
+  },
+  "crodriguez.asmdc.org": {
+    "name": "Celeste Rodriguez",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/1dbf574d-4c03-40ce-8c30-a6727c4bd5ab"
+  },
+  "crow.house.gov": {
+    "name": "Jason Crow",
+    "office": "us-house",
+    "state": "CO",
+    "id": "C001121"
+  },
+  "cruz.senate.gov": {
+    "name": "Ted Cruz",
+    "office": "us-senate",
+    "state": "TX",
+    "id": "C001098"
+  },
+  "cuellar.house.gov": {
+    "name": "Henry Cuellar",
+    "office": "us-house",
+    "state": "TX",
+    "id": "C001063"
+  },
+  "curtis.senate.gov": {
+    "name": "John R. Curtis",
+    "office": "us-senate",
+    "state": "UT",
+    "id": "C001114"
+  },
+  "curtisking.src.wastateleg.org": {
+    "name": "Curtis King",
+    "office": "state-senate",
+    "state": "WA",
+    "id": "ocd-person/a8e7617c-7cbb-45ed-a577-3dd7341a3bd7"
+  },
+  "daines.senate.gov": {
+    "name": "Steve Daines",
+    "office": "us-senate",
+    "state": "MT",
+    "id": "D000618"
+  },
+  "davids.house.gov": {
+    "name": "Sharice Davids",
+    "office": "us-house",
+    "state": "KS",
+    "id": "D000629"
+  },
+  "davidson.house.gov": {
+    "name": "Warren Davidson",
+    "office": "us-house",
+    "state": "OH",
+    "id": "D000626"
+  },
+  "davis.house.gov": {
+    "name": "Danny K. Davis",
+    "office": "us-house",
+    "state": "IL",
+    "id": "D000096"
+  },
+  "dean.house.gov": {
+    "name": "Madeleine Dean",
+    "office": "us-house",
+    "state": "PA",
+    "id": "D000631"
+  },
+  "deanfisher.com": {
+    "name": "Dean Fisher",
+    "office": "state-house",
+    "state": "IA",
+    "id": "ocd-person/a4832927-060d-4e15-82d7-795f6f9cc78f"
+  },
+  "debbiedingell.house.gov": {
+    "name": "Debbie Dingell",
+    "office": "us-house",
+    "state": "MI",
+    "id": "D000624"
+  },
+  "degette.house.gov": {
+    "name": "Diana DeGette",
+    "office": "us-house",
+    "state": "CO",
+    "id": "D000197"
+  },
+  "delacruz.house.gov": {
+    "name": "Monica De La Cruz",
+    "office": "us-house",
+    "state": "TX",
+    "id": "D000594"
+  },
+  "delauro.house.gov": {
+    "name": "Rosa L. DeLauro",
+    "office": "us-house",
+    "state": "CT",
+    "id": "D000216"
+  },
+  "delbene.house.gov": {
+    "name": "Suzan K. DelBene",
+    "office": "us-house",
+    "state": "WA",
+    "id": "D000617"
+  },
+  "deluzio.house.gov": {
+    "name": "Christopher R. Deluzio",
+    "office": "us-house",
+    "state": "PA",
+    "id": "D000530"
+  },
+  "desaulnier.house.gov": {
+    "name": "Mark DeSaulnier",
+    "office": "us-house",
+    "state": "CA",
+    "id": "D000623"
+  },
+  "desjarlais.house.gov": {
+    "name": "Scott DesJarlais",
+    "office": "us-house",
+    "state": "TN",
+    "id": "D000616"
+  },
+  "devinforsenate.com": {
+    "name": "Devin LeMahieu",
+    "office": "state-senate",
+    "state": "WI",
+    "id": "ocd-person/be7a6f06-6d2c-49d1-908d-451adef564eb"
+  },
+  "dexter.house.gov": {
+    "name": "Maxine Dexter",
+    "office": "us-house",
+    "state": "OR",
+    "id": "D000635"
+  },
+  "dgraham.senate.gov": {
+    "name": "Darline Graham",
+    "office": "us-senate",
+    "state": "SC",
+    "id": "G000608"
+  },
+  "doggett.house.gov": {
+    "name": "Lloyd Doggett",
+    "office": "us-house",
+    "state": "TX",
+    "id": "D000399"
+  },
+  "donalds.house.gov": {
+    "name": "Byron Donalds",
+    "office": "us-house",
+    "state": "FL",
+    "id": "D000032"
+  },
+  "dondavis.house.gov": {
+    "name": "Donald G. Davis",
+    "office": "us-house",
+    "state": "NC",
+    "id": "D000230"
+  },
+  "downing.house.gov": {
+    "name": "Troy Downing",
+    "office": "us-house",
+    "state": "MT",
+    "id": "D000634"
+  },
+  "duckworth.senate.gov": {
+    "name": "Tammy Duckworth",
+    "office": "us-senate",
+    "state": "IL",
+    "id": "D000622"
+  },
+  "dunn.house.gov": {
+    "name": "Neal P. Dunn",
+    "office": "us-house",
+    "state": "FL",
+    "id": "D000628"
+  },
+  "durbin.senate.gov": {
+    "name": "Richard J. Durbin",
+    "office": "us-senate",
+    "state": "IL",
+    "id": "D000563"
+  },
+  "dustyjohnson.house.gov": {
+    "name": "Dusty Johnson",
+    "office": "us-house",
+    "state": "SD",
+    "id": "J000301"
+  },
+  "edwards.house.gov": {
+    "name": "Chuck Edwards",
+    "office": "us-house",
+    "state": "NC",
+    "id": "E000246"
+  },
+  "elfreth.house.gov": {
+    "name": "Sarah Elfreth",
+    "office": "us-house",
+    "state": "MD",
+    "id": "E000301"
+  },
+  "ellzey.house.gov": {
+    "name": "Jake Ellzey",
+    "office": "us-house",
+    "state": "TX",
+    "id": "E000071"
+  },
+  "emmer.house.gov": {
+    "name": "Tom Emmer",
+    "office": "us-house",
+    "state": "MN",
+    "id": "E000294"
+  },
+  "en.wikipedia.org": {
+    "name": "Abby Angelos",
+    "office": "state-house",
+    "state": "WY",
+    "id": "ocd-person/9995703e-90eb-4d20-a2f6-bfd9542102bd"
+  },
+  "erinmayequade.com": {
+    "name": "Erin Maye Quade",
+    "office": "state-senate",
+    "state": "MN",
+    "id": "ocd-person/5233b98b-0b6d-47c9-9fc0-9218a592f8d8"
+  },
+  "ernst.senate.gov": {
+    "name": "Joni Ernst",
+    "office": "us-senate",
+    "state": "IA",
+    "id": "E000295"
+  },
+  "escobar.house.gov": {
+    "name": "Veronica Escobar",
+    "office": "us-house",
+    "state": "TX",
+    "id": "E000299"
+  },
+  "espaillat.house.gov": {
+    "name": "Adriano Espaillat",
+    "office": "us-house",
+    "state": "NY",
+    "id": "E000297"
+  },
+  "estes.house.gov": {
+    "name": "Ron Estes",
+    "office": "us-house",
+    "state": "KS",
+    "id": "E000298"
+  },
+  "evans.house.gov": {
+    "name": "Dwight Evans",
+    "office": "us-house",
+    "state": "PA",
+    "id": "E000296"
+  },
+  "ezell.house.gov": {
+    "name": "Mike Ezell",
+    "office": "us-house",
+    "state": "MS",
+    "id": "E000235"
+  },
+  "facebook.us14.list-manage.com": {
+    "name": "Shannon Lundgren",
+    "office": "state-house",
+    "state": "IA",
+    "id": "ocd-person/82dcdad5-7974-4b38-a44c-7007e8111a5c"
+  },
+  "facebook.us4.list-manage.com": {
+    "name": "Gary Mohr",
+    "office": "state-house",
+    "state": "IA",
+    "id": "ocd-person/98672aab-5ba5-4994-964a-f53d8bcdd108"
+  },
+  "fallon.house.gov": {
+    "name": "Pat Fallon",
+    "office": "us-house",
+    "state": "TX",
+    "id": "F000246"
+  },
+  "fasciarep42.com": {
+    "name": "Dick Fascia",
+    "office": "state-house",
+    "state": "RI",
+    "id": "ocd-person/0065fe7b-08cf-4d17-b358-c0c04ab45616"
+  },
+  "fedorchak.house.gov": {
+    "name": "Julie Fedorchak",
+    "office": "us-house",
+    "state": "ND",
+    "id": "F000482"
+  },
+  "feenstra.house.gov": {
+    "name": "Randy Feenstra",
+    "office": "us-house",
+    "state": "IA",
+    "id": "F000446"
+  },
+  "fernandez.house.gov": {
+    "name": "Teresa Leger Fernandez",
+    "office": "us-house",
+    "state": "NM",
+    "id": "L000273"
+  },
+  "fetterman.senate.gov": {
+    "name": "John Fetterman",
+    "office": "us-senate",
+    "state": "PA",
+    "id": "F000479"
+  },
+  "fields.house.gov": {
+    "name": "Cleo Fields",
+    "office": "us-house",
+    "state": "LA",
+    "id": "F000110"
+  },
+  "figures.house.gov": {
+    "name": "Shomari Figures",
+    "office": "us-house",
+    "state": "AL",
+    "id": "F000481"
+  },
+  "fine.house.gov": {
+    "name": "Randy Fine",
+    "office": "us-house",
+    "state": "FL",
+    "id": "F000484"
+  },
+  "finstad.house.gov": {
+    "name": "Brad Finstad",
+    "office": "us-house",
+    "state": "MN",
+    "id": "F000475"
+  },
+  "fischbach.house.gov": {
+    "name": "Michelle Fischbach",
+    "office": "us-house",
+    "state": "MN",
+    "id": "F000470"
+  },
+  "fischer.senate.gov": {
+    "name": "Deb Fischer",
+    "office": "us-senate",
+    "state": "NE",
+    "id": "F000463"
+  },
+  "fitzgerald.house.gov": {
+    "name": "Scott Fitzgerald",
+    "office": "us-house",
+    "state": "WI",
+    "id": "F000471"
+  },
+  "fitzpatrick.house.gov": {
+    "name": "Brian K. Fitzpatrick",
+    "office": "us-house",
+    "state": "PA",
+    "id": "F000466"
+  },
+  "fleischmann.house.gov": {
+    "name": "Charles J. \"Chuck\" Fleischmann",
+    "office": "us-house",
+    "state": "TN",
+    "id": "F000459"
+  },
+  "fletcher.house.gov": {
+    "name": "Lizzie Fletcher",
+    "office": "us-house",
+    "state": "TX",
+    "id": "F000468"
+  },
+  "flood.house.gov": {
+    "name": "Mike Flood",
+    "office": "us-house",
+    "state": "NE",
+    "id": "F000474"
+  },
+  "fong.asmdc.org": {
+    "name": "Mike Fong",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/3a7bde9c-8709-49c7-89e4-0835ea1f9eb6"
+  },
+  "fong.house.gov": {
+    "name": "Vince Fong",
+    "office": "us-house",
+    "state": "CA",
+    "id": "F000480"
+  },
+  "foster.house.gov": {
+    "name": "Bill Foster",
+    "office": "us-house",
+    "state": "IL",
+    "id": "F000454"
+  },
+  "foushee.house.gov": {
+    "name": "Valerie P. Foushee",
+    "office": "us-house",
+    "state": "NC",
+    "id": "F000477"
+  },
+  "foxx.house.gov": {
+    "name": "Virginia Foxx",
+    "office": "us-house",
+    "state": "NC",
+    "id": "F000450"
+  },
+  "frankel.house.gov": {
+    "name": "Lois Frankel",
+    "office": "us-house",
+    "state": "FL",
+    "id": "F000462"
+  },
+  "franklin.house.gov": {
+    "name": "Scott Franklin",
+    "office": "us-house",
+    "state": "FL",
+    "id": "F000472"
+  },
+  "fredcrespo.com": {
+    "name": "Fred Crespo",
+    "office": "state-house",
+    "state": "IL",
+    "id": "ocd-person/3806ac4f-5290-4eb7-ba30-aa406036dd7a"
+  },
+  "friedman.house.gov": {
+    "name": "Laura Friedman",
+    "office": "us-house",
+    "state": "CA",
+    "id": "F000483"
+  },
+  "frost.house.gov": {
+    "name": "Maxwell Frost",
+    "office": "us-house",
+    "state": "FL",
+    "id": "F000476"
+  },
+  "fry.house.gov": {
+    "name": "Russell Fry",
+    "office": "us-house",
+    "state": "SC",
+    "id": "F000478"
+  },
+  "fulcher.house.gov": {
+    "name": "Russ Fulcher",
+    "office": "us-house",
+    "state": "ID",
+    "id": "F000469"
+  },
+  "fuller.house.gov": {
+    "name": "Clay Fuller",
+    "office": "us-house",
+    "state": "GA",
+    "id": "F000485"
+  },
+  "gabeevans.house.gov": {
+    "name": "Gabe Evans",
+    "office": "us-house",
+    "state": "CO",
+    "id": "E000300"
+  },
+  "gallagher.house.gov": {
+    "name": "James Gallagher",
+    "office": "us-house",
+    "state": "CA",
+    "id": "G000607"
+  },
+  "gallego.senate.gov": {
+    "name": "Ruben Gallego",
+    "office": "us-senate",
+    "state": "AZ",
+    "id": "G000574"
+  },
+  "garamendi.house.gov": {
+    "name": "John Garamendi",
+    "office": "us-house",
+    "state": "CA",
+    "id": "G000559"
+  },
+  "garbarino.house.gov": {
+    "name": "Andrew R. Garbarino",
+    "office": "us-house",
+    "state": "NY",
+    "id": "G000597"
+  },
+  "gill.house.gov": {
+    "name": "Brandon Gill",
+    "office": "us-house",
+    "state": "TX",
+    "id": "G000603"
+  },
+  "gillen.house.gov": {
+    "name": "Laura Gillen",
+    "office": "us-house",
+    "state": "NY",
+    "id": "G000602"
+  },
+  "gillibrand.senate.gov": {
+    "name": "Kirsten E. Gillibrand",
+    "office": "us-senate",
+    "state": "NY",
+    "id": "G000555"
+  },
+  "gimenez.house.gov": {
+    "name": "Carlos A. Gimenez",
+    "office": "us-house",
+    "state": "FL",
+    "id": "G000593"
+  },
+  "ginnyklevorn.com": {
+    "name": "Ginny Klevorn",
+    "office": "state-house",
+    "state": "MN",
+    "id": "ocd-person/2cb0f6d7-006d-4f7a-a1a3-218eff6016aa"
+  },
+  "gluesenkampperez.house.gov": {
+    "name": "Marie Gluesenkamp Perez",
+    "office": "us-house",
+    "state": "WA",
+    "id": "G000600"
+  },
+  "gmail.us7.list-manage.com": {
+    "name": "Charlie McClintock",
+    "office": "state-senate",
+    "state": "IA",
+    "id": "ocd-person/006bcadf-1173-4661-a28e-25fbf1a5c423"
+  },
+  "golden.house.gov": {
+    "name": "Jared F. Golden",
+    "office": "us-house",
+    "state": "ME",
+    "id": "G000592"
+  },
+  "goldman.house.gov": {
+    "name": "Daniel S. Goldman",
+    "office": "us-house",
+    "state": "NY",
+    "id": "G000599"
+  },
+  "gomez.house.gov": {
+    "name": "Jimmy Gomez",
+    "office": "us-house",
+    "state": "CA",
+    "id": "G000585"
+  },
+  "gonzalez.house.gov": {
+    "name": "Vicente Gonzalez",
+    "office": "us-house",
+    "state": "TX",
+    "id": "G000581"
+  },
+  "gooden.house.gov": {
+    "name": "Lance Gooden",
+    "office": "us-house",
+    "state": "TX",
+    "id": "G000589"
+  },
+  "goodlander.house.gov": {
+    "name": "Maggie Goodlander",
+    "office": "us-house",
+    "state": "NH",
+    "id": "G000604"
+  },
+  "gosar.house.gov": {
+    "name": "Paul A. Gosar",
+    "office": "us-house",
+    "state": "AZ",
+    "id": "G000565"
+  },
+  "gottheimer.house.gov": {
+    "name": "Josh Gottheimer",
+    "office": "us-house",
+    "state": "NJ",
+    "id": "G000583"
+  },
+  "grassley.senate.gov": {
+    "name": "Chuck Grassley",
+    "office": "us-senate",
+    "state": "IA",
+    "id": "G000386"
+  },
+  "graves.house.gov": {
+    "name": "Sam Graves",
+    "office": "us-house",
+    "state": "MO",
+    "id": "G000546"
+  },
+  "gray.house.gov": {
+    "name": "Adam Gray",
+    "office": "us-house",
+    "state": "CA",
+    "id": "G000605"
+  },
+  "grijalva.house.gov": {
+    "name": "Adelita S. Grijalva",
+    "office": "us-house",
+    "state": "AZ",
+    "id": "G000606"
+  },
+  "grothman.house.gov": {
+    "name": "Glenn Grothman",
+    "office": "us-house",
+    "state": "WI",
+    "id": "G000576"
+  },
+  "guest.house.gov": {
+    "name": "Michael Guest",
+    "office": "us-house",
+    "state": "MS",
+    "id": "G000591"
+  },
+  "guthrie.house.gov": {
+    "name": "Brett Guthrie",
+    "office": "us-house",
+    "state": "KY",
+    "id": "G000558"
+  },
+  "gwenmoore.house.gov": {
+    "name": "Gwen Moore",
+    "office": "us-house",
+    "state": "WI",
+    "id": "M001160"
+  },
+  "hageman.house.gov": {
+    "name": "Harriet M. Hageman",
+    "office": "us-house",
+    "state": "WY",
+    "id": "H001096"
+  },
+  "hagerty.senate.gov": {
+    "name": "Bill Hagerty",
+    "office": "us-senate",
+    "state": "TN",
+    "id": "H000601"
+  },
+  "halrogers.house.gov": {
+    "name": "Harold Rogers",
+    "office": "us-house",
+    "state": "KY",
+    "id": "R000395"
+  },
+  "hamadeh.house.gov": {
+    "name": "Abraham J. Hamadeh",
+    "office": "us-house",
+    "state": "AZ",
+    "id": "H001098"
+  },
+  "hankjohnson.house.gov": {
+    "name": "Henry C. \"Hank\" Johnson, Jr.",
+    "office": "us-house",
+    "state": "GA",
+    "id": "J000288"
+  },
+  "harabedian.asmdc.org": {
+    "name": "John Harabedian",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/0253bb3f-2fcb-49ed-a85d-578fee726be8"
+  },
+  "harder.house.gov": {
+    "name": "Josh Harder",
+    "office": "us-house",
+    "state": "CA",
+    "id": "H001090"
+  },
+  "haridopolos.house.gov": {
+    "name": "Mike Haridopolos",
+    "office": "us-house",
+    "state": "FL",
+    "id": "H001099"
+  },
+  "harrigan.house.gov": {
+    "name": "Pat Harrigan",
+    "office": "us-house",
+    "state": "NC",
+    "id": "H001101"
+  },
+  "harris.house.gov": {
+    "name": "Andy Harris",
+    "office": "us-house",
+    "state": "MD",
+    "id": "H001052"
+  },
+  "harshbarger.house.gov": {
+    "name": "Diana Harshbarger",
+    "office": "us-house",
+    "state": "TN",
+    "id": "H001086"
+  },
+  "hart.asmdc.org": {
+    "name": "Gregg Hart",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/57f76b8e-63ba-4aa7-93c9-0b0853ce2279"
+  },
+  "hassan.senate.gov": {
+    "name": "Margaret Wood Hassan",
+    "office": "us-senate",
+    "state": "NH",
+    "id": "H001076"
+  },
+  "hawley.senate.gov": {
+    "name": "Josh Hawley",
+    "office": "us-senate",
+    "state": "MO",
+    "id": "H001089"
+  },
+  "hayes.house.gov": {
+    "name": "Jahana Hayes",
+    "office": "us-house",
+    "state": "CT",
+    "id": "H001081"
+  },
+  "heinrich.senate.gov": {
+    "name": "Martin Heinrich",
+    "office": "us-senate",
+    "state": "NM",
+    "id": "H001046"
+  },
+  "hern.house.gov": {
+    "name": "Kevin Hern",
+    "office": "us-house",
+    "state": "OK",
+    "id": "H001082"
+  },
+  "hickenlooper.senate.gov": {
+    "name": "John W. Hickenlooper",
+    "office": "us-senate",
+    "state": "CO",
+    "id": "H000273"
+  },
+  "hill.house.gov": {
+    "name": "J. French Hill",
+    "office": "us-house",
+    "state": "AR",
+    "id": "H001072"
+  },
+  "himes.house.gov": {
+    "name": "James A. Himes",
+    "office": "us-house",
+    "state": "CT",
+    "id": "H001047"
+  },
+  "hinson.house.gov": {
+    "name": "Ashley Hinson",
+    "office": "us-house",
+    "state": "IA",
+    "id": "H001091"
+  },
+  "hirono.senate.gov": {
+    "name": "Mazie K. Hirono",
+    "office": "us-senate",
+    "state": "HI",
+    "id": "H001042"
+  },
+  "hoeven.senate.gov": {
+    "name": "John Hoeven",
+    "office": "us-senate",
+    "state": "ND",
+    "id": "H001061"
+  },
+  "holzapfel.senatenj.com": {
+    "name": "Jim Holzapfel",
+    "office": "state-senate",
+    "state": "NJ",
+    "id": "ocd-person/32e625c0-5e22-40b4-a6a3-4040d10e6ff0"
+  },
+  "horsford.house.gov": {
+    "name": "Steven Horsford",
+    "office": "us-house",
+    "state": "NV",
+    "id": "H001066"
+  },
+  "houchin.house.gov": {
+    "name": "Erin Houchin",
+    "office": "us-house",
+    "state": "IN",
+    "id": "H001093"
+  },
+  "houlahan.house.gov": {
+    "name": "Chrissy Houlahan",
+    "office": "us-house",
+    "state": "PA",
+    "id": "H001085"
+  },
+  "hoyer.house.gov": {
+    "name": "Steny H. Hoyer",
+    "office": "us-house",
+    "state": "MD",
+    "id": "H000874"
+  },
+  "hoyle.house.gov": {
+    "name": "Val T. Hoyle",
+    "office": "us-house",
+    "state": "OR",
+    "id": "H001094"
+  },
+  "hudson.house.gov": {
+    "name": "Richard Hudson",
+    "office": "us-house",
+    "state": "NC",
+    "id": "H001067"
+  },
+  "huffman.house.gov": {
+    "name": "Jared Huffman",
+    "office": "us-house",
+    "state": "CA",
+    "id": "H001068"
+  },
+  "huizenga.house.gov": {
+    "name": "Bill Huizenga",
+    "office": "us-house",
+    "state": "MI",
+    "id": "H001058"
+  },
+  "hunt.house.gov": {
+    "name": "Wesley Hunt",
+    "office": "us-house",
+    "state": "TX",
+    "id": "H001095"
+  },
+  "hurd.house.gov": {
+    "name": "Jeff Hurd",
+    "office": "us-house",
+    "state": "CO",
+    "id": "H001100"
+  },
+  "husted.senate.gov": {
+    "name": "Jon Husted",
+    "office": "us-senate",
+    "state": "OH",
+    "id": "H001104"
+  },
+  "hutchingsforsenate.com": {
+    "name": "Lynn Hutchings",
+    "office": "state-senate",
+    "state": "WY",
+    "id": "ocd-person/b91459e7-2049-4cf9-8b0b-f769ce373613"
+  },
+  "hydesmith.senate.gov": {
+    "name": "Cindy Hyde-Smith",
+    "office": "us-senate",
+    "state": "MS",
+    "id": "H001079"
+  },
+  "iowa.us19.list-manage.com": {
+    "name": "Bob Kressig",
+    "office": "state-house",
+    "state": "IA",
+    "id": "ocd-person/bdd055a7-677f-4df3-ba42-72c09d75a2ad"
+  },
+  "iowa.us20.list-manage.com": {
+    "name": "Bubba Sorensen",
+    "office": "state-house",
+    "state": "IA",
+    "id": "ocd-person/97a4ef03-4b50-4fcd-9ebc-3d76482f2150"
+  },
+  "iowa.us4.list-manage.com": {
+    "name": "Michael Bergan",
+    "office": "state-house",
+    "state": "IA",
+    "id": "ocd-person/bf9a43c8-3e2a-489f-94f6-b26035f7f9b9"
+  },
+  "irwin.asmdc.org": {
+    "name": "Jacqui Irwin",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/e7ad99fd-fda5-4114-af3e-320f5be9be3c"
+  },
+  "issa.house.gov": {
+    "name": "Darrell Issa",
+    "office": "us-house",
+    "state": "CA",
+    "id": "I000056"
+  },
+  "ivey.house.gov": {
+    "name": "Glenn Ivey",
+    "office": "us-house",
+    "state": "MD",
+    "id": "I000058"
+  },
+  "jack.house.gov": {
+    "name": "Brian Jack",
+    "office": "us-house",
+    "state": "GA",
+    "id": "J000311"
+  },
+  "jackson.asmdc.org": {
+    "name": "Corey Jackson",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/e351eaa3-8aa1-4f26-a8ff-2a260a0ad383"
+  },
+  "jackson.house.gov": {
+    "name": "Ronny Jackson",
+    "office": "us-house",
+    "state": "TX",
+    "id": "J000304"
+  },
+  "james.house.gov": {
+    "name": "John James",
+    "office": "us-house",
+    "state": "MI",
+    "id": "J000307"
+  },
+  "jasonprokop.com": {
+    "name": "Jason Prokop",
+    "office": "state-senate",
+    "state": "NE",
+    "id": "ocd-person/dda3cdbe-5e52-439e-ac68-02588b6d7cab"
+  },
+  "jasonsmith.house.gov": {
+    "name": "Jason Smith",
+    "office": "us-house",
+    "state": "MO",
+    "id": "S001195"
+  },
+  "jayapal.house.gov": {
+    "name": "Pramila Jayapal",
+    "office": "us-house",
+    "state": "WA",
+    "id": "J000298"
+  },
+  "jdforstatehouse.com": {
+    "name": "J.D. Williams",
+    "office": "state-house",
+    "state": "WY",
+    "id": "ocd-person/fc63a597-e32a-4c94-a2f2-7420f7836aeb"
+  },
+  "jeffholy.src.wastateleg.org": {
+    "name": "Jeff Holy",
+    "office": "state-senate",
+    "state": "WA",
+    "id": "ocd-person/0396b4de-01b1-4784-a604-aafc516f5e39"
+  },
+  "jeffries.house.gov": {
+    "name": "Hakeem S. Jeffries",
+    "office": "us-house",
+    "state": "NY",
+    "id": "J000294"
+  },
+  "jeffwilson.src.wastateleg.org": {
+    "name": "Jeff Wilson",
+    "office": "state-senate",
+    "state": "WA",
+    "id": "ocd-person/7f7dab20-f60b-494e-a8b1-6527165777fb"
+  },
+  "jimmccune.src.wastateleg.org": {
+    "name": "Jim McCune",
+    "office": "state-senate",
+    "state": "WA",
+    "id": "ocd-person/fc68fcd2-66ca-481a-b699-7a4ba113d4d7"
+  },
+  "joeshekarchi.com": {
+    "name": "Joe Shekarchi",
+    "office": "state-house",
+    "state": "RI",
+    "id": "ocd-person/00644fec-e128-4e7f-9af0-8e79d0903da3"
+  },
+  "joewilson.house.gov": {
+    "name": "Joe Wilson",
+    "office": "us-house",
+    "state": "SC",
+    "id": "W000795"
+  },
+  "johnbraun.src.wastateleg.org": {
+    "name": "John Braun",
+    "office": "state-senate",
+    "state": "WA",
+    "id": "ocd-person/b4856c5b-d3e0-4227-a4c0-ff6abe81fda7"
+  },
+  "johnjcronin.com": {
+    "name": "John Cronin",
+    "office": "state-senate",
+    "state": "MA",
+    "id": "ocd-person/5a333327-70bb-4b95-9cfd-fadd701e9348"
+  },
+  "johnjoyce.house.gov": {
+    "name": "John Joyce",
+    "office": "us-house",
+    "state": "PA",
+    "id": "J000302"
+  },
+  "johnmarty.org": {
+    "name": "John Marty",
+    "office": "state-senate",
+    "state": "MN",
+    "id": "ocd-person/4acf27d9-edd4-4f04-97c7-164390a5664b"
+  },
+  "johnrose.house.gov": {
+    "name": "John W. Rose",
+    "office": "us-house",
+    "state": "TN",
+    "id": "R000612"
+  },
+  "jonathanjackson.house.gov": {
+    "name": "Jonathan L. Jackson",
+    "office": "us-house",
+    "state": "IL",
+    "id": "J000309"
+  },
+  "jonesforiowa.com": {
+    "name": "Megan Jones",
+    "office": "state-house",
+    "state": "IA",
+    "id": "ocd-person/65c3efb9-452e-4aae-a390-15db3f3ba707"
+  },
+  "jordan.house.gov": {
+    "name": "Jim Jordan",
+    "office": "us-house",
+    "state": "OH",
+    "id": "J000289"
+  },
+  "joyce.house.gov": {
+    "name": "David P. Joyce",
+    "office": "us-house",
+    "state": "OH",
+    "id": "J000295"
+  },
+  "judywarnick.src.wastateleg.org": {
+    "name": "Judy Warnick",
+    "office": "state-senate",
+    "state": "WA",
+    "id": "ocd-person/cce36d0b-a3d8-4375-bf70-06760a2eebc3"
+  },
+  "juliabrownley.house.gov": {
+    "name": "Julia Brownley",
+    "office": "us-house",
+    "state": "CA",
+    "id": "B001285"
+  },
+  "juliejohnson.house.gov": {
+    "name": "Julie Johnson",
+    "office": "us-house",
+    "state": "TX",
+    "id": "J000310"
+  },
+  "justice.senate.gov": {
+    "name": "James C. Justice",
+    "office": "us-senate",
+    "state": "WV",
+    "id": "J000312"
+  },
+  "kaine.senate.gov": {
+    "name": "Tim Kaine",
+    "office": "us-senate",
+    "state": "VA",
+    "id": "K000384"
+  },
+  "kamlager-dove.house.gov": {
+    "name": "Sydney Kamlager-Dove",
+    "office": "us-house",
+    "state": "CA",
+    "id": "K000400"
+  },
+  "kaptur.house.gov": {
+    "name": "Marcy Kaptur",
+    "office": "us-house",
+    "state": "OH",
+    "id": "K000009"
+  },
+  "karenspilka.com": {
+    "name": "Karen Spilka",
+    "office": "state-senate",
+    "state": "MA",
+    "id": "ocd-person/e48879ef-ed74-4f93-8e5b-c0f3752d4fd7"
+  },
+  "katherineclark.house.gov": {
+    "name": "Katherine M. Clark",
+    "office": "us-house",
+    "state": "MA",
+    "id": "C001101"
+  },
+  "kean.house.gov": {
+    "name": "Thomas H. Kean, Jr.",
+    "office": "us-house",
+    "state": "NJ",
+    "id": "K000398"
+  },
+  "keating.house.gov": {
+    "name": "William R. Keating",
+    "office": "us-house",
+    "state": "MA",
+    "id": "K000375"
+  },
+  "keithself.house.gov": {
+    "name": "Keith Self",
+    "office": "us-house",
+    "state": "TX",
+    "id": "S001224"
+  },
+  "keithwagoner.src.wastateleg.org": {
+    "name": "Keith Wagoner",
+    "office": "state-senate",
+    "state": "WA",
+    "id": "ocd-person/71e64843-6301-40ba-bafc-633ee347c482"
+  },
+  "kelly.house.gov": {
+    "name": "Mike Kelly",
+    "office": "us-house",
+    "state": "PA",
+    "id": "K000376"
+  },
+  "kelly.senate.gov": {
+    "name": "Mark Kelly",
+    "office": "us-senate",
+    "state": "AZ",
+    "id": "K000377"
+  },
+  "kennedy.house.gov": {
+    "name": "Timothy M. Kennedy",
+    "office": "us-house",
+    "state": "NY",
+    "id": "K000402"
+  },
+  "kennedy.senate.gov": {
+    "name": "John Kennedy",
+    "office": "us-senate",
+    "state": "LA",
+    "id": "K000393"
+  },
+  "kerrybenninghoff.com": {
+    "name": "Kerry Benninghoff",
+    "office": "state-house",
+    "state": "PA",
+    "id": "ocd-person/5a5a7a42-bc5e-4a07-aee1-d1a01e810385"
+  },
+  "kevinhardee.com": {
+    "name": "Kevin Hardee",
+    "office": "state-house",
+    "state": "SC",
+    "id": "ocd-person/ad6c27e9-3571-477c-9d94-92127d0020e7"
+  },
+  "kevinmullin.house.gov": {
+    "name": "Kevin Mullin",
+    "office": "us-house",
+    "state": "CA",
+    "id": "M001225"
+  },
+  "khanna.house.gov": {
+    "name": "Ro Khanna",
+    "office": "us-house",
+    "state": "CA",
+    "id": "K000389"
+  },
+  "kiggans.house.gov": {
+    "name": "Jennifer A. Kiggans",
+    "office": "us-house",
+    "state": "VA",
+    "id": "K000399"
+  },
+  "kiley.house.gov": {
+    "name": "Kevin Kiley",
+    "office": "us-house",
+    "state": "CA",
+    "id": "K000401"
+  },
+  "kim.senate.gov": {
+    "name": "Andy Kim",
+    "office": "us-senate",
+    "state": "NJ",
+    "id": "K000394"
+  },
+  "king.senate.gov": {
+    "name": "Angus S. King, Jr.",
+    "office": "us-senate",
+    "state": "ME",
+    "id": "K000383"
+  },
+  "klobuchar.senate.gov": {
+    "name": "Amy Klobuchar",
+    "office": "us-senate",
+    "state": "MN",
+    "id": "K000367"
+  },
+  "knott.house.gov": {
+    "name": "Brad Knott",
+    "office": "us-house",
+    "state": "NC",
+    "id": "K000405"
+  },
+  "krishnamoorthi.house.gov": {
+    "name": "Raja Krishnamoorthi",
+    "office": "us-house",
+    "state": "IL",
+    "id": "K000391"
+  },
+  "kustoff.house.gov": {
+    "name": "David Kustoff",
+    "office": "us-house",
+    "state": "TN",
+    "id": "K000392"
+  },
+  "lahood.house.gov": {
+    "name": "Darin LaHood",
+    "office": "us-house",
+    "state": "IL",
+    "id": "L000585"
+  },
+  "lalota.house.gov": {
+    "name": "Nick LaLota",
+    "office": "us-house",
+    "state": "NY",
+    "id": "L000598"
+  },
+  "landsman.house.gov": {
+    "name": "Greg Landsman",
+    "office": "us-house",
+    "state": "OH",
+    "id": "L000601"
+  },
+  "langworthy.house.gov": {
+    "name": "Nicholas A. Langworthy",
+    "office": "us-house",
+    "state": "NY",
+    "id": "L000600"
+  },
+  "lankford.senate.gov": {
+    "name": "James Lankford",
+    "office": "us-senate",
+    "state": "OK",
+    "id": "L000575"
+  },
+  "larsen.house.gov": {
+    "name": "Rick Larsen",
+    "office": "us-house",
+    "state": "WA",
+    "id": "L000560"
+  },
+  "larson.house.gov": {
+    "name": "John B. Larson",
+    "office": "us-house",
+    "state": "CT",
+    "id": "L000557"
+  },
+  "latimer.house.gov": {
+    "name": "George Latimer",
+    "office": "us-house",
+    "state": "NY",
+    "id": "L000606"
+  },
+  "latta.house.gov": {
+    "name": "Robert E. Latta",
+    "office": "us-house",
+    "state": "OH",
+    "id": "L000566"
+  },
+  "laurellee.house.gov": {
+    "name": "Laurel M. Lee",
+    "office": "us-house",
+    "state": "FL",
+    "id": "L000597"
+  },
+  "lawler.house.gov": {
+    "name": "Michael Lawler",
+    "office": "us-house",
+    "state": "NY",
+    "id": "L000599"
+  },
+  "lee.senate.gov": {
+    "name": "Mike Lee",
+    "office": "us-senate",
+    "state": "UT",
+    "id": "L000577"
+  },
+  "legisweb.state.wy.us": {
+    "name": "Lee Filer",
+    "office": "state-house",
+    "state": "WY",
+    "id": "ocd-person/be3b0a04-4e00-42e4-9202-5c8f68aacedd"
+  },
+  "letlow.house.gov": {
+    "name": "Julia Letlow",
+    "office": "us-house",
+    "state": "LA",
+    "id": "L000595"
+  },
+  "levin.house.gov": {
+    "name": "Mike Levin",
+    "office": "us-house",
+    "state": "CA",
+    "id": "L000593"
+  },
+  "liccardo.house.gov": {
+    "name": "Sam T. Liccardo",
+    "office": "us-house",
+    "state": "CA",
+    "id": "L000607"
+  },
+  "lieu.house.gov": {
+    "name": "Ted Lieu",
+    "office": "us-house",
+    "state": "CA",
+    "id": "L000582"
+  },
+  "lindasanchez.house.gov": {
+    "name": "Linda T. Sánchez",
+    "office": "us-house",
+    "state": "CA",
+    "id": "S001156"
+  },
+  "lis.virginia.gov": {
+    "name": "Elizabeth Bennett-Parker",
+    "office": "state-senate",
+    "state": "VA",
+    "id": "ocd-person/c3b0c2fc-c7bf-45f8-8ee3-50d5a57bad08"
+  },
+  "lizboldon.com": {
+    "name": "Liz Boldon",
+    "office": "state-senate",
+    "state": "MN",
+    "id": "ocd-person/26ed75ae-3230-4e92-82a3-486bd76e1893"
+  },
+  "lofgren.house.gov": {
+    "name": "Zoe Lofgren",
+    "office": "us-house",
+    "state": "CA",
+    "id": "L000397"
+  },
+  "loudermilk.house.gov": {
+    "name": "Barry Loudermilk",
+    "office": "us-house",
+    "state": "GA",
+    "id": "L000583"
+  },
+  "lucas.house.gov": {
+    "name": "Frank D. Lucas",
+    "office": "us-house",
+    "state": "OK",
+    "id": "L000491"
+  },
+  "lujan.senate.gov": {
+    "name": "Ben Ray Luján",
+    "office": "us-senate",
+    "state": "NM",
+    "id": "L000570"
+  },
+  "lummis.senate.gov": {
+    "name": "Cynthia M. Lummis",
+    "office": "us-senate",
+    "state": "WY",
+    "id": "L000571"
+  },
+  "luna.house.gov": {
+    "name": "Anna Paulina Luna",
+    "office": "us-house",
+    "state": "FL",
+    "id": "L000596"
+  },
+  "luttrell.house.gov": {
+    "name": "Morgan Luttrell",
+    "office": "us-house",
+    "state": "TX",
+    "id": "L000603"
+  },
+  "lynch.house.gov": {
+    "name": "Stephen F. Lynch",
+    "office": "us-house",
+    "state": "MA",
+    "id": "L000562"
+  },
+  "mace.house.gov": {
+    "name": "Nancy Mace",
+    "office": "us-house",
+    "state": "SC",
+    "id": "M000194"
+  },
+  "mackenzie.house.gov": {
+    "name": "Ryan Mackenzie",
+    "office": "us-house",
+    "state": "PA",
+    "id": "M001230"
+  },
+  "magaziner.house.gov": {
+    "name": "Seth Magaziner",
+    "office": "us-house",
+    "state": "RI",
+    "id": "M001223"
+  },
+  "malliotakis.house.gov": {
+    "name": "Nicole Malliotakis",
+    "office": "us-house",
+    "state": "NY",
+    "id": "M000317"
+  },
+  "maloy.house.gov": {
+    "name": "Celeste Maloy",
+    "office": "us-house",
+    "state": "UT",
+    "id": "M001228"
+  },
+  "mann.house.gov": {
+    "name": "Tracey Mann",
+    "office": "us-house",
+    "state": "KS",
+    "id": "M000871"
+  },
+  "mannion.house.gov": {
+    "name": "John W. Mannion",
+    "office": "us-house",
+    "state": "NY",
+    "id": "M001231"
+  },
+  "mariodiazbalart.house.gov": {
+    "name": "Mario Diaz-Balart",
+    "office": "us-house",
+    "state": "FL",
+    "id": "D000600"
+  },
+  "markey.senate.gov": {
+    "name": "Edward J. Markey",
+    "office": "us-senate",
+    "state": "MA",
+    "id": "M000133"
+  },
+  "markharris.house.gov": {
+    "name": "Mark Harris",
+    "office": "us-house",
+    "state": "NC",
+    "id": "H001102"
+  },
+  "markkoranmn.com": {
+    "name": "Mark Koran",
+    "office": "state-senate",
+    "state": "MN",
+    "id": "ocd-person/f20a4255-6c65-4091-a0f5-aea70f133cdb"
+  },
+  "marshall.senate.gov": {
+    "name": "Roger Marshall",
+    "office": "us-senate",
+    "state": "KS",
+    "id": "M001198"
+  },
+  "marymiller.house.gov": {
+    "name": "Mary E. Miller",
+    "office": "us-house",
+    "state": "IL",
+    "id": "M001211"
+  },
+  "massie.house.gov": {
+    "name": "Thomas Massie",
+    "office": "us-house",
+    "state": "KY",
+    "id": "M001184"
+  },
+  "mast.house.gov": {
+    "name": "Brian J. Mast",
+    "office": "us-house",
+    "state": "FL",
+    "id": "M001199"
+  },
+  "matsui.house.gov": {
+    "name": "Doris O. Matsui",
+    "office": "us-house",
+    "state": "CA",
+    "id": "M001163"
+  },
+  "maxmiller.house.gov": {
+    "name": "Max L. Miller",
+    "office": "us-house",
+    "state": "OH",
+    "id": "M001222"
+  },
+  "mcbath.house.gov": {
+    "name": "Lucy McBath",
+    "office": "us-house",
+    "state": "GA",
+    "id": "M001208"
+  },
+  "mcbride.house.gov": {
+    "name": "Sarah McBride",
+    "office": "us-house",
+    "state": "DE",
+    "id": "M001238"
+  },
+  "mccaul.house.gov": {
+    "name": "Michael T. McCaul",
+    "office": "us-house",
+    "state": "TX",
+    "id": "M001157"
+  },
+  "mcclain.house.gov": {
+    "name": "Lisa C. McClain",
+    "office": "us-house",
+    "state": "MI",
+    "id": "M001136"
+  },
+  "mcclaindelaney.house.gov": {
+    "name": "April McClain Delaney",
+    "office": "us-house",
+    "state": "MD",
+    "id": "M001232"
+  },
+  "mcclellan.house.gov": {
+    "name": "Jennifer L. McClellan",
+    "office": "us-house",
+    "state": "VA",
+    "id": "M001227"
+  },
+  "mcclintock.house.gov": {
+    "name": "Tom McClintock",
+    "office": "us-house",
+    "state": "CA",
+    "id": "M001177"
+  },
+  "mccollum.house.gov": {
+    "name": "Betty McCollum",
+    "office": "us-house",
+    "state": "MN",
+    "id": "M001143"
+  },
+  "mcconnell.senate.gov": {
+    "name": "Mitch McConnell",
+    "office": "us-senate",
+    "state": "KY",
+    "id": "M000355"
+  },
+  "mccormick.house.gov": {
+    "name": "Richard McCormick",
+    "office": "us-house",
+    "state": "GA",
+    "id": "M001218"
+  },
+  "mccormick.senate.gov": {
+    "name": "David McCormick",
+    "office": "us-senate",
+    "state": "PA",
+    "id": "M001243"
+  },
+  "mcdonaldrivet.house.gov": {
+    "name": "Kristen McDonald Rivet",
+    "office": "us-house",
+    "state": "MI",
+    "id": "M001237"
+  },
+  "mcdowell.house.gov": {
+    "name": "Addison P. McDowell",
+    "office": "us-house",
+    "state": "NC",
+    "id": "M001240"
+  },
+  "mcgarvey.house.gov": {
+    "name": "Morgan McGarvey",
+    "office": "us-house",
+    "state": "KY",
+    "id": "M001220"
+  },
+  "mcgovern.house.gov": {
+    "name": "James P. McGovern",
+    "office": "us-house",
+    "state": "MA",
+    "id": "M000312"
+  },
+  "mcguire.house.gov": {
+    "name": "John J. McGuire III",
+    "office": "us-house",
+    "state": "VA",
+    "id": "M001239"
+  },
+  "mciver.house.gov": {
+    "name": "LaMonica McIver",
+    "office": "us-house",
+    "state": "NJ",
+    "id": "M001229"
+  },
+  "meeks.house.gov": {
+    "name": "Gregory W. Meeks",
+    "office": "us-house",
+    "state": "NY",
+    "id": "M001137"
+  },
+  "mejia.house.gov": {
+    "name": "Analilia Mejia",
+    "office": "us-house",
+    "state": "NJ",
+    "id": "M001246"
+  },
+  "menefee.house.gov": {
+    "name": "Christian D. Menefee",
+    "office": "us-house",
+    "state": "TX",
+    "id": "M001245"
+  },
+  "menendez.house.gov": {
+    "name": "Robert Menendez",
+    "office": "us-house",
+    "state": "NJ",
+    "id": "M001226"
+  },
+  "meng.house.gov": {
+    "name": "Grace Meng",
+    "office": "us-house",
+    "state": "NY",
+    "id": "M001188"
+  },
+  "merkley.senate.gov": {
+    "name": "Jeff Merkley",
+    "office": "us-senate",
+    "state": "OR",
+    "id": "M001176"
+  },
+  "messmer.house.gov": {
+    "name": "Mark B. Messmer",
+    "office": "us-house",
+    "state": "IN",
+    "id": "M001233"
+  },
+  "meuser.house.gov": {
+    "name": "Daniel Meuser",
+    "office": "us-house",
+    "state": "PA",
+    "id": "M001204"
+  },
+  "mfume.house.gov": {
+    "name": "Kweisi Mfume",
+    "office": "us-house",
+    "state": "MD",
+    "id": "M000687"
+  },
+  "mikejohnson.house.gov": {
+    "name": "Mike Johnson",
+    "office": "us-house",
+    "state": "LA",
+    "id": "J000299"
+  },
+  "mikekennedy.house.gov": {
+    "name": "Mike Kennedy",
+    "office": "us-house",
+    "state": "UT",
+    "id": "K000403"
+  },
+  "mikerogers.house.gov": {
+    "name": "Mike Rogers",
+    "office": "us-house",
+    "state": "AL",
+    "id": "R000575"
+  },
+  "mikethompson.house.gov": {
+    "name": "Mike Thompson",
+    "office": "us-house",
+    "state": "CA",
+    "id": "T000460"
+  },
+  "miller.house.gov": {
+    "name": "Carol D. Miller",
+    "office": "us-house",
+    "state": "WV",
+    "id": "M001205"
+  },
+  "millermeeks.house.gov": {
+    "name": "Mariannette Miller-Meeks",
+    "office": "us-house",
+    "state": "IA",
+    "id": "M001215"
+  },
+  "mills.house.gov": {
+    "name": "Cory Mills",
+    "office": "us-house",
+    "state": "FL",
+    "id": "M001216"
+  },
+  "min.house.gov": {
+    "name": "Dave Min",
+    "office": "us-house",
+    "state": "CA",
+    "id": "M001241"
+  },
+  "moody.senate.gov": {
+    "name": "Ashley Moody",
+    "office": "us-senate",
+    "state": "FL",
+    "id": "M001244"
+  },
+  "moolenaar.house.gov": {
+    "name": "John R. Moolenaar",
+    "office": "us-house",
+    "state": "MI",
+    "id": "M001194"
+  },
+  "moran.house.gov": {
+    "name": "Nathaniel Moran",
+    "office": "us-house",
+    "state": "TX",
+    "id": "M001224"
+  },
+  "moran.senate.gov": {
+    "name": "Jerry Moran",
+    "office": "us-senate",
+    "state": "KS",
+    "id": "M000934"
+  },
+  "morelle.house.gov": {
+    "name": "Joseph D. Morelle",
+    "office": "us-house",
+    "state": "NY",
+    "id": "M001206"
+  },
+  "moreno.senate.gov": {
+    "name": "Bernie Moreno",
+    "office": "us-senate",
+    "state": "OH",
+    "id": "M001242"
+  },
+  "morgangriffith.house.gov": {
+    "name": "H. Morgan Griffith",
+    "office": "us-house",
+    "state": "VA",
+    "id": "G000568"
+  },
+  "morrison.house.gov": {
+    "name": "Kelly Morrison",
+    "office": "us-house",
+    "state": "MN",
+    "id": "M001234"
+  },
+  "moskowitz.house.gov": {
+    "name": "Jared Moskowitz",
+    "office": "us-house",
+    "state": "FL",
+    "id": "M001217"
+  },
+  "moulton.house.gov": {
+    "name": "Seth Moulton",
+    "office": "us-house",
+    "state": "MA",
+    "id": "M001196"
+  },
+  "mrodriguez.asmdc.org": {
+    "name": "Michelle Rodriguez",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/c8e36b71-c739-4afb-b8e9-cbdd4d362693"
+  },
+  "mrvan.house.gov": {
+    "name": "Frank J. Mrvan",
+    "office": "us-house",
+    "state": "IN",
+    "id": "M001214"
+  },
+  "murkowski.senate.gov": {
+    "name": "Lisa Murkowski",
+    "office": "us-senate",
+    "state": "AK",
+    "id": "M001153"
+  },
+  "murphy.house.gov": {
+    "name": "Gregory F. Murphy",
+    "office": "us-house",
+    "state": "NC",
+    "id": "M001210"
+  },
+  "murphy.senate.gov": {
+    "name": "Christopher Murphy",
+    "office": "us-senate",
+    "state": "CT",
+    "id": "M001169"
+  },
+  "murray.senate.gov": {
+    "name": "Patty Murray",
+    "office": "us-senate",
+    "state": "WA",
+    "id": "M001111"
+  },
+  "nadler.house.gov": {
+    "name": "Jerrold Nadler",
+    "office": "us-house",
+    "state": "NY",
+    "id": "N000002"
+  },
+  "neal.house.gov": {
+    "name": "Richard E. Neal",
+    "office": "us-house",
+    "state": "MA",
+    "id": "N000015"
+  },
+  "neguse.house.gov": {
+    "name": "Joe Neguse",
+    "office": "us-house",
+    "state": "CO",
+    "id": "N000191"
+  },
+  "nehls.house.gov": {
+    "name": "Troy E. Nehls",
+    "office": "us-house",
+    "state": "TX",
+    "id": "N000026"
+  },
+  "newhouse.house.gov": {
+    "name": "Dan Newhouse",
+    "office": "us-house",
+    "state": "WA",
+    "id": "N000189"
+  },
+  "nikemawilliams.house.gov": {
+    "name": "Nikema Williams",
+    "office": "us-house",
+    "state": "GA",
+    "id": "W000788"
+  },
+  "nj-newjerseylegislativead.civicplus.com": {
+    "name": "Lou Greenwald",
+    "office": "state-house",
+    "state": "NJ",
+    "id": "ocd-person/a27823aa-f5a9-4d6c-8089-1d8ceee6f8e0"
+  },
+  "norcross.house.gov": {
+    "name": "Donald Norcross",
+    "office": "us-house",
+    "state": "NJ",
+    "id": "N000188"
+  },
+  "norman.house.gov": {
+    "name": "Ralph Norman",
+    "office": "us-house",
+    "state": "SC",
+    "id": "N000190"
+  },
+  "nunn.house.gov": {
+    "name": "Zachary Nunn",
+    "office": "us-house",
+    "state": "IA",
+    "id": "N000193"
+  },
+  "obernolte.house.gov": {
+    "name": "Jay Obernolte",
+    "office": "us-house",
+    "state": "CA",
+    "id": "O000019"
+  },
+  "ocasio-cortez.house.gov": {
+    "name": "Alexandria Ocasio-Cortez",
+    "office": "us-house",
+    "state": "NY",
+    "id": "O000172"
+  },
+  "ogles.house.gov": {
+    "name": "Andrew Ogles",
+    "office": "us-house",
+    "state": "TN",
+    "id": "O000175"
+  },
+  "olsenforwyoming.com": {
+    "name": "Jared Olsen",
+    "office": "state-senate",
+    "state": "WY",
+    "id": "ocd-person/63e25ff3-1832-45c8-a9af-669bb74a3aa4"
+  },
+  "olszewski.house.gov": {
+    "name": "Johnny Olszewski, Jr.",
+    "office": "us-house",
+    "state": "MD",
+    "id": "O000176"
+  },
+  "omar.house.gov": {
+    "name": "Ilhan Omar",
+    "office": "us-house",
+    "state": "MN",
+    "id": "O000173"
+  },
+  "onder.house.gov": {
+    "name": "Robert F. Onder, Jr.",
+    "office": "us-house",
+    "state": "MO",
+    "id": "O000177"
+  },
+  "oscanlon.senatenj.com": {
+    "name": "Declan O'Scanlon",
+    "office": "state-senate",
+    "state": "NJ",
+    "id": "ocd-person/ac044b70-7745-435a-9c38-c4af013d0b0e"
+  },
+  "ossoff.senate.gov": {
+    "name": "Jon Ossoff",
+    "office": "us-senate",
+    "state": "GA",
+    "id": "O000174"
+  },
+  "owens.house.gov": {
+    "name": "Burgess Owens",
+    "office": "us-house",
+    "state": "UT",
+    "id": "O000086"
+  },
+  "padilla.senate.gov": {
+    "name": "Alex Padilla",
+    "office": "us-senate",
+    "state": "CA",
+    "id": "P000145"
+  },
+  "pallone.house.gov": {
+    "name": "Frank Pallone, Jr.",
+    "office": "us-house",
+    "state": "NJ",
+    "id": "P000034"
+  },
+  "palmer.house.gov": {
+    "name": "Gary J. Palmer",
+    "office": "us-house",
+    "state": "AL",
+    "id": "P000609"
+  },
+  "panetta.house.gov": {
+    "name": "Jimmy Panetta",
+    "office": "us-house",
+    "state": "CA",
+    "id": "P000613"
+  },
+  "papan.asmdc.org": {
+    "name": "Diane Papan",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/20c72bef-f518-4677-bbcb-83c502c36ede"
+  },
+  "pappas.house.gov": {
+    "name": "Chris Pappas",
+    "office": "us-house",
+    "state": "NH",
+    "id": "P000614"
+  },
+  "pasenatorcappelletti.com": {
+    "name": "Amanda Cappelletti",
+    "office": "state-senate",
+    "state": "PA",
+    "id": "ocd-person/77755456-0f2a-4bbd-ac96-03d83398d6fc"
+  },
+  "pasenatorkane.com": {
+    "name": "John Kane",
+    "office": "state-senate",
+    "state": "PA",
+    "id": "ocd-person/c45052c1-f3e4-485e-a3d2-f346fa51839b"
+  },
+  "pasenatorkim.com": {
+    "name": "Patty Kim",
+    "office": "state-senate",
+    "state": "PA",
+    "id": "ocd-person/b5ff17d0-36e8-4f29-8c9b-e51bb9b3ea29"
+  },
+  "pasenatormiller.com": {
+    "name": "Nick Miller",
+    "office": "state-senate",
+    "state": "PA",
+    "id": "ocd-person/a160699d-cc7d-4ed7-b486-57008ee0e642"
+  },
+  "pasenatornick.com": {
+    "name": "Nick Pisciottano",
+    "office": "state-senate",
+    "state": "PA",
+    "id": "ocd-person/c9f6833a-470e-480f-b3ad-d91c887aa4f9"
+  },
+  "patronis.house.gov": {
+    "name": "Jimmy Patronis",
+    "office": "us-house",
+    "state": "FL",
+    "id": "P000622"
+  },
+  "patryan.house.gov": {
+    "name": "Patrick Ryan",
+    "office": "us-house",
+    "state": "NY",
+    "id": "R000579"
+  },
+  "paul.senate.gov": {
+    "name": "Rand Paul",
+    "office": "us-senate",
+    "state": "KY",
+    "id": "P000603"
+  },
+  "paulbaileyfortn.com": {
+    "name": "Paul Bailey",
+    "office": "state-senate",
+    "state": "TN",
+    "id": "ocd-person/8e49fca4-e0d8-4273-adab-265632163d86"
+  },
+  "pelosi.house.gov": {
+    "name": "Nancy Pelosi",
+    "office": "us-house",
+    "state": "CA",
+    "id": "P000197"
+  },
+  "pennacchio.senatenj.com": {
+    "name": "Joe Pennacchio",
+    "office": "state-senate",
+    "state": "NJ",
+    "id": "ocd-person/4bf4c8e4-5a97-4100-b34d-cb01da6ab266"
+  },
+  "perry.house.gov": {
+    "name": "Scott Perry",
+    "office": "us-house",
+    "state": "PA",
+    "id": "P000605"
+  },
+  "petecampos.com": {
+    "name": "Pete Campos",
+    "office": "state-senate",
+    "state": "NM",
+    "id": "ocd-person/e2f7dd70-36fc-4b65-8dfd-19fcc1d63e38"
+  },
+  "peters.senate.gov": {
+    "name": "Gary C. Peters",
+    "office": "us-senate",
+    "state": "MI",
+    "id": "P000595"
+  },
+  "pettersen.house.gov": {
+    "name": "Brittany Pettersen",
+    "office": "us-house",
+    "state": "CO",
+    "id": "P000620"
+  },
+  "pfluger.house.gov": {
+    "name": "August Pfluger",
+    "office": "us-house",
+    "state": "TX",
+    "id": "P000048"
+  },
+  "pingree.house.gov": {
+    "name": "Chellie Pingree",
+    "office": "us-house",
+    "state": "ME",
+    "id": "P000597"
+  },
+  "pocan.house.gov": {
+    "name": "Mark Pocan",
+    "office": "us-house",
+    "state": "WI",
+    "id": "P000607"
+  },
+  "polistina.senatenj.com": {
+    "name": "Vince Polistina",
+    "office": "state-senate",
+    "state": "NJ",
+    "id": "ocd-person/5a6bf64a-7731-4e80-8208-e1a18f09762b"
+  },
+  "poseyforhd33.com": {
+    "name": "Ivan Posey",
+    "office": "state-house",
+    "state": "WY",
+    "id": "ocd-person/df82de40-cf5b-4197-b276-5e5982146849"
+  },
+  "pou.house.gov": {
+    "name": "Nellie Pou",
+    "office": "us-house",
+    "state": "NJ",
+    "id": "P000621"
+  },
+  "pressley.house.gov": {
+    "name": "Ayanna Pressley",
+    "office": "us-house",
+    "state": "MA",
+    "id": "P000617"
+  },
+  "quigley.house.gov": {
+    "name": "Mike Quigley",
+    "office": "us-house",
+    "state": "IL",
+    "id": "Q000023"
+  },
+  "ramirez.house.gov": {
+    "name": "Delia C. Ramirez",
+    "office": "us-house",
+    "state": "IL",
+    "id": "R000617"
+  },
+  "ramos.asmdc.org": {
+    "name": "James Ramos",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/156660b1-4c3f-45e3-8384-53cda60d7ea5"
+  },
+  "randall.house.gov": {
+    "name": "Emily Randall",
+    "office": "us-house",
+    "state": "WA",
+    "id": "R000621"
+  },
+  "raskin.house.gov": {
+    "name": "Jamie Raskin",
+    "office": "us-house",
+    "state": "MD",
+    "id": "R000606"
+  },
+  "rayhull.com": {
+    "name": "Raymond Hull",
+    "office": "state-house",
+    "state": "RI",
+    "id": "ocd-person/da9a4b15-1cbf-4645-bd98-58ce413b68e1"
+  },
+  "reed.senate.gov": {
+    "name": "Jack Reed",
+    "office": "us-senate",
+    "state": "RI",
+    "id": "R000122"
+  },
+  "repbarger.com": {
+    "name": "Scott Barger",
+    "office": "state-house",
+    "state": "PA",
+    "id": "ocd-person/983dc33a-559e-4f01-9c60-08fed48a1415"
+  },
+  "repbashline.com": {
+    "name": "Josh Bashline",
+    "office": "state-house",
+    "state": "PA",
+    "id": "ocd-person/2062ecc5-049f-44c4-83bf-850a34b75531"
+  },
+  "repbillherbkersman.com": {
+    "name": "Bill Herbkersman",
+    "office": "state-house",
+    "state": "SC",
+    "id": "ocd-person/e27051a1-60e8-4ad9-b1d2-55360e09ea8c"
+  },
+  "repdamoose.com": {
+    "name": "John Damoose",
+    "office": "state-senate",
+    "state": "MI",
+    "id": "ocd-person/071e391f-da3d-4e66-ae78-61a63bc23729"
+  },
+  "repdeering.com": {
+    "name": "Regan Deering",
+    "office": "state-house",
+    "state": "IL",
+    "id": "ocd-person/8d81a4e9-f895-4a60-8064-2ddd2bd785c8"
+  },
+  "reperinpare.com": {
+    "name": "Erin Paré",
+    "office": "state-house",
+    "state": "NC",
+    "id": "ocd-person/ea801bb0-b3bd-4dbc-9164-25e7f4e63f84"
+  },
+  "repilagan.com": {
+    "name": "Greggor Ilagan",
+    "office": "state-house",
+    "state": "HI",
+    "id": "ocd-person/d56e9f60-c26e-4437-90d7-4414957e737d"
+  },
+  "repmarcanderson.com": {
+    "name": "Marc Anderson",
+    "office": "state-house",
+    "state": "PA",
+    "id": "ocd-person/8d16f666-803c-4946-8adc-32f1e80d79d9"
+  },
+  "repmargetas.com": {
+    "name": "George Margetas",
+    "office": "state-house",
+    "state": "PA",
+    "id": "ocd-person/3beadda2-daa5-4006-a2eb-32f9d9abdc71"
+  },
+  "repmoore.com": {
+    "name": "Kyle Moore",
+    "office": "state-house",
+    "state": "IL",
+    "id": "ocd-person/6f9e28df-bdf5-4493-aac1-68f1b7be39cb"
+  },
+  "reprasel.com": {
+    "name": "Brian Rasel",
+    "office": "state-house",
+    "state": "PA",
+    "id": "ocd-person/7ec5f0f0-0899-4f54-b284-c4c5931c25bc"
+  },
+  "repreichard.com": {
+    "name": "Chad Reichard",
+    "office": "state-house",
+    "state": "PA",
+    "id": "ocd-person/851902e6-5649-4c0c-948a-57fb9c1dd40d"
+  },
+  "repsheehan.com": {
+    "name": "Patrick Sheehan",
+    "office": "state-house",
+    "state": "IL",
+    "id": "ocd-person/075c5ab4-12bf-4573-8091-1539a081256e"
+  },
+  "repwallen.com": {
+    "name": "Catherine Wallen",
+    "office": "state-house",
+    "state": "PA",
+    "id": "ocd-person/d881386d-8aad-45c7-8705-27f3288f20ea"
+  },
+  "repwalsh.com": {
+    "name": "Jamie Walsh",
+    "office": "state-house",
+    "state": "PA",
+    "id": "ocd-person/96cbec5b-b9a4-4325-8346-bd4d08d87237"
+  },
+  "repweaknecht.com": {
+    "name": "Eric Weaknecht",
+    "office": "state-house",
+    "state": "PA",
+    "id": "ocd-person/b7373c43-580b-4044-a405-054073ac687b"
+  },
+  "reschenthaler.house.gov": {
+    "name": "Guy Reschenthaler",
+    "office": "us-house",
+    "state": "PA",
+    "id": "R000610"
+  },
+  "ricketts.senate.gov": {
+    "name": "Pete Ricketts",
+    "office": "us-senate",
+    "state": "NE",
+    "id": "R000618"
+  },
+  "rickscott.senate.gov": {
+    "name": "Rick Scott",
+    "office": "us-senate",
+    "state": "FL",
+    "id": "S001217"
+  },
+  "riley.house.gov": {
+    "name": "Josh Riley",
+    "office": "us-house",
+    "state": "NY",
+    "id": "R000622"
+  },
+  "rileymoore.house.gov": {
+    "name": "Riley M. Moore",
+    "office": "us-house",
+    "state": "WV",
+    "id": "M001235"
+  },
+  "risch.senate.gov": {
+    "name": "James E. Risch",
+    "office": "us-senate",
+    "state": "ID",
+    "id": "R000584"
+  },
+  "ritchietorres.house.gov": {
+    "name": "Ritchie Torres",
+    "office": "us-house",
+    "state": "NY",
+    "id": "T000486"
+  },
+  "rivas.house.gov": {
+    "name": "Luz M. Rivas",
+    "office": "us-house",
+    "state": "CA",
+    "id": "R000620"
+  },
+  "robertgarcia.house.gov": {
+    "name": "Robert Garcia",
+    "office": "us-house",
+    "state": "CA",
+    "id": "G000598"
+  },
+  "robinkelly.house.gov": {
+    "name": "Robin L. Kelly",
+    "office": "us-house",
+    "state": "IL",
+    "id": "K000385"
+  },
+  "ronjohnson.senate.gov": {
+    "name": "Ron Johnson",
+    "office": "us-senate",
+    "state": "WI",
+    "id": "J000293"
+  },
+  "rosen.senate.gov": {
+    "name": "Jacky Rosen",
+    "office": "us-senate",
+    "state": "NV",
+    "id": "R000608"
+  },
+  "ross.house.gov": {
+    "name": "Deborah K. Ross",
+    "office": "us-house",
+    "state": "NC",
+    "id": "R000305"
+  },
+  "rounds.senate.gov": {
+    "name": "Mike Rounds",
+    "office": "us-senate",
+    "state": "SD",
+    "id": "R000605"
+  },
+  "rouzer.house.gov": {
+    "name": "David Rouzer",
+    "office": "us-house",
+    "state": "NC",
+    "id": "R000603"
+  },
+  "roy.house.gov": {
+    "name": "Chip Roy",
+    "office": "us-house",
+    "state": "TX",
+    "id": "R000614"
+  },
+  "rubio.asmdc.org": {
+    "name": "Blanca Rubio",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/82cbb6e9-8486-44ec-8450-86d1e700f828"
+  },
+  "ruiz.house.gov": {
+    "name": "Raul Ruiz",
+    "office": "us-house",
+    "state": "CA",
+    "id": "R000599"
+  },
+  "rulli.house.gov": {
+    "name": "Michael A. Rulli",
+    "office": "us-house",
+    "state": "OH",
+    "id": "R000619"
+  },
+  "rutherford.house.gov": {
+    "name": "John H. Rutherford",
+    "office": "us-house",
+    "state": "FL",
+    "id": "R000609"
+  },
+  "ryanweld.com": {
+    "name": "Ryan Weld",
+    "office": "state-senate",
+    "state": "WV",
+    "id": "ocd-person/680aa2ce-6408-4047-a36b-0b3badc82851"
+  },
+  "salazar.house.gov": {
+    "name": "Maria Elvira Salazar",
+    "office": "us-house",
+    "state": "FL",
+    "id": "S000168"
+  },
+  "salinas.house.gov": {
+    "name": "Andrea Salinas",
+    "office": "us-house",
+    "state": "OR",
+    "id": "S001226"
+  },
+  "sanders.senate.gov": {
+    "name": "Bernard Sanders",
+    "office": "us-senate",
+    "state": "VT",
+    "id": "S000033"
+  },
+  "sarajacobs.house.gov": {
+    "name": "Sara Jacobs",
+    "office": "us-house",
+    "state": "CA",
+    "id": "J000305"
+  },
+  "scalise.house.gov": {
+    "name": "Steve Scalise",
+    "office": "us-house",
+    "state": "LA",
+    "id": "S001176"
+  },
+  "scanlon.house.gov": {
+    "name": "Mary Gay Scanlon",
+    "office": "us-house",
+    "state": "PA",
+    "id": "S001205"
+  },
+  "schakowsky.house.gov": {
+    "name": "Janice D. Schakowsky",
+    "office": "us-house",
+    "state": "IL",
+    "id": "S001145"
+  },
+  "schatz.senate.gov": {
+    "name": "Brian Schatz",
+    "office": "us-senate",
+    "state": "HI",
+    "id": "S001194"
+  },
+  "schepisi.senatenj.com": {
+    "name": "Holly Schepisi",
+    "office": "state-senate",
+    "state": "NJ",
+    "id": "ocd-person/57fe7d05-af12-4f44-b143-e19814f2cfa2"
+  },
+  "schiavo.asmdc.org": {
+    "name": "Pilar Schiavo",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/d12d3275-2086-4bf5-886b-c4de3823fbf9"
+  },
+  "schiff.senate.gov": {
+    "name": "Adam B. Schiff",
+    "office": "us-senate",
+    "state": "CA",
+    "id": "S001150"
+  },
+  "schmidt.house.gov": {
+    "name": "Derek Schmidt",
+    "office": "us-house",
+    "state": "KS",
+    "id": "S001228"
+  },
+  "schmitt.senate.gov": {
+    "name": "Eric Schmitt",
+    "office": "us-senate",
+    "state": "MO",
+    "id": "S001227"
+  },
+  "schneider.house.gov": {
+    "name": "Bradley Scott Schneider",
+    "office": "us-house",
+    "state": "IL",
+    "id": "S001190"
+  },
+  "scholten.house.gov": {
+    "name": "Hillary J. Scholten",
+    "office": "us-house",
+    "state": "MI",
+    "id": "S001221"
+  },
+  "schrier.house.gov": {
+    "name": "Kim Schrier",
+    "office": "us-house",
+    "state": "WA",
+    "id": "S001216"
+  },
+  "schumer.senate.gov": {
+    "name": "Charles E. Schumer",
+    "office": "us-senate",
+    "state": "NY",
+    "id": "S000148"
+  },
+  "schweikert.house.gov": {
+    "name": "David Schweikert",
+    "office": "us-house",
+    "state": "AZ",
+    "id": "S001183"
+  },
+  "scott.senate.gov": {
+    "name": "Tim Scott",
+    "office": "us-senate",
+    "state": "SC",
+    "id": "S001184"
+  },
+  "scottpeters.house.gov": {
+    "name": "Scott H. Peters",
+    "office": "us-house",
+    "state": "CA",
+    "id": "P000608"
+  },
+  "sd02.senate.ca.gov": {
+    "name": "Mike McGuire",
+    "office": "state-senate",
+    "state": "CA",
+    "id": "ocd-person/a1394aeb-094a-4fc0-b4d5-005104ceddc0"
+  },
+  "sd03.senate.ca.gov": {
+    "name": "Christopher Cabaldon",
+    "office": "state-senate",
+    "state": "CA",
+    "id": "ocd-person/8833976f-b95a-45bf-bbd9-ccdb66946d20"
+  },
+  "sd04.senate.ca.gov": {
+    "name": "Marie Alvarado-Gil",
+    "office": "state-senate",
+    "state": "CA",
+    "id": "ocd-person/b6907bd6-05e1-44a4-bfc6-db4b672ff8b4"
+  },
+  "sd05.senate.ca.gov": {
+    "name": "Jerry McNerney",
+    "office": "state-senate",
+    "state": "CA",
+    "id": "ocd-person/e9733632-df5d-48b4-b4a3-4768e7dcb5f7"
+  },
+  "sd07.senate.ca.gov": {
+    "name": "Jesse Arreguín",
+    "office": "state-senate",
+    "state": "CA",
+    "id": "ocd-person/83a64401-d95d-42c5-8cfc-03bd29e4adc8"
+  },
+  "sd08.senate.ca.gov": {
+    "name": "Angelique Ashby",
+    "office": "state-senate",
+    "state": "CA",
+    "id": "ocd-person/564f2203-7cae-4a40-bc93-5c05a935b98f"
+  },
+  "sd09.senate.ca.gov": {
+    "name": "Tim Grayson",
+    "office": "state-senate",
+    "state": "CA",
+    "id": "ocd-person/972cffb0-32a6-4cef-8a0f-a8cd901395b0"
+  },
+  "sd11.senate.ca.gov": {
+    "name": "Scott Wiener",
+    "office": "state-senate",
+    "state": "CA",
+    "id": "ocd-person/de84277e-1c23-4036-bd64-b27c310a1c0e"
+  },
+  "sd13.senate.ca.gov": {
+    "name": "Josh Becker",
+    "office": "state-senate",
+    "state": "CA",
+    "id": "ocd-person/c71137b2-3fc3-48bf-b0ad-6c29aff98268"
+  },
+  "sd14.senate.ca.gov": {
+    "name": "Anna Caballero",
+    "office": "state-senate",
+    "state": "CA",
+    "id": "ocd-person/fe462917-df55-4a43-9fd8-970541544ca6"
+  },
+  "sd15.senate.ca.gov": {
+    "name": "Dave Cortese",
+    "office": "state-senate",
+    "state": "CA",
+    "id": "ocd-person/0fa65d2c-6020-4586-a6f1-5dfd41db38ff"
+  },
+  "sd16.senate.ca.gov": {
+    "name": "Melissa Hurtado",
+    "office": "state-senate",
+    "state": "CA",
+    "id": "ocd-person/ee9910a2-0b27-46e0-be87-43c800596b41"
+  },
+  "sd17.senate.ca.gov": {
+    "name": "John Laird",
+    "office": "state-senate",
+    "state": "CA",
+    "id": "ocd-person/7476789f-49a4-491a-b294-9d1486f24193"
+  },
+  "sd18.senate.ca.gov": {
+    "name": "Steve Padilla",
+    "office": "state-senate",
+    "state": "CA",
+    "id": "ocd-person/eb745b9e-4ced-494a-a298-fdffa9207b0d"
+  },
+  "sd20.senate.ca.gov": {
+    "name": "Caroline Menjivar",
+    "office": "state-senate",
+    "state": "CA",
+    "id": "ocd-person/b19c0361-ca41-4cba-bcf4-b7342a67f28b"
+  },
+  "sd21.senate.ca.gov": {
+    "name": "Monique Limón",
+    "office": "state-senate",
+    "state": "CA",
+    "id": "ocd-person/e924a3ec-c7c0-4094-8504-7611bcf8979f"
+  },
+  "sd22.senate.ca.gov": {
+    "name": "Susan Rubio",
+    "office": "state-senate",
+    "state": "CA",
+    "id": "ocd-person/cb0f6477-568f-49db-aba3-f88e7bccbefc"
+  },
+  "sd24.senate.ca.gov": {
+    "name": "Ben Allen",
+    "office": "state-senate",
+    "state": "CA",
+    "id": "ocd-person/e725b91e-1f7f-4510-a9cc-0b9a39d283c3"
+  },
+  "sd25.senate.ca.gov": {
+    "name": "Sasha Pérez",
+    "office": "state-senate",
+    "state": "CA",
+    "id": "ocd-person/aa59bbc8-0f05-4974-a88a-2e805deb26b4"
+  },
+  "sd26.senate.ca.gov": {
+    "name": "María Elena Durazo",
+    "office": "state-senate",
+    "state": "CA",
+    "id": "ocd-person/b3f55460-f87b-4db4-b6a5-35a735f34076"
+  },
+  "sd27.senate.ca.gov": {
+    "name": "Henry Stern",
+    "office": "state-senate",
+    "state": "CA",
+    "id": "ocd-person/66bd4b32-5536-4bae-ab55-08c0b70ca5fd"
+  },
+  "sd28.senate.ca.gov": {
+    "name": "Lola Smallwood-Cuevas",
+    "office": "state-senate",
+    "state": "CA",
+    "id": "ocd-person/37f2dc9f-d788-4f71-b794-093c8816333b"
+  },
+  "sd29.senate.ca.gov": {
+    "name": "Eloise Reyes",
+    "office": "state-senate",
+    "state": "CA",
+    "id": "ocd-person/19f694d8-b409-40e5-9f87-d8e3e84afc7f"
+  },
+  "sd30.senate.ca.gov": {
+    "name": "Bob Archuleta",
+    "office": "state-senate",
+    "state": "CA",
+    "id": "ocd-person/a76028df-5730-47b0-b617-1565621def41"
+  },
+  "sd31.senate.ca.gov": {
+    "name": "Sabrina Cervantes",
+    "office": "state-senate",
+    "state": "CA",
+    "id": "ocd-person/61cc77e3-551f-40e6-bb6f-16edd89b04db"
+  },
+  "sd33.senate.ca.gov": {
+    "name": "Lena Gonzalez",
+    "office": "state-senate",
+    "state": "CA",
+    "id": "ocd-person/cb6cc457-59f8-4dd8-aeb5-691c3795ffb7"
+  },
+  "sd34.senate.ca.gov": {
+    "name": "Tom Umberg",
+    "office": "state-senate",
+    "state": "CA",
+    "id": "ocd-person/cecabb81-51ab-46f5-9815-cc3486da0632"
+  },
+  "sd35.senate.ca.gov": {
+    "name": "Laura Richardson",
+    "office": "state-senate",
+    "state": "CA",
+    "id": "ocd-person/bd78b1b9-6d92-4c67-a1f4-0548575f3aa5"
+  },
+  "sd38.senate.ca.gov": {
+    "name": "Catherine Blakespear",
+    "office": "state-senate",
+    "state": "CA",
+    "id": "ocd-person/39e3ce0f-c2e2-4480-9e99-76e1e62f366d"
+  },
+  "sd39.senate.ca.gov": {
+    "name": "Akilah Weber Pierson",
+    "office": "state-senate",
+    "state": "CA",
+    "id": "ocd-person/6c2a35d5-c04c-44d0-8bd9-92a625e2b525"
+  },
+  "senate.utah.gov": {
+    "name": "Emily Buss",
+    "office": "state-senate",
+    "state": "UT",
+    "id": "ocd-person/f5149921-03c9-4420-bb21-9b54c19e0c65"
+  },
+  "senatoraricnesbitt.com": {
+    "name": "Aric Nesbitt",
+    "office": "state-senate",
+    "state": "MI",
+    "id": "ocd-person/6d11944d-f19f-4697-811c-0c9dca750c57"
+  },
+  "senatorboscola.com": {
+    "name": "Lisa Boscola",
+    "office": "state-senate",
+    "state": "PA",
+    "id": "ocd-person/de81d407-bc84-48e6-9796-4a56be984cbd"
+  },
+  "senatorbrown40.com": {
+    "name": "Rosemary Brown",
+    "office": "state-senate",
+    "state": "PA",
+    "id": "ocd-person/3e2840e6-f904-43be-911e-235b906458a5"
+  },
+  "senatorcoleman.com": {
+    "name": "Jarrett Coleman",
+    "office": "state-senate",
+    "state": "PA",
+    "id": "ocd-person/ecd51b53-a59b-4b92-b203-c1d24f748cb1"
+  },
+  "senatorcosta.com": {
+    "name": "Jay Costa",
+    "office": "state-senate",
+    "state": "PA",
+    "id": "ocd-person/ee6b52c3-d92c-4cd6-a6ea-6869a8c93df0"
+  },
+  "senatorculver.com": {
+    "name": "Lynda Culver",
+    "office": "state-senate",
+    "state": "PA",
+    "id": "ocd-person/02117eb4-a7b3-4095-831b-1857910660fb"
+  },
+  "senatordanlauwers.com": {
+    "name": "Dan Lauwers",
+    "office": "state-senate",
+    "state": "MI",
+    "id": "ocd-person/30afc35e-fa35-448c-b303-e0f6cc456c77"
+  },
+  "senatordush.com": {
+    "name": "Cris Dush",
+    "office": "state-senate",
+    "state": "PA",
+    "id": "ocd-person/402d7e3b-1935-47fa-8124-61490037d016"
+  },
+  "senatoredmcbroom.com": {
+    "name": "Ed McBroom",
+    "office": "state-senate",
+    "state": "MI",
+    "id": "ocd-person/4fc7e235-2446-405d-9a56-5e010017f617"
+  },
+  "senatorfarry.com": {
+    "name": "Frank Farry",
+    "office": "state-senate",
+    "state": "PA",
+    "id": "ocd-person/611d3c65-f30f-4dde-8f80-7db4ec405a36"
+  },
+  "senatorgebhard.com": {
+    "name": "Chris Gebhard",
+    "office": "state-senate",
+    "state": "PA",
+    "id": "ocd-person/965b26f8-5a4a-4458-a327-a25d89605e65"
+  },
+  "senatorjimrunestad.com": {
+    "name": "Jim Runestad",
+    "office": "state-senate",
+    "state": "MI",
+    "id": "ocd-person/e0a8928d-8ccc-4e1e-9ca5-d7f50642ff91"
+  },
+  "senatorjoenicola.com": {
+    "name": "Joe Nicola",
+    "office": "state-senate",
+    "state": "MO",
+    "id": "ocd-person/a93088fa-ad80-49de-aa94-d03da0add0bc"
+  },
+  "senatorjonathanlindsey.com": {
+    "name": "Jonathan Lindsey",
+    "office": "state-senate",
+    "state": "MI",
+    "id": "ocd-person/a16e3693-0703-40fb-b508-3b2812079548"
+  },
+  "senatorjonbumstead.com": {
+    "name": "Jon Bumstead",
+    "office": "state-senate",
+    "state": "MI",
+    "id": "ocd-person/5a58fa81-639b-4304-87ca-7471ba9ade96"
+  },
+  "senatorjudyward.com": {
+    "name": "Judy Ward",
+    "office": "state-senate",
+    "state": "PA",
+    "id": "ocd-person/b6ed7151-9ea4-4828-b639-785f9e358eb1"
+  },
+  "senatorkeefer.com": {
+    "name": "Dawn Keefer",
+    "office": "state-senate",
+    "state": "PA",
+    "id": "ocd-person/2a13f9df-b7e6-4281-82e4-f7263b6fa12e"
+  },
+  "senatorkevindaley.com": {
+    "name": "Kevin Daley",
+    "office": "state-senate",
+    "state": "MI",
+    "id": "ocd-person/cf7ed8de-2df4-41ff-9dcb-489980b031a0"
+  },
+  "senatorkristin.com": {
+    "name": "Kristin Phillips-Hill",
+    "office": "state-senate",
+    "state": "PA",
+    "id": "ocd-person/cb724e4a-0e5e-4ebd-ac0c-f3dfda73aef6"
+  },
+  "senatorlanatheis.com": {
+    "name": "Lana Theis",
+    "office": "state-senate",
+    "state": "MI",
+    "id": "ocd-person/4fa99fea-71fd-4f21-9f75-157e6a946c80"
+  },
+  "senatorlindseywilliams.com": {
+    "name": "Lindsey Williams",
+    "office": "state-senate",
+    "state": "PA",
+    "id": "ocd-person/bc64322a-faaf-4b33-b6c2-cf5059f4121c"
+  },
+  "senatormarkhuizenga.com": {
+    "name": "Mark Huizenga",
+    "office": "state-senate",
+    "state": "MI",
+    "id": "ocd-person/8564d477-bb39-47a4-87e1-3ceacd7d3abe"
+  },
+  "senatormastriano.com": {
+    "name": "Doug Mastriano",
+    "office": "state-senate",
+    "state": "PA",
+    "id": "ocd-person/cda65f80-13e8-463c-88fa-6f5569a599bf"
+  },
+  "senatormichaelwebber.com": {
+    "name": "Michael Webber",
+    "office": "state-senate",
+    "state": "MI",
+    "id": "ocd-person/be2c96ad-1304-4c25-8cab-2c8ec5d6475f"
+  },
+  "senatormichelehoitenga.com": {
+    "name": "Michele Hoitenga",
+    "office": "state-senate",
+    "state": "MI",
+    "id": "ocd-person/0c9a2c44-5a9a-44cd-8470-5dad5c7b2c53"
+  },
+  "senatorpennycuick.com": {
+    "name": "Tracy Pennycuick",
+    "office": "state-senate",
+    "state": "PA",
+    "id": "ocd-person/d9ad47a6-7e74-45f2-93a5-1b7e40ad36db"
+  },
+  "senatorpittman.com": {
+    "name": "Joe Pittman",
+    "office": "state-senate",
+    "state": "PA",
+    "id": "ocd-person/722f324f-db47-4ce2-9cbc-93f29ae38158"
+  },
+  "senatorrickoutman.com": {
+    "name": "Rick Outman",
+    "office": "state-senate",
+    "state": "MI",
+    "id": "ocd-person/9c525554-fb85-45f3-87fa-cf6a3208ce32"
+  },
+  "senatorrobinson.com": {
+    "name": "Devlin Robinson",
+    "office": "state-senate",
+    "state": "PA",
+    "id": "ocd-person/5271803b-8b46-449c-bf89-44f7d09c6cd2"
+  },
+  "senatorrogervictory.com": {
+    "name": "Roger Victory",
+    "office": "state-senate",
+    "state": "MI",
+    "id": "ocd-person/cd36ab04-a62b-41fa-8b91-d6c792f6719e"
+  },
+  "senatorrothman.com": {
+    "name": "Greg Rothman",
+    "office": "state-senate",
+    "state": "PA",
+    "id": "ocd-person/3e99b4f3-2efa-4330-b0b9-fb273b1322ea"
+  },
+  "senatorruthjohnson.com": {
+    "name": "Ruth Johnson",
+    "office": "state-senate",
+    "state": "MI",
+    "id": "ocd-person/8d0d58dd-a718-4f8f-bb7f-c530e039c0c5"
+  },
+  "senatorscottmartinpa.com": {
+    "name": "Scott Martin",
+    "office": "state-senate",
+    "state": "PA",
+    "id": "ocd-person/c2fcd2dc-22f8-4ec2-b70a-439bc6d60802"
+  },
+  "senatortomtakubo.com": {
+    "name": "Tom Takubo",
+    "office": "state-senate",
+    "state": "WV",
+    "id": "ocd-person/c6a91d2b-9230-4d3e-a3d0-c3844ad9e985"
+  },
+  "senatorward.com": {
+    "name": "Kim Ward",
+    "office": "state-senate",
+    "state": "PA",
+    "id": "ocd-person/c48a0179-5770-410d-ba97-bdbc05d20786"
+  },
+  "sessions.house.gov": {
+    "name": "Pete Sessions",
+    "office": "us-house",
+    "state": "TX",
+    "id": "S000250"
+  },
+  "sewell.house.gov": {
+    "name": "Terri A. Sewell",
+    "office": "us-house",
+    "state": "AL",
+    "id": "S001185"
+  },
+  "shaheen.senate.gov": {
+    "name": "Jeanne Shaheen",
+    "office": "us-senate",
+    "state": "NH",
+    "id": "S001181"
+  },
+  "sheehy.senate.gov": {
+    "name": "Tim Sheehy",
+    "office": "us-senate",
+    "state": "MT",
+    "id": "S001232"
+  },
+  "sheribiggs.house.gov": {
+    "name": "Sheri Biggs",
+    "office": "us-house",
+    "state": "SC",
+    "id": "B001325"
+  },
+  "sherman.house.gov": {
+    "name": "Brad Sherman",
+    "office": "us-house",
+    "state": "CA",
+    "id": "S000344"
+  },
+  "shontelbrown.house.gov": {
+    "name": "Shontel M. Brown",
+    "office": "us-house",
+    "state": "OH",
+    "id": "B001313"
+  },
+  "shreve.house.gov": {
+    "name": "Jefferson Shreve",
+    "office": "us-house",
+    "state": "IN",
+    "id": "S001229"
+  },
+  "simon.house.gov": {
+    "name": "Lateefah Simon",
+    "office": "us-house",
+    "state": "CA",
+    "id": "S001231"
+  },
+  "simpson.house.gov": {
+    "name": "Michael K. Simpson",
+    "office": "us-house",
+    "state": "ID",
+    "id": "S001148"
+  },
+  "singer.senatenj.com": {
+    "name": "Bob Singer",
+    "office": "state-senate",
+    "state": "NJ",
+    "id": "ocd-person/45219a29-080f-4452-9b05-92488e96f2f1"
+  },
+  "slotkin.senate.gov": {
+    "name": "Elissa Slotkin",
+    "office": "us-senate",
+    "state": "MI",
+    "id": "S001208"
+  },
+  "smith.senate.gov": {
+    "name": "Tina Smith",
+    "office": "us-senate",
+    "state": "MN",
+    "id": "S001203"
+  },
+  "smucker.house.gov": {
+    "name": "Lloyd Smucker",
+    "office": "us-house",
+    "state": "PA",
+    "id": "S001199"
+  },
+  "solache.asmdc.org": {
+    "name": "José Solache",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/b9c75c1e-6ea8-4fae-9efa-a7bf0a0cb2cc"
+  },
+  "sorensen.house.gov": {
+    "name": "Eric Sorensen",
+    "office": "us-house",
+    "state": "IL",
+    "id": "S001225"
+  },
+  "soto.house.gov": {
+    "name": "Darren Soto",
+    "office": "us-house",
+    "state": "FL",
+    "id": "S001200"
+  },
+  "spartz.house.gov": {
+    "name": "Victoria Spartz",
+    "office": "us-house",
+    "state": "IN",
+    "id": "S000929"
+  },
+  "speaker.asmdc.org": {
+    "name": "Robert Rivas",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/68f5ee30-aa70-489b-84b7-6501e6188751"
+  },
+  "sr23.senate.ca.gov": {
+    "name": "Suzette Valladares",
+    "office": "state-senate",
+    "state": "CA",
+    "id": "ocd-person/fb1c2c06-108c-41bf-9f08-44a9f8e0cb08"
+  },
+  "sr36.senate.ca.gov": {
+    "name": "Tony Strickland",
+    "office": "state-senate",
+    "state": "CA",
+    "id": "ocd-person/3dae8bef-7fb2-40a0-afee-78d79212521b"
+  },
+  "sr37.senate.ca.gov": {
+    "name": "Steve Choi",
+    "office": "state-senate",
+    "state": "CA",
+    "id": "ocd-person/8b61aa87-d573-47e2-b17b-bd0edd3c8cf2"
+  },
+  "stansbury.house.gov": {
+    "name": "Melanie A. Stansbury",
+    "office": "us-house",
+    "state": "NM",
+    "id": "S001218"
+  },
+  "stanton.house.gov": {
+    "name": "Greg Stanton",
+    "office": "us-house",
+    "state": "AZ",
+    "id": "S001211"
+  },
+  "starnes4senate.com": {
+    "name": "Brad Starnes",
+    "office": "state-senate",
+    "state": "KS",
+    "id": "ocd-person/2b66826b-7af3-4053-8d3b-90dbcf4f0740"
+  },
+  "staterepbriel.com": {
+    "name": "Murri Briel",
+    "office": "state-house",
+    "state": "IL",
+    "id": "ocd-person/d717abc0-a4ec-4ce9-bd24-cbda0a48c361"
+  },
+  "staterepkatzmuhl.com": {
+    "name": "Tracy Katz Muhl",
+    "office": "state-house",
+    "state": "IL",
+    "id": "ocd-person/4b7dfbae-dc1a-4226-9b42-00c8bbc46b06"
+  },
+  "stauber.house.gov": {
+    "name": "Pete Stauber",
+    "office": "us-house",
+    "state": "MN",
+    "id": "S001212"
+  },
+  "stefanik.house.gov": {
+    "name": "Elise M. Stefanik",
+    "office": "us-house",
+    "state": "NY",
+    "id": "S001196"
+  },
+  "steil.house.gov": {
+    "name": "Bryan Steil",
+    "office": "us-house",
+    "state": "WI",
+    "id": "S001213"
+  },
+  "steinhardt.senatenj.com": {
+    "name": "Doug Steinhardt",
+    "office": "state-senate",
+    "state": "NJ",
+    "id": "ocd-person/2798197f-1516-44ef-9933-99e5b23f19c8"
+  },
+  "steube.house.gov": {
+    "name": "W. Gregory Steube",
+    "office": "us-house",
+    "state": "FL",
+    "id": "S001214"
+  },
+  "stevens.house.gov": {
+    "name": "Haley M. Stevens",
+    "office": "us-house",
+    "state": "MI",
+    "id": "S001215"
+  },
+  "strickland.house.gov": {
+    "name": "Marilyn Strickland",
+    "office": "us-house",
+    "state": "WA",
+    "id": "S001159"
+  },
+  "strong.house.gov": {
+    "name": "Dale W. Strong",
+    "office": "us-house",
+    "state": "AL",
+    "id": "S001220"
+  },
+  "stutzman.house.gov": {
+    "name": "Marlin A. Stutzman",
+    "office": "us-house",
+    "state": "IN",
+    "id": "S001188"
+  },
+  "subramanyam.house.gov": {
+    "name": "Suhas Subramanyam",
+    "office": "us-house",
+    "state": "VA",
+    "id": "S001230"
+  },
+  "sullivan.senate.gov": {
+    "name": "Dan Sullivan",
+    "office": "us-senate",
+    "state": "AK",
+    "id": "S001198"
+  },
+  "summerlee.house.gov": {
+    "name": "Summer L. Lee",
+    "office": "us-house",
+    "state": "PA",
+    "id": "L000602"
+  },
+  "suozzi.house.gov": {
+    "name": "Thomas R. Suozzi",
+    "office": "us-house",
+    "state": "NY",
+    "id": "S001201"
+  },
+  "susielee.house.gov": {
+    "name": "Susie Lee",
+    "office": "us-house",
+    "state": "NV",
+    "id": "L000590"
+  },
+  "sykes.house.gov": {
+    "name": "Emilia Strong Sykes",
+    "office": "us-house",
+    "state": "OH",
+    "id": "S001223"
+  },
+  "sylviagarcia.house.gov": {
+    "name": "Sylvia R. Garcia",
+    "office": "us-house",
+    "state": "TX",
+    "id": "G000587"
+  },
+  "takano.house.gov": {
+    "name": "Mark Takano",
+    "office": "us-house",
+    "state": "CA",
+    "id": "T000472"
+  },
+  "taylor.house.gov": {
+    "name": "David J. Taylor",
+    "office": "us-house",
+    "state": "OH",
+    "id": "T000490"
+  },
+  "tenney.house.gov": {
+    "name": "Claudia Tenney",
+    "office": "us-house",
+    "state": "NY",
+    "id": "T000478"
+  },
+  "tennillermccoy.com": {
+    "name": "Tennille McCoy",
+    "office": "state-house",
+    "state": "NJ",
+    "id": "ocd-person/c05a0080-95df-4576-a81c-d509fb4a5063"
+  },
+  "testa.senatenj.com": {
+    "name": "Mike Testa",
+    "office": "state-senate",
+    "state": "NJ",
+    "id": "ocd-person/4cb8db73-8982-4b4f-9c90-f86b20b217bc"
+  },
+  "thanedar.house.gov": {
+    "name": "Shri Thanedar",
+    "office": "us-house",
+    "state": "MI",
+    "id": "T000488"
+  },
+  "thompson.house.gov": {
+    "name": "Glenn Thompson",
+    "office": "us-house",
+    "state": "PA",
+    "id": "T000467"
+  },
+  "thune.senate.gov": {
+    "name": "John Thune",
+    "office": "us-senate",
+    "state": "SD",
+    "id": "T000250"
+  },
+  "tiffany.house.gov": {
+    "name": "Thomas P. Tiffany",
+    "office": "us-house",
+    "state": "WI",
+    "id": "T000165"
+  },
+  "tillis.senate.gov": {
+    "name": "Thom Tillis",
+    "office": "us-senate",
+    "state": "NC",
+    "id": "T000476"
+  },
+  "timmons.house.gov": {
+    "name": "William R. Timmons IV",
+    "office": "us-house",
+    "state": "SC",
+    "id": "T000480"
+  },
+  "timmoore.house.gov": {
+    "name": "Tim Moore",
+    "office": "us-house",
+    "state": "NC",
+    "id": "M001236"
+  },
+  "titus.house.gov": {
+    "name": "Dina Titus",
+    "office": "us-house",
+    "state": "NV",
+    "id": "T000468"
+  },
+  "tlaib.house.gov": {
+    "name": "Rashida Tlaib",
+    "office": "us-house",
+    "state": "MI",
+    "id": "T000481"
+  },
+  "tokuda.house.gov": {
+    "name": "Jill N. Tokuda",
+    "office": "us-house",
+    "state": "HI",
+    "id": "T000487"
+  },
+  "tonko.house.gov": {
+    "name": "Paul Tonko",
+    "office": "us-house",
+    "state": "NY",
+    "id": "T000469"
+  },
+  "torres.house.gov": {
+    "name": "Norma J. Torres",
+    "office": "us-house",
+    "state": "CA",
+    "id": "T000474"
+  },
+  "trahan.house.gov": {
+    "name": "Lori Trahan",
+    "office": "us-house",
+    "state": "MA",
+    "id": "T000482"
+  },
+  "tran.house.gov": {
+    "name": "Derek Tran",
+    "office": "us-house",
+    "state": "CA",
+    "id": "T000491"
+  },
+  "trentkelly.house.gov": {
+    "name": "Trent Kelly",
+    "office": "us-house",
+    "state": "MS",
+    "id": "K000388"
+  },
+  "troycarter.house.gov": {
+    "name": "Troy A. Carter",
+    "office": "us-house",
+    "state": "LA",
+    "id": "C001125"
+  },
+  "tuberville.senate.gov": {
+    "name": "Tommy Tuberville",
+    "office": "us-senate",
+    "state": "AL",
+    "id": "T000278"
+  },
+  "turner.house.gov": {
+    "name": "Michael R. Turner",
+    "office": "us-house",
+    "state": "OH",
+    "id": "T000463"
+  },
+  "underwood.house.gov": {
+    "name": "Lauren Underwood",
+    "office": "us-house",
+    "state": "IL",
+    "id": "U000040"
+  },
+  "valadao.house.gov": {
+    "name": "David G. Valadao",
+    "office": "us-house",
+    "state": "CA",
+    "id": "V000129"
+  },
+  "vandrew.house.gov": {
+    "name": "Jefferson Van Drew",
+    "office": "us-house",
+    "state": "NJ",
+    "id": "V000133"
+  },
+  "vanduyne.house.gov": {
+    "name": "Beth Van Duyne",
+    "office": "us-house",
+    "state": "TX",
+    "id": "V000134"
+  },
+  "vanepps.house.gov": {
+    "name": "Matt Van Epps",
+    "office": "us-house",
+    "state": "TN",
+    "id": "V000139"
+  },
+  "vanhollen.senate.gov": {
+    "name": "Chris Van Hollen",
+    "office": "us-senate",
+    "state": "MD",
+    "id": "V000128"
+  },
+  "vanorden.house.gov": {
+    "name": "Derrick Van Orden",
+    "office": "us-house",
+    "state": "WI",
+    "id": "V000135"
+  },
+  "vargas.house.gov": {
+    "name": "Juan Vargas",
+    "office": "us-house",
+    "state": "CA",
+    "id": "V000130"
+  },
+  "vasquez.house.gov": {
+    "name": "Gabe Vasquez",
+    "office": "us-house",
+    "state": "NM",
+    "id": "V000136"
+  },
+  "veasey.house.gov": {
+    "name": "Marc A. Veasey",
+    "office": "us-house",
+    "state": "TX",
+    "id": "V000131"
+  },
+  "velazquez.house.gov": {
+    "name": "Nydia M. Velázquez",
+    "office": "us-house",
+    "state": "NY",
+    "id": "V000081"
+  },
+  "vindman.house.gov": {
+    "name": "Eugene Simon Vindman",
+    "office": "us-house",
+    "state": "VA",
+    "id": "V000138"
+  },
+  "wagner.house.gov": {
+    "name": "Ann Wagner",
+    "office": "us-house",
+    "state": "MO",
+    "id": "W000812"
+  },
+  "wahab.house.gov": {
+    "name": "Aisha Wahab",
+    "office": "us-house",
+    "state": "CA",
+    "id": "W000832"
+  },
+  "walberg.house.gov": {
+    "name": "Tim Walberg",
+    "office": "us-house",
+    "state": "MI",
+    "id": "W000798"
+  },
+  "walkinshaw.house.gov": {
+    "name": "James R. Walkinshaw",
+    "office": "us-house",
+    "state": "VA",
+    "id": "W000831"
+  },
+  "ward.asmdc.org": {
+    "name": "Chris Ward",
+    "office": "state-house",
+    "state": "CA",
+    "id": "ocd-person/71590420-10d6-4deb-8d59-453256d625b6"
+  },
+  "warner.senate.gov": {
+    "name": "Mark R. Warner",
+    "office": "us-senate",
+    "state": "VA",
+    "id": "W000805"
+  },
+  "warnock.senate.gov": {
+    "name": "Raphael G. Warnock",
+    "office": "us-senate",
+    "state": "GA",
+    "id": "W000790"
+  },
+  "warren.senate.gov": {
+    "name": "Elizabeth Warren",
+    "office": "us-senate",
+    "state": "MA",
+    "id": "W000817"
+  },
+  "wassermanschultz.house.gov": {
+    "name": "Debbie Wasserman Schultz",
+    "office": "us-house",
+    "state": "FL",
+    "id": "W000797"
+  },
+  "waters.house.gov": {
+    "name": "Maxine Waters",
+    "office": "us-house",
+    "state": "CA",
+    "id": "W000187"
+  },
+  "watsoncoleman.house.gov": {
+    "name": "Bonnie Watson Coleman",
+    "office": "us-house",
+    "state": "NJ",
+    "id": "W000822"
+  },
+  "weber.house.gov": {
+    "name": "Randy K. Weber, Sr.",
+    "office": "us-house",
+    "state": "TX",
+    "id": "W000814"
+  },
+  "webster.house.gov": {
+    "name": "Daniel Webster",
+    "office": "us-house",
+    "state": "FL",
+    "id": "W000806"
+  },
+  "welch.senate.gov": {
+    "name": "Peter Welch",
+    "office": "us-senate",
+    "state": "VT",
+    "id": "W000800"
+  },
+  "westerman.house.gov": {
+    "name": "Bruce Westerman",
+    "office": "us-house",
+    "state": "AR",
+    "id": "W000821"
+  },
+  "whitehouse.senate.gov": {
+    "name": "Sheldon Whitehouse",
+    "office": "us-senate",
+    "state": "RI",
+    "id": "W000802"
+  },
+  "whitesides.house.gov": {
+    "name": "George Whitesides",
+    "office": "us-house",
+    "state": "CA",
+    "id": "W000830"
+  },
+  "wicker.senate.gov": {
+    "name": "Roger F. Wicker",
+    "office": "us-senate",
+    "state": "MS",
+    "id": "W000437"
+  },
+  "wied.house.gov": {
+    "name": "Tony Wied",
+    "office": "us-house",
+    "state": "WI",
+    "id": "W000829"
+  },
+  "williams.house.gov": {
+    "name": "Roger Williams",
+    "office": "us-house",
+    "state": "TX",
+    "id": "W000816"
+  },
+  "wilson.house.gov": {
+    "name": "Frederica S. Wilson",
+    "office": "us-house",
+    "state": "FL",
+    "id": "W000808"
+  },
+  "wittman.house.gov": {
+    "name": "Robert J. Wittman",
+    "office": "us-house",
+    "state": "VA",
+    "id": "W000804"
+  },
+  "womack.house.gov": {
+    "name": "Steve Womack",
+    "office": "us-house",
+    "state": "AR",
+    "id": "W000809"
+  },
+  "wyden.senate.gov": {
+    "name": "Ron Wyden",
+    "office": "us-senate",
+    "state": "OR",
+    "id": "W000779"
+  },
+  "yakym.house.gov": {
+    "name": "Rudy Yakym III",
+    "office": "us-house",
+    "state": "IN",
+    "id": "Y000067"
+  },
+  "young.senate.gov": {
+    "name": "Todd Young",
+    "office": "us-senate",
+    "state": "IN",
+    "id": "Y000064"
+  },
+  "youngkim.house.gov": {
+    "name": "Young Kim",
+    "office": "us-house",
+    "state": "CA",
+    "id": "K000397"
+  },
+  "zinke.house.gov": {
+    "name": "Ryan K. Zinke",
+    "office": "us-house",
+    "state": "MT",
+    "id": "Z000018"
+  }
+}

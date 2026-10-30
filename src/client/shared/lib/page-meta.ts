@@ -35,8 +35,8 @@ export const PAGE_META = {
   },
   pledges: {
     path: '/pledges',
-    title: 'Who supports the Fair Maps rule | Fair Maps',
-    description: 'Officeholders and candidates who have publicly pledged to support drawing districts with the Fair Maps rule, each with a link to their own statement.',
+    title: 'Sites that show the Fair Maps badge | Fair Maps',
+    description: 'Websites that show the Fair Maps badge, each with a link to the page where it appears, and how to add the badge to yours. We check each site about once a day.',
   },
   privacy: {
     path: '/privacy',

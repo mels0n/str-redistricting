@@ -1,5 +1,9 @@
 # Docs changelog
 
+## 1.2.1 (2026-10-28)
+
+- Described the badge: how sites that show it are noticed and checked, what is recognised, the limits on checking, and what is kept.
+
 ## 1.2.0 (2026-10-27)
 
 - Described how representative data is pinned, published and refreshed each week, how the sign-on backend and its automatic migrations work, how to add a pledge, and what the note rules block.

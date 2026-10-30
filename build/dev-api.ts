@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs';
 import type { IncomingMessage, ServerResponse } from 'node:http';
 import type { Plugin } from 'vite';
 
@@ -12,6 +13,13 @@ interface Reply {
 const NOTES = [
   { body: 'I want my vote to count the same as my neighbor’s.', name: 'Maria G.', town: 'Denver', at: '2026-10-20T15:00:00.000Z' },
   { body: 'A rule anyone can check is the only kind of map I can trust.', name: null, town: null, at: '2026-10-18T09:30:00.000Z' },
+];
+
+/** A few made-up sites for the badge page. Their hosts carry the mark, so a leak into a build is caught by the same check. */
+const BADGE_SITES = [
+  { url: 'https://jane-hurd.dev-api-mock.example/', host: 'jane-hurd.dev-api-mock.example', title: 'Jane Hurd for Colorado', name: 'Jane Hurd', office: 'U.S. House, CO', id: 'dev-rep-1' },
+  { url: 'https://neighbors.dev-api-mock.example/', host: 'neighbors.dev-api-mock.example', title: 'Maple Street Neighbors', name: null, office: null, id: null },
+  { url: 'https://reform-club.dev-api-mock.example/fair-maps', host: 'reform-club.dev-api-mock.example', title: 'Reform Club', name: null, office: null, id: null },
 ];
 
 /** `low` answers with totals under the site's display threshold, so the hidden-counts state can be seen. */
@@ -32,6 +40,7 @@ export function devReply(method: string, path: string, query: URLSearchParams, b
       },
     };
   }
+  if (path === '/api/badge-sites' && method === 'GET') return { status: 200, body: { sites: BADGE_SITES } };
   if (path === '/api/notes' && method === 'GET') return { status: 200, body: { notes: NOTES } };
   if (path === '/api/ask' && method === 'POST') return { status: 202, body: { status: 'counted', mark: DEV_API_MARK } };
   if (path === '/api/sign' && method === 'POST') {
@@ -69,6 +78,12 @@ export function devApi(): Plugin {
           const flag = url.searchParams.get('fakeCounts');
           if (flag === 'low' || flag === 'high') mode = flag;
           return next();
+        }
+        if (url.pathname === '/api/badge') {
+          // Any image will do in development: the published badge.
+          res.setHeader('content-type', 'image/svg+xml');
+          res.end(readFileSync('public/badge.svg'));
+          return;
         }
         const reply = devReply(req.method ?? 'GET', url.pathname, url.searchParams, req.method === 'POST' ? await readJson(req) : {}, mode);
         res.statusCode = reply?.status ?? 404;

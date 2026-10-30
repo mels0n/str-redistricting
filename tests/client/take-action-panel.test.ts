@@ -35,10 +35,10 @@ vi.mock('../../src/client/entities/reps', async (orig) => ({
   loadStateReps: async () => file,
 }));
 
-let pledges: unknown[] = [];
-vi.mock('../../src/client/entities/pledges', async (orig) => ({
-  ...(await orig<typeof import('../../src/client/entities/pledges')>()),
-  loadPledges: async () => pledges,
+let badgeSites: unknown[] | null = [];
+vi.mock('../../src/client/entities/badge-sites', async (orig) => ({
+  ...(await orig<typeof import('../../src/client/entities/badge-sites')>()),
+  loadBadgeSites: async () => badgeSites,
 }));
 
 import { config } from '../../src/client/shared';
@@ -204,36 +204,46 @@ describe('rep panel', () => {
     expect(call).toEqual(['tel:5550100', 'tel:+120222544315', 'tel:5550100']);
   });
 
-  describe('pledges', () => {
-    const pl = (id: string, over: Record<string, unknown> = {}) => ({
-      id, name: `P ${id}`, role: 'incumbent', personId: id, office: 'us-house', state: 'CO', districtCode: '03',
-      statementUrl: `https://example.org/${id}`, campaignUrl: null, pledgedOn: '2026-10-01', cycle: null, ...over,
-    });
+  describe('the badge', () => {
+    const site = (host: string, id: string | null, url = `https://${host}/`) => ({ url, host, title: null, name: id ? 'Someone' : null, office: null, id });
+    const withWebsite = (website: string | null) => {
+      (file.byKey['CO:us-house:03'] as unknown[])[0] = rep('H', 'us-house', { email: 'h@x.gov', contactUrl: 'https://x.gov/contact', phone: '+1 (202) 225-4431 x5', website });
+    };
 
-    it('marks the rep whose id matches a pledge, with a link to the statement', async () => {
-      pledges = [pl('H')];
+    it('marks the rep whose id the list carries, with a link to the exact page', async () => {
+      badgeSites = [site('hurd.example.gov', 'H', 'https://hurd.example.gov/')];
+      withWebsite('https://www.hurd.example.gov/');
       const p = createRepPanel();
       await p.update(input);
       const rows = [...p.el.querySelectorAll('li')];
-      expect(rows[2]!.textContent).toContain('Pledged');
-      expect(rows[2]!.querySelector('a.strv-reps__statement')!.getAttribute('href')).toBe('https://example.org/H');
-      expect(rows[0]!.textContent).not.toContain('Pledged');
-      expect(p.el.querySelector('.strv-reps__candidates')).toBeNull();
-      pledges = [];
+      expect(rows[2]!.textContent).toContain('Shows the Fair Maps badge');
+      const link = rows[2]!.querySelector('a.strv-reps__badge-page')!;
+      expect(link.textContent).toBe('View the page');
+      expect(link.getAttribute('href')).toBe('https://hurd.example.gov/');
+      expect(rows[0]!.textContent).not.toContain('Shows the Fair Maps badge');
+      expect(p.el.textContent).not.toContain('Pledged');
     });
 
-    it('shows candidates for the seat only when showCandidates is true', async () => {
-      pledges = [pl('C1', { role: 'candidate', personId: null })];
-      const p = createRepPanel();
-      await p.update(input);
-      expect(p.el.textContent).not.toContain('Candidates for this seat who support the rule');
-      config.showCandidates = true;
-      const q = createRepPanel();
-      await q.update(input);
-      expect(q.el.querySelector('h4')!.textContent).toBe('Candidates for this seat who support the rule');
-      expect(q.el.querySelector('.strv-reps__candidates')!.textContent).toContain('P C1');
-      config.showCandidates = false;
-      pledges = [];
+    it('does not mark a rep because a site shares their website host: only the id counts', async () => {
+      withWebsite('https://hurd.example.gov/');
+      for (const list of [[site('hurd.example.gov', null)], [site('hurd.example.gov', 'OTHER')]]) {
+        badgeSites = list;
+        const p = createRepPanel();
+        await p.update(input);
+        expect(p.el.textContent).not.toContain('Shows the Fair Maps badge');
+      }
+    });
+
+    it('marks no one when the list is empty or will not load', async () => {
+      withWebsite('https://hurd.example.gov/');
+      for (const list of [[], null]) {
+        badgeSites = list;
+        const p = createRepPanel();
+        await p.update(input);
+        expect(p.el.textContent).not.toContain('Shows the Fair Maps badge');
+        expect(p.el.querySelectorAll('li').length).toBeGreaterThan(0);
+      }
+      badgeSites = [];
     });
   });
 });

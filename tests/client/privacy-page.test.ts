@@ -22,11 +22,19 @@ describe('privacy page', () => {
       'Services we use',
       'Visit counts',
       'Address lookups',
+      'The badge',
       'Kept in your browser',
       'Hosting',
       'Nothing else',
     ]);
     expect(page.el.textContent).not.toContain('—');
+  });
+
+  it('says exactly what is kept about a site that shows the badge, and how long', () => {
+    const text = createPrivacyPage().el.textContent!;
+    expect(text).toContain('We keep that page address, the page’s title, the address where we found the badge, and when we saw and checked it.');
+    expect(text).toContain('We don’t keep who was visiting: no IP address, no cookies.');
+    expect(text).toContain('A page we have not seen for 60 days is deleted, and a site whose check fails two days in a row comes off the list.');
   });
 
   it('links the Census Bureau and Vercel privacy policies and the question form', () => {

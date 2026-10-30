@@ -4,6 +4,7 @@ import { drainOutbox, type OutboxDeps } from '../features/outbox/index.js';
 import { maybeCleanup } from '../features/signon/index.js';
 import { loadBackendConfig } from '../shared/config/backend.js';
 import { SignonError } from '../shared/errors/signon.js';
+import { checkBadgesNow } from './badge-check.js';
 import { handle } from './http.js';
 import { outboxDeps } from './outbox-deps.js';
 
@@ -14,6 +15,8 @@ export interface CronDrainDeps {
   loadConfig: () => { vercelEnv: string | undefined };
   repo: () => SignerRepo;
   now: () => Date;
+  /** The daily badge check, run after the drain. Absent in tests that do not cover it. */
+  checkBadges?: (startedAt: number) => Promise<void>;
 }
 
 function bearerMatches(header: string | null, secret: string): boolean {
@@ -25,6 +28,8 @@ function bearerMatches(header: string | null, secret: string): boolean {
 /** GET /api/cron-drain: sends what today's quota allows from the waiting emails. Answers 401 without the cron bearer token and 503 outside production. */
 export function cronDrainHandler(deps: CronDrainDeps): (req: Request) => Promise<Response> {
   return handle(async (req) => {
+    // The badge check is given its time from here, so a long mail drain shortens it instead of pushing the function past its limit.
+    const startedAt = Date.now();
     const secret = deps.cronSecret();
     if (!secret || !bearerMatches(req.headers.get('authorization'), secret)) return Response.json({ error: 'unauthorized' }, { status: 401 });
     if (deps.loadConfig().vercelEnv !== 'production') throw new SignonError('unavailable', 'not production');
@@ -32,6 +37,7 @@ export function cronDrainHandler(deps: CronDrainDeps): (req: Request) => Promise
     const drained = await drainOutbox(outbox, outbox.config.emailDailyCap);
     // Housekeeping rides on the daily call so it still happens when nobody signs. It never changes the answer.
     await maybeCleanup(deps.repo(), deps.now()).catch(() => undefined);
+    await deps.checkBadges?.(startedAt).catch(() => undefined);
     return Response.json(drained);
   });
 }
@@ -42,4 +48,5 @@ export const cronDrainRoute = cronDrainHandler({
   loadConfig: () => loadBackendConfig(),
   repo: signerRepo,
   now: () => new Date(),
+  checkBadges: checkBadgesNow,
 });

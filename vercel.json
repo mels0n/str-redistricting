@@ -5,7 +5,7 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "trailingSlash": false,
-  "functions": { "api/cron-drain.ts": { "maxDuration": 60 } },
+  "functions": { "api/cron-drain.ts": { "maxDuration": 60 }, "api/badge.ts": { "maxDuration": 30 } },
   "crons": [{ "path": "/api/cron-drain", "schedule": "0 14 * * *" }],
   "rewrites": [
     { "source": "/how/:rest+", "destination": "/how/index.html" },

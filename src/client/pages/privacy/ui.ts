@@ -64,6 +64,12 @@ export function createPrivacyPage(): Page {
         p('When you look up an address to find your districts, your browser sends it straight to the U.S. Census Bureau’s geocoder, which answers with a point on the map. The lookup never passes through Fair Maps and the site doesn’t keep it. What the Census Bureau does with the request is covered by ', link('https://www.census.gov/about/policies/privacy.html', 'its privacy policy'), '.'),
       ),
       section(
+        'badge',
+        'The badge',
+        p('If a website shows our badge, the visitor’s browser asks our server for the image, and that request tells us which page of the website it was on (the page address the browser sends along, without anything after a ? or #). We keep that page address, the page’s title, the address where we found the badge, and when we saw and checked it. We don’t keep who was visiting: no IP address, no cookies. The address is hashed only to limit how often one place can be noted, and that hash is deleted within a day or two.'),
+        p('We then visit that page ourselves, about once a day, to check that the badge is really there. Our visits identify themselves as FairMapsBadgeCheck, follow the site’s robots.txt and send no cookies. A page we have not seen for 60 days is deleted, and a site whose check fails two days in a row comes off the list. Sites where the badge is found are listed on ', link('/pledges', 'the badge page'), ' with a link to the page. Showing the badge is the only thing we check.'),
+      ),
+      section(
         'browser',
         'Kept in your browser',
         p('If you drag a panel divider to resize it, the size is kept in your browser’s local storage so it stays that way next time. If a new release of the maps goes out while a page is open, the site reloads once and notes that in session storage so it doesn’t reload again. Neither is sent anywhere.'),

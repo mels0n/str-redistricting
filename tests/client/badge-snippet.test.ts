@@ -40,6 +40,8 @@ describe('badgeSnippet', () => {
     const a = badgeAssets({ id: 'state', theme: 'light', abbr: 'CO', stateName: 'Colorado', seats: 35, chamber: 'state-senate' }, SITE);
     expect(a.href).toBe('https://fairmaps.melson.us/CO/senate');
     expect(a.image).toBe('https://fairmaps.melson.us/api/badge?badge=state&state=CO&chamber=senate');
+    expect(a.previewImage).toBe('/api/badge?badge=state&state=CO&chamber=senate');
+    expect(a.previewImage2x).toBe('/api/badge?badge=state&state=CO&chamber=senate&scale=2');
     expect(a.downloads.map((d) => d.href)).toEqual(['https://fairmaps.melson.us/data/CO/state-senate/badge@2x.png']);
     expect(a.alt).toBe('Fair maps for the Colorado Senate: 35 districts drawn by a rule. Fair Maps');
     expect([a.width, a.height]).toEqual([300, 240]);
@@ -50,6 +52,18 @@ describe('badgeSnippet', () => {
     expect(a.image).toBe('https://fairmaps.melson.us/api/badge?badge=state&state=WY&theme=dark');
     expect(a.downloads[0]?.href).toBe('https://fairmaps.melson.us/data/WY/badge-dark@2x.png');
     expect(a.alt).toBe('I support fair maps for Wyoming: 1 district drawn by a rule. Fair Maps');
+  });
+  it('previews come from the page origin, with a plain &', () => {
+    for (const c of choices) {
+      const a = badgeAssets(c, SITE);
+      for (const url of [a.previewImage, a.previewImage2x]) {
+        if (url === undefined) continue;
+        expect(url.startsWith('/api/badge')).toBe(true);
+        expect(url).not.toContain('&amp;');
+      }
+      expect(a.image.endsWith(a.previewImage)).toBe(true);
+    }
+    expect(badgeAssets({ id: 'crest', theme: 'light' }, SITE).previewImage).toBe('/api/badge?badge=crest');
   });
   it('downloads for the fixed badges and the button', () => {
     expect(badgeAssets({ id: 'seal', theme: 'dark' }, SITE).downloads.map((d) => d.href)).toEqual(['https://fairmaps.melson.us/badges/seal-dark@2x.png', 'https://fairmaps.melson.us/badges/seal-dark-print.png']);

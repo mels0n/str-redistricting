@@ -14,6 +14,9 @@ export interface BadgeAssets {
   /** Absolute addresses with a plain `&`, ready to set as a DOM src or href. Only the snippet escapes them. */
   image: string;
   image2x?: string;
+  /** The same pictures from the page's own origin, for the preview on /badges: a preview deployment's CSP only lets images load from itself, and the dev server answers /api/badge locally. */
+  previewImage: string;
+  previewImage2x?: string;
   downloads: { label: string; href: string }[];
   href: string;
   alt: string;
@@ -43,14 +46,16 @@ const escapeAttr = (s: string): string => s.replace(/&/g, '&amp;').replace(/"/g,
 const QUERY_CHAMBER = { 'state-house': 'house', 'state-senate': 'senate' } as const;
 const CHAMBER_NAME = { 'state-house': 'House', 'state-senate': 'Senate' } as const;
 
-/** The image address, the links and the files to download for one badge. The site argument is the host; every address comes back absolute (https://{site}/...) with a plain `&`. */
+/** The image address, the links and the files to download for one badge. The site argument is the host; every address comes back absolute (https://{site}/...) with a plain `&`, except the two preview paths. */
 export function badgeAssets(c: BadgeChoice, site: string): BadgeAssets {
   const origin = `https://${site}`;
   const dark = c.theme === 'dark' ? '-dark' : '';
   if (c.id === 'button') {
     const file = `/badge${dark}.svg`;
+    const path = c.theme === 'dark' ? '/api/badge?theme=dark' : '/api/badge';
     return {
-      image: `${origin}${c.theme === 'dark' ? '/api/badge?theme=dark' : '/api/badge'}`,
+      image: `${origin}${path}`,
+      previewImage: path,
       downloads: [{ label: `Button${c.theme === 'dark' ? ' (dark)' : ''}, SVG`, href: `${origin}${file}` }],
       href: `${origin}/pledges`,
       alt: 'I back Fair Maps',
@@ -83,12 +88,12 @@ export function badgeAssets(c: BadgeChoice, site: string): BadgeAssets {
     ];
   }
   if (c.theme === 'dark') params.set('theme', 'dark');
-  const query = (extra: Record<string, string> = {}): string => {
+  const path = (extra: Record<string, string> = {}): string => {
     const p = new URLSearchParams(params);
     for (const [k, v] of Object.entries(extra)) p.set(k, v);
-    return `${origin}/api/badge?${p.toString()}`;
+    return `/api/badge?${p.toString()}`;
   };
-  return { image: query(), image2x: query({ scale: '2' }), downloads, href, alt, ...SIZES[c.id] };
+  return { image: `${origin}${path()}`, image2x: `${origin}${path({ scale: '2' })}`, previewImage: path(), previewImage2x: path({ scale: '2' }), downloads, href, alt, ...SIZES[c.id] };
 }
 
 /** The HTML a candidate pastes into their site: a plain link around the image, no script. */

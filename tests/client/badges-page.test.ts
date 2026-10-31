@@ -336,6 +336,58 @@ describe('profile photo frame', () => {
     expect(xhr).not.toHaveBeenCalled();
   });
 
+  it('closes the decoded photo after drawing it', async () => {
+    const { choose, photo } = setup();
+    await choose(pic());
+    expect(photo.close).toHaveBeenCalledTimes(1);
+  });
+
+  it('never shows a stale photo, and closes it', async () => {
+    const stale = { width: 10, height: 10, close: vi.fn() } as unknown as ImageBitmap;
+    let release!: (b: ImageBitmap) => void;
+    const first = new Promise<ImageBitmap>((r) => (release = r));
+    const { choose, page, draws, photo } = setup();
+    const decode = vi.fn().mockReturnValueOnce(first).mockResolvedValueOnce(photo);
+    page.destroy?.();
+    document.body.replaceChildren();
+    const s = setup({ decode });
+    await s.choose(pic());
+    await s.choose(pic());
+    expect(s.page.el.querySelectorAll('a[download="fair-maps-photo.png"]')).toHaveLength(1);
+    const drawn = s.draws.length;
+    release(stale);
+    await flush();
+    expect(s.draws).toHaveLength(drawn);
+    expect(stale.close).toHaveBeenCalledTimes(1);
+    expect(draws).toHaveLength(0);
+  });
+
+  it('reports a failed drawing and closes the photo', async () => {
+    const { page, choose, photo } = setup({ loadRing: async () => Promise.reject(new Error('x')) });
+    await choose(pic());
+    expect(page.el.querySelector('.strv-badges__frame .strv-badges__note')!.textContent).toBe('Couldn’t make the picture. Try again.');
+    expect(photo.close).toHaveBeenCalledTimes(1);
+  });
+
+  it('reports a picture that could not be encoded', async () => {
+    const c = document.createElement('canvas');
+    (c as unknown as { getContext: () => unknown }).getContext = () => ({ drawImage: () => undefined });
+    (c as unknown as { toBlob: (cb: (b: Blob | null) => void) => void }).toBlob = (cb) => cb(null);
+    const { page, choose, photo } = setup({ makeCanvas: () => c });
+    await choose(pic());
+    expect(page.el.querySelector('.strv-badges__frame .strv-badges__note')!.textContent).toBe('Couldn’t make the picture. Try again.');
+    expect(photo.close).toHaveBeenCalledTimes(1);
+  });
+
+  it('treats a missing 2d context as a failure', async () => {
+    const c = document.createElement('canvas');
+    (c as unknown as { getContext: () => unknown }).getContext = () => null;
+    const { page, choose } = setup({ makeCanvas: () => c });
+    await choose(pic());
+    expect(page.el.querySelector('.strv-badges__frame .strv-badges__note')!.textContent).toBe('Couldn’t make the picture. Try again.');
+    expect(page.el.querySelector('a[download="fair-maps-photo.png"]')).toBeNull();
+  });
+
   it('revokes the earlier address for a new photo and on destroy', async () => {
     const { page, choose, revoke } = setup();
     await choose(pic());

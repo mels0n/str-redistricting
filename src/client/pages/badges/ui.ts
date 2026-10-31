@@ -219,6 +219,7 @@ const FRAME_MAX_BYTES = 20 * 1024 * 1024;
 const FRAME_RING = '/badges/frame.png';
 const FRAME_PRINT = '/badges/frame-print.png';
 const NOT_PICTURE = 'That file isn’t a picture. Choose a JPG or PNG.';
+const MAKE_FAILED = 'Couldn’t make the picture. Try again.';
 const TOO_LARGE = 'That picture is too large. Choose one under 20 MB.';
 
 /** The browser pieces the photo tool needs, so a test can stand in for them. */
@@ -274,33 +275,42 @@ function frameCard(deps: FrameDeps): { el: HTMLElement; destroy: () => void } {
       message.textContent = TOO_LARGE;
       return;
     }
-    Promise.all([deps.decode(file), deps.loadRing()]).then(
-      ([photo, ring]) =>
-        new Promise<void>((resolve) => {
-          if (gone || mine !== latest) return resolve();
-          const canvas = deps.makeCanvas();
-          canvas.width = FRAME_SIZE;
-          canvas.height = FRAME_SIZE;
-          const ctx = canvas.getContext('2d');
-          const side = Math.min(photo.width, photo.height);
-          ctx?.drawImage(photo, (photo.width - side) / 2, (photo.height - side) / 2, side, side, 0, 0, FRAME_SIZE, FRAME_SIZE);
-          ctx?.drawImage(ring, 0, 0, FRAME_SIZE, FRAME_SIZE);
-          photo.close?.();
-          canvas.toBlob((blob) => {
-            if (blob && !gone && mine === latest) {
-              url = URL.createObjectURL(blob);
-              canvas.setAttribute('role', 'img');
-              canvas.setAttribute('aria-label', 'Your photo inside the Fair Maps ring');
-              result.replaceChildren(canvas, h('a', { href: url, download: 'fair-maps-photo.png', class: 'strv-button strv-button--ink' }, 'Download my photo'));
-            } else if (!blob && !gone && mine === latest) message.textContent = NOT_PICTURE;
-            resolve();
-          }, 'image/png');
-        }),
-      () => {
-        if (!gone && mine === latest) message.textContent = NOT_PICTURE;
-      },
-    );
+    void build(file, mine);
   });
+
+  const current = (mine: number): boolean => !gone && mine === latest;
+  async function build(file: File, mine: number): Promise<void> {
+    let photo: ImageBitmap;
+    try {
+      photo = await deps.decode(file);
+    } catch {
+      if (current(mine)) message.textContent = NOT_PICTURE;
+      return;
+    }
+    try {
+      const ring = await deps.loadRing();
+      if (!current(mine)) return;
+      const canvas = deps.makeCanvas();
+      canvas.width = FRAME_SIZE;
+      canvas.height = FRAME_SIZE;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) throw new Error('no canvas');
+      const side = Math.min(photo.width, photo.height);
+      ctx.drawImage(photo, (photo.width - side) / 2, (photo.height - side) / 2, side, side, 0, 0, FRAME_SIZE, FRAME_SIZE);
+      ctx.drawImage(ring, 0, 0, FRAME_SIZE, FRAME_SIZE);
+      const blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, 'image/png'));
+      if (!current(mine)) return;
+      if (!blob) throw new Error('no picture');
+      url = URL.createObjectURL(blob);
+      canvas.setAttribute('role', 'img');
+      canvas.setAttribute('aria-label', 'Your photo inside the Fair Maps ring');
+      result.replaceChildren(canvas, h('a', { href: url, download: 'fair-maps-photo.png', class: 'strv-button strv-button--ink' }, 'Download my photo'));
+    } catch {
+      if (current(mine)) message.textContent = MAKE_FAILED;
+    } finally {
+      photo.close?.();
+    }
+  }
 
   const el = h(
     'article',

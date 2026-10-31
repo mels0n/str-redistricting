@@ -1,7 +1,7 @@
 import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { crestSvg, fixedBadgeFiles, frameSvg, loadOgFonts, pledgeSvg, sealSvg } from '../../src/server/features/publish/index.js';
+import { crestSvg, fixedBadgeFiles, frameSvg, loadOgFonts, pledgeSvg, sealSvg, stateBadgeFiles, stateBadgeSvg } from '../../src/server/features/publish/index.js';
 
 const THEMES = ['light', 'dark'] as const;
 const BADGES_DIR = join(process.cwd(), 'public', 'badges');
@@ -56,5 +56,54 @@ describe('fixed badges', () => {
     const files = fixedBadgeFiles(await loadOgFonts());
     expect(readdirSync(BADGES_DIR).sort()).toEqual([...files.keys()].sort());
     for (const [name, data] of files) expect(Buffer.compare(readFileSync(join(BADGES_DIR, name)), Buffer.from(data)), name).toBe(0);
+  });
+});
+
+const topoOf = (dir: string): string => readFileSync(join(process.cwd(), 'public', 'data', dir, 'districts.topo.json'), 'utf8');
+const stateBadge = (abbr: string, name: string, seats: number, chamber: 'federal-house' | 'state-house' | 'state-senate', dir: string, theme: 'light' | 'dark' = 'light'): string =>
+  stateBadgeSvg({ name, abbr, seats, chamber, topo: topoOf(dir), theme });
+
+describe('state badges', () => {
+  it('US House badge wording', () => {
+    const svg = stateBadge('CO', 'Colorado', 8, 'federal-house', 'CO');
+    expect(svg).toContain('I support fair maps for Colorado');
+    expect(svg).toContain('8 districts drawn by a rule');
+  });
+
+  it('chamber wording', () => {
+    expect(stateBadge('CO', 'Colorado', 35, 'state-senate', 'CO/state-senate')).toContain('Fair maps for the Colorado Senate');
+    expect(stateBadge('CO', 'Colorado', 65, 'state-house', 'CO/state-house')).toContain('Fair maps for the Colorado House');
+  });
+
+  it('one seat', () => {
+    expect(stateBadge('WY', 'Wyoming', 1, 'federal-house', 'WY')).toContain('1 district drawn by a rule');
+  });
+
+  it('long names fit', () => {
+    for (const svg of [stateBadge('MA', 'Massachusetts', 40, 'state-senate', 'MA/state-senate'), stateBadge('NC', 'North Carolina', 14, 'federal-house', 'NC')]) {
+      const m = /font-size="([\d.]+)"[^>]*>([^<]*(?:Massachusetts|North Carolina)[^<]*)</.exec(svg);
+      expect(m).not.toBeNull();
+      expect(Number(m![1]) * 0.55 * m![2]!.length).toBeLessThanOrEqual(280);
+    }
+  });
+
+  it('Alaska stays whole', () => {
+    const svg = stateBadge('AK', 'Alaska', 1, 'federal-house', 'AK');
+    const xs = [...svg.matchAll(/<path d="([^"]*)"/g)].flatMap((m) => [...m[1]!.matchAll(/[ML](-?[\d.]+),/g)].map((n) => Number(n[1])));
+    expect(xs.length).toBeGreaterThan(0);
+    expect(Math.max(...xs) - Math.min(...xs)).toBeLessThan(252.5);
+  });
+
+  it('dark uses the ink ground and no badge has an em dash', () => {
+    const dark = stateBadge('CO', 'Colorado', 8, 'federal-house', 'CO', 'dark');
+    expect(dark).toContain('fill="#1A1915"');
+    expect(dark).not.toContain('—');
+  });
+
+  it('stateBadgeFiles names', async () => {
+    const files = stateBadgeFiles({ name: 'Colorado', abbr: 'CO', seats: 8, chamber: 'federal-house', topo: topoOf('CO') }, await loadOgFonts());
+    expect(files.map(([n]) => n)).toEqual(['badge.png', 'badge@2x.png', 'badge-dark.png', 'badge-dark@2x.png']);
+    expect(pngWidth(files[0]![1])).toBe(300);
+    expect(pngWidth(files[1]![1])).toBe(600);
   });
 });

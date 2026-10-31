@@ -12,6 +12,7 @@
       "src/server/app/rule-examples.ts",
       "src/server/app/badges.ts",
       "src/server/app/rule-examples/**",
+      "src/server/shared/config/publish-mode.ts",
       "src/server/features/metrics/**"
     ],
     "web": ["src/client/**", "index.html", "public/*", "build/**", "vercel.json", "config/reps-sources.json", "config/reps-district-aliases.json", "config/note-rules.json", "api/**", "supabase/**", "src/server/api/**", "src/server/entities/signon-db/**", "src/server/entities/badge-db/**", "src/server/features/badge/**", "src/server/shared/ssrf/**", "src/server/shared/crypto/**", "src/server/shared/config/backend.ts", "src/server/shared/config/geocoder.ts", "src/server/shared/config/note-rules.ts", "src/server/features/notes/**", "src/server/features/signon/**", "src/server/features/counts/**", "src/server/features/outbox/**", "src/server/app/digest.ts", "src/server/shared/geo/contains.ts", "src/server/shared/geo/index.ts", "src/server/shared/errors/signon.ts", ".github/ISSUE_TEMPLATE/**"],
@@ -44,6 +45,7 @@
       "src/server/app/census-watch.ts",
       "src/server/shared/http/**",
       "src/server/shared/config/versions.ts",
+      "src/server/shared/config/publish-mode.ts",
       "src/server/features/reps/**",
       "src/server/app/reps.ts",
       "src/server/shared/config/reps.ts",

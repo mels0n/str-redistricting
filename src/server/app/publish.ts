@@ -2,15 +2,15 @@ import { readFileSync } from 'node:fs';
 import { publishData } from '../features/publish/index.js';
 import { ReleaseConfigSchema, isPreRelease } from '../features/release/index.js';
 import { staleReason } from '../features/run-stamp/index.js';
-import { parsePublishConfig } from '../shared/config/index.js';
+import { parsePublishRunConfig } from '../shared/config/publish-mode.js';
 import { exitCodeFor } from '../shared/errors/index.js';
 import { listTags } from './git.js';
 import { exploreCodeSha256, runKeyFor } from './run-key.js';
 
 async function main(): Promise<void> {
-  const cfg = parsePublishConfig(process.argv.slice(2));
-  // The overlay and block-file modes read no plans, so they need no run stamp, release config or git.
-  if (cfg.enactedOnly || cfg.blocksOnly) {
+  const cfg = parsePublishRunConfig(process.argv.slice(2));
+  // The overlay, block-file and badge modes read no plans, so they need no run stamp, release config or git.
+  if (cfg.enactedOnly || cfg.blocksOnly || cfg.badgesOnly) {
     await publishData(cfg, { planStale: async () => undefined });
     return;
   }

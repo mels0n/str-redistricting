@@ -1,3 +1,4 @@
+import { districtShapes } from './district-shapes.js';
 import { OG_PALETTE, renderOgPng } from './og.js';
 
 export type BadgeTheme = 'light' | 'dark';
@@ -14,6 +15,7 @@ export const BADGE_SIZES = {
 const GROUND = '#F3EFE5';
 const INK = '#1A1915';
 const SIGNAL = '#D88C0A';
+const INK_2 = '#5A554B';
 const PRINT_LONG_SIDE = 2000;
 
 /** Dark swaps ground and ink and keeps the amber. */
@@ -112,5 +114,49 @@ export function fixedBadgeFiles(fonts: readonly Uint8Array[]): Map<string, Uint8
   const frame = frameSvg();
   files.set('frame.png', renderBadge(frame, BADGE_SIZES.frame.width, fonts));
   files.set('frame-print.png', renderBadge(frame, PRINT_LONG_SIDE, fonts));
+  return files;
+}
+
+export interface StateBadgeParams {
+  name: string;
+  abbr: string;
+  seats: number;
+  chamber: 'federal-house' | 'state-house' | 'state-senate';
+  topo: string;
+  theme: BadgeTheme;
+}
+
+const BADGE_CHAMBER = { 'state-house': 'House', 'state-senate': 'Senate' } as const;
+const STATE_HEADLINE_SIZE = 15;
+const STATE_HEADLINE_WIDTH = 280;
+
+const escapeXml = (s: string): string => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+/** A state's districts over a headline and a count line, in a 4 px ink frame. */
+export function stateBadgeSvg(p: StateBadgeParams): string {
+  const { ground, ink } = colors(p.theme);
+  const headline = p.chamber === 'federal-house' ? `I support fair maps for ${p.name}` : `Fair maps for the ${p.name} ${BADGE_CHAMBER[p.chamber]}`;
+  // Public Sans at this weight averages about 0.55em a character; shrink a long name so the line stays inside the frame.
+  const size = Math.min(STATE_HEADLINE_SIZE, Math.floor((STATE_HEADLINE_WIDTH / (headline.length * 0.55)) * 10) / 10);
+  const count = `${p.seats} ${p.seats === 1 ? 'district' : 'districts'} drawn by a rule`;
+  const shapes = districtShapes({ abbr: p.abbr, topo: p.topo, palette: OG_PALETTE, box: [[24, 18], [276, 168]], stroke: ink, strokeWidth: 1 });
+  return [
+    open(BADGE_SIZES.state),
+    `<rect x="2" y="2" width="296" height="236" fill="${ground}" stroke="${ink}" stroke-width="4"/>`,
+    shapes,
+    `<text x="150" y="196" text-anchor="middle" ${SANS} font-weight="600" font-size="${size}" fill="${ink}">${escapeXml(headline)}</text>`,
+    `<text x="150" y="220" text-anchor="middle" ${SANS} font-weight="600" font-size="13" fill="${p.theme === 'dark' ? GROUND : INK_2}">${count}</text>`,
+    '</svg>',
+  ].join('');
+}
+
+/** The four files of a state chamber's badge: light and dark, at 1x and 2x. */
+export function stateBadgeFiles(p: Omit<StateBadgeParams, 'theme'>, fonts: readonly Uint8Array[]): [string, Uint8Array][] {
+  const files: [string, Uint8Array][] = [];
+  for (const theme of ['light', 'dark'] as const) {
+    const svg = stateBadgeSvg({ ...p, theme });
+    const stem = theme === 'dark' ? 'badge-dark' : 'badge';
+    files.push([`${stem}.png`, renderBadge(svg, BADGE_SIZES.state.width, fonts)], [`${stem}@2x.png`, renderBadge(svg, BADGE_SIZES.state.width * 2, fonts)]);
+  }
   return files;
 }

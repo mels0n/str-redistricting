@@ -43,6 +43,11 @@ export const PAGE_META = {
     title: 'Privacy | Fair Maps',
     description: 'What Fair Maps collects when you add your name, what it never keeps, what is public, how visits are counted without cookies, and how to be removed at any time.',
   },
+  badges: {
+    path: '/badges',
+    title: 'Badges for candidates: Fair Maps',
+    description: 'Free badges for a campaign site: a crest, a seal, a pledge, a button and one with your state’s map. Copy the code or download the image. No script.',
+  },
   remove: {
     path: '/remove',
     title: 'Remove your signature | Fair Maps',
@@ -55,4 +60,4 @@ export const PAGE_META = {
     description: 'Confirm your signature for Fair Maps.',
     noindex: true,
   },
-} as const satisfies Record<'home' | 'act' | 'how' | 'faq' | 'changelog' | 'pledges' | 'privacy' | 'remove' | 'confirm', PageMeta>;
+} as const satisfies Record<'home' | 'act' | 'how' | 'faq' | 'changelog' | 'pledges' | 'privacy' | 'badges' | 'remove' | 'confirm', PageMeta>;

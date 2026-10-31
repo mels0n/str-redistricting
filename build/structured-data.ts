@@ -231,7 +231,7 @@ export function breadcrumbNode(id: string, items: readonly { name: string; url: 
 const graph = (nodes: Node[]): Graph => ({ '@context': 'https://schema.org', '@graph': nodes });
 
 const HOME_URL = `${SITE}/`;
-const PAGE_NAMES: Record<PageKey, string> = { home: 'Fair Maps', act: 'Take action', how: 'How it works', faq: 'FAQ', changelog: 'Changelog', pledges: 'Sites that show the badge', privacy: 'Privacy', remove: 'Remove your signature', confirm: 'Confirm your signature' };
+const PAGE_NAMES: Record<PageKey, string> = { home: 'Fair Maps', act: 'Take action', how: 'How it works', faq: 'FAQ', changelog: 'Changelog', pledges: 'Sites that show the badge', privacy: 'Privacy', badges: 'Badges', remove: 'Remove your signature', confirm: 'Confirm your signature' };
 const pageUrl = (key: PageKey): string => (key === 'home' ? HOME_URL : `${SITE}${PAGE_META[key].path}`);
 
 /** The crumbs of a page below Home. The home page has none: a trail of one item is not worth marking up. */
@@ -365,6 +365,11 @@ function actNodes(): Node[] {
   return [...siteNodes(), webPage('act', 'WebPage', {}), breadcrumbNode(`${url}#breadcrumb`, pageCrumbs('act'))];
 }
 
+function badgesNodes(): Node[] {
+  const url = pageUrl('badges');
+  return [...siteNodes(), webPage('badges', 'WebPage', {}), breadcrumbNode(`${url}#breadcrumb`, pageCrumbs('badges'))];
+}
+
 function privacyNodes(): Node[] {
   const url = pageUrl('privacy');
   return [...siteNodes(), webPage('privacy', 'WebPage', {}), breadcrumbNode(`${url}#breadcrumb`, pageCrumbs('privacy'))];
@@ -395,6 +400,8 @@ export function jsonLd(key: PageKey, faq: readonly FaqEntry[]): Graph[] {
       return [graph(pledgesNodes())];
     case 'act':
       return [graph(actNodes())];
+    case 'badges':
+      return [graph(badgesNodes())];
     case 'privacy':
       return [graph(privacyNodes())];
     case 'remove':

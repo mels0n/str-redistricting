@@ -1,0 +1,123 @@
+// @vitest-environment jsdom
+import { afterEach, describe, expect, it, vi } from 'vitest';
+import { PAGE_META, config } from '../../src/client/shared';
+import { badgeAssets, badgeSnippet, BADGE_SNIPPET, type BadgeChoice } from '../../src/client/features/badge-snippet';
+import { createBadgesPage, badgeCard } from '../../src/client/pages/badges';
+import { createPledgesPage } from '../../src/client/pages/pledges';
+import { createPrivacyPage } from '../../src/client/pages/privacy';
+
+const IDS = ['crest', 'seal', 'pledge', 'button'] as const;
+const flush = () => new Promise((r) => setTimeout(r, 0));
+
+describe('badges page', () => {
+  afterEach(() => {
+    vi.unstubAllGlobals();
+    document.body.replaceChildren();
+  });
+
+  it('has the heading, the intro with its two links and a card per badge', () => {
+    const page = createBadgesPage();
+    expect(page.el.querySelector('h1')!.textContent).toBe('Badges for candidates');
+    expect(page.focusTarget()?.textContent).toBe('Badges for candidates');
+    expect(document.title).toBe(PAGE_META.badges.title);
+    expect(PAGE_META.badges.title).toBe('Badges for candidates: Fair Maps');
+    const lede = page.el.querySelector('.strv-how__lede')!;
+    expect(lede.textContent).toBe('Put a Fair Maps badge on your campaign site. Each one is a picture with a link back here, with no script. When a page shows a badge, we note that page’s address, never who visited, and list the site on Sites that show the badge.');
+    expect(lede.textContent).not.toContain('nothing is tracked');
+    const hrefs = Object.fromEntries([...lede.querySelectorAll('a')].map((a) => [a.textContent, a.getAttribute('href')]));
+    expect(hrefs).toEqual({ 'never who visited': '/privacy#strv-privacy-badge', 'Sites that show the badge': '/pledges' });
+    expect(page.el.querySelectorAll('.strv-badges__card')).toHaveLength(4);
+    expect(page.el.textContent).not.toContain('—');
+  });
+
+  it('shows each snippet, preview and downloads from the badge assets', () => {
+    const page = createBadgesPage();
+    const cards = [...page.el.querySelectorAll('.strv-badges__card')];
+    IDS.forEach((id, i) => {
+      const card = cards[i]!;
+      const choice: BadgeChoice = { id, theme: 'light' };
+      const a = badgeAssets(choice, config.siteHost);
+      expect(card.querySelector<HTMLTextAreaElement>('textarea[readonly]')!.value).toBe(badgeSnippet(choice, config.siteHost));
+      const img = card.querySelector('img')!;
+      expect(img.getAttribute('src')).toBe(a.image);
+      expect(img.getAttribute('src')).toContain('/api/badge');
+      expect(img.getAttribute('alt')).toBe(a.alt);
+      expect([...card.querySelectorAll('.strv-badges__downloads a')].map((l) => [l.textContent, l.getAttribute('href')])).toEqual(a.downloads.map((d) => [d.label, d.href]));
+    });
+  });
+
+  it('keeps the live button snippet for the light button', () => {
+    const page = createBadgesPage();
+    const button = page.el.querySelectorAll('.strv-badges__card')[3]!;
+    expect(button.querySelector<HTMLTextAreaElement>('textarea')!.value).toBe(BADGE_SNIPPET);
+  });
+
+  it('swaps the preview, the snippet and the downloads with the light and dark switch', () => {
+    const page = createBadgesPage();
+    const card = page.el.querySelectorAll('.strv-badges__card')[0]!;
+    const [light, dark] = [...card.querySelectorAll<HTMLButtonElement>('.strv-badges__switch button')];
+    expect(light!.getAttribute('aria-pressed')).toBe('true');
+    expect(dark!.getAttribute('aria-pressed')).toBe('false');
+    dark!.click();
+    const choice: BadgeChoice = { id: 'crest', theme: 'dark' };
+    const a = badgeAssets(choice, config.siteHost);
+    expect(dark!.getAttribute('aria-pressed')).toBe('true');
+    expect(light!.getAttribute('aria-pressed')).toBe('false');
+    expect(card.querySelector('img')!.getAttribute('src')).toBe(a.image);
+    expect(card.querySelector<HTMLTextAreaElement>('textarea')!.value).toBe(badgeSnippet(choice, config.siteHost));
+    expect([...card.querySelectorAll('.strv-badges__downloads a')].map((l) => l.getAttribute('href'))).toEqual(a.downloads.map((d) => d.href));
+    light!.click();
+    expect(card.querySelector<HTMLTextAreaElement>('textarea')!.value).toBe(badgeSnippet({ id: 'crest', theme: 'light' }, config.siteHost));
+  });
+
+  it('copies the snippet and says so', async () => {
+    const writeText = vi.fn(async () => undefined);
+    vi.stubGlobal('navigator', { clipboard: { writeText } });
+    const page = createBadgesPage();
+    const card = page.el.querySelectorAll('.strv-badges__card')[1]!;
+    const copy = [...card.querySelectorAll('button')].find((b) => b.textContent === 'Copy')!;
+    copy.click();
+    await flush();
+    expect(writeText).toHaveBeenCalledWith(badgeSnippet({ id: 'seal', theme: 'light' }, config.siteHost));
+    expect(copy.textContent).toBe('Copied');
+  });
+
+  it('selects the text and asks for a hand copy when the clipboard refuses', async () => {
+    vi.stubGlobal('navigator', { clipboard: { writeText: vi.fn(async () => Promise.reject(new Error('blocked'))) } });
+    const page = createBadgesPage();
+    document.body.append(page.el);
+    const card = page.el.querySelectorAll('.strv-badges__card')[0]!;
+    const copy = [...card.querySelectorAll('button')].find((b) => b.textContent === 'Copy')!;
+    copy.click();
+    await flush();
+    const box = card.querySelector<HTMLTextAreaElement>('textarea')!;
+    expect(box.selectionStart).toBe(0);
+    expect(box.selectionEnd).toBe(box.value.length);
+    expect(copy.textContent).toBe('Select and copy');
+  });
+
+  it('lets a card follow a changing choice through refresh', () => {
+    let choice: BadgeChoice = { id: 'crest', theme: 'light' };
+    const card = badgeCard(() => choice, 'Test');
+    choice = { id: 'seal', theme: 'light' };
+    card.refresh();
+    expect(card.el.querySelector<HTMLTextAreaElement>('textarea')!.value).toBe(badgeSnippet({ id: 'seal', theme: 'light' }, config.siteHost));
+  });
+});
+
+describe('pages that point at the badges page', () => {
+  it('links /pledges to /badges and keeps the button snippet', () => {
+    const page = createPledgesPage([]);
+    const link = [...page.el.querySelectorAll('a')].find((a) => a.textContent === 'Badges for candidates')!;
+    expect(link.getAttribute('href')).toBe('/badges');
+    expect(page.el.textContent).toContain('More badges, including one with your state’s map: Badges for candidates');
+    expect(page.el.querySelector('pre')!.textContent).toBe(BADGE_SNIPPET);
+    expect(page.el.textContent).toContain(`What we look for: any of our badges (an image from ${config.siteHost}/api/badge) and a link to ${config.siteHost} on the same page.`);
+  });
+
+  it('names the privacy badge section and says one of our badges', () => {
+    const page = createPrivacyPage();
+    expect(page.el.querySelector('#strv-privacy-badge')).not.toBeNull();
+    expect(page.el.querySelector('#strv-privacy-badge')!.textContent).toContain('If a website shows one of our badges');
+  });
+});

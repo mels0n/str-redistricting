@@ -1,5 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
+import { engineFilesAt } from '../../../src/server/app/git.js';
 import type { Versions } from '../../../src/server/shared/config/index.js';
 import { BASELINE_VERSIONS } from '../../helpers/baseline-versions.js';
 import {
@@ -27,6 +28,8 @@ import {
 } from '../../../src/server/features/release/index.js';
 
 const cfg = ReleaseConfigSchema.parse(JSON.parse(readFileSync('config/release.json', 'utf8')));
+// What the drawing code imports in this checkout: the set the repo's own engine rule is judged against.
+const engineFiles = engineFilesAt(cfg, [{ ref: null, required: true }]);
 
 function commit(subject: string, files: string[]): Commit {
   return { sha: 'abc1234', ...parseCommitSubject(subject), subject, files };
@@ -52,7 +55,7 @@ describe('parseCommitSubject', () => {
 });
 
 describe('componentsFor', () => {
-  const of = (subject: string, files: string[]): Component[] => [...componentsFor(commit(subject, files), cfg)].sort();
+  const of = (subject: string, files: string[]): Component[] => [...componentsFor(commit(subject, files), cfg, engineFiles)].sort();
 
   it('attributes by path', () => {
     expect(of('fix: x', ['src/server/features/splitline/cut.ts'])).toEqual(['engine']);

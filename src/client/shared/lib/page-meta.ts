@@ -45,7 +45,7 @@ export const PAGE_META = {
   },
   badges: {
     path: '/badges',
-    title: 'Badges for candidates: Fair Maps',
+    title: 'Badges for candidates | Fair Maps',
     description: 'Free badges for a campaign site: a crest, a seal, a pledge, a button and one with your state’s map. Copy the code or download the image. No script.',
   },
   remove: {

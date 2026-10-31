@@ -12,11 +12,12 @@ import {
   taggedVersions,
   type Commit,
   type Component,
+  type ReleaseConfig,
 } from '../features/release/index.js';
 import { VersionsSchema, formatVersions, inputSha256Of, parseReleaseArgs, type Versions } from '../shared/config/index.js';
 import { exitCodeFor } from '../shared/errors/index.js';
 import { FINGERPRINT_PATH, drawFingerprints, readFingerprintFile, readFingerprintFileAt } from './fixtures.js';
-import { commit, commitsSince, listTags, showFile } from './git.js';
+import { commit, commitsSince, commitsTouching, engineFilesAt, listTags, showFile } from './git.js';
 
 // Reads config/ and changelog/ relative to the current directory, and proposes the next versions from the commits
 // since each component's newest release tag. A component whose version already differs from its newest tag was bumped
@@ -74,9 +75,42 @@ function release(): void {
   const bumpedSince = COMPONENTS.filter((c) => newest[c] !== null && newest[c] !== expected[c]);
   if (bumpedSince.length > 0) console.log(`already bumped since their last tag: ${bumpedSince.join(', ')}`);
 
+  // The rule change applies going forward only. A commit made while release.json named engineEntries (its first
+  // parent's copy) is classed by the import graph; every earlier commit is classed exactly as the globs classed it at
+  // the end of that era, which is how the release tooling has always judged history. Engine files, for the graph
+  // era: imported by the drawing code now or at the last engine release, so a file deleted since still counts.
+  const engineFiles = engineFilesAt(cfg, [null, refOf('engine')]);
+  const parseCfg = (text: string): ReleaseConfig => ReleaseConfigSchema.parse(JSON.parse(text));
+  const lastGlobCfg = ((): ReleaseConfig | null => {
+    for (const sha of commitsTouching('config/release.json')) {
+      const text = showFile(sha, 'config/release.json');
+      if (text === null) continue;
+      const at = parseCfg(text);
+      if (at.engineEntries === undefined) return at;
+    }
+    return null;
+  })();
+  const parentCfgs = new Map<string, ReleaseConfig>();
+  const cfgFor = (k: Commit): ReleaseConfig => {
+    const text = showFile(`${k.sha}^`, 'config/release.json');
+    if (text !== null) {
+      if (!parentCfgs.has(text)) parentCfgs.set(text, parseCfg(text));
+      const atParent = parentCfgs.get(text)!;
+      if (atParent.engineEntries !== undefined) return atParent;
+    }
+    return lastGlobCfg ?? cfg;
+  };
+  const classified = new Map<string, Set<Component>>();
+  const componentsOf = (k: Commit): Set<Component> => {
+    if (!classified.has(k.sha)) {
+      const at = cfgFor(k);
+      classified.set(k.sha, componentsFor(k, at, at.engineEntries === undefined ? undefined : engineFiles));
+    }
+    return classified.get(k.sha)!;
+  };
   const byComponent = new Map<Component, Commit[]>();
   for (const c of COMPONENTS) {
-    byComponent.set(c, commitsSince(refOf(c)).filter((k) => componentsFor(k, cfg).has(c)));
+    byComponent.set(c, commitsSince(refOf(c)).filter((k) => componentsOf(k).has(c)));
   }
 
   // Fixture gate: a changed fingerprint under an unchanged engine major means the maps changed.

@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { DataError } from '../../shared/errors/index.js';
 
 export const COMPONENTS = ['engine', 'input', 'maps', 'schema', 'web', 'docs'] as const;
 export type Component = (typeof COMPONENTS)[number];
@@ -12,12 +13,22 @@ export const ReleaseConfigSchema = z.strictObject({
   enforce: z.boolean(),
   paths: PerComponent,
   exclude: PerComponent,
+  /**
+   * The entry points the engine is built from (repo-relative). When set, a file is engine exactly when the drawing
+   * code imports it (the caller works that set out and passes it in), and `paths.engine` / `exclude.engine` are not used.
+   * When absent, engine is the globs, as before.
+   */
+  engineEntries: z.array(z.string().min(1)).min(1).optional(),
   /** Files that belong to no component (tests, workflows, the versions file itself). */
   ignore: Globs,
   /** Commit types whose client files count as docs, not web. */
   docsTypes: z.array(z.string().min(1)),
   /** States the fixture gate draws on every pull request: small and fast, covering islands, water and a one-seat state. */
   fixtureStates: z.array(z.string().regex(/^[A-Z]{2}(:state-(house|senate))?$/)),
+}).superRefine((cfg, ctx) => {
+  if (cfg.engineEntries !== undefined && (cfg.paths.engine.length > 0 || cfg.exclude.engine.length > 0)) {
+    ctx.addIssue({ code: 'custom', message: 'engineEntries replaces paths.engine and exclude.engine; leave those empty' });
+  }
 });
 export type ReleaseConfig = z.infer<typeof ReleaseConfigSchema>;
 
@@ -62,21 +73,28 @@ export function matchesGlob(path: string, globs: readonly string[]): boolean {
   return globs.some((g) => globToRegExp(g).test(path));
 }
 
-/** The components one changed file belongs to (none for an ignored file). */
-export function componentsOfFile(file: string, cfg: ReleaseConfig): Component[] {
+/**
+ * The components one changed file belongs to (none for an ignored file). `engineFiles` is the set of repo-relative
+ * paths in the engine's import graph; it is required exactly when the config names `engineEntries`.
+ */
+export function componentsOfFile(file: string, cfg: ReleaseConfig, engineFiles?: ReadonlySet<string>): Component[] {
   if (matchesGlob(file, cfg.ignore)) return [];
-  return COMPONENTS.filter((c) => matchesGlob(file, cfg.paths[c]) && !matchesGlob(file, cfg.exclude[c]));
+  if (cfg.engineEntries !== undefined && engineFiles === undefined) throw new DataError('release.json names engineEntries, but no engine file set was given');
+  return COMPONENTS.filter((c) => {
+    if (c === 'engine' && cfg.engineEntries !== undefined) return engineFiles!.has(file);
+    return matchesGlob(file, cfg.paths[c]) && !matchesGlob(file, cfg.exclude[c]);
+  });
 }
 
 /**
  * The components a commit touches. A docs-type commit (copy, docs) counts its client files as docs, not web; its engine
  * and data files still count for their own components.
  */
-export function componentsFor(c: Commit, cfg: ReleaseConfig): Set<Component> {
+export function componentsFor(c: Commit, cfg: ReleaseConfig, engineFiles?: ReadonlySet<string>): Set<Component> {
   const docsType = cfg.docsTypes.includes(c.type);
   const out = new Set<Component>();
   for (const file of c.files) {
-    for (const comp of componentsOfFile(file, cfg)) out.add(docsType && comp === 'web' ? 'docs' : comp);
+    for (const comp of componentsOfFile(file, cfg, engineFiles)) out.add(docsType && comp === 'web' ? 'docs' : comp);
   }
   return out;
 }

@@ -3,11 +3,12 @@ import { COMPONENTS, ReleaseConfigSchema, componentsFor, mapsDataChanged, versio
 import { VersionsSchema, parseVersionCheckArgs } from '../shared/config/index.js';
 import { CheckFailedError, DataError, exitCodeFor } from '../shared/errors/index.js';
 import { FINGERPRINT_PATH, parseFingerprintFile } from './fixtures.js';
-import { changedFiles, commitsSince, mergeBase, showFile } from './git.js';
+import { changedFiles, engineFilesAt, commitsSince, mergeBase, showFile } from './git.js';
 
 // Compares config/versions.json at --base and at HEAD with what the pull request touched, and public/data/index.json
 // at both for the maps release. Reads config/release.json from --base, so a pull request cannot loosen its own check
-// (HEAD's copy is used only when the base has none). Warns until release.json says enforce, then fails.
+// (HEAD's copy is used only when the base has none). When the config names engineEntries, engine files are the ones
+// the drawing code imports (the code fingerprint's own graph), not a folder. Warns until release.json says enforce, then fails.
 
 /** The engine major recorded at HEAD; null only when there is no fingerprint file. A malformed file is an error, never "no major". */
 function headFingerprintMajor(): number | null {
@@ -17,7 +18,8 @@ function headFingerprintMajor(): number | null {
 
 function check(): void {
   const { base } = parseVersionCheckArgs(process.argv.slice(2));
-  if (mergeBase(base, 'HEAD') === null) throw new DataError(`no common history with ${base}; rebase this branch onto ${base}`);
+  const fork = mergeBase(base, 'HEAD');
+  if (fork === null) throw new DataError(`no common history with ${base}; rebase this branch onto ${base}`);
   const baseText = showFile(base, 'config/versions.json');
   if (baseText === null) {
     console.log(`::notice::${base} has no config/versions.json, so there is nothing to compare against`);
@@ -34,9 +36,11 @@ function check(): void {
 
   // Only files still different at HEAD count, so a file changed and put back in the same PR is not "touched".
   const net = new Set(changedFiles(base, 'HEAD'));
+  // Engine is what the drawing code imports at the fork point or at HEAD, so deleting or un-importing a file still counts.
+  const engineFiles = engineFilesAt(cfg, [fork, 'HEAD']);
   const touched = new Set<Component>();
   for (const c of commitsSince(base)) {
-    for (const comp of componentsFor({ ...c, files: c.files.filter((f) => net.has(f)) }, cfg)) touched.add(comp);
+    for (const comp of componentsFor({ ...c, files: c.files.filter((f) => net.has(f)) }, cfg, engineFiles)) touched.add(comp);
   }
 
   const changelogs = Object.fromEntries(COMPONENTS.map((c) => [c, showFile('HEAD', `changelog/${c}.md`) ?? ''])) as Record<Component, string>;

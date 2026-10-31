@@ -21,7 +21,7 @@ describe('badges page', () => {
     expect(page.el.querySelector('h1')!.textContent).toBe('Badges for candidates');
     expect(page.focusTarget()?.textContent).toBe('Badges for candidates');
     expect(document.title).toBe(PAGE_META.badges.title);
-    expect(PAGE_META.badges.title).toBe('Badges for candidates: Fair Maps');
+    expect(PAGE_META.badges.title).toBe('Badges for candidates | Fair Maps');
     const lede = page.el.querySelector('.strv-how__lede')!;
     expect(lede.textContent).toBe('Put a Fair Maps badge on your campaign site. Each one is a picture with a link back here, with no script. When a page shows a badge, we note that page’s address, never who visited, and list the site on Sites that show the badge.');
     expect(lede.textContent).not.toContain('nothing is tracked');
@@ -44,10 +44,13 @@ describe('badges page', () => {
       const a = badgeAssets(choice, config.siteHost);
       expect(card.querySelector<HTMLTextAreaElement>('textarea[readonly]')!.value).toBe(badgeSnippet(choice, config.siteHost));
       const img = card.querySelector('img')!;
-      expect(img.getAttribute('src')).toBe(a.image);
-      expect(img.getAttribute('src')).toContain('/api/badge');
+      expect(img.getAttribute('src')).toBe(a.previewImage);
+      expect(img.getAttribute('src')).toMatch(/^\/api\/badge/);
       expect(img.getAttribute('alt')).toBe(a.alt);
       expect([...card.querySelectorAll('.strv-badges__downloads a')].map((l) => [l.textContent, l.getAttribute('href')])).toEqual(a.downloads.map((d) => [d.label, d.href]));
+      const title = card.querySelector('h2')!.textContent;
+      expect([...card.querySelectorAll('.strv-badges__downloads a')].map((l) => l.getAttribute('aria-label'))).toEqual(a.downloads.map((d) => `${title}, ${d.label}`));
+      expect(card.querySelector<HTMLTextAreaElement>('textarea')!.defaultValue).toBe(badgeSnippet(choice, config.siteHost));
     });
   });
 
@@ -68,7 +71,7 @@ describe('badges page', () => {
     const a = badgeAssets(choice, config.siteHost);
     expect(dark!.getAttribute('aria-pressed')).toBe('true');
     expect(light!.getAttribute('aria-pressed')).toBe('false');
-    expect(card.querySelector('img')!.getAttribute('src')).toBe(a.image);
+    expect(card.querySelector('img')!.getAttribute('src')).toBe(a.previewImage);
     expect(card.querySelector<HTMLTextAreaElement>('textarea')!.value).toBe(badgeSnippet(choice, config.siteHost));
     expect([...card.querySelectorAll('.strv-badges__downloads a')].map((l) => l.getAttribute('href'))).toEqual(a.downloads.map((d) => d.href));
     light!.click();
@@ -171,14 +174,14 @@ describe('state badge picker', () => {
     pick(state, 'CO');
     const [house, chamberCard] = cards();
     const a = badgeAssets({ id: 'state', theme: 'light', abbr: 'CO', stateName: 'Colorado', chamber: 'federal-house', seats: 8 }, config.siteHost);
-    expect(house!.querySelector('img')!.getAttribute('src')).toBe(`https://${config.siteHost}/api/badge?badge=state&state=CO`);
+    expect(house!.querySelector('img')!.getAttribute('src')).toBe(`/api/badge?badge=state&state=CO`);
     expect(a.downloads[0]!.href).toContain('/data/CO/badge@2x.png');
     expect([...house!.querySelectorAll('.strv-badges__downloads a')].map((l) => l.getAttribute('href'))).toEqual(a.downloads.map((d) => d.href));
     expect(house!.querySelector('textarea')!.value).toContain('/CO"');
     expect(options(chamber)).toEqual(['state-house', 'state-senate']);
-    expect(chamberCard!.querySelector('img')!.getAttribute('src')).toBe(`https://${config.siteHost}/api/badge?badge=state&state=CO&chamber=house`);
+    expect(chamberCard!.querySelector('img')!.getAttribute('src')).toBe(`/api/badge?badge=state&state=CO&chamber=house`);
     pick(chamber, 'state-senate');
-    expect(chamberCard!.querySelector('img')!.getAttribute('src')).toBe(`https://${config.siteHost}/api/badge?badge=state&state=CO&chamber=senate`);
+    expect(chamberCard!.querySelector('img')!.getAttribute('src')).toBe(`/api/badge?badge=state&state=CO&chamber=senate`);
     expect([...chamberCard!.querySelectorAll('.strv-badges__downloads a')].map((l) => l.getAttribute('href'))).toEqual([expect.stringContaining('/data/CO/state-senate/badge@2x.png')]);
   });
 
@@ -188,13 +191,15 @@ describe('state badge picker', () => {
     pick(chamber, 'state-senate');
     expect(options(state)).toEqual(['', 'CO', 'NE', 'VT']);
     pick(state, 'NE');
-    expect(cards()[0]!.querySelector('img')!.getAttribute('src')).toBe(`https://${config.siteHost}/api/badge?badge=state&state=NE`);
-    expect(cards()[1]!.querySelector('img')!.getAttribute('src')).toBe(`https://${config.siteHost}/api/badge?badge=state&state=NE&chamber=senate`);
+    expect(cards()[0]!.querySelector('img')!.getAttribute('src')).toBe(`/api/badge?badge=state&state=NE`);
+    expect(cards()[1]!.querySelector('img')!.getAttribute('src')).toBe(`/api/badge?badge=state&state=NE&chamber=senate`);
     pick(chamber, 'state-house');
     expect(options(state)).toEqual(['', 'CO', 'NE', 'VT']);
     expect(state.value).toBe('NE');
     expect(cards()[0]!.querySelector('img')).not.toBeNull();
     expect(cards()[1]!.querySelector('img')).toBeNull();
+    expect(cards()[1]!.textContent).toContain('Nebraska has one legislative chamber, its Senate. There is no State House to draw.');
+    expect(cards()[1]!.textContent).not.toContain('No map published yet');
   });
 
   it('says a chamber has no map once a state is picked, and keeps the prompt before', async () => {
@@ -252,7 +257,11 @@ describe('profile photo frame', () => {
   const NEVER = () => new Promise<never>(() => undefined);
   const setup = (over: Partial<FrameDeps> = {}) => {
     const draws: unknown[][] = [];
-    const ctx = { drawImage: (...a: unknown[]) => void draws.push(a) };
+    const ctx = {
+      fillStyle: '',
+      fillRect: (...a: unknown[]) => void draws.push(['fill', ctx.fillStyle, ...a]),
+      drawImage: (...a: unknown[]) => void draws.push(a),
+    };
     const canvas = document.createElement('canvas');
     (canvas as unknown as { getContext: () => unknown }).getContext = () => ctx;
     (canvas as unknown as { toBlob: (cb: (b: Blob | null) => void) => void }).toBlob = (cb) => cb(new Blob(['x'], { type: 'image/png' }));
@@ -330,6 +339,7 @@ describe('profile photo frame', () => {
     expect(canvas.width).toBe(1080);
     expect(canvas.height).toBe(1080);
     expect(draws).toEqual([
+      ['fill', '#F3EFE5', 0, 0, 1080, 1080],
       [photo, 500, 0, 1000, 1000, 0, 0, 1080, 1080],
       [ring, 0, 0, 1080, 1080],
     ]);

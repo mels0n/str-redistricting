@@ -1,5 +1,5 @@
-import { h, announce, config, PAGE_META, type Chamber, routeHref, iconArrowLeft, NATIONAL, PRIVACY, PLEDGES, type Page } from '../../shared';
-import { loadIndex, byName, chamberView, isGeneratedIn, nameOfState, type StateIndex } from '../../entities/state';
+import { h, announce, config, tokens, PAGE_META, type Chamber, routeHref, iconArrowLeft, NATIONAL, PRIVACY, PLEDGES, type Page } from '../../shared';
+import { loadIndex, byName, chamberView, isGeneratedIn, nameOfState, seatsIn, type StateIndex } from '../../entities/state';
 import { badgeAssets, badgeSnippet, type BadgeChoice } from '../../features/badge-snippet';
 
 /** A badge card and the way to make it re-read its choice after the choice has changed. */
@@ -80,7 +80,7 @@ export function badgeCard(choice: () => BadgeChoice | null, title: string, empty
       empty.textContent = typeof emptyText === 'function' ? emptyText() : emptyText;
       preview.replaceChildren(empty);
       preview.classList.remove('strv-badges__preview--dark');
-      box.value = '';
+      box.value = box.defaultValue = '';
       downloads.replaceChildren();
       copy.disabled = true;
       return;
@@ -89,15 +89,16 @@ export function badgeCard(choice: () => BadgeChoice | null, title: string, empty
     if (img.parentNode !== preview) preview.replaceChildren(img);
     const c: BadgeChoice = { ...picked, theme };
     const a = badgeAssets(c, config.siteHost);
-    img.setAttribute('src', a.image);
-    if (a.image2x) img.setAttribute('srcset', `${a.image2x} 2x`);
+    img.setAttribute('src', a.previewImage);
+    if (a.previewImage2x) img.setAttribute('srcset', `${a.previewImage2x} 2x`);
     else img.removeAttribute('srcset');
     img.setAttribute('alt', a.alt);
     img.setAttribute('width', String(a.width));
     img.setAttribute('height', String(a.height));
     preview.classList.toggle('strv-badges__preview--dark', theme === 'dark');
-    box.value = badgeSnippet(c, config.siteHost);
-    downloads.replaceChildren(...a.downloads.map((d) => h('li', null, h('a', { href: d.href, download: '' }, d.label))));
+    // The default value too, so the prerendered page carries the snippet (serialized HTML holds a textarea's default, not its value).
+    box.value = box.defaultValue = badgeSnippet(c, config.siteHost);
+    downloads.replaceChildren(...a.downloads.map((d) => h('li', null, h('a', { href: d.href, download: '', 'aria-label': `${title}, ${d.label}` }, d.label))));
   }
   refresh();
   group.append(...switchButtons);
@@ -158,10 +159,20 @@ function statePicker(load: () => Promise<StateIndex>): { el: HTMLElement; destro
     if (!s || !isGeneratedIn(s, ch)) return null;
     return { id: 'state', theme: 'light', abbr, stateName: nameOfState(abbr) ?? s.name, chamber: ch, seats: chamberView(s, ch).seats };
   };
-  const message = (): string => (abbr ? NO_MAP : STATE_PROMPT);
+  const message = (ch: Chamber): string => {
+    if (!abbr) return STATE_PROMPT;
+    const s = index?.states.find((x) => x.abbr === abbr);
+    // An index that lists chambers and gives this one no districts: the state does not have it (Nebraska's legislature has one).
+    if (s && s.chambers !== undefined && ch !== 'federal-house' && seatsIn(s, ch) === 0) {
+      const other: Chamber = ch === 'state-house' ? 'state-senate' : 'state-house';
+      const name = (c: Chamber): string => CHAMBER_CHOICES.find((x) => x.value === c)!.label;
+      return seatsIn(s, other) > 0 ? `${s.name} has one legislative chamber, its ${name(other)}. There is no State ${name(ch)} to draw.` : `${s.name} has no State ${name(ch)} to draw.`;
+    }
+    return NO_MAP;
+  };
   const chamberLabel = (): string => `State ${CHAMBER_CHOICES.find((c) => c.value === chamber)!.label}`;
-  const usHouse = badgeCard(() => choiceFor('federal-house'), 'US House', message);
-  const stateCard = badgeCard(() => choiceFor(chamber), chamberLabel(), message);
+  const usHouse = badgeCard(() => choiceFor('federal-house'), 'US House', () => message('federal-house'));
+  const stateCard = badgeCard(() => choiceFor(chamber), chamberLabel(), () => message(chamber));
   const note = h('p', { class: 'strv-badges__note', role: 'status' });
 
   function fillStates(): void {
@@ -298,6 +309,9 @@ function frameCard(deps: FrameDeps): { el: HTMLElement; destroy: () => void } {
       const ctx = canvas.getContext('2d');
       if (!ctx) throw new Error('no canvas');
       const side = Math.min(photo.width, photo.height);
+      // A transparent PNG would otherwise leave transparent pixels, which social sites show as black.
+      ctx.fillStyle = tokens.ground;
+      ctx.fillRect(0, 0, FRAME_SIZE, FRAME_SIZE);
       ctx.drawImage(photo, (photo.width - side) / 2, (photo.height - side) / 2, side, side, 0, 0, FRAME_SIZE, FRAME_SIZE);
       ctx.drawImage(ring, 0, 0, FRAME_SIZE, FRAME_SIZE);
       const blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, 'image/png'));

@@ -2,7 +2,7 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { PAGE_META, config } from '../../src/client/shared';
 import { badgeAssets, badgeSnippet, BADGE_SNIPPET, type BadgeChoice } from '../../src/client/features/badge-snippet';
-import { createBadgesPage, badgeCard } from '../../src/client/pages/badges';
+import { createBadgesPage, badgeCard, type FrameDeps } from '../../src/client/pages/badges';
 import type { StateIndex } from '../../src/client/entities/state';
 import { createPledgesPage } from '../../src/client/pages/pledges';
 import { createPrivacyPage } from '../../src/client/pages/privacy';
@@ -241,5 +241,107 @@ describe('pages that point at the badges page', () => {
     const page = createPrivacyPage();
     expect(page.el.querySelector('#strv-privacy-badge')).not.toBeNull();
     expect(page.el.querySelector('#strv-privacy-badge')!.textContent).toContain('If a website shows one of our badges');
+  });
+});
+
+describe('profile photo frame', () => {
+  const NEVER = () => new Promise<never>(() => undefined);
+  const setup = (over: Partial<FrameDeps> = {}) => {
+    const draws: unknown[][] = [];
+    const ctx = { drawImage: (...a: unknown[]) => void draws.push(a) };
+    const canvas = document.createElement('canvas');
+    (canvas as unknown as { getContext: () => unknown }).getContext = () => ctx;
+    (canvas as unknown as { toBlob: (cb: (b: Blob | null) => void) => void }).toBlob = (cb) => cb(new Blob(['x'], { type: 'image/png' }));
+    const photo = { width: 2000, height: 1000, close: vi.fn() } as unknown as ImageBitmap;
+    const ring = { ring: true } as unknown as CanvasImageSource;
+    const decode = vi.fn(async () => photo);
+    const deps: FrameDeps = { decode, loadRing: async () => ring, makeCanvas: () => canvas, ...over };
+    const fetchSpy = vi.fn();
+    vi.stubGlobal('fetch', fetchSpy);
+    const xhr = vi.fn();
+    vi.stubGlobal('XMLHttpRequest', xhr);
+    let n = 0;
+    const create = vi.fn(() => `blob:fair-${++n}`);
+    const revoke = vi.fn();
+    URL.createObjectURL = create;
+    URL.revokeObjectURL = revoke;
+    const page = createBadgesPage(NEVER, deps);
+    document.body.append(page.el);
+    const input = page.el.querySelector<HTMLInputElement>('input[type="file"]')!;
+    const choose = async (file: File) => {
+      Object.defineProperty(input, 'files', { value: [file], configurable: true });
+      input.dispatchEvent(new Event('change'));
+      await flush();
+    };
+    return { page, input, choose, draws, canvas, photo, ring, decode, fetchSpy, xhr, create, revoke };
+  };
+  const pic = (size = 10, type = 'image/jpeg') => {
+    const f = new File(['x'], 'me.jpg', { type });
+    Object.defineProperty(f, 'size', { value: size });
+    return f;
+  };
+
+  afterEach(() => {
+    vi.unstubAllGlobals();
+    document.body.replaceChildren();
+  });
+
+  it('offers the ring downloads and a photo input, and is not a badge card', () => {
+    const { page, input } = setup();
+    const frame = page.el.querySelector('.strv-badges__frame')!;
+    expect([...frame.querySelectorAll('a[download]')].map((a) => a.getAttribute('href'))).toEqual(['/badges/frame.png', '/badges/frame-print.png']);
+    expect(input.getAttribute('accept')).toBe('image/*');
+    expect(frame.textContent).toContain('Use my photo');
+    expect(frame.textContent).toContain('Your photo stays on your device. It is never uploaded.');
+    expect(frame.querySelector('textarea')).toBeNull();
+    expect(page.el.querySelectorAll('.strv-badges__card')).toHaveLength(6);
+    expect(page.el.textContent).not.toContain('—');
+  });
+
+  it('refuses a file that is not a picture and draws nothing', async () => {
+    const { page, choose, draws, decode } = setup();
+    await choose(pic(10, 'application/pdf'));
+    expect(page.el.querySelector('.strv-badges__frame .strv-badges__note')!.textContent).toBe('That file isn’t a picture. Choose a JPG or PNG.');
+    expect(draws).toHaveLength(0);
+    expect(decode).not.toHaveBeenCalled();
+  });
+
+  it('refuses a picture over 20 MB', async () => {
+    const { page, choose, draws } = setup();
+    await choose(pic(20 * 1024 * 1024 + 1));
+    expect(page.el.querySelector('.strv-badges__frame .strv-badges__note')!.textContent).toBe('That picture is too large. Choose one under 20 MB.');
+    expect(draws).toHaveLength(0);
+  });
+
+  it('says it is not a picture when the file will not decode', async () => {
+    const { page, choose, draws } = setup({ decode: async () => Promise.reject(new Error('bad')) });
+    await choose(pic());
+    expect(page.el.querySelector('.strv-badges__frame .strv-badges__note')!.textContent).toContain('isn’t a picture');
+    expect(draws).toHaveLength(0);
+  });
+
+  it('draws the photo center-cropped under the ring and offers the download without any request', async () => {
+    const { page, choose, draws, canvas, photo, ring, fetchSpy, xhr } = setup();
+    await choose(pic());
+    expect(canvas.width).toBe(1080);
+    expect(canvas.height).toBe(1080);
+    expect(draws).toEqual([
+      [photo, 500, 0, 1000, 1000, 0, 0, 1080, 1080],
+      [ring, 0, 0, 1080, 1080],
+    ]);
+    const link = page.el.querySelector<HTMLAnchorElement>('.strv-badges__frame a[download="fair-maps-photo.png"]')!;
+    expect(link.textContent).toBe('Download my photo');
+    expect(link.getAttribute('href')).toMatch(/^blob:/);
+    expect(fetchSpy).not.toHaveBeenCalled();
+    expect(xhr).not.toHaveBeenCalled();
+  });
+
+  it('revokes the earlier address for a new photo and on destroy', async () => {
+    const { page, choose, revoke } = setup();
+    await choose(pic());
+    await choose(pic());
+    expect(revoke).toHaveBeenCalledWith('blob:fair-1');
+    page.destroy?.();
+    expect(revoke).toHaveBeenCalledWith('blob:fair-2');
   });
 });

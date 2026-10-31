@@ -72,7 +72,7 @@ export function createPrivacyPage(): Page {
       section(
         'browser',
         'Kept in your browser',
-        p('If you drag a panel divider to resize it, the size is kept in your browser’s local storage so it stays that way next time. If a new release of the maps goes out while a page is open, the site reloads once and notes that in session storage so it doesn’t reload again. Neither is sent anywhere.'),
+        p('If you drag a panel divider to resize it, the size is kept in your browser’s local storage so it stays that way next time. If a new release of the maps goes out while a page is open, the site reloads once and notes that in session storage so it doesn’t reload again. Neither is sent anywhere. The photo tool on the badges page works on your picture inside the browser and sends it nowhere.'),
       ),
       section(
         'hosting',

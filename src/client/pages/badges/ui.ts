@@ -214,9 +214,124 @@ function statePicker(load: () => Promise<StateIndex>): { el: HTMLElement; destro
   return { el, destroy: () => void (gone = true) };
 }
 
+const FRAME_SIZE = 1080;
+const FRAME_MAX_BYTES = 20 * 1024 * 1024;
+const FRAME_RING = '/badges/frame.png';
+const FRAME_PRINT = '/badges/frame-print.png';
+const NOT_PICTURE = 'That file isn’t a picture. Choose a JPG or PNG.';
+const TOO_LARGE = 'That picture is too large. Choose one under 20 MB.';
+
+/** The browser pieces the photo tool needs, so a test can stand in for them. */
+export interface FrameDeps {
+  /** Decode a chosen file into something a canvas can draw. */
+  decode: (file: File) => Promise<ImageBitmap>;
+  /** The ring picture, from this site. */
+  loadRing: () => Promise<CanvasImageSource>;
+  makeCanvas: () => HTMLCanvasElement;
+}
+
+const browserDeps: FrameDeps = {
+  decode: (file) => createImageBitmap(file),
+  loadRing: () =>
+    new Promise((resolve, reject) => {
+      const ring = new Image();
+      ring.onload = () => resolve(ring);
+      ring.onerror = () => reject(new Error('ring did not load'));
+      ring.src = FRAME_RING;
+    }),
+  makeCanvas: () => document.createElement('canvas'),
+};
+
+/**
+ * The profile photo frame: the ring to download, and a tool that puts a chosen photo under the ring. The photo is decoded
+ * and drawn on a canvas in this page and is never sent anywhere.
+ */
+function frameCard(deps: FrameDeps): { el: HTMLElement; destroy: () => void } {
+  let url = '';
+  let latest = 0;
+  let gone = false;
+  const revoke = (): void => {
+    if (url) URL.revokeObjectURL(url);
+    url = '';
+  };
+
+  const input = h('input', { type: 'file', accept: 'image/*', id: 'strv-badges-photo', class: 'strv-badges__file' });
+  const message = h('p', { class: 'strv-badges__note', role: 'status' });
+  const result = h('div', { class: 'strv-badges__preview' });
+
+  input.addEventListener('change', () => {
+    const file = input.files?.[0];
+    if (!file) return;
+    const mine = ++latest;
+    revoke();
+    result.replaceChildren();
+    message.textContent = '';
+    if (!file.type.startsWith('image/')) {
+      message.textContent = NOT_PICTURE;
+      return;
+    }
+    if (file.size > FRAME_MAX_BYTES) {
+      message.textContent = TOO_LARGE;
+      return;
+    }
+    Promise.all([deps.decode(file), deps.loadRing()]).then(
+      ([photo, ring]) =>
+        new Promise<void>((resolve) => {
+          if (gone || mine !== latest) return resolve();
+          const canvas = deps.makeCanvas();
+          canvas.width = FRAME_SIZE;
+          canvas.height = FRAME_SIZE;
+          const ctx = canvas.getContext('2d');
+          const side = Math.min(photo.width, photo.height);
+          ctx?.drawImage(photo, (photo.width - side) / 2, (photo.height - side) / 2, side, side, 0, 0, FRAME_SIZE, FRAME_SIZE);
+          ctx?.drawImage(ring, 0, 0, FRAME_SIZE, FRAME_SIZE);
+          photo.close?.();
+          canvas.toBlob((blob) => {
+            if (blob && !gone && mine === latest) {
+              url = URL.createObjectURL(blob);
+              canvas.setAttribute('role', 'img');
+              canvas.setAttribute('aria-label', 'Your photo inside the Fair Maps ring');
+              result.replaceChildren(canvas, h('a', { href: url, download: 'fair-maps-photo.png', class: 'strv-button strv-button--ink' }, 'Download my photo'));
+            } else if (!blob && !gone && mine === latest) message.textContent = NOT_PICTURE;
+            resolve();
+          }, 'image/png');
+        }),
+      () => {
+        if (!gone && mine === latest) message.textContent = NOT_PICTURE;
+      },
+    );
+  });
+
+  const el = h(
+    'article',
+    { class: 'strv-badges__frame', 'aria-labelledby': 'strv-badges-frame-h' },
+    h('h2', { class: 'strv-badges__h', id: 'strv-badges-frame-h' }, 'Profile photo frame'),
+    h('p', null, 'A round Fair Maps ring for your profile picture on social media. Download the ring to add yourself, or put your photo inside it here.'),
+    h(
+      'ul',
+      { class: 'strv-badges__downloads' },
+      h('li', null, h('a', { href: FRAME_RING, download: '' }, 'Download the ring (PNG)')),
+      h('li', null, h('a', { href: FRAME_PRINT, download: '' }, 'Download the print ring (PNG)')),
+    ),
+    h('label', { class: 'strv-badges__label', for: 'strv-badges-photo' }, 'Use my photo'),
+    input,
+    h('p', null, 'Your photo stays on your device. It is never uploaded.'),
+    message,
+    result,
+  );
+  return {
+    el,
+    destroy: () => {
+      gone = true;
+      revoke();
+    },
+  };
+}
+
 /** Badges a candidate can put on a campaign site, each with the code to paste and the files to download. */
-export function createBadgesPage(load: () => Promise<StateIndex> = loadIndex): Page {
+export function createBadgesPage(load: () => Promise<StateIndex> = loadIndex, frameDeps: FrameDeps = browserDeps): Page {
   const picker = statePicker(load);
+  const frame = frameCard(frameDeps);
   const h1 = h('h1', { class: 'strv-how__h1', tabindex: -1 }, 'Badges for candidates');
   const el = h(
     'main',
@@ -238,7 +353,15 @@ export function createBadgesPage(load: () => Promise<StateIndex> = loadIndex): P
     ),
     h('div', { class: 'strv-badges__grid' }, ...FIXED.map((f) => badgeCard(() => ({ id: f.id, theme: 'light' }), f.title).el)),
     picker.el,
+    h('div', { class: 'strv-badges__grid' }, frame.el),
   );
   document.title = PAGE_META.badges.title;
-  return { el, focusTarget: () => h1, destroy: picker.destroy };
+  return {
+    el,
+    focusTarget: () => h1,
+    destroy: () => {
+      picker.destroy();
+      frame.destroy();
+    },
+  };
 }

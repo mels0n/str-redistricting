@@ -5544,6 +5544,10 @@ var {
 .strv-badges__note:empty {
   display: none;
 }
+.strv-badges__preview canvas {
+  max-width: 100%;
+  height: auto;
+}
 .strv-badges__empty {
   margin: 0;
   padding: 1.5rem 1rem;
@@ -5556,7 +5560,8 @@ var {
   padding: var(--s-5) var(--gutter) var(--s-8);
 }
 
-.strv-badges__card {
+.strv-badges__card,
+.strv-badges__frame {
   display: grid;
   gap: var(--s-3);
   align-content: start;

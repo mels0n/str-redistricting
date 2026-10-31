@@ -2,22 +2,9 @@
 
 ## 1.10.0 (2026-10-31)
 
-- fix: title the badges page in the site pattern
-- fix: badges page previews, snippets, link names, Nebraska wording and photo ground
-- feat: give badge previews same-origin paths
-- fix: keep the state picker inside the page and give it a heading
-- fix: lay the framed photo and its download button out in a column
-- fix: free decoded photos and report drawing failures in the frame tool
-- feat: frame a candidate's photo with the Fair Maps ring in the browser
-- fix: offer every state that has a map and say when a chamber has none
-- fix: link the badges page to the privacy page directly
-- feat: pick a state and chamber for the state badge
-- feat: add a badges page for candidates
-- fix: return usable badge addresses for the page
-- feat: build embed snippets for candidate badges
-- feat(api): serve every badge variant from the badge address
-- feat: serve badge images so updates reach embeds
-- feat: draw the fixed candidate badges
+- A new Badges for candidates page, linked from the footer and from the Pledges page, offers a crest, an end-gerrymandering seal, a pledge card, the "I back Fair Maps" button, a badge with your state's map for the U.S. House and for each state chamber, and a profile photo frame. Each badge has a light and a dark version, a snippet to copy, and files to download for the web and for print.
+- Every badge loads through the same address as the existing button, so a site that shows any of them is checked and listed on the Pledges page the same way. The button's snippet is unchanged, so sites that already show it keep working.
+- The photo frame puts your picture inside the Fair Maps ring in your browser. The photo is never uploaded, and the privacy page says so.
 
 ## 1.9.0 (2026-10-28)
 

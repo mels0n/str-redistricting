@@ -97,8 +97,8 @@ export async function loadOgFonts(): Promise<Uint8Array[]> {
   return fonts;
 }
 
-/** Render the SVG to a PNG at 1200 pixels wide with only the given fonts (no system fonts, so every machine draws the same image). The renderer reads fonts from files, so they sit in a temporary folder for the call. */
-export function renderOgPng(svg: string, fonts: readonly Uint8Array[]): Uint8Array {
+/** Render the SVG to a PNG at the given width (1200 pixels by default) with only the given fonts (no system fonts, so every machine draws the same image). The renderer reads fonts from files, so they sit in a temporary folder for the call. */
+export function renderOgPng(svg: string, fonts: readonly Uint8Array[], width: number = OG_WIDTH): Uint8Array {
   const dir = mkdtempSync(join(tmpdir(), 'og-fonts-'));
   try {
     const fontFiles = fonts.map((data, i) => {
@@ -106,7 +106,7 @@ export function renderOgPng(svg: string, fonts: readonly Uint8Array[]): Uint8Arr
       writeFileSync(path, data);
       return path;
     });
-    return new Resvg(svg, { font: { fontFiles, loadSystemFonts: false }, fitTo: { mode: 'width', value: OG_WIDTH } }).render().asPng();
+    return new Resvg(svg, { font: { fontFiles, loadSystemFonts: false }, fitTo: { mode: 'width', value: width } }).render().asPng();
   } finally {
     rmSync(dir, { recursive: true, force: true });
   }

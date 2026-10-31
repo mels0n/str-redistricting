@@ -10,6 +10,7 @@
       "src/server/features/export/**",
       "src/server/features/rule-examples/**",
       "src/server/app/rule-examples.ts",
+      "src/server/app/badges.ts",
       "src/server/app/rule-examples/**",
       "src/server/features/metrics/**"
     ],
@@ -30,6 +31,7 @@
       "src/server/app/publish.ts",
       "src/server/features/rule-examples/**",
       "src/server/app/rule-examples.ts",
+      "src/server/app/badges.ts",
       "src/server/app/rule-examples/**",
       "src/server/features/release/**",
       "src/server/app/release.ts",

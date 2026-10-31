@@ -16,6 +16,7 @@ restate the code itself.
 - Publish web-ready data to `public/data/`: `npm run publish-data` (`-- --chamber state-house|state-senate` for a state chamber). Runs for different chambers or states can go at the same time: each file is replaced through a rename, and the index and versions files are rebuilt one run at a time under a lock
 - Count state chamber districts from the pinned Census files: `npm run legislative:count` (`-- --check` fails if `config/legislative-districts.json` disagrees). Pin the per-state legislative files: `npm run legislative:pin`
 - Look for a newer enacted districts file: `npm run enacted:check`; adopt one: `npm run enacted:bump -- --file cb_2027_us_cd120_500k` (rebuilds only the overlay files: `npm run publish-data -- --enacted-only`, which covers the US House only; add `--chamber state-house` or `--chamber state-senate` to rebuild those overlays)
+- Draw the fixed candidate badges into `public/badges/`: `npm run badges` (commit the result; a test fails if the files drift from the drawing)
 - Extract the How it works examples: `npm run rule-examples`
 - Propose and commit the next component versions: `npm run release` (`-- --dry-run` to preview). Check a branch against its base: `npm run version:check -- --base origin/main`. Tags a commit introduces: `npm run release:tags -- --before <sha> --after <sha>`
 - Redraw the fixture states and compare with `tests/fingerprints/engine.json`: `npm run fingerprints -- --check --base origin/main` (`--record` writes new ones)

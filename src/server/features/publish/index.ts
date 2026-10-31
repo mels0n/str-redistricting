@@ -30,4 +30,6 @@ export { districtArcs } from './arcs.js';
 export type { ArcFeature } from './arcs.js';
 export { districtShapes } from './district-shapes.js';
 export { loadOgFonts, OG_PALETTE, ogSvg, renderOgPng } from './og.js';
+export { BADGE_SIZES, crestSvg, fixedBadgeFiles, frameSvg, pledgeSvg, renderBadge, sealSvg } from './badges.js';
+export type { BadgeTheme } from './badges.js';
 export { ogCredit } from './og-credit.js';

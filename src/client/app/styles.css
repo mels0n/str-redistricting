@@ -5548,6 +5548,13 @@ var {
   max-width: 100%;
   height: auto;
 }
+.strv-badges__frame .strv-badges__preview {
+  flex-direction: column;
+  gap: var(--s-3);
+}
+.strv-badges__frame .strv-button--ink {
+  color: var(--paper);
+}
 .strv-badges__empty {
   margin: 0;
   padding: 1.5rem 1rem;

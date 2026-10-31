@@ -1,6 +1,6 @@
-import { readFileSync } from 'node:fs';
 import type { IncomingMessage, ServerResponse } from 'node:http';
 import type { Plugin } from 'vite';
+import { badgeAnswer } from '../src/server/features/badge/index.js';
 
 /** Named in the dev server's responses so a mocked answer is never mistaken for a real one. */
 export const DEV_API_MARK = 'dev-api-mock';
@@ -80,9 +80,16 @@ export function devApi(): Plugin {
           return next();
         }
         if (url.pathname === '/api/badge') {
-          // Any image will do in development: the published badge.
+          // The same choice as production, without noting anything: the button, or a redirect to the static file.
+          const answer = badgeAnswer(url);
+          if (answer.kind === 'redirect') {
+            res.statusCode = 302;
+            res.setHeader('location', answer.path);
+            res.end();
+            return;
+          }
           res.setHeader('content-type', 'image/svg+xml');
-          res.end(readFileSync('public/badge.svg'));
+          res.end(answer.svg);
           return;
         }
         const reply = devReply(req.method ?? 'GET', url.pathname, url.searchParams, req.method === 'POST' ? await readJson(req) : {}, mode);

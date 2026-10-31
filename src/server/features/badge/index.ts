@@ -1,4 +1,6 @@
-export { BADGE_SVG } from './svg.js';
+export { BADGE_SVG, BADGE_SVG_DARK } from './svg.js';
+export { BadgeQuerySchema, badgeAnswer, badgeTargets } from './variant.js';
+export type { BadgeAnswer, BadgeQuery } from './variant.js';
 export { bareHost, normalizeReferrer, MAX_URL_LENGTH } from './referrer.js';
 export { cleanTitle, scanForBadge } from './html.js';
 export type { BadgeScan } from './html.js';

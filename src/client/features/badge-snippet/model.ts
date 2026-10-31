@@ -11,7 +11,7 @@ export interface BadgeChoice {
 }
 
 export interface BadgeAssets {
-  /** Paths on the site. Query ampersands are already written as &amp;, ready for an HTML attribute. */
+  /** Absolute addresses with a plain `&`, ready to set as a DOM src or href. Only the snippet escapes them. */
   image: string;
   image2x?: string;
   downloads: { label: string; href: string }[];
@@ -43,15 +43,16 @@ const escapeAttr = (s: string): string => s.replace(/&/g, '&amp;').replace(/"/g,
 const QUERY_CHAMBER = { 'state-house': 'house', 'state-senate': 'senate' } as const;
 const CHAMBER_NAME = { 'state-house': 'House', 'state-senate': 'Senate' } as const;
 
-/** The image address, the links and the files to download for one badge. The site argument is the host the snippet is built for; paths here are relative to it. */
-export function badgeAssets(c: BadgeChoice, _site: string): BadgeAssets {
+/** The image address, the links and the files to download for one badge. The site argument is the host; every address comes back absolute (https://{site}/...) with a plain `&`. */
+export function badgeAssets(c: BadgeChoice, site: string): BadgeAssets {
+  const origin = `https://${site}`;
   const dark = c.theme === 'dark' ? '-dark' : '';
   if (c.id === 'button') {
     const file = `/badge${dark}.svg`;
     return {
-      image: c.theme === 'dark' ? '/api/badge?theme=dark' : '/api/badge',
-      downloads: [{ label: `Button${c.theme === 'dark' ? ' (dark)' : ''}, SVG`, href: file }],
-      href: '/pledges',
+      image: `${origin}${c.theme === 'dark' ? '/api/badge?theme=dark' : '/api/badge'}`,
+      downloads: [{ label: `Button${c.theme === 'dark' ? ' (dark)' : ''}, SVG`, href: `${origin}${file}` }],
+      href: `${origin}/pledges`,
       alt: 'I back Fair Maps',
       ...SIZES.button,
     };
@@ -61,32 +62,31 @@ export function badgeAssets(c: BadgeChoice, _site: string): BadgeAssets {
   let alt: string;
   let downloads: { label: string; href: string }[];
   if (c.id === 'state') {
-    const abbr = c.abbr ?? '';
+    const { abbr, stateName: name, seats } = c;
+    if (abbr === undefined || name === undefined || seats === undefined) throw new Error('A state badge needs a state abbreviation, a name and a district count');
     const chamber: Chamber = c.chamber ?? 'federal-house';
     params.set('badge', 'state');
     params.set('state', abbr);
     if (chamber !== 'federal-house') params.set('chamber', QUERY_CHAMBER[chamber]);
-    href = sharePath(abbr, chamber);
-    const name = c.stateName ?? abbr;
-    const seats = c.seats ?? 0;
+    href = `${origin}${sharePath(abbr, chamber)}`;
     const headline = chamber === 'federal-house' ? `I support fair maps for ${name}` : `Fair maps for the ${name} ${CHAMBER_NAME[chamber]}`;
     alt = `${headline}: ${seats} ${seats === 1 ? 'district' : 'districts'} drawn by a rule. Fair Maps`;
-    downloads = [{ label: 'PNG for the web (2x)', href: `/data/${chamberDataPath(abbr, chamber)}/badge${dark}@2x.png` }];
+    downloads = [{ label: 'PNG for the web (2x)', href: `${origin}/data/${chamberDataPath(abbr, chamber)}/badge${dark}@2x.png` }];
   } else {
     const fixed = FIXED[c.id];
     params.set('badge', c.id);
-    href = fixed.href;
+    href = `${origin}${fixed.href}`;
     alt = fixed.alt;
     downloads = [
-      { label: 'PNG for the web (2x)', href: `/badges/${c.id}${dark}@2x.png` },
-      { label: 'PNG for print', href: `/badges/${c.id}${dark}-print.png` },
+      { label: 'PNG for the web (2x)', href: `${origin}/badges/${c.id}${dark}@2x.png` },
+      { label: 'PNG for print', href: `${origin}/badges/${c.id}${dark}-print.png` },
     ];
   }
   if (c.theme === 'dark') params.set('theme', 'dark');
   const query = (extra: Record<string, string> = {}): string => {
     const p = new URLSearchParams(params);
     for (const [k, v] of Object.entries(extra)) p.set(k, v);
-    return `/api/badge?${p.toString().replace(/&/g, '&amp;')}`;
+    return `${origin}/api/badge?${p.toString()}`;
   };
   return { image: query(), image2x: query({ scale: '2' }), downloads, href, alt, ...SIZES[c.id] };
 }
@@ -94,8 +94,9 @@ export function badgeAssets(c: BadgeChoice, _site: string): BadgeAssets {
 /** The HTML a candidate pastes into their site: a plain link around the image, no script. */
 export function badgeSnippet(c: BadgeChoice, site: string): string {
   const a = badgeAssets(c, site);
-  const origin = `https://${site}`;
+  const href = escapeAttr(a.href);
+  const src = escapeAttr(a.image);
   const alt = escapeAttr(a.alt);
-  if (c.id === 'button') return `<a href="${origin}${a.href}"><img src="${origin}${a.image}" alt="${alt}" width="${a.width}" height="${a.height}"></a>`;
-  return `<a href="${origin}${a.href}"><img src="${origin}${a.image}" srcset="${origin}${a.image2x} 2x" width="${a.width}" height="${a.height}" alt="${alt}"></a>`;
+  if (c.id === 'button') return `<a href="${href}"><img src="${src}" alt="${alt}" width="${a.width}" height="${a.height}"></a>`;
+  return `<a href="${href}"><img src="${src}" srcset="${escapeAttr(a.image2x ?? a.image)} 2x" width="${a.width}" height="${a.height}" alt="${alt}"></a>`;
 }

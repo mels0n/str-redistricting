@@ -5576,7 +5576,7 @@ var {
 }
 
 .strv-badges__option {
-  min-height: 2.5rem;
+  min-height: 2.75rem;
   min-width: 4.5rem;
   padding: 0 var(--s-3);
   font: inherit;
@@ -5595,6 +5595,10 @@ var {
 .strv-badges__option[aria-pressed='true'] {
   color: var(--paper);
   background: var(--ink);
+}
+
+.strv-badges__card > .strv-button {
+  justify-self: start;
 }
 
 .strv-badges__label {

@@ -103,7 +103,7 @@ export function badgeCard(choice: () => BadgeChoice | null, title: string, empty
     h('div', { class: 'strv-badges__switch', role: 'group', 'aria-label': `${title} colors` }, ...switchButtons),
     h('label', { class: 'strv-badges__label', for: `${uid}-code` }, 'Paste this into your page'),
     box,
-    h('div', { class: 'strv-badges__actions' }, copy),
+    copy,
     downloads,
   );
   return { el, refresh };
@@ -209,7 +209,7 @@ export function createBadgesPage(load: () => Promise<StateIndex> = loadIndex): P
         'p',
         { class: 'strv-how__lede' },
         'Put a Fair Maps badge on your campaign site. Each one is a picture with a link back here, with no script. When a page shows a badge, we note that page’s address, ',
-        h('a', { href: `${routeHref(PRIVACY)}#strv-privacy-badge` }, 'never who visited'),
+        h('a', { href: routeHref(PRIVACY) }, 'never who visited'),
         ', and list the site on ',
         h('a', { href: routeHref(PLEDGES) }, 'Sites that show the badge'),
         '.',

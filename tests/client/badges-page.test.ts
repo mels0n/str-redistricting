@@ -26,7 +26,7 @@ describe('badges page', () => {
     expect(lede.textContent).toBe('Put a Fair Maps badge on your campaign site. Each one is a picture with a link back here, with no script. When a page shows a badge, we note that page’s address, never who visited, and list the site on Sites that show the badge.');
     expect(lede.textContent).not.toContain('nothing is tracked');
     const hrefs = Object.fromEntries([...lede.querySelectorAll('a')].map((a) => [a.textContent, a.getAttribute('href')]));
-    expect(hrefs).toEqual({ 'never who visited': '/privacy#strv-privacy-badge', 'Sites that show the badge': '/pledges' });
+    expect(hrefs).toEqual({ 'never who visited': '/privacy', 'Sites that show the badge': '/pledges' });
     expect(page.el.querySelectorAll('.strv-badges__card')).toHaveLength(6);
     expect(page.el.textContent).not.toContain('—');
   });

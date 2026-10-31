@@ -2,7 +2,9 @@ import { copyFileSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { loadOgFonts, publishBadgesOnly, stateBadgeFiles } from '../../../src/server/features/publish/index.js';
+import { loadOgFonts, publishBadgesOnly, publishData, stateBadgeFiles } from '../../../src/server/features/publish/index.js';
+import { STATES } from '../../../src/server/shared/apportionment/index.js';
+import { DataError } from '../../../src/server/shared/errors/index.js';
 import { parsePublishRunConfig } from '../../../src/server/shared/config/publish-mode.js';
 
 const BADGES = ['badge.png', 'badge@2x.png', 'badge-dark.png', 'badge-dark@2x.png'];
@@ -13,10 +15,10 @@ const snapshot = (folder: string): Record<string, string> =>
   Object.fromEntries(readdirSync(join(dir, folder)).sort().map((f) => [f, readFileSync(join(dir, folder, f)).toString('base64')]));
 
 /** A published folder: the real districts file, a stats.json with the given seat count and a few files the run must not touch. */
-function put(folder: string, seats: number): void {
+function put(folder: string, seats: number | undefined): void {
   mkdirSync(join(dir, folder), { recursive: true });
   copyFileSync(join(SOURCE, folder, 'districts.topo.json'), join(dir, folder, 'districts.topo.json'));
-  writeFileSync(join(dir, folder, 'stats.json'), JSON.stringify({ finished: { metrics: { seats } }, other: 1 }));
+  writeFileSync(join(dir, folder, 'stats.json'), JSON.stringify({ finished: { metrics: seats === undefined ? {} : { seats } }, other: 1 }));
   writeFileSync(join(dir, folder, 'og.png'), 'og bytes');
   writeFileSync(join(dir, folder, 'badge.png'), 'stale badge');
 }
@@ -45,5 +47,28 @@ describe('publish-data --badges-only', () => {
     expect(Object.keys(after).sort()).toEqual(Object.keys(before).concat(BADGES.filter((b) => !(b in before))).sort());
     const expected = stateBadgeFiles({ name: 'Colorado', abbr: 'CO', seats, chamber, topo: readFileSync(join(dir, folder, 'districts.topo.json'), 'utf8') }, await loadOgFonts());
     for (const [name, bytes] of expected) expect(readFileSync(join(dir, folder, name)).equals(Buffer.from(bytes))).toBe(true);
+  });
+
+  it('is what publishData runs for --badges-only, and never asks about stale plans', async () => {
+    put('CO', 5);
+    const planStale = vi.fn();
+    await publishData(parsePublishRunConfig(['--badges-only', '--public-dir', dir, '--states', 'CO']), { planStale });
+    expect(planStale).not.toHaveBeenCalled();
+    const expected = stateBadgeFiles({ name: 'Colorado', abbr: 'CO', seats: 5, chamber: 'federal-house', topo: readFileSync(join(dir, 'CO', 'districts.topo.json'), 'utf8') }, await loadOgFonts());
+    for (const [name, bytes] of expected) expect(readFileSync(join(dir, 'CO', name)).equals(Buffer.from(bytes))).toBe(true);
+  });
+
+  it('refuses a stats.json with no finished metrics', async () => {
+    put('CO', 5);
+    writeFileSync(join(dir, 'CO', 'stats.json'), JSON.stringify({ other: 1 }));
+    await expect(publishBadgesOnly(parsePublishRunConfig(['--badges-only', '--public-dir', dir, '--states', 'CO']))).rejects.toBeInstanceOf(DataError);
+  });
+
+  it('falls back to the state seat count when stats.json has none', async () => {
+    put('CO', undefined);
+    await publishBadgesOnly(parsePublishRunConfig(['--badges-only', '--public-dir', dir, '--states', 'CO']));
+    const seats = STATES.find((s) => s.abbr === 'CO')!.seats;
+    const expected = stateBadgeFiles({ name: 'Colorado', abbr: 'CO', seats, chamber: 'federal-house', topo: readFileSync(join(dir, 'CO', 'districts.topo.json'), 'utf8') }, await loadOgFonts());
+    for (const [name, bytes] of expected) expect(readFileSync(join(dir, 'CO', name)).equals(Buffer.from(bytes))).toBe(true);
   });
 });

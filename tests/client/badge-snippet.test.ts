@@ -1,5 +1,8 @@
+import { existsSync, readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { scanForBadge } from '../../src/server/features/badge/index.js';
+import { BADGE_SIZES, stateBadgeSvg } from '../../src/server/features/publish/index.js';
 import { BADGE_SNIPPET, badgeAssets, badgeSnippet, type BadgeChoice } from '../../src/client/features/badge-snippet';
 
 const SITE = 'fairmaps.melson.us';
@@ -99,5 +102,55 @@ describe('badgeSnippet', () => {
 describe('the scanner', () => {
   it.each(choices.map((c) => [`${c.id} ${c.theme} ${c.chamber ?? ''}`.trim(), c] as const))('counts the %s snippet', (_name, choice) => {
     expect(scanForBadge(badgeSnippet(choice, SITE), 'https://example.org/', SITE)).toMatchObject({ badge: true, link: true });
+  });
+});
+
+describe('client and generator agree', () => {
+  const PUBLIC = join(process.cwd(), 'public');
+  const allChoices: BadgeChoice[] = [
+    ...choices,
+    ...(['light', 'dark'] as const).flatMap((theme) => (['federal-house', 'state-senate', 'state-house'] as const).map((chamber) => ({ id: 'state', theme, abbr: 'CO', stateName: 'Colorado', seats: 8, chamber }) as BadgeChoice)),
+  ];
+
+  it('every download exists on disk', () => {
+    for (const c of allChoices) {
+      for (const d of badgeAssets(c, SITE).downloads) {
+        const path = join(PUBLIC, new URL(d.href).pathname);
+        expect(existsSync(path), `${c.id} ${c.theme} ${c.chamber ?? ''}: ${d.href}`).toBe(true);
+      }
+    }
+  });
+
+  it('the ring files named by the page exist', () => {
+    const ui = readFileSync(join(process.cwd(), 'src', 'client', 'pages', 'badges', 'ui.ts'), 'utf8');
+    for (const name of ['FRAME_RING', 'FRAME_PRINT']) {
+      const m = new RegExp(`const ${name} = '([^']+)'`).exec(ui);
+      expect(m, name).not.toBeNull();
+      expect(existsSync(join(PUBLIC, m![1]!)), m![1]).toBe(true);
+    }
+    expect(existsSync(join(PUBLIC, 'badges', 'frame.png'))).toBe(true);
+    expect(existsSync(join(PUBLIC, 'badges', 'frame-print.png'))).toBe(true);
+  });
+
+  it('sizes equal the generator sizes', () => {
+    for (const id of ['crest', 'seal', 'pledge', 'state'] as const) {
+      const a = badgeAssets({ id, theme: 'light', abbr: 'CO', stateName: 'Colorado', seats: 8 }, SITE);
+      expect({ width: a.width, height: a.height }, id).toEqual(BADGE_SIZES[id]);
+    }
+  });
+
+  it('alt text starts with the headline and count the badge draws', () => {
+    const topo = readFileSync(join(PUBLIC, 'data', 'CO', 'districts.topo.json'), 'utf8');
+    const cases = [
+      { seats: 1, chamber: 'federal-house' },
+      { seats: 8, chamber: 'federal-house' },
+      { seats: 35, chamber: 'state-senate' },
+    ] as const;
+    for (const { seats, chamber } of cases) {
+      const svg = stateBadgeSvg({ name: 'Colorado', abbr: 'CO', seats, chamber, topo, theme: 'light' });
+      const [headline, count] = [...svg.matchAll(/<text [^>]*>([^<]*)<\/text>/g)].map((m) => m[1]);
+      const alt = badgeAssets({ id: 'state', theme: 'light', abbr: 'CO', stateName: 'Colorado', seats, chamber }, SITE).alt;
+      expect(alt.startsWith(`${headline}: ${count}`), `${chamber} ${seats}`).toBe(true);
+    }
   });
 });

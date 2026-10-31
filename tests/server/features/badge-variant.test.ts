@@ -18,6 +18,7 @@ describe('badgeAnswer', () => {
     expect(answer('')).toEqual(light);
     expect(answer('?theme=dark')).toEqual({ kind: 'svg', svg: BADGE_SVG_DARK });
     expect(answer('?theme=light')).toEqual(light);
+    expect(answer('?theme=dark&scale=2')).toEqual({ kind: 'svg', svg: BADGE_SVG_DARK });
   });
   it.each([
     ['?badge=crest', '/badges/crest.png'],
@@ -34,7 +35,7 @@ describe('badgeAnswer', () => {
   ])('%s redirects to %s', (query, path) => {
     expect(answer(query)).toEqual({ kind: 'redirect', path });
   });
-  it.each(['?badge=nope', '?badge=state', '?badge=state&state=ZZ', '?badge=state&state=co', '?badge=state&state=NE&chamber=house', '?badge=crest&scale=3', '?badge=crest&theme=blue', '?badge=state&state=CO&chamber=both'])('%s gives the light button', (query) => {
+  it.each(['?badge=nope', '?badge=state', '?badge=state&state=ZZ', '?badge=state&state=co', '?badge=state&state=NE&chamber=house', '?badge=crest&scale=3', '?badge=crest&theme=blue', '?badge=state&state=CO&chamber=both', '?badge=state&theme=dark', '?badge=state&state=NE&chamber=house&theme=dark', '?scale=2'])('%s gives the light button', (query) => {
     expect(answer(query)).toEqual(light);
   });
 });

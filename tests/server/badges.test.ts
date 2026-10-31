@@ -107,3 +107,18 @@ describe('state badges', () => {
     expect(pngWidth(files[1]![1])).toBe(600);
   });
 });
+
+describe('committed state badges', () => {
+  it.each([
+    ['CO', 'Colorado', 'federal-house', 'CO'],
+    ['CO', 'Colorado', 'state-senate', 'CO/state-senate'],
+    ['AK', 'Alaska', 'federal-house', 'AK'],
+    ['VT', 'Vermont', 'federal-house', 'VT'],
+  ] as const)('%s %s %s match a fresh render', async (abbr, name, chamber, folder) => {
+    const dir = join(process.cwd(), 'public', 'data', folder);
+    const stats = JSON.parse(readFileSync(join(dir, 'stats.json'), 'utf8')) as { finished: { metrics: { seats: number } } };
+    const files = stateBadgeFiles({ name, abbr, seats: stats.finished.metrics.seats, chamber, topo: topoOf(folder) }, await loadOgFonts());
+    expect(files).toHaveLength(4);
+    for (const [file, data] of files) expect(Buffer.compare(readFileSync(join(dir, file)), Buffer.from(data)), `${folder}/${file}`).toBe(0);
+  });
+});

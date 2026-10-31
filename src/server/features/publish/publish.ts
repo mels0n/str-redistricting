@@ -217,8 +217,9 @@ async function publishState(state: StateInfo, cfg: PublishRunConfig, shared: Sha
   const stateChamber = cfg.chamber === 'federal-house' ? undefined : cfg.chamber;
   const imageName = stateChamber === undefined ? state.name : `${state.name} ${CHAMBER_NAME[stateChamber]}`;
   const credit = ogCredit({ abbr: stateChamber === undefined ? state.abbr : `${state.abbr}/${CHAMBER_SEGMENT[stateChamber]}`, name: imageName, versions, assignmentSha256: official.assignmentSha256 });
-  outputs.push(['og.png', renderOgPng(ogSvg({ name: imageName, abbr: state.abbr, seats: state.seats, topo: districtsTopo, credit, palette: OG_PALETTE }), await loadOgFonts())]);
-  outputs.push(...stateBadgeFiles({ name: state.name, abbr: state.abbr, seats: state.seats, chamber: cfg.chamber, topo: districtsTopo }, await loadOgFonts()));
+  const fonts = await loadOgFonts();
+  outputs.push(['og.png', renderOgPng(ogSvg({ name: imageName, abbr: state.abbr, seats: state.seats, topo: districtsTopo, credit, palette: OG_PALETTE }), fonts)]);
+  outputs.push(...stateBadgeFiles({ name: state.name, abbr: state.abbr, seats: state.seats, chamber: cfg.chamber, topo: districtsTopo }, fonts));
   const beforeDistricts = (await readJson(join(srcBefore, 'districts.geojson'))) as Parameters<typeof toTopology>[0];
   const beforeTopo = await toTopology({ features: display(beforeDistricts.features) }, 'districts', budget);
   outputs.push(['before.topo.json', beforeTopo]);

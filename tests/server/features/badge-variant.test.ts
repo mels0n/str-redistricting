@@ -1,4 +1,4 @@
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { BADGE_SVG, BADGE_SVG_DARK, badgeAnswer, badgeTargets } from '../../../src/server/features/badge/index.js';
 import { STATES } from '../../../src/server/shared/apportionment/index.js';
@@ -48,5 +48,9 @@ describe('badgeTargets', () => {
     expect(new Set(targets).size).toBe(targets.length);
     expect(targets).toContain('/data/CO/state-house/badge-dark@2x.png');
     expect(targets).not.toContain('/data/NE/state-house/badge.png');
+  });
+  it('every badge address has its file', () => {
+    const missing = badgeTargets().filter((t) => !existsSync(`public${t}`));
+    expect(missing).toEqual([]);
   });
 });

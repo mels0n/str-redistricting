@@ -1,8 +1,6 @@
 import { h, clear, config, PAGE_META, routeHref, iconArrowLeft, NATIONAL, type Page } from '../../shared';
 import { loadBadgeSites, type BadgeSite } from '../../entities/badge-sites';
-
-/** What to paste into a page. The image comes from our function, which is how we learn which site shows it. */
-export const BADGE_SNIPPET = `<a href="https://${config.siteHost}/pledges"><img src="https://${config.siteHost}/api/badge" alt="I back Fair Maps" width="200" height="40"></a>`;
+import { BADGE_SNIPPET } from '../../features/badge-snippet';
 
 export const LEDE = 'These websites show our badge. Each entry links to the page where it appears. Showing the badge is the only thing we check. Party is not shown.';
 export const EMPTY_COPY = 'No sites show the badge yet.';

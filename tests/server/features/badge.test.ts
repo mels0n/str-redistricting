@@ -704,6 +704,14 @@ describe('badge handler', () => {
     expect(dark.headers.get('content-type')).toBe('image/svg+xml');
     expect(await dark.text()).toBe(BADGE_SVG_DARK);
   });
+  it('sends the plain button for an unknown badge name, with the same caching headers', async () => {
+    const res = await call('production', 'https://example.com/page', new MemoryRepo(), rate(), {}, {}, '?badge=nope');
+    expect(res.status).toBe(200);
+    expect(res.headers.get('content-type')).toBe('image/svg+xml');
+    expect(res.headers.get('cache-control')).toBe('private, max-age=3600');
+    expect(res.headers.get('vary')).toBe('Referer');
+    expect(await res.text()).toBe(BADGE_SVG);
+  });
   it('still notes the sighting for a variant request', async () => {
     const repo = new MemoryRepo();
     await call('production', 'https://example.com/page', repo, rate(), {}, {}, '?badge=crest');

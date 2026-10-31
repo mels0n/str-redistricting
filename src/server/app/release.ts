@@ -2,6 +2,7 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import {
   COMPONENTS,
   ReleaseConfigSchema,
+  parseClassifyRules,
   compareFingerprints,
   componentsFor,
   mapsDataChanged,
@@ -12,7 +13,7 @@ import {
   taggedVersions,
   type Commit,
   type Component,
-  type ReleaseConfig,
+  type ClassifyRules,
 } from '../features/release/index.js';
 import { VersionsSchema, formatVersions, inputSha256Of, parseReleaseArgs, type Versions } from '../shared/config/index.js';
 import { exitCodeFor } from '../shared/errors/index.js';
@@ -77,34 +78,45 @@ function release(): void {
 
   // The rule change applies going forward only. A commit made while release.json named engineEntries (its first
   // parent's copy) is classed by the import graph; every earlier commit is classed exactly as the globs classed it at
-  // the end of that era, which is how the release tooling has always judged history. Engine files, for the graph
-  // era: imported by the drawing code now or at the last engine release, so a file deleted since still counts.
-  const engineFiles = engineFilesAt(cfg, [null, refOf('engine')]);
-  const parseCfg = (text: string): ReleaseConfig => ReleaseConfigSchema.parse(JSON.parse(text));
-  const lastGlobCfg = ((): ReleaseConfig | null => {
-    for (const sha of commitsTouching('config/release.json')) {
-      const text = showFile(sha, 'config/release.json');
-      if (text === null) continue;
-      const at = parseCfg(text);
-      if (at.engineEntries === undefined) return at;
+  // the end of that era, which is how the release tooling has always judged history. Graph-era commits are judged
+  // against today's entries plus the graph at the last engine release, so a file deleted since still counts.
+  // Past copies of release.json are read leniently (see parseClassifyRules) and only when a commit needs them.
+  let engineFiles: ReadonlySet<string> | undefined;
+  const graphFor = (at: ClassifyRules): ReadonlySet<string> | undefined => {
+    engineFiles ??= engineFilesAt(cfg.engineEntries === undefined ? at : cfg, [{ ref: null, required: true }, { ref: refOf('engine'), required: false }]);
+    return engineFiles;
+  };
+  let lastGlob: ClassifyRules | null | undefined;
+  const lastGlobCfg = (): ClassifyRules => {
+    if (lastGlob === undefined) {
+      lastGlob = null;
+      for (const sha of commitsTouching('config/release.json')) {
+        const text = showFile(sha, 'config/release.json');
+        if (text === null) continue;
+        const at = parseClassifyRules(text);
+        if (at.engineEntries === undefined) {
+          lastGlob = at;
+          break;
+        }
+      }
     }
-    return null;
-  })();
-  const parentCfgs = new Map<string, ReleaseConfig>();
-  const cfgFor = (k: Commit): ReleaseConfig => {
+    return lastGlob ?? cfg;
+  };
+  const parentCfgs = new Map<string, ClassifyRules>();
+  const cfgFor = (k: Commit): ClassifyRules => {
     const text = showFile(`${k.sha}^`, 'config/release.json');
     if (text !== null) {
-      if (!parentCfgs.has(text)) parentCfgs.set(text, parseCfg(text));
+      if (!parentCfgs.has(text)) parentCfgs.set(text, parseClassifyRules(text));
       const atParent = parentCfgs.get(text)!;
       if (atParent.engineEntries !== undefined) return atParent;
     }
-    return lastGlobCfg ?? cfg;
+    return lastGlobCfg();
   };
   const classified = new Map<string, Set<Component>>();
   const componentsOf = (k: Commit): Set<Component> => {
     if (!classified.has(k.sha)) {
       const at = cfgFor(k);
-      classified.set(k.sha, componentsFor(k, at, at.engineEntries === undefined ? undefined : engineFiles));
+      classified.set(k.sha, componentsFor(k, at, at.engineEntries === undefined ? undefined : graphFor(at)));
     }
     return classified.get(k.sha)!;
   };

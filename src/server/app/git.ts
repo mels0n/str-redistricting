@@ -2,7 +2,7 @@ import { spawnSync } from 'node:child_process';
 import { existsSync, mkdtempSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, relative, resolve, sep } from 'node:path';
-import { parseCommitSubject, type Commit, type ReleaseConfig } from '../features/release/index.js';
+import { parseCommitSubject, type ClassifyRules, type Commit } from '../features/release/index.js';
 import { codeInputs } from '../features/run-stamp/index.js';
 import { ConfigError, DataError } from '../shared/errors/index.js';
 
@@ -91,19 +91,26 @@ function extractSources(ref: string, dir: string, cwd: string, entries: readonly
   return true;
 }
 
+/** One place to read an engine graph from. */
+export interface EngineRef {
+  /** A commit-ish, or null for the working tree. */
+  ref: string | null;
+  required: boolean;
+}
+
 /**
  * The repo-relative files the engine entries import: at each of `refs` (unpacked to a temporary folder, so the graph is
  * the commit's own, never the working tree) or, for ref null, in the working tree. A file in the graph at any of them
  * counts, so deleting or un-importing one is still an engine change. The graph is codeInputs' own, the one the code
  * fingerprint uses. Undefined when the config names no `engineEntries`, which keeps the glob rule. An entry missing at
- * a past ref contributes nothing there, but the working tree (and HEAD) must have a graph: an entry that names no file
- * would otherwise switch the engine off without a sound.
+ * a past ref contributes nothing there, but a `required` ref (the caller's current tree) must have a graph: an entry that
+ * names no file would otherwise switch the engine off without a sound.
  */
-export function engineFilesAt(cfg: ReleaseConfig, refs: readonly (string | null)[], cwd = process.cwd()): ReadonlySet<string> | undefined {
+export function engineFilesAt(cfg: ClassifyRules, refs: readonly EngineRef[], cwd = process.cwd()): ReadonlySet<string> | undefined {
   const entries = cfg.engineEntries;
   if (entries === undefined) return undefined;
   const out = new Set<string>();
-  for (const ref of refs) {
+  for (const { ref, required } of refs) {
     const dir = ref === null ? resolve(cwd) : mkdtempSync(join(tmpdir(), 'engine-graph-'));
     const found = new Set<string>();
     try {
@@ -115,7 +122,7 @@ export function engineFilesAt(cfg: ReleaseConfig, refs: readonly (string | null)
     } finally {
       if (ref !== null) rmSync(dir, { recursive: true, force: true, maxRetries: 3 });
     }
-    if (found.size === 0 && (ref === null || ref === 'HEAD')) throw new DataError(`engineEntries (${entries.join(', ')}) name no file at ${ref ?? 'the working tree'}`);
+    if (found.size === 0 && required) throw new DataError(`engineEntries (${entries.join(', ')}) name no file at ${ref ?? 'the working tree'}`);
     for (const f of found) out.add(f);
   }
   return out;

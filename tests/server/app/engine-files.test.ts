@@ -40,21 +40,21 @@ afterEach(() => { rmSync(repo, { recursive: true, force: true }); });
 
 describe('engineFilesAt', () => {
   it('is undefined without engineEntries, so the globs stay in force', () => {
-    expect(engineFilesAt(cfg(), [null], repo)).toBeUndefined();
+    expect(engineFilesAt(cfg(), [{ ref: null, required: true }], repo)).toBeUndefined();
   });
   it('unions the graph at the base ref (from its commit) with the working tree', () => {
     git('rm', '-q', 'src/server/app/old.ts');
     write('src/server/app/cli.ts', "import './a.js';\nimport './fresh.js';\n");
     write('src/server/app/fresh.ts', 'export {};\n');
     commitAll('change');
-    const files = [...engineFilesAt(cfg(['src/server/app/cli.ts']), ['HEAD~1', null], repo)!].sort();
+    const files = [...engineFilesAt(cfg(['src/server/app/cli.ts']), [{ ref: 'HEAD~1', required: false }, { ref: null, required: true }], repo)!].sort();
     expect(files).toEqual(['src/server/app/a.ts', 'src/server/app/cli.ts', 'src/server/app/fresh.ts', 'src/server/app/old.ts']);
   });
   it('reads a ref from its commit, not the working tree, and skips an entry missing there', () => {
     write('src/server/app/cli.ts', 'export {};\n');
-    expect([...engineFilesAt(cfg(['src/server/app/cli.ts']), ['HEAD'], repo)!].sort()).toEqual(['src/server/app/a.ts', 'src/server/app/cli.ts', 'src/server/app/old.ts']);
+    expect([...engineFilesAt(cfg(['src/server/app/cli.ts']), [{ ref: 'HEAD', required: false }], repo)!].sort()).toEqual(['src/server/app/a.ts', 'src/server/app/cli.ts', 'src/server/app/old.ts']);
     const sha = spawnSync('git', ['rev-parse', 'HEAD'], { cwd: repo, encoding: 'utf8' }).stdout.trim();
-    expect(engineFilesAt(cfg(['src/server/app/nope.ts']), [sha, null].slice(0, 1), repo)!.size).toBe(0);
+    expect(engineFilesAt(cfg(['src/server/app/nope.ts']), [{ ref: sha, required: false }], repo)!.size).toBe(0);
   });
 });
 
@@ -68,13 +68,17 @@ describe('the engine entry in config/release.json', () => {
     expect(resolve(real.engineEntries![0]!)).toBe(fileURLToPath(new URL('../../../src/server/app/cli.ts', import.meta.url)));
   });
   it('fails loudly, rather than switching the engine off, when no entry exists at HEAD or in the working tree', () => {
-    expect(() => engineFilesAt(cfg(['src/server/app/nope.ts']), [null], repo)).toThrow(DataError);
-    expect(() => engineFilesAt(cfg(['src/server/app/nope.ts']), ['HEAD'], repo)).toThrow(DataError);
+    expect(() => engineFilesAt(cfg(['src/server/app/nope.ts']), [{ ref: null, required: true }], repo)).toThrow(DataError);
+    expect(() => engineFilesAt(cfg(['src/server/app/nope.ts']), [{ ref: 'HEAD', required: true }], repo)).toThrow(DataError);
   });
   it('rejects glob engine rules next to engineEntries', () => {
     expect(() => ReleaseConfigSchema.parse({ ...cfg(['src/server/app/cli.ts']), paths: { engine: ['src/server/**'], input: [], maps: [], schema: [], web: [], docs: [] } })).toThrow();
   });
+  it('accepts only repo-relative entries under src/', () => {
+    for (const bad of ['/etc/x.ts', 'C:/x/src/a.ts', 'src/../a.ts', '../src/a.ts', 'lib/a.ts']) expect(() => cfg([bad])).toThrow();
+    expect(() => cfg(['src/server/app/cli.ts'])).not.toThrow();
+  });
   it('fails on a ref that is not a commit', () => {
-    expect(() => engineFilesAt(cfg(['src/server/app/cli.ts']), ['nonexistent-ref', null], repo)).toThrow(DataError);
+    expect(() => engineFilesAt(cfg(['src/server/app/cli.ts']), [{ ref: 'nonexistent-ref', required: false }, { ref: null, required: true }], repo)).toThrow(DataError);
   });
 });

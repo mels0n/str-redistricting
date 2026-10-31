@@ -37,7 +37,7 @@ function check(): void {
   // Only files still different at HEAD count, so a file changed and put back in the same PR is not "touched".
   const net = new Set(changedFiles(base, 'HEAD'));
   // Engine is what the drawing code imports at the fork point or at HEAD, so deleting or un-importing a file still counts.
-  const engineFiles = engineFilesAt(cfg, [fork, 'HEAD']);
+  const engineFiles = engineFilesAt(cfg, [{ ref: fork, required: false }, { ref: 'HEAD', required: true }]);
   const touched = new Set<Component>();
   for (const c of commitsSince(base)) {
     for (const comp of componentsFor({ ...c, files: c.files.filter((f) => net.has(f)) }, cfg, engineFiles)) touched.add(comp);

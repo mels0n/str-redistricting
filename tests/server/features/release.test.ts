@@ -29,7 +29,7 @@ import {
 
 const cfg = ReleaseConfigSchema.parse(JSON.parse(readFileSync('config/release.json', 'utf8')));
 // What the drawing code imports in this checkout: the set the repo's own engine rule is judged against.
-const engineFiles = engineFilesAt(cfg, [null]);
+const engineFiles = engineFilesAt(cfg, [{ ref: null, required: true }]);
 
 function commit(subject: string, files: string[]): Commit {
   return { sha: 'abc1234', ...parseCommitSubject(subject), subject, files };

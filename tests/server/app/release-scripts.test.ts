@@ -406,7 +406,10 @@ describe('engine by import graph (end to end)', () => {
     expect(out.status).toBe(1);
     expect(out.stdout).toContain('::error::engine: its files changed');
   });
-  it('fails a pull request that deletes only an imported file the base graph reached', () => {
+  // The fork half of version-check's [fork, HEAD] graphs is defensive: a file that leaves the graph in the PR is changed
+  // by the PR, and the change that un-imports it is itself a change to a file still in HEAD's graph. This case (the
+  // import dropped in one commit, the file deleted in a later one) therefore does not isolate the fork graph.
+  it('fails a pull request that drops an import in one commit and deletes the file in the next', () => {
     const base = seedGraph();
     write('src/server/app/cli.ts', 'export {};\n');
     commitAll('refactor: stop importing old');
@@ -487,5 +490,38 @@ describe('engine by import graph (end to end)', () => {
     const out = run('release.ts', ['--dry-run']);
     expect(out.status, out.stderr).toBe(0);
     expect(out.stdout).toContain('engine 1.0.1');
+  });
+
+  it('reads an older-shape release.json in history without strict parsing', () => {
+    seed(false);
+    // An old copy: no fixtureStates, an unknown key, and glob rules that keep the files the switch adds out of the engine.
+    const old = JSON.parse(releaseJson) as Record<string, unknown> & { exclude: { engine: string[] } };
+    delete old.fixtureStates;
+    old.legacy = true;
+    old.exclude.engine = ['src/server/app/cli.ts', 'src/server/app/lib.ts'];
+    write('config/release.json', JSON.stringify(old));
+    write('tests/fingerprints/engine.json', noFixtures);
+    commitAll('chore: inputs');
+    for (const tag of tags) git('tag', tag);
+    write('src/client/b.ts', 'x');
+    commitAll('feat: a client thing');
+    switchToGraph();
+    const out = run('release.ts', ['--dry-run']);
+    expect(out.status, out.stderr).toBe(0);
+    expect(out.stdout).toContain('release: web 1.1.0');
+  });
+  it('counts a file deleted since the last engine release, which only the tag-time graph still lists', () => {
+    tagBaseline();
+    switchToGraph();
+    // The engine release is cut here, with cli.ts importing lib.ts.
+    git('tag', '-f', 'engine-v1.0.0');
+    write('src/server/app/cli.ts', 'export {};\n');
+    commitAll('refactor: stop importing lib');
+    git('rm', '-q', 'src/server/app/lib.ts');
+    commitAll('feat: delete lib');
+    const out = run('release.ts', ['--dry-run']);
+    expect(out.status, out.stderr).toBe(0);
+    // The deletion is the feat: with only today's graph (which no longer lists lib.ts) the engine would get just a patch.
+    expect(out.stdout).toContain('engine 1.1.0');
   });
 });

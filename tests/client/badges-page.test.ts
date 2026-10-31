@@ -28,6 +28,10 @@ describe('badges page', () => {
     const hrefs = Object.fromEntries([...lede.querySelectorAll('a')].map((a) => [a.textContent, a.getAttribute('href')]));
     expect(hrefs).toEqual({ 'never who visited': '/privacy', 'Sites that show the badge': '/pledges' });
     expect(page.el.querySelectorAll('.strv-badges__card')).toHaveLength(6);
+    const section = page.el.querySelector('.strv-badges__state')!;
+    expect(section.querySelector('h2')!.textContent).toBe('A badge for your state');
+    expect(section.getAttribute('aria-labelledby')).toBe(section.querySelector('h2')!.id);
+    expect(section.querySelector(':scope > p')!.textContent).toBe('Pick your state, then the chamber. Each badge shows our map for it and links to that map.');
     expect(page.el.textContent).not.toContain('—');
   });
 

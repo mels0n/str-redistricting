@@ -199,7 +199,9 @@ function statePicker(load: () => Promise<StateIndex>): { el: HTMLElement; destro
 
   const el = h(
     'section',
-    { class: 'strv-badges__state', 'aria-label': 'Your state badge' },
+    { class: 'strv-badges__state', 'aria-labelledby': 'strv-badges-state-h' },
+    h('h2', { class: 'strv-badges__h', id: 'strv-badges-state-h' }, 'A badge for your state'),
+    h('p', null, 'Pick your state, then the chamber. Each badge shows our map for it and links to that map.'),
     h(
       'div',
       { class: 'strv-badges__pickers' },

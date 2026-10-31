@@ -6,6 +6,8 @@ import { badgeAssets, badgeSnippet, type BadgeChoice } from '../../features/badg
 export interface BadgeCard {
   el: HTMLElement;
   refresh: () => void;
+  /** Rename the card, for a card that follows a select. */
+  setTitle: (title: string) => void;
 }
 
 const COPIED_MS = 2000;
@@ -15,9 +17,10 @@ let cardCount = 0;
  * One badge: its preview (the same address an embed loads), a light and dark switch, the snippet to paste and the files to
  * download. `choice` gives the badge each time the card draws, so a card whose badge can change (the state badge) is
  * redrawn by calling `refresh`. The card keeps only the light or dark choice; the rest comes from `choice`. When `choice`
- * gives nothing the card shows `emptyText` in place of the picture and has nothing to copy or download.
+ * gives nothing the card shows `emptyText` (given as text, or as a function so it can change) in place of the picture and
+ * has nothing to copy or download.
  */
-export function badgeCard(choice: () => BadgeChoice | null, title: string, emptyText = ''): BadgeCard {
+export function badgeCard(choice: () => BadgeChoice | null, title: string, emptyText: string | (() => string) = ''): BadgeCard {
   const uid = `strv-badges-card-${cardCount++}`;
   let theme: BadgeChoice['theme'] = 'light';
   let timer: ReturnType<typeof setTimeout> | undefined;
@@ -25,6 +28,8 @@ export function badgeCard(choice: () => BadgeChoice | null, title: string, empty
   const img = h('img', { class: 'strv-badges__img', alt: '' });
   const preview = h('div', { class: 'strv-badges__preview' }, img);
   const box = h('textarea', { class: 'strv-badges__code', id: `${uid}-code`, readonly: true, rows: 5, spellcheck: false, 'aria-label': `HTML for the ${title} badge` });
+  const heading = h('h2', { class: 'strv-badges__h', id: `${uid}-h` }, title);
+  const group = h('div', { class: 'strv-badges__switch', role: 'group', 'aria-label': `${title} colors` });
   const downloads = h('ul', { class: 'strv-badges__downloads' });
   const copy = h('button', { type: 'button', class: 'strv-button strv-button--ink' }, 'Copy');
   const switchButtons = (['light', 'dark'] as const).map((t) =>
@@ -65,13 +70,14 @@ export function badgeCard(choice: () => BadgeChoice | null, title: string, empty
     }, fallback);
   });
 
-  const empty = h('p', { class: 'strv-badges__empty' }, emptyText);
+  const empty = h('p', { class: 'strv-badges__empty' });
 
   function refresh(): void {
     const picked = choice();
     resetCopy();
     switchButtons.forEach((b, i) => b.setAttribute('aria-pressed', String((i === 0) === (theme === 'light'))));
     if (!picked) {
+      empty.textContent = typeof emptyText === 'function' ? emptyText() : emptyText;
       preview.replaceChildren(empty);
       preview.classList.remove('strv-badges__preview--dark');
       box.value = '';
@@ -94,19 +100,25 @@ export function badgeCard(choice: () => BadgeChoice | null, title: string, empty
     downloads.replaceChildren(...a.downloads.map((d) => h('li', null, h('a', { href: d.href, download: '' }, d.label))));
   }
   refresh();
+  group.append(...switchButtons);
 
   const el = h(
     'article',
     { class: 'strv-badges__card', 'aria-labelledby': `${uid}-h` },
-    h('h2', { class: 'strv-badges__h', id: `${uid}-h` }, title),
+    heading,
     preview,
-    h('div', { class: 'strv-badges__switch', role: 'group', 'aria-label': `${title} colors` }, ...switchButtons),
+    group,
     h('label', { class: 'strv-badges__label', for: `${uid}-code` }, 'Paste this into your page'),
     box,
     copy,
     downloads,
   );
-  return { el, refresh };
+  function setTitle(t: string): void {
+    heading.textContent = t;
+    box.setAttribute('aria-label', `HTML for the ${t} badge`);
+    group.setAttribute('aria-label', `${t} colors`);
+  }
+  return { el, refresh, setTitle };
 }
 
 const FIXED: { id: 'crest' | 'seal' | 'pledge' | 'button'; title: string }[] = [
@@ -121,6 +133,8 @@ const CHAMBER_CHOICES: { value: Chamber; label: string }[] = [
   { value: 'state-senate', label: 'Senate' },
 ];
 const STATE_PROMPT = 'Choose your state to see its badge';
+const NO_MAP = 'No map published yet for this chamber.';
+const LOAD_FAILED = 'The list of states didn’t load. Reload the page to try again.';
 
 /**
  * The state badge cards: a state select and a chamber select drive the US House card and the card for the chosen state
@@ -144,16 +158,20 @@ function statePicker(load: () => Promise<StateIndex>): { el: HTMLElement; destro
     if (!s || !isGeneratedIn(s, ch)) return null;
     return { id: 'state', theme: 'light', abbr, stateName: nameOfState(abbr) ?? s.name, chamber: ch, seats: chamberView(s, ch).seats };
   };
-  const usHouse = badgeCard(() => choiceFor('federal-house'), 'US House', STATE_PROMPT);
-  const stateCard = badgeCard(() => choiceFor(chamber), 'State chamber', STATE_PROMPT);
+  const message = (): string => (abbr ? NO_MAP : STATE_PROMPT);
+  const chamberLabel = (): string => `State ${CHAMBER_CHOICES.find((c) => c.value === chamber)!.label}`;
+  const usHouse = badgeCard(() => choiceFor('federal-house'), 'US House', message);
+  const stateCard = badgeCard(() => choiceFor(chamber), chamberLabel(), message);
+  const note = h('p', { class: 'strv-badges__note', role: 'status' });
 
   function fillStates(): void {
-    const offered = index ? byName(index).filter((s) => isGeneratedIn(s, chamber)) : [];
+    const offered = index ? byName(index).filter((s) => isGeneratedIn(s, 'federal-house') || isGeneratedIn(s, chamber)) : [];
     if (!offered.some((s) => s.abbr === abbr)) abbr = '';
     stateSelect.replaceChildren(h('option', { value: '' }, 'Choose your state'), ...offered.map((s) => h('option', { value: s.abbr }, s.name)));
     stateSelect.value = abbr;
   }
   function draw(): void {
+    stateCard.setTitle(chamberLabel());
     usHouse.refresh();
     stateCard.refresh();
   }
@@ -174,7 +192,9 @@ function statePicker(load: () => Promise<StateIndex>): { el: HTMLElement; destro
       fillStates();
       draw();
     },
-    () => undefined,
+    () => {
+      if (!gone) note.textContent = LOAD_FAILED;
+    },
   );
 
   const el = h(
@@ -188,6 +208,7 @@ function statePicker(load: () => Promise<StateIndex>): { el: HTMLElement; destro
       h('label', { class: 'strv-badges__label', for: 'strv-badges-chamber' }, 'Chamber'),
       chamberSelect,
     ),
+    note,
     h('div', { class: 'strv-badges__grid' }, usHouse.el, stateCard.el),
   );
   return { el, destroy: () => void (gone = true) };

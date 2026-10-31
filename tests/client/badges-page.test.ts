@@ -155,7 +155,7 @@ describe('state badge picker', () => {
 
   it('shows the prompt and no image until a state is picked', async () => {
     const { cards, state } = await mount();
-    expect(options(state)).toEqual(['', 'CO', 'VT']);
+    expect(options(state)).toEqual(['', 'CO', 'NE', 'VT']);
     for (const c of cards()) {
       expect(c.textContent).toContain(PROMPT);
       expect(c.querySelector('img')).toBeNull();
@@ -182,14 +182,48 @@ describe('state badge picker', () => {
     const { state, chamber, pick, cards } = await mount();
     pick(state, 'CO');
     pick(chamber, 'state-senate');
-    expect(options(state)).toEqual(['', 'CO', 'NE']);
+    expect(options(state)).toEqual(['', 'CO', 'NE', 'VT']);
     pick(state, 'NE');
     expect(cards()[0]!.querySelector('img')!.getAttribute('src')).toBe(`https://${config.siteHost}/api/badge?badge=state&state=NE`);
     expect(cards()[1]!.querySelector('img')!.getAttribute('src')).toBe(`https://${config.siteHost}/api/badge?badge=state&state=NE&chamber=senate`);
     pick(chamber, 'state-house');
-    expect(options(state)).toEqual(['', 'CO', 'VT']);
-    expect(state.value).toBe('');
-    expect(cards()[0]!.querySelector('img')).toBeNull();
+    expect(options(state)).toEqual(['', 'CO', 'NE', 'VT']);
+    expect(state.value).toBe('NE');
+    expect(cards()[0]!.querySelector('img')).not.toBeNull();
+    expect(cards()[1]!.querySelector('img')).toBeNull();
+  });
+
+  it('says a chamber has no map once a state is picked, and keeps the prompt before', async () => {
+    const { state, chamber, pick, cards } = await mount();
+    pick(state, 'VT');
+    pick(chamber, 'state-senate');
+    expect(state.value).toBe('VT');
+    const none = cards()[1]!;
+    expect(none.textContent).toContain('No map published yet for this chamber.');
+    expect(none.textContent).not.toContain('Choose your state');
+    expect(none.querySelector('img')).toBeNull();
+    expect(none.querySelector<HTMLTextAreaElement>('textarea')!.value).toBe('');
+    expect([...none.querySelectorAll('button')].find((b) => b.textContent === 'Copy')!.disabled).toBe(true);
+    expect(cards()[0]!.querySelector('img')).not.toBeNull();
+  });
+
+  it('titles the second card after the chamber and links to its page', async () => {
+    const { state, chamber, pick, cards } = await mount();
+    pick(state, 'CO');
+    const card = cards()[1]!;
+    expect(card.querySelector('h2')!.textContent).toBe('State House');
+    expect(card.querySelector('textarea')!.getAttribute('aria-label')).toBe('HTML for the State House badge');
+    expect(card.querySelector('textarea')!.value).toContain('/CO/house"');
+    pick(chamber, 'state-senate');
+    expect(card.querySelector('h2')!.textContent).toBe('State Senate');
+    expect(card.querySelector('.strv-badges__switch')!.getAttribute('aria-label')).toBe('State Senate colors');
+    expect(card.querySelector('textarea')!.value).toContain('/CO/senate"');
+  });
+
+  it('tells the visitor when the state list does not load', async () => {
+    const page = createBadgesPage(() => Promise.reject(new Error('offline')));
+    await flush();
+    expect(page.el.querySelector('.strv-badges__note')!.textContent).toBe('The list of states didn’t load. Reload the page to try again.');
   });
 });
 

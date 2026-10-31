@@ -1,5 +1,13 @@
 # Schema changelog
 
+## 1.4.0 (2026-10-31)
+
+- feat: write a badge for each state chamber when publishing
+- feat: draw the fixed candidate badges
+- refactor: share the district drawing between preview images and badges
+- fix(build): keep the repository url out of the publish module
+- refactor(build): name the repository url beside the site host
+
 ## 1.3.0 (2026-10-13)
 
 - Each plan's metrics in `stats.json` now carry `balanceMovesBorderOnly` and `peopleMovedBorderOnly`: the balancing moves that only shortened the border (gain 0) and the people they carried. Both are 0 before balancing.

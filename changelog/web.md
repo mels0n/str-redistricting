@@ -1,5 +1,24 @@
 # Web changelog
 
+## 1.10.0 (2026-10-31)
+
+- fix: title the badges page in the site pattern
+- fix: badges page previews, snippets, link names, Nebraska wording and photo ground
+- feat: give badge previews same-origin paths
+- fix: keep the state picker inside the page and give it a heading
+- fix: lay the framed photo and its download button out in a column
+- fix: free decoded photos and report drawing failures in the frame tool
+- feat: frame a candidate's photo with the Fair Maps ring in the browser
+- fix: offer every state that has a map and say when a chamber has none
+- fix: link the badges page to the privacy page directly
+- feat: pick a state and chamber for the state badge
+- feat: add a badges page for candidates
+- fix: return usable badge addresses for the page
+- feat: build embed snippets for candidate badges
+- feat(api): serve every badge variant from the badge address
+- feat: serve badge images so updates reach embeds
+- feat: draw the fixed candidate badges
+
 ## 1.9.0 (2026-10-28)
 
 - The Pledges page now lists the websites that show the Fair Maps badge, each with a link to the page where it appears. Showing the badge is the only thing we check: there is nothing to apply for, and no claim is made about who supports what. Add the badge to your home page and link it to fairmaps.melson.us/pledges, and the site lists you within minutes of the first visit, or within a day. If the badge stays off for two daily checks, the site comes off the list. A representative whose own home page shows the badge is marked "Shows the Fair Maps badge" in the Take action list.

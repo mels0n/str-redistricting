@@ -1,7 +1,7 @@
 import { waitUntil } from '@vercel/functions';
 import { badgeRepo, type BadgeRepo } from '../entities/badge-db/index.js';
 import { db, signerRepo, type SignerRepo } from '../entities/signon-db/index.js';
-import { BADGE_SVG, IMMEDIATE_CHECKS_PER_HOUR, recordSighting, verifyNow } from '../features/badge/index.js';
+import { IMMEDIATE_CHECKS_PER_HOUR, badgeAnswer, recordSighting, verifyNow } from '../features/badge/index.js';
 import { checkRateLimit, clientIp, hashIp } from '../features/signon/index.js';
 import { loadBackendConfig } from '../shared/config/backend.js';
 
@@ -17,10 +17,11 @@ export interface BadgeHandlerDeps {
 }
 
 /**
- * GET /api/badge: the badge image. The image is always sent; noting which site asked for it is best effort and happens only in
+ * GET /api/badge: the badge image. An image is always sent; noting which site asked for it is best effort and happens only in
  * production. Only the page address from the Referer header is kept (see recordSighting); an address is hashed for the rate limit and
  * never stored. Browsers keep the image for an hour; shared caches are told not to (private, and it varies by Referer), so the
  * next visitor of a page reaches us again.
+ * What is sent depends on the query (see badgeAnswer): the button, or a redirect to a badge file; the sighting is noted the same way for each.
  * A page that is new, or not verified in a day, is checked right after the response, within a site-wide limit per hour.
  */
 export function badgeHandler(deps: BadgeHandlerDeps): (req: Request) => Promise<Response> {
@@ -51,7 +52,10 @@ export function badgeHandler(deps: BadgeHandlerDeps): (req: Request) => Promise<
     } catch {
       console.error(JSON.stringify({ code: 'badge-record' }));
     }
-    return new Response(BADGE_SVG, { headers: { 'content-type': 'image/svg+xml', 'cache-control': 'private, max-age=3600', vary: 'Referer' } });
+    const answer = badgeAnswer(new URL(req.url));
+    const caching = { 'cache-control': 'private, max-age=3600', vary: 'Referer' };
+    if (answer.kind === 'redirect') return new Response(null, { status: 302, headers: { location: answer.path, ...caching } });
+    return new Response(answer.svg, { headers: { 'content-type': 'image/svg+xml', ...caching } });
   };
 }
 

@@ -5522,6 +5522,176 @@ var {
   display: none;
 }
 
+/* ---------- Badges for candidates ---------- */
+
+.strv-badges__state {
+  padding: var(--s-5) var(--gutter) 0;
+}
+.strv-badges__state > p {
+  margin: 0 0 var(--s-4);
+}
+.strv-badges__state .strv-badges__grid {
+  padding-inline: 0;
+}
+.strv-badges__pickers {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.25rem;
+  margin-bottom: 1rem;
+}
+.strv-badges__pickers .strv-badges__label:not(:first-child) {
+  margin-top: var(--s-2);
+}
+@media (min-width: 48rem) {
+  .strv-badges__pickers {
+    grid-template-columns: auto minmax(0, 16rem);
+    justify-content: start;
+    align-items: center;
+    gap: 0.5rem 1rem;
+  }
+  .strv-badges__pickers .strv-badges__label:not(:first-child) {
+    margin-top: 0;
+  }
+}
+.strv-badges__select {
+  font: inherit;
+  padding: 0.4rem 0.5rem;
+}
+.strv-badges__note {
+  margin: 0 0 1rem;
+}
+.strv-badges__note:empty {
+  display: none;
+}
+.strv-badges__preview canvas {
+  max-width: 100%;
+  height: auto;
+}
+.strv-badges__frame .strv-badges__preview {
+  flex-direction: column;
+  gap: var(--s-3);
+}
+.strv-badges__frame .strv-button--ink {
+  color: var(--paper);
+}
+.strv-badges__empty {
+  margin: 0;
+  padding: 1.5rem 1rem;
+  text-align: center;
+}
+.strv-badges__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--s-5);
+  padding: var(--s-5) var(--gutter) var(--s-8);
+}
+
+.strv-badges__card,
+.strv-badges__frame {
+  display: grid;
+  gap: var(--s-3);
+  align-content: start;
+  min-width: 0;
+  padding: var(--s-4);
+  border: 2px solid var(--ink);
+  background: var(--paper);
+}
+
+.strv-badges__h {
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+.strv-badges__preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 12rem;
+  padding: var(--s-4);
+  background: var(--ground);
+  border: 1px solid var(--hairline);
+  overflow: hidden;
+}
+
+.strv-badges__preview--dark {
+  background: var(--ink);
+  border-color: var(--ink);
+}
+
+.strv-badges__img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.strv-badges__switch {
+  display: inline-flex;
+  justify-self: start;
+  border: 1px solid var(--ink);
+  border-radius: 2px;
+}
+
+.strv-badges__option {
+  min-height: 2.75rem;
+  min-width: 4.5rem;
+  padding: 0 var(--s-3);
+  font: inherit;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--ink);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.strv-badges__option + .strv-badges__option {
+  border-left: 1px solid var(--ink);
+}
+
+.strv-badges__option[aria-pressed='true'] {
+  color: var(--paper);
+  background: var(--ink);
+}
+
+.strv-badges__card > .strv-button {
+  justify-self: start;
+}
+
+.strv-badges__label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--ink-2);
+}
+
+.strv-badges__code {
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--s-2) var(--s-3);
+  font-family: var(--mono);
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--ink);
+  background: var(--ground);
+  border: 1px solid var(--ink);
+  border-radius: 2px;
+  resize: vertical;
+}
+
+.strv-badges__downloads {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2) var(--s-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 48rem) {
+  .strv-badges__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 /* ---------- Sign-on form and privacy page ---------- */
 
 .strv-sign {

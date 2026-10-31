@@ -9,6 +9,7 @@
  *   /pledges                   sites that show the Fair Maps badge
  *   /act                       find your representatives, email them, add your name; /act?state=CO starts on a state
  *   /privacy                   what the sign-on collects and keeps
+ *   /badges                    badges for candidates to put on their sites
  *   /remove                    ask for a removal link; /remove?token=... confirms a removal
  *   /confirm?token=...         confirms a signature (the link in the confirmation email)
  *   /faq/ties                  the same page, at one question
@@ -48,6 +49,7 @@ export type Route =
   | { page: 'pledges' }
   | { page: 'act'; state: string | null }
   | { page: 'privacy' }
+  | { page: 'badges' }
   | { page: 'remove'; token: string | null }
   | { page: 'confirm'; token: string | null }
   | {
@@ -75,6 +77,7 @@ export function actRoute(state: string | null = null): Route {
 }
 export const ACT: Route = actRoute();
 export const PRIVACY: Route = { page: 'privacy' };
+export const BADGES: Route = { page: 'badges' };
 export const REMOVE: Route = { page: 'remove', token: null };
 
 export function howRoute(section: HowSection | null = null): Route {
@@ -119,6 +122,7 @@ export function parsePath(pathname: string, search: string): Route {
     return actRoute(state !== null && /^[A-Z]{2}$/.test(state) ? state : null);
   }
   if (segs[0]?.toLowerCase() === 'privacy') return PRIVACY;
+  if (segs[0]?.toLowerCase() === 'badges') return BADGES;
   if (segs[0]?.toLowerCase() === 'remove') {
     const token = new URLSearchParams(search).get('token');
     return { page: 'remove', token: token !== null && /^[0-9a-f]{64}$/.test(token) ? token : null };
@@ -175,6 +179,7 @@ export function formatPath(route: Route): string {
   if (route.page === 'pledges') return '/pledges';
   if (route.page === 'act') return route.state ? `/act?state=${route.state}` : '/act';
   if (route.page === 'privacy') return '/privacy';
+  if (route.page === 'badges') return '/badges';
   if (route.page === 'remove') return route.token ? `/remove?token=${route.token}` : '/remove';
   if (route.page === 'confirm') return route.token ? `/confirm?token=${route.token}` : '/confirm';
   if (route.page === 'how') return route.section ? `/how/${route.section}` : '/how';
@@ -220,6 +225,7 @@ export function canonicalPath(route: Route): string {
   if (route.page === 'pledges') return '/pledges';
   if (route.page === 'act') return '/act';
   if (route.page === 'privacy') return '/privacy';
+  if (route.page === 'badges') return '/badges';
   if (route.page === 'remove') return '/remove';
   if (route.page === 'confirm') return '/confirm';
   if (route.page === 'national') return `/${chamberSegment(route.chamber)}`;

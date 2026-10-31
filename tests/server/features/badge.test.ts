@@ -4,7 +4,7 @@ import type { BadgeRepo, CheckResult, Sighting } from '../../../src/server/entit
 import { UNLIST_AFTER_FAILURES } from '../../../src/server/entities/badge-db/index.js';
 import { badgeHandler } from '../../../src/server/api/badge.js';
 import { badgeSitesHandler } from '../../../src/server/api/badge-sites.js';
-import { BADGE_SVG, CHECK_CONCURRENCY, IMMEDIATE_CHECKS_PER_HOUR, MAX_PER_HOST, MAX_SIGHTINGS, RUN_BUDGET_MS, SITE_CHECK_MS, checkerUserAgent, SITES_PER_RUN, cleanTitle, clearWebsitesCache, loadWebsites, normalizeReferrer, readBadgeSites, recordSighting, robotsAllows, runBadgeChecks, scanForBadge, verifyNow, type FetchPage } from '../../../src/server/features/badge/index.js';
+import { BADGE_SVG, BADGE_SVG_DARK, CHECK_CONCURRENCY, IMMEDIATE_CHECKS_PER_HOUR, MAX_PER_HOST, MAX_SIGHTINGS, RUN_BUDGET_MS, SITE_CHECK_MS, checkerUserAgent, SITES_PER_RUN, cleanTitle, clearWebsitesCache, loadWebsites, normalizeReferrer, readBadgeSites, recordSighting, robotsAllows, runBadgeChecks, scanForBadge, verifyNow, type FetchPage } from '../../../src/server/features/badge/index.js';
 import { SsrfError } from '../../../src/server/shared/ssrf/index.js';
 
 const HOST = 'fairmaps.melson.us';
@@ -195,6 +195,9 @@ describe('scanForBadge', () => {
       expect(scan(`<a href="https://${HOST}/pledges">x</a>`)).toMatchObject({ badge: false, link: true });
       expect(scan(`<a href="https://other.example.org/"><img src="https://${HOST}/api/badge"></a>`)).toMatchObject({ link: false });
     });
+  });
+  it('finds the image from a variant address with a query', () => {
+    expect(scan(`<a href="https://${HOST}/CO"><img src="https://${HOST}/api/badge?badge=state&amp;state=CO"></a>`)).toMatchObject({ badge: true, link: true });
   });
   it('finds the image from /badge.svg too', () => {
     expect(scan(`<a href="https://${HOST}/"><img src="https://${HOST}/badge.svg"></a>`)).toMatchObject({ badge: true, link: true });
@@ -679,8 +682,8 @@ describe('badge handler', () => {
     return { attempts, repo: { countAttempts: async () => attempts.length, recordAttempt: async (h: string) => void attempts.push(h) } as never };
   };
   const afterWork: Promise<unknown>[] = [];
-  const call = (env: string | undefined, referer: string | null, repo: MemoryRepo, r: { repo: never } = rate(), headers: Record<string, string> = {}, extra: Partial<Parameters<typeof badgeHandler>[0]> = {}) =>
-    badgeHandler({ loadConfig: () => config(env), rateRepo: () => r.repo, repo: () => repo, now: () => NOW, after: (w) => void afterWork.push(w), fetchPage: async () => Promise.reject(new SsrfError('network')), ...extra })(new Request(`https://${HOST}/api/badge`, { headers: { ...(referer ? { referer } : {}), 'x-real-ip': '203.0.113.7', ...headers } }));
+  const call = (env: string | undefined, referer: string | null, repo: MemoryRepo, r: { repo: never } = rate(), headers: Record<string, string> = {}, extra: Partial<Parameters<typeof badgeHandler>[0]> = {}, query = '') =>
+    badgeHandler({ loadConfig: () => config(env), rateRepo: () => r.repo, repo: () => repo, now: () => NOW, after: (w) => void afterWork.push(w), fetchPage: async () => Promise.reject(new SsrfError('network')), ...extra })(new Request(`https://${HOST}/api/badge${query}`, { headers: { ...(referer ? { referer } : {}), 'x-real-ip': '203.0.113.7', ...headers } }));
 
   it('sends the image with an hour of browser caching only, varying by Referer, so shared caches never answer for it', async () => {
     const res = await call('production', 'https://example.com/page?x=1', new MemoryRepo());
@@ -689,6 +692,30 @@ describe('badge handler', () => {
     expect(res.headers.get('cache-control')).toBe('private, max-age=3600');
     expect(res.headers.get('vary')).toBe('Referer');
     expect(await res.text()).toBe(BADGE_SVG);
+  });
+  it('answers a variant with a redirect to the static file, with the same caching headers', async () => {
+    const res = await call('production', 'https://example.com/page', new MemoryRepo(), rate(), {}, {}, '?badge=state&state=CO&chamber=senate&theme=dark&scale=2');
+    expect(res.status).toBe(302);
+    expect(res.headers.get('location')).toBe('/data/CO/state-senate/badge-dark@2x.png');
+    expect(res.headers.get('cache-control')).toBe('private, max-age=3600');
+    expect(res.headers.get('vary')).toBe('Referer');
+    const dark = await call('production', 'https://example.com/page', new MemoryRepo(), rate(), {}, {}, '?theme=dark');
+    expect(dark.status).toBe(200);
+    expect(dark.headers.get('content-type')).toBe('image/svg+xml');
+    expect(await dark.text()).toBe(BADGE_SVG_DARK);
+  });
+  it('sends the plain button for an unknown badge name, with the same caching headers', async () => {
+    const res = await call('production', 'https://example.com/page', new MemoryRepo(), rate(), {}, {}, '?badge=nope');
+    expect(res.status).toBe(200);
+    expect(res.headers.get('content-type')).toBe('image/svg+xml');
+    expect(res.headers.get('cache-control')).toBe('private, max-age=3600');
+    expect(res.headers.get('vary')).toBe('Referer');
+    expect(await res.text()).toBe(BADGE_SVG);
+  });
+  it('still notes the sighting for a variant request', async () => {
+    const repo = new MemoryRepo();
+    await call('production', 'https://example.com/page', repo, rate(), {}, {}, '?badge=crest');
+    expect([...repo.rows.keys()]).toEqual(['https://example.com/page']);
   });
   it('notes the referring page in production, storing the page address and no visitor data', async () => {
     const repo = new MemoryRepo();

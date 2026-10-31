@@ -1,6 +1,7 @@
 import { availableParallelism } from 'node:os';
 import { describe, expect, it } from 'vitest';
 import { defaultThreads, LINE_SEARCH, parseConfig, parseFingerprintArgs, parsePublishConfig, parseRuleExamplesConfig } from '../../../src/server/shared/config/index.js';
+import { parsePublishRunConfig } from '../../../src/server/shared/config/publish-mode.js';
 import { CheckFailedError, ConfigError, DataError, exitCodeFor, WorkerPoolError } from '../../../src/server/shared/errors/index.js';
 
 describe('chamber option', () => {
@@ -81,5 +82,19 @@ describe('exitCodeFor', () => {
     expect(exitCodeFor(new WorkerPoolError('x'))).toBe(1);
     expect(exitCodeFor(new CheckFailedError('x'))).toBe(1);
     expect(exitCodeFor(new Error('x'))).toBe(1);
+  });
+});
+
+describe('parsePublishRunConfig', () => {
+  it('reads --badges-only and passes the other options through', () => {
+    const cfg = parsePublishRunConfig(['--badges-only', '--states', 'CO', '--chamber', 'state-senate']);
+    expect(cfg.badgesOnly).toBe(true);
+    expect(cfg.states?.map((s) => s.abbr)).toEqual(['CO']);
+    expect(cfg.chamber).toBe('state-senate');
+    expect(parsePublishRunConfig([]).badgesOnly).toBe(false);
+  });
+  it('refuses --badges-only with --enacted-only or --blocks-only', () => {
+    expect(() => parsePublishRunConfig(['--badges-only', '--enacted-only'])).toThrow(ConfigError);
+    expect(() => parsePublishRunConfig(['--blocks-only', '--badges-only'])).toThrow(ConfigError);
   });
 });

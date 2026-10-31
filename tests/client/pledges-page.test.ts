@@ -28,7 +28,7 @@ describe('sites that show the badge page', () => {
     expect(text).toContain('Put it on your home page. We check each site about once a day; if the badge is gone for two daily checks, the site comes off the list.');
     expect(text).toContain('Older snippets that point at /badge.svg are not noticed. Use the snippet above.');
     expect(text).toContain('Add the badge to your home page and link it to fairmaps.melson.us/pledges. It usually shows up within minutes, otherwise within a day.');
-    expect(text).toContain('What we look for: the badge image (fairmaps.melson.us/api/badge) and a link to fairmaps.melson.us on the same page.');
+    expect(text).toContain('What we look for: any of our badges (an image from fairmaps.melson.us/api/badge) and a link to fairmaps.melson.us on the same page.');
     expect(document.title).toBe(PAGE_META.pledges.title);
     expect(PAGE_META.pledges.title).toBe('Sites that show the Fair Maps badge | Fair Maps');
     expect(text).not.toContain('—');

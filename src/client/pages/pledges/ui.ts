@@ -1,8 +1,6 @@
-import { h, clear, config, PAGE_META, routeHref, iconArrowLeft, NATIONAL, type Page } from '../../shared';
+import { h, clear, config, PAGE_META, routeHref, iconArrowLeft, NATIONAL, BADGES, type Page } from '../../shared';
 import { loadBadgeSites, type BadgeSite } from '../../entities/badge-sites';
-
-/** What to paste into a page. The image comes from our function, which is how we learn which site shows it. */
-export const BADGE_SNIPPET = `<a href="https://${config.siteHost}/pledges"><img src="https://${config.siteHost}/api/badge" alt="I back Fair Maps" width="200" height="40"></a>`;
+import { BADGE_SNIPPET } from '../../features/badge-snippet';
 
 export const LEDE = 'These websites show our badge. Each entry links to the page where it appears. Showing the badge is the only thing we check. Party is not shown.';
 export const EMPTY_COPY = 'No sites show the badge yet.';
@@ -69,13 +67,14 @@ export function createPledgesPage(preloaded?: readonly BadgeSite[]): Page {
         h('h2', null, 'Show the badge on your site'),
         h('p', null, h('img', { src: '/badge.svg', alt: 'I back Fair Maps', width: '200', height: '40' })),
         h('pre', { class: 'strv-pledges__snippet' }, h('code', null, BADGE_SNIPPET)),
+        h('p', null, 'More badges, including one with your state’s map: ', h('a', { href: routeHref(BADGES) }, 'Badges for candidates')),
         h('p', null, `Add the badge to your home page and link it to ${config.siteHost}/pledges. It usually shows up within minutes, otherwise within a day.`),
         h('p', null, 'Put it on your home page. We check each site about once a day; if the badge is gone for two daily checks, the site comes off the list.'),
         h('p', null, 'Older snippets that point at /badge.svg are not noticed. Use the snippet above.'),
         h(
           'p',
           null,
-          `What we look for: the badge image (${config.siteHost}/api/badge) and a link to ${config.siteHost} on the same page. Either wrap the image in a link, as above, or keep the image and add a link to us anywhere else on the page. The image has to be in the page’s own HTML (an `,
+          `What we look for: any of our badges (an image from ${config.siteHost}/api/badge) and a link to ${config.siteHost} on the same page. Either wrap the image in a link, as above, or keep the image and add a link to us anywhere else on the page. The image has to be in the page’s own HTML (an `,
           h('code', null, '<img>'),
           ' tag), not added by a script.',
         ),

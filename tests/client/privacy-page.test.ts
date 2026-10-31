@@ -112,6 +112,10 @@ describe('path-only hook', () => {
 });
 
 describe('what the page says is kept in the browser', () => {
+  it('says the badge photo tool works inside the browser and sends the photo nowhere', () => {
+    expect(createPrivacyPage().el.textContent).toContain('The photo tool on the badges page works on your picture inside the browser and sends it nowhere.');
+  });
+
   const files = (dir: string): string[] => readdirSync(dir, { withFileTypes: true }).flatMap((d) => (d.isDirectory() ? files(join(dir, d.name)) : d.name.endsWith('.ts') ? [join(dir, d.name).replaceAll('\\', '/')] : []));
   const using = (pattern: RegExp): string[] => files('src/client').filter((f) => pattern.test(readFileSync(f, 'utf8')));
 

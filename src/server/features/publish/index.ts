@@ -14,7 +14,7 @@ export { BeforeNeighborsSchema, buildBeforeNeighbors } from './neighbors.js';
 export type { BeforeNeighbors } from './neighbors.js';
 export { buildCuts } from './cuts.js';
 export type { PublishedCut } from './cuts.js';
-export { assertGatedAssignments, publishData, publishBlocksOnly, publishEnactedOnly, publishedSummaries, statesWithData } from './publish.js';
+export { assertGatedAssignments, publishData, publishBadgesOnly, publishBlocksOnly, publishEnactedOnly, publishedSummaries, statesWithData } from './publish.js';
 export { buildEnactedTopology } from './enacted.js';
 export { checkPublishGate, staleStamps } from './gate.js';
 export type { PublishedPlan } from './gate.js';
@@ -28,5 +28,8 @@ export { districtBudget, simplifyPercent, toTopology, vertexCount } from './topo
 export { buildWater, countLandParts, MIN_PIECE, mergeLand, type PopulatedPoint } from './water.js';
 export { districtArcs } from './arcs.js';
 export type { ArcFeature } from './arcs.js';
+export { districtShapes } from './district-shapes.js';
 export { loadOgFonts, OG_PALETTE, ogSvg, renderOgPng } from './og.js';
+export { BADGE_SIZES, crestSvg, fixedBadgeFiles, frameSvg, pledgeSvg, renderBadge, sealSvg, stateBadgeFiles, stateBadgeSvg } from './badges.js';
+export type { BadgeTheme } from './badges.js';
 export { ogCredit } from './og-credit.js';

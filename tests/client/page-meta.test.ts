@@ -5,6 +5,7 @@ import { createHowPage } from '../../src/client/pages/how';
 import { createFaqPage } from '../../src/client/pages/faq';
 import { createChangelogPage } from '../../src/client/pages/changelog';
 import { createPrivacyPage } from '../../src/client/pages/privacy';
+import { createBadgesPage } from '../../src/client/pages/badges';
 
 describe('PAGE_META', () => {
   it('keeps every title within 60 characters and description within 160, with no em dash', () => {
@@ -24,6 +25,8 @@ describe('PAGE_META', () => {
     expect(document.title).toBe(PAGE_META.changelog.title);
     createPrivacyPage();
     expect(document.title).toBe(PAGE_META.privacy.title);
+    createBadgesPage();
+    expect(document.title).toBe(PAGE_META.badges.title);
   });
 
   it('titles the Take action page', async () => {

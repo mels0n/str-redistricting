@@ -8,7 +8,8 @@ import { join } from 'node:path';
 import { blocksFileName, loadBlockPolygons, loadStateBlocks, type Block } from '../../entities/census-block/index.js';
 import { STATES, type StateInfo } from '../../shared/apportionment/index.js';
 import { planDir, seatsFor, stateForChamber, type Chamber } from '../../shared/chamber/index.js';
-import { LINE_SEARCH, formatVersions, pinnedSha256, stampOf, VERSIONS, VersionsSchema, type PublishConfig, type VersionStamp, type Versions } from '../../shared/config/index.js';
+import { LINE_SEARCH, formatVersions, pinnedSha256, stampOf, VERSIONS, VersionsSchema, type VersionStamp, type Versions } from '../../shared/config/index.js';
+import type { PublishRunConfig } from '../../shared/config/publish-mode.js';
 import { DataError } from '../../shared/errors/index.js';
 import { crossesAntimeridian, unwrapCoordinates, unwrapFeatures, unwrapLon } from './antimeridian.js';
 import { districtArcs } from './arcs.js';
@@ -22,6 +23,7 @@ import { buildCuts } from './cuts.js';
 import { checkPublishGate, staleStamps, type PublishedPlan } from './gate.js';
 import { readJsonRetrying, withDirLock, writeAtomic } from './safe-write.js';
 import { checkPlanProvenance } from './provenance.js';
+import { stateBadgeFiles } from './badges.js';
 import { loadOgFonts, OG_PALETTE, ogSvg, renderOgPng } from './og.js';
 import { ogCredit } from './og-credit.js';
 import { buildBeforeNeighbors } from './neighbors.js';
@@ -164,7 +166,7 @@ export function assertGatedAssignments(abbr: string, gated: GatedPlans, finished
   }
 }
 
-async function publishState(state: StateInfo, cfg: PublishConfig, shared: Shared, gated: GatedPlans): Promise<void> {
+async function publishState(state: StateInfo, cfg: PublishRunConfig, shared: Shared, gated: GatedPlans): Promise<void> {
   const dir = planDir(state.abbr, cfg.chamber);
   const src = join(cfg.outDir, dir);
   const srcBefore = join(src, 'before-balancing');
@@ -215,7 +217,9 @@ async function publishState(state: StateInfo, cfg: PublishConfig, shared: Shared
   const stateChamber = cfg.chamber === 'federal-house' ? undefined : cfg.chamber;
   const imageName = stateChamber === undefined ? state.name : `${state.name} ${CHAMBER_NAME[stateChamber]}`;
   const credit = ogCredit({ abbr: stateChamber === undefined ? state.abbr : `${state.abbr}/${CHAMBER_SEGMENT[stateChamber]}`, name: imageName, versions, assignmentSha256: official.assignmentSha256 });
-  outputs.push(['og.png', renderOgPng(ogSvg({ name: imageName, abbr: state.abbr, seats: state.seats, topo: districtsTopo, credit, palette: OG_PALETTE }), await loadOgFonts())]);
+  const fonts = await loadOgFonts();
+  outputs.push(['og.png', renderOgPng(ogSvg({ name: imageName, abbr: state.abbr, seats: state.seats, topo: districtsTopo, credit, palette: OG_PALETTE }), fonts)]);
+  outputs.push(...stateBadgeFiles({ name: state.name, abbr: state.abbr, seats: state.seats, chamber: cfg.chamber, topo: districtsTopo }, fonts));
   const beforeDistricts = (await readJson(join(srcBefore, 'districts.geojson'))) as Parameters<typeof toTopology>[0];
   const beforeTopo = await toTopology({ features: display(beforeDistricts.features) }, 'districts', budget);
   outputs.push(['before.topo.json', beforeTopo]);
@@ -338,7 +342,7 @@ export async function verifyTiles(state: StateInfo, all: readonly Block[], tiles
 }
 
 /** The states an overlay-only or blocks-only run covers: those already published for the chamber, or the explicit selection (which must be published). */
-function selectPublished(cfg: PublishConfig): StateInfo[] {
+function selectPublished(cfg: PublishRunConfig): StateInfo[] {
   const has = (s: StateInfo): boolean => existsSync(join(cfg.publicDir, planDir(s.abbr, cfg.chamber), 'stats.json'));
   const published = withChamberSeats(STATES.filter(has), cfg.chamber);
   if (cfg.states === undefined) return published;
@@ -382,7 +386,7 @@ async function publishedStamps(publicDir: string): Promise<{ abbr: string; versi
  * the current Census count keeps its old stamp (its map needs a redraw), and the dataset-wide versions file moves
  * only when no published map in any chamber still carries an older stamp.
  */
-export async function publishEnactedOnly(cfg: PublishConfig): Promise<void> {
+export async function publishEnactedOnly(cfg: PublishRunConfig): Promise<void> {
   const selected = selectPublished(cfg);
   const stamp = stampOf(VERSIONS);
   // The Federal House reads one national file; a state chamber reads each state's own.
@@ -476,7 +480,7 @@ const ShaStatsSchema = z.looseObject({ finished: PlanShaSchema, beforeBalancing:
  * `blocks.json` (the same data the detail tiles were cut from) and the shapes from the cached TIGER blocks, so the file
  * always belongs to the data it sits next to and nothing is needed from the output directory. Every other file is left alone.
  */
-export async function publishBlocksOnly(cfg: PublishConfig): Promise<void> {
+export async function publishBlocksOnly(cfg: PublishRunConfig): Promise<void> {
   for (const s of selectPublished(cfg)) {
     const dir = join(cfg.publicDir, planDir(s.abbr, cfg.chamber));
     const path = join(dir, 'blocks.json');
@@ -513,6 +517,23 @@ export async function publishBlocksOnly(cfg: PublishConfig): Promise<void> {
   }
 }
 
+const BadgeStatsSchema = z.looseObject({ finished: z.looseObject({ metrics: z.looseObject({ seats: z.number().int().optional() }) }) });
+
+/** Rewrite only each published state's four badge files, from its published districts and seat count. Every other file is left alone. */
+export async function publishBadgesOnly(cfg: PublishRunConfig): Promise<void> {
+  const fonts = await loadOgFonts();
+  for (const s of selectPublished(cfg)) {
+    const dir = join(cfg.publicDir, planDir(s.abbr, cfg.chamber));
+    const statsPath = join(dir, 'stats.json');
+    const stats = BadgeStatsSchema.safeParse(await readJson(statsPath));
+    if (!stats.success) throw new DataError(`${statsPath}: ${stats.error.issues.map((i) => `${i.path.join('.')} ${i.message}`).join('; ')}`);
+    const seats = stats.data.finished.metrics.seats ?? s.seats;
+    const topo = await readFile(join(dir, 'districts.topo.json'), 'utf8');
+    for (const [name, bytes] of stateBadgeFiles({ name: s.name, abbr: s.abbr, seats, chamber: cfg.chamber, topo }, fonts)) await write(join(dir, name), bytes);
+    console.log(`  ${s.abbr}: badge files written`);
+  }
+}
+
 /** Why a state's plans are not a finished draw by the current code (undefined when they are). Supplied by the caller, which owns the run stamp. */
 export type PlanStaleCheck = (state: StateInfo, dir: string) => Promise<string | undefined>;
 
@@ -524,7 +545,8 @@ export interface PublishOptions {
 }
 
 /** Write the web-ready data for the selected states (default: every state with a generated plan), plus the national files and the index. */
-export async function publishData(cfg: PublishConfig, { planStale, preRelease = false }: PublishOptions): Promise<void> {
+export async function publishData(cfg: PublishRunConfig, { planStale, preRelease = false }: PublishOptions): Promise<void> {
+  if (cfg.badgesOnly) return publishBadgesOnly(cfg);
   if (cfg.enactedOnly) return publishEnactedOnly(cfg);
   if (cfg.blocksOnly) return publishBlocksOnly(cfg);
   const withData = statesWithData(cfg.outDir, cfg.chamber);

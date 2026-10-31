@@ -33,10 +33,12 @@ describe('deploy configuration', () => {
     const cache = (source: string): string | undefined => vercel.headers.find((h) => h.source === source)?.headers.find((h) => h.key === 'Cache-Control')?.value;
     expect(cache('/data/(.*)')).toBe('public, max-age=0, must-revalidate');
     expect(headersFile('/data/*').get('Cache-Control')).toBe(cache('/data/(.*)'));
+    expect(cache('/badges/(.*)')).toBe(cache('/data/(.*)'));
+    expect(headersFile('/badges/*').get('Cache-Control')).toBe(cache('/data/(.*)'));
     expect(cache('/assets/(.*)')).toBe('public, max-age=31536000, immutable');
     expect(headersFile('/assets/*').get('Cache-Control')).toBe(cache('/assets/(.*)'));
     // The two rules cover disjoint paths, so neither can override the other.
-    expect(vercel.headers.filter((h) => h.headers.some((x) => x.key === 'Cache-Control')).map((h) => h.source)).toEqual(['/assets/(.*)', '/data/(.*)']);
+    expect(vercel.headers.filter((h) => h.headers.some((x) => x.key === 'Cache-Control')).map((h) => h.source)).toEqual(['/assets/(.*)', '/data/(.*)', '/badges/(.*)']);
   });
   it('keeps unsafe-inline and unsafe-eval out of the policy', () => {
     expect(headersFile().get('Content-Security-Policy')).not.toMatch(/unsafe-/);

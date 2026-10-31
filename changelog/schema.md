@@ -1,5 +1,11 @@
 # Schema changelog
 
+## 1.4.0 (2026-10-31)
+
+- Each published map now has a badge beside its preview image (badge.png, badge@2x.png, badge-dark.png and badge-dark@2x.png), showing that chamber's districts and how many were drawn by the rule. Badges are redrawn whenever the map is.
+- The crest, seal and pledge badges and the photo frame ring are published under /badges/.
+- `npm run publish-data -- --badges-only` writes just the badge files from maps already published.
+
 ## 1.3.0 (2026-10-13)
 
 - Each plan's metrics in `stats.json` now carry `balanceMovesBorderOnly` and `peopleMovedBorderOnly`: the balancing moves that only shortened the border (gain 0) and the people they carried. Both are 0 before balancing.

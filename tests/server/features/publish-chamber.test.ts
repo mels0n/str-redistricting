@@ -106,7 +106,7 @@ describe('publishing one chamber', () => {
     await run(out, pub, '--states', 'VT', '--chamber', 'state-senate');
     expect(filesIn(join(pub, 'VT'))).toEqual(federal);
     expect(Object.keys(filesIn(join(pub, 'VT', 'state-senate'))).sort()).toEqual(
-      ['balance.json', 'before-neighbors.json', 'before.topo.json', 'blocks.json', 'blocks.pmtiles', 'bridges.json', 'cuts.json', 'detail.pmtiles', 'districts.topo.json', 'enacted.topo.json', 'og.png', 'stats.json', 'water.topo.json'],
+      ['badge-dark.png', 'badge-dark@2x.png', 'badge.png', 'badge@2x.png', 'balance.json', 'before-neighbors.json', 'before.topo.json', 'blocks.json', 'blocks.pmtiles', 'bridges.json', 'cuts.json', 'detail.pmtiles', 'districts.topo.json', 'enacted.topo.json', 'og.png', 'stats.json', 'water.topo.json'],
     );
     const stats = JSON.parse(readFileSync(join(pub, 'VT', 'state-senate', 'stats.json'), 'utf8')) as { enactedSource: string };
     expect(stats.enactedSource).toBe('cb_2025_50_sldu_500k');

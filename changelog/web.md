@@ -1,5 +1,11 @@
 # Web changelog
 
+## 1.10.0 (2026-10-31)
+
+- A new Badges for candidates page, linked from the footer and from the Pledges page, offers a crest, an end-gerrymandering seal, a pledge card, the "I back Fair Maps" button, a badge with your state's map for the U.S. House and for each state chamber, and a profile photo frame. Each badge has a light and a dark version, a snippet to copy, and files to download for the web and for print.
+- Every badge loads through the same address as the existing button, so a site that shows any of them is checked and listed on the Pledges page the same way. The button's snippet is unchanged, so sites that already show it keep working.
+- The photo frame puts your picture inside the Fair Maps ring in your browser. The photo is never uploaded, and the privacy page says so.
+
 ## 1.9.0 (2026-10-28)
 
 - The Pledges page now lists the websites that show the Fair Maps badge, each with a link to the page where it appears. Showing the badge is the only thing we check: there is nothing to apply for, and no claim is made about who supports what. Add the badge to your home page and link it to fairmaps.melson.us/pledges, and the site lists you within minutes of the first visit, or within a day. If the badge stays off for two daily checks, the site comes off the list. A representative whose own home page shows the badge is marked "Shows the Fair Maps badge" in the Take action list.

@@ -7,6 +7,7 @@ import { createChangelogPage } from '../pages/changelog';
 import { createActPage } from '../pages/act';
 import { createPledgesPage } from '../pages/pledges';
 import { createPrivacyPage } from '../pages/privacy';
+import { createBadgesPage } from '../pages/badges';
 import { createRemovePage } from '../pages/remove';
 import { createConfirmPage } from '../pages/confirm';
 import { createFaqPage } from '../pages/faq';
@@ -137,7 +138,7 @@ export function startRouter(outlet: HTMLElement, root: HTMLElement = outlet.pare
     clear(outlet);
     // A pinch-zoom from the last page would otherwise carry over (no reload between pages).
     if (!initial) resetPageZoom();
-    page = route.page === 'national' ? createNationalPage(navigate, route.chamber) : route.page === 'how' ? createHowPage(route) : route.page === 'faq' ? createFaqPage(route) : route.page === 'changelog' ? createChangelogPage() : route.page === 'act' ? createActPage(route.state) : route.page === 'pledges' ? createPledgesPage() : route.page === 'privacy' ? createPrivacyPage() : route.page === 'remove' ? createRemovePage(route.token) : route.page === 'confirm' ? createConfirmPage(route.token) : createStatePage(route, navigate);
+    page = route.page === 'national' ? createNationalPage(navigate, route.chamber) : route.page === 'how' ? createHowPage(route) : route.page === 'faq' ? createFaqPage(route) : route.page === 'changelog' ? createChangelogPage() : route.page === 'act' ? createActPage(route.state) : route.page === 'pledges' ? createPledgesPage() : route.page === 'privacy' ? createPrivacyPage() : route.page === 'badges' ? createBadgesPage() : route.page === 'remove' ? createRemovePage(route.token) : route.page === 'confirm' ? createConfirmPage(route.token) : createStatePage(route, navigate);
     outlet.append(page.el);
     // On the first load the browser owns focus; after that, move it to the new page's heading.
     if (!initial) {

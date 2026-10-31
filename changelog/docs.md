@@ -1,5 +1,9 @@
 # Docs changelog
 
+## 1.2.3 (2026-10-31)
+
+- The README describes every badge, how each image is served, and how to make the badge files again.
+
 ## 1.2.2 (2026-10-31)
 
 - Described that the engine version follows the files the map generator imports.

@@ -17,7 +17,10 @@ const BASELINE = { ...VERSIONS, engine: '1.0.0', maps: 1, schema: '1.0.0', web: 
 const appDir = fileURLToPath(new URL('../../../src/server/app/', import.meta.url));
 // `--import tsx` resolves from the working directory, which is a temp repo with no node_modules, so name tsx by URL.
 const tsx = pathToFileURL(createRequire(import.meta.url).resolve('tsx')).href;
-const releaseJson = readFileSync('config/release.json', 'utf8');
+// The scratch repositories have no map generator, so they run on the glob rule the repo used before engineEntries;
+// graphJson is the real config, used by the engine-graph tests below.
+const graphJson = readFileSync('config/release.json', 'utf8');
+const releaseJson = JSON.stringify({ ...JSON.parse(graphJson), engineEntries: undefined, paths: { ...JSON.parse(graphJson).paths, engine: ['src/server/**'] } });
 // The release scripts redraw every state a fingerprint file records; these tests are about versions, not maps.
 const noFixtures = `${JSON.stringify({ engineMajor: 1, states: {} })}\n`;
 
@@ -379,5 +382,146 @@ describe('script argument parsers', () => {
     expect(() => parseFingerprintArgs([])).toThrow(ConfigError);
     expect(() => parseFingerprintArgs(['--check', '--record'])).toThrow(ConfigError);
     expect(() => parseFingerprintArgs(['--check', '--states', 'ZZ'])).toThrow(ConfigError);
+  });
+});
+
+describe('engine by import graph (end to end)', () => {
+  function seedGraph(): string {
+    write('src/server/app/cli.ts', "import './old.js';\n");
+    write('src/server/app/old.ts', 'export {};\n');
+    write('package-lock.json', JSON.stringify({ packages: {} }));
+    write('config/versions.json', formatVersions(BASELINE));
+    write('config/release.json', graphJson);
+    for (const [path, text] of Object.entries(BASELINE_INPUT_FILES)) write(path, text);
+    for (const c of COMPONENTS) write(`changelog/${c}.md`, `# ${c} changelog\n\n`);
+    return commitAll('chore: baseline');
+  }
+
+  it('fails a pull request that deletes a generator file and its import without an engine bump', () => {
+    const base = seedGraph();
+    git('rm', '-q', 'src/server/app/old.ts');
+    write('src/server/app/cli.ts', 'export {};\n');
+    commitAll('refactor: drop old');
+    const out = run('version-check.ts', ['--base', base]);
+    expect(out.status).toBe(1);
+    expect(out.stdout).toContain('::error::engine: its files changed');
+  });
+  // The fork half of version-check's [fork, HEAD] graphs is defensive: a file that leaves the graph in the PR is changed
+  // by the PR, and the change that un-imports it is itself a change to a file still in HEAD's graph. This case (the
+  // import dropped in one commit, the file deleted in a later one) therefore does not isolate the fork graph.
+  it('fails a pull request that drops an import in one commit and deletes the file in the next', () => {
+    const base = seedGraph();
+    write('src/server/app/cli.ts', 'export {};\n');
+    commitAll('refactor: stop importing old');
+    git('rm', '-q', 'src/server/app/old.ts');
+    commitAll('chore: delete old');
+    expect(run('version-check.ts', ['--base', base]).stdout).toContain('::error::engine: its files changed');
+  });
+  it('passes a new server file the generator does not import, with no bump and no exception', () => {
+    const base = seedGraph();
+    write('src/server/app/x.ts', 'export {};\n');
+    commitAll('feat: a tool');
+    const out = run('version-check.ts', ['--base', base]);
+    expect(out.status, out.stdout).toBe(0);
+    expect(out.stdout).toContain('version-check: ok');
+  });
+  it('does not reclassify old commits when the rules switch to engineEntries (release judges each commit by its parent rules)', () => {
+    const cfg = JSON.parse(releaseJson) as { exclude: { engine: string[] } };
+    cfg.exclude.engine = ['src/server/shared/http/**', 'src/server/app/cli.ts'];
+    seed(false);
+    write('config/release.json', JSON.stringify(cfg));
+    write('tests/fingerprints/engine.json', noFixtures);
+    commitAll('chore: inputs');
+    for (const tag of ['engine-v1.0.0', 'input-census-2020-r1', 'maps-1', 'schema-v1.0.0', 'web-v1.0.0', 'docs-v1.0.0']) git('tag', tag);
+    write('src/server/shared/http/a.ts', 'export {};\n');
+    commitAll('feat: a http helper');
+    // The switch: the generator now imports the helper, and release.json names the entry.
+    write('src/server/app/cli.ts', "import '../shared/http/a.js';\n");
+    write('package-lock.json', JSON.stringify({ packages: {} }));
+    write('config/release.json', graphJson);
+    commitAll('chore: classify engine by imports');
+    const out = run('release.ts', ['--dry-run']);
+    expect(out.status, out.stderr).toBe(0);
+    expect(out.stdout).not.toMatch(/engine \d/);
+  });
+
+  const tags = ['engine-v1.0.0', 'input-census-2020-r1', 'maps-1', 'schema-v1.0.0', 'web-v1.0.0', 'docs-v1.0.0'];
+  function tagBaseline(): void {
+    seed(false);
+    // The files the switch commit adds are outside the glob engine, so the switch itself is not an engine change.
+    const glob = JSON.parse(releaseJson) as { exclude: { engine: string[] } };
+    glob.exclude.engine = ['src/server/app/cli.ts', 'src/server/app/lib.ts'];
+    write('config/release.json', JSON.stringify(glob));
+    write('tests/fingerprints/engine.json', noFixtures);
+    commitAll('chore: inputs');
+    for (const tag of tags) git('tag', tag);
+  }
+  function switchToGraph(): void {
+    write('src/server/app/cli.ts', "import './lib.js';\n");
+    write('src/server/app/lib.ts', 'export {};\n');
+    write('package-lock.json', JSON.stringify({ packages: {} }));
+    write('config/release.json', graphJson);
+    commitAll('chore: classify engine by imports');
+  }
+
+  it('judges a glob-era commit by the last glob config, even where the config at its parent called the file engine', () => {
+    tagBaseline();
+    // At this commit's parent the glob rule says src/server/** is engine...
+    write('src/server/shared/http/a.ts', 'export {};\n');
+    commitAll('feat: a http helper');
+    // ...but the glob config in force at the end of that era excludes it, which is how history has always been judged.
+    const cfg = JSON.parse(releaseJson) as { exclude: { engine: string[] } };
+    cfg.exclude.engine = ['src/server/shared/http/**', 'src/server/app/cli.ts', 'src/server/app/lib.ts'];
+    write('config/release.json', JSON.stringify(cfg));
+    commitAll('chore: keep http out of the engine');
+    switchToGraph();
+    const out = run('release.ts', ['--dry-run']);
+    expect(out.status, out.stderr).toBe(0);
+    expect(out.stdout).not.toMatch(/engine \d/);
+  });
+  it('classes a commit made under engineEntries by the import graph', () => {
+    tagBaseline();
+    switchToGraph();
+    write('src/server/app/unused.ts', 'export {};\n');
+    commitAll('fix: a server file nothing imports');
+    expect(run('release.ts', ['--dry-run']).stdout).not.toMatch(/engine \d/);
+    write('src/server/app/lib.ts', 'export const x = 1;\n');
+    commitAll('fix: a file the generator imports');
+    const out = run('release.ts', ['--dry-run']);
+    expect(out.status, out.stderr).toBe(0);
+    expect(out.stdout).toContain('engine 1.0.1');
+  });
+
+  it('reads an older-shape release.json in history without strict parsing', () => {
+    seed(false);
+    // An old copy: no fixtureStates, an unknown key, and glob rules that keep the files the switch adds out of the engine.
+    const old = JSON.parse(releaseJson) as Record<string, unknown> & { exclude: { engine: string[] } };
+    delete old.fixtureStates;
+    old.legacy = true;
+    old.exclude.engine = ['src/server/app/cli.ts', 'src/server/app/lib.ts'];
+    write('config/release.json', JSON.stringify(old));
+    write('tests/fingerprints/engine.json', noFixtures);
+    commitAll('chore: inputs');
+    for (const tag of tags) git('tag', tag);
+    write('src/client/b.ts', 'x');
+    commitAll('feat: a client thing');
+    switchToGraph();
+    const out = run('release.ts', ['--dry-run']);
+    expect(out.status, out.stderr).toBe(0);
+    expect(out.stdout).toContain('release: web 1.1.0');
+  });
+  it('counts a file deleted since the last engine release, which only the tag-time graph still lists', () => {
+    tagBaseline();
+    switchToGraph();
+    // The engine release is cut here, with cli.ts importing lib.ts.
+    git('tag', '-f', 'engine-v1.0.0');
+    write('src/server/app/cli.ts', 'export {};\n');
+    commitAll('refactor: stop importing lib');
+    git('rm', '-q', 'src/server/app/lib.ts');
+    commitAll('feat: delete lib');
+    const out = run('release.ts', ['--dry-run']);
+    expect(out.status, out.stderr).toBe(0);
+    // The deletion is the feat: with only today's graph (which no longer lists lib.ts) the engine would get just a patch.
+    expect(out.stdout).toContain('engine 1.1.0');
   });
 });

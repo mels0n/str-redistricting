@@ -27,3 +27,7 @@
 # (a cheap 304 when nothing changed). Range requests for .pmtiles are unaffected.
 /data/*
   Cache-Control: public, max-age=0, must-revalidate
+
+# Badge images keep their names too, and the badge address redirects to them, so embeds must see a changed badge on their next load.
+/badges/*
+  Cache-Control: public, max-age=0, must-revalidate

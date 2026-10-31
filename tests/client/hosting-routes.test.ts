@@ -147,3 +147,19 @@ describe('hosting routes for path URLs', () => {
     });
   });
 });
+
+describe('cache headers', () => {
+  const vercel = (JSON.parse(readFileSync('vercel.json', 'utf8')) as { headers: { source: string; headers: { key: string; value: string }[] }[] }).headers;
+  const fromVercel = (source: string) => vercel.find((h) => h.source === source)?.headers.find((x) => x.key === 'Cache-Control')?.value;
+  const fromFile = (path: string) => {
+    const lines = readFileSync('public/_headers', 'utf8').split(/\r?\n/);
+    const at = lines.indexOf(path);
+    return at < 0 ? undefined : /^\s+Cache-Control:\s*(.+)$/.exec(lines[at + 1] ?? '')?.[1]?.trim();
+  };
+  it('badges revalidate like map data', () => {
+    expect(fromVercel('/data/(.*)')).toBe('public, max-age=0, must-revalidate');
+    expect(fromVercel('/badges/(.*)')).toBe(fromVercel('/data/(.*)'));
+    expect(fromFile('/badges/*')).toBe(fromFile('/data/*'));
+    expect(fromFile('/badges/*')).toBe('public, max-age=0, must-revalidate');
+  });
+});

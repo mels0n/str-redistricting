@@ -4,12 +4,8 @@ import { createRequire } from 'node:module';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { Resvg } from '@resvg/resvg-js';
-import { geoMercator, geoPath } from 'd3-geo';
-import { bbox, feature, neighbors } from 'topojson-client';
-import type { GeometryCollection, Topology } from 'topojson-specification';
 import wawoff2 from 'wawoff2';
-import { z } from 'zod';
-import { DataError } from '../../shared/errors/index.js';
+import { districtShapes } from './district-shapes.js';
 import { TAGLINE } from './site.js';
 
 export const OG_WIDTH = 1200;
@@ -26,29 +22,6 @@ const COLUMN_WIDTH = OG_WIDTH - COLUMN_X - 48;
  * a test reads that file and fails if the two drift apart.
  */
 export const OG_PALETTE = ['#E2D2AE', '#AEBF94', '#BCA9C4', '#93BCAC', '#C9A783', '#D9B9AE', '#A3A672', '#B9B7AA'] as const;
-
-const TopoShape = z.looseObject({
-  objects: z.looseObject({
-    districts: z.looseObject({
-      geometries: z.array(z.looseObject({ properties: z.looseObject({ district: z.number() }) })).min(1),
-    }),
-  }),
-});
-
-/** Same rule as the viewer: districts in number order, each takes the least-used slot none of its colored neighbors holds. */
-function assignColors(adjacent: readonly (readonly number[])[], paletteSize: number): number[] {
-  const slot = new Array<number>(adjacent.length).fill(-1);
-  const used = new Array<number>(paletteSize).fill(0);
-  adjacent.forEach((near, i) => {
-    const taken = new Set(near.map((j) => slot[j]!).filter((s) => s >= 0));
-    let best = -1;
-    for (let c = 0; c < paletteSize; c++) if (!taken.has(c) && (best === -1 || used[c]! < used[best]!)) best = c;
-    if (best === -1) best = i % paletteSize;
-    slot[i] = best;
-    used[best]!++;
-  });
-  return slot;
-}
 
 const escapeXml = (s: string): string => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
@@ -83,21 +56,7 @@ const TAGLINE_SIZE = 34;
 
 /** The 1200x630 link preview of a state: its districts on the left, the headline, count and credit on the right. */
 export function ogSvg(p: { name: string; abbr: string; seats: number; topo: string; credit: string; palette: readonly string[] }): string {
-  const parsed = TopoShape.safeParse(JSON.parse(p.topo));
-  if (!parsed.success) throw new DataError(`${p.abbr}: districts topology is not usable for the preview image`);
-  const topo = parsed.data as unknown as Topology;
-  const collection = topo.objects['districts'] as GeometryCollection<{ district?: number }>;
-  const number = (g: { properties?: object | null }): number => (g.properties as { district?: number } | null | undefined)?.district ?? 0;
-  collection.geometries.sort((a, b) => number(a) - number(b));
-  const slots = assignColors(neighbors(collection.geometries), p.palette.length);
-  const features = feature(topo, collection);
-  // Published frames can run past -180 degrees (Alaska); turn the globe so the state's center is the middle and nothing wraps.
-  const [west, , east] = bbox(topo);
-  const projection = geoMercator().rotate([-(west! + east!) / 2, 0]).fitExtent([[MAP_PAD, MAP_PAD], [MAP_SIZE - MAP_PAD, MAP_SIZE - MAP_PAD]], features);
-  const toPath = geoPath(projection);
-  const shapes = features.features
-    .map((f, i) => `<path d="${toPath(f) ?? ''}" fill="${p.palette[slots[i]!]!}" stroke="${INK}" stroke-width="1.5" stroke-linejoin="round"/>`)
-    .join('');
+  const shapes = districtShapes({ abbr: p.abbr, topo: p.topo, palette: p.palette, box: [[MAP_PAD, MAP_PAD], [MAP_SIZE - MAP_PAD, MAP_SIZE - MAP_PAD]], stroke: INK, strokeWidth: 1.5 });
 
   const count = `${p.name}: ${p.seats} ${p.seats === 1 ? 'district' : 'districts'}`;
   const countSize = Math.min(40, Math.floor(COLUMN_WIDTH / (count.length * 0.58)));

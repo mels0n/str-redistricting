@@ -28,5 +28,6 @@ export { districtBudget, simplifyPercent, toTopology, vertexCount } from './topo
 export { buildWater, countLandParts, MIN_PIECE, mergeLand, type PopulatedPoint } from './water.js';
 export { districtArcs } from './arcs.js';
 export type { ArcFeature } from './arcs.js';
+export { districtShapes } from './district-shapes.js';
 export { loadOgFonts, OG_PALETTE, ogSvg, renderOgPng } from './og.js';
 export { ogCredit } from './og-credit.js';

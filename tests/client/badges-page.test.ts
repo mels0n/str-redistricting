@@ -3,6 +3,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { PAGE_META, config } from '../../src/client/shared';
 import { badgeAssets, badgeSnippet, BADGE_SNIPPET, type BadgeChoice } from '../../src/client/features/badge-snippet';
 import { createBadgesPage, badgeCard } from '../../src/client/pages/badges';
+import type { StateIndex } from '../../src/client/entities/state';
 import { createPledgesPage } from '../../src/client/pages/pledges';
 import { createPrivacyPage } from '../../src/client/pages/privacy';
 
@@ -26,7 +27,7 @@ describe('badges page', () => {
     expect(lede.textContent).not.toContain('nothing is tracked');
     const hrefs = Object.fromEntries([...lede.querySelectorAll('a')].map((a) => [a.textContent, a.getAttribute('href')]));
     expect(hrefs).toEqual({ 'never who visited': '/privacy#strv-privacy-badge', 'Sites that show the badge': '/pledges' });
-    expect(page.el.querySelectorAll('.strv-badges__card')).toHaveLength(4);
+    expect(page.el.querySelectorAll('.strv-badges__card')).toHaveLength(6);
     expect(page.el.textContent).not.toContain('—');
   });
 
@@ -102,6 +103,93 @@ describe('badges page', () => {
     choice = { id: 'seal', theme: 'light' };
     card.refresh();
     expect(card.el.querySelector<HTMLTextAreaElement>('textarea')!.value).toBe(badgeSnippet({ id: 'seal', theme: 'light' }, config.siteHost));
+  });
+});
+
+const summary = {
+  population: 1000,
+  ideal: 125,
+  rangePersons: 1,
+  rangePct: 0.1,
+  allContiguous: true,
+  assignmentSha256: 'a'.repeat(64),
+  inputSha256: 'b'.repeat(64),
+  lineSearch: 'exact',
+};
+const stubIndex: StateIndex = {
+  states: [
+    { abbr: 'CO', name: 'Colorado', seats: 8, hasData: true, summary, chambers: { 'state-house': { seats: 65, hasData: true, summary }, 'state-senate': { seats: 35, hasData: true, summary } } },
+    { abbr: 'NE', name: 'Nebraska', seats: 3, hasData: true, summary, chambers: { 'state-house': { seats: 0, hasData: false }, 'state-senate': { seats: 49, hasData: true, summary } } },
+    { abbr: 'VT', name: 'Vermont', seats: 1, hasData: true, summary, chambers: { 'state-house': { seats: 150, hasData: true, summary }, 'state-senate': { seats: 30, hasData: false } } },
+  ],
+};
+
+describe('state badge picker', () => {
+  const PROMPT = 'Choose your state to see its badge';
+  const mount = async () => {
+    const page = createBadgesPage(() => Promise.resolve(stubIndex));
+    document.body.append(page.el);
+    await flush();
+    const state = page.el.querySelector<HTMLSelectElement>('select[aria-label="Your state"]')!;
+    const chamber = page.el.querySelector<HTMLSelectElement>('select[aria-label="Chamber"]')!;
+    const cards = () => [...page.el.querySelectorAll('.strv-badges__card')].slice(4);
+    const pick = (el: HTMLSelectElement, v: string) => {
+      el.value = v;
+      el.dispatchEvent(new Event('change'));
+    };
+    return { page, state, chamber, cards, pick };
+  };
+  const options = (el: HTMLSelectElement) => [...el.options].map((o) => o.value);
+
+  it('renders before the index loads, with the prompt and no state images', () => {
+    const page = createBadgesPage(() => new Promise(() => undefined));
+    const cards = [...page.el.querySelectorAll('.strv-badges__card')].slice(4);
+    expect(cards).toHaveLength(2);
+    for (const c of cards) {
+      expect(c.textContent).toContain(PROMPT);
+      expect(c.querySelector('img')).toBeNull();
+    }
+    const state = page.el.querySelector<HTMLSelectElement>('select[aria-label="Your state"]')!;
+    expect(state.options[0]!.textContent).toBe('Choose your state');
+  });
+
+  it('shows the prompt and no image until a state is picked', async () => {
+    const { cards, state } = await mount();
+    expect(options(state)).toEqual(['', 'CO', 'VT']);
+    for (const c of cards()) {
+      expect(c.textContent).toContain(PROMPT);
+      expect(c.querySelector('img')).toBeNull();
+    }
+  });
+
+  it('shows the US House badge and a chamber badge for Colorado', async () => {
+    const { cards, state, chamber, pick } = await mount();
+    pick(state, 'CO');
+    const [house, chamberCard] = cards();
+    const a = badgeAssets({ id: 'state', theme: 'light', abbr: 'CO', stateName: 'Colorado', chamber: 'federal-house', seats: 8 }, config.siteHost);
+    expect(house!.querySelector('img')!.getAttribute('src')).toBe(`https://${config.siteHost}/api/badge?badge=state&state=CO`);
+    expect(a.downloads[0]!.href).toContain('/data/CO/badge@2x.png');
+    expect([...house!.querySelectorAll('.strv-badges__downloads a')].map((l) => l.getAttribute('href'))).toEqual(a.downloads.map((d) => d.href));
+    expect(house!.querySelector('textarea')!.value).toContain('/CO"');
+    expect(options(chamber)).toEqual(['state-house', 'state-senate']);
+    expect(chamberCard!.querySelector('img')!.getAttribute('src')).toBe(`https://${config.siteHost}/api/badge?badge=state&state=CO&chamber=house`);
+    pick(chamber, 'state-senate');
+    expect(chamberCard!.querySelector('img')!.getAttribute('src')).toBe(`https://${config.siteHost}/api/badge?badge=state&state=CO&chamber=senate`);
+    expect([...chamberCard!.querySelectorAll('.strv-badges__downloads a')].map((l) => l.getAttribute('href'))).toEqual([expect.stringContaining('/data/CO/state-senate/badge@2x.png')]);
+  });
+
+  it('offers only states with a published map for the chosen chamber', async () => {
+    const { state, chamber, pick, cards } = await mount();
+    pick(state, 'CO');
+    pick(chamber, 'state-senate');
+    expect(options(state)).toEqual(['', 'CO', 'NE']);
+    pick(state, 'NE');
+    expect(cards()[0]!.querySelector('img')!.getAttribute('src')).toBe(`https://${config.siteHost}/api/badge?badge=state&state=NE`);
+    expect(cards()[1]!.querySelector('img')!.getAttribute('src')).toBe(`https://${config.siteHost}/api/badge?badge=state&state=NE&chamber=senate`);
+    pick(chamber, 'state-house');
+    expect(options(state)).toEqual(['', 'CO', 'VT']);
+    expect(state.value).toBe('');
+    expect(cards()[0]!.querySelector('img')).toBeNull();
   });
 });
 

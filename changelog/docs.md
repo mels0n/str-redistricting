@@ -1,5 +1,9 @@
 # Docs changelog
 
+## 1.2.2 (2026-10-31)
+
+- Described that the engine version follows the files the map generator imports.
+
 ## 1.2.1 (2026-10-28)
 
 - Described the badge: how sites that show it are noticed and checked, what is recognised, the limits on checking, and what is kept.

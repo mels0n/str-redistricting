@@ -5473,6 +5473,8 @@ var {
 
 .strv-pledges__body {
   display: grid;
+  /* minmax(0, 1fr) keeps the long badge snippet from widening the column past the screen. */
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--s-5);
   padding: var(--s-5) var(--gutter);
   max-width: 62ch;
@@ -5503,8 +5505,19 @@ var {
   font-size: 0.875em;
 }
 
+.strv-pledges__body > section {
+  display: grid;
+  gap: var(--s-3);
+}
+
+.strv-pledges__body > section > * {
+  margin: 0;
+}
+
 .strv-pledges__snippet {
   overflow-x: auto;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
   padding: var(--s-3);
   border: 2px solid var(--ink);
 }

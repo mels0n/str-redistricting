@@ -18,14 +18,18 @@ describe('badges page', () => {
 
   it('has the heading, the intro with its two links and a card per badge', () => {
     const page = createBadgesPage();
-    expect(page.el.querySelector('h1')!.textContent).toBe('Badges for candidates');
-    expect(page.focusTarget()?.textContent).toBe('Badges for candidates');
+    expect(page.el.querySelector('h1')!.textContent).toBe('Fair Maps badges');
+    expect(page.focusTarget()?.textContent).toBe('Fair Maps badges');
     expect(document.title).toBe(PAGE_META.badges.title);
-    expect(PAGE_META.badges.title).toBe('Badges for candidates | Fair Maps');
-    const lede = page.el.querySelector('.strv-how__lede')!;
-    expect(lede.textContent).toBe('Put a Fair Maps badge on your campaign site. Each one is a picture with a link back here, with no script. When a page shows a badge, we note that page’s address, never who visited, and list the site on Sites that show the badge.');
-    expect(lede.textContent).not.toContain('nothing is tracked');
-    const hrefs = Object.fromEntries([...lede.querySelectorAll('a')].map((a) => [a.textContent, a.getAttribute('href')]));
+    expect(PAGE_META.badges.title).toBe('Badges | Fair Maps');
+    expect(page.el.querySelector('.strv-how__lede')!.textContent).toBe('Show that you back fair maps. Put the Fair Maps ring on your profile picture, or a badge on your website or campaign site.');
+    const site = page.el.querySelector('.strv-badges__site')!;
+    expect(site.querySelector('h2')!.textContent).toBe('For your website');
+    const intro = site.querySelector('p')!;
+    expect(intro.textContent).toBe('Each badge is a picture with a link back here, with no script. When a page shows a badge, we note that page’s address, never who visited, and list the site on Sites that show the badge.');
+    expect(page.el.textContent).not.toContain('nothing is tracked');
+    expect(page.el.textContent).not.toContain('candidates');
+    const hrefs = Object.fromEntries([...intro.querySelectorAll('a')].map((a) => [a.textContent, a.getAttribute('href')]));
     expect(hrefs).toEqual({ 'never who visited': '/privacy', 'Sites that show the badge': '/pledges' });
     expect(page.el.querySelectorAll('.strv-badges__card')).toHaveLength(6);
     const section = page.el.querySelector('.strv-badges__state')!;
@@ -232,16 +236,16 @@ describe('state badge picker', () => {
   it('tells the visitor when the state list does not load', async () => {
     const page = createBadgesPage(() => Promise.reject(new Error('offline')));
     await flush();
-    expect(page.el.querySelector('.strv-badges__note')!.textContent).toBe('The list of states didn’t load. Reload the page to try again.');
+    expect(page.el.querySelector('.strv-badges__state .strv-badges__note')!.textContent).toBe('The list of states didn’t load. Reload the page to try again.');
   });
 });
 
 describe('pages that point at the badges page', () => {
   it('links /pledges to /badges and keeps the button snippet', () => {
     const page = createPledgesPage([]);
-    const link = [...page.el.querySelectorAll('a')].find((a) => a.textContent === 'Badges for candidates')!;
+    const link = [...page.el.querySelectorAll('a')].find((a) => a.textContent === 'Badges')!;
     expect(link.getAttribute('href')).toBe('/badges');
-    expect(page.el.textContent).toContain('More badges, including one with your state’s map: Badges for candidates');
+    expect(page.el.textContent).toContain('More badges, including one with your state’s map and a ring for your profile picture: Badges');
     expect(page.el.querySelector('pre')!.textContent).toBe(BADGE_SNIPPET);
     expect(page.el.textContent).toContain(`What we look for: any of our badges (an image from ${config.siteHost}/api/badge) and a link to ${config.siteHost} on the same page.`);
   });
@@ -311,10 +315,24 @@ describe('profile photo frame', () => {
     expect(page.el.textContent).not.toContain('—');
   });
 
-  it('refuses a file that is not a picture and draws nothing', async () => {
+  it('shows the ring itself until a photo is chosen, comes first on the page, and never shows an empty box', () => {
+    const { page } = setup();
+    const frame = page.el.querySelector('.strv-badges__frame')!;
+    const ring = frame.querySelector<HTMLImageElement>('.strv-badges__preview img')!;
+    expect(ring.getAttribute('src')).toBe('/badges/frame.png');
+    expect(ring.getAttribute('alt')).toBe('The Fair Maps ring');
+    expect(ring.className).toBe('strv-badges__ring');
+    expect([ring.getAttribute('width'), ring.getAttribute('height')]).toEqual(['240', '240']);
+    expect(frame.querySelector('h2')!.textContent).toBe('Profile picture ring');
+    const sections = [...page.el.querySelectorAll('.strv-badges__frame, .strv-badges__site, .strv-badges__state')].map((e) => e.className);
+    expect(sections).toEqual(['strv-badges__frame', 'strv-badges__site', 'strv-badges__state']);
+  });
+
+  it('refuses a file that is not a picture, draws nothing and shows the ring again', async () => {
     const { page, choose, draws, decode } = setup();
     await choose(pic(10, 'application/pdf'));
     expect(page.el.querySelector('.strv-badges__frame .strv-badges__note')!.textContent).toBe('That file isn’t a picture. Choose a JPG or PNG.');
+    expect(page.el.querySelector('.strv-badges__frame .strv-badges__preview img')!.getAttribute('src')).toBe('/badges/frame.png');
     expect(draws).toHaveLength(0);
     expect(decode).not.toHaveBeenCalled();
   });
@@ -324,6 +342,42 @@ describe('profile photo frame', () => {
     await choose(pic(20 * 1024 * 1024 + 1));
     expect(page.el.querySelector('.strv-badges__frame .strv-badges__note')!.textContent).toBe('That picture is too large. Choose one under 20 MB.');
     expect(draws).toHaveLength(0);
+  });
+
+  const ringOnly = (page: { el: HTMLElement }) => {
+    const preview = page.el.querySelector('.strv-badges__frame .strv-badges__preview')!;
+    expect(preview.querySelector('canvas')).toBeNull();
+    expect(preview.querySelector('a[download]')).toBeNull();
+    expect(preview.querySelector('img')!.getAttribute('src')).toBe('/badges/frame.png');
+  };
+
+  it('takes the finished photo and its download away as soon as another photo is chosen', async () => {
+    const decode = vi.fn().mockResolvedValueOnce({ width: 10, height: 10, close: vi.fn() }).mockReturnValueOnce(NEVER());
+    const { page, choose } = setup({ decode });
+    await choose(pic());
+    expect(page.el.querySelector('a[download="fair-maps-photo.png"]')).not.toBeNull();
+    await choose(pic());
+    ringOnly(page);
+  });
+
+  it.each([
+    ['a file that is not a picture', {}, () => pic(10, 'application/pdf')],
+    ['a picture over 20 MB', {}, () => pic(20 * 1024 * 1024 + 1)],
+    ['a file that will not decode', { bad: true }, () => pic()],
+  ])('shows the ring again after a good photo and then %s', async (_n, opt, file) => {
+    const good = { width: 10, height: 10, close: vi.fn() } as unknown as ImageBitmap;
+    const decode = 'bad' in opt ? vi.fn().mockResolvedValueOnce(good).mockRejectedValueOnce(new Error('bad')) : vi.fn(async () => good);
+    const { page, choose } = setup({ decode });
+    await choose(pic());
+    expect(page.el.querySelector('.strv-badges__preview canvas')).not.toBeNull();
+    await choose(file());
+    ringOnly(page);
+  });
+
+  it('shows the ring again after a drawing fails', async () => {
+    const { page, choose } = setup({ loadRing: async () => Promise.reject(new Error('x')) });
+    await choose(pic());
+    ringOnly(page);
   });
 
   it('says it is not a picture when the file will not decode', async () => {

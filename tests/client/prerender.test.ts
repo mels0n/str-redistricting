@@ -89,11 +89,12 @@ describe('prerendered pages', () => {
   it('writes the badges page and lists it in the sitemap and llms.txt', () => {
     const html = read('dist/badges/index.html');
     expect(titleOf(html)).toBe(PAGE_META.badges.title);
-    expect(html).toContain('Badges for candidates');
+    expect(html).toContain('Fair Maps badges');
     expect(html).toContain('/api/badge');
     expect(html).not.toContain('—');
     expect(read('dist/sitemap.xml')).toContain('<loc>https://fairmaps.melson.us/badges</loc>');
-    expect(read('dist/llms.txt')).toContain('https://fairmaps.melson.us/badges');
+    expect(read('dist/llms.txt')).toContain('[Badges](https://fairmaps.melson.us/badges)');
+    expect(read('dist/llms.txt')).not.toContain('for candidates');
   });
 
   it('writes the home file and the not-found page', () => {

@@ -1,5 +1,11 @@
 # Web changelog
 
+## 1.11.0 (2026-11-01)
+
+- The badges page is for everyone, not just candidates. It now starts with the profile picture ring, which shows the ring itself until you choose a photo, then the badges for a website, then the badges with your state's map.
+- The Take action page has a Show your support block that links to the badges, and the page you see after confirming your signature suggests putting the ring on your profile picture. The footer link now reads Badges.
+- The Sites that show the badge page no longer runs off the side of the screen on phones.
+
 ## 1.10.0 (2026-10-31)
 
 - A new Badges for candidates page, linked from the footer and from the Pledges page, offers a crest, an end-gerrymandering seal, a pledge card, the "I back Fair Maps" button, a badge with your state's map for the U.S. House and for each state chamber, and a profile photo frame. Each badge has a light and a dark version, a snippet to copy, and files to download for the web and for print.

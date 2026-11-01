@@ -1,6 +1,6 @@
 import { h, announce, config, tokens, PAGE_META, type Chamber, routeHref, iconArrowLeft, NATIONAL, PRIVACY, PLEDGES, type Page } from '../../shared';
 import { loadIndex, byName, chamberView, isGeneratedIn, nameOfState, seatsIn, type StateIndex } from '../../entities/state';
-import { badgeAssets, badgeSnippet, type BadgeChoice } from '../../features/badge-snippet';
+import { FRAME_PRINT, FRAME_RING, badgeAssets, badgeSnippet, type BadgeChoice } from '../../features/badge-snippet';
 
 /** A badge card and the way to make it re-read its choice after the choice has changed. */
 export interface BadgeCard {
@@ -229,8 +229,6 @@ function statePicker(load: () => Promise<StateIndex>): { el: HTMLElement; destro
 
 const FRAME_SIZE = 1080;
 const FRAME_MAX_BYTES = 20 * 1024 * 1024;
-const FRAME_RING = '/badges/frame.png';
-const FRAME_PRINT = '/badges/frame-print.png';
 const NOT_PICTURE = 'That file isn’t a picture. Choose a JPG or PNG.';
 const MAKE_FAILED = 'Couldn’t make the picture. Try again.';
 const TOO_LARGE = 'That picture is too large. Choose one under 20 MB.';
@@ -272,20 +270,28 @@ function frameCard(deps: FrameDeps): { el: HTMLElement; destroy: () => void } {
   const input = h('input', { type: 'file', accept: 'image/*', id: 'strv-badges-photo', class: 'strv-badges__file' });
   const message = h('p', { class: 'strv-badges__note', role: 'status' });
   const result = h('div', { class: 'strv-badges__preview' });
+  // Until a photo is chosen the preview shows the ring itself, so the card never shows an empty box.
+  const showRing = (): void => void result.replaceChildren(h('img', { src: FRAME_RING, alt: 'The Fair Maps ring', width: '240', height: '240', class: 'strv-badges__ring' }));
+  const fail = (text: string): void => {
+    message.textContent = text;
+    showRing();
+  };
+  showRing();
 
   input.addEventListener('change', () => {
     const file = input.files?.[0];
     if (!file) return;
     const mine = ++latest;
     revoke();
-    result.replaceChildren();
+    // The earlier photo's download address was just revoked, so its canvas and link go too.
+    showRing();
     message.textContent = '';
     if (!file.type.startsWith('image/')) {
-      message.textContent = NOT_PICTURE;
+      fail(NOT_PICTURE);
       return;
     }
     if (file.size > FRAME_MAX_BYTES) {
-      message.textContent = TOO_LARGE;
+      fail(TOO_LARGE);
       return;
     }
     void build(file, mine);
@@ -297,7 +303,7 @@ function frameCard(deps: FrameDeps): { el: HTMLElement; destroy: () => void } {
     try {
       photo = await deps.decode(file);
     } catch {
-      if (current(mine)) message.textContent = NOT_PICTURE;
+      if (current(mine)) fail(NOT_PICTURE);
       return;
     }
     try {
@@ -322,7 +328,7 @@ function frameCard(deps: FrameDeps): { el: HTMLElement; destroy: () => void } {
       canvas.setAttribute('aria-label', 'Your photo inside the Fair Maps ring');
       result.replaceChildren(canvas, h('a', { href: url, download: 'fair-maps-photo.png', class: 'strv-button strv-button--ink' }, 'Download my photo'));
     } catch {
-      if (current(mine)) message.textContent = MAKE_FAILED;
+      if (current(mine)) fail(MAKE_FAILED);
     } finally {
       photo.close?.();
     }
@@ -331,8 +337,8 @@ function frameCard(deps: FrameDeps): { el: HTMLElement; destroy: () => void } {
   const el = h(
     'article',
     { class: 'strv-badges__frame', 'aria-labelledby': 'strv-badges-frame-h' },
-    h('h2', { class: 'strv-badges__h', id: 'strv-badges-frame-h' }, 'Profile photo frame'),
-    h('p', null, 'A round Fair Maps ring for your profile picture on social media. Download the ring to add yourself, or put your photo inside it here.'),
+    h('h2', { class: 'strv-badges__h', id: 'strv-badges-frame-h' }, 'Profile picture ring'),
+    h('p', null, 'Put the Fair Maps ring around your profile picture on social media. Choose a photo to see it in the ring and download it, or download the ring on its own.'),
     h(
       'ul',
       { class: 'strv-badges__downloads' },
@@ -354,11 +360,11 @@ function frameCard(deps: FrameDeps): { el: HTMLElement; destroy: () => void } {
   };
 }
 
-/** Badges a candidate can put on a campaign site, each with the code to paste and the files to download. */
+/** Badges anyone can use: a ring for a profile picture, and badges for a website, each with the code to paste and the files to download. */
 export function createBadgesPage(load: () => Promise<StateIndex> = loadIndex, frameDeps: FrameDeps = browserDeps): Page {
   const picker = statePicker(load);
   const frame = frameCard(frameDeps);
-  const h1 = h('h1', { class: 'strv-how__h1', tabindex: -1 }, 'Badges for candidates');
+  const h1 = h('h1', { class: 'strv-how__h1', tabindex: -1 }, 'Fair Maps badges');
   const el = h(
     'main',
     { class: 'strv-how strv-badges', id: 'strv-main' },
@@ -367,19 +373,25 @@ export function createBadgesPage(load: () => Promise<StateIndex> = loadIndex, fr
       { class: 'strv-how__head' },
       h('a', { href: routeHref(NATIONAL), class: 'strv-back' }, iconArrowLeft(), 'All states'),
       h1,
+      h('p', { class: 'strv-how__lede' }, 'Show that you back fair maps. Put the Fair Maps ring on your profile picture, or a badge on your website or campaign site.'),
+    ),
+    h('div', { class: 'strv-badges__grid' }, frame.el),
+    h(
+      'section',
+      { class: 'strv-badges__site', 'aria-labelledby': 'strv-badges-site-h' },
+      h('h2', { class: 'strv-badges__h', id: 'strv-badges-site-h' }, 'For your website'),
       h(
         'p',
-        { class: 'strv-how__lede' },
-        'Put a Fair Maps badge on your campaign site. Each one is a picture with a link back here, with no script. When a page shows a badge, we note that page’s address, ',
+        null,
+        'Each badge is a picture with a link back here, with no script. When a page shows a badge, we note that page’s address, ',
         h('a', { href: routeHref(PRIVACY) }, 'never who visited'),
         ', and list the site on ',
         h('a', { href: routeHref(PLEDGES) }, 'Sites that show the badge'),
         '.',
       ),
+      h('div', { class: 'strv-badges__grid' }, ...FIXED.map((f) => badgeCard(() => ({ id: f.id, theme: 'light' }), f.title).el)),
     ),
-    h('div', { class: 'strv-badges__grid' }, ...FIXED.map((f) => badgeCard(() => ({ id: f.id, theme: 'light' }), f.title).el)),
     picker.el,
-    h('div', { class: 'strv-badges__grid' }, frame.el),
   );
   document.title = PAGE_META.badges.title;
   return {

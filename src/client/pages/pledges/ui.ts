@@ -67,7 +67,7 @@ export function createPledgesPage(preloaded?: readonly BadgeSite[]): Page {
         h('h2', null, 'Show the badge on your site'),
         h('p', null, h('img', { src: '/badge.svg', alt: 'I back Fair Maps', width: '200', height: '40' })),
         h('pre', { class: 'strv-pledges__snippet' }, h('code', null, BADGE_SNIPPET)),
-        h('p', null, 'More badges, including one with your state’s map: ', h('a', { href: routeHref(BADGES) }, 'Badges for candidates')),
+        h('p', null, 'More badges, including one with your state’s map and a ring for your profile picture: ', h('a', { href: routeHref(BADGES) }, 'Badges')),
         h('p', null, `Add the badge to your home page and link it to ${config.siteHost}/pledges. It usually shows up within minutes, otherwise within a day.`),
         h('p', null, 'Put it on your home page. We check each site about once a day; if the badge is gone for two daily checks, the site comes off the list.'),
         h('p', null, 'Older snippets that point at /badge.svg are not noticed. Use the snippet above.'),

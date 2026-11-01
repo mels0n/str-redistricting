@@ -31,8 +31,12 @@ describe('PAGE_META', () => {
 
   it('titles the Take action page', async () => {
     const { createActPage } = await import('../../src/client/pages/act');
-    createActPage(null);
+    const page = createActPage(null);
     expect(document.title).toBe('Take action | Fair Maps');
+    const support = page.el.querySelector('.strv-act-page__support')!;
+    expect(support.querySelector('h2')!.textContent).toBe('Show your support');
+    expect(support.querySelector('a')!.getAttribute('href')).toBe('/badges');
+    expect(support.textContent).toContain('Put the Fair Maps ring on your profile picture, or a badge on your website.');
     expect(PAGE_META.act.path).toBe('/act');
   });
 

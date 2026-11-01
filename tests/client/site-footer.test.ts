@@ -49,7 +49,7 @@ describe('site footer', () => {
     const el = createSiteFooter();
     const hrefs = [...el.querySelectorAll('.strv-footer__links a')].map((a) => a.getAttribute('href'));
     expect(hrefs).toEqual(['/changelog', 'https://github.com/mels0n/str-redistricting/issues/new?template=question.yml', 'https://github.com/mels0n/str-redistricting/issues/new?template=problem.yml', '/badges', '/privacy']);
-    expect([...el.querySelectorAll('a')].map((a) => a.textContent)).toEqual(['Changelog', 'Ask a question', 'Report a problem on GitHub', 'Badges for candidates', 'Privacy']);
+    expect([...el.querySelectorAll('a')].map((a) => a.textContent)).toEqual(['Changelog', 'Ask a question', 'Report a problem on GitHub', 'Badges', 'Privacy']);
     expect(hrefs).not.toContain('/remove');
   });
 });

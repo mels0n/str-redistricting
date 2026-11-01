@@ -1,4 +1,5 @@
 // @vitest-environment jsdom
+import { readFileSync } from 'node:fs';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { PAGE_META } from '../../src/client/shared';
 import type { BadgeSite } from '../../src/client/entities/badge-sites';
@@ -82,5 +83,18 @@ describe('sites that show the badge page', () => {
   it('takes a list handed in directly', () => {
     const page = createPledgesPage([site('z.example.org')]);
     expect(page.el.querySelectorAll('.strv-pledges__row')).toHaveLength(1);
+  });
+});
+
+describe('pledges page styles', () => {
+  const css = readFileSync('src/client/app/styles.css', 'utf8');
+  const rule = (sel: string): string => {
+    const start = css.indexOf(`\n${sel} {`);
+    return start < 0 ? '' : css.slice(start, css.indexOf('}', start));
+  };
+
+  it('keeps the long snippet from widening the page past a phone screen', () => {
+    expect(rule('.strv-pledges__body')).toContain('grid-template-columns: minmax(0, 1fr)');
+    expect(rule('.strv-pledges__snippet')).toContain('white-space: pre-wrap');
   });
 });

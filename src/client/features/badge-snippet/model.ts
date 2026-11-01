@@ -25,6 +25,10 @@ export interface BadgeAssets {
 }
 
 /** The live button snippet, as /pledges has always shown it. */
+/** The profile picture ring and its print version, as published by `npm run badges`. */
+export const FRAME_RING = '/badges/frame.png';
+export const FRAME_PRINT = '/badges/frame-print.png';
+
 export const BADGE_SNIPPET = `<a href="https://${config.siteHost}/pledges"><img src="https://${config.siteHost}/api/badge" alt="I back Fair Maps" width="200" height="40"></a>`;
 
 const SIZES = {
@@ -96,7 +100,7 @@ export function badgeAssets(c: BadgeChoice, site: string): BadgeAssets {
   return { image: `${origin}${path()}`, image2x: `${origin}${path({ scale: '2' })}`, previewImage: path(), previewImage2x: path({ scale: '2' }), downloads, href, alt, ...SIZES[c.id] };
 }
 
-/** The HTML a candidate pastes into their site: a plain link around the image, no script. */
+/** The HTML someone pastes into their site: a plain link around the image, no script. */
 export function badgeSnippet(c: BadgeChoice, site: string): string {
   const a = badgeAssets(c, site);
   const href = escapeAttr(a.href);

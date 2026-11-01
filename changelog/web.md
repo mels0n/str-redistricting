@@ -1,5 +1,10 @@
 # Web changelog
 
+## 1.11.0 (2026-11-01)
+
+- feat(web): open the badges page to everyone and point people to it
+- fix(web): keep the pledges page inside the screen on phones
+
 ## 1.10.0 (2026-10-31)
 
 - A new Badges for candidates page, linked from the footer and from the Pledges page, offers a crest, an end-gerrymandering seal, a pledge card, the "I back Fair Maps" button, a badge with your state's map for the U.S. House and for each state chamber, and a profile photo frame. Each badge has a light and a dark version, a snippet to copy, and files to download for the web and for print.

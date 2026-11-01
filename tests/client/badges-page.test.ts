@@ -321,6 +321,8 @@ describe('profile photo frame', () => {
     const ring = frame.querySelector<HTMLImageElement>('.strv-badges__preview img')!;
     expect(ring.getAttribute('src')).toBe('/badges/frame.png');
     expect(ring.getAttribute('alt')).toBe('The Fair Maps ring');
+    expect(ring.className).toBe('strv-badges__ring');
+    expect([ring.getAttribute('width'), ring.getAttribute('height')]).toEqual(['240', '240']);
     expect(frame.querySelector('h2')!.textContent).toBe('Profile picture ring');
     const sections = [...page.el.querySelectorAll('.strv-badges__frame, .strv-badges__site, .strv-badges__state')].map((e) => e.className);
     expect(sections).toEqual(['strv-badges__frame', 'strv-badges__site', 'strv-badges__state']);
@@ -340,6 +342,42 @@ describe('profile photo frame', () => {
     await choose(pic(20 * 1024 * 1024 + 1));
     expect(page.el.querySelector('.strv-badges__frame .strv-badges__note')!.textContent).toBe('That picture is too large. Choose one under 20 MB.');
     expect(draws).toHaveLength(0);
+  });
+
+  const ringOnly = (page: { el: HTMLElement }) => {
+    const preview = page.el.querySelector('.strv-badges__frame .strv-badges__preview')!;
+    expect(preview.querySelector('canvas')).toBeNull();
+    expect(preview.querySelector('a[download]')).toBeNull();
+    expect(preview.querySelector('img')!.getAttribute('src')).toBe('/badges/frame.png');
+  };
+
+  it('takes the finished photo and its download away as soon as another photo is chosen', async () => {
+    const decode = vi.fn().mockResolvedValueOnce({ width: 10, height: 10, close: vi.fn() }).mockReturnValueOnce(NEVER());
+    const { page, choose } = setup({ decode });
+    await choose(pic());
+    expect(page.el.querySelector('a[download="fair-maps-photo.png"]')).not.toBeNull();
+    await choose(pic());
+    ringOnly(page);
+  });
+
+  it.each([
+    ['a file that is not a picture', {}, () => pic(10, 'application/pdf')],
+    ['a picture over 20 MB', {}, () => pic(20 * 1024 * 1024 + 1)],
+    ['a file that will not decode', { bad: true }, () => pic()],
+  ])('shows the ring again after a good photo and then %s', async (_n, opt, file) => {
+    const good = { width: 10, height: 10, close: vi.fn() } as unknown as ImageBitmap;
+    const decode = 'bad' in opt ? vi.fn().mockResolvedValueOnce(good).mockRejectedValueOnce(new Error('bad')) : vi.fn(async () => good);
+    const { page, choose } = setup({ decode });
+    await choose(pic());
+    expect(page.el.querySelector('.strv-badges__preview canvas')).not.toBeNull();
+    await choose(file());
+    ringOnly(page);
+  });
+
+  it('shows the ring again after a drawing fails', async () => {
+    const { page, choose } = setup({ loadRing: async () => Promise.reject(new Error('x')) });
+    await choose(pic());
+    ringOnly(page);
   });
 
   it('says it is not a picture when the file will not decode', async () => {

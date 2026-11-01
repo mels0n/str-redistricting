@@ -3,7 +3,7 @@ import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { scanForBadge } from '../../src/server/features/badge/index.js';
 import { BADGE_SIZES, stateBadgeSvg } from '../../src/server/features/publish/index.js';
-import { BADGE_SNIPPET, badgeAssets, badgeSnippet, type BadgeChoice } from '../../src/client/features/badge-snippet';
+import { BADGE_SNIPPET, FRAME_PRINT, FRAME_RING, badgeAssets, badgeSnippet, type BadgeChoice } from '../../src/client/features/badge-snippet';
 
 const SITE = 'fairmaps.melson.us';
 const choices: BadgeChoice[] = (['light', 'dark'] as const).flatMap((theme) => [
@@ -122,14 +122,7 @@ describe('client and generator agree', () => {
   });
 
   it('the ring files named by the page exist', () => {
-    const ui = readFileSync(join(process.cwd(), 'src', 'client', 'pages', 'badges', 'ui.ts'), 'utf8');
-    for (const name of ['FRAME_RING', 'FRAME_PRINT']) {
-      const m = new RegExp(`const ${name} = '([^']+)'`).exec(ui);
-      expect(m, name).not.toBeNull();
-      expect(existsSync(join(PUBLIC, m![1]!)), m![1]).toBe(true);
-    }
-    expect(existsSync(join(PUBLIC, 'badges', 'frame.png'))).toBe(true);
-    expect(existsSync(join(PUBLIC, 'badges', 'frame-print.png'))).toBe(true);
+    for (const path of [FRAME_RING, FRAME_PRINT]) expect(existsSync(join(PUBLIC, path)), path).toBe(true);
   });
 
   it('sizes equal the generator sizes', () => {

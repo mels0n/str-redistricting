@@ -25,6 +25,10 @@ export interface BadgeAssets {
 }
 
 /** The live button snippet, as /pledges has always shown it. */
+/** The profile picture ring and its print version, as published by `npm run badges`. */
+export const FRAME_RING = '/badges/frame.png';
+export const FRAME_PRINT = '/badges/frame-print.png';
+
 export const BADGE_SNIPPET = `<a href="https://${config.siteHost}/pledges"><img src="https://${config.siteHost}/api/badge" alt="I back Fair Maps" width="200" height="40"></a>`;
 
 const SIZES = {

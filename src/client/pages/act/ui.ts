@@ -1,4 +1,5 @@
 import { h, announce, takeSigned, PAGE_META, routeHref, iconArrowLeft, NATIONAL, BADGES, type Page } from '../../shared';
+import { FRAME_RING } from '../../features/badge-snippet';
 import { createTakeAction } from '../../widgets/take-action';
 import { createVoices } from '../../widgets/voices';
 
@@ -32,7 +33,7 @@ export function createActPage(state: string | null): Page {
       h(
         'section',
         { class: 'strv-act-page__support', 'aria-labelledby': 'strv-act-support-h' },
-        h('img', { src: '/badges/frame.png', alt: '', width: '96', height: '96' }),
+        h('img', { src: FRAME_RING, alt: '', width: '96', height: '96', loading: 'lazy' }),
         h(
           'div',
           null,

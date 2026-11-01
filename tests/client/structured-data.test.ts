@@ -88,6 +88,12 @@ describe('page graphs', () => {
     expect(census).not.toHaveProperty('license');
   });
 
+  it('names the badges page Badges in its breadcrumb', () => {
+    const g = jsonLd('badges', faq)[0] as unknown as Graph;
+    const crumbs = g['@graph'].find((n) => n['@type'] === 'BreadcrumbList')!.itemListElement as { name: string }[];
+    expect(crumbs.map((c) => c.name)).toEqual(['Home', 'Badges']);
+  });
+
   it('types the other pages', () => {
     expect(types(jsonLd('how', faq)[0] as unknown as Graph)).toContain('TechArticle');
     const t = types(jsonLd('changelog', faq)[0] as unknown as Graph);

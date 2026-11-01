@@ -1,6 +1,6 @@
 import { h, announce, config, tokens, PAGE_META, type Chamber, routeHref, iconArrowLeft, NATIONAL, PRIVACY, PLEDGES, type Page } from '../../shared';
 import { loadIndex, byName, chamberView, isGeneratedIn, nameOfState, seatsIn, type StateIndex } from '../../entities/state';
-import { badgeAssets, badgeSnippet, type BadgeChoice } from '../../features/badge-snippet';
+import { FRAME_PRINT, FRAME_RING, badgeAssets, badgeSnippet, type BadgeChoice } from '../../features/badge-snippet';
 
 /** A badge card and the way to make it re-read its choice after the choice has changed. */
 export interface BadgeCard {
@@ -229,8 +229,6 @@ function statePicker(load: () => Promise<StateIndex>): { el: HTMLElement; destro
 
 const FRAME_SIZE = 1080;
 const FRAME_MAX_BYTES = 20 * 1024 * 1024;
-const FRAME_RING = '/badges/frame.png';
-const FRAME_PRINT = '/badges/frame-print.png';
 const NOT_PICTURE = 'That file isn’t a picture. Choose a JPG or PNG.';
 const MAKE_FAILED = 'Couldn’t make the picture. Try again.';
 const TOO_LARGE = 'That picture is too large. Choose one under 20 MB.';
@@ -285,6 +283,8 @@ function frameCard(deps: FrameDeps): { el: HTMLElement; destroy: () => void } {
     if (!file) return;
     const mine = ++latest;
     revoke();
+    // The earlier photo's download address was just revoked, so its canvas and link go too.
+    showRing();
     message.textContent = '';
     if (!file.type.startsWith('image/')) {
       fail(NOT_PICTURE);

@@ -42,7 +42,9 @@ describe('confirm page', () => {
     expect(init.method).toBe('POST');
     expect(JSON.parse(init.body as string)).toEqual({ token: TOKEN });
     expect(page.el.querySelector('[role="status"]')!.textContent).toBe('You’re signed. Thanks for adding your name.');
-    const back = page.el.querySelector('a')!;
+    const ring = page.el.querySelector<HTMLAnchorElement>('a[href="/badges"]')!;
+    expect(ring.textContent).toBe('put the Fair Maps ring on your profile picture');
+    const back = page.el.querySelector('a.strv-back')!;
     expect(back.textContent).toBe('Back to the maps');
     expect(back.getAttribute('href')).toBe('/CO?signed=1');
     expect(page.el.querySelector('button')).toBeNull();

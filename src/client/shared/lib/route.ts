@@ -9,7 +9,7 @@
  *   /pledges                   sites that show the Fair Maps badge
  *   /act                       find your representatives, email them, add your name; /act?state=CO starts on a state
  *   /privacy                   what the sign-on collects and keeps
- *   /badges                    badges for candidates to put on their sites
+ *   /badges                    badges anyone can show: a profile picture ring and badges for a website
  *   /remove                    ask for a removal link; /remove?token=... confirms a removal
  *   /confirm?token=...         confirms a signature (the link in the confirmation email)
  *   /faq/ties                  the same page, at one question

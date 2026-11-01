@@ -5229,6 +5229,29 @@ var {
   letter-spacing: -0.03em;
 }
 
+.strv-act-page__support {
+  display: flex;
+  gap: var(--s-4);
+  align-items: center;
+  padding: var(--s-4);
+  border: 2px solid var(--ink);
+  background: var(--paper);
+}
+
+.strv-act-page__support-h {
+  margin: 0;
+  font-size: 1.25rem;
+  line-height: 1.2;
+}
+
+.strv-act-page__support img {
+  flex: none;
+}
+
+.strv-act-page__support p {
+  margin: var(--s-2) 0;
+}
+
 .strv-act-page__lede {
   max-width: 46ch;
   margin: 0;
@@ -5537,12 +5560,15 @@ var {
 
 /* ---------- Badges for candidates ---------- */
 
+.strv-badges__site,
 .strv-badges__state {
   padding: var(--s-5) var(--gutter) 0;
 }
+.strv-badges__site > p,
 .strv-badges__state > p {
   margin: 0 0 var(--s-4);
 }
+.strv-badges__site .strv-badges__grid,
 .strv-badges__state .strv-badges__grid {
   padding-inline: 0;
 }
@@ -5576,8 +5602,10 @@ var {
 .strv-badges__note:empty {
   display: none;
 }
-.strv-badges__preview canvas {
-  max-width: 100%;
+.strv-badges__preview canvas,
+.strv-badges__ring {
+  width: 100%;
+  max-width: 20rem;
   height: auto;
 }
 .strv-badges__frame .strv-badges__preview {

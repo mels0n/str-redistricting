@@ -1,4 +1,4 @@
-import { h, clear, PAGE_META, routeHref, iconArrowLeft, NATIONAL, type Page } from '../../shared';
+import { h, clear, PAGE_META, routeHref, iconArrowLeft, NATIONAL, BADGES, type Page } from '../../shared';
 
 export const CONFIRM_COPY = {
   h1: 'Confirming your signature',
@@ -47,7 +47,11 @@ export function createConfirmPage(token: string | null, mode: 'live' | 'static' 
     clear(body);
     const back = h('a', { href: outcome.kind === 'done' ? `/${outcome.state}?signed=1` : routeHref(NATIONAL), class: 'strv-back' }, iconArrowLeft(), CONFIRM_COPY.back);
     if (outcome.kind === 'done') {
-      body.append(h('p', { class: 'strv-sign__done', role: 'status', tabindex: -1 }, CONFIRM_COPY.done), back);
+      body.append(
+        h('p', { class: 'strv-sign__done', role: 'status', tabindex: -1 }, CONFIRM_COPY.done),
+        h('p', null, 'Show that you signed: ', h('a', { href: routeHref(BADGES) }, 'put the Fair Maps ring on your profile picture'), '.'),
+        back,
+      );
     } else {
       body.append(h('p', { class: 'strv-sign__error', role: 'alert' }, CONFIRM_COPY[outcome.kind]), back);
     }

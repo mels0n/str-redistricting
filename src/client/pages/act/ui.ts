@@ -1,4 +1,4 @@
-import { h, announce, takeSigned, PAGE_META, routeHref, iconArrowLeft, NATIONAL, type Page } from '../../shared';
+import { h, announce, takeSigned, PAGE_META, routeHref, iconArrowLeft, NATIONAL, BADGES, type Page } from '../../shared';
 import { createTakeAction } from '../../widgets/take-action';
 import { createVoices } from '../../widgets/voices';
 
@@ -29,6 +29,18 @@ export function createActPage(state: string | null): Page {
       h('p', { class: 'strv-act-page__lede' }, 'Tell your representatives you want districts drawn by a rule, then add your name.'),
       notice,
       action.el,
+      h(
+        'section',
+        { class: 'strv-act-page__support', 'aria-labelledby': 'strv-act-support-h' },
+        h('img', { src: '/badges/frame.png', alt: '', width: '96', height: '96' }),
+        h(
+          'div',
+          null,
+          h('h2', { id: 'strv-act-support-h', class: 'strv-act-page__support-h' }, 'Show your support'),
+          h('p', null, 'Put the Fair Maps ring on your profile picture, or a badge on your website.'),
+          h('a', { href: routeHref(BADGES) }, 'Get a badge'),
+        ),
+      ),
     ),
   );
   document.title = PAGE_META.act.title;

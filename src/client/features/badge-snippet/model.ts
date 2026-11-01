@@ -96,7 +96,7 @@ export function badgeAssets(c: BadgeChoice, site: string): BadgeAssets {
   return { image: `${origin}${path()}`, image2x: `${origin}${path({ scale: '2' })}`, previewImage: path(), previewImage2x: path({ scale: '2' }), downloads, href, alt, ...SIZES[c.id] };
 }
 
-/** The HTML a candidate pastes into their site: a plain link around the image, no script. */
+/** The HTML someone pastes into their site: a plain link around the image, no script. */
 export function badgeSnippet(c: BadgeChoice, site: string): string {
   const a = badgeAssets(c, site);
   const href = escapeAttr(a.href);

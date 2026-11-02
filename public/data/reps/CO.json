@@ -3,7 +3,7 @@
   "generatedFrom": {
     "legislators-current.json": "ae8cb9477c48715df71a7d860854229d799dc90a254d61badc1efb770f892b2c",
     "legislators-social-media.json": "c6eca1fcdb3a89901335eed51ca061daa4b60ad3243969a127e913bb9657fbc5",
-    "co.csv": "9520abbafebc90941e79dfd39660c2283ae79b38c43aef35075e59c61649910d"
+    "co.csv": "2e9ab0428db35199285e129855c63b437620f0465ea7fd2b966eb945131f05a2"
   },
   "byKey": {
     "CO:us-senate:state": [
@@ -833,6 +833,20 @@
           "facebook": "RepLindsay",
           "instagram": "rep_lindsay"
         }
+      }
+    ],
+    "CO:state-house:032": [
+      {
+        "id": "ocd-person/135499ed-a471-4567-afcc-53c16112f0d6",
+        "name": "María González",
+        "office": "state-house",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": null,
+        "phone": null,
+        "address": null,
+        "website": null,
+        "social": {}
       }
     ],
     "CO:state-house:021": [

@@ -3,7 +3,7 @@
   "generatedFrom": {
     "legislators-current.json": "ae8cb9477c48715df71a7d860854229d799dc90a254d61badc1efb770f892b2c",
     "legislators-social-media.json": "c6eca1fcdb3a89901335eed51ca061daa4b60ad3243969a127e913bb9657fbc5",
-    "ga.csv": "1d6f29f8757fdefd63dd011e0b4c934388a9922b44be9b5aefab3f2df13acb14"
+    "ga.csv": "9cff5b904d73675fbe7f383952c8a670d2f8553cfbf31fd34cdf5d78b29589d7"
   },
   "byKey": {
     "GA:us-house:02": [
@@ -3075,6 +3075,20 @@
         "districtCode": "047",
         "contactUrl": null,
         "email": "frank.ginn@senate.ga.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://www.legis.ga.gov/members/senate",
+        "social": {}
+      }
+    ],
+    "GA:state-senate:012": [
+      {
+        "id": "ocd-person/a0bfdc0d-4110-4cd2-b83c-834bba4300f5",
+        "name": "Freddie Sims",
+        "office": "state-senate",
+        "districtCode": "012",
+        "contactUrl": null,
+        "email": "freddie.sims@senate.ga.gov",
         "phone": null,
         "address": null,
         "website": "https://www.legis.ga.gov/members/senate",

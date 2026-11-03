@@ -1,5 +1,10 @@
 # Web changelog
 
+## 1.12.0 (2026-11-03)
+
+- You can now place your photo in the profile picture ring: drag it (or use the arrow keys) to move it, and use the Zoom slider to get closer. The download is always the picture as you see it.
+- A profile picture can't carry a link, so the ring card now gives a line to post with your new picture or put in your bio. It links to the badges page, so people who see your ring can find the site and get one too.
+
 ## 1.11.0 (2026-11-01)
 
 - The badges page is for everyone, not just candidates. It now starts with the profile picture ring, which shows the ring itself until you choose a photo, then the badges for a website, then the badges with your state's map.

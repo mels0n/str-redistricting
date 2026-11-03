@@ -488,6 +488,118 @@ describe('profile photo frame', () => {
       expect(again.defaultPrevented).toBe(false);
     });
 
+    /** Hold each encode until the test releases it, so encodes can overlap and finish in any order. */
+    const holdEncodes = (canvas: HTMLCanvasElement) => {
+      const pending: ((b: Blob | null) => void)[] = [];
+      (canvas as unknown as { toBlob: (cb: (b: Blob | null) => void) => void }).toBlob = (cb) => void pending.push(cb);
+      return pending;
+    };
+    const zoomTo = (zoom: HTMLInputElement, v: string) => {
+      zoom.value = v;
+      zoom.dispatchEvent(new Event('input'));
+    };
+    const blob = () => new Blob(['x'], { type: 'image/png' });
+
+    it('holds a click made while an encode is still running, and downloads the newest picture', async () => {
+      const { zoom, link, canvas } = await ready();
+      const pending = holdEncodes(canvas);
+      const relaunch = vi.spyOn(link, 'click');
+      vi.useFakeTimers();
+      try {
+        zoomTo(zoom, '2');
+        await vi.advanceTimersByTimeAsync(400);
+        expect(pending).toHaveLength(1);
+        const click = new MouseEvent('click', { cancelable: true });
+        link.dispatchEvent(click);
+        expect(click.defaultPrevented).toBe(true);
+        expect(link.getAttribute('href')).toBe('blob:fair-1');
+        pending[0]!(blob());
+        await vi.advanceTimersByTimeAsync(0);
+        expect(link.getAttribute('href')).toBe('blob:fair-2');
+        pending[1]?.(blob());
+        await vi.advanceTimersByTimeAsync(0);
+        expect(relaunch).toHaveBeenCalledTimes(1);
+        expect(link.getAttribute('href')).toBe('blob:fair-2');
+      } finally {
+        vi.useRealTimers();
+      }
+    });
+
+    it('never lets an older encode that finishes last replace a newer picture', async () => {
+      const { zoom, link, canvas, create } = await ready();
+      const pending = holdEncodes(canvas);
+      vi.useFakeTimers();
+      try {
+        zoomTo(zoom, '2');
+        await vi.advanceTimersByTimeAsync(400);
+        zoomTo(zoom, '3');
+        await vi.advanceTimersByTimeAsync(400);
+        expect(pending).toHaveLength(2);
+        pending[1]!(blob());
+        await vi.advanceTimersByTimeAsync(0);
+        expect(link.getAttribute('href')).toBe('blob:fair-2');
+        pending[0]!(blob());
+        await vi.advanceTimersByTimeAsync(0);
+        expect(link.getAttribute('href')).toBe('blob:fair-2');
+        expect(create).toHaveBeenCalledTimes(2);
+      } finally {
+        vi.useRealTimers();
+      }
+    });
+
+    it('says so and shows the ring again when the picture cannot be made after a move', async () => {
+      const { page, zoom, canvas, photo } = await ready();
+      (canvas as unknown as { toBlob: (cb: (b: Blob | null) => void) => void }).toBlob = (cb) => cb(null);
+      vi.useFakeTimers();
+      try {
+        zoomTo(zoom, '2');
+        await vi.advanceTimersByTimeAsync(400);
+      } finally {
+        vi.useRealTimers();
+      }
+      expect(page.el.querySelector('.strv-badges__frame .strv-badges__note')!.textContent).toBe('Couldn’t make the picture. Try again.');
+      expect(page.el.querySelector('.strv-badges__frame .strv-badges__preview img')!.getAttribute('src')).toBe('/badges/frame.png');
+      expect(photo.close).toHaveBeenCalledTimes(1);
+    });
+
+    it('makes no picture after the page goes, even with a move waiting', async () => {
+      const { page, zoom, create } = await ready();
+      vi.useFakeTimers();
+      try {
+        zoomTo(zoom, '2');
+        page.destroy?.();
+        await vi.advanceTimersByTimeAsync(400);
+      } finally {
+        vi.useRealTimers();
+      }
+      expect(create).toHaveBeenCalledTimes(1);
+    });
+
+    it('leaves modified arrows to the browser and ignores a right click drag', async () => {
+      const { canvas, draws } = await ready();
+      const n = draws.length;
+      const back = new KeyboardEvent('keydown', { key: 'ArrowLeft', altKey: true, cancelable: true });
+      canvas.dispatchEvent(back);
+      expect(back.defaultPrevented).toBe(false);
+      const ptr = (type: string, x: number, init: MouseEventInit) =>
+        canvas.dispatchEvent(Object.assign(new MouseEvent(type, { clientX: x, ...init }), { pointerId: 1, pointerType: 'mouse' }));
+      ptr('pointerdown', 500, { button: 2 });
+      ptr('pointermove', 400, { buttons: 2 });
+      expect(draws).toHaveLength(n);
+    });
+
+    it('stops dragging when the mouse button is already up', async () => {
+      const { canvas, draws } = await ready();
+      const ptr = (type: string, x: number, init: MouseEventInit) =>
+        canvas.dispatchEvent(Object.assign(new MouseEvent(type, { clientX: x, ...init }), { pointerId: 1, pointerType: 'mouse' }));
+      ptr('pointerdown', 500, { button: 0, buttons: 1 });
+      ptr('pointermove', 450, { buttons: 1 });
+      const n = draws.length;
+      ptr('pointermove', 400, { buttons: 0 });
+      ptr('pointermove', 300, { buttons: 1 });
+      expect(draws).toHaveLength(n);
+    });
+
     it('encodes the download by itself once the moves stop', async () => {
       const { zoom, link } = await ready();
       vi.useFakeTimers();

@@ -3,7 +3,7 @@
 ## 1.12.0 (2026-11-03)
 
 - You can now place your photo in the profile picture ring: drag it (or use the arrow keys) to move it, and use the Zoom slider to get closer. The download is always the picture as you see it.
-- The ring now shows fairmaps.melson.us round the top, so people who see it can find the site. The card also gives a line to post with your new picture or put in your bio, with a link to get the ring.
+- A profile picture can't carry a link, so the ring card now gives a line to post with your new picture or put in your bio. It links to the badges page, so people who see your ring can find the site and get one too.
 
 ## 1.11.0 (2026-11-01)
 

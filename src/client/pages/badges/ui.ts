@@ -268,7 +268,7 @@ const RING_POST = `I support fair maps. Get the ring for your profile picture at
 
 /**
  * The profile photo frame: the ring to download, a tool that puts a chosen photo under the ring, and a line to post with
- * it so people who see the ring can find the site. The photo starts center-cropped; dragging it or the arrow keys move it
+ * it so people who see the ring can find the site, since a picture can't carry a link. The photo starts center-cropped; dragging it or the arrow keys move it
  * and the slider zooms in. It is decoded and drawn on a canvas in this page and is never sent anywhere.
  */
 function frameCard(deps: FrameDeps): { el: HTMLElement; destroy: () => void } {
@@ -278,7 +278,6 @@ function frameCard(deps: FrameDeps): { el: HTMLElement; destroy: () => void } {
   // The photo being adjusted, and the square of it that shows: its center and side in the photo's own pixels.
   let photo: ImageBitmap | null = null;
   let view = { x: 0, y: 0, side: 0 };
-  let dirty = false;
   let encodeTimer: ReturnType<typeof setTimeout> | undefined;
   const revoke = (): void => {
     if (url) URL.revokeObjectURL(url);
@@ -356,23 +355,35 @@ function frameCard(deps: FrameDeps): { el: HTMLElement; destroy: () => void } {
         ctx.drawImage(ring, 0, 0, FRAME_SIZE, FRAME_SIZE);
       };
       const link = h('a', { download: 'fair-maps-photo.png', class: 'strv-button strv-button--ink' }, 'Download my photo');
-      /** Encode the canvas into the download. False when the photo moved again meanwhile, or another photo replaced it. */
+      // Each move counts up; `shown` is the count the download link holds. Encodes can finish out of order, so a slower,
+      // older one never replaces a newer picture.
+      let moves = 0;
+      let shown = -1;
+      /** Encode the canvas as it is now into the download. True when the link holds the latest picture. */
       const encode = async (): Promise<boolean> => {
         clearTimeout(encodeTimer);
-        dirty = false;
+        const at = moves;
         const blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, 'image/png'));
-        if (!current(mine) || dirty) return false;
+        if (!current(mine)) return false;
         if (!blob) throw new Error('no picture');
-        revoke();
-        url = URL.createObjectURL(blob);
-        link.setAttribute('href', url);
-        return true;
+        if (at > shown) {
+          revoke();
+          url = URL.createObjectURL(blob);
+          link.setAttribute('href', url);
+          shown = at;
+        }
+        return shown === moves;
       };
-      const encodeOrFail = (): Promise<boolean> =>
-        encode().catch(() => {
+      /** Encode until the link holds the latest picture. False when it failed or another photo replaced this one. */
+      const settle = async (): Promise<boolean> => {
+        try {
+          while (current(mine) && shown !== moves) await encode();
+          return current(mine);
+        } catch {
           if (current(mine)) fail(MAKE_FAILED);
           return false;
-        });
+        }
+      };
       // Keep the shown square inside the photo, redraw, and encode the download once the moves stop.
       const move = (x: number, y: number, side: number): void => {
         view.side = Math.min(full, Math.max(full / ZOOM_MAX, side));
@@ -380,15 +391,15 @@ function frameCard(deps: FrameDeps): { el: HTMLElement; destroy: () => void } {
         view.x = Math.min(decoded.width - half, Math.max(half, x));
         view.y = Math.min(decoded.height - half, Math.max(half, y));
         paint();
-        dirty = true;
+        moves++;
         clearTimeout(encodeTimer);
-        encodeTimer = setTimeout(() => void encodeOrFail(), ENCODE_MS);
+        encodeTimer = setTimeout(() => void settle(), ENCODE_MS);
       };
       link.addEventListener('click', (e) => {
-        if (!dirty) return;
-        // The photo moved since it was last encoded: encode it now, then download that.
+        if (shown === moves) return;
+        // The photo moved since the link's picture was made: make the latest one, then download that.
         e.preventDefault();
-        void encodeOrFail().then((ok) => {
+        void settle().then((ok) => {
           if (ok) link.click();
         });
       });
@@ -402,11 +413,18 @@ function frameCard(deps: FrameDeps): { el: HTMLElement; destroy: () => void } {
       canvas.classList.add('strv-badges__canvas');
       let drag: { id: number; x: number; y: number } | null = null;
       canvas.addEventListener('pointerdown', (e) => {
+        // Only the main mouse button drags; a right click opens the menu and may never send its pointerup.
+        if (e.pointerType === 'mouse' && e.button !== 0) return;
         drag = { id: e.pointerId, x: e.clientX, y: e.clientY };
         canvas.setPointerCapture?.(e.pointerId);
       });
       canvas.addEventListener('pointermove', (e) => {
         if (!drag || e.pointerId !== drag.id) return;
+        // A mouse whose button came up somewhere this canvas never heard about is no longer dragging.
+        if (e.pointerType === 'mouse' && e.buttons === 0) {
+          drag = null;
+          return;
+        }
         // Screen pixels to photo pixels: the canvas shows `view.side` photo pixels across its drawn width.
         const scale = view.side / (canvas.clientWidth || FRAME_SIZE);
         const dx = e.clientX - drag.x;
@@ -420,7 +438,10 @@ function frameCard(deps: FrameDeps): { el: HTMLElement; destroy: () => void } {
       };
       canvas.addEventListener('pointerup', endDrag);
       canvas.addEventListener('pointercancel', endDrag);
+      canvas.addEventListener('lostpointercapture', endDrag);
       canvas.addEventListener('keydown', (e) => {
+        // Alt+arrow is the browser's back and forward; leave modified keys alone.
+        if (e.altKey || e.ctrlKey || e.metaKey) return;
         const step = view.side * NUDGE;
         const by: Record<string, [number, number]> = { ArrowLeft: [-step, 0], ArrowRight: [step, 0], ArrowUp: [0, -step], ArrowDown: [0, step] };
         const d = by[e.key];
@@ -463,7 +484,7 @@ function frameCard(deps: FrameDeps): { el: HTMLElement; destroy: () => void } {
     message,
     result,
     h('label', { class: 'strv-badges__label', for: 'strv-badges-post' }, 'Post this with your new picture, or put it in your bio'),
-    h('p', null, 'A profile picture can’t carry a link, so the ring shows our address. This line gives people a link to tap, so they can get the ring too.'),
+    h('p', null, 'A profile picture can’t carry a link. This line gives people one to tap, so they can find the site and get the ring too.'),
     post,
     copyControl(post).button,
   );

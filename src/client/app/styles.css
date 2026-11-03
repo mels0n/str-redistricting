@@ -5615,6 +5615,32 @@ var {
 .strv-badges__frame .strv-button--ink {
   color: var(--paper);
 }
+/* The photo moves under a finger or the mouse, so the page must not scroll or zoom from a drag on it. */
+.strv-badges__canvas {
+  cursor: grab;
+  touch-action: none;
+}
+.strv-badges__canvas:active {
+  cursor: grabbing;
+}
+.strv-badges__canvas:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 3px;
+}
+.strv-badges__hint {
+  margin: 0;
+}
+.strv-badges__zoom-row {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  width: 100%;
+  max-width: 20rem;
+}
+.strv-badges__zoom {
+  flex: 1;
+  min-width: 0;
+}
 .strv-badges__empty {
   margin: 0;
   padding: 1.5rem 1rem;

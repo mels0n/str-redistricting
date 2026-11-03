@@ -269,7 +269,7 @@ const RING_POST = `I support fair maps. Get the ring for your profile picture at
 /**
  * The profile photo frame: the ring to download, a tool that puts a chosen photo under the ring, and a line to post with
  * it so people who see the ring can find the site, since a picture can't carry a link. The photo starts center-cropped; dragging it or the arrow keys move it
- * and the slider zooms in. It is decoded and drawn on a canvas in this page and is never sent anywhere.
+ * and the slider zooms in, or out until the whole photo fits. It is decoded and drawn on a canvas in this page and is never sent anywhere.
  */
 function frameCard(deps: FrameDeps): { el: HTMLElement; destroy: () => void } {
   let url = '';
@@ -345,13 +345,24 @@ function frameCard(deps: FrameDeps): { el: HTMLElement; destroy: () => void } {
       const ctx = canvas.getContext('2d');
       if (!ctx) throw new Error('no canvas');
       const full = Math.min(decoded.width, decoded.height);
+      // Zoomed all the way out, the square is as wide as the photo's longer side, so the whole photo shows.
+      const whole = Math.max(decoded.width, decoded.height);
       view = { x: decoded.width / 2, y: decoded.height / 2, side: full };
 
       const paint = (): void => {
         // A transparent PNG would otherwise leave transparent pixels, which social sites show as black.
+        // The ground also fills the square around a photo zoomed out past its shorter side.
         ctx.fillStyle = tokens.ground;
         ctx.fillRect(0, 0, FRAME_SIZE, FRAME_SIZE);
-        ctx.drawImage(decoded, view.x - view.side / 2, view.y - view.side / 2, view.side, view.side, 0, 0, FRAME_SIZE, FRAME_SIZE);
+        // Draw only the part of the square that lies on the photo: a source rectangle past the photo's edge is not drawn
+        // the same way in every browser.
+        const half = view.side / 2;
+        const scale = FRAME_SIZE / view.side;
+        const sx = Math.max(0, view.x - half);
+        const sy = Math.max(0, view.y - half);
+        const sw = Math.min(decoded.width, view.x + half) - sx;
+        const sh = Math.min(decoded.height, view.y + half) - sy;
+        ctx.drawImage(decoded, sx, sy, sw, sh, (sx - view.x + half) * scale, (sy - view.y + half) * scale, sw * scale, sh * scale);
         ctx.drawImage(ring, 0, 0, FRAME_SIZE, FRAME_SIZE);
       };
       const link = h('a', { download: 'fair-maps-photo.png', class: 'strv-button strv-button--ink' }, 'Download my photo');
@@ -384,12 +395,14 @@ function frameCard(deps: FrameDeps): { el: HTMLElement; destroy: () => void } {
           return false;
         }
       };
-      // Keep the shown square inside the photo, redraw, and encode the download once the moves stop.
+      // Keep the shown square inside the photo along a side longer than the square, and the photo inside the square along
+      // a side shorter than it; redraw, and encode the download once the moves stop.
       const move = (x: number, y: number, side: number): void => {
-        view.side = Math.min(full, Math.max(full / ZOOM_MAX, side));
+        view.side = Math.min(whole, Math.max(full / ZOOM_MAX, side));
         const half = view.side / 2;
-        view.x = Math.min(decoded.width - half, Math.max(half, x));
-        view.y = Math.min(decoded.height - half, Math.max(half, y));
+        const within = (v: number, length: number): number => Math.min(Math.max(half, length - half), Math.max(Math.min(half, length - half), v));
+        view.x = within(x, decoded.width);
+        view.y = within(y, decoded.height);
         paint();
         moves++;
         clearTimeout(encodeTimer);
@@ -404,7 +417,8 @@ function frameCard(deps: FrameDeps): { el: HTMLElement; destroy: () => void } {
         });
       });
 
-      const zoom = h('input', { type: 'range', min: '1', max: String(ZOOM_MAX), step: '0.01', value: '1', id: 'strv-badges-zoom', class: 'strv-badges__zoom' });
+      // 1 fills the square with the photo's shorter side; below 1 zooms out. A step of `any` keeps 1 reachable whatever the minimum.
+      const zoom = h('input', { type: 'range', min: String(full / whole), max: String(ZOOM_MAX), step: 'any', value: '1', id: 'strv-badges-zoom', class: 'strv-badges__zoom' });
       zoom.addEventListener('input', () => move(view.x, view.y, full / Number(zoom.value)));
 
       canvas.setAttribute('role', 'img');

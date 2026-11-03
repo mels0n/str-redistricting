@@ -447,6 +447,21 @@ describe('profile photo frame', () => {
       expect(lastPhotoDraw(draws, photo)[2]).toBe(250);
     });
 
+    it('zooms out until the whole photo fits, with the ground around it, and keeps the photo inside the square', async () => {
+      const { zoom, draws, photo, canvas } = await ready();
+      expect(zoom.min).toBe('0.5');
+      zoom.value = '0.1';
+      zoom.dispatchEvent(new Event('input'));
+      // Wider than the square is tall: the 2000 by 1000 photo fills the width and sits in the middle, 540 high.
+      expect(draws.filter((d) => d[0] === photo).at(-1)).toEqual([photo, 0, 0, 2000, 1000, 0, 270, 1080, 540]);
+      expect(draws.at(-3)).toEqual(['fill', '#F3EFE5', 0, 0, 1080, 1080]);
+      // Dragged down past the edge, the photo stops at the bottom of the square.
+      const ptr = (type: string, y: number) => canvas.dispatchEvent(Object.assign(new MouseEvent(type, { clientX: 0, clientY: y }), { pointerId: 1 }));
+      ptr('pointerdown', 0);
+      ptr('pointermove', 5000);
+      expect(draws.filter((d) => d[0] === photo).at(-1)).toEqual([photo, 0, 0, 2000, 1000, 0, 540, 1080, 540]);
+    });
+
     it('moves with a drag and stays inside the photo', async () => {
       const { canvas, draws, photo } = await ready();
       const ptr = (type: string, x: number, y = 0) => canvas.dispatchEvent(Object.assign(new MouseEvent(type, { clientX: x, clientY: y }), { pointerId: 1 }));

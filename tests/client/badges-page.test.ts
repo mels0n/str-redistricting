@@ -447,6 +447,62 @@ describe('profile photo frame', () => {
       expect(lastPhotoDraw(draws, photo)[2]).toBe(250);
     });
 
+    describe('zoomed out', () => {
+      const fullDraw = (draws: unknown[][], photo: ImageBitmap) => draws.filter((d) => d[0] === photo).at(-1)!.slice(1).map((v) => Math.round(Number(v) * 100) / 100);
+      const dragBy = (canvas: HTMLCanvasElement, dx: number, dy: number) => {
+        const ptr = (type: string, x: number, y: number) => canvas.dispatchEvent(Object.assign(new MouseEvent(type, { clientX: x, clientY: y }), { pointerId: 1 }));
+        ptr('pointerdown', 0, 0);
+        ptr('pointermove', dx, dy);
+        ptr('pointerup', dx, dy);
+      };
+
+      it('goes down to where the whole photo fits, with the ground drawn first around it', async () => {
+        const { zoom, draws, photo } = await ready();
+        expect(zoom.min).toBe('0.5');
+        zoom.value = '0.1';
+        zoom.dispatchEvent(new Event('input'));
+        // Wider than the square is tall: the 2000 by 1000 photo fills the width and sits in the middle, 540 high.
+        expect(fullDraw(draws, photo)).toEqual([0, 0, 2000, 1000, 0, 270, 1080, 540]);
+        const firsts = draws.map((d) => d[0]);
+        const fill = firsts.lastIndexOf('fill');
+        expect(draws[fill]).toEqual(['fill', '#F3EFE5', 0, 0, 1080, 1080]);
+        expect(fill).toBeLessThan(firsts.lastIndexOf(photo));
+      });
+
+      it('keeps the photo inside the square: stopped at the bottom and the top, and held still across', async () => {
+        const { zoom, draws, photo, canvas } = await ready();
+        zoom.value = '0.5';
+        zoom.dispatchEvent(new Event('input'));
+        dragBy(canvas, 0, 5000);
+        expect(fullDraw(draws, photo)).toEqual([0, 0, 2000, 1000, 0, 540, 1080, 540]);
+        dragBy(canvas, 0, -5000);
+        expect(fullDraw(draws, photo)).toEqual([0, 0, 2000, 1000, 0, 0, 1080, 540]);
+        dragBy(canvas, 5000, 0);
+        expect(fullDraw(draws, photo)).toEqual([0, 0, 2000, 1000, 0, 0, 1080, 540]);
+      });
+
+      it('between the two, keeps the square inside the photo across and the photo inside the square down', async () => {
+        const { zoom, draws, photo, canvas } = await ready();
+        // 1333 photo pixels across the square: narrower than the photo, taller than it.
+        zoom.value = '0.75';
+        zoom.dispatchEvent(new Event('input'));
+        expect(fullDraw(draws, photo)).toEqual([333.33, 0, 1333.33, 1000, 0, 135, 1080, 810]);
+        dragBy(canvas, -5000, 5000);
+        expect(fullDraw(draws, photo)).toEqual([666.67, 0, 1333.33, 1000, 0, 270, 1080, 810]);
+      });
+
+      it('fits a portrait photo by its height, side to side', async () => {
+        const tall = { width: 1000, height: 2000, close: vi.fn() } as unknown as ImageBitmap;
+        const { page, choose, draws } = setup({ decode: async () => tall });
+        await choose(pic());
+        const zoom = page.el.querySelector<HTMLInputElement>('#strv-badges-zoom')!;
+        expect(zoom.min).toBe('0.5');
+        zoom.value = '0.1';
+        zoom.dispatchEvent(new Event('input'));
+        expect(fullDraw(draws, tall)).toEqual([0, 0, 1000, 2000, 270, 0, 540, 1080]);
+      });
+    });
+
     it('moves with a drag and stays inside the photo', async () => {
       const { canvas, draws, photo } = await ready();
       const ptr = (type: string, x: number, y = 0) => canvas.dispatchEvent(Object.assign(new MouseEvent(type, { clientX: x, clientY: y }), { pointerId: 1 }));

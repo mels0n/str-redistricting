@@ -1,4 +1,4 @@
-import { h, announce, config, tokens, PAGE_META, type Chamber, routeHref, iconArrowLeft, NATIONAL, PRIVACY, PLEDGES, type Page } from '../../shared';
+import { h, announce, config, tokens, PAGE_META, type Chamber, routeHref, iconArrowLeft, BADGES, NATIONAL, PRIVACY, PLEDGES, type Page } from '../../shared';
 import { loadIndex, byName, chamberView, isGeneratedIn, nameOfState, seatsIn, type StateIndex } from '../../entities/state';
 import { FRAME_PRINT, FRAME_RING, badgeAssets, badgeSnippet, type BadgeChoice } from '../../features/badge-snippet';
 
@@ -13,6 +13,34 @@ export interface BadgeCard {
 const COPIED_MS = 2000;
 let cardCount = 0;
 
+/** A Copy button for a read-only box, and the way to put its label back. Without the clipboard it selects the text instead. */
+function copyControl(box: HTMLTextAreaElement): { button: HTMLButtonElement; reset: () => void } {
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  const button = h('button', { type: 'button', class: 'strv-button strv-button--ink' }, 'Copy');
+  const reset = (): void => {
+    clearTimeout(timer);
+    button.textContent = 'Copy';
+  };
+  button.addEventListener('click', () => {
+    const fallback = (): void => {
+      box.focus();
+      box.select();
+      button.textContent = 'Select and copy';
+    };
+    if (typeof navigator === 'undefined' || !navigator.clipboard) {
+      fallback();
+      return;
+    }
+    navigator.clipboard.writeText(box.value).then(() => {
+      button.textContent = 'Copied';
+      announce('Copied');
+      clearTimeout(timer);
+      timer = setTimeout(reset, COPIED_MS);
+    }, fallback);
+  });
+  return { button, reset };
+}
+
 /**
  * One badge: its preview (the same address an embed loads), a light and dark switch, the snippet to paste and the files to
  * download. `choice` gives the badge each time the card draws, so a card whose badge can change (the state badge) is
@@ -23,7 +51,6 @@ let cardCount = 0;
 export function badgeCard(choice: () => BadgeChoice | null, title: string, emptyText: string | (() => string) = ''): BadgeCard {
   const uid = `strv-badges-card-${cardCount++}`;
   let theme: BadgeChoice['theme'] = 'light';
-  let timer: ReturnType<typeof setTimeout> | undefined;
 
   const img = h('img', { class: 'strv-badges__img', alt: '' });
   const preview = h('div', { class: 'strv-badges__preview' }, img);
@@ -31,7 +58,7 @@ export function badgeCard(choice: () => BadgeChoice | null, title: string, empty
   const heading = h('h2', { class: 'strv-badges__h', id: `${uid}-h` }, title);
   const group = h('div', { class: 'strv-badges__switch', role: 'group', 'aria-label': `${title} colors` });
   const downloads = h('ul', { class: 'strv-badges__downloads' });
-  const copy = h('button', { type: 'button', class: 'strv-button strv-button--ink' }, 'Copy');
+  const { button: copy, reset: resetCopy } = copyControl(box);
   const switchButtons = (['light', 'dark'] as const).map((t) =>
     h(
       'button',
@@ -47,28 +74,6 @@ export function badgeCard(choice: () => BadgeChoice | null, title: string, empty
       t === 'light' ? 'Light' : 'Dark',
     ),
   );
-
-  const resetCopy = (): void => {
-    clearTimeout(timer);
-    copy.textContent = 'Copy';
-  };
-  copy.addEventListener('click', () => {
-    const fallback = (): void => {
-      box.focus();
-      box.select();
-      copy.textContent = 'Select and copy';
-    };
-    if (typeof navigator === 'undefined' || !navigator.clipboard) {
-      fallback();
-      return;
-    }
-    navigator.clipboard.writeText(box.value).then(() => {
-      copy.textContent = 'Copied';
-      announce('Copied');
-      clearTimeout(timer);
-      timer = setTimeout(resetCopy, COPIED_MS);
-    }, fallback);
-  });
 
   const empty = h('p', { class: 'strv-badges__empty' });
 
@@ -254,17 +259,35 @@ const browserDeps: FrameDeps = {
   makeCanvas: () => document.createElement('canvas'),
 };
 
+const ZOOM_MAX = 4;
+/** One arrow key press moves the photo this share of the visible square. */
+const NUDGE = 0.04;
+/** Wait this long after the last move before encoding the download. */
+const ENCODE_MS = 300;
+const RING_POST = `I support fair maps. Get the ring for your profile picture at https://${config.siteHost}${routeHref(BADGES)}`;
+
 /**
- * The profile photo frame: the ring to download, and a tool that puts a chosen photo under the ring. The photo is decoded
- * and drawn on a canvas in this page and is never sent anywhere.
+ * The profile photo frame: the ring to download, a tool that puts a chosen photo under the ring, and a line to post with
+ * it so people who see the ring can find the site. The photo starts center-cropped; dragging it or the arrow keys move it
+ * and the slider zooms in. It is decoded and drawn on a canvas in this page and is never sent anywhere.
  */
 function frameCard(deps: FrameDeps): { el: HTMLElement; destroy: () => void } {
   let url = '';
   let latest = 0;
   let gone = false;
+  // The photo being adjusted, and the square of it that shows: its center and side in the photo's own pixels.
+  let photo: ImageBitmap | null = null;
+  let view = { x: 0, y: 0, side: 0 };
+  let dirty = false;
+  let encodeTimer: ReturnType<typeof setTimeout> | undefined;
   const revoke = (): void => {
     if (url) URL.revokeObjectURL(url);
     url = '';
+  };
+  const drop = (): void => {
+    clearTimeout(encodeTimer);
+    photo?.close?.();
+    photo = null;
   };
 
   const input = h('input', { type: 'file', accept: 'image/*', id: 'strv-badges-photo', class: 'strv-badges__file' });
@@ -274,6 +297,7 @@ function frameCard(deps: FrameDeps): { el: HTMLElement; destroy: () => void } {
   const showRing = (): void => void result.replaceChildren(h('img', { src: FRAME_RING, alt: 'The Fair Maps ring', width: '240', height: '240', class: 'strv-badges__ring' }));
   const fail = (text: string): void => {
     message.textContent = text;
+    drop();
     showRing();
   };
   showRing();
@@ -283,6 +307,7 @@ function frameCard(deps: FrameDeps): { el: HTMLElement; destroy: () => void } {
     if (!file) return;
     const mine = ++latest;
     revoke();
+    drop();
     // The earlier photo's download address was just revoked, so its canvas and link go too.
     showRing();
     message.textContent = '';
@@ -299,13 +324,19 @@ function frameCard(deps: FrameDeps): { el: HTMLElement; destroy: () => void } {
 
   const current = (mine: number): boolean => !gone && mine === latest;
   async function build(file: File, mine: number): Promise<void> {
-    let photo: ImageBitmap;
+    let decoded: ImageBitmap;
     try {
-      photo = await deps.decode(file);
+      decoded = await deps.decode(file);
     } catch {
       if (current(mine)) fail(NOT_PICTURE);
       return;
     }
+    if (!current(mine)) {
+      decoded.close?.();
+      return;
+    }
+    // Kept open while the photo is adjusted; closed when another is chosen, the drawing fails or the page goes.
+    photo = decoded;
     try {
       const ring = await deps.loadRing();
       if (!current(mine)) return;
@@ -314,25 +345,106 @@ function frameCard(deps: FrameDeps): { el: HTMLElement; destroy: () => void } {
       canvas.height = FRAME_SIZE;
       const ctx = canvas.getContext('2d');
       if (!ctx) throw new Error('no canvas');
-      const side = Math.min(photo.width, photo.height);
-      // A transparent PNG would otherwise leave transparent pixels, which social sites show as black.
-      ctx.fillStyle = tokens.ground;
-      ctx.fillRect(0, 0, FRAME_SIZE, FRAME_SIZE);
-      ctx.drawImage(photo, (photo.width - side) / 2, (photo.height - side) / 2, side, side, 0, 0, FRAME_SIZE, FRAME_SIZE);
-      ctx.drawImage(ring, 0, 0, FRAME_SIZE, FRAME_SIZE);
-      const blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, 'image/png'));
-      if (!current(mine)) return;
-      if (!blob) throw new Error('no picture');
-      url = URL.createObjectURL(blob);
+      const full = Math.min(decoded.width, decoded.height);
+      view = { x: decoded.width / 2, y: decoded.height / 2, side: full };
+
+      const paint = (): void => {
+        // A transparent PNG would otherwise leave transparent pixels, which social sites show as black.
+        ctx.fillStyle = tokens.ground;
+        ctx.fillRect(0, 0, FRAME_SIZE, FRAME_SIZE);
+        ctx.drawImage(decoded, view.x - view.side / 2, view.y - view.side / 2, view.side, view.side, 0, 0, FRAME_SIZE, FRAME_SIZE);
+        ctx.drawImage(ring, 0, 0, FRAME_SIZE, FRAME_SIZE);
+      };
+      const link = h('a', { download: 'fair-maps-photo.png', class: 'strv-button strv-button--ink' }, 'Download my photo');
+      /** Encode the canvas into the download. False when the photo moved again meanwhile, or another photo replaced it. */
+      const encode = async (): Promise<boolean> => {
+        clearTimeout(encodeTimer);
+        dirty = false;
+        const blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, 'image/png'));
+        if (!current(mine) || dirty) return false;
+        if (!blob) throw new Error('no picture');
+        revoke();
+        url = URL.createObjectURL(blob);
+        link.setAttribute('href', url);
+        return true;
+      };
+      const encodeOrFail = (): Promise<boolean> =>
+        encode().catch(() => {
+          if (current(mine)) fail(MAKE_FAILED);
+          return false;
+        });
+      // Keep the shown square inside the photo, redraw, and encode the download once the moves stop.
+      const move = (x: number, y: number, side: number): void => {
+        view.side = Math.min(full, Math.max(full / ZOOM_MAX, side));
+        const half = view.side / 2;
+        view.x = Math.min(decoded.width - half, Math.max(half, x));
+        view.y = Math.min(decoded.height - half, Math.max(half, y));
+        paint();
+        dirty = true;
+        clearTimeout(encodeTimer);
+        encodeTimer = setTimeout(() => void encodeOrFail(), ENCODE_MS);
+      };
+      link.addEventListener('click', (e) => {
+        if (!dirty) return;
+        // The photo moved since it was last encoded: encode it now, then download that.
+        e.preventDefault();
+        void encodeOrFail().then((ok) => {
+          if (ok) link.click();
+        });
+      });
+
+      const zoom = h('input', { type: 'range', min: '1', max: String(ZOOM_MAX), step: '0.01', value: '1', id: 'strv-badges-zoom', class: 'strv-badges__zoom' });
+      zoom.addEventListener('input', () => move(view.x, view.y, full / Number(zoom.value)));
+
       canvas.setAttribute('role', 'img');
-      canvas.setAttribute('aria-label', 'Your photo inside the Fair Maps ring');
-      result.replaceChildren(canvas, h('a', { href: url, download: 'fair-maps-photo.png', class: 'strv-button strv-button--ink' }, 'Download my photo'));
+      canvas.setAttribute('aria-label', 'Your photo inside the Fair Maps ring. Drag it, or use the arrow keys, to move it.');
+      canvas.setAttribute('tabindex', '0');
+      canvas.classList.add('strv-badges__canvas');
+      let drag: { id: number; x: number; y: number } | null = null;
+      canvas.addEventListener('pointerdown', (e) => {
+        drag = { id: e.pointerId, x: e.clientX, y: e.clientY };
+        canvas.setPointerCapture?.(e.pointerId);
+      });
+      canvas.addEventListener('pointermove', (e) => {
+        if (!drag || e.pointerId !== drag.id) return;
+        // Screen pixels to photo pixels: the canvas shows `view.side` photo pixels across its drawn width.
+        const scale = view.side / (canvas.clientWidth || FRAME_SIZE);
+        const dx = e.clientX - drag.x;
+        const dy = e.clientY - drag.y;
+        drag.x = e.clientX;
+        drag.y = e.clientY;
+        move(view.x - dx * scale, view.y - dy * scale, view.side);
+      });
+      const endDrag = (e: PointerEvent): void => {
+        if (drag?.id === e.pointerId) drag = null;
+      };
+      canvas.addEventListener('pointerup', endDrag);
+      canvas.addEventListener('pointercancel', endDrag);
+      canvas.addEventListener('keydown', (e) => {
+        const step = view.side * NUDGE;
+        const by: Record<string, [number, number]> = { ArrowLeft: [-step, 0], ArrowRight: [step, 0], ArrowUp: [0, -step], ArrowDown: [0, step] };
+        const d = by[e.key];
+        if (!d) return;
+        e.preventDefault();
+        // An arrow moves the photo itself that way, so the shown square moves the other way.
+        move(view.x - d[0], view.y - d[1], view.side);
+      });
+
+      paint();
+      if (!(await encode())) return;
+      result.replaceChildren(
+        canvas,
+        h('p', { class: 'strv-badges__hint' }, 'Drag the photo to move it inside the ring.'),
+        h('div', { class: 'strv-badges__zoom-row' }, h('label', { class: 'strv-badges__label', for: 'strv-badges-zoom' }, 'Zoom'), zoom),
+        link,
+      );
     } catch {
       if (current(mine)) fail(MAKE_FAILED);
-    } finally {
-      photo.close?.();
     }
   }
+
+  const post = h('textarea', { class: 'strv-badges__code', id: 'strv-badges-post', readonly: true, rows: 3, spellcheck: false });
+  post.value = post.defaultValue = RING_POST;
 
   const el = h(
     'article',
@@ -350,11 +462,16 @@ function frameCard(deps: FrameDeps): { el: HTMLElement; destroy: () => void } {
     h('p', null, 'Your photo stays on your device. It is never uploaded.'),
     message,
     result,
+    h('label', { class: 'strv-badges__label', for: 'strv-badges-post' }, 'Post this with your new picture, or put it in your bio'),
+    h('p', null, 'A profile picture can’t carry a link, so the ring shows our address. This line gives people a link to tap, so they can get the ring too.'),
+    post,
+    copyControl(post).button,
   );
   return {
     el,
     destroy: () => {
       gone = true;
+      drop();
       revoke();
     },
   };

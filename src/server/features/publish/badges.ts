@@ -1,5 +1,6 @@
 import { districtShapes } from './district-shapes.js';
 import { OG_PALETTE, renderOgPng } from './og.js';
+import { SITE_HOST } from './site.js';
 
 export type BadgeTheme = 'light' | 'dark';
 
@@ -78,16 +79,30 @@ export function pledgeSvg(t: BadgeTheme): string {
   ].join('');
 }
 
-/** A 1080 pixel amber ring for a profile photo: transparent middle and corners, the words round the bottom, the square and cut line at the top. */
+/** The square and cut line, `size` pixels wide, centered on (cx, cy). */
+const mark = (cx: number, cy: number, size: number): string => {
+  const half = size / 2;
+  const inset = size * 0.16;
+  return [
+    `<path d="M${cx - half} ${cy - half}H${cx + half}V${cy + half}H${cx - half}Z" fill="none" stroke="${INK}" stroke-width="${size * 0.11}"/>`,
+    `<path d="M${cx - half + inset} ${cy + half - inset} ${cx + half - inset} ${cy - half + inset}" stroke="${GROUND}" stroke-width="${size * 0.14}"/>`,
+  ].join('');
+};
+
+/**
+ * A 1080 pixel amber ring for a profile photo: transparent middle and corners, the site's address round the top so anyone
+ * who sees the ring can find it, the words round the bottom, and the square and cut line at each side between them.
+ */
 export function frameSvg(): string {
   return [
     open(BADGE_SIZES.frame),
     `<path fill-rule="evenodd" fill="${SIGNAL}" d="M540 0A540 540 0 1 1 540 1080A540 540 0 1 1 540 0ZM540 100A440 440 0 1 0 540 980A440 440 0 1 0 540 100Z"/>`,
     `<circle cx="540" cy="540" r="437" fill="none" stroke="${INK}" stroke-width="6"/>`,
-    '<defs><path id="ring" d="M15 540A525 525 0 0 0 1065 540"/></defs>',
+    '<defs><path id="ring" d="M15 540A525 525 0 0 0 1065 540"/><path id="top" d="M68 540A472 472 0 0 1 1012 540"/></defs>',
     `<text ${SANS} font-weight="800" font-size="78" letter-spacing="10" fill="${INK}" text-anchor="middle"><textPath href="#ring" startOffset="50%">I SUPPORT FAIR MAPS</textPath></text>`,
-    `<path d="M508 20H572V84H508Z" fill="none" stroke="${INK}" stroke-width="7"/>`,
-    `<path d="M518 78 562 26" stroke="${GROUND}" stroke-width="9"/>`,
+    `<text ${SANS} font-weight="800" font-size="62" letter-spacing="6" fill="${INK}" text-anchor="middle"><textPath href="#top" startOffset="50%">${SITE_HOST.toUpperCase()}</textPath></text>`,
+    mark(50, 540, 46),
+    mark(1030, 540, 46),
     '</svg>',
   ].join('');
 }

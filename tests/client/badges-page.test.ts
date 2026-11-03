@@ -310,7 +310,7 @@ describe('profile photo frame', () => {
     expect(input.getAttribute('accept')).toBe('image/*');
     expect(frame.textContent).toContain('Use my photo');
     expect(frame.textContent).toContain('Your photo stays on your device. It is never uploaded.');
-    expect(frame.querySelector('textarea')).toBeNull();
+    expect([...frame.querySelectorAll('textarea')].map((t) => t.id)).toEqual(['strv-badges-post']);
     expect(page.el.querySelectorAll('.strv-badges__card')).toHaveLength(6);
     expect(page.el.textContent).not.toContain('—');
   });
@@ -404,10 +404,102 @@ describe('profile photo frame', () => {
     expect(xhr).not.toHaveBeenCalled();
   });
 
-  it('closes the decoded photo after drawing it', async () => {
-    const { choose, photo } = setup();
+  it('keeps the photo open while it can be adjusted, and closes it for another photo or when the page goes', async () => {
+    const { page, choose, photo } = setup();
+    await choose(pic());
+    expect(photo.close).not.toHaveBeenCalled();
     await choose(pic());
     expect(photo.close).toHaveBeenCalledTimes(1);
+    page.destroy?.();
+    expect(photo.close).toHaveBeenCalledTimes(2);
+  });
+
+  it('gives a line to post with a link back to the badges page, and a button that copies it', async () => {
+    const { page } = setup();
+    const writeText = vi.fn(async () => undefined);
+    vi.stubGlobal('navigator', { clipboard: { writeText } });
+    const post = page.el.querySelector<HTMLTextAreaElement>('#strv-badges-post')!;
+    expect(post.value).toBe(`I support fair maps. Get the ring for your profile picture at https://${config.siteHost}/badges`);
+    expect(post.defaultValue).toBe(post.value);
+    expect(page.el.querySelector('label[for="strv-badges-post"]')).not.toBeNull();
+    post.parentElement!.querySelector<HTMLButtonElement>('#strv-badges-post ~ button')!.click();
+    await flush();
+    expect(writeText).toHaveBeenCalledWith(post.value);
+  });
+
+  describe('adjusting the photo', () => {
+    const lastPhotoDraw = (draws: unknown[][], photo: ImageBitmap) => draws.filter((d) => d[0] === photo).at(-1)!.slice(1, 5);
+    const ready = async () => {
+      const s = setup();
+      await s.choose(pic());
+      const zoom = s.page.el.querySelector<HTMLInputElement>('#strv-badges-zoom')!;
+      const link = s.page.el.querySelector<HTMLAnchorElement>('a[download="fair-maps-photo.png"]')!;
+      return { ...s, zoom, link };
+    };
+
+    it('zooms in about the center and never past four times', async () => {
+      const { zoom, draws, photo } = await ready();
+      zoom.value = '2';
+      zoom.dispatchEvent(new Event('input'));
+      expect(lastPhotoDraw(draws, photo)).toEqual([750, 250, 500, 500]);
+      zoom.value = '9';
+      zoom.dispatchEvent(new Event('input'));
+      expect(lastPhotoDraw(draws, photo)[2]).toBe(250);
+    });
+
+    it('moves with a drag and stays inside the photo', async () => {
+      const { canvas, draws, photo } = await ready();
+      const ptr = (type: string, x: number, y = 0) => canvas.dispatchEvent(Object.assign(new MouseEvent(type, { clientX: x, clientY: y }), { pointerId: 1 }));
+      // jsdom lays nothing out, so a screen pixel counts as a canvas pixel: 1080 across shows 1000 photo pixels.
+      ptr('pointerdown', 500);
+      ptr('pointermove', 392);
+      expect(lastPhotoDraw(draws, photo)).toEqual([600, 0, 1000, 1000]);
+      ptr('pointermove', -5000);
+      expect(lastPhotoDraw(draws, photo)).toEqual([1000, 0, 1000, 1000]);
+      ptr('pointerup', -5000);
+      ptr('pointermove', 5000);
+      expect(lastPhotoDraw(draws, photo)).toEqual([1000, 0, 1000, 1000]);
+    });
+
+    it('moves the photo the way an arrow key points', async () => {
+      const { canvas, draws, photo } = await ready();
+      canvas.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight', cancelable: true }));
+      expect(lastPhotoDraw(draws, photo)).toEqual([460, 0, 1000, 1000]);
+      const e = new KeyboardEvent('keydown', { key: 'ArrowLeft', cancelable: true });
+      canvas.dispatchEvent(e);
+      expect(e.defaultPrevented).toBe(true);
+      expect(lastPhotoDraw(draws, photo)).toEqual([500, 0, 1000, 1000]);
+    });
+
+    it('downloads the photo as it is now, never an earlier position', async () => {
+      const { zoom, link, create, revoke } = await ready();
+      expect(link.getAttribute('href')).toBe('blob:fair-1');
+      zoom.value = '2';
+      zoom.dispatchEvent(new Event('input'));
+      const click = new MouseEvent('click', { cancelable: true });
+      link.dispatchEvent(click);
+      expect(click.defaultPrevented).toBe(true);
+      await flush();
+      expect(create).toHaveBeenCalledTimes(2);
+      expect(revoke).toHaveBeenCalledWith('blob:fair-1');
+      expect(link.getAttribute('href')).toBe('blob:fair-2');
+      const again = new MouseEvent('click', { cancelable: true });
+      link.dispatchEvent(again);
+      expect(again.defaultPrevented).toBe(false);
+    });
+
+    it('encodes the download by itself once the moves stop', async () => {
+      const { zoom, link } = await ready();
+      vi.useFakeTimers();
+      try {
+        zoom.value = '1.5';
+        zoom.dispatchEvent(new Event('input'));
+        await vi.advanceTimersByTimeAsync(400);
+        expect(link.getAttribute('href')).toBe('blob:fair-2');
+      } finally {
+        vi.useRealTimers();
+      }
+    });
   });
 
   it('never shows a stale photo, and closes it', async () => {

@@ -18,6 +18,7 @@ describe('fixed badges', () => {
     expect(pledgeSvg('light')).toContain('I PLEDGE');
     expect(pledgeSvg('light')).toContain('to support fair maps');
     expect(frameSvg()).toContain('I SUPPORT FAIR MAPS');
+    expect(frameSvg()).toContain('FAIRMAPS.MELSON.US');
   });
 
   it('no badge text has an em dash', () => {

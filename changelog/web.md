@@ -1,5 +1,9 @@
 # Web changelog
 
+## 1.12.2 (2026-11-03)
+
+- Zooming out in the profile picture ring now goes until your whole photo, corners included, fits inside the ring's opening, so nothing is hidden under the ring. A square photo can zoom out too.
+
 ## 1.12.1 (2026-11-03)
 
 - The Zoom slider in the profile picture ring now also zooms out, down to where your whole photo fits inside the ring.

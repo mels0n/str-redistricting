@@ -233,6 +233,8 @@ function statePicker(load: () => Promise<StateIndex>): { el: HTMLElement; destro
 }
 
 const FRAME_SIZE = 1080;
+/** Radius of the ring's open middle at FRAME_SIZE, inside its ink line. Must match frameSvg in src/server/features/publish/badges.ts. */
+const RING_OPENING = 434;
 const FRAME_MAX_BYTES = 20 * 1024 * 1024;
 const NOT_PICTURE = 'That file isn’t a picture. Choose a JPG or PNG.';
 const MAKE_FAILED = 'Couldn’t make the picture. Try again.';
@@ -269,7 +271,7 @@ const RING_POST = `I support fair maps. Get the ring for your profile picture at
 /**
  * The profile photo frame: the ring to download, a tool that puts a chosen photo under the ring, and a line to post with
  * it so people who see the ring can find the site, since a picture can't carry a link. The photo starts center-cropped; dragging it or the arrow keys move it
- * and the slider zooms in, or out until the whole photo fits. It is decoded and drawn on a canvas in this page and is never sent anywhere.
+ * and the slider zooms in, or out until the whole photo fits inside the ring. It is decoded and drawn on a canvas in this page and is never sent anywhere.
  */
 function frameCard(deps: FrameDeps): { el: HTMLElement; destroy: () => void } {
   let url = '';
@@ -345,8 +347,8 @@ function frameCard(deps: FrameDeps): { el: HTMLElement; destroy: () => void } {
       const ctx = canvas.getContext('2d');
       if (!ctx) throw new Error('no canvas');
       const full = Math.min(decoded.width, decoded.height);
-      // Zoomed all the way out, the square is as wide as the photo's longer side, so the whole photo shows.
-      const whole = Math.max(decoded.width, decoded.height);
+      // Zoomed all the way out, the photo's diagonal spans the ring's opening, so the whole photo, corners too, shows inside the ring.
+      const whole = (Math.hypot(decoded.width, decoded.height) * FRAME_SIZE) / (2 * RING_OPENING);
       view = { x: decoded.width / 2, y: decoded.height / 2, side: full };
 
       const paint = (): void => {

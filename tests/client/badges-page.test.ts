@@ -528,11 +528,18 @@ describe('profile photo frame', () => {
 
       it('lets a square photo zoom out too, since the ring hides its corners', async () => {
         const square = { width: 1000, height: 1000, close: vi.fn() } as unknown as ImageBitmap;
-        const { page, choose } = setup({ decode: async () => square });
+        const { page, choose, draws } = setup({ decode: async () => square });
         await choose(pic());
         const zoom = page.el.querySelector<HTMLInputElement>('#strv-badges-zoom')!;
         expect(Number(zoom.min)).toBeLessThan(1);
         expect(Number(zoom.min)).toBeCloseTo(fitZoom(1000, 1000), 9);
+        zoomOut(zoom);
+        const [sx, sy, sw, sh, dx, dy, dw, dh] = lastDraw(draws, square);
+        expect([sx, sy, sw, sh]).toEqual([0, 0, 1000, 1000]);
+        expect(dw).toBeCloseTo(dh, 9);
+        expect(dx + dw / 2).toBeCloseTo(540, 6);
+        expect(dy + dh / 2).toBeCloseTo(540, 6);
+        expect(Math.hypot(dw / 2, dh / 2)).toBeCloseTo(opening, 6);
       });
     });
 

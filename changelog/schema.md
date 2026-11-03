@@ -1,5 +1,9 @@
 # Schema changelog
 
+## 1.5.0 (2026-11-03)
+
+- feat(web): move and zoom the photo in the ring, and put the site's address on the ring
+
 ## 1.4.0 (2026-10-31)
 
 - Each published map now has a badge beside its preview image (badge.png, badge@2x.png, badge-dark.png and badge-dark@2x.png), showing that chamber's districts and how many were drawn by the rule. Badges are redrawn whenever the map is.

@@ -1,5 +1,9 @@
 # Web changelog
 
+## 1.12.0 (2026-11-03)
+
+- feat(web): move and zoom the photo in the ring, and put the site's address on the ring
+
 ## 1.11.0 (2026-11-01)
 
 - The badges page is for everyone, not just candidates. It now starts with the profile picture ring, which shows the ring itself until you choose a photo, then the badges for a website, then the badges with your state's map.

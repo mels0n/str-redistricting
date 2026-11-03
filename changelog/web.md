@@ -2,7 +2,8 @@
 
 ## 1.12.0 (2026-11-03)
 
-- feat(web): move and zoom the photo in the ring, and put the site's address on the ring
+- You can now place your photo in the profile picture ring: drag it (or use the arrow keys) to move it, and use the Zoom slider to get closer. The download is always the picture as you see it.
+- The ring now shows fairmaps.melson.us round the top, so people who see it can find the site. The card also gives a line to post with your new picture or put in your bio, with a link to get the ring.
 
 ## 1.11.0 (2026-11-01)
 

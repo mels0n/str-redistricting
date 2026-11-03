@@ -2,7 +2,7 @@
 
 ## 1.5.0 (2026-11-03)
 
-- feat(web): move and zoom the photo in the ring, and put the site's address on the ring
+- The photo frame ring under /badges/ now shows the site's address round the top, with the square and cut line at each side.
 
 ## 1.4.0 (2026-10-31)
 

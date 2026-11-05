@@ -1,4 +1,4 @@
-import type { BadgeRepo, Sighting } from '../../entities/badge-db/index.js';
+import { UNLIST_AFTER_FAILURES, type BadgeRepo, type Sighting } from '../../entities/badge-db/index.js';
 import { fetchPublic, parsePublicHttpsUrl, SsrfError, type FetchedPage } from '../../shared/ssrf/index.js';
 import { scanForBadge } from './html.js';
 import { bareHost } from './referrer.js';
@@ -49,6 +49,8 @@ export interface CheckFinding {
   title: string | null;
   /** The page the badge was found on. */
   foundUrl: string | null;
+  /** The stored inner page redirects to another path or is marked noindex: it may be private, so it is taken off the list at once. */
+  private?: true;
 }
 
 type Robots = (host: string) => Promise<string | null>;
@@ -80,16 +82,20 @@ function pagesOf(url: URL): string[] {
 /**
  * Looks at one stored page and, when it differs, the site's home page. robots.txt must allow each page; the page (after at most
  * three checked redirects) must show our badge and link to our site, either by wrapping the badge image in a link to our site or by
- * having a link to our site elsewhere on the page. The first page that does is the one reported. Anything else, including an error,
- * is a failed check; no error text leaves this function.
+ * having a link to our site elsewhere on the page. The first page that does is the one reported. A stored inner page that redirects
+ * to another path (a login page, say) or asks search engines to leave it out (noindex) may be private (an account, reset or invite
+ * link): the check stops there and reports it private, without trying the home page, so the row is never listed. The home page gets
+ * its own row when it shows the badge. Anything else, including an error, is a failed check; no error text leaves this function.
  */
 export async function checkSighting(row: Sighting, siteHost: string, get: FetchPage, robots: Robots, log: (code: string) => void): Promise<CheckFinding> {
   const failed: CheckFinding = { outcome: 'failed', title: null, foundUrl: null };
   const url = parsePublicHttpsUrl(row.url);
   if (!url) return failed;
+  const home = `${url.origin}/`;
   for (const target of pagesOf(url)) {
     try {
       const where = new URL(target);
+      const inner = target !== home;
       const txt = await robots(where.hostname);
       if (txt !== null && !robotsAllows(txt, `${where.pathname}${where.search}`)) {
         log('robots');
@@ -101,11 +107,20 @@ export async function checkSighting(row: Sighting, siteHost: string, get: FetchP
         log('elsewhere');
         continue;
       }
+      const trim = (path: string): string => path.replace(/\/+$/, '');
+      if (inner && trim(new URL(page.url).pathname) !== trim(where.pathname)) {
+        log('moved');
+        return { ...failed, private: true };
+      }
       if (page.status < 200 || page.status >= 300 || !/html/i.test(page.contentType ?? '')) {
         log('status');
         continue;
       }
       const scan = scanForBadge(page.body, page.url, siteHost);
+      if (inner && scan.noindex) {
+        log('noindex');
+        return { ...failed, private: true };
+      }
       if (scan.badge && scan.link) return { outcome: 'verified', title: scan.title, foundUrl: target };
       log('no-badge');
     } catch (e) {
@@ -138,7 +153,7 @@ async function checkAndRecord(row: Sighting, ctx: CheckContext, robots: Robots):
       row.url,
       found.outcome === 'verified' && found.foundUrl !== null
         ? { checkedAt, consecutiveFailures: 0, verified: { title: found.title, foundUrl: found.foundUrl } }
-        : { checkedAt, consecutiveFailures: row.consecutiveFailures + 1, verified: null },
+        : { checkedAt, consecutiveFailures: found.private ? Math.max(row.consecutiveFailures + 1, UNLIST_AFTER_FAILURES) : row.consecutiveFailures + 1, verified: null },
     );
   } catch {
     log('record');

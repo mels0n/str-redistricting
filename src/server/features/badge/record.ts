@@ -34,7 +34,7 @@ export interface Recorded {
 /**
  * Notes that the badge image was asked for by a page of another site. Only the page address from the Referer header is kept, with
  * its query and fragment removed. At most one write per page per hour (a page seen within the hour costs one read and nothing
- * else), writes are limited per visitor network through `limit`, and a new page is refused once the table holds `maxRows` or its host already holds 3.
+ * else), writes are limited per visitor network through `limit`, and a new page is refused once the table holds `maxRows`, or when it is not the home page and its host already holds 3.
  */
 export async function recordSighting(referer: string | null, deps: RecordDeps): Promise<Recorded> {
   const none = (outcome: RecordOutcome): Recorded => ({ outcome, url: null, needsCheck: false });
@@ -48,7 +48,8 @@ export async function recordSighting(referer: string | null, deps: RecordDeps): 
     return none('limited');
   }
   if (row === null && (await deps.repo.count()) >= (deps.maxRows ?? MAX_SIGHTINGS)) return none('full');
-  if (row === null && (await deps.repo.countHost(page.host)) >= MAX_PER_HOST) return none('crowded');
+  // A site's home page always gets a row, so inner pages seen first never crowd it out (only it can name a representative).
+  if (row === null && new URL(page.url).pathname !== '/' && (await deps.repo.countHost(page.host)) >= MAX_PER_HOST) return none('crowded');
   await deps.repo.touch(page.url, page.host, deps.now.toISOString());
   const old = (iso: string | null, ms: number): boolean => iso === null || deps.now.getTime() - Date.parse(iso) >= ms;
   // A new page, or one never checked, is checked now. A page that is verified and not failing is checked again after a day. One that

@@ -127,6 +127,8 @@ describe('recordSighting', () => {
     for (const p of ['a', 'b', 'c']) expect((await recordSighting(`https://example.com/${p}`, deps())).outcome).toBe('recorded');
     expect((await recordSighting('https://example.com/d', deps())).outcome).toBe('crowded');
     expect(repo.rows.has('https://example.com/d')).toBe(false);
+    // the home page always gets in, so inner pages seen first never crowd it out
+    expect((await recordSighting('https://example.com/', deps())).outcome).toBe('recorded');
     expect((await recordSighting('https://example.com/a', deps({ now: new Date(NOW.getTime() + 2 * 3_600_000) }))).outcome).toBe('recorded');
     expect((await recordSighting('https://other.example.org/', deps())).outcome).toBe('recorded');
   });
@@ -171,6 +173,10 @@ describe('scanForBadge', () => {
 
   it('finds the image from /api/badge and a link to the pledges page', () => {
     expect(scan(`<html><body>${both()}</body></html>`)).toMatchObject({ badge: true, link: true });
+  });
+  it('reads noindex only from an exact robots or googlebot directive in the page itself', () => {
+    for (const meta of ['<meta name="robots" content="noindex">', '<meta name="googlebot" content="follow, NONE">', "<meta content='nofollow,noindex' name=ROBOTS>"]) expect(scan(meta + both()).noindex, meta).toBe(true);
+    for (const meta of ['<meta name="robots" content="index, follow, max-image-preview:none">', '<meta name="description" content="noindex">', '<!-- <meta name="robots" content="noindex"> -->', '']) expect(scan(meta + both()).noindex, meta).toBe(false);
   });
   describe('the recognised setups', () => {
     const ok = { badge: true, link: true };
@@ -499,6 +505,38 @@ describe('runBadgeChecks', () => {
     expect(seen.filter((u) => !u.endsWith('/robots.txt'))).toEqual(['https://example.com/news/post']);
     expect((await readBadgeSites(repo, {})).sites[0]!.url).toBe('https://example.com/news/post');
   });
+  it('takes an inner page that redirects to another path (a login page with the badge in its footer) off the list at once, without trying the home page', async () => {
+    await seed('https://example.com/reset/secret-token');
+    const seen: string[] = [];
+    await run(async (u) => {
+      seen.push(u);
+      return u.endsWith('/robots.txt') ? { status: 404, url: u, contentType: null, body: '' } : { ...html(SNIPPET), url: 'https://example.com/login' };
+    });
+    expect(repo.rows.get('https://example.com/reset/secret-token')).toMatchObject({ verifiedAt: null, foundUrl: null, consecutiveFailures: 2 });
+    expect(seen).not.toContain('https://example.com/');
+    expect((await readBadgeSites(repo, {})).sites).toEqual([]);
+  });
+  it('takes a page that was listed off the list at once when it starts redirecting elsewhere', async () => {
+    await seed('https://example.com/members/jane');
+    await run(serve({ 'https://example.com/members/jane': html(SNIPPET) }));
+    expect((await readBadgeSites(repo, {})).sites.map((s) => s.url)).toEqual(['https://example.com/members/jane']);
+    nextDay();
+    await run(async (u) => (u.endsWith('/robots.txt') ? { status: 404, url: u, contentType: null, body: '' } : { ...html(SNIPPET), url: 'https://example.com/login' }));
+    expect((await readBadgeSites(repo, {})).sites).toEqual([]);
+  });
+  it('still reports an inner page whose redirect only adds a trailing slash', async () => {
+    await seed('https://example.com/about');
+    await run(async (u) => (u.endsWith('/robots.txt') ? { status: 404, url: u, contentType: null, body: '' } : { ...html(SNIPPET), url: 'https://example.com/about/' }));
+    expect(repo.rows.get('https://example.com/about')!.foundUrl).toBe('https://example.com/about');
+  });
+  it('never lists an inner page marked noindex, but a noindex home page still counts', async () => {
+    await seed('https://example.com/account/jane');
+    await seed('https://example.com/');
+    const noindex = `<meta name="robots" content="noindex, nofollow">${SNIPPET}`;
+    await run(serve({ 'https://example.com/account/jane': html(noindex), 'https://example.com/': html(noindex) }));
+    expect(repo.rows.get('https://example.com/account/jane')).toMatchObject({ verifiedAt: null, consecutiveFailures: 2 });
+    expect((await readBadgeSites(repo, {})).sites.map((s) => s.url)).toEqual(['https://example.com/']);
+  });
   it('fails when neither the stored page nor the home page has the badge', async () => {
     await seed('https://example.com/news/post');
     await run(serve({ 'https://example.com/news/post': html('<p>x</p>'), 'https://example.com/': html('<p>y</p>') }));
@@ -589,7 +627,7 @@ describe('runBadgeChecks', () => {
 describe('readBadgeSites', () => {
   const sighting = (url: string, firstSeen: string, over: Partial<Sighting> = {}): Sighting => ({ url, host: new URL(url).hostname, firstSeen, lastSeen: firstSeen, verifiedAt: firstSeen, lastChecked: firstSeen, consecutiveFailures: 0, title: 'T', foundUrl: url, ...over });
 
-  it('lists verified sites newest first with the shape the page needs, one per host', async () => {
+  it('lists verified sites newest first with the shape the page needs, one per host (its home-page row when it has one)', async () => {
     const repo = new MemoryRepo();
     for (const s of [
       sighting('https://old.example.com/', '2026-10-01T00:00:00.000Z'),
@@ -600,7 +638,7 @@ describe('readBadgeSites', () => {
     ]) repo.rows.set(s.url, s);
     const { sites } = await readBadgeSites(repo, {});
     expect(sites).toEqual([
-      { url: 'https://www.new.example.com/x', host: 'www.new.example.com', title: 'T', name: null, office: null, id: null },
+      { url: 'https://new.example.com/', host: 'new.example.com', title: 'T', name: null, office: null, id: null },
       { url: 'https://old.example.com/', host: 'old.example.com', title: 'T', name: null, office: null, id: null },
     ]);
   });
@@ -619,6 +657,19 @@ describe('readBadgeSites', () => {
     const map = { 'hurd.house.gov': { name: 'Jane Hurd', office: 'us-house' as const, state: 'CO', id: 'H1' } };
     for (const s of [sighting('https://hurd.house.gov/supporters/jo', '2026-10-20T00:00:00.000Z'), sighting('https://shared.example.org/', '2026-10-19T00:00:00.000Z')]) repo.rows.set(s.url, s);
     for (const site of (await readBadgeSites(repo, map)).sites) expect(site, site.host).toMatchObject({ name: null, office: null, id: null });
+  });
+
+  it('shows a host by its home-page row when a newer inner page also has the badge, so the representative stays named', async () => {
+    const repo = new MemoryRepo();
+    const map = { 'hurd.house.gov': { name: 'Jane Hurd', office: 'us-house' as const, state: 'CO', id: 'H1' } };
+    for (const s of [
+      sighting('https://hurd.house.gov/', '2026-10-01T00:00:00.000Z'),
+      sighting('https://hurd.house.gov/news/post', '2026-10-20T00:00:00.000Z'),
+      sighting('https://later.example.com/', '2026-10-10T00:00:00.000Z'),
+    ]) repo.rows.set(s.url, s);
+    const { sites } = await readBadgeSites(repo, map);
+    expect(sites.map((s) => s.url)).toEqual(['https://hurd.house.gov/', 'https://later.example.com/']);
+    expect(sites[0]).toMatchObject({ name: 'Jane Hurd', id: 'H1' });
   });
 
   it('lists at most 200', async () => {

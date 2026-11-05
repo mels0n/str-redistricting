@@ -9,6 +9,8 @@ export interface BadgeScan {
   /** An `<a>` points at our site (not just at the image). */
   link: boolean;
   title: string | null;
+  /** The page asks search engines not to index it (`<meta name="robots">` or `googlebot` with noindex or none). */
+  noindex: boolean;
 }
 
 const ENTITIES: Record<string, string> = { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' ' };
@@ -79,6 +81,11 @@ export function scanForBadge(html: string, pageUrl: string, siteHost: string): B
       if (isBadge) badge = true;
     } else if (!isBadge) link = true;
   }
+  let noindex = false;
+  for (const m of bare.matchAll(/<meta\b([^>]*)>/gi)) {
+    const attrs = attributes(m[1]!);
+    if (/^(robots|googlebot)$/i.test(attrs.get('name')?.trim() ?? '') && (attrs.get('content') ?? '').split(',').some((d) => /^(noindex|none)$/i.test(d.trim()))) noindex = true;
+  }
   const t = /<title\b[^>]*>([\s\S]*?)<\/title\s*>/i.exec(bare);
-  return { badge, link, title: t ? cleanTitle(t[1]!) : null };
+  return { badge, link, title: t ? cleanTitle(t[1]!) : null, noindex };
 }

@@ -19,16 +19,16 @@ const choices: BadgeChoice[] = (['light', 'dark'] as const).flatMap((theme) => [
 describe('badgeSnippet', () => {
   it('crest snippet', () => {
     expect(badgeSnippet({ id: 'crest', theme: 'light' }, SITE)).toBe(
-      '<a href="https://fairmaps.melson.us/"><img src="https://fairmaps.melson.us/api/badge?badge=crest" srcset="https://fairmaps.melson.us/api/badge?badge=crest&amp;scale=2 2x" width="160" height="190" alt="Fair Maps: districts drawn by a rule"></a>',
+      '<a href="https://fairmaps.melson.us/"><img src="https://fairmaps.melson.us/api/badge?badge=crest" referrerpolicy="no-referrer-when-downgrade" srcset="https://fairmaps.melson.us/api/badge?badge=crest&amp;scale=2 2x" width="160" height="190" alt="Fair Maps: districts drawn by a rule"></a>',
     );
   });
   it('light button is the live snippet', () => {
     expect(badgeSnippet({ id: 'button', theme: 'light' }, SITE)).toBe(BADGE_SNIPPET);
-    expect(BADGE_SNIPPET).toBe('<a href="https://fairmaps.melson.us/pledges"><img src="https://fairmaps.melson.us/api/badge" alt="I back Fair Maps" width="200" height="40"></a>');
+    expect(BADGE_SNIPPET).toBe('<a href="https://fairmaps.melson.us/pledges"><img src="https://fairmaps.melson.us/api/badge" referrerpolicy="no-referrer-when-downgrade" alt="I back Fair Maps" width="200" height="40"></a>');
   });
   it('dark button', () => {
     const s = badgeSnippet({ id: 'button', theme: 'dark' }, SITE);
-    expect(s).toBe('<a href="https://fairmaps.melson.us/pledges"><img src="https://fairmaps.melson.us/api/badge?theme=dark" alt="I back Fair Maps" width="200" height="40"></a>');
+    expect(s).toBe('<a href="https://fairmaps.melson.us/pledges"><img src="https://fairmaps.melson.us/api/badge?theme=dark" referrerpolicy="no-referrer-when-downgrade" alt="I back Fair Maps" width="200" height="40"></a>');
     expect(s).not.toContain('srcset');
   });
   it('seal links to the gerrymandering answer', () => {
@@ -89,6 +89,9 @@ describe('badgeSnippet', () => {
   });
   it('no scripts', () => {
     for (const c of choices) expect(badgeSnippet(c, SITE).toLowerCase()).not.toContain('<script');
+  });
+  it('every snippet asks the browser to send the full page address, so a badge on any page is found', () => {
+    for (const c of choices) expect(badgeSnippet(c, SITE), c.id).toMatch(/<img [^>]*referrerpolicy="no-referrer-when-downgrade"/);
   });
   it('alt text is escaped', () => {
     const s = badgeSnippet({ id: 'state', theme: 'light', abbr: 'CO', stateName: 'A & "B"', seats: 2 }, SITE);

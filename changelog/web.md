@@ -1,5 +1,9 @@
 # Web changelog
 
+## 1.12.3 (2026-11-05)
+
+- fix: find badges on any page, and make /pledges just the list
+
 ## 1.12.2 (2026-11-03)
 
 - Zooming out in the profile picture ring now goes until your whole photo, corners included, fits inside the ring's opening, so nothing is hidden under the ring. A square photo can zoom out too.

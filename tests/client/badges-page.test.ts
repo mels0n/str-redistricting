@@ -1,4 +1,5 @@
 // @vitest-environment jsdom
+import { readFileSync } from 'node:fs';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { PAGE_META, config } from '../../src/client/shared';
 import { badgeAssets, badgeSnippet, BADGE_SNIPPET, type BadgeChoice } from '../../src/client/features/badge-snippet';
@@ -445,6 +446,101 @@ describe('profile photo frame', () => {
       zoom.value = '9';
       zoom.dispatchEvent(new Event('input'));
       expect(lastPhotoDraw(draws, photo)[2]).toBe(250);
+    });
+
+    describe('zoomed out', () => {
+      /** The ring's open middle as drawn by the publisher: the ink circle's radius less half its line. */
+      const opening = (() => {
+        const m = /<circle cx="540" cy="540" r="(\d+)" fill="none" stroke="[^"]+" stroke-width="(\d+)"\/>/.exec(readFileSync('src/server/features/publish/badges.ts', 'utf8'))!;
+        return Number(m[1]) - Number(m[2]) / 2;
+      })();
+      /** The zoom at which a w by h photo's corners touch the ring's opening. */
+      const fitZoom = (w: number, h: number) => Math.min(w, h) / ((Math.hypot(w, h) * 540) / opening);
+      type Draw = [sx: number, sy: number, sw: number, sh: number, dx: number, dy: number, dw: number, dh: number];
+      const lastDraw = (draws: unknown[][], photo: ImageBitmap) => draws.filter((d) => d[0] === photo).at(-1)!.slice(1).map(Number) as Draw;
+      const dragBy = (canvas: HTMLCanvasElement, dx: number, dy: number) => {
+        const ptr = (type: string, x: number, y: number) => canvas.dispatchEvent(Object.assign(new MouseEvent(type, { clientX: x, clientY: y }), { pointerId: 1 }));
+        ptr('pointerdown', 0, 0);
+        ptr('pointermove', dx, dy);
+        ptr('pointerup', dx, dy);
+      };
+      const zoomOut = (zoom: HTMLInputElement) => {
+        zoom.value = '0.01';
+        zoom.dispatchEvent(new Event('input'));
+      };
+
+      it('goes down to where the whole photo, corners too, fits inside the ring, with the ground drawn first around it', async () => {
+        const { zoom, draws, photo } = await ready();
+        expect(Number(zoom.min)).toBeCloseTo(fitZoom(2000, 1000), 9);
+        zoomOut(zoom);
+        const [sx, sy, sw, sh, dx, dy, dw, dh] = lastDraw(draws, photo);
+        expect([sx, sy, sw, sh]).toEqual([0, 0, 2000, 1000]);
+        expect(dw / dh).toBeCloseTo(2, 9);
+        expect(dx + dw / 2).toBeCloseTo(540, 6);
+        expect(dy + dh / 2).toBeCloseTo(540, 6);
+        // The corners sit on the ring's opening.
+        expect(Math.hypot(dw / 2, dh / 2)).toBeCloseTo(opening, 6);
+        const firsts = draws.map((d) => d[0]);
+        const fill = firsts.lastIndexOf('fill');
+        expect(draws[fill]).toEqual(['fill', '#F3EFE5', 0, 0, 1080, 1080]);
+        expect(fill).toBeLessThan(firsts.lastIndexOf(photo));
+      });
+
+      it('moves the small photo about the square and stops it at each edge', async () => {
+        const { zoom, draws, photo, canvas } = await ready();
+        zoomOut(zoom);
+        const at = () => lastDraw(draws, photo);
+        dragBy(canvas, 0, 5000);
+        expect(at()[5] + at()[7]).toBeCloseTo(1080, 6);
+        dragBy(canvas, 0, -5000);
+        expect(at()[5]).toBeCloseTo(0, 6);
+        dragBy(canvas, 5000, 0);
+        expect(at()[4] + at()[6]).toBeCloseTo(1080, 6);
+        dragBy(canvas, -5000, 0);
+        expect(at()[4]).toBeCloseTo(0, 6);
+        expect(at().slice(0, 4)).toEqual([0, 0, 2000, 1000]);
+      });
+
+      it('between the two, keeps the square inside the photo across and the photo inside the square down', async () => {
+        const { zoom, draws, photo, canvas } = await ready();
+        const rounded = () => lastDraw(draws, photo).map((v) => Math.round(v * 100) / 100);
+        // 1333 photo pixels across the square: narrower than the photo, taller than it.
+        zoom.value = '0.75';
+        zoom.dispatchEvent(new Event('input'));
+        expect(rounded()).toEqual([333.33, 0, 1333.33, 1000, 0, 135, 1080, 810]);
+        dragBy(canvas, -5000, 5000);
+        expect(rounded()).toEqual([666.67, 0, 1333.33, 1000, 0, 270, 1080, 810]);
+      });
+
+      it('fits a portrait photo the same way, turned', async () => {
+        const tall = { width: 1000, height: 2000, close: vi.fn() } as unknown as ImageBitmap;
+        const { page, choose, draws } = setup({ decode: async () => tall });
+        await choose(pic());
+        const zoom = page.el.querySelector<HTMLInputElement>('#strv-badges-zoom')!;
+        expect(Number(zoom.min)).toBeCloseTo(fitZoom(1000, 2000), 9);
+        zoomOut(zoom);
+        const [sx, sy, sw, sh, dx, dy, dw, dh] = lastDraw(draws, tall);
+        expect([sx, sy, sw, sh]).toEqual([0, 0, 1000, 2000]);
+        expect(dh / dw).toBeCloseTo(2, 9);
+        expect(dx + dw / 2).toBeCloseTo(540, 6);
+        expect(dy + dh / 2).toBeCloseTo(540, 6);
+      });
+
+      it('lets a square photo zoom out too, since the ring hides its corners', async () => {
+        const square = { width: 1000, height: 1000, close: vi.fn() } as unknown as ImageBitmap;
+        const { page, choose, draws } = setup({ decode: async () => square });
+        await choose(pic());
+        const zoom = page.el.querySelector<HTMLInputElement>('#strv-badges-zoom')!;
+        expect(Number(zoom.min)).toBeLessThan(1);
+        expect(Number(zoom.min)).toBeCloseTo(fitZoom(1000, 1000), 9);
+        zoomOut(zoom);
+        const [sx, sy, sw, sh, dx, dy, dw, dh] = lastDraw(draws, square);
+        expect([sx, sy, sw, sh]).toEqual([0, 0, 1000, 1000]);
+        expect(dw).toBeCloseTo(dh, 9);
+        expect(dx + dw / 2).toBeCloseTo(540, 6);
+        expect(dy + dh / 2).toBeCloseTo(540, 6);
+        expect(Math.hypot(dw / 2, dh / 2)).toBeCloseTo(opening, 6);
+      });
     });
 
     it('moves with a drag and stays inside the photo', async () => {

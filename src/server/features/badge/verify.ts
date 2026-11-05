@@ -80,16 +80,20 @@ function pagesOf(url: URL): string[] {
 /**
  * Looks at one stored page and, when it differs, the site's home page. robots.txt must allow each page; the page (after at most
  * three checked redirects) must show our badge and link to our site, either by wrapping the badge image in a link to our site or by
- * having a link to our site elsewhere on the page. The first page that does is the one reported. Anything else, including an error,
- * is a failed check; no error text leaves this function.
+ * having a link to our site elsewhere on the page. The first page that does is the one reported. An inner page counts only when it
+ * is the page itself (a redirect to another path, such as a login page, does not) and it does not ask search engines to leave it out
+ * (noindex): such pages are often private (account, reset or invite links) and are never published on the list, so the check falls
+ * back to the home page. Anything else, including an error, is a failed check; no error text leaves this function.
  */
 export async function checkSighting(row: Sighting, siteHost: string, get: FetchPage, robots: Robots, log: (code: string) => void): Promise<CheckFinding> {
   const failed: CheckFinding = { outcome: 'failed', title: null, foundUrl: null };
   const url = parsePublicHttpsUrl(row.url);
   if (!url) return failed;
+  const home = `${url.origin}/`;
   for (const target of pagesOf(url)) {
     try {
       const where = new URL(target);
+      const inner = target !== home;
       const txt = await robots(where.hostname);
       if (txt !== null && !robotsAllows(txt, `${where.pathname}${where.search}`)) {
         log('robots');
@@ -101,11 +105,19 @@ export async function checkSighting(row: Sighting, siteHost: string, get: FetchP
         log('elsewhere');
         continue;
       }
+      if (inner && new URL(page.url).pathname !== where.pathname) {
+        log('moved');
+        continue;
+      }
       if (page.status < 200 || page.status >= 300 || !/html/i.test(page.contentType ?? '')) {
         log('status');
         continue;
       }
       const scan = scanForBadge(page.body, page.url, siteHost);
+      if (scan.badge && scan.link && inner && scan.noindex) {
+        log('noindex');
+        continue;
+      }
       if (scan.badge && scan.link) return { outcome: 'verified', title: scan.title, foundUrl: target };
       log('no-badge');
     } catch (e) {

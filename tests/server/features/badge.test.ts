@@ -499,6 +499,20 @@ describe('runBadgeChecks', () => {
     expect(seen.filter((u) => !u.endsWith('/robots.txt'))).toEqual(['https://example.com/news/post']);
     expect((await readBadgeSites(repo, {})).sites[0]!.url).toBe('https://example.com/news/post');
   });
+  it('never reports an inner page that redirects to another path (a login page with the badge in its footer), only the home page', async () => {
+    await seed('https://example.com/reset/secret-token');
+    const home = serve({ 'https://example.com/': html(SNIPPET) });
+    await run(async (u, a) => (u === 'https://example.com/reset/secret-token' ? { ...html(SNIPPET), url: 'https://example.com/login' } : home(u, a)));
+    expect(repo.rows.get('https://example.com/reset/secret-token')).toMatchObject({ foundUrl: 'https://example.com/', consecutiveFailures: 0 });
+    expect((await readBadgeSites(repo, {})).sites.map((s) => s.url)).toEqual(['https://example.com/']);
+  });
+  it('never reports an inner page marked noindex, and falls back to the home page (which may be noindex)', async () => {
+    await seed('https://example.com/account/jane');
+    const noindex = `<meta name="robots" content="noindex, nofollow">${SNIPPET}`;
+    await run(serve({ 'https://example.com/account/jane': html(noindex), 'https://example.com/': html(noindex) }));
+    expect(repo.rows.get('https://example.com/account/jane')).toMatchObject({ foundUrl: 'https://example.com/', consecutiveFailures: 0 });
+    expect((await readBadgeSites(repo, {})).sites.map((s) => s.url)).toEqual(['https://example.com/']);
+  });
   it('fails when neither the stored page nor the home page has the badge', async () => {
     await seed('https://example.com/news/post');
     await run(serve({ 'https://example.com/news/post': html('<p>x</p>'), 'https://example.com/': html('<p>y</p>') }));

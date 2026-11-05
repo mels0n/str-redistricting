@@ -2,7 +2,7 @@
 
 ## 1.12.3 (2026-11-05)
 
-- Every badge snippet now tells the visitor's browser to send the address of the page showing it, so a badge on any page of a site is found, not only one on the home page. /pledges is now just the list of sites, with a link to /badges to pick a badge, and its text column matches the other pages. When a site shows the badge on its home page and on inner pages, the list shows the home page, so a representative's site keeps their name.
+- Every badge snippet now tells the visitor's browser to send the address of the page showing it, so a badge on any page of a site is found, not only one on the home page. /pledges is now just the list of sites, with a link to /badges to pick a badge, and its text column matches the other pages. When a site shows the badge on its home page and on inner pages, the list shows the home page, so a representative's site keeps their name. An inner page is never listed when it redirects elsewhere (a login page, say) or asks search engines not to index it, so private pages that carry a site-wide badge stay private.
 
 ## 1.12.2 (2026-11-03)
 

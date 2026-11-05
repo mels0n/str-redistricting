@@ -2,7 +2,7 @@
 
 ## 1.2.4 (2026-11-05)
 
-- fix: stop versioning the weekly representative data refresh
+- The README explains that the weekly representative data refresh carries no version bump, and that a district alias edit still counts as a web change.
 
 ## 1.2.3 (2026-10-31)
 

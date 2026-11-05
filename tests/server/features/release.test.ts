@@ -74,6 +74,10 @@ describe('componentsFor', () => {
   it('attributes published data files to no component (maps follow the content hashes, not the paths)', () => {
     expect(of('fix: x', ['public/data/index.json', 'public/data/CO/assignments.json', 'public/data/CO/og.png', 'public/data/AL/blocks.pmtiles'])).toEqual([]);
   });
+  it('attributes the pinned representative sources to no component, and a district alias edit to web', () => {
+    expect(of('chore(data): x', ['config/reps-sources.json', 'public/data/reps/CO.json', 'public/data/reps/coverage.json'])).toEqual([]);
+    expect(of('fix: x', ['config/reps-district-aliases.json'])).toEqual(['web']);
+  });
   it('keeps the Census watch and the shared HTTP helpers out of the engine', () => {
     expect(of('feat: x', ['src/server/features/census-watch/probe.ts', 'src/server/app/census-watch.ts', 'src/server/shared/http/fetch.ts'])).toEqual([]);
   });

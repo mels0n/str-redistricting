@@ -127,6 +127,8 @@ describe('recordSighting', () => {
     for (const p of ['a', 'b', 'c']) expect((await recordSighting(`https://example.com/${p}`, deps())).outcome).toBe('recorded');
     expect((await recordSighting('https://example.com/d', deps())).outcome).toBe('crowded');
     expect(repo.rows.has('https://example.com/d')).toBe(false);
+    // the home page always gets in, so inner pages seen first never crowd it out
+    expect((await recordSighting('https://example.com/', deps())).outcome).toBe('recorded');
     expect((await recordSighting('https://example.com/a', deps({ now: new Date(NOW.getTime() + 2 * 3_600_000) }))).outcome).toBe('recorded');
     expect((await recordSighting('https://other.example.org/', deps())).outcome).toBe('recorded');
   });
@@ -499,23 +501,36 @@ describe('runBadgeChecks', () => {
     expect(seen.filter((u) => !u.endsWith('/robots.txt'))).toEqual(['https://example.com/news/post']);
     expect((await readBadgeSites(repo, {})).sites[0]!.url).toBe('https://example.com/news/post');
   });
-  it('never reports an inner page that redirects to another path (a login page with the badge in its footer), only the home page', async () => {
+  it('takes an inner page that redirects to another path (a login page with the badge in its footer) off the list at once, without trying the home page', async () => {
     await seed('https://example.com/reset/secret-token');
-    const home = serve({ 'https://example.com/': html(SNIPPET) });
-    await run(async (u, a) => (u === 'https://example.com/reset/secret-token' ? { ...html(SNIPPET), url: 'https://example.com/login' } : home(u, a)));
-    expect(repo.rows.get('https://example.com/reset/secret-token')).toMatchObject({ foundUrl: 'https://example.com/', consecutiveFailures: 0 });
-    expect((await readBadgeSites(repo, {})).sites.map((s) => s.url)).toEqual(['https://example.com/']);
+    const seen: string[] = [];
+    await run(async (u) => {
+      seen.push(u);
+      return u.endsWith('/robots.txt') ? { status: 404, url: u, contentType: null, body: '' } : { ...html(SNIPPET), url: 'https://example.com/login' };
+    });
+    expect(repo.rows.get('https://example.com/reset/secret-token')).toMatchObject({ verifiedAt: null, foundUrl: null, consecutiveFailures: 2 });
+    expect(seen).not.toContain('https://example.com/');
+    expect((await readBadgeSites(repo, {})).sites).toEqual([]);
+  });
+  it('takes a page that was listed off the list at once when it starts redirecting elsewhere', async () => {
+    await seed('https://example.com/members/jane');
+    await run(serve({ 'https://example.com/members/jane': html(SNIPPET) }));
+    expect((await readBadgeSites(repo, {})).sites.map((s) => s.url)).toEqual(['https://example.com/members/jane']);
+    nextDay();
+    await run(async (u) => (u.endsWith('/robots.txt') ? { status: 404, url: u, contentType: null, body: '' } : { ...html(SNIPPET), url: 'https://example.com/login' }));
+    expect((await readBadgeSites(repo, {})).sites).toEqual([]);
   });
   it('still reports an inner page whose redirect only adds a trailing slash', async () => {
     await seed('https://example.com/about');
     await run(async (u) => (u.endsWith('/robots.txt') ? { status: 404, url: u, contentType: null, body: '' } : { ...html(SNIPPET), url: 'https://example.com/about/' }));
     expect(repo.rows.get('https://example.com/about')!.foundUrl).toBe('https://example.com/about');
   });
-  it('never reports an inner page marked noindex, and falls back to the home page (which may be noindex)', async () => {
+  it('never lists an inner page marked noindex, but a noindex home page still counts', async () => {
     await seed('https://example.com/account/jane');
+    await seed('https://example.com/');
     const noindex = `<meta name="robots" content="noindex, nofollow">${SNIPPET}`;
     await run(serve({ 'https://example.com/account/jane': html(noindex), 'https://example.com/': html(noindex) }));
-    expect(repo.rows.get('https://example.com/account/jane')).toMatchObject({ foundUrl: 'https://example.com/', consecutiveFailures: 0 });
+    expect(repo.rows.get('https://example.com/account/jane')).toMatchObject({ verifiedAt: null, consecutiveFailures: 2 });
     expect((await readBadgeSites(repo, {})).sites.map((s) => s.url)).toEqual(['https://example.com/']);
   });
   it('fails when neither the stored page nor the home page has the badge', async () => {

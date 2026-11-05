@@ -2,7 +2,8 @@ name: Representative data refresh
 
 # Once a week, downloads the current congress-legislators and Open States files, re-pins them in
 # config/reps-sources.json, republishes public/data/reps/ and, when anything changed, opens a pull request with the new
-# data and the version bump and changelog entry a hand-made data change needs (the same `npm run release` the repo uses).
+# data. The refresh is data, not a change to any component, so it carries no version bump or changelog entry: both files
+# are in the ignore list of config/release.json.
 # The checks run here, before the pull request exists, because a pull request opened with GITHUB_TOKEN does not trigger
 # the other workflows (so Code Standards, standards.yml, does not start on it until a person closes and reopens it).
 # Needs the repository setting "Allow GitHub Actions to create and approve pull requests" (Settings > Actions > General).
@@ -40,27 +41,17 @@ jobs:
       pull-requests: read
     outputs:
       changed: ${{ steps.changes.outputs.changed }}
-      release_subject: ${{ steps.release.outputs.subject }}
 
     steps:
-      # Full history and tags: the release step reads the commits since each component's newest release tag.
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           ref: ${{ github.event.repository.default_branch }}
-          fetch-depth: 0
           persist-credentials: false
 
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: 24
           cache: npm
-
-      # Restore only, never save: the Census files the release step's fixture gate needs, from the entry that
-      # census-cache.yml keeps on main. The sources downloaded below must not end up in that entry.
-      - uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
-        with:
-          path: data/raw
-          key: census-${{ hashFiles('config/census-sha256.json') }}
 
       - name: Install
         run: npm ci
@@ -90,36 +81,6 @@ jobs:
           fi
           echo "changed=true" >> "$GITHUB_OUTPUT"
 
-      # The same script a person runs: proposes the versions from the commit subjects since each release tag, so the
-      # data change is committed first. The commits stay in this job; open-pr makes its own from the handed-over files.
-      - name: Version bump and changelog
-        id: release
-        if: steps.changes.outputs.changed == 'true'
-        run: |
-          set -euo pipefail
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add config/reps-sources.json public/data/reps
-          git commit -q -m "chore(data): refresh representative data"
-          npm run release
-          if [ "$(git log -1 --format=%s)" = "chore(data): refresh representative data" ]; then
-            echo "::error::npm run release changed nothing, but a data change needs a version bump."
-            exit 1
-          fi
-          echo "subject=$(git log -1 --format=%s)" >> "$GITHUB_OUTPUT"
-
-      - name: Only the expected files changed in the release
-        if: steps.changes.outputs.changed == 'true'
-        run: |
-          set -euo pipefail
-          unexpected=$(git diff --name-only HEAD~1 HEAD \
-            | grep -Ev '^(config/versions\.json|changelog/(engine|input|maps|schema|web|docs)\.md)$' || true)
-          if [ -n "$unexpected" ]; then
-            echo "::error::The release step touched files it should not have:"
-            echo "$unexpected"
-            exit 1
-          fi
-
       - name: Typecheck
         if: steps.changes.outputs.changed == 'true'
         run: npm run typecheck
@@ -146,8 +107,6 @@ jobs:
           retention-days: 1
           path: |
             config/reps-sources.json
-            config/versions.json
-            changelog/*.md
             public/data/reps/*.json
 
   open-pr:
@@ -195,7 +154,7 @@ jobs:
           ARTIFACT: ${{ runner.temp }}/reps-artifact
         run: |
           set -euo pipefail
-          allowed='^(config/(reps-sources|versions)\.json|changelog/(engine|input|maps|schema|web|docs)\.md|public/data/reps/([A-Z]{2}|coverage|websites)\.json)$'
+          allowed='^(config/reps-sources\.json|public/data/reps/([A-Z]{2}|coverage|websites)\.json)$'
           dir="$ARTIFACT"
           files=()
           while IFS= read -r -d '' entry; do
@@ -252,7 +211,7 @@ jobs:
             [
               "The weekly refresh of the representative data found newer source files.",
               "",
-              "Changed files: `config/reps-sources.json` (the new pinned hashes), `public/data/reps/`, and the version bump and changelog entry that the repository release script proposes for them.",
+              "Changed files: `config/reps-sources.json` (the new pinned hashes) and `public/data/reps/`. Neither is part of a versioned component, so there is no version bump.",
               "",
               "## State districts with no match",
               "",
@@ -287,13 +246,8 @@ jobs:
         if: steps.existing.outputs.skip == 'false'
         env:
           GH_TOKEN: ${{ github.token }}
-          RELEASE_SUBJECT: ${{ needs.build.outputs.release_subject }}
         run: |
           set -euo pipefail
-          if ! [[ "$RELEASE_SUBJECT" =~ ^release:\ [A-Za-z0-9\ .,-]+$ ]]; then
-            echo "::error::Unexpected release subject."
-            exit 1
-          fi
           branch="chore/refresh-reps-data-$(date -u +%F)"
           echo "BRANCH=$branch" >> "$GITHUB_ENV"
           git config user.name "github-actions[bot]"
@@ -301,8 +255,6 @@ jobs:
           git checkout -b "$branch"
           git add config/reps-sources.json public/data/reps
           git commit -q -m "chore(data): refresh representative data"
-          git add config/versions.json changelog
-          git commit -q -m "$RELEASE_SUBJECT"
           git -c http.https://github.com/.extraheader="AUTHORIZATION: basic $(printf 'x-access-token:%s' "$GH_TOKEN" | base64 -w0)" push --force origin "$branch"
 
       - name: Open the pull request

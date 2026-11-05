@@ -18,18 +18,18 @@ const flush = () => new Promise((r) => setTimeout(r, 0));
 describe('sites that show the badge page', () => {
   afterEach(() => document.body.replaceChildren());
 
-  it('has the heading, lede, how-to section and the exact snippet', async () => {
+  it('has the heading, lede and a link to pick a badge, with no snippet of its own', async () => {
     const page = createPledgesPage();
     await flush();
     expect(page.el.querySelector('h1')!.textContent).toBe('Sites that show the Fair Maps badge');
     expect(page.el.querySelector('.strv-how__lede')!.textContent).toBe('These websites show our badge. Each entry links to the page where it appears. Showing the badge is the only thing we check. Party is not shown.');
     expect([...page.el.querySelectorAll('h2')].map((e) => e.textContent)).toEqual(['Show the badge on your site']);
-    expect(page.el.querySelector('pre')!.textContent).toBe('<a href="https://fairmaps.melson.us/pledges"><img src="https://fairmaps.melson.us/api/badge" alt="I back Fair Maps" width="200" height="40"></a>');
+    expect(page.el.querySelector('pre')).toBeNull();
+    expect(page.el.querySelector('img')).toBeNull();
+    const cta = page.el.querySelector('.strv-pledges__cta')!;
+    expect(cta.textContent).toBe('Choose a badge');
+    expect(cta.getAttribute('href')).toBe('/badges');
     const text = page.el.textContent!;
-    expect(text).toContain('Put it on your home page. We check each site about once a day; if the badge is gone for two daily checks, the site comes off the list.');
-    expect(text).toContain('Older snippets that point at /badge.svg are not noticed. Use the snippet above.');
-    expect(text).toContain('Add the badge to your home page and link it to fairmaps.melson.us/pledges. It usually shows up within minutes, otherwise within a day.');
-    expect(text).toContain('What we look for: any of our badges (an image from fairmaps.melson.us/api/badge) and a link to fairmaps.melson.us on the same page.');
     expect(document.title).toBe(PAGE_META.pledges.title);
     expect(PAGE_META.pledges.title).toBe('Sites that show the Fair Maps badge | Fair Maps');
     expect(text).not.toContain('—');
@@ -93,8 +93,9 @@ describe('pledges page styles', () => {
     return start < 0 ? '' : css.slice(start, css.indexOf('}', start));
   };
 
-  it('keeps the long snippet from widening the page past a phone screen', () => {
+  it('keeps long titles from widening the page, and sizes the column like the other text pages', () => {
     expect(rule('.strv-pledges__body')).toContain('grid-template-columns: minmax(0, 1fr)');
-    expect(rule('.strv-pledges__snippet')).toContain('white-space: pre-wrap');
+    expect(rule('.strv-pledges__body')).toContain('max-width: calc(46rem + 2 * var(--gutter))');
+    expect(rule('.strv-how__section')).toContain('max-width: 46rem');
   });
 });

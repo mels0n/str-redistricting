@@ -51,12 +51,12 @@ describe('prerendered pages', () => {
     expect(html).not.toMatch(/<[^>]* style="/);
   });
 
-  it('writes the badge sites page with the fixed text and the snippet, and publishes no list', () => {
+  it('writes the badge sites page with the fixed text and a link to pick a badge, and publishes no list', () => {
     const html = read('dist/pledges/index.html');
     expect(titleOf(html)).toBe(PAGE_META.pledges.title);
     expect(html).toContain('Sites that show the Fair Maps badge');
     expect(html).toContain('Show the badge on your site');
-    expect(html).toContain('/api/badge');
+    expect(html).toContain('Choose a badge');
     // The list is fetched in the browser, so the static page claims neither a list nor an empty one.
     expect(html).not.toContain('No sites show the badge yet.');
     expect(read('dist/sitemap.xml')).toContain('<loc>https://fairmaps.melson.us/pledges</loc>');

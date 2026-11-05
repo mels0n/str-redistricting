@@ -105,7 +105,8 @@ export async function checkSighting(row: Sighting, siteHost: string, get: FetchP
         log('elsewhere');
         continue;
       }
-      if (inner && new URL(page.url).pathname !== where.pathname) {
+      const trim = (path: string): string => path.replace(/\/+$/, '');
+      if (inner && trim(new URL(page.url).pathname) !== trim(where.pathname)) {
         log('moved');
         continue;
       }

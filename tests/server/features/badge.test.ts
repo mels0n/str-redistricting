@@ -506,6 +506,11 @@ describe('runBadgeChecks', () => {
     expect(repo.rows.get('https://example.com/reset/secret-token')).toMatchObject({ foundUrl: 'https://example.com/', consecutiveFailures: 0 });
     expect((await readBadgeSites(repo, {})).sites.map((s) => s.url)).toEqual(['https://example.com/']);
   });
+  it('still reports an inner page whose redirect only adds a trailing slash', async () => {
+    await seed('https://example.com/about');
+    await run(async (u) => (u.endsWith('/robots.txt') ? { status: 404, url: u, contentType: null, body: '' } : { ...html(SNIPPET), url: 'https://example.com/about/' }));
+    expect(repo.rows.get('https://example.com/about')!.foundUrl).toBe('https://example.com/about');
+  });
   it('never reports an inner page marked noindex, and falls back to the home page (which may be noindex)', async () => {
     await seed('https://example.com/account/jane');
     const noindex = `<meta name="robots" content="noindex, nofollow">${SNIPPET}`;

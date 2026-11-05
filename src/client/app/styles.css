@@ -5496,7 +5496,7 @@ var {
 
 .strv-pledges__body {
   display: grid;
-  /* minmax(0, 1fr) keeps the long badge snippet from widening the column past the screen. */
+  /* minmax(0, 1fr) keeps a long host name or page title from widening the column past the screen. */
   grid-template-columns: minmax(0, 1fr);
   gap: var(--s-5);
   padding: var(--s-5) var(--gutter) var(--s-8);

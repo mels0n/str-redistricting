@@ -2,7 +2,7 @@
 
 ## 1.2.5 (2026-11-05)
 
-- fix: find badges on any page, and make /pledges just the list
+- The README explains the referrer policy in the badge snippet, and that older snippets without it are found only on a site's home page.
 
 ## 1.2.4 (2026-11-05)
 

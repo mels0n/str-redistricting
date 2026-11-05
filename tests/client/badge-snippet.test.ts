@@ -90,6 +90,9 @@ describe('badgeSnippet', () => {
   it('no scripts', () => {
     for (const c of choices) expect(badgeSnippet(c, SITE).toLowerCase()).not.toContain('<script');
   });
+  it('every snippet asks the browser to send the full page address, so a badge on any page is found', () => {
+    for (const c of choices) expect(badgeSnippet(c, SITE), c.id).toMatch(/<img [^>]*referrerpolicy="no-referrer-when-downgrade"/);
+  });
   it('alt text is escaped', () => {
     const s = badgeSnippet({ id: 'state', theme: 'light', abbr: 'CO', stateName: 'A & "B"', seats: 2 }, SITE);
     expect(s).toContain('alt="I support fair maps for A &amp; &quot;B&quot;: 2 districts');

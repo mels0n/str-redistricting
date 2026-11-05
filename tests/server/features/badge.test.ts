@@ -589,7 +589,7 @@ describe('runBadgeChecks', () => {
 describe('readBadgeSites', () => {
   const sighting = (url: string, firstSeen: string, over: Partial<Sighting> = {}): Sighting => ({ url, host: new URL(url).hostname, firstSeen, lastSeen: firstSeen, verifiedAt: firstSeen, lastChecked: firstSeen, consecutiveFailures: 0, title: 'T', foundUrl: url, ...over });
 
-  it('lists verified sites newest first with the shape the page needs, one per host', async () => {
+  it('lists verified sites newest first with the shape the page needs, one per host (its home-page row when it has one)', async () => {
     const repo = new MemoryRepo();
     for (const s of [
       sighting('https://old.example.com/', '2026-10-01T00:00:00.000Z'),
@@ -600,7 +600,7 @@ describe('readBadgeSites', () => {
     ]) repo.rows.set(s.url, s);
     const { sites } = await readBadgeSites(repo, {});
     expect(sites).toEqual([
-      { url: 'https://www.new.example.com/x', host: 'www.new.example.com', title: 'T', name: null, office: null, id: null },
+      { url: 'https://new.example.com/', host: 'new.example.com', title: 'T', name: null, office: null, id: null },
       { url: 'https://old.example.com/', host: 'old.example.com', title: 'T', name: null, office: null, id: null },
     ]);
   });
@@ -619,6 +619,19 @@ describe('readBadgeSites', () => {
     const map = { 'hurd.house.gov': { name: 'Jane Hurd', office: 'us-house' as const, state: 'CO', id: 'H1' } };
     for (const s of [sighting('https://hurd.house.gov/supporters/jo', '2026-10-20T00:00:00.000Z'), sighting('https://shared.example.org/', '2026-10-19T00:00:00.000Z')]) repo.rows.set(s.url, s);
     for (const site of (await readBadgeSites(repo, map)).sites) expect(site, site.host).toMatchObject({ name: null, office: null, id: null });
+  });
+
+  it('shows a host by its home-page row when a newer inner page also has the badge, so the representative stays named', async () => {
+    const repo = new MemoryRepo();
+    const map = { 'hurd.house.gov': { name: 'Jane Hurd', office: 'us-house' as const, state: 'CO', id: 'H1' } };
+    for (const s of [
+      sighting('https://hurd.house.gov/', '2026-10-01T00:00:00.000Z'),
+      sighting('https://hurd.house.gov/news/post', '2026-10-20T00:00:00.000Z'),
+      sighting('https://later.example.com/', '2026-10-10T00:00:00.000Z'),
+    ]) repo.rows.set(s.url, s);
+    const { sites } = await readBadgeSites(repo, map);
+    expect(sites.map((s) => s.url)).toEqual(['https://hurd.house.gov/', 'https://later.example.com/']);
+    expect(sites[0]).toMatchObject({ name: 'Jane Hurd', id: 'H1' });
   });
 
   it('lists at most 200', async () => {

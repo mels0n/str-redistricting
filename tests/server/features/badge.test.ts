@@ -174,6 +174,10 @@ describe('scanForBadge', () => {
   it('finds the image from /api/badge and a link to the pledges page', () => {
     expect(scan(`<html><body>${both()}</body></html>`)).toMatchObject({ badge: true, link: true });
   });
+  it('reads noindex only from an exact robots or googlebot directive in the page itself', () => {
+    for (const meta of ['<meta name="robots" content="noindex">', '<meta name="googlebot" content="follow, NONE">', "<meta content='nofollow,noindex' name=ROBOTS>"]) expect(scan(meta + both()).noindex, meta).toBe(true);
+    for (const meta of ['<meta name="robots" content="index, follow, max-image-preview:none">', '<meta name="description" content="noindex">', '<!-- <meta name="robots" content="noindex"> -->', '']) expect(scan(meta + both()).noindex, meta).toBe(false);
+  });
   describe('the recognised setups', () => {
     const ok = { badge: true, link: true };
     it('A: the badge image wrapped in a link to our site (any path)', () => {

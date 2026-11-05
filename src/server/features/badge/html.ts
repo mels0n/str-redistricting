@@ -84,7 +84,7 @@ export function scanForBadge(html: string, pageUrl: string, siteHost: string): B
   let noindex = false;
   for (const m of bare.matchAll(/<meta\b([^>]*)>/gi)) {
     const attrs = attributes(m[1]!);
-    if (/^(robots|googlebot)$/i.test(attrs.get('name')?.trim() ?? '') && /\b(noindex|none)\b/i.test(attrs.get('content') ?? '')) noindex = true;
+    if (/^(robots|googlebot)$/i.test(attrs.get('name')?.trim() ?? '') && (attrs.get('content') ?? '').split(',').some((d) => /^(noindex|none)$/i.test(d.trim()))) noindex = true;
   }
   const t = /<title\b[^>]*>([\s\S]*?)<\/title\s*>/i.exec(bare);
   return { badge, link, title: t ? cleanTitle(t[1]!) : null, noindex };

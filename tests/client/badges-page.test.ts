@@ -262,6 +262,9 @@ describe('pages that point at the badges page', () => {
 
 describe('profile photo frame', () => {
   const NEVER = () => new Promise<never>(() => undefined);
+  // Every page made here is destroyed after its test, so a debounced encode left running by one test can never fire in the next
+  // one and take its object URLs (the stubbed createObjectURL is shared and numbers its addresses in call order).
+  const made: { destroy?: () => void }[] = [];
   const setup = (over: Partial<FrameDeps> = {}) => {
     const draws: unknown[][] = [];
     const ctx = {
@@ -286,6 +289,7 @@ describe('profile photo frame', () => {
     URL.createObjectURL = create;
     URL.revokeObjectURL = revoke;
     const page = createBadgesPage(NEVER, deps);
+    made.push(page);
     document.body.append(page.el);
     const input = page.el.querySelector<HTMLInputElement>('input[type="file"]')!;
     const choose = async (file: File) => {
@@ -302,6 +306,7 @@ describe('profile photo frame', () => {
   };
 
   afterEach(() => {
+    for (const page of made.splice(0)) page.destroy?.();
     vi.unstubAllGlobals();
     document.body.replaceChildren();
   });

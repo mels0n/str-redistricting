@@ -29,7 +29,7 @@ export interface BadgeAssets {
 export const FRAME_RING = '/badges/frame.png';
 export const FRAME_PRINT = '/badges/frame-print.png';
 
-export const BADGE_SNIPPET = `<a href="https://${config.siteHost}/pledges"><img src="https://${config.siteHost}/api/badge" alt="I back Fair Maps" width="200" height="40"></a>`;
+export const BADGE_SNIPPET = `<a href="https://${config.siteHost}/pledges"><img src="https://${config.siteHost}/api/badge" referrerpolicy="no-referrer-when-downgrade" alt="I back Fair Maps" width="200" height="40"></a>`;
 
 const SIZES = {
   crest: { width: 160, height: 190 },
@@ -106,6 +106,6 @@ export function badgeSnippet(c: BadgeChoice, site: string): string {
   const href = escapeAttr(a.href);
   const src = escapeAttr(a.image);
   const alt = escapeAttr(a.alt);
-  if (c.id === 'button') return `<a href="${href}"><img src="${src}" alt="${alt}" width="${a.width}" height="${a.height}"></a>`;
-  return `<a href="${href}"><img src="${src}" srcset="${escapeAttr(a.image2x ?? a.image)} 2x" width="${a.width}" height="${a.height}" alt="${alt}"></a>`;
+  if (c.id === 'button') return `<a href="${href}"><img src="${src}" referrerpolicy="no-referrer-when-downgrade" alt="${alt}" width="${a.width}" height="${a.height}"></a>`;
+  return `<a href="${href}"><img src="${src}" referrerpolicy="no-referrer-when-downgrade" srcset="${escapeAttr(a.image2x ?? a.image)} 2x" width="${a.width}" height="${a.height}" alt="${alt}"></a>`;
 }

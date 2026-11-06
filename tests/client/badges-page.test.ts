@@ -242,13 +242,15 @@ describe('state badge picker', () => {
 });
 
 describe('pages that point at the badges page', () => {
-  it('links /pledges to /badges and keeps the button snippet', () => {
-    const page = createPledgesPage([]);
-    const link = [...page.el.querySelectorAll('a')].find((a) => a.textContent === 'Badges')!;
+  it('links /pledges to /badges, where the rules for being listed now live', () => {
+    const pledges = createPledgesPage([]);
+    const link = [...pledges.el.querySelectorAll('a')].find((a) => a.textContent === 'Choose a badge')!;
     expect(link.getAttribute('href')).toBe('/badges');
-    expect(page.el.textContent).toContain('More badges, including one with your state’s map and a ring for your profile picture: Badges');
-    expect(page.el.querySelector('pre')!.textContent).toBe(BADGE_SNIPPET);
-    expect(page.el.textContent).toContain(`What we look for: any of our badges (an image from ${config.siteHost}/api/badge) and a link to ${config.siteHost} on the same page.`);
+    const text = createBadgesPage().el.querySelector('.strv-badges__site')!.textContent!;
+    expect(text).toContain(`What we look for: any of our badges (an image from ${config.siteHost}/api/badge) and a link to ${config.siteHost} on the same page.`);
+    expect(text).toContain('if the badge is gone for two daily checks, the site comes off the list.');
+    expect(text).toContain('without it we can only find a badge on your home page.');
+    expect(text).not.toContain('—');
   });
 
   it('names the privacy badge section and says one of our badges', () => {

@@ -1,5 +1,9 @@
 # Docs changelog
 
+## 1.2.5 (2026-11-05)
+
+- The README explains the referrer policy in the badge snippet, and that older snippets without it are found only on a site's home page.
+
 ## 1.2.4 (2026-11-05)
 
 - The README explains that the weekly representative data refresh carries no version bump, and that a district alias edit still counts as a web change.

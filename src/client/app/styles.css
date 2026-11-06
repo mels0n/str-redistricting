@@ -5496,11 +5496,20 @@ var {
 
 .strv-pledges__body {
   display: grid;
-  /* minmax(0, 1fr) keeps the long badge snippet from widening the column past the screen. */
+  /* minmax(0, 1fr) keeps a long host name or page title from widening the column past the screen. */
   grid-template-columns: minmax(0, 1fr);
   gap: var(--s-5);
-  padding: var(--s-5) var(--gutter);
-  max-width: 62ch;
+  padding: var(--s-5) var(--gutter) var(--s-8);
+  max-width: calc(46rem + 2 * var(--gutter));
+}
+
+.strv-pledges__add {
+  padding-top: var(--s-5);
+  border-top: 2px solid var(--ink);
+}
+
+.strv-pledges__cta {
+  font-weight: 700;
 }
 
 .strv-pledges__ul {
@@ -5535,14 +5544,6 @@ var {
 
 .strv-pledges__body > section > * {
   margin: 0;
-}
-
-.strv-pledges__snippet {
-  overflow-x: auto;
-  white-space: pre-wrap;
-  overflow-wrap: anywhere;
-  padding: var(--s-3);
-  border: 2px solid var(--ink);
 }
 
 .strv-reps__badge {

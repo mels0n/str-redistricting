@@ -60,10 +60,8 @@
   },
   "CO": {
     "state-house": {
-      "matched": 64,
-      "unmatched": [
-        "032"
-      ]
+      "matched": 65,
+      "unmatched": []
     },
     "state-senate": {
       "matched": 35,
@@ -118,10 +116,8 @@
       "unmatched": []
     },
     "state-senate": {
-      "matched": 55,
-      "unmatched": [
-        "012"
-      ]
+      "matched": 56,
+      "unmatched": []
     }
   },
   "HI": {
@@ -358,10 +354,11 @@
   },
   "NM": {
     "state-house": {
-      "matched": 68,
+      "matched": 67,
       "unmatched": [
         "037",
-        "041"
+        "041",
+        "064"
       ]
     },
     "state-senate": {
@@ -403,8 +400,10 @@
   },
   "OH": {
     "state-house": {
-      "matched": 99,
-      "unmatched": []
+      "matched": 98,
+      "unmatched": [
+        "089"
+      ]
     },
     "state-senate": {
       "matched": 32,

@@ -3,7 +3,7 @@
   "generatedFrom": {
     "legislators-current.json": "ae8cb9477c48715df71a7d860854229d799dc90a254d61badc1efb770f892b2c",
     "legislators-social-media.json": "c6eca1fcdb3a89901335eed51ca061daa4b60ad3243969a127e913bb9657fbc5",
-    "nm.csv": "25b4ec994db7c039c958a552f282d8a658f47ccc89432681659a57d40cc0724c"
+    "nm.csv": "77b6077755be7e82cf68cd34e1b80a9bd42a422ed8aeb34cf0e688c7bc5deed7"
   },
   "byKey": {
     "NM:us-senate:state": [
@@ -104,20 +104,6 @@
         "phone": null,
         "address": null,
         "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HMAAL",
-        "social": {}
-      }
-    ],
-    "NM:state-house:064": [
-      {
-        "id": "ocd-person/c4caca3c-faa3-445f-91e0-cce9edd53a5a",
-        "name": "Andi Reeb",
-        "office": "state-house",
-        "districtCode": "064",
-        "contactUrl": null,
-        "email": "andrea.reeb@nmlegis.gov",
-        "phone": null,
-        "address": null,
-        "website": "https://www.nmlegis.gov/Members/Legislator?SponCode=HREEB",
         "social": {}
       }
     ],

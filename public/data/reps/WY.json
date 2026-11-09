@@ -3,7 +3,7 @@
   "generatedFrom": {
     "legislators-current.json": "ae8cb9477c48715df71a7d860854229d799dc90a254d61badc1efb770f892b2c",
     "legislators-social-media.json": "c6eca1fcdb3a89901335eed51ca061daa4b60ad3243969a127e913bb9657fbc5",
-    "wy.csv": "3c8680377a3f2e86249948be4066ad91e7c6b1f480e5a5cc82d7442d10147837"
+    "wy.csv": "8043f8b05a155ed33d8d01d0441c224a90c47517e828f47b5a4e2a554dae69fa"
   },
   "byKey": {
     "WY:us-senate:state": [
@@ -1281,11 +1281,11 @@
     "WY:state-senate:014": [
       {
         "id": "ocd-person/c6b78357-5a9d-41e9-b947-1d81227b0f15",
-        "name": "Laura Pearson",
+        "name": "Laura Taliaferro",
         "office": "state-senate",
         "districtCode": "014",
         "contactUrl": null,
-        "email": "laura.pearson@wyoleg.gov",
+        "email": "Laura.Taliaferro@wyoleg.gov",
         "phone": null,
         "address": null,
         "website": "https://wyoleg.gov/Legislators/2025/R/2138",

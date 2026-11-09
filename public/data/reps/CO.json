@@ -3,7 +3,7 @@
   "generatedFrom": {
     "legislators-current.json": "ae8cb9477c48715df71a7d860854229d799dc90a254d61badc1efb770f892b2c",
     "legislators-social-media.json": "c6eca1fcdb3a89901335eed51ca061daa4b60ad3243969a127e913bb9657fbc5",
-    "co.csv": "9520abbafebc90941e79dfd39660c2283ae79b38c43aef35075e59c61649910d"
+    "co.csv": "2fcd489d6753de0bde7fa5e4f18a05eb8ab1dbf1de39c20e7d7ee6acbdec08e2"
   },
   "byKey": {
     "CO:us-senate:state": [
@@ -833,6 +833,20 @@
           "facebook": "RepLindsay",
           "instagram": "rep_lindsay"
         }
+      }
+    ],
+    "CO:state-house:032": [
+      {
+        "id": "ocd-person/135499ed-a471-4567-afcc-53c16112f0d6",
+        "name": "María González",
+        "office": "state-house",
+        "districtCode": "032",
+        "contactUrl": null,
+        "email": "maria.gonzalez.house@coleg.gov",
+        "phone": null,
+        "address": null,
+        "website": "https://leg.colorado.gov/legislators/maria-gonzalez",
+        "social": {}
       }
     ],
     "CO:state-house:021": [

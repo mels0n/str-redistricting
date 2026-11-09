@@ -3,7 +3,7 @@
   "generatedFrom": {
     "legislators-current.json": "ae8cb9477c48715df71a7d860854229d799dc90a254d61badc1efb770f892b2c",
     "legislators-social-media.json": "c6eca1fcdb3a89901335eed51ca061daa4b60ad3243969a127e913bb9657fbc5",
-    "oh.csv": "3e467d29c355e81a21e845bfe5c265241c8eba1c2a6b215b0a89ba10013a3ee5"
+    "oh.csv": "bd6eec7bbb39b2607edbe640c26c3bcbf562239d5b93f779d1e4ccc6be0f39c6"
   },
   "byKey": {
     "OH:us-house:04": [
@@ -602,20 +602,6 @@
         "phone": null,
         "address": null,
         "website": "https://ohiohouse.gov/members/crystal-lett",
-        "social": {}
-      }
-    ],
-    "OH:state-house:089": [
-      {
-        "id": "ocd-person/cb2ddd04-e5b0-4c96-b217-d02b732eb896",
-        "name": "D.J. Swearingen",
-        "office": "state-house",
-        "districtCode": "089",
-        "contactUrl": null,
-        "email": "rep89@ohiohouse.gov",
-        "phone": null,
-        "address": null,
-        "website": "https://ohiohouse.gov/d-j-swearingen",
         "social": {}
       }
     ],

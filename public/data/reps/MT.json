@@ -3,7 +3,7 @@
   "generatedFrom": {
     "legislators-current.json": "ae8cb9477c48715df71a7d860854229d799dc90a254d61badc1efb770f892b2c",
     "legislators-social-media.json": "c6eca1fcdb3a89901335eed51ca061daa4b60ad3243969a127e913bb9657fbc5",
-    "mt.csv": "0fb1c6a06a8f25e2a919eeb0a847cceacf59a0fddc5b5c040a7f8acab1531661"
+    "mt.csv": "b92f4d48b263e36a2a45e1dd9f7f220fabc34253194cb544f084e62b7a7a1437"
   },
   "byKey": {
     "MT:us-senate:state": [
@@ -2112,7 +2112,7 @@
         "email": "tony.tezak@legmt.gov",
         "phone": null,
         "address": null,
-        "website": "https://legislators.legmt.gov/#/legislator/1606",
+        "website": "https://legislators.legmt.gov/#/legislator/155",
         "social": {}
       }
     ],

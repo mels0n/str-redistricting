@@ -3,7 +3,7 @@
   "generatedFrom": {
     "legislators-current.json": "ae8cb9477c48715df71a7d860854229d799dc90a254d61badc1efb770f892b2c",
     "legislators-social-media.json": "c6eca1fcdb3a89901335eed51ca061daa4b60ad3243969a127e913bb9657fbc5",
-    "ak.csv": "73cfe9dd8aa9e2548856fc04f897e4417faa02a0cad549cb176ceb1527e08369"
+    "ak.csv": "01a76c575f549db617b62bc5203f59d6632057c5364ce6a678178e6253d6c665"
   },
   "byKey": {
     "AK:us-senate:state": [
@@ -1041,7 +1041,7 @@
         "email": "senator.scott.kawasaki@akleg.gov",
         "phone": null,
         "address": null,
-        "website": "https://alaskasenate.org/kawasaki/",
+        "website": null,
         "social": {
           "x": "alaskascott",
           "facebook": "scottforalaska",

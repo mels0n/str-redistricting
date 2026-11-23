@@ -3,7 +3,7 @@
   "generatedFrom": {
     "legislators-current.json": "ae8cb9477c48715df71a7d860854229d799dc90a254d61badc1efb770f892b2c",
     "legislators-social-media.json": "c6eca1fcdb3a89901335eed51ca061daa4b60ad3243969a127e913bb9657fbc5",
-    "nv.csv": "747048f67e7045017772efc80150dad71ba32b73dcd6eb8754290c2f3d98593c"
+    "nv.csv": "4cf94feb44d2c5cfac021bd106584459ab7a1c8b0caf631ca5bbc5e3f1235f91"
   },
   "byKey": {
     "NV:us-house:02": [
@@ -111,6 +111,34 @@
         }
       }
     ],
+    "NV:state-house:029": [
+      {
+        "id": "ocd-person/0ab7b106-2c71-4329-95cd-0caf963d7d3d",
+        "name": "Alex Pereszlenyi",
+        "office": "state-house",
+        "districtCode": "029",
+        "contactUrl": null,
+        "email": null,
+        "phone": null,
+        "address": null,
+        "website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/29",
+        "social": {}
+      }
+    ],
+    "NV:state-house:001": [
+      {
+        "id": "ocd-person/c515922f-d8c6-4887-aede-4189ba57ffd9",
+        "name": "Alexis Esparza",
+        "office": "state-house",
+        "districtCode": "001",
+        "contactUrl": null,
+        "email": null,
+        "phone": null,
+        "address": null,
+        "website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/1",
+        "social": {}
+      }
+    ],
     "NV:state-house:032": [
       {
         "id": "ocd-person/6fee4c5a-f125-46bc-b11a-d254e40428e4",
@@ -163,23 +191,6 @@
         }
       }
     ],
-    "NV:state-house:013": [
-      {
-        "id": "ocd-person/20c9828b-8026-440a-9328-0c2cbcbad016",
-        "name": "Brian Hibbetts",
-        "office": "state-house",
-        "districtCode": "013",
-        "contactUrl": null,
-        "email": "brian.hibbetts@asm.state.nv.us",
-        "phone": null,
-        "address": null,
-        "website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/13",
-        "social": {
-          "x": "BrianHibbetts",
-          "instagram": "brianhibbettsnv"
-        }
-      }
-    ],
     "NV:state-house:005": [
       {
         "id": "ocd-person/287d0078-78f3-4717-8493-9f77d0eb57d6",
@@ -196,6 +207,20 @@
           "facebook": "Miller4AD5",
           "instagram": "brittmiller4ad5"
         }
+      }
+    ],
+    "NV:state-house:007": [
+      {
+        "id": "ocd-person/53cb6c67-5f07-4a64-9571-4fb1de35a601",
+        "name": "C.H. Miller",
+        "office": "state-house",
+        "districtCode": "007",
+        "contactUrl": null,
+        "email": null,
+        "phone": null,
+        "address": null,
+        "website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/7",
+        "social": {}
       }
     ],
     "NV:state-house:016": [
@@ -234,39 +259,18 @@
         }
       }
     ],
-    "NV:state-house:001": [
+    "NV:state-house:013": [
       {
-        "id": "ocd-person/b266a1bc-d8f5-472c-ba8d-e98e0d904ee3",
-        "name": "Daniele Monroe-Moreno",
+        "id": "ocd-person/3ad670b4-51af-481a-8488-54bbd67d321f",
+        "name": "Dan Andrews",
         "office": "state-house",
-        "districtCode": "001",
+        "districtCode": "013",
         "contactUrl": null,
-        "email": "daniele.monroemoreno@asm.state.nv.us",
+        "email": null,
         "phone": null,
         "address": null,
-        "website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=307",
-        "social": {
-          "x": "Daniele4NV",
-          "facebook": "Daniele4Nevada"
-        }
-      }
-    ],
-    "NV:state-house:023": [
-      {
-        "id": "ocd-person/bf8b61a8-585a-4357-82f8-bd8de898262b",
-        "name": "Danielle Gallant",
-        "office": "state-house",
-        "districtCode": "023",
-        "contactUrl": null,
-        "email": "danielle.gallant@asm.state.nv.us",
-        "phone": null,
-        "address": null,
-        "website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/23",
-        "social": {
-          "x": "Danielle4nv1",
-          "facebook": "DanielleGallant4Nevada",
-          "instagram": "danielle4nevada"
-        }
+        "website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/13",
+        "social": {}
       }
     ],
     "NV:state-house:020": [
@@ -285,6 +289,20 @@
         }
       }
     ],
+    "NV:state-house:023": [
+      {
+        "id": "ocd-person/3595bac9-9ea1-48f6-8436-6c6c2d3a1497",
+        "name": "Denise Fanning",
+        "office": "state-house",
+        "districtCode": "023",
+        "contactUrl": null,
+        "email": null,
+        "phone": null,
+        "address": null,
+        "website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/23",
+        "social": {}
+      }
+    ],
     "NV:state-house:008": [
       {
         "id": "ocd-person/fb919fa4-e37e-4268-9f5d-e4c3e9490475",
@@ -301,6 +319,20 @@
           "facebook": "duyfornv",
           "instagram": "duyfornv"
         }
+      }
+    ],
+    "NV:state-house:004": [
+      {
+        "id": "ocd-person/b0e201c7-f973-4bae-80ce-04aa57966fe6",
+        "name": "Eileen Eady",
+        "office": "state-house",
+        "districtCode": "004",
+        "contactUrl": null,
+        "email": null,
+        "phone": null,
+        "address": null,
+        "website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/4",
+        "social": {}
       }
     ],
     "NV:state-house:021": [
@@ -426,42 +458,6 @@
         }
       }
     ],
-    "NV:state-house:002": [
-      {
-        "id": "ocd-person/61389b89-1169-49b3-a17b-c904f2111b4e",
-        "name": "Heidi Kasama",
-        "office": "state-house",
-        "districtCode": "002",
-        "contactUrl": null,
-        "email": "heidi.kasama@asm.state.nv.us",
-        "phone": null,
-        "address": null,
-        "website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=379",
-        "social": {
-          "x": "heidikasama4nv",
-          "facebook": "heidikasamanv",
-          "instagram": "heidikasamanv"
-        }
-      }
-    ],
-    "NV:state-house:015": [
-      {
-        "id": "ocd-person/b88fd854-c97b-4908-a554-583b93bca5c4",
-        "name": "Howard Watts",
-        "office": "state-house",
-        "districtCode": "015",
-        "contactUrl": null,
-        "email": "howard.watts@asm.state.nv.us",
-        "phone": null,
-        "address": null,
-        "website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=363",
-        "social": {
-          "x": "HowardWattsNV",
-          "facebook": "WattsForNevada",
-          "instagram": "HowardWattsNV"
-        }
-      }
-    ],
     "NV:state-house:019": [
       {
         "id": "ocd-person/4e25af9f-4cb3-4812-8a12-2f1012aa6cb7",
@@ -495,21 +491,18 @@
         }
       }
     ],
-    "NV:state-house:029": [
+    "NV:state-house:035": [
       {
-        "id": "ocd-person/282757f9-1693-4ac5-bd98-4315543cd61a",
-        "name": "Joe Dalia",
+        "id": "ocd-person/6c4f715a-9634-476a-88d7-1b6dde8eb53a",
+        "name": "Joe Spica",
         "office": "state-house",
-        "districtCode": "029",
+        "districtCode": "035",
         "contactUrl": null,
-        "email": "joe.dalia@asm.state.nv.us",
+        "email": null,
         "phone": null,
         "address": null,
-        "website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/29",
-        "social": {
-          "x": "JosephDalia",
-          "instagram": "joedalianv"
-        }
+        "website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/35",
+        "social": {}
       }
     ],
     "NV:state-house:006": [
@@ -528,6 +521,34 @@
         }
       }
     ],
+    "NV:state-house:040": [
+      {
+        "id": "ocd-person/9dcc125c-9565-4af5-a263-fd512c89ceb6",
+        "name": "Julie Butler",
+        "office": "state-house",
+        "districtCode": "040",
+        "contactUrl": null,
+        "email": null,
+        "phone": null,
+        "address": null,
+        "website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/40",
+        "social": {}
+      }
+    ],
+    "NV:state-house:002": [
+      {
+        "id": "ocd-person/bc5b086e-4a0c-4854-9c52-058a5d357f03",
+        "name": "Kamilah Bywaters",
+        "office": "state-house",
+        "districtCode": "002",
+        "contactUrl": null,
+        "email": null,
+        "phone": null,
+        "address": null,
+        "website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/2",
+        "social": {}
+      }
+    ],
     "NV:state-house:017": [
       {
         "id": "ocd-person/9a681fc4-e005-4c1f-a16b-6fa2b02106e3",
@@ -543,24 +564,6 @@
           "x": "LindaForNevada",
           "facebook": "LindaForNevada",
           "instagram": "lindafornevada"
-        }
-      }
-    ],
-    "NV:state-house:004": [
-      {
-        "id": "ocd-person/1707682b-c409-4d5e-9a2d-9505180de66c",
-        "name": "Lisa Cole",
-        "office": "state-house",
-        "districtCode": "004",
-        "contactUrl": null,
-        "email": "lisa.cole@asm.state.nv.us",
-        "phone": null,
-        "address": null,
-        "website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/4",
-        "social": {
-          "x": "LisaColeNV",
-          "facebook": "LisaColeNV",
-          "instagram": "lisacolenevada"
         }
       }
     ],
@@ -582,22 +585,18 @@
         }
       }
     ],
-    "NV:state-house:022": [
+    "NV:state-house:015": [
       {
-        "id": "ocd-person/5cafbfaf-3066-4080-9754-b53f337ba4ba",
-        "name": "Melissa Hardy",
+        "id": "ocd-person/ab711af6-6ff7-4965-a7b0-da11fcb883c5",
+        "name": "Miguel Dávila",
         "office": "state-house",
-        "districtCode": "022",
+        "districtCode": "015",
         "contactUrl": null,
-        "email": "melissa.hardy@asm.state.nv.us",
+        "email": null,
         "phone": null,
         "address": null,
-        "website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=364",
-        "social": {
-          "x": "Hardy4NV",
-          "facebook": "Hardy4NV",
-          "instagram": "hardy4nevada"
-        }
+        "website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/15",
+        "social": {}
       }
     ],
     "NV:state-house:030": [
@@ -614,40 +613,6 @@
         "social": {
           "x": "voteNatha",
           "facebook": "votenatha"
-        }
-      }
-    ],
-    "NV:state-house:040": [
-      {
-        "id": "ocd-person/a964be66-bd32-48ab-b6c4-9ede22177328",
-        "name": "P.K. O'Neill",
-        "office": "state-house",
-        "districtCode": "040",
-        "contactUrl": null,
-        "email": "pk.oneill@asm.state.nv.us",
-        "phone": null,
-        "address": null,
-        "website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=285",
-        "social": {
-          "x": "PKONeillNV",
-          "facebook": "PKONeill4NV"
-        }
-      }
-    ],
-    "NV:state-house:035": [
-      {
-        "id": "ocd-person/0460d67c-f5e3-4ff8-82c3-27caabeff9a2",
-        "name": "Rebecca Edgeworth",
-        "office": "state-house",
-        "districtCode": "035",
-        "contactUrl": null,
-        "email": "rebecca.edgeworth@asm.state.nv.us",
-        "phone": null,
-        "address": null,
-        "website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/35",
-        "social": {
-          "x": "EdgeworthForNV",
-          "facebook": "EdgeworthForNevada"
         }
       }
     ],
@@ -686,22 +651,18 @@
         }
       }
     ],
-    "NV:state-house:041": [
+    "NV:state-house:009": [
       {
-        "id": "ocd-person/25e09131-39e3-4c58-96b0-6c1ac9e74b19",
-        "name": "Sandra Jauregui",
+        "id": "ocd-person/cac81d20-5c7e-4368-8f03-f1c601bde0c7",
+        "name": "Ryan Hampton",
         "office": "state-house",
-        "districtCode": "041",
+        "districtCode": "009",
         "contactUrl": null,
-        "email": "sandra.jauregui@asm.state.nv.us",
+        "email": null,
         "phone": null,
         "address": null,
-        "website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=344",
-        "social": {
-          "x": "sandra4nv",
-          "facebook": "sandrajaureguinv",
-          "instagram": "sandrajaureguinv"
-        }
+        "website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/9",
+        "social": {}
       }
     ],
     "NV:state-house:025": [
@@ -758,37 +719,18 @@
         }
       }
     ],
-    "NV:state-house:009": [
+    "NV:state-house:022": [
       {
-        "id": "ocd-person/4caae060-1c91-4d9d-a8f9-83d74c7d0f58",
-        "name": "Steve Yeager",
+        "id": "ocd-person/b24e2485-ba38-4a30-8085-f86ccb5e1706",
+        "name": "Shenea Booth",
         "office": "state-house",
-        "districtCode": "009",
+        "districtCode": "022",
         "contactUrl": null,
-        "email": "steve.yeager@asm.state.nv.us",
+        "email": null,
         "phone": null,
         "address": null,
-        "website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=310",
-        "social": {
-          "x": "SpeakerYeagerNV",
-          "facebook": "yeager4nevada"
-        }
-      }
-    ],
-    "NV:state-house:007": [
-      {
-        "id": "ocd-person/1af6f404-0dfc-424a-b6df-227f45782504",
-        "name": "Tanya Flanagan",
-        "office": "state-house",
-        "districtCode": "007",
-        "contactUrl": null,
-        "email": "tanya.flanagan@asm.state.nv.us",
-        "phone": null,
-        "address": null,
-        "website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/7",
-        "social": {
-          "x": "Tanya_Flanagan"
-        }
+        "website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/22",
+        "social": {}
       }
     ],
     "NV:state-house:042": [
@@ -842,6 +784,20 @@
         }
       }
     ],
+    "NV:state-house:041": [
+      {
+        "id": "ocd-person/a563ceff-de39-454e-b4d0-f6f17d5bb0ec",
+        "name": "Vinny Spotleson",
+        "office": "state-house",
+        "districtCode": "041",
+        "contactUrl": null,
+        "email": null,
+        "phone": null,
+        "address": null,
+        "website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/41",
+        "social": {}
+      }
+    ],
     "NV:state-senate:015": [
       {
         "id": "ocd-person/d95b3a70-9bb4-43b8-a376-9d3151f9c44d",
@@ -871,6 +827,24 @@
           "x": "CarrieBuck4NV",
           "facebook": "cannbuck",
           "instagram": "carrieannbuck"
+        }
+      }
+    ],
+    "NV:state-senate:020": [
+      {
+        "id": "ocd-person/bf8b61a8-585a-4357-82f8-bd8de898262b",
+        "name": "Danielle Gallant",
+        "office": "state-senate",
+        "districtCode": "020",
+        "contactUrl": null,
+        "email": null,
+        "phone": null,
+        "address": null,
+        "website": "https://www.leg.state.nv.us/App/Legislator/A/Assembly/Current/23",
+        "social": {
+          "x": "Danielle4nv1",
+          "facebook": "DanielleGallant4Nevada",
+          "instagram": "danielle4nevada"
         }
       }
     ],
@@ -948,24 +922,6 @@
         "address": null,
         "website": "https://www.leg.state.nv.us/App/Legislator/A/api/81st2021/Legislator?id=67",
         "social": {}
-      }
-    ],
-    "NV:state-senate:020": [
-      {
-        "id": "ocd-person/00ad1837-b472-4ce8-872d-e1eac1c1c6db",
-        "name": "Jeff Stone",
-        "office": "state-senate",
-        "districtCode": "020",
-        "contactUrl": null,
-        "email": "jeff.stone@sen.state.nv.us",
-        "phone": null,
-        "address": null,
-        "website": "https://www.leg.state.nv.us/App/Legislator/A/Senate/Current/20",
-        "social": {
-          "x": "JeffStoneNV",
-          "facebook": "stonefornv",
-          "instagram": "senatorjeffstone"
-        }
       }
     ],
     "NV:state-senate:019": [

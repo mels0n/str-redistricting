@@ -3,7 +3,7 @@
   "generatedFrom": {
     "legislators-current.json": "ae8cb9477c48715df71a7d860854229d799dc90a254d61badc1efb770f892b2c",
     "legislators-social-media.json": "c6eca1fcdb3a89901335eed51ca061daa4b60ad3243969a127e913bb9657fbc5",
-    "ne.csv": "81d69f8c03fb151004f05594b1d88306cdcacbd5e45e4aba1b51a081af4f43c2"
+    "ne.csv": "b2689b6cf60f692fab7c4916192c9a14671b51e6cf0430fd188967f3953f9f9f"
   },
   "byKey": {
     "NE:us-house:03": [
@@ -226,7 +226,7 @@
         "office": "state-senate",
         "districtCode": "018",
         "contactUrl": null,
-        "email": "carmendariz@leg.ne.gov",
+        "email": "christy.armendariz@leg.ne.gov",
         "phone": null,
         "address": null,
         "website": "https://nebraskalegislature.gov/senators/landing-pages/index.php?District=18",

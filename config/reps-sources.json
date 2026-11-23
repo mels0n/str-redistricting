@@ -105,7 +105,7 @@
   },
   "ms.csv": {
     "url": "https://data.openstates.org/people/current/ms.csv",
-    "sha256": "59245173bde8bcef292f97c87f16a0457072c95fb6369e7a8d69bb2668668f30"
+    "sha256": "1bf123346d2b02c5c6da451647795acf7a7b575e5f4b61992815bcdbf4fbde88"
   },
   "mt.csv": {
     "url": "https://data.openstates.org/people/current/mt.csv",
@@ -121,7 +121,7 @@
   },
   "ne.csv": {
     "url": "https://data.openstates.org/people/current/ne.csv",
-    "sha256": "81d69f8c03fb151004f05594b1d88306cdcacbd5e45e4aba1b51a081af4f43c2"
+    "sha256": "b2689b6cf60f692fab7c4916192c9a14671b51e6cf0430fd188967f3953f9f9f"
   },
   "nh.csv": {
     "url": "https://data.openstates.org/people/current/nh.csv",
@@ -137,7 +137,7 @@
   },
   "nv.csv": {
     "url": "https://data.openstates.org/people/current/nv.csv",
-    "sha256": "747048f67e7045017772efc80150dad71ba32b73dcd6eb8754290c2f3d98593c"
+    "sha256": "4cf94feb44d2c5cfac021bd106584459ab7a1c8b0caf631ca5bbc5e3f1235f91"
   },
   "ny.csv": {
     "url": "https://data.openstates.org/people/current/ny.csv",
@@ -161,7 +161,7 @@
   },
   "ri.csv": {
     "url": "https://data.openstates.org/people/current/ri.csv",
-    "sha256": "d9bad9cf3f7e85f3c4fdffcf5397c11d4a0f610edacd3dbc0c4fd0245b91702b"
+    "sha256": "3e768d56fa270452f71b459e0dfa2ada1542fb9a145573f32c699e7baa87382b"
   },
   "sc.csv": {
     "url": "https://data.openstates.org/people/current/sc.csv",
@@ -201,10 +201,10 @@
   },
   "wv.csv": {
     "url": "https://data.openstates.org/people/current/wv.csv",
-    "sha256": "803bc7fb715aedac9144809a0c4645acfece5623c128989db947c78c8756f9b9"
+    "sha256": "15752a146f9c0221b5ca7af06af3d7d2bd047a4dd235710f6222f0e62c745aac"
   },
   "wy.csv": {
     "url": "https://data.openstates.org/people/current/wy.csv",
-    "sha256": "8043f8b05a155ed33d8d01d0441c224a90c47517e828f47b5a4e2a554dae69fa"
+    "sha256": "3b8af9153924d7e898fb5036b2481700d4070daa945a0242efc0768fca1775eb"
   }
 }
